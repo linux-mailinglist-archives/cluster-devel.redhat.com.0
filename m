@@ -2,59 +2,63 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E63B2DC
-	for <lists+cluster-devel@lfdr.de>; Sat, 27 Apr 2019 08:18:34 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3726AE177
+	for <lists+cluster-devel@lfdr.de>; Mon, 29 Apr 2019 13:40:37 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0A7BE132686;
-	Sat, 27 Apr 2019 06:18:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4705A5D70A;
-	Sat, 27 Apr 2019 06:18:30 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id DB3B68AE48;
+	Mon, 29 Apr 2019 11:40:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5931768B29;
+	Mon, 29 Apr 2019 11:40:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5C96C181AC90;
-	Sat, 27 Apr 2019 06:18:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3C98E41F3D;
+	Mon, 29 Apr 2019 11:40:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x3R6IJfZ014117 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 27 Apr 2019 02:18:19 -0400
+	id x3TBeNdi007207 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Apr 2019 07:40:23 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4B957600C8; Sat, 27 Apr 2019 06:18:19 +0000 (UTC)
+	id 9ACDC28997; Mon, 29 Apr 2019 11:40:23 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.49])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2973B600C5;
-	Sat, 27 Apr 2019 06:18:17 +0000 (UTC)
-Received: from newverein.lst.de (verein.lst.de [213.95.11.211])
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32CCE289B0;
+	Mon, 29 Apr 2019 11:39:53 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 64A4D3086273;
-	Sat, 27 Apr 2019 06:18:16 +0000 (UTC)
-Received: by newverein.lst.de (Postfix, from userid 2407)
-	id DEBE668BFE; Sat, 27 Apr 2019 08:17:59 +0200 (CEST)
-Date: Sat, 27 Apr 2019 08:17:59 +0200
-From: Christoph Hellwig <hch@lst.de>
+	by mx1.redhat.com (Postfix) with ESMTPS id C3DE930917AD;
+	Mon, 29 Apr 2019 11:39:51 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx1.suse.de (Postfix) with ESMTP id 4EE20AE20;
+	Mon, 29 Apr 2019 11:39:50 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id 820AF1E3BF3; Sun, 28 Apr 2019 21:20:29 +0200 (CEST)
+Date: Sun, 28 Apr 2019 21:20:29 +0200
+From: Jan Kara <jack@suse.cz>
 To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <20190427061759.GA21795@lst.de>
+Message-ID: <20190428192029.GB7441@quack2>
 References: <20190426131127.19164-1-agruenba@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20190426131127.19164-1-agruenba@redhat.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.49]); Sat, 27 Apr 2019 06:18:16 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
-	Sat, 27 Apr 2019 06:18:16 +0000 (UTC) for IP:'213.95.11.211'
-	DOMAIN:'verein.lst.de' HELO:'newverein.lst.de'
-	FROM:'hch@lst.de' RCPT:''
-X-RedHat-Spam-Score: -0.01 (RCVD_IN_DNSWL_NONE) 213.95.11.211 verein.lst.de
-	213.95.11.211 verein.lst.de <hch@lst.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+	[10.5.110.41]); Mon, 29 Apr 2019 11:39:52 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Mon, 29 Apr 2019 11:39:52 +0000 (UTC) for IP:'195.135.220.15'
+	DOMAIN:'mx2.suse.de' HELO:'mx1.suse.de' FROM:'jack@suse.cz' RCPT:''
+X-RedHat-Spam-Score: -1.497  (DATE_IN_PAST_12_24, RCVD_IN_DNSWL_MED,
+	SPF_PASS) 195.135.220.15 mx2.suse.de 195.135.220.15
+	mx2.suse.de <jack@suse.cz>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
 Cc: Jan Kara <jack@suse.cz>, linux-mm@kvack.org,
 	Dave Chinner <david@fromorbit.com>,
@@ -75,76 +79,96 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Sat, 27 Apr 2019 06:18:32 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Mon, 29 Apr 2019 11:40:36 +0000 (UTC)
 
-This looks ok to me, holding the page over the i_size update
-and mark_inode_dirty should be ok.  But I think it would be a lot
-cleaner if rebased ontop of this cleanup, which you could add to the
-front of the series:
+On Fri 26-04-19 15:11:25, Andreas Gruenbacher wrote:
+> In iomap_write_end, we are not holding a page reference anymore when
+> calling the page_done callback, but the callback needs that reference to
+> access the page.
+> 
+> To fix that, move the put_page call in __generic_write_end into the
+> callers of __generic_write_end.  Then, in iomap_write_end, put the page
+> after calling the page_done callback.
+> 
+> Reported-by: Jan Kara <jack@suse.cz>
+> Fixes: 63899c6f8851 ("iomap: add a page_done callback")
+> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 
----
->From 908dbc5e7c26035f992fef84886976e0cda10b98 Mon Sep 17 00:00:00 2001
-From: Christoph Hellwig <hch@lst.de>
-Date: Sat, 27 Apr 2019 08:13:38 +0200
-Subject: iomap: cleanup __generic_write_end calling conventions
+The patch looks good to me. You can add:
 
-Move the call to __generic_write_end into the common code flow instead
-of duplicating it in each of the three branches.  This requires open
-coding the generic_write_end for the buffer_head case.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- fs/iomap.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+								Honza
 
-diff --git a/fs/iomap.c b/fs/iomap.c
-index abdd18e404f8..cfc8a10b3fd8 100644
---- a/fs/iomap.c
-+++ b/fs/iomap.c
-@@ -738,13 +738,11 @@ __iomap_write_end(struct inode *inode, loff_t pos, unsigned len,
- 	 * uptodate page as a zero-length write, and force the caller to redo
- 	 * the whole thing.
- 	 */
--	if (unlikely(copied < len && !PageUptodate(page))) {
--		copied = 0;
--	} else {
--		iomap_set_range_uptodate(page, offset_in_page(pos), len);
--		iomap_set_page_dirty(page);
--	}
--	return __generic_write_end(inode, pos, copied, page);
-+	if (unlikely(copied < len && !PageUptodate(page)))
-+		return 0;
-+	iomap_set_range_uptodate(page, offset_in_page(pos), len);
-+	iomap_set_page_dirty(page);
-+	return copied;
- }
- 
- static int
-@@ -761,7 +759,6 @@ iomap_write_end_inline(struct inode *inode, struct page *page,
- 	kunmap_atomic(addr);
- 
- 	mark_inode_dirty(inode);
--	__generic_write_end(inode, pos, copied, page);
- 	return copied;
- }
- 
-@@ -774,12 +771,13 @@ iomap_write_end(struct inode *inode, loff_t pos, unsigned len,
- 	if (iomap->type == IOMAP_INLINE) {
- 		ret = iomap_write_end_inline(inode, page, iomap, pos, copied);
- 	} else if (iomap->flags & IOMAP_F_BUFFER_HEAD) {
--		ret = generic_write_end(NULL, inode->i_mapping, pos, len,
--				copied, page, NULL);
-+		ret = block_write_end(NULL, inode->i_mapping, pos, len, copied,
-+				page, NULL);
- 	} else {
- 		ret = __iomap_write_end(inode, pos, len, copied, page, iomap);
- 	}
- 
-+	ret = __generic_write_end(inode, pos, ret, page);
- 	if (iomap->page_done)
- 		iomap->page_done(inode, pos, copied, page, iomap);
- 
+> ---
+>  fs/buffer.c |  5 +++--
+>  fs/iomap.c  | 12 ++++++++++--
+>  2 files changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index ce357602f471..6e2c95160ce3 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -2104,7 +2104,6 @@ int __generic_write_end(struct inode *inode, loff_t pos, unsigned copied,
+>  	}
+>  
+>  	unlock_page(page);
+> -	put_page(page);
+>  
+>  	if (old_size < pos)
+>  		pagecache_isize_extended(inode, old_size, pos);
+> @@ -2160,7 +2159,9 @@ int generic_write_end(struct file *file, struct address_space *mapping,
+>  			struct page *page, void *fsdata)
+>  {
+>  	copied = block_write_end(file, mapping, pos, len, copied, page, fsdata);
+> -	return __generic_write_end(mapping->host, pos, copied, page);
+> +	copied = __generic_write_end(mapping->host, pos, copied, page);
+> +	put_page(page);
+> +	return copied;
+>  }
+>  EXPORT_SYMBOL(generic_write_end);
+>  
+> diff --git a/fs/iomap.c b/fs/iomap.c
+> index 97cb9d486a7d..3e4652dac9d9 100644
+> --- a/fs/iomap.c
+> +++ b/fs/iomap.c
+> @@ -765,6 +765,14 @@ iomap_write_end_inline(struct inode *inode, struct page *page,
+>  	return copied;
+>  }
+>  
+> +static int
+> +buffer_write_end(struct address_space *mapping, loff_t pos, loff_t len,
+> +		unsigned copied, struct page *page)
+> +{
+> +	copied = block_write_end(NULL, mapping, pos, len, copied, page, NULL);
+> +	return __generic_write_end(mapping->host, pos, copied, page);
+> +}
+> +
+>  static int
+>  iomap_write_end(struct inode *inode, loff_t pos, unsigned len,
+>  		unsigned copied, struct page *page, struct iomap *iomap)
+> @@ -774,14 +782,14 @@ iomap_write_end(struct inode *inode, loff_t pos, unsigned len,
+>  	if (iomap->type == IOMAP_INLINE) {
+>  		ret = iomap_write_end_inline(inode, page, iomap, pos, copied);
+>  	} else if (iomap->flags & IOMAP_F_BUFFER_HEAD) {
+> -		ret = generic_write_end(NULL, inode->i_mapping, pos, len,
+> -				copied, page, NULL);
+> +		ret = buffer_write_end(inode->i_mapping, pos, len, copied, page);
+>  	} else {
+>  		ret = __iomap_write_end(inode, pos, len, copied, page, iomap);
+>  	}
+>  
+>  	if (iomap->page_done)
+>  		iomap->page_done(inode, pos, copied, page, iomap);
+> +	put_page(page);
+>  
+>  	if (ret < len)
+>  		iomap_write_failed(inode, pos, len);
+> -- 
+> 2.20.1
+> 
 -- 
-2.20.1
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
