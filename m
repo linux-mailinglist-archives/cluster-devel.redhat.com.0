@@ -2,42 +2,71 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FB31030C
-	for <lists+cluster-devel@lfdr.de>; Wed,  1 May 2019 01:03:34 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66D1D10324
+	for <lists+cluster-devel@lfdr.de>; Wed,  1 May 2019 01:11:35 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 7FEAE59468;
-	Tue, 30 Apr 2019 23:03:33 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 02E8181F13;
+	Tue, 30 Apr 2019 23:11:34 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6830C1001E95;
-	Tue, 30 Apr 2019 23:03:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 690666E714;
+	Tue, 30 Apr 2019 23:11:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4382318089C9;
-	Tue, 30 Apr 2019 23:03:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BA7A918089CB;
+	Tue, 30 Apr 2019 23:11:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x3UN3QDQ023096 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Apr 2019 19:03:26 -0400
+	id x3UNBUFM023956 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Apr 2019 19:11:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E547981742; Tue, 30 Apr 2019 23:03:26 +0000 (UTC)
+	id 43F9A18979; Tue, 30 Apr 2019 23:11:30 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-116-20.phx2.redhat.com [10.3.116.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BBAC47C850
-	for <cluster-devel@redhat.com>; Tue, 30 Apr 2019 23:03:26 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Tue, 30 Apr 2019 17:03:19 -0600
-Message-Id: <20190430230319.10375-20-rpeterso@redhat.com>
-In-Reply-To: <20190430230319.10375-1-rpeterso@redhat.com>
-References: <20190430230319.10375-1-rpeterso@redhat.com>
+Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D22878DD8
+	for <cluster-devel@redhat.com>; Tue, 30 Apr 2019 23:11:28 +0000 (UTC)
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+	[209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id F22EA81DF0
+	for <cluster-devel@redhat.com>; Tue, 30 Apr 2019 23:11:27 +0000 (UTC)
+Received: by mail-ot1-f71.google.com with SMTP id d11so4615749otp.22
+	for <cluster-devel@redhat.com>; Tue, 30 Apr 2019 16:11:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=rW0Vz0Y1MQG2AweYB9spfOD/vhLC5S6sSKzbT3NCXxs=;
+	b=q1o1CeFYf0w8JXN/ar1gqdmiH88xadLnP7OF6d7nc1Qhp5KYKdDS69tNRKK/NOgkht
+	NpdawH1dQHexpx7YcmoTzneFiwkCqJw6IWpfDkCRA8LRQciQsH7OV/VUdcOLNkkOmG9I
+	sPKb+ZfLJSU3K1Cb2YaHiPQM1VciTDENlYCpmdANXv9UyYhcJ090fOqunOhRXBH6ha8T
+	z+Umzc8FZkLXXgKR5hWvP7qGhZZDFNT8RS3GwwzovULqip3PsZbNkgh5yEeiP1co8HiC
+	ij6OHu//cFyrpXC0+6V9SZPmjtlnNlR7Oe152nzvi4Bj8WyDam93L6pIOgL5wPLBPFHV
+	LPvA==
+X-Gm-Message-State: APjAAAVzR7BLRHw3RTTFvGuqxG/QzymTihn9a3rc4rAgBwi53HZhqcvp
+	eRpVrPRaZSzxyS3iWUBLp9j0eBAbVqPlTt4xCiAaEAKAHaRs9Ky4PlDdsQCG1Xiejf5h68XQ6CW
+	l0C0PpaD+wOX008ZvRNSCOcJK+EOTPFOjxAJa0w==
+X-Received: by 2002:aca:dc06:: with SMTP id t6mr4733081oig.178.1556665887249; 
+	Tue, 30 Apr 2019 16:11:27 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwkocfmAKPbM22FQY686Miqjnabmv6nHsqULxczbOqVe97CSNIePyJh7wiEmTOuWbuz2xWVBOsL7Cd2AevODbE=
+X-Received: by 2002:aca:dc06:: with SMTP id t6mr4733067oig.178.1556665887074; 
+	Tue, 30 Apr 2019 16:11:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+References: <20190430215347.19152-1-adas@redhat.com>
+In-Reply-To: <20190430215347.19152-1-adas@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 1 May 2019 01:11:15 +0200
+Message-ID: <CAHc6FU5rD08t5dDRxeaaV2DhD2i_08osv9iz4yGmTryrDw_NAg@mail.gmail.com>
+To: Abhi Das <adas@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH v3 19/19] gfs2: Do log_flush in
-	gfs2_ail_empty_gl even if ail list is empty
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [PATCH v2] gfs2: fix race between
+ gfs2_freeze_func and unmount
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -51,103 +80,93 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Tue, 30 Apr 2019 23:03:33 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Tue, 30 Apr 2019 23:11:34 +0000 (UTC)
 
-Before this patch, if gfs2_ail_empty_gl saw there was nothing on
-the ail list, it would return and not flush the log. The problem
-is that there could still be a revoke for the rgrp sitting on the
-sd_log_le_revoke list that's been recently taken off the ail list.
-But that revoke still needs to be written, and the rgrp_go_inval
-still needs to call log_flush_wait to ensure the revokes are all
-properly written to the journal before we relinquish control of
-the glock to another node. If we give the glock to another node
-before we have this knowledge, the node might crash and its journal
-replayed, in which case the missing revoke would allow the journal
-replay to replay the rgrp over top of the rgrp we already gave to
-another node, thus overwriting its changes and corrupting the
-file system.
+On Tue, 30 Apr 2019 at 23:54, Abhi Das <adas@redhat.com> wrote:
+> As part of the freeze operation, gfs2_freeze_func() is left blocking
+> on a request to hold the sd_freeze_gl in SH. This glock is held in EX
+> by the gfs2_freeze() code.
+>
+> A subsequent call to gfs2_unfreeze() releases the EXclusively held
+> sd_freeze_gl, which allows gfs2_freeze_func() to acquire it in SH and
+> resume its operation.
+>
+> gfs2_unfreeze(), however, doesn't wait for gfs2_freeze_func() to complete.
+> If a umount is issued right after unfreeze, it could result in an
+> inconsistent filesystem because some journal data (statfs update) isn't
+> written out.
+>
+> Refer to commit 24972557b12c for a more detailed explanation of how
+> freeze/unfreeze work.
+>
+> This patch causes gfs2_unfreeze() to wait for gfs2_freeze_func() to
+> complete before returning to the user.
+>
+> Signed-off-by: Abhi Das <adas@redhat.com>
 
-This patch makes gfs2_ail_empty_gl still call gfs2_log_flush rather
-than returning.
+Thanks, pushed to for-next.
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/glops.c | 26 +++++++++++++++++++++++++-
- fs/gfs2/log.c   |  2 +-
- fs/gfs2/log.h   |  1 +
- 3 files changed, 27 insertions(+), 2 deletions(-)
+Andreas
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index ff50013c6aa9..1cd2a3c69d63 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -93,8 +93,31 @@ static void gfs2_ail_empty_gl(struct gfs2_glock *gl)
- 	INIT_LIST_HEAD(&tr.tr_databuf);
- 	tr.tr_revokes = atomic_read(&gl->gl_ail_count);
- 
--	if (!tr.tr_revokes)
-+	if (!tr.tr_revokes) {
-+		/**
-+		 * We have nothing on the ail, but there could be revokes on
-+		 * the sdp revoke queue, in which case, we still want to flush
-+		 * the log and wait for it to finish.
-+		 *
-+		 * If the sdp revoke list is empty too, we might still have an
-+		 * io outstanding for writing revokes, so we should wait for
-+		 * it before returning.
-+		 *
-+		 * If none of these conditions are true, our revokes are all
-+		 * flushed and we can return.
-+		 */
-+		gfs2_log_lock(sdp);
-+		if (test_bit(GLF_REVOKES, &gl->gl_flags)) {
-+			gfs2_log_unlock(sdp);
-+			goto flush;
-+		} else if (atomic_read(&sdp->sd_log_in_flight)) {
-+			gfs2_log_unlock(sdp);
-+			log_flush_wait(sdp);
-+		} else {
-+			gfs2_log_unlock(sdp);
-+		}
- 		return;
-+	}
- 
- 	/* A shortened, inline version of gfs2_trans_begin()
-          * tr->alloced is not set since the transaction structure is
-@@ -109,6 +132,7 @@ static void gfs2_ail_empty_gl(struct gfs2_glock *gl)
- 	__gfs2_ail_flush(gl, 0, tr.tr_revokes);
- 
- 	gfs2_trans_end(sdp);
-+flush:
- 	gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
- 		       GFS2_LFC_AIL_EMPTY_GL);
- }
-diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index 732b585f33be..a6c83cdf4e1b 100644
---- a/fs/gfs2/log.c
-+++ b/fs/gfs2/log.c
-@@ -522,7 +522,7 @@ static void log_pull_tail(struct gfs2_sbd *sdp, unsigned int new_tail)
- }
- 
- 
--static void log_flush_wait(struct gfs2_sbd *sdp)
-+void log_flush_wait(struct gfs2_sbd *sdp)
- {
- 	DEFINE_WAIT(wait);
- 
-diff --git a/fs/gfs2/log.h b/fs/gfs2/log.h
-index 7a34a3234266..cd1581bff293 100644
---- a/fs/gfs2/log.h
-+++ b/fs/gfs2/log.h
-@@ -76,6 +76,7 @@ extern void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl,
- 			   u32 type);
- extern void gfs2_log_commit(struct gfs2_sbd *sdp, struct gfs2_trans *trans);
- extern void gfs2_ail1_flush(struct gfs2_sbd *sdp, struct writeback_control *wbc);
-+extern void log_flush_wait(struct gfs2_sbd *sdp);
- 
- extern void gfs2_log_shutdown(struct gfs2_sbd *sdp);
- extern int gfs2_logd(void *data);
--- 
-2.20.1
+> ---
+>  fs/gfs2/incore.h | 1 +
+>  fs/gfs2/super.c  | 8 +++++---
+>  2 files changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+> index 78c8e761b321..b15755068593 100644
+> --- a/fs/gfs2/incore.h
+> +++ b/fs/gfs2/incore.h
+> @@ -621,6 +621,7 @@ enum {
+>         SDF_SKIP_DLM_UNLOCK     = 8,
+>         SDF_FORCE_AIL_FLUSH     = 9,
+>         SDF_AIL1_IO_ERROR       = 10,
+> +       SDF_FS_FROZEN           = 11,
+>  };
+>
+>  enum gfs2_freeze_state {
+> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+> index a6a325b2a78b..ceec631efa49 100644
+> --- a/fs/gfs2/super.c
+> +++ b/fs/gfs2/super.c
+> @@ -973,8 +973,7 @@ void gfs2_freeze_func(struct work_struct *work)
+>         if (error) {
+>                 printk(KERN_INFO "GFS2: couldn't get freeze lock : %d\n", error);
+>                 gfs2_assert_withdraw(sdp, 0);
+> -       }
+> -       else {
+> +       } else {
+>                 atomic_set(&sdp->sd_freeze_state, SFS_UNFROZEN);
+>                 error = thaw_super(sb);
+>                 if (error) {
+> @@ -987,6 +986,8 @@ void gfs2_freeze_func(struct work_struct *work)
+>                 gfs2_glock_dq_uninit(&freeze_gh);
+>         }
+>         deactivate_super(sb);
+> +       clear_bit_unlock(SDF_FS_FROZEN, &sdp->sd_flags);
+> +       wake_up_bit(&sdp->sd_flags, SDF_FS_FROZEN);
+>         return;
+>  }
+>
+> @@ -1029,6 +1030,7 @@ static int gfs2_freeze(struct super_block *sb)
+>                 msleep(1000);
+>         }
+>         error = 0;
+> +       set_bit(SDF_FS_FROZEN, &sdp->sd_flags);
+>  out:
+>         mutex_unlock(&sdp->sd_freeze_mutex);
+>         return error;
+> @@ -1053,7 +1055,7 @@ static int gfs2_unfreeze(struct super_block *sb)
+>
+>         gfs2_glock_dq_uninit(&sdp->sd_freeze_gh);
+>         mutex_unlock(&sdp->sd_freeze_mutex);
+> -       return 0;
+> +       return wait_on_bit(&sdp->sd_flags, SDF_FS_FROZEN, TASK_INTERRUPTIBLE);
+>  }
+>
+>  /**
+> --
+> 2.20.1
+>
 
