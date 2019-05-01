@@ -2,71 +2,49 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66D1D10324
-	for <lists+cluster-devel@lfdr.de>; Wed,  1 May 2019 01:11:35 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2343910371
+	for <lists+cluster-devel@lfdr.de>; Wed,  1 May 2019 02:10:24 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 02E8181F13;
-	Tue, 30 Apr 2019 23:11:34 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 6AE4D30820DD;
+	Wed,  1 May 2019 00:10:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 690666E714;
-	Tue, 30 Apr 2019 23:11:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0162B6B8F9;
+	Wed,  1 May 2019 00:10:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BA7A918089CB;
-	Tue, 30 Apr 2019 23:11:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4786718089CB;
+	Wed,  1 May 2019 00:10:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x3UNBUFM023956 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Apr 2019 19:11:30 -0400
+	id x4108gMU001204 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Apr 2019 20:08:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 43F9A18979; Tue, 30 Apr 2019 23:11:30 +0000 (UTC)
+	id CFABC7C850; Wed,  1 May 2019 00:08:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D22878DD8
-	for <cluster-devel@redhat.com>; Tue, 30 Apr 2019 23:11:28 +0000 (UTC)
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
-	[209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id F22EA81DF0
-	for <cluster-devel@redhat.com>; Tue, 30 Apr 2019 23:11:27 +0000 (UTC)
-Received: by mail-ot1-f71.google.com with SMTP id d11so4615749otp.22
-	for <cluster-devel@redhat.com>; Tue, 30 Apr 2019 16:11:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=rW0Vz0Y1MQG2AweYB9spfOD/vhLC5S6sSKzbT3NCXxs=;
-	b=q1o1CeFYf0w8JXN/ar1gqdmiH88xadLnP7OF6d7nc1Qhp5KYKdDS69tNRKK/NOgkht
-	NpdawH1dQHexpx7YcmoTzneFiwkCqJw6IWpfDkCRA8LRQciQsH7OV/VUdcOLNkkOmG9I
-	sPKb+ZfLJSU3K1Cb2YaHiPQM1VciTDENlYCpmdANXv9UyYhcJ090fOqunOhRXBH6ha8T
-	z+Umzc8FZkLXXgKR5hWvP7qGhZZDFNT8RS3GwwzovULqip3PsZbNkgh5yEeiP1co8HiC
-	ij6OHu//cFyrpXC0+6V9SZPmjtlnNlR7Oe152nzvi4Bj8WyDam93L6pIOgL5wPLBPFHV
-	LPvA==
-X-Gm-Message-State: APjAAAVzR7BLRHw3RTTFvGuqxG/QzymTihn9a3rc4rAgBwi53HZhqcvp
-	eRpVrPRaZSzxyS3iWUBLp9j0eBAbVqPlTt4xCiAaEAKAHaRs9Ky4PlDdsQCG1Xiejf5h68XQ6CW
-	l0C0PpaD+wOX008ZvRNSCOcJK+EOTPFOjxAJa0w==
-X-Received: by 2002:aca:dc06:: with SMTP id t6mr4733081oig.178.1556665887249; 
-	Tue, 30 Apr 2019 16:11:27 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqwkocfmAKPbM22FQY686Miqjnabmv6nHsqULxczbOqVe97CSNIePyJh7wiEmTOuWbuz2xWVBOsL7Cd2AevODbE=
-X-Received: by 2002:aca:dc06:: with SMTP id t6mr4733067oig.178.1556665887074; 
-	Tue, 30 Apr 2019 16:11:27 -0700 (PDT)
+Received: from localhost.localdomain (ovpn-121-218.rdu2.redhat.com
+	[10.10.121.218])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45CDC7C828;
+	Wed,  1 May 2019 00:08:40 +0000 (UTC)
+To: Bob Peterson <rpeterso@redhat.com>,
+	cluster-devel <cluster-devel@redhat.com>
+References: <20190430230319.10375-1-rpeterso@redhat.com>
+	<20190430230319.10375-10-rpeterso@redhat.com>
+From: Steven Whitehouse <swhiteho@redhat.com>
+Message-ID: <550f4715-669a-5e58-43d2-46b84e08285f@redhat.com>
+Date: Wed, 1 May 2019 01:08:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190430215347.19152-1-adas@redhat.com>
-In-Reply-To: <20190430215347.19152-1-adas@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Wed, 1 May 2019 01:11:15 +0200
-Message-ID: <CAHc6FU5rD08t5dDRxeaaV2DhD2i_08osv9iz4yGmTryrDw_NAg@mail.gmail.com>
-To: Abhi Das <adas@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+In-Reply-To: <20190430230319.10375-10-rpeterso@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [PATCH v2] gfs2: fix race between
- gfs2_freeze_func and unmount
+Subject: Re: [Cluster-devel] [GFS2 PATCH v3 09/19] gfs2: Ignore recovery
+ attempts if gfs2 has io error or is withdrawn
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,93 +58,129 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Tue, 30 Apr 2019 23:11:34 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Wed, 01 May 2019 00:10:22 +0000 (UTC)
 
-On Tue, 30 Apr 2019 at 23:54, Abhi Das <adas@redhat.com> wrote:
-> As part of the freeze operation, gfs2_freeze_func() is left blocking
-> on a request to hold the sd_freeze_gl in SH. This glock is held in EX
-> by the gfs2_freeze() code.
->
-> A subsequent call to gfs2_unfreeze() releases the EXclusively held
-> sd_freeze_gl, which allows gfs2_freeze_func() to acquire it in SH and
-> resume its operation.
->
-> gfs2_unfreeze(), however, doesn't wait for gfs2_freeze_func() to complete.
-> If a umount is issued right after unfreeze, it could result in an
-> inconsistent filesystem because some journal data (statfs update) isn't
-> written out.
->
-> Refer to commit 24972557b12c for a more detailed explanation of how
-> freeze/unfreeze work.
->
-> This patch causes gfs2_unfreeze() to wait for gfs2_freeze_func() to
-> complete before returning to the user.
->
-> Signed-off-by: Abhi Das <adas@redhat.com>
+Hi,
 
-Thanks, pushed to for-next.
+On 01/05/2019 00:03, Bob Peterson wrote:
+> This patch addresses various problems with gfs2/dlm recovery.
+>
+> For example, suppose a node with a bunch of gfs2 mounts suddenly
+> reboots due to kernel panic, and dlm determines it should perform
+> recovery. DLM does so from a pseudo-state machine calling various
+> callbacks into lock_dlm to perform a sequence of steps. It uses
+> generation numbers and recover bits in dlm "control" lock lvbs.
+>
+> Now suppose another node tries to recover the failed node's
+> journal, but in so doing, encounters an IO error or withdraws
+> due to unforeseen circumstances, such as an hba driver failure.
+> In these cases, the recovery would eventually bail out, but it
+> would still update its generation number in the lvb. The other
+> nodes would all see the newer generation number and think they
+> don't need to do recovery because the generation number is newer
+> than the last one they saw, and therefore someone else has already
+> taken care of it.
+>
+> If the file system has an io error or is withdrawn, it cannot
+> safely replay any journals (its own or others) but someone else
+> still needs to do it. Therefore we don't want it messing with
+> the journal recovery generation numbers: the local generation
+> numbers eventually get put into the lvb generation numbers to be
+> seen by all nodes.
+>
+> This patch adds checks to many of the callbacks used by dlm
+> in its recovery state machine so that the functions are ignored
+> and skipped if an io error has occurred or if the file system
+> was withdraw.
+>
+> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 
-Andreas
+These should probably propagate the error back to the caller of the 
+recovery request. We do have a proper notification system for failed 
+recovery via uevents,
+
+Steve.
 
 > ---
->  fs/gfs2/incore.h | 1 +
->  fs/gfs2/super.c  | 8 +++++---
->  2 files changed, 6 insertions(+), 3 deletions(-)
+>   fs/gfs2/lock_dlm.c | 18 ++++++++++++++++++
+>   fs/gfs2/util.c     | 15 +++++++--------
+>   2 files changed, 25 insertions(+), 8 deletions(-)
 >
-> diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-> index 78c8e761b321..b15755068593 100644
-> --- a/fs/gfs2/incore.h
-> +++ b/fs/gfs2/incore.h
-> @@ -621,6 +621,7 @@ enum {
->         SDF_SKIP_DLM_UNLOCK     = 8,
->         SDF_FORCE_AIL_FLUSH     = 9,
->         SDF_AIL1_IO_ERROR       = 10,
-> +       SDF_FS_FROZEN           = 11,
->  };
->
->  enum gfs2_freeze_state {
-> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-> index a6a325b2a78b..ceec631efa49 100644
-> --- a/fs/gfs2/super.c
-> +++ b/fs/gfs2/super.c
-> @@ -973,8 +973,7 @@ void gfs2_freeze_func(struct work_struct *work)
->         if (error) {
->                 printk(KERN_INFO "GFS2: couldn't get freeze lock : %d\n", error);
->                 gfs2_assert_withdraw(sdp, 0);
-> -       }
-> -       else {
-> +       } else {
->                 atomic_set(&sdp->sd_freeze_state, SFS_UNFROZEN);
->                 error = thaw_super(sb);
->                 if (error) {
-> @@ -987,6 +986,8 @@ void gfs2_freeze_func(struct work_struct *work)
->                 gfs2_glock_dq_uninit(&freeze_gh);
->         }
->         deactivate_super(sb);
-> +       clear_bit_unlock(SDF_FS_FROZEN, &sdp->sd_flags);
-> +       wake_up_bit(&sdp->sd_flags, SDF_FS_FROZEN);
->         return;
->  }
->
-> @@ -1029,6 +1030,7 @@ static int gfs2_freeze(struct super_block *sb)
->                 msleep(1000);
->         }
->         error = 0;
-> +       set_bit(SDF_FS_FROZEN, &sdp->sd_flags);
->  out:
->         mutex_unlock(&sdp->sd_freeze_mutex);
->         return error;
-> @@ -1053,7 +1055,7 @@ static int gfs2_unfreeze(struct super_block *sb)
->
->         gfs2_glock_dq_uninit(&sdp->sd_freeze_gh);
->         mutex_unlock(&sdp->sd_freeze_mutex);
-> -       return 0;
-> +       return wait_on_bit(&sdp->sd_flags, SDF_FS_FROZEN, TASK_INTERRUPTIBLE);
->  }
->
->  /**
-> --
-> 2.20.1
->
+> diff --git a/fs/gfs2/lock_dlm.c b/fs/gfs2/lock_dlm.c
+> index 31df26ed7854..9329f86ffcbe 100644
+> --- a/fs/gfs2/lock_dlm.c
+> +++ b/fs/gfs2/lock_dlm.c
+> @@ -1081,6 +1081,10 @@ static void gdlm_recover_prep(void *arg)
+>   	struct gfs2_sbd *sdp = arg;
+>   	struct lm_lockstruct *ls = &sdp->sd_lockstruct;
+>   
+> +	if (gfs2_withdrawn(sdp)) {
+> +		fs_err(sdp, "recover_prep ignored due to withdraw.\n");
+> +		return;
+> +	}
+>   	spin_lock(&ls->ls_recover_spin);
+>   	ls->ls_recover_block = ls->ls_recover_start;
+>   	set_bit(DFL_DLM_RECOVERY, &ls->ls_recover_flags);
+> @@ -1103,6 +1107,11 @@ static void gdlm_recover_slot(void *arg, struct dlm_slot *slot)
+>   	struct lm_lockstruct *ls = &sdp->sd_lockstruct;
+>   	int jid = slot->slot - 1;
+>   
+> +	if (gfs2_withdrawn(sdp)) {
+> +		fs_err(sdp, "recover_slot jid %d ignored due to withdraw.\n",
+> +		       jid);
+> +		return;
+> +	}
+>   	spin_lock(&ls->ls_recover_spin);
+>   	if (ls->ls_recover_size < jid + 1) {
+>   		fs_err(sdp, "recover_slot jid %d gen %u short size %d\n",
+> @@ -1127,6 +1136,10 @@ static void gdlm_recover_done(void *arg, struct dlm_slot *slots, int num_slots,
+>   	struct gfs2_sbd *sdp = arg;
+>   	struct lm_lockstruct *ls = &sdp->sd_lockstruct;
+>   
+> +	if (gfs2_withdrawn(sdp)) {
+> +		fs_err(sdp, "recover_done ignored due to withdraw.\n");
+> +		return;
+> +	}
+>   	/* ensure the ls jid arrays are large enough */
+>   	set_recover_size(sdp, slots, num_slots);
+>   
+> @@ -1154,6 +1167,11 @@ static void gdlm_recovery_result(struct gfs2_sbd *sdp, unsigned int jid,
+>   {
+>   	struct lm_lockstruct *ls = &sdp->sd_lockstruct;
+>   
+> +	if (gfs2_withdrawn(sdp)) {
+> +		fs_err(sdp, "recovery_result jid %d ignored due to withdraw.\n",
+> +		       jid);
+> +		return;
+> +	}
+>   	if (test_bit(DFL_NO_DLM_OPS, &ls->ls_recover_flags))
+>   		return;
+>   
+> diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+> index 0a814ccac41d..7eaea6dfe1cf 100644
+> --- a/fs/gfs2/util.c
+> +++ b/fs/gfs2/util.c
+> @@ -259,14 +259,13 @@ void gfs2_io_error_bh_i(struct gfs2_sbd *sdp, struct buffer_head *bh,
+>   			const char *function, char *file, unsigned int line,
+>   			bool withdraw)
+>   {
+> -	if (!test_bit(SDF_SHUTDOWN, &sdp->sd_flags))
+> -		fs_err(sdp,
+> -		       "fatal: I/O error\n"
+> -		       "  block = %llu\n"
+> -		       "  function = %s, file = %s, line = %u\n",
+> -		       (unsigned long long)bh->b_blocknr,
+> -		       function, file, line);
+> +	if (gfs2_withdrawn(sdp))
+> +		return;
+> +
+> +	fs_err(sdp, "fatal: I/O error\n"
+> +	       "  block = %llu\n"
+> +	       "  function = %s, file = %s, line = %u\n",
+> +	       (unsigned long long)bh->b_blocknr, function, file, line);
+>   	if (withdraw)
+>   		gfs2_lm_withdraw(sdp, NULL);
+>   }
+> -
 
