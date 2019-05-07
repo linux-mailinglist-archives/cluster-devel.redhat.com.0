@@ -2,72 +2,76 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2D8F165D0
-	for <lists+cluster-devel@lfdr.de>; Tue,  7 May 2019 16:36:54 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96DCC166B6
+	for <lists+cluster-devel@lfdr.de>; Tue,  7 May 2019 17:27:57 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1227088305;
-	Tue,  7 May 2019 14:36:53 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3D043F74BC;
+	Tue,  7 May 2019 15:27:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACAAB5EDE4;
-	Tue,  7 May 2019 14:36:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 650BF17ADD;
+	Tue,  7 May 2019 15:27:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5421D3FB10;
-	Tue,  7 May 2019 14:36:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A29C3FB11;
+	Tue,  7 May 2019 15:27:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x47EagPk015377 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 7 May 2019 10:36:42 -0400
+	id x47FOb3h025081 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 7 May 2019 11:24:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 48EA757DCC; Tue,  7 May 2019 14:36:42 +0000 (UTC)
+	id CA01910027D1; Tue,  7 May 2019 15:24:37 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx06.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.30])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42C7247349
-	for <cluster-devel@redhat.com>; Tue,  7 May 2019 14:36:34 +0000 (UTC)
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
-	[209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D44B010027BD;
+	Tue,  7 May 2019 15:24:32 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E7E0736887
-	for <cluster-devel@redhat.com>; Tue,  7 May 2019 14:36:33 +0000 (UTC)
-Received: by mail-ot1-f69.google.com with SMTP id k90so9301542otk.21
-	for <cluster-devel@redhat.com>; Tue, 07 May 2019 07:36:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=5WBJK0IgAIEspxuyxAJpTsOGpOz4p+/lPdmw10f5Hu8=;
-	b=ivyHThbaw4SWFVQrb6/jp+88ZEw3jYU0+XGye/tBMcqsRvs5Vj7o7IhqnbLeOu0Zn7
-	HV+hqWdy9S61DOyeXxb3DeTm4T7zjoU/yJ0lCoYM+xdCTUB95Z0y54k08YIqOmYr5ong
-	Z0CaPbGAJh840iP16tLJFBIcJjbSn/G4FNiPMeq39uODWLXkgrLfKkApzESbrmkvsEFM
-	FhGhmUogBHrocdv/cbgHBN4LhMCWANVg7Ttx820xPVkI6OTylTu+b+DbTsWH0fhdovYW
-	AheQu+vEG4Iq8CrF7IMwIcODGif0BLm1HPEyQDyVKeBMcFPzzi53GjfYe/2EUOgmwTQm
-	ZwKQ==
-X-Gm-Message-State: APjAAAVGN+7pBJHSPCM4FeVUy8xmrmArk3+4OCBkxjJhFYl5kAIYiOKo
-	FS4YSDys9UndVGT8X4YNB/jb8W2CSDpHvMcf/Ngk4HuOFFB4+mlnV+F3upLwV7p3ad1vt3v/S9h
-	91nuIqVWmIDgSkKir2oUqa5PKcewft4LJ9ji4Hw==
-X-Received: by 2002:a9d:6f02:: with SMTP id n2mr14221191otq.190.1557239792920; 
-	Tue, 07 May 2019 07:36:32 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqxr1i70OO7s/GJ98KosyNM9C7APWQZSu4Nkgo6F7nNUxzomHdWxCA+Mxn3imNT0HOv8NvGLQWNFnaBaa6olWKk=
-X-Received: by 2002:a9d:6f02:: with SMTP id n2mr14221168otq.190.1557239792673; 
-	Tue, 07 May 2019 07:36:32 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3A1958123D;
+	Tue,  7 May 2019 15:24:32 +0000 (UTC)
+Received: from localhost (c-67-169-218-210.hsd1.or.comcast.net
+	[67.169.218.210])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id A2CC820578;
+	Tue,  7 May 2019 15:24:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1557242671;
+	bh=ToU2kpbHG/+to4t9z5CCHvUa2rGkhrtoLNWhIuujHvc=;
+	h=Date:From:To:Cc:Subject:From;
+	b=1Mf7MCIqg/t7D00A8YxZvqyEX8dx7zQBve9p64kOHhbjGQT3TSgy3BJz4Fjin9Z57
+	1B30hGaWj7MxqnYe/mcMnJYiLTfB+bLCHjRqbTuHo70ezcx6pzufAZOtCZf8RKDXDI
+	jlchPPn977yqX1EDeWrKohTEcmJGGUVPD4zfZt5M=
+Date: Tue, 7 May 2019 08:24:30 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20190507152430.GB1473023@magnolia>
 MIME-Version: 1.0
-References: <20190430230319.10375-1-rpeterso@redhat.com>
-	<20190430230319.10375-6-rpeterso@redhat.com>
-In-Reply-To: <20190430230319.10375-6-rpeterso@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 7 May 2019 16:36:21 +0200
-Message-ID: <CAHc6FU6WawViJ3rxsbSgRHrrb-yftKfN6dCt4twNqf_S4+v4Lw@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.25]);
+	Tue, 07 May 2019 15:24:32 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
+	Tue, 07 May 2019 15:24:32 +0000 (UTC) for IP:'198.145.29.99'
+	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
+	FROM:'djwong@kernel.org' RCPT:''
+X-RedHat-Spam-Score: -5.111  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_HI, SPF_PASS,
+	T_DKIMWL_WL_HIGH) 198.145.29.99 mail.kernel.org 198.145.29.99
+	mail.kernel.org <djwong@kernel.org>
+X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH v3 05/19] gfs2: Introduce concept
- of a pending withdraw
+X-Mailman-Approved-At: Tue, 07 May 2019 11:27:42 -0400
+Cc: cluster-devel@redhat.com, david@fromorbit.com, sandeen@sandeen.net,
+	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, hch@lst.de
+Subject: [Cluster-devel] [GIT PULL] iomap: cleanups and enhancements for 5.2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,358 +85,52 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Tue, 07 May 2019 14:36:53 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Tue, 07 May 2019 15:27:56 +0000 (UTC)
 
-Bob,
+Hi Linus,
 
-On Wed, 1 May 2019 at 01:03, Bob Peterson <rpeterso@redhat.com> wrote:
-> File system withdraws can be delayed when inconsistencies are
-> discovered when we cannot withdraw immediately, for example, when
-> critical spin_locks are held. But delaying the withdraw can cause
-> gfs2 to ignore the error and keep running for a short period of time.
-> For example, an rgrp glock may be dequeued and demoted while there
-> are still buffers that haven't been properly revoked, due to io
-> errors writing to the journal.
->
-> This patch introduces a new concept of a pending withdraw, which
-> means an inconsistency has been discovered and we need to withdraw
-> at the earliest possible opportunity. In these cases, we aren't
-> quite withdrawn yet, but we still need to not dequeue glocks and
-> other critical things. If we dequeue the glocks and the withdraw
-> results in our journal being replayed, the replay could overwrite
-> data that's been modified by a different node that acquired the
-> glock in the meantime.
+Here are some patches for the iomap code for 5.2.  Nothing particularly
+exciting here, just adding some callouts for gfs2 and cleaning a few
+things.  It merges cleanly against this morning's HEAD and survived an
+overnight run of xfstests.  Let me know if you run into anything weird.
 
-this is looking good. Maybe we can improve our terminology a bit
-though: how about SDF_FAULTY instead of SDF_WITHDRAW? Also,
-SDF_SHUTDOWN really indicates that a filesystem is being or has been
-withdrawn, so maybe that should really be called SDF_WITHDRAW?
+--D
 
-Thanks,
-Andreas
+The following changes since commit dc4060a5dc2557e6b5aa813bf5b73677299d62d2:
 
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> ---
->  fs/gfs2/aops.c       |  4 ++--
->  fs/gfs2/file.c       |  2 +-
->  fs/gfs2/glock.c      |  7 +++----
->  fs/gfs2/glops.c      |  2 +-
->  fs/gfs2/incore.h     |  1 +
->  fs/gfs2/log.c        | 20 ++++++++------------
->  fs/gfs2/meta_io.c    |  6 +++---
->  fs/gfs2/ops_fstype.c |  3 +--
->  fs/gfs2/quota.c      |  2 +-
->  fs/gfs2/super.c      |  6 +++---
->  fs/gfs2/sys.c        |  2 +-
->  fs/gfs2/util.h       | 12 ++++++++++++
->  12 files changed, 37 insertions(+), 30 deletions(-)
->
-> diff --git a/fs/gfs2/aops.c b/fs/gfs2/aops.c
-> index 05dd78f4b2b3..2bacce032a34 100644
-> --- a/fs/gfs2/aops.c
-> +++ b/fs/gfs2/aops.c
-> @@ -521,7 +521,7 @@ static int __gfs2_readpage(void *file, struct page *page)
->                 error = mpage_readpage(page, gfs2_block_map);
->         }
->
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags)))
-> +       if (unlikely(gfs2_withdrawn(sdp)))
->                 return -EIO;
->
->         return error;
-> @@ -638,7 +638,7 @@ static int gfs2_readpages(struct file *file, struct address_space *mapping,
->         gfs2_glock_dq(&gh);
->  out_uninit:
->         gfs2_holder_uninit(&gh);
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags)))
-> +       if (unlikely(gfs2_withdrawn(sdp)))
->                 ret = -EIO;
->         return ret;
->  }
-> diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-> index 58a768e59712..bba39c73a43c 100644
-> --- a/fs/gfs2/file.c
-> +++ b/fs/gfs2/file.c
-> @@ -1169,7 +1169,7 @@ static int gfs2_lock(struct file *file, int cmd, struct file_lock *fl)
->                 cmd = F_SETLK;
->                 fl->fl_type = F_UNLCK;
->         }
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags))) {
-> +       if (unlikely(gfs2_withdrawn(sdp))) {
->                 if (fl->fl_type == F_UNLCK)
->                         locks_lock_file_wait(file, fl);
->                 return -EIO;
-> diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-> index 15c605cfcfc8..fe9f9a22426e 100644
-> --- a/fs/gfs2/glock.c
-> +++ b/fs/gfs2/glock.c
-> @@ -547,7 +547,7 @@ __acquires(&gl->gl_lockref.lock)
->         unsigned int lck_flags = (unsigned int)(gh ? gh->gh_flags : 0);
->         int ret;
->
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags)) &&
-> +       if (unlikely(gfs2_withdrawn(sdp)) &&
->             target != LM_ST_UNLOCKED)
->                 return;
->         lck_flags &= (LM_FLAG_TRY | LM_FLAG_TRY_1CB | LM_FLAG_NOEXP |
-> @@ -584,8 +584,7 @@ __acquires(&gl->gl_lockref.lock)
->                 }
->                 else if (ret) {
->                         fs_err(sdp, "lm_lock ret %d\n", ret);
-> -                       GLOCK_BUG_ON(gl, !test_bit(SDF_SHUTDOWN,
-> -                                                  &sdp->sd_flags));
-> +                       GLOCK_BUG_ON(gl, !gfs2_withdrawn(sdp));
->                 }
->         } else { /* lock_nolock */
->                 finish_xmote(gl, target);
-> @@ -1097,7 +1096,7 @@ int gfs2_glock_nq(struct gfs2_holder *gh)
->         struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
->         int error = 0;
->
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags)))
-> +       if (unlikely(gfs2_withdrawn(sdp)))
->                 return -EIO;
->
->         if (test_bit(GLF_LRU, &gl->gl_flags))
-> diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-> index 78510ab91835..b9f36a85a4d4 100644
-> --- a/fs/gfs2/glops.c
-> +++ b/fs/gfs2/glops.c
-> @@ -538,7 +538,7 @@ static int freeze_go_xmote_bh(struct gfs2_glock *gl, struct gfs2_holder *gh)
->                         gfs2_consist(sdp);
->
->                 /*  Initialize some head of the log stuff  */
-> -               if (!test_bit(SDF_SHUTDOWN, &sdp->sd_flags)) {
-> +               if (!gfs2_withdrawn(sdp)) {
->                         sdp->sd_log_sequence = head.lh_sequence + 1;
->                         gfs2_log_pointers_init(sdp, head.lh_blkno);
->                 }
-> diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-> index c54800385298..003d9da937b4 100644
-> --- a/fs/gfs2/incore.h
-> +++ b/fs/gfs2/incore.h
-> @@ -620,6 +620,7 @@ enum {
->         SDF_SKIP_DLM_UNLOCK     = 8,
->         SDF_FORCE_AIL_FLUSH     = 9,
->         SDF_AIL1_IO_ERROR       = 10,
-> +       SDF_WITHDRAW            = 11, /* Will withdraw eventually */
->  };
->
->  enum gfs2_freeze_state {
-> diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-> index 76da6f046379..944aaf3d1816 100644
-> --- a/fs/gfs2/log.c
-> +++ b/fs/gfs2/log.c
-> @@ -92,8 +92,7 @@ static void gfs2_remove_from_ail(struct gfs2_bufdata *bd)
->
->  static int gfs2_ail1_start_one(struct gfs2_sbd *sdp,
->                                struct writeback_control *wbc,
-> -                              struct gfs2_trans *tr,
-> -                              bool *withdraw)
-> +                              struct gfs2_trans *tr)
->  __releases(&sdp->sd_ail_lock)
->  __acquires(&sdp->sd_ail_lock)
->  {
-> @@ -112,7 +111,7 @@ __acquires(&sdp->sd_ail_lock)
->                             !test_and_set_bit(SDF_AIL1_IO_ERROR,
->                                               &sdp->sd_flags)) {
->                                 gfs2_io_error_bh(sdp, bh);
-> -                               *withdraw = true;
-> +                               set_bit(SDF_WITHDRAW, &sdp->sd_flags);
->                         }
->                         list_move(&bd->bd_ail_st_list, &tr->tr_ail2_list);
->                         continue;
-> @@ -153,7 +152,6 @@ void gfs2_ail1_flush(struct gfs2_sbd *sdp, struct writeback_control *wbc)
->         struct list_head *head = &sdp->sd_ail1_list;
->         struct gfs2_trans *tr;
->         struct blk_plug plug;
-> -       bool withdraw = false;
->
->         trace_gfs2_ail_flush(sdp, wbc, 1);
->         blk_start_plug(&plug);
-> @@ -162,12 +160,12 @@ void gfs2_ail1_flush(struct gfs2_sbd *sdp, struct writeback_control *wbc)
->         list_for_each_entry_reverse(tr, head, tr_list) {
->                 if (wbc->nr_to_write <= 0)
->                         break;
-> -               if (gfs2_ail1_start_one(sdp, wbc, tr, &withdraw))
-> +               if (gfs2_ail1_start_one(sdp, wbc, tr))
->                         goto restart;
->         }
->         spin_unlock(&sdp->sd_ail_lock);
->         blk_finish_plug(&plug);
-> -       if (withdraw)
-> +       if (test_bit(SDF_WITHDRAW, &sdp->sd_flags))
->                 gfs2_lm_withdraw(sdp, NULL);
->         trace_gfs2_ail_flush(sdp, wbc, 0);
->  }
-> @@ -196,8 +194,7 @@ static void gfs2_ail1_start(struct gfs2_sbd *sdp)
->   *
->   */
->
-> -static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
-> -                               bool *withdraw)
-> +static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
->  {
->         struct gfs2_bufdata *bd, *s;
->         struct buffer_head *bh;
-> @@ -211,7 +208,7 @@ static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
->                 if (!buffer_uptodate(bh) &&
->                     !test_and_set_bit(SDF_AIL1_IO_ERROR, &sdp->sd_flags)) {
->                         gfs2_io_error_bh(sdp, bh);
-> -                       *withdraw = true;
-> +                       set_bit(SDF_WITHDRAW, &sdp->sd_flags);
->                 }
->                 list_move(&bd->bd_ail_st_list, &tr->tr_ail2_list);
->         }
-> @@ -229,11 +226,10 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
->         struct gfs2_trans *tr, *s;
->         int oldest_tr = 1;
->         int ret;
-> -       bool withdraw = false;
->
->         spin_lock(&sdp->sd_ail_lock);
->         list_for_each_entry_safe_reverse(tr, s, &sdp->sd_ail1_list, tr_list) {
-> -               gfs2_ail1_empty_one(sdp, tr, &withdraw);
-> +               gfs2_ail1_empty_one(sdp, tr);
->                 if (list_empty(&tr->tr_ail1_list) && oldest_tr)
->                         list_move(&tr->tr_list, &sdp->sd_ail2_list);
->                 else
-> @@ -242,7 +238,7 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
->         ret = list_empty(&sdp->sd_ail1_list);
->         spin_unlock(&sdp->sd_ail_lock);
->
-> -       if (withdraw)
-> +       if (test_bit(SDF_WITHDRAW, &sdp->sd_flags))
->                 gfs2_lm_withdraw(sdp, "fatal: I/O error(s)\n");
->
->         return ret;
-> diff --git a/fs/gfs2/meta_io.c b/fs/gfs2/meta_io.c
-> index 3201342404a7..b125008f064f 100644
-> --- a/fs/gfs2/meta_io.c
-> +++ b/fs/gfs2/meta_io.c
-> @@ -255,7 +255,7 @@ int gfs2_meta_read(struct gfs2_glock *gl, u64 blkno, int flags,
->         struct buffer_head *bh, *bhs[2];
->         int num = 0;
->
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags))) {
-> +       if (unlikely(gfs2_withdrawn(sdp))) {
->                 *bhp = NULL;
->                 return -EIO;
->         }
-> @@ -313,7 +313,7 @@ int gfs2_meta_read(struct gfs2_glock *gl, u64 blkno, int flags,
->
->  int gfs2_meta_wait(struct gfs2_sbd *sdp, struct buffer_head *bh)
->  {
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags)))
-> +       if (unlikely(gfs2_withdrawn(sdp)))
->                 return -EIO;
->
->         wait_on_buffer(bh);
-> @@ -324,7 +324,7 @@ int gfs2_meta_wait(struct gfs2_sbd *sdp, struct buffer_head *bh)
->                         gfs2_io_error_bh_wd(sdp, bh);
->                 return -EIO;
->         }
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags)))
-> +       if (unlikely(gfs2_withdrawn(sdp)))
->                 return -EIO;
->
->         return 0;
-> diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-> index abfaecde0e3d..075f64075ff6 100644
-> --- a/fs/gfs2/ops_fstype.c
-> +++ b/fs/gfs2/ops_fstype.c
-> @@ -998,8 +998,7 @@ static int gfs2_lm_mount(struct gfs2_sbd *sdp, int silent)
->  void gfs2_lm_unmount(struct gfs2_sbd *sdp)
->  {
->         const struct lm_lockops *lm = sdp->sd_lockstruct.ls_ops;
-> -       if (likely(!test_bit(SDF_SHUTDOWN, &sdp->sd_flags)) &&
-> -           lm->lm_unmount)
-> +       if (likely(!gfs2_withdrawn(sdp)) && lm->lm_unmount)
->                 lm->lm_unmount(sdp);
->  }
->
-> diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
-> index 2ae5a109eea7..a8dfc86fd682 100644
-> --- a/fs/gfs2/quota.c
-> +++ b/fs/gfs2/quota.c
-> @@ -1478,7 +1478,7 @@ static void quotad_error(struct gfs2_sbd *sdp, const char *msg, int error)
->  {
->         if (error == 0 || error == -EROFS)
->                 return;
-> -       if (!test_bit(SDF_SHUTDOWN, &sdp->sd_flags)) {
-> +       if (!gfs2_withdrawn(sdp)) {
->                 fs_err(sdp, "gfs2_quotad: %s error %d\n", msg, error);
->                 sdp->sd_log_error = error;
->                 wake_up(&sdp->sd_logd_waitq);
-> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-> index dc4ec1ca3d4e..378519beb6c3 100644
-> --- a/fs/gfs2/super.c
-> +++ b/fs/gfs2/super.c
-> @@ -807,7 +807,7 @@ static void gfs2_dirty_inode(struct inode *inode, int flags)
->
->         if (!(flags & I_DIRTY_INODE))
->                 return;
-> -       if (unlikely(test_bit(SDF_SHUTDOWN, &sdp->sd_flags)))
-> +       if (unlikely(gfs2_withdrawn(sdp)))
->                 return;
->         if (!gfs2_glock_is_locked_by_me(ip->i_gl)) {
->                 ret = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &gh);
-> @@ -856,7 +856,7 @@ static int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
->
->         error = gfs2_glock_nq_init(sdp->sd_freeze_gl, LM_ST_SHARED, GL_NOCACHE,
->                                    &freeze_gh);
-> -       if (error && !test_bit(SDF_SHUTDOWN, &sdp->sd_flags))
-> +       if (error && !gfs2_withdrawn(sdp))
->                 return error;
->
->         flush_workqueue(gfs2_delete_workqueue);
-> @@ -1014,7 +1014,7 @@ static int gfs2_freeze(struct super_block *sb)
->         if (atomic_read(&sdp->sd_freeze_state) != SFS_UNFROZEN)
->                 goto out;
->
-> -       if (test_bit(SDF_SHUTDOWN, &sdp->sd_flags)) {
-> +       if (gfs2_withdrawn(sdp)) {
->                 error = -EINVAL;
->                 goto out;
->         }
-> diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
-> index 1787d295834e..b772ff5509bb 100644
-> --- a/fs/gfs2/sys.c
-> +++ b/fs/gfs2/sys.c
-> @@ -121,7 +121,7 @@ static ssize_t freeze_store(struct gfs2_sbd *sdp, const char *buf, size_t len)
->
->  static ssize_t withdraw_show(struct gfs2_sbd *sdp, char *buf)
->  {
-> -       unsigned int b = test_bit(SDF_SHUTDOWN, &sdp->sd_flags);
-> +       unsigned int b = gfs2_withdrawn(sdp);
->         return snprintf(buf, PAGE_SIZE, "%u\n", b);
->  }
->
-> diff --git a/fs/gfs2/util.h b/fs/gfs2/util.h
-> index 9278fecba632..0df65555545f 100644
-> --- a/fs/gfs2/util.h
-> +++ b/fs/gfs2/util.h
-> @@ -167,6 +167,18 @@ static inline unsigned int gfs2_tune_get_i(struct gfs2_tune *gt,
->         return x;
->  }
->
-> +/**
-> + * gfs2_withdrawn - test whether the file system is withdrawing or withdrawn
-> + * @sdp: the superblock
-> + */
-> +static inline bool gfs2_withdrawn(struct gfs2_sbd *sdp)
-> +{
-> +       if (test_bit(SDF_SHUTDOWN, &sdp->sd_flags) ||
-> +           test_bit(SDF_WITHDRAW, &sdp->sd_flags))
-> +               return true;
-> +       return false;
-> +}
-> +
->  #define gfs2_tune_get(sdp, field) \
->  gfs2_tune_get_i(&(sdp)->sd_tune, &(sdp)->sd_tune.field)
->
-> --
-> 2.20.1
->
+  Linux 5.1-rc5 (2019-04-14 15:17:41 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git tags/iomap-5.2-merge-2
+
+for you to fetch changes up to cbbf4c0be8a725f08153949f45a85b2adafbbbd3:
+
+  iomap: move iomap_read_inline_data around (2019-05-01 20:16:40 -0700)
+
+----------------------------------------------------------------
+Changes for Linux 5.2:
+- Add some extra hooks to the iomap buffered write path to enable gfs2
+  journalled writes.
+- SPDX conversion
+- Various refactoring.
+
+----------------------------------------------------------------
+Andreas Gruenbacher (3):
+      fs: Turn __generic_write_end into a void function
+      iomap: Fix use-after-free error in page_done callback
+      iomap: Add a page_prepare callback
+
+Christoph Hellwig (3):
+      iomap: convert to SPDX identifier
+      iomap: Clean up __generic_write_end calling
+      iomap: move iomap_read_inline_data around
+
+ fs/buffer.c           |   8 ++--
+ fs/gfs2/bmap.c        |  15 +++++---
+ fs/internal.h         |   2 +-
+ fs/iomap.c            | 105 +++++++++++++++++++++++++++-----------------------
+ include/linux/iomap.h |  22 ++++++++---
+ 5 files changed, 88 insertions(+), 64 deletions(-)
 
