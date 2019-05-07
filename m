@@ -2,42 +2,42 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 601CD16C3B
-	for <lists+cluster-devel@lfdr.de>; Tue,  7 May 2019 22:32:16 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16FDC16C3D
+	for <lists+cluster-devel@lfdr.de>; Tue,  7 May 2019 22:32:19 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C479CC05FBD7;
-	Tue,  7 May 2019 20:32:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B01B43AA8;
-	Tue,  7 May 2019 20:32:14 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 9B12C46233;
+	Tue,  7 May 2019 20:32:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 85A945C269;
+	Tue,  7 May 2019 20:32:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9217941F3E;
-	Tue,  7 May 2019 20:32:14 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 56CDB18089CC;
+	Tue,  7 May 2019 20:32:17 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x47KWCB9018811 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 7 May 2019 16:32:12 -0400
+	id x47KWDYX018821 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 7 May 2019 16:32:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2AEEA18EE2; Tue,  7 May 2019 20:32:12 +0000 (UTC)
+	id B5F7D18EE2; Tue,  7 May 2019 20:32:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.com (unknown [10.40.205.80])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 321CE608CA;
-	Tue,  7 May 2019 20:32:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 89A8F608CA;
+	Tue,  7 May 2019 20:32:12 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Tue,  7 May 2019 22:31:55 +0200
-Message-Id: <20190507203204.26008-3-agruenba@redhat.com>
+Date: Tue,  7 May 2019 22:31:56 +0200
+Message-Id: <20190507203204.26008-4-agruenba@redhat.com>
 In-Reply-To: <20190507203204.26008-1-agruenba@redhat.com>
 References: <20190507203204.26008-1-agruenba@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 03/12] gfs2: clean_journal improperly
-	set sd_log_flush_head
+Subject: [Cluster-devel] [GFS2 PATCH 04/12] gfs2: Fix occasional glock
+	use-after-free
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -51,282 +51,95 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Tue, 07 May 2019 20:32:15 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Tue, 07 May 2019 20:32:17 +0000 (UTC)
 
-From: Bob Peterson <rpeterso@redhat.com>
+This patch has to do with the life cycle of glocks and buffers.  When
+gfs2 metadata or journaled data is queued to be written, a gfs2_bufdata
+object is assigned to track the buffer, and that is queued to various
+lists, including the glock's gl_ail_list to indicate it's on the active
+items list.  Once the page associated with the buffer has been written,
+it is removed from the ail list, but its life isn't over until a revoke
+has been successfully written.
 
-This patch fixes regressions in 588bff95c94efc05f9e1a0b19015c9408ed7c0ef.
-Due to that patch, function clean_journal was setting the value of
-sd_log_flush_head, but that's only valid if it is replaying the node's
-own journal. If it's replaying another node's journal, that's completely
-wrong and will lead to multiple problems. This patch tries to clean up
-the mess by passing the value of the logical journal block number into
-gfs2_write_log_header so the function can treat non-owned journals
-generically. For the local journal, the journal extent map is used for
-best performance. For other nodes from other journals, new function
-gfs2_lblk_to_dblk is called to figure it out using gfs2_iomap_get.
+So after the block is written, its bufdata object is moved from the
+glock's gl_ail_list to a file-system-wide list of pending revokes,
+sd_log_le_revoke.  At that point the glock still needs to track how many
+revokes it contributed to that list (in gl_revokes) so that things like
+glock go_sync can ensure all the metadata has been not only written, but
+also revoked before the glock is granted to a different node.  This is
+to guarantee journal replay doesn't replay the block once the glock has
+been granted to another node.
 
-This patch also tries to establish more consistency when passing journal
-block parameters by changing several unsigned int types to a consistent
-u32.
+Ross Lagerwall recently discovered a race in which an inode could be
+evicted, and its glock freed after its ail list had been synced, but
+while it still had unwritten revokes on the sd_log_le_revoke list.  The
+evict decremented the glock reference count to zero, which allowed the
+glock to be freed.  After the revoke was written, function
+revoke_lo_after_commit tried to adjust the glock's gl_revokes counter
+and clear its GLF_LFLUSH flag, at which time it referenced the freed
+glock.
 
-Fixes: 588bff95c94e ("GFS2: Reduce code redundancy writing log headers")
+This patch fixes the problem by incrementing the glock reference count
+in gfs2_add_revoke when the glock's first bufdata object is moved from
+the glock to the global revokes list. Later, when the glock's last such
+bufdata object is freed, the reference count is decremented. This
+guarantees that whichever process finishes last (the revoke writing or
+the evict) will properly free the glock, and neither will reference the
+glock after it has been freed.
+
+Reported-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/bmap.c     | 26 ++++++++++++++++++++++++++
- fs/gfs2/bmap.h     |  1 +
- fs/gfs2/incore.h   |  2 +-
- fs/gfs2/log.c      | 24 ++++++++++++++++--------
- fs/gfs2/log.h      |  3 ++-
- fs/gfs2/lops.c     |  6 +++---
- fs/gfs2/lops.h     |  2 +-
- fs/gfs2/recovery.c | 10 ++++++----
- fs/gfs2/recovery.h |  2 +-
- 9 files changed, 57 insertions(+), 19 deletions(-)
+ fs/gfs2/glock.c | 1 +
+ fs/gfs2/log.c   | 3 ++-
+ fs/gfs2/lops.c  | 6 ++++--
+ 3 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
-index 02b2646d84b3..e95b33b65d89 100644
---- a/fs/gfs2/bmap.c
-+++ b/fs/gfs2/bmap.c
-@@ -925,6 +925,32 @@ static int gfs2_iomap_get(struct inode *inode, loff_t pos, loff_t length,
- 	goto out;
- }
- 
-+/**
-+ * gfs2_lblk_to_dblk - convert logical block to disk block
-+ * @inode: the inode of the file we're mapping
-+ * @lblock: the block relative to the start of the file
-+ * @dblock: the returned dblock, if no error
-+ *
-+ * This function maps a single block from a file logical block (relative to
-+ * the start of the file) to a file system absolute block using iomap.
-+ *
-+ * Returns: the absolute file system block, or an error
-+ */
-+int gfs2_lblk_to_dblk(struct inode *inode, u32 lblock, u64 *dblock)
-+{
-+	struct iomap iomap = { };
-+	struct metapath mp = { .mp_aheight = 1, };
-+	loff_t pos = (loff_t)lblock << inode->i_blkbits;
-+	int ret;
-+
-+	ret = gfs2_iomap_get(inode, pos, i_blocksize(inode), 0, &iomap, &mp);
-+	release_metapath(&mp);
-+	if (ret == 0)
-+		*dblock = iomap.addr >> inode->i_blkbits;
-+
-+	return ret;
-+}
-+
- static int gfs2_write_lock(struct inode *inode)
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index e4f6d39500bc..71c28ff98b56 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -140,6 +140,7 @@ void gfs2_glock_free(struct gfs2_glock *gl)
  {
- 	struct gfs2_inode *ip = GFS2_I(inode);
-diff --git a/fs/gfs2/bmap.h b/fs/gfs2/bmap.h
-index 6b18fb323f0a..19a1fd772c61 100644
---- a/fs/gfs2/bmap.h
-+++ b/fs/gfs2/bmap.h
-@@ -64,5 +64,6 @@ extern int gfs2_write_alloc_required(struct gfs2_inode *ip, u64 offset,
- extern int gfs2_map_journal_extents(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd);
- extern void gfs2_free_journal_extents(struct gfs2_jdesc *jd);
- extern int __gfs2_punch_hole(struct file *file, loff_t offset, loff_t length);
-+extern int gfs2_lblk_to_dblk(struct inode *inode, u32 lblock, u64 *dblock);
+ 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
  
- #endif /* __BMAP_DOT_H__ */
-diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index cdf07b408f54..86840a70ee1a 100644
---- a/fs/gfs2/incore.h
-+++ b/fs/gfs2/incore.h
-@@ -535,7 +535,7 @@ struct gfs2_jdesc {
- 	unsigned long jd_flags;
- #define JDF_RECOVERY 1
- 	unsigned int jd_jid;
--	unsigned int jd_blocks;
-+	u32 jd_blocks;
- 	int jd_recover_error;
- 	/* Replay stuff */
- 
++	BUG_ON(atomic_read(&gl->gl_revokes));
+ 	rhashtable_remove_fast(&gl_hash_table, &gl->gl_node, ht_parms);
+ 	smp_mb();
+ 	wake_up_glock(gl);
 diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index b8830fda51e8..ebbc68dca145 100644
+index ebbc68dca145..7ba94b66c91b 100644
 --- a/fs/gfs2/log.c
 +++ b/fs/gfs2/log.c
-@@ -666,11 +666,12 @@ void gfs2_write_revokes(struct gfs2_sbd *sdp)
+@@ -606,7 +606,8 @@ void gfs2_add_revoke(struct gfs2_sbd *sdp, struct gfs2_bufdata *bd)
+ 	gfs2_remove_from_ail(bd); /* drops ref on bh */
+ 	bd->bd_bh = NULL;
+ 	sdp->sd_log_num_revoke++;
+-	atomic_inc(&gl->gl_revokes);
++	if (atomic_inc_return(&gl->gl_revokes) == 1)
++		gfs2_glock_hold(gl);
+ 	set_bit(GLF_LFLUSH, &gl->gl_flags);
+ 	list_add(&bd->bd_list, &sdp->sd_log_le_revoke);
  }
- 
- /**
-- * write_log_header - Write a journal log header buffer at sd_log_flush_head
-+ * gfs2_write_log_header - Write a journal log header buffer at lblock
-  * @sdp: The GFS2 superblock
-  * @jd: journal descriptor of the journal to which we are writing
-  * @seq: sequence number
-  * @tail: tail of the log
-+ * @lblock: value for lh_blkno (block number relative to start of journal)
-  * @flags: log header flags GFS2_LOG_HEAD_*
-  * @op_flags: flags to pass to the bio
-  *
-@@ -678,7 +679,8 @@ void gfs2_write_revokes(struct gfs2_sbd *sdp)
-  */
- 
- void gfs2_write_log_header(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd,
--			   u64 seq, u32 tail, u32 flags, int op_flags)
-+			   u64 seq, u32 tail, u32 lblock, u32 flags,
-+			   int op_flags)
- {
- 	struct gfs2_log_header *lh;
- 	u32 hash, crc;
-@@ -686,7 +688,7 @@ void gfs2_write_log_header(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd,
- 	struct gfs2_statfs_change_host *l_sc = &sdp->sd_statfs_local;
- 	struct timespec64 tv;
- 	struct super_block *sb = sdp->sd_vfs;
--	u64 addr;
-+	u64 dblock;
- 
- 	lh = page_address(page);
- 	clear_page(lh);
-@@ -699,15 +701,21 @@ void gfs2_write_log_header(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd,
- 	lh->lh_sequence = cpu_to_be64(seq);
- 	lh->lh_flags = cpu_to_be32(flags);
- 	lh->lh_tail = cpu_to_be32(tail);
--	lh->lh_blkno = cpu_to_be32(sdp->sd_log_flush_head);
-+	lh->lh_blkno = cpu_to_be32(lblock);
- 	hash = ~crc32(~0, lh, LH_V1_SIZE);
- 	lh->lh_hash = cpu_to_be32(hash);
- 
- 	ktime_get_coarse_real_ts64(&tv);
- 	lh->lh_nsec = cpu_to_be32(tv.tv_nsec);
- 	lh->lh_sec = cpu_to_be64(tv.tv_sec);
--	addr = gfs2_log_bmap(sdp);
--	lh->lh_addr = cpu_to_be64(addr);
-+	if (!list_empty(&jd->extent_list))
-+		dblock = gfs2_log_bmap(sdp);
-+	else {
-+		int ret = gfs2_lblk_to_dblk(jd->jd_inode, lblock, &dblock);
-+		if (gfs2_assert_withdraw(sdp, ret == 0))
-+			return;
-+	}
-+	lh->lh_addr = cpu_to_be64(dblock);
- 	lh->lh_jinode = cpu_to_be64(GFS2_I(jd->jd_inode)->i_no_addr);
- 
- 	/* We may only write local statfs, quota, etc., when writing to our
-@@ -732,7 +740,7 @@ void gfs2_write_log_header(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd,
- 		     sb->s_blocksize - LH_V1_SIZE - 4);
- 	lh->lh_crc = cpu_to_be32(crc);
- 
--	gfs2_log_write(sdp, page, sb->s_blocksize, 0, addr);
-+	gfs2_log_write(sdp, page, sb->s_blocksize, 0, dblock);
- 	gfs2_log_submit_bio(&sdp->sd_log_bio, REQ_OP_WRITE, op_flags);
- 	log_flush_wait(sdp);
- }
-@@ -761,7 +769,7 @@ static void log_write_header(struct gfs2_sbd *sdp, u32 flags)
- 	}
- 	sdp->sd_log_idle = (tail == sdp->sd_log_flush_head);
- 	gfs2_write_log_header(sdp, sdp->sd_jdesc, sdp->sd_log_sequence++, tail,
--			      flags, op_flags);
-+			      sdp->sd_log_flush_head, flags, op_flags);
- 
- 	if (sdp->sd_log_tail != tail)
- 		log_pull_tail(sdp, tail);
-diff --git a/fs/gfs2/log.h b/fs/gfs2/log.h
-index 1bc9bd444b28..86d07d436cdf 100644
---- a/fs/gfs2/log.h
-+++ b/fs/gfs2/log.h
-@@ -70,7 +70,8 @@ extern unsigned int gfs2_struct2blk(struct gfs2_sbd *sdp, unsigned int nstruct,
- extern void gfs2_log_release(struct gfs2_sbd *sdp, unsigned int blks);
- extern int gfs2_log_reserve(struct gfs2_sbd *sdp, unsigned int blks);
- extern void gfs2_write_log_header(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd,
--				  u64 seq, u32 tail, u32 flags, int op_flags);
-+				  u64 seq, u32 tail, u32 lblock, u32 flags,
-+				  int op_flags);
- extern void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl,
- 			   u32 type);
- extern void gfs2_log_commit(struct gfs2_sbd *sdp, struct gfs2_trans *trans);
 diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
-index 8722c60b11fe..aef21b6a608f 100644
+index aef21b6a608f..b4f0a6a3ba59 100644
 --- a/fs/gfs2/lops.c
 +++ b/fs/gfs2/lops.c
-@@ -530,7 +530,7 @@ static void buf_lo_before_scan(struct gfs2_jdesc *jd,
- 	jd->jd_replayed_blocks = 0;
+@@ -669,8 +669,10 @@ static void revoke_lo_after_commit(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
+ 		bd = list_entry(head->next, struct gfs2_bufdata, bd_list);
+ 		list_del_init(&bd->bd_list);
+ 		gl = bd->bd_gl;
+-		atomic_dec(&gl->gl_revokes);
+-		clear_bit(GLF_LFLUSH, &gl->gl_flags);
++		if (atomic_dec_return(&gl->gl_revokes) == 0) {
++			clear_bit(GLF_LFLUSH, &gl->gl_flags);
++			gfs2_glock_queue_put(gl);
++		}
+ 		kmem_cache_free(gfs2_bufdata_cachep, bd);
+ 	}
  }
- 
--static int buf_lo_scan_elements(struct gfs2_jdesc *jd, unsigned int start,
-+static int buf_lo_scan_elements(struct gfs2_jdesc *jd, u32 start,
- 				struct gfs2_log_descriptor *ld, __be64 *ptr,
- 				int pass)
- {
-@@ -685,7 +685,7 @@ static void revoke_lo_before_scan(struct gfs2_jdesc *jd,
- 	jd->jd_replay_tail = head->lh_tail;
- }
- 
--static int revoke_lo_scan_elements(struct gfs2_jdesc *jd, unsigned int start,
-+static int revoke_lo_scan_elements(struct gfs2_jdesc *jd, u32 start,
- 				   struct gfs2_log_descriptor *ld, __be64 *ptr,
- 				   int pass)
- {
-@@ -767,7 +767,7 @@ static void databuf_lo_before_commit(struct gfs2_sbd *sdp, struct gfs2_trans *tr
- 	gfs2_before_commit(sdp, limit, nbuf, &tr->tr_databuf, 1);
- }
- 
--static int databuf_lo_scan_elements(struct gfs2_jdesc *jd, unsigned int start,
-+static int databuf_lo_scan_elements(struct gfs2_jdesc *jd, u32 start,
- 				    struct gfs2_log_descriptor *ld,
- 				    __be64 *ptr, int pass)
- {
-diff --git a/fs/gfs2/lops.h b/fs/gfs2/lops.h
-index 711c4d89c063..4e81742de7a0 100644
---- a/fs/gfs2/lops.h
-+++ b/fs/gfs2/lops.h
-@@ -77,7 +77,7 @@ static inline void lops_before_scan(struct gfs2_jdesc *jd,
- 			gfs2_log_ops[x]->lo_before_scan(jd, head, pass);
- }
- 
--static inline int lops_scan_elements(struct gfs2_jdesc *jd, unsigned int start,
-+static inline int lops_scan_elements(struct gfs2_jdesc *jd, u32 start,
- 				     struct gfs2_log_descriptor *ld,
- 				     __be64 *ptr,
- 				     unsigned int pass)
-diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-index 2dac43065382..fa575d1676b9 100644
---- a/fs/gfs2/recovery.c
-+++ b/fs/gfs2/recovery.c
-@@ -316,7 +316,7 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head)
-  * Returns: errno
-  */
- 
--static int foreach_descriptor(struct gfs2_jdesc *jd, unsigned int start,
-+static int foreach_descriptor(struct gfs2_jdesc *jd, u32 start,
- 			      unsigned int end, int pass)
- {
- 	struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
-@@ -386,10 +386,12 @@ static void clean_journal(struct gfs2_jdesc *jd,
- 			  struct gfs2_log_header_host *head)
- {
- 	struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
-+	u32 lblock = head->lh_blkno;
- 
--	sdp->sd_log_flush_head = head->lh_blkno;
--	gfs2_replay_incr_blk(jd, &sdp->sd_log_flush_head);
--	gfs2_write_log_header(sdp, jd, head->lh_sequence + 1, 0,
-+	gfs2_replay_incr_blk(jd, &lblock);
-+	if (jd->jd_jid == sdp->sd_lockstruct.ls_jid)
-+		sdp->sd_log_flush_head = lblock;
-+	gfs2_write_log_header(sdp, jd, head->lh_sequence + 1, 0, lblock,
- 			      GFS2_LOG_HEAD_UNMOUNT | GFS2_LOG_HEAD_RECOVERY,
- 			      REQ_PREFLUSH | REQ_FUA | REQ_META | REQ_SYNC);
- }
-diff --git a/fs/gfs2/recovery.h b/fs/gfs2/recovery.h
-index 11d81248be85..5932d4b6f43e 100644
---- a/fs/gfs2/recovery.h
-+++ b/fs/gfs2/recovery.h
-@@ -14,7 +14,7 @@
- 
- extern struct workqueue_struct *gfs_recovery_wq;
- 
--static inline void gfs2_replay_incr_blk(struct gfs2_jdesc *jd, unsigned int *blk)
-+static inline void gfs2_replay_incr_blk(struct gfs2_jdesc *jd, u32 *blk)
- {
- 	if (++*blk == jd->jd_blocks)
- 	        *blk = 0;
 -- 
 2.20.1
 
