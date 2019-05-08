@@ -2,92 +2,68 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9994917281
-	for <lists+cluster-devel@lfdr.de>; Wed,  8 May 2019 09:22:48 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29F96178C9
+	for <lists+cluster-devel@lfdr.de>; Wed,  8 May 2019 13:49:30 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0719EC057E3A;
-	Wed,  8 May 2019 07:22:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 21FAF5C28D;
-	Wed,  8 May 2019 07:22:44 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8A06C301EA82;
+	Wed,  8 May 2019 11:49:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D919C600D4;
+	Wed,  8 May 2019 11:49:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 76D3F18089CA;
-	Wed,  8 May 2019 07:22:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F31A33FB11;
+	Wed,  8 May 2019 11:49:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x481n1uo012284 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 7 May 2019 21:49:01 -0400
+	id x48BnCWM024918 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 8 May 2019 07:49:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B91C1001DCD; Wed,  8 May 2019 01:49:01 +0000 (UTC)
+	id 03F9060C93; Wed,  8 May 2019 11:49:12 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D5921001E6F;
-	Wed,  8 May 2019 01:48:59 +0000 (UTC)
-Received: from mail-it1-f194.google.com (mail-it1-f194.google.com
-	[209.85.166.194])
+Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.27])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F199D60C6C
+	for <cluster-devel@redhat.com>; Wed,  8 May 2019 11:49:08 +0000 (UTC)
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+	[209.85.210.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A7764C057E3A;
-	Wed,  8 May 2019 01:48:58 +0000 (UTC)
-Received: by mail-it1-f194.google.com with SMTP id p18so1014772itm.1;
-	Tue, 07 May 2019 18:48:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:cc:subject:date:message-id;
-	bh=o7lcyB5s0oTEYvy3/wHbgG7UILE/7QogHJKGt1FxaBM=;
-	b=L6ZI9PRIK8DoLR58x1qB/Lw9xq543AAQprEDzs/cg+03ifpuGgsmRzrjX63HCBsjv9
-	KfYtHyc7CJwOA9FlfNy0Z45pwr/Ku927wvXIasxUPybmvW16TTPbAIRO0hu7afSl0al3
-	uxZjQhdZHiULov9X9eK+jn8zDeifTLZzlb6Trk9qXXo76nFPjzWYzTQifXsKmxnNlGiD
-	SqAaKhP4WEFndLPX+nLxL9heO/n8mhzhRUEpLyJIC2VHJZLHEpPSdPnghcZ3DWDMCJ3I
-	4meHp0cyCUBJ10WnUWHXT/B58vwCx3wmDP+opfDX+Ufk5M3v9w98d3zubuXn9trTTqBR
-	yG6g==
+	by mx1.redhat.com (Postfix) with ESMTPS id 807AB89C36
+	for <cluster-devel@redhat.com>; Wed,  8 May 2019 11:49:08 +0000 (UTC)
+Received: by mail-ot1-f69.google.com with SMTP id g80so1369492otg.12
+	for <cluster-devel@redhat.com>; Wed, 08 May 2019 04:49:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=o7lcyB5s0oTEYvy3/wHbgG7UILE/7QogHJKGt1FxaBM=;
-	b=TDNzRWEDlBTJc5YzmkvDMMGsX2b/IOAF8J5RKa6Qp/lFeu8uPonDC5gajH0uaeKwI7
-	3rGoKxrYFCy09xkYf7XlzUF+mlCnb+ZdlXbU9sAUG3HOUOyAsfB1ygUJEiOjUv6JUOfk
-	YkVH5wfF/Dfh6AOJ1pFE2XujgZNi8SEOu33Tv2Wlt4USAZDCQU7QaorhqqH7ACCXuI+/
-	olUz/fqfS6oNWEsv/O8Ecb4owuZWnm3tvJbJ5C3T94AX5WROFG1nnbk+Qh2AAZsx7EBn
-	8ce7JrfQkygu5byZeS3d7zdxcR/6yrdVlbE7zXBHzZHMZjPvdj3bVyyjAm2OOLN70kae
-	muYQ==
-X-Gm-Message-State: APjAAAWCyHLo1EwmpypUE/LWaPWIkvkI/mxkE47n9L+cdS5e6UY261co
-	w+VYtPTt1CV/BrPrF5bornJFUThn9mY=
-X-Google-Smtp-Source: APXvYqxvQgjj28jgLRfY2BL7CgVmEj527sBLG1fKApNyOjUsz3dhX3wUGBgSVcCrfwP0qig61eJpIA==
-X-Received: by 2002:a02:8815:: with SMTP id r21mr2015578jai.88.1557280137987; 
-	Tue, 07 May 2019 18:48:57 -0700 (PDT)
-Received: from ubu (2600-6c48-437f-c81d-f514-433e-0658-d461.dhcp6.chtrptr.net.
-	[2600:6c48:437f:c81d:f514:433e:658:d461])
-	by smtp.gmail.com with ESMTPSA id c72sm446207itc.22.2019.05.07.18.48.57
-	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-	Tue, 07 May 2019 18:48:57 -0700 (PDT)
-From: Kimberly Brown <kimbrownkd@gmail.com>
-To: Christine Caulfield <ccaulfie@redhat.com>,
-	David Teigland <teigland@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue,  7 May 2019 21:48:05 -0400
-Message-Id: <20190508014805.28715-1-kimbrownkd@gmail.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.31]);
-	Wed, 08 May 2019 01:48:58 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]);
-	Wed, 08 May 2019 01:48:58 +0000 (UTC) for IP:'209.85.166.194'
-	DOMAIN:'mail-it1-f194.google.com'
-	HELO:'mail-it1-f194.google.com' FROM:'kimbrownkd@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.111  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
-	SPF_PASS) 209.85.166.194 mail-it1-f194.google.com 209.85.166.194
-	mail-it1-f194.google.com <kimbrownkd@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.31
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+	bh=UiE/dtL+DxzJlyZjaLoLZA2ogaq5/eux+wRF3qdxndo=;
+	b=qD/B8bnGZB+rJdbZZs0JsdbmGUvS5PKaYpWmELbNlFwDfNSNuUItAohIF5KGvo7g+w
+	hbyweC2kNqKZ/w4cZ5950NdpHqdyPAOuaMC1Jx3Ri5kz+ix0gYYG5mRyYpnJ6yKd2/Dp
+	yz2S4MpAeCWywNvyzoBF/87zXvhdsgwy3kNHG2F1QsG0bjVupiVJgwXXItElhoa8SAK4
+	LBouug4EH/25m6V3JNiFp3mjHuE7gJuJez+xFSBtZfHZuUf0XdW+HJUVD7lNhFMzCy/U
+	P+A6hj4Kg+eHUErzNmTcHr2+IIFh0sCUiUw41lw2rLytnO43jAZwvDhW49eVh/LexcfM
+	BX0w==
+X-Gm-Message-State: APjAAAW5AVQ8DJ7chHAj6dBB3DjBR9boCt7DOXRtKJnWh1uzdyzBwZZK
+	vsJYoDgLNXfiNu3lOiMZkc8jxB3sTXAjMXpPyRb8eisy9RCwD+MmHcW1asxthdjEdriBS1FUCft
+	+qmqWkSniweYhxDk8p/ITqDY5Ir/shRXZ4cv6gQ==
+X-Received: by 2002:a54:4f02:: with SMTP id e2mr1834389oiy.10.1557316147420;
+	Wed, 08 May 2019 04:49:07 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqxluCoCeUr0XTO0miGV4Vy0BPUjHo8v1sjoZvLpTNp1hAZYGq6eM2jOpvAoF/P55Rr+c9MuiQ/KP2SrGhcbsNk=
+X-Received: by 2002:a54:4f02:: with SMTP id e2mr1834383oiy.10.1557316147176;
+	Wed, 08 May 2019 04:49:07 -0700 (PDT)
+MIME-Version: 1.0
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 8 May 2019 13:48:56 +0200
+Message-ID: <CAHc6FU5Yd9EVju+kY8228n-Ccm7F2ZBRJUbesT-HYsy2YjKc_w@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Wed, 08 May 2019 03:22:16 -0400
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [PATCH] dlm: Replace default_attrs in dlm_ktype
-	with default_groups
+Cc: cluster-devel <cluster-devel@redhat.com>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: [Cluster-devel] GFS2: Pull Request
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,48 +77,108 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Wed, 08 May 2019 07:22:47 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Wed, 08 May 2019 11:49:29 +0000 (UTC)
 
-The kobj_type default_attrs field is being replaced by the
-default_groups field, so replace the default_attrs field in dlm_ktype
-with default_groups. Use the ATTRIBUTE_GROUPS macro to create
-dlm_groups.
+Hi Linus,
 
-Signed-off-by: Kimberly Brown <kimbrownkd@gmail.com>
----
+please consider pulling the following changes for the GFS2 file system.
 
-This patch depends on a patch in the driver-core tree: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core.git/commit/?h=driver-core-next&id=aa30f47cf666111f6bbfd15f290a27e8a7b9d854
+There was a conflict with commit 2b070cfe582b ("block: remove the i
+argument to bio_for_each_segment_all") on Jens's block layer changes
+which you've already merged. I've resolved that by merging those block
+layer changes; please let me know if you want this done differently.
 
-Greg KH can take this patch through the driver-core tree, or this patch
-can wait a release cycle and go through the subsystem's tree, whichever
-the subsystem maintainer is more comfortable with.
+Thanks,
+Andreas
 
+The following changes since commit b4b52b881cf08e13d110eac811d4becc0775abbf:
 
- fs/dlm/lockspace.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+  Merge tag 'Wimplicit-fallthrough-5.2-rc1' of
+git://git.kernel.org/pub/scm/linux/kernel/git/gustavoars/linux
+(2019-05-07 12:48:10 -0700)
 
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index db43b98c4d64..762f08bb2bf2 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -160,6 +160,7 @@ static struct attribute *dlm_attrs[] = {
- 	&dlm_attr_recover_nodeid.attr,
- 	NULL,
- };
-+ATTRIBUTE_GROUPS(dlm);
- 
- static ssize_t dlm_attr_show(struct kobject *kobj, struct attribute *attr,
- 			     char *buf)
-@@ -189,7 +190,7 @@ static const struct sysfs_ops dlm_attr_ops = {
- };
- 
- static struct kobj_type dlm_ktype = {
--	.default_attrs = dlm_attrs,
-+	.default_groups = dlm_groups,
- 	.sysfs_ops     = &dlm_attr_ops,
- 	.release       = lockspace_kobj_release,
- };
--- 
-2.17.1
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+tags/gfs2-for-5.2
+
+for you to fetch changes up to dd665ce42728aa985ec4c7002ffe8690cde74c54:
+
+  Merge tag 'for-5.2/block-20190507' of
+git://git.kernel.dk/linux-block (2019-05-08 10:30:57 +0200)
+
+----------------------------------------------------------------
+We've got the following patches ready for this merge window:
+
+"gfs2: Fix loop in gfs2_rbm_find (v2)"
+
+  A rework of a fix we ended up reverting in 5.0 because of an iozone
+  performance regression.
+
+"gfs2: read journal in large chunks" and
+"gfs2: fix race between gfs2_freeze_func and unmount"
+
+  An improved version of a commit we also ended up reverting in 5.0
+  because of a regression in xfstest generic/311.  It turns out that the
+  journal changes were mostly innocent and that unfreeze didn't wait for
+  the freeze to complete, which caused the filesystem to be unmounted
+  before it was actually idle.
+
+"gfs2: Fix occasional glock use-after-free"
+"gfs2: Fix iomap write page reclaim deadlock"
+"gfs2: Fix lru_count going negative"
+
+  Fixes for various problems reported and partially fixed by Citrix
+  engineers.  Thank you very much.
+
+"gfs2: clean_journal improperly set sd_log_flush_head"
+
+  Another fix from Bob.
+
+A few other minor cleanups.
+
+----------------------------------------------------------------
+Abhi Das (2):
+      gfs2: fix race between gfs2_freeze_func and unmount
+      gfs2: read journal in large chunks
+
+Andreas Gruenbacher (8):
+      gfs2: Fix loop in gfs2_rbm_find (v2)
+      gfs2: Fix occasional glock use-after-free
+      gfs2: Remove misleading comments in gfs2_evict_inode
+      gfs2: Remove unnecessary extern declarations
+      gfs2: Rename sd_log_le_{revoke,ordered}
+      gfs2: Rename gfs2_trans_{add_unrevoke => remove_revoke}
+      gfs2: Fix iomap write page reclaim deadlock
+      Merge tag 'for-5.2/block-20190507' of git://git.kernel.dk/linux-block
+
+Bob Peterson (2):
+      gfs2: clean_journal improperly set sd_log_flush_head
+      gfs2: Replace gl_revokes with a GLF flag
+
+Ross Lagerwall (1):
+      gfs2: Fix lru_count going negative
+
+ fs/gfs2/aops.c       |  14 ++-
+ fs/gfs2/bmap.c       | 118 ++++++++++++++---------
+ fs/gfs2/bmap.h       |   1 +
+ fs/gfs2/dir.c        |   2 +-
+ fs/gfs2/glock.c      |  25 +++--
+ fs/gfs2/glops.c      |   3 +-
+ fs/gfs2/incore.h     |   9 +-
+ fs/gfs2/log.c        |  47 ++++++----
+ fs/gfs2/log.h        |   5 +-
+ fs/gfs2/lops.c       | 260 ++++++++++++++++++++++++++++++++++++++++++++++-----
+ fs/gfs2/lops.h       |  11 +--
+ fs/gfs2/main.c       |   1 -
+ fs/gfs2/ops_fstype.c |   7 +-
+ fs/gfs2/recovery.c   | 135 ++------------------------
+ fs/gfs2/recovery.h   |   4 +-
+ fs/gfs2/rgrp.c       |  56 ++++++-----
+ fs/gfs2/super.c      |  20 ++--
+ fs/gfs2/trans.c      |   4 +-
+ fs/gfs2/trans.h      |   2 +-
+ fs/gfs2/xattr.c      |   6 +-
+ 20 files changed, 437 insertions(+), 293 deletions(-)
 
