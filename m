@@ -2,40 +2,42 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 644E41FB21
-	for <lists+cluster-devel@lfdr.de>; Wed, 15 May 2019 21:40:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6CF91FB17
+	for <lists+cluster-devel@lfdr.de>; Wed, 15 May 2019 21:39:58 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E47EE316D771;
-	Wed, 15 May 2019 19:40:24 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 720AD88E55;
+	Wed, 15 May 2019 19:39:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D012460928;
-	Wed, 15 May 2019 19:40:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CBC5608AB;
+	Wed, 15 May 2019 19:39:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B6B325B424;
-	Wed, 15 May 2019 19:40:24 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D57F5B425;
+	Wed, 15 May 2019 19:39:57 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4FJcKYZ028950 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 15 May 2019 15:38:20 -0400
+	id x4FJcLoG028955 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 15 May 2019 15:38:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D860B60BF7; Wed, 15 May 2019 19:38:20 +0000 (UTC)
+	id 3866460E39; Wed, 15 May 2019 19:38:21 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-116-119.phx2.redhat.com [10.3.116.119])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A3D7260F9C
-	for <cluster-devel@redhat.com>; Wed, 15 May 2019 19:38:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 04AC860BF7
+	for <cluster-devel@redhat.com>; Wed, 15 May 2019 19:38:20 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Wed, 15 May 2019 14:37:53 -0500
-Message-Id: <20190515193818.7642-1-rpeterso@redhat.com>
+Date: Wed, 15 May 2019 14:37:54 -0500
+Message-Id: <20190515193818.7642-2-rpeterso@redhat.com>
+In-Reply-To: <20190515193818.7642-1-rpeterso@redhat.com>
+References: <20190515193818.7642-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 v4 PATCH 00/25] gfs2: misc recovery patch
-	collection
+Subject: [Cluster-devel] [GFS2 v4 PATCH 01/25] gfs2: kthread and remount
+	improvements
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -50,70 +52,91 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Wed, 15 May 2019 19:40:25 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Wed, 15 May 2019 19:39:57 +0000 (UTC)
 
-Here is version 4 of the patch set I posted on 23 April. It is revised
-based on bugs I found testing with xfstests.
+Before this patch, gfs2 saved the pointers to the two daemon threads
+(logd and quotad) in the superblock, but they were never cleared,
+even if the threads were stopped (e.g. on remount -o ro). That meant
+that certain error conditions (like a withdrawn file system) could
+race. For example, xfstests generic/361 caused an IO error during
+remount -o ro, which caused the kthreads to be stopped, then the
+error flagged. Later, when the test unmounted the file system, it
+would try to stop the threads a second time with kthread_stop.
 
-The first 8 are cleanups, the rest are bug fixes.
+This patch does two things: First, every time it stops the threads
+it zeroes out the thread pointer, and also checks whether it's NULL
+before trying to stop it. Second, in function gfs2_remount_fs, it
+was returning if an error was logged by either of the two functions
+for gfs2_make_fs_ro and _rw, which caused it to bypass the online
+uevent at the bottom of the function. This removes that bypass in
+favor of just running the whole function, then returning the error.
+That way, unmounts and remounts won't hang forever.
 
-This is a collection of patches I've been using to address the myriad
-of recovery problems I've found. There aren't many other dependencies
-between patches, so many could be accepted or rejected individually.
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/super.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-Bob Peterson (25):
-  gfs2: kthread and remount improvements
-  gfs2: eliminate tr_num_revoke_rm
-  gfs2: log which portion of the journal is replayed
-  gfs2: Warn when a journal replay overwrites a rgrp with buffers
-  gfs2: Change SDF_SHUTDOWN to SDF_WITHDRAWN
-  gfs2: simplify gfs2_freeze by removing case
-  gfs2: dump fsid when dumping glock problems
-  gfs2: replace more printk with calls to fs_info and friends
-  gfs2: Introduce concept of a pending withdraw
-  gfs2: log error reform
-  gfs2: Only complain the first time an io error occurs in quota or log
-  gfs2: Stop ail1 wait loop when withdrawn
-  gfs2: Ignore dlm recovery requests if gfs2 is withdrawn
-  gfs2: move check_journal_clean to util.c for future use
-  gfs2: Allow some glocks to be used during withdraw
-  gfs2: Don't loop forever in gfs2_freeze if withdrawn
-  gfs2: Make secondary withdrawers wait for first withdrawer
-  gfs2: Don't write log headers after file system withdraw
-  gfs2: Force withdraw to replay journals and wait for it to finish
-  gfs2: Add verbose option to check_journal_clean
-  gfs2: Abort gfs2_freeze if io error is seen
-  gfs2: Check if holding freeze glock when making fs ro
-  gfs2: Issue revokes more intelligently
-  gfs2: Prepare to withdraw as soon as an IO error occurs in log write
-  gfs2: Check for log write errors before telling dlm to unlock
-
- fs/gfs2/aops.c       |   4 +-
- fs/gfs2/bmap.c       |   2 +-
- fs/gfs2/file.c       |   2 +-
- fs/gfs2/glock.c      | 110 ++++++++++++++++++-----
- fs/gfs2/glock.h      |  12 ++-
- fs/gfs2/glops.c      |  88 ++++++++++++++++--
- fs/gfs2/glops.h      |   3 +-
- fs/gfs2/incore.h     |  28 ++++--
- fs/gfs2/inode.c      |  14 ++-
- fs/gfs2/lock_dlm.c   |  50 +++++++++++
- fs/gfs2/log.c        | 108 +++++++++++-----------
- fs/gfs2/lops.c       |  28 +++++-
- fs/gfs2/meta_io.c    |   6 +-
- fs/gfs2/ops_fstype.c |  65 ++++----------
- fs/gfs2/quota.c      |  10 ++-
- fs/gfs2/recovery.c   |   8 +-
- fs/gfs2/rgrp.c       |  48 +++++-----
- fs/gfs2/rgrp.h       |   3 +-
- fs/gfs2/super.c      | 123 +++++++++++++++----------
- fs/gfs2/super.h      |   1 +
- fs/gfs2/sys.c        |  14 ++-
- fs/gfs2/trans.c      |   6 +-
- fs/gfs2/util.c       | 209 ++++++++++++++++++++++++++++++++++++++++---
- fs/gfs2/util.h       |  15 ++++
- 24 files changed, 705 insertions(+), 252 deletions(-)
-
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index fbf6b1fd330b..a468e58fcda4 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -397,6 +397,7 @@ static int init_threads(struct gfs2_sbd *sdp)
+ 
+ fail:
+ 	kthread_stop(sdp->sd_logd_process);
++	sdp->sd_logd_process = NULL;
+ 	return error;
+ }
+ 
+@@ -454,8 +455,12 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
+ 	freeze_gh.gh_flags |= GL_NOCACHE;
+ 	gfs2_glock_dq_uninit(&freeze_gh);
+ fail_threads:
+-	kthread_stop(sdp->sd_quotad_process);
+-	kthread_stop(sdp->sd_logd_process);
++	if (sdp->sd_quotad_process)
++		kthread_stop(sdp->sd_quotad_process);
++	sdp->sd_quotad_process = NULL;
++	if (sdp->sd_logd_process)
++		kthread_stop(sdp->sd_logd_process);
++	sdp->sd_logd_process = NULL;
+ 	return error;
+ }
+ 
+@@ -856,8 +861,12 @@ static int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
+ 		return error;
+ 
+ 	flush_workqueue(gfs2_delete_workqueue);
+-	kthread_stop(sdp->sd_quotad_process);
+-	kthread_stop(sdp->sd_logd_process);
++	if (sdp->sd_quotad_process)
++		kthread_stop(sdp->sd_quotad_process);
++	sdp->sd_quotad_process = NULL;
++	if (sdp->sd_logd_process)
++		kthread_stop(sdp->sd_logd_process);
++	sdp->sd_logd_process = NULL;
+ 
+ 	gfs2_quota_sync(sdp->sd_vfs, 0);
+ 	gfs2_statfs_sync(sdp->sd_vfs, 0);
+@@ -1276,8 +1285,6 @@ static int gfs2_remount_fs(struct super_block *sb, int *flags, char *data)
+ 			error = gfs2_make_fs_ro(sdp);
+ 		else
+ 			error = gfs2_make_fs_rw(sdp);
+-		if (error)
+-			return error;
+ 	}
+ 
+ 	sdp->sd_args = args;
+@@ -1303,7 +1310,7 @@ static int gfs2_remount_fs(struct super_block *sb, int *flags, char *data)
+ 	spin_unlock(&gt->gt_spin);
+ 
+ 	gfs2_online_uevent(sdp);
+-	return 0;
++	return error;
+ }
+ 
+ /**
 -- 
 2.20.1
 
