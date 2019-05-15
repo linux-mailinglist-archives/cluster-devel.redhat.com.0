@@ -2,42 +2,42 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE181FB1C
-	for <lists+cluster-devel@lfdr.de>; Wed, 15 May 2019 21:40:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 101061FB13
+	for <lists+cluster-devel@lfdr.de>; Wed, 15 May 2019 21:39:52 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 111128110C;
-	Wed, 15 May 2019 19:40:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6A9D60166;
-	Wed, 15 May 2019 19:40:00 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 847DB3001ABA;
+	Wed, 15 May 2019 19:39:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A93A600C4;
+	Wed, 15 May 2019 19:39:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C6EEB5B424;
-	Wed, 15 May 2019 19:40:00 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 477361806B0E;
+	Wed, 15 May 2019 19:39:49 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4FJcScl029085 for <cluster-devel@listman.util.phx.redhat.com>;
+	id x4FJcSet029091 for <cluster-devel@listman.util.phx.redhat.com>;
 	Wed, 15 May 2019 15:38:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 27C0A60FAE; Wed, 15 May 2019 19:38:28 +0000 (UTC)
+	id 7C44960FAE; Wed, 15 May 2019 19:38:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-116-119.phx2.redhat.com [10.3.116.119])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E710460F9C
-	for <cluster-devel@redhat.com>; Wed, 15 May 2019 19:38:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 488E360F9C
+	for <cluster-devel@redhat.com>; Wed, 15 May 2019 19:38:28 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Wed, 15 May 2019 14:38:07 -0500
-Message-Id: <20190515193818.7642-15-rpeterso@redhat.com>
+Date: Wed, 15 May 2019 14:38:08 -0500
+Message-Id: <20190515193818.7642-16-rpeterso@redhat.com>
 In-Reply-To: <20190515193818.7642-1-rpeterso@redhat.com>
 References: <20190515193818.7642-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 v4 PATCH 14/25] gfs2: move
-	check_journal_clean to util.c for future use
+Subject: [Cluster-devel] [GFS2 v4 PATCH 15/25] gfs2: Allow some glocks to be
+	used during withdraw
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -52,148 +52,269 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Wed, 15 May 2019 19:40:01 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Wed, 15 May 2019 19:39:50 +0000 (UTC)
 
-Before this patch function check_journal_clean was in ops_fstype.c.
-This patch moves it to util.c so we can make use of it elsewhere
-in a future patch.
+Before this patch, when a file system was withdrawn, all further
+attempts to enqueue or promote glocks were rejected and returned
+-EIO. This is only important for media-backed glocks like inode
+and rgrp glocks. All other glocks may be safely used because there
+is no potential for metadata corruption. This patch allows some
+glocks to be used even after the file system is withdrawn. This
+is accomplished with a new glops flag, GLOF_JOURNALED, which tells
+us which inodes cannot be safely manipulated after withdraw. This
+facilitates future patches that enhance fs withdraw.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/ops_fstype.c | 42 -----------------------------------------
- fs/gfs2/util.c       | 45 ++++++++++++++++++++++++++++++++++++++++++++
- fs/gfs2/util.h       |  1 +
- 3 files changed, 46 insertions(+), 42 deletions(-)
+ fs/gfs2/glock.c      |  7 +++++--
+ fs/gfs2/glops.c      | 16 +++++++++++++---
+ fs/gfs2/glops.h      |  3 ++-
+ fs/gfs2/incore.h     |  8 ++++++++
+ fs/gfs2/inode.c      | 14 ++++++++++----
+ fs/gfs2/ops_fstype.c | 14 +++++++++++---
+ fs/gfs2/sys.c        | 12 ++++++++++--
+ 7 files changed, 59 insertions(+), 15 deletions(-)
 
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index 56616997ab24..fcfd68794bfc 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -591,48 +591,6 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struct gfs2_holder *ji_gh)
- 	return error;
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index b03f784c982f..cf1d180621c1 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -548,7 +548,7 @@ __acquires(&gl->gl_lockref.lock)
+ 	int ret;
+ 
+ 	if (unlikely(gfs2_withdrawn(sdp)) &&
+-	    target != LM_ST_UNLOCKED)
++	    (glops->go_flags & GLOF_JOURNALED) && target != LM_ST_UNLOCKED)
+ 		return;
+ 	lck_flags &= (LM_FLAG_TRY | LM_FLAG_TRY_1CB | LM_FLAG_NOEXP |
+ 		      LM_FLAG_PRIORITY);
+@@ -1096,7 +1096,8 @@ int gfs2_glock_nq(struct gfs2_holder *gh)
+ 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+ 	int error = 0;
+ 
+-	if (unlikely(gfs2_withdrawn(sdp)))
++	if (unlikely(gfs2_withdrawn(sdp)) &&
++	    (gl->gl_ops->go_flags & GLOF_JOURNALED))
+ 		return -EIO;
+ 
+ 	if (test_bit(GLF_LRU, &gl->gl_flags))
+@@ -1762,6 +1763,8 @@ static const char *gflags2str(char *buf, const struct gfs2_glock *gl)
+ 		*p++ = 'o';
+ 	if (test_bit(GLF_BLOCKING, gflags))
+ 		*p++ = 'b';
++	if (gl->gl_ops->go_flags & GLOF_JOURNALED)
++		*p++ = 'j';
+ 	*p = 0;
+ 	return buf;
  }
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 4825a00b7dfa..f738a7f64285 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -589,7 +589,7 @@ const struct gfs2_glock_operations gfs2_meta_glops = {
+ 	.go_type = LM_TYPE_META,
+ };
  
--/**
-- * check_journal_clean - Make sure a journal is clean for a spectator mount
-- * @sdp: The GFS2 superblock
-- * @jd: The journal descriptor
-- *
-- * Returns: 0 if the journal is clean or locked, else an error
-- */
--static int check_journal_clean(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd)
--{
--	int error;
--	struct gfs2_holder j_gh;
--	struct gfs2_log_header_host head;
--	struct gfs2_inode *ip;
--
--	ip = GFS2_I(jd->jd_inode);
--	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED, LM_FLAG_NOEXP |
--				   GL_EXACT | GL_NOCACHE, &j_gh);
--	if (error) {
--		fs_err(sdp, "Error locking journal for spectator mount.\n");
--		return -EPERM;
--	}
--	error = gfs2_jdesc_check(jd);
--	if (error) {
--		fs_err(sdp, "Error checking journal for spectator mount.\n");
--		goto out_unlock;
--	}
--	error = gfs2_find_jhead(jd, &head, false);
--	if (error) {
--		fs_err(sdp, "Error parsing journal for spectator mount.\n");
--		goto out_unlock;
--	}
--	if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT)) {
--		error = -EPERM;
--		fs_err(sdp, "jid=%u: Journal is dirty, so the first mounter "
--		       "must not be a spectator.\n", jd->jd_jid);
--	}
--
--out_unlock:
--	gfs2_glock_dq_uninit(&j_gh);
--	return error;
--}
--
- static int init_journal(struct gfs2_sbd *sdp, int undo)
- {
- 	struct inode *master = d_inode(sdp->sd_master_dir);
-diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
-index bd3c91fa446b..048236163be7 100644
---- a/fs/gfs2/util.c
-+++ b/fs/gfs2/util.c
-@@ -19,7 +19,10 @@
- #include "gfs2.h"
- #include "incore.h"
- #include "glock.h"
-+#include "lops.h"
-+#include "recovery.h"
- #include "rgrp.h"
-+#include "super.h"
- #include "util.h"
+-const struct gfs2_glock_operations gfs2_inode_glops = {
++const struct gfs2_glock_operations gfs2_sys_inode_glops = {
+ 	.go_sync = inode_go_sync,
+ 	.go_inval = inode_go_inval,
+ 	.go_demote_ok = inode_go_demote_ok,
+@@ -599,6 +599,16 @@ const struct gfs2_glock_operations gfs2_inode_glops = {
+ 	.go_flags = GLOF_ASPACE | GLOF_LRU,
+ };
  
- struct kmem_cache *gfs2_glock_cachep __read_mostly;
-@@ -36,6 +39,48 @@ void gfs2_assert_i(struct gfs2_sbd *sdp)
- 	fs_emerg(sdp, "fatal assertion failed\n");
- }
++const struct gfs2_glock_operations gfs2_user_inode_glops = {
++	.go_sync = inode_go_sync,
++	.go_inval = inode_go_inval,
++	.go_demote_ok = inode_go_demote_ok,
++	.go_lock = inode_go_lock,
++	.go_dump = inode_go_dump,
++	.go_type = LM_TYPE_INODE,
++	.go_flags = GLOF_ASPACE | GLOF_LRU | GLOF_JOURNALED,
++};
++
+ const struct gfs2_glock_operations gfs2_rgrp_glops = {
+ 	.go_sync = rgrp_go_sync,
+ 	.go_inval = rgrp_go_inval,
+@@ -606,7 +616,7 @@ const struct gfs2_glock_operations gfs2_rgrp_glops = {
+ 	.go_unlock = gfs2_rgrp_go_unlock,
+ 	.go_dump = gfs2_rgrp_dump,
+ 	.go_type = LM_TYPE_RGRP,
+-	.go_flags = GLOF_LVB,
++	.go_flags = GLOF_LVB | GLOF_JOURNALED,
+ };
  
+ const struct gfs2_glock_operations gfs2_freeze_glops = {
+@@ -642,7 +652,7 @@ const struct gfs2_glock_operations gfs2_journal_glops = {
+ 
+ const struct gfs2_glock_operations *gfs2_glops_list[] = {
+ 	[LM_TYPE_META] = &gfs2_meta_glops,
+-	[LM_TYPE_INODE] = &gfs2_inode_glops,
++	[LM_TYPE_INODE] = &gfs2_user_inode_glops,
+ 	[LM_TYPE_RGRP] = &gfs2_rgrp_glops,
+ 	[LM_TYPE_IOPEN] = &gfs2_iopen_glops,
+ 	[LM_TYPE_FLOCK] = &gfs2_flock_glops,
+diff --git a/fs/gfs2/glops.h b/fs/gfs2/glops.h
+index 8ed1857c1a8d..63130a5959e1 100644
+--- a/fs/gfs2/glops.h
++++ b/fs/gfs2/glops.h
+@@ -15,7 +15,8 @@
+ extern struct workqueue_struct *gfs2_freeze_wq;
+ 
+ extern const struct gfs2_glock_operations gfs2_meta_glops;
+-extern const struct gfs2_glock_operations gfs2_inode_glops;
++extern const struct gfs2_glock_operations gfs2_user_inode_glops;
++extern const struct gfs2_glock_operations gfs2_sys_inode_glops;
+ extern const struct gfs2_glock_operations gfs2_rgrp_glops;
+ extern const struct gfs2_glock_operations gfs2_freeze_glops;
+ extern const struct gfs2_glock_operations gfs2_iopen_glops;
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 39cec5361ba5..3f9935730ffb 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -251,6 +251,14 @@ struct gfs2_glock_operations {
+ #define GLOF_ASPACE 1
+ #define GLOF_LVB    2
+ #define GLOF_LRU    4
 +/**
-+ * check_journal_clean - Make sure a journal is clean for a spectator mount
-+ * @sdp: The GFS2 superblock
-+ * @jd: The journal descriptor
-+ *
-+ * Returns: 0 if the journal is clean or locked, else an error
++ * The GLOF_JOURNALED flag marks objects that are journaled, which means we
++ * need to treat them specially when a file system withdraw occurs. Inodes
++ * like the journal inode itself are okay to manipulate after withdraw, but
++ * user files need to be protected from journal replay after their glock has
++ * been granted to another node.
 + */
-+int check_journal_clean(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd)
-+{
-+	int error;
-+	struct gfs2_holder j_gh;
-+	struct gfs2_log_header_host head;
++#define GLOF_JOURNALED 8
+ };
+ 
+ enum {
+diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+index 998051c4aea7..2fefd8581965 100644
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@ -141,7 +141,8 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
+ 		struct gfs2_sbd *sdp = GFS2_SB(inode);
+ 		ip->i_no_formal_ino = no_formal_ino;
+ 
+-		error = gfs2_glock_get(sdp, no_addr, &gfs2_inode_glops, CREATE, &ip->i_gl);
++		error = gfs2_glock_get(sdp, no_addr, &gfs2_user_inode_glops,
++				       CREATE, &ip->i_gl);
+ 		if (unlikely(error))
+ 			goto fail;
+ 		flush_delayed_work(&ip->i_gl->gl_work);
+@@ -248,6 +249,8 @@ struct inode *gfs2_lookup_simple(struct inode *dip, const char *name)
+ {
+ 	struct qstr qstr;
+ 	struct inode *inode;
 +	struct gfs2_inode *ip;
 +
-+	ip = GFS2_I(jd->jd_inode);
-+	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED, LM_FLAG_NOEXP |
-+				   GL_EXACT | GL_NOCACHE, &j_gh);
-+	if (error) {
-+		fs_err(sdp, "Error locking journal for spectator mount.\n");
-+		return -EPERM;
-+	}
-+	error = gfs2_jdesc_check(jd);
-+	if (error) {
-+		fs_err(sdp, "Error checking journal for spectator mount.\n");
-+		goto out_unlock;
-+	}
-+	error = gfs2_find_jhead(jd, &head, false);
-+	if (error) {
-+		fs_err(sdp, "Error parsing journal for spectator mount.\n");
-+		goto out_unlock;
-+	}
-+	if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT)) {
-+		error = -EPERM;
-+		fs_err(sdp, "jid=%u: Journal is dirty, so the first mounter "
-+		       "must not be a spectator.\n", jd->jd_jid);
-+	}
+ 	gfs2_str2qstr(&qstr, name);
+ 	inode = gfs2_lookupi(dip, &qstr, 1);
+ 	/* gfs2_lookupi has inconsistent callers: vfs
+@@ -257,8 +260,10 @@ struct inode *gfs2_lookup_simple(struct inode *dip, const char *name)
+ 	 */
+ 	if (inode == NULL)
+ 		return ERR_PTR(-ENOENT);
+-	else
+-		return inode;
 +
-+out_unlock:
-+	gfs2_glock_dq_uninit(&j_gh);
-+	return error;
-+}
-+
- int gfs2_lm_withdraw(struct gfs2_sbd *sdp, const char *fmt, ...)
++	ip = GFS2_I(inode);
++	ip->i_gl->gl_ops = &gfs2_sys_inode_glops;
++	return inode;
+ }
+ 
+ 
+@@ -703,7 +708,8 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 
+ 	gfs2_set_inode_blocks(inode, blocks);
+ 
+-	error = gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_inode_glops, CREATE, &ip->i_gl);
++	error = gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_user_inode_glops,
++			       CREATE, &ip->i_gl);
+ 	if (error)
+ 		goto fail_free_inode;
+ 	flush_delayed_work(&ip->i_gl->gl_work);
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index fcfd68794bfc..6e5e0f291a1a 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -432,7 +432,7 @@ static int init_locking(struct gfs2_sbd *sdp, struct gfs2_holder *mount_gh,
+ }
+ 
+ static int gfs2_lookup_root(struct super_block *sb, struct dentry **dptr,
+-			    u64 no_addr, const char *name)
++			    u64 no_addr, const char *name, int journaled)
  {
- 	struct lm_lockstruct *ls = &sdp->sd_lockstruct;
-diff --git a/fs/gfs2/util.h b/fs/gfs2/util.h
-index 8d9085c0ecde..e3539ceda1ca 100644
---- a/fs/gfs2/util.h
-+++ b/fs/gfs2/util.h
-@@ -131,6 +131,7 @@ static inline void gfs2_metatype_set(struct buffer_head *bh, u16 type,
+ 	struct gfs2_sbd *sdp = sb->s_fs_info;
+ 	struct dentry *dentry;
+@@ -444,6 +444,11 @@ static int gfs2_lookup_root(struct super_block *sb, struct dentry **dptr,
+ 		fs_err(sdp, "can't read in %s inode: %ld\n", name, PTR_ERR(inode));
+ 		return PTR_ERR(inode);
+ 	}
++	if (!journaled) {
++		struct gfs2_inode *ip = GFS2_I(inode);
++
++		ip->i_gl->gl_ops = &gfs2_sys_inode_glops;
++	}
+ 	dentry = d_make_root(inode);
+ 	if (!dentry) {
+ 		fs_err(sdp, "can't alloc %s dentry\n", name);
+@@ -492,13 +497,13 @@ static int init_sb(struct gfs2_sbd *sdp, int silent)
  
- int gfs2_io_error_i(struct gfs2_sbd *sdp, const char *function,
- 		    char *file, unsigned int line);
-+int check_journal_clean(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd);
+ 	/* Get the root inode */
+ 	no_addr = sdp->sd_sb.sb_root_dir.no_addr;
+-	ret = gfs2_lookup_root(sb, &sdp->sd_root_dir, no_addr, "root");
++	ret = gfs2_lookup_root(sb, &sdp->sd_root_dir, no_addr, "root", 1);
+ 	if (ret)
+ 		goto out;
  
- #define gfs2_io_error(sdp) \
- gfs2_io_error_i((sdp), __func__, __FILE__, __LINE__);
+ 	/* Get the master inode */
+ 	no_addr = sdp->sd_sb.sb_master_dir.no_addr;
+-	ret = gfs2_lookup_root(sb, &sdp->sd_master_dir, no_addr, "master");
++	ret = gfs2_lookup_root(sb, &sdp->sd_master_dir, no_addr, "master", 0);
+ 	if (ret) {
+ 		dput(sdp->sd_root_dir);
+ 		goto out;
+@@ -533,6 +538,7 @@ static void gfs2_others_may_mount(struct gfs2_sbd *sdp)
+ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struct gfs2_holder *ji_gh)
+ {
+ 	struct gfs2_inode *dip = GFS2_I(sdp->sd_jindex);
++	struct gfs2_inode *ip;
+ 	struct qstr name;
+ 	char buf[20];
+ 	struct gfs2_jdesc *jd;
+@@ -580,6 +586,8 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struct gfs2_holder *ji_gh)
+ 			break;
+ 		}
+ 
++		ip = GFS2_I(jd->jd_inode);
++		ip->i_gl->gl_ops = &gfs2_sys_inode_glops;
+ 		spin_lock(&sdp->sd_jindex_spin);
+ 		jd->jd_jid = sdp->sd_journals++;
+ 		list_add_tail(&jd->jd_list, &sdp->sd_jindex_list);
+diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
+index b772ff5509bb..dd32e266fd2e 100644
+--- a/fs/gfs2/sys.c
++++ b/fs/gfs2/sys.c
+@@ -264,8 +264,16 @@ static ssize_t demote_rq_store(struct gfs2_sbd *sdp, const char *buf, size_t len
+ 	if (!test_and_set_bit(SDF_DEMOTE, &sdp->sd_flags))
+ 		fs_info(sdp, "demote interface used\n");
+ 	rv = gfs2_glock_get(sdp, glnum, glops, 0, &gl);
+-	if (rv)
+-		return rv;
++	if (rv) {
++		/* If the glock is not found and it's supposed to be an inode,
++		 * check if it's one of the system inodes. */
++		if (gltype == LM_TYPE_INODE) {
++			glops = &gfs2_sys_inode_glops;
++			rv = gfs2_glock_get(sdp, glnum, glops, 0, &gl);
++			if (rv)
++				return rv;
++		}
++	}
+ 	gfs2_glock_cb(gl, glmode);
+ 	gfs2_glock_put(gl);
+ 	return len;
 -- 
 2.20.1
 
