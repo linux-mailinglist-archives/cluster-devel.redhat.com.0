@@ -2,42 +2,42 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8555F1FB15
-	for <lists+cluster-devel@lfdr.de>; Wed, 15 May 2019 21:39:53 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B7D01FB16
+	for <lists+cluster-devel@lfdr.de>; Wed, 15 May 2019 21:39:54 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 031A3C0703D3;
+	by mx1.redhat.com (Postfix) with ESMTPS id ECD3330C1AFB;
 	Wed, 15 May 2019 19:39:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CE87E600C4;
-	Wed, 15 May 2019 19:39:51 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F4291972A;
+	Wed, 15 May 2019 19:39:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A16101806B09;
-	Wed, 15 May 2019 19:39:51 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7502F5B424;
+	Wed, 15 May 2019 19:39:52 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4FJcXPk029188 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 15 May 2019 15:38:33 -0400
+	id x4FJccWF029205 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 15 May 2019 15:38:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8713360F9C; Wed, 15 May 2019 19:38:33 +0000 (UTC)
+	id CA4B060FB3; Wed, 15 May 2019 19:38:38 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-116-119.phx2.redhat.com [10.3.116.119])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 51C9860FAE
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 969E160FB1
 	for <cluster-devel@redhat.com>; Wed, 15 May 2019 19:38:33 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Wed, 15 May 2019 14:38:16 -0500
-Message-Id: <20190515193818.7642-24-rpeterso@redhat.com>
+Date: Wed, 15 May 2019 14:38:17 -0500
+Message-Id: <20190515193818.7642-25-rpeterso@redhat.com>
 In-Reply-To: <20190515193818.7642-1-rpeterso@redhat.com>
 References: <20190515193818.7642-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 v4 PATCH 23/25] gfs2: Issue revokes more
-	intelligently
+Subject: [Cluster-devel] [GFS2 v4 PATCH 24/25] gfs2: Prepare to withdraw as
+	soon as an IO error occurs in log write
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -51,176 +51,38 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Wed, 15 May 2019 19:39:52 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Wed, 15 May 2019 19:39:53 +0000 (UTC)
 
-Before this patch, function gfs2_write_revokes would call
-gfs2_ail1_empty, then traverse the sd_ail1_list looking for
-transactions that had bds which were no longer queued to a glock.
-And if it found some, it would try to issue revokes for them, up to
-a predetermined maximum. There were two problems with how it did
-this. First was the fact that gfs2_ail1_empty moves transactions
-which have nothing remaining on the ail1 list from the sd_ail1_list
-to the sd_ail2_list, thus making its traversal of sd_ail1_list
-miss them completely, and therefore, never issue revokes for them.
-Second was the fact that there were three traversals (or partial
-traversals) of the sd_ail1_list, each of which took and then
-released the sd_ail_lock lock. (First inside gfs2_ail1_empty,
-second to determine if there are any revokes to be issued, and
-third to actually issue them. All this taking and releasing of the
-sd_ail_lock meant other processes could modify the lists and the
-conditions in which we're working.
+Before this patch, function gfs2_end_log_write would detect any IO
+errors writing to the journal and put out an appropriate message,
+but it never set a withdrawing condition. Eventually, the log daemon
+would see the error and determine it was time to withdraw, but in
+the meantime, other processes could continue running as if nothing
+bad ever happened. The biggest consequence is that __gfs2_glock_put
+would BUG() when it saw that there were still unwritten items.
 
-This patch simplies the whole process by adding a new parameter
-to function gfs2_ail1_empty, max_revokes. For normal calls, this
-is passed in as 0, meaning we don't want to issue any revokes.
-For function gfs2_write_revokes, we pass in the maximum number
-of revokes we can, thus allowing gfs2_ail1_empty to add the
-revokes where needed. This simplies the code, allows for a single
-holding of the sd_ail_lock, and allows gfs2_ail1_empty to add
-revokes for all the necessary bd items without missing any.
+This patch sets the WITHDRAWING status as soon as an IO error is
+detected, and that way, the BUG will be avoided so the file system
+can be properly withdrawn and unmounted.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/log.c | 61 +++++++++++++++++++--------------------------------
- 1 file changed, 22 insertions(+), 39 deletions(-)
+ fs/gfs2/lops.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index 2764d612052d..0397aa446f63 100644
---- a/fs/gfs2/log.c
-+++ b/fs/gfs2/log.c
-@@ -189,11 +189,13 @@ static void gfs2_ail1_start(struct gfs2_sbd *sdp)
- /**
-  * gfs2_ail1_empty_one - Check whether or not a trans in the AIL has been synced
-  * @sdp: the filesystem
-- * @ai: the AIL entry
-+ * @tr: the transaction
-+ * @max_revokes: If nonzero, issue revokes for the bd items for written buffers
-  *
-  */
- 
--static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
-+static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
-+				int *max_revokes)
- {
- 	struct gfs2_bufdata *bd, *s;
- 	struct buffer_head *bh;
-@@ -220,18 +222,28 @@ static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
- 			gfs2_io_error_bh(sdp, bh);
- 			set_bit(SDF_WITHDRAWING, &sdp->sd_flags);
- 		}
--		list_move(&bd->bd_ail_st_list, &tr->tr_ail2_list);
-+		/* If we have space for revokes and the bd is no longer on any
-+		   buf list, we can just add a revoke for it here and avoid
-+		   having to put it on the ail2 list, where it would need to
-+		   be revoked later. */
-+		if (*max_revokes && list_empty(&bd->bd_list)) {
-+			gfs2_add_revoke(sdp, bd);
-+			(*max_revokes)--;
-+		} else {
-+			list_move(&bd->bd_ail_st_list, &tr->tr_ail2_list);
-+		}
+diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
+index 5166e863a926..2f4ca2e3e416 100644
+--- a/fs/gfs2/lops.c
++++ b/fs/gfs2/lops.c
+@@ -215,6 +215,7 @@ static void gfs2_end_log_write(struct bio *bio)
+ 		if (!cmpxchg(&sdp->sd_log_error, 0, bio->bi_status))
+ 			fs_err(sdp, "Error %d writing to journal, jid=%u\n",
+ 			       bio->bi_status, sdp->sd_jdesc->jd_jid);
++		set_bit(SDF_WITHDRAWING, &sdp->sd_flags);
+ 		wake_up(&sdp->sd_logd_waitq);
  	}
- }
  
- /**
-  * gfs2_ail1_empty - Try to empty the ail1 lists
-  * @sdp: The superblock
-+ * @max_revokes: If non-zero, add revokes where appropriate
-  *
-  * Tries to empty the ail1 lists, starting with the oldest first
-  */
- 
--static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
-+static int gfs2_ail1_empty(struct gfs2_sbd *sdp, int max_revokes)
- {
- 	struct gfs2_trans *tr, *s;
- 	int oldest_tr = 1;
-@@ -239,7 +251,7 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
- 
- 	spin_lock(&sdp->sd_ail_lock);
- 	list_for_each_entry_safe_reverse(tr, s, &sdp->sd_ail1_list, tr_list) {
--		gfs2_ail1_empty_one(sdp, tr);
-+		gfs2_ail1_empty_one(sdp, tr, &max_revokes);
- 		if (list_empty(&tr->tr_ail1_list) && oldest_tr)
- 			list_move(&tr->tr_list, &sdp->sd_ail2_list);
- 		else
-@@ -622,25 +634,9 @@ void gfs2_add_revoke(struct gfs2_sbd *sdp, struct gfs2_bufdata *bd)
- 
- void gfs2_write_revokes(struct gfs2_sbd *sdp)
- {
--	struct gfs2_trans *tr;
--	struct gfs2_bufdata *bd, *tmp;
--	int have_revokes = 0;
- 	int max_revokes = (sdp->sd_sb.sb_bsize - sizeof(struct gfs2_log_descriptor)) / sizeof(u64);
- 
--	gfs2_ail1_empty(sdp);
--	spin_lock(&sdp->sd_ail_lock);
--	list_for_each_entry_reverse(tr, &sdp->sd_ail1_list, tr_list) {
--		list_for_each_entry(bd, &tr->tr_ail2_list, bd_ail_st_list) {
--			if (list_empty(&bd->bd_list)) {
--				have_revokes = 1;
--				goto done;
--			}
--		}
--	}
--done:
--	spin_unlock(&sdp->sd_ail_lock);
--	if (have_revokes == 0)
--		return;
-+	gfs2_log_lock(sdp);
- 	while (sdp->sd_log_num_revoke > max_revokes)
- 		max_revokes += (sdp->sd_sb.sb_bsize - sizeof(struct gfs2_meta_header)) / sizeof(u64);
- 	max_revokes -= sdp->sd_log_num_revoke;
-@@ -651,20 +647,7 @@ void gfs2_write_revokes(struct gfs2_sbd *sdp)
- 		if (!sdp->sd_log_blks_reserved)
- 			atomic_dec(&sdp->sd_log_blks_free);
- 	}
--	gfs2_log_lock(sdp);
--	spin_lock(&sdp->sd_ail_lock);
--	list_for_each_entry_reverse(tr, &sdp->sd_ail1_list, tr_list) {
--		list_for_each_entry_safe(bd, tmp, &tr->tr_ail2_list, bd_ail_st_list) {
--			if (max_revokes == 0)
--				goto out_of_blocks;
--			if (!list_empty(&bd->bd_list))
--				continue;
--			gfs2_add_revoke(sdp, bd);
--			max_revokes--;
--		}
--	}
--out_of_blocks:
--	spin_unlock(&sdp->sd_ail_lock);
-+	gfs2_ail1_empty(sdp, max_revokes);
- 	gfs2_log_unlock(sdp);
- 
- 	if (!sdp->sd_log_num_revoke) {
-@@ -862,7 +845,7 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
- 			while (!gfs2_withdrawn(sdp)) {
- 				gfs2_ail1_start(sdp);
- 				gfs2_ail1_wait(sdp);
--				if (gfs2_ail1_empty(sdp))
-+				if (gfs2_ail1_empty(sdp, 0))
- 					break;
- 			}
- 			atomic_dec(&sdp->sd_log_blks_free); /* Adjust for unreserved buffer */
-@@ -1028,7 +1011,7 @@ int gfs2_logd(void *data)
- 
- 		did_flush = false;
- 		if (gfs2_jrnl_flush_reqd(sdp) || t == 0) {
--			gfs2_ail1_empty(sdp);
-+			gfs2_ail1_empty(sdp, 0);
- 			gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
- 				       GFS2_LFC_LOGD_JFLUSH_REQD);
- 			did_flush = true;
-@@ -1037,7 +1020,7 @@ int gfs2_logd(void *data)
- 		if (gfs2_ail_flush_reqd(sdp)) {
- 			gfs2_ail1_start(sdp);
- 			gfs2_ail1_wait(sdp);
--			gfs2_ail1_empty(sdp);
-+			gfs2_ail1_empty(sdp, 0);
- 			gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
- 				       GFS2_LFC_LOGD_AIL_FLUSH_REQD);
- 			did_flush = true;
 -- 
 2.20.1
 
