@@ -2,74 +2,39 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 418131FE96
-	for <lists+cluster-devel@lfdr.de>; Thu, 16 May 2019 06:45:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8075421D89
+	for <lists+cluster-devel@lfdr.de>; Fri, 17 May 2019 20:40:09 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 7A24D3082A8F;
-	Thu, 16 May 2019 04:45:37 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3FEA9CD4A6;
+	Fri, 17 May 2019 18:39:51 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DD7C60E39;
-	Thu, 16 May 2019 04:45:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7211D60BE0;
+	Fri, 17 May 2019 18:39:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 031BF54D3D;
-	Thu, 16 May 2019 04:45:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1AC553D87;
+	Fri, 17 May 2019 18:39:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4G4jTAx003724 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 16 May 2019 00:45:29 -0400
+	id x4HIdJTd022284 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 17 May 2019 14:39:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 734E61C94D; Thu, 16 May 2019 04:45:29 +0000 (UTC)
+	id 4E06560FAF; Fri, 17 May 2019 18:39:19 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.43])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C56F19732;
-	Thu, 16 May 2019 04:45:27 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D31BC30C1B8F;
-	Thu, 16 May 2019 04:45:25 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-	by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	15 May 2019 21:45:25 -0700
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
-	by fmsmga008.fm.intel.com with ESMTP; 15 May 2019 21:45:24 -0700
-Received: from kbuild by lkp-server01 with local (Exim 4.89)
-	(envelope-from <lkp@intel.com>)
-	id 1hR8Gi-0007tK-71; Thu, 16 May 2019 12:45:24 +0800
-Date: Thu, 16 May 2019 12:45:15 +0800
-From: kbuild test robot <lkp@intel.com>
-To: Bob Peterson <rpeterso@redhat.com>
-Message-ID: <201905161213.PtKPTvS9%lkp@intel.com>
+Received: from max.com (ovpn-117-66.ams2.redhat.com [10.36.117.66])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9095061101;
+	Fri, 17 May 2019 18:39:14 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: cluster-devel@redhat.com
+Date: Fri, 17 May 2019 20:39:11 +0200
+Message-Id: <20190517183912.7085-1-agruenba@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Patchwork-Hint: ignore
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.43]); Thu, 16 May 2019 04:45:26 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
-	Thu, 16 May 2019 04:45:26 +0000 (UTC) for IP:'192.55.52.115'
-	DOMAIN:'mga14.intel.com' HELO:'mga14.intel.com'
-	FROM:'lkp@intel.com' RCPT:''
-X-RedHat-Spam-Score: -5.001  (RCVD_IN_DNSWL_HI,
-	SPF_PASS) 192.55.52.115 mga14.intel.com 192.55.52.115
-	mga14.intel.com <lkp@intel.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, kbuild-all@01.org
-Subject: [Cluster-devel] [gfs2:for-next.recovery6o 11/25]
- fs/gfs2/lops.c:215:22: sparse: sparse: incorrect type in initializer
- (different base types)
+Subject: [Cluster-devel] [PATCH 1/2] gfs2: Clean up freeing struct gfs2_sbd
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,70 +49,124 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Thu, 16 May 2019 04:45:38 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Fri, 17 May 2019 18:40:08 +0000 (UTC)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next.recovery6o
-head:   1b7696df0c689a9c6610ebd1f1a5f5353c228ba5
-commit: 846ea61cee4947e91765afe2df90bdd9f9913349 [11/25] gfs2: Only complain the first time an io error occurs in quota or log
-reproduce:
-        # apt-get install sparse
-        git checkout 846ea61cee4947e91765afe2df90bdd9f9913349
-        make ARCH=x86_64 allmodconfig
-        make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
+Add a free_sbd function for freeing a struct gfs2_sbd.  Use that for
+freeing a super-block descriptor, either directly or via kobject_put.
+Free sd_lkstats inside the kobject release function: that way,
+gfs2_put_super will no longer leak sd_lkstats.
 
-If you fix the issue, kindly add following tag
-Reported-by: kbuild test robot <lkp@intel.com>
-
-
-sparse warnings: (new ones prefixed by >>)
-
->> fs/gfs2/lops.c:215:22: sparse: sparse: incorrect type in initializer (different base types) @@    expected int __new @@    got restricted blk_status_t [usertyint __new @@
->> fs/gfs2/lops.c:215:22: sparse:    expected int __new
->> fs/gfs2/lops.c:215:22: sparse:    got restricted blk_status_t [usertype] bi_status
-
-vim +215 fs/gfs2/lops.c
-
-   195	
-   196	/**
-   197	 * gfs2_end_log_write - end of i/o to the log
-   198	 * @bio: The bio
-   199	 *
-   200	 * Each bio_vec contains either data from the pagecache or data
-   201	 * relating to the log itself. Here we iterate over the bio_vec
-   202	 * array, processing both kinds of data.
-   203	 *
-   204	 */
-   205	
-   206	static void gfs2_end_log_write(struct bio *bio)
-   207	{
-   208		struct gfs2_sbd *sdp = bio->bi_private;
-   209		struct bio_vec *bvec;
-   210		struct page *page;
-   211		int i;
-   212		struct bvec_iter_all iter_all;
-   213	
-   214		if (bio->bi_status) {
- > 215			if (!cmpxchg(&sdp->sd_log_error, 0, bio->bi_status))
-   216				fs_err(sdp, "Error %d writing to journal, jid=%u\n",
-   217				       bio->bi_status, sdp->sd_jdesc->jd_jid);
-   218			wake_up(&sdp->sd_logd_waitq);
-   219		}
-   220	
-   221		bio_for_each_segment_all(bvec, bio, i, iter_all) {
-   222			page = bvec->bv_page;
-   223			if (page_has_buffers(page))
-   224				gfs2_end_log_write_bh(sdp, bvec, bio->bi_status);
-   225			else
-   226				mempool_free(page, gfs2_page_pool);
-   227		}
-   228	
-   229		bio_put(bio);
-   230		if (atomic_dec_and_test(&sdp->sd_log_in_flight))
-   231			wake_up(&sdp->sd_log_flush_wait);
-   232	}
-   233	
-
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
-0-DAY kernel test infrastructure                Open Source Technology Center
-https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+ fs/gfs2/ops_fstype.c | 23 ++++++++++++++---------
+ fs/gfs2/super.h      |  2 ++
+ fs/gfs2/sys.c        |  3 +--
+ 3 files changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 46f6615eaf12..f5312f3b58ee 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -64,6 +64,13 @@ static void gfs2_tune_init(struct gfs2_tune *gt)
+ 	gt->gt_complain_secs = 10;
+ }
+ 
++void free_sbd(struct gfs2_sbd *sdp)
++{
++	if (sdp->sd_lkstats)
++		free_percpu(sdp->sd_lkstats);
++	kfree(sdp);
++}
++
+ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+ {
+ 	struct gfs2_sbd *sdp;
+@@ -75,10 +82,8 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+ 
+ 	sdp->sd_vfs = sb;
+ 	sdp->sd_lkstats = alloc_percpu(struct gfs2_pcpu_lkstats);
+-	if (!sdp->sd_lkstats) {
+-		kfree(sdp);
+-		return NULL;
+-	}
++	if (!sdp->sd_lkstats)
++		goto fail;
+ 	sb->s_fs_info = sdp;
+ 
+ 	set_bit(SDF_NOJOURNALID, &sdp->sd_flags);
+@@ -137,8 +142,11 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+ 	mutex_init(&sdp->sd_freeze_mutex);
+ 
+ 	return sdp;
+-}
+ 
++fail:
++	free_sbd(sdp);
++	return NULL;
++}
+ 
+ /**
+  * gfs2_check_sb - Check superblock
+@@ -1089,8 +1097,7 @@ static int fill_super(struct super_block *sb, struct gfs2_args *args, int silent
+ 	if (error) {
+ 		/* In this case, we haven't initialized sysfs, so we have to
+ 		   manually free the sdp. */
+-		free_percpu(sdp->sd_lkstats);
+-		kfree(sdp);
++		free_sbd(sdp);
+ 		sb->s_fs_info = NULL;
+ 		return error;
+ 	}
+@@ -1193,7 +1200,6 @@ static int fill_super(struct super_block *sb, struct gfs2_args *args, int silent
+ 	gfs2_lm_unmount(sdp);
+ fail_debug:
+ 	gfs2_delete_debugfs_file(sdp);
+-	free_percpu(sdp->sd_lkstats);
+ 	/* gfs2_sys_fs_del must be the last thing we do, since it causes
+ 	 * sysfs to call function gfs2_sbd_release, which frees sdp. */
+ 	gfs2_sys_fs_del(sdp);
+@@ -1373,7 +1379,6 @@ static void gfs2_kill_sb(struct super_block *sb)
+ 	sdp->sd_root_dir = NULL;
+ 	sdp->sd_master_dir = NULL;
+ 	shrink_dcache_sb(sb);
+-	free_percpu(sdp->sd_lkstats);
+ 	kill_block_super(sb);
+ }
+ 
+diff --git a/fs/gfs2/super.h b/fs/gfs2/super.h
+index 73c97dccae21..720d257371b5 100644
+--- a/fs/gfs2/super.h
++++ b/fs/gfs2/super.h
+@@ -47,6 +47,8 @@ extern void update_statfs(struct gfs2_sbd *sdp, struct buffer_head *m_bh,
+ extern int gfs2_statfs_sync(struct super_block *sb, int type);
+ extern void gfs2_freeze_func(struct work_struct *work);
+ 
++extern void free_sbd(struct gfs2_sbd *sdp);
++
+ extern struct file_system_type gfs2_fs_type;
+ extern struct file_system_type gfs2meta_fs_type;
+ extern const struct export_operations gfs2_export_ops;
+diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
+index 08e4996adc23..348903010911 100644
+--- a/fs/gfs2/sys.c
++++ b/fs/gfs2/sys.c
+@@ -304,7 +304,7 @@ static void gfs2_sbd_release(struct kobject *kobj)
+ {
+ 	struct gfs2_sbd *sdp = container_of(kobj, struct gfs2_sbd, sd_kobj);
+ 
+-	kfree(sdp);
++	free_sbd(sdp);
+ }
+ 
+ static struct kobj_type gfs2_ktype = {
+@@ -682,7 +682,6 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
+ fail_tune:
+ 	sysfs_remove_group(&sdp->sd_kobj, &tune_group);
+ fail_reg:
+-	free_percpu(sdp->sd_lkstats);
+ 	fs_err(sdp, "error %d adding sysfs files\n", error);
+ 	kobject_put(&sdp->sd_kobj);
+ 	sb->s_fs_info = NULL;
+-- 
+2.20.1
 
