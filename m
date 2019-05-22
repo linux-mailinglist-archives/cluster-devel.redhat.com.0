@@ -2,68 +2,75 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9173263AE
-	for <lists+cluster-devel@lfdr.de>; Wed, 22 May 2019 14:20:42 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D399267A1
+	for <lists+cluster-devel@lfdr.de>; Wed, 22 May 2019 18:01:35 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 32820307E051;
-	Wed, 22 May 2019 12:20:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E44FE5D9C3;
-	Wed, 22 May 2019 12:20:15 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id BB081C0528B3;
+	Wed, 22 May 2019 16:01:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D7C460928;
+	Wed, 22 May 2019 16:00:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0717E1806B16;
-	Wed, 22 May 2019 12:20:05 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CA6F149E5;
+	Wed, 22 May 2019 16:00:50 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
 	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4MCJsX9019757 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 22 May 2019 08:19:54 -0400
+	id x4MG0alo030127 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 22 May 2019 12:00:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 04B285429D; Wed, 22 May 2019 12:19:54 +0000 (UTC)
+	id 5425A62660; Wed, 22 May 2019 16:00:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.39])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 004D75429C
-	for <cluster-devel@redhat.com>; Wed, 22 May 2019 12:19:51 +0000 (UTC)
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
-	[209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C05B5D6A9;
+	Wed, 22 May 2019 16:00:34 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id CBDB35946B
-	for <cluster-devel@redhat.com>; Wed, 22 May 2019 12:19:51 +0000 (UTC)
-Received: by mail-ot1-f69.google.com with SMTP id q12so1096614oth.15
-	for <cluster-devel@redhat.com>; Wed, 22 May 2019 05:19:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-	bh=qR0MaKhITKtU6hBO20rUhBwrXuT23cfT9o9u+4k7qjw=;
-	b=DeZQ8U9JPzd3WlgzAPZgsqS7VnWiIjknbVVMrFUbMoGtuXz0zgddVqRuWE9vXzmYTY
-	YWvsmCB9bBMss0ygR39vZwTUo7/dXAJUca8mt9tZvNY+ksixUdEAKXTqzFz3/uULcWeK
-	FZJi+5HkovVqFNHM33wwPeeDl2X4qneqykDAp+O7ujEcuV6GYbi+HvacbIenPMA8U0nb
-	R730Fwy7p18NN7I40hQEp75J3KVmsLyMhaAnW+rwQB3GWG3kegDPXEzGlmy3LLrPf1Rb
-	6xvDhwCGrek+XjEbg9koGwOnEQTMFSCnAhAXRv/JUfRmgAYwcUOiPsk84y6LL0NAgFfp
-	xGvg==
-X-Gm-Message-State: APjAAAXhM0AA4yHlWgspwMEUl9COD0cBdkciXKllD17Ruu4w6p5JRm4X
-	LpzdoKpKDuicoV3hRWQWGM8wv/MgsoRell4dbfwFGKEan8FiOY/KNC0v9uEnnjQrv21pDuwZQie
-	gDyE78N7UJkzEIIV6+328OvmDaBm2EerxPi+FzQ==
-X-Received: by 2002:a9d:63c1:: with SMTP id e1mr20475071otl.341.1558527591155; 
-	Wed, 22 May 2019 05:19:51 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqwDcWks8Ve32hEDwrgPlUaxWsbEp7qMwRFloclbktCS4gJ7NdKb2on86R3g9M+yYiMVnHNT87opgcNI0pRCrS8=
-X-Received: by 2002:a9d:63c1:: with SMTP id e1mr20475056otl.341.1558527590980; 
-	Wed, 22 May 2019 05:19:50 -0700 (PDT)
-MIME-Version: 1.0
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Wed, 22 May 2019 14:19:39 +0200
-Message-ID: <CAHc6FU71Yp9Y8ZDrJnJ3AAQazW8-WpTCLCHWYu-+JQ2tTu4Ymg@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+	by mx1.redhat.com (Postfix) with ESMTPS id A954086677;
+	Wed, 22 May 2019 16:00:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1558540819;
+	bh=ybeBGEdz8z93uxrPAOGD3+lHShFIueux/w/4xzFA4rk=;
+	h=From:In-Reply-To:References:Date:To:Cc:From;
+	b=UKX77t/fpfEZOjyQa7kY0YrLMA3NgcMAkKteVEe2pRfmd+2XCgBdP/MjYoLg6XZ3w
+	pYrQ5A1lS5sUwyJxISBDB9LIou5v2XmKB4xO+2RzZazgi78jh36jrVHWs18h9qMebq
+	bojw9O4Mt5Jzw2SMdYdlO+aWddqhpFz8EHB+BHso=
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAHc6FU71Yp9Y8ZDrJnJ3AAQazW8-WpTCLCHWYu-+JQ2tTu4Ymg@mail.gmail.com>
+References: <CAHc6FU71Yp9Y8ZDrJnJ3AAQazW8-WpTCLCHWYu-+JQ2tTu4Ymg@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAHc6FU71Yp9Y8ZDrJnJ3AAQazW8-WpTCLCHWYu-+JQ2tTu4Ymg@mail.gmail.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+	tags/gfs2-5.1.fixes2
+X-PR-Tracked-Commit-Id: 5a5ec83d6ac974b12085cd99b196795f14079037
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 651bae980e3f3e6acf0d297ced08f9d7af71a8c9
+Message-Id: <155854081908.3461.15873360975965791406.pr-tracker-bot@kernel.org>
+Date: Wed, 22 May 2019 16:00:19 +0000
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.26]);
+	Wed, 22 May 2019 16:00:24 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Wed, 22 May 2019 16:00:24 +0000 (UTC) for IP:'198.145.29.99'
+	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
+	FROM:'pr-tracker-bot@kernel.org' RCPT:''
+X-RedHat-Spam-Score: -5.1  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE) 198.145.29.99 mail.kernel.org 198.145.29.99
+	mail.kernel.org <pr-tracker-bot@kernel.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	LKML <linux-kernel@vger.kernel.org>
-Subject: [Cluster-devel] [GIT PULL] gfs2: Fix sign extension bug in
+Subject: Re: [Cluster-devel] [GIT PULL] gfs2: Fix sign extension bug in
 	gfs2_update_stats
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -78,36 +85,19 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Wed, 22 May 2019 12:20:41 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Wed, 22 May 2019 16:01:34 +0000 (UTC)
 
-Linus,
+The pull request you sent on Wed, 22 May 2019 14:19:39 +0200:
 
-could you please pull the following gfs2 fix?
+> git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-5.1.fixes2
 
-Thanks,
-Andreas
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/651bae980e3f3e6acf0d297ced08f9d7af71a8c9
 
-The following changes since commit a188339ca5a396acc588e5851ed7e19f66b0ebd9:
+Thank you!
 
-  Linux 5.2-rc1 (2019-05-19 15:47:09 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-tags/gfs2-5.1.fixes2
-
-for you to fetch changes up to 5a5ec83d6ac974b12085cd99b196795f14079037:
-
-  gfs2: Fix sign extension bug in gfs2_update_stats (2019-05-22 14:09:44 +0200)
-
-----------------------------------------------------------------
-Fix a gfs2 sign extension bug introduced in v4.3.
-
-----------------------------------------------------------------
-Andreas Gruenbacher (1):
-      gfs2: Fix sign extension bug in gfs2_update_stats
-
- fs/gfs2/lock_dlm.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.wiki.kernel.org/userdoc/prtracker
 
