@@ -2,74 +2,74 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ACE726BD9
-	for <lists+cluster-devel@lfdr.de>; Wed, 22 May 2019 21:30:41 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C86426BEE
+	for <lists+cluster-devel@lfdr.de>; Wed, 22 May 2019 21:31:46 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id AB85B3B718;
-	Wed, 22 May 2019 19:30:39 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id ABB31285AE;
+	Wed, 22 May 2019 19:31:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93D8517CC0;
-	Wed, 22 May 2019 19:30:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 57E5C1001284;
+	Wed, 22 May 2019 19:31:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 77D145B423;
-	Wed, 22 May 2019 19:30:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6EFEA5B425;
+	Wed, 22 May 2019 19:31:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4MJUa3O005376 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 22 May 2019 15:30:36 -0400
+	id x4MJVaL2005414 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 22 May 2019 15:31:36 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8802C54477; Wed, 22 May 2019 19:30:36 +0000 (UTC)
+	id 1CAD74522; Wed, 22 May 2019 19:31:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx06.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.30])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6538662660;
-	Wed, 22 May 2019 19:30:34 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx05.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.29])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 02E5E1EC;
+	Wed, 22 May 2019 19:31:34 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8E0F244BC4;
-	Wed, 22 May 2019 19:30:19 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 929F6330259;
+	Wed, 22 May 2019 19:31:29 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 6D57E217F9;
-	Wed, 22 May 2019 19:30:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 758082173C;
+	Wed, 22 May 2019 19:31:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1558553419;
-	bh=TSxv4XIeGGv8euTEvyL7iVFJBgCZzL+AxbODGUtTQsI=;
+	s=default; t=1558553489;
+	bh=hQo1eYLvoR7XE7DvJDItM7yuvQ2SUftFpDLjThbizwY=;
 	h=From:To:Cc:Subject:Date:From;
-	b=1LT5d0D4lc5AHLKO/7VdHSLRqUWHtrdF98UmGkXsDsm0VMxfIY9gil5es6kvB+s15
-	PcIVmluJoDZt1NuD6Sx7Xfm4V2Vo7R9+U/Ub6yFENgkP/9OE/J4tVJKqYjfxr+kLkg
-	L6tw0aHnUCxLBvAv+pSq57DDPSHsenMeZEMJl7tQ=
+	b=tJUV7lbFxaVbVC4Tf6GVpXMC7j+esjnlB6R+MSIQjo8THdgpxyAgu4NkMe3KFNJBc
+	4r/wUDibgezk4F9L46m24XR0d5d5LXr0C2K7MqrMGYuMKkRIB24dRJSPeODTM4Qsv4
+	AcJCF4OA6ui1hUX569XrKOQQGnhjgx6QSGew9eyE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 22 May 2019 15:28:24 -0400
-Message-Id: <20190522193017.26567-1-sashal@kernel.org>
+Date: Wed, 22 May 2019 15:29:56 -0400
+Message-Id: <20190522193127.27079-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.30]);
-	Wed, 22 May 2019 19:30:19 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]);
-	Wed, 22 May 2019 19:30:19 +0000 (UTC) for IP:'198.145.29.99'
+	(mx1.redhat.com [10.5.110.29]);
+	Wed, 22 May 2019 19:31:29 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]);
+	Wed, 22 May 2019 19:31:29 +0000 (UTC) for IP:'198.145.29.99'
 	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
 	FROM:'sashal@kernel.org' RCPT:''
 X-RedHat-Spam-Score: -5.101  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
 	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
 	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
 	<sashal@kernel.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.30
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.29
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.9 001/114] gfs2: Fix lru_count
-	going negative
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.4 01/92] gfs2: Fix lru_count going
+	negative
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,8 +83,8 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Wed, 22 May 2019 19:30:40 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Wed, 22 May 2019 19:31:44 +0000 (UTC)
 
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
 
@@ -120,7 +120,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 13 insertions(+), 9 deletions(-)
 
 diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 7a8b1d72e3d91..efd44d5645d83 100644
+index 09a0cf5f3dd86..1eb737c466ddc 100644
 --- a/fs/gfs2/glock.c
 +++ b/fs/gfs2/glock.c
 @@ -136,22 +136,26 @@ static int demote_ok(const struct gfs2_glock *gl)
@@ -156,7 +156,7 @@ index 7a8b1d72e3d91..efd44d5645d83 100644
  		list_del_init(&gl->gl_lru);
  		atomic_dec(&lru_count);
  		clear_bit(GLF_LRU, &gl->gl_flags);
-@@ -1048,8 +1052,7 @@ void gfs2_glock_dq(struct gfs2_holder *gh)
+@@ -1040,8 +1044,7 @@ void gfs2_glock_dq(struct gfs2_holder *gh)
  		    !test_bit(GLF_DEMOTE, &gl->gl_flags))
  			fast_path = 1;
  	}
@@ -166,7 +166,7 @@ index 7a8b1d72e3d91..efd44d5645d83 100644
  		gfs2_glock_add_to_lru(gl);
  
  	trace_gfs2_glock_queue(gh, 0);
-@@ -1349,6 +1352,7 @@ __acquires(&lru_lock)
+@@ -1341,6 +1344,7 @@ __acquires(&lru_lock)
  		if (!spin_trylock(&gl->gl_lockref.lock)) {
  add_back_to_lru:
  			list_add(&gl->gl_lru, &lru_list);
@@ -174,7 +174,7 @@ index 7a8b1d72e3d91..efd44d5645d83 100644
  			atomic_inc(&lru_count);
  			continue;
  		}
-@@ -1356,7 +1360,6 @@ __acquires(&lru_lock)
+@@ -1348,7 +1352,6 @@ __acquires(&lru_lock)
  			spin_unlock(&gl->gl_lockref.lock);
  			goto add_back_to_lru;
  		}
@@ -182,7 +182,7 @@ index 7a8b1d72e3d91..efd44d5645d83 100644
  		gl->gl_lockref.count++;
  		if (demote_ok(gl))
  			handle_callback(gl, LM_ST_UNLOCKED, 0, false);
-@@ -1392,6 +1395,7 @@ static long gfs2_scan_glock_lru(int nr)
+@@ -1384,6 +1387,7 @@ static long gfs2_scan_glock_lru(int nr)
  		if (!test_bit(GLF_LOCK, &gl->gl_flags)) {
  			list_move(&gl->gl_lru, &dispose);
  			atomic_dec(&lru_count);
