@@ -2,42 +2,42 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EBD427D9F
-	for <lists+cluster-devel@lfdr.de>; Thu, 23 May 2019 15:05:31 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 06CA427DAA
+	for <lists+cluster-devel@lfdr.de>; Thu, 23 May 2019 15:05:46 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 98DAE30044C9;
-	Thu, 23 May 2019 13:05:29 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 6685FEC558;
+	Thu, 23 May 2019 13:05:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E780620D0;
-	Thu, 23 May 2019 13:05:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E9391001E63;
+	Thu, 23 May 2019 13:05:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3519F5B427;
-	Thu, 23 May 2019 13:05:24 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2D2DA5B424;
+	Thu, 23 May 2019 13:05:28 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4ND4WrL010004 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 23 May 2019 09:04:32 -0400
+	id x4ND4XMb010016 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 23 May 2019 09:04:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A51D36090E; Thu, 23 May 2019 13:04:32 +0000 (UTC)
+	id 0607567E64; Thu, 23 May 2019 13:04:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-117-25.phx2.redhat.com [10.3.117.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7063469186
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C5E1F6090E
 	for <cluster-devel@redhat.com>; Thu, 23 May 2019 13:04:32 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu, 23 May 2019 08:04:12 -0500
-Message-Id: <20190523130421.21003-18-rpeterso@redhat.com>
+Date: Thu, 23 May 2019 08:04:13 -0500
+Message-Id: <20190523130421.21003-19-rpeterso@redhat.com>
 In-Reply-To: <20190523130421.21003-1-rpeterso@redhat.com>
 References: <20190523130421.21003-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH v6 17/26] gfs2: Don't loop forever in
-	gfs2_freeze if withdrawn
+Subject: [Cluster-devel] [GFS2 PATCH v6 18/26] gfs2: Make secondary
+	withdrawers wait for first withdrawer
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -51,45 +51,94 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Thu, 23 May 2019 13:05:30 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Thu, 23 May 2019 13:05:44 +0000 (UTC)
 
-Before this patch, function gfs2_freeze would loop forever if the
-file system trying to be frozen is withdrawn. That's because function
-gfs2_lock_fs_check_clean tries to enqueue the glock of the journal
-and the gfs2_glock returns -EIO because you can't enqueue a journaled
-glock after a withdraw.
+Before this patch, if a process encountered an error and decided to
+withdraw, if another process was already in the process of withdrawing,
+the secondary withdraw would be silently ignored, which set it free
+to proceed with its processing, unlock any locks, etc. That's correct
+behavior if the original withdrawer encounters further errors down
+the road. However, second withdrawers need to wait for the first
+withdrawer to finish its withdraw before proceeding. If we don't wait
+we could end up assuming everything is alright, unlock glocks and
+telling other nodes they can have the glock, despite the fact that
+a withdraw is still ongoing and may require a journal replay before
+any locks are released. For example, if an rgrp glock is freed
+by a process that didn't wait for the withdraw, a journal replay
+could introduce file system corruption by replaying a rgrp block
+that has already been granted to another node.
 
-This patch moves the check for file system withdraw inside the loop
-so that the loop can end when withdraw occurs.
+This patch makes secondary withdrawers wait until the primary
+withdrawer is finished with its processing before proceeding.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/super.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ fs/gfs2/incore.h |  3 +++
+ fs/gfs2/util.c   | 21 +++++++++++++++++++--
+ 2 files changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 5ea8d45e989d..110f00024950 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -1016,12 +1016,12 @@ static int gfs2_freeze(struct super_block *sb)
- 	if (atomic_read(&sdp->sd_freeze_state) != SFS_UNFROZEN)
- 		goto out;
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 3f9935730ffb..b8f6e2fd86ae 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -630,6 +630,7 @@ enum {
+ 	SDF_FORCE_AIL_FLUSH     = 9,
+ 	SDF_FS_FROZEN           = 10,
+ 	SDF_WITHDRAWING		= 11, /* Will withdraw eventually */
++	SDF_WITHDRAW_IN_PROG	= 12, /* Withdraw is in progress */
+ };
  
--	if (gfs2_withdrawn(sdp)) {
--		error = -EINVAL;
--		goto out;
--	}
--
- 	for (;;) {
-+		if (gfs2_withdrawn(sdp)) {
-+			error = -EINVAL;
-+			goto out;
-+		}
+ enum gfs2_freeze_state {
+@@ -839,6 +840,8 @@ struct gfs2_sbd {
+ 	struct bio *sd_log_bio;
+ 	wait_queue_head_t sd_log_flush_wait;
+ 	int sd_log_error; /* First log error */
++	atomic_t sd_withdrawer;
++	wait_queue_head_t sd_withdraw_wait;
+ 
+ 	atomic_t sd_reserving_log;
+ 	wait_queue_head_t sd_reserving_log_wait;
+diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+index 048236163be7..b678412d968a 100644
+--- a/fs/gfs2/util.c
++++ b/fs/gfs2/util.c
+@@ -89,9 +89,23 @@ int gfs2_lm_withdraw(struct gfs2_sbd *sdp, const char *fmt, ...)
+ 	struct va_format vaf;
+ 
+ 	if (sdp->sd_args.ar_errors == GFS2_ERRORS_WITHDRAW &&
+-	    test_and_set_bit(SDF_WITHDRAWN, &sdp->sd_flags))
+-		return 0;
++	    test_and_set_bit(SDF_WITHDRAWN, &sdp->sd_flags)) {
++		if (!test_bit(SDF_WITHDRAW_IN_PROG, &sdp->sd_flags))
++			return -1;
 +
- 		error = gfs2_lock_fs_check_clean(sdp, &sdp->sd_freeze_gh);
- 		if (!error)
- 			break;
++		fs_warn(sdp, "Pid %d waiting for process %d to withdraw.\n",
++			pid_nr(task_pid(current)),
++			atomic_read(&sdp->sd_withdrawer));
++		wait_on_bit(&sdp->sd_flags, SDF_WITHDRAW_IN_PROG,
++			    TASK_UNINTERRUPTIBLE);
++		fs_warn(sdp, "Pid %d done waiting for process %d.\n",
++			pid_nr(task_pid(current)),
++			atomic_read(&sdp->sd_withdrawer));
++		return -1;
++	}
+ 
++	set_bit(SDF_WITHDRAW_IN_PROG, &sdp->sd_flags);
++	atomic_set(&sdp->sd_withdrawer, pid_nr(task_pid(current)));
+ 	if (fmt) {
+ 		va_start(args, fmt);
+ 
+@@ -119,6 +133,9 @@ int gfs2_lm_withdraw(struct gfs2_sbd *sdp, const char *fmt, ...)
+ 		set_bit(SDF_SKIP_DLM_UNLOCK, &sdp->sd_flags);
+ 		fs_err(sdp, "withdrawn\n");
+ 		dump_stack();
++		clear_bit(SDF_WITHDRAW_IN_PROG, &sdp->sd_flags);
++		smp_mb__after_atomic();
++		wake_up_bit(&sdp->sd_flags, SDF_WITHDRAW_IN_PROG);
+ 	}
+ 
+ 	if (sdp->sd_args.ar_errors == GFS2_ERRORS_PANIC)
 -- 
 2.21.0
 
