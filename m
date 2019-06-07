@@ -2,69 +2,108 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622F337719
-	for <lists+cluster-devel@lfdr.de>; Thu,  6 Jun 2019 16:48:06 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55EF4391CB
+	for <lists+cluster-devel@lfdr.de>; Fri,  7 Jun 2019 18:22:58 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 99504307EA81;
-	Thu,  6 Jun 2019 14:47:34 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id CC43F30872C4;
+	Fri,  7 Jun 2019 16:22:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 144355F7DD;
-	Thu,  6 Jun 2019 14:47:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6970F60E39;
+	Fri,  7 Jun 2019 16:22:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EDD501843660;
-	Thu,  6 Jun 2019 14:47:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E55C1806B15;
+	Fri,  7 Jun 2019 16:22:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x56EjCTo029260 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 6 Jun 2019 10:45:12 -0400
+	id x57GLwYw012665 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 7 Jun 2019 12:21:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2D72B7BE7D; Thu,  6 Jun 2019 14:45:12 +0000 (UTC)
+	id 44B187FEAB; Fri,  7 Jun 2019 16:21:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27B9D7BE79
-	for <cluster-devel@redhat.com>; Thu,  6 Jun 2019 14:45:09 +0000 (UTC)
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
-	[209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.46])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DCAB80883;
+	Fri,  7 Jun 2019 16:21:52 +0000 (UTC)
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+	[216.71.145.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C2790C0578FA
-	for <cluster-devel@redhat.com>; Thu,  6 Jun 2019 14:45:09 +0000 (UTC)
-Received: by mail-oi1-f198.google.com with SMTP id c64so671280oia.22
-	for <cluster-devel@redhat.com>; Thu, 06 Jun 2019 07:45:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-	bh=csaYIwXQEBX950eZ96n2wzROQkFVAMhN8cg2KCdNjEI=;
-	b=fAKg3BMV1PRO4FYfqfmdryPB48AaVkXhQ5FLm0biOTp7UZOM0FsKROZSzbOZBhedZu
-	2+fkMHQXLt5mB3NdICG2nSeHYYHWoKzw4WC89ACS0omiBjUyJBQWFPDRi8ikYV+M0zjj
-	j+xD7lBKi+cZqCzwZRAfP51CNoKkDrsihNUvU3A4Ku4a073KlVWUA5XHIJmOVXmLT9QO
-	jgaFV4QZy5BS4lITPesryA7AIEEasZruLWV9fzQnN3p05Xlj4pvnCMZgkGLKy0xLwZRH
-	J9osHSjtIm1UX69TsxuMQvdLSy5xrmdGVfOd9lzEn4egBK8jx4GRaE8/m+mwtcTUbq+l
-	B0Sg==
-X-Gm-Message-State: APjAAAUwXfx7O9p5OV2gnGvlIdwfuw2fip7MRiXJ+VfyDAyS/G8L216D
-	8IpxmQWLfvKnjgaD9aV4tWfXviXcpXHQlwGebjw8YgD3E2IcEFfTqFCRSEnt7Ghhs2/bRSfTaNz
-	88iy244Vlgrh7SqU7rVckaPt/YxkKGAWK88+l8Q==
-X-Received: by 2002:a9d:704f:: with SMTP id x15mr15024600otj.297.1559832309051;
-	Thu, 06 Jun 2019 07:45:09 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqzOiNSsDsz1tD3ucAPIfuAw+X51u3KUPDzK8U3WMrZ8VztMqbCKvv2H9Im2Ar2t1P4QYr7//APmNuZpKQS1yQM=
-X-Received: by 2002:a9d:704f:: with SMTP id x15mr15024571otj.297.1559832308563;
-	Thu, 06 Jun 2019 07:45:08 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 5282A3066800;
+	Fri,  7 Jun 2019 16:21:12 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+	dkim=none (message not signed) header.i=none;
+	spf=None smtp.pra=ross.lagerwall@citrix.com;
+	spf=Pass smtp.mailfrom=ross.lagerwall@citrix.com;
+	spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+	authenticity information available from domain of
+	ross.lagerwall@citrix.com) identity=pra;
+	client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+	envelope-from="ross.lagerwall@citrix.com";
+	x-sender="ross.lagerwall@citrix.com";
+	x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+	ross.lagerwall@citrix.com designates 162.221.158.21 as
+	permitted sender) identity=mailfrom;
+	client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+	envelope-from="ross.lagerwall@citrix.com";
+	x-sender="ross.lagerwall@citrix.com";
+	x-conformance=sidf_compatible; x-record-type="v=spf1";
+	x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+	ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+	ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+	ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+	authenticity information available from domain of
+	postmaster@mail.citrix.com) identity=helo;
+	client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+	envelope-from="ross.lagerwall@citrix.com";
+	x-sender="postmaster@mail.citrix.com";
+	x-conformance=sidf_compatible
+IronPort-SDR: 2eFvql2en0umVBHwtVlo1bfdK2kaLM1PyJSCIlTmiskzOTIPQGGBdt2UzE6+2YTYvwygt543lo
+	aKW5grvHHVYssWZsAwFkU3ui6l0hUaQbpowxnX7ttD1HDuc4f2IVHkiSJvDtiejI8Io8H/HcTl
+	Jkbdoz9/Gxe10rAvAqAdjL3xwOht2CNFPeXfigaz+HZhve00+008tLhwUeRkgOk1mODosX9+Hq
+	an1qKRw33y15PnrwzTrrb2HuFC/1fXTkVbGgXY9r4JXEO4Mg4jj3MNvXwK8HsHzA0m2kEy8HQD
+	e3E=
+X-SBRS: -0.9
+X-MesageID: 1465375
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.63,563,1557201600"; 
+   d="scan'208";a="1465375"
+To: Andreas Gruenbacher <agruenba@redhat.com>, <cluster-devel@redhat.com>
+References: <20190507203204.26008-1-agruenba@redhat.com>
+	<20190507203204.26008-11-agruenba@redhat.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Message-ID: <5c5d673b-57dd-7720-4420-badac31b76c3@citrix.com>
+Date: Fri, 7 Jun 2019 17:19:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.4.0
 MIME-Version: 1.0
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Thu, 6 Jun 2019 16:44:57 +0200
-Message-ID: <CAHc6FU6XnohtY0q365cxhx3-mAQqTCyHdL61XV1Z2wbTQL_EPg@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <20190507203204.26008-11-agruenba@redhat.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
+	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
+	Fri, 07 Jun 2019 16:21:35 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
+	Fri, 07 Jun 2019 16:21:35 +0000 (UTC) for IP:'216.71.145.155'
+	DOMAIN:'esa3.hc3370-68.iphmx.com' HELO:'esa3.hc3370-68.iphmx.com'
+	FROM:'ross.lagerwall@citrix.com' RCPT:''
+X-RedHat-Spam-Score: 0  (SPF_HELO_NONE,
+	SPF_PASS) 216.71.145.155 esa3.hc3370-68.iphmx.com
+	216.71.145.155 esa3.hc3370-68.iphmx.com
+	<ross.lagerwall@citrix.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: [Cluster-devel] [GET PULL] Revert "gfs2: Replace gl_revokes with a
-	GLF flag"
+Subject: Re: [Cluster-devel] [GFS2 PATCH 11/12] gfs2: Fix iomap write page
+ reclaim deadlock
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,41 +117,60 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Thu, 06 Jun 2019 14:48:05 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 07 Jun 2019 16:22:56 +0000 (UTC)
 
-Hi Linus,
+On 5/7/19 9:32 PM, Andreas Gruenbacher wrote:
+> Since commit 64bc06bb32ee ("gfs2: iomap buffered write support"), gfs2 is doing
+> buffered writes by starting a transaction in iomap_begin, writing a range of
+> pages, and ending that transaction in iomap_end.  This approach suffers from
+> two problems:
+> 
+>    (1) Any allocations necessary for the write are done in iomap_begin, so when
+>    the data aren't journaled, there is no need for keeping the transaction open
+>    until iomap_end.
+> 
+>    (2) Transactions keep the gfs2 log flush lock held.  When
+>    iomap_file_buffered_write calls balance_dirty_pages, this can end up calling
+>    gfs2_write_inode, which will try to flush the log.  This requires taking the
+>    log flush lock which is already held, resulting in a deadlock.
+> 
+> Fix both of these issues by not keeping transactions open from iomap_begin to
+> iomap_end.  Instead, start a small transaction in page_prepare and end it in
+> page_done when necessary.
+> 
+Unfortunately, this patch broke growing gfs2 filesystems. It is easy to 
+reproduce:
 
-could you please pull the following revert? The patch turned out to be broken.
+$ mkfs.gfs2 -t xxx:yyy /dev/xvdb  4369065
+$ mount /dev/xvdb /mnt
+$ gfs2_grow /mnt (doesn't finish)
+FS: Mount point:             /mnt
+FS: Device:                  /dev/xvdb
+FS: Size:                    4369062 (0x42aaa6)
+DEV: Length:                 13107200 (0xc80000)
+The file system will grow by 34133MB.
 
-Thank you very much,
-Andreas
+Looking at the kernel log, I see it hits the following assertion and 
+then hangs trying to withdraw the filesystem (which is a separate 
+problem, presumably):
 
-The following changes since commit f2c7c76c5d0a443053e94adb9f0918fa2fb85c3a:
+gfs2: fsid=xxx:yyy.0: fatal: assertion "(nbuf <= tr->tr_blocks) && 
+(tr->tr_num_revoke <= tr->tr_revokes)" failed
+    function = gfs2_trans_end, file = fs/gfs2/trans.c, line = 117
+gfs2: fsid=xxx:yyy.0: about to withdraw this file system
 
-  Linux 5.2-rc3 (2019-06-02 13:55:33 -0700)
+Rearranging the code so that it prints information about the transaction 
+before the failed withdrawal attempt shows:
+gfs2: fsid=xxx:yyy.0: Transaction created at: 
+iomap_write_begin.constprop.45+0xbc/0x380
+gfs2: fsid=xxx:yyy.0: blocks=1 revokes=0 reserved=8 touched=1
+gfs2: fsid=xxx:yyy.0: Buf 1/0 Databuf 1/0 Revoke 0/0
 
-are available in the Git repository at:
+Reverting this commit fixes the issue. Tested with git master as of 
+today (16d72dd4891fe).
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-tags/gfs2-v5.2.fixes
-
-for you to fetch changes up to 638803d4568121d73a266e440530f880ffa2dacc:
-
-  Revert "gfs2: Replace gl_revokes with a GLF flag" (2019-06-06 16:29:26 +0200)
-
-----------------------------------------------------------------
-Revert commit "gfs2: Replace gl_revokes with a GLF flag".
-
-----------------------------------------------------------------
-Bob Peterson (1):
-      Revert "gfs2: Replace gl_revokes with a GLF flag"
-
- fs/gfs2/glock.c  |  4 ++--
- fs/gfs2/incore.h |  2 +-
- fs/gfs2/log.c    |  4 +---
- fs/gfs2/lops.c   | 33 +++++++++------------------------
- fs/gfs2/main.c   |  1 +
- fs/gfs2/super.c  |  2 +-
- 6 files changed, 15 insertions(+), 31 deletions(-)
+Thanks,
+-- 
+Ross Lagerwall
 
