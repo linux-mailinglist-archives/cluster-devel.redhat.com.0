@@ -2,42 +2,119 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D2F139FA5
-	for <lists+cluster-devel@lfdr.de>; Sat,  8 Jun 2019 14:20:48 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id D32F13C2AF
+	for <lists+cluster-devel@lfdr.de>; Tue, 11 Jun 2019 06:47:38 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9E3953082204;
-	Sat,  8 Jun 2019 12:20:45 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C1C67307D91F;
+	Tue, 11 Jun 2019 04:47:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0762810013D9;
-	Sat,  8 Jun 2019 12:20:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD9865D721;
+	Tue, 11 Jun 2019 04:47:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 735113D87;
-	Sat,  8 Jun 2019 12:20:30 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E78154D3D;
+	Tue, 11 Jun 2019 04:47:29 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
 	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x58CG7Po004280 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 8 Jun 2019 08:16:07 -0400
+	id x5B4kpMk002361 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 11 Jun 2019 00:46:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B93E619C58; Sat,  8 Jun 2019 12:16:07 +0000 (UTC)
+	id 9049119C78; Tue, 11 Jun 2019 04:46:51 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.com (unknown [10.40.205.64])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 93A4D19C59;
-	Sat,  8 Jun 2019 12:16:04 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>, cluster-devel@redhat.com
-Date: Sat,  8 Jun 2019 14:16:01 +0200
-Message-Id: <20190608121601.4897-1-agruenba@redhat.com>
-In-Reply-To: <5c5d673b-57dd-7720-4420-badac31b76c3@citrix.com>
-References: <5c5d673b-57dd-7720-4420-badac31b76c3@citrix.com>
+Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.39])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B46F19C70
+	for <cluster-devel@redhat.com>; Tue, 11 Jun 2019 04:46:49 +0000 (UTC)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 4FA7458E33
+	for <cluster-devel@redhat.com>; Tue, 11 Jun 2019 04:46:22 +0000 (UTC)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+	by aserp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x5B4hc6d179818; Tue, 11 Jun 2019 04:45:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=subject : from : to :
+	cc : date : message-id : mime-version : content-type :
+	content-transfer-encoding; s=corp-2018-07-02;
+	bh=cAdDQjLmw3paRsCYayAMtBFRH59fRNc4vYLBHuqjsSA=;
+	b=AnqW+epX9OYHOzw5sTwOrIxO7AnaE4zZ8lKJiAKmrhvGxrpd3f8wxkkZBflgbEq1sOzY
+	KV9eHWtYAaDLZEqtrf3ZJguDUBlZ5gkFNbVMpa3eMHo3FyTTFKbmVm7G73D6lbw7s1dS
+	5J0Lk/d+rVXhiXXKr/mH872REZ1FpGGZjopVCJKDYW2v1wPRflHiayy7E/k6yaqVysXu
+	pMLLiLZptpvWSoeeq4y3wkBrabcsyoDe44zUwkjmFZpE9J0c9WugSVczTNIfBX8CJsY6
+	ZMZfEBndl9+QIq5/p+cyhxYC9prtn2PzyyKr32uqZ/hzXp9SjaAVfhiNdQ0vX/gWicFf
+	oA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by aserp2130.oracle.com with ESMTP id 2t02hejre6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 11 Jun 2019 04:45:44 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x5B4il0Y048614; Tue, 11 Jun 2019 04:45:43 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by userp3020.oracle.com with ESMTP id 2t1jph7wm8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=FAIL); Tue, 11 Jun 2019 04:45:43 +0000
+Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
+	by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x5B4jhlt050428;
+	Tue, 11 Jun 2019 04:45:43 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+	by userp3020.oracle.com with ESMTP id 2t1jph7wm5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 11 Jun 2019 04:45:43 +0000
+Received: from abhmp0022.oracle.com (abhmp0022.oracle.com [141.146.116.28])
+	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x5B4jZLV002246;
+	Tue, 11 Jun 2019 04:45:36 GMT
+Received: from localhost (/67.169.218.210)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Mon, 10 Jun 2019 21:45:35 -0700
+From: "Darrick J. Wong" <darrick.wong@oracle.com>
+To: matthew.garrett@nebula.com, yuchao0@huawei.com, tytso@mit.edu,
+	darrick.wong@oracle.com, shaggy@kernel.org, ard.biesheuvel@linaro.org, 
+	josef@toxicpanda.com, clm@fb.com, adilger.kernel@dilger.ca,
+	jk@ozlabs.org, jack@suse.com, dsterba@suse.com, jaegeuk@kernel.org,
+	viro@zeniv.linux.org.uk
+Date: Mon, 10 Jun 2019 21:45:32 -0700
+Message-ID: <156022833285.3227089.11990489625041926920.stgit@magnolia>
+User-Agent: StGit/0.17.1-dirty
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9284
+	signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=864
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+	definitions=main-1906110033
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.39]); Tue, 11 Jun 2019 04:46:32 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
+	Tue, 11 Jun 2019 04:46:32 +0000 (UTC) for IP:'141.146.126.79'
+	DOMAIN:'aserp2130.oracle.com' HELO:'aserp2130.oracle.com'
+	FROM:'darrick.wong@oracle.com' RCPT:''
+X-RedHat-Spam-Score: -102.409  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_MED, SPF_HELO_PASS, SPF_NONE, T_DKIMWL_WL_HIGH,
+	UNPARSEABLE_RELAY,
+	USER_IN_WHITELIST) 141.146.126.79 aserp2130.oracle.com 141.146.126.79
+	aserp2130.oracle.com <darrick.wong@oracle.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] [GFS2 PATCH 11/12] gfs2: Fix iomap write page
-	reclaim deadlock
+Cc: linux-xfs@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	reiserfs-devel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+	linux-nilfs@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-ext4@vger.kernel.org, ocfs2-devel@oss.oracle.com
+Subject: [Cluster-devel] [PATCH 0/4] vfs: clean up SETFLAGS and FSSETXATTR
+	option processing
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -51,89 +128,30 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Sat, 08 Jun 2019 12:20:46 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Tue, 11 Jun 2019 04:47:37 +0000 (UTC)
 
-Hi Ross,
+Hi all,
 
-On Fri, 7 Jun 2019 at 18:21, Ross Lagerwall <ross.lagerwall@citrix.com> wrote:
-> On 5/7/19 9:32 PM, Andreas Gruenbacher wrote:
-> > Since commit 64bc06bb32ee ("gfs2: iomap buffered write support"), gfs2 is doing
-> > buffered writes by starting a transaction in iomap_begin, writing a range of
-> > pages, and ending that transaction in iomap_end.  This approach suffers from
-> > two problems:
-> >
-> >    (1) Any allocations necessary for the write are done in iomap_begin, so when
-> >    the data aren't journaled, there is no need for keeping the transaction open
-> >    until iomap_end.
-> >
-> >    (2) Transactions keep the gfs2 log flush lock held.  When
-> >    iomap_file_buffered_write calls balance_dirty_pages, this can end up calling
-> >    gfs2_write_inode, which will try to flush the log.  This requires taking the
-> >    log flush lock which is already held, resulting in a deadlock.
-> >
-> > Fix both of these issues by not keeping transactions open from iomap_begin to
-> > iomap_end.  Instead, start a small transaction in page_prepare and end it in
-> > page_done when necessary.
-> >
-> Unfortunately, this patch broke growing gfs2 filesystems. It is easy to
-> reproduce:
->
-> $ mkfs.gfs2 -t xxx:yyy /dev/xvdb  4369065
-> $ mount /dev/xvdb /mnt
-> $ gfs2_grow /mnt (doesn't finish)
-> FS: Mount point:             /mnt
-> FS: Device:                  /dev/xvdb
-> FS: Size:                    4369062 (0x42aaa6)
-> DEV: Length:                 13107200 (0xc80000)
-> The file system will grow by 34133MB.
->
-> Looking at the kernel log, I see it hits the following assertion and
-> then hangs trying to withdraw the filesystem (which is a separate
-> problem, presumably):
->
-> gfs2: fsid=xxx:yyy.0: fatal: assertion "(nbuf <= tr->tr_blocks) &&
-> (tr->tr_num_revoke <= tr->tr_revokes)" failed
->     function = gfs2_trans_end, file = fs/gfs2/trans.c, line = 117
-> gfs2: fsid=xxx:yyy.0: about to withdraw this file system
->
-> Rearranging the code so that it prints information about the transaction
-> before the failed withdrawal attempt shows:
-> gfs2: fsid=xxx:yyy.0: Transaction created at:
-> iomap_write_begin.constprop.45+0xbc/0x380
-> gfs2: fsid=xxx:yyy.0: blocks=1 revokes=0 reserved=8 touched=1
-> gfs2: fsid=xxx:yyy.0: Buf 1/0 Databuf 1/0 Revoke 0/0
->
-> Reverting this commit fixes the issue. Tested with git master as of
-> today (16d72dd4891fe).
+The FS_IOC_SETFLAGS and FS_IOC_FSSETXATTR ioctls were promoted from ext4
+and XFS, respectively, into the VFS.  However, we didn't promote any of
+the parameter checking code from those filesystems, which lead to a mess
+where each filesystem open-codes whatever parameter checks they want and
+the behavior across filesystems is no longer consistent.
 
-thanks for the error report. This turns out to be a rounding error in
-gfs2_iomap_page_prepare; the attached patch should help.
+Therefore, create some generic checking functions in the VFS and remove
+all the open-coded pieces in each filesystem.  This preserves the
+current behavior where a filesystem can choose to ignore fields it
+doesn't understand.
 
-Thanks,
-Andreas
+If you're going to start using this mess, you probably ought to just
+pull from my git trees, which are linked below.
 
----
- fs/gfs2/bmap.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+This has been lightly tested with fstests.  Enjoy!
+Comments and questions are, as always, welcome.
 
-diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
-index f42718d..d2a3f038 100644
---- a/fs/gfs2/bmap.c
-+++ b/fs/gfs2/bmap.c
-@@ -994,9 +994,11 @@ static void gfs2_write_unlock(struct inode *inode)
- static int gfs2_iomap_page_prepare(struct inode *inode, loff_t pos,
- 				   unsigned len, struct iomap *iomap)
- {
-+	unsigned int blocks;
- 	struct gfs2_sbd *sdp = GFS2_SB(inode);
- 
--	return gfs2_trans_begin(sdp, RES_DINODE + (len >> inode->i_blkbits), 0);
-+	blocks = (len + i_blocksize(inode) - 1) >> inode->i_blkbits;
-+	return gfs2_trans_begin(sdp, RES_DINODE + blocks, 0);
- }
- 
- static void gfs2_iomap_page_done(struct inode *inode, loff_t pos,
--- 
-1.8.3.1
+--D
+
+kernel git tree:
+https://git.kernel.org/cgit/linux/kernel/git/djwong/xfs-linux.git/log/?h=file-ioctl-cleanups
 
