@@ -2,77 +2,80 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E8D4C657
-	for <lists+cluster-devel@lfdr.de>; Thu, 20 Jun 2019 06:49:13 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3EC04CEEA
+	for <lists+cluster-devel@lfdr.de>; Thu, 20 Jun 2019 15:35:40 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id AEB0830872F5;
-	Thu, 20 Jun 2019 04:49:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5769E5D71C;
-	Thu, 20 Jun 2019 04:49:00 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id D7D65C1EB1F8;
+	Thu, 20 Jun 2019 13:35:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7571D1001E67;
+	Thu, 20 Jun 2019 13:35:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9A044EA69;
-	Thu, 20 Jun 2019 04:48:54 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 895321806B0F;
+	Thu, 20 Jun 2019 13:35:11 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5K4mR7Q023316 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 20 Jun 2019 00:48:28 -0400
+	id x5KDYcwe030902 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 20 Jun 2019 09:34:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5EE571001DE7; Thu, 20 Jun 2019 04:48:27 +0000 (UTC)
+	id 39CF11001E77; Thu, 20 Jun 2019 13:34:38 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F08B1001DE4;
-	Thu, 20 Jun 2019 04:48:24 +0000 (UTC)
-Received: from mail105.syd.optusnet.com.au (mail105.syd.optusnet.com.au
-	[211.29.132.249])
-	by mx1.redhat.com (Postfix) with ESMTP id 9C722C049D67;
-	Thu, 20 Jun 2019 04:48:09 +0000 (UTC)
-Received: from dread.disaster.area (pa49-195-189-25.pa.nsw.optusnet.com.au
-	[49.195.189.25])
-	by mail105.syd.optusnet.com.au (Postfix) with ESMTPS id A9E2E149FBA;
-	Thu, 20 Jun 2019 14:48:06 +1000 (AEST)
-Received: from dave by dread.disaster.area with local (Exim 4.92)
-	(envelope-from <david@fromorbit.com>)
-	id 1hdoya-0000Gg-Dd; Thu, 20 Jun 2019 14:47:08 +1000
-Date: Thu, 20 Jun 2019 14:47:08 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <20190620044708.GT14363@dread.disaster.area>
-References: <20190618144716.8133-1-agruenba@redhat.com>
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.43])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34A281001DE7
+	for <cluster-devel@redhat.com>; Thu, 20 Jun 2019 13:34:33 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 0DBE03092677
+	for <cluster-devel@redhat.com>; Thu, 20 Jun 2019 13:34:24 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx1.suse.de (Postfix) with ESMTP id 43BF7ADF1;
+	Thu, 20 Jun 2019 13:34:22 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id 9CA6B1E434F; Thu, 20 Jun 2019 15:34:20 +0200 (CEST)
+Date: Thu, 20 Jun 2019 15:34:20 +0200
+From: Jan Kara <jack@suse.cz>
+To: "Darrick J. Wong" <darrick.wong@oracle.com>
+Message-ID: <20190620133420.GD30243@quack2.suse.cz>
+References: <156022833285.3227089.11990489625041926920.stgit@magnolia>
+	<156022834076.3227089.14763553158562888103.stgit@magnolia>
+	<20190612004258.GX1871505@magnolia>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20190618144716.8133-1-agruenba@redhat.com>
+In-Reply-To: <20190612004258.GX1871505@magnolia>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.2 cv=D+Q3ErZj c=1 sm=1 tr=0 cx=a_idp_d
-	a=K5LJ/TdJMXINHCwnwvH1bQ==:117 a=K5LJ/TdJMXINHCwnwvH1bQ==:17
-	a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=dq6fvYVFJ5YA:10
-	a=20KFwNOVAAAA:8 a=7-415B0cAAAA:8 a=uX0c4KQHmT7z40gRqxMA:9
-	a=CjuIK1q_8ugA:10 a=biEYGPWJfzWAr4FL6Ov7:22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.31]);
-	Thu, 20 Jun 2019 04:48:15 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]);
-	Thu, 20 Jun 2019 04:48:15 +0000 (UTC) for IP:'211.29.132.249'
-	DOMAIN:'mail105.syd.optusnet.com.au'
-	HELO:'mail105.syd.optusnet.com.au' FROM:'david@fromorbit.com'
-	RCPT:''
-X-RedHat-Spam-Score: -0.698  (RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
-	SPF_NONE) 211.29.132.249 mail105.syd.optusnet.com.au
-	211.29.132.249 mail105.syd.optusnet.com.au
-	<david@fromorbit.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.31
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.43]); Thu, 20 Jun 2019 13:34:24 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
+	Thu, 20 Jun 2019 13:34:24 +0000 (UTC) for IP:'195.135.220.15'
+	DOMAIN:'mx2.suse.de' HELO:'mx1.suse.de' FROM:'jack@suse.cz' RCPT:''
+X-RedHat-Spam-Score: -2.3  (RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
+	SPF_PASS) 195.135.220.15 mx2.suse.de 195.135.220.15
+	mx2.suse.de <jack@suse.cz>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, linux-fsdevel@vger.kernel.org,
-	Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>
-Subject: Re: [Cluster-devel] [PATCH] fs: Move mark_inode_dirty out of
-	__generic_write_end
+Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net,
+	linux-efi@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	yuchao0@huawei.com, clm@fb.com, adilger.kernel@dilger.ca,
+	matthew.garrett@nebula.com, linux-nilfs@vger.kernel.org,
+	cluster-devel@redhat.com, linux-ext4@vger.kernel.org,
+	josef@toxicpanda.com, reiserfs-devel@vger.kernel.org,
+	viro@zeniv.linux.org.uk, dsterba@suse.com, jaegeuk@kernel.org,
+	tytso@mit.edu, ard.biesheuvel@linaro.org, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-xfs@vger.kernel.org, jk@ozlabs.org, jack@suse.com,
+	linux-fsdevel@vger.kernel.org, linux-mtd@lists.infradead.org,
+	ocfs2-devel@oss.oracle.com
+Subject: Re: [Cluster-devel] [PATCH v2 1/4] vfs: create a generic checking
+ function for FS_IOC_SETFLAGS
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,103 +89,514 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Thu, 20 Jun 2019 04:49:12 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Thu, 20 Jun 2019 13:35:39 +0000 (UTC)
 
-On Tue, Jun 18, 2019 at 04:47:16PM +0200, Andreas Gruenbacher wrote:
-> Remove the mark_inode_dirty call from __generic_write_end and add it to
-> generic_write_end and the high-level iomap functions where necessary.
-> That way, large writes will only dirty inodes at the end instead of
-> dirtying them once per page.  This fixes a performance bottleneck on
-> gfs2.
+On Tue 11-06-19 17:42:58, Darrick J. Wong wrote:
+> From: Darrick J. Wong <darrick.wong@oracle.com>
 > 
-> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+> Create a generic checking function for the incoming FS_IOC_SETFLAGS flag
+> values so that we can standardize the implementations that follow ext4's
+> flag values.
+> 
+> Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
+
+The patch looks good to me. You can add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
->  fs/buffer.c | 26 ++++++++++++++++++--------
->  fs/iomap.c  | 42 ++++++++++++++++++++++++++++++++++++++----
->  2 files changed, 56 insertions(+), 12 deletions(-)
-
-....
-
+> v2: fix jfs locking and remove its opencoded flags check
+> ---
+>  fs/btrfs/ioctl.c    |   13 +++++--------
+>  fs/efivarfs/file.c  |   18 +++++++++++++-----
+>  fs/ext2/ioctl.c     |   16 ++++------------
+>  fs/ext4/ioctl.c     |   13 +++----------
+>  fs/f2fs/file.c      |    7 ++++---
+>  fs/gfs2/file.c      |   42 +++++++++++++++++++++++++++++-------------
+>  fs/hfsplus/ioctl.c  |   21 ++++++++++++---------
+>  fs/inode.c          |   17 +++++++++++++++++
+>  fs/jfs/ioctl.c      |   22 +++++++---------------
+>  fs/nilfs2/ioctl.c   |    9 ++-------
+>  fs/ocfs2/ioctl.c    |   13 +++----------
+>  fs/reiserfs/ioctl.c |   10 ++++------
+>  fs/ubifs/ioctl.c    |   13 +++----------
+>  include/linux/fs.h  |    2 ++
+>  14 files changed, 108 insertions(+), 108 deletions(-)
 > 
-> diff --git a/fs/iomap.c b/fs/iomap.c
-> index 23ef63fd1669..9454568a7f5e 100644
-> --- a/fs/iomap.c
-> +++ b/fs/iomap.c
-> @@ -881,6 +881,13 @@ iomap_file_buffered_write(struct kiocb *iocb, struct iov_iter *iter,
->  {
->  	struct inode *inode = iocb->ki_filp->f_mapping->host;
->  	loff_t pos = iocb->ki_pos, ret = 0, written = 0;
-> +	loff_t old_size;
-> +
-> +        /*
-> +	 * No need to use i_size_read() here, the i_size cannot change under us
-> +	 * because we hold i_rwsem.
-> +	 */
-> +	old_size = inode->i_size;
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index 6dafa857bbb9..f408aa93b0cf 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -187,7 +187,7 @@ static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
+>  	struct btrfs_inode *binode = BTRFS_I(inode);
+>  	struct btrfs_root *root = binode->root;
+>  	struct btrfs_trans_handle *trans;
+> -	unsigned int fsflags;
+> +	unsigned int fsflags, old_fsflags;
+>  	int ret;
+>  	const char *comp = NULL;
+>  	u32 binode_flags = binode->flags;
+> @@ -212,13 +212,10 @@ static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
+>  	inode_lock(inode);
 >  
->  	while (iov_iter_count(iter)) {
->  		ret = iomap_apply(inode, pos, iov_iter_count(iter),
-> @@ -891,6 +898,9 @@ iomap_file_buffered_write(struct kiocb *iocb, struct iov_iter *iter,
->  		written += ret;
->  	}
+>  	fsflags = btrfs_mask_fsflags_for_type(inode, fsflags);
+> -	if ((fsflags ^ btrfs_inode_flags_to_fsflags(binode->flags)) &
+> -	    (FS_APPEND_FL | FS_IMMUTABLE_FL)) {
+> -		if (!capable(CAP_LINUX_IMMUTABLE)) {
+> -			ret = -EPERM;
+> -			goto out_unlock;
+> -		}
+> -	}
+> +	old_fsflags = btrfs_inode_flags_to_fsflags(binode->flags);
+> +	ret = vfs_ioc_setflags_check(inode, old_fsflags, fsflags);
+> +	if (ret)
+> +		goto out_unlock;
 >  
-> +	if (old_size != inode->i_size)
-> +		mark_inode_dirty(inode);
-> +
->  	return written ? written : ret;
+>  	if (fsflags & FS_SYNC_FL)
+>  		binode_flags |= BTRFS_INODE_SYNC;
+> diff --git a/fs/efivarfs/file.c b/fs/efivarfs/file.c
+> index 8e568428c88b..f4f6c1bec132 100644
+> --- a/fs/efivarfs/file.c
+> +++ b/fs/efivarfs/file.c
+> @@ -110,16 +110,22 @@ static ssize_t efivarfs_file_read(struct file *file, char __user *userbuf,
+>  	return size;
 >  }
->  EXPORT_SYMBOL_GPL(iomap_file_buffered_write);
-> @@ -961,18 +971,30 @@ int
->  iomap_file_dirty(struct inode *inode, loff_t pos, loff_t len,
->  		const struct iomap_ops *ops)
+>  
+> -static int
+> -efivarfs_ioc_getxflags(struct file *file, void __user *arg)
+> +static inline unsigned int efivarfs_getflags(struct inode *inode)
 >  {
-> +	loff_t old_size;
->  	loff_t ret;
+> -	struct inode *inode = file->f_mapping->host;
+>  	unsigned int i_flags;
+>  	unsigned int flags = 0;
 >  
-> +        /*
-> +	 * No need to use i_size_read() here, the i_size cannot change under us
-> +	 * because we hold i_rwsem.
-> +	 */
-> +	old_size = inode->i_size;
+>  	i_flags = inode->i_flags;
+>  	if (i_flags & S_IMMUTABLE)
+>  		flags |= FS_IMMUTABLE_FL;
+> +	return flags;
+> +}
 > +
->  	while (len) {
->  		ret = iomap_apply(inode, pos, len, IOMAP_WRITE, ops, NULL,
->  				iomap_dirty_actor);
->  		if (ret <= 0)
-> -			return ret;
-> +			goto out;
->  		pos += ret;
->  		len -= ret;
->  	}
-> +	ret = 0;
+> +static int
+> +efivarfs_ioc_getxflags(struct file *file, void __user *arg)
+> +{
+> +	struct inode *inode = file->f_mapping->host;
+> +	unsigned int flags = efivarfs_getflags(inode);
 >  
-> -	return 0;
-> +out:
-> +	if (old_size != inode->i_size)
-> +		mark_inode_dirty(inode);
-
-
-I don't think we want to do this.
-
-The patches I have that add range locking for XFS allow buffered
-writes to run concurrently with operations that change the inode
-size as long as the ranges don't overlap. To do this, XFS will not
-hold the i_rwsem over any iomap call it makes in future - it will
-hold a range lock instead. Hence we can have writes and other IO
-operations occurring at the same time some other operation is
-changing the size of the file, and that means this code no longer
-does what you are intending it to do because the inode->i_size is no
-longer constant across these operations...
-
-Hence I think adding code that depends on i_rwsem to be held to
-function correctly is the wrong direction to be taking the iomap
-infrastructure.
-
-Cheers,
-
-Dave.
+>  	if (copy_to_user(arg, &flags, sizeof(flags)))
+>  		return -EFAULT;
+> @@ -132,6 +138,7 @@ efivarfs_ioc_setxflags(struct file *file, void __user *arg)
+>  	struct inode *inode = file->f_mapping->host;
+>  	unsigned int flags;
+>  	unsigned int i_flags = 0;
+> +	unsigned int oldflags = efivarfs_getflags(inode);
+>  	int error;
+>  
+>  	if (!inode_owner_or_capable(inode))
+> @@ -143,8 +150,9 @@ efivarfs_ioc_setxflags(struct file *file, void __user *arg)
+>  	if (flags & ~FS_IMMUTABLE_FL)
+>  		return -EOPNOTSUPP;
+>  
+> -	if (!capable(CAP_LINUX_IMMUTABLE))
+> -		return -EPERM;
+> +	error = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +	if (error)
+> +		return error;
+>  
+>  	if (flags & FS_IMMUTABLE_FL)
+>  		i_flags |= S_IMMUTABLE;
+> diff --git a/fs/ext2/ioctl.c b/fs/ext2/ioctl.c
+> index 0367c0039e68..88b3b9720023 100644
+> --- a/fs/ext2/ioctl.c
+> +++ b/fs/ext2/ioctl.c
+> @@ -60,18 +60,10 @@ long ext2_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+>  		}
+>  		oldflags = ei->i_flags;
+>  
+> -		/*
+> -		 * The IMMUTABLE and APPEND_ONLY flags can only be changed by
+> -		 * the relevant capability.
+> -		 *
+> -		 * This test looks nicer. Thanks to Pauline Middelink
+> -		 */
+> -		if ((flags ^ oldflags) & (EXT2_APPEND_FL | EXT2_IMMUTABLE_FL)) {
+> -			if (!capable(CAP_LINUX_IMMUTABLE)) {
+> -				inode_unlock(inode);
+> -				ret = -EPERM;
+> -				goto setflags_out;
+> -			}
+> +		ret = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +		if (ret) {
+> +			inode_unlock(inode);
+> +			goto setflags_out;
+>  		}
+>  
+>  		flags = flags & EXT2_FL_USER_MODIFIABLE;
+> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+> index e486e49b31ed..5126ee351a84 100644
+> --- a/fs/ext4/ioctl.c
+> +++ b/fs/ext4/ioctl.c
+> @@ -289,16 +289,9 @@ static int ext4_ioctl_setflags(struct inode *inode,
+>  	/* The JOURNAL_DATA flag is modifiable only by root */
+>  	jflag = flags & EXT4_JOURNAL_DATA_FL;
+>  
+> -	/*
+> -	 * The IMMUTABLE and APPEND_ONLY flags can only be changed by
+> -	 * the relevant capability.
+> -	 *
+> -	 * This test looks nicer. Thanks to Pauline Middelink
+> -	 */
+> -	if ((flags ^ oldflags) & (EXT4_APPEND_FL | EXT4_IMMUTABLE_FL)) {
+> -		if (!capable(CAP_LINUX_IMMUTABLE))
+> -			goto flags_out;
+> -	}
+> +	err = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +	if (err)
+> +		goto flags_out;
+>  
+>  	/*
+>  	 * The JOURNAL_DATA flag can only be changed by
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index 45b45f37d347..a969d5497e03 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -1670,6 +1670,7 @@ static int __f2fs_ioc_setflags(struct inode *inode, unsigned int flags)
+>  {
+>  	struct f2fs_inode_info *fi = F2FS_I(inode);
+>  	unsigned int oldflags;
+> +	int err;
+>  
+>  	/* Is it quota file? Do not allow user to mess with it */
+>  	if (IS_NOQUOTA(inode))
+> @@ -1679,9 +1680,9 @@ static int __f2fs_ioc_setflags(struct inode *inode, unsigned int flags)
+>  
+>  	oldflags = fi->i_flags;
+>  
+> -	if ((flags ^ oldflags) & (F2FS_APPEND_FL | F2FS_IMMUTABLE_FL))
+> -		if (!capable(CAP_LINUX_IMMUTABLE))
+> -			return -EPERM;
+> +	err = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +	if (err)
+> +		return err;
+>  
+>  	flags = flags & F2FS_FL_USER_MODIFIABLE;
+>  	flags |= oldflags & ~F2FS_FL_USER_MODIFIABLE;
+> diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+> index d174b1f8fd08..99f53cf699c6 100644
+> --- a/fs/gfs2/file.c
+> +++ b/fs/gfs2/file.c
+> @@ -136,27 +136,36 @@ static struct {
+>  	{FS_JOURNAL_DATA_FL, GFS2_DIF_JDATA | GFS2_DIF_INHERIT_JDATA},
+>  };
+>  
+> +static inline u32 gfs2_gfsflags_to_fsflags(struct inode *inode, u32 gfsflags)
+> +{
+> +	int i;
+> +	u32 fsflags = 0;
+> +
+> +	if (S_ISDIR(inode->i_mode))
+> +		gfsflags &= ~GFS2_DIF_JDATA;
+> +	else
+> +		gfsflags &= ~GFS2_DIF_INHERIT_JDATA;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(fsflag_gfs2flag); i++)
+> +		if (gfsflags & fsflag_gfs2flag[i].gfsflag)
+> +			fsflags |= fsflag_gfs2flag[i].fsflag;
+> +	return fsflags;
+> +}
+> +
+>  static int gfs2_get_flags(struct file *filp, u32 __user *ptr)
+>  {
+>  	struct inode *inode = file_inode(filp);
+>  	struct gfs2_inode *ip = GFS2_I(inode);
+>  	struct gfs2_holder gh;
+> -	int i, error;
+> -	u32 gfsflags, fsflags = 0;
+> +	int error;
+> +	u32 fsflags;
+>  
+>  	gfs2_holder_init(ip->i_gl, LM_ST_SHARED, 0, &gh);
+>  	error = gfs2_glock_nq(&gh);
+>  	if (error)
+>  		goto out_uninit;
+>  
+> -	gfsflags = ip->i_diskflags;
+> -	if (S_ISDIR(inode->i_mode))
+> -		gfsflags &= ~GFS2_DIF_JDATA;
+> -	else
+> -		gfsflags &= ~GFS2_DIF_INHERIT_JDATA;
+> -	for (i = 0; i < ARRAY_SIZE(fsflag_gfs2flag); i++)
+> -		if (gfsflags & fsflag_gfs2flag[i].gfsflag)
+> -			fsflags |= fsflag_gfs2flag[i].fsflag;
+> +	fsflags = gfs2_gfsflags_to_fsflags(inode, ip->i_diskflags);
+>  
+>  	if (put_user(fsflags, ptr))
+>  		error = -EFAULT;
+> @@ -200,9 +209,11 @@ void gfs2_set_inode_flags(struct inode *inode)
+>   * @filp: file pointer
+>   * @reqflags: The flags to set
+>   * @mask: Indicates which flags are valid
+> + * @fsflags: The FS_* inode flags passed in
+>   *
+>   */
+> -static int do_gfs2_set_flags(struct file *filp, u32 reqflags, u32 mask)
+> +static int do_gfs2_set_flags(struct file *filp, u32 reqflags, u32 mask,
+> +			     const u32 fsflags)
+>  {
+>  	struct inode *inode = file_inode(filp);
+>  	struct gfs2_inode *ip = GFS2_I(inode);
+> @@ -210,7 +221,7 @@ static int do_gfs2_set_flags(struct file *filp, u32 reqflags, u32 mask)
+>  	struct buffer_head *bh;
+>  	struct gfs2_holder gh;
+>  	int error;
+> -	u32 new_flags, flags;
+> +	u32 new_flags, flags, oldflags;
+>  
+>  	error = mnt_want_write_file(filp);
+>  	if (error)
+> @@ -220,6 +231,11 @@ static int do_gfs2_set_flags(struct file *filp, u32 reqflags, u32 mask)
+>  	if (error)
+>  		goto out_drop_write;
+>  
+> +	oldflags = gfs2_gfsflags_to_fsflags(inode, ip->i_diskflags);
+> +	error = vfs_ioc_setflags_check(inode, oldflags, fsflags);
+> +	if (error)
+> +		goto out;
+> +
+>  	error = -EACCES;
+>  	if (!inode_owner_or_capable(inode))
+>  		goto out;
+> @@ -308,7 +324,7 @@ static int gfs2_set_flags(struct file *filp, u32 __user *ptr)
+>  		mask &= ~(GFS2_DIF_TOPDIR | GFS2_DIF_INHERIT_JDATA);
+>  	}
+>  
+> -	return do_gfs2_set_flags(filp, gfsflags, mask);
+> +	return do_gfs2_set_flags(filp, gfsflags, mask, fsflags);
+>  }
+>  
+>  static int gfs2_getlabel(struct file *filp, char __user *label)
+> diff --git a/fs/hfsplus/ioctl.c b/fs/hfsplus/ioctl.c
+> index 5e6502ef7415..862a3c9481d7 100644
+> --- a/fs/hfsplus/ioctl.c
+> +++ b/fs/hfsplus/ioctl.c
+> @@ -57,9 +57,8 @@ static int hfsplus_ioctl_bless(struct file *file, int __user *user_flags)
+>  	return 0;
+>  }
+>  
+> -static int hfsplus_ioctl_getflags(struct file *file, int __user *user_flags)
+> +static inline unsigned int hfsplus_getflags(struct inode *inode)
+>  {
+> -	struct inode *inode = file_inode(file);
+>  	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
+>  	unsigned int flags = 0;
+>  
+> @@ -69,6 +68,13 @@ static int hfsplus_ioctl_getflags(struct file *file, int __user *user_flags)
+>  		flags |= FS_APPEND_FL;
+>  	if (hip->userflags & HFSPLUS_FLG_NODUMP)
+>  		flags |= FS_NODUMP_FL;
+> +	return flags;
+> +}
+> +
+> +static int hfsplus_ioctl_getflags(struct file *file, int __user *user_flags)
+> +{
+> +	struct inode *inode = file_inode(file);
+> +	unsigned int flags = hfsplus_getflags(inode);
+>  
+>  	return put_user(flags, user_flags);
+>  }
+> @@ -78,6 +84,7 @@ static int hfsplus_ioctl_setflags(struct file *file, int __user *user_flags)
+>  	struct inode *inode = file_inode(file);
+>  	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
+>  	unsigned int flags, new_fl = 0;
+> +	unsigned int oldflags = hfsplus_getflags(inode);
+>  	int err = 0;
+>  
+>  	err = mnt_want_write_file(file);
+> @@ -96,13 +103,9 @@ static int hfsplus_ioctl_setflags(struct file *file, int __user *user_flags)
+>  
+>  	inode_lock(inode);
+>  
+> -	if ((flags & (FS_IMMUTABLE_FL|FS_APPEND_FL)) ||
+> -	    inode->i_flags & (S_IMMUTABLE|S_APPEND)) {
+> -		if (!capable(CAP_LINUX_IMMUTABLE)) {
+> -			err = -EPERM;
+> -			goto out_unlock_inode;
+> -		}
+> -	}
+> +	err = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +	if (err)
+> +		goto out_unlock_inode;
+>  
+>  	/* don't silently ignore unsupported ext2 flags */
+>  	if (flags & ~(FS_IMMUTABLE_FL|FS_APPEND_FL|FS_NODUMP_FL)) {
+> diff --git a/fs/inode.c b/fs/inode.c
+> index df6542ec3b88..0ce60b720608 100644
+> --- a/fs/inode.c
+> +++ b/fs/inode.c
+> @@ -2170,3 +2170,20 @@ struct timespec64 current_time(struct inode *inode)
+>  	return timespec64_trunc(now, inode->i_sb->s_time_gran);
+>  }
+>  EXPORT_SYMBOL(current_time);
+> +
+> +/* Generic function to check FS_IOC_SETFLAGS values. */
+> +int vfs_ioc_setflags_check(struct inode *inode, int oldflags, int flags)
+> +{
+> +	/*
+> +	 * The IMMUTABLE and APPEND_ONLY flags can only be changed by
+> +	 * the relevant capability.
+> +	 *
+> +	 * This test looks nicer. Thanks to Pauline Middelink
+> +	 */
+> +	if ((flags ^ oldflags) & (FS_APPEND_FL | FS_IMMUTABLE_FL) &&
+> +	    !capable(CAP_LINUX_IMMUTABLE))
+> +		return -EPERM;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(vfs_ioc_setflags_check);
+> diff --git a/fs/jfs/ioctl.c b/fs/jfs/ioctl.c
+> index ba34dae8bd9f..b485c2d7620f 100644
+> --- a/fs/jfs/ioctl.c
+> +++ b/fs/jfs/ioctl.c
+> @@ -98,24 +98,16 @@ long jfs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+>  		/* Lock against other parallel changes of flags */
+>  		inode_lock(inode);
+>  
+> -		oldflags = jfs_inode->mode2;
+> -
+> -		/*
+> -		 * The IMMUTABLE and APPEND_ONLY flags can only be changed by
+> -		 * the relevant capability.
+> -		 */
+> -		if ((oldflags & JFS_IMMUTABLE_FL) ||
+> -			((flags ^ oldflags) &
+> -			(JFS_APPEND_FL | JFS_IMMUTABLE_FL))) {
+> -			if (!capable(CAP_LINUX_IMMUTABLE)) {
+> -				inode_unlock(inode);
+> -				err = -EPERM;
+> -				goto setflags_out;
+> -			}
+> +		oldflags = jfs_map_ext2(jfs_inode->mode2 & JFS_FL_USER_VISIBLE,
+> +					0);
+> +		err = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +		if (err) {
+> +			inode_unlock(inode);
+> +			goto setflags_out;
+>  		}
+>  
+>  		flags = flags & JFS_FL_USER_MODIFIABLE;
+> -		flags |= oldflags & ~JFS_FL_USER_MODIFIABLE;
+> +		flags |= jfs_inode->mode2 & ~JFS_FL_USER_MODIFIABLE;
+>  		jfs_inode->mode2 = flags;
+>  
+>  		jfs_set_inode_flags(inode);
+> diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
+> index 9b96d79eea6c..0632336d2515 100644
+> --- a/fs/nilfs2/ioctl.c
+> +++ b/fs/nilfs2/ioctl.c
+> @@ -148,13 +148,8 @@ static int nilfs_ioctl_setflags(struct inode *inode, struct file *filp,
+>  
+>  	oldflags = NILFS_I(inode)->i_flags;
+>  
+> -	/*
+> -	 * The IMMUTABLE and APPEND_ONLY flags can only be changed by the
+> -	 * relevant capability.
+> -	 */
+> -	ret = -EPERM;
+> -	if (((flags ^ oldflags) & (FS_APPEND_FL | FS_IMMUTABLE_FL)) &&
+> -	    !capable(CAP_LINUX_IMMUTABLE))
+> +	ret = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +	if (ret)
+>  		goto out;
+>  
+>  	ret = nilfs_transaction_begin(inode->i_sb, &ti, 0);
+> diff --git a/fs/ocfs2/ioctl.c b/fs/ocfs2/ioctl.c
+> index 994726ada857..467a2faf0305 100644
+> --- a/fs/ocfs2/ioctl.c
+> +++ b/fs/ocfs2/ioctl.c
+> @@ -106,16 +106,9 @@ static int ocfs2_set_inode_attr(struct inode *inode, unsigned flags,
+>  	flags = flags & mask;
+>  	flags |= oldflags & ~mask;
+>  
+> -	/*
+> -	 * The IMMUTABLE and APPEND_ONLY flags can only be changed by
+> -	 * the relevant capability.
+> -	 */
+> -	status = -EPERM;
+> -	if ((oldflags & OCFS2_IMMUTABLE_FL) || ((flags ^ oldflags) &
+> -		(OCFS2_APPEND_FL | OCFS2_IMMUTABLE_FL))) {
+> -		if (!capable(CAP_LINUX_IMMUTABLE))
+> -			goto bail_unlock;
+> -	}
+> +	status = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +	if (status)
+> +		goto bail_unlock;
+>  
+>  	handle = ocfs2_start_trans(osb, OCFS2_INODE_UPDATE_CREDITS);
+>  	if (IS_ERR(handle)) {
+> diff --git a/fs/reiserfs/ioctl.c b/fs/reiserfs/ioctl.c
+> index acbbaf7a0bb2..92bcb1ecd994 100644
+> --- a/fs/reiserfs/ioctl.c
+> +++ b/fs/reiserfs/ioctl.c
+> @@ -74,13 +74,11 @@ long reiserfs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+>  				err = -EPERM;
+>  				goto setflags_out;
+>  			}
+> -			if (((flags ^ REISERFS_I(inode)->
+> -			      i_attrs) & (REISERFS_IMMUTABLE_FL |
+> -					  REISERFS_APPEND_FL))
+> -			    && !capable(CAP_LINUX_IMMUTABLE)) {
+> -				err = -EPERM;
+> +			err = vfs_ioc_setflags_check(inode,
+> +						     REISERFS_I(inode)->i_attrs,
+> +						     flags);
+> +			if (err)
+>  				goto setflags_out;
+> -			}
+>  			if ((flags & REISERFS_NOTAIL_FL) &&
+>  			    S_ISREG(inode->i_mode)) {
+>  				int result;
+> diff --git a/fs/ubifs/ioctl.c b/fs/ubifs/ioctl.c
+> index 4f1a397fda69..bdea836fc38b 100644
+> --- a/fs/ubifs/ioctl.c
+> +++ b/fs/ubifs/ioctl.c
+> @@ -107,18 +107,11 @@ static int setflags(struct inode *inode, int flags)
+>  	if (err)
+>  		return err;
+>  
+> -	/*
+> -	 * The IMMUTABLE and APPEND_ONLY flags can only be changed by
+> -	 * the relevant capability.
+> -	 */
+>  	mutex_lock(&ui->ui_mutex);
+>  	oldflags = ubifs2ioctl(ui->flags);
+> -	if ((flags ^ oldflags) & (FS_APPEND_FL | FS_IMMUTABLE_FL)) {
+> -		if (!capable(CAP_LINUX_IMMUTABLE)) {
+> -			err = -EPERM;
+> -			goto out_unlock;
+> -		}
+> -	}
+> +	err = vfs_ioc_setflags_check(inode, oldflags, flags);
+> +	if (err)
+> +		goto out_unlock;
+>  
+>  	ui->flags = ioctl2ubifs(flags);
+>  	ubifs_set_inode_flags(inode);
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index f7fdfe93e25d..1825d055808c 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -3546,4 +3546,6 @@ static inline struct sock *io_uring_get_socket(struct file *file)
+>  }
+>  #endif
+>  
+> +int vfs_ioc_setflags_check(struct inode *inode, int oldflags, int flags);
+> +
+>  #endif /* _LINUX_FS_H */
+> 
 -- 
-Dave Chinner
-david@fromorbit.com
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
