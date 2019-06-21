@@ -2,79 +2,119 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4F564CF5A
-	for <lists+cluster-devel@lfdr.de>; Thu, 20 Jun 2019 15:47:25 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5DEE4F182
+	for <lists+cluster-devel@lfdr.de>; Sat, 22 Jun 2019 01:57:46 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2553630860A6;
-	Thu, 20 Jun 2019 13:47:20 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8A13A8667D;
+	Fri, 21 Jun 2019 23:57:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A702F5C1A1;
-	Thu, 20 Jun 2019 13:47:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D0459CAA;
+	Fri, 21 Jun 2019 23:57:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0E4E7206D3;
-	Thu, 20 Jun 2019 13:47:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6E7DAC57E;
+	Fri, 21 Jun 2019 23:57:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5KDkquZ000439 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 20 Jun 2019 09:46:52 -0400
+	id x5LNv3ac013088 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 21 Jun 2019 19:57:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 742525D9E5; Thu, 20 Jun 2019 13:46:52 +0000 (UTC)
+	id 342BD5D772; Fri, 21 Jun 2019 23:57:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.43])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6EB305D9D2
-	for <cluster-devel@redhat.com>; Thu, 20 Jun 2019 13:46:50 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F0245D6A9
+	for <cluster-devel@redhat.com>; Fri, 21 Jun 2019 23:57:00 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 5BAFA3092650
-	for <cluster-devel@redhat.com>; Thu, 20 Jun 2019 13:46:39 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx1.suse.de (Postfix) with ESMTP id CAA66AE2C;
-	Thu, 20 Jun 2019 13:46:37 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-	id 504A11E434F; Thu, 20 Jun 2019 15:46:37 +0200 (CEST)
-Date: Thu, 20 Jun 2019 15:46:37 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Darrick J. Wong" <darrick.wong@oracle.com>
-Message-ID: <20190620134637.GG30243@quack2.suse.cz>
-References: <156022833285.3227089.11990489625041926920.stgit@magnolia>
-	<156022836522.3227089.4353401791178719941.stgit@magnolia>
+	by mx1.redhat.com (Postfix) with ESMTPS id 2A4803082126
+	for <cluster-devel@redhat.com>; Fri, 21 Jun 2019 23:56:56 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+	by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x5LNsGrX052403; Fri, 21 Jun 2019 23:56:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=subject : from : to :
+	cc : date : message-id : mime-version : content-type :
+	content-transfer-encoding; s=corp-2018-07-02;
+	bh=cAdDQjLmw3paRsCYayAMtBFRH59fRNc4vYLBHuqjsSA=;
+	b=TzR6Wru1xSjTTRJAS5YLkE/BrGnsLOB3oXc++TPNZTilrEotX+w/PXZSlo2GmgalFn6q
+	EFIn2g7OnCMHKiU/KYZQjoVVDHvaifoE42AmpxsuNL7wnDmrtZhKVTyFzOJI7etrK4kK
+	KEBGejr346UOlFcuSkyuDnIO/5wd6UqT/S/KQGVF+NHJ5J7mmhYyVd5c2jc+HbQbg3wB
+	wa4pvaZQ8fS5HuyXYBN1pV+PfgLDpbPcaxs+KsA+sgcG7mAhRxGd5p97mdMZnG6Ft3yd
+	IEh9EmQpStxpaanEvQR/EobOi//ZfTjzIl0oWYndnxgPHklvyg0k1RPOB0QGCH15ATwX
+	mw== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2130.oracle.com with ESMTP id 2t7809rsvw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 21 Jun 2019 23:56:27 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x5LNtFqW105530; Fri, 21 Jun 2019 23:56:27 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by userp3020.oracle.com with ESMTP id 2t77ypet01-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=FAIL); Fri, 21 Jun 2019 23:56:27 +0000
+Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
+	by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x5LNuRFa107024;
+	Fri, 21 Jun 2019 23:56:27 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+	by userp3020.oracle.com with ESMTP id 2t77ypesyw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 21 Jun 2019 23:56:27 +0000
+Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
+	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x5LNuGUs018756;
+	Fri, 21 Jun 2019 23:56:16 GMT
+Received: from localhost (/10.159.131.214)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Fri, 21 Jun 2019 16:56:16 -0700
+From: "Darrick J. Wong" <darrick.wong@oracle.com>
+To: matthew.garrett@nebula.com, yuchao0@huawei.com, tytso@mit.edu,
+	darrick.wong@oracle.com, shaggy@kernel.org, ard.biesheuvel@linaro.org, 
+	josef@toxicpanda.com, clm@fb.com, adilger.kernel@dilger.ca,
+	jk@ozlabs.org, jack@suse.com, dsterba@suse.com, jaegeuk@kernel.org,
+	viro@zeniv.linux.org.uk
+Date: Fri, 21 Jun 2019 16:56:07 -0700
+Message-ID: <156116136742.1664814.17093419199766834123.stgit@magnolia>
+User-Agent: StGit/0.17.1-dirty
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <156022836522.3227089.4353401791178719941.stgit@magnolia>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9295
+	signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=851
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+	definitions=main-1906210182
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.43]); Thu, 20 Jun 2019 13:46:39 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
-	Thu, 20 Jun 2019 13:46:39 +0000 (UTC) for IP:'195.135.220.15'
-	DOMAIN:'mx2.suse.de' HELO:'mx1.suse.de' FROM:'jack@suse.cz' RCPT:''
-X-RedHat-Spam-Score: -2.3  (RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
-	SPF_PASS) 195.135.220.15 mx2.suse.de 195.135.220.15
-	mx2.suse.de <jack@suse.cz>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+	[10.5.110.42]); Fri, 21 Jun 2019 23:56:56 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
+	Fri, 21 Jun 2019 23:56:56 +0000 (UTC) for IP:'156.151.31.86'
+	DOMAIN:'userp2130.oracle.com' HELO:'userp2130.oracle.com'
+	FROM:'darrick.wong@oracle.com' RCPT:''
+X-RedHat-Spam-Score: -102.4  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_MED, SPF_HELO_PASS, SPF_NONE,
+	UNPARSEABLE_RELAY,
+	USER_IN_WHITELIST) 156.151.31.86 userp2130.oracle.com 156.151.31.86
+	userp2130.oracle.com <darrick.wong@oracle.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net,
-	linux-efi@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	yuchao0@huawei.com, clm@fb.com, adilger.kernel@dilger.ca,
-	matthew.garrett@nebula.com, linux-nilfs@vger.kernel.org,
-	cluster-devel@redhat.com, linux-ext4@vger.kernel.org,
-	josef@toxicpanda.com, reiserfs-devel@vger.kernel.org,
-	viro@zeniv.linux.org.uk, dsterba@suse.com, jaegeuk@kernel.org,
-	tytso@mit.edu, ard.biesheuvel@linaro.org, linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-xfs@vger.kernel.org, jk@ozlabs.org, jack@suse.com,
-	linux-fsdevel@vger.kernel.org, linux-mtd@lists.infradead.org,
-	ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH 4/4] vfs: teach vfs_ioc_fssetxattr_check
- to check extent size hints
+Cc: linux-xfs@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	reiserfs-devel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+	linux-nilfs@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-ext4@vger.kernel.org, ocfs2-devel@oss.oracle.com
+Subject: [Cluster-devel] [PATCH v2 0/4] vfs: clean up SETFLAGS and
+ FSSETXATTR option processing
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,166 +128,30 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Thu, 20 Jun 2019 13:47:24 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Fri, 21 Jun 2019 23:57:45 +0000 (UTC)
 
-On Mon 10-06-19 21:46:05, Darrick J. Wong wrote:
-> From: Darrick J. Wong <darrick.wong@oracle.com>
-> 
-> Move the extent size hint checks that aren't xfs-specific to the vfs.
-> 
-> Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
+Hi all,
 
-The patch looks good to me. You can add:
+The FS_IOC_SETFLAGS and FS_IOC_FSSETXATTR ioctls were promoted from ext4
+and XFS, respectively, into the VFS.  However, we didn't promote any of
+the parameter checking code from those filesystems, which lead to a mess
+where each filesystem open-codes whatever parameter checks they want and
+the behavior across filesystems is no longer consistent.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Therefore, create some generic checking functions in the VFS and remove
+all the open-coded pieces in each filesystem.  This preserves the
+current behavior where a filesystem can choose to ignore fields it
+doesn't understand.
 
-								Honza
+If you're going to start using this mess, you probably ought to just
+pull from my git trees, which are linked below.
 
-> ---
->  fs/inode.c         |   18 +++++++++++++
->  fs/xfs/xfs_ioctl.c |   70 ++++++++++++++++++++++------------------------------
->  2 files changed, 47 insertions(+), 41 deletions(-)
-> 
-> 
-> diff --git a/fs/inode.c b/fs/inode.c
-> index 40ecd3a6a188..a3757051fd55 100644
-> --- a/fs/inode.c
-> +++ b/fs/inode.c
-> @@ -2214,6 +2214,24 @@ int vfs_ioc_fssetxattr_check(struct inode *inode, const struct fsxattr *old_fa,
->  			return -EINVAL;
->  	}
->  
-> +	/* Check extent size hints. */
-> +	if ((fa->fsx_xflags & FS_XFLAG_EXTSIZE) && !S_ISREG(inode->i_mode))
-> +		return -EINVAL;
-> +
-> +	if ((fa->fsx_xflags & FS_XFLAG_EXTSZINHERIT) &&
-> +			!S_ISDIR(inode->i_mode))
-> +		return -EINVAL;
-> +
-> +	if ((fa->fsx_xflags & FS_XFLAG_COWEXTSIZE) &&
-> +	    !S_ISREG(inode->i_mode) && !S_ISDIR(inode->i_mode))
-> +		return -EINVAL;
-> +
-> +	/* Extent size hints of zero turn off the flags. */
-> +	if (fa->fsx_extsize == 0)
-> +		fa->fsx_xflags &= ~(FS_XFLAG_EXTSIZE | FS_XFLAG_EXTSZINHERIT);
-> +	if (fa->fsx_cowextsize == 0)
-> +		fa->fsx_xflags &= ~FS_XFLAG_COWEXTSIZE;
-> +
->  	return 0;
->  }
->  EXPORT_SYMBOL(vfs_ioc_fssetxattr_check);
-> diff --git a/fs/xfs/xfs_ioctl.c b/fs/xfs/xfs_ioctl.c
-> index 82961de98900..b494e7e881e3 100644
-> --- a/fs/xfs/xfs_ioctl.c
-> +++ b/fs/xfs/xfs_ioctl.c
-> @@ -1201,39 +1201,31 @@ xfs_ioctl_setattr_check_extsize(
->  	struct fsxattr		*fa)
->  {
->  	struct xfs_mount	*mp = ip->i_mount;
-> -
-> -	if ((fa->fsx_xflags & FS_XFLAG_EXTSIZE) && !S_ISREG(VFS_I(ip)->i_mode))
-> -		return -EINVAL;
-> -
-> -	if ((fa->fsx_xflags & FS_XFLAG_EXTSZINHERIT) &&
-> -	    !S_ISDIR(VFS_I(ip)->i_mode))
-> -		return -EINVAL;
-> +	xfs_extlen_t		size;
-> +	xfs_fsblock_t		extsize_fsb;
->  
->  	if (S_ISREG(VFS_I(ip)->i_mode) && ip->i_d.di_nextents &&
->  	    ((ip->i_d.di_extsize << mp->m_sb.sb_blocklog) != fa->fsx_extsize))
->  		return -EINVAL;
->  
-> -	if (fa->fsx_extsize != 0) {
-> -		xfs_extlen_t    size;
-> -		xfs_fsblock_t   extsize_fsb;
-> -
-> -		extsize_fsb = XFS_B_TO_FSB(mp, fa->fsx_extsize);
-> -		if (extsize_fsb > MAXEXTLEN)
-> -			return -EINVAL;
-> +	if (fa->fsx_extsize == 0)
-> +		return 0;
->  
-> -		if (XFS_IS_REALTIME_INODE(ip) ||
-> -		    (fa->fsx_xflags & FS_XFLAG_REALTIME)) {
-> -			size = mp->m_sb.sb_rextsize << mp->m_sb.sb_blocklog;
-> -		} else {
-> -			size = mp->m_sb.sb_blocksize;
-> -			if (extsize_fsb > mp->m_sb.sb_agblocks / 2)
-> -				return -EINVAL;
-> -		}
-> +	extsize_fsb = XFS_B_TO_FSB(mp, fa->fsx_extsize);
-> +	if (extsize_fsb > MAXEXTLEN)
-> +		return -EINVAL;
->  
-> -		if (fa->fsx_extsize % size)
-> +	if (XFS_IS_REALTIME_INODE(ip) ||
-> +	    (fa->fsx_xflags & FS_XFLAG_REALTIME)) {
-> +		size = mp->m_sb.sb_rextsize << mp->m_sb.sb_blocklog;
-> +	} else {
-> +		size = mp->m_sb.sb_blocksize;
-> +		if (extsize_fsb > mp->m_sb.sb_agblocks / 2)
->  			return -EINVAL;
-> -	} else
-> -		fa->fsx_xflags &= ~(FS_XFLAG_EXTSIZE | FS_XFLAG_EXTSZINHERIT);
-> +	}
-> +
-> +	if (fa->fsx_extsize % size)
-> +		return -EINVAL;
->  
->  	return 0;
->  }
-> @@ -1259,6 +1251,8 @@ xfs_ioctl_setattr_check_cowextsize(
->  	struct fsxattr		*fa)
->  {
->  	struct xfs_mount	*mp = ip->i_mount;
-> +	xfs_extlen_t		size;
-> +	xfs_fsblock_t		cowextsize_fsb;
->  
->  	if (!(fa->fsx_xflags & FS_XFLAG_COWEXTSIZE))
->  		return 0;
-> @@ -1267,25 +1261,19 @@ xfs_ioctl_setattr_check_cowextsize(
->  	    ip->i_d.di_version != 3)
->  		return -EINVAL;
->  
-> -	if (!S_ISREG(VFS_I(ip)->i_mode) && !S_ISDIR(VFS_I(ip)->i_mode))
-> -		return -EINVAL;
-> -
-> -	if (fa->fsx_cowextsize != 0) {
-> -		xfs_extlen_t    size;
-> -		xfs_fsblock_t   cowextsize_fsb;
-> +	if (fa->fsx_cowextsize == 0)
-> +		return 0;
->  
-> -		cowextsize_fsb = XFS_B_TO_FSB(mp, fa->fsx_cowextsize);
-> -		if (cowextsize_fsb > MAXEXTLEN)
-> -			return -EINVAL;
-> +	cowextsize_fsb = XFS_B_TO_FSB(mp, fa->fsx_cowextsize);
-> +	if (cowextsize_fsb > MAXEXTLEN)
-> +		return -EINVAL;
->  
-> -		size = mp->m_sb.sb_blocksize;
-> -		if (cowextsize_fsb > mp->m_sb.sb_agblocks / 2)
-> -			return -EINVAL;
-> +	size = mp->m_sb.sb_blocksize;
-> +	if (cowextsize_fsb > mp->m_sb.sb_agblocks / 2)
-> +		return -EINVAL;
->  
-> -		if (fa->fsx_cowextsize % size)
-> -			return -EINVAL;
-> -	} else
-> -		fa->fsx_xflags &= ~FS_XFLAG_COWEXTSIZE;
-> +	if (fa->fsx_cowextsize % size)
-> +		return -EINVAL;
->  
->  	return 0;
->  }
-> 
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+This has been lightly tested with fstests.  Enjoy!
+Comments and questions are, as always, welcome.
+
+--D
+
+kernel git tree:
+https://git.kernel.org/cgit/linux/kernel/git/djwong/xfs-linux.git/log/?h=file-ioctl-cleanups
 
