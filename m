@@ -2,66 +2,65 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56A435688F
-	for <lists+cluster-devel@lfdr.de>; Wed, 26 Jun 2019 14:22:21 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45E24569D8
+	for <lists+cluster-devel@lfdr.de>; Wed, 26 Jun 2019 14:56:28 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 4204230842B0;
-	Wed, 26 Jun 2019 12:22:03 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 134543DD47;
+	Wed, 26 Jun 2019 12:56:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 911AF1001B11;
-	Wed, 26 Jun 2019 12:21:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7943760C4E;
+	Wed, 26 Jun 2019 12:56:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E59E9E162;
-	Wed, 26 Jun 2019 12:21:52 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 57F943D87;
+	Wed, 26 Jun 2019 12:55:59 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5QCKpfX031348 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 26 Jun 2019 08:20:51 -0400
+	id x5QCtnvX010801 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 26 Jun 2019 08:55:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 57A9E100033F; Wed, 26 Jun 2019 12:20:51 +0000 (UTC)
+	id 2CFD51001B0E; Wed, 26 Jun 2019 12:55:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from colo-mx.corp.redhat.com
-	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 525AD100033E
-	for <cluster-devel@redhat.com>; Wed, 26 Jun 2019 12:20:49 +0000 (UTC)
-Received: from zmail21.collab.prod.int.phx2.redhat.com
-	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 26F8E1806B0E;
-	Wed, 26 Jun 2019 12:20:43 +0000 (UTC)
-Date: Wed, 26 Jun 2019 08:20:42 -0400 (EDT)
-From: Bob Peterson <rpeterso@redhat.com>
-To: "Darrick J. Wong" <darrick.wong@oracle.com>
-Message-ID: <868182386.37358699.1561551642881.JavaMail.zimbra@redhat.com>
-In-Reply-To: <156151633004.2283456.4175543089138173586.stgit@magnolia>
-References: <156151632209.2283456.3592379873620132456.stgit@magnolia>
-	<156151633004.2283456.4175543089138173586.stgit@magnolia>
+Received: from mx1.redhat.com (ext-mx06.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.30])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEF391001281;
+	Wed, 26 Jun 2019 12:55:46 +0000 (UTC)
+Received: from newverein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id E91F1368E3;
+	Wed, 26 Jun 2019 12:55:33 +0000 (UTC)
+Received: by newverein.lst.de (Postfix, from userid 2407)
+	id C479768B05; Wed, 26 Jun 2019 14:55:02 +0200 (CEST)
+Date: Wed, 26 Jun 2019 14:55:02 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <20190626125502.GB4744@lst.de>
+References: <20190626120333.13310-1-agruenba@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.3.116.201, 10.4.195.9]
-Thread-Topic: create a generic checking and prep function for FS_IOC_SETFLAGS
-Thread-Index: 5u1cuSAsKRaw36dS1F+PjLFgFqc7sA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190626120333.13310-1-agruenba@redhat.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.30]); Wed, 26 Jun 2019 12:55:35 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]);
+	Wed, 26 Jun 2019 12:55:35 +0000 (UTC) for IP:'213.95.11.211'
+	DOMAIN:'verein.lst.de' HELO:'newverein.lst.de'
+	FROM:'hch@lst.de' RCPT:''
+X-RedHat-Spam-Score: -0.008  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_NONE) 213.95.11.211 verein.lst.de 213.95.11.211
+	verein.lst.de <hch@lst.de>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.30
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net,
-	linux-efi@vger.kernel.org, Jan Kara <jack@suse.cz>,
-	yuchao0@huawei.com, clm@fb.com, adilger kernel <adilger.kernel@dilger.ca>,
-	ocfs2-devel@oss.oracle.com, Christoph Hellwig <hch@lst.de>,
-	matthew garrett <matthew.garrett@nebula.com>,
-	cluster-devel@redhat.com, linux-ext4@vger.kernel.org,
-	josef@toxicpanda.com, reiserfs-devel@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, viro@zeniv.linux.org.uk,
-	dsterba@suse.com, jaegeuk@kernel.org, tytso@mit.edu,
-	ard biesheuvel <ard.biesheuvel@linaro.org>, linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-xfs@vger.kernel.org, jk@ozlabs.org, jack@suse.com,
-	linux-fsdevel@vger.kernel.org, linux-mtd@lists.infradead.org,
-	linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH 1/5] vfs: create a generic checking and
- prep function for FS_IOC_SETFLAGS
+Cc: linux-fsdevel@vger.kernel.org, cluster-devel@redhat.com,
+	linux-xfs@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Subject: Re: [Cluster-devel] [PATCH 1/2] iomap: don't mark the inode dirty
+ in iomap_write_end
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,43 +74,27 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Wed, 26 Jun 2019 12:22:20 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Wed, 26 Jun 2019 12:56:27 +0000 (UTC)
 
------ Original Message -----
-> From: Darrick J. Wong <darrick.wong@oracle.com>
+On Wed, Jun 26, 2019 at 02:03:32PM +0200, Andreas Gruenbacher wrote:
+> Marking the inode dirty for each page copied into the page cache can be
+> very inefficient for file systems that use the VFS dirty inode tracking,
+> and is completely pointless for those that don't use the VFS dirty inode
+> tracking.  So instead, only set an iomap flag when changing the in-core
+> inode size, and open code the rest of __generic_write_end.
 > 
-> Create a generic function to check incoming FS_IOC_SETFLAGS flag values
-> and later prepare the inode for updates so that we can standardize the
-> implementations that follow ext4's flag values.
-> 
-> Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Acked-by: David Sterba <dsterba@suse.com>
-> ---
->  fs/btrfs/ioctl.c    |   13 +++++--------
->  fs/efivarfs/file.c  |   26 +++++++++++++++++---------
->  fs/ext2/ioctl.c     |   16 ++++------------
->  fs/ext4/ioctl.c     |   13 +++----------
->  fs/f2fs/file.c      |    7 ++++---
->  fs/gfs2/file.c      |   42 +++++++++++++++++++++++++++++-------------
->  fs/hfsplus/ioctl.c  |   21 ++++++++++++---------
->  fs/inode.c          |   24 ++++++++++++++++++++++++
->  fs/jfs/ioctl.c      |   22 +++++++---------------
->  fs/nilfs2/ioctl.c   |    9 ++-------
->  fs/ocfs2/ioctl.c    |   13 +++----------
->  fs/orangefs/file.c  |   35 ++++++++++++++++++++++++++---------
->  fs/reiserfs/ioctl.c |   10 ++++------
->  fs/ubifs/ioctl.c    |   13 +++----------
->  include/linux/fs.h  |    3 +++
->  15 files changed, 146 insertions(+), 121 deletions(-)
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 
-The gfs2 portion looks correct.
+Nitpick: a patch from you should never have me as the first signoff.
+Just drop it, and if you feel fancy add a 'Partially based on code
+from Christoph Hellwig.' sentence.  Not that I care much.
 
-Reviewed-by: Bob Peterson <rpeterso@redhat.com>
+Otherwise looks good:
 
-Regards,
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-Bob Peterson
+Doesn't the series also need a third patch reducing the amount
+of mark_inode_dirty calls as per your initial proposal?
 
