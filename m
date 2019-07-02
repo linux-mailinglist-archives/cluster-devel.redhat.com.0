@@ -2,83 +2,116 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 167395C565
-	for <lists+cluster-devel@lfdr.de>; Mon,  1 Jul 2019 23:56:55 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id B7EB15C926
+	for <lists+cluster-devel@lfdr.de>; Tue,  2 Jul 2019 08:14:16 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B2CA9309B153;
-	Mon,  1 Jul 2019 21:56:53 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 1965B31628FF;
+	Tue,  2 Jul 2019 06:14:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E18C18675;
-	Mon,  1 Jul 2019 21:56:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 89B0F4C48E;
+	Tue,  2 Jul 2019 06:14:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 80F3D1806B16;
-	Mon,  1 Jul 2019 21:56:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2FFA51806B0F;
+	Tue,  2 Jul 2019 06:14:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x61LupdX009361 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 1 Jul 2019 17:56:52 -0400
+	id x626E4VB006511 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Jul 2019 02:14:04 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EE090608BA; Mon,  1 Jul 2019 21:56:51 +0000 (UTC)
+	id 9646F53E19; Tue,  2 Jul 2019 06:14:04 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.40])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B000560852;
-	Mon,  1 Jul 2019 21:56:49 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.32])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9041F6C35B
+	for <cluster-devel@redhat.com>; Tue,  2 Jul 2019 06:14:02 +0000 (UTC)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+	(mail-eopbgr1310045.outbound.protection.outlook.com [40.107.131.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id BAD6430C1AE7;
-	Mon,  1 Jul 2019 21:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From
-	:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=T44oZR9aRXb+y/DaM9nTlS8c7bCgCBZYSvEXZmSV5L0=;
-	b=OIej5OKJ1WulTH5xva95et1pjG
-	8PGK8yz6k02h5xMZ1Xt+LiP4ZsLSsea+zf1aeCYzfXElMXlVErqpFvr5Kg+JIGuJKdrn3FNA5B9hL
-	KBlQEQ+MvmDMWytFAhcBH7C2dxmVjM2SjV7+GUkzS7RTpkaHHPa2Sm5xHocUVNqGBzxa6dQ7+2C0n
-	WsmpVtPOuXRTjXb62FPop11z8NzJa65AB5pnFz4MxXug7zH/sjrpan8FROI6ZrJNfhs4wE/fODy/h
-	6V4/s9rj2/RLciykFAq0P7k2hTUEOSN4PD+FRGBrsSxur037+084Cb9p701G6a92JF8vkvRMK431A
-	2EbSDoKA==;
-Received: from [38.98.37.141] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
-	id 1hi4Hv-0001xD-Fc; Mon, 01 Jul 2019 21:56:41 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon,  1 Jul 2019 23:54:39 +0200
-Message-Id: <20190701215439.19162-16-hch@lst.de>
-In-Reply-To: <20190701215439.19162-1-hch@lst.de>
-References: <20190701215439.19162-1-hch@lst.de>
+	by mx1.redhat.com (Postfix) with ESMTPS id DDBD7C057F2F
+	for <cluster-devel@redhat.com>; Tue,  2 Jul 2019 06:13:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=teoenmingcorp.onmicrosoft.com;
+	s=selector1-teoenmingcorp-onmicrosoft-com; 
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+	bh=DqkeRtLMB3daCmQ/euibl3to88xXq9sKg+1nF5vJ2+I=;
+	b=bjob5ymGQSMNpS8rOhh5XCY0FfLwAdrdogOPQ7spIe9Vzch3zQXBGpGAhALdv/grXd4IN/n/WvxRBvElr5HfHBAn2ypZ4L8sJ8ObPEdFS+v5ziolL9O+TaMWWm1qkiJhEMxWKThyoNt0/lCoPRbMg/wD9brNGIT4U65JNjRYSoc=
+Received: from SG2PR01MB2141.apcprd01.prod.exchangelabs.com (10.170.143.19) by
+	SG2PR01MB3352.apcprd01.prod.exchangelabs.com (20.178.152.142) with
+	Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.2032.18; Tue, 2 Jul 2019 06:13:56 +0000
+Received: from SG2PR01MB2141.apcprd01.prod.exchangelabs.com
+	([fe80::d503:3d71:ce06:19d2]) by
+	SG2PR01MB2141.apcprd01.prod.exchangelabs.com
+	([fe80::d503:3d71:ce06:19d2%6]) with mapi id 15.20.2032.019;
+	Tue, 2 Jul 2019 06:13:56 +0000
+From: Turritopsis Dohrnii Teo En Ming <ceo@teo-en-ming-corp.com>
+To: "cluster-devel@redhat.com" <cluster-devel@redhat.com>
+Thread-Topic: =?Windows-1252?Q?Introduction_and_Advantages/Disadvantages_of_Clustering_?=
+	=?Windows-1252?Q?in_Linux_=96_Part_1?=
+Thread-Index: AdUwnRglEMEFgHs4S8GmhmlG4YaImw==
+Date: Tue, 2 Jul 2019 06:13:55 +0000
+Message-ID: <SG2PR01MB21414297B1293F455DFC8A5687F80@SG2PR01MB2141.apcprd01.prod.exchangelabs.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+	smtp.mailfrom=ceo@teo-en-ming-corp.com; 
+x-originating-ip: [118.189.211.120]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f7b7b66c-3164-4e56-221c-08d6feb476d2
+x-microsoft-antispam: BCL:0; PCL:0;
+	RULEID:(2390118)(7020095)(4652040)(7021145)(8989299)(4534185)(7022145)(4603075)(4627221)(201702281549075)(8990200)(7048125)(7024125)(7027125)(7023125)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+	SRVR:SG2PR01MB3352; 
+x-ms-traffictypediagnostic: SG2PR01MB3352:
+x-ms-exchange-purlcount: 5
+x-microsoft-antispam-prvs: <SG2PR01MB3352B4268DF5869E0E828A1987F80@SG2PR01MB3352.apcprd01.prod.exchangelabs.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-forefront-prvs: 008663486A
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10009020)(346002)(376002)(366004)(39830400003)(396003)(136003)(199004)(189003)(790700001)(14454004)(33656002)(99286004)(6116002)(21615005)(74316002)(3846002)(81156014)(81166006)(68736007)(66066001)(102836004)(6506007)(53936002)(86362001)(6436002)(316002)(55016002)(9686003)(2351001)(26005)(5640700003)(236005)(966005)(6306002)(476003)(54896002)(7696005)(66476007)(7736002)(5660300002)(6916009)(256004)(508600001)(4744005)(66946007)(25786009)(2501003)(8936002)(71190400001)(71200400001)(64756008)(66556008)(4326008)(66446008)(606006)(73956011)(52536014)(186003)(107886003)(2906002)(486006)(76116006);
+	DIR:OUT; SFP:1101; SCL:1; SRVR:SG2PR01MB3352;
+	H:SG2PR01MB2141.apcprd01.prod.exchangelabs.com; FPR:; SPF:None;
+	LANG:en; PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: teo-en-ming-corp.com does not
+	designate permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: yBnqGZNEcMj1TZmag4BqM7ckEUI30RyuT+xbfZ/KUTiA5UF/mKw7MRNLuD49De0k0+3J3LsmD0QfAapnDIE79JX/81qn1HQbwBuo/G6FstWwhCFr8oO5ji1es4eBRBVobqg9e2Z88aFf/5AqVtUwaU7QF+plzAHITTZDtafgMFKpLwHFa/S9ioOTzS6zk/LV50W9H5DBe9y/ImJog+XU1xGEXAqqbFpHxtxufFjEoa44vny84rgNFj2NMi/zktkFpxWTaxD/ROsxxGSJbONDVdwLbm/rn9KW9hytVB604CNZfkYi8dB91/fw25uAOhWv93BWkUr7itI2wlv6E2myWyShWS2YFp1U/G/POSaI55YzWlv73xPq+28lKYwaz6eHxgVB8AvRMm/j0e4DXW4Yyqwwmfs6QWVnP4d1s6a67sw=
+Content-Type: multipart/alternative;
+	boundary="_000_SG2PR01MB21414297B1293F455DFC8A5687F80SG2PR01MB2141apcp_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-OriginatorOrg: teo-en-ming-corp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7b7b66c-3164-4e56-221c-08d6feb476d2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jul 2019 06:13:55.9165 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 23b3f6ae-c453-4b93-aec9-f17508e5885c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ceo@teo-en-ming-corp.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR01MB3352
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.40]); Mon, 01 Jul 2019 21:56:41 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
-	Mon, 01 Jul 2019 21:56:41 +0000 (UTC) for IP:'198.137.202.133'
-	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
-	FROM:'BATV+bb02ddf78a79a38d855c+5790+infradead.org+hch@bombadil.srs.infradead.org'
-	RCPT:''
-X-RedHat-Spam-Score: -2.297  (DKIM_SIGNED, DKIM_VALID,
-	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
-	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
-	bombadil.infradead.org
-	<BATV+bb02ddf78a79a38d855c+5790+infradead.org+hch@bombadil.srs.infradead.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+	[10.5.110.32]); Tue, 02 Jul 2019 06:14:00 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
+	Tue, 02 Jul 2019 06:14:00 +0000 (UTC) for IP:'40.107.131.45'
+	DOMAIN:'mail-eopbgr1310045.outbound.protection.outlook.com'
+	HELO:'APC01-SG2-obe.outbound.protection.outlook.com'
+	FROM:'ceo@teo-en-ming-corp.com' RCPT:''
+X-RedHat-Spam-Score: -0.011  (DKIM_SIGNED, DKIM_VALID, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE, SPF_HELO_PASS, SPF_PASS) 40.107.131.45
+	mail-eopbgr1310045.outbound.protection.outlook.com
+	40.107.131.45
+	mail-eopbgr1310045.outbound.protection.outlook.com
+	<ceo@teo-en-ming-corp.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	cluster-devel@redhat.com, "Darrick J . Wong" <darrick.wong@oracle.com>
-Subject: [Cluster-devel] [PATCH 15/15] gfs2: use iomap for buffered I/O in
-	ordered and writeback mode
+Subject: [Cluster-devel] =?windows-1252?q?Introduction_and_Advantages/Disa?=
+ =?windows-1252?q?dvantages_of_Clustering_in_Linux_=96_Part_1?=
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,236 +125,192 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Mon, 01 Jul 2019 21:56:53 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Tue, 02 Jul 2019 06:14:15 +0000 (UTC)
 
-Switch to using the iomap readpage and writepage helpers for all I/O in
-the ordered and writeback modes, and thus eliminate using buffer_heads
-for I/O in these cases.  The journaled data mode is left untouched.
+--_000_SG2PR01MB21414297B1293F455DFC8A5687F80SG2PR01MB2141apcp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- fs/gfs2/aops.c | 59 +++++++++++++++++++++++---------------------------
- fs/gfs2/bmap.c | 47 ++++++++++++++++++++++++++++++----------
- fs/gfs2/bmap.h |  1 +
- 3 files changed, 63 insertions(+), 44 deletions(-)
+Good afternoon from Singapore,
 
-diff --git a/fs/gfs2/aops.c b/fs/gfs2/aops.c
-index 15a234fb8f88..9cdd61a44379 100644
---- a/fs/gfs2/aops.c
-+++ b/fs/gfs2/aops.c
-@@ -91,22 +91,13 @@ static int gfs2_writepage(struct page *page, struct writeback_control *wbc)
- 	struct inode *inode = page->mapping->host;
- 	struct gfs2_inode *ip = GFS2_I(inode);
- 	struct gfs2_sbd *sdp = GFS2_SB(inode);
--	loff_t i_size = i_size_read(inode);
--	pgoff_t end_index = i_size >> PAGE_SHIFT;
--	unsigned offset;
-+	struct iomap_writepage_ctx wpc = { };
- 
- 	if (gfs2_assert_withdraw(sdp, gfs2_glock_is_held_excl(ip->i_gl)))
- 		goto out;
- 	if (current->journal_info)
- 		goto redirty;
--	/* Is the page fully outside i_size? (truncate in progress) */
--	offset = i_size & (PAGE_SIZE-1);
--	if (page->index > end_index || (page->index == end_index && !offset)) {
--		page->mapping->a_ops->invalidatepage(page, 0, PAGE_SIZE);
--		goto out;
--	}
--
--	return nobh_writepage(page, gfs2_get_block_noalloc, wbc);
-+	return iomap_writepage(page, wbc, &wpc, &gfs2_writeback_ops);
- 
- redirty:
- 	redirty_page_for_writepage(wbc, page);
-@@ -210,7 +201,8 @@ static int gfs2_writepages(struct address_space *mapping,
- 			   struct writeback_control *wbc)
- {
- 	struct gfs2_sbd *sdp = gfs2_mapping2sbd(mapping);
--	int ret = mpage_writepages(mapping, wbc, gfs2_get_block_noalloc);
-+	struct iomap_writepage_ctx wpc = { };
-+	int ret;
- 
- 	/*
- 	 * Even if we didn't write any pages here, we might still be holding
-@@ -218,9 +210,9 @@ static int gfs2_writepages(struct address_space *mapping,
- 	 * want balance_dirty_pages() to loop indefinitely trying to write out
- 	 * pages held in the ail that it can't find.
- 	 */
-+	ret = iomap_writepages(mapping, wbc, &wpc, &gfs2_writeback_ops);
- 	if (ret == 0)
- 		set_bit(SDF_FORCE_AIL_FLUSH, &sdp->sd_flags);
--
- 	return ret;
- }
- 
-@@ -469,7 +461,6 @@ static int stuffed_readpage(struct gfs2_inode *ip, struct page *page)
- 	return 0;
- }
- 
--
- /**
-  * __gfs2_readpage - readpage
-  * @file: The file to read a page for
-@@ -479,16 +470,15 @@ static int stuffed_readpage(struct gfs2_inode *ip, struct page *page)
-  * reading code as in that case we already hold the glock. Also it's
-  * called by gfs2_readpage() once the required lock has been granted.
-  */
--
- static int __gfs2_readpage(void *file, struct page *page)
- {
--	struct gfs2_inode *ip = GFS2_I(page->mapping->host);
--	struct gfs2_sbd *sdp = GFS2_SB(page->mapping->host);
--
-+	struct inode *inode = page->mapping->host;
-+	struct gfs2_inode *ip = GFS2_I(inode);
-+	struct gfs2_sbd *sdp = GFS2_SB(inode);
- 	int error;
- 
--	if (i_blocksize(page->mapping->host) == PAGE_SIZE &&
--	    !page_has_buffers(page)) {
-+	if (!gfs2_is_jdata(ip) ||
-+	    (i_blocksize(inode) == PAGE_SIZE && !page_has_buffers(page))) {
- 		error = iomap_readpage(page, &gfs2_iomap_ops);
- 	} else if (gfs2_is_stuffed(ip)) {
- 		error = stuffed_readpage(ip, page);
-@@ -609,8 +599,12 @@ static int gfs2_readpages(struct file *file, struct address_space *mapping,
- 	ret = gfs2_glock_nq(&gh);
- 	if (unlikely(ret))
- 		goto out_uninit;
--	if (!gfs2_is_stuffed(ip))
-+	if (gfs2_is_stuffed(ip))
-+		;
-+	else if (gfs2_is_jdata(ip))
- 		ret = mpage_readpages(mapping, pages, nr_pages, gfs2_block_map);
-+	else
-+		ret = iomap_readpages(mapping, pages, nr_pages, &gfs2_iomap_ops);
- 	gfs2_glock_dq(&gh);
- out_uninit:
- 	gfs2_holder_uninit(&gh);
-@@ -827,17 +821,18 @@ int gfs2_releasepage(struct page *page, gfp_t gfp_mask)
- }
- 
- static const struct address_space_operations gfs2_aops = {
--	.writepage = gfs2_writepage,
--	.writepages = gfs2_writepages,
--	.readpage = gfs2_readpage,
--	.readpages = gfs2_readpages,
--	.bmap = gfs2_bmap,
--	.invalidatepage = gfs2_invalidatepage,
--	.releasepage = gfs2_releasepage,
--	.direct_IO = noop_direct_IO,
--	.migratepage = buffer_migrate_page,
--	.is_partially_uptodate = block_is_partially_uptodate,
--	.error_remove_page = generic_error_remove_page,
-+	.writepage		= gfs2_writepage,
-+	.writepages		= gfs2_writepages,
-+	.readpage		= gfs2_readpage,
-+	.readpages		= gfs2_readpages,
-+	.set_page_dirty		= iomap_set_page_dirty,
-+	.releasepage		= iomap_releasepage,
-+	.invalidatepage		= iomap_invalidatepage,
-+	.bmap			= gfs2_bmap,
-+	.direct_IO		= noop_direct_IO,
-+	.migratepage		= iomap_migrate_page,
-+	.is_partially_uptodate  = iomap_is_partially_uptodate,
-+	.error_remove_page	= generic_error_remove_page,
- };
- 
- static const struct address_space_operations gfs2_jdata_aops = {
-diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
-index b7bd811872cb..b8d795d277c9 100644
---- a/fs/gfs2/bmap.c
-+++ b/fs/gfs2/bmap.c
-@@ -56,7 +56,6 @@ static int gfs2_unstuffer_page(struct gfs2_inode *ip, struct buffer_head *dibh,
- 			       u64 block, struct page *page)
- {
- 	struct inode *inode = &ip->i_inode;
--	struct buffer_head *bh;
- 	int release = 0;
- 
- 	if (!page || page->index) {
-@@ -80,20 +79,20 @@ static int gfs2_unstuffer_page(struct gfs2_inode *ip, struct buffer_head *dibh,
- 		SetPageUptodate(page);
- 	}
- 
--	if (!page_has_buffers(page))
--		create_empty_buffers(page, BIT(inode->i_blkbits),
--				     BIT(BH_Uptodate));
-+	if (gfs2_is_jdata(ip)) {
-+		struct buffer_head *bh;
- 
--	bh = page_buffers(page);
-+		if (!page_has_buffers(page))
-+			create_empty_buffers(page, BIT(inode->i_blkbits),
-+					     BIT(BH_Uptodate));
- 
--	if (!buffer_mapped(bh))
--		map_bh(bh, inode->i_sb, block);
-+		bh = page_buffers(page);
-+		if (!buffer_mapped(bh))
-+			map_bh(bh, inode->i_sb, block);
- 
--	set_buffer_uptodate(bh);
--	if (gfs2_is_jdata(ip))
-+		set_buffer_uptodate(bh);
- 		gfs2_trans_add_data(ip->i_gl, bh);
--	else {
--		mark_buffer_dirty(bh);
-+	} else {
- 		gfs2_ordered_add_inode(ip);
- 	}
- 
-@@ -1127,7 +1126,8 @@ static int gfs2_iomap_begin(struct inode *inode, loff_t pos, loff_t length,
- 	struct metapath mp = { .mp_aheight = 1, };
- 	int ret;
- 
--	iomap->flags |= IOMAP_F_BUFFER_HEAD;
-+	if (gfs2_is_jdata(ip))
-+		iomap->flags |= IOMAP_F_BUFFER_HEAD;
- 
- 	trace_gfs2_iomap_start(ip, pos, length, flags);
- 	if ((flags & IOMAP_WRITE) && !(flags & IOMAP_DIRECT)) {
-@@ -2431,3 +2431,26 @@ int __gfs2_punch_hole(struct file *file, loff_t offset, loff_t length)
- 		gfs2_trans_end(sdp);
- 	return error;
- }
-+
-+static int gfs2_map_blocks(struct iomap_writepage_ctx *wpc, struct inode *inode,
-+		loff_t offset)
-+{
-+	struct metapath mp = { .mp_aheight = 1, };
-+	int ret;
-+
-+	if (WARN_ON_ONCE(gfs2_is_stuffed(GFS2_I(inode))))
-+		return -EIO;
-+
-+	if (offset >= wpc->iomap.offset &&
-+	    offset < wpc->iomap.offset + wpc->iomap.length)
-+		return 0;
-+
-+	memset(&wpc->iomap, 0, sizeof(wpc->iomap));
-+	ret = gfs2_iomap_get(inode, offset, INT_MAX, 0, &wpc->iomap, &mp);
-+	release_metapath(&mp);
-+	return ret;
-+}
-+
-+const struct iomap_writeback_ops gfs2_writeback_ops = {
-+	.map_blocks		= gfs2_map_blocks,
-+};
-diff --git a/fs/gfs2/bmap.h b/fs/gfs2/bmap.h
-index b88fd45ab79f..aed4632d47d3 100644
---- a/fs/gfs2/bmap.h
-+++ b/fs/gfs2/bmap.h
-@@ -44,6 +44,7 @@ static inline void gfs2_write_calc_reserv(const struct gfs2_inode *ip,
- }
- 
- extern const struct iomap_ops gfs2_iomap_ops;
-+extern const struct iomap_writeback_ops gfs2_writeback_ops;
- 
- extern int gfs2_unstuff_dinode(struct gfs2_inode *ip, struct page *page);
- extern int gfs2_block_map(struct inode *inode, sector_t lblock,
--- 
-2.20.1
+Is the following article a good reference guide?
+
+Article: Introduction and Advantages/Disadvantages of Clustering in Linux =
+=96 Part 1
+Link: https://www.tecmint.com/what-is-clustering-and-advantages-disadvantag=
+es-of-clustering-in-linux/
+
+Thank you for your advice.
+
+
+
+-----BEGIN EMAIL SIGNATURE-----
+
+The Gospel for all Targeted Individuals (TIs):
+
+[The New York Times] Microwave Weapons Are Prime Suspect in Ills of
+U.S. Embassy Workers
+
+Link: https://www.nytimes.com/2018/09/01/science/sonic-attack-cuba-microwav=
+e.html
+
+***************************************************************************=
+*****************
+
+Singaporean Mr. Turritopsis Dohrnii Teo En Ming's Academic
+Qualifications as at 14 Feb 2019
+
+[1] https://tdtemcerts.wordpress.com/
+
+[2] https://tdtemcerts.blogspot.sg/
+
+[3] https://www.scribd.com/user/270125049/Teo-En-Ming
+
+-----END EMAIL SIGNATURE-----
+
+
+--_000_SG2PR01MB21414297B1293F455DFC8A5687F80SG2PR01MB2141apcp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-SG" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Good afternoon from Singapore,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Is the following article a good reference guide?<o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Article: Introduction and Advantages/Disadvantages o=
+f Clustering in Linux =96 Part 1<o:p></o:p></p>
+<p class=3D"MsoNormal">Link: <a href=3D"https://www.tecmint.com/what-is-clu=
+stering-and-advantages-disadvantages-of-clustering-in-linux/">
+https://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-=
+clustering-in-linux/</a><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you for your advice.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">-----BEGIN EMAIL SIGNATURE-----<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">The Gospel for all Targeted Individuals (TIs):=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">[The New York Times] Microwave Weapons Are Pri=
+me Suspect in Ills of<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">U.S. Embassy Workers<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">Link:
+<a href=3D"https://www.nytimes.com/2018/09/01/science/sonic-attack-cuba-mic=
+rowave.html">
+<span style=3D"color:blue">https://www.nytimes.com/2018/09/01/science/sonic=
+-attack-cuba-microwave.html</span></a><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">**********************************************=
+**********************************************<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">Singaporean Mr. Turritopsis Dohrnii Teo En Min=
+g's Academic<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">Qualifications as at 14 Feb 2019<o:p></o:p></s=
+pan></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">[1]
+<a href=3D"https://tdtemcerts.wordpress.com/"><span style=3D"color:blue">ht=
+tps://tdtemcerts.wordpress.com/</span></a><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">[2]
+<a href=3D"https://tdtemcerts.blogspot.sg/"><span style=3D"color:blue">http=
+s://tdtemcerts.blogspot.sg/</span></a><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">[3]
+<a href=3D"https://www.scribd.com/user/270125049/Teo-En-Ming"><span style=
+=3D"color:blue">https://www.scribd.com/user/270125049/Teo-En-Ming</span></a=
+><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
+urier New&quot;;color:black">-----END EMAIL SIGNATURE-----</span><o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_SG2PR01MB21414297B1293F455DFC8A5687F80SG2PR01MB2141apcp_--
 
