@@ -2,63 +2,74 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A2ED626D1
-	for <lists+cluster-devel@lfdr.de>; Mon,  8 Jul 2019 19:07:33 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 384A36271F
+	for <lists+cluster-devel@lfdr.de>; Mon,  8 Jul 2019 19:30:02 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3E62A81DF3;
-	Mon,  8 Jul 2019 17:07:29 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id A6A3181DF3;
+	Mon,  8 Jul 2019 17:30:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA01C5C46B;
-	Mon,  8 Jul 2019 17:07:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 678B25D9C8;
+	Mon,  8 Jul 2019 17:29:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A00421833002;
-	Mon,  8 Jul 2019 17:07:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7AF921833002;
+	Mon,  8 Jul 2019 17:29:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x68H6scg030043 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 8 Jul 2019 13:06:54 -0400
+	id x68HTZH7004087 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 8 Jul 2019 13:29:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DAE252B9CF; Mon,  8 Jul 2019 17:06:54 +0000 (UTC)
+	id A0D5F5D70D; Mon,  8 Jul 2019 17:29:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.42])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E9735C46B;
-	Mon,  8 Jul 2019 17:06:51 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx09.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.38])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BE672D1C7
+	for <cluster-devel@redhat.com>; Mon,  8 Jul 2019 17:29:33 +0000 (UTC)
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
+	[209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A247C3086201;
-	Mon,  8 Jul 2019 17:06:30 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 9CDAE227A81; Mon,  8 Jul 2019 19:06:20 +0200 (CEST)
-Date: Mon, 8 Jul 2019 19:06:19 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <20190708170619.GA10526@lst.de>
-References: <20190705235622.22368-1-agruenba@redhat.com>
-	<20190705235622.22368-3-agruenba@redhat.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 6696F2F8BD5
+	for <cluster-devel@redhat.com>; Mon,  8 Jul 2019 17:29:33 +0000 (UTC)
+Received: by mail-ot1-f72.google.com with SMTP id j4so9528863otc.5
+	for <cluster-devel@redhat.com>; Mon, 08 Jul 2019 10:29:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=nA6Jna13w+RzGgaq8zqHZyOTzP+Rl2ic3AndNFYmYd4=;
+	b=OLGB7Km9mK0zwAj5usfPJ70dzuVZZmrE22Z1dkJq1sLhY4vdWbG6Wrm4i7TeDIqaem
+	ZKQMzcu5m6LALAEdtFEPF0N4Z+o4oR5ACNRqSXTdFDIUbrai51mOdyzOjKdnf+mw0v5F
+	xTwKygL45FN9sUfPGyutiaeNx8XCUhpQSrxM9EIebsjl70DLvNyxaZw0pDUd7R5KiNd9
+	lm76vrm41VmQhZF3bGPBf90wQOwlRk8asNPO9yub8xq62DTPRxCJU3cDBLQvRllpgQay
+	Gg5hG3Hlyz3VVeQkeVAH1JkBHsQDll8GffZ85bILbi1oHnHH25PVdv9kfKYPEsNMabXr
+	CTyA==
+X-Gm-Message-State: APjAAAWaVy2z/xrh6M3au6zvHaudeCp+EuHlQa6jX+DQmEvZ9rnR90NK
+	cXFnqXgTVdmH7sMxJ24oetcBJXbpgbW+qSWt4E7zS7nM0YEEfmXi5yM/817lJUMQjqOlnWPqYot
+	EICUAWPE+5CQk7Uqr76vXxlzlKXH04FKM7riRkA==
+X-Received: by 2002:a9d:5cc1:: with SMTP id r1mr15913827oti.341.1562606972842; 
+	Mon, 08 Jul 2019 10:29:32 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqx0RPvy74yzmrSczU2RfOeT51FXoyiAVwrmEDfjnlD9nHbQUGYVCsDvdT1tpWknkWW1QJvBsFLFOqZUsxSEAWw=
+X-Received: by 2002:a9d:5cc1:: with SMTP id r1mr15913810oti.341.1562606972599; 
+	Mon, 08 Jul 2019 10:29:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190705235622.22368-3-agruenba@redhat.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Greylist: Delayed for 00:47:01 by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.42]); Mon, 08 Jul 2019 17:06:31 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
-	Mon, 08 Jul 2019 17:06:31 +0000 (UTC) for IP:'213.95.11.211'
-	DOMAIN:'verein.lst.de' HELO:'verein.lst.de' FROM:'hch@lst.de'
-	RCPT:''
-X-RedHat-Spam-Score: 0.002  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_NONE) 213.95.11.211 verein.lst.de 213.95.11.211
-	verein.lst.de <hch@lst.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+References: <20190701215439.19162-1-hch@lst.de>
+	<CAHc6FU5MHCdXENW_Y++hO_qhtCh4XtAHYOaTLzk+1KU=JNpPww@mail.gmail.com>
+	<20190708160351.GA9871@lst.de>
+In-Reply-To: <20190708160351.GA9871@lst.de>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Mon, 8 Jul 2019 19:29:21 +0200
+Message-ID: <CAHc6FU5942i0XrCjUAhR9NCmfLuu7_CoPXNDsdF0X+gCpF1cDQ@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, Christoph Hellwig <hch@lst.de>
-Subject: Re: [Cluster-devel] [PATCH 2/2] gfs2: Add support for IOMAP_ZERO
+Cc: linux-xfs@vger.kernel.org, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	cluster-devel <cluster-devel@redhat.com>,
+	"Darrick J . Wong" <darrick.wong@oracle.com>
+Subject: Re: [Cluster-devel] RFC: use the iomap writepage path in gfs2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,162 +83,37 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Mon, 08 Jul 2019 17:07:31 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Mon, 08 Jul 2019 17:30:01 +0000 (UTC)
 
-Don't we actually need the write lock for zeroing as well?  Also
-I think the alloc helper would be nice to keep, and a little use
-of switch might clean things up.  How about something like this
-instead?
+On Mon, 8 Jul 2019 at 18:04, Christoph Hellwig <hch@lst.de> wrote:
+> On Thu, Jul 04, 2019 at 12:35:41AM +0200, Andreas Gruenbacher wrote:
+> > Patch "gfs2: implement gfs2_block_zero_range using iomap_zero_range"
+> > isn't quite ready: the gfs2 iomap operations don't handle IOMAP_ZERO
+> > correctly so far, and that needs to be fixed first.
+>
+> What is the issue with IOMAP_ZERO on gfs2?  Zeroing never does block
+> allocations except when on COW extents, which gfs2 doesn't support,
+> so there shouldn't really be any need for additional handling.
 
-diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
-index f42718dd292f..8f5a25f507c3 100644
---- a/fs/gfs2/bmap.c
-+++ b/fs/gfs2/bmap.c
-@@ -1027,17 +1027,8 @@ static int gfs2_iomap_begin_write(struct inode *inode, loff_t pos,
- 	bool unstuff, alloc_required;
- 	int ret;
- 
--	ret = gfs2_write_lock(inode);
--	if (ret)
--		return ret;
--
- 	unstuff = gfs2_is_stuffed(ip) &&
- 		  pos + length > gfs2_max_stuffed_size(ip);
--
--	ret = gfs2_iomap_get(inode, pos, length, flags, iomap, mp);
--	if (ret)
--		goto out_unlock;
--
- 	alloc_required = unstuff || iomap->type == IOMAP_HOLE;
- 
- 	if (alloc_required || gfs2_is_jdata(ip))
-@@ -1051,7 +1042,7 @@ static int gfs2_iomap_begin_write(struct inode *inode, loff_t pos,
- 
- 		ret = gfs2_quota_lock_check(ip, &ap);
- 		if (ret)
--			goto out_unlock;
-+			return ret;
- 
- 		ret = gfs2_inplace_reserve(ip, &ap);
- 		if (ret)
-@@ -1118,11 +1109,23 @@ static int gfs2_iomap_begin_write(struct inode *inode, loff_t pos,
- out_qunlock:
- 	if (alloc_required)
- 		gfs2_quota_unlock(ip);
--out_unlock:
--	gfs2_write_unlock(inode);
- 	return ret;
- }
- 
-+static inline bool gfs2_iomap_need_write_lock(unsigned flags)
-+{
-+	switch (flags & (IOMAP_WRITE | IOMAP_ZERO)) {
-+	case IOMAP_WRITE:
-+		if (flags & IOMAP_DIRECT)
-+			return false;
-+		return true;
-+	case IOMAP_ZERO:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- static int gfs2_iomap_begin(struct inode *inode, loff_t pos, loff_t length,
- 			    unsigned flags, struct iomap *iomap)
- {
-@@ -1133,20 +1136,48 @@ static int gfs2_iomap_begin(struct inode *inode, loff_t pos, loff_t length,
- 	iomap->flags |= IOMAP_F_BUFFER_HEAD;
- 
- 	trace_gfs2_iomap_start(ip, pos, length, flags);
--	if ((flags & IOMAP_WRITE) && !(flags & IOMAP_DIRECT)) {
--		ret = gfs2_iomap_begin_write(inode, pos, length, flags, iomap, &mp);
--	} else {
--		ret = gfs2_iomap_get(inode, pos, length, flags, iomap, &mp);
- 
--		/*
--		 * Silently fall back to buffered I/O for stuffed files or if
--		 * we've hot a hole (see gfs2_file_direct_write).
--		 */
--		if ((flags & IOMAP_WRITE) && (flags & IOMAP_DIRECT) &&
--		    iomap->type != IOMAP_MAPPED)
--			ret = -ENOTBLK;
-+	if (gfs2_iomap_need_write_lock(flags)) {
-+		ret = gfs2_write_lock(inode);
-+		if (ret)
-+			goto out;
- 	}
-+
-+	ret = gfs2_iomap_get(inode, pos, length, flags, iomap, &mp);
-+	if (ret)
-+		goto out_unlock;
-+
-+	switch (flags & (IOMAP_WRITE | IOMAP_ZERO)) {
-+	case 0:
-+		goto out_unlock;
-+	case IOMAP_WRITE:
-+		if (flags & IOMAP_DIRECT) {
-+			/*
-+			 * Silently fall back to buffered I/O for stuffed files
-+			 * or if we've got a hole (see gfs2_file_direct_write).
-+			 */
-+			if (iomap->type != IOMAP_MAPPED)
-+				ret = -ENOTBLK;
-+			goto out_unlock;
-+		}
-+		break;
-+	case IOMAP_ZERO:
-+		if (iomap->type == IOMAP_HOLE)
-+			goto out_unlock;
-+		break;
-+	default:
-+		WARN_ON_ONCE(1);
-+		ret = -EIO;
-+		goto out_unlock;
-+	}
-+
-+	ret = gfs2_iomap_begin_write(inode, pos, length, flags, iomap, &mp);
-+
-+out_unlock:
-+	if (ret && gfs2_iomap_need_write_lock(flags))
-+		gfs2_write_unlock(inode);
- 	release_metapath(&mp);
-+out:
- 	trace_gfs2_iomap_end(ip, iomap, ret);
- 	return ret;
- }
-@@ -1157,8 +1188,21 @@ static int gfs2_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 	struct gfs2_inode *ip = GFS2_I(inode);
- 	struct gfs2_sbd *sdp = GFS2_SB(inode);
- 
--	if ((flags & (IOMAP_WRITE | IOMAP_DIRECT)) != IOMAP_WRITE)
--		goto out;
-+	switch (flags & (IOMAP_WRITE | IOMAP_ZERO)) {
-+	case 0:
-+		return 0;
-+	case IOMAP_WRITE:
-+		if (flags & IOMAP_DIRECT)
-+			return 0;
-+		break;
-+	case IOMAP_ZERO:
-+		if (iomap->type == IOMAP_HOLE)
-+			return 0;
-+		break;
-+	default:
-+		WARN_ON_ONCE(1);
-+		return -EIO;
-+	}
- 
- 	if (!gfs2_is_stuffed(ip))
- 		gfs2_ordered_add_inode(ip);
-@@ -1183,8 +1227,6 @@ static int gfs2_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 	if (ip->i_qadata && ip->i_qadata->qa_qd_num)
- 		gfs2_quota_unlock(ip);
- 	gfs2_write_unlock(inode);
--
--out:
- 	return 0;
- }
- 
+We still want to set iomap->page_ops for journalled data files on gfs2.
+
+Also, if we go through the existing gfs2_iomap_begin_write /
+__gfs2_iomap_begin logic for iomap_zero_range, it will work for
+stuffed files as well, and so we can replace stuffed_zero_range with
+iomap_zero_range.
+
+> > Some of the tests assume that the filesystem supports unwritten
+> > extents, trusted xattrs, the usrquota / grpquota / prjquota mount
+> > options. There shouldn't be a huge number of failing tests beyond
+> > that, but I know things aren't perfect.
+>
+> In general xfstests is supposed to have tests for that and not run
+> the tests if not supported.  In most cases this is automatic, but
+> in case a feature can't be autodetect we have a few manual overrides.
+
+Yes, that needs a bit of work. Let's see.
+
+Thanks,
+Andreas
 
