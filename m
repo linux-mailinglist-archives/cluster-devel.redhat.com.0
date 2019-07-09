@@ -2,42 +2,42 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BDC06376F
-	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jul 2019 16:08:31 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC597637DF
+	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jul 2019 16:25:57 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 004D830C34CF;
-	Tue,  9 Jul 2019 14:08:08 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id D0443CD4A8;
+	Tue,  9 Jul 2019 14:25:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 74EFD831B7;
-	Tue,  9 Jul 2019 14:08:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 630D31001DDD;
+	Tue,  9 Jul 2019 14:25:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A4E4206D2;
-	Tue,  9 Jul 2019 14:07:45 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C651819720;
+	Tue,  9 Jul 2019 14:25:41 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x69E77uP015992 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Jul 2019 10:07:07 -0400
+	id x69E79Vw015997 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Jul 2019 10:07:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C41C7831CE; Tue,  9 Jul 2019 14:07:07 +0000 (UTC)
+	id 20A84831C5; Tue,  9 Jul 2019 14:07:09 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.com (unknown [10.40.205.215])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CAC71831B7;
-	Tue,  9 Jul 2019 14:07:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2B95A831B7;
+	Tue,  9 Jul 2019 14:07:07 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Tue,  9 Jul 2019 16:06:41 +0200
-Message-Id: <20190709140657.19064-3-agruenba@redhat.com>
+Date: Tue,  9 Jul 2019 16:06:42 +0200
+Message-Id: <20190709140657.19064-4-agruenba@redhat.com>
 In-Reply-To: <20190709140657.19064-1-agruenba@redhat.com>
 References: <20190709140657.19064-1-agruenba@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Subject: [Cluster-devel] [GFS2 PATCH 02/18] gfs2: Use IS_ERR_OR_NULL
+Subject: [Cluster-devel] [GFS2 PATCH 03/18] gfs2: kthread and remount
+	improvements
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -51,85 +51,95 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Tue, 09 Jul 2019 14:08:29 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Tue, 09 Jul 2019 14:25:56 +0000 (UTC)
 
-From: Kefeng Wang <wangkefeng.wang@huawei.com>
+From: Bob Peterson <rpeterso@redhat.com>
 
-Use IS_ERR_OR_NULL where appropriate.
+Before this patch, gfs2 saved the pointers to the two daemon threads
+(logd and quotad) in the superblock, but they were never cleared,
+even if the threads were stopped (e.g. on remount -o ro). That meant
+that certain error conditions (like a withdrawn file system) could
+race. For example, xfstests generic/361 caused an IO error during
+remount -o ro, which caused the kthreads to be stopped, then the
+error flagged. Later, when the test unmounted the file system, it
+would try to stop the threads a second time with kthread_stop.
 
-(Several more places converted by Andreas.)
+This patch does two things: First, every time it stops the threads
+it zeroes out the thread pointer, and also checks whether it's NULL
+before trying to stop it. Second, in function gfs2_remount_fs, it
+was returning if an error was logged by either of the two functions
+for gfs2_make_fs_ro and _rw, which caused it to bypass the online
+uevent at the bottom of the function. This removes that bypass in
+favor of just running the whole function, then returning the error.
+That way, unmounts and remounts won't hang forever.
 
-Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/dir.c        | 4 ++--
- fs/gfs2/glock.c      | 2 +-
- fs/gfs2/inode.c      | 2 +-
- fs/gfs2/ops_fstype.c | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ fs/gfs2/super.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/fs/gfs2/dir.c b/fs/gfs2/dir.c
-index 88e4f955c518..6f35d19eec25 100644
---- a/fs/gfs2/dir.c
-+++ b/fs/gfs2/dir.c
-@@ -750,7 +750,7 @@ static struct gfs2_dirent *gfs2_dirent_split_alloc(struct inode *inode,
- 	struct gfs2_dirent *dent;
- 	dent = gfs2_dirent_scan(inode, bh->b_data, bh->b_size,
- 				gfs2_dirent_find_offset, name, ptr);
--	if (!dent || IS_ERR(dent))
-+	if (IS_ERR_OR_NULL(dent))
- 		return dent;
- 	return do_init_dirent(inode, dent, name, bh,
- 			      (unsigned)(ptr - (void *)dent));
-@@ -854,7 +854,7 @@ static struct gfs2_dirent *gfs2_dirent_search(struct inode *inode,
- 		return ERR_PTR(error);
- 	dent = gfs2_dirent_scan(inode, bh->b_data, bh->b_size, scan, name, NULL);
- got_dent:
--	if (unlikely(dent == NULL || IS_ERR(dent))) {
-+	if (IS_ERR_OR_NULL(dent)) {
- 		brelse(bh);
- 		bh = NULL;
- 	}
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index f1ebcb42cbf5..44718098cc60 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -681,7 +681,7 @@ static void delete_work_func(struct work_struct *work)
- 		goto out;
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index b70cea5c8c59..31147d89399d 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -394,6 +394,7 @@ static int init_threads(struct gfs2_sbd *sdp)
  
- 	inode = gfs2_lookup_by_inum(sdp, no_addr, NULL, GFS2_BLKST_UNLINKED);
--	if (inode && !IS_ERR(inode)) {
-+	if (!IS_ERR_OR_NULL(inode)) {
- 		d_prune_aliases(inode);
- 		iput(inode);
- 	}
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index b296c59832a7..2e2a8a2fb51d 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -793,7 +793,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
- fail_gunlock:
- 	gfs2_dir_no_add(&da);
- 	gfs2_glock_dq_uninit(ghs);
--	if (inode && !IS_ERR(inode)) {
-+	if (!IS_ERR_OR_NULL(inode)) {
- 		clear_nlink(inode);
- 		if (!free_vfs_inode)
- 			mark_inode_dirty(inode);
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index 8d614f599065..c199d1d813fc 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -576,7 +576,7 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struct gfs2_holder *ji_gh)
+ fail:
+ 	kthread_stop(sdp->sd_logd_process);
++	sdp->sd_logd_process = NULL;
+ 	return error;
+ }
  
- 		INIT_WORK(&jd->jd_work, gfs2_recover_func);
- 		jd->jd_inode = gfs2_lookupi(sdp->sd_jindex, &name, 1);
--		if (!jd->jd_inode || IS_ERR(jd->jd_inode)) {
-+		if (IS_ERR_OR_NULL(jd->jd_inode)) {
- 			if (!jd->jd_inode)
- 				error = -ENOENT;
- 			else
+@@ -451,8 +452,12 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
+ 	freeze_gh.gh_flags |= GL_NOCACHE;
+ 	gfs2_glock_dq_uninit(&freeze_gh);
+ fail_threads:
+-	kthread_stop(sdp->sd_quotad_process);
+-	kthread_stop(sdp->sd_logd_process);
++	if (sdp->sd_quotad_process)
++		kthread_stop(sdp->sd_quotad_process);
++	sdp->sd_quotad_process = NULL;
++	if (sdp->sd_logd_process)
++		kthread_stop(sdp->sd_logd_process);
++	sdp->sd_logd_process = NULL;
+ 	return error;
+ }
+ 
+@@ -853,8 +858,12 @@ static int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
+ 		return error;
+ 
+ 	flush_workqueue(gfs2_delete_workqueue);
+-	kthread_stop(sdp->sd_quotad_process);
+-	kthread_stop(sdp->sd_logd_process);
++	if (sdp->sd_quotad_process)
++		kthread_stop(sdp->sd_quotad_process);
++	sdp->sd_quotad_process = NULL;
++	if (sdp->sd_logd_process)
++		kthread_stop(sdp->sd_logd_process);
++	sdp->sd_logd_process = NULL;
+ 
+ 	gfs2_quota_sync(sdp->sd_vfs, 0);
+ 	gfs2_statfs_sync(sdp->sd_vfs, 0);
+@@ -1273,8 +1282,6 @@ static int gfs2_remount_fs(struct super_block *sb, int *flags, char *data)
+ 			error = gfs2_make_fs_ro(sdp);
+ 		else
+ 			error = gfs2_make_fs_rw(sdp);
+-		if (error)
+-			return error;
+ 	}
+ 
+ 	sdp->sd_args = args;
+@@ -1300,7 +1307,7 @@ static int gfs2_remount_fs(struct super_block *sb, int *flags, char *data)
+ 	spin_unlock(&gt->gt_spin);
+ 
+ 	gfs2_online_uevent(sdp);
+-	return 0;
++	return error;
+ }
+ 
+ /**
 -- 
 2.20.1
 
