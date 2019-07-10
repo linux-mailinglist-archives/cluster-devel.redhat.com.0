@@ -2,76 +2,40 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53907638BB
-	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jul 2019 17:36:11 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB7A64EAD
+	for <lists+cluster-devel@lfdr.de>; Thu, 11 Jul 2019 00:23:05 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 15A4388E62;
-	Tue,  9 Jul 2019 15:35:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DC7D1001DFA;
-	Tue,  9 Jul 2019 15:35:44 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 733313086228;
+	Wed, 10 Jul 2019 22:23:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1209760BFB;
+	Wed, 10 Jul 2019 22:23:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 39A02206D3;
-	Tue,  9 Jul 2019 15:35:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2DCD018355D9;
+	Wed, 10 Jul 2019 22:22:59 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x69FZIH6002580 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Jul 2019 11:35:18 -0400
+	id x6AMMZNV026628 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 10 Jul 2019 18:22:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D7B005C22D; Tue,  9 Jul 2019 15:35:18 +0000 (UTC)
+	id 6BF5360C4E; Wed, 10 Jul 2019 22:22:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.47])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 870205C634;
-	Tue,  9 Jul 2019 15:35:16 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3CE0F30ADC82;
-	Tue,  9 Jul 2019 15:35:00 +0000 (UTC)
-Received: from localhost (c-67-169-218-210.hsd1.or.comcast.net
-	[67.169.218.210])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 9261720656;
-	Tue,  9 Jul 2019 15:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1562686494;
-	bh=gub/vrZ1KsSeLFGrO8xgrbIV84kVgeYFagd2MwkIbC0=;
-	h=Date:From:To:Cc:Subject:From;
-	b=MFWFdmqLBKqQWc5mPJMkSKEKKpzKlpA5PttUb1dRkUc1UAl85uBBky1+d91jh2qXT
-	/9pHxlnwkkcjuVPf92gQxe2YFoU2u9iKR0hHQKGilDVg033Lrn/AUS7lQDtfr+DQKc
-	R/LJNaQVe/NrP+67khS/FgOwGoP9ClBOFoKBlWm8=
-Date: Tue, 9 Jul 2019 08:34:54 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
+Received: from max.com (unknown [10.40.205.215])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CFB8E60C05;
+	Wed, 10 Jul 2019 22:22:31 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20190709153454.GQ1404256@magnolia>
+Date: Thu, 11 Jul 2019 00:22:27 +0200
+Message-Id: <20190710222227.27623-1-agruenba@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.47]);
-	Tue, 09 Jul 2019 15:35:00 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
-	Tue, 09 Jul 2019 15:35:00 +0000 (UTC) for IP:'198.145.29.99'
-	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
-	FROM:'djwong@kernel.org' RCPT:''
-X-RedHat-Spam-Score: -0.098  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	SPF_HELO_NONE,
-	SPF_NONE) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
-	<djwong@kernel.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, david@fromorbit.com,
-	"Darrick J. Wong" <djwong@kernel.org>, sandeen@sandeen.net,
-	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, hch@lst.de
-Subject: [Cluster-devel] [GIT PULL] iomap: new code for 5.3, part 1
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
+Subject: [Cluster-devel] [GIT PULL] gfs2: 5.3 merge
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,61 +49,102 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Tue, 09 Jul 2019 15:36:10 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Wed, 10 Jul 2019 22:23:04 +0000 (UTC)
 
 Hi Linus,
 
-Here's the first part of the iomap merge for 5.3.  There are a few fixes
-for gfs2 but otherwise it's pretty quiet so far. The branch merges
-cleanly against this morning's HEAD and survived an overnight run of
-xfstests.  The merge was completely straightforward, so please let me
-know if you run into anything weird.
+please consider pulling the following changes for gfs2.
 
-For the second part of the merge window I would like to break up iomap.c
-into smaller files grouped by functional area so that it'll be easier in
-the long run to keep the pieces separate and to review incoming patches.
-There won't be any functional changes, as the file can still be split
-very cleanly.
+In addition, the following patch from Andy Price is going to come in via the
+for-next branch of the vfs repository:
 
-I prefer to get this done quickly before 5.3-rc1 because I anticipate
-that there will be rather more iomap development work coming for 5.4, so
-my plan is to rebase my splitting series after the mm and block merges
-land and come back in a week or so having let it soak in for-next for
-several days.  Let me know if you'd pefer a different timeline.
+  gfs2: Convert gfs2 to fs_context
 
---D
+This patch has a trivial merge conflict with the following patch from
+this pull request:
 
-The following changes since commit d1fdb6d8f6a4109a4263176c84b899076a5f8008:
+  gfs2: kthread and remount improvements
 
-  Linux 5.2-rc4 (2019-06-08 20:24:46 -0700)
+The conflict can be resolved by ignoring the changes in the latter patch
+and dropping function gfs2_remount_fs.
+
+Thank you very much,
+Andreas
+
+--
+
+The following changes since commit 4b972a01a7da614b4796475f933094751a295a2f:
+
+  Linux 5.2-rc6 (2019-06-22 16:01:36 -0700)
 
 are available in the Git repository at:
 
-  git://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git tags/iomap-5.3-merge-1
+  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-for-5.3
 
-for you to fetch changes up to 36a7347de097edf9c4d7203d09fa223c86479674:
+for you to fetch changes up to bb4cb25dd319fa5630cc304c5bfa926266736935:
 
-  iomap: fix page_done callback for short writes (2019-06-27 17:28:41 -0700)
+  gfs2: Remove unused gfs2_iomap_alloc argument (2019-07-04 17:24:25 +0200)
 
 ----------------------------------------------------------------
-New for 5.3:
-- Only mark inode dirty at the end of writing to a file (instead of once
-  for every page written).
-- Fix for an accounting error in the page_done callback.
+Some relatively minor changes for gfs2:
+
+ - An initial batch of obvious cleanups and fixes from Bob's
+   recovery patch queue.
+ - Two iomap conversion patches and some cleanups from Christoph
+   Hellwig.
+ - A cosmetic cleanup from Kefeng Wang (Huawei).
+ - Another minor fix and cleanup by me.
 
 ----------------------------------------------------------------
 Andreas Gruenbacher (2):
-      iomap: don't mark the inode dirty in iomap_write_end
-      iomap: fix page_done callback for short writes
+      gfs2: Clean up freeing struct gfs2_sbd
+      gfs2: Remove unused gfs2_iomap_alloc argument
 
-Christoph Hellwig (1):
-      fs: fold __generic_write_end back into generic_write_end
+Bob Peterson (8):
+      gfs2: kthread and remount improvements
+      gfs2: eliminate tr_num_revoke_rm
+      gfs2: log which portion of the journal is replayed
+      gfs2: Warn when a journal replay overwrites a rgrp with buffers
+      gfs2: Rename SDF_SHUTDOWN to SDF_WITHDRAWN
+      gfs2: simplify gfs2_freeze by removing case
+      gfs2: dump fsid when dumping glock problems
+      gfs2: replace more printk with calls to fs_info and friends
 
- fs/buffer.c           | 62 ++++++++++++++++++++++++---------------------------
- fs/gfs2/bmap.c        |  2 ++
- fs/internal.h         |  2 --
- fs/iomap.c            | 17 ++++++++++++--
- include/linux/iomap.h |  1 +
- 5 files changed, 47 insertions(+), 37 deletions(-)
+Christoph Hellwig (7):
+      gfs2: use page_offset in gfs2_page_mkwrite
+      gfs2: remove the unused gfs2_stuffed_write_end function
+      gfs2: merge gfs2_writeback_aops and gfs2_ordered_aops
+      gfs2: merge gfs2_writepage_common into gfs2_writepage
+      gfs2: mark stuffed_readpage static
+      gfs2: use iomap_bmap instead of generic_block_bmap
+      gfs2: don't use buffer_heads in gfs2_allocate_page_backing
+
+Kefeng Wang (1):
+      gfs2: Use IS_ERR_OR_NULL
+
+ fs/gfs2/aops.c       | 110 ++++++---------------------------------------------
+ fs/gfs2/aops.h       |   4 --
+ fs/gfs2/bmap.c       |  14 +++----
+ fs/gfs2/dir.c        |   4 +-
+ fs/gfs2/file.c       |  37 +++++++++--------
+ fs/gfs2/glock.c      |  42 ++++++++++++--------
+ fs/gfs2/glock.h      |  11 ++++--
+ fs/gfs2/glops.c      |  12 ++++--
+ fs/gfs2/incore.h     |   6 +--
+ fs/gfs2/inode.c      |   2 +-
+ fs/gfs2/log.c        |   3 +-
+ fs/gfs2/lops.c       |  22 ++++++++++-
+ fs/gfs2/meta_io.c    |   6 +--
+ fs/gfs2/ops_fstype.c |  27 +++++++------
+ fs/gfs2/quota.c      |   2 +-
+ fs/gfs2/recovery.c   |   3 +-
+ fs/gfs2/rgrp.c       |  48 ++++++++++++----------
+ fs/gfs2/rgrp.h       |   3 +-
+ fs/gfs2/super.c      |  43 ++++++++++----------
+ fs/gfs2/super.h      |   2 +
+ fs/gfs2/sys.c        |   5 +--
+ fs/gfs2/trans.c      |   6 +--
+ fs/gfs2/util.c       |   8 ++--
+ 23 files changed, 190 insertions(+), 230 deletions(-)
 
