@@ -2,97 +2,95 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E9C7B02C
-	for <lists+cluster-devel@lfdr.de>; Tue, 30 Jul 2019 19:35:30 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A4FA7C962
+	for <lists+cluster-devel@lfdr.de>; Wed, 31 Jul 2019 18:58:56 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E459E3082E57;
-	Tue, 30 Jul 2019 17:35:27 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 91CDFC00296D;
+	Wed, 31 Jul 2019 16:58:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 406CA600CC;
-	Tue, 30 Jul 2019 17:35:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64D7A1001B09;
+	Wed, 31 Jul 2019 16:58:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6C91018089C8;
-	Tue, 30 Jul 2019 17:35:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BBCD61800203;
+	Wed, 31 Jul 2019 16:58:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6UHToiP010646 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Jul 2019 13:29:50 -0400
+	id x6VGwYVv027000 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 31 Jul 2019 12:58:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9A64D60C47; Tue, 30 Jul 2019 17:29:50 +0000 (UTC)
+	id 502E25D6D0; Wed, 31 Jul 2019 16:58:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.48])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93A8960BEC
-	for <cluster-devel@redhat.com>; Tue, 30 Jul 2019 17:29:48 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
-	[209.85.215.196])
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B3BE5D6B2
+	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 16:58:32 +0000 (UTC)
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
+	[209.85.215.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 14F0F307D853
-	for <cluster-devel@redhat.com>; Tue, 30 Jul 2019 17:29:41 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id f20so21186603pgj.0
-	for <cluster-devel@redhat.com>; Tue, 30 Jul 2019 10:29:41 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3FA84859FE
+	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 16:58:12 +0000 (UTC)
+Received: by mail-pg1-f194.google.com with SMTP id i18so32333213pgl.11
+	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 09:58:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=android.com; s=20161025;
-	h=from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding;
-	bh=hpXePiRxXfQ6sClI29050n6F2wnM+ayz6+4t+YYSnqM=;
-	b=HkTFuuTvBIXlQZSSPWbSBIXm6TttT1y4oMLZRV5iAhmzJo/DpBXgIG21DgnAHKbxVw
-	/mmYEeXaJIKoIdWyeKQZC/w690K7fVQdyNuFDV7znox/Y+a8YluKlraCgeg0ACAU3HZd
-	mc2CGZMsMvIl++bjoghrBiHiuASsC+T7Nj6xdAFYCC38Fu1j77X9nY1hfdFQhkiAMpeg
-	OThqyGjhNGNxD+hjQP36Nk+LIjddHBJ0o7yUIPCjj+POF45e7zPeY38BMWxO70sG3W9O
-	xvWGvG1kcPhJBZLxw0s8XQM2x+hh2GYgTZJ+6y1OmlZJ/DKuTr4V38hgGWQi+fx1PUf6
-	M4sA==
+	h=from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=YkWr+p+vKLuVNlEdLhOL/tn/V0J5xAeOTfzwbmW2id8=;
+	b=cfX4VNn7i5fVUAJEVA4MBhomWV9u/SiICGvW/8hoXIHAFSEgly0mFbnQ+ACtuwiC3g
+	IpRmu1ckKjW2mFtirOT4pZeZvT2dDPhZMzF32ZvoQFr92hPVsLC2dNO3QsACLmwar0UV
+	QGuSfotvuKuTlqK5sSL0gn6Mhis1cY41gMWMYYlYUWkSVqwTLLDgqF7CYEi0YCD1g00b
+	7XO/I47/oxluNGrRhfkGi6MsDix8d8wmsmYqbtCrJdMXSv2+AjyqFMUYQjA2L9of7CoM
+	8oMQRrlSd8a/C7QbtWiQIXkLjDxq+jhIt0VkS66EI4A6SO7z2CwCPG6R7kaiAWc0Io97
+	PoBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references:mime-version:content-transfer-encoding;
-	bh=hpXePiRxXfQ6sClI29050n6F2wnM+ayz6+4t+YYSnqM=;
-	b=Q9Rv5nWe8p8+DAmZZkNKBuxbYUatrh3QRqUjbUJCWn2K6KGTEfV3UrBMJ4DXj4Xyhu
-	DHhz6TIQhcke+NJ2uVKHcDqdbazGwkM+GTPYMK7qRxYvHgpun9BM1Ftytf2duqlt6YQe
-	EoVboMyFdTAR9EMKIZC3X6OfIDMFCx6ZmXVkdIKJ78WQGM9M8YtoXVkVOfXWXLJj8gAb
-	7MSi4unaOLTIlCIJdwyJzWdmcGOo7CWnMYW3U983Wg9vUBBZ/et1mmWOS5pdMScYVlPW
-	JTaQl+aikZYejOGNYC8bA4LH0qVFrVDzePiLUgAd1yzxpPUzZbyqopa9qav2wQH7WsqG
-	VNvA==
-X-Gm-Message-State: APjAAAWlhdS4qN5NnKJqNUVa0ocN9CcYP9DSpqhE/fztYQq64srEjowD
-	zbbjpmTXyQr/Dk37N4qksOQ=
-X-Google-Smtp-Source: APXvYqx2+uPWPnkmyeQnnAqR8ojwmpe5xMbWtmVjejIfGQs8XItzn2uEBRI9JMNOBi6qC1s1EFXuJg==
-X-Received: by 2002:a17:90a:2244:: with SMTP id
-	c62mr120904716pje.29.1564507780186; 
-	Tue, 30 Jul 2019 10:29:40 -0700 (PDT)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=YkWr+p+vKLuVNlEdLhOL/tn/V0J5xAeOTfzwbmW2id8=;
+	b=nWJxNFsR9EeSEV+v7aXwwXTsM1KPHa9emZyrKJPVs8RaRwxtouK5VgVYKF1kx4K7IE
+	p+w9jqQuZZmRCPb/RA6YW91KSECn55X0aFfJIQvn7AopjpIUxRcC5Sb9YMX3B/lZnewI
+	MpCY3C/cyJKv7IhOfqrQSCtyi0uvNKa7RjNa3gFGlG0Go1rhXdVmC03kw1SWP4012jdT
+	MPhdUz6hpOi3TqlC+3CjwRq+8E4qgKasQCl1QwwxnZ+hzNDu2TSF+7tp+7nHrE/ZJR3p
+	snk3s0KlVUpmDjxUs+Z/z6hw7j38kO9XT1P0RRrkL26yZyXn4fzaa3Q/gOSHHee09GNg
+	5now==
+X-Gm-Message-State: APjAAAXC4VqH6DIU4/+jCuRORq6jjtdTz01MoxN4kIcxuQKtDuXHEPSa
+	VnpGcrhh06PbEEud65PMjHA=
+X-Google-Smtp-Source: APXvYqy8vRIpYoYhq+l1XHKOf/Pp65RQkYrvXTYdFcAiznSLIUoJDMNElyzOyLh9v1G4MbxuSIIkEQ==
+X-Received: by 2002:a17:90a:2041:: with SMTP id
+	n59mr3794829pjc.6.1564592291310; 
+	Wed, 31 Jul 2019 09:58:11 -0700 (PDT)
 Received: from nebulus.mtv.corp.google.com
 	([2620:15c:211:200:5404:91ba:59dc:9400])
 	by smtp.gmail.com with ESMTPSA id
-	o129sm39856293pfg.1.2019.07.30.10.29.37
+	f72sm2245954pjg.10.2019.07.31.09.58.09
 	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
-	Tue, 30 Jul 2019 10:29:39 -0700 (PDT)
+	Wed, 31 Jul 2019 09:58:10 -0700 (PDT)
 From: Mark Salyzyn <salyzyn@android.com>
 To: linux-kernel@vger.kernel.org
-Date: Tue, 30 Jul 2019 10:28:59 -0700
-Message-Id: <20190730172904.79146-3-salyzyn@android.com>
-In-Reply-To: <20190730172904.79146-1-salyzyn@android.com>
-References: <20190730172904.79146-1-salyzyn@android.com>
+Date: Wed, 31 Jul 2019 09:57:55 -0700
+Message-Id: <20190731165803.4755-1-salyzyn@android.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.48]);
-	Tue, 30 Jul 2019 17:29:41 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
-	Tue, 30 Jul 2019 17:29:41 +0000 (UTC) for IP:'209.85.215.196'
-	DOMAIN:'mail-pg1-f196.google.com'
-	HELO:'mail-pg1-f196.google.com' FROM:'salyzyn@android.com' RCPT:''
+	(mx1.redhat.com [10.5.110.26]);
+	Wed, 31 Jul 2019 16:58:12 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Wed, 31 Jul 2019 16:58:12 +0000 (UTC) for IP:'209.85.215.194'
+	DOMAIN:'mail-pg1-f194.google.com'
+	HELO:'mail-pg1-f194.google.com' FROM:'salyzyn@android.com' RCPT:''
 X-RedHat-Spam-Score: -0.099  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
 	DKIM_VALID_AU, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H3,
 	RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
-	SPF_PASS) 209.85.215.196 mail-pg1-f196.google.com 209.85.215.196
-	mail-pg1-f196.google.com <salyzyn@android.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+	SPF_PASS) 209.85.215.194 mail-pg1-f194.google.com 209.85.215.194
+	mail-pg1-f194.google.com <salyzyn@android.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Tue, 30 Jul 2019 13:35:17 -0400
 Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
 	jfs-discussion@lists.sourceforge.net,
 	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
@@ -100,7 +98,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
 	Dominique Martinet <asmadeus@codewreck.org>,
 	Amir Goldstein <amir73il@gmail.com>,
 	David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
-	"David S. Miller" <davem@davemloft.net>,
+	"David S . Miller" <davem@davemloft.net>,
 	Andreas Dilger <adilger.kernel@dilger.ca>,
 	ocfs2-devel@oss.oracle.com, netdev@vger.kernel.org,
 	Tyler Hicks <tyhicks@canonical.com>, linux-afs@lists.infradead.org,
@@ -108,7 +106,8 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
 	Sage Weil <sage@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
 	Richard Weinberger <richard@nod.at>,
 	Mark Fasheh <mark@fasheh.com>, devel@lists.orangefs.org,
-	Hugh Dickins <hughd@google.com>, cluster-devel@redhat.com,
+	Hugh Dickins <hughd@google.com>,
+	linux-security-module@vger.kernel.org, cluster-devel@redhat.com,
 	Vyacheslav Dubeyko <slava@dubeyko.com>,
 	v9fs-developer@lists.sourceforge.net,
 	Ilya Dryomov <idryomov@gmail.com>, linux-ext4@vger.kernel.org,
@@ -117,7 +116,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
 	linux-cifs@vger.kernel.org,
 	Eric Van Hensbergen <ericvh@gmail.com>, ecryptfs@vger.kernel.org,
 	Josef Bacik <josef@toxicpanda.com>,
-	"Darrick J. Wong" <darrick.wong@oracle.com>,
+	"Darrick J . Wong" <darrick.wong@oracle.com>,
 	reiserfs-devel@vger.kernel.org, Tejun Heo <tj@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-mtd@lists.infradead.org, David Sterba <dsterba@suse.com>,
@@ -129,18 +128,17 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
 	Mathieu Malaterre <malat@debian.org>, kernel-team@android.com,
 	Miklos Szeredi <miklos@szeredi.hu>,
 	Jeff Layton <jlayton@kernel.org>, linux-unionfs@vger.kernel.org,
-	Mark Salyzyn <salyzyn@android.com>, Steve French <sfrench@samba.org>,
-	=?UTF-8?q?Ernesto=20A=2E=20Fern=C3=A1ndez?=
+	stable@vger.kernel.org, Mark Salyzyn <salyzyn@android.com>,
+	Steve French <sfrench@samba.org>,
+	=?UTF-8?q?Ernesto=20A=20=2E=20Fern=C3=A1ndez?=
 	<ernesto.mnd.fernandez@gmail.com>,
-	"Eric W . Biederman" <ebiederm@xmission.com>,
-	Mark Salyzyn <salyzyn@google.com>, Jan Kara <jack@suse.com>,
+	"Eric W . Biederman" <ebiederm@xmission.com>, Jan Kara <jack@suse.com>,
 	Phillip Lougher <phillip@squashfs.org.uk>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	David Woodhouse <dwmw2@infradead.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>, linux-btrfs@vger.kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>
-Subject: [Cluster-devel] [PATCH v12 2/5] Add flags option to get xattr
-	method paired to __vfs_getxattr
+Subject: [Cluster-devel] [PATCH v13 0/5] overlayfs override_creds=off
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -154,38 +152,38 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Tue, 30 Jul 2019 17:35:28 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Wed, 31 Jul 2019 16:58:55 +0000 (UTC)
 
-Add a flag option to get xattr method that could have a bit flag of
-XATTR_NOSECURITY passed to it.  XATTR_NOSECURITY is set in the
-__vfs_getxattr path.
+Patch series:
 
-This handles the case of a union filesystem driver that is being
-requested by the security layer to report back the data that is the
-target label or context embedded into wrapped filesystem's xattr.
+overlayfs: check CAP_DAC_READ_SEARCH before issuing exportfs_decode_fh
+Add flags option to get xattr method paired to __vfs_getxattr
+overlayfs: handle XATTR_NOSECURITY flag for get xattr method
+overlayfs: internal getxattr operations without sepolicy checking
+overlayfs: override_creds=off option bypass creator_cred
 
-For the use case where access is to be blocked by the security layer.
+The first four patches address fundamental security issues that should
+be solved regardless of the override_creds=off feature.
+on them).
 
-The path then could be security(dentry) -> __vfs_getxattr(dentry) ->
-handler->get(dentry...XATTR_NOSECURITY) ->
-__vfs_getxattr(lower_dentry) -> lower_handler->get(lower_dentry)
-which would report back through the chain data and success as
-expected, but the logging security layer at the top would have the
-data to determine the access permissions and report back the target
-context that was blocked.
+The fifth adds the feature depends on these other fixes.
 
-Without the get handler flag, the path on a union filesystem would be
-the errant security(dentry) -> __vfs_getxattr(dentry) ->
-handler->get(dentry) -> vfs_getxattr(lower_dentry) -> nested ->
-security(lower_dentry, log off) -> lower_handler->get(lower_dentry)
-which would report back through the chain no data, and -EACCES.
+By default, all access to the upper, lower and work directories is the
+recorded mounter's MAC and DAC credentials.  The incoming accesses are
+checked against the caller's credentials.
 
-For selinux for both cases, this would translate to a correctly
-determined blocked access. In the first corrected case a correct avc
-log would be reported, in the second legacy case an incorrect avc log
-would be reported against an uninitialized u:object_r:unlabeled:s0
-context making the logs cosmetically useless for audit2allow.
+If the principles of least privilege are applied for sepolicy, the
+mounter's credentials might not overlap the credentials of the caller's
+when accessing the overlayfs filesystem.  For example, a file that a
+lower DAC privileged caller can execute, is MAC denied to the
+generally higher DAC privileged mounter, to prevent an attack vector.
+
+We add the option to turn off override_creds in the mount options; all
+subsequent operations after mount on the filesystem will be only the
+caller's credentials.  The module boolean parameter and mount option
+override_creds is also added as a presence check for this "feature",
+existence of /sys/module/overlay/parameters/overlay_creds
 
 Signed-off-by: Mark Salyzyn <salyzyn@android.com>
 Cc: Miklos Szeredi <miklos@szeredi.hu>
@@ -198,729 +196,113 @@ Cc: Stephen Smalley <sds@tycho.nsa.gov>
 Cc: linux-unionfs@vger.kernel.org
 Cc: linux-doc@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Cc: kernel-team@android.com
+Cc: Eric Van Hensbergen <ericvh@gmail.com>
+Cc: Latchesar Ionkov <lucho@ionkov.net>
+Cc: Dominique Martinet <asmadeus@codewreck.org>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Chris Mason <clm@fb.com>
+Cc: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>
+Cc: Jeff Layton <jlayton@kernel.org>
+Cc: Sage Weil <sage@redhat.com>
+Cc: Ilya Dryomov <idryomov@gmail.com>
+Cc: Steve French <sfrench@samba.org>
+Cc: Tyler Hicks <tyhicks@canonical.com>
+Cc: Jan Kara <jack@suse.com>
+Cc: Theodore Ts'o <tytso@mit.edu>
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: Chao Yu <yuchao0@huawei.com>
+Cc: Bob Peterson <rpeterso@redhat.com>
+Cc: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: David Woodhouse <dwmw2@infradead.org>
+Cc: Richard Weinberger <richard@nod.at>
+Cc: Dave Kleikamp <shaggy@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Trond Myklebust <trond.myklebust@hammerspace.com>
+Cc: Anna Schumaker <anna.schumaker@netapp.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mike Marshall <hubcap@omnibond.com>
+Cc: Martin Brandenburg <martin@omnibond.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Phillip Lougher <phillip@squashfs.org.uk>
+Cc: Darrick J. Wong <darrick.wong@oracle.com>
+Cc: linux-xfs@vger.kernel.org
+Cc: Hugh Dickins <hughd@google.com>
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Mathieu Malaterre <malat@debian.org>
+Cc: Ernesto A. Fernández <ernesto.mnd.fernandez@gmail.com>
+Cc: Vyacheslav Dubeyko <slava@dubeyko.com>
+Cc: v9fs-developer@lists.sourceforge.net
+Cc: linux-afs@lists.infradead.org
+Cc: linux-btrfs@vger.kernel.org
+Cc: ceph-devel@vger.kernel.org
+Cc: linux-cifs@vger.kernel.org
+Cc: samba-technical@lists.samba.org
+Cc: ecryptfs@vger.kernel.org
+Cc: linux-ext4@vger.kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net
+Cc: linux-fsdevel@vger.kernel.org
+Cc: cluster-devel@redhat.com
+Cc: linux-mtd@lists.infradead.org
+Cc: jfs-discussion@lists.sourceforge.net
+Cc: linux-nfs@vger.kernel.org
+Cc: ocfs2-devel@oss.oracle.com
+Cc: devel@lists.orangefs.org
+Cc: reiserfs-devel@vger.kernel.org
+Cc: linux-mm@kvack.org
+Cc: netdev@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: stable@vger.kernel.org # 4.4, 4.9, 4.14 & 4.19
 ---
-v12 - Added back to patch series as get xattr with flag option.
+v13:
+- add flags argument to __vfs_getxattr
+- drop GFP_NOFS side-effect
 
-v11 - Squashed out of patch series and replaced with per-thread flag
-      solution.
+v12:
+- Restore squished out patch 2 and 3 in the series,
+  then change algorithm to add flags argument.
+  Per-thread flag is a large security surface.
 
-v10 - Added to patch series as __get xattr method.
----
- fs/9p/acl.c                  |  3 ++-
- fs/9p/xattr.c                |  3 ++-
- fs/afs/xattr.c               |  6 +++---
- fs/btrfs/xattr.c             |  3 ++-
- fs/ceph/xattr.c              |  3 ++-
- fs/cifs/xattr.c              |  2 +-
- fs/ecryptfs/inode.c          |  3 ++-
- fs/ext2/xattr_trusted.c      |  2 +-
- fs/ext2/xattr_user.c         |  2 +-
- fs/ext4/xattr_security.c     |  2 +-
- fs/ext4/xattr_trusted.c      |  2 +-
- fs/ext4/xattr_user.c         |  2 +-
- fs/f2fs/xattr.c              |  4 ++--
- fs/fuse/xattr.c              |  4 ++--
- fs/gfs2/xattr.c              |  3 ++-
- fs/hfs/attr.c                |  2 +-
- fs/hfsplus/xattr.c           |  3 ++-
- fs/hfsplus/xattr_trusted.c   |  3 ++-
- fs/hfsplus/xattr_user.c      |  3 ++-
- fs/jffs2/security.c          |  3 ++-
- fs/jffs2/xattr_trusted.c     |  3 ++-
- fs/jffs2/xattr_user.c        |  3 ++-
- fs/jfs/xattr.c               |  5 +++--
- fs/kernfs/inode.c            |  1 +
- fs/nfs/nfs4proc.c            |  6 ++++--
- fs/ocfs2/xattr.c             |  9 ++++++---
- fs/orangefs/xattr.c          |  3 ++-
- fs/overlayfs/super.c         |  5 +++--
- fs/posix_acl.c               |  2 +-
- fs/reiserfs/xattr_security.c |  3 ++-
- fs/reiserfs/xattr_trusted.c  |  3 ++-
- fs/reiserfs/xattr_user.c     |  3 ++-
- fs/squashfs/xattr.c          |  2 +-
- fs/xattr.c                   | 19 ++++++++++++++-----
- fs/xfs/xfs_xattr.c           |  3 ++-
- include/linux/xattr.h        |  6 +++---
- include/uapi/linux/xattr.h   |  5 +++--
- mm/shmem.c                   |  3 ++-
- net/socket.c                 |  3 ++-
- 39 files changed, 91 insertions(+), 54 deletions(-)
+v11:
+- Squish out v10 introduced patch 2 and 3 in the series,
+  then and use per-thread flag instead for nesting.
+- Switch name to ovl_do_vds_getxattr for __vds_getxattr wrapper.
+- Add sb argument to ovl_revert_creds to match future work.
 
-diff --git a/fs/9p/acl.c b/fs/9p/acl.c
-index 6261719f6f2a..cb14e8b312bc 100644
---- a/fs/9p/acl.c
-+++ b/fs/9p/acl.c
-@@ -214,7 +214,8 @@ int v9fs_acl_mode(struct inode *dir, umode_t *modep,
- 
- static int v9fs_xattr_get_acl(const struct xattr_handler *handler,
- 			      struct dentry *dentry, struct inode *inode,
--			      const char *name, void *buffer, size_t size)
-+			      const char *name, void *buffer, size_t size,
-+			      int flags)
- {
- 	struct v9fs_session_info *v9ses;
- 	struct posix_acl *acl;
-diff --git a/fs/9p/xattr.c b/fs/9p/xattr.c
-index ac8ff8ca4c11..5cfa772452fd 100644
---- a/fs/9p/xattr.c
-+++ b/fs/9p/xattr.c
-@@ -139,7 +139,8 @@ ssize_t v9fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
- 
- static int v9fs_xattr_handler_get(const struct xattr_handler *handler,
- 				  struct dentry *dentry, struct inode *inode,
--				  const char *name, void *buffer, size_t size)
-+				  const char *name, void *buffer, size_t size,
-+				  int flags)
- {
- 	const char *full_name = xattr_full_name(handler, name);
- 
-diff --git a/fs/afs/xattr.c b/fs/afs/xattr.c
-index 5552d034090a..e6509c21f08a 100644
---- a/fs/afs/xattr.c
-+++ b/fs/afs/xattr.c
-@@ -334,7 +334,7 @@ static const struct xattr_handler afs_xattr_yfs_handler = {
- static int afs_xattr_get_cell(const struct xattr_handler *handler,
- 			      struct dentry *dentry,
- 			      struct inode *inode, const char *name,
--			      void *buffer, size_t size)
-+			      void *buffer, size_t size, int flags)
- {
- 	struct afs_vnode *vnode = AFS_FS_I(inode);
- 	struct afs_cell *cell = vnode->volume->cell;
-@@ -361,7 +361,7 @@ static const struct xattr_handler afs_xattr_afs_cell_handler = {
- static int afs_xattr_get_fid(const struct xattr_handler *handler,
- 			     struct dentry *dentry,
- 			     struct inode *inode, const char *name,
--			     void *buffer, size_t size)
-+			     void *buffer, size_t size, int flags)
- {
- 	struct afs_vnode *vnode = AFS_FS_I(inode);
- 	char text[16 + 1 + 24 + 1 + 8 + 1];
-@@ -397,7 +397,7 @@ static const struct xattr_handler afs_xattr_afs_fid_handler = {
- static int afs_xattr_get_volume(const struct xattr_handler *handler,
- 			      struct dentry *dentry,
- 			      struct inode *inode, const char *name,
--			      void *buffer, size_t size)
-+			      void *buffer, size_t size, int flags)
- {
- 	struct afs_vnode *vnode = AFS_FS_I(inode);
- 	const char *volname = vnode->volume->name;
-diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
-index 95d9aebff2c4..1e522e145344 100644
---- a/fs/btrfs/xattr.c
-+++ b/fs/btrfs/xattr.c
-@@ -353,7 +353,8 @@ ssize_t btrfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 
- static int btrfs_xattr_handler_get(const struct xattr_handler *handler,
- 				   struct dentry *unused, struct inode *inode,
--				   const char *name, void *buffer, size_t size)
-+				   const char *name, void *buffer, size_t size,
-+				   int flags)
- {
- 	name = xattr_full_name(handler, name);
- 	return btrfs_getxattr(inode, name, buffer, size);
-diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
-index 37b458a9af3a..edb7eb9ae83e 100644
---- a/fs/ceph/xattr.c
-+++ b/fs/ceph/xattr.c
-@@ -1171,7 +1171,8 @@ int __ceph_setxattr(struct inode *inode, const char *name,
- 
- static int ceph_get_xattr_handler(const struct xattr_handler *handler,
- 				  struct dentry *dentry, struct inode *inode,
--				  const char *name, void *value, size_t size)
-+				  const char *name, void *value, size_t size,
-+				  int flags)
- {
- 	if (!ceph_is_valid_xattr(name))
- 		return -EOPNOTSUPP;
-diff --git a/fs/cifs/xattr.c b/fs/cifs/xattr.c
-index 9076150758d8..7f71c06ce631 100644
---- a/fs/cifs/xattr.c
-+++ b/fs/cifs/xattr.c
-@@ -199,7 +199,7 @@ static int cifs_creation_time_get(struct dentry *dentry, struct inode *inode,
- 
- static int cifs_xattr_get(const struct xattr_handler *handler,
- 			  struct dentry *dentry, struct inode *inode,
--			  const char *name, void *value, size_t size)
-+			  const char *name, void *value, size_t size, int flags)
- {
- 	ssize_t rc = -EOPNOTSUPP;
- 	unsigned int xid;
-diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
-index 18426f4855f1..9306e1c53cdb 100644
---- a/fs/ecryptfs/inode.c
-+++ b/fs/ecryptfs/inode.c
-@@ -1103,7 +1103,8 @@ const struct inode_operations ecryptfs_main_iops = {
- 
- static int ecryptfs_xattr_get(const struct xattr_handler *handler,
- 			      struct dentry *dentry, struct inode *inode,
--			      const char *name, void *buffer, size_t size)
-+			      const char *name, void *buffer, size_t size,
-+			      int flags)
- {
- 	return ecryptfs_getxattr(dentry, inode, name, buffer, size);
- }
-diff --git a/fs/ext2/xattr_trusted.c b/fs/ext2/xattr_trusted.c
-index 49add1107850..8d313664f0fa 100644
---- a/fs/ext2/xattr_trusted.c
-+++ b/fs/ext2/xattr_trusted.c
-@@ -18,7 +18,7 @@ ext2_xattr_trusted_list(struct dentry *dentry)
- static int
- ext2_xattr_trusted_get(const struct xattr_handler *handler,
- 		       struct dentry *unused, struct inode *inode,
--		       const char *name, void *buffer, size_t size)
-+		       const char *name, void *buffer, size_t size, int flags)
- {
- 	return ext2_xattr_get(inode, EXT2_XATTR_INDEX_TRUSTED, name,
- 			      buffer, size);
-diff --git a/fs/ext2/xattr_user.c b/fs/ext2/xattr_user.c
-index c243a3b4d69d..712b7c95cc64 100644
---- a/fs/ext2/xattr_user.c
-+++ b/fs/ext2/xattr_user.c
-@@ -20,7 +20,7 @@ ext2_xattr_user_list(struct dentry *dentry)
- static int
- ext2_xattr_user_get(const struct xattr_handler *handler,
- 		    struct dentry *unused, struct inode *inode,
--		    const char *name, void *buffer, size_t size)
-+		    const char *name, void *buffer, size_t size, int flags)
- {
- 	if (!test_opt(inode->i_sb, XATTR_USER))
- 		return -EOPNOTSUPP;
-diff --git a/fs/ext4/xattr_security.c b/fs/ext4/xattr_security.c
-index 197a9d8a15ef..50fb71393fb6 100644
---- a/fs/ext4/xattr_security.c
-+++ b/fs/ext4/xattr_security.c
-@@ -15,7 +15,7 @@
- static int
- ext4_xattr_security_get(const struct xattr_handler *handler,
- 			struct dentry *unused, struct inode *inode,
--			const char *name, void *buffer, size_t size)
-+			const char *name, void *buffer, size_t size, int flags)
- {
- 	return ext4_xattr_get(inode, EXT4_XATTR_INDEX_SECURITY,
- 			      name, buffer, size);
-diff --git a/fs/ext4/xattr_trusted.c b/fs/ext4/xattr_trusted.c
-index e9389e5d75c3..64bd8f86c1f1 100644
---- a/fs/ext4/xattr_trusted.c
-+++ b/fs/ext4/xattr_trusted.c
-@@ -22,7 +22,7 @@ ext4_xattr_trusted_list(struct dentry *dentry)
- static int
- ext4_xattr_trusted_get(const struct xattr_handler *handler,
- 		       struct dentry *unused, struct inode *inode,
--		       const char *name, void *buffer, size_t size)
-+		       const char *name, void *buffer, size_t size, int flags)
- {
- 	return ext4_xattr_get(inode, EXT4_XATTR_INDEX_TRUSTED,
- 			      name, buffer, size);
-diff --git a/fs/ext4/xattr_user.c b/fs/ext4/xattr_user.c
-index d4546184b34b..b7301373820e 100644
---- a/fs/ext4/xattr_user.c
-+++ b/fs/ext4/xattr_user.c
-@@ -21,7 +21,7 @@ ext4_xattr_user_list(struct dentry *dentry)
- static int
- ext4_xattr_user_get(const struct xattr_handler *handler,
- 		    struct dentry *unused, struct inode *inode,
--		    const char *name, void *buffer, size_t size)
-+		    const char *name, void *buffer, size_t size, int flags)
- {
- 	if (!test_opt(inode->i_sb, XATTR_USER))
- 		return -EOPNOTSUPP;
-diff --git a/fs/f2fs/xattr.c b/fs/f2fs/xattr.c
-index b32c45621679..76559da8dfba 100644
---- a/fs/f2fs/xattr.c
-+++ b/fs/f2fs/xattr.c
-@@ -24,7 +24,7 @@
- 
- static int f2fs_xattr_generic_get(const struct xattr_handler *handler,
- 		struct dentry *unused, struct inode *inode,
--		const char *name, void *buffer, size_t size)
-+		const char *name, void *buffer, size_t size, int flags)
- {
- 	struct f2fs_sb_info *sbi = F2FS_SB(inode->i_sb);
- 
-@@ -79,7 +79,7 @@ static bool f2fs_xattr_trusted_list(struct dentry *dentry)
- 
- static int f2fs_xattr_advise_get(const struct xattr_handler *handler,
- 		struct dentry *unused, struct inode *inode,
--		const char *name, void *buffer, size_t size)
-+		const char *name, void *buffer, size_t size, int flags)
- {
- 	if (buffer)
- 		*((char *)buffer) = F2FS_I(inode)->i_advise;
-diff --git a/fs/fuse/xattr.c b/fs/fuse/xattr.c
-index 433717640f78..d1ef7808304e 100644
---- a/fs/fuse/xattr.c
-+++ b/fs/fuse/xattr.c
-@@ -176,7 +176,7 @@ int fuse_removexattr(struct inode *inode, const char *name)
- 
- static int fuse_xattr_get(const struct xattr_handler *handler,
- 			 struct dentry *dentry, struct inode *inode,
--			 const char *name, void *value, size_t size)
-+			 const char *name, void *value, size_t size, int flags)
- {
- 	return fuse_getxattr(inode, name, value, size);
- }
-@@ -199,7 +199,7 @@ static bool no_xattr_list(struct dentry *dentry)
- 
- static int no_xattr_get(const struct xattr_handler *handler,
- 			struct dentry *dentry, struct inode *inode,
--			const char *name, void *value, size_t size)
-+			const char *name, void *value, size_t size, int flags)
- {
- 	return -EOPNOTSUPP;
- }
-diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
-index bbe593d16bea..a9db067a99c1 100644
---- a/fs/gfs2/xattr.c
-+++ b/fs/gfs2/xattr.c
-@@ -588,7 +588,8 @@ static int __gfs2_xattr_get(struct inode *inode, const char *name,
- 
- static int gfs2_xattr_get(const struct xattr_handler *handler,
- 			  struct dentry *unused, struct inode *inode,
--			  const char *name, void *buffer, size_t size)
-+			  const char *name, void *buffer, size_t size,
-+			  int flags)
- {
- 	struct gfs2_inode *ip = GFS2_I(inode);
- 	struct gfs2_holder gh;
-diff --git a/fs/hfs/attr.c b/fs/hfs/attr.c
-index 74fa62643136..08222a9c5d31 100644
---- a/fs/hfs/attr.c
-+++ b/fs/hfs/attr.c
-@@ -115,7 +115,7 @@ static ssize_t __hfs_getxattr(struct inode *inode, enum hfs_xattr_type type,
- 
- static int hfs_xattr_get(const struct xattr_handler *handler,
- 			 struct dentry *unused, struct inode *inode,
--			 const char *name, void *value, size_t size)
-+			 const char *name, void *value, size_t size, int flags)
- {
- 	return __hfs_getxattr(inode, handler->flags, value, size);
- }
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index bb0b27d88e50..381c2aaedbc8 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -839,7 +839,8 @@ static int hfsplus_removexattr(struct inode *inode, const char *name)
- 
- static int hfsplus_osx_getxattr(const struct xattr_handler *handler,
- 				struct dentry *unused, struct inode *inode,
--				const char *name, void *buffer, size_t size)
-+				const char *name, void *buffer, size_t size,
-+				int flags)
- {
- 	/*
- 	 * Don't allow retrieving properly prefixed attributes
-diff --git a/fs/hfsplus/xattr_trusted.c b/fs/hfsplus/xattr_trusted.c
-index fbad91e1dada..54d926314f8c 100644
---- a/fs/hfsplus/xattr_trusted.c
-+++ b/fs/hfsplus/xattr_trusted.c
-@@ -14,7 +14,8 @@
- 
- static int hfsplus_trusted_getxattr(const struct xattr_handler *handler,
- 				    struct dentry *unused, struct inode *inode,
--				    const char *name, void *buffer, size_t size)
-+				    const char *name, void *buffer,
-+				    size_t size, int flags)
- {
- 	return hfsplus_getxattr(inode, name, buffer, size,
- 				XATTR_TRUSTED_PREFIX,
-diff --git a/fs/hfsplus/xattr_user.c b/fs/hfsplus/xattr_user.c
-index 74d19faf255e..4d2b1ffff887 100644
---- a/fs/hfsplus/xattr_user.c
-+++ b/fs/hfsplus/xattr_user.c
-@@ -14,7 +14,8 @@
- 
- static int hfsplus_user_getxattr(const struct xattr_handler *handler,
- 				 struct dentry *unused, struct inode *inode,
--				 const char *name, void *buffer, size_t size)
-+				 const char *name, void *buffer, size_t size,
-+				 int flags)
- {
- 
- 	return hfsplus_getxattr(inode, name, buffer, size,
-diff --git a/fs/jffs2/security.c b/fs/jffs2/security.c
-index c2332e30f218..e6f42fe435af 100644
---- a/fs/jffs2/security.c
-+++ b/fs/jffs2/security.c
-@@ -50,7 +50,8 @@ int jffs2_init_security(struct inode *inode, struct inode *dir,
- /* ---- XATTR Handler for "security.*" ----------------- */
- static int jffs2_security_getxattr(const struct xattr_handler *handler,
- 				   struct dentry *unused, struct inode *inode,
--				   const char *name, void *buffer, size_t size)
-+				   const char *name, void *buffer, size_t size,
-+				   int flags)
- {
- 	return do_jffs2_getxattr(inode, JFFS2_XPREFIX_SECURITY,
- 				 name, buffer, size);
-diff --git a/fs/jffs2/xattr_trusted.c b/fs/jffs2/xattr_trusted.c
-index 5d6030826c52..9dccaae549f5 100644
---- a/fs/jffs2/xattr_trusted.c
-+++ b/fs/jffs2/xattr_trusted.c
-@@ -18,7 +18,8 @@
- 
- static int jffs2_trusted_getxattr(const struct xattr_handler *handler,
- 				  struct dentry *unused, struct inode *inode,
--				  const char *name, void *buffer, size_t size)
-+				  const char *name, void *buffer, size_t size,
-+				  int flags)
- {
- 	return do_jffs2_getxattr(inode, JFFS2_XPREFIX_TRUSTED,
- 				 name, buffer, size);
-diff --git a/fs/jffs2/xattr_user.c b/fs/jffs2/xattr_user.c
-index 9d027b4abcf9..c0983a3e810b 100644
---- a/fs/jffs2/xattr_user.c
-+++ b/fs/jffs2/xattr_user.c
-@@ -18,7 +18,8 @@
- 
- static int jffs2_user_getxattr(const struct xattr_handler *handler,
- 			       struct dentry *unused, struct inode *inode,
--			       const char *name, void *buffer, size_t size)
-+			       const char *name, void *buffer, size_t size,
-+			       int flags)
- {
- 	return do_jffs2_getxattr(inode, JFFS2_XPREFIX_USER,
- 				 name, buffer, size);
-diff --git a/fs/jfs/xattr.c b/fs/jfs/xattr.c
-index db41e7803163..5c79a35bf62f 100644
---- a/fs/jfs/xattr.c
-+++ b/fs/jfs/xattr.c
-@@ -925,7 +925,7 @@ static int __jfs_xattr_set(struct inode *inode, const char *name,
- 
- static int jfs_xattr_get(const struct xattr_handler *handler,
- 			 struct dentry *unused, struct inode *inode,
--			 const char *name, void *value, size_t size)
-+			 const char *name, void *value, size_t size, int flags)
- {
- 	name = xattr_full_name(handler, name);
- 	return __jfs_getxattr(inode, name, value, size);
-@@ -942,7 +942,8 @@ static int jfs_xattr_set(const struct xattr_handler *handler,
- 
- static int jfs_xattr_get_os2(const struct xattr_handler *handler,
- 			     struct dentry *unused, struct inode *inode,
--			     const char *name, void *value, size_t size)
-+			     const char *name, void *value, size_t size,
-+			     int flags)
- {
- 	if (is_known_namespace(name))
- 		return -EOPNOTSUPP;
-diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
-index f3f3984cce80..ebd47d549a52 100644
---- a/fs/kernfs/inode.c
-+++ b/fs/kernfs/inode.c
-@@ -310,6 +310,7 @@ int kernfs_xattr_set(struct kernfs_node *kn, const char *name,
- static int kernfs_vfs_xattr_get(const struct xattr_handler *handler,
- 				struct dentry *unused, struct inode *inode,
- 				const char *suffix, void *value, size_t size)
-+				int flags)
- {
- 	const char *name = xattr_full_name(handler, suffix);
- 	struct kernfs_node *kn = inode->i_private;
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 39896afc6edf..5e6a58685cd0 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -7203,7 +7203,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
- 
- static int nfs4_xattr_get_nfs4_acl(const struct xattr_handler *handler,
- 				   struct dentry *unused, struct inode *inode,
--				   const char *key, void *buf, size_t buflen)
-+				   const char *key, void *buf, size_t buflen,
-+				   int flags)
- {
- 	return nfs4_proc_get_acl(inode, buf, buflen);
- }
-@@ -7228,7 +7229,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
- 
- static int nfs4_xattr_get_nfs4_label(const struct xattr_handler *handler,
- 				     struct dentry *unused, struct inode *inode,
--				     const char *key, void *buf, size_t buflen)
-+				     const char *key, void *buf, size_t buflen,
-+				     int flags)
- {
- 	if (security_ismaclabel(key))
- 		return nfs4_get_security_label(inode, buf, buflen);
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 385f3aaa2448..06e615642422 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -7245,7 +7245,8 @@ int ocfs2_init_security_and_acl(struct inode *dir,
-  */
- static int ocfs2_xattr_security_get(const struct xattr_handler *handler,
- 				    struct dentry *unused, struct inode *inode,
--				    const char *name, void *buffer, size_t size)
-+				    const char *name, void *buffer, size_t size,
-+				    int flags)
- {
- 	return ocfs2_xattr_get(inode, OCFS2_XATTR_INDEX_SECURITY,
- 			       name, buffer, size);
-@@ -7317,7 +7318,8 @@ const struct xattr_handler ocfs2_xattr_security_handler = {
-  */
- static int ocfs2_xattr_trusted_get(const struct xattr_handler *handler,
- 				   struct dentry *unused, struct inode *inode,
--				   const char *name, void *buffer, size_t size)
-+				   const char *name, void *buffer, size_t size,
-+				   int flags)
- {
- 	return ocfs2_xattr_get(inode, OCFS2_XATTR_INDEX_TRUSTED,
- 			       name, buffer, size);
-@@ -7343,7 +7345,8 @@ const struct xattr_handler ocfs2_xattr_trusted_handler = {
-  */
- static int ocfs2_xattr_user_get(const struct xattr_handler *handler,
- 				struct dentry *unused, struct inode *inode,
--				const char *name, void *buffer, size_t size)
-+				const char *name, void *buffer, size_t size,
-+				int flags)
- {
- 	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
- 
-diff --git a/fs/orangefs/xattr.c b/fs/orangefs/xattr.c
-index bdc285aea360..ef4180bff7bb 100644
---- a/fs/orangefs/xattr.c
-+++ b/fs/orangefs/xattr.c
-@@ -541,7 +541,8 @@ static int orangefs_xattr_get_default(const struct xattr_handler *handler,
- 				      struct inode *inode,
- 				      const char *name,
- 				      void *buffer,
--				      size_t size)
-+				      size_t size,
-+				      int flags)
- {
- 	return orangefs_inode_getxattr(inode, name, buffer, size);
- 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index b368e2e102fa..57df03f3259f 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -854,7 +854,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
- static int __maybe_unused
- ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
- 			struct dentry *dentry, struct inode *inode,
--			const char *name, void *buffer, size_t size)
-+			const char *name, void *buffer, size_t size, int flags)
- {
- 	return ovl_xattr_get(dentry, inode, handler->name, buffer, size);
- }
-@@ -934,7 +934,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
- 
- static int ovl_other_xattr_get(const struct xattr_handler *handler,
- 			       struct dentry *dentry, struct inode *inode,
--			       const char *name, void *buffer, size_t size)
-+			       const char *name, void *buffer, size_t size,
-+			       int flags)
- {
- 	return ovl_xattr_get(dentry, inode, name, buffer, size);
- }
-diff --git a/fs/posix_acl.c b/fs/posix_acl.c
-index 84ad1c90d535..cd55621e570b 100644
---- a/fs/posix_acl.c
-+++ b/fs/posix_acl.c
-@@ -832,7 +832,7 @@ EXPORT_SYMBOL (posix_acl_to_xattr);
- static int
- posix_acl_xattr_get(const struct xattr_handler *handler,
- 		    struct dentry *unused, struct inode *inode,
--		    const char *name, void *value, size_t size)
-+		    const char *name, void *value, size_t size, int flags)
- {
- 	struct posix_acl *acl;
- 	int error;
-diff --git a/fs/reiserfs/xattr_security.c b/fs/reiserfs/xattr_security.c
-index 20be9a0e5870..eedfa07a4fd0 100644
---- a/fs/reiserfs/xattr_security.c
-+++ b/fs/reiserfs/xattr_security.c
-@@ -11,7 +11,8 @@
- 
- static int
- security_get(const struct xattr_handler *handler, struct dentry *unused,
--	     struct inode *inode, const char *name, void *buffer, size_t size)
-+	     struct inode *inode, const char *name, void *buffer, size_t size,
-+	     int flags)
- {
- 	if (IS_PRIVATE(inode))
- 		return -EPERM;
-diff --git a/fs/reiserfs/xattr_trusted.c b/fs/reiserfs/xattr_trusted.c
-index 5ed48da3d02b..2d11d98605dd 100644
---- a/fs/reiserfs/xattr_trusted.c
-+++ b/fs/reiserfs/xattr_trusted.c
-@@ -10,7 +10,8 @@
- 
- static int
- trusted_get(const struct xattr_handler *handler, struct dentry *unused,
--	    struct inode *inode, const char *name, void *buffer, size_t size)
-+	    struct inode *inode, const char *name, void *buffer, size_t size,
-+	    int flags)
- {
- 	if (!capable(CAP_SYS_ADMIN) || IS_PRIVATE(inode))
- 		return -EPERM;
-diff --git a/fs/reiserfs/xattr_user.c b/fs/reiserfs/xattr_user.c
-index a573ca45bacc..2a59d85c69c9 100644
---- a/fs/reiserfs/xattr_user.c
-+++ b/fs/reiserfs/xattr_user.c
-@@ -9,7 +9,8 @@
- 
- static int
- user_get(const struct xattr_handler *handler, struct dentry *unused,
--	 struct inode *inode, const char *name, void *buffer, size_t size)
-+	 struct inode *inode, const char *name, void *buffer, size_t size,
-+	 int flags)
- {
- 	if (!reiserfs_xattrs_user(inode->i_sb))
- 		return -EOPNOTSUPP;
-diff --git a/fs/squashfs/xattr.c b/fs/squashfs/xattr.c
-index e1e3f3dd5a06..d8d58c990652 100644
---- a/fs/squashfs/xattr.c
-+++ b/fs/squashfs/xattr.c
-@@ -204,7 +204,7 @@ static int squashfs_xattr_handler_get(const struct xattr_handler *handler,
- 				      struct dentry *unused,
- 				      struct inode *inode,
- 				      const char *name,
--				      void *buffer, size_t size)
-+				      void *buffer, size_t size, int flags)
- {
- 	return squashfs_xattr_get(inode, handler->flags, name,
- 		buffer, size);
-diff --git a/fs/xattr.c b/fs/xattr.c
-index 90dd78f0eb27..2b94930ede59 100644
---- a/fs/xattr.c
-+++ b/fs/xattr.c
-@@ -270,7 +270,7 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
- 	const struct xattr_handler *handler;
- 	struct inode *inode = dentry->d_inode;
- 	char *value = *xattr_value;
--	int error;
-+	int error, xflags;
- 
- 	error = xattr_permission(inode, name, MAY_READ);
- 	if (error)
-@@ -281,7 +281,8 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
- 		return PTR_ERR(handler);
- 	if (!handler->get)
- 		return -EOPNOTSUPP;
--	error = handler->get(handler, dentry, inode, name, NULL, 0);
-+	xflags = flags & GFP_NOFS ? XATTR_NOSECURITY : 0;
-+	error = handler->get(handler, dentry, inode, name, NULL, 0, xflags);
- 	if (error < 0)
- 		return error;
- 
-@@ -292,7 +293,8 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
- 		memset(value, 0, error + 1);
- 	}
- 
--	error = handler->get(handler, dentry, inode, name, value, error);
-+	error = handler->get(handler, dentry, inode, name, value, error,
-+			     xflags);
- 	*xattr_value = value;
- 	return error;
- }
-@@ -308,7 +310,8 @@ __vfs_getxattr(struct dentry *dentry, struct inode *inode, const char *name,
- 		return PTR_ERR(handler);
- 	if (!handler->get)
- 		return -EOPNOTSUPP;
--	return handler->get(handler, dentry, inode, name, value, size);
-+	return handler->get(handler, dentry, inode, name, value, size,
-+			    XATTR_NOSECURITY);
- }
- EXPORT_SYMBOL(__vfs_getxattr);
- 
-@@ -317,6 +320,7 @@ vfs_getxattr(struct dentry *dentry, const char *name, void *value, size_t size)
- {
- 	struct inode *inode = dentry->d_inode;
- 	int error;
-+	const struct xattr_handler *handler;
- 
- 	error = xattr_permission(inode, name, MAY_READ);
- 	if (error)
-@@ -339,7 +343,12 @@ vfs_getxattr(struct dentry *dentry, const char *name, void *value, size_t size)
- 		return ret;
- 	}
- nolsm:
--	return __vfs_getxattr(dentry, inode, name, value, size);
-+	handler = xattr_resolve_name(inode, &name);
-+	if (IS_ERR(handler))
-+		return PTR_ERR(handler);
-+	if (!handler->get)
-+		return -EOPNOTSUPP;
-+	return handler->get(handler, dentry, inode, name, value, size, 0);
- }
- EXPORT_SYMBOL_GPL(vfs_getxattr);
- 
-diff --git a/fs/xfs/xfs_xattr.c b/fs/xfs/xfs_xattr.c
-index 3123b5aaad2a..cafc99c48e20 100644
---- a/fs/xfs/xfs_xattr.c
-+++ b/fs/xfs/xfs_xattr.c
-@@ -18,7 +18,8 @@
- 
- static int
- xfs_xattr_get(const struct xattr_handler *handler, struct dentry *unused,
--		struct inode *inode, const char *name, void *value, size_t size)
-+		struct inode *inode, const char *name, void *value, size_t size,
-+		int flags)
- {
- 	int xflags = handler->flags;
- 	struct xfs_inode *ip = XFS_I(inode);
-diff --git a/include/linux/xattr.h b/include/linux/xattr.h
-index 6dad031be3c2..b272b6841faa 100644
---- a/include/linux/xattr.h
-+++ b/include/linux/xattr.h
-@@ -30,10 +30,10 @@ struct xattr_handler {
- 	const char *prefix;
- 	int flags;      /* fs private flags */
- 	bool (*list)(struct dentry *dentry);
--	int (*get)(const struct xattr_handler *, struct dentry *dentry,
-+	int (*get)(const struct xattr_handler *handler, struct dentry *dentry,
- 		   struct inode *inode, const char *name, void *buffer,
--		   size_t size);
--	int (*set)(const struct xattr_handler *, struct dentry *dentry,
-+		   size_t size, int flags);
-+	int (*set)(const struct xattr_handler *handler, struct dentry *dentry,
- 		   struct inode *inode, const char *name, const void *buffer,
- 		   size_t size, int flags);
- };
-diff --git a/include/uapi/linux/xattr.h b/include/uapi/linux/xattr.h
-index c1395b5bd432..1216d777d210 100644
---- a/include/uapi/linux/xattr.h
-+++ b/include/uapi/linux/xattr.h
-@@ -17,8 +17,9 @@
- #if __UAPI_DEF_XATTR
- #define __USE_KERNEL_XATTR_DEFS
- 
--#define XATTR_CREATE	0x1	/* set value, fail if attr already exists */
--#define XATTR_REPLACE	0x2	/* set value, fail if attr does not exist */
-+#define XATTR_CREATE	 0x1	/* set value, fail if attr already exists */
-+#define XATTR_REPLACE	 0x2	/* set value, fail if attr does not exist */
-+#define XATTR_NOSECURITY 0x4	/* get value, do not involve security check */
- #endif
- 
- /* Namespaces */
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 626d8c74b973..34d3818b4424 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -3206,7 +3206,8 @@ static int shmem_initxattrs(struct inode *inode,
- 
- static int shmem_xattr_handler_get(const struct xattr_handler *handler,
- 				   struct dentry *unused, struct inode *inode,
--				   const char *name, void *buffer, size_t size)
-+				   const char *name, void *buffer, size_t size,
-+				   int flags)
- {
- 	struct shmem_inode_info *info = SHMEM_I(inode);
- 
-diff --git a/net/socket.c b/net/socket.c
-index 6a9ab7a8b1d2..6b0fea92dd02 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -300,7 +300,8 @@ static const struct dentry_operations sockfs_dentry_operations = {
- 
- static int sockfs_xattr_get(const struct xattr_handler *handler,
- 			    struct dentry *dentry, struct inode *inode,
--			    const char *suffix, void *value, size_t size)
-+			    const char *suffix, void *value, size_t size,
-+			    int flags)
- {
- 	if (value) {
- 		if (dentry->d_name.len + 1 > size)
--- 
-2.22.0.770.g0f2c4a37fd-goog
+v10:
+- Return NULL on CAP_DAC_READ_SEARCH
+- Add __get xattr method to solve sepolicy logging issue
+- Drop unnecessary sys_admin sepolicy checking for administrative
+  driver internal xattr functions.
+
+v6:
+- Drop CONFIG_OVERLAY_FS_OVERRIDE_CREDS.
+- Do better with the documentation, drop rationalizations.
+- pr_warn message adjusted to report consequences.
+
+v5:
+- beefed up the caveats in the Documentation
+- Is dependent on
+  "overlayfs: check CAP_DAC_READ_SEARCH before issuing exportfs_decode_fh"
+  "overlayfs: check CAP_MKNOD before issuing vfs_whiteout"
+- Added prwarn when override_creds=off
+
+v4:
+- spelling and grammar errors in text
+
+v3:
+- Change name from caller_credentials / creator_credentials to the
+  boolean override_creds.
+- Changed from creator to mounter credentials.
+- Updated and fortified the documentation.
+- Added CONFIG_OVERLAY_FS_OVERRIDE_CREDS
+
+v2:
+- Forward port changed attr to stat, resulting in a build error.
+- altered commit message.
 
