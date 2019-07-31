@@ -2,95 +2,95 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4C497C96E
-	for <lists+cluster-devel@lfdr.de>; Wed, 31 Jul 2019 18:59:13 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F8D7C96F
+	for <lists+cluster-devel@lfdr.de>; Wed, 31 Jul 2019 18:59:19 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6E270C01FBD9;
-	Wed, 31 Jul 2019 16:59:12 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3CA78308403B;
+	Wed, 31 Jul 2019 16:59:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5881760BF7;
-	Wed, 31 Jul 2019 16:59:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2063360922;
+	Wed, 31 Jul 2019 16:59:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3947E1800203;
-	Wed, 31 Jul 2019 16:59:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F37421800203;
+	Wed, 31 Jul 2019 16:59:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6VGx9om027073 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 31 Jul 2019 12:59:09 -0400
+	id x6VGxFg5027094 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 31 Jul 2019 12:59:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8EDA05D9C9; Wed, 31 Jul 2019 16:59:09 +0000 (UTC)
+	id 2318660C44; Wed, 31 Jul 2019 16:59:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87FE55D9C8
-	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 16:59:07 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.47])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B54860BF7
+	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 16:59:12 +0000 (UTC)
 Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
 	[209.85.214.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 46628C0AD2A9
-	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 16:58:49 +0000 (UTC)
-Received: by mail-pl1-f195.google.com with SMTP id a93so30699817pla.7
-	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 09:58:49 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 7F5AA30C1E2B
+	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 16:58:54 +0000 (UTC)
+Received: by mail-pl1-f195.google.com with SMTP id t14so30727874plr.11
+	for <cluster-devel@redhat.com>; Wed, 31 Jul 2019 09:58:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=android.com; s=20161025;
 	h=from:to:cc:subject:date:message-id:in-reply-to:references
 	:mime-version:content-transfer-encoding;
-	bh=mqrvp78QJlpAOzw9fgR7kExVE2j6YAgtswabVLFsEKw=;
-	b=hDP6kaU1NcYTT8Ncbn8yYBCQdBrusiuNRh8U9KureQ4LZhhXGLpANTSfvgOfqQlZKq
-	VPG7XZ4P92k/KXlBktnvxCF150d8d3KylfuVgVeKMa2iuEFsPUTMupjDUD67Z46OqmZh
-	7SjvYV5dvK2PynVShna7gXH3d3FfIgcczAogHNoxzKxedgwHKSTVha6/NIazeKvyBtqo
-	gZTdl1QA8a5G6h+1E1jh/03KSKvg/voO94DGIfJA6Xped+vEahzXhxfFCY/MWGvc505o
-	uyMsIAWuHLM/OhdgLS35O/Xac5WdHB55F0HW+slYxtY8ijFN6K5yX0/q9GG2PxaHnXCe
-	TluA==
+	bh=p6RSnHZej7dMZQfosYc1rQOAXMnG8HF3vzAcSS3MG98=;
+	b=fmiQSh9yv929qF/IP6Uym2pEsxsKnDznkX0VjJ8cIh+7NzZrkbqvPCG3bssMygeAbK
+	NmkNsix4uTqi91gMmHKksLpNQD7b0D1A9bda6aSayMw9sPfvhUAJO63BySMzz39Ednc6
+	+iWQAfEEJ8NQ6QfBslJvC3DyBQUS6s3R1R0XZUZMZgKOLtN+EIac6ejHjwc9qbdb5uvz
+	eiCuyG0A6yFWZLw5lHrPP3O5DsRBGnqxHkq8vNdP6QJnUoh2+fIqC3yhPbsH+qEpXwib
+	mUbx7N0k3Aa9YqKq/FSCQYABcvQoWcmd3n7QaLFSg3+9u/w9YuhZ+4mMF/9YdnWbfIFZ
+	JhFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references:mime-version:content-transfer-encoding;
-	bh=mqrvp78QJlpAOzw9fgR7kExVE2j6YAgtswabVLFsEKw=;
-	b=Rq3L3JdZY2ixO7SyTYxX+uTXJGyeIckVpO/H5b3aunolrNcG7+d19J4isaBi38qSq1
-	FRS5uzf0b6aFiwG4PBqsffHmncEV6z3sBR4sLqfWxFAFpGN6FCdy3hMpToBgn03XIfAs
-	jDD1G1MCbS82WUFlJ6p93nLaN9g6sDyNnR6EIvfY0m/v3MfgMLK1nz5PcEjf5upvRV5W
-	RSj+enP7C5yZbBKRe+WR++pxvduT6Hgfrpuf/lmWEsUbCjQ4J1pD5rwqrX43U3Z3bLPB
-	IoRXH0uhIkekL9Id4kj1Y+co4DAbQEF3KXCbGWZSp4QRlD8eIMQdNsL7HKDJMx5G2/3/
-	q8Ww==
-X-Gm-Message-State: APjAAAWp3s9ABTOkS4kTaoUicO+bdFlhHZvS5b8pjF6OR/SsqkEvoTW9
-	FP2JekTu/3MohSDlknqbKBE=
-X-Google-Smtp-Source: APXvYqxGMolBRhsvM9UzN1Lxeh7QHhb9SosmOWflXeRYxn78Bc9Zh2WWF5AnDKoq96esMVfQv4t5yg==
-X-Received: by 2002:a17:902:76c7:: with SMTP id
-	j7mr117914657plt.247.1564592328532; 
-	Wed, 31 Jul 2019 09:58:48 -0700 (PDT)
+	bh=p6RSnHZej7dMZQfosYc1rQOAXMnG8HF3vzAcSS3MG98=;
+	b=jBgXqYXS67AHaQL56K7C/Ws9aj7FACcbiGOUCyqlyFqEljCpSzzchVxygL1ehFziJQ
+	Xqu8ecnU0VNcJ4dNDsxhFLfmSHWsng5cTHMerVEEfVyTiuygJvTwdaQmrxdYClAORwIL
+	t9Zrzw+q57VnC1zwZrF61WPy7qXB9CkfREFuTKsmhJMUxiRom1iXJDuVnyvNqdN4nizF
+	Vxhh6xgtv+5RsmR6Ew+xAa0LWTWzYkAG2dZpmRpovJPA3YTABgj3+nyha9X3s3VO7xsx
+	z/lWNt4bqiAPbGCDJIGcdDVCB0dfwysarit3CU5WEHl6cWNp3JukwcAUdY96px7Znm+a
+	Ve4A==
+X-Gm-Message-State: APjAAAU63/2w5r4eUnXQ2wmYYrhQUC9mGwddbjy1SN6ikISWTj+YO0xZ
+	Ao+pkcTuYbTjywvRekZ2S5M=
+X-Google-Smtp-Source: APXvYqyB1157MtzfYeWJ1dBcWuMDKOUJgOnzq0VC5i1SowoHtyq/iVzFaALo7AjUpN0O6A6XZS+NfQ==
+X-Received: by 2002:a17:902:9a85:: with SMTP id
+	w5mr121452633plp.221.1564592333814; 
+	Wed, 31 Jul 2019 09:58:53 -0700 (PDT)
 Received: from nebulus.mtv.corp.google.com
 	([2620:15c:211:200:5404:91ba:59dc:9400])
 	by smtp.gmail.com with ESMTPSA id
-	f72sm2245954pjg.10.2019.07.31.09.58.46
+	f72sm2245954pjg.10.2019.07.31.09.58.51
 	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
-	Wed, 31 Jul 2019 09:58:47 -0700 (PDT)
+	Wed, 31 Jul 2019 09:58:53 -0700 (PDT)
 From: Mark Salyzyn <salyzyn@android.com>
 To: linux-kernel@vger.kernel.org
-Date: Wed, 31 Jul 2019 09:57:58 -0700
-Message-Id: <20190731165803.4755-4-salyzyn@android.com>
+Date: Wed, 31 Jul 2019 09:57:59 -0700
+Message-Id: <20190731165803.4755-5-salyzyn@android.com>
 In-Reply-To: <20190731165803.4755-1-salyzyn@android.com>
 References: <20190731165803.4755-1-salyzyn@android.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.32]);
-	Wed, 31 Jul 2019 16:58:49 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
-	Wed, 31 Jul 2019 16:58:49 +0000 (UTC) for IP:'209.85.214.195'
+	(mx1.redhat.com [10.5.110.47]);
+	Wed, 31 Jul 2019 16:58:54 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
+	Wed, 31 Jul 2019 16:58:54 +0000 (UTC) for IP:'209.85.214.195'
 	DOMAIN:'mail-pl1-f195.google.com'
 	HELO:'mail-pl1-f195.google.com' FROM:'salyzyn@android.com' RCPT:''
 X-RedHat-Spam-Score: -0.101  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
 	DKIM_VALID_AU, SPF_HELO_NONE,
 	SPF_PASS) 209.85.214.195 mail-pl1-f195.google.com 209.85.214.195
 	mail-pl1-f195.google.com <salyzyn@android.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
 Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
 	jfs-discussion@lists.sourceforge.net,
@@ -139,8 +139,8 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
 	David Woodhouse <dwmw2@infradead.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>, linux-btrfs@vger.kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>
-Subject: [Cluster-devel] [PATCH v13 3/5] overlayfs: handle XATTR_NOSECURITY
-	flag for get xattr method
+Subject: [Cluster-devel] [PATCH v13 4/5] overlayfs: internal getxattr
+	operations without sepolicy checking
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -154,33 +154,33 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Wed, 31 Jul 2019 16:59:12 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Wed, 31 Jul 2019 16:59:18 +0000 (UTC)
 
-Because of the overlayfs getxattr recursion, the incoming inode fails
-to update the selinux sid resulting in avc denials being reported
-against a target context of u:object_r:unlabeled:s0.
+Check impure, opaque, origin & meta xattr with no sepolicy audit
+(using __vfs_getxattr) since these operations are internal to
+overlayfs operations and do not disclose any data.  This became
+an issue for credential override off since sys_admin would have
+been required by the caller; whereas would have been inherently
+present for the creator since it performed the mount.
 
-Solution is to respond to the XATTR_NOSECURITY flag in get xattr
-method that calls the __vfs_getxattr handler instead so that the
-context can be read in, rather than being denied with an -EACCES
-when vfs_getxattr handler is called.
+This is a change in operations since we do not check in the new
+ovl_do_vfs_getxattr function if the credential override is off or
+not.  Reasoning is that the sepolicy check is unnecessary overhead,
+especially since the check can be expensive.
 
-For the use case where access is to be blocked by the security layer.
+Because for override credentials off, this affects _everyone_ that
+underneath performs private xattr calls without the appropriate
+sepolicy permissions and sys_admin capability.  Providing blanket
+support for sys_admin would be bad for all possible callers.
 
-The path then would be security(dentry) ->
-__vfs_getxattr(dentry...XATTR_NOSECURITY) ->
-handler->get(dentry...XATTR_NOSECURITY) ->
-__vfs_getxattr(realdentry...XATTR_NOSECURITY) ->
-lower_handler->get(realdentry...XATTR_NOSECURITY) which
-would report back through the chain data and success as expected,
-the logging security layer at the top would have the data to
-determine the access permissions and report back to the logs and
-the caller that the target context was blocked.
+For the override credentials on, this will affect only the mounter,
+should it lack sepolicy permissions. Not considered a security
+problem since mounting by definition has sys_admin capabilities,
+but sepolicy contexts would still need to be crafted.
 
-For selinux this would solve the cosmetic issue of the selinux log
-and allow audit2allow to correctly report the rule needed to address
-the access problem.
+It should be noted that there is precedence, __vfs_getxattr is used
+in other filesystems for their own internal trusted xattr management.
 
 Signed-off-by: Mark Salyzyn <salyzyn@android.com>
 Cc: Miklos Szeredi <miklos@szeredi.hu>
@@ -257,78 +257,162 @@ Cc: netdev@vger.kernel.org
 Cc: linux-security-module@vger.kernel.org
 Cc: stable@vger.kernel.org # 4.4, 4.9, 4.14 & 4.19
 ---
-v13 - rebase to use __vfs_getxattr flags option.
+v13 - rebase to use __vfs_getxattr flags option
 
-v12 - Added back to patch series as get xattr with flag option.
+v12 - rebase
 
-v11 - Squashed out of patch series and replaced with per-thread flag
-      solution.
+v11 - switch name to ovl_do_vfs_getxattr, fortify comment
 
-v10 - Added to patch series as __get xattr method.
+v10 - added to patch series
 ---
- fs/overlayfs/inode.c     | 5 +++--
- fs/overlayfs/overlayfs.h | 2 +-
- fs/overlayfs/super.c     | 4 ++--
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ fs/overlayfs/namei.c     | 12 +++++++-----
+ fs/overlayfs/overlayfs.h |  2 ++
+ fs/overlayfs/util.c      | 25 ++++++++++++++++---------
+ 3 files changed, 25 insertions(+), 14 deletions(-)
 
-diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index 7663aeb85fa3..1bf11ae44313 100644
---- a/fs/overlayfs/inode.c
-+++ b/fs/overlayfs/inode.c
-@@ -363,7 +363,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
- }
+diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
+index 9702f0d5309d..a4a452c489fa 100644
+--- a/fs/overlayfs/namei.c
++++ b/fs/overlayfs/namei.c
+@@ -106,10 +106,11 @@ int ovl_check_fh_len(struct ovl_fh *fh, int fh_len)
  
- int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
--		  void *value, size_t size)
-+		  void *value, size_t size, int flags)
+ static struct ovl_fh *ovl_get_fh(struct dentry *dentry, const char *name)
  {
- 	ssize_t res;
- 	const struct cred *old_cred;
-@@ -371,7 +371,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
- 		ovl_i_dentry_upper(inode) ?: ovl_dentry_lower(dentry);
+-	int res, err;
++	ssize_t res;
++	int err;
+ 	struct ovl_fh *fh = NULL;
  
- 	old_cred = ovl_override_creds(dentry->d_sb);
--	res = vfs_getxattr(realdentry, name, value, size);
-+	res = __vfs_getxattr(realdentry, d_inode(realdentry), name,
-+			     value, size, flags);
- 	revert_creds(old_cred);
- 	return res;
+-	res = vfs_getxattr(dentry, name, NULL, 0);
++	res = ovl_do_vfs_getxattr(dentry, name, NULL, 0);
+ 	if (res < 0) {
+ 		if (res == -ENODATA || res == -EOPNOTSUPP)
+ 			return NULL;
+@@ -123,7 +124,7 @@ static struct ovl_fh *ovl_get_fh(struct dentry *dentry, const char *name)
+ 	if (!fh)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	res = vfs_getxattr(dentry, name, fh, res);
++	res = ovl_do_vfs_getxattr(dentry, name, fh, res);
+ 	if (res < 0)
+ 		goto fail;
+ 
+@@ -141,10 +142,11 @@ static struct ovl_fh *ovl_get_fh(struct dentry *dentry, const char *name)
+ 	return NULL;
+ 
+ fail:
+-	pr_warn_ratelimited("overlayfs: failed to get origin (%i)\n", res);
++	pr_warn_ratelimited("overlayfs: failed to get origin (%zi)\n", res);
+ 	goto out;
+ invalid:
+-	pr_warn_ratelimited("overlayfs: invalid origin (%*phN)\n", res, fh);
++	pr_warn_ratelimited("overlayfs: invalid origin (%*phN)\n",
++			    (int)res, fh);
+ 	goto out;
  }
+ 
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 6934bcf030f0..ab3d031c422b 100644
+index ab3d031c422b..9d26d8758513 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -356,7 +356,7 @@ int ovl_permission(struct inode *inode, int mask);
- int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
- 		  const void *value, size_t size, int flags);
- int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
--		  void *value, size_t size);
-+		  void *value, size_t size, int flags);
- ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size);
- struct posix_acl *ovl_get_acl(struct inode *inode, int type);
- int ovl_update_time(struct inode *inode, struct timespec64 *ts, int flags);
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index a7b21f2ea2dd..6f041e1fceda 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -856,7 +856,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
- 			struct dentry *dentry, struct inode *inode,
- 			const char *name, void *buffer, size_t size, int flags)
- {
--	return ovl_xattr_get(dentry, inode, handler->name, buffer, size);
-+	return ovl_xattr_get(dentry, inode, handler->name, buffer, size, flags);
+@@ -205,6 +205,8 @@ int ovl_want_write(struct dentry *dentry);
+ void ovl_drop_write(struct dentry *dentry);
+ struct dentry *ovl_workdir(struct dentry *dentry);
+ const struct cred *ovl_override_creds(struct super_block *sb);
++ssize_t ovl_do_vfs_getxattr(struct dentry *dentry, const char *name, void *buf,
++			    size_t size);
+ struct super_block *ovl_same_sb(struct super_block *sb);
+ int ovl_can_decode_fh(struct super_block *sb);
+ struct dentry *ovl_indexdir(struct super_block *sb);
+diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+index f5678a3f8350..c588c0d66d8c 100644
+--- a/fs/overlayfs/util.c
++++ b/fs/overlayfs/util.c
+@@ -40,6 +40,13 @@ const struct cred *ovl_override_creds(struct super_block *sb)
+ 	return override_creds(ofs->creator_cred);
  }
  
- static int __maybe_unused
-@@ -938,7 +938,7 @@ static int ovl_other_xattr_get(const struct xattr_handler *handler,
- 			       const char *name, void *buffer, size_t size,
- 			       int flags)
++ssize_t ovl_do_vfs_getxattr(struct dentry *dentry, const char *name, void *buf,
++			    size_t size)
++{
++	return __vfs_getxattr(dentry, d_inode(dentry), name, buf, size,
++			      XATTR_NOSECURITY);
++}
++
+ struct super_block *ovl_same_sb(struct super_block *sb)
  {
--	return ovl_xattr_get(dentry, inode, name, buffer, size);
-+	return ovl_xattr_get(dentry, inode, name, buffer, size, flags);
+ 	struct ovl_fs *ofs = sb->s_fs_info;
+@@ -537,9 +544,9 @@ void ovl_copy_up_end(struct dentry *dentry)
+ 
+ bool ovl_check_origin_xattr(struct dentry *dentry)
+ {
+-	int res;
++	ssize_t res;
+ 
+-	res = vfs_getxattr(dentry, OVL_XATTR_ORIGIN, NULL, 0);
++	res = ovl_do_vfs_getxattr(dentry, OVL_XATTR_ORIGIN, NULL, 0);
+ 
+ 	/* Zero size value means "copied up but origin unknown" */
+ 	if (res >= 0)
+@@ -550,13 +557,13 @@ bool ovl_check_origin_xattr(struct dentry *dentry)
+ 
+ bool ovl_check_dir_xattr(struct dentry *dentry, const char *name)
+ {
+-	int res;
++	ssize_t res;
+ 	char val;
+ 
+ 	if (!d_is_dir(dentry))
+ 		return false;
+ 
+-	res = vfs_getxattr(dentry, name, &val, 1);
++	res = ovl_do_vfs_getxattr(dentry, name, &val, 1);
+ 	if (res == 1 && val == 'y')
+ 		return true;
+ 
+@@ -837,13 +844,13 @@ int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *upperdir)
+ /* err < 0, 0 if no metacopy xattr, 1 if metacopy xattr found */
+ int ovl_check_metacopy_xattr(struct dentry *dentry)
+ {
+-	int res;
++	ssize_t res;
+ 
+ 	/* Only regular files can have metacopy xattr */
+ 	if (!S_ISREG(d_inode(dentry)->i_mode))
+ 		return 0;
+ 
+-	res = vfs_getxattr(dentry, OVL_XATTR_METACOPY, NULL, 0);
++	res = ovl_do_vfs_getxattr(dentry, OVL_XATTR_METACOPY, NULL, 0);
+ 	if (res < 0) {
+ 		if (res == -ENODATA || res == -EOPNOTSUPP)
+ 			return 0;
+@@ -852,7 +859,7 @@ int ovl_check_metacopy_xattr(struct dentry *dentry)
+ 
+ 	return 1;
+ out:
+-	pr_warn_ratelimited("overlayfs: failed to get metacopy (%i)\n", res);
++	pr_warn_ratelimited("overlayfs: failed to get metacopy (%zi)\n", res);
+ 	return res;
  }
  
- static int ovl_other_xattr_set(const struct xattr_handler *handler,
+@@ -878,7 +885,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
+ 	ssize_t res;
+ 	char *buf = NULL;
+ 
+-	res = vfs_getxattr(dentry, name, NULL, 0);
++	res = ovl_do_vfs_getxattr(dentry, name, NULL, 0);
+ 	if (res < 0) {
+ 		if (res == -ENODATA || res == -EOPNOTSUPP)
+ 			return -ENODATA;
+@@ -890,7 +897,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
+ 		if (!buf)
+ 			return -ENOMEM;
+ 
+-		res = vfs_getxattr(dentry, name, buf, res);
++		res = ovl_do_vfs_getxattr(dentry, name, buf, res);
+ 		if (res < 0)
+ 			goto fail;
+ 	}
 -- 
 2.22.0.770.g0f2c4a37fd-goog
 
