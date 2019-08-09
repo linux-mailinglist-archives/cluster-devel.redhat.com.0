@@ -2,51 +2,117 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ADD4879E6
-	for <lists+cluster-devel@lfdr.de>; Fri,  9 Aug 2019 14:26:18 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A9487AEA
+	for <lists+cluster-devel@lfdr.de>; Fri,  9 Aug 2019 15:15:59 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B4C8772642;
-	Fri,  9 Aug 2019 12:26:16 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0953F5C290;
-	Fri,  9 Aug 2019 12:26:16 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 4C7CFC08E282;
+	Fri,  9 Aug 2019 13:15:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04A0960C5D;
+	Fri,  9 Aug 2019 13:15:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3DB2618005B9;
-	Fri,  9 Aug 2019 12:26:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AD0862551C;
+	Fri,  9 Aug 2019 13:15:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x79CQ8BS011467 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 9 Aug 2019 08:26:08 -0400
+	id x79DDiEW022312 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 9 Aug 2019 09:13:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DA059600CE; Fri,  9 Aug 2019 12:26:08 +0000 (UTC)
+	id 78AFC5C557; Fri,  9 Aug 2019 13:13:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from [10.33.36.95] (unknown [10.33.36.95])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C2875600CD;
-	Fri,  9 Aug 2019 12:26:04 +0000 (UTC)
-To: Daegyu Han <hdg9400@gmail.com>
-References: <OFA15B94C2.57C7D335-ON49258451.002CE1A7@skku.ac.kr>
-	<297cee57-8ee4-8f07-9f4b-357e5f272ab5@redhat.com>
-	<CAARcW+rvKJV1o3kcCGueh42oYSAvReiuOLY+KO6vR+7C+e_OGg@mail.gmail.com>
-	<92318ae4-319a-3c10-5568-78c2d1c5259f@redhat.com>
-	<CAARcW+qwyxA7V26k8hs8NPASuYrmi75tfY06Hz5ei5O66AretA@mail.gmail.com>
-From: Andrew Price <anprice@redhat.com>
-Message-ID: <dc403e01-3517-72af-e0ec-b5287089f135@redhat.com>
-Date: Fri, 9 Aug 2019 13:26:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.2
+Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.39])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 72A7E5C3FA;
+	Fri,  9 Aug 2019 13:13:41 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id B7944970F1;
+	Fri,  9 Aug 2019 13:13:31 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x79D8PK8009842; Fri, 9 Aug 2019 13:13:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=date : from : to : cc
+	: subject : message-id : mime-version : content-type; s=corp-2019-08-05;
+	bh=4ailbpbRvTudTJvqRfozYesa9KhrVA7iMs/r0Utxeys=;
+	b=eQl3oPx+4Qt5Tzt3bYJNF8aVM/uAupTHGvM+GwFmYskY4lbFDeeMl+g4jo/oAGay3B+F
+	GcUPXPkR24j7MkV50jb/hJnz08hkjSUNJZfyamWmJ4wCs7+CLaTIZe7tGeHFkMiuS2VP
+	bcrI4b2vZzKPIAvwLbvaZxK7mesN/kW1y9T/ba4k5QJT5EvKxTfNIQlIW6iBIuFUvY3s
+	fWJ0B3kAGwH3ykz8JXUGY77plK7tK/FJOF2HcFrpPSC+ELYE/JwLtG/PySl3qrMMppE2
+	Y3AsfE3HAkF8sRZzy68sC1xLQwNQAMIm1AeNMUPeH+UEOdDXlhIR6FcVSFz8wAnnot0N
+	aQ== 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=date : from : to : cc
+	: subject : message-id : mime-version : content-type; s=corp-2018-07-02;
+	bh=4ailbpbRvTudTJvqRfozYesa9KhrVA7iMs/r0Utxeys=;
+	b=Q3lyjI6wGaMU8gC8c9vh/W35KG/zCaivobCPyqncCRmU1QSYrQlPASYPaiuhRaqDmwrL
+	baPFVXSqPaG41vCiqwAxnJ9n1UXT5LSYGJ7M4SMu3Khq6sN8oC/4Gffn5q1mzh2R3bcK
+	2X86vXvSH5mJ5buBBdpwoHdATdQmALJODbFuTuVLCFZOegOoDV+MJDUYu0o4a2EwV3fG
+	LGibzYrw21YwtFVeaCRj1ZNlzWtJLyQcCR+ZZ72q5rdoXJXCZ65cEweBDBv+sud20qk0
+	dqLO76e3U8ZuSgZuCqNJ/zSVgcpLUyVvoS/K+8wa4sLB6pOIZK/G9BFbQgvevtTfdrze
+	nQ== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+	by userp2120.oracle.com with ESMTP id 2u8hgp7bpa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 09 Aug 2019 13:13:31 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+	by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x79DCrhH086830; Fri, 9 Aug 2019 13:13:30 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+	by aserp3020.oracle.com with ESMTP id 2u8x9fg5cq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 09 Aug 2019 13:13:30 +0000
+Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
+	by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x79DDTNp019613;
+	Fri, 9 Aug 2019 13:13:29 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Fri, 09 Aug 2019 06:13:29 -0700
+Date: Fri, 9 Aug 2019 16:13:23 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: rpeterso@redhat.com
+Message-ID: <20190809131323.GA11448@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <CAARcW+qwyxA7V26k8hs8NPASuYrmi75tfY06Hz5ei5O66AretA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9343
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
+	malwarescore=0
+	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=535
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.0.1-1906280000 definitions=main-1908090136
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9343
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=582
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
+	definitions=main-1908090135
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.39]); Fri, 09 Aug 2019 13:13:37 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
+	Fri, 09 Aug 2019 13:13:37 +0000 (UTC) for IP:'156.151.31.85'
+	DOMAIN:'userp2120.oracle.com' HELO:'userp2120.oracle.com'
+	FROM:'dan.carpenter@oracle.com' RCPT:''
+X-RedHat-Spam-Score: -99.401  (BIGNUM_EMAILS, DKIMWL_WL_HIGH, DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_MED, SPF_HELO_PASS,
+	SPF_NONE, UNPARSEABLE_RELAY,
+	USER_IN_WHITELIST) 156.151.31.85 userp2120.oracle.com 156.151.31.85
+	userp2120.oracle.com <dan.carpenter@oracle.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] How can be metadata(e.g.,
- inode) in the GFS2 file system shared between client nodes?
+Subject: [Cluster-devel] [bug report] gfs2: dump fsid when dumping glock
+	problems
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -60,123 +126,47 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Fri, 09 Aug 2019 12:26:17 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Fri, 09 Aug 2019 13:15:58 +0000 (UTC)
 
-On 09/08/2019 12:46, Daegyu Han wrote:
-> Thank you for the clarification.
-> 
-> I have one more question.
-> 
-> I've seen some web page by redhat and it says that gfs2 has a poor
-> filesystem performance (i.e. throughput) compared to xfs or ext4.
-> [image: image.png]
-> 
-> In a high performance hardware environment (nvme over fabric, infiniband
-> (56G)), I ran a FIO benchmark, expecting GFS2 to be comparable to local
-> filesystems (ext4, xfs).
-> 
-> Unexpectedly, however, GFS2 showed 25% lower IOPS or throughput than ext4,
-> as the web page results.
-> 
-> Does GFS2 perform worse than EXT4 or XFS even on high-performance network +
-> storage?
+Hello Bob Peterson,
 
-gfs2 has performance overheads that ext4 and xfs don't encounter due to 
-the extra work it has to do to keep the fs consistent across the 
-cluster, such as the extra cache invalidation we've discussed, journal 
-flushing and updates to structures relating to quotas and statfs. Even 
-in a single-node configuration, extra codepaths are still active (but 
-gfs2 isn't meant to be used as a single-node fs, so fio is not a good 
-demonstration of its strengths). It's also worth noting that gfs2 is not 
-extent-based so you may see performance differences relating to that. We 
-are continually working to minimise the overheads, of course.
+The patch 3792ce973f07: "gfs2: dump fsid when dumping glock problems"
+from May 9, 2019, leads to the following static checker warning:
 
-The size of the performance difference is highly dependent on the 
-workload and access pattern. (Clustered) applications looking to get the 
-best performance out of gfs2 will have each node processing its own 
-working set - preferably in its own subdirectory - which will minimise 
-the overheads.
+	fs/gfs2/glock.c:1796 gfs2_dump_glock()
+	error: format string overflow. buf_size: 270 length: 277
 
-Cheers,
-Andy
+fs/gfs2/glock.c
+  1785  void gfs2_dump_glock(struct seq_file *seq, struct gfs2_glock *gl, bool fsid)
+  1786  {
+  1787          const struct gfs2_glock_operations *glops = gl->gl_ops;
+  1788          unsigned long long dtime;
+  1789          const struct gfs2_holder *gh;
+  1790          char gflags_buf[32];
+  1791          char fs_id_buf[GFS2_FSNAME_LEN + 3 * sizeof(int) + 2];
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This is the same as sizeof(sdp->sd_fsname);
 
-> Thank you,
-> Daegyu
-> ᐧ
-> 
-> 2019년 8월 9일 (금) 오후 8:26, Andrew Price <anprice@redhat.com>님이 작성:
-> 
->> On 09/08/2019 12:01, Daegyu Han wrote:
->>> Thank you for your reply.
->>>
->>> If what I understand is correct,
->>> In a gfs2 file system shared by clients A and B, if A creates /foo/a.txt,
->>> does B re-read the filesystem metadata area on storage to keep the data
->>> consistent?
->>
->> Yes, that's correct, although 'clients' is inaccurate as there is no
->> 'server'. Through the locking mechanism, B would know to re-read block
->> allocation states and the contents of the /foo directory, so a path
->> lookup on B would then find a.txt.
->>
->>> After all, what makes gfs2 different from local filesystems like ext4,
->>> because of lock_dlm?
->>
->> Exactly.
->>
->>> In general, if we mount an ext4 file system on two different clients and
->>> update the file system on each client, we know that the file system state
->>> is not reflected in each other.
->>
->> Yes.
->>
->> Cheers,
->> Andy
->>
->>> Thank you,
->>> Daegyu
->>> ᐧ
->>>
->>> 2019년 8월 9일 (금) 오후 7:50, Andrew Price <anprice@redhat.com>님이 작성:
->>>
->>>> Hi Daegyu,
->>>>
->>>> On 09/08/2019 09:10, 한대규 wrote:
->>>>> Hi, I'm Daegyu from Sungkyunkwan University.
->>>>>
->>>>> I'm curious how GFS2's filesystem metadata is shared between nodes.
->>>>
->>>> The key thing to know about gfs2 is that it is a shared storage
->>>> filesystem where each node mounts the same storage device. It is
->>>> different from a distributed filesystem where each node has storage
->>>> devices that only it accesses.
->>>>
->>>>> In detail, I wonder how the metadata in the memory of the node mounting
->>>> GFS2
->>>>> looks the consistent filesystem to other nodes.
->>>>
->>>> gfs2 uses dlm for locking of filesystem metadata among the nodes. The
->>>> transfer of locks between nodes allows gfs2 to decide when its in-memory
->>>> caches are invalid and require re-reading from the storage.
->>>>
->>>>> In addition, what role does corosync play in gfs2?
->>>>
->>>> gfs2 doesn't communicate with corosync directly but it operates on top
->>>> of a high-availability cluster. corosync provides synchronization and
->>>> coherency for the cluster. If a node stops responding, corosync will
->>>> notice and trigger actions (fencing) to make sure that node is put back
->>>> into a safe and consistent state. This is important in gfs2 to prevent
->>>> "misbehaving" nodes from corrupting the filesystem.
->>>>
->>>> Hope this helps.
->>>>
->>>> Cheers,
->>>> Andy
->>>>
->>>>
->>>>
->>>
->>
-> 
+  1792          struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+  1793  
+  1794          memset(fs_id_buf, 0, sizeof(fs_id_buf));
+  1795          if (fsid && sdp) /* safety precaution */
+  1796                  sprintf(fs_id_buf, "fsid=%s: ", sdp->sd_fsname);
+                                            ^^^^^  ^^
+So if sd_fsname is as large as "possible" we could be 7 characters over
+the limit.
+
+  1797          dtime = jiffies - gl->gl_demote_time;
+  1798          dtime *= 1000000/HZ; /* demote time in uSec */
+  1799          if (!test_bit(GLF_DEMOTE, &gl->gl_flags))
+  1800                  dtime = 0;
+  1801          gfs2_print_dbg(seq, "%sG:  s:%s n:%u/%llx f:%s t:%s d:%s/%llu a:%d "
+
+See also:
+fs/gfs2/util.c:184 gfs2_consist_rgrpd_i() error: format string overflow. buf_size: 270 length: 277
+fs/gfs2/rgrp.c:2293 gfs2_rgrp_error() error: format string overflow. buf_size: 270 length: 277
+
+regards,
+dan carpenter
 
