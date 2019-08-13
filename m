@@ -2,120 +2,75 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1638D8B2DA
-	for <lists+cluster-devel@lfdr.de>; Tue, 13 Aug 2019 10:48:23 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 08EE58B90E
+	for <lists+cluster-devel@lfdr.de>; Tue, 13 Aug 2019 14:48:08 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 10F2B30224A8;
-	Tue, 13 Aug 2019 08:48:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BED6C1001DC2;
-	Tue, 13 Aug 2019 08:48:20 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 497B487642;
+	Tue, 13 Aug 2019 12:48:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D1AE27086;
+	Tue, 13 Aug 2019 12:48:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BDFAD24FDF;
-	Tue, 13 Aug 2019 08:48:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DF588180B536;
+	Tue, 13 Aug 2019 12:48:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7D8mCWX026483 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 13 Aug 2019 04:48:12 -0400
+	id x7DCluRI002994 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 13 Aug 2019 08:47:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7180E8247B; Tue, 13 Aug 2019 08:48:12 +0000 (UTC)
+	id 7DCD0821EA; Tue, 13 Aug 2019 12:47:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.41])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84A965B681;
-	Tue, 13 Aug 2019 08:48:05 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 77AEE80FF3
+	for <cluster-devel@redhat.com>; Tue, 13 Aug 2019 12:47:54 +0000 (UTC)
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+	[209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 31B4B315C013;
-	Tue, 13 Aug 2019 08:48:05 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
-	[83.86.89.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 4E6C720679;
-	Tue, 13 Aug 2019 08:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1565686084;
-	bh=dgkNfsoGvEEUqkSMoKhZo00QGi0KOqUYD1qh2seiDX0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YExtdyLDmV5g6i2jgGccJIQ9lpJD2qunpsOWx/skQdmvZBvdutmEsdbbDFgUnYiW9
-	lXvB0C/oMwnRrAFZnyypCC3r55bOvbM5/MOv8GxdUmBrJYIbb3l/0Xsrf+14ZRwh2E
-	PJJHiAbOF9zt2xlZLKfEtULVL5ySMo91nAG/3xII=
-Date: Tue, 13 Aug 2019 10:48:01 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Mark Salyzyn <salyzyn@android.com>
-Message-ID: <20190813084801.GA972@kroah.com>
-References: <20190812193320.200472-1-salyzyn@android.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 117DF81F10
+	for <cluster-devel@redhat.com>; Tue, 13 Aug 2019 12:47:54 +0000 (UTC)
+Received: by mail-ot1-f71.google.com with SMTP id p7so90765390otk.22
+	for <cluster-devel@redhat.com>; Tue, 13 Aug 2019 05:47:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc:content-transfer-encoding;
+	bh=k6aoQTjuE5HiqXxVhmrH0ks3KPbSc/aqIrGsHPyfZ4w=;
+	b=FCh1xvuFJ9KOJG++FGdl+sYllARQy8pWZLYxXDrpQnWbEA6XrgLtjZw99uQnYNLZF/
+	sI57LmZTDWeSxPmySdJzKtNH/sMQuFRJt6V0WFxJLbFydFSOeDOgkm4ZNRvKU2FmZdSl
+	wGf3PZnjJ01IXZAuqY7o0Bk4ipQHBgIPmgUgecJd4wsqiKUAqHgFEUt3QXpJDAdUpbVd
+	JQtGHIeDKSCAB+zLmZhsSV5+/j2N4tsV3A2vBMBslGMTYxEppK9vCDPc2bl5pnmfY1KL
+	Mbk3fOuQMmk1AsnhknG+B9+MGcgMyjrOn4bL/6tQ2SH0680xbobr1vmhjOSHhMEfWLz5
+	HP9w==
+X-Gm-Message-State: APjAAAWFvEgbidsLp/asdfF6lvtKMs2MvXP7m5NOfk0TZPCFNu1idRLe
+	FYYNWuNzbkufCLYWzi0JkoZWHFMOy0kwu1CGf7LHAifv00x/MlRpErF80Hx3hLUa/JWo1z1ho5T
+	/0ONxj9zJVdPQw8oTV97W4uSN7sls7+u1aFUIBw==
+X-Received: by 2002:aca:cf51:: with SMTP id f78mr1284253oig.10.1565700473542; 
+	Tue, 13 Aug 2019 05:47:53 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqyHKwUdTSLvHhdGluLDLATltIVDAxUmuyrJz7LwkyLCfkSkPdHMVL8YgsEndPipqI0rKTT2wgzTCajjcQ/y+XE=
+X-Received: by 2002:aca:cf51:: with SMTP id f78mr1284246oig.10.1565700473243; 
+	Tue, 13 Aug 2019 05:47:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190812193320.200472-1-salyzyn@android.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.41]);
-	Tue, 13 Aug 2019 08:48:05 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
-	Tue, 13 Aug 2019 08:48:05 +0000 (UTC) for IP:'198.145.29.99'
-	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
-	FROM:'gregkh@linuxfoundation.org' RCPT:''
-X-RedHat-Spam-Score: -5.001  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
-	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
-	<gregkh@linuxfoundation.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+References: <b7ecf30b-4a11-22b7-321d-a7eb539a7916@citrix.com>
+In-Reply-To: <b7ecf30b-4a11-22b7-321d-a7eb539a7916@citrix.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Tue, 13 Aug 2019 14:47:42 +0200
+Message-ID: <CAHc6FU7xhw1OEoB_9TLu0+PSHqOB7XH-NuY0xb82Fc4+Gi-svA@mail.gmail.com>
+To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x7DCluRI002994
 X-loop: cluster-devel@redhat.com
-Cc: Latchesar Ionkov <lucho@ionkov.net>, Dave Kleikamp <shaggy@kernel.org>,
-	jfs-discussion@lists.sourceforge.net,
-	Martin Brandenburg <martin@omnibond.com>, samba-technical@lists.samba.org,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Chao Yu <yuchao0@huawei.com>, Mimi Zohar <zohar@linux.ibm.com>,
-	linux-unionfs@vger.kernel.org,
-	David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Eric Paris <eparis@parisplace.org>, netdev@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
-	Mike Marshall <hubcap@omnibond.com>, linux-xfs@vger.kernel.org,
-	Sage Weil <sage@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>,
-	Richard Weinberger <richard@nod.at>,
-	Mark Fasheh <mark@fasheh.com>, Hugh Dickins <hughd@google.com>,
-	James Morris <jmorris@namei.org>, cluster-devel@redhat.com,
-	selinux@vger.kernel.org, linux-integrity@vger.kernel.org,
-	Vyacheslav Dubeyko <slava@dubeyko.com>,
-	Casey Schaufler <casey@schaufler-ca.com>,
-	v9fs-developer@lists.sourceforge.net,
-	Ilya Dryomov <idryomov@gmail.com>, linux-ext4@vger.kernel.org,
-	kernel-team@android.com, linux-mm@kvack.org,
-	devel@lists.orangefs.org, Serge Hallyn <serge@hallyn.com>,
-	Ernesto =?iso-8859-1?Q?A=2E_Fern=E1ndez?=
-	<ernesto.mnd.fernandez@gmail.com>, linux-cifs@vger.kernel.org,
-	Eric Van Hensbergen <ericvh@gmail.com>, ecryptfs@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>,
-	reiserfs-devel@vger.kernel.org, Tejun Heo <tj@kernel.org>,
-	linux-mtd@lists.infradead.org, David Sterba <dsterba@suse.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Paul Moore <paul@paul-moore.com>, linux-nfs@vger.kernel.org,
-	Theodore Ts'o <tytso@mit.edu>, linux-fsdevel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mathieu Malaterre <malat@debian.org>, Stephen Smalley <sds@tycho.nsa.gov>,
-	"Darrick J. Wong" <darrick.wong@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Tyler Hicks <tyhicks@canonical.com>,
-	Steve French <sfrench@samba.org>, linux-security-module@vger.kernel.org,
-	ocfs2-devel@oss.oracle.com, Jan Kara <jack@suse.com>,
-	Phillip Lougher <phillip@squashfs.org.uk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Anna Schumaker <anna.schumaker@netapp.com>, linux-btrfs@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [Cluster-devel] [PATCH] Add flags option to get xattr method
- paired to __vfs_getxattr
+Cc: Sergey Dyasli <sergey.dyasli@citrix.com>,
+	Igor Druzhinin <igor.druzhinin@citrix.com>,
+	cluster-devel <cluster-devel@redhat.com>, Mark Syms <Mark.Syms@citrix.com>
+Subject: Re: [Cluster-devel] GFS2 deadlock in 4.19 (iomap/writeback?)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -129,37 +84,45 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Tue, 13 Aug 2019 08:48:21 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Tue, 13 Aug 2019 12:48:06 +0000 (UTC)
 
-On Mon, Aug 12, 2019 at 12:32:49PM -0700, Mark Salyzyn wrote:
-> --- a/include/linux/xattr.h
-> +++ b/include/linux/xattr.h
-> @@ -30,10 +30,10 @@ struct xattr_handler {
->  	const char *prefix;
->  	int flags;      /* fs private flags */
->  	bool (*list)(struct dentry *dentry);
-> -	int (*get)(const struct xattr_handler *, struct dentry *dentry,
-> +	int (*get)(const struct xattr_handler *handler, struct dentry *dentry,
->  		   struct inode *inode, const char *name, void *buffer,
-> -		   size_t size);
-> -	int (*set)(const struct xattr_handler *, struct dentry *dentry,
-> +		   size_t size, int flags);
-> +	int (*set)(const struct xattr_handler *handler, struct dentry *dentry,
->  		   struct inode *inode, const char *name, const void *buffer,
->  		   size_t size, int flags);
+Hi Edwin and all,
 
-Wow, 7 arguments.  Isn't there some nice rule of thumb that says once
-you get more then 5, a function becomes impossible to understand?
+On Wed, 6 Mar 2019 at 12:08, Edwin Török <edvin.torok@citrix.com> wrote:
+>
+> Hello,
+>
+> I've been trying to debug a GFS2 deadlock that we see in our lab quite frequently with a 4.19 kernel. With 4.4 and older kernels we were not able to reproduce this.
+> See below for lockdep dumps and stacktraces.
+> Ignoring the lockdep warnings mentioned in my previous email I think I narrowed down the problem to a deadlock between iomap and writeback:
+>
+> IIUC the sequence of calls leading up to this is:
+>   aio_write ->
+>       gfs2_file_write_iter ->
+>             iomap_file_buffered_write ->
+>               iomap_apply ->
+>                  iomap_begin -> gfs2_iomap_begin_write -> gfs2_trans_begin -> down_read(&sdp->sd_log_flush_lock)
+>                  iomap_write_actor ->
+>                     balance_dirty_pages ->
+>   ... waits for writeback ...
 
-Surely this could be a structure passed in here somehow, that way when
-you add the 8th argument in the future, you don't have to change
-everything yet again?  :)
+it took us several iterations, but that deadlock and all the follow-up
+issues that were popping up should be fixed now. The deadlock fix
+(gfs2: Fix iomap write page reclaim deadlock) required a follow-up fix
+(gfs2: Inode dirtying fix) and caused a performance regression (iomap:
+don't mark the inode dirty in iomap_write_end); in addition, function
+gfs2_walk_metadata from v4.18 turned out to have issues (gfs2:
+gfs2_walk_metadata fix). This should all be working fine in v5.3-rc4
+now.
 
-I don't have anything concrete to offer as a replacement fix for this,
-but to me this just feels really wrong...
+We're working on getting Bob's recovery patch queue ready for the next
+merge window, which should fix the issues you've been seeing with
+iSCSI failures. The changes for that will be close to what's on the
+for-next.recovery10 branch in the gfs2 repository right now. If you
+can still reproduce problems with that code base, please do let us
+know.
 
-thanks,
-
-greg k-h
+Thanks,
+Andreas
 
