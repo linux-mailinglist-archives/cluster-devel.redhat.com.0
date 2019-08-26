@@ -2,51 +2,50 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B8A89D726
-	for <lists+cluster-devel@lfdr.de>; Mon, 26 Aug 2019 22:01:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D20139D72C
+	for <lists+cluster-devel@lfdr.de>; Mon, 26 Aug 2019 22:04:37 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3DF41793EC;
-	Mon, 26 Aug 2019 20:01:35 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 7CC2C195DB80;
+	Mon, 26 Aug 2019 20:04:36 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9949600C8;
-	Mon, 26 Aug 2019 20:01:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CAB8600C8;
+	Mon, 26 Aug 2019 20:04:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 98F4B1802218;
-	Mon, 26 Aug 2019 20:01:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 99C6618005A0;
+	Mon, 26 Aug 2019 20:04:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7QK1WrF018931 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 26 Aug 2019 16:01:32 -0400
+	id x7QK4XSb019039 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 26 Aug 2019 16:04:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7FA421001B1A; Mon, 26 Aug 2019 20:01:32 +0000 (UTC)
+	id E68EB600CE; Mon, 26 Aug 2019 20:04:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from colo-mx.corp.redhat.com
 	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBD451001B11;
-	Mon, 26 Aug 2019 20:01:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1E0A600C8
+	for <cluster-devel@redhat.com>; Mon, 26 Aug 2019 20:04:31 +0000 (UTC)
 Received: from zmail21.collab.prod.int.phx2.redhat.com
 	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E33282551B;
-	Mon, 26 Aug 2019 20:01:29 +0000 (UTC)
-Date: Mon, 26 Aug 2019 16:01:29 -0400 (EDT)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6E15F2551B
+	for <cluster-devel@redhat.com>; Mon, 26 Aug 2019 20:04:31 +0000 (UTC)
+Date: Mon, 26 Aug 2019 16:04:31 -0400 (EDT)
 From: Bob Peterson <rpeterso@redhat.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <1906522774.10715376.1566849689894.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20190826161825.11100-1-agruenba@redhat.com>
-References: <20190826161825.11100-1-agruenba@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Message-ID: <1333919038.10716577.1566849871414.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1568408607.10715793.1566849806851.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.3.117.77, 10.4.195.22]
-Thread-Topic: gfs2: Get rid of gfs2_io_error_bh_wd
-Thread-Index: SjSbSxPtgvtzb2lAdS88heJ9pgaIfg==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Originating-IP: [10.3.117.77, 10.4.195.10]
+Thread-Topic: gfs2: separate holder for rgrps in gfs2_rename
+Thread-Index: g8Be95hrx0DybUzXj6u0vw+j53s2Bg==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] [PATCH] gfs2: Get rid of gfs2_io_error_bh_wd
+Subject: [Cluster-devel] [GFS2 PATCH v2] gfs2: separate holder for rgrps in
+	gfs2_rename
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -61,20 +60,92 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Mon, 26 Aug 2019 20:01:35 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.62]); Mon, 26 Aug 2019 20:04:36 +0000 (UTC)
 
------ Original Message -----
-> [This is a follow-up to patch "gfs2: Introduce concept of a pending withdraw"
-> in Bob's recovery patch queue, which introduces the SDF_WITHDRAWING flag.]
-> 
-> Get rid of gfs2_io_error_bh_wd and make gfs2_io_error_bh withdraw implicitly
-> again.  If the SDF_WITHDRAWING flag is set, skip the withdraw.  This reverts
-> the rest of commit 9e1a9ecd13b9.
-> 
-> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-> ---
+Hi,
 
-Yeah, looks good.
+This is a rework of a patch I previously posted as part of a set.
+The previous version had problems.
 
-Reviewed-by: Bob Peterson <rpeterso@redhat.com>
+---
+Before this patch, gfs2_rename added a holder for the rgrp glock to
+its array of holders, ghs. There's nothing wrong with that, but this
+patch separates it into a separate holder. This was done to ensure
+it's always locked last as per the proper glock lock ordering,
+and also to pave the way for a future patch in which we will
+lock the non-rgrp glocks asynchronously.
+
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/inode.c | 29 +++++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
+
+diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+index 2e2a8a2fb51d..50eeb15c6f4f 100644
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@ -1348,7 +1348,7 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 	struct gfs2_inode *ip = GFS2_I(d_inode(odentry));
+ 	struct gfs2_inode *nip = NULL;
+ 	struct gfs2_sbd *sdp = GFS2_SB(odir);
+-	struct gfs2_holder ghs[5], r_gh;
++	struct gfs2_holder ghs[4], r_gh, rd_gh;
+ 	struct gfs2_rgrpd *nrgd;
+ 	unsigned int num_gh;
+ 	int dir_rename = 0;
+@@ -1357,6 +1357,7 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 	int error;
+ 
+ 	gfs2_holder_mark_uninitialized(&r_gh);
++	gfs2_holder_mark_uninitialized(&rd_gh);
+ 	if (d_really_is_positive(ndentry)) {
+ 		nip = GFS2_I(d_inode(ndentry));
+ 		if (ip == nip)
+@@ -1398,13 +1399,6 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 	if (nip) {
+ 		gfs2_holder_init(nip->i_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh);
+ 		num_gh++;
+-		/* grab the resource lock for unlink flag twiddling 
+-		 * this is the case of the target file already existing
+-		 * so we unlink before doing the rename
+-		 */
+-		nrgd = gfs2_blk2rgrpd(sdp, nip->i_no_addr, 1);
+-		if (nrgd)
+-			gfs2_holder_init(nrgd->rd_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh++);
+ 	}
+ 
+ 	for (x = 0; x < num_gh; x++) {
+@@ -1413,6 +1407,22 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 			goto out_gunlock;
+ 	}
+ 
++	if (nip) {
++		/* Grab the resource group glock for unlink flag twiddling.
++		 * This is the case where the target dinode already exists
++		 * so we unlink before doing the rename.
++		 */
++		nrgd = gfs2_blk2rgrpd(sdp, nip->i_no_addr, 1);
++		if (!nrgd) {
++			error = -ENOENT;
++			goto out_gunlock;
++		}
++		error = gfs2_glock_nq_init(nrgd->rd_gl, LM_ST_EXCLUSIVE, 0,
++					   &rd_gh);
++		if (error)
++			goto out_gunlock;
++	}
++
+ 	error = -ENOENT;
+ 	if (ip->i_inode.i_nlink == 0)
+ 		goto out_gunlock;
+@@ -1541,6 +1551,9 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 		gfs2_quota_unlock(ndip);
+ out_gunlock:
+ 	gfs2_dir_no_add(&da);
++	if (gfs2_holder_initialized(&rd_gh))
++		gfs2_glock_dq_uninit(&rd_gh);
++
+ 	while (x--) {
+ 		gfs2_glock_dq(ghs + x);
+ 		gfs2_holder_uninit(ghs + x);
 
