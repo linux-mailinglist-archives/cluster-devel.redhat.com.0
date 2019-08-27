@@ -2,74 +2,49 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 180809E6A8
-	for <lists+cluster-devel@lfdr.de>; Tue, 27 Aug 2019 13:21:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142949E972
+	for <lists+cluster-devel@lfdr.de>; Tue, 27 Aug 2019 15:33:07 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 32A5E1089042;
-	Tue, 27 Aug 2019 11:21:16 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 686B1C05AA61;
+	Tue, 27 Aug 2019 13:33:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B170E5D6B0;
-	Tue, 27 Aug 2019 11:21:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFAFF5D6B0;
+	Tue, 27 Aug 2019 13:33:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 951B0180B536;
-	Tue, 27 Aug 2019 11:21:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 401E31802218;
+	Tue, 27 Aug 2019 13:33:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7RBL9F6015788 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 27 Aug 2019 07:21:09 -0400
+	id x7RDWwbg022090 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 27 Aug 2019 09:32:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DAE9A3CCC; Tue, 27 Aug 2019 11:21:09 +0000 (UTC)
+	id 9C79D6012E; Tue, 27 Aug 2019 13:32:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx09.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.38])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D521A194B2
-	for <cluster-devel@redhat.com>; Tue, 27 Aug 2019 11:21:07 +0000 (UTC)
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
-	[209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3FCA22A09A0
-	for <cluster-devel@redhat.com>; Tue, 27 Aug 2019 11:21:07 +0000 (UTC)
-Received: by mail-ot1-f69.google.com with SMTP id g6so11719338otq.13
-	for <cluster-devel@redhat.com>; Tue, 27 Aug 2019 04:21:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=4MrUTAzwFi0wFsC2j36T9OOhGPBjk0vsDXFHn26q53o=;
-	b=qZzxPer2q/oVBJwi4Ch4MfuQZ8LuJE6/btQuwTFWJeVtbkKj7UcoegMcdX441gn+1l
-	bNy0R4iyn6OPFQ6kOkP6/t1U8ZcoK7dWKTsE6berUXDLutCluExybrIXL3K+pLLjN9Zo
-	HjJLA9crRiNc70T2Y3Ym0EgoQCC5FIZUuufo/ERdxnqZJPdZqlN1aqk460vl/XA1YILF
-	/DqOabqBau8uBwT0Dkza83+Vw6g3J/fw4oZSkZ5DsUuQPse1T0rEWIG/wL2m9wSIxxn+
-	bhNK6jbNBDKkCzgUIEhMmE5Ymfdquxdgc3MwrTCa7vnHr5AnaygYW3haypoxNTWlt9IQ
-	UPoQ==
-X-Gm-Message-State: APjAAAVld25Hh+2OOpRfakTBlBWhRIGKF/4WTAaBpGkL0aPg5M8jMxbP
-	6wOnDfaHqlsSARRgK06sXkgZkucd0Ia8MzJTVh+JduoKKwqEbr/hcvJPe3FI6mjSyvTDX4/BFGx
-	KP1Xjk012fSi+0Gi6PIbP77u1qSZ6HgneDlujnQ==
-X-Received: by 2002:a05:6808:9b6:: with SMTP id
-	e22mr15940623oig.147.1566904866513; 
-	Tue, 27 Aug 2019 04:21:06 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqyaShxXYeWHVPaj6Taso1Hu7GtjWeayGCwUshWQYygWucSnksIJgQGRApEZabSqYlQdVkalvylYLsb4MJiqYpY=
-X-Received: by 2002:a05:6808:9b6:: with SMTP id
-	e22mr15940603oig.147.1566904866231; 
-	Tue, 27 Aug 2019 04:21:06 -0700 (PDT)
+Received: from colo-mx.corp.redhat.com
+	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96AEF6012D
+	for <cluster-devel@redhat.com>; Tue, 27 Aug 2019 13:32:56 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 304DF18089C8
+	for <cluster-devel@redhat.com>; Tue, 27 Aug 2019 13:32:56 +0000 (UTC)
+Date: Tue, 27 Aug 2019 09:32:56 -0400 (EDT)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Message-ID: <768443970.10884078.1566912776155.JavaMail.zimbra@redhat.com>
+In-Reply-To: <425692938.10883476.1566912663594.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-References: <20190523130421.21003-1-rpeterso@redhat.com>
-	<20190523130421.21003-15-rpeterso@redhat.com>
-In-Reply-To: <20190523130421.21003-15-rpeterso@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 27 Aug 2019 13:20:55 +0200
-Message-ID: <CAHc6FU6oXu+-5L_2PmtzPy9RXeuxNL9Sf87y7FsZxxeAff=DdQ@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.3.117.77, 10.4.195.24]
+Thread-Topic: gfs2: Use async glocks for rename
+Thread-Index: +knfeWN6WcTKvTHagSsVbddOPhJ0cw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH v6 14/26] gfs2: Ignore dlm recovery
- requests if gfs2 is withdrawn
+Subject: [Cluster-devel] [GFS2 PATCH v2] gfs2: Use async glocks for rename
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,132 +59,374 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.64]); Tue, 27 Aug 2019 11:21:17 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Tue, 27 Aug 2019 13:33:05 +0000 (UTC)
 
-Bob,
+Hi,
 
-On Thu, May 23, 2019 at 3:05 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> When a node fails, user space informs dlm of the node failure,
-> and dlm instructs gfs2 on the surviving nodes to perform journal
-> recovery. It does this by calling various callback functions in
-> lock_dlm.c. To mark its progress, it keeps generation numbers
-> and recover bits in a dlm "control" lock lvb, which is seen by
-> all nodes to determine which journals need to be replayed.
->
-> The gfs2 on all nodes get the same recovery requests from dlm,
-> so they all try to do the recovery, but only one will be
-> granted the exclusive lock on the journal. The others fail
-> with a "Busy" message on their "try lock."
->
-> However, when a node is withdrawn, it cannot safely do any
-> recovery or safely replay any journals. To make matters worse,
-> gfs2 might withdraw as a result of attempting recovery. For
-> example, this might happen if the device goes offline, or if
-> an hba fails. But in today's gfs2 code, it doesn't check for
-> being withdrawn at any step in the recovery process. What's
-> worse if that these callbacks from dlm have no return code,
-> so there is no way to indicate failure back to dlm. We can
-> send a "Recovery failed" uevent eventually, but that tells
-> user space what happened, not dlm's kernel code.
->
-> Before this patch, lock_dlm would perform its recovery steps but
-> ignore the result, and eventually it would still update its
-> generation number in the lvb, despite the fact that it may have
-> withdrawn or encountered an error. The other nodes would then
-> see the newer generation number in the lvb and conclude that
-> they don't need to do recovery because the generation number
-> is newer than the last one they saw. They think a different
-> node has already recovered the journal.
->
-> This patch adds checks to several of the callbacks used by dlm
-> in its recovery state machine so that the functions are ignored
-> and skipped if an io error has occurred or if the file system
-> is withdrawn. That prevents the lvb bits from being updated, and
-> therefore dlm and user space still see the need for recovery to
-> take place.
->
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> ---
->  fs/gfs2/lock_dlm.c | 18 ++++++++++++++++++
->  fs/gfs2/recovery.c |  5 +++++
->  2 files changed, 23 insertions(+)
->
-> diff --git a/fs/gfs2/lock_dlm.c b/fs/gfs2/lock_dlm.c
-> index 31df26ed7854..9329f86ffcbe 100644
-> --- a/fs/gfs2/lock_dlm.c
-> +++ b/fs/gfs2/lock_dlm.c
-> @@ -1081,6 +1081,10 @@ static void gdlm_recover_prep(void *arg)
->         struct gfs2_sbd *sdp = arg;
->         struct lm_lockstruct *ls = &sdp->sd_lockstruct;
->
-> +       if (gfs2_withdrawn(sdp)) {
-> +               fs_err(sdp, "recover_prep ignored due to withdraw.\n");
-> +               return;
-> +       }
->         spin_lock(&ls->ls_recover_spin);
->         ls->ls_recover_block = ls->ls_recover_start;
->         set_bit(DFL_DLM_RECOVERY, &ls->ls_recover_flags);
-> @@ -1103,6 +1107,11 @@ static void gdlm_recover_slot(void *arg, struct dlm_slot *slot)
->         struct lm_lockstruct *ls = &sdp->sd_lockstruct;
->         int jid = slot->slot - 1;
->
-> +       if (gfs2_withdrawn(sdp)) {
-> +               fs_err(sdp, "recover_slot jid %d ignored due to withdraw.\n",
-> +                      jid);
-> +               return;
-> +       }
->         spin_lock(&ls->ls_recover_spin);
->         if (ls->ls_recover_size < jid + 1) {
->                 fs_err(sdp, "recover_slot jid %d gen %u short size %d\n",
-> @@ -1127,6 +1136,10 @@ static void gdlm_recover_done(void *arg, struct dlm_slot *slots, int num_slots,
->         struct gfs2_sbd *sdp = arg;
->         struct lm_lockstruct *ls = &sdp->sd_lockstruct;
->
-> +       if (gfs2_withdrawn(sdp)) {
-> +               fs_err(sdp, "recover_done ignored due to withdraw.\n");
-> +               return;
-> +       }
+This is a version 2 rework of a patch that was part of a set posted
+on 15 August 2019. I found problems with that patch, the biggest of
+which was that DLM would issue callbacks for the async locks after
+we had uninitialized the holder, thus segfaulting on its reference
+to the holder's glock.
 
-In gdlm_recover_prep, we're setting the DFL_DLM_RECOVERY flag to
-indicate that we're in recovery. Assume that a withdraw occurs after
-that. We'll then skip clearing the DFL_DLM_RECOVERY flag because of
-the above check. Won't that leave waiters on DFL_DLM_RECOVERY stuck?
+That's all been reworked in this less-than-elegant patch.
 
->         /* ensure the ls jid arrays are large enough */
->         set_recover_size(sdp, slots, num_slots);
->
-> @@ -1154,6 +1167,11 @@ static void gdlm_recovery_result(struct gfs2_sbd *sdp, unsigned int jid,
->  {
->         struct lm_lockstruct *ls = &sdp->sd_lockstruct;
->
-> +       if (gfs2_withdrawn(sdp)) {
-> +               fs_err(sdp, "recovery_result jid %d ignored due to withdraw.\n",
-> +                      jid);
-> +               return;
-> +       }
->         if (test_bit(DFL_NO_DLM_OPS, &ls->ls_recover_flags))
->                 return;
->
-> diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-> index 4ce2bfdbefdc..9e15b5aa2cfb 100644
-> --- a/fs/gfs2/recovery.c
-> +++ b/fs/gfs2/recovery.c
-> @@ -307,6 +307,11 @@ void gfs2_recover_func(struct work_struct *work)
->         int jlocked = 0;
->
->         t_start = ktime_get();
-> +       if (gfs2_withdrawn(sdp)) {
-> +               fs_err(sdp, "jid=%u: Recovery not attempted due to withdraw.\n",
-> +                      jd->jd_jid);
-> +               goto fail;
-> +       }
->         if (sdp->sd_args.ar_spectator)
->                 goto fail;
->         if (jd->jd_jid != sdp->sd_lockstruct.ls_jid) {
-> --
-> 2.21.0
->
+Bob
+--------
+Because s_vfs_rename_mutex is not cluster-wide, multiple nodes can
+reverse the roles of which directories are "old" and which are "new"
+for the purposes of rename. This can cause AB-BA deadlocks where two
+nodes can lock old-then-new but since their roles are reversed, they
+wait for each other.
 
-Thanks,
-Andreas
+There can be several layers of directory dependencies across many
+nodes.
+
+This patch fixes the problem by acquiring all gfs2_rename's inode
+glocks asychronously and waits for all glocks to be acquired.
+That way all inodes are locked regardless of the order.
+
+The timeout value for multiple asynchronous glocks is calculated to
+be the total of the individual wait times for each glock times two.
+
+Since gfs2_exchange is very similar to gfs2_rename, both functions
+are patched in the same way.
+
+A new async glock wait queue, sd_async_glock_wait, keeps a list of
+waiters for these events. If gfs2's holder_wake function detects an
+async holder, it wakes up any waiters for the event. The waiter
+only tests whether any of its requests are still pending.
+
+Since the glocks are sent to dlm asychronously, the wait function
+needs to check to see which glocks, if any, were granted.
+
+If a glock is granted by dlm (and therefore held) its minimum hold
+time is checked and adjusted as necessary, as other glock grants do.
+
+If the event times out, all glocks held thus far must be dequeued,
+and we need to wait for the dequeue to finish. Then, if there are
+any glocks unaccounted for (IOW, glocks stuck in AB-BA deadlocks)
+should eventually be granted when the other node is finished doing
+its conflicting rename. We need to loop around and wait for dlm to
+respond to those lock requests too (or else dlm will eventually
+send a callback for it after the holder in no longer valid.)
+We can't just loop around and resubmit the locks because we
+haven't resolved the deadlock. Releasing the held locks frees the
+other node from its deadlock. After we release all requests, we
+return -ESTALE to the caller (vfs rename) which loops around and
+retries the request.
+
+    Node1           Node2
+    ---------       ---------
+1.  Enqueue A       Enqueue B
+2.  Enqueue B       Enqueue A
+3.  A granted
+6.                  B granted
+7.  Wait for B
+8.                  Wait for A
+9.                  A times out (since Node 1 holds A)
+10.                 Dequeue B (since it was granted)
+11.                 Wait for all requests from DLM
+12. B Granted (since Node2 released it in step 10)
+13. Rename
+14. Dequeue A
+15.                 DLM Grants A
+16.                 Dequeue A (due to the timeout and since we
+                    no longer have B held for our task).
+17. Dequeue B
+18.                 Return -ESTALE to vfs
+19.                 VFS retries the operation, goto step 1.
+
+This release-all-locks / acquire-all-locks may slow it down as both
+nodes struggle in the same way and do the same thing. However, it
+should only slow down rename and exchange, and only in cases where
+there is contention for the same inodes, which ought to be rare.
+
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/glock.c      | 106 ++++++++++++++++++++++++++++++++++++++++++++++++++-
+ fs/gfs2/glock.h      |   6 +++
+ fs/gfs2/incore.h     |   1 +
+ fs/gfs2/inode.c      |  34 +++++++++++------
+ fs/gfs2/ops_fstype.c |   1 +
+ 5 files changed, 135 insertions(+), 13 deletions(-)
+
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index a27dbd3dec01..6af70e4a4200 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -305,6 +305,11 @@ static void gfs2_holder_wake(struct gfs2_holder *gh)
+ 	clear_bit(HIF_WAIT, &gh->gh_iflags);
+ 	smp_mb__after_atomic();
+ 	wake_up_bit(&gh->gh_iflags, HIF_WAIT);
++	if (gh->gh_flags & GL_ASYNC) {
++		struct gfs2_sbd *sdp = gh->gh_gl->gl_name.ln_sbd;
++
++		wake_up(&sdp->sd_async_glock_wait);
++	}
+ }
+ 
+ /**
+@@ -952,6 +957,103 @@ int gfs2_glock_wait(struct gfs2_holder *gh)
+ 	return gh->gh_error;
+ }
+ 
++static int glocks_pending(unsigned int num_gh, struct gfs2_holder *ghs)
++{
++	int i;
++
++	for (i = 0; i < num_gh; i++)
++		if (test_bit(HIF_WAIT, &ghs[i].gh_iflags))
++			return 1;
++	return 0;
++}
++
++/**
++ * gfs2_glock_async_wait - wait on multiple asynchronous glock acquisitions
++ * @num_gh: the number of holders in the array
++ * @ghs: the glock holder array
++ *
++ * Returns: 0 on success, meaning all glocks have been granted and are held.
++ *          -ESTALE if the request timed out, meaning all glocks were released,
++ *          and the caller should retry the operation.
++ */
++
++int gfs2_glock_async_wait(unsigned int num_gh, struct gfs2_holder *ghs)
++{
++	struct gfs2_sbd *sdp = ghs[0].gh_gl->gl_name.ln_sbd;
++	int i, ret = 0, requests = num_gh, timeout = 0;
++	unsigned long t1 = jiffies;
++
++	might_sleep();
++	/**
++	 * Total up the (minimum hold time * 2) of all glocks and use that to
++	 * determine the max amount of time we should wait.
++	 */
++	for (i = 0; i < num_gh; i++)
++		timeout += (ghs[i].gh_gl->gl_hold_time << 1);
++
++wait_for_dlm:
++	if (!wait_event_timeout(sdp->sd_async_glock_wait,
++				!glocks_pending(num_gh, ghs), timeout))
++		ret = -ESTALE; /* request timed out. */
++
++	/**
++	 * Now we need to run through all the holders.
++	 * If our request timed out, we need to repeatedly release any held
++	 * glocks we acquired thus far to prevent AB-BA deadlocks. Later, they
++	 * must be reacquired by the caller.
++	 *
++	 * If dlm sent us any errors, we need to run the list and return the
++	 * first error we find. We use the HIF_WAIT bit to tell requests that
++	 * still need a response from dlm.
++	 *
++	 * If dlm granted all our requests, we need to adjust the glock
++	 * minimum hold time values according to how long we waited.
++	 *
++	 * Dlm may send us callbacks granting any non-held locks at any
++	 * time, so we must take care not to race with them. If we loop around
++	 * before we fully acquire them, dlm can grant the lock and cause us
++	 * to try to re-acquire a lock that's already been granted.
++	 *
++	 * To avoid this, we must repeatedly wait for dlm to reply to them all,
++	 * one by one, then release the held glocks until all our requests
++	 * have been dequeued. When all are dequeued in this manner, we can
++	 * return the error and, if -ESTALE, the request can be retried.
++	 *
++	 * Note that we also need to wait for the dq (i.e. dq_wait) before we
++	 * can try to acquire them again, otherwise the dq may race with nq.
++	 */
++	for (i = 0; i < num_gh; i++) {
++		if (!gfs2_holder_queued(&ghs[i])) /* not queued to a glock */
++			continue;
++		if (test_bit(HIF_WAIT, &ghs[i].gh_iflags)) /* Still pending? */
++			continue;
++
++		BUG_ON(!requests);
++		requests--;
++		if (test_bit(HIF_HOLDER, &ghs[i].gh_iflags)) {
++			if (ret == -ESTALE) /* Timed out a different holder's
++					       request, so unlock this one. */
++				gfs2_glock_dq_wait(&ghs[i]);
++			else if (time_after(jiffies, t1 + HZ))
++				/* Lengthen the minimum hold time. */
++				ghs[i].gh_gl->gl_hold_time =
++					min(ghs[i].gh_gl->gl_hold_time +
++					    GL_GLOCK_HOLD_INCR,
++					    GL_GLOCK_MAX_HOLD);
++		}
++		if (!ret && ghs[i].gh_error)
++			ret = ghs[i].gh_error;
++	}
++
++	if (requests) /* still pending requests to dlm? */
++		goto wait_for_dlm;
++
++	/**
++	 * At this point, we've either acquired all locks or released them all.
++	 **/
++	return ret;
++}
++
+ /**
+  * handle_callback - process a demote request
+  * @gl: the glock
+@@ -1018,9 +1120,9 @@ __acquires(&gl->gl_lockref.lock)
+ 	struct gfs2_holder *gh2;
+ 	int try_futile = 0;
+ 
+-	BUG_ON(gh->gh_owner_pid == NULL);
++	GLOCK_BUG_ON(gl, gh->gh_owner_pid == NULL);
+ 	if (test_and_set_bit(HIF_WAIT, &gh->gh_iflags))
+-		BUG();
++		GLOCK_BUG_ON(gl, true);
+ 
+ 	if (gh->gh_flags & (LM_FLAG_TRY | LM_FLAG_TRY_1CB)) {
+ 		if (test_bit(GLF_LOCK, &gl->gl_flags))
+diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
+index e4e0bed5257c..b8adaf80e4c5 100644
+--- a/fs/gfs2/glock.h
++++ b/fs/gfs2/glock.h
+@@ -190,6 +190,7 @@ extern void gfs2_holder_uninit(struct gfs2_holder *gh);
+ extern int gfs2_glock_nq(struct gfs2_holder *gh);
+ extern int gfs2_glock_poll(struct gfs2_holder *gh);
+ extern int gfs2_glock_wait(struct gfs2_holder *gh);
++extern int gfs2_glock_async_wait(unsigned int num_gh, struct gfs2_holder *ghs);
+ extern void gfs2_glock_dq(struct gfs2_holder *gh);
+ extern void gfs2_glock_dq_wait(struct gfs2_holder *gh);
+ extern void gfs2_glock_dq_uninit(struct gfs2_holder *gh);
+@@ -260,6 +261,11 @@ static inline bool gfs2_holder_initialized(struct gfs2_holder *gh)
+ 	return gh->gh_gl;
+ }
+ 
++static inline bool gfs2_holder_queued(struct gfs2_holder *gh)
++{
++	return !list_empty(&gh->gh_list);
++}
++
+ /**
+  * glock_set_object - set the gl_object field of a glock
+  * @gl: the glock
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 7a993d7c022e..6b450065b9d5 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -725,6 +725,7 @@ struct gfs2_sbd {
+ 	struct gfs2_glock *sd_freeze_gl;
+ 	struct work_struct sd_freeze_work;
+ 	wait_queue_head_t sd_glock_wait;
++	wait_queue_head_t sd_async_glock_wait;
+ 	atomic_t sd_glock_disposal;
+ 	struct completion sd_locking_init;
+ 	struct completion sd_wdack;
+diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+index 50eeb15c6f4f..e1e18fb587eb 100644
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@ -1388,16 +1388,18 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 	}
+ 
+ 	num_gh = 1;
+-	gfs2_holder_init(odip->i_gl, LM_ST_EXCLUSIVE, 0, ghs);
++	gfs2_holder_init(odip->i_gl, LM_ST_EXCLUSIVE, GL_ASYNC, ghs);
+ 	if (odip != ndip) {
+-		gfs2_holder_init(ndip->i_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh);
++		gfs2_holder_init(ndip->i_gl, LM_ST_EXCLUSIVE,GL_ASYNC,
++				 ghs + num_gh);
+ 		num_gh++;
+ 	}
+-	gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh);
++	gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_ASYNC, ghs + num_gh);
+ 	num_gh++;
+ 
+ 	if (nip) {
+-		gfs2_holder_init(nip->i_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh);
++		gfs2_holder_init(nip->i_gl, LM_ST_EXCLUSIVE, GL_ASYNC,
++				 ghs + num_gh);
+ 		num_gh++;
+ 	}
+ 
+@@ -1406,6 +1408,9 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 		if (error)
+ 			goto out_gunlock;
+ 	}
++	error = gfs2_glock_async_wait(num_gh, ghs);
++	if (error)
++		goto out_gunlock;
+ 
+ 	if (nip) {
+ 		/* Grab the resource group glock for unlink flag twiddling.
+@@ -1555,7 +1560,8 @@ static int gfs2_rename(struct inode *odir, struct dentry *odentry,
+ 		gfs2_glock_dq_uninit(&rd_gh);
+ 
+ 	while (x--) {
+-		gfs2_glock_dq(ghs + x);
++		if (gfs2_holder_queued(ghs + x))
++			gfs2_glock_dq(ghs + x);
+ 		gfs2_holder_uninit(ghs + x);
+ 	}
+ out_gunlock_r:
+@@ -1585,7 +1591,7 @@ static int gfs2_exchange(struct inode *odir, struct dentry *odentry,
+ 	struct gfs2_inode *oip = GFS2_I(odentry->d_inode);
+ 	struct gfs2_inode *nip = GFS2_I(ndentry->d_inode);
+ 	struct gfs2_sbd *sdp = GFS2_SB(odir);
+-	struct gfs2_holder ghs[5], r_gh;
++	struct gfs2_holder ghs[4], r_gh;
+ 	unsigned int num_gh;
+ 	unsigned int x;
+ 	umode_t old_mode = oip->i_inode.i_mode;
+@@ -1619,15 +1625,16 @@ static int gfs2_exchange(struct inode *odir, struct dentry *odentry,
+ 	}
+ 
+ 	num_gh = 1;
+-	gfs2_holder_init(odip->i_gl, LM_ST_EXCLUSIVE, 0, ghs);
++	gfs2_holder_init(odip->i_gl, LM_ST_EXCLUSIVE, GL_ASYNC, ghs);
+ 	if (odip != ndip) {
+-		gfs2_holder_init(ndip->i_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh);
++		gfs2_holder_init(ndip->i_gl, LM_ST_EXCLUSIVE, GL_ASYNC,
++				 ghs + num_gh);
+ 		num_gh++;
+ 	}
+-	gfs2_holder_init(oip->i_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh);
++	gfs2_holder_init(oip->i_gl, LM_ST_EXCLUSIVE, GL_ASYNC, ghs + num_gh);
+ 	num_gh++;
+ 
+-	gfs2_holder_init(nip->i_gl, LM_ST_EXCLUSIVE, 0, ghs + num_gh);
++	gfs2_holder_init(nip->i_gl, LM_ST_EXCLUSIVE, GL_ASYNC, ghs + num_gh);
+ 	num_gh++;
+ 
+ 	for (x = 0; x < num_gh; x++) {
+@@ -1636,6 +1643,10 @@ static int gfs2_exchange(struct inode *odir, struct dentry *odentry,
+ 			goto out_gunlock;
+ 	}
+ 
++	error = gfs2_glock_async_wait(num_gh, ghs);
++	if (error)
++		goto out_gunlock;
++
+ 	error = -ENOENT;
+ 	if (oip->i_inode.i_nlink == 0 || nip->i_inode.i_nlink == 0)
+ 		goto out_gunlock;
+@@ -1696,7 +1707,8 @@ static int gfs2_exchange(struct inode *odir, struct dentry *odentry,
+ 	gfs2_trans_end(sdp);
+ out_gunlock:
+ 	while (x--) {
+-		gfs2_glock_dq(ghs + x);
++		if (gfs2_holder_queued(ghs + x))
++			gfs2_glock_dq(ghs + x);
+ 		gfs2_holder_uninit(ghs + x);
+ 	}
+ out_gunlock_r:
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 4a8e5a7310f0..f3fd5cd9d43f 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -87,6 +87,7 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+ 	gfs2_tune_init(&sdp->sd_tune);
+ 
+ 	init_waitqueue_head(&sdp->sd_glock_wait);
++	init_waitqueue_head(&sdp->sd_async_glock_wait);
+ 	atomic_set(&sdp->sd_glock_disposal, 0);
+ 	init_completion(&sdp->sd_locking_init);
+ 	init_completion(&sdp->sd_wdack);
 
