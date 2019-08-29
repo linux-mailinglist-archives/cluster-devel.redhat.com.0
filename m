@@ -2,158 +2,121 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DD51A052E
-	for <lists+cluster-devel@lfdr.de>; Wed, 28 Aug 2019 16:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2839BA0FD6
+	for <lists+cluster-devel@lfdr.de>; Thu, 29 Aug 2019 05:12:58 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C175318B3D87;
-	Wed, 28 Aug 2019 14:40:29 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 7EBCDC04959E;
+	Thu, 29 Aug 2019 03:12:56 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CEB25C3FD;
-	Wed, 28 Aug 2019 14:40:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 531365C1B5;
+	Thu, 29 Aug 2019 03:12:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EB612180B536;
-	Wed, 28 Aug 2019 14:40:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1E9131802216;
+	Thu, 29 Aug 2019 03:12:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7SEeMFG005745 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 28 Aug 2019 10:40:22 -0400
+	id x7T3CigR024552 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 28 Aug 2019 23:12:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 81BA61001959; Wed, 28 Aug 2019 14:40:22 +0000 (UTC)
+	id 27DDB60610; Thu, 29 Aug 2019 03:12:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.40])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CA091001925
-	for <cluster-devel@redhat.com>; Wed, 28 Aug 2019 14:40:19 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
-	[209.85.210.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.43])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 20F8F6092D;
+	Thu, 29 Aug 2019 03:12:41 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 44A38308402E
-	for <cluster-devel@redhat.com>; Wed, 28 Aug 2019 14:40:19 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id y200so1865938pfb.6
-	for <cluster-devel@redhat.com>; Wed, 28 Aug 2019 07:40:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=android.com; s=20161025;
-	h=subject:to:cc:references:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-transfer-encoding:content-language;
-	bh=otBOnvzgcCfij7khznQb839FNBhUwDL3v2TXcjGpOzs=;
-	b=OlcPfkFh4eVXaPXXhh3cHvgBURsJe3iAt4+TEVeWmIUa8zc09e0oQ5MaZNlepG2vze
-	B3r7RgJuWq9O6TIbswaNUIKe8aYWW+KNRgEXeCMfCvmELHUyftJPl7HAVt/DUWoqH+mt
-	7FiMUsP13ILyRxskXvgoEKTt4mcyDqpG+bZTW39pIt/5h+k8/JBgcB7qNM0XACYD7ale
-	oWFmT2jC5R2Rv9fP9CO4NSXlbVjGTO4SWvbIfLdPsT4850CBsX7b6iyMaVYsWWgBm0EJ
-	ydfkWGX0BboAbCSeR2RRikvC2V1c34KnlnNThn4oWcDh6RwGfO3sPku0/xiss22u0zC8
-	qA2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-transfer-encoding
-	:content-language;
-	bh=otBOnvzgcCfij7khznQb839FNBhUwDL3v2TXcjGpOzs=;
-	b=bvvCGOC3/tVfU376bTPRK/DUz8eMM/vtAilkNzgh8TmlhS0kZqgtrDEBC8qL/UY4h9
-	gqXEg+SbERo9tsLJB6PrbJyonLC8v4W4qOplw+Hv6qx8oI19ens/8/Raykzze+bLpFfo
-	oHLjODJHO02on2PgcESiJebWa0s5c+37kuS8mjoayusQGkeCVnfeC6QCUKVPiKxTmtqJ
-	DzRKskhhAqh9PTQazPyKtMuN55Xk1naS5SUfp15VmiollYkaEsENTdJV/VaLII79yRFf
-	85Mz9hE0EtMwqKfaIy6a2ps4zkPUR3bMm0BJCdZYbrNqRh02oeCaoC/EVWr+VEx8CkNU
-	+eug==
-X-Gm-Message-State: APjAAAUNPJ0SGZmNyGu8pNzR9AQIxTL8Py8RxqsdcDSVAplXBPMmLU8y
-	NCU3VJidFcGqLoFDV4imgBkXpw==
-X-Google-Smtp-Source: APXvYqxMi0WkPdC/TIWQ/rEP0W+6WEwgY/rp8ZhYjwRr9PMekyUrfkMqryPcx5ziGSRNx/jQnRs5oA==
-X-Received: by 2002:a17:90b:8ca:: with SMTP id
-	ds10mr4474530pjb.139.1567003218534; 
-	Wed, 28 Aug 2019 07:40:18 -0700 (PDT)
-Received: from nebulus.mtv.corp.google.com
-	([2620:15c:211:200:5404:91ba:59dc:9400])
-	by smtp.googlemail.com with ESMTPSA id
-	t9sm7295641pgj.89.2019.08.28.07.40.15
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Wed, 28 Aug 2019 07:40:17 -0700 (PDT)
-To: Christoph Hellwig <hch@infradead.org>
-References: <20190827150544.151031-1-salyzyn@android.com>
-	<20190828142423.GA1955@infradead.org>
-From: Mark Salyzyn <salyzyn@android.com>
-Message-ID: <5dd09a38-fffb-36f2-505b-be2ddf6bb750@android.com>
-Date: Wed, 28 Aug 2019 07:40:15 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+	by mx1.redhat.com (Postfix) with ESMTPS id DDE49308FC4A;
+	Thu, 29 Aug 2019 03:12:32 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+	by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x7T34MnA125004; Thu, 29 Aug 2019 03:12:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=date : from : to : cc
+	: subject : message-id : references : mime-version : content-type :
+	content-transfer-encoding : in-reply-to; s=corp-2019-08-05;
+	bh=IQaZ36+vxcvWv0TBA6kYGf1So8gSKZviXUcYpVtYvko=;
+	b=BP92QdFNBVg5+FTlgWVw2UxFp6sUjaWDC28/mNHm6+DV76vouDd46UFTuRqXQWuxLH8o
+	Zaptf+CvIhqvxsV3FG9ZlH3svaEbSzyueYZkVlxUUlK6AYSA1+77aFxjuv/CymVrg2az
+	IuLaiIeTti1invRuB5GcLTAGOlS5ncxeVij6v+ptOMs9hEbw43dOJ4GE1D1wx8Cg79iq
+	pZgh0QDSk+9jGpq/MsMOw7QX7PIL6VdJt1t0/5RjntOMvLnRaCEW0S223Pe1do08wlDn
+	RStil+npcHEQycT5thql/Q95BNpvBHmaKGQVw8qhlQghLTH5Tnl7/EE3b8OrEBoA/aPW
+	VA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2130.oracle.com with ESMTP id 2up69702k6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Aug 2019 03:12:24 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x7T34LtQ013256; Thu, 29 Aug 2019 03:12:23 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+	by userp3020.oracle.com with ESMTP id 2unteu9kke-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Aug 2019 03:12:23 +0000
+Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
+	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x7T3CITo028285;
+	Thu, 29 Aug 2019 03:12:18 GMT
+Received: from localhost (/67.169.218.210)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Wed, 28 Aug 2019 20:12:18 -0700
+Date: Wed, 28 Aug 2019 20:12:16 -0700
+From: "Darrick J. Wong" <darrick.wong@oracle.com>
+To: Andreas =?iso-8859-1?Q?Gr=FCnbacher?= <andreas.gruenbacher@gmail.com>
+Message-ID: <20190829031216.GW1037422@magnolia>
+References: <20181202180832.GR8125@magnolia> <20181202181045.GS8125@magnolia>
+	<CAHpGcM+WQYFHOOC8SzKq+=DuHVZ4fw4RHLTMUDN-o6GX3YtGvQ@mail.gmail.com>
+	<20190828142332.GT1037422@magnolia>
+	<CAHpGcMLGWVssWAC1PqBJevr1+1rE_hj4QN27D26j7-Fp_Kzpsg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190828142423.GA1955@infradead.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.40]);
-	Wed, 28 Aug 2019 14:40:19 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
-	Wed, 28 Aug 2019 14:40:19 +0000 (UTC) for IP:'209.85.210.195'
-	DOMAIN:'mail-pf1-f195.google.com'
-	HELO:'mail-pf1-f195.google.com' FROM:'salyzyn@android.com' RCPT:''
-X-RedHat-Spam-Score: -0.099  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	DKIM_VALID_AU, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
-	SPF_PASS) 209.85.210.195 mail-pf1-f195.google.com 209.85.210.195
-	mail-pf1-f195.google.com <salyzyn@android.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+In-Reply-To: <CAHpGcMLGWVssWAC1PqBJevr1+1rE_hj4QN27D26j7-Fp_Kzpsg@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9363
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=2
+	malwarescore=0
+	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.0.1-1906280000 definitions=main-1908290033
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9363
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
+	definitions=main-1908290033
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.43]); Thu, 29 Aug 2019 03:12:38 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
+	Thu, 29 Aug 2019 03:12:38 +0000 (UTC) for IP:'156.151.31.86'
+	DOMAIN:'userp2130.oracle.com' HELO:'userp2130.oracle.com'
+	FROM:'darrick.wong@oracle.com' RCPT:''
+X-RedHat-Spam-Score: -102.4  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_MED, SPF_HELO_PASS, SPF_NONE,
+	UNPARSEABLE_RELAY,
+	USER_IN_WHITELIST) 156.151.31.86 userp2130.oracle.com 156.151.31.86
+	userp2130.oracle.com <darrick.wong@oracle.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Cc: Latchesar Ionkov <lucho@ionkov.net>, Hugh Dickins <hughd@google.com>,
-	Mike Marshall <hubcap@omnibond.com>,
-	James Morris <jmorris@namei.org>, devel@lists.orangefs.org,
-	Eric Van Hensbergen <ericvh@gmail.com>,
-	Anna Schumaker <anna.schumaker@netapp.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Mathieu Malaterre <malat@debian.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, Jan Kara <jack@suse.com>,
-	Casey Schaufler <casey@schaufler-ca.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Kleikamp <shaggy@kernel.org>, linux-doc@vger.kernel.org,
-	Jeff Layton <jlayton@kernel.org>, Chao Yu <yuchao0@huawei.com>,
-	Mimi Zohar <zohar@linux.ibm.com>, linux-cifs@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	"Darrick J. Wong" <darrick.wong@oracle.com>,
-	Eric Sandeen <sandeen@sandeen.net>, kernel-team@android.com,
-	selinux@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
-	reiserfs-devel@vger.kernel.org, Tejun Heo <tj@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Miklos Szeredi <miklos@szeredi.hu>, linux-f2fs-devel@lists.sourceforge.net,
-	linux-integrity@vger.kernel.org, Martin Brandenburg <martin@omnibond.com>,
-	Chris Mason <clm@fb.com>, linux-mtd@lists.infradead.org,
-	linux-afs@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
-	Vyacheslav Dubeyko <slava@dubeyko.com>,
-	Allison Henderson <allison.henderson@oracle.com>,
-	Ilya Dryomov <idryomov@gmail.com>, linux-ext4@vger.kernel.org,
-	Stephen Smalley <sds@tycho.nsa.gov>, Serge Hallyn <serge@hallyn.com>,
-	Gao Xiang <gaoxiang25@huawei.com>,
-	Eric Paris <eparis@parisplace.org>, ceph-devel@vger.kernel.org,
-	linux-nfs@vger.kernel.org, linux-mm@kvack.org,
-	samba-technical@lists.samba.org, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	"David S. Miller" <davem@davemloft.net>,
-	ocfs2-devel@oss.oracle.com, jfs-discussion@lists.sourceforge.net,
-	Jan Kara <jack@suse.cz>, Eric Biggers <ebiggers@google.com>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	David Howells <dhowells@redhat.com>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Andreas Dilger <adilger.kernel@dilger.ca>, devel@driverdev.osuosl.org,
-	"J. Bruce Fields" <bfields@redhat.com>,
-	Sage Weil <sage@redhat.com>, Richard Weinberger <richard@nod.at>,
-	Mark Fasheh <mark@fasheh.com>, cluster-devel@redhat.com,
-	Steve French <sfrench@samba.org>, v9fs-developer@lists.sourceforge.net,
-	Bharath Vedartham <linux.bhar@gmail.com>,
-	Jann Horn <jannh@google.com>, ecryptfs@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>, David Sterba <dsterba@suse.com>,
-	Artem Bityutskiy <dedekind1@gmail.com>, netdev@vger.kernel.org,
-	linux-unionfs@vger.kernel.org, stable@vger.kernel.org,
-	Tyler Hicks <tyhicks@canonical.com>, linux-security-module@vger.kernel.org,
-	Phillip Lougher <phillip@squashfs.org.uk>,
-	David Woodhouse <dwmw2@infradead.org>, linux-btrfs@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [Cluster-devel] [PATCH v8] Add flags option to get xattr method
- paired to __vfs_getxattr
+Cc: jencce.kernel@gmail.com, Zorro Lang <zlang@redhat.com>,
+	Dave Chinner <david@fromorbit.com>,
+	overlayfs <linux-unionfs@vger.kernel.org>,
+	fstests <fstests@vger.kernel.org>, linux-xfs <linux-xfs@vger.kernel.org>,
+	cluster-devel <cluster-devel@redhat.com>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>
+Subject: Re: [Cluster-devel] [PATCH v2 2/2] iomap: partially revert
+ 4721a601099 (simulated directio short read on EFAULT)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -168,25 +131,179 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]); Wed, 28 Aug 2019 14:40:29 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Thu, 29 Aug 2019 03:12:56 +0000 (UTC)
 
-On 8/28/19 7:24 AM, Christoph Hellwig wrote:
-> On Tue, Aug 27, 2019 at 08:05:15AM -0700, Mark Salyzyn wrote:
->> Replace arguments for get and set xattr methods, and __vfs_getxattr
->> and __vfs_setaxtr functions with a reference to the following now
->> common argument structure:
-> Yikes.  That looks like a mess.  Why can't we pass a kernel-only
-> flag in the existing flags field for â‚‹>set and add a flags field
-> to ->get?  Passing methods by structure always tends to be a mess.
+On Wed, Aug 28, 2019 at 04:37:59PM +0200, Andreas Grünbacher wrote:
+> Am Mi., 28. Aug. 2019 um 16:23 Uhr schrieb Darrick J. Wong
+> <darrick.wong@oracle.com>:
+> > On Wed, Aug 21, 2019 at 10:23:49PM +0200, Andreas Grünbacher wrote:
+> > > Hi Darrick,
+> > >
+> > > Am So., 2. Dez. 2018 um 19:13 Uhr schrieb Darrick J. Wong
+> > > <darrick.wong@oracle.com>:
+> > > > From: Darrick J. Wong <darrick.wong@oracle.com>
+> > > >
+> > > > In commit 4721a601099, we tried to fix a problem wherein directio reads
+> > > > into a splice pipe will bounce EFAULT/EAGAIN all the way out to
+> > > > userspace by simulating a zero-byte short read.  This happens because
+> > > > some directio read implementations (xfs) will call
+> > > > bio_iov_iter_get_pages to grab pipe buffer pages and issue asynchronous
+> > > > reads, but as soon as we run out of pipe buffers that _get_pages call
+> > > > returns EFAULT, which the splice code translates to EAGAIN and bounces
+> > > > out to userspace.
+> > > >
+> > > > In that commit, the iomap code catches the EFAULT and simulates a
+> > > > zero-byte read, but that causes assertion errors on regular splice reads
+> > > > because xfs doesn't allow short directio reads.  This causes infinite
+> > > > splice() loops and assertion failures on generic/095 on overlayfs
+> > > > because xfs only permit total success or total failure of a directio
+> > > > operation.  The underlying issue in the pipe splice code has now been
+> > > > fixed by changing the pipe splice loop to avoid avoid reading more data
+> > > > than there is space in the pipe.
+> > > >
+> > > > Therefore, it's no longer necessary to simulate the short directio, so
+> > > > remove the hack from iomap.
+> > > >
+> > > > Fixes: 4721a601099 ("iomap: dio data corruption and spurious errors when pipes fill")
+> > > > Reported-by: Amir Goldstein <amir73il@gmail.com>
+> > > > Reviewed-by: Christoph Hellwig <hch@lst.de>
+> > > > Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
+> > > > ---
+> > > > v2: split into two patches per hch request
+> > > > ---
+> > > >  fs/iomap.c |    9 ---------
+> > > >  1 file changed, 9 deletions(-)
+> > > >
+> > > > diff --git a/fs/iomap.c b/fs/iomap.c
+> > > > index 3ffb776fbebe..d6bc98ae8d35 100644
+> > > > --- a/fs/iomap.c
+> > > > +++ b/fs/iomap.c
+> > > > @@ -1877,15 +1877,6 @@ iomap_dio_rw(struct kiocb *iocb, struct iov_iter *iter,
+> > > >                                 dio->wait_for_completion = true;
+> > > >                                 ret = 0;
+> > > >                         }
+> > > > -
+> > > > -                       /*
+> > > > -                        * Splicing to pipes can fail on a full pipe. We have to
+> > > > -                        * swallow this to make it look like a short IO
+> > > > -                        * otherwise the higher splice layers will completely
+> > > > -                        * mishandle the error and stop moving data.
+> > > > -                        */
+> > > > -                       if (ret == -EFAULT)
+> > > > -                               ret = 0;
+> > > >                         break;
+> > > >                 }
+> > > >                 pos += ret;
+> > >
+> > > I'm afraid this breaks the following test case on xfs and gfs2, the
+> > > two current users of iomap_dio_rw.
+> >
+> > Hmm, I had kinda wondered if regular pipes still needed this help.
+> > Evidently we don't have a lot of splice tests in fstests. :(
+> 
+> So what do you suggest as a fix?
 
-This was a response to GregKH@ criticism, an earlier patch set just 
-added a flag as you stated to get method, until complaints of an 
-excessively long argument list and fragility to add or change more 
-arguments.
+(See below)
 
-So many ways have been tried to skin this cat ... the risk was taken to 
-please some, and we now have hundreds of stakeholders, when the first 
-patch set was less than a dozen. A recipe for failure?
+> > > Here, the splice system call fails with errno = EAGAIN when trying to
+> > > "move data" from a file opened with O_DIRECT into a pipe.
+> > >
+> > > The test case can be run with option -d to not use O_DIRECT, which
+> > > makes the test succeed.
+> > >
+> > > The -r option switches from reading from the pipe sequentially to
+> > > reading concurrently with the splice, which doesn't change the
+> > > behavior.
+> > >
+> > > Any thoughts?
+> >
+> > This would be great as an xfstest! :)
+> 
+> Or perhaps something generalized from it.
+> 
+> > Do you have one ready to go, or should I just make one from the source
+> > code?
+> 
+> The bug originally triggered in our internal cluster test system and
+> I've recreated the test case I've included from the strace. That's all
+> I have for now; feel free to take it, of course.
+> 
+> It could be that the same condition can be triggered with one of the
+> existing utilities (fio/fsstress/...).
 
--- Mark
+Hm, so I made an xfstest out of the program you sent me, and indeed
+reverting that chunk makes the failure go away, but that got me
+wondering -- that iomap kludge was a workaround for the splice code
+telling iomap to try to stuff XXXX bytes into a pipe that only has X
+bytes of free buffer space.  We fixed splice_direct_to_actor to clamp
+the length parameter to the available pipe space, but we never did the
+same to do_splice:
+
+	/* Don't try to read more the pipe has space for. */
+	read_len = min_t(size_t, len,
+			 (pipe->buffers - pipe->nrbufs) << PAGE_SHIFT);
+	ret = do_splice_to(in, &pos, pipe, read_len, flags);
+
+Applying similar logic to the two (opipe != NULL) cases of do_splice()
+seem to make the EAGAIN problem go away too.  So why don't we teach
+do_splice to only ask for as many bytes as the pipe has space here too?
+
+Does the following patch fix it for you?
+
+--D
+
+From: Darrick J. Wong <darrick.wong@oracle.com>
+Subject: [PATCH] splice: only read in as much information as there is pipe buffer space
+
+Andreas Gruenbacher reports that on the two filesystems that support
+iomap directio, it's possible for splice() to return -EAGAIN (instead of
+a short splice) if the pipe being written to has less space available in
+its pipe buffers than the length supplied by the calling process.
+
+Months ago we fixed splice_direct_to_actor to clamp the length of the
+read request to the size of the splice pipe.  Do the same to do_splice.
+
+Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
+---
+ fs/splice.c |   12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/fs/splice.c b/fs/splice.c
+index 98412721f056..50335515d7c1 100644
+--- a/fs/splice.c
++++ b/fs/splice.c
+@@ -1101,6 +1101,7 @@ static long do_splice(struct file *in, loff_t __user *off_in,
+ 	struct pipe_inode_info *ipipe;
+ 	struct pipe_inode_info *opipe;
+ 	loff_t offset;
++	unsigned int pipe_pages;
+ 	long ret;
+ 
+ 	ipipe = get_pipe_info(in);
+@@ -1123,6 +1124,10 @@ static long do_splice(struct file *in, loff_t __user *off_in,
+ 		if ((in->f_flags | out->f_flags) & O_NONBLOCK)
+ 			flags |= SPLICE_F_NONBLOCK;
+ 
++		/* Don't try to read more the pipe has space for. */
++		pipe_pages = opipe->buffers - opipe->nrbufs;
++		len = min_t(size_t, len, pipe_pages << PAGE_SHIFT);
++
+ 		return splice_pipe_to_pipe(ipipe, opipe, len, flags);
+ 	}
+ 
+@@ -1180,8 +1185,13 @@ static long do_splice(struct file *in, loff_t __user *off_in,
+ 
+ 		pipe_lock(opipe);
+ 		ret = wait_for_space(opipe, flags);
+-		if (!ret)
++		if (!ret) {
++			/* Don't try to read more the pipe has space for. */
++			pipe_pages = opipe->buffers - opipe->nrbufs;
++			len = min_t(size_t, len, pipe_pages << PAGE_SHIFT);
++
+ 			ret = do_splice_to(in, &offset, opipe, len, flags);
++		}
+ 		pipe_unlock(opipe);
+ 		if (ret > 0)
+ 			wakeup_pipe_readers(opipe);
 
