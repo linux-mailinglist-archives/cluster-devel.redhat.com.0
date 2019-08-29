@@ -2,98 +2,53 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D391A1957
-	for <lists+cluster-devel@lfdr.de>; Thu, 29 Aug 2019 13:49:54 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A198A1A5A
+	for <lists+cluster-devel@lfdr.de>; Thu, 29 Aug 2019 14:45:12 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1EE933082E66;
-	Thu, 29 Aug 2019 11:49:53 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id A4C648AB25B;
+	Thu, 29 Aug 2019 12:45:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 67A0B5D9D3;
-	Thu, 29 Aug 2019 11:49:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 35B7B5D712;
+	Thu, 29 Aug 2019 12:45:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5C35A2551B;
-	Thu, 29 Aug 2019 11:49:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A561D24F30;
+	Thu, 29 Aug 2019 12:45:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7TBniHk006073 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 29 Aug 2019 07:49:44 -0400
+	id x7T1TGbu022271 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 28 Aug 2019 21:29:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CE5AB5D71C; Thu, 29 Aug 2019 11:49:44 +0000 (UTC)
+	id 136096061E; Thu, 29 Aug 2019 01:29:16 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7FC25D712;
-	Thu, 29 Aug 2019 11:49:42 +0000 (UTC)
-Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
-	[209.85.166.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A018DC0021D3;
-	Thu, 29 Aug 2019 11:49:41 +0000 (UTC)
-Received: by mail-io1-f68.google.com with SMTP id p12so6291434iog.5;
-	Thu, 29 Aug 2019 04:49:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=ebi6DvryipDbJMt7Vs5Y6UzNPCCfjozPAm+m3gRZ1cY=;
-	b=HnQVcABTef4wmDs+EEBqAROiuUJ/fDy5haGSBWNMqg0NyQEcuu3kMeOtyJK3LLYX87
-	97PGFzvGKf5em+PrI8Q4mUkHKPD3A6Wps0Wb6HJM5OpKbp8tlsekl5obLa6vti/pUQv8
-	k4rwFFOJcg5+v/GQUbRaOXaQcTwfidXLu8zkeLfERuauyWsazilRoiBkD1RrercIaaU+
-	IsgvbSbifqYV70hFWGZP7QXrGk3GBSTON+oM6ft4TQM63fOm7IYqOL6X3iSGQ9oCHdE7
-	JAuoLdWYFiS4VQgFsP2lDQbZza3261q60moRPMIsTdBCAW6LRqrvYOB0mC683lLWiiNu
-	ZTWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=ebi6DvryipDbJMt7Vs5Y6UzNPCCfjozPAm+m3gRZ1cY=;
-	b=fsfl/5MuYNSlNtYNDPTIi2+xGe310DksImlctIyOAhsjx/avd8vKRnQDigDZUUvzIT
-	k0uBBmAbWfhwwgNvTU+wlhJIEyp1tLkaMBuT6F61hcsiEkzJkK6M7WFXHuFWSVkPyGuo
-	4s8mY8N4IXyOS9mGopTfP0Xb7RGQUi/N0FAvlnKKzjkRXlawfxQeAOsyb5fy2FMYPRx5
-	1UIVIxjnj64XJBh6t/gGAsMAKTCgAC3BOrijZjf9/Rc6cnWEeiYY0s4IiYPDyWFRTWrj
-	jVeq6z65hIUtuY5U6TaGzxa7LKmj6Pc6Kx3GU3IwYHwwTu5V27nOVCIUSLBzenBleXWi
-	CEMg==
-X-Gm-Message-State: APjAAAXpQKqoy9q6gnCu/rgtETD4qZxxKerDfJrKmuPgp7+aFvphREsX
-	w23AdOmDiLD3Ll/Qb4r3lypspB+rrz75KsXm+Wc=
-X-Google-Smtp-Source: APXvYqwENsRASBmSEOl6YE44hcCuRaYScqwow/qESu/tkVMsG2dt16pzNKaq9E5EKUIWbFl1OAlxQl2yEGWsVIScfz8=
-X-Received: by 2002:a6b:7002:: with SMTP id l2mr2304538ioc.300.1567079380885; 
-	Thu, 29 Aug 2019 04:49:40 -0700 (PDT)
-MIME-Version: 1.0
+Received: from localhost (dhcp-12-102.nay.redhat.com [10.66.12.102])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1C96F6060D;
+	Thu, 29 Aug 2019 01:29:12 +0000 (UTC)
+Date: Thu, 29 Aug 2019 09:36:04 +0800
+From: Zorro Lang <zlang@redhat.com>
+To: "Darrick J. Wong" <darrick.wong@oracle.com>
+Message-ID: <20190829013604.GQ7239@dhcp-12-102.nay.redhat.com>
 References: <20181202180832.GR8125@magnolia> <20181202181045.GS8125@magnolia>
 	<CAHpGcM+WQYFHOOC8SzKq+=DuHVZ4fw4RHLTMUDN-o6GX3YtGvQ@mail.gmail.com>
 	<20190828142332.GT1037422@magnolia>
-	<CAHpGcMLGWVssWAC1PqBJevr1+1rE_hj4QN27D26j7-Fp_Kzpsg@mail.gmail.com>
-	<20190829031216.GW1037422@magnolia>
-In-Reply-To: <20190829031216.GW1037422@magnolia>
-From: =?UTF-8?Q?Andreas_Gr=C3=BCnbacher?= <andreas.gruenbacher@gmail.com>
-Date: Thu, 29 Aug 2019 13:49:29 +0200
-Message-ID: <CAHpGcM+Aq+BxD0_TPx9sqTCt8N6X3Q+UO6CkyfV3NZMaN8AU8w@mail.gmail.com>
-To: "Darrick J. Wong" <darrick.wong@oracle.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.31]);
-	Thu, 29 Aug 2019 11:49:41 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]);
-	Thu, 29 Aug 2019 11:49:41 +0000 (UTC) for IP:'209.85.166.68'
-	DOMAIN:'mail-io1-f68.google.com' HELO:'mail-io1-f68.google.com'
-	FROM:'andreas.gruenbacher@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,
-	SPF_PASS) 209.85.166.68 mail-io1-f68.google.com 209.85.166.68
-	mail-io1-f68.google.com <andreas.gruenbacher@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.31
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20190828142332.GT1037422@magnolia>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Cc: jencce.kernel@gmail.com, Zorro Lang <zlang@redhat.com>,
-	Dave Chinner <david@fromorbit.com>,
+X-Mailman-Approved-At: Thu, 29 Aug 2019 08:45:06 -0400
+Cc: jencce.kernel@gmail.com,
+	Andreas =?iso-8859-1?Q?Gr=FCnbacher?= <andreas.gruenbacher@gmail.com>,
+	Amir Goldstein <amir73il@gmail.com>, Dave Chinner <david@fromorbit.com>,
 	overlayfs <linux-unionfs@vger.kernel.org>,
 	fstests <fstests@vger.kernel.org>, linux-xfs <linux-xfs@vger.kernel.org>,
 	cluster-devel <cluster-devel@redhat.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>
 Subject: Re: [Cluster-devel] [PATCH v2 2/2] iomap: partially revert
  4721a601099 (simulated directio short read on EFAULT)
 X-BeenThere: cluster-devel@redhat.com
@@ -109,96 +64,276 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Thu, 29 Aug 2019 11:49:53 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]); Thu, 29 Aug 2019 12:45:11 +0000 (UTC)
 
-Hi Darrick,
+On Wed, Aug 28, 2019 at 07:23:32AM -0700, Darrick J. Wong wrote:
+> On Wed, Aug 21, 2019 at 10:23:49PM +0200, Andreas Grünbacher wrote:
+> > Hi Darrick,
+> > 
+> > Am So., 2. Dez. 2018 um 19:13 Uhr schrieb Darrick J. Wong
+> > <darrick.wong@oracle.com>:
+> > > From: Darrick J. Wong <darrick.wong@oracle.com>
+> > >
+> > > In commit 4721a601099, we tried to fix a problem wherein directio reads
+> > > into a splice pipe will bounce EFAULT/EAGAIN all the way out to
+> > > userspace by simulating a zero-byte short read.  This happens because
+> > > some directio read implementations (xfs) will call
+> > > bio_iov_iter_get_pages to grab pipe buffer pages and issue asynchronous
+> > > reads, but as soon as we run out of pipe buffers that _get_pages call
+> > > returns EFAULT, which the splice code translates to EAGAIN and bounces
+> > > out to userspace.
+> > >
+> > > In that commit, the iomap code catches the EFAULT and simulates a
+> > > zero-byte read, but that causes assertion errors on regular splice reads
+> > > because xfs doesn't allow short directio reads.  This causes infinite
+> > > splice() loops and assertion failures on generic/095 on overlayfs
+> > > because xfs only permit total success or total failure of a directio
+> > > operation.  The underlying issue in the pipe splice code has now been
+> > > fixed by changing the pipe splice loop to avoid avoid reading more data
+> > > than there is space in the pipe.
+> > >
+> > > Therefore, it's no longer necessary to simulate the short directio, so
+> > > remove the hack from iomap.
+> > >
+> > > Fixes: 4721a601099 ("iomap: dio data corruption and spurious errors when pipes fill")
+> > > Reported-by: Amir Goldstein <amir73il@gmail.com>
+> > > Reviewed-by: Christoph Hellwig <hch@lst.de>
+> > > Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
+> > > ---
+> > > v2: split into two patches per hch request
+> > > ---
+> > >  fs/iomap.c |    9 ---------
+> > >  1 file changed, 9 deletions(-)
+> > >
+> > > diff --git a/fs/iomap.c b/fs/iomap.c
+> > > index 3ffb776fbebe..d6bc98ae8d35 100644
+> > > --- a/fs/iomap.c
+> > > +++ b/fs/iomap.c
+> > > @@ -1877,15 +1877,6 @@ iomap_dio_rw(struct kiocb *iocb, struct iov_iter *iter,
+> > >                                 dio->wait_for_completion = true;
+> > >                                 ret = 0;
+> > >                         }
+> > > -
+> > > -                       /*
+> > > -                        * Splicing to pipes can fail on a full pipe. We have to
+> > > -                        * swallow this to make it look like a short IO
+> > > -                        * otherwise the higher splice layers will completely
+> > > -                        * mishandle the error and stop moving data.
+> > > -                        */
+> > > -                       if (ret == -EFAULT)
+> > > -                               ret = 0;
+> > >                         break;
+> > >                 }
+> > >                 pos += ret;
+> > 
+> > I'm afraid this breaks the following test case on xfs and gfs2, the
+> > two current users of iomap_dio_rw.
+> 
+> Hmm, I had kinda wondered if regular pipes still needed this help.
+> Evidently we don't have a lot of splice tests in fstests. :(
+> 
+> > Here, the splice system call fails with errno = EAGAIN when trying to
+> > "move data" from a file opened with O_DIRECT into a pipe.
+> > 
+> > The test case can be run with option -d to not use O_DIRECT, which
+> > makes the test succeed.
+> > 
+> > The -r option switches from reading from the pipe sequentially to
+> > reading concurrently with the splice, which doesn't change the
+> > behavior.
+> > 
+> > Any thoughts?
+> 
+> This would be great as an xfstest! :)
 
-Am Do., 29. Aug. 2019 um 05:12 Uhr schrieb Darrick J. Wong
-<darrick.wong@oracle.com>:
-> Hm, so I made an xfstest out of the program you sent me, and indeed
-> reverting that chunk makes the failure go away, but that got me
-> wondering -- that iomap kludge was a workaround for the splice code
-> telling iomap to try to stuff XXXX bytes into a pipe that only has X
-> bytes of free buffer space.  We fixed splice_direct_to_actor to clamp
-> the length parameter to the available pipe space, but we never did the
-> same to do_splice:
->
->         /* Don't try to read more the pipe has space for. */
->         read_len = min_t(size_t, len,
->                          (pipe->buffers - pipe->nrbufs) << PAGE_SHIFT);
->         ret = do_splice_to(in, &pos, pipe, read_len, flags);
->
-> Applying similar logic to the two (opipe != NULL) cases of do_splice()
-> seem to make the EAGAIN problem go away too.  So why don't we teach
-> do_splice to only ask for as many bytes as the pipe has space here too?
->
-> Does the following patch fix it for you?
+JFYI, I added splice operation into fsstress, and I tried to add splice operation
+into xfs_io long time ago:
 
-Yes, that works, thank you.
+https://marc.info/?l=linux-xfs&m=155828702128047&w=2
 
-> From: Darrick J. Wong <darrick.wong@oracle.com>
-> Subject: [PATCH] splice: only read in as much information as there is pipe buffer space
->
-> Andreas Gruenbacher reports that on the two filesystems that support
-> iomap directio, it's possible for splice() to return -EAGAIN (instead of
-> a short splice) if the pipe being written to has less space available in
-> its pipe buffers than the length supplied by the calling process.
->
-> Months ago we fixed splice_direct_to_actor to clamp the length of the
-> read request to the size of the splice pipe.  Do the same to do_splice.
-
-Can you add a reference to that commit here (17614445576b6)?
-
-> Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
-> ---
->  fs/splice.c |   12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/splice.c b/fs/splice.c
-> index 98412721f056..50335515d7c1 100644
-> --- a/fs/splice.c
-> +++ b/fs/splice.c
-> @@ -1101,6 +1101,7 @@ static long do_splice(struct file *in, loff_t __user *off_in,
->         struct pipe_inode_info *ipipe;
->         struct pipe_inode_info *opipe;
->         loff_t offset;
-> +       unsigned int pipe_pages;
->         long ret;
->
->         ipipe = get_pipe_info(in);
-> @@ -1123,6 +1124,10 @@ static long do_splice(struct file *in, loff_t __user *off_in,
->                 if ((in->f_flags | out->f_flags) & O_NONBLOCK)
->                         flags |= SPLICE_F_NONBLOCK;
->
-> +               /* Don't try to read more the pipe has space for. */
-> +               pipe_pages = opipe->buffers - opipe->nrbufs;
-> +               len = min_t(size_t, len, pipe_pages << PAGE_SHIFT);
-
-This should probably be min(len, (size_t)pipe_pages << PAGE_SHIFT).
-Same for the second min_t here and the one added by commit
-17614445576b6.
-
-> +
->                 return splice_pipe_to_pipe(ipipe, opipe, len, flags);
->         }
->
-> @@ -1180,8 +1185,13 @@ static long do_splice(struct file *in, loff_t __user *off_in,
->
->                 pipe_lock(opipe);
->                 ret = wait_for_space(opipe, flags);
-> -               if (!ret)
-> +               if (!ret) {
-> +                       /* Don't try to read more the pipe has space for. */
-> +                       pipe_pages = opipe->buffers - opipe->nrbufs;
-> +                       len = min_t(size_t, len, pipe_pages << PAGE_SHIFT);
-> +
->                         ret = do_splice_to(in, &offset, opipe, len, flags);
-> +               }
->                 pipe_unlock(opipe);
->                 if (ret > 0)
->                         wakeup_pipe_readers(opipe);
+But it haven't been merged. If you have any suggestion, please feel free to
+review it:)
 
 Thanks,
-Andreas
+Zorro
+
+> 
+> Do you have one ready to go, or should I just make one from the source
+> code?
+> 
+> --D
+> 
+> > Thanks,
+> > Andreas
+> > 
+> > =================================== 8< ===================================
+> > #define _GNU_SOURCE
+> > #include <sys/types.h>
+> > #include <sys/stat.h>
+> > #include <sys/wait.h>
+> > #include <unistd.h>
+> > #include <fcntl.h>
+> > #include <err.h>
+> > 
+> > #include <stdlib.h>
+> > #include <stdio.h>
+> > #include <stdbool.h>
+> > #include <string.h>
+> > #include <errno.h>
+> > 
+> > #define SECTOR_SIZE 512
+> > #define BUFFER_SIZE (150 * SECTOR_SIZE)
+> > 
+> > void read_from_pipe(int fd, const char *filename, size_t size)
+> > {
+> >     char buffer[SECTOR_SIZE];
+> >     size_t sz;
+> >     ssize_t ret;
+> > 
+> >     while (size) {
+> >         sz = size;
+> >         if (sz > sizeof buffer)
+> >             sz = sizeof buffer;
+> >         ret = read(fd, buffer, sz);
+> >         if (ret < 0)
+> >             err(1, "read: %s", filename);
+> >         if (ret == 0) {
+> >             fprintf(stderr, "read: %s: unexpected EOF\n", filename);
+> >             exit(1);
+> >         }
+> >         size -= sz;
+> >     }
+> > }
+> > 
+> > void do_splice1(int fd, const char *filename, size_t size)
+> > {
+> >     bool retried = false;
+> >     int pipefd[2];
+> > 
+> >     if (pipe(pipefd) == -1)
+> >         err(1, "pipe");
+> >     while (size) {
+> >         ssize_t spliced;
+> > 
+> >         spliced = splice(fd, NULL, pipefd[1], NULL, size, SPLICE_F_MOVE);
+> >         if (spliced == -1) {
+> >             if (errno == EAGAIN && !retried) {
+> >                 retried = true;
+> >                 fprintf(stderr, "retrying splice\n");
+> >                 sleep(1);
+> >                 continue;
+> >             }
+> >             err(1, "splice");
+> >         }
+> >         read_from_pipe(pipefd[0], filename, spliced);
+> >         size -= spliced;
+> >     }
+> >     close(pipefd[0]);
+> >     close(pipefd[1]);
+> > }
+> > 
+> > void do_splice2(int fd, const char *filename, size_t size)
+> > {
+> >     bool retried = false;
+> >     int pipefd[2];
+> >     int pid;
+> > 
+> >     if (pipe(pipefd) == -1)
+> >         err(1, "pipe");
+> > 
+> >     pid = fork();
+> >     if (pid == 0) {
+> >         close(pipefd[1]);
+> >         read_from_pipe(pipefd[0], filename, size);
+> >         exit(0);
+> >     } else {
+> >         close(pipefd[0]);
+> >         while (size) {
+> >             ssize_t spliced;
+> > 
+> >             spliced = splice(fd, NULL, pipefd[1], NULL, size, SPLICE_F_MOVE);
+> >             if (spliced == -1) {
+> >                 if (errno == EAGAIN && !retried) {
+> >                     retried = true;
+> >                     fprintf(stderr, "retrying splice\n");
+> >                     sleep(1);
+> >                     continue;
+> >                 }
+> >                 err(1, "splice");
+> >             }
+> >             size -= spliced;
+> >         }
+> >         close(pipefd[1]);
+> >         waitpid(pid, NULL, 0);
+> >     }
+> > }
+> > 
+> > void usage(const char *argv0)
+> > {
+> >     fprintf(stderr, "USAGE: %s [-rd] {filename}\n", basename(argv0));
+> >     exit(2);
+> > }
+> > 
+> > int main(int argc, char *argv[])
+> > {
+> >     void (*do_splice)(int fd, const char *filename, size_t size);
+> >     const char *filename;
+> >     char *buffer;
+> >     int opt, open_flags, fd;
+> >     ssize_t ret;
+> > 
+> >     do_splice = do_splice1;
+> >     open_flags = O_CREAT | O_TRUNC | O_RDWR | O_DIRECT;
+> > 
+> >     while ((opt = getopt(argc, argv, "rd")) != -1) {
+> >         switch(opt) {
+> >         case 'r':
+> >             do_splice = do_splice2;
+> >             break;
+> >         case 'd':
+> >             open_flags &= ~O_DIRECT;
+> >             break;
+> >         default:  /* '?' */
+> >             usage(argv[0]);
+> >         }
+> >     }
+> > 
+> >     if (optind >= argc)
+> >         usage(argv[0]);
+> >     filename = argv[optind];
+> > 
+> >     printf("%s reader %s O_DIRECT\n",
+> >            do_splice == do_splice1 ? "sequential" : "concurrent",
+> >            (open_flags & O_DIRECT) ? "with" : "without");
+> > 
+> >     buffer = aligned_alloc(SECTOR_SIZE, BUFFER_SIZE);
+> >     if (buffer == NULL)
+> >         err(1, "aligned_alloc");
+> > 
+> >     fd = open(filename, open_flags, 0666);
+> >     if (fd == -1)
+> >         err(1, "open: %s", filename);
+> > 
+> >     memset(buffer, 'x', BUFFER_SIZE);
+> >     ret = write(fd, buffer, BUFFER_SIZE);
+> >     if (ret < 0)
+> >         err(1, "write: %s", filename);
+> >     if (ret != BUFFER_SIZE) {
+> >         fprintf(stderr, "%s: short write\n", filename);
+> >         exit(1);
+> >     }
+> > 
+> >     ret = lseek(fd, 0, SEEK_SET);
+> >     if (ret != 0)
+> >         err(1, "lseek: %s", filename);
+> > 
+> >     do_splice(fd, filename, BUFFER_SIZE);
+> > 
+> >     if (unlink(filename) == -1)
+> >         err(1, "unlink: %s", filename);
+> > 
+> >     return 0;
+> > }
+> > =================================== 8< ===================================
 
