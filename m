@@ -2,53 +2,53 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43560A8611
-	for <lists+cluster-devel@lfdr.de>; Wed,  4 Sep 2019 17:32:36 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF8BCA86C1
+	for <lists+cluster-devel@lfdr.de>; Wed,  4 Sep 2019 18:59:24 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 99685308219E;
-	Wed,  4 Sep 2019 15:32:34 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8AA283D94D;
+	Wed,  4 Sep 2019 16:59:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A104B196B2;
-	Wed,  4 Sep 2019 15:32:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E289060C18;
+	Wed,  4 Sep 2019 16:59:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 53AA2EEFE;
-	Wed,  4 Sep 2019 15:32:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 92DFB2551C;
+	Wed,  4 Sep 2019 16:59:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x84FWRkR028517 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Sep 2019 11:32:27 -0400
+	id x84GxHYK032143 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Sep 2019 12:59:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 10DE45D9E2; Wed,  4 Sep 2019 15:32:27 +0000 (UTC)
+	id 78E786060D; Wed,  4 Sep 2019 16:59:17 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from colo-mx.corp.redhat.com
 	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0BA625D9C9
-	for <cluster-devel@redhat.com>; Wed,  4 Sep 2019 15:32:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB4B06092F;
+	Wed,  4 Sep 2019 16:59:14 +0000 (UTC)
 Received: from zmail21.collab.prod.int.phx2.redhat.com
 	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AFB291800B74;
-	Wed,  4 Sep 2019 15:32:22 +0000 (UTC)
-Date: Wed, 4 Sep 2019 11:32:21 -0400 (EDT)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E30611800B74;
+	Wed,  4 Sep 2019 16:59:14 +0000 (UTC)
+Date: Wed, 4 Sep 2019 12:59:14 -0400 (EDT)
 From: Bob Peterson <rpeterso@redhat.com>
-To: =?utf-8?B?7ZWc64yA6rec?= <hdg9400@skku.edu>
-Message-ID: <300514420.12648595.1567611141801.JavaMail.zimbra@redhat.com>
-In-Reply-To: <OF91C20228.BA07262A-ON4925846B.000B9F9F@skku.ac.kr>
-References: <OF91C20228.BA07262A-ON4925846B.000B9F9F@skku.ac.kr>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <1215047977.12665709.1567616354680.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CAHc6FU49bXX7GoNeO3eNex+wVjEecYfQjySCy1EbTL2ek+tUzg@mail.gmail.com>
+References: <20190523130421.21003-1-rpeterso@redhat.com>
+	<20190523130421.21003-12-rpeterso@redhat.com>
+	<CAHc6FU49bXX7GoNeO3eNex+wVjEecYfQjySCy1EbTL2ek+tUzg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.3.116.191, 10.4.195.4]
-Thread-Topic: How do the nodes that are mounting GFS2 see the latest version
-	of file system?
-Thread-Index: AjP3EAsdv3HFxiKrdbzOlMWNJh2/+A==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Originating-IP: [10.3.116.191, 10.4.195.12]
+Thread-Topic: gfs2: log error reform
+Thread-Index: +jMNkeIFslUdMAkndMxlXIJsQnDZnw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] How do the nodes that are mounting GFS2 see the
- latest version of file system?
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [GFS2 PATCH v6 11/26] gfs2: log error reform
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -62,52 +62,63 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Wed, 04 Sep 2019 15:32:35 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Wed, 04 Sep 2019 16:59:23 +0000 (UTC)
 
-Hi Daegyu,
+Hi Andreas,
 
 ----- Original Message -----
-> How can B's file system data structure be kept up to date?
+> > +                */
+> > +               if (sdp->sd_log_error) {
+> > +                       gfs2_io_error_bh(sdp, bh);
+> 
+> some of the error handling here is still sketchy: the only place where
+> sd_log_error is set without withdrawing the filesystem is
+> quotad_error. If the filesystem has already been marked
+> SDF_WITHDRAWING or SDF_WITHDRAWN, gfs2_io_error_bh will be a no-op. It
+> seems that we want to set SDF_WITHDRAWING here for the quotad_error
+> case instead of calling gfs2_io_error_bh?
+> 
+> > +               } else if (buffer_busy(bh)) {
+> >                         continue;
+> > -               if (!buffer_uptodate(bh) &&
+> > -                   !test_and_set_bit(SDF_AIL1_IO_ERROR, &sdp->sd_flags)) {
+> > +               } else if (!buffer_uptodate(bh) &&
+> > +                          !cmpxchg(&sdp->sd_log_error, 0, -EIO)) {
+> >                         gfs2_io_error_bh(sdp, bh);
+> >                         set_bit(SDF_WITHDRAWING, &sdp->sd_flags);
+> >                 }
 
-GFS2 uses cluster-wide locking called "glocks" to synchronize metadata.
+The main idea was to move busy buffers to tr_ail2_list after
+an errors have been flagged (before the test for buffer_busy()).
+Would something like this be more acceptable?
 
-For example, when A wants to update a file F1 in a gfs2 file system,
-it first acquires the glock for F1's inode. The glock gets
-permission to use F1 using locks in DLM, the Distributed Lock Manager.
+@@ -200,10 +199,19 @@ static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
+ 					 bd_ail_st_list) {
+ 		bh = bd->bd_bh;
+ 		gfs2_assert(sdp, bd->bd_tr == tr);
+-		if (buffer_busy(bh))
++		/*
++		 * If another process flagged an io error, e.g. writing to the
++		 * journal, error all other bhs and move them off the ail1 to
++		 * prevent a tight loop when unmount tries to flush ail1,
++		 * regardless of whether they're still busy. If no outside
++		 * errors were found and the buffer is busy, move to the next.
++		 * If the ail buffer is not busy and caught an error, flag it
++		 * for others.
++		 */
++		if (!sdp->sd_log_error && buffer_busy(bh))
+ 			continue;
+ 		if (!buffer_uptodate(bh) &&
+-		    !test_and_set_bit(SDF_AIL1_IO_ERROR, &sdp->sd_flags)) {
++		    !cmpxchg(&sdp->sd_log_error, 0, -EIO)) {
+ 			gfs2_io_error_bh(sdp, bh);
+ 			set_bit(SDF_WITHDRAWING, &sdp->sd_flags);
+ 		}
 
-If node B has the glock for F1 already locked, it requests the glock be
-released. The request to release the glock causes node B to write
-everything it has in memory related to F1 before the glock is released.
-Then B's in-core inode for F1 is invalidated and needs to be re-read
-the next time it needs to see it.
 
-After B releases the glock, then A is granted the lock by DLM.
-When it acquires the glock, it must re-read the metadata needed for F1
-(either because it was never read in, or because it was invalidated from
-the last time it released the glock).
-
-In this way, the metadata is kept synchronized as the glocks are passed
-around the cluster.
-
-> Is B rereading the superblock every time like the mount process? How do B
-
-In GFS2, the file system superblock only tells the file system where
-to start looking for things and it is only read when the file system
-is mounted. It is never updated, except by gfs2-utils when it is offline,
-like gfs2_edit, fsck.gfs2, mkfs.gfs2, etc.
-
-Each node has its own unique memory with regard to the file system's
-metadata. And that metadata is kept in sync by using the glocks as
-described above.
-
-> machine know that the disk's file system has been updated?
-> I would like to know a detailed explanation.
-
-It's all coordinated through glocks, which correspond to DLM locks.
 
 Regards,
 
 Bob Peterson
-Red Hat File Systems
 
