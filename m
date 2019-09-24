@@ -2,71 +2,77 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF7CEBA203
-	for <lists+cluster-devel@lfdr.de>; Sun, 22 Sep 2019 13:27:22 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7A37BCFF1
+	for <lists+cluster-devel@lfdr.de>; Tue, 24 Sep 2019 19:03:01 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id ADEE48980FF;
-	Sun, 22 Sep 2019 11:27:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 47CC95C1B5;
-	Sun, 22 Sep 2019 11:27:19 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 688A081F31;
+	Tue, 24 Sep 2019 17:02:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 24E45600C8;
+	Tue, 24 Sep 2019 17:02:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5EC8C1803517;
-	Sun, 22 Sep 2019 11:27:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 952194E58A;
+	Tue, 24 Sep 2019 17:02:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8MBRANX001625 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sun, 22 Sep 2019 07:27:10 -0400
+	id x8OH2nBw003816 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Sep 2019 13:02:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EB505600D1; Sun, 22 Sep 2019 11:27:10 +0000 (UTC)
+	id D17D2194B2; Tue, 24 Sep 2019 17:02:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E52A9600CD
-	for <cluster-devel@redhat.com>; Sun, 22 Sep 2019 11:27:08 +0000 (UTC)
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
-	[209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx24.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.65])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C736419C58;
+	Tue, 24 Sep 2019 17:02:49 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 41886C058CBD
-	for <cluster-devel@redhat.com>; Sun, 22 Sep 2019 11:27:08 +0000 (UTC)
-Received: by mail-oi1-f199.google.com with SMTP id d206so3984680oig.6
-	for <cluster-devel@redhat.com>; Sun, 22 Sep 2019 04:27:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=f82s3PEPX+YiZFlFw4GEis5beZlkMEv4q9//Qd6Y9ac=;
-	b=OTq+UK3M6U3KAH3ZdLF4rjLWxryHnhGRVnkrIH6K7QII6nG7usPNTr+a3uvS+hLFJg
-	UuGAxFhfVq4Le3zHmrUniWq6ixctd+K+jCF4bSje7nZWYbwZTRoEl8kQxkhXH09jBX5z
-	Z9zC/570ozicaacDPF15YOoNgZqK6KT7AjIH2K82U18FoiprMl2hd8gzsreqK1Uuv+LX
-	2T65+r+X02Ffp6uFv2Ju8S9UkD1NEpZ8P5nTQaIcgFqnRHxulNnGMWELdNQ1t9Z9vzBG
-	7N7mJnCAVsoHL+zunhl9lkG/tG9ScL72YMz3LcS8oSNCAEJWYwg9MnInrJEvnWlc6jqe
-	AFNA==
-X-Gm-Message-State: APjAAAVNw+DqqC2Zh6G2JfuLTrmLzmjwFjwe/mGW9QYWR7RBJt664oxs
-	zi969S1sy07GHscyIyYnw2QELNaaVcsjaQvZI/kpN+7jspr4pfH9+xMYOuEW9Tfni01WJW00UFv
-	tM7Dfe8NAefXNTHB9SlFMYGjfazDcQuPkkA0kXA==
-X-Received: by 2002:aca:aa56:: with SMTP id t83mr10017553oie.178.1569151627470;
-	Sun, 22 Sep 2019 04:27:07 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqzJhGdr7Y95ubTbD1L9lVtBYsPgC+YzmePQ0yH6b/ZhKK0zpow4/Llav9hYM4lAJqgL4o49n/gdZ7R1nFImSp8=
-X-Received: by 2002:aca:aa56:: with SMTP id t83mr10017544oie.178.1569151627265;
-	Sun, 22 Sep 2019 04:27:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190921165126.4443-1-agruenba@redhat.com>
-	<CAHk-=whA0x5DLX14=hdAq4SukTs7WXsrNyLuqwiFbXJyYnmBcQ@mail.gmail.com>
-In-Reply-To: <CAHk-=whA0x5DLX14=hdAq4SukTs7WXsrNyLuqwiFbXJyYnmBcQ@mail.gmail.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Sun, 22 Sep 2019 13:26:56 +0200
-Message-ID: <CAHc6FU43MD1GAw8FiM_NWFmoojX5Hx-d2cFKPr3OtPOyc=nCyg@mail.gmail.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 2E31210CC1FB;
+	Tue, 24 Sep 2019 17:02:49 +0000 (UTC)
+Received: from localhost (c-67-169-218-210.hsd1.or.comcast.net
+	[67.169.218.210])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 9BFE620673;
+	Tue, 24 Sep 2019 17:02:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1569344568;
+	bh=hKUJRk7QMuhzcgsjkjUUakju3zdnETRA3LHzs2tBu7E=;
+	h=Date:From:To:Cc:Subject:From;
+	b=F0fcM2yk9NZNZbOS6LAuxm9OivSaXSahX2/DCEbqrSxZOzv4wE9pTUpYs5Q8GDnXT
+	S2NL4KHleHKltdp4qgFeb+e0c0qehI2XxwReFJtHAOQ7bwowJA4Bcq5SNHf38cpF19
+	18iDiiZLLHOj+3HYzBYBZAwrGdPKH3aSDEP/19+E=
+Date: Tue, 24 Sep 2019 10:02:48 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Message-ID: <20190924170248.GZ2229799@magnolia>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.6.2
+	(mx1.redhat.com [10.5.110.65]);
+	Tue, 24 Sep 2019 17:02:49 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.65]);
+	Tue, 24 Sep 2019 17:02:49 +0000 (UTC) for IP:'198.145.29.99'
+	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
+	FROM:'djwong@kernel.org' RCPT:''
+X-RedHat-Spam-Score: -3.102  (BODY_QUOTE_MALF_MSGID, DKIMWL_WL_HIGH,
+	DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,
+	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
+	<djwong@kernel.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.65
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GIT PULL] gfs2 changes
+Cc: cluster-devel@redhat.com, david@fromorbit.com,
+	"Darrick J. Wong" <djwong@kernel.org>, sandeen@sandeen.net,
+	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, hch@lst.de
+Subject: [Cluster-devel] [GIT PULL] iomap: (far less) new code for 5.4
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,25 +86,49 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.67]); Sun, 22 Sep 2019 11:27:21 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Tue, 24 Sep 2019 17:03:00 +0000 (UTC)
 
-On Sat, Sep 21, 2019 at 11:53 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Sat, Sep 21, 2019 at 9:51 AM Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> >
-> > please consider pulling the following changes for gfs2.
->
-> Merged.
+Hi Linus,
 
-Thanks.
+Please pull this series containing all the new iomap code for 5.4.
+After last week's failed pull request attempt, I scuttled everything in
+the branch except for the directio endio api changes, which were
+trivial.  Everything else will simply have to wait for the next cycle.
 
-> But I notice that you're not getting any pr-tracker replies.
->
-> I'd suggest you cc lkml to get the automatic notification in case you care,
+The branch merges cleanly against this morning's HEAD and survived a
+week's worth of xfstests.  The merge was completely straightforward, so
+please let me know if you run into anything weird.
 
-Ok, good to know that's why I didn't hear from pr-tracker this time.
+--D
 
-Thanks,
-Andreas
+The following changes since commit 609488bc979f99f805f34e9a32c1e3b71179d10b:
+
+  Linux 5.3-rc2 (2019-07-28 12:47:02 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git tags/iomap-5.4-merge-6
+
+for you to fetch changes up to 838c4f3d7515efe9d0e32c846fb5d102b6d8a29d:
+
+  iomap: move the iomap_dio_rw ->end_io callback into a structure (2019-09-19 15:32:45 -0700)
+
+----------------------------------------------------------------
+New code for 5.4:
+- Report both io errors and short io results to the directio endio
+  handler.
+- Allow directio callers to pass an ops structure to iomap_dio_rw.
+
+----------------------------------------------------------------
+Christoph Hellwig (1):
+      iomap: move the iomap_dio_rw ->end_io callback into a structure
+
+Matthew Bobrowski (1):
+      iomap: split size and error for iomap_dio_rw ->end_io
+
+ fs/iomap/direct-io.c  | 24 ++++++++++--------------
+ fs/xfs/xfs_file.c     | 14 ++++++++++----
+ include/linux/iomap.h | 10 +++++++---
+ 3 files changed, 27 insertions(+), 21 deletions(-)
 
