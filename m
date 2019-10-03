@@ -2,90 +2,82 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2F6EC9055
-	for <lists+cluster-devel@lfdr.de>; Wed,  2 Oct 2019 20:03:05 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8222DC9EB1
+	for <lists+cluster-devel@lfdr.de>; Thu,  3 Oct 2019 14:45:34 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E314318C890B;
-	Wed,  2 Oct 2019 18:03:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F132E60BF3;
-	Wed,  2 Oct 2019 18:03:02 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 4052F3086E21;
+	Thu,  3 Oct 2019 12:45:32 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 381B05D9DC;
+	Thu,  3 Oct 2019 12:45:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BFF1318089C8;
-	Wed,  2 Oct 2019 18:02:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 325F54E58A;
+	Thu,  3 Oct 2019 12:45:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x92HkmRF011981 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Oct 2019 13:46:48 -0400
+	id x930JDiL030279 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Oct 2019 20:19:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 392455C22F; Wed,  2 Oct 2019 17:46:48 +0000 (UTC)
+	id CC3F16012C; Thu,  3 Oct 2019 00:19:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx29.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.70])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C927C5C226;
-	Wed,  2 Oct 2019 17:46:43 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
-	[209.85.215.194])
+Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.27])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C672560464
+	for <cluster-devel@redhat.com>; Thu,  3 Oct 2019 00:19:11 +0000 (UTC)
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+	[209.85.166.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9485F18C890B;
-	Wed,  2 Oct 2019 17:46:42 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id v27so12235512pgk.10;
-	Wed, 02 Oct 2019 10:46:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:cc:subject:date:message-id;
-	bh=e09g4DE4GMBAg/LjnbwQq27CQNtOo7EPR5oJ0HS2cqg=;
-	b=tPwomXx9uELPa6HaIJ+/E2c2pNZUBjZgwoXe+GSk/+PxubNo+giOXWasw0tzbm3nBz
-	f7EFDGNPFGlCsOhF3YQybOfjz9/Khu0pWWjtkJKNAwprBHAegBd5vrKoINsFL48pFM+P
-	j8ytCRJyvzx3XQtE3ZyExB+lC0yDI+RIY6Bcy1V+NUM2pK027zbJ9REWZ/1vsZ97kaUa
-	xdCbGuRk+VUO9abBlnhqbR9Fjs8JwpA42CwNU1V473pNNZFG+hNuzRydyPd1F2HXYwEO
-	jFPlgDx7lhry6LoWKHd5IqUZJHp47KKl3W01VNpnofNBpI6ueMTk7kE3o2Y2SHj7JyPq
-	BkgQ==
+	by mx1.redhat.com (Postfix) with ESMTPS id B490583F3B
+	for <cluster-devel@redhat.com>; Thu,  3 Oct 2019 00:19:08 +0000 (UTC)
+Received: by mail-io1-f69.google.com with SMTP id k13so2149518ioc.11
+	for <cluster-devel@redhat.com>; Wed, 02 Oct 2019 17:19:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=e09g4DE4GMBAg/LjnbwQq27CQNtOo7EPR5oJ0HS2cqg=;
-	b=RAnjbCsjhrvpcX5f8aOyXeMYDuquWZtHmZtZdBXBDF525ddRuQkLryzMnilf6G70Iq
-	SiKmowLCmbmMUeXkx9u4W1A569mXj0ZofygWzaI0sLy4eynNukXGhTVB8aEU1x/g7EAS
-	xH4+MG0qIX+53Lea6mBNrGMpXbgI/3zYE97JPQay82SOTrVKzB7iPyCoXeBsOlRSwQfH
-	EaauISE6PcYJ/DlP5nd4y8EfAZiOVGEyaS5dtFXsvKvd0umAEcyfklu3SmYLmWUpkxl3
-	x51jl+/fOUS5Eq2MFOrNBVL652Om9eQIB/RYK3G6jd0iLDxrjeY/quFXhTGq7peL+o54
-	D+5g==
-X-Gm-Message-State: APjAAAUsCjs5bEMPJaQYrZzuqtTHRhw1AYJkyn0TZaTZ5VnjxbDwZgpi
-	gkj66V1OwU22/4SvSGBtRURYsJTKCkA=
-X-Google-Smtp-Source: APXvYqxY7kb2N/WuKOe4+BNcW7O6HglZX64dx4Fz/DXyylZOIMn/uwmIIjhO0q1VxQIGR5nl/OG5ug==
-X-Received: by 2002:a63:fb55:: with SMTP id w21mr5003272pgj.267.1570038401462; 
-	Wed, 02 Oct 2019 10:46:41 -0700 (PDT)
-Received: from localhost.localdomain ([103.241.225.67])
-	by smtp.gmail.com with ESMTPSA id 202sm74561pfu.161.2019.10.02.10.46.38
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 02 Oct 2019 10:46:40 -0700 (PDT)
-From: aliasgar.surti500@gmail.com
-To: rpeterso@redhat.com, agruenba@redhat.com, cluster-devel@redhat.com,
-	linux-kernel@vger.kernel.org
-Date: Wed,  2 Oct 2019 23:16:31 +0530
-Message-Id: <20191002174631.15919-1-aliasgar.surti500@gmail.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
-	(mx1.redhat.com [10.5.110.70]);
-	Wed, 02 Oct 2019 17:46:42 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]);
-	Wed, 02 Oct 2019 17:46:42 +0000 (UTC) for IP:'209.85.215.194'
-	DOMAIN:'mail-pg1-f194.google.com' HELO:'mail-pg1-f194.google.com'
-	FROM:'aliasgar.surti500@gmail.com' RCPT:''
-X-RedHat-Spam-Score: 0.15  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.215.194 mail-pg1-f194.google.com 209.85.215.194
-	mail-pg1-f194.google.com <aliasgar.surti500@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.70
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+	h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+	bh=peIUdpB0uufhb2WaI0hkt8u3mVPMxGwg5KAkuWXKJEM=;
+	b=DRKquYSBG75n1Bg2DFm4cKbzjAyUnsw6rS+goGZx5QZGjjQ7u32Yvj7v57W35Fd+a1
+	7EZMVSAIVNfWL+WVWeKIzd14nKGCDjS8cDBwUEoBrMBfPkNTxhTNfqr5ku9Gez3FDEpJ
+	ar+ex5ZzHSC8attXkgWUKifYWSqmiB2weTZRW+cSTIoSOBOIWHO1IxGkgLSHBoFZImWf
+	rGnsfpGmOjyF8LVitwvBQp01yFLSr6qfezJmRCBrj7QInE/J8peCMt+AZt9hqGUSP9/q
+	Ou8xWEosprBCldJSNJTN8ZqhysIB6BrJ43TwIyLc7hSrnzy6cLfrZwKXimuJOlj9u5lS
+	u7jw==
+X-Gm-Message-State: APjAAAWCt9LBw9ZWLzGDxlZEiPJXwMDDTGszV6JbM7HrTb0O2Vqs31SH
+	/ppCS4PlrUV50JEGncT3TjJeRRHuHul97AduX0/ZK4d66euR
+X-Google-Smtp-Source: APXvYqyDPxvxHfZLOmI4rcw7jNQszi606WcLVjtl/4QRIX2H67TfAThskc/5+vGFskM40Iac4RX5Nh5xvZCdimiWlmK447iG2BST
+MIME-Version: 1.0
+X-Received: by 2002:a02:7405:: with SMTP id o5mr6859365jac.44.1570061948007;
+	Wed, 02 Oct 2019 17:19:08 -0700 (PDT)
+Date: Wed, 02 Oct 2019 17:19:08 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000afc1b40593f68888@google.com>
+From: syzbot <syzbot+c2fdfd2b783754878fb6@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, cluster-devel@redhat.com,
+	linux-kernel@vger.kernel.org, rpeterso@redhat.com,
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.27]);
+	Thu, 03 Oct 2019 00:19:08 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
+	Thu, 03 Oct 2019 00:19:08 +0000 (UTC) for IP:'209.85.166.69'
+	DOMAIN:'mail-io1-f69.google.com' HELO:'mail-io1-f69.google.com'
+	FROM:'3fD6VXQkbAEEv12ndoohudsslg.jrrjohxvhufrqwhqw.frp@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com'
+	RCPT:''
+X-RedHat-Spam-Score: 0.579  (FROM_LOCAL_HEX, HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
+	SPF_PASS) 209.85.166.69 mail-io1-f69.google.com 209.85.166.69
+	mail-io1-f69.google.com
+	<3fD6VXQkbAEEv12ndoohudsslg.jrrjohxvhufrqwhqw.frp@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Wed, 02 Oct 2019 14:02:55 -0400
-Cc: Aliasgar Surti <aliasgar.surti500@gmail.com>
-Subject: [Cluster-devel] [PATCH] gfs2: removed unnecessary semicolon
+X-Mailman-Approved-At: Thu, 03 Oct 2019 08:44:16 -0400
+Subject: [Cluster-devel] memory leak in gfs2_init_fs_context
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,32 +91,94 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]); Wed, 02 Oct 2019 18:03:04 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Thu, 03 Oct 2019 12:45:33 +0000 (UTC)
 
-From: Aliasgar Surti <aliasgar.surti500@gmail.com>
+Hello,
 
-There is use of unnecessary semicolon after switch case.
-Removed the semicolon.
+syzbot found the following crash on:
 
-Signed-off-by: Aliasgar Surti <aliasgar.surti500@gmail.com>
+HEAD commit:    f1f2f614 Merge branch 'next-integrity' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15569c05600000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4e93436f92b0cfde
+dashboard link: https://syzkaller.appspot.com/bug?extid=c2fdfd2b783754878fb6
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10327c05600000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=105c9fd5600000
+
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+c2fdfd2b783754878fb6@syzkaller.appspotmail.com
+
+udit: type=1400 audit(1569701659.045:64): avc:  denied  { map } for   
+pid=6842 comm="syz-executor375" path="/root/syz-executor375626622"  
+dev="sda1" ino=16502 scontext=unconfined_u:system_r:insmod_t:s0-s0:c0.c1023  
+tcontext=unconfined_u:object_r:user_home_t:s0 tclass=file permissive=1
+executing program
+executing program
+BUG: memory leak
+unreferenced object 0xffff88810fd9a500 (size 256):
+   comm "syz-executor375", pid 6845, jiffies 4294941255 (age 13.550s)
+   hex dump (first 32 bytes):
+     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+   backtrace:
+     [<00000000462ab467>] kmemleak_alloc_recursive  
+include/linux/kmemleak.h:43 [inline]
+     [<00000000462ab467>] slab_post_alloc_hook mm/slab.h:586 [inline]
+     [<00000000462ab467>] slab_alloc mm/slab.c:3319 [inline]
+     [<00000000462ab467>] kmem_cache_alloc_trace+0x145/0x2c0 mm/slab.c:3548
+     [<00000000b1a62211>] kmalloc include/linux/slab.h:552 [inline]
+     [<00000000b1a62211>] kzalloc include/linux/slab.h:686 [inline]
+     [<00000000b1a62211>] gfs2_init_fs_context+0x25/0x90  
+fs/gfs2/ops_fstype.c:1543
+     [<00000000db94ecb4>] gfs2_meta_init_fs_context+0x17/0x40  
+fs/gfs2/ops_fstype.c:1608
+     [<0000000077df5577>] alloc_fs_context+0x174/0x200 fs/fs_context.c:293
+     [<000000008d5e3681>] fs_context_for_mount+0x25/0x30 fs/fs_context.c:307
+     [<0000000030bafbdb>] __do_sys_fsopen fs/fsopen.c:137 [inline]
+     [<0000000030bafbdb>] __se_sys_fsopen fs/fsopen.c:115 [inline]
+     [<0000000030bafbdb>] __x64_sys_fsopen+0xa9/0x1a0 fs/fsopen.c:115
+     [<00000000974fed69>] do_syscall_64+0x73/0x1f0  
+arch/x86/entry/common.c:290
+     [<00000000299e0e1b>] entry_SYSCALL_64_after_hwframe+0x44/0xa9
+
+BUG: memory leak
+unreferenced object 0xffff88810fd9a200 (size 256):
+   comm "syz-executor375", pid 6846, jiffies 4294941838 (age 7.720s)
+   hex dump (first 32 bytes):
+     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+   backtrace:
+     [<00000000462ab467>] kmemleak_alloc_recursive  
+include/linux/kmemleak.h:43 [inline]
+     [<00000000462ab467>] slab_post_alloc_hook mm/slab.h:586 [inline]
+     [<00000000462ab467>] slab_alloc mm/slab.c:3319 [inline]
+     [<00000000462ab467>] kmem_cache_alloc_trace+0x145/0x2c0 mm/slab.c:3548
+     [<00000000b1a62211>] kmalloc include/linux/slab.h:552 [inline]
+     [<00000000b1a62211>] kzalloc include/linux/slab.h:686 [inline]
+     [<00000000b1a62211>] gfs2_init_fs_context+0x25/0x90  
+fs/gfs2/ops_fstype.c:1543
+     [<00000000db94ecb4>] gfs2_meta_init_fs_context+0x17/0x40  
+fs/gfs2/ops_fstype.c:1608
+     [<0000000077df5577>] alloc_fs_context+0x174/0x200 fs/fs_context.c:293
+     [<000000008d5e3681>] fs_context_for_mount+0x25/0x30 fs/fs_context.c:307
+     [<0000000030bafbdb>] __do_sys_fsopen fs/fsopen.c:137 [inline]
+     [<0000000030bafbdb>] __se_sys_fsopen fs/fsopen.c:115 [inline]
+     [<0000000030bafbdb>] __x64_sys_fsopen+0xa9/0x1a0 fs/fsopen.c:115
+     [<00000000974fed69>] do_syscall_64+0x73/0x1f0  
+arch/x86/entry/common.c:290
+     [<00000000299e0e1b>] entry_SYSCALL_64_after_hwframe+0x44/0xa9
+
+
+
 ---
- fs/gfs2/recovery.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-index c529f8749a89..f4aa8551277b 100644
---- a/fs/gfs2/recovery.c
-+++ b/fs/gfs2/recovery.c
-@@ -326,7 +326,7 @@ void gfs2_recover_func(struct work_struct *work)
- 
- 		default:
- 			goto fail;
--		};
-+		}
- 
- 		error = gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED,
- 					   LM_FLAG_NOEXP | GL_NOCACHE, &ji_gh);
--- 
-2.17.1
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this bug, for details see:
+https://goo.gl/tpsmEJ#testing-patches
 
