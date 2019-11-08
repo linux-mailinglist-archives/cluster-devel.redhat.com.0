@@ -1,83 +1,83 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 54142F46E2
-	for <lists+cluster-devel@lfdr.de>; Fri,  8 Nov 2019 12:46:11 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id B3DC7F46E7
+	for <lists+cluster-devel@lfdr.de>; Fri,  8 Nov 2019 12:47:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573213570;
+	s=mimecast20190719; t=1573213670;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tMlCqhyHlOmwAloG5iCDE5mGFvoonCefAnGjSmM+RNw=;
-	b=TAAof59UlsvYJ0HcvDnMo+4A6K82//Hw8+/JUjUNJeBObjpYvuRzHy3qlun+d36mYbQMLe
-	4/2dVW2yzEN6YSTWp/j9D35sGjQI4dY0658sQUFDX7EFVvVRfNh+EbZTReT3izKPmyfEuV
-	AJdp+y2myftFg1NjtzT2hU7uC1BMJ2E=
+	bh=3OsRTfHv3+3DWRfVzAgiPue3PdQeo2GsBFqFNgW2MU0=;
+	b=dT0z1c0riGXKjLikPEWEuPadk72L7JfcvSYxLVqCrJVx9pTSHWMvzqdz03TmuLD6fbyOfQ
+	QuwuUe+EMpXCF2kH397xO4KFz4PLh0rfd13MMJ5wn9RXiejSif9L41ha0L8LB6ipZcV/6u
+	aigOXuenY+fFa4wJlCJplqXmg0rLnRo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-43-KbpYqioOPm2z_GWMagm5Kg-1; Fri, 08 Nov 2019 06:46:08 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-63-QTuIl2cqO0qk8_1Evy5sVA-1; Fri, 08 Nov 2019 06:47:43 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 780D1FB;
-	Fri,  8 Nov 2019 11:46:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6661A5C548;
-	Fri,  8 Nov 2019 11:46:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9836A107ACC3;
+	Fri,  8 Nov 2019 11:47:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 86AA3272AF;
+	Fri,  8 Nov 2019 11:47:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5034F4E56C;
-	Fri,  8 Nov 2019 11:46:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F9821803C37;
+	Fri,  8 Nov 2019 11:47:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xA8Bk4FQ031851 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 8 Nov 2019 06:46:04 -0500
+	id xA8BldFU031994 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 8 Nov 2019 06:47:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3987D1001DF0; Fri,  8 Nov 2019 11:46:04 +0000 (UTC)
+	id 4C74D272D1; Fri,  8 Nov 2019 11:47:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx30.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.71])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 306A51001DC2;
-	Fri,  8 Nov 2019 11:46:01 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC954277A4;
+	Fri,  8 Nov 2019 11:47:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id EE5151C0E;
-	Fri,  8 Nov 2019 11:46:00 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 427107C0A7;
+	Fri,  8 Nov 2019 11:47:30 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id E883421D82;
-	Fri,  8 Nov 2019 11:45:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 39986222CE;
+	Fri,  8 Nov 2019 11:47:29 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri,  8 Nov 2019 06:44:50 -0500
-Message-Id: <20191108114545.15351-9-sashal@kernel.org>
-In-Reply-To: <20191108114545.15351-1-sashal@kernel.org>
-References: <20191108114545.15351-1-sashal@kernel.org>
+Date: Fri,  8 Nov 2019 06:46:41 -0500
+Message-Id: <20191108114721.15944-5-sashal@kernel.org>
+In-Reply-To: <20191108114721.15944-1-sashal@kernel.org>
+References: <20191108114721.15944-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.6.2
-	(mx1.redhat.com [10.5.110.71]);
-	Fri, 08 Nov 2019 11:46:01 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]);
-	Fri, 08 Nov 2019 11:46:01 +0000 (UTC) for IP:'198.145.29.99'
+X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.25]);
+	Fri, 08 Nov 2019 11:47:30 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
+	Fri, 08 Nov 2019 11:47:30 +0000 (UTC) for IP:'198.145.29.99'
 	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
 	FROM:'sashal@kernel.org' RCPT:''
 X-RedHat-Spam-Score: -5.101  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
 	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
 	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
 	<sashal@kernel.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.71
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.9 09/64] gfs2: Don't set
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.4 05/44] gfs2: Don't set
 	GFS2_RDF_UPTODATE when the lvb is updated
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -92,8 +92,8 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: KbpYqioOPm2z_GWMagm5Kg-1
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: QTuIl2cqO0qk8_1Evy5sVA-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
@@ -140,10 +140,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 0731267072706..f77a38755aea6 100644
+index 9c159e6ad1164..e632006a52df6 100644
 --- a/fs/gfs2/rgrp.c
 +++ b/fs/gfs2/rgrp.c
-@@ -1211,7 +1211,7 @@ static int update_rgrp_lvb(struct gfs2_rgrpd *rgd)
+@@ -1228,7 +1228,7 @@ static int update_rgrp_lvb(struct gfs2_rgrpd *rgd)
  =09rl_flags =3D be32_to_cpu(rgd->rd_rgl->rl_flags);
  =09rl_flags &=3D ~GFS2_RDF_MASK;
  =09rgd->rd_flags &=3D GFS2_RDF_MASK;
