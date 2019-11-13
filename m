@@ -1,103 +1,53 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 77278F59FD
-	for <lists+cluster-devel@lfdr.de>; Fri,  8 Nov 2019 22:35:09 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id B17CAFBABA
+	for <lists+cluster-devel@lfdr.de>; Wed, 13 Nov 2019 22:30:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573248908;
+	s=mimecast20190719; t=1573680645;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Zn768Hq84UJ5QpnPpGZBk0xJ+D1ahfNvK3yvN6t/Hwc=;
-	b=W9jq8tOt9OI3/4IrHVltm4EVHeEut7blc3YDUihVPPVzseYt2ut3kDqZUTXUcDFXfAnX+h
-	N2EESQj1W2D60MAMsXqSyotM4Kv3vSeGAlq5SRjkewXvvLmpv8p5CelB/ITHusk9S+yq//
-	2igCF+uVL0wPamd3TQ/LJTAJnAdb/Xk=
+	bh=+UqDXy5LzOY4PsLmPZec+WTMye8kTFmKqz0VbKvmKbw=;
+	b=SCLbnw7OCS75WuXf2XgNrPIU0IlqURd2knH/ORK4LBjBl34kODVtYaKsV1g9MIoxsyzHdx
+	36ObkAhuU8dS5v/IsEM4M5qlffGQwi2CAUXt5QweayUPOQX5PG6dPFI1TH7zOr/1lGzHLb
+	ybjugj9ElIlnB14l1P/lI18N0XluK9M=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-139-eb1vsYWSP62K-ZaCZ25ZsQ-1; Fri, 08 Nov 2019 16:35:06 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-103-qPjvTWOhMb20MidKinXQ0Q-1; Wed, 13 Nov 2019 16:30:43 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC5EA477;
-	Fri,  8 Nov 2019 21:35:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1072810A951B;
+	Wed, 13 Nov 2019 21:30:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B5FF600C9;
-	Fri,  8 Nov 2019 21:35:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFBF381C1D;
+	Wed, 13 Nov 2019 21:30:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4563F18034EA;
-	Fri,  8 Nov 2019 21:35:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7E45418034E9;
+	Wed, 13 Nov 2019 21:30:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xA8LYsG7006404 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 8 Nov 2019 16:34:54 -0500
+	id xADLUYmn005176 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Nov 2019 16:30:34 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 65A8860FC4; Fri,  8 Nov 2019 21:34:54 +0000 (UTC)
+	id 5096D69739; Wed, 13 Nov 2019 21:30:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.49])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9306B60BE1;
-	Fri,  8 Nov 2019 21:34:48 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D03683086258;
-	Fri,  8 Nov 2019 21:34:46 +0000 (UTC)
-Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
-	(mreue011 [212.227.15.129]) with ESMTPA (Nemesis) id
-	1MLzSD-1iBFNN1WBV-00Hvwr; Fri, 08 Nov 2019 22:34:36 +0100
-From: Arnd Bergmann <arnd@arndb.de>
-To: y2038@lists.linaro.org, Christine Caulfield <ccaulfie@redhat.com>,
-	David Teigland <teigland@redhat.com>
-Date: Fri,  8 Nov 2019 22:32:42 +0100
-Message-Id: <20191108213257.3097633-5-arnd@arndb.de>
-In-Reply-To: <20191108213257.3097633-1-arnd@arndb.de>
-References: <20191108213257.3097633-1-arnd@arndb.de>
+Received: from vishnu.redhat.com (ovpn-116-140.phx2.redhat.com [10.3.116.140])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1D0436A505
+	for <cluster-devel@redhat.com>; Wed, 13 Nov 2019 21:30:30 +0000 (UTC)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Date: Wed, 13 Nov 2019 15:29:58 -0600
+Message-Id: <20191113213030.237431-1-rpeterso@redhat.com>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:uHa/QjAGTByeAkpaDyB/vmnZ68MBZaHn8BbKmiyg4MIyd5kOgr/
-	oPvkjfCzukaGEqPfPs46BihWpfl4F/gQJ3kQGEB+v25O7LUWaxKwPkPAcNHU8h+MQbnVZAN
-	hd62BomG6NZ5ED6zjrQMrcCfz99gcXhaVP2VS/iuTaIzr8doR+4KM9eIgD8Ug2xmWNmrivZ
-	JpWyIOQrq1vNgXmSWjp0A==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:Qd/hYklCPQw=:UXlIHNa+YNOfgmM92uODnY
-	g60pWnm0PQin6NlohRtJRMf0RxVHPW8A/DGP+UHxznP/Ger+UlSBqc2mbMr0hiW0ds3eyJVPh
-	OhSJFdBuRA22S+jqbdejdgkWLcJ/202e43Vy6IjyKOyOrRMy6FDKP+bM/frQA6NFGduzOfvFy
-	4lQxVB6UfEWFmsIV7Y4srgYNNUlK4Qp1BuOFcA206mOMH2dKzCOfEQCtRnz7XZqSvmuBUyRxm
-	72YtEOhqf+OV5PWrRo0MBLhSWamU8PWM4ZZK85PKCx8AG4RelG3GAFLXH23v/AG3gFDspXUBJ
-	8WQnlWqDch6EfdHCBcykfnayrAsX0d5zpRL3hrDAIQP2WRb6g+p2wV9Ktu2yW+6RsYM1YcJiR
-	eAIVUFE4MuzRm3uvYjcGnJ3/UEjBiPrQOqkbgoN8mKPbNmFddlukm3WSrUza/gUpQR7i/7dw9
-	1d9x706JHtWe4fwEM8IzLGSYbkjiWuBJnxGLavzbPfXwvMYzV4x52IJxGbWVdu6DqNNNENbWw
-	SUsk2UlFELckfxqSsK6Agai0whttWZ7nw60jpxXzeqJ3OiwHy+o/f3o/X5etTlxaHcnaD/1KW
-	ztWcZ2okEcUFPNbVrOjKvg85SIqZq3ns/6iamtrEjhHPpCRqk2qGgsw71obLWVv2nssAtg17m
-	vixTARz6rY5KMGRim7d+ffqBUmtFXeeTuNlOlLwPymIjHmeTALMTBHUMJUn9cVBNtBsziCiR9
-	MPzcK0XbjKvQoazaLhrBabqX5LKRsUQs+NTs7t6b/MHfgx6NC9wMcWiPdQBPuDmKuO55EddN0
-	zFxE3gb5DxTIPtjdhxPCslQ8VcNyjsEwsGIOsr/uxsNKCRaDgfWpC9xqsqg7kTWMzyADnSB0s
-	UmKbhjv3Lbk+snafAvhA==
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.49]); Fri, 08 Nov 2019 21:34:47 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
-	Fri, 08 Nov 2019 21:34:47 +0000 (UTC) for IP:'212.227.126.131'
-	DOMAIN:'mout.kundenserver.de' HELO:'mout.kundenserver.de'
-	FROM:'arnd@arndb.de' RCPT:''
-X-RedHat-Spam-Score: 0.002  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_NONE) 212.227.126.131 mout.kundenserver.de
-	212.227.126.131 mout.kundenserver.de <arnd@arndb.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Cc: Willem de Bruijn <willemb@google.com>, Arnd Bergmann <arnd@arndb.de>,
-	Alexios Zavras <alexios.zavras@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, cluster-devel@redhat.com,
-	Richard Fontana <rfontana@redhat.com>,
-	Deepa Dinamani <deepa.kernel@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>
-Subject: [Cluster-devel] [PATCH 04/16] dlm: use SO_SNDTIMEO_NEW instead of
-	SO_SNDTIMEO_OLD
+Subject: [Cluster-devel] [PATCH 00/32] gfs2: misc recovery patch collection
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,54 +61,77 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: eb1vsYWSP62K-ZaCZ25ZsQ-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: qPjvTWOhMb20MidKinXQ0Q-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-Eliminate one more use of 'struct timeval' from the kernel so
-we can eventually remove the definition as well.
+This is my latest collection of patches to address the myriad of gfs2
+recovery problems I've found. I'm not convinced we need all of these
+but I thought I'd send them anyway and get feedback
 
-The kernel supports the new format with a 64-bit time_t version
-of timeval here, so use that instead of the old timeval.
+Some of these are just bugs and may be pushed separately.
 
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- fs/dlm/lowcomms.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Bob Peterson (32):
+  gfs2: Introduce concept of a pending withdraw
+  gfs2: clear ail1 list when gfs2 withdraws
+  gfs2: Rework how rgrp buffer_heads are managed
+  gfs2: fix infinite loop in gfs2_ail1_flush on io error
+  gfs2: log error reform
+  gfs2: Only complain the first time an io error occurs in quota or log
+  gfs2: Ignore dlm recovery requests if gfs2 is withdrawn
+  gfs2: move check_journal_clean to util.c for future use
+  gfs2: Allow some glocks to be used during withdraw
+  gfs2: Don't loop forever in gfs2_freeze if withdrawn
+  gfs2: Make secondary withdrawers wait for first withdrawer
+  gfs2: Don't write log headers after file system withdraw
+  gfs2: Force withdraw to replay journals and wait for it to finish
+  gfs2: fix infinite loop when checking ail item count before go_inval
+  gfs2: Add verbose option to check_journal_clean
+  gfs2: Abort gfs2_freeze if io error is seen
+  gfs2: Issue revokes more intelligently
+  gfs2: Prepare to withdraw as soon as an IO error occurs in log write
+  gfs2: Check for log write errors before telling dlm to unlock
+  gfs2: new slab for transactions
+  gfs2: Close timing window with GLF_INVALIDATE_IN_PROGRESS
+  gfs2: Do log_flush in gfs2_ail_empty_gl even if ail list is empty
+  gfs2: Don't skip log flush if glock still has revokes
+  gfs2: initialize tr_ail1_list when creating transactions
+  gfs2: Withdraw in gfs2_ail1_flush if write_cache_pages returns error
+  gfs2: drain the ail2 list after io errors
+  gfs2: make gfs2_log_shutdown static
+  gfs2: Eliminate GFS2_RDF_UPTODATE flag in favor of buffer existence
+  gfs2: if finish_open returns error, clean up iopen glock mess
+  gfs2: Don't demote a glock until its revokes are written
+  gfs2: Do proper error checking for go_sync family of glops functions
+  gfs2: fix glock reference problem in gfs2_trans_add_unrevoke
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 3951d39b9b75..cdfaf4f0e11a 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -1035,7 +1035,7 @@ static void sctp_connect_to_sock(struct connection *c=
-on)
- =09int result;
- =09int addr_len;
- =09struct socket *sock;
--=09struct timeval tv =3D { .tv_sec =3D 5, .tv_usec =3D 0 };
-+=09struct __kernel_sock_timeval tv =3D { .tv_sec =3D 5, .tv_usec =3D 0 };
-=20
- =09if (con->nodeid =3D=3D 0) {
- =09=09log_print("attempt to connect sock 0 foiled");
-@@ -1087,12 +1087,12 @@ static void sctp_connect_to_sock(struct connection =
-*con)
- =09 * since O_NONBLOCK argument in connect() function does not work here,
- =09 * then, we should restore the default value of this attribute.
- =09 */
--=09kernel_setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO_OLD, (char *)&tv,
-+=09kernel_setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO_NEW, (char *)&tv,
- =09=09=09  sizeof(tv));
- =09result =3D sock->ops->connect(sock, (struct sockaddr *)&daddr, addr_len=
-,
- =09=09=09=09   0);
- =09memset(&tv, 0, sizeof(tv));
--=09kernel_setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO_OLD, (char *)&tv,
-+=09kernel_setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO_NEW, (char *)&tv,
- =09=09=09  sizeof(tv));
-=20
- =09if (result =3D=3D -EINPROGRESS)
+ fs/gfs2/aops.c       |   4 +-
+ fs/gfs2/file.c       |   2 +-
+ fs/gfs2/glock.c      | 140 ++++++++++++++++++++++----
+ fs/gfs2/glops.c      | 153 ++++++++++++++++++++++------
+ fs/gfs2/incore.h     |  21 ++--
+ fs/gfs2/inode.c      |   6 ++
+ fs/gfs2/lock_dlm.c   |  52 ++++++++++
+ fs/gfs2/log.c        | 231 +++++++++++++++++++++++++++++-------------
+ fs/gfs2/log.h        |   2 +-
+ fs/gfs2/lops.c       |  12 ++-
+ fs/gfs2/main.c       |  23 +++++
+ fs/gfs2/meta_io.c    |   6 +-
+ fs/gfs2/ops_fstype.c |  51 +---------
+ fs/gfs2/quota.c      |  10 +-
+ fs/gfs2/recovery.c   |   5 +
+ fs/gfs2/rgrp.c       |  82 +++++++++------
+ fs/gfs2/rgrp.h       |   1 -
+ fs/gfs2/super.c      |  97 ++++++++++++------
+ fs/gfs2/sys.c        |   2 +-
+ fs/gfs2/trans.c      |  38 +++++--
+ fs/gfs2/trans.h      |   1 +
+ fs/gfs2/util.c       | 235 +++++++++++++++++++++++++++++++++++++++++--
+ fs/gfs2/util.h       |  16 +++
+ 23 files changed, 924 insertions(+), 266 deletions(-)
+
 --=20
-2.20.0
+2.23.0
 
