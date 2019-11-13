@@ -1,57 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id CC525FBACD
-	for <lists+cluster-devel@lfdr.de>; Wed, 13 Nov 2019 22:30:52 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 3A4D1FBACE
+	for <lists+cluster-devel@lfdr.de>; Wed, 13 Nov 2019 22:30:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573680651;
+	s=mimecast20190719; t=1573680652;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fExJjx1Z8foeF9hQ6Pyl1gSOPXiE3pwkRdF3IW++tRs=;
-	b=QNhAX08qvG9XIwGnsa5jmnHE1IUj5b+4CNs33zqbbbVNaczp4wZVEnbRuR57LJb8mjn89B
-	ABYpMh4wbduXhQojoR71vHK0CSVgtJuEdVWp5e1/BT7uqh6X92EmpWSJG6I7N3nVREKZ+l
-	BE3GBu8epLz49SLTzOsLnp64lPjWZrE=
+	bh=a+ACmOk/KKWTrd1EsKT1UonwRN4Jx4YLOAbBwwQg8a0=;
+	b=E410tClQ9dc3Bks1ACzSVamxLTqOwG76yVesUBjSg2vRxAKKedxf6LSPtskiX51OnIcLWm
+	l4RXJbQmnH8TAVVYQ6IuYDfiEBrPWH6Q4a7mODDgyBYsSnp7YK9f1pNeNzqFRyRYv9TwoU
+	eGO3WLSjRLFncZ9xfBlROFDzki8WBYE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-373-IvvmbNVrOc2Wxmpq8MZCww-1; Wed, 13 Nov 2019 16:30:49 -0500
+ us-mta-279-IABcvJu1Ngy6SYXXiAFd0Q-1; Wed, 13 Nov 2019 16:30:50 -0500
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57F48100551F;
-	Wed, 13 Nov 2019 21:30:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3C73718A3022;
+	Wed, 13 Nov 2019 21:30:47 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F7435E254;
-	Wed, 13 Nov 2019 21:30:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A6A45E265;
+	Wed, 13 Nov 2019 21:30:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 16E1D4E56E;
-	Wed, 13 Nov 2019 21:30:46 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F8A54E570;
+	Wed, 13 Nov 2019 21:30:47 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xADLUiit005374 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Nov 2019 16:30:44 -0500
+	id xADLUj63005384 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Nov 2019 16:30:45 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 862CF6A505; Wed, 13 Nov 2019 21:30:44 +0000 (UTC)
+	id 6954D6A507; Wed, 13 Nov 2019 21:30:45 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-116-140.phx2.redhat.com [10.3.116.140])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 51F7A69739
-	for <cluster-devel@redhat.com>; Wed, 13 Nov 2019 21:30:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 32C626A505
+	for <cluster-devel@redhat.com>; Wed, 13 Nov 2019 21:30:44 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Wed, 13 Nov 2019 15:30:17 -0600
-Message-Id: <20191113213030.237431-20-rpeterso@redhat.com>
+Date: Wed, 13 Nov 2019 15:30:18 -0600
+Message-Id: <20191113213030.237431-21-rpeterso@redhat.com>
 In-Reply-To: <20191113213030.237431-1-rpeterso@redhat.com>
 References: <20191113213030.237431-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 19/32] gfs2: Check for log write errors
-	before telling dlm to unlock
+Subject: [Cluster-devel] [PATCH 20/32] gfs2: new slab for transactions
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,85 +65,301 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: IvvmbNVrOc2Wxmpq8MZCww-1
+X-MC-Unique: IABcvJu1Ngy6SYXXiAFd0Q-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-Before this patch, function do_xmote just assumed all the writes
-submitted to the journal were finished and successful, and it
-called the go_unlock function to release the dlm lock. But if
-they're not, and a revoke failed to make its way to the journal,
-a journal replay on another node will cause corruption if we
-let the go_inval function continue and tell dlm to release the
-glock to another node. This patch adds a couple checks for errors
-in do_xmote after the calls to go_sync and go_inval. If an error
-is found, we cannot withdraw yet, because the withdraw itself
-uses glocks to make the file system read-only. Instead, we flag
-the error. Later, asserts should cause another node to replay
-the journal before continuing, thus protecting rgrp and dinode
-glocks and maintaining the integrity of the metadata. Note that
-we only need to do this for journaled glocks. System glocks
-should be able to progress even under withdrawn conditions.
+This patch adds a new slab for gfs2 transactions. That allows us to
+have an initialization function and protect against some errors.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/glock.c | 29 ++++++++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 3 deletions(-)
+ fs/gfs2/glops.c |  1 +
+ fs/gfs2/log.c   | 14 +++++++++++---
+ fs/gfs2/lops.c  |  4 ++++
+ fs/gfs2/main.c  | 23 +++++++++++++++++++++++
+ fs/gfs2/trans.c | 28 ++++++++++++++++++++++------
+ fs/gfs2/trans.h |  1 +
+ fs/gfs2/util.c  |  1 +
+ fs/gfs2/util.h  |  1 +
+ 8 files changed, 64 insertions(+), 9 deletions(-)
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 879625471fe0..f18b8f2b8ce5 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -614,6 +614,30 @@ __acquires(&gl->gl_lockref.lock)
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index d8f9ee756c0e..e0219b0e2229 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -89,6 +89,7 @@ static void gfs2_ail_empty_gl(struct gfs2_glock *gl)
+ =09memset(&tr, 0, sizeof(tr));
+ =09INIT_LIST_HEAD(&tr.tr_buf);
+ =09INIT_LIST_HEAD(&tr.tr_databuf);
++=09set_bit(TR_ATTACHED, &tr.tr_flags); /* prevent gfs2_trans_end free */
+ =09tr.tr_revokes =3D atomic_read(&gl->gl_ail_count);
+=20
+ =09if (!tr.tr_revokes)
+diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+index bb0ef8ede14c..11aa65dae761 100644
+--- a/fs/gfs2/log.c
++++ b/fs/gfs2/log.c
+@@ -30,6 +30,7 @@
+ #include "util.h"
+ #include "dir.h"
+ #include "trace_gfs2.h"
++#include "trans.h"
+=20
+ /**
+  * gfs2_struct2blk - compute stuff
+@@ -329,7 +330,7 @@ static void ail2_empty(struct gfs2_sbd *sdp, unsigned i=
+nt new_tail)
+ =09=09list_del(&tr->tr_list);
+ =09=09gfs2_assert_warn(sdp, list_empty(&tr->tr_ail1_list));
+ =09=09gfs2_assert_warn(sdp, list_empty(&tr->tr_ail2_list));
+-=09=09kfree(tr);
++=09=09gfs2_trans_free(sdp, tr);
  =09}
 =20
- =09gfs2_glock_hold(gl);
-+=09/*
-+=09 * Check for an error encountered since we called go_sync and go_inval.
-+=09 * If so, we can't withdraw from the glock code because the withdraw
-+=09 * code itself uses glocks (see function signal_our_withdraw) to
-+=09 * change the mount to read-only. Most importantly, we must not call
-+=09 * dlm to unlock the glock until the journal is in a known good state
-+=09 * (after journal replay) otherwise other nodes may use the object
-+=09 * (rgrp or dinode) and then later, journal replay will corrupt the
-+=09 * file system. The best we can do here is wait for the logd daemon
-+=09 * to see sd_log_error and withdraw, and in the meantime, requeue the
-+=09 * work for later.
-+=09 *
-+=09 * However, if we're just unlocking the lock (say, for unmount, when
-+=09 * gfs2_gl_hash_clear calls clear_glock) and recovery is complete
-+=09 * then it's okay to tell dlm to unlock it.
-+=09 */
-+=09if (unlikely(sdp->sd_log_error && !allow_while_withdrawn(gl))) {
-+=09=09if (target !=3D LM_ST_UNLOCKED ||
-+=09=09    test_bit(SDF_WITHDRAW_RECOVERY, &sdp->sd_flags)) {
-+=09=09=09gfs2_glock_queue_work(gl, GL_GLOCK_DFT_HOLD);
-+=09=09=09goto out;
-+=09=09}
-+=09}
-+
- =09if (sdp->sd_lockstruct.ls_ops->lm_lock)=09{
- =09=09/* lock_dlm */
- =09=09ret =3D sdp->sd_lockstruct.ls_ops->lm_lock(gl, target, lck_flags);
-@@ -622,8 +646,7 @@ __acquires(&gl->gl_lockref.lock)
- =09=09    test_bit(SDF_SKIP_DLM_UNLOCK, &sdp->sd_flags)) {
- =09=09=09finish_xmote(gl, target);
- =09=09=09gfs2_glock_queue_work(gl, 0);
--=09=09}
--=09=09else if (ret) {
-+=09=09} else if (ret) {
- =09=09=09fs_err(sdp, "lm_lock ret %d\n", ret);
- =09=09=09GLOCK_BUG_ON(gl, !gfs2_withdrawn(sdp));
- =09=09}
-@@ -631,7 +654,7 @@ __acquires(&gl->gl_lockref.lock)
- =09=09finish_xmote(gl, target);
- =09=09gfs2_glock_queue_work(gl, 0);
- =09}
--
-+out:
- =09spin_lock(&gl->gl_lockref.lock);
+ =09spin_unlock(&sdp->sd_ail_lock);
+@@ -866,7 +867,7 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_g=
+lock *gl, u32 flags)
+ =09trace_gfs2_log_flush(sdp, 0, flags);
+ =09up_write(&sdp->sd_log_flush_lock);
+=20
+-=09kfree(tr);
++=09gfs2_trans_free(sdp, tr);
  }
+=20
+ /**
+@@ -885,6 +886,12 @@ static void gfs2_merge_trans(struct gfs2_trans *old, s=
+truct gfs2_trans *new)
+ =09old->tr_num_databuf_rm=09+=3D new->tr_num_databuf_rm;
+ =09old->tr_num_revoke=09+=3D new->tr_num_revoke;
+=20
++=09new->tr_num_buf_new=09=3D 0;
++=09new->tr_num_buf_rm=09=3D 0;
++=09new->tr_num_databuf_new=09=3D 0;
++=09new->tr_num_databuf_rm=09=3D 0;
++=09new->tr_num_revoke=09=3D 0;
++
+ =09list_splice_tail_init(&new->tr_databuf, &old->tr_databuf);
+ =09list_splice_tail_init(&new->tr_buf, &old->tr_buf);
+ }
+@@ -894,6 +901,7 @@ static void log_refund(struct gfs2_sbd *sdp, struct gfs=
+2_trans *tr)
+ =09unsigned int reserved;
+ =09unsigned int unused;
+ =09unsigned int maxres;
++=09unsigned int new_revokes =3D tr->tr_num_revoke;
+=20
+ =09gfs2_log_lock(sdp);
+=20
+@@ -905,7 +913,7 @@ static void log_refund(struct gfs2_sbd *sdp, struct gfs=
+2_trans *tr)
+ =09=09set_bit(TR_ATTACHED, &tr->tr_flags);
+ =09}
+=20
+-=09sdp->sd_log_commited_revoke +=3D tr->tr_num_revoke;
++=09sdp->sd_log_commited_revoke +=3D new_revokes;
+ =09reserved =3D calc_reserved(sdp);
+ =09maxres =3D sdp->sd_log_blks_reserved + tr->tr_reserved;
+ =09gfs2_assert_withdraw(sdp, maxres >=3D reserved);
+diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
+index 7dda50717c9e..c62b9e12aed7 100644
+--- a/fs/gfs2/lops.c
++++ b/fs/gfs2/lops.c
+@@ -718,6 +718,8 @@ static void buf_lo_after_commit(struct gfs2_sbd *sdp, s=
+truct gfs2_trans *tr)
+ =09=09list_del_init(&bd->bd_list);
+ =09=09gfs2_unpin(sdp, bd->bd_bh, tr);
+ =09}
++=09tr->tr_num_buf_new =3D 0;
++=09tr->tr_num_buf_rm =3D 0;
+ }
+=20
+ static void buf_lo_before_scan(struct gfs2_jdesc *jd,
+@@ -1070,6 +1072,8 @@ static void databuf_lo_after_commit(struct gfs2_sbd *=
+sdp, struct gfs2_trans *tr)
+ =09=09list_del_init(&bd->bd_list);
+ =09=09gfs2_unpin(sdp, bd->bd_bh, tr);
+ =09}
++=09tr->tr_num_databuf_new =3D 0;
++=09tr->tr_num_databuf_rm =3D 0;
+ }
+=20
+=20
+diff --git a/fs/gfs2/main.c b/fs/gfs2/main.c
+index a1a295b739fb..5ff114bbcede 100644
+--- a/fs/gfs2/main.c
++++ b/fs/gfs2/main.c
+@@ -68,6 +68,19 @@ static void gfs2_init_gl_aspace_once(void *foo)
+ =09address_space_init_once(mapping);
+ }
+=20
++static void gfs2_init_tr_once(void *foo)
++{
++=09struct gfs2_trans *tr =3D foo;
++
++=09memset(tr, 0, sizeof(struct gfs2_trans));
++=09INIT_LIST_HEAD(&tr->tr_databuf);
++=09INIT_LIST_HEAD(&tr->tr_buf);
++=09INIT_LIST_HEAD(&tr->tr_ail1_list);
++=09INIT_LIST_HEAD(&tr->tr_ail2_list);
++=09INIT_LIST_HEAD(&tr->tr_list);
++=09tr->tr_ip =3D 0;
++}
++
+ /**
+  * init_gfs2_fs - Register GFS2 as a filesystem
+  *
+@@ -143,6 +156,13 @@ static int __init init_gfs2_fs(void)
+ =09if (!gfs2_qadata_cachep)
+ =09=09goto fail_cachep7;
+=20
++=09gfs2_trans_cachep =3D kmem_cache_create("gfs2_trans",
++=09=09=09=09=09       sizeof(struct gfs2_trans),
++=09=09=09=09=09       0, SLAB_CONSISTENCY_CHECKS|
++=09=09=09=09=09       SLAB_POISON, gfs2_init_tr_once);
++=09if (!gfs2_trans_cachep)
++=09=09goto fail_cachep8;
++
+ =09error =3D register_shrinker(&gfs2_qd_shrinker);
+ =09if (error)
+ =09=09goto fail_shrinker;
+@@ -194,6 +214,8 @@ static int __init init_gfs2_fs(void)
+ fail_fs1:
+ =09unregister_shrinker(&gfs2_qd_shrinker);
+ fail_shrinker:
++=09kmem_cache_destroy(gfs2_trans_cachep);
++fail_cachep8:
+ =09kmem_cache_destroy(gfs2_qadata_cachep);
+ fail_cachep7:
+ =09kmem_cache_destroy(gfs2_quotad_cachep);
+@@ -236,6 +258,7 @@ static void __exit exit_gfs2_fs(void)
+ =09rcu_barrier();
+=20
+ =09mempool_destroy(gfs2_page_pool);
++=09kmem_cache_destroy(gfs2_trans_cachep);
+ =09kmem_cache_destroy(gfs2_qadata_cachep);
+ =09kmem_cache_destroy(gfs2_quotad_cachep);
+ =09kmem_cache_destroy(gfs2_rgrpd_cachep);
+diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
+index 35e3059255fe..7d16d9aa3153 100644
+--- a/fs/gfs2/trans.c
++++ b/fs/gfs2/trans.c
+@@ -37,7 +37,7 @@ int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int b=
+locks,
+ =09if (!test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags))
+ =09=09return -EROFS;
+=20
+-=09tr =3D kzalloc(sizeof(struct gfs2_trans), GFP_NOFS);
++=09tr =3D kmem_cache_alloc(gfs2_trans_cachep, GFP_NOFS);
+ =09if (!tr)
+ =09=09return -ENOMEM;
+=20
+@@ -45,14 +45,19 @@ int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int=
+ blocks,
+ =09tr->tr_blocks =3D blocks;
+ =09tr->tr_revokes =3D revokes;
+ =09tr->tr_reserved =3D 1;
++=09tr->tr_num_revoke =3D 0;
++
++=09clear_bit(TR_TOUCHED, &tr->tr_flags);
++=09clear_bit(TR_ATTACHED, &tr->tr_flags);
++
+ =09set_bit(TR_ALLOCED, &tr->tr_flags);
+ =09if (blocks)
+ =09=09tr->tr_reserved +=3D 6 + blocks;
+ =09if (revokes)
+ =09=09tr->tr_reserved +=3D gfs2_struct2blk(sdp, revokes,
+ =09=09=09=09=09=09   sizeof(u64));
+-=09INIT_LIST_HEAD(&tr->tr_databuf);
+-=09INIT_LIST_HEAD(&tr->tr_buf);
++=09gfs2_assert_warn(sdp, list_empty(&tr->tr_databuf));
++=09gfs2_assert_warn(sdp, list_empty(&tr->tr_buf));
+=20
+ =09sb_start_intwrite(sdp->sd_vfs);
+=20
+@@ -66,7 +71,7 @@ int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int b=
+locks,
+=20
+ fail:
+ =09sb_end_intwrite(sdp->sd_vfs);
+-=09kfree(tr);
++=09kmem_cache_free(gfs2_trans_cachep, tr);
+=20
+ =09return error;
+ }
+@@ -94,7 +99,7 @@ void gfs2_trans_end(struct gfs2_sbd *sdp)
+ =09if (!test_bit(TR_TOUCHED, &tr->tr_flags)) {
+ =09=09gfs2_log_release(sdp, tr->tr_reserved);
+ =09=09if (alloced) {
+-=09=09=09kfree(tr);
++=09=09=09gfs2_trans_free(sdp, tr);
+ =09=09=09sb_end_intwrite(sdp->sd_vfs);
+ =09=09}
+ =09=09return;
+@@ -110,7 +115,7 @@ void gfs2_trans_end(struct gfs2_sbd *sdp)
+=20
+ =09gfs2_log_commit(sdp, tr);
+ =09if (alloced && !test_bit(TR_ATTACHED, &tr->tr_flags))
+-=09=09kfree(tr);
++=09=09gfs2_trans_free(sdp, tr);
+ =09up_read(&sdp->sd_log_flush_lock);
+=20
+ =09if (sdp->sd_vfs->s_flags & SB_SYNCHRONOUS)
+@@ -271,3 +276,14 @@ void gfs2_trans_remove_revoke(struct gfs2_sbd *sdp, u6=
+4 blkno, unsigned int len)
+ =09gfs2_log_unlock(sdp);
+ }
+=20
++void gfs2_trans_free(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
++{
++=09if (tr =3D=3D NULL)
++=09=09return;
++
++=09gfs2_assert_warn(sdp, list_empty(&tr->tr_ail1_list));
++=09gfs2_assert_warn(sdp, list_empty(&tr->tr_ail2_list));
++=09gfs2_assert_warn(sdp, list_empty(&tr->tr_databuf));
++=09gfs2_assert_warn(sdp, list_empty(&tr->tr_buf));
++=09kmem_cache_free(gfs2_trans_cachep, tr);
++}
+diff --git a/fs/gfs2/trans.h b/fs/gfs2/trans.h
+index 6071334de035..83199ce5a5c5 100644
+--- a/fs/gfs2/trans.h
++++ b/fs/gfs2/trans.h
+@@ -42,5 +42,6 @@ extern void gfs2_trans_add_data(struct gfs2_glock *gl, st=
+ruct buffer_head *bh);
+ extern void gfs2_trans_add_meta(struct gfs2_glock *gl, struct buffer_head =
+*bh);
+ extern void gfs2_trans_add_revoke(struct gfs2_sbd *sdp, struct gfs2_bufdat=
+a *bd);
+ extern void gfs2_trans_remove_revoke(struct gfs2_sbd *sdp, u64 blkno, unsi=
+gned int len);
++extern void gfs2_trans_free(struct gfs2_sbd *sdp, struct gfs2_trans *tr);
+=20
+ #endif /* __TRANS_DOT_H__ */
+diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+index 690a2f575709..04141d0d8e17 100644
+--- a/fs/gfs2/util.c
++++ b/fs/gfs2/util.c
+@@ -32,6 +32,7 @@ struct kmem_cache *gfs2_bufdata_cachep __read_mostly;
+ struct kmem_cache *gfs2_rgrpd_cachep __read_mostly;
+ struct kmem_cache *gfs2_quotad_cachep __read_mostly;
+ struct kmem_cache *gfs2_qadata_cachep __read_mostly;
++struct kmem_cache *gfs2_trans_cachep __read_mostly;
+ mempool_t *gfs2_page_pool __read_mostly;
+=20
+ void gfs2_assert_i(struct gfs2_sbd *sdp)
+diff --git a/fs/gfs2/util.h b/fs/gfs2/util.h
+index 297eabc29856..72faee19c38d 100644
+--- a/fs/gfs2/util.h
++++ b/fs/gfs2/util.h
+@@ -154,6 +154,7 @@ extern struct kmem_cache *gfs2_bufdata_cachep;
+ extern struct kmem_cache *gfs2_rgrpd_cachep;
+ extern struct kmem_cache *gfs2_quotad_cachep;
+ extern struct kmem_cache *gfs2_qadata_cachep;
++extern struct kmem_cache *gfs2_trans_cachep;
+ extern mempool_t *gfs2_page_pool;
+ extern struct workqueue_struct *gfs2_control_wq;
 =20
 --=20
 2.23.0
