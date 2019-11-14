@@ -1,63 +1,95 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 86EC1FCB8C
-	for <lists+cluster-devel@lfdr.de>; Thu, 14 Nov 2019 18:12:29 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 3FE0EFCDF5
+	for <lists+cluster-devel@lfdr.de>; Thu, 14 Nov 2019 19:42:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573751548;
+	s=mimecast20190719; t=1573756920;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=/342DUQVO8nmMuEhrvMgKlo5F8ASLw+Wl4f9R/jezMY=;
-	b=jMaMTC/DULdNZA+IHXwWvyBt6r5RzP3KUGzTsv7bmOYfNOfs94OQCAbXpcgBZs27V8DQt/
-	VDAv6yC5dk/YF+oco3Uf9YrlmQ0pM38Ifalheq7I+bzffB8Gsugwj1kpQJDtb5HFSQhXLQ
-	7gMaHLulVeTy7W2CF8FtXhJHzn12mGY=
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=9mPkl4tcGZWXSyMwMo3ChmrStXeHUqVVKB8zvUMfh0M=;
+	b=aHUY3lv2to2s6ihtzZU2fS4E8Ayi8c7tZ7CR7McgmozvU76ja5Hsjlsktj+RLTwJfL0Clf
+	HfcMQwENobIUwtYNDSASDv0TEomuO1yydCDF8bQmFbDyJUCfYtZzgL3scXkYnfKAZdDNdk
+	SqIuzMgDjVP9oQKjjX4Ymc8+Phiz29I=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-406-2AEEUj4RNsSqL_R4ZoSomw-1; Thu, 14 Nov 2019 12:12:26 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-28-FJLpWNSsOVqqdwSz9keong-1; Thu, 14 Nov 2019 13:41:58 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 585C71080F31;
-	Thu, 14 Nov 2019 17:12:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41708107ACC6;
+	Thu, 14 Nov 2019 18:41:56 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3446F608B2;
-	Thu, 14 Nov 2019 17:12:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 94CAD5D6AE;
+	Thu, 14 Nov 2019 18:41:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 15BF84BB5C;
-	Thu, 14 Nov 2019 17:12:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3FD384BB5C;
+	Thu, 14 Nov 2019 18:41:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAEHCK8i000366 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 14 Nov 2019 12:12:20 -0500
+	id xAEIfox3007097 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 14 Nov 2019 13:41:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 60DCA5F762; Thu, 14 Nov 2019 17:12:20 +0000 (UTC)
+	id E943B10F1CD4; Thu, 14 Nov 2019 18:41:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from colo-mx.corp.redhat.com
-	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 57C595D6AE
-	for <cluster-devel@redhat.com>; Thu, 14 Nov 2019 17:12:17 +0000 (UTC)
-Received: from zmail21.collab.prod.int.phx2.redhat.com
-	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D70E14BB5C
-	for <cluster-devel@redhat.com>; Thu, 14 Nov 2019 17:12:17 +0000 (UTC)
-Date: Thu, 14 Nov 2019 12:12:17 -0500 (EST)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Message-ID: <1332745873.29963225.1573751537840.JavaMail.zimbra@redhat.com>
-In-Reply-To: <2080848299.29962639.1573751528070.JavaMail.zimbra@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E590810F1CCA
+	for <cluster-devel@redhat.com>; Thu, 14 Nov 2019 18:41:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A06D185A7A1
+	for <cluster-devel@redhat.com>; Thu, 14 Nov 2019 18:41:48 +0000 (UTC)
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
+	[209.85.210.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-28-Oa5lMIPpPNq5UcQS7NgmTg-1; Thu, 14 Nov 2019 13:41:46 -0500
+Received: by mail-ot1-f72.google.com with SMTP id v51so3827677otb.5
+	for <cluster-devel@redhat.com>; Thu, 14 Nov 2019 10:41:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=9vhDXCqcGzCONnduLXvGdx8NF13kRVxlfn39onz6/8o=;
+	b=Qy7I1c7gDom5AT0ddpbuGBM7B2Cmyf0U2w3gUqLPdwCiNy0DNxytRZLCdbqiClXNgm
+	mqzSwyQrUnKuQcZDeSPPCv2tDWG+9JrzVt4BpwF5c8Vq5wdHJMn9Cw5ZEVLy2tJH5je0
+	bVvxp7EcfS7/W56CgZXsoPJm5It6FPq/0i6iGjtV4SYq7Mcguj5DCrTXgry44Ooyl+f6
+	/xaRY2cs41erJge02e/9s+ymKYCSKGg3fYLSDsl2zvVBcADiGPL1uWFncR96c7oAfKxj
+	DcCqJ3qhRDSHHsXEOPkl7ZryqbuM6WOD5t3eMtVx/6wDeBdzKqfEHPXh1HFzwshi2vSS
+	qO7A==
+X-Gm-Message-State: APjAAAXjgr2WiT8NWX6g6XzEIEfEd6mi1IuWRYPDpdBB80T2J6sFxM0a
+	qiJ3z3AE5rdBMADtyOJWbTKp87INyrabW9l5IeKldXr4bjVdLxbthhkmISTDNb1nf6HGgd5XyRm
+	ETQN9YRi4WaI4Rbe6C4kjdoZz6yoF/w2rBdmCNg==
+X-Received: by 2002:a05:6830:4ae:: with SMTP id
+	l14mr8818733otd.185.1573756905651; 
+	Thu, 14 Nov 2019 10:41:45 -0800 (PST)
+X-Google-Smtp-Source: APXvYqwHJpQNd7RS71VjuiraI3gMOVOdGIyR8h8J49G6dXT4ADXsnpsuaqdsvTZ3pgVXLGLgmMx5VFKEiWSCoGHzkP8=
+X-Received: by 2002:a05:6830:4ae:: with SMTP id
+	l14mr8818722otd.185.1573756905438; 
+	Thu, 14 Nov 2019 10:41:45 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.3.116.140, 10.4.195.6]
-Thread-Topic: gfs2: Abort gfs2_freeze if io error is seen
-Thread-Index: OIBDhJjrpJJmAkCvE/x6rjBenerzSg==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+References: <946265143.29711102.1573742986193.JavaMail.zimbra@redhat.com>
+	<788089991.29722188.1573743135983.JavaMail.zimbra@redhat.com>
+In-Reply-To: <788089991.29722188.1573743135983.JavaMail.zimbra@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Thu, 14 Nov 2019 19:41:33 +0100
+Message-ID: <CAHc6FU7-2qUokPXwRGBZPTRrv2xRkE47d8KYXGmUCkN3wVnyNw@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-MC-Unique: Oa5lMIPpPNq5UcQS7NgmTg-1
+X-MC-Unique: FJLpWNSsOVqqdwSz9keong-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAEIfox3007097
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH] gfs2: Abort gfs2_freeze if io error is
-	seen
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: Introduce function
+	gfs2_withdrawn
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,92 +103,35 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: 2AEEUj4RNsSqL_R4ZoSomw-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Thu, Nov 14, 2019 at 3:52 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> This patch adds function gfs2_withdrawn and replaces all checks
+> for the SDF_WITHDRAWN bit to call it. This does not change the
+> logic or function of gfs2, and it facilitates later improvements
+> to the withdraw sequence.
 
-Before this patch, an io error, such as -EIO writing to the journal
-would cause function gfs2_freeze to go into an infinite loop,
-continuously retrying the freeze operation. But nothing ever clears
-the -EIO except unmount after withdraw, which is impossible if the
-freeze operation never ends (fails). Instead you get:
+This looks mostly okay, but:
 
-[ 6499.767994] gfs2: fsid=3Ddm-32.0: error freezing FS: -5
-[ 6499.773058] gfs2: fsid=3Ddm-32.0: retrying...
-[ 6500.791957] gfs2: fsid=3Ddm-32.0: error freezing FS: -5
-[ 6500.797015] gfs2: fsid=3Ddm-32.0: retrying...
+> +/**
+> + * gfs2_withdrawn - test whether the file system is withdrawing or withd=
+rawn
+> + * @sdp: the superblock
+> + */
+> +static inline bool gfs2_withdrawn(struct gfs2_sbd *sdp)
+> +{
+> +       if (test_bit(SDF_WITHDRAWN, &sdp->sd_flags))
+> +               return true;
+> +       return false;
 
-This patch adds a check for -EIO in gfs2_freeze, and if seen, it
-dequeues the freeze glock, aborts the loop and returns the error.
-Also, there's no need to pass the freeze holder to function
-gfs2_lock_fs_check_clean since it's only called in one place and
-it's a well-known superblock pointer, so this simplifies that.
+      return test_bit(SDF_WITHDRAWN, &sdp->sd_flags)
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/super.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+> +}
 
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 8154c38e488b..eb1fbd533e6d 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -399,8 +399,7 @@ struct lfcc {
-  * Returns: errno
-  */
-=20
--static int gfs2_lock_fs_check_clean(struct gfs2_sbd *sdp,
--=09=09=09=09    struct gfs2_holder *freeze_gh)
-+static int gfs2_lock_fs_check_clean(struct gfs2_sbd *sdp)
- {
- =09struct gfs2_inode *ip;
- =09struct gfs2_jdesc *jd;
-@@ -425,7 +424,7 @@ static int gfs2_lock_fs_check_clean(struct gfs2_sbd *sd=
-p,
- =09}
-=20
- =09error =3D gfs2_glock_nq_init(sdp->sd_freeze_gl, LM_ST_EXCLUSIVE,
--=09=09=09=09   GL_NOCACHE, freeze_gh);
-+=09=09=09=09   GL_NOCACHE, &sdp->sd_freeze_gh);
-=20
- =09list_for_each_entry(jd, &sdp->sd_jindex_list, jd_list) {
- =09=09error =3D gfs2_jdesc_check(jd);
-@@ -441,7 +440,7 @@ static int gfs2_lock_fs_check_clean(struct gfs2_sbd *sd=
-p,
- =09}
-=20
- =09if (error)
--=09=09gfs2_glock_dq_uninit(freeze_gh);
-+=09=09gfs2_glock_dq_uninit(&sdp->sd_freeze_gh);
-=20
- out:
- =09while (!list_empty(&list)) {
-@@ -767,15 +766,20 @@ static int gfs2_freeze(struct super_block *sb)
- =09=09=09goto out;
- =09=09}
-=20
--=09=09error =3D gfs2_lock_fs_check_clean(sdp, &sdp->sd_freeze_gh);
-+=09=09error =3D gfs2_lock_fs_check_clean(sdp);
- =09=09if (!error)
- =09=09=09break;
-=20
- =09=09if (error =3D=3D -EBUSY)
- =09=09=09fs_err(sdp, "waiting for recovery before freeze\n");
--=09=09else
-+=09=09else if (error =3D=3D -EIO) {
-+=09=09=09fs_err(sdp, "Fatal IO error: cannot freeze gfs2 due "
-+=09=09=09       "to recovery error.\n");
-+=09=09=09gfs2_glock_dq_uninit(&sdp->sd_freeze_gh);
-+=09=09=09goto out;
-+=09=09} else {
- =09=09=09fs_err(sdp, "error freezing FS: %d\n", error);
--
-+=09=09}
- =09=09fs_err(sdp, "retrying...\n");
- =09=09msleep(1000);
- =09}
+Thanks,
+Andreas
+
 
