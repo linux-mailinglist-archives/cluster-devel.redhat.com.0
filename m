@@ -1,68 +1,92 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 20841FE432
-	for <lists+cluster-devel@lfdr.de>; Fri, 15 Nov 2019 18:39:55 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id EAF0EFE4BE
+	for <lists+cluster-devel@lfdr.de>; Fri, 15 Nov 2019 19:16:36 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573839593;
+	s=mimecast20190719; t=1573841795;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MevkggYXrBzuwYNaaZtYswxwCOmJ/2z/oxbJ5WueaM4=;
-	b=YG1ytBYIkf+1E6sZ8QtHHYiwvjJ4FKijvSsyXM0UX9tFWuHUSdMgzvGyrzcFz7CqtT0QAw
-	TuAtGqyDDMErGpINVkMdxk8ge2FnMDib4CR6FwnHCKSZHQNg5qgkC5lUcGz4AmHosaMVfs
-	D3hphrj6BHtaXNyUEaaUuRmYslouVmU=
+	bh=8UEBR1m2jn0xM6G9fomOzyxAYAcz9OcK/lRP8i7NH44=;
+	b=h7tsGfBDO1uAc7LwpHgDnkDP2YzdpZODvZBPZNraV7pkrQmu/Ldz9M5nNgoEwGeHBHqzyT
+	8z1ZRqdubnHqQMo5J7xof6o27A5066sEGBtx9+5B1UMWj6/XBBFjrsrtF3TPRdxT+cLdTC
+	pBRP1/pibokIt6n8ZUjvPO31O/rVUqo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-380-e-wKZBkFMRSk417IbrqFrA-1; Fri, 15 Nov 2019 12:39:51 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-150-tTb43NVdMC-OMilWL8XERQ-1; Fri, 15 Nov 2019 13:16:34 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E04A1005502;
-	Fri, 15 Nov 2019 17:39:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5C3901852E23;
+	Fri, 15 Nov 2019 18:16:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E73991036C85;
-	Fri, 15 Nov 2019 17:39:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF2AD60BE1;
+	Fri, 15 Nov 2019 18:16:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 020044BB5B;
-	Fri, 15 Nov 2019 17:39:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 969234BB65;
+	Fri, 15 Nov 2019 18:16:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAFHdiKp012934 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Nov 2019 12:39:44 -0500
+	id xAFIGQgq014780 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Nov 2019 13:16:26 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A65D55D6D8; Fri, 15 Nov 2019 17:39:44 +0000 (UTC)
+	id A5A9553C7; Fri, 15 Nov 2019 18:16:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from colo-mx.corp.redhat.com
-	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D0D85D6D0;
-	Fri, 15 Nov 2019 17:39:42 +0000 (UTC)
-Received: from zmail21.collab.prod.int.phx2.redhat.com
-	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 124BC18089C8;
-	Fri, 15 Nov 2019 17:39:42 +0000 (UTC)
-Date: Fri, 15 Nov 2019 12:39:41 -0500 (EST)
-From: Bob Peterson <rpeterso@redhat.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <491033255.30283381.1573839581928.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CAHc6FU5zTfvnqjrhQ13Jid79Vfqrk68X_FusUwRyczgAfu3xMA@mail.gmail.com>
-References: <1819526286.30262006.1573832637022.JavaMail.zimbra@redhat.com>
-	<1255360710.30262128.1573832741690.JavaMail.zimbra@redhat.com>
-	<CAHc6FU5zTfvnqjrhQ13Jid79Vfqrk68X_FusUwRyczgAfu3xMA@mail.gmail.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1E0C53C4
+	for <cluster-devel@redhat.com>; Fri, 15 Nov 2019 18:16:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFE6E185A793
+	for <cluster-devel@redhat.com>; Fri, 15 Nov 2019 18:16:24 +0000 (UTC)
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+	[209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-366-ty9-k_REPzaHCBQCRNxxTA-1; Fri, 15 Nov 2019 13:16:23 -0500
+Received: by mail-oi1-f199.google.com with SMTP id s204so5528264oib.7
+	for <cluster-devel@redhat.com>; Fri, 15 Nov 2019 10:16:23 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=MA9nvrQFTHk/M4T9UYxiJvNxl9y698+lI/ym7uAAnyc=;
+	b=JqPvQniedkW8oRsTzLqkVjEoC1Z0sRwRxFCcEBovq8J126S7F5wN0hkJD3FFXACyJU
+	sUchsPCH5PyRN5GurVLB+qdtXUv2AeM4QqbqhZKSOyoxgNARiItMcRTTS9yonfo21QXG
+	aeWzsv5pdsqyd/50k13KHOn2nekblnFWAdMGJ55D60x2m5XwSyPejF7qPbKxk1Himgtj
+	6xEreSAui5n7coGqtCr+rX1rycFMvHpH3wTAZdFoEoIKsNEEaHdzuUbPJFErlenSlB1+
+	3SBtznLJJCHdb+FNcB/T8GsIBB6/uWqrB1iihIHkPBzzC08rqTnqywrn5xw36Erz31SY
+	u4dA==
+X-Gm-Message-State: APjAAAVIlCcuCjGIkKnRNFxVG5sR08pMBQnRSjtqot6EjQPNe6o3qyB7
+	vA8YcLmwinFctUH4PdaAxgRUreEb7QDzeK+0tnGykSVua9SXUTB9mDxnhhhJMQTGPZXhRgJ5Cbn
+	6xsTaj6gFq+ZlPmhMQ8/ZyKQgmn0vEGosE/KGfw==
+X-Received: by 2002:aca:5cc6:: with SMTP id q189mr8980112oib.101.1573841782923;
+	Fri, 15 Nov 2019 10:16:22 -0800 (PST)
+X-Google-Smtp-Source: APXvYqy8ARVNQCzR81JqtuFb/bo5FydF3AjMsjpdf/P0mWNj42JZV3QGyJzA18l+4ee9vBoeJTzDyKY0N0DKas6wlmc=
+X-Received: by 2002:aca:5cc6:: with SMTP id q189mr8980096oib.101.1573841782628;
+	Fri, 15 Nov 2019 10:16:22 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.3.116.60, 10.4.195.6]
-Thread-Topic: gfs2: Close timing window with GLF_INVALIDATE_IN_PROGRESS
-Thread-Index: onbOIBmOqeHabRdQkhW36gkhEAgTsQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+References: <923916143.30270056.1573833780225.JavaMail.zimbra@redhat.com>
+In-Reply-To: <923916143.30270056.1573833780225.JavaMail.zimbra@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Fri, 15 Nov 2019 19:16:11 +0100
+Message-ID: <CAHc6FU5wWpheANOX8rTBB1QpkA1kY=CUH01xQFSb+v+_9WiSqQ@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-MC-Unique: ty9-k_REPzaHCBQCRNxxTA-1
+X-MC-Unique: tTb43NVdMC-OMilWL8XERQ-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAFIGQgq014780
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: Close timing window with
- GLF_INVALIDATE_IN_PROGRESS
+Subject: Re: [Cluster-devel] [GFS2 PATCH v2] gfs2: if finish_open returns
+ error, clean up iopen glock mess
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,110 +100,56 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MC-Unique: e-wKZBkFMRSk417IbrqFrA-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
------ Original Message -----
-> On Fri, Nov 15, 2019 at 4:45 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> >
-> > Hi,
-> >
-> > This patch closes a timing window in which two processes compete
-> > and overlap in the execution of do_xmote for the same glock:
-> >
-> >              Process A                              Process B
-> >    ------------------------------------   -----------------------------
-> > 1. Grabs gl_lockref and calls do_xmote
-> > 2.                                        Grabs gl_lockref but is block=
-ed
-> > 3. Sets GLF_INVALIDATE_IN_PROGRESS
-> > 4. Unlocks gl_lockref
-> > 5.                                        Calls do_xmote
-> > 6. Call glops->go_sync
-> > 7. test_and_clear_bit GLF_DIRTY
-> > 8. Call gfs2_log_flush                    Call glops->go_sync
-> > 9. (slow IO, so it blocks a long time)    test_and_clear_bit GLF_DIRTY
-> >                                           It's not dirty (step 7) retur=
-ns
-> > 10.                                       Tests GLF_INVALIDATE_IN_PROGR=
-ESS
-> > 11.                                       Calls go_inval (rgrp_go_inval=
-)
-> > 12.                                       gfs2_rgrp_relse does brelse
-> > 13.                                       truncate_inode_pages_range
-> > 14.                                       Calls lm_lock UN
-> >
-> > In step 14 we've just told dlm to give the glock to another node
-> > when, in fact, process A has not finished the IO and synced all
-> > buffer_heads to disk and make sure their revokes are done.
-> >
-> > This patch fixes the problem by changing the GLF_INVALIDATE_IN_PROGRESS
-> > to use test_and_set_bit, and if the bit is already set, process B just
-> > ignores it and trusts that process A will do the do_xmote in the proper
-> > order.
-> >
-> > Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> > ---
-> >  fs/gfs2/glock.c | 14 +++++++++++++-
-> >  1 file changed, 13 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-> > index faa88bd594e2..4a4a390ffd00 100644
-> > --- a/fs/gfs2/glock.c
-> > +++ b/fs/gfs2/glock.c
-> > @@ -558,7 +558,19 @@ __acquires(&gl->gl_lockref.lock)
-> >         GLOCK_BUG_ON(gl, gl->gl_state =3D=3D gl->gl_target);
-> >         if ((target =3D=3D LM_ST_UNLOCKED || target =3D=3D LM_ST_DEFERR=
-ED) &&
-> >             glops->go_inval) {
-> > -               set_bit(GLF_INVALIDATE_IN_PROGRESS, &gl->gl_flags);
-> > +               /*
-> > +                * If another process is already doing the invalidate w=
-e
-> > should
-> > +                * not interfere. If we call go_sync and it finds the g=
-lock
-> > is
-> > +                * not dirty, we might call go_inval prematurely before=
- the
-> > +                * other go_sync has finished with its revokes. If we t=
-hen
-> > call
-> > +                * lm_lock prematurely, we've really screwed up: we can=
-not
-> > tell
-> > +                * dlm to give the glock away until we're synced and
-> > +                * invalidated. Best thing is to return and trust the o=
-ther
-> > +                * process will finish do_xmote tasks in their proper
-> > order.
-> > +                */
->=20
-> That's a bit too much information here. Can we please change that as foll=
-ows?
->=20
->                 * If another process is already doing the invalidate, let
->                 that
->                 * finish first.  The glock state machine will get back to
->                 this
->                 * holder again later.
->=20
-> > +               if (test_and_set_bit(GLF_INVALIDATE_IN_PROGRESS,
-> > +                                    &gl->gl_flags))
-> > +                       return;
-> >                 do_error(gl, 0); /* Fail queued try locks */
-> >         }
-> >         gl->gl_req =3D target;
-> >
->=20
-> Thanks,
-> Andreas
->=20
->=20
-Sure. Make it so.
+Bob,
 
-Bob
+On Fri, Nov 15, 2019 at 5:03 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> Just noticed (and fixed) the redundant clear_bit. Sorry.
+> ---
+> Before this patch, if anything went wrong in function gfs2_create_inode
+> it would goto fail_gunlock3 and clean up the iopen glock it had just
+> created and locked. However, if function finish_open returns an error
+> it did not. That meant subsequent attempts to create the file were
+> seen as glock recursion errors on the iopen glock.
+>
+> This patch adds additional checking for an error from finish_open and
+> cleans up the iopen glock appropriately.
+>
+> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+> ---
+>  fs/gfs2/inode.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+> index dcb5d363f9b9..36eb223b185e 100644
+> --- a/fs/gfs2/inode.c
+> +++ b/fs/gfs2/inode.c
+> @@ -772,6 +772,11 @@ static int gfs2_create_inode(struct inode *dir, stru=
+ct dentry *dentry,
+>         gfs2_glock_dq_uninit(ghs);
+>         gfs2_glock_dq_uninit(ghs + 1);
+>         clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
+> +       if (error) {
+> +               glock_clear_object(io_gl, ip);
+> +               gfs2_glock_dq_uninit(&ip->i_iopen_gh);
+> +               gfs2_glock_put(io_gl);
+> +       }
+>         return error;
+>
+>  fail_gunlock3:
+>
+
+this doesn't look quite right. In gfs2_create_inode, the call to
+d_instantiate is supposed to be the "point of no return": after that,
+the vfs should be calling .evict_inode once the inode goes away. So it
+looks more like gfs2_evict_inode isn't cleaning things up properly to
+me. I need to investigate further.
+
+Thanks,
+Andreas
+
 
