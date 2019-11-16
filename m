@@ -1,64 +1,79 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CFBDFE6C0
-	for <lists+cluster-devel@lfdr.de>; Fri, 15 Nov 2019 22:03:04 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 322FFFED05
+	for <lists+cluster-devel@lfdr.de>; Sat, 16 Nov 2019 16:41:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573851783;
+	s=mimecast20190719; t=1573918899;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=euxj5y3MNrqxccxDIcGk3MfBbSdhh3h9Tz9M2IV/pcg=;
-	b=IItyjQqNa6SM0O2pOfAPr9u0LX/g3Ocmxbd6ip+Sloy5Bv3umI1Izl0leC8hitIoAqa4i8
-	oAJGL7kIUUIs7d0/cEYLrH+AaawhgfC++OD78ZHGyCWVQ7hy7YH7ow4OTEOnWqj9jV7Xho
-	/LOLgAVfbOnAx50QmCktrX1CoQNWnn0=
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=dO9Sr85CYWry+QcLguNtJ7nIIDQrWn1KvRSZYEGN04s=;
+	b=MD0I79+h8jY1MKMesaF98wDYrSvia487i8mbU/J1sjwQQdO+tj+xtygVZ/FeZByxg1gqXc
+	92ACuk0Wh1svIlVcegZBdZWJzgFHkmdxMuwDOBklGvAn2bLcQrisV1t8GJ7FvoonfcdB+R
+	pkgrl3Qw1tD2rqM6I4Sz6GBlPnp5AtI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-324-Goc7knZxPH2GYI2XHR14PQ-1; Fri, 15 Nov 2019 16:03:02 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-194-oRuXL8_aMHWjI_g4rtrf2A-1; Sat, 16 Nov 2019 10:41:37 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A581E1005502;
-	Fri, 15 Nov 2019 21:02:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4CDE918766F2;
+	Sat, 16 Nov 2019 15:41:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 631175E263;
-	Fri, 15 Nov 2019 21:02:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 652A86919A;
+	Sat, 16 Nov 2019 15:41:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 63DD74BB65;
-	Fri, 15 Nov 2019 21:02:57 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F26394BB65;
+	Sat, 16 Nov 2019 15:41:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAFL2pFt025878 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Nov 2019 16:02:51 -0500
+	id xAGFfOvk013121 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 16 Nov 2019 10:41:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C33381036C83; Fri, 15 Nov 2019 21:02:51 +0000 (UTC)
+	id 9EE8B2166B2A; Sat, 16 Nov 2019 15:41:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from colo-mx.corp.redhat.com
-	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 869A21001920;
-	Fri, 15 Nov 2019 21:02:47 +0000 (UTC)
-Received: from zmail21.collab.prod.int.phx2.redhat.com
-	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C65818089C8;
-	Fri, 15 Nov 2019 21:02:47 +0000 (UTC)
-Date: Fri, 15 Nov 2019 16:02:47 -0500 (EST)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>,
-	Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <1645088061.30314093.1573851767349.JavaMail.zimbra@redhat.com>
-In-Reply-To: <743223930.30313853.1573851480656.JavaMail.zimbra@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9AC332166B27
+	for <cluster-devel@redhat.com>; Sat, 16 Nov 2019 15:41:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 670EC800296
+	for <cluster-devel@redhat.com>; Sat, 16 Nov 2019 15:41:22 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-256-AZIBfAkmP8ahzO9czUCnLA-1;
+	Sat, 16 Nov 2019 10:41:20 -0500
+Received: from sasha-vm.mshome.net (unknown [50.234.116.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id D29B020718;
+	Sat, 16 Nov 2019 15:41:17 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 16 Nov 2019 10:37:22 -0500
+Message-Id: <20191116154113.7417-7-sashal@kernel.org>
+In-Reply-To: <20191116154113.7417-1-sashal@kernel.org>
+References: <20191116154113.7417-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Originating-IP: [10.3.116.60, 10.4.195.26]
-Thread-Topic: gfs2: clean up iopen glock mess in gfs2_create_inode
-Thread-Index: H/kL7DWQSlSr7NdNt9oCpPhDozaaNw==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-MC-Unique: AZIBfAkmP8ahzO9czUCnLA-1
+X-MC-Unique: oRuXL8_aMHWjI_g4rtrf2A-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAGFfOvk013121
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH] gfs2: clean up iopen glock mess in
-	gfs2_create_inode
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.19 007/237] gfs2: Fix marking
+	bitmaps non-full
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,97 +87,60 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: Goc7knZxPH2GYI2XHR14PQ-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+From: Andreas Gruenbacher <agruenba@redhat.com>
 
-I wrote this patch because Andreas pointed out the problem with
-its predecessor patch, "gfs2: if finish_open returns error, clean
-up iopen glock mess" wasn't correct because after the instantiate,
-subsequent evicts should take care of the iopen glock properly.
+[ Upstream commit ec23df2b0cf3e1620f5db77972b7fb735f267eff ]
 
-This, then, is the revised patch that takes a different approach.
-It reorders the iopen processing to make a little more sense and
-prevents a possible use-after-free.
+Reservations in gfs can span multiple gfs2_bitmaps (but they won't span
+multiple resource groups).  When removing a reservation, we want to
+clear the GBF_FULL flags of all involved gfs2_bitmaps, not just that of
+the first bitmap.
 
-This patch has had minimal testing so far, so I don't have much
-confidence in it yet. It makes logical sense, but it's a very
-sensitive code path. We especially need to test the cases of
-doing creates-during-deletes, deletes-during-creates, creates
-during remote-node-deletes, and so forth.
-
-Bob
----
-Before this patch, gfs2_create_inode had a use-after-free for the
-iopen glock in some error paths because it did this:
-
-=09gfs2_glock_put(io_gl);
-fail_gunlock2:
-=09if (io_gl)
-=09=09clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
-
-In some cases, the io_gl was used for create and only had one
-reference, so the glock might be freed before the clear_bit().
-This patch tries to straighten it out by only jumping to the
-error paths where iopen is properly set, and moving the
-gfs2_glock_put after the clear_bit.
-
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Reviewed-by: Steven Whitehouse <swhiteho@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/inode.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ fs/gfs2/rgrp.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index dcb5d363f9b9..cd7628f06ee6 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -712,7 +712,7 @@ static int gfs2_create_inode(struct inode *dir, struct =
-dentry *dentry,
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index 449d0cb45a845..e37b40ec3f761 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -642,7 +642,10 @@ static void __rs_deltree(struct gfs2_blkreserv *rs)
+ =09RB_CLEAR_NODE(&rs->rs_node);
 =20
- =09error =3D gfs2_trans_begin(sdp, blocks, 0);
- =09if (error)
--=09=09goto fail_gunlock2;
-+=09=09goto fail_free_inode;
+ =09if (rs->rs_free) {
+-=09=09struct gfs2_bitmap *bi =3D rbm_bi(&rs->rs_rbm);
++=09=09u64 last_block =3D gfs2_rbm_to_block(&rs->rs_rbm) +
++=09=09=09=09 rs->rs_free - 1;
++=09=09struct gfs2_rbm last_rbm =3D { .rgd =3D rs->rs_rbm.rgd, };
++=09=09struct gfs2_bitmap *start, *last;
 =20
- =09if (blocks > 1) {
- =09=09ip->i_eattr =3D ip->i_no_addr + 1;
-@@ -723,7 +723,7 @@ static int gfs2_create_inode(struct inode *dir, struct =
-dentry *dentry,
+ =09=09/* return reserved blocks to the rgrp */
+ =09=09BUG_ON(rs->rs_rbm.rgd->rd_reserved < rs->rs_free);
+@@ -653,7 +656,13 @@ static void __rs_deltree(struct gfs2_blkreserv *rs)
+ =09=09   it will force the number to be recalculated later. */
+ =09=09rgd->rd_extfail_pt +=3D rs->rs_free;
+ =09=09rs->rs_free =3D 0;
+-=09=09clear_bit(GBF_FULL, &bi->bi_flags);
++=09=09if (gfs2_rbm_from_block(&last_rbm, last_block))
++=09=09=09return;
++=09=09start =3D rbm_bi(&rs->rs_rbm);
++=09=09last =3D rbm_bi(&last_rbm);
++=09=09do
++=09=09=09clear_bit(GBF_FULL, &start->bi_flags);
++=09=09while (start++ !=3D last);
+ =09}
+ }
 =20
- =09error =3D gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_iopen_glops, CREATE,=
- &io_gl);
- =09if (error)
--=09=09goto fail_gunlock2;
-+=09=09goto fail_free_inode;
-=20
- =09BUG_ON(test_and_set_bit(GLF_INODE_CREATING, &io_gl->gl_flags));
-=20
-@@ -772,15 +772,19 @@ static int gfs2_create_inode(struct inode *dir, struc=
-t dentry *dentry,
- =09gfs2_glock_dq_uninit(ghs);
- =09gfs2_glock_dq_uninit(ghs + 1);
- =09clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
-+=09if (error) {
-+=09=09glock_clear_object(io_gl, ip);
-+=09=09gfs2_glock_dq_uninit(&ip->i_iopen_gh);
-+=09=09gfs2_glock_put(io_gl);
-+=09}
- =09return error;
-=20
- fail_gunlock3:
- =09glock_clear_object(io_gl, ip);
- =09gfs2_glock_dq_uninit(&ip->i_iopen_gh);
--=09gfs2_glock_put(io_gl);
- fail_gunlock2:
--=09if (io_gl)
--=09=09clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
-+=09clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
-+=09gfs2_glock_put(io_gl);
- fail_free_inode:
- =09if (ip->i_gl) {
- =09=09glock_clear_object(ip->i_gl, ip);
+--=20
+2.20.1
+
 
