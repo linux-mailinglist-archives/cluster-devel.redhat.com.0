@@ -1,79 +1,79 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 322FFFED05
-	for <lists+cluster-devel@lfdr.de>; Sat, 16 Nov 2019 16:41:41 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 21B47FEDC9
+	for <lists+cluster-devel@lfdr.de>; Sat, 16 Nov 2019 16:47:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573918899;
+	s=mimecast20190719; t=1573919225;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dO9Sr85CYWry+QcLguNtJ7nIIDQrWn1KvRSZYEGN04s=;
-	b=MD0I79+h8jY1MKMesaF98wDYrSvia487i8mbU/J1sjwQQdO+tj+xtygVZ/FeZByxg1gqXc
-	92ACuk0Wh1svIlVcegZBdZWJzgFHkmdxMuwDOBklGvAn2bLcQrisV1t8GJ7FvoonfcdB+R
-	pkgrl3Qw1tD2rqM6I4Sz6GBlPnp5AtI=
+	bh=2jr2+XNMfQMSrz6/avI/mXzGsM9iPLr4YTzZURnWQgM=;
+	b=Ob702KJOEKziSjJQv8jTfqCMcMkGjKpqUHk2UNma3C2i2YRf6rrLw9//jgdI2f231mCsAJ
+	GhHyfbtX2jFKL236q73HJkcD7nr9D8gW8BMRLJNDGJAk4B6T22pnFjsiJGfgZr58JVT6VD
+	2n/WAhIe23ZeKbyxDTJxaqSop0gwDws=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-oRuXL8_aMHWjI_g4rtrf2A-1; Sat, 16 Nov 2019 10:41:37 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-428-2Eu7XHC2OwarZqn0p57Rdw-1; Sat, 16 Nov 2019 10:47:03 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4CDE918766F2;
-	Sat, 16 Nov 2019 15:41:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5080F801FA1;
+	Sat, 16 Nov 2019 15:47:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 652A86919A;
-	Sat, 16 Nov 2019 15:41:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19EED1001281;
+	Sat, 16 Nov 2019 15:47:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F26394BB65;
-	Sat, 16 Nov 2019 15:41:30 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 79B1A4BB5C;
+	Sat, 16 Nov 2019 15:47:00 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAGFfOvk013121 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 16 Nov 2019 10:41:24 -0500
+	id xAGFkwRT013282 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 16 Nov 2019 10:46:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9EE8B2166B2A; Sat, 16 Nov 2019 15:41:24 +0000 (UTC)
+	id F37A42166B2A; Sat, 16 Nov 2019 15:46:57 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9AC332166B27
-	for <cluster-devel@redhat.com>; Sat, 16 Nov 2019 15:41:22 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF3242166B27
+	for <cluster-devel@redhat.com>; Sat, 16 Nov 2019 15:46:55 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 670EC800296
-	for <cluster-devel@redhat.com>; Sat, 16 Nov 2019 15:41:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC8EB1065053
+	for <cluster-devel@redhat.com>; Sat, 16 Nov 2019 15:46:55 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-256-AZIBfAkmP8ahzO9czUCnLA-1;
-	Sat, 16 Nov 2019 10:41:20 -0500
+	by relay.mimecast.com with ESMTP id us-mta-176-0PUtWMfdPwSiH7fgA12nMw-1;
+	Sat, 16 Nov 2019 10:46:52 -0500
 Received: from sasha-vm.mshome.net (unknown [50.234.116.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id D29B020718;
-	Sat, 16 Nov 2019 15:41:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 8070D208C0;
+	Sat, 16 Nov 2019 15:46:50 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 16 Nov 2019 10:37:22 -0500
-Message-Id: <20191116154113.7417-7-sashal@kernel.org>
+Date: Sat, 16 Nov 2019 10:40:51 -0500
+Message-Id: <20191116154113.7417-216-sashal@kernel.org>
 In-Reply-To: <20191116154113.7417-1-sashal@kernel.org>
 References: <20191116154113.7417-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-MC-Unique: AZIBfAkmP8ahzO9czUCnLA-1
-X-MC-Unique: oRuXL8_aMHWjI_g4rtrf2A-1
+X-MC-Unique: 0PUtWMfdPwSiH7fgA12nMw-1
+X-MC-Unique: 2Eu7XHC2OwarZqn0p57Rdw-1
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xAGFfOvk013121
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAGFkwRT013282
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.19 007/237] gfs2: Fix marking
-	bitmaps non-full
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
+	Tycho Andersen <tycho@tycho.ws>
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.19 216/237] dlm: fix invalid free
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,57 +87,47 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-From: Andreas Gruenbacher <agruenba@redhat.com>
+From: Tycho Andersen <tycho@tycho.ws>
 
-[ Upstream commit ec23df2b0cf3e1620f5db77972b7fb735f267eff ]
+[ Upstream commit d968b4e240cfe39d39d80483bac8bca8716fd93c ]
 
-Reservations in gfs can span multiple gfs2_bitmaps (but they won't span
-multiple resource groups).  When removing a reservation, we want to
-clear the GBF_FULL flags of all involved gfs2_bitmaps, not just that of
-the first bitmap.
+dlm_config_nodes() does not allocate nodes on failure, so we should not
+free() nodes when it fails.
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Reviewed-by: Steven Whitehouse <swhiteho@redhat.com>
+Signed-off-by: Tycho Andersen <tycho@tycho.ws>
+Signed-off-by: David Teigland <teigland@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/rgrp.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ fs/dlm/member.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 449d0cb45a845..e37b40ec3f761 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -642,7 +642,10 @@ static void __rs_deltree(struct gfs2_blkreserv *rs)
- =09RB_CLEAR_NODE(&rs->rs_node);
+diff --git a/fs/dlm/member.c b/fs/dlm/member.c
+index 3fda3832cf6a6..cad6d85911a80 100644
+--- a/fs/dlm/member.c
++++ b/fs/dlm/member.c
+@@ -680,7 +680,7 @@ int dlm_ls_start(struct dlm_ls *ls)
 =20
- =09if (rs->rs_free) {
--=09=09struct gfs2_bitmap *bi =3D rbm_bi(&rs->rs_rbm);
-+=09=09u64 last_block =3D gfs2_rbm_to_block(&rs->rs_rbm) +
-+=09=09=09=09 rs->rs_free - 1;
-+=09=09struct gfs2_rbm last_rbm =3D { .rgd =3D rs->rs_rbm.rgd, };
-+=09=09struct gfs2_bitmap *start, *last;
+ =09error =3D dlm_config_nodes(ls->ls_name, &nodes, &count);
+ =09if (error < 0)
+-=09=09goto fail;
++=09=09goto fail_rv;
 =20
- =09=09/* return reserved blocks to the rgrp */
- =09=09BUG_ON(rs->rs_rbm.rgd->rd_reserved < rs->rs_free);
-@@ -653,7 +656,13 @@ static void __rs_deltree(struct gfs2_blkreserv *rs)
- =09=09   it will force the number to be recalculated later. */
- =09=09rgd->rd_extfail_pt +=3D rs->rs_free;
- =09=09rs->rs_free =3D 0;
--=09=09clear_bit(GBF_FULL, &bi->bi_flags);
-+=09=09if (gfs2_rbm_from_block(&last_rbm, last_block))
-+=09=09=09return;
-+=09=09start =3D rbm_bi(&rs->rs_rbm);
-+=09=09last =3D rbm_bi(&last_rbm);
-+=09=09do
-+=09=09=09clear_bit(GBF_FULL, &start->bi_flags);
-+=09=09while (start++ !=3D last);
- =09}
+ =09spin_lock(&ls->ls_recover_lock);
+=20
+@@ -712,8 +712,9 @@ int dlm_ls_start(struct dlm_ls *ls)
+ =09return 0;
+=20
+  fail:
+-=09kfree(rv);
+ =09kfree(nodes);
++ fail_rv:
++=09kfree(rv);
+ =09return error;
  }
 =20
 --=20
