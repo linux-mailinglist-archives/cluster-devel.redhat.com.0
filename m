@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 15F16107BB0
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 0F008107BAF
 	for <lists+cluster-devel@lfdr.de>; Sat, 23 Nov 2019 00:53:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1574466833;
@@ -12,39 +12,39 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rvAGjXKzggaIcjor/eU/2AoEyqgwEZJGtnOKutcJ+6k=;
-	b=TRsGIiwvNFWPXPBzTGD++lQSuUd+kC94rcGJAnY+XfawOZ3D+iJ5Wovk1N38j19vygzQlY
-	T0Rv9+0vqzDYjq2DGO8hLFEwz7kOOrN0UygjD6tuZjjMF2p1sHOdk0GmR4TTrzUGgpXrKr
-	YnMRwImq6PH/tnVgeOJUstlMogjr/I8=
+	bh=CQZMohj51Rvu4NKQeTHUm4c49yOWaO0z0fTazdBpmzU=;
+	b=AAemI4iS/kWbW/a+TDj4k8NMzyQ5VelmrZzE2wd6rEJqkcaYGMJ7+OMmDpt6isJ9McBXer
+	cPjkFqXjDGNHubXcpmlmxSdgE12XX9fTyRRuVufFWbxptHT1HbLnj46beVjITx+epcOlaZ
+	Ehw4M3oUHA6ZWrEGbSFqLjfzUk9OmGg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-368-D8VdH4x1OEO8FKf8FPRjBg-1; Fri, 22 Nov 2019 18:53:52 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-214-6EpRd2sWONOCxHmE1bvCqg-1; Fri, 22 Nov 2019 18:53:52 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5FE5E184B818;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DBA55107ACE8;
 	Fri, 22 Nov 2019 23:53:49 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 54F8D5D6A0;
-	Fri, 22 Nov 2019 23:53:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7C895C1B5;
+	Fri, 22 Nov 2019 23:53:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7CFDE4A460;
-	Fri, 22 Nov 2019 23:53:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B17074BB65;
+	Fri, 22 Nov 2019 23:53:48 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAMNrcfZ000787 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Nov 2019 18:53:38 -0500
+	id xAMNrgun000797 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 22 Nov 2019 18:53:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 70E035C1B5; Fri, 22 Nov 2019 23:53:38 +0000 (UTC)
+	id 8D83D5C1C3; Fri, 22 Nov 2019 23:53:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.com (ovpn-204-21.brq.redhat.com [10.40.204.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E21FE5C1BB;
-	Fri, 22 Nov 2019 23:53:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CC6135C1B5;
+	Fri, 22 Nov 2019 23:53:38 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 23 Nov 2019 00:53:22 +0100
-Message-Id: <20191122235324.17245-2-agruenba@redhat.com>
+Date: Sat, 23 Nov 2019 00:53:23 +0100
+Message-Id: <20191122235324.17245-3-agruenba@redhat.com>
 In-Reply-To: <20191122235324.17245-1-agruenba@redhat.com>
 References: <20191122235324.17245-1-agruenba@redhat.com>
 MIME-Version: 1.0
@@ -58,8 +58,8 @@ Cc: Steve French <sfrench@samba.org>,
 	Johannes Weiner <hannes@cmpxchg.org>, linux-fsdevel@vger.kernel.org,
 	"Kirill A. Shutemov" <kirill@shutemov.name>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [Cluster-devel] [RFC PATCH 1/3] fs: Add IOCB_CACHED flag for
-	generic_file_read_iter
+Subject: [Cluster-devel] [RFC PATCH 2/3] fs: Add FAULT_FLAG_CACHED flag for
+	filemap_fault
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,105 +73,154 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: D8VdH4x1OEO8FKf8FPRjBg-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: 6EpRd2sWONOCxHmE1bvCqg-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Add an IOCB_CACHED flag which indicates to generic_file_read_iter that
-it should only look at the page cache, without triggering any filesystem
-I/O for the actual request or for readahead.  When filesystem I/O would
-be triggered, an error code should be returned instead.
+Add a FAULT_FLAG_CACHED flag which indicates to filemap_fault that it
+should only look at the page cache, without triggering filesystem I/O
+for the actual request or for readahead.  When filesystem I/O would be
+triggered, VM_FAULT_RETRY should be returned instead.
 
-This allows the caller to perform a tentative read out of the page
-cache, and to retry the read after taking the necessary steps when the
-requested pages are not cached.
-
-When readahead would be triggered, we return -ECANCELED instead of
--EAGAIN.  This allows to distinguish attempted readheads from attempted
-reads (with IOCB_NOWAIT).
+This allows the caller to tentatively satisfy a minor page fault out of
+the page cache, and to retry the operation after taking the necessary
+steps when that isn't possible.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- include/linux/fs.h |  1 +
- mm/filemap.c       | 17 ++++++++++++++---
- 2 files changed, 15 insertions(+), 3 deletions(-)
+ include/linux/mm.h |  4 +++-
+ mm/filemap.c       | 43 ++++++++++++++++++++++++++++++-------------
+ 2 files changed, 33 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index e0d909d35763..4ca5e2885452 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -314,6 +314,7 @@ enum rw_hint {
- #define IOCB_SYNC=09=09(1 << 5)
- #define IOCB_WRITE=09=09(1 << 6)
- #define IOCB_NOWAIT=09=09(1 << 7)
-+#define IOCB_CACHED=09=09(1 << 8)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index a2adf95b3f9c..b3317e4b2607 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -392,6 +392,7 @@ extern pgprot_t protection_map[16];
+ #define FAULT_FLAG_USER=09=090x40=09/* The fault originated in userspace *=
+/
+ #define FAULT_FLAG_REMOTE=090x80=09/* faulting for non current tsk/mm */
+ #define FAULT_FLAG_INSTRUCTION  0x100=09/* The fault was during an instruc=
+tion fetch */
++#define FAULT_FLAG_CACHED=09=090x200=09/* Only look at the page cache */
 =20
- struct kiocb {
- =09struct file=09=09*ki_filp;
+ #define FAULT_FLAG_TRACE \
+ =09{ FAULT_FLAG_WRITE,=09=09"WRITE" }, \
+@@ -402,7 +403,8 @@ extern pgprot_t protection_map[16];
+ =09{ FAULT_FLAG_TRIED,=09=09"TRIED" }, \
+ =09{ FAULT_FLAG_USER,=09=09"USER" }, \
+ =09{ FAULT_FLAG_REMOTE,=09=09"REMOTE" }, \
+-=09{ FAULT_FLAG_INSTRUCTION,=09"INSTRUCTION" }
++=09{ FAULT_FLAG_INSTRUCTION,=09"INSTRUCTION" }, \
++=09{ FAULT_FLAG_CACHED,=09=09"CACHED" }
+=20
+ /*
+  * vm_fault is filled by the the pagefault handler and passed to the vma's
 diff --git a/mm/filemap.c b/mm/filemap.c
-index 85b7d087eb45..024ff0b5fcb6 100644
+index 024ff0b5fcb6..2297fad3b03a 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -2046,7 +2046,7 @@ static ssize_t generic_file_buffered_read(struct kioc=
-b *iocb,
+@@ -2383,7 +2383,7 @@ static int lock_page_maybe_drop_mmap(struct vm_fault =
+*vmf, struct page *page,
+ =09 * the mmap_sem still held. That's how FAULT_FLAG_RETRY_NOWAIT
+ =09 * is supposed to work. We have way too many special cases..
+ =09 */
+-=09if (vmf->flags & FAULT_FLAG_RETRY_NOWAIT)
++=09if (vmf->flags & (FAULT_FLAG_RETRY_NOWAIT | FAULT_FLAG_CACHED))
+ =09=09return 0;
 =20
- =09=09page =3D find_get_page(mapping, index);
- =09=09if (!page) {
--=09=09=09if (iocb->ki_flags & IOCB_NOWAIT)
-+=09=09=09if (iocb->ki_flags & (IOCB_NOWAIT | IOCB_CACHED))
- =09=09=09=09goto would_block;
- =09=09=09page_cache_sync_readahead(mapping,
- =09=09=09=09=09ra, filp,
-@@ -2056,12 +2056,16 @@ static ssize_t generic_file_buffered_read(struct ki=
-ocb *iocb,
- =09=09=09=09goto no_cached_page;
- =09=09}
- =09=09if (PageReadahead(page)) {
-+=09=09=09if (iocb->ki_flags & IOCB_CACHED) {
-+=09=09=09=09error =3D -ECANCELED;
-+=09=09=09=09goto out;
-+=09=09=09}
- =09=09=09page_cache_async_readahead(mapping,
- =09=09=09=09=09ra, filp, page,
- =09=09=09=09=09index, last_index - index);
- =09=09}
- =09=09if (!PageUptodate(page)) {
--=09=09=09if (iocb->ki_flags & IOCB_NOWAIT) {
-+=09=09=09if (iocb->ki_flags & (IOCB_NOWAIT | IOCB_CACHED)) {
- =09=09=09=09put_page(page);
- =09=09=09=09goto would_block;
- =09=09=09}
-@@ -2266,6 +2270,13 @@ static ssize_t generic_file_buffered_read(struct kio=
-cb *iocb,
+ =09*fpin =3D maybe_unlock_mmap_for_io(vmf, *fpin);
+@@ -2460,26 +2460,28 @@ static struct file *do_sync_mmap_readahead(struct v=
+m_fault *vmf)
+  * so we want to possibly extend the readahead further.  We return the fil=
+e that
+  * was pinned if we have to drop the mmap_sem in order to do IO.
+  */
+-static struct file *do_async_mmap_readahead(struct vm_fault *vmf,
+-=09=09=09=09=09    struct page *page)
++static vm_fault_t do_async_mmap_readahead(struct vm_fault *vmf,
++=09=09=09=09=09  struct page *page,
++=09=09=09=09=09  struct file **fpin)
+ {
+ =09struct file *file =3D vmf->vma->vm_file;
+ =09struct file_ra_state *ra =3D &file->f_ra;
+ =09struct address_space *mapping =3D file->f_mapping;
+-=09struct file *fpin =3D NULL;
+ =09pgoff_t offset =3D vmf->pgoff;
+=20
+ =09/* If we don't want any read-ahead, don't bother */
+ =09if (vmf->vma->vm_flags & VM_RAND_READ)
+-=09=09return fpin;
++=09=09return 0;
+ =09if (ra->mmap_miss > 0)
+ =09=09ra->mmap_miss--;
+ =09if (PageReadahead(page)) {
+-=09=09fpin =3D maybe_unlock_mmap_for_io(vmf, fpin);
++=09=09if (vmf->flags & FAULT_FLAG_CACHED)
++=09=09=09return VM_FAULT_RETRY;
++=09=09*fpin =3D maybe_unlock_mmap_for_io(vmf, *fpin);
+ =09=09page_cache_async_readahead(mapping, ra, file,
+ =09=09=09=09=09   page, offset, ra->ra_pages);
+ =09}
+-=09return fpin;
++=09return 0;
+ }
+=20
+ /**
+@@ -2495,8 +2497,11 @@ static struct file *do_async_mmap_readahead(struct v=
+m_fault *vmf,
   *
-  * This is the "read_iter()" routine for all filesystems
-  * that can use the page cache directly.
-+ *
-+ * In the IOCB_NOWAIT flag in iocb->ki_flags indicates that -EAGAIN should=
- be
-+ * returned if completing the request would require I/O; this does not pre=
-vent
-+ * readahead.  The IOCB_CACHED flag indicates that -EAGAIN should be retur=
-ned
-+ * as under the IOCB_NOWAIT flag, and that -ECANCELED should be returned w=
-hen
-+ * readhead would be triggered.
-+ *
-  * Return:
-  * * number of bytes copied, even for partial reads
-  * * negative error code if nothing was read
-@@ -2286,7 +2297,7 @@ generic_file_read_iter(struct kiocb *iocb, struct iov=
-_iter *iter)
- =09=09loff_t size;
+  * vma->vm_mm->mmap_sem must be held on entry.
+  *
+- * If our return value has VM_FAULT_RETRY set, it's because the mmap_sem
+- * may be dropped before doing I/O or by lock_page_maybe_drop_mmap().
++ * This function may drop the mmap_sem before doing I/O or waiting for a p=
+age
++ * lock; this is indicated by the VM_FAULT_RETRY flag in our return value.
++ * Setting FAULT_FLAG_CACHED or FAULT_FLAG_RETRY_NOWAIT in vmf->flags will
++ * prevent dropping the mmap_sem; in that case, VM_FAULT_RETRY indicates t=
+hat
++ * the mmap_sem would have been dropped.
+  *
+  * If our return value does not have VM_FAULT_RETRY set, the mmap_sem
+  * has not been released.
+@@ -2518,9 +2523,15 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+ =09struct page *page;
+ =09vm_fault_t ret =3D 0;
 =20
- =09=09size =3D i_size_read(inode);
--=09=09if (iocb->ki_flags & IOCB_NOWAIT) {
-+=09=09if (iocb->ki_flags & (IOCB_NOWAIT | IOCB_CACHED)) {
- =09=09=09if (filemap_range_has_page(mapping, iocb->ki_pos,
- =09=09=09=09=09=09   iocb->ki_pos + count - 1))
- =09=09=09=09return -EAGAIN;
+-=09max_off =3D DIV_ROUND_UP(i_size_read(inode), PAGE_SIZE);
+-=09if (unlikely(offset >=3D max_off))
+-=09=09return VM_FAULT_SIGBUS;
++=09/*
++=09 * FAULT_FLAG_CACHED indicates that the inode size is only guaranteed
++=09 * to be valid when the page we are looking for is in the page cache.
++=09 */
++=09if (!(vmf->flags & FAULT_FLAG_CACHED)) {
++=09=09max_off =3D DIV_ROUND_UP(i_size_read(inode), PAGE_SIZE);
++=09=09if (unlikely(offset >=3D max_off))
++=09=09=09return VM_FAULT_SIGBUS;
++=09}
+=20
+ =09/*
+ =09 * Do we have something in the page cache already?
+@@ -2531,8 +2542,14 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+ =09=09 * We found the page, so try async readahead before
+ =09=09 * waiting for the lock.
+ =09=09 */
+-=09=09fpin =3D do_async_mmap_readahead(vmf, page);
++=09=09ret =3D do_async_mmap_readahead(vmf, page, &fpin);
++=09=09if (ret) {
++=09=09=09put_page(page);
++=09=09=09return ret;
++=09=09}
+ =09} else if (!page) {
++=09=09if (vmf->flags & FAULT_FLAG_CACHED)
++=09=09=09goto out_retry;
+ =09=09/* No page in the page cache at all */
+ =09=09count_vm_event(PGMAJFAULT);
+ =09=09count_memcg_event_mm(vmf->vma->vm_mm, PGMAJFAULT);
 --=20
 2.20.1
 
