@@ -1,107 +1,105 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BB7D107BCA
-	for <lists+cluster-devel@lfdr.de>; Sat, 23 Nov 2019 00:59:45 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 3583C108A9D
+	for <lists+cluster-devel@lfdr.de>; Mon, 25 Nov 2019 10:16:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1574467184;
+	s=mimecast20190719; t=1574673380;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Lam5BBJ61QSb5bECRSmeboumzBcqTmEiCXsrKxxf7NM=;
-	b=eahQbZgPWX0kBTkDJHW+Dw8CjFqr7ej7/lcFct4s+amIa61a0g7JwmrAixv2baTMPo/wx4
-	4mv5ahz+wK0u5Xs1nWZureaEVmyAfARjEkDzOMJ++AZ5Yk5KJcclodAYcQVF5JrJc8tpNL
-	MXdf3/Q0K6WLarhoSVSo9uN1fiiZTkU=
+	bh=vQpBxa+sbwDhmpEbL2gQL/bvQxnet+rjf5pFA9CqWG4=;
+	b=WFhQ5K8K1sNQ5B3VhP6pOv02EJt2W6KRL3uvrASWMdSkt9taU3BEOUSsrAGLA7qaazCHYd
+	ux9AndYlEYZm0V3KotRVdxMgHJWQZCYvmq8JlGuS+CM6K/Nyqqto7fnM6bwNKy2Q3gh4GW
+	g16zvplW8+rrcZqleT+WGU+ddu3PUaA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-332-A9K_yS4NO_20PIc8XpyQXA-1; Fri, 22 Nov 2019 18:59:43 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-384-UdvrCn4YPsSQyITWRMy6Gg-1; Mon, 25 Nov 2019 04:16:18 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AECFE107ACE5;
-	Fri, 22 Nov 2019 23:59:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2748F5C1B5;
-	Fri, 22 Nov 2019 23:59:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 50CC918B5FBB;
+	Mon, 25 Nov 2019 09:16:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4632F19C69;
+	Mon, 25 Nov 2019 09:16:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8C1034BB65;
-	Fri, 22 Nov 2019 23:59:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A1A7218089CE;
+	Mon, 25 Nov 2019 09:16:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAMNxaXG000894 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Nov 2019 18:59:36 -0500
+	id xAP9F9Lc008482 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 25 Nov 2019 04:15:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A21592157F47; Fri, 22 Nov 2019 23:59:36 +0000 (UTC)
+	id 3283D10DCF4C; Mon, 25 Nov 2019 09:15:09 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DEFC2157F3E
-	for <cluster-devel@redhat.com>; Fri, 22 Nov 2019 23:59:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E1F710E60F3
+	for <cluster-devel@redhat.com>; Mon, 25 Nov 2019 09:15:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83D931804436
-	for <cluster-devel@redhat.com>; Fri, 22 Nov 2019 23:59:34 +0000 (UTC)
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
-	[209.85.166.66]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-375-j7wZ03l1ORyERxO3pxyhdw-1; Fri, 22 Nov 2019 18:59:30 -0500
-Received: by mail-io1-f66.google.com with SMTP id s3so10146678ioe.3;
-	Fri, 22 Nov 2019 15:59:30 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B8E6905B51
+	for <cluster-devel@redhat.com>; Mon, 25 Nov 2019 09:15:06 +0000 (UTC)
+Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
+	[209.85.208.194]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-11-vqucPw2DP_WKEosjtounCQ-1; Mon, 25 Nov 2019 04:15:02 -0500
+Received: by mail-lj1-f194.google.com with SMTP id m4so14882708ljj.8
+	for <cluster-devel@redhat.com>; Mon, 25 Nov 2019 01:15:02 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=foB4NLZVZpZHpEP+Jauf8VZD20bjVJasgM3S94B+BBs=;
-	b=KI/DxSMCRjjQ5c2giYXVM2d1sEK50pv4ew7UHJQGPTfSXu1eKOUfxVWcayPgri23wE
-	s5yqBJHcvv3KjRlWKRFJFsq/MrHB2L4JHeKn8uLuvJDzk/EN5e7UqcD7hMJ/jVa5zGwy
-	L5KOCKUzW0Zxh3XllA/yvKk4oMUwR6sfGcFazJkUUhYKRZTcqkyqz91yYVgivgf8RMkJ
-	wDN+ya8leJLHTtv7xHdtud2D9xj/DjUFV3tGWc1Od88cdFZwx6iC9+WmhqP2NtD4uej4
-	F//aJfHg+eQ89v99rEdAwLshPTUhgwEQ4okSKeQGqsKP4qH4fZ1zSmPWpqwTo6jXeIg5
-	KjZQ==
-X-Gm-Message-State: APjAAAVQDRsDXek+eJlgoXSPpTgW9gvF0CTROFkqeXvF2lGeu0KlhyT9
-	QBaUD9ZpbDYdNPq6lnndlTGXYQw8MT7Wvx0Hc65SCo3yh04=
-X-Google-Smtp-Source: APXvYqxEYuoR4iMswSx1CzGapDzROgybF2PYu6v6V5p2Czm4oC+E00ZzOCe0P14r8QIPjTBrJxub730kaFAOaD4G31A=
-X-Received: by 2002:a6b:7e0b:: with SMTP id i11mr15044163iom.245.1574467169363;
-	Fri, 22 Nov 2019 15:59:29 -0800 (PST)
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to:user-agent;
+	bh=FcfAwDLFSNgmDLyFmP3mnRn5XPVP/dHuo5ueDN07hL8=;
+	b=LV6UDnM9j59wJSB6dQnlzBSykJcRWb6jznifrFf9RPuP7YI4o98zqOHKcs1AdvDwTR
+	PECy4CtxhDsgdtajdeApetAocoxNGPZBn/ObbUjemukH/mL07JLaTkPV7p/KGc6UlDih
+	S25twp1pSKpb+T6jvZHpiFrubd4DNxbX+zksTm/Fzd09M2QZ6eLE1OJMAFcQyL2RmxDY
+	IqSB6FCCodWZZFbHy5u6S2osrf6v/jxh3cny1HrN+yRU1/sTEAHArKV/vvkzK8Obt1HY
+	VXfS/qbin58GYYhMdJwIJOd5S9RuQRrUy8yzWxwgf4hs2PEZwObpMyR5THCmh5vTqzQe
+	YmhQ==
+X-Gm-Message-State: APjAAAVBosD4BUWQ0DM4JbsEh2+hAETStJ+DoPg+UV9LiNPL//eYuDpt
+	CnMKcKrQHlQ33j17YQUZUFYSJQ==
+X-Google-Smtp-Source: APXvYqx3omxBvBBPAeuC2qvJocDKxfyY/bfPA/SuPulk3OiGBBrujyPNMsYgSAQTEVKepMR1D/JfQg==
+X-Received: by 2002:a2e:9695:: with SMTP id q21mr20770656lji.206.1574673300853;
+	Mon, 25 Nov 2019 01:15:00 -0800 (PST)
+Received: from box.localdomain ([86.57.175.117])
+	by smtp.gmail.com with ESMTPSA id q21sm3267727lfo.4.2019.11.25.01.14.59
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Mon, 25 Nov 2019 01:14:59 -0800 (PST)
+Received: by box.localdomain (Postfix, from userid 1000)
+	id CA1C11032C4; Mon, 25 Nov 2019 12:15:08 +0300 (+03)
+Date: Mon, 25 Nov 2019 12:15:08 +0300
+From: "Kirill A. Shutemov" <kirill@shutemov.name>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <20191125091508.3265wtfzpoupv2lj@box>
+References: <20191122235324.17245-1-agruenba@redhat.com>
+	<20191122235324.17245-4-agruenba@redhat.com>
 MIME-Version: 1.0
-References: <157225677483.3442.4227193290486305330.stgit@buzz>
-	<20191028124222.ld6u3dhhujfqcn7w@box>
-	<CAHk-=wgQ-Dcs2keNJPovTb4gG33M81yANH6KZM9d5NLUb-cJ1g@mail.gmail.com>
-	<20191028125702.xdfbs7rqhm3wer5t@box>
-	<ac83fee6-9bcd-8c66-3596-2c0fbe6bcf96@yandex-team.ru>
-	<CAHk-=who0HS=NT8U7vFDT7er_CD7+ZreRJMxjYrRXs5G6dbpyw@mail.gmail.com>
-	<f0140b13-cca2-af9e-eb4b-82eda134eb8f@redhat.com>
-	<CAHk-=wh4SKRxKQf5LawRMSijtjRVQevaFioBK+tOZAVPt7ek0Q@mail.gmail.com>
-	<640bbe51-706b-8d9f-4abc-5f184de6a701@redhat.com>
-In-Reply-To: <640bbe51-706b-8d9f-4abc-5f184de6a701@redhat.com>
-From: =?UTF-8?Q?Andreas_Gr=C3=BCnbacher?= <andreas.gruenbacher@gmail.com>
-Date: Sat, 23 Nov 2019 00:59:18 +0100
-Message-ID: <CAHpGcM+o2OwXdrj+A2_OqRg6YokfauFNiBJF-BQp0dJFvq_BrQ@mail.gmail.com>
-To: Steven Whitehouse <swhiteho@redhat.com>
-X-MC-Unique: j7wZ03l1ORyERxO3pxyhdw-1
-X-MC-Unique: A9K_yS4NO_20PIc8XpyQXA-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20191122235324.17245-4-agruenba@redhat.com>
+User-Agent: NeoMutt/20180716
+X-MC-Unique: vqucPw2DP_WKEosjtounCQ-1
+X-MC-Unique: UdvrCn4YPsSQyITWRMy6Gg-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xAMNxaXG000894
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAP9F9Lc008482
 X-loop: cluster-devel@redhat.com
+X-Mailman-Approved-At: Mon, 25 Nov 2019 04:16:06 -0500
 Cc: Steve French <sfrench@samba.org>,
 	Konstantin Khlebnikov <khlebnikov@yandex-team.ru>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Ronnie Sahlberg <lsahlber@redhat.com>,
-	"cluster-devel@redhat.com" <cluster-devel@redhat.com>,
-	Linux-MM <linux-mm@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	"Kirill A. Shutemov" <kirill@shutemov.name>,
+	linux-kernel@vger.kernel.org,
+	Ronnie Sahlberg <lsahlber@redhat.com>, cluster-devel@redhat.com,
+	linux-mm@kvack.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Johannes Weiner <hannes@cmpxchg.org>, linux-fsdevel@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Cluster-devel] [PATCH] mm/filemap: do not allocate cache pages
- beyond end of file at read
+Subject: Re: [Cluster-devel] [RFC PATCH 3/3] gfs2: Rework read and page
+	fault locking
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -115,26 +113,26 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-Hi,
+On Sat, Nov 23, 2019 at 12:53:24AM +0100, Andreas Gruenbacher wrote:
+> @@ -778,15 +804,51 @@ static ssize_t gfs2_file_direct_write(struct kiocb =
+*iocb, struct iov_iter *from)
+> =20
+>  static ssize_t gfs2_file_read_iter(struct kiocb *iocb, struct iov_iter *=
+to)
+>  {
+> +=09struct gfs2_inode *ip;
+> +=09struct gfs2_holder gh;
+> +=09size_t written =3D 0;
 
-Am Do., 31. Okt. 2019 um 12:43 Uhr schrieb Steven Whitehouse
-<swhiteho@redhat.com>:
-> Andreas, Bob, have I missed anything here?
+'written' in a read routine?
 
-I've looked into this a bit, and it seems that there's a reasonable
-way to get rid of the lock taking in ->readpage and ->readpages
-without a lot of code duplication. My proposal for that consists of
-multiple patches, so I've posted it separately:
-
-https://lore.kernel.org/linux-fsdevel/20191122235324.17245-1-agruenba@redha=
-t.com/T/#t
-
-Thanks,
-Andreas
+--=20
+ Kirill A. Shutemov
 
 
