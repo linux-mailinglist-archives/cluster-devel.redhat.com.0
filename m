@@ -1,79 +1,81 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 9AFFE115804
-	for <lists+cluster-devel@lfdr.de>; Fri,  6 Dec 2019 20:55:28 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 3736D116015
+	for <lists+cluster-devel@lfdr.de>; Sun,  8 Dec 2019 02:10:35 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1575662126;
+	s=mimecast20190719; t=1575767433;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 message-id:message-id:to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xh+vWtRw+W1cOBgis8fGEJL3565tzGE6grK33xAGH2s=;
-	b=fpXpqoz2dPCE1uZ2COgWrdL7ntz4+H34Afq6At3XWBwKoHHcNqGAfPrPGHGgYA4u0FnjDh
-	7E4GQF6W1yTMnFFQwInRIZ5KWyAkLB9WT54o57UiCw5700xsadsZzozNpZjln/RBWUghr7
-	huZr+4VNzJJ6rMxn4LFN+V6qOh+dw/U=
+	bh=Vtg9x9KbKblM/BgJ3ENlRCP/huf5j9grLImUpMSmBw8=;
+	b=G705SIFjgloMng4gQ5GRMC1QI6qDidm8vDIrB32CvW5kekriEnZoLrZZcU6RPitaM6YEkm
+	P1CyV/YXMKl+Dwm5xAww8cNFHu/B4nvzOukn39/doYEreN4zOBhiyPB9Q+m11oVRpzeArB
+	4tUPPASFaCKjtK19d/ivZZ43BgqrkSs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-124-8wBcoe1UOdSPe8DG5uwHhQ-1; Fri, 06 Dec 2019 14:55:22 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-402-vSQqJAZyObC68dL7ZMYkyg-1; Sat, 07 Dec 2019 20:10:31 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 38B338024F1;
-	Fri,  6 Dec 2019 19:55:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76AA4183B703;
+	Sun,  8 Dec 2019 01:10:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A3E26B8FB;
-	Fri,  6 Dec 2019 19:55:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 256B060BF4;
+	Sun,  8 Dec 2019 01:10:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7CBA918089CD;
-	Fri,  6 Dec 2019 19:55:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B049E18089C8;
+	Sun,  8 Dec 2019 01:10:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xB6Jt4Gn009127 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Dec 2019 14:55:04 -0500
+	id xB81AGb8025604 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 7 Dec 2019 20:10:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 374362166B2D; Fri,  6 Dec 2019 19:55:04 +0000 (UTC)
+	id 8D58010AF410; Sun,  8 Dec 2019 01:10:16 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 330D02166B2E
-	for <cluster-devel@redhat.com>; Fri,  6 Dec 2019 19:55:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 887F710AF408
+	for <cluster-devel@redhat.com>; Sun,  8 Dec 2019 01:10:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22A11803B4C
-	for <cluster-devel@redhat.com>; Fri,  6 Dec 2019 19:55:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43D0B867472
+	for <cluster-devel@redhat.com>; Sun,  8 Dec 2019 01:10:14 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-203-TGbvnybbNzqt0WzLWM-_1w-1;
-	Fri, 06 Dec 2019 14:54:58 -0500
-Received: from localhost (c-67-169-218-210.hsd1.or.comcast.net
-	[67.169.218.210])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 9FE602464E;
-	Fri,  6 Dec 2019 19:54:56 +0000 (UTC)
-Date: Fri, 6 Dec 2019 11:54:56 -0800
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20191206195456.GB9464@magnolia>
-MIME-Version: 1.0
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-MC-Unique: TGbvnybbNzqt0WzLWM-_1w-1
-X-MC-Unique: 8wBcoe1UOdSPe8DG5uwHhQ-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+	by relay.mimecast.com with ESMTP id us-mta-48-vo3turuEPhmmtQO2awPDFQ-1; 
+	Sat, 07 Dec 2019 20:10:10 -0500
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20191206195456.GB9464@magnolia>
+References: <20191206195456.GB9464@magnolia>
+X-PR-Tracked-List-Id: <linux-fsdevel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20191206195456.GB9464@magnolia>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git
+	tags/iomap-5.5-merge-14
+X-PR-Tracked-Commit-Id: c275779ff2dd51c96eaae04fac5d766421d6c596
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 95207d554b968a552cc93a834af6c1ec295ebaba
+Message-Id: <157576740828.7292.11243463351730365173.pr-tracker-bot@kernel.org>
+Date: Sun, 08 Dec 2019 01:10:08 +0000
+To: "Darrick J. Wong" <djwong@kernel.org>
+X-MC-Unique: vo3turuEPhmmtQO2awPDFQ-1
+X-MC-Unique: vSQqJAZyObC68dL7ZMYkyg-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xB6Jt4Gn009127
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xB81AGb8025604
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, david@fromorbit.com,
+Cc: cluster-devel@redhat.com, sandeen@sandeen.net,
 	Theodore Ts'o <tytso@mit.edu>,
-	"Darrick J. Wong" <djwong@kernel.org>, sandeen@sandeen.net,
+	"Darrick J. Wong" <djwong@kernel.org>, david@fromorbit.com,
 	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-ext4 <linux-ext4@vger.kernel.org>, hch@lst.de
-Subject: [Cluster-devel] [GIT PULL] iomap: fixes for 5.5
+	linux-fsdevel@vger.kernel.org, linux-ext4 <linux-ext4@vger.kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>, hch@lst.de
+Subject: Re: [Cluster-devel] [GIT PULL] iomap: fixes for 5.5
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,51 +89,22 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Mimecast-Spam-Score: 0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Mimecast-Spam-Score: 2
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
 
-Hi Linus,
+The pull request you sent on Fri, 6 Dec 2019 11:54:56 -0800:
 
-Please pull these iomap bug fixes for 5.5-rc1, which fix a race
-condition and a use-after-free error.
+> git://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git tags/iomap-5.5-merge-14
 
-The branch has survived overnight xfstests runs and merges cleanly with
-this morning's master.  Please let me know if anything strange happens.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/95207d554b968a552cc93a834af6c1ec295ebaba
 
---D
+Thank you!
 
-The following changes since commit 88cfd30e188fcf6fd8304586c936a6f22fb665e5=
-:
-
-  iomap: remove unneeded variable in iomap_dio_rw() (2019-11-26 09:28:47 -0=
-800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git tags/iomap-5.5-merge-14
-
-for you to fetch changes up to c275779ff2dd51c96eaae04fac5d766421d6c596:
-
-  iomap: stop using ioend after it's been freed in iomap_finish_ioend() (20=
-19-12-05 07:41:16 -0800)
-
-----------------------------------------------------------------
-Fixes for 5.5-rc1:
-- Fix a UAF when reporting writeback errors
-- Fix a race condition when handling page uptodate on a blocksize <
-  pagesize file that is also fragmented
-
-----------------------------------------------------------------
-Christoph Hellwig (1):
-      iomap: fix sub-page uptodate handling
-
-Zorro Lang (1):
-      iomap: stop using ioend after it's been freed in iomap_finish_ioend()
-
- fs/iomap/buffered-io.c | 40 ++++++++++++++++++++++++++++------------
- 1 file changed, 28 insertions(+), 12 deletions(-)
+--=20
+Deet-doot-dot, I am a bot.
+https://korg.wiki.kernel.org/userdoc/prtracker
 
 
