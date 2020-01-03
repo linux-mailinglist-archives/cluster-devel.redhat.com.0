@@ -1,96 +1,54 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E98611FAD7
-	for <lists+cluster-devel@lfdr.de>; Sun, 15 Dec 2019 20:51:05 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id C179812F9D6
+	for <lists+cluster-devel@lfdr.de>; Fri,  3 Jan 2020 16:31:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1576439464;
+	s=mimecast20190719; t=1578065500;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6tVaOgyXatmQH26p7/caUrdng9JSMRx7S2qrCQnm7LY=;
-	b=SGc+3lL8GpDHzKGNIZ/RvueAYJ48iqv7VZi3nayUKSOMLW+YdZ4TH5QepK0XTb/O909vMl
-	v4m7yn+VyYcX3T/ZYjp/tMM0oddjT8ULGHJfn5mJNViTOmCOnxlb7xG2sAyysk1yOQF/SL
-	Z7NRdyWr6oihE+8s5FFOP6SA+DadTNQ=
+	bh=xpkl2ZGSi8nukNOYLuYiqEwmVBufwzpH986sDkTEUWA=;
+	b=TxFTLsUgLJ7joGBVRJaan1+kafE9K+VuDhnpkDjzHJfjyi9BbRsSqPWUAJGmoSsePqhfoX
+	RxxnxOtVpnftroNjuy3bpJVk80NjV1oBtTDhHFLiCutOxqsYcLUFlPOew5O/48aao9o686
+	Xqoi54jBa7yBcGRYiMnldRY/OWXS8q4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-373-fTSmWYNnNsmagoEEeWbrcg-1; Sun, 15 Dec 2019 14:51:02 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-192-TJR9C1GxMVKU0Owme5yQ9Q-1; Fri, 03 Jan 2020 10:31:38 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7EAF3800D48;
-	Sun, 15 Dec 2019 19:50:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D5F6A4B8F;
-	Sun, 15 Dec 2019 19:50:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA768800C7F;
+	Fri,  3 Jan 2020 15:31:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BE8860E3E;
+	Fri,  3 Jan 2020 15:31:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6BB7118089CD;
-	Sun, 15 Dec 2019 19:50:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 38C0E820E9;
+	Fri,  3 Jan 2020 15:31:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xBFJoiOa005687 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sun, 15 Dec 2019 14:50:44 -0500
+	id 003FVQ99016168 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Jan 2020 10:31:26 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 99EBD2038B80; Sun, 15 Dec 2019 19:50:44 +0000 (UTC)
+	id 78CF17942E; Fri,  3 Jan 2020 15:31:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 94E892026D68
-	for <cluster-devel@redhat.com>; Sun, 15 Dec 2019 19:50:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33F718E5C6A
-	for <cluster-devel@redhat.com>; Sun, 15 Dec 2019 19:50:42 +0000 (UTC)
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
-	[209.85.167.198]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-163-X2f1IDnhNvKmxICXf2vlBg-1; Sun, 15 Dec 2019 14:50:40 -0500
-Received: by mail-oi1-f198.google.com with SMTP id c8so4703519oif.22
-	for <cluster-devel@redhat.com>; Sun, 15 Dec 2019 11:50:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=6tVaOgyXatmQH26p7/caUrdng9JSMRx7S2qrCQnm7LY=;
-	b=XjiNq2/NfYeKq+3tk9rm0moaxvoH9JZdf387XCbMaI9LqF+PxL4fAK29UoaPXOjMb0
-	kZyLSxlZsldHGIzbGMLmMKyXhAI7m1A+1N8Sg83wpjs3Mu7oCQjX1+J9pbIYpU4+nIHB
-	uUwSvYUl4/cEUC1m82aS49mY5jFUA9Nh4N4/nny3LdCBPo0pZ6PgQvrN3SzZxASL3tkM
-	hi3auoLHzb0got7FRG+zVBeJoXcussw16VB+psvk70WDj9QbC6N529X52BIIPfrZDxLd
-	GUY8fLFdn8sUvKAOwXXqRixPEhB381yAoOdmOk1ZwNd4V4oxllNI6gTHWc3q65jrI83Z
-	u1iQ==
-X-Gm-Message-State: APjAAAWnVMhYl0nyiAlx1xAZYT7JeidPwxqpDdh8R89ONa5OSJ7CCdil
-	ee6FAox75LKhiBCzn6mzrcAg5Vp5H0twowCb0U/UOvXUAp/pVQoARsQ2jPfmfkgTgaWrFqnW3xY
-	ULUVdLakW6sg++QF5j1E/EkQ8czPxo/QR0x2Mzg==
-X-Received: by 2002:a05:6830:1707:: with SMTP id
-	7mr28936244otk.185.1576439439637; 
-	Sun, 15 Dec 2019 11:50:39 -0800 (PST)
-X-Google-Smtp-Source: APXvYqy8azUFsS0YiLJx5qdyennHbE2ZU2iqv+ztns6y8ioGhrrofGwHueFOtN7YNmlzbK8vpsYZm2HnSq+RUteKGSk=
-X-Received: by 2002:a05:6830:1707:: with SMTP id
-	7mr28936223otk.185.1576439439504; 
-	Sun, 15 Dec 2019 11:50:39 -0800 (PST)
+Received: from vishnu.redhat.com (ovpn-116-64.phx2.redhat.com [10.3.116.64])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 22C9E63BCA
+	for <cluster-devel@redhat.com>; Fri,  3 Jan 2020 15:31:23 +0000 (UTC)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Date: Fri,  3 Jan 2020 09:31:17 -0600
+Message-Id: <20200103153123.402971-1-rpeterso@redhat.com>
 MIME-Version: 1.0
-References: <20191215164621.25828-1-pakki001@umn.edu>
-In-Reply-To: <20191215164621.25828-1-pakki001@umn.edu>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Sun, 15 Dec 2019 20:50:28 +0100
-Message-ID: <CAHc6FU6rduNDcS7Y6UiWm6EuuwxnVd+75ydG1jW4rfE-kLn4Sw@mail.gmail.com>
-To: Aditya Pakki <pakki001@umn.edu>
-X-MC-Unique: X2f1IDnhNvKmxICXf2vlBg-1
-X-MC-Unique: fTSmWYNnNsmagoEEeWbrcg-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xBFJoiOa005687
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>, kjlu@umn.edu,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [Cluster-devel] [PATCH] gfs2: remove assertion when
-	journal_info is not empty
+Subject: [Cluster-devel] [GFS2 PATCH 0/6] gfs2: jdata transactions not
+	reserving enough revokes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,22 +62,58 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: TJR9C1GxMVKU0Owme5yQ9Q-1
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Hello Aditya,
+Before this patch set, several gfs2 functions failed to reserve enough
+revoke entries in the journal. Some examples:
 
-On Sun, Dec 15, 2019 at 5:46 PM Aditya Pakki <pakki001@umn.edu> wrote:
-> In gfs2_trans_begin, avoid crashing when current->journal_info
-> is not empty. The patch fixes  the error by returning -EINVAL
-> instead of crashing.
+1. gfs2_dinode_dealloc failed to reserve a revoke for the dinode
+   being deleted.
+2. Any function that allocates dinodes with gfs2_alloc_blocks
+   should reserve a revoke because alloc_blocks will premptively
+   call trans_remove_revoke to make sure there isn't a pending revoke
+   for the new dinode.
+3. Any function that potentially will unstuff a stuffed directory
+   needs to reserve a revoke because gfs2_unstuff_dinode calls
+   gfs2_trans_remove_revoke for the new journaled leaf block.
 
-can you please explain when that patch is needed? Do you have a test
-case to reproduce?
+In addition, function gfs2_trans_remove_revoke unconditionally
+decrements tr->tr_num_revoke, and if not enough revokes are reserved, the
+value goes from 0 to  4294967295 (-1, but it's an unsigned int). This is la=
+ter
+re-added to the system-wide revoke numbers, thereby decrementing the value
+(sd_log_commited_revoke) "properly," but by accident. This worked properly
+most of the time because one transaction would reserve space for revokes,
+then it would be merged with the system transaction (sdp->sd_log_tr) and it
+usually did not run out, because you can hold a lot of revoke entries
+per log descriptor block. Some of the code, such as gfs2_write_revokes, wou=
+ld
+work around this and somehow got it right most of the time. However, some
+jdata tests with xfstests generic/269 encountered problems when it actually
+ran out.
 
-Thanks,
-Andreas
+This series adds needed revoke entries to the transactions that
+need them. So now we try to do proper accounting of revokes.
 
+Bob Peterson (6):
+  gfs2: revoke cleanup: leaf_dealloc
+  gfs2: revoke cleanup: alloc_dinode and gfs2_create_inode
+  gfs2: revoke cleanup: gfs2_dinode_dealloc
+  gfs2: revoke cleanup: gfs2_iomap_begin_write
+  gfs2: revoke cleanup: truncate functions
+  gfs2: revoke cleanup: gfs2_trans_remove_revoke
+
+ fs/gfs2/bmap.c  | 25 +++++++++++++------------
+ fs/gfs2/dir.c   |  3 ++-
+ fs/gfs2/inode.c |  5 +++--
+ fs/gfs2/super.c |  2 +-
+ fs/gfs2/trans.c | 16 ++++++++++++++--
+ 5 files changed, 33 insertions(+), 18 deletions(-)
+
+--=20
+2.24.1
 
