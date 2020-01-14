@@ -1,68 +1,86 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id BB9FD13B26A
-	for <lists+cluster-devel@lfdr.de>; Tue, 14 Jan 2020 19:55:56 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 7A5B613B4C5
+	for <lists+cluster-devel@lfdr.de>; Tue, 14 Jan 2020 22:51:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579028155;
+	s=mimecast20190719; t=1579038681;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=YlzEXfZltTKB3uZX8XavI0Vlae70lrzbT/BY5BfXrLk=;
-	b=bYohEWxk+yjrbqsef7ycm2Li1SFu0t6DbZXW/eElTyAFkfjCdhv9VbDhp4kn/JLUuGc5hk
-	Vu1PFfolWLXVrNSzoPlnvSf4LWQF3cPeQLWwN1BQ1It/9roPUevbqnawHfmOpKyVw+KQA6
-	yyvTWTyPqymLdJLr6Y/yNXkkUkAvM7M=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=uk50vmK6VWirlJ4aDF1wQZ/1mOAwRyPkmW7mIiKK6f0=;
+	b=PYt0VGVFv1hmRzmxRC/cPq2A39dNhBUffL+Qb8hHWu38Kypg6aakkLUJMjKQPlOcLNTppt
+	tGiUSTL5flxtzMfzKeWgrdw1IH1Cg/sn/fiiasCiLDa+mzQJ/2sYgSaU7DCvkTY8ZHss1t
+	82SM3oVoWHzjA9YYCyaC48co5e0ltQk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-284-Ae4I2h8hPRyw2erpodsiYw-1; Tue, 14 Jan 2020 13:55:54 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-76-nf2VojQrNnObV8t9eFNHbw-1; Tue, 14 Jan 2020 16:51:20 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BF0E18A6EE2;
-	Tue, 14 Jan 2020 18:55:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3EF061005516;
+	Tue, 14 Jan 2020 21:51:16 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5D405C3F8;
-	Tue, 14 Jan 2020 18:55:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 40CD960BE2;
+	Tue, 14 Jan 2020 21:51:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A565F18089CD;
-	Tue, 14 Jan 2020 18:55:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D10DA1809567;
+	Tue, 14 Jan 2020 21:51:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00EItl83030682 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 14 Jan 2020 13:55:47 -0500
+	id 00ELp6P3008499 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 14 Jan 2020 16:51:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7D9165DA70; Tue, 14 Jan 2020 18:55:47 +0000 (UTC)
+	id DAC43C68F5; Tue, 14 Jan 2020 21:51:06 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from llong.remote.csb (ovpn-122-218.rdu2.redhat.com [10.10.122.218])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B79555DA32;
-	Tue, 14 Jan 2020 18:55:43 +0000 (UTC)
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D6B8A1C72F
+	for <cluster-devel@redhat.com>; Tue, 14 Jan 2020 21:51:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1BC19801E9B
+	for <cluster-devel@redhat.com>; Tue, 14 Jan 2020 21:51:05 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-325-w5DD-JVeNm-HKa0lf4Xkow-1; Tue, 14 Jan 2020 16:51:01 -0500
+Received: from callcc.thunk.org (guestnat-104-133-0-108.corp.google.com
+	[104.133.0.108] (may be forged)) (authenticated bits=0)
+	(User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 00ELoN8O028997
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Tue, 14 Jan 2020 16:50:24 -0500
+Received: by callcc.thunk.org (Postfix, from userid 15806)
+	id 5833A4207DF; Tue, 14 Jan 2020 16:50:23 -0500 (EST)
+Date: Tue, 14 Jan 2020 16:50:23 -0500
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
 To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20200114215023.GH140865@mit.edu>
 References: <20200114161225.309792-1-hch@lst.de>
-	<20200114161225.309792-3-hch@lst.de>
-	<925d1343-670e-8f92-0e73-6e9cee0d3ffb@redhat.com>
-	<20200114182514.GA9949@lst.de>
-From: Waiman Long <longman@redhat.com>
-Organization: Red Hat
-Message-ID: <8fae9cfa-93b0-4d54-6d16-35e920e25b6c@redhat.com>
-Date: Tue, 14 Jan 2020 13:55:44 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.2
+	<20200114161225.309792-9-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20200114182514.GA9949@lst.de>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+In-Reply-To: <20200114161225.309792-9-hch@lst.de>
+X-MC-Unique: w5DD-JVeNm-HKa0lf4Xkow-1
+X-MC-Unique: nf2VojQrNnObV8t9eFNHbw-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 00ELp6P3008499
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
 	linux-mm@kvack.org, Ingo Molnar <mingo@redhat.com>,
-	linux-fsdevel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, Waiman Long <longman@redhat.com>,
 	Thomas Gleixner <tglx@linutronix.de>, linux-ext4@vger.kernel.org,
 	Will Deacon <will@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [Cluster-devel] [PATCH 02/12] locking/rwsem: Exit early when
- held by an anonymous owner
+Subject: Re: [Cluster-devel] [PATCH 08/12] ext4: hold i_rwsem until AIO
+	completes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,76 +94,38 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: Ae4I2h8hPRyw2erpodsiYw-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
-Content-Type: multipart/mixed; boundary="------------6BEFFBDE05D958EEDA91B3B4"
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-This is a multi-part message in MIME format.
---------------6BEFFBDE05D958EEDA91B3B4
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+On Tue, Jan 14, 2020 at 05:12:21PM +0100, Christoph Hellwig wrote:
+> diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+> index 0e8708b77da6..b6aa2d249b30 100644
+> --- a/fs/ext4/extents.c
+> +++ b/fs/ext4/extents.c
+> @@ -4777,9 +4777,6 @@ static long ext4_zero_range(struct file *file, loff=
+_t offset,
+>  =09if (mode & FALLOC_FL_KEEP_SIZE)
+>  =09=09flags |=3D EXT4_GET_BLOCKS_KEEP_SIZE;
+> =20
+> -=09/* Wait all existing dio workers, newcomers will block on i_mutex */
+> -=09inode_dio_wait(inode);
+> -
+>  =09/* Preallocate the range including the unaligned edges */
+>  =09if (partial_begin || partial_end) {
+>  =09=09ret =3D ext4_alloc_file_blocks(file,
 
-On 1/14/20 1:25 PM, Christoph Hellwig wrote:
-> On Tue, Jan 14, 2020 at 01:17:45PM -0500, Waiman Long wrote:
->> The owner field is just a pointer to the task structure with the lower 3
->> bits served as flag bits. Setting owner to RWSEM_OWNER_UNKNOWN (-2) will
->> stop optimistic spinning. So under what condition did the crash happen?
-> When running xfstests with all patches in this series except for this
-> one, IIRC in generic/114.
+I note that you've dropped the inode_dio_wait() in ext4's ZERO_RANGE,
+COLLAPSE_RANGE, INSERT_RANGE, etc.  We had added these to avoid
+problems when various fallocate operations which modify the inode's
+logical->physical block mapping racing with direct I/O (both reads or
+writes).
 
-Could you try the attached patch to see if it can fix the problem?
+I don't see a replacement protection in this patch series.  How does
+are file systems supported to protect against such races?
 
-Thanks,
-Longman
+    =09 =09 =09      =09      =09      - Ted
 
-
---------------6BEFFBDE05D958EEDA91B3B4
-Content-Type: text/x-patch;
-	name="0001-locking-rwsem-Fix-kernel-crash-when-spinning-on-RWSE.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename*0="0001-locking-rwsem-Fix-kernel-crash-when-spinning-on-RWSE.pa";
-	filename*1="tch"
-
->From 1fcfa946609b5e919a6b953a64be6853af5cdf05 Mon Sep 17 00:00:00 2001
-From: Waiman Long <longman@redhat.com>
-Date: Tue, 14 Jan 2020 13:39:02 -0500
-Subject: [PATCH] locking/rwsem: Fix kernel crash when spinning on
- RWSEM_OWNER_UNKNOWN
-
-The commit 91d2a812dfb9 ("locking/rwsem: Make handoff writer
-optimistically spin on owner") will allow a recently woken up waiting
-writer to spin on the owner. Unfortunately, if the owner happens to be
-RWSEM_OWNER_UNKNOWN, the code will incorrectly spin on it leading to a
-kernel crash. This is fixed by passing the proper non-spinnable bits
-to rwsem_spin_on_owner() so that RWSEM_OWNER_UNKNOWN will be treated
-as a non-spinnable target.
-
-Fixes: 91d2a812dfb9 ("locking/rwsem: Make handoff writer optimistically spin on owner")
-
-Reported-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/locking/rwsem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
-index 44e68761f432..1dd3d53f43c3 100644
---- a/kernel/locking/rwsem.c
-+++ b/kernel/locking/rwsem.c
-@@ -1227,7 +1227,7 @@ rwsem_down_write_slowpath(struct rw_semaphore *sem, int state)
- 		 * without sleeping.
- 		 */
- 		if ((wstate == WRITER_HANDOFF) &&
--		    (rwsem_spin_on_owner(sem, 0) == OWNER_NULL))
-+		    rwsem_spin_on_owner(sem, RWSEM_NONSPINNABLE) == OWNER_NULL)
- 			goto trylock_again;
- 
- 		/* Block until there are no active lockers. */
--- 
-2.18.1
-
-
---------------6BEFFBDE05D958EEDA91B3B4--
 
