@@ -1,57 +1,78 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id B6EA713930D
-	for <lists+cluster-devel@lfdr.de>; Mon, 13 Jan 2020 15:04:36 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id A1B7213AFA8
+	for <lists+cluster-devel@lfdr.de>; Tue, 14 Jan 2020 17:40:59 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1578924275;
+	s=mimecast20190719; t=1579020058;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3HPCg40mRpwJ1cxR4+GJC0Kyf2pJ12fuRoInDH5DQok=;
-	b=UnXzN4f2eAb6jzKc+KSo3jDK+ZLt9lrZ0gRO4JOw8H46ZKho0b382tZ2CClM81uY9raVo/
-	bIVtJGhh0A+tVE5rm6vbpAtXOlXrdRch/dUdWDEOwcw0JXGSZbC/u1pq0dQi82v/jO+MVQ
-	SC7lO9v3xSSJBY6WMiQuF6bdDBWFUSE=
+	bh=3u2kUA6coBdN3dgWHg2Sb1VRgP/A+2k5escnkKqNrfs=;
+	b=fHhZB00Hnz5Px7Pcr7uQLnLI2gDkFSc90bdvm6W53lC8aP+R8AtBQs0rUveMw8tPo32VBC
+	hY/n6TDNQIdw3rnncQrqvK7vTsYlVOmUV1ghGdFyu/gMTQej2vC4vDchorqyUibf7fCB2s
+	Q/vQ4TBV4KBI2IrzCKovSz7b0uEIJ/I=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-55-qM0yQ7eqMhaXh4L4rtb7JA-1; Mon, 13 Jan 2020 09:04:33 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-170-N1keg2lyMHWMwSDovGAGpA-1; Tue, 14 Jan 2020 11:40:57 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 28B181800D78;
-	Mon, 13 Jan 2020 14:04:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0B2F013419B;
+	Tue, 14 Jan 2020 16:40:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DCEADA4B60;
-	Mon, 13 Jan 2020 14:04:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D47A884BBB;
+	Tue, 14 Jan 2020 16:40:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D3538250F;
-	Mon, 13 Jan 2020 14:04:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8EA2B845C4;
+	Tue, 14 Jan 2020 16:40:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00DE4Pxd017077 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 13 Jan 2020 09:04:25 -0500
+	id 00EGeqOA021572 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 14 Jan 2020 11:40:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C90BF19756; Mon, 13 Jan 2020 14:04:25 +0000 (UTC)
+	id 5019C2166B2B; Tue, 14 Jan 2020 16:40:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-116-64.phx2.redhat.com [10.3.116.64])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8A62619C6A
-	for <cluster-devel@redhat.com>; Mon, 13 Jan 2020 14:04:25 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Mon, 13 Jan 2020 08:04:21 -0600
-Message-Id: <20200113140421.867659-3-rpeterso@redhat.com>
-In-Reply-To: <20200113140421.867659-1-rpeterso@redhat.com>
-References: <20200113140421.867659-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B9C42166B28
+	for <cluster-devel@redhat.com>; Tue, 14 Jan 2020 16:40:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C12B8F7A3E
+	for <cluster-devel@redhat.com>; Tue, 14 Jan 2020 16:40:52 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-345-hfgh1fRYOZO1HQzsFzVjbA-1; Tue, 14 Jan 2020 11:40:50 -0500
+Received: from [2001:4bb8:18c:4f54:fcbb:a92b:61e1:719] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1irOnr-000073-FS; Tue, 14 Jan 2020 16:12:28 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	Waiman Long <longman@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org, 
+	cluster-devel@redhat.com
+Date: Tue, 14 Jan 2020 17:12:13 +0100
+Message-Id: <20200114161225.309792-1-hch@lst.de>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-MC-Unique: hfgh1fRYOZO1HQzsFzVjbA-1
+X-MC-Unique: N1keg2lyMHWMwSDovGAGpA-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 00EGeqOA021572
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 2/2 v3] gfs2: keep a redirty list for
-	jdata pages that are PageChecked in ail1
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: [Cluster-devel] RFC: hold i_rwsem until aio completes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -65,145 +86,53 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: qM0yQ7eqMhaXh4L4rtb7JA-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Before this patch, jdata writes would sometimes get into an infinite
-loop because function gfs2_ail1_flush refused to exit until all of
-its pages were written out, but if the page was in use and another
-process sets PageChecked, it would never be written out: The
-PageChecked prevented the ail1 list from being written:
+Hi all,
 
-gfs2_logd() calls gfs2_ail1_start() because it decides it needs to
-  gfs2_ail1_start() calls gfs2_ail1_flush() (unconditionally)
-    gfs2_ail1_flush() calls gfs2_ail1_start_one() for each transaction
-                      queued onto sd_ail1_list, to start that transaction
-      gfs2_ail1_start_one() calls generic_writepages() for this
-                      particular problematic transaction.
-        generic_writepages() calls write_cache_pages() passing in
-                      __writepage (unconditionally)
-          write_cache_pages() calls (*writepage) which maps to __writepage(=
-)
-            __writepage() calls mapping->a_ops->writepage which maps
-                      to gfs2_jdata_writepage
-              gfs2_jdata_writepage() sees the page is PageChecked
-                      (i.e. dirty is pending) so it skips
-                      __gfs2_jdata_writepage and instead redirties
-                      the page, returns 0.
-            __writepage() returns 0 to write_cache_pages()
-          write_cache_pages() returns 0 to generic_writepages()
-        generic_writepages() returns 0 to gfs2_ail1_start_one()
-       gfs2_ail1_start_one() returns 1 to gfs2_ail1_flush(), which
-                      causes it to goto restart; (Infinite loop)
+Asynchronous read/write operations currently use a rather magic locking
+scheme, were access to file data is normally protected using a rw_semaphore=
+,
+but if we are doing aio where the syscall returns to userspace before the
+I/O has completed we also use an atomic_t to track the outstanding aio
+ops.  This scheme has lead to lots of subtle bugs in file systems where
+didn't wait to the count to reach zero, and due to its adhoc nature also
+means we have to serialize direct I/O writes that are smaller than the
+file system block size.
 
-Thus, logd goes into an infinite loop, chewing up 100% of
-one CPU, and all other transactions get blocked by the flush.
+All this is solved by releasing i_rwsem only when the I/O has actually
+completed, but doings so is against to mantras of Linux locking primites:
 
-This patch adds a new queue to the transactions, tr_redirty_list.
-This temporarily holds buffer descriptor (bd / bufdata) elements
-that need to be redirtied because they were PageChecked while the
-ail1 list was being flushed.
+ (1) no unlocking by another process than the one that acquired it
+ (2) no return to userspace with locks held
 
-The new queue allows all eligible pages to be written properly and
-gfs2_ail1_flush to requeue and redirty PageChecked pages. Thus, the
-pages are redirtied and go into the next ail1 flush cycle. The current
-ail1 flush completes, since those pages are temporarily moved off the
-list.
+It actually happens we have various places that work around this.  A few
+callers do non-owner unlocks of rwsems, which are pretty nasty for
+PREEMPT_RT as the owner tracking doesn't work.  OTOH the file system
+freeze code has both problems and works around them a little better,
+although in a somewhat awkward way, in that it releases the lockdep
+object when returning to userspace, and reacquires it when done, and
+also clears the rwsem owner when returning to userspace, and then sets
+the new onwer before unlocking.
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/incore.h |  1 +
- fs/gfs2/log.c    | 27 +++++++++++++++++++++++++++
- fs/gfs2/trans.c  |  1 +
- 3 files changed, 29 insertions(+)
+This series tries to follow that scheme, also it doesn't fully work.  The
+first issue is that the rwsem code has a bug where it doesn't properly
+handle clearing the owner.  This series has a patch to fix that, but it
+is ugly and might not be correct so some help is needed.  Second I/O
+completions often come from interrupt context, which means the re-acquire
+is recorded as from irq context, leading to warnings about incorrect
+contexts.  I wonder if we could just have a bit in lockdep that says
+returning to userspace is ok for this particular lock?  That would also
+clean up the fsfreeze situation a lot.
 
-diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index a5d81a261f77..eef686161953 100644
---- a/fs/gfs2/incore.h
-+++ b/fs/gfs2/incore.h
-@@ -514,6 +514,7 @@ struct gfs2_trans {
- =09unsigned int tr_first;
- =09struct list_head tr_ail1_list;
- =09struct list_head tr_ail2_list;
-+=09struct list_head tr_redirty_list;
- };
-=20
- struct gfs2_journal_extent {
-diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index 6e2728416b6b..7d7bae63b3e1 100644
---- a/fs/gfs2/log.c
-+++ b/fs/gfs2/log.c
-@@ -119,6 +119,10 @@ __acquires(&sdp->sd_ail_lock)
- =09=09if (gl =3D=3D bd->bd_gl)
- =09=09=09continue;
- =09=09gl =3D bd->bd_gl;
-+=09=09if (PageChecked(bh->b_page)) {
-+=09=09=09list_move(&bd->bd_ail_st_list, &tr->tr_redirty_list);
-+=09=09=09continue;
-+=09=09}
- =09=09list_move(&bd->bd_ail_st_list, &tr->tr_ail1_list);
- =09=09mapping =3D bh->b_page->mapping;
- =09=09if (!mapping)
-@@ -219,11 +223,21 @@ static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp,=
- struct gfs2_trans *tr,
-  * @sdp: The superblock
-  *
-  * Tries to empty the ail1 lists, starting with the oldest first
-+ * Then it requeues any buffers that need to be redirtied, to the ail1 lis=
-t.
-+ * It returns true if the ail1 list was empty BEFORE the redirtied entries
-+ * were requeued.
-  */
-=20
- static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
- {
- =09struct gfs2_trans *tr, *s;
-+=09struct gfs2_bufdata *bd;
-+=09struct writeback_control wbc =3D {
-+=09=09.sync_mode =3D WB_SYNC_NONE,
-+=09=09.nr_to_write =3D LONG_MAX,
-+=09=09.range_start =3D 0,
-+=09=09.range_end =3D LLONG_MAX,
-+=09};
- =09int oldest_tr =3D 1;
- =09int ret;
- =09bool withdraw =3D false;
-@@ -237,6 +251,19 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
- =09=09=09oldest_tr =3D 0;
- =09}
- =09ret =3D list_empty(&sdp->sd_ail1_list);
-+=09/*
-+=09 * Now requeue and redirty any bufdata elements that were not written
-+=09 * because they were PageChecked.
-+=09 */
-+=09list_for_each_entry_reverse(tr, &sdp->sd_ail1_list, tr_list) {
-+=09=09while (!list_empty(&tr->tr_redirty_list)) {
-+=09=09=09bd =3D list_first_entry(&tr->tr_redirty_list,
-+=09=09=09=09=09      struct gfs2_bufdata,
-+=09=09=09=09=09      bd_ail_st_list);
-+=09=09=09redirty_page_for_writepage(&wbc, bd->bd_bh->b_page);
-+=09=09=09list_move(&bd->bd_ail_st_list, &tr->tr_ail1_list);
-+=09=09}
-+=09}
- =09spin_unlock(&sdp->sd_ail_lock);
-=20
- =09if (withdraw)
-diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
-index a685637a5b55..0545490cb4e3 100644
---- a/fs/gfs2/trans.c
-+++ b/fs/gfs2/trans.c
-@@ -52,6 +52,7 @@ int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int b=
-locks,
- =09=09tr->tr_reserved +=3D gfs2_struct2blk(sdp, revokes);
- =09INIT_LIST_HEAD(&tr->tr_databuf);
- =09INIT_LIST_HEAD(&tr->tr_buf);
-+=09INIT_LIST_HEAD(&tr->tr_redirty_list);
-=20
- =09sb_start_intwrite(sdp->sd_vfs);
-=20
---=20
-2.24.1
+Let me know what you think of all this.  While I converted all the iomap
+using file systems only XFS is actually tested.
+
+Diffstat:
+
+ 24 files changed, 144 insertions(+), 180 deletions(-)
+
 
