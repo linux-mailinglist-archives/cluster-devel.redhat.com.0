@@ -1,66 +1,81 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 2885C13CCC2
-	for <lists+cluster-devel@lfdr.de>; Wed, 15 Jan 2020 20:03:54 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 8A60113CCC7
+	for <lists+cluster-devel@lfdr.de>; Wed, 15 Jan 2020 20:08:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579115033;
+	s=mimecast20190719; t=1579115279;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=h7ITH9zSXCUTo5cxF0HK0l2gxf6eSqZK0z1Jv9XNif0=;
-	b=Dk+yDbfVbUWN3/U73T6Y/QGhfk8+qkpHgG/sI1eIk/yvI/Y2NddrhjVQll0ZviTKHwoeeB
-	9JkCCBZHqVoMiPU0gkGVijYqvKTNJZ1xnzmsUixUuXsxM2BEalbyjsQeh6Ewqb1VRy3McR
-	NyXspaI9a3LxPXuJzWoEkz5bJokPmc8=
+	bh=YXpOGPNooYEfoBsHB046oGmwkynnQj+cZtk+nYfABNo=;
+	b=CGdUhauzDndL+losJI9t+oIvr0o4+BgpbHZtjtSUkYH7rm0oKFtobKSQQXr+yftfotmIP5
+	j8fhaQIpWH1jI5YQ3dq/EnOSN2Sc7RbUg3nS8b38Ot6BPnQ/EzQATXzJMHcg2RcGjxSzZq
+	6R1JYSSMsD1p9604W6DaJPucS7gTq8w=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-121-3xUHLVs8POmX8M6Mi8wf2w-1; Wed, 15 Jan 2020 14:03:51 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-151-4SQPmYT1OZWdjJFBDy0ivw-1; Wed, 15 Jan 2020 14:07:58 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C2737800D5E;
-	Wed, 15 Jan 2020 19:03:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D8F76A0CC0;
+	Wed, 15 Jan 2020 19:07:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D3EEE5C219;
-	Wed, 15 Jan 2020 19:03:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C6844166B7;
+	Wed, 15 Jan 2020 19:07:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C4FBC18095FF;
-	Wed, 15 Jan 2020 19:03:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7AE3A180BA96;
+	Wed, 15 Jan 2020 19:07:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00FJ3RvN025529 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 15 Jan 2020 14:03:27 -0500
+	id 00FJ7qIk026333 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Jan 2020 14:07:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4E46A10372F3; Wed, 15 Jan 2020 19:03:27 +0000 (UTC)
+	id 450D4F18C3; Wed, 15 Jan 2020 19:07:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from llong.remote.csb (dhcp-17-59.bos.redhat.com [10.18.17.59])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7DBB71000329;
-	Wed, 15 Jan 2020 19:03:23 +0000 (UTC)
-To: Jason Gunthorpe <jgg@ziepe.ca>, Peter Zijlstra <peterz@infradead.org>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 410F7F18D0
+	for <cluster-devel@redhat.com>; Wed, 15 Jan 2020 19:07:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F35A71011E06
+	for <cluster-devel@redhat.com>; Wed, 15 Jan 2020 19:07:49 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-436-d8okaMlsO0uQd8aiejQgwA-1;
+	Wed, 15 Jan 2020 14:07:48 -0500
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 9783D68B20; Wed, 15 Jan 2020 20:07:44 +0100 (CET)
+Date: Wed, 15 Jan 2020 20:07:44 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Waiman Long <longman@redhat.com>
+Message-ID: <20200115190744.GA2628@lst.de>
 References: <20200114161225.309792-1-hch@lst.de>
 	<20200114192700.GC22037@ziepe.ca> <20200115065614.GC21219@lst.de>
 	<20200115132428.GA25201@ziepe.ca>
 	<20200115143347.GL2827@hirez.programming.kicks-ass.net>
 	<20200115144948.GB25201@ziepe.ca>
-From: Waiman Long <longman@redhat.com>
-Organization: Red Hat
-Message-ID: <849239ff-d2d1-4048-da58-b4347e0aa2bd@redhat.com>
-Date: Wed, 15 Jan 2020 14:03:22 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.2
+	<849239ff-d2d1-4048-da58-b4347e0aa2bd@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200115144948.GB25201@ziepe.ca>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+In-Reply-To: <849239ff-d2d1-4048-da58-b4347e0aa2bd@redhat.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-MC-Unique: d8okaMlsO0uQd8aiejQgwA-1
+X-MC-Unique: 4SQPmYT1OZWdjJFBDy0ivw-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 00FJ7qIk026333
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org, Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
-	linux-mm@kvack.org, Ingo Molnar <mingo@redhat.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
 	linux-fsdevel@vger.kernel.org,
 	Thomas Gleixner <tglx@linutronix.de>, linux-ext4@vger.kernel.org,
 	Will Deacon <will@kernel.org>, Christoph Hellwig <hch@lst.de>
@@ -78,40 +93,23 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: 3xUHLVs8POmX8M6Mi8wf2w-1
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On 1/15/20 9:49 AM, Jason Gunthorpe wrote:
-> On Wed, Jan 15, 2020 at 03:33:47PM +0100, Peter Zijlstra wrote:
->> On Wed, Jan 15, 2020 at 09:24:28AM -0400, Jason Gunthorpe wrote:
->>
->>> I was interested because you are talking about allowing the read/write side
->>> of a rw sem to be held across a return to user space/etc, which is the
->>> same basic problem.
->> No it is not; allowing the lock to be held across userspace doesn't
->> change the owner. This is a crucial difference, PI depends on there
->> being a distinct owner. That said, allowing the lock to be held across
->> userspace still breaks PI in that it completely wrecks the ability to
->> analyze the critical section.
-> I'm not sure what you are contrasting?
->
-> I was remarking that I see many places open code a rwsem using an
-> atomic and a completion specifically because they need to do the
-> things Christoph identified:
->
->> (1) no unlocking by another process than the one that acquired it
->> (2) no return to userspace with locks held
-> As an example flow: obtain the read side lock, schedual a work queue,
-> return to user space, and unlock the read side from the work queue.
+On Wed, Jan 15, 2020 at 02:03:22PM -0500, Waiman Long wrote:
+> >> (1) no unlocking by another process than the one that acquired it
+> >> (2) no return to userspace with locks held
+> > As an example flow: obtain the read side lock, schedual a work queue,
+> > return to user space, and unlock the read side from the work queue.
+>=20
+> We currently have down_read_non_owner() and up_read_non_owner() that
+> perform the lock and unlock without lockdep tracking. Of course, that is
+> a hack and their use must be carefully scrutinized to make sure that
+> there is no deadlock or other potentially locking issues.
 
-We currently have down_read_non_owner() and up_read_non_owner() that
-perform the lock and unlock without lockdep tracking. Of course, that is
-a hack and their use must be carefully scrutinized to make sure that
-there is no deadlock or other potentially locking issues.
+That doesn't help with returning to userspace while the lock is held.
 
-Cheers,
-Longman
 
