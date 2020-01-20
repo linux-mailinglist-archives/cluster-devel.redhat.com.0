@@ -1,82 +1,54 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 027D2141A17
-	for <lists+cluster-devel@lfdr.de>; Sat, 18 Jan 2020 23:41:29 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 8138C1426C8
+	for <lists+cluster-devel@lfdr.de>; Mon, 20 Jan 2020 10:13:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579387289;
+	s=mimecast20190719; t=1579511604;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QL1W4Iib7M5xPqeoilXQeWqZz6dIc5oozfkLvMVkZx0=;
-	b=h7ivCywAA4QwJaU+P+yN/xCfrwITyJyAPC/c0bTQDt1vUzo7brpaAquIKk4/a2LzlZ5fH8
-	BRAv3cnb6GcbPsGEyIzPCr/FNmx0K9vrRm1RzBIlXAT27Kn8XZrG/9+QVRfLk5SWO0nsRB
-	a1+CBnCJDHe390bG7tqURSuk1CkVfkM=
+	bh=AoUzzG07tRllk8u3lkySA6vG+VaV35uxeyX5JC9T0WM=;
+	b=YmaPsFFf9Un9ywBr4BFaSRjVz/8CImoirwmvEcbdAVszFpnDrVp05zJFpDwIHNg4OUoihR
+	40ykyImN6YkNf0TJBh/XaG75U88JLjhPacy6oArWWwOFL5Avjqgf3+khRD4h8cdii52SEL
+	Khz2H8yAFYefmBrqbBmYPQMxaJ+JDok=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-103-Nwz1Ycq3OS26honB9SxLdw-1; Sat, 18 Jan 2020 17:41:27 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-411-hjJBqDzxO2CMEKTHYVaw-Q-1; Mon, 20 Jan 2020 04:13:23 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B7344477;
-	Sat, 18 Jan 2020 22:41:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 235D084BBB;
-	Sat, 18 Jan 2020 22:41:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D4116801E72;
+	Mon, 20 Jan 2020 09:13:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BAD7D2857B;
+	Mon, 20 Jan 2020 09:13:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BD29F870A7;
-	Sat, 18 Jan 2020 22:41:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CEF0218089CE;
+	Mon, 20 Jan 2020 09:13:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00IMfA2X004243 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 18 Jan 2020 17:41:10 -0500
+	id 00K9DBms031649 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 20 Jan 2020 04:13:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 42A4B2166B2A; Sat, 18 Jan 2020 22:41:10 +0000 (UTC)
+	id 8724984D9F; Mon, 20 Jan 2020 09:13:11 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EC9B2166B29
-	for <cluster-devel@redhat.com>; Sat, 18 Jan 2020 22:41:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B0FF8E3893
-	for <cluster-devel@redhat.com>; Sat, 18 Jan 2020 22:41:08 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-285-NKQkhjjRNGGFOdZAzSEn-g-1; Sat, 18 Jan 2020 17:41:04 -0500
-Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1iswlg-0001Y2-1d; Sat, 18 Jan 2020 22:40:36 +0000
-Date: Sat, 18 Jan 2020 14:40:35 -0800
-From: Matthew Wilcox <willy@infradead.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20200118224035.GA26801@bombadil.infradead.org>
-References: <20200114161225.309792-1-hch@lst.de>
-	<20200114192700.GC22037@ziepe.ca> <20200115065614.GC21219@lst.de>
-	<20200115132428.GA25201@ziepe.ca>
-	<20200115143347.GL2827@hirez.programming.kicks-ass.net>
+Received: from max.com (ovpn-204-63.brq.redhat.com [10.40.204.63])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BCD4585720;
+	Mon, 20 Jan 2020 09:13:08 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: cluster-devel@redhat.com
+Date: Mon, 20 Jan 2020 10:12:54 +0100
+Message-Id: <20200120091305.24997-1-agruenba@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200115143347.GL2827@hirez.programming.kicks-ass.net>
-X-MC-Unique: NKQkhjjRNGGFOdZAzSEn-g-1
-X-MC-Unique: Nwz1Ycq3OS26honB9SxLdw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00IMfA2X004243
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-xfs@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	Ingo Molnar <mingo@redhat.com>, linux-fsdevel@vger.kernel.org,
-	Waiman Long <longman@redhat.com>,
-	Thomas Gleixner <tglx@linutronix.de>, linux-ext4@vger.kernel.org,
-	Will Deacon <will@kernel.org>, Christoph Hellwig <hch@lst.de>
-Subject: Re: [Cluster-devel] RFC: hold i_rwsem until aio completes
+Subject: [Cluster-devel] [PATCH 00/11] gfs2: iopen glock locking scheme
+	rework
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,36 +62,82 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: hjJBqDzxO2CMEKTHYVaw-Q-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
 
-On Wed, Jan 15, 2020 at 03:33:47PM +0100, Peter Zijlstra wrote:
-> On Wed, Jan 15, 2020 at 09:24:28AM -0400, Jason Gunthorpe wrote:
->=20
-> > I was interested because you are talking about allowing the read/write =
-side
-> > of a rw sem to be held across a return to user space/etc, which is the
-> > same basic problem.
->=20
-> No it is not; allowing the lock to be held across userspace doesn't
-> change the owner. This is a crucial difference, PI depends on there
-> being a distinct owner. That said, allowing the lock to be held across
-> userspace still breaks PI in that it completely wrecks the ability to
-> analyze the critical section.
+This patch queue reworks the iopen glock locking scheme to avoid
+resource group glock bouncing and cache thrashing when inodes are
+deleted that have been accessed on other cluster nodes.
 
-Thinking about this from a PI point of view, the problem is not that we
-returned to userspace still holding the lock, it's that boosting this
-process's priority will not help release the lock faster because this
-process no longer owns the lock.
+When the link count of an inode drops to zero, the inode is marked
+GFS2_BLKST_UNLINKED in the bitmap.  Before the inode can be deleted, we
+need to make sure that it's no longer in use locally or on any other
+cluster node.  We use the inode reference count to keep track of local
+users, and the iopen glock to keep track of other users across the
+cluster: all nodes that have an inode cached or in active use keep a
+shared lock on the iopen glock.  When deleting an inode, the iopen glock
+is promoted to an exclusive lock first.  Other nodes may keep the inode
+open, so there's no guarantee that we'll get that exclusive lock in
+definite time.
 
-If we had a lock owner handoff API (ie I can donate my lock to another
-owner), that would solve this problem.  We'd want to have special owners
-to denote "RCU" "bottom halves" or "irq" so we know what we can do about
-PI.  I don't think we need a "I have stolen this lock from somebody else"
-API, but maybe I'm wrong there.
+To work around that, when a node fails to get that exclusive lock, it
+will rely on the other nodes to perform the delete.  The delete will
+happen eventually, on the first node that obtains the iopen glock
+exclusively, leading to resource group glock bouncing and the associated
+loss of caching.  Note that the inode doesn't have to be in active use
+on multiple nodes at the same time to trigger that behavior; all it
+takes is to delete the inode on another node that the one on which it
+was created.
 
+This patch queue reworks this locking scheme in the following ways: when
+trying to obtain the iopen glock exclusively, nodes will give the other
+nodes holding the inode cached a chance to drop the inode and release
+their shared lock.  When a node cannot drop the inode immeidately in
+response to such a request (because the inode is held open), it will
+signal that to the cluster by causing activity on the associated inode
+glock.
+
+Because we cannot rely on existing nodes to cooperate in this new
+scheme, after giving up a shared iopen glock, we need to verify that the
+inode was deleted eventually.  This would normally require accessing the
+resource group, negating any benefits we've had so far, but we can
+remember that the inode was deleted in the inode glock lock value block
+(LVB) to get around that.
+
+Thanks,
+Andreas
+
+Andreas Gruenbacher (10):
+  gfs2: Don't add glocks to the LRU while still in use
+  gfs2: Keep track of deletes in inode LVBs
+  gfs2: Turn gl_delete into a delayed work
+  gfs2: Give up the iopen glock on contention
+  gfs2: Try harder to delete inodes locally
+  gfs2: Minor gfs2_lookup_by_inum cleanup
+  gfs2: Move inode generation number check into gfs2_inode_lookup
+  gfs2: Check inode generation number in delete_work_func
+  gfs2: Wake up when setting GLF_DEMOTE
+  gfs2: Smarter iopen glock waiting
+
+Bob Peterson (1):
+  gfs2: Allow ASPACE glocks to also have an lvb
+
+ fs/gfs2/export.c                 |   4 +-
+ fs/gfs2/glock.c                  | 137 ++++++++++++++++++++++++++++---
+ fs/gfs2/glock.h                  |   4 +-
+ fs/gfs2/glops.c                  |   5 +-
+ fs/gfs2/incore.h                 |   8 +-
+ fs/gfs2/inode.c                  |  34 ++++++--
+ fs/gfs2/inode.h                  |   2 +-
+ fs/gfs2/rgrp.c                   |   3 +-
+ fs/gfs2/super.c                  |  72 +++++++++++++---
+ include/uapi/linux/gfs2_ondisk.h |   6 ++
+ 10 files changed, 237 insertions(+), 38 deletions(-)
+
+--=20
+2.20.1
 
