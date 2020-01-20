@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id EAE051426CA
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id EE1DC1426CB
 	for <lists+cluster-devel@lfdr.de>; Mon, 20 Jan 2020 10:13:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1579511604;
@@ -12,46 +12,46 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pSPKOln3mxDp1N6bTtN++GkbQ8KW2Y0+1zO4bzG8v+Y=;
-	b=TeXJmOalouw3TuVQLDxRgDj2lONzYY6oIZ47R1iWsvYJNv4aJKALQOwCkhCPURh2L+GeHo
-	qtNZ9RS9WDfGU45UkiaeyGoNT/LAADzzvdC6hLae9nCGd+NZtmV8CIRXs2/Vi2PrRKj7UK
-	x7mr66W0vg/RLoWx/6hkLxP32TJ1iFE=
+	bh=GqOg6KUcDhb8samIBxACiJwGnDc+B98tMapEXuRbBQg=;
+	b=fWnFMDVqSJB7CBB3AYabDabcM/jHkUpcGR3ltRTXGeFH94/U5vjJ7Y8tNpNE6mYk1vMYz8
+	43QbI1nlZAFoyhBQWNq/+L8msjJtdEdOgA6+wHhaY74WtHq8S6PIhgJMTrcLwnZ6p9e2Lh
+	9JE4m9vMyIXxSYSTOJ5li7gtwnG7f8k=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-413-qFvX66jeNya5AZc55dX55A-1; Mon, 20 Jan 2020 04:13:23 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-430-BYv5hiMMMQWGFYPENaOK8A-1; Mon, 20 Jan 2020 04:13:23 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 209901085925;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 54913800D4C;
 	Mon, 20 Jan 2020 09:13:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9072385720;
-	Mon, 20 Jan 2020 09:13:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 41F8F28982;
+	Mon, 20 Jan 2020 09:13:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CEB768196C;
-	Mon, 20 Jan 2020 09:13:16 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 23DF281964;
+	Mon, 20 Jan 2020 09:13:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00K9DCc2031660 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 20 Jan 2020 04:13:12 -0500
+	id 00K9DENi031666 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 20 Jan 2020 04:13:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E082384DAC; Mon, 20 Jan 2020 09:13:12 +0000 (UTC)
+	id 115B684DAA; Mon, 20 Jan 2020 09:13:14 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.com (ovpn-204-63.brq.redhat.com [10.40.204.63])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E500484D9F;
-	Mon, 20 Jan 2020 09:13:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 48A8184D9F;
+	Mon, 20 Jan 2020 09:13:13 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Mon, 20 Jan 2020 10:12:55 +0100
-Message-Id: <20200120091305.24997-2-agruenba@redhat.com>
+Date: Mon, 20 Jan 2020 10:12:56 +0100
+Message-Id: <20200120091305.24997-3-agruenba@redhat.com>
 In-Reply-To: <20200120091305.24997-1-agruenba@redhat.com>
 References: <20200120091305.24997-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 01/11] gfs2: Allow ASPACE glocks to also
-	have an lvb
+Subject: [Cluster-devel] [PATCH 02/11] gfs2: Don't add glocks to the LRU
+	while still in use
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -65,40 +65,64 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: qFvX66jeNya5AZc55dX55A-1
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: BYv5hiMMMQWGFYPENaOK8A-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-From: Bob Peterson <rpeterso@redhat.com>
+Only add glocks to the LRU once they're no longer in use.  They will outliv=
+e
+the inode they are associated with if they are cached (not GL_NOCACHE) or i=
+f
+they have some pending work attached.
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/glock.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ fs/gfs2/glock.c | 2 +-
+ fs/gfs2/glock.h | 1 -
+ fs/gfs2/super.c | 1 -
+ 3 files changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index b7123de7c180..cabffdc126fd 100644
+index cabffdc126fd..2aa21bab8e1c 100644
 --- a/fs/gfs2/glock.c
 +++ b/fs/gfs2/glock.c
-@@ -125,12 +125,11 @@ static void gfs2_glock_dealloc(struct rcu_head *rcu)
- {
- =09struct gfs2_glock *gl =3D container_of(rcu, struct gfs2_glock, gl_rcu);
-=20
--=09if (gl->gl_ops->go_flags & GLOF_ASPACE) {
-+=09kfree(gl->gl_lksb.sb_lvbptr);
-+=09if (gl->gl_ops->go_flags & GLOF_ASPACE)
- =09=09kmem_cache_free(gfs2_glock_aspace_cachep, gl);
--=09} else {
--=09=09kfree(gl->gl_lksb.sb_lvbptr);
-+=09else
- =09=09kmem_cache_free(gfs2_glock_cachep, gl);
--=09}
+@@ -178,7 +178,7 @@ static int demote_ok(const struct gfs2_glock *gl)
  }
 =20
- void gfs2_glock_free(struct gfs2_glock *gl)
+=20
+-void gfs2_glock_add_to_lru(struct gfs2_glock *gl)
++static void gfs2_glock_add_to_lru(struct gfs2_glock *gl)
+ {
+ =09if (!(gl->gl_ops->go_flags & GLOF_LRU))
+ =09=09return;
+diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
+index b8adaf80e4c5..dc23cbf6ae7a 100644
+--- a/fs/gfs2/glock.h
++++ b/fs/gfs2/glock.h
+@@ -238,7 +238,6 @@ extern void gfs2_glock_complete(struct gfs2_glock *gl, =
+int ret);
+ extern void gfs2_gl_hash_clear(struct gfs2_sbd *sdp);
+ extern void gfs2_glock_finish_truncate(struct gfs2_inode *ip);
+ extern void gfs2_glock_thaw(struct gfs2_sbd *sdp);
+-extern void gfs2_glock_add_to_lru(struct gfs2_glock *gl);
+ extern void gfs2_glock_free(struct gfs2_glock *gl);
+=20
+ extern int __init gfs2_glock_init(void);
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index 68cc7c291a81..2621d925812b 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -1378,7 +1378,6 @@ static void gfs2_evict_inode(struct inode *inode)
+ =09gfs2_dir_hash_inval(ip);
+ =09glock_clear_object(ip->i_gl, ip);
+ =09wait_on_bit_io(&ip->i_flags, GIF_GLOP_PENDING, TASK_UNINTERRUPTIBLE);
+-=09gfs2_glock_add_to_lru(ip->i_gl);
+ =09gfs2_glock_put_eventually(ip->i_gl);
+ =09ip->i_gl =3D NULL;
+ =09if (gfs2_holder_initialized(&ip->i_iopen_gh)) {
 --=20
 2.20.1
 
