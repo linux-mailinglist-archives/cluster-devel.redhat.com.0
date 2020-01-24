@@ -1,75 +1,68 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 384DD147888
-	for <lists+cluster-devel@lfdr.de>; Fri, 24 Jan 2020 07:24:48 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 6B000148652
+	for <lists+cluster-devel@lfdr.de>; Fri, 24 Jan 2020 14:46:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579847087;
+	s=mimecast20190719; t=1579873576;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=o2apLvw2ZVnhKxXiqyCohtgk4NQUVrregAcph1A3rTE=;
-	b=Q1Tl9wXuRmWWChUYf8vfc4xzbqyXOBloXn8N2P1eML2R5QlBRRcaofQmElJ6dquAAUe6B3
-	/sKn5K7oXwb35Q3+MSbTySO2kiVvu5xeQahE49OkMcKMZNPuzaUotYtaZndXDmxol5VqQR
-	oL9CN6UI0+GwZQ29tFRQ0WmE+CfFNgg=
+	bh=TX9C3c+YbFon3vAwII+YKQqbi7romZ1hkJJgHfF1n5Q=;
+	b=N25BDnWGJ8AojdSdVMZXmdcw52/5YvJfyoa3h+VTcc3d/USo8Bp15vgHbSP9HcfTRbnCqq
+	Kxyxxe9AVAJR8cFMIOWzLD1Qtj/NWK05JxeED0/1kTRKpq4sHHOR/V5qnc6jcE+w7wQ5z/
+	mFybrgZwGtZAQZYdvYNai+h4vUWcxtk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-278-_c9Q76ijPVK3Tkhh6iEVtw-1; Fri, 24 Jan 2020 01:24:45 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-56-3LueR7wQNqyHEBNL_TNKJg-1; Fri, 24 Jan 2020 08:46:13 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 603611005512;
-	Fri, 24 Jan 2020 06:24:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EE6081213;
-	Fri, 24 Jan 2020 06:24:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E12208017CC;
+	Fri, 24 Jan 2020 13:46:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64CFA60BEC;
+	Fri, 24 Jan 2020 13:46:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A3A8C8594A;
-	Fri, 24 Jan 2020 06:24:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE0B618089C8;
+	Fri, 24 Jan 2020 13:46:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00O6OYvL008223 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 24 Jan 2020 01:24:35 -0500
+	id 00ODk0ul003467 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 24 Jan 2020 08:46:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8A8B62166B2F; Fri, 24 Jan 2020 06:24:34 +0000 (UTC)
+	id 331B91084194; Fri, 24 Jan 2020 13:46:00 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 834072166B30
-	for <cluster-devel@redhat.com>; Fri, 24 Jan 2020 06:24:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D18DA802E78
-	for <cluster-devel@redhat.com>; Fri, 24 Jan 2020 06:24:32 +0000 (UTC)
-Received: from relay.sw.ru (relay.sw.ru [185.231.240.75]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-308-fuYl5752PVeS7dg9pQLe9w-1;
-	Fri, 24 Jan 2020 01:24:28 -0500
-Received: from vvs-ws.sw.ru ([172.16.24.21])
-	by relay.sw.ru with esmtp (Exim 4.92.3)
-	(envelope-from <vvs@virtuozzo.com>)
-	id 1ius3g-0007mK-JM; Fri, 24 Jan 2020 09:03:08 +0300
-From: Vasily Averin <vvs@virtuozzo.com>
-To: cluster-devel@redhat.com
-Message-ID: <5fb7919e-3bb7-3c90-b42d-495a63b71457@virtuozzo.com>
-Date: Fri, 24 Jan 2020 09:03:08 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.2.2
+Received: from colo-mx.corp.redhat.com
+	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6DDD1084192;
+	Fri, 24 Jan 2020 13:45:57 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A962585947;
+	Fri, 24 Jan 2020 13:45:57 +0000 (UTC)
+Date: Fri, 24 Jan 2020 08:45:57 -0500 (EST)
+From: Bob Peterson <rpeterso@redhat.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <1920225263.4672289.1579873557442.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CAHc6FU6vgpMs1pO1t4odWNq_J+Cxdck+E+S=zRhFGwYL=Qu6aQ@mail.gmail.com>
+References: <20191209153700.700208-1-rpeterso@redhat.com>
+	<20191209153700.700208-17-rpeterso@redhat.com>
+	<CAHc6FU6vgpMs1pO1t4odWNq_J+Cxdck+E+S=zRhFGwYL=Qu6aQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Language: en-US
-X-MC-Unique: fuYl5752PVeS7dg9pQLe9w-1
-X-MC-Unique: _c9Q76ijPVK3Tkhh6iEVtw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00O6OYvL008223
+X-Originating-IP: [10.3.116.64, 10.4.195.27]
+Thread-Topic: gfs2: new slab for transactions
+Thread-Index: HxfyT7zHWZG8ZKKW8GI88ode9cp8KA==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 1/1] table_seq_next should increase position
-	index
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [GFS2 v8 PATCH 16/22] gfs2: new slab for
+ transactions
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,46 +76,44 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: 3LueR7wQNqyHEBNL_TNKJg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-if seq_file .next fuction does not change position index,
-read after some lseek can generate unexpected output.
+----- Original Message -----
+> On Mon, Dec 9, 2019 at 4:38 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> > This patch adds a new slab for gfs2 transactions. That allows us to
+> > have an initialization function and protect against some errors.
+> 
+> The added checks in gfs2_trans_free actually have nothing to do with
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D206283
-Signed-off-by: Vasily Averin <vvs@virtuozzo.com>
----
- fs/dlm/debug_fs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Hi,
 
-diff --git a/fs/dlm/debug_fs.c b/fs/dlm/debug_fs.c
-index d6bbccb..c1eda93 100644
---- a/fs/dlm/debug_fs.c
-+++ b/fs/dlm/debug_fs.c
-@@ -523,7 +523,7 @@ static void *table_seq_next(struct seq_file *seq, void =
-*iter_ptr, loff_t *pos)
- =09=09ri->rsb =3D r;
- =09=09spin_unlock(&ls->ls_rsbtbl[bucket].lock);
- =09=09dlm_put_rsb(rp);
--=09=09++*pos;
-+=09=09++(*pos);
- =09=09return ri;
- =09}
- =09spin_unlock(&ls->ls_rsbtbl[bucket].lock);
-@@ -542,6 +542,7 @@ static void *table_seq_next(struct seq_file *seq, void =
-*iter_ptr, loff_t *pos)
-=20
- =09=09if (bucket >=3D ls->ls_rsbtbl_size) {
- =09=09=09kfree(ri);
-+=09=09=09++(*pos);
- =09=09=09return NULL;
- =09=09}
- =09=09tree =3D toss ? &ls->ls_rsbtbl[bucket].toss : &ls->ls_rsbtbl[bucket]=
-.keep;
---=20
-1.8.3.1
+I agree that a lot of these extra checks are unnecessary, especially
+with the amount of testing this patch has had. My main concern was that
+some transactions are often moved from the caller to a global pointer
+queued off the superblock, sdp. Bear in mind I also used this patch
+as part of a larger effort to try to locate use-after-free slab corruption
+problems people were seeing in the kernel. These checks proved those
+problems were not caused by GFS2 transactions being used after they were
+freed, so we can probably remove them.
 
+Before the patch, new transactions were allocated with kzalloc, which
+meant the storage was guaranteed to be initialized to all zeroes.
+Now that we're using a slab, I wanted to similarly guarantee there
+weren't any leftover values left in the slab objects.
+
+Also bear in mind this really has nothing to do with the recovery and
+journal replay problems, so this patch could be pushed separately, and
+I think it would be a good idea.
+
+I'll clean this up a bit and send a replacement outside the patch set.
+
+Regards,
+
+Bob Peterson
+Red Hat File Systems
 
