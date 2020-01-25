@@ -1,87 +1,74 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id C434D14924A
-	for <lists+cluster-devel@lfdr.de>; Sat, 25 Jan 2020 01:19:00 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id E870514929C
+	for <lists+cluster-devel@lfdr.de>; Sat, 25 Jan 2020 02:36:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579911539;
+	s=mimecast20190719; t=1579916176;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=PhjvwfN7f4ykcrsmZQg6eW5FMPj+NspeW5CWPfe8aQw=;
-	b=QzY3wf4Z85ldsD0H4TWMsbyBT0uIw8vjr0zAj8HejwhuwTD80ohJTd18su/Lm8fvhkzB8i
-	Z18uyvY8sP9OwzN8Q6ycTbz3LYZsRBZWMUGmA7XHa9xvH38/9bhzS8Z70ug67038SmrVeQ
-	LUPedzRnbsSMbUix/74QbIMLUqijWcg=
+	bh=BMxiQmjTjG68GFM5WNF/8UO/1ULuxhcK2ewnzPeolNQ=;
+	b=NW02qaGa4ljIl9scKhxvOOTCBV3wWSFVGiFE1l5apJJRLs9tp3J0hcSBOWwpasjrM9KzG3
+	J4CdHZBtIxW0Trmir0B62T+9mJcZfeDT3W4vXp2jXzXZV9EwJ04b3fu0iPr8ab7DCsMNwV
+	t71Zf1cyxnSZ8DSlD1KWaLMWNzSRj78=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-393-hmpyZS-0PoqqbO2oMZiSLA-1; Fri, 24 Jan 2020 19:18:58 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-260-8IvpuA-uMzONvjI-wqNdpw-1; Fri, 24 Jan 2020 20:36:14 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F06D1854354;
-	Sat, 25 Jan 2020 00:18:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BFE301882CC4;
+	Sat, 25 Jan 2020 01:36:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C61981001B07;
-	Sat, 25 Jan 2020 00:18:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA0B55C1BB;
+	Sat, 25 Jan 2020 01:36:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 07A3B85957;
-	Sat, 25 Jan 2020 00:18:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3681F8595B;
+	Sat, 25 Jan 2020 01:36:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00P0Iknh007401 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 24 Jan 2020 19:18:47 -0500
+	id 00P1a703011671 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 24 Jan 2020 20:36:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D0B931054F17; Sat, 25 Jan 2020 00:18:46 +0000 (UTC)
+	id 0AD1F2166B32; Sat, 25 Jan 2020 01:36:07 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBAAE1054F09
-	for <cluster-devel@redhat.com>; Sat, 25 Jan 2020 00:18:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0676A2166B2F
+	for <cluster-devel@redhat.com>; Sat, 25 Jan 2020 01:36:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 618B9185AB78
-	for <cluster-devel@redhat.com>; Sat, 25 Jan 2020 00:18:44 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-350-XhX1GQYNPpGyWcrJx8JAqA-1;
-	Fri, 24 Jan 2020 19:18:42 -0500
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	24 Jan 2020 16:18:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,359,1574150400"; d="scan'208";a="260419372"
-Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
-	by fmsmga002.fm.intel.com with ESMTP; 24 Jan 2020 16:18:40 -0800
-Received: from kbuild by lkp-server01 with local (Exim 4.89)
-	(envelope-from <lkp@intel.com>)
-	id 1iv99r-0006DF-OR; Sat, 25 Jan 2020 08:18:39 +0800
-Date: Sat, 25 Jan 2020 08:17:42 +0800
-From: kbuild test robot <lkp@intel.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <20200125001741.uobzbe55s7gpwefi@f53c9c00458a>
-References: <202001250859.Hrvdf2d0%lkp@intel.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B96651019810
+	for <cluster-devel@redhat.com>; Sat, 25 Jan 2020 01:36:05 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-257-_Xcd-6thM4WiZTKReOJXzg-1; Fri, 24 Jan 2020 20:36:02 -0500
+Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1ivAMd-0006VA-6E; Sat, 25 Jan 2020 01:35:55 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: linux-fsdevel@vger.kernel.org
+Date: Fri, 24 Jan 2020 17:35:41 -0800
+Message-Id: <20200125013553.24899-1-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <202001250859.Hrvdf2d0%lkp@intel.com>
-X-Patchwork-Hint: ignore
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-MC-Unique: XhX1GQYNPpGyWcrJx8JAqA-1
-X-MC-Unique: hmpyZS-0PoqqbO2oMZiSLA-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MC-Unique: _Xcd-6thM4WiZTKReOJXzg-1
+X-MC-Unique: 8IvpuA-uMzONvjI-wqNdpw-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00P0Iknh007401
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 00P1a703011671
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, kbuild-all@lists.01.org
-Subject: [Cluster-devel] [RFC PATCH gfs2] __gfs2_inode_remember_delete() can
-	be static
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org,
+	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+	ocfs2-devel@oss.oracle.com, linux-ext4@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Subject: [Cluster-devel] [PATCH 00/12] Change readahead API
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,33 +82,81 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=WINDOWS-1252
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
 
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-Fixes: 90a0918fc357 ("DEBUG")
-Signed-off-by: kbuild test robot <lkp@intel.com>
----
- glock.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series adds a readahead address_space operation to eventually
+replace the readpages operation.  The key difference is that
+pages are added to the page cache as they are allocated (and
+then looked up by the filesystem) instead of passing them on a
+list to the readpages operation and having the filesystem add
+them to the page cache.  It's a net reduction in code for each
+implementation, more efficient than walking a list, and solves
+the direct-write vs buffered-read problem reported by yu kuai at
+https://lore.kernel.org/linux-fsdevel/20200116063601.39201-1-yukuai3@huawei=
+.com/
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index b0d5c98f476eb..75524557c96f4 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -684,7 +684,7 @@ __acquires(&gl->gl_lockref.lock)
- =09return;
- }
-=20
--void __gfs2_inode_remember_delete(struct gfs2_glock *gl, u64 generation)
-+static void __gfs2_inode_remember_delete(struct gfs2_glock *gl, u64 genera=
-tion)
- {
- =09struct gfs2_inode_lvb *ri =3D (void *)gl->gl_lksb.sb_lvbptr;
-=20
+Matthew Wilcox (Oracle) (12):
+  mm: Fix the return type of __do_page_cache_readahead
+  readahead: Ignore return value of ->readpages
+  readahead: Put pages in cache earlier
+  mm: Add readahead address space operation
+  fs: Convert mpage_readpages to mpage_readahead
+  btrfs: Convert from readpages to readahead
+  erofs: Convert uncompressed files from readpages to readahead
+  erofs: Convert compressed files from readpages to readahead
+  ext4: Convert from readpages to readahead
+  f2fs: Convert from readpages to readahead
+  fuse: Convert from readpages to readahead
+  iomap: Convert from readpages to readahead
+
+ Documentation/filesystems/locking.rst |  7 ++-
+ Documentation/filesystems/vfs.rst     | 11 ++++
+ drivers/staging/exfat/exfat_super.c   |  9 ++--
+ fs/block_dev.c                        |  9 ++--
+ fs/btrfs/extent_io.c                  | 15 ++----
+ fs/btrfs/extent_io.h                  |  2 +-
+ fs/btrfs/inode.c                      | 18 +++----
+ fs/erofs/data.c                       | 34 +++++-------
+ fs/erofs/zdata.c                      | 21 +++-----
+ fs/ext2/inode.c                       | 12 ++---
+ fs/ext4/ext4.h                        |  2 +-
+ fs/ext4/inode.c                       | 24 ++++-----
+ fs/ext4/readpage.c                    | 20 +++----
+ fs/f2fs/data.c                        | 33 +++++-------
+ fs/fat/inode.c                        |  8 +--
+ fs/fuse/file.c                        | 35 ++++++------
+ fs/gfs2/aops.c                        | 20 ++++---
+ fs/hpfs/file.c                        |  8 +--
+ fs/iomap/buffered-io.c                | 74 ++++++--------------------
+ fs/iomap/trace.h                      |  2 +-
+ fs/isofs/inode.c                      |  9 ++--
+ fs/jfs/inode.c                        |  8 +--
+ fs/mpage.c                            | 38 +++++---------
+ fs/nilfs2/inode.c                     | 13 ++---
+ fs/ocfs2/aops.c                       | 32 +++++------
+ fs/omfs/file.c                        |  8 +--
+ fs/qnx6/inode.c                       |  8 +--
+ fs/reiserfs/inode.c                   | 10 ++--
+ fs/udf/inode.c                        |  8 +--
+ fs/xfs/xfs_aops.c                     | 10 ++--
+ include/linux/fs.h                    |  2 +
+ include/linux/iomap.h                 |  2 +-
+ include/linux/mpage.h                 |  2 +-
+ include/linux/pagemap.h               | 12 +++++
+ include/trace/events/erofs.h          |  6 +--
+ include/trace/events/f2fs.h           |  6 +--
+ mm/internal.h                         |  2 +-
+ mm/migrate.c                          |  2 +-
+ mm/readahead.c                        | 76 +++++++++++++++++----------
+ 39 files changed, 289 insertions(+), 329 deletions(-)
+
+--=20
+2.24.1
 
 
