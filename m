@@ -1,57 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id B70BE14F1D7
-	for <lists+cluster-devel@lfdr.de>; Fri, 31 Jan 2020 19:07:49 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 82BAF14F1DA
+	for <lists+cluster-devel@lfdr.de>; Fri, 31 Jan 2020 19:07:50 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1580494068;
+	s=mimecast20190719; t=1580494069;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=atOv450KRQT+9WXmWXOXfPqH1wTNI0/IWMCd5MGLJAk=;
-	b=DIUupqLpa87zC8SUzGGutIj5ha1WLGWf05MUiqjFPDyRDsquRLieQry6FkgeStXPzTD9j+
-	1kUw+Cl9NUmUG5VzDI0iPrmOaJFXlsbk3D5Nu8wjNW6I3hMPa5PDH1fUUHUchVmnFNGlxe
-	Al3DgOGFDj6WzeLOKOt//SEIFIde25Y=
+	bh=MKAtjtupyO5omlwvEhl+BWaex8yT8pDCDtkkZe6Evrc=;
+	b=hWyXYDPptnYC2K9Zhhz6RKPFZ1aKDgfGofyx/NyLFkRN7yYrd7M36SVfxH6A7V7k/yuS74
+	FN+gD7sQ5tYUuH2joiE5eUeJdSIDcc0M3RTtfkA5LO4kHmEc6Fv2zQmxnbVYFusFFt3L5B
+	5Ty2dHJH7KZnJaDnd3rHYOfnXaAnlog=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-168-kaJ9dkBmOCqwDDFHuBg6Og-1; Fri, 31 Jan 2020 13:07:45 -0500
+ us-mta-147-mlSEH9B3PySaN3CuCaDkyQ-1; Fri, 31 Jan 2020 13:07:47 -0500
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A681919251D0;
-	Fri, 31 Jan 2020 18:07:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 961C65DA81;
-	Fri, 31 Jan 2020 18:07:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D446A8C487E;
+	Fri, 31 Jan 2020 18:07:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C2E4E5DA81;
+	Fri, 31 Jan 2020 18:07:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D759518089CD;
-	Fri, 31 Jan 2020 18:07:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A2F3185CE2;
+	Fri, 31 Jan 2020 18:07:44 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00VI7esq026901 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 31 Jan 2020 13:07:40 -0500
+	id 00VI7g9m026911 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 31 Jan 2020 13:07:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 11D3160BE1; Fri, 31 Jan 2020 18:07:40 +0000 (UTC)
+	id 23BD260BE1; Fri, 31 Jan 2020 18:07:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-116-223.ams2.redhat.com [10.36.116.223])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D218F60BE0
-	for <cluster-devel@redhat.com>; Fri, 31 Jan 2020 18:07:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DD04D60BE0
+	for <cluster-devel@redhat.com>; Fri, 31 Jan 2020 18:07:40 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Fri, 31 Jan 2020 12:07:03 -0600
-Message-Id: <20200131180723.178863-6-rpeterso@redhat.com>
+Date: Fri, 31 Jan 2020 12:07:04 -0600
+Message-Id: <20200131180723.178863-7-rpeterso@redhat.com>
 In-Reply-To: <20200131180723.178863-1-rpeterso@redhat.com>
 References: <20200131180723.178863-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 05/25] gfs2: Return bool from
-	gfs2_assert functions
+Subject: [Cluster-devel] [GFS2 PATCH 06/25] gfs2: Introduce concept of a
+	pending withdraw
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,136 +66,200 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: kaJ9dkBmOCqwDDFHuBg6Og-1
+X-MC-Unique: mlSEH9B3PySaN3CuCaDkyQ-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-From: Andreas Gruenbacher <agruenba@redhat.com>
+File system withdraws can be delayed when inconsistencies are
+discovered when we cannot withdraw immediately, for example, when
+critical spin_locks are held. But delaying the withdraw can cause
+gfs2 to ignore the error and keep running for a short period of time.
+For example, an rgrp glock may be dequeued and demoted while there
+are still buffers that haven't been properly revoked, due to io
+errors writing to the journal.
 
-The gfs2_assert functions only print messages when the filesystem hasn't be=
-en
-withdrawn yet, and they indicate whether or not they've printed something i=
-n
-their return value.  However, none of the callers use that information, so
-simply return whether or not the assert has failed.
+This patch introduces a new concept of a pending withdraw, which
+means an inconsistency has been discovered and we need to withdraw
+at the earliest possible opportunity. In these cases, we aren't
+quite withdrawn yet, but we still need to not dequeue glocks and
+other critical things. If we dequeue the glocks and the withdraw
+results in our journal being replayed, the replay could overwrite
+data that's been modified by a different node that acquired the
+glock in the meantime.
 
-(The gfs2_assert functions are still backwards; they return false when an
-assertion is true.)
-
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/util.c | 21 ++++++---------------
- fs/gfs2/util.h | 28 ++++++++++++++++++----------
- 2 files changed, 24 insertions(+), 25 deletions(-)
+ fs/gfs2/incore.h |  1 +
+ fs/gfs2/log.c    | 21 ++++++++-------------
+ fs/gfs2/util.c   | 14 +++++++-------
+ fs/gfs2/util.h   | 12 +++++++++++-
+ 4 files changed, 27 insertions(+), 21 deletions(-)
 
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 9fd88ed18807..3cd2de3db40a 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -618,6 +618,7 @@ enum {
+ =09SDF_FORCE_AIL_FLUSH     =3D 9,
+ =09SDF_AIL1_IO_ERROR=09=3D 10,
+ =09SDF_FS_FROZEN           =3D 11,
++=09SDF_WITHDRAWING=09=09=3D 12, /* Will withdraw eventually */
+ };
+=20
+ enum gfs2_freeze_state {
+diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+index c4c7c013f7a7..d1ab04135b2f 100644
+--- a/fs/gfs2/log.c
++++ b/fs/gfs2/log.c
+@@ -88,8 +88,7 @@ static void gfs2_remove_from_ail(struct gfs2_bufdata *bd)
+=20
+ static int gfs2_ail1_start_one(struct gfs2_sbd *sdp,
+ =09=09=09       struct writeback_control *wbc,
+-=09=09=09       struct gfs2_trans *tr,
+-=09=09=09       bool *withdraw)
++=09=09=09       struct gfs2_trans *tr)
+ __releases(&sdp->sd_ail_lock)
+ __acquires(&sdp->sd_ail_lock)
+ {
+@@ -108,7 +107,7 @@ __acquires(&sdp->sd_ail_lock)
+ =09=09=09    !test_and_set_bit(SDF_AIL1_IO_ERROR,
+ =09=09=09=09=09      &sdp->sd_flags)) {
+ =09=09=09=09gfs2_io_error_bh(sdp, bh);
+-=09=09=09=09*withdraw =3D true;
++=09=09=09=09gfs2_withdraw_delayed(sdp);
+ =09=09=09}
+ =09=09=09list_move(&bd->bd_ail_st_list, &tr->tr_ail2_list);
+ =09=09=09continue;
+@@ -149,7 +148,6 @@ void gfs2_ail1_flush(struct gfs2_sbd *sdp, struct write=
+back_control *wbc)
+ =09struct list_head *head =3D &sdp->sd_ail1_list;
+ =09struct gfs2_trans *tr;
+ =09struct blk_plug plug;
+-=09bool withdraw =3D false;
+=20
+ =09trace_gfs2_ail_flush(sdp, wbc, 1);
+ =09blk_start_plug(&plug);
+@@ -158,13 +156,12 @@ void gfs2_ail1_flush(struct gfs2_sbd *sdp, struct wri=
+teback_control *wbc)
+ =09list_for_each_entry_reverse(tr, head, tr_list) {
+ =09=09if (wbc->nr_to_write <=3D 0)
+ =09=09=09break;
+-=09=09if (gfs2_ail1_start_one(sdp, wbc, tr, &withdraw) &&
+-=09=09    !gfs2_withdrawn(sdp))
++=09=09if (gfs2_ail1_start_one(sdp, wbc, tr) && !gfs2_withdrawn(sdp))
+ =09=09=09goto restart;
+ =09}
+ =09spin_unlock(&sdp->sd_ail_lock);
+ =09blk_finish_plug(&plug);
+-=09if (withdraw)
++=09if (test_bit(SDF_WITHDRAWING, &sdp->sd_flags))
+ =09=09gfs2_withdraw(sdp);
+ =09trace_gfs2_ail_flush(sdp, wbc, 0);
+ }
+@@ -193,8 +190,7 @@ static void gfs2_ail1_start(struct gfs2_sbd *sdp)
+  *
+  */
+=20
+-static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *t=
+r,
+-=09=09=09=09bool *withdraw)
++static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *t=
+r)
+ {
+ =09struct gfs2_bufdata *bd, *s;
+ =09struct buffer_head *bh;
+@@ -208,7 +204,7 @@ static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp, s=
+truct gfs2_trans *tr,
+ =09=09if (!buffer_uptodate(bh) &&
+ =09=09    !test_and_set_bit(SDF_AIL1_IO_ERROR, &sdp->sd_flags)) {
+ =09=09=09gfs2_io_error_bh(sdp, bh);
+-=09=09=09*withdraw =3D true;
++=09=09=09gfs2_withdraw_delayed(sdp);
+ =09=09}
+ =09=09list_move(&bd->bd_ail_st_list, &tr->tr_ail2_list);
+ =09}
+@@ -226,11 +222,10 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
+ =09struct gfs2_trans *tr, *s;
+ =09int oldest_tr =3D 1;
+ =09int ret;
+-=09bool withdraw =3D false;
+=20
+ =09spin_lock(&sdp->sd_ail_lock);
+ =09list_for_each_entry_safe_reverse(tr, s, &sdp->sd_ail1_list, tr_list) {
+-=09=09gfs2_ail1_empty_one(sdp, tr, &withdraw);
++=09=09gfs2_ail1_empty_one(sdp, tr);
+ =09=09if (list_empty(&tr->tr_ail1_list) && oldest_tr)
+ =09=09=09list_move(&tr->tr_list, &sdp->sd_ail2_list);
+ =09=09else
+@@ -239,7 +234,7 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
+ =09ret =3D list_empty(&sdp->sd_ail1_list);
+ =09spin_unlock(&sdp->sd_ail_lock);
+=20
+-=09if (withdraw) {
++=09if (test_bit(SDF_WITHDRAWING, &sdp->sd_flags)) {
+ =09=09gfs2_lm(sdp, "fatal: I/O error(s)\n");
+ =09=09gfs2_withdraw(sdp);
+ =09}
 diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
-index 698eb5952438..ec8e8c5ce848 100644
+index ec8e8c5ce848..47cd40de08b1 100644
 --- a/fs/gfs2/util.c
 +++ b/fs/gfs2/util.c
-@@ -84,37 +84,30 @@ int gfs2_withdraw(struct gfs2_sbd *sdp)
-=20
- /**
-  * gfs2_assert_withdraw_i - Cause the machine to withdraw if @assertion is=
- false
-- * Returns: -1 if this call withdrew the machine,
-- *          -2 if it was already withdrawn
-  */
-=20
--int gfs2_assert_withdraw_i(struct gfs2_sbd *sdp, char *assertion,
--=09=09=09   const char *function, char *file, unsigned int line)
-+void gfs2_assert_withdraw_i(struct gfs2_sbd *sdp, char *assertion,
-+=09=09=09    const char *function, char *file, unsigned int line)
+@@ -249,13 +249,13 @@ void gfs2_io_error_bh_i(struct gfs2_sbd *sdp, struct =
+buffer_head *bh,
+ =09=09=09const char *function, char *file, unsigned int line,
+ =09=09=09bool withdraw)
  {
--=09int me;
--
- =09gfs2_lm(sdp,
- =09=09"fatal: assertion \"%s\" failed\n"
- =09=09"   function =3D %s, file =3D %s, line =3D %u\n",
- =09=09assertion, function, file, line);
--=09me =3D gfs2_withdraw(sdp);
-+=09gfs2_withdraw(sdp);
- =09dump_stack();
--=09return (me) ? -1 : -2;
- }
-=20
- /**
-  * gfs2_assert_warn_i - Print a message to the console if @assertion is fa=
-lse
-- * Returns: -1 if we printed something
-- *          -2 if we didn't
-  */
-=20
--int gfs2_assert_warn_i(struct gfs2_sbd *sdp, char *assertion,
--=09=09       const char *function, char *file, unsigned int line)
-+void gfs2_assert_warn_i(struct gfs2_sbd *sdp, char *assertion,
-+=09=09=09const char *function, char *file, unsigned int line)
- {
- =09if (time_before(jiffies,
- =09=09=09sdp->sd_last_warning +
- =09=09=09gfs2_tune_get(sdp, gt_complain_secs) * HZ))
--=09=09return -2;
+-=09if (!gfs2_withdrawn(sdp))
+-=09=09fs_err(sdp,
+-=09=09       "fatal: I/O error\n"
+-=09=09       "  block =3D %llu\n"
+-=09=09       "  function =3D %s, file =3D %s, line =3D %u\n",
+-=09=09       (unsigned long long)bh->b_blocknr,
+-=09=09       function, file, line);
++=09if (gfs2_withdrawn(sdp))
 +=09=09return;
-=20
- =09if (sdp->sd_args.ar_errors =3D=3D GFS2_ERRORS_WITHDRAW)
- =09=09fs_warn(sdp, "warning: assertion \"%s\" failed at function =3D %s, f=
-ile =3D %s, line =3D %u\n",
-@@ -132,8 +125,6 @@ int gfs2_assert_warn_i(struct gfs2_sbd *sdp, char *asse=
-rtion,
- =09=09      sdp->sd_fsname, function, file, line);
-=20
- =09sdp->sd_last_warning =3D jiffies;
--
--=09return -1;
++
++=09fs_err(sdp, "fatal: I/O error\n"
++=09       "  block =3D %llu\n"
++=09       "  function =3D %s, file =3D %s, line =3D %u\n",
++=09       (unsigned long long)bh->b_blocknr, function, file, line);
+ =09if (withdraw)
+ =09=09gfs2_withdraw(sdp);
  }
-=20
- /**
 diff --git a/fs/gfs2/util.h b/fs/gfs2/util.h
-index 93e089327216..572399e75ce6 100644
+index 572399e75ce6..16b2cc6c4560 100644
 --- a/fs/gfs2/util.h
 +++ b/fs/gfs2/util.h
-@@ -36,21 +36,29 @@ do { \
- } while (0)
+@@ -172,13 +172,23 @@ static inline unsigned int gfs2_tune_get_i(struct gfs=
+2_tune *gt,
+ =09return x;
+ }
 =20
++/**
++ * gfs2_withdraw_delayed - withdraw as soon as possible without deadlocks
++ * @sdp: the superblock
++ */
++static inline void gfs2_withdraw_delayed(struct gfs2_sbd *sdp)
++{
++=09set_bit(SDF_WITHDRAWING, &sdp->sd_flags);
++}
++
+ /**
+  * gfs2_withdrawn - test whether the file system is withdrawing or withdra=
+wn
+  * @sdp: the superblock
+  */
+ static inline bool gfs2_withdrawn(struct gfs2_sbd *sdp)
+ {
+-=09return test_bit(SDF_WITHDRAWN, &sdp->sd_flags);
++=09return test_bit(SDF_WITHDRAWN, &sdp->sd_flags) ||
++=09=09test_bit(SDF_WITHDRAWING, &sdp->sd_flags);
+ }
 =20
--int gfs2_assert_withdraw_i(struct gfs2_sbd *sdp, char *assertion,
--=09=09=09   const char *function, char *file, unsigned int line);
-+void gfs2_assert_withdraw_i(struct gfs2_sbd *sdp, char *assertion,
-+=09=09=09    const char *function, char *file, unsigned int line);
-=20
- #define gfs2_assert_withdraw(sdp, assertion) \
--((likely(assertion)) ? 0 : gfs2_assert_withdraw_i((sdp), #assertion, \
--=09=09=09=09=09__func__, __FILE__, __LINE__))
-+=09({ \
-+=09=09bool _bool =3D (assertion); \
-+=09=09if (unlikely(!_bool)) \
-+=09=09=09gfs2_assert_withdraw_i((sdp), #assertion, \
-+=09=09=09=09=09__func__, __FILE__, __LINE__); \
-+=09=09!_bool; \
-+=09})
-=20
--
--int gfs2_assert_warn_i(struct gfs2_sbd *sdp, char *assertion,
--=09=09       const char *function, char *file, unsigned int line);
-+void gfs2_assert_warn_i(struct gfs2_sbd *sdp, char *assertion,
-+=09=09=09const char *function, char *file, unsigned int line);
-=20
- #define gfs2_assert_warn(sdp, assertion) \
--((likely(assertion)) ? 0 : gfs2_assert_warn_i((sdp), #assertion, \
--=09=09=09=09=09__func__, __FILE__, __LINE__))
--
-+=09({ \
-+=09=09bool _bool =3D (assertion); \
-+=09=09if (unlikely(!_bool)) \
-+=09=09=09gfs2_assert_warn_i((sdp), #assertion, \
-+=09=09=09=09=09__func__, __FILE__, __LINE__); \
-+=09=09!_bool; \
-+=09})
-=20
- void gfs2_consist_i(struct gfs2_sbd *sdp,
- =09=09    const char *function, char *file, unsigned int line);
+ #define gfs2_tune_get(sdp, field) \
 --=20
 2.24.1
 
