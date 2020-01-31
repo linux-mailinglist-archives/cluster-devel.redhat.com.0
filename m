@@ -2,56 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 8046D14F1EC
-	for <lists+cluster-devel@lfdr.de>; Fri, 31 Jan 2020 19:08:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B1A514F1ED
+	for <lists+cluster-devel@lfdr.de>; Fri, 31 Jan 2020 19:08:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1580494104;
+	s=mimecast20190719; t=1580494105;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9ETDepl+nRKuYMif8J+TrimCBI6GpCq0zt4HJ8RSAgI=;
-	b=SsDvW7au3Fstg7wIbt6pZr3VF50sZv+qdqW/ZrBsk6MNB+29NrlLO5GWECq/ex7/Tie7wU
-	C9pBdKHpLxleeApuYy/jUJHfqnYrNX3/6cnpdYUppt80mYocpBiSqKpUoz/+5cGGnBTgdv
-	/bAEb2soS6AugcgGudl7FDW1gkZYYVc=
+	bh=DAX01rJ1nQ5cdr7xjlbto7pKCW8qsyqacqpq6B58sFY=;
+	b=F1hIxJ4z2ZJok160/tE6hEAmAyxglEulcXsDmlvpY4sPIgvJowwQW4FGJDO/B+EtSU68tZ
+	uXU9LwpbNCcrHvy9QxvELT9/eWyfmxrhgiNZPk6/aHGI8nJ74wK63N4BNgRfX5ryM0OEUy
+	t4aSHRsgN6EfhiG3ySJVhVz1LRBoBbs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-404-e0FcPsjzMZyfm-WOzj4deQ-1; Fri, 31 Jan 2020 13:08:20 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-76-WwUJkqgrP4SatKwLS0xMBg-1; Fri, 31 Jan 2020 13:08:23 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0CBE685B6F8;
-	Fri, 31 Jan 2020 18:08:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F03787792F;
-	Fri, 31 Jan 2020 18:08:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B77A5193636B;
+	Fri, 31 Jan 2020 18:08:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A381886C4A;
+	Fri, 31 Jan 2020 18:08:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D53EC85CE0;
-	Fri, 31 Jan 2020 18:08:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8431818089C8;
+	Fri, 31 Jan 2020 18:08:20 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00VI8GbL027078 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 31 Jan 2020 13:08:16 -0500
+	id 00VI8I6B027088 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 31 Jan 2020 13:08:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 815C060BE1; Fri, 31 Jan 2020 18:08:16 +0000 (UTC)
+	id 6FFD160BE1; Fri, 31 Jan 2020 18:08:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-116-223.ams2.redhat.com [10.36.116.223])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4B45160BE0
-	for <cluster-devel@redhat.com>; Fri, 31 Jan 2020 18:08:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5800B60BE0
+	for <cluster-devel@redhat.com>; Fri, 31 Jan 2020 18:08:16 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Fri, 31 Jan 2020 12:07:20 -0600
-Message-Id: <20200131180723.178863-23-rpeterso@redhat.com>
+Date: Fri, 31 Jan 2020 12:07:21 -0600
+Message-Id: <20200131180723.178863-24-rpeterso@redhat.com>
 In-Reply-To: <20200131180723.178863-1-rpeterso@redhat.com>
 References: <20200131180723.178863-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 22/25] gfs2: drain the ail2 list after
-	io errors
+Subject: [Cluster-devel] [GFS2 PATCH 23/25] gfs2: Don't demote a glock until
+	its revokes are written
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -65,187 +65,46 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: e0FcPsjzMZyfm-WOzj4deQ-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: WwUJkqgrP4SatKwLS0xMBg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Before this patch, gfs2_logd continually tried to flush its journal
-log, after the file system is withdrawn. We don't want to write anything
-to the journal, lest we add corruption. Best course of action is to
-drain the ail1 into the ail2 list (via gfs2_ail1_empty) then drain the
-ail2 list with a new function, ail2_drain.
+Before this patch, run_queue would demote glocks based on whether
+there are any more holders. But if the glock has pending revokes that
+haven't been written to the media, giving up the glock might end in
+file system corruption if the revokes never get written due to
+io errors, node crashes and fences, etc. In that case, another node
+will replay the metadata blocks associated with the glock, but
+because the revoke was never written, it could replay that block
+even though the glock had since been granted to another node who
+might have made changes.
+
+This patch changes the logic in run_queue so that it never demotes
+a glock until its count of pending revokes reaches zero.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/log.c   | 71 ++++++++++++++++++++++++++++++++++++++++++-------
- fs/gfs2/trans.c |  4 +++
- 2 files changed, 65 insertions(+), 10 deletions(-)
+ fs/gfs2/glock.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index ed80ef8e5c33..010c319caade 100644
---- a/fs/gfs2/log.c
-+++ b/fs/gfs2/log.c
-@@ -299,20 +299,17 @@ static void gfs2_ail1_wait(struct gfs2_sbd *sdp)
- }
-=20
- /**
-- * gfs2_ail2_empty_one - Check whether or not a trans in the AIL has been =
-synced
-- * @sdp: the filesystem
-- * @ai: the AIL entry
-- *
-+ * gfs2_ail_empty_tr - empty one of the ail lists for a transaction
-  */
-=20
--static void gfs2_ail2_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *t=
-r)
-+static void gfs2_ail_empty_tr(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
-+=09=09=09      struct list_head *head)
- {
--=09struct list_head *head =3D &tr->tr_ail2_list;
- =09struct gfs2_bufdata *bd;
-=20
- =09while (!list_empty(head)) {
--=09=09bd =3D list_entry(head->prev, struct gfs2_bufdata,
--=09=09=09=09bd_ail_st_list);
-+=09=09bd =3D list_first_entry(head, struct gfs2_bufdata,
-+=09=09=09=09      bd_ail_st_list);
- =09=09gfs2_assert(sdp, bd->bd_tr =3D=3D tr);
- =09=09gfs2_remove_from_ail(bd);
- =09}
-@@ -334,7 +331,7 @@ static void ail2_empty(struct gfs2_sbd *sdp, unsigned i=
-nt new_tail)
- =09=09if (!rm)
- =09=09=09continue;
-=20
--=09=09gfs2_ail2_empty_one(sdp, tr);
-+=09=09gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
- =09=09list_del(&tr->tr_list);
- =09=09gfs2_assert_warn(sdp, list_empty(&tr->tr_ail1_list));
- =09=09gfs2_assert_warn(sdp, list_empty(&tr->tr_ail2_list));
-@@ -801,6 +798,40 @@ static void log_write_header(struct gfs2_sbd *sdp, u32=
- flags)
- =09=09log_pull_tail(sdp, tail);
- }
-=20
-+/**
-+ * ail_drain - drain the ail lists after a withdraw
-+ * @sdp: Pointer to GFS2 superblock
-+ */
-+static void ail_drain(struct gfs2_sbd *sdp)
-+{
-+=09struct gfs2_trans *tr;
-+
-+=09spin_lock(&sdp->sd_ail_lock);
-+=09/*
-+=09 * For transactions on the sd_ail1_list we need to drain both the
-+=09 * ail1 and ail2 lists. That's because function gfs2_ail1_start_one
-+=09 * (temporarily) moves items from its tr_ail1 list to tr_ail2 list
-+=09 * before revokes are sent for that block. Items on the sd_ail2_list
-+=09 * should have already gotten beyond that point, so no need.
-+=09 */
-+=09while (!list_empty(&sdp->sd_ail1_list)) {
-+=09=09tr =3D list_first_entry(&sdp->sd_ail1_list, struct gfs2_trans,
-+=09=09=09=09      tr_list);
-+=09=09gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail1_list);
-+=09=09gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
-+=09=09list_del(&tr->tr_list);
-+=09=09kfree(tr);
-+=09}
-+=09while (!list_empty(&sdp->sd_ail2_list)) {
-+=09=09tr =3D list_first_entry(&sdp->sd_ail2_list, struct gfs2_trans,
-+=09=09=09=09      tr_list);
-+=09=09gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
-+=09=09list_del(&tr->tr_list);
-+=09=09kfree(tr);
-+=09}
-+=09spin_unlock(&sdp->sd_ail_lock);
-+}
-+
- /**
-  * gfs2_log_flush - flush incore transaction(s)
-  * @sdp: the filesystem
-@@ -811,11 +842,18 @@ static void log_write_header(struct gfs2_sbd *sdp, u3=
-2 flags)
-=20
- void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags=
-)
- {
--=09struct gfs2_trans *tr;
-+=09struct gfs2_trans *tr =3D NULL;
- =09enum gfs2_freeze_state state =3D atomic_read(&sdp->sd_freeze_state);
-=20
- =09down_write(&sdp->sd_log_flush_lock);
-=20
-+=09/*
-+=09 * Do this check while holding the log_flush_lock to prevent new
-+=09 * buffers from being added to the ail via gfs2_pin()
-+=09 */
-+=09if (gfs2_withdrawn(sdp))
-+=09=09goto out;
-+
- =09/* Log might have been flushed while we waited for the flush lock */
- =09if (gl && !test_bit(GLF_LFLUSH, &gl->gl_flags)) {
- =09=09up_write(&sdp->sd_log_flush_lock);
-@@ -843,8 +881,14 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_=
-glock *gl, u32 flags)
- =09=09=09sdp->sd_log_num_revoke =3D=3D sdp->sd_log_committed_revoke);
-=20
- =09gfs2_ordered_write(sdp);
-+=09if (gfs2_withdrawn(sdp))
-+=09=09goto out;
- =09lops_before_commit(sdp, tr);
-+=09if (gfs2_withdrawn(sdp))
-+=09=09goto out;
- =09gfs2_log_submit_bio(&sdp->sd_log_bio, REQ_OP_WRITE);
-+=09if (gfs2_withdrawn(sdp))
-+=09=09goto out;
-=20
- =09if (sdp->sd_log_head !=3D sdp->sd_log_flush_head) {
- =09=09log_flush_wait(sdp);
-@@ -854,6 +898,8 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_g=
-lock *gl, u32 flags)
- =09=09trace_gfs2_log_blocks(sdp, -1);
- =09=09log_write_header(sdp, flags);
- =09}
-+=09if (gfs2_withdrawn(sdp))
-+=09=09goto out;
- =09lops_after_commit(sdp, tr);
-=20
- =09gfs2_log_lock(sdp);
-@@ -892,6 +938,11 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_=
-glock *gl, u32 flags)
- =09}
-=20
- out:
-+=09if (gfs2_withdrawn(sdp)) {
-+=09=09ail_drain(sdp); /* frees all transactions */
-+=09=09tr =3D NULL;
-+=09}
-+
- =09trace_gfs2_log_flush(sdp, 0, flags);
- =09up_write(&sdp->sd_log_flush_lock);
-=20
-diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
-index a685637a5b55..ffe840505082 100644
---- a/fs/gfs2/trans.c
-+++ b/fs/gfs2/trans.c
-@@ -228,6 +228,10 @@ void gfs2_trans_add_meta(struct gfs2_glock *gl, struct=
- buffer_head *bh)
- =09=09fs_info(sdp, "GFS2:adding buf while frozen\n");
- =09=09gfs2_assert_withdraw(sdp, 0);
- =09}
-+=09if (unlikely(gfs2_withdrawn(sdp))) {
-+=09=09fs_info(sdp, "GFS2:adding buf while withdrawn! 0x%llx\n",
-+=09=09=09(unsigned long long)bd->bd_bh->b_blocknr);
-+=09}
- =09gfs2_pin(sdp, bd->bd_bh);
- =09mh->__pad0 =3D cpu_to_be64(0);
- =09mh->mh_jid =3D cpu_to_be32(sdp->sd_jdesc->jd_jid);
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index 70a97a40f3db..2b43a8488aec 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -708,6 +708,9 @@ __acquires(&gl->gl_lockref.lock)
+ =09=09=09goto out_unlock;
+ =09=09if (nonblock)
+ =09=09=09goto out_sched;
++=09=09smp_mb();
++=09=09if (atomic_read(&gl->gl_revokes) !=3D 0)
++=09=09=09goto out_sched;
+ =09=09set_bit(GLF_DEMOTE_IN_PROGRESS, &gl->gl_flags);
+ =09=09GLOCK_BUG_ON(gl, gl->gl_demote_state =3D=3D LM_ST_EXCLUSIVE);
+ =09=09gl->gl_target =3D gl->gl_demote_state;
 --=20
 2.24.1
 
