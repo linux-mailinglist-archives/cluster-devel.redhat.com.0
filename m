@@ -1,9 +1,9 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 3EC3414F1E1
-	for <lists+cluster-devel@lfdr.de>; Fri, 31 Jan 2020 19:07:59 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 14D1414F1E0
+	for <lists+cluster-devel@lfdr.de>; Fri, 31 Jan 2020 19:07:58 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1580494078;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
@@ -12,46 +12,45 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=POvxFAwMkFp2t3J82ZZoT50mcRcrnwYlnQC8jtYqy1Y=;
-	b=ieCHmC14dsuWblK4gj+yWeZgryhMIZQRcygF+Vx7TF9GPV7iWq+vvoQxcb0nkfgGRIZZmk
-	HIykZcGd5fdkfg16Ro4psQwMxKBKiWPRV5EQfiMv0ElrIDavPUPyj7MGVDA6tzB3KgKIXn
-	gnL3HGPEhOOrOT0Ry1BHPFCnYoFvDjg=
+	bh=VaMpAKtSXVrRhYWeS0X9R+nkVIXD++YkAypuc5jPzzo=;
+	b=M6+lSTneWauAD+UBA9o4v5F8VKkC+Jm3M50R/wb9Xh43fBXH6SnA+nkUb4LVDBtJ80pgC7
+	G+BcMA9ymd/kHkFWVHC9RConnL3lehmS2gwNMKsomykGTNQb6BbtzYGBl38EPjq6GjYSJo
+	yTQAhgxJUim8/fhLT2YExBTAPcZiu9k=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-393-xnCvV9h4PKe-ajnOrV5iZA-1; Fri, 31 Jan 2020 13:07:56 -0500
+ us-mta-9-iI_xUJonPDeuZeqHyT8bBg-1; Fri, 31 Jan 2020 13:07:55 -0500
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 761E6A10B8;
-	Fri, 31 Jan 2020 18:07:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F0D17FB60;
-	Fri, 31 Jan 2020 18:07:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E982F10B9F2A;
+	Fri, 31 Jan 2020 18:07:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4FD1811E3;
+	Fri, 31 Jan 2020 18:07:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3735085CE0;
-	Fri, 31 Jan 2020 18:07:50 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BBBAF18089C8;
+	Fri, 31 Jan 2020 18:07:52 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00VI7mNl026934 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 31 Jan 2020 13:07:48 -0500
+	id 00VI7nm7026939 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 31 Jan 2020 13:07:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 475C960BE1; Fri, 31 Jan 2020 18:07:48 +0000 (UTC)
+	id E583360BE1; Fri, 31 Jan 2020 18:07:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-116-223.ams2.redhat.com [10.36.116.223])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E2EC960BE0
-	for <cluster-devel@redhat.com>; Fri, 31 Jan 2020 18:07:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 18B8A60BE0
+	for <cluster-devel@redhat.com>; Fri, 31 Jan 2020 18:07:48 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Fri, 31 Jan 2020 12:07:06 -0600
-Message-Id: <20200131180723.178863-9-rpeterso@redhat.com>
+Date: Fri, 31 Jan 2020 12:07:07 -0600
+Message-Id: <20200131180723.178863-10-rpeterso@redhat.com>
 In-Reply-To: <20200131180723.178863-1-rpeterso@redhat.com>
 References: <20200131180723.178863-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 08/25] gfs2: Rework how rgrp
-	buffer_heads are managed
+Subject: [Cluster-devel] [GFS2 PATCH 09/25] gfs2: log error reform
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,211 +65,109 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: xnCvV9h4PKe-ajnOrV5iZA-1
+X-MC-Unique: iI_xUJonPDeuZeqHyT8bBg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Before this patch, the rgrp code had a serious problem related to
-how it managed buffer_heads for resource groups. The problem caused
-file system corruption, especially in cases of journal replay.
+Before this patch, gfs2 kept track of journal io errors in two
+places sd_log_error and the SDF_AIL1_IO_ERROR flag in sd_flags.
+This patch consolidates the two into sd_log_error so that it
+reflects the first error encountered writing to the journal.
+In future patches, we will take advantage of this by checking
+this value rather than having to check both when reacting to
+io errors.
 
-When an rgrp glock was demoted to transfer ownership to a
-different cluster node, do_xmote() first calls rgrp_go_sync and then
-rgrp_go_inval, as expected. When it calls rgrp_go_sync, that called
-gfs2_rgrp_brelse() that dropped the buffer_head reference count.
-In most cases, the reference count went to zero, which is right.
-However, there were other places where the buffers are handled
-differently.
-
-After rgrp_go_sync, do_xmote called rgrp_go_inval which called
-gfs2_rgrp_brelse a second time, then rgrp_go_inval's call to
-truncate_inode_pages_range would get rid of the pages in memory,
-but only if the reference count drops to 0.
-
-Unfortunately, gfs2_rgrp_brelse was setting bi->bi_bh =3D NULL.
-So when rgrp_go_sync called gfs2_rgrp_brelse, it lost the pointer
-to the buffer_heads in cases where the reference count was still 1.
-Therefore, when rgrp_go_inval called gfs2_rgrp_brelse a second time,
-it failed the check for "if (bi->bi_bh)" and thus failed to call
-brelse a second time. Because of that, the reference count on those
-buffers sometimes failed to drop from 1 to 0. And that caused
-function truncate_inode_pages_range to keep the pages in page cache
-rather than freeing them.
-
-The next time the rgrp glock was acquired, the metadata read of
-the rgrp buffers re-used the pages in memory, which were now
-wrong because they were likely modified by the other node who
-acquired the glock in EX (which is why we demoted the glock).
-This re-use of the page cache caused corruption because changes
-made by the other nodes were never seen, so the bitmaps were
-inaccurate.
-
-For some reason, the problem became most apparent when journal
-replay forced the replay of rgrps in memory, which caused newer
-rgrp data to be overwritten by the older in-core pages.
-
-A big part of the problem was that the rgrp buffer were released
-in multiple places: The go_unlock function would release them when
-the glock was released rather than when the glock is demoted,
-which is clearly wrong because our intent was to cache them until
-the glock is demoted from SH or EX.
-
-This patch attempts to clean up the mess and make one consistent
-and centralized mechanism for managing the rgrp buffer_heads by
-implementing several changes:
-
-1. It eliminates the call to gfs2_rgrp_brelse() from rgrp_go_sync.
-   We don't want to release the buffers or zero the pointers when
-   syncing for the reasons stated above. It only makes sense to
-   release them when the glock is actually invalidated (go_inval).
-   And when we do, then we set the bh pointers to NULL.
-2. The go_unlock function (which was only used for rgrps) is
-   eliminated, as we've talked about doing many times before.
-   The go_unlock function was called too early in the glock dq
-   process, and should not happen until the glock is invalidated.
-3. It also eliminates the call to rgrp_brelse in gfs2_clear_rgrpd.
-   That will now happen automatically when the rgrp glocks are
-   demoted, and shouldn't happen any sooner or later than that.
-   Instead, function gfs2_clear_rgrpd has been modified to demote
-   the rgrp glocks, and therefore, free those pages, before the
-   remaining glocks are culled by gfs2_gl_hash_clear. This
-   prevents the gl_object from hanging around when the glocks are
-   culled.
+In addition, this fixes a tight loop in unmount: If buffers
+get on the ail1 list and an io error occurs elsewhere, the
+ail1 list would never be cleared because they were always busy.
+So unmount would hang, waiting for the ail1 list to empty.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/glock.c  |  8 --------
- fs/gfs2/glops.c  |  9 +--------
- fs/gfs2/incore.h |  1 -
- fs/gfs2/rgrp.c   | 23 +++++------------------
- fs/gfs2/rgrp.h   |  1 -
- 5 files changed, 6 insertions(+), 36 deletions(-)
+ fs/gfs2/incore.h |  7 +++----
+ fs/gfs2/log.c    | 16 ++++++++++++----
+ fs/gfs2/quota.c  |  2 +-
+ 3 files changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index d0eceaff3cea..1cb471a8bc87 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -1241,7 +1241,6 @@ int gfs2_glock_poll(struct gfs2_holder *gh)
- void gfs2_glock_dq(struct gfs2_holder *gh)
- {
- =09struct gfs2_glock *gl =3D gh->gh_gl;
--=09const struct gfs2_glock_operations *glops =3D gl->gl_ops;
- =09unsigned delay =3D 0;
- =09int fast_path =3D 0;
-=20
-@@ -1252,13 +1251,6 @@ void gfs2_glock_dq(struct gfs2_holder *gh)
- =09list_del_init(&gh->gh_list);
- =09clear_bit(HIF_HOLDER, &gh->gh_iflags);
- =09if (find_first_holder(gl) =3D=3D NULL) {
--=09=09if (glops->go_unlock) {
--=09=09=09GLOCK_BUG_ON(gl, test_and_set_bit(GLF_LOCK, &gl->gl_flags));
--=09=09=09spin_unlock(&gl->gl_lockref.lock);
--=09=09=09glops->go_unlock(gh);
--=09=09=09spin_lock(&gl->gl_lockref.lock);
--=09=09=09clear_bit(GLF_LOCK, &gl->gl_flags);
--=09=09}
- =09=09if (list_empty(&gl->gl_holders) &&
- =09=09    !test_bit(GLF_PENDING_DEMOTE, &gl->gl_flags) &&
- =09=09    !test_bit(GLF_DEMOTE, &gl->gl_flags))
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 58431f67665e..1c557457c753 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -145,15 +145,9 @@ static void rgrp_go_sync(struct gfs2_glock *gl)
- {
- =09struct gfs2_sbd *sdp =3D gl->gl_name.ln_sbd;
- =09struct address_space *mapping =3D &sdp->sd_aspace;
--=09struct gfs2_rgrpd *rgd;
-+=09struct gfs2_rgrpd *rgd =3D gfs2_glock2rgrp(gl);
- =09int error;
-=20
--=09spin_lock(&gl->gl_lockref.lock);
--=09rgd =3D gl->gl_object;
--=09if (rgd)
--=09=09gfs2_rgrp_brelse(rgd);
--=09spin_unlock(&gl->gl_lockref.lock);
--
- =09if (!test_and_clear_bit(GLF_DIRTY, &gl->gl_flags))
- =09=09return;
- =09GLOCK_BUG_ON(gl, gl->gl_state !=3D LM_ST_EXCLUSIVE);
-@@ -601,7 +595,6 @@ const struct gfs2_glock_operations gfs2_rgrp_glops =3D =
-{
- =09.go_sync =3D rgrp_go_sync,
- =09.go_inval =3D rgrp_go_inval,
- =09.go_lock =3D gfs2_rgrp_go_lock,
--=09.go_unlock =3D gfs2_rgrp_go_unlock,
- =09.go_dump =3D gfs2_rgrp_dump,
- =09.go_type =3D LM_TYPE_RGRP,
- =09.go_flags =3D GLOF_LVB,
 diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index 3cd2de3db40a..b95c8a31d309 100644
+index b95c8a31d309..ab89f746b3b6 100644
 --- a/fs/gfs2/incore.h
 +++ b/fs/gfs2/incore.h
-@@ -239,7 +239,6 @@ struct gfs2_glock_operations {
- =09void (*go_inval) (struct gfs2_glock *gl, int flags);
- =09int (*go_demote_ok) (const struct gfs2_glock *gl);
- =09int (*go_lock) (struct gfs2_holder *gh);
--=09void (*go_unlock) (struct gfs2_holder *gh);
- =09void (*go_dump)(struct seq_file *seq, struct gfs2_glock *gl,
- =09=09=09const char *fs_id_buf);
- =09void (*go_callback)(struct gfs2_glock *gl, bool remote);
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 2bdd662deff5..2ee2f7d48bc1 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -720,8 +720,12 @@ void gfs2_clear_rgrpd(struct gfs2_sbd *sdp)
- =09=09rb_erase(n, &sdp->sd_rindex_tree);
+@@ -615,9 +615,8 @@ enum {
+ =09SDF_RORECOVERY=09=09=3D 7, /* read only recovery */
+ =09SDF_SKIP_DLM_UNLOCK=09=3D 8,
+ =09SDF_FORCE_AIL_FLUSH     =3D 9,
+-=09SDF_AIL1_IO_ERROR=09=3D 10,
+-=09SDF_FS_FROZEN           =3D 11,
+-=09SDF_WITHDRAWING=09=09=3D 12, /* Will withdraw eventually */
++=09SDF_FS_FROZEN           =3D 10,
++=09SDF_WITHDRAWING=09=09=3D 11, /* Will withdraw eventually */
+ };
 =20
- =09=09if (gl) {
--=09=09=09glock_clear_object(gl, rgd);
-+=09=09=09if (gl->gl_state !=3D LM_ST_UNLOCKED) {
-+=09=09=09=09gfs2_glock_cb(gl, LM_ST_UNLOCKED);
-+=09=09=09=09flush_delayed_work(&gl->gl_work);
-+=09=09=09}
- =09=09=09gfs2_rgrp_brelse(rgd);
-+=09=09=09glock_clear_object(gl, rgd);
- =09=09=09gfs2_glock_put(gl);
- =09=09}
+ enum gfs2_freeze_state {
+@@ -828,7 +827,7 @@ struct gfs2_sbd {
+ =09atomic_t sd_log_in_flight;
+ =09struct bio *sd_log_bio;
+ =09wait_queue_head_t sd_log_flush_wait;
+-=09int sd_log_error;
++=09int sd_log_error; /* First log error */
 =20
-@@ -1284,23 +1288,6 @@ void gfs2_rgrp_brelse(struct gfs2_rgrpd *rgd)
- =09=09=09bi->bi_bh =3D NULL;
+ =09atomic_t sd_reserving_log;
+ =09wait_queue_head_t sd_reserving_log_wait;
+diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+index 9ebec6f93fa3..584bb7ce15bf 100644
+--- a/fs/gfs2/log.c
++++ b/fs/gfs2/log.c
+@@ -108,8 +108,7 @@ __acquires(&sdp->sd_ail_lock)
+ =09=09=09=09=09  &tr->tr_ail2_list);
+ =09=09=09=09continue;
+ =09=09=09}
+-=09=09=09if (!test_and_set_bit(SDF_AIL1_IO_ERROR,
+-=09=09=09=09=09      &sdp->sd_flags)) {
++=09=09=09if (!cmpxchg(&sdp->sd_log_error, 0, -EIO)) {
+ =09=09=09=09gfs2_io_error_bh(sdp, bh);
+ =09=09=09=09gfs2_withdraw_delayed(sdp);
+ =09=09=09}
+@@ -205,10 +204,19 @@ static void gfs2_ail1_empty_one(struct gfs2_sbd *sdp,=
+ struct gfs2_trans *tr)
+ =09=09=09=09=09 bd_ail_st_list) {
+ =09=09bh =3D bd->bd_bh;
+ =09=09gfs2_assert(sdp, bd->bd_tr =3D=3D tr);
+-=09=09if (buffer_busy(bh))
++=09=09/*
++=09=09 * If another process flagged an io error, e.g. writing to the
++=09=09 * journal, error all other bhs and move them off the ail1 to
++=09=09 * prevent a tight loop when unmount tries to flush ail1,
++=09=09 * regardless of whether they're still busy. If no outside
++=09=09 * errors were found and the buffer is busy, move to the next.
++=09=09 * If the ail buffer is not busy and caught an error, flag it
++=09=09 * for others.
++=09=09 */
++=09=09if (!sdp->sd_log_error && buffer_busy(bh))
+ =09=09=09continue;
+ =09=09if (!buffer_uptodate(bh) &&
+-=09=09    !test_and_set_bit(SDF_AIL1_IO_ERROR, &sdp->sd_flags)) {
++=09=09    !cmpxchg(&sdp->sd_log_error, 0, -EIO)) {
+ =09=09=09gfs2_io_error_bh(sdp, bh);
+ =09=09=09gfs2_withdraw_delayed(sdp);
  =09=09}
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index e9f93045eb01..ca2194cfa38e 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -1477,7 +1477,7 @@ static void quotad_error(struct gfs2_sbd *sdp, const =
+char *msg, int error)
+ =09=09return;
+ =09if (!gfs2_withdrawn(sdp)) {
+ =09=09fs_err(sdp, "gfs2_quotad: %s error %d\n", msg, error);
+-=09=09sdp->sd_log_error =3D error;
++=09=09cmpxchg(&sdp->sd_log_error, 0, error);
+ =09=09wake_up(&sdp->sd_logd_waitq);
  =09}
--
--}
--
--/**
-- * gfs2_rgrp_go_unlock - Unlock a rgrp glock
-- * @gh: The glock holder for the resource group
-- *
-- */
--
--void gfs2_rgrp_go_unlock(struct gfs2_holder *gh)
--{
--=09struct gfs2_rgrpd *rgd =3D gh->gh_gl->gl_object;
--=09int demote_requested =3D test_bit(GLF_DEMOTE, &gh->gh_gl->gl_flags) |
--=09=09test_bit(GLF_PENDING_DEMOTE, &gh->gh_gl->gl_flags);
--
--=09if (rgd && demote_requested)
--=09=09gfs2_rgrp_brelse(rgd);
  }
-=20
- int gfs2_rgrp_send_discards(struct gfs2_sbd *sdp, u64 offset,
-diff --git a/fs/gfs2/rgrp.h b/fs/gfs2/rgrp.h
-index c14a673ae36f..a584f3096418 100644
---- a/fs/gfs2/rgrp.h
-+++ b/fs/gfs2/rgrp.h
-@@ -33,7 +33,6 @@ extern int gfs2_rindex_update(struct gfs2_sbd *sdp);
- extern void gfs2_free_clones(struct gfs2_rgrpd *rgd);
- extern int gfs2_rgrp_go_lock(struct gfs2_holder *gh);
- extern void gfs2_rgrp_brelse(struct gfs2_rgrpd *rgd);
--extern void gfs2_rgrp_go_unlock(struct gfs2_holder *gh);
-=20
- extern struct gfs2_alloc *gfs2_alloc_get(struct gfs2_inode *ip);
-=20
 --=20
 2.24.1
 
