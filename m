@@ -1,72 +1,71 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 95713150ED9
-	for <lists+cluster-devel@lfdr.de>; Mon,  3 Feb 2020 18:44:48 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id EF212150FF3
+	for <lists+cluster-devel@lfdr.de>; Mon,  3 Feb 2020 19:49:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1580751887;
+	s=mimecast20190719; t=1580755796;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vQcqXAk2nN39DHXZDNgxEWHPoV2Alt02f4vkzHICU+U=;
-	b=NUaNdEKn0nb6B6j/ZoRWg42pOA0RccbFx7MNJ86Qtv4bV10Fvb730XlnPnMb5uApNwmIFO
-	Ad2pz72FzwoRZMt1e7flLk9Vr30km9SVpbc2EMOyPnwSOKy3nGqy/i3ZvTS83QvS1M6/BY
-	cbz5WYJE+4PMY8QBgpW1lzS+gphVgiE=
+	bh=VK/JIDq33PdMareWmoaqQEbKFlux7zlGPaWYeuFZD3Y=;
+	b=NjIalbFK8r1bGP00gFi28/ijjRMRQIes9+XXcfS/YAhMcU37xe/hxTMu03aAY+Wwdf6AZx
+	p+9+hXG18yPH9sbl6yTmRqGPhkfLLdHglGpXcypcPhR33aELH6Y5VpnvxmePaWC59qbh67
+	e9NgGwsbMb1KbierswoIK2vaN4AuLMg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-359--jVLVU3yNXaRoxwnz4gK8g-1; Mon, 03 Feb 2020 12:44:44 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-39-0FMWUJgUMkiFQVIqTJE8ug-1; Mon, 03 Feb 2020 12:46:58 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0081F61181;
-	Mon,  3 Feb 2020 17:44:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2ED6960BE0;
-	Mon,  3 Feb 2020 17:44:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 92CE21082D70;
+	Mon,  3 Feb 2020 17:46:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DF8538C;
+	Mon,  3 Feb 2020 17:46:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E25158172A;
-	Mon,  3 Feb 2020 17:44:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CFFA518089C8;
+	Mon,  3 Feb 2020 17:46:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 013HiU3t017263 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 3 Feb 2020 12:44:30 -0500
+	id 013HkpWC017345 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 3 Feb 2020 12:46:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 50EA92166B27; Mon,  3 Feb 2020 17:44:30 +0000 (UTC)
+	id A61B6AF996; Mon,  3 Feb 2020 17:46:51 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CDD12166B2B
-	for <cluster-devel@redhat.com>; Mon,  3 Feb 2020 17:44:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A20A2AF984
+	for <cluster-devel@redhat.com>; Mon,  3 Feb 2020 17:46:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EACC185A7B9
-	for <cluster-devel@redhat.com>; Mon,  3 Feb 2020 17:44:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C82DF185A79B
+	for <cluster-devel@redhat.com>; Mon,  3 Feb 2020 17:46:49 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-299-gpYEe0N1NCWfWaXF6aXwHA-1;
-	Mon, 03 Feb 2020 12:44:24 -0500
+	relay.mimecast.com with ESMTP id us-mta-2-MSD4IOBMOO-xJFUJIx2gPA-1;
+	Mon, 03 Feb 2020 12:46:45 -0500
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 393EE68B20; Mon,  3 Feb 2020 18:44:21 +0100 (CET)
-Date: Mon, 3 Feb 2020 18:44:21 +0100
+	id 66CB768B20; Mon,  3 Feb 2020 18:46:41 +0100 (CET)
+Date: Mon, 3 Feb 2020 18:46:41 +0100
 From: Christoph Hellwig <hch@lst.de>
-To: Jan Kara <jack@suse.cz>
-Message-ID: <20200203174421.GB20001@lst.de>
+To: Dave Chinner <david@fromorbit.com>
+Message-ID: <20200203174641.GA20035@lst.de>
 References: <20200114161225.309792-1-hch@lst.de>
-	<20200116140004.GE8446@quack2.suse.cz>
+	<20200118092838.GB9407@dread.disaster.area>
 MIME-Version: 1.0
-In-Reply-To: <20200116140004.GE8446@quack2.suse.cz>
+In-Reply-To: <20200118092838.GB9407@dread.disaster.area>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-X-MC-Unique: gpYEe0N1NCWfWaXF6aXwHA-1
-X-MC-Unique: -jVLVU3yNXaRoxwnz4gK8g-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MC-Unique: MSD4IOBMOO-xJFUJIx2gPA-1
+X-MC-Unique: 0FMWUJgUMkiFQVIqTJE8ug-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 013HiU3t017263
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 013HkpWC017345
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, Andrew Morton <akpm@linux-foundation.org>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -89,29 +88,35 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: inline
 
-On Thu, Jan 16, 2020 at 03:00:04PM +0100, Jan Kara wrote:
-> I'd like to note that using i_dio_count has also one advantage you didn't
-> mention. For AIO case, if you need to hold i_rwsem in exclusive mode,
-> holding the i_rwsem just for submission part is a significant performance
-> advantage (shorter lock hold times allow for higher IO parallelism). I
-> guess this could be mitigated by downgrading the lock to shared mode
-> once the IO is submitted. But there will be still some degradation visibl=
-e
-> for the cases of mixed exclusive and shared acquisitions because shared
-> holders will be blocking exclusive ones for longer time.
+On Sat, Jan 18, 2020 at 08:28:38PM +1100, Dave Chinner wrote:
+> I think it's pretty gross, actually. It  makes the same mistake made
+> with locking in the old direct IO code - it encodes specific lock
+> operations via flags into random locations in the DIO path. This is
+> a very slippery slope, and IMO it is an layering violation to encode
+> specific filesystem locking smeantics into a layer that is supposed
+> to be generic and completely filesystem agnostic. i.e.  this
+> mechanism breaks if a filesystem moves to a different type of lock
+> (e.g. range locks), and history teaches us that we'll end up making
+> a horrible, unmaintainable mess to support different locking
+> mechanisms and contexts.
 >=20
-> This may be especially painful for filesystems that don't implement DIO
-> overwrites with i_rwsem in shared mode...
+> I think that we should be moving to a model where the filesystem
+> provides an unlock method in the iomap operations structure, and if
+> the method is present in iomap_dio_complete() it gets called for the
+> filesystem to unlock the inode at the appropriate point. This also
+> allows the filesystem to provide a different method for read or
+> write unlock, depending on what type of lock it held at submission.
+> This gets rid of the need for the iomap code to know what type of
+> lock the caller holds, too.
 
-True.  Fortunately there are patches for ext4 out to move over to that
-scheme.  gfs2 will need a little more attention, but that also for other
-reasons.
+I'd rather avoid yet another method.  But I think with a little
+tweaking we can move the unlock into the ->end_io method.
 
 
