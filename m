@@ -2,93 +2,91 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 6960D1512AB
-	for <lists+cluster-devel@lfdr.de>; Tue,  4 Feb 2020 00:02:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 024AE151D57
+	for <lists+cluster-devel@lfdr.de>; Tue,  4 Feb 2020 16:33:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1580770958;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1580830396;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=PrY6ROdyu74FBkMol0XgtVc9m/cswrKeoKRRsMoO+kk=;
-	b=RGLQb2A1gbuuotSn/r6kKhPngF+ZuyVJ/IzeOFsWMJRQLoGzJ3eN+HeEQqHg4j7uFsSADj
-	Me/NfE34XVg7hVqIK84rHzXPKENZ1T/oGk7+wEb7gOTuML0dljhbidyGeMUkO4k0DSah6y
-	ONpKkhnMg7QedBDZ9WWM2SnnccyBNIs=
+	bh=oz6329m9FeD2oOch6wJoOid7KF4Hc/1D/LCU12zSq8c=;
+	b=IL+TegKFaJYJgRLRGPezVpItxxVgzG3oq+1NqzApraQu6Eb9VslM9KepAs0ZWiJpPWNnEh
+	W82KEon1vrJP5lQnnO1Zialednomi7k4fq/WhIIAidLVrwDNw9pbARptBxpSFqcuMMN97T
+	i88q9SvVnAwB86NQ/6gVXWA3X7e+DyU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-36-b4vokvDOOJWoyo764fIZwA-1; Mon, 03 Feb 2020 18:02:36 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-132-mwCyTCgxN_WsJYwMnRR03Q-1; Tue, 04 Feb 2020 10:33:00 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C1FCB801E67;
-	Mon,  3 Feb 2020 23:02:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A748A1083E82;
+	Tue,  4 Feb 2020 15:32:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C27A5C1B5;
-	Mon,  3 Feb 2020 23:02:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05A898068E;
+	Tue,  4 Feb 2020 15:32:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EE1C51809567;
-	Mon,  3 Feb 2020 23:02:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 966D818089CD;
+	Tue,  4 Feb 2020 15:32:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 013N2NEn026851 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 3 Feb 2020 18:02:23 -0500
+	id 014FWmPH000550 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 4 Feb 2020 10:32:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1F76B10D14E1; Mon,  3 Feb 2020 23:02:23 +0000 (UTC)
+	id 595672093CE9; Tue,  4 Feb 2020 15:32:48 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 18A4110D14E2
-	for <cluster-devel@redhat.com>; Mon,  3 Feb 2020 23:02:20 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52D272093CE0
+	for <cluster-devel@redhat.com>; Tue,  4 Feb 2020 15:32:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0908185B0A9
-	for <cluster-devel@redhat.com>; Mon,  3 Feb 2020 23:02:20 +0000 (UTC)
-Received: from mail105.syd.optusnet.com.au (mail105.syd.optusnet.com.au
-	[211.29.132.249]) by relay.mimecast.com with ESMTP id
-	us-mta-161-aG5V52qhOa2oLQljRjop7Q-1; Mon, 03 Feb 2020 18:02:16 -0500
-Received: from dread.disaster.area (pa49-181-161-120.pa.nsw.optusnet.com.au
-	[49.181.161.120])
-	by mail105.syd.optusnet.com.au (Postfix) with ESMTPS id 77ADE3A2A22;
-	Tue,  4 Feb 2020 10:02:10 +1100 (AEDT)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
-	(envelope-from <david@fromorbit.com>)
-	id 1iykjJ-0006Rf-AX; Tue, 04 Feb 2020 10:02:09 +1100
-Date: Tue, 4 Feb 2020 10:02:09 +1100
-From: Dave Chinner <david@fromorbit.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20200203230209.GC20628@dread.disaster.area>
-References: <20200114161225.309792-1-hch@lst.de>
-	<20200118092838.GB9407@dread.disaster.area>
-	<20200203174641.GA20035@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E73251019293
+	for <cluster-devel@redhat.com>; Tue,  4 Feb 2020 15:32:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-259-KA28UWxnNga-zuF1iGBQ2Q-1;
+	Tue, 04 Feb 2020 10:32:42 -0500
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id 06D4EAF21;
+	Tue,  4 Feb 2020 15:32:41 +0000 (UTC)
+Received: by ds.suse.cz (Postfix, from userid 10065)
+	id C3975DA80D; Tue,  4 Feb 2020 16:32:27 +0100 (CET)
+Date: Tue, 4 Feb 2020 16:32:27 +0100
+From: David Sterba <dsterba@suse.cz>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <20200204153227.GF2654@twin.jikos.cz>
+Mail-Followup-To: dsterba@suse.cz, Matthew Wilcox <willy@infradead.org>,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+	cluster-devel@redhat.com, ocfs2-devel@oss.oracle.com
+References: <20200201151240.24082-1-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20200203174641.GA20035@lst.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.3 cv=X6os11be c=1 sm=1 tr=0
-	a=SkgQWeG3jiSQFIjTo4+liA==:117 a=SkgQWeG3jiSQFIjTo4+liA==:17
-	a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=l697ptgUJYAA:10
-	a=7-415B0cAAAA:8 a=4rX9TS273XGzNsaKJp0A:9 a=CjuIK1q_8ugA:10
-	a=biEYGPWJfzWAr4FL6Ov7:22
-X-MC-Unique: aG5V52qhOa2oLQljRjop7Q-1
-X-MC-Unique: b4vokvDOOJWoyo764fIZwA-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+In-Reply-To: <20200201151240.24082-1-willy@infradead.org>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-MC-Unique: KA28UWxnNga-zuF1iGBQ2Q-1
+X-MC-Unique: mwCyTCgxN_WsJYwMnRR03Q-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 013N2NEn026851
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 014FWmPH000550
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, Peter Zijlstra <peterz@infradead.org>,
-	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
-	linux-mm@kvack.org, Ingo Molnar <mingo@redhat.com>,
-	linux-fsdevel@vger.kernel.org, Waiman Long <longman@redhat.com>,
-	Thomas Gleixner <tglx@linutronix.de>, linux-ext4@vger.kernel.org,
-	Will Deacon <will@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [Cluster-devel] RFC: hold i_rwsem until aio completes
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+	ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-btrfs@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH v4 00/12] Change readahead API
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
+Reply-To: dsterba@suse.cz
 List-Id: "\[Cluster devel\]" <cluster-devel.redhat.com>
 List-Unsubscribe: <https://www.redhat.com/mailman/options/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=unsubscribe>
@@ -99,45 +97,144 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: inline
 
-On Mon, Feb 03, 2020 at 06:46:41PM +0100, Christoph Hellwig wrote:
-> On Sat, Jan 18, 2020 at 08:28:38PM +1100, Dave Chinner wrote:
-> > I think it's pretty gross, actually. It  makes the same mistake made
-> > with locking in the old direct IO code - it encodes specific lock
-> > operations via flags into random locations in the DIO path. This is
-> > a very slippery slope, and IMO it is an layering violation to encode
-> > specific filesystem locking smeantics into a layer that is supposed
-> > to be generic and completely filesystem agnostic. i.e.  this
-> > mechanism breaks if a filesystem moves to a different type of lock
-> > (e.g. range locks), and history teaches us that we'll end up making
-> > a horrible, unmaintainable mess to support different locking
-> > mechanisms and contexts.
-> >=20
-> > I think that we should be moving to a model where the filesystem
-> > provides an unlock method in the iomap operations structure, and if
-> > the method is present in iomap_dio_complete() it gets called for the
-> > filesystem to unlock the inode at the appropriate point. This also
-> > allows the filesystem to provide a different method for read or
-> > write unlock, depending on what type of lock it held at submission.
-> > This gets rid of the need for the iomap code to know what type of
-> > lock the caller holds, too.
+On Sat, Feb 01, 2020 at 07:12:28AM -0800, Matthew Wilcox wrote:
+> From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 >=20
-> I'd rather avoid yet another method.  But I think with a little
-> tweaking we can move the unlock into the ->end_io method.
+> I would particularly value feedback on this from the gfs2 and ocfs2
+> maintainers.  They have non-trivial changes, and a review on patch 5
+> would be greatly appreciated.
+>=20
+> This series adds a readahead address_space operation to eventually
+> replace the readpages operation.  The key difference is that
+> pages are added to the page cache as they are allocated (and
+> then looked up by the filesystem) instead of passing them on a
+> list to the readpages operation and having the filesystem add
+> them to the page cache.  It's a net reduction in code for each
+> implementation, more efficient than walking a list, and solves
+> the direct-write vs buffered-read problem reported by yu kuai at
+> https://lore.kernel.org/linux-fsdevel/20200116063601.39201-1-yukuai3@huaw=
+ei.com/
+>=20
+> v4:
+>  - Rebase on current Linus (a62aa6f7f50a ("Merge tag 'gfs2-for-5.6'"))
 
-That would work, too :)
+I've tried to test the patchset but haven't got very far, it crashes at boo=
+t
+ritht after VFS mounts the root. The patches are from mailinglist, applied =
+on
+current master, bug I saw the same crash with the git branch in your
+repo (probably v1).
 
-Cheers,
+(gdb) l *(ext4_mpage_readpages+0x1da/0xc20)
+0xffffffff813753f0 is in ext4_mpage_readpages (fs/ext4/readpage.c:226).
+221             return i_size_read(inode);
+222     }
+223
+224     int ext4_mpage_readpages(struct address_space *mapping, pgoff_t sta=
+rt,
+225                     struct page *page, unsigned nr_pages, bool is_reada=
+head)
+226     {
+227             struct bio *bio =3D NULL;
+228             sector_t last_block_in_bio =3D 0;
+229
+230             struct inode *inode =3D mapping->host;
 
-Dave.
---=20
-Dave Chinner
-david@fromorbit.com
+[    8.008531] BUG: kernel NULL pointer dereference, address: 0000000000000=
+000
+[    8.011482] #PF: supervisor read access in kernel mode
+[    8.014121] #PF: error_code(0x0000) - not-present page
+[    8.016767] PGD 0 P4D 0
+[    8.018352] Oops: 0000 [#1] SMP
+[    8.019716] CPU: 2 PID: 1 Comm: swapper/0 Not tainted 5.5.0-default+ #95=
+5
+[    8.021746] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS =
+rel-1.12.0-59-gc9ba527-rebuilt.opensuse.org 04/01/2014
+[    8.025244] RIP: 0010:ext4_mpage_readpages+0x1da/0xc20
+[    8.026817] Code: 7c 24 4e 00 0f 85 23 04 00 00 44 29 74 24 3c 83 6c 24 =
+48 01 0f 84 4d 04 00 00 80 7c 24 4e 00 0f 85 fc 05 00 00 48 8b 4c 24 18 <48=
+> 8b 01 f6 c4 20 75 89 4c 8b 69 20 b9 0c 00 00 00 2b 4c 24 38 83
+[    8.031957] RSP: 0000:ffffb34f40013988 EFLAGS: 00010292
+[    8.033691] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 00000000000=
+00000
+[    8.035533] RDX: 0000000000000001 RSI: ffffffff960934c0 RDI: ffffffff968=
+1a080
+[    8.036900] RBP: 0000000000000001 R08: ffffb34f40013a68 R09: 00000000000=
+00000
+[    8.038461] R10: 0000000000000038 R11: 0000000000000000 R12: 00000000000=
+00004
+[    8.040698] R13: ffff9668ba4e18e0 R14: 0000000000000001 R15: 00000000000=
+00000
+[    8.042805] FS:  0000000000000000(0000) GS:ffff9668bda00000(0000) knlGS:=
+0000000000000000
+[    8.045396] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    8.047233] CR2: 0000000000000000 CR3: 000000002e011001 CR4: 00000000001=
+60ee0
+[    8.049337] Call Trace:
+[    8.050435]  ? __lock_acquire+0xee0/0x1320
+[    8.051833]  ? release_pages+0x310/0x380
+[    8.053265]  ? mark_held_locks+0x50/0x80
+[    8.054468]  ext4_readahead+0x3b/0x50
+[    8.055877]  read_pages+0x65/0x1a0
+[    8.057167]  ? put_pages_list+0x90/0x90
+[    8.058689]  __do_page_cache_readahead+0x24b/0x2a0
+[    8.060394]  generic_file_buffered_read+0x7cf/0x9f0
+[    8.062137]  ? sched_clock+0x5/0x10
+[    8.063451]  ? up_read+0x18/0x240
+[    8.064774]  ? ext4_xattr_get+0x97/0x2c0
+[    8.066178]  new_sync_read+0x111/0x1a0
+[    8.067423]  vfs_read+0xc5/0x180
+[    8.068572]  kernel_read+0x2c/0x40
+[    8.069788]  prepare_binprm+0x171/0x1b0
+[    8.071311]  load_script+0x1c1/0x250
+[    8.072643]  search_binary_handler+0x5f/0x210
+[    8.074135]  exec_binprm+0xd7/0x290
+[    8.075463]  __do_execve_file.isra.0+0x570/0x800
+[    8.077400]  ? rest_init+0x2f1/0x2f5
+[    8.078979]  do_execve+0x21/0x30
+[    8.080420]  kernel_init+0xa4/0x11b
+[    8.081856]  ? rest_init+0x2f5/0x2f5
+[    8.083173]  ret_from_fork+0x24/0x30
+[    8.084695] Modules linked in:
+[    8.086055] CR2: 0000000000000000
+[    8.087572] ---[ end trace 0890c371a706b34a ]---
+[    8.089417] RIP: 0010:ext4_mpage_readpages+0x1da/0xc20
+[    8.116836] BUG: sleeping function called from invalid context at includ=
+e/linux/percpu-rwsem.h:38
+[    8.119626] in_atomic(): 0, irqs_disabled(): 1, non_block: 0, pid: 1, na=
+me: swapper/0
+[    8.122392] INFO: lockdep is turned off.
+[    8.123694] irq event stamp: 18341344
+[    8.124735] hardirqs last  enabled at (18341343): [<ffffffff95230c42>] f=
+ree_unref_page_list+0x232/0x270
+[    8.127918] hardirqs last disabled at (18341344): [<ffffffff95002b4b>] t=
+race_hardirqs_off_thunk+0x1a/0x1c
+[    8.131145] softirqs last  enabled at (18341250): [<ffffffff95a00358>] _=
+_do_softirq+0x358/0x52b
+[    8.143060] softirqs last disabled at (18341243): [<ffffffff9508ae3d>] i=
+rq_exit+0x9d/0xb0
+[    8.145603] CPU: 2 PID: 1 Comm: swapper/0 Tainted: G      D           5.=
+5.0-default+ #955
+[    8.148474] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS =
+rel-1.12.0-59-gc9ba527-rebuilt.opensuse.org 04/01/2014
+[    8.152440] Call Trace:
+[    8.153747]  dump_stack+0x71/0xa0
+[    8.155238]  ___might_sleep.cold+0xa6/0xf9
+[    8.156903]  exit_signals+0x31/0x310
+[    8.158431]  ? __do_execve_file.isra.0+0x570/0x800
+[    8.160179]  do_exit+0xa8/0xd60
+[    8.161632]  ? rest_init+0x2f1/0x2f5
+[    8.163204]  rewind_stack_do_exit+0x17/0x20
+[    8.164931] Kernel panic - not syncing: Attempted to kill init! exitcode=
+=3D0x00000009
+[    8.167575] Kernel Offset: 0x14000000 from 0xffffffff81000000 (relocatio=
+n range: 0xffffffff80000000-0xffffffffbfffffff)
 
 
