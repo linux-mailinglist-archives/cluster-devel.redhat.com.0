@@ -1,99 +1,55 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id A0DDD154824
-	for <lists+cluster-devel@lfdr.de>; Thu,  6 Feb 2020 16:32:42 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 5DD94154836
+	for <lists+cluster-devel@lfdr.de>; Thu,  6 Feb 2020 16:37:43 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581003161;
+	s=mimecast20190719; t=1581003462;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=JkkJGmIOTY9azTSJOAyBmE/D2+0ai1ViZFBb2hElwXY=;
-	b=TN9xet9Cep6Y0xRnyGEGZGUjPm1OhgLmKGFEKPK7sCm3I6CLfC5HN3aVe9qmogmy5dlmLA
-	lEf3LC2aUwKkWxMFhQinJBZlvWk+m0BCnK59WfFZb1dxZ0xEno2Lzue/B0CF+r6fFYBKDG
-	VHUGfUjTBxU/y/1qipWEfFiSvKuUtDs=
+	bh=+LEnj7jNi0rmK4bj6BX5HAw/+AAdANVEyrBwpsI6TTA=;
+	b=gBWtgUJO0/TZHYPDChm2zQ//RrhYrTmaENYq+aSIWJp5w2BhdqNot/AVQBxvaNdmq/+nrM
+	pVQjDNxiKWCYakv5ZCwNop9f5aC18iqesTo71t0zNZiPREhkY9oRsgeS1phHq9qerREs5c
+	z1Bw/pS7C77aZVmvQyKXd3T90vcjGao=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-338-O2biAiBZO0ul6z0RglV1nw-1; Thu, 06 Feb 2020 10:32:39 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-109-OnRfCUY8MsKCTPQDh7scUg-1; Thu, 06 Feb 2020 10:37:40 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A05018AB2C6;
-	Thu,  6 Feb 2020 15:32:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA79060BEC;
-	Thu,  6 Feb 2020 15:32:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AEA7C8010F0;
+	Thu,  6 Feb 2020 15:37:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27AFB863A5;
+	Thu,  6 Feb 2020 15:37:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D206518089C8;
-	Thu,  6 Feb 2020 15:32:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2531D866AB;
+	Thu,  6 Feb 2020 15:37:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 016FWSAd030040 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 6 Feb 2020 10:32:28 -0500
+	id 016FbQZT030180 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 6 Feb 2020 10:37:26 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 96686107CD16; Thu,  6 Feb 2020 15:32:28 +0000 (UTC)
+	id 64C1A60C05; Thu,  6 Feb 2020 15:37:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 90F9C107CD14
-	for <cluster-devel@redhat.com>; Thu,  6 Feb 2020 15:32:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC7E98032A8
-	for <cluster-devel@redhat.com>; Thu,  6 Feb 2020 15:32:16 +0000 (UTC)
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
-	[209.85.167.197]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-110-B0CXXAXsMwq1qZKjcbr46Q-1; Thu, 06 Feb 2020 10:32:11 -0500
-Received: by mail-oi1-f197.google.com with SMTP id n196so3001113oig.6
-	for <cluster-devel@redhat.com>; Thu, 06 Feb 2020 07:32:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=JkkJGmIOTY9azTSJOAyBmE/D2+0ai1ViZFBb2hElwXY=;
-	b=ineY+FW/Gud9fejJzuRF8LW0C49prCJhqKxin9M2tWaMyTC7sYfqGtMwu5iJnpBviF
-	dI0HNq/SOjpPiVgcT31XSVsX5Y+9h48PmI+wx+0Qzbf0NPgYpYJ9R2rOV067Fjvpl/JG
-	2L6RzLvmI8OVhLDc0D9mQM2d7RItZbX0gd4gL+dfzNQ+OJGbe/hbDtrNULlJY58SdW2r
-	st+LxUZjeK4z+XN9ljrod6QmQFmdA2/zXgs29Ctmsc9LrNrQ26IM85JjRhU62G+WdDYp
-	b0Ibr6/9FL0JZdcM1e198CqshQaJkbf/NcM5LjEAX1CswnfU/jtElqscrxNJpqRHmtkj
-	77lA==
-X-Gm-Message-State: APjAAAVEsagWJJ/KWA9vAwjUxfKO9kJlwnI1kCjgkwqWh38D6e5dNLxh
-	EfQmR0xqhKpk6Zx2zTU/iutqenIa6CZtpv1mL2VbjN+Kgo5w+7228xVst7NxumvLOQIhjjcl3vd
-	IlTlRojrQhxWTbvt2VmNaS9bsED/PL+Fa0QknqA==
-X-Received: by 2002:aca:48d0:: with SMTP id v199mr7121512oia.10.1581003130604; 
-	Thu, 06 Feb 2020 07:32:10 -0800 (PST)
-X-Google-Smtp-Source: APXvYqz63b3BCvjFz9bZiKofXwlA69pEYM2GvuAIssv4co0has6j21zg9p8DSROFpl+t1g3/AiFAiFF1ObcmOqpV8Jw=
-X-Received: by 2002:aca:48d0:: with SMTP id v199mr7121485oia.10.1581003130363; 
-	Thu, 06 Feb 2020 07:32:10 -0800 (PST)
-MIME-Version: 1.0
-References: <20200114161225.309792-1-hch@lst.de>
-	<20200114161225.309792-6-hch@lst.de>
-In-Reply-To: <20200114161225.309792-6-hch@lst.de>
+Received: from max.com (ovpn-204-44.brq.redhat.com [10.40.204.44])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CC5E160BEC;
+	Thu,  6 Feb 2020 15:37:22 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Thu, 6 Feb 2020 16:31:58 +0100
-Message-ID: <CAHc6FU45m59PjBWWO=F740_jyOtKSwc__XfYhP84WkpK0uqcWQ@mail.gmail.com>
 To: Christoph Hellwig <hch@lst.de>
-X-MC-Unique: B0CXXAXsMwq1qZKjcbr46Q-1
-X-MC-Unique: O2biAiBZO0ul6z0RglV1nw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 016FWSAd030040
+Date: Thu,  6 Feb 2020 16:37:20 +0100
+Message-Id: <20200206153720.31584-1-agruenba@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>, linux-xfs@vger.kernel.org,
-	Linux-MM <linux-mm@kvack.org>, Ingo Molnar <mingo@redhat.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Waiman Long <longman@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
-	linux-ext4 <linux-ext4@vger.kernel.org>, Will Deacon <will@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [Cluster-devel] [PATCH 05/12] gfs2: fix O_SYNC write handling
+Cc: cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH] gfs2: Clean up gfs2_file_write_iter and fix
+	O_SYNC write handling
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,30 +63,119 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: OnRfCUY8MsKCTPQDh7scUg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Hi Christoph,
+Clean up gfs2_file_write_iter.  When falling back to a buffered write in th=
+e
+O_DIRECT case, use generic_write_sync + IOCB_DSYNC to sync the buffered wri=
+te
+to disk instead of hand-rolling the sync.  Currently, the error checking in=
+ the
+buffered write fallback case is incomplete.
 
-thanks for this patch, and sorry for taking so long to react.
+Based on a proposed fix by Christoph Hellwig <hch@lst.de>.
 
-On Tue, Jan 14, 2020 at 5:54 PM Christoph Hellwig <hch@lst.de> wrote:
-> Don't ignore the return value from generic_write_sync for the direct to
-> buffered I/O callback case when written is non-zero.  Also don't bother
-> to call generic_write_sync for the pure direct I/O case, as iomap_dio_rw
-> already takes care of that.
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+---
+ fs/gfs2/file.c | 51 +++++++++++++++++++++-----------------------------
+ 1 file changed, 21 insertions(+), 30 deletions(-)
 
-I like the idea, but the patch as is doesn't quite work: iomap_dio_rw
-already bumps iocb->ki_pos, so we end up with the wrong value by
-adding the (direct + buffered) write size again.
-We'd probably also be better served by replacing
-filemap_write_and_wait_range with generic_write_sync + IOCB_DSYNC in
-the buffered fallback case. I'll send an update that you'll hopefully
-like.
-
-Andreas
-
+diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+index 21d032c4b077..d68530b12706 100644
+--- a/fs/gfs2/file.c
++++ b/fs/gfs2/file.c
+@@ -847,7 +847,7 @@ static ssize_t gfs2_file_write_iter(struct kiocb *iocb,=
+ struct iov_iter *from)
+ =09struct file *file =3D iocb->ki_filp;
+ =09struct inode *inode =3D file_inode(file);
+ =09struct gfs2_inode *ip =3D GFS2_I(inode);
+-=09ssize_t written =3D 0, ret;
++=09ssize_t ret;
+=20
+ =09ret =3D gfs2_rsqa_alloc(ip);
+ =09if (ret)
+@@ -879,55 +879,46 @@ static ssize_t gfs2_file_write_iter(struct kiocb *ioc=
+b, struct iov_iter *from)
+=20
+ =09if (iocb->ki_flags & IOCB_DIRECT) {
+ =09=09struct address_space *mapping =3D file->f_mapping;
+-=09=09loff_t pos, endbyte;
+-=09=09ssize_t buffered;
++=09=09ssize_t buffered, ret2;
+=20
+-=09=09written =3D gfs2_file_direct_write(iocb, from);
+-=09=09if (written < 0 || !iov_iter_count(from))
++=09=09ret =3D gfs2_file_direct_write(iocb, from);
++=09=09if (ret < 0 || !iov_iter_count(from))
+ =09=09=09goto out_unlock;
+=20
+ =09=09current->backing_dev_info =3D inode_to_bdi(inode);
+-=09=09ret =3D iomap_file_buffered_write(iocb, from, &gfs2_iomap_ops);
++=09=09buffered =3D iomap_file_buffered_write(iocb, from, &gfs2_iomap_ops);
+ =09=09current->backing_dev_info =3D NULL;
+-=09=09if (unlikely(ret < 0))
++=09=09if (unlikely(buffered <=3D 0))
+ =09=09=09goto out_unlock;
+-=09=09buffered =3D ret;
+=20
+ =09=09/*
+ =09=09 * We need to ensure that the page cache pages are written to
+ =09=09 * disk and invalidated to preserve the expected O_DIRECT
+-=09=09 * semantics.
++=09=09 * semantics.  If the writeback or invalidate fails, only report
++=09=09 * the direct I/O range as we don't know if the buffered pages
++=09=09 * made it to disk.
+ =09=09 */
+-=09=09pos =3D iocb->ki_pos;
+-=09=09endbyte =3D pos + buffered - 1;
+-=09=09ret =3D filemap_write_and_wait_range(mapping, pos, endbyte);
+-=09=09if (!ret) {
+-=09=09=09iocb->ki_pos +=3D buffered;
+-=09=09=09written +=3D buffered;
+-=09=09=09invalidate_mapping_pages(mapping,
+-=09=09=09=09=09=09 pos >> PAGE_SHIFT,
+-=09=09=09=09=09=09 endbyte >> PAGE_SHIFT);
+-=09=09} else {
+-=09=09=09/*
+-=09=09=09 * We don't know how much we wrote, so just return
+-=09=09=09 * the number of bytes which were direct-written
+-=09=09=09 */
+-=09=09}
++=09=09iocb->ki_pos +=3D buffered;
++=09=09iocb->ki_flags |=3D IOCB_DSYNC;
++=09=09ret2 =3D generic_write_sync(iocb, buffered);
++=09=09invalidate_mapping_pages(mapping,
++=09=09=09=09=09 (iocb->ki_pos - buffered) >> PAGE_SHIFT,
++=09=09=09=09=09 (iocb->ki_pos - 1) >> PAGE_SHIFT);
++=09=09if (!ret || ret2 > 0)
++=09=09=09ret +=3D ret2;
+ =09} else {
+ =09=09current->backing_dev_info =3D inode_to_bdi(inode);
+ =09=09ret =3D iomap_file_buffered_write(iocb, from, &gfs2_iomap_ops);
+ =09=09current->backing_dev_info =3D NULL;
+-=09=09if (likely(ret > 0))
++=09=09if (likely(ret > 0)) {
+ =09=09=09iocb->ki_pos +=3D ret;
++=09=09=09ret =3D generic_write_sync(iocb, ret);
++=09=09}
+ =09}
+=20
+ out_unlock:
+ =09inode_unlock(inode);
+-=09if (likely(ret > 0)) {
+-=09=09/* Handle various SYNC-type writes */
+-=09=09ret =3D generic_write_sync(iocb, ret);
+-=09}
+-=09return written ? written : ret;
++=09return ret;
+ }
+=20
+ static int fallocate_chunk(struct inode *inode, loff_t offset, loff_t len,
+--=20
+2.24.1
 
