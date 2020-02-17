@@ -1,70 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id E6BA2161A2C
-	for <lists+cluster-devel@lfdr.de>; Mon, 17 Feb 2020 19:46:46 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id A20BA161A0B
+	for <lists+cluster-devel@lfdr.de>; Mon, 17 Feb 2020 19:46:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581965206;
+	s=mimecast20190719; t=1581965199;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=u5spMq1tA6DPuHbXnFjOlMRcbbEUcoCn62vXAfKQx9I=;
-	b=ehMMYwSLO7keB6sf4f1eoAF8CL8f4jmTnv/pAQrbkEDPsbtvYmG1puCbYgBxUCX/i+/ctc
-	vIsXimJCWItxCgnpwZy4I7jxD8/dYPJd2hirDVJXaWVnU8q/a1frNQzZCThDP19+rQcEIQ
-	0b2qEPo8pdpYdwqzULcROAV5+PagSws=
+	bh=5D13hd6hzywlGRJSzmG+dEhyPoGhDXxrLmpMrOepX1Y=;
+	b=H5YF5mAJXO4lQ/md5uBE8xVGx1Nn+p3ECZJct2bKfK7JEjPJFOuQ8O3oJsYpEYBt+LxiLK
+	sSott6F4cI6jTXG2aGj1vmtJFSVNOS+AoA/7GjWODD+guvX4SA9yQ+gZi2uJw2GFH8jAQk
+	Otj7jZoAFDSEF76arnzwKuebjXBOuxY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-45-l4f_6DdFMRuQ1tfbWO5Exg-1; Mon, 17 Feb 2020 13:46:44 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-386-Z17cemHqO_iMDcT4INowiw-1; Mon, 17 Feb 2020 13:46:37 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 92A72107ACC9;
-	Mon, 17 Feb 2020 18:46:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E0763802561;
+	Mon, 17 Feb 2020 18:46:34 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CF425D9E2;
-	Mon, 17 Feb 2020 18:46:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84FCC5C219;
+	Mon, 17 Feb 2020 18:46:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6321F18034E9;
-	Mon, 17 Feb 2020 18:46:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EFDCB1803C33;
+	Mon, 17 Feb 2020 18:46:32 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01HIka9L025058 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Feb 2020 13:46:36 -0500
+	id 01HIkRwU024792 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Feb 2020 13:46:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2E55E10E51C7; Mon, 17 Feb 2020 18:46:36 +0000 (UTC)
+	id 70E911004C47; Mon, 17 Feb 2020 18:46:27 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2996D10E51C3
-	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 18:46:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 684301004C44
+	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 18:46:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1021C80067A
-	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 18:46:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CC83185B0C1
+	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 18:46:26 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-66-DJzzqc53MyWHxbeduytB1g-1; Mon, 17 Feb 2020 13:46:33 -0500
+	us-mta-255-8-bHfWS7O1mrJU6PWcFWXg-1; Mon, 17 Feb 2020 13:46:23 -0500
 Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1j3lPM-0005Bp-5V; Mon, 17 Feb 2020 18:46:16 +0000
+	Hat Linux)) id 1j3lPM-0005C2-6y; Mon, 17 Feb 2020 18:46:16 +0000
 From: Matthew Wilcox <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Mon, 17 Feb 2020 10:46:04 -0800
-Message-Id: <20200217184613.19668-24-willy@infradead.org>
+Date: Mon, 17 Feb 2020 10:46:05 -0800
+Message-Id: <20200217184613.19668-25-willy@infradead.org>
 In-Reply-To: <20200217184613.19668-1-willy@infradead.org>
 References: <20200217184613.19668-1-willy@infradead.org>
 MIME-Version: 1.0
-X-MC-Unique: DJzzqc53MyWHxbeduytB1g-1
-X-MC-Unique: l4f_6DdFMRuQ1tfbWO5Exg-1
+X-MC-Unique: 8-bHfWS7O1mrJU6PWcFWXg-1
+X-MC-Unique: Z17cemHqO_iMDcT4INowiw-1
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01HIka9L025058
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01HIkRwU024792
 X-loop: cluster-devel@redhat.com
 Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
@@ -72,7 +71,7 @@ Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
 	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
 	linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH v6 13/16] f2fs: Convert from readpages to
+Subject: [Cluster-devel] [PATCH v6 14/19] ext4: Convert from readpages to
 	readahead
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -87,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -95,207 +94,178 @@ Content-Transfer-Encoding: quoted-printable
 
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-Use the new readahead operation in f2fs
+Use the new readahead operation in ext4
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- fs/f2fs/data.c              | 50 +++++++++++++++----------------------
- fs/f2fs/f2fs.h              |  5 ++--
- include/trace/events/f2fs.h |  6 ++---
- 3 files changed, 25 insertions(+), 36 deletions(-)
+ fs/ext4/ext4.h     |  3 +--
+ fs/ext4/inode.c    | 23 ++++++++++-------------
+ fs/ext4/readpage.c | 22 ++++++++--------------
+ 3 files changed, 19 insertions(+), 29 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index b27b72107911..87964e4cb6b8 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2159,13 +2159,11 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, =
-struct bio **bio_ret,
-  * use ->readpage() or do the necessary surgery to decouple ->readpages()
-  * from read-ahead.
-  */
--int f2fs_mpage_readpages(struct address_space *mapping,
--=09=09=09struct list_head *pages, struct page *page,
--=09=09=09unsigned nr_pages, bool is_readahead)
-+int f2fs_mpage_readpages(struct inode *inode, struct readahead_control *ra=
-c,
-+=09=09struct page *page)
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 4441331d06cc..1570a0b51b73 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -3279,8 +3279,7 @@ static inline void ext4_set_de_type(struct super_bloc=
+k *sb,
+=20
+ /* readpages.c */
+ extern int ext4_mpage_readpages(struct address_space *mapping,
+-=09=09=09=09struct list_head *pages, struct page *page,
+-=09=09=09=09unsigned nr_pages, bool is_readahead);
++=09=09struct readahead_control *rac, struct page *page);
+ extern int __init ext4_init_post_read_processing(void);
+ extern void ext4_exit_post_read_processing(void);
+=20
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index e60aca791d3f..b3349bfb75b8 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -3218,7 +3218,7 @@ static sector_t ext4_bmap(struct address_space *mappi=
+ng, sector_t block)
+ static int ext4_readpage(struct file *file, struct page *page)
+ {
+ =09int ret =3D -EAGAIN;
+-=09struct inode *inode =3D page->mapping->host;
++=09struct inode *inode =3D file_inode(file);
+=20
+ =09trace_ext4_readpage(page);
+=20
+@@ -3226,23 +3226,20 @@ static int ext4_readpage(struct file *file, struct =
+page *page)
+ =09=09ret =3D ext4_readpage_inline(inode, page);
+=20
+ =09if (ret =3D=3D -EAGAIN)
+-=09=09return ext4_mpage_readpages(page->mapping, NULL, page, 1,
+-=09=09=09=09=09=09false);
++=09=09return ext4_mpage_readpages(page->mapping, NULL, page);
+=20
+ =09return ret;
+ }
+=20
+-static int
+-ext4_readpages(struct file *file, struct address_space *mapping,
+-=09=09struct list_head *pages, unsigned nr_pages)
++static void ext4_readahead(struct readahead_control *rac)
+ {
+-=09struct inode *inode =3D mapping->host;
++=09struct inode *inode =3D rac->mapping->host;
+=20
+-=09/* If the file has inline data, no need to do readpages. */
++=09/* If the file has inline data, no need to do readahead. */
+ =09if (ext4_has_inline_data(inode))
+-=09=09return 0;
++=09=09return;
+=20
+-=09return ext4_mpage_readpages(mapping, pages, NULL, nr_pages, true);
++=09ext4_mpage_readpages(rac->mapping, rac, NULL);
+ }
+=20
+ static void ext4_invalidatepage(struct page *page, unsigned int offset,
+@@ -3587,7 +3584,7 @@ static int ext4_set_page_dirty(struct page *page)
+=20
+ static const struct address_space_operations ext4_aops =3D {
+ =09.readpage=09=09=3D ext4_readpage,
+-=09.readpages=09=09=3D ext4_readpages,
++=09.readahead=09=09=3D ext4_readahead,
+ =09.writepage=09=09=3D ext4_writepage,
+ =09.writepages=09=09=3D ext4_writepages,
+ =09.write_begin=09=09=3D ext4_write_begin,
+@@ -3604,7 +3601,7 @@ static const struct address_space_operations ext4_aop=
+s =3D {
+=20
+ static const struct address_space_operations ext4_journalled_aops =3D {
+ =09.readpage=09=09=3D ext4_readpage,
+-=09.readpages=09=09=3D ext4_readpages,
++=09.readahead=09=09=3D ext4_readahead,
+ =09.writepage=09=09=3D ext4_writepage,
+ =09.writepages=09=09=3D ext4_writepages,
+ =09.write_begin=09=09=3D ext4_write_begin,
+@@ -3620,7 +3617,7 @@ static const struct address_space_operations ext4_jou=
+rnalled_aops =3D {
+=20
+ static const struct address_space_operations ext4_da_aops =3D {
+ =09.readpage=09=09=3D ext4_readpage,
+-=09.readpages=09=09=3D ext4_readpages,
++=09.readahead=09=09=3D ext4_readahead,
+ =09.writepage=09=09=3D ext4_writepage,
+ =09.writepages=09=09=3D ext4_writepages,
+ =09.write_begin=09=09=3D ext4_da_write_begin,
+diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
+index c1769afbf799..e14841ade612 100644
+--- a/fs/ext4/readpage.c
++++ b/fs/ext4/readpage.c
+@@ -7,8 +7,8 @@
+  *
+  * This was originally taken from fs/mpage.c
+  *
+- * The intent is the ext4_mpage_readpages() function here is intended
+- * to replace mpage_readpages() in the general case, not just for
++ * The ext4_mpage_readahead() function here is intended to
++ * replace mpage_readahead() in the general case, not just for
+  * encrypted files.  It has some limitations (see below), where it
+  * will fall back to read_block_full_page(), but these limitations
+  * should only be hit when page_size !=3D block_size.
+@@ -222,8 +222,7 @@ static inline loff_t ext4_readpage_limit(struct inode *=
+inode)
+ }
+=20
+ int ext4_mpage_readpages(struct address_space *mapping,
+-=09=09=09 struct list_head *pages, struct page *page,
+-=09=09=09 unsigned nr_pages, bool is_readahead)
++=09=09struct readahead_control *rac, struct page *page)
  {
  =09struct bio *bio =3D NULL;
  =09sector_t last_block_in_bio =3D 0;
--=09struct inode *inode =3D mapping->host;
- =09struct f2fs_map_blocks map;
- #ifdef CONFIG_F2FS_FS_COMPRESSION
- =09struct compress_ctx cc =3D {
-@@ -2179,6 +2177,7 @@ int f2fs_mpage_readpages(struct address_space *mappin=
-g,
- =09=09.nr_cpages =3D 0,
- =09};
- #endif
-+=09unsigned nr_pages =3D rac ? readahead_count(rac) : 1;
- =09unsigned max_nr_pages =3D nr_pages;
- =09int ret =3D 0;
+@@ -241,6 +240,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
+ =09int length;
+ =09unsigned relative_block =3D 0;
+ =09struct ext4_map_blocks map;
++=09unsigned int nr_pages =3D rac ? readahead_count(rac) : 1;
 =20
-@@ -2192,15 +2191,9 @@ int f2fs_mpage_readpages(struct address_space *mappi=
-ng,
- =09map.m_may_create =3D false;
+ =09map.m_pblk =3D 0;
+ =09map.m_lblk =3D 0;
+@@ -251,14 +251,9 @@ int ext4_mpage_readpages(struct address_space *mapping=
+,
+ =09=09int fully_mapped =3D 1;
+ =09=09unsigned first_hole =3D blocks_per_page;
 =20
- =09for (; nr_pages; nr_pages--) {
 -=09=09if (pages) {
--=09=09=09page =3D list_last_entry(pages, struct page, lru);
+-=09=09=09page =3D lru_to_page(pages);
 -
 +=09=09if (rac) {
 +=09=09=09page =3D readahead_page(rac);
  =09=09=09prefetchw(&page->flags);
 -=09=09=09list_del(&page->lru);
--=09=09=09if (add_to_page_cache_lru(page, mapping,
--=09=09=09=09=09=09  page_index(page),
--=09=09=09=09=09=09  readahead_gfp_mask(mapping)))
+-=09=09=09if (add_to_page_cache_lru(page, mapping, page->index,
+-=09=09=09=09  readahead_gfp_mask(mapping)))
 -=09=09=09=09goto next_page;
  =09=09}
 =20
- #ifdef CONFIG_F2FS_FS_COMPRESSION
-@@ -2210,7 +2203,7 @@ int f2fs_mpage_readpages(struct address_space *mappin=
-g,
- =09=09=09=09ret =3D f2fs_read_multi_pages(&cc, &bio,
- =09=09=09=09=09=09=09max_nr_pages,
- =09=09=09=09=09=09=09&last_block_in_bio,
--=09=09=09=09=09=09=09is_readahead);
-+=09=09=09=09=09=09=09rac);
- =09=09=09=09f2fs_destroy_compress_ctx(&cc);
- =09=09=09=09if (ret)
- =09=09=09=09=09goto set_error_page;
-@@ -2233,7 +2226,7 @@ int f2fs_mpage_readpages(struct address_space *mappin=
-g,
- #endif
-=20
- =09=09ret =3D f2fs_read_single_page(inode, page, max_nr_pages, &map,
--=09=09=09=09=09&bio, &last_block_in_bio, is_readahead);
-+=09=09=09=09=09&bio, &last_block_in_bio, rac);
- =09=09if (ret) {
- #ifdef CONFIG_F2FS_FS_COMPRESSION
- set_error_page:
-@@ -2242,8 +2235,10 @@ int f2fs_mpage_readpages(struct address_space *mappi=
-ng,
- =09=09=09zero_user_segment(page, 0, PAGE_SIZE);
- =09=09=09unlock_page(page);
+ =09=09if (page_has_buffers(page))
+@@ -381,7 +376,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
+ =09=09=09bio->bi_iter.bi_sector =3D blocks[0] << (blkbits - 9);
+ =09=09=09bio->bi_end_io =3D mpage_end_io;
+ =09=09=09bio_set_op_attrs(bio, REQ_OP_READ,
+-=09=09=09=09=09=09is_readahead ? REQ_RAHEAD : 0);
++=09=09=09=09=09=09rac ? REQ_RAHEAD : 0);
  =09=09}
-+#ifdef CONFIG_F2FS_FS_COMPRESSION
- next_page:
+=20
+ =09=09length =3D first_hole << blkbits;
+@@ -406,10 +401,9 @@ int ext4_mpage_readpages(struct address_space *mapping=
+,
+ =09=09else
+ =09=09=09unlock_page(page);
+ =09next_page:
 -=09=09if (pages)
-+#endif
 +=09=09if (rac)
  =09=09=09put_page(page);
-=20
- #ifdef CONFIG_F2FS_FS_COMPRESSION
-@@ -2253,16 +2248,15 @@ int f2fs_mpage_readpages(struct address_space *mapp=
-ing,
- =09=09=09=09ret =3D f2fs_read_multi_pages(&cc, &bio,
- =09=09=09=09=09=09=09max_nr_pages,
- =09=09=09=09=09=09=09&last_block_in_bio,
--=09=09=09=09=09=09=09is_readahead);
-+=09=09=09=09=09=09=09rac);
- =09=09=09=09f2fs_destroy_compress_ctx(&cc);
- =09=09=09}
- =09=09}
- #endif
  =09}
 -=09BUG_ON(pages && !list_empty(pages));
  =09if (bio)
- =09=09__submit_bio(F2FS_I_SB(inode), bio, DATA);
--=09return pages ? 0 : ret;
-+=09return ret;
- }
-=20
- static int f2fs_read_data_page(struct file *file, struct page *page)
-@@ -2281,28 +2275,24 @@ static int f2fs_read_data_page(struct file *file, s=
-truct page *page)
- =09if (f2fs_has_inline_data(inode))
- =09=09ret =3D f2fs_read_inline_data(inode, page);
- =09if (ret =3D=3D -EAGAIN)
--=09=09ret =3D f2fs_mpage_readpages(page_file_mapping(page),
--=09=09=09=09=09=09NULL, page, 1, false);
-+=09=09ret =3D f2fs_mpage_readpages(inode, NULL, page);
- =09return ret;
- }
-=20
--static int f2fs_read_data_pages(struct file *file,
--=09=09=09struct address_space *mapping,
--=09=09=09struct list_head *pages, unsigned nr_pages)
-+static void f2fs_readahead(struct readahead_control *rac)
- {
--=09struct inode *inode =3D mapping->host;
--=09struct page *page =3D list_last_entry(pages, struct page, lru);
-+=09struct inode *inode =3D rac->mapping->host;
-=20
--=09trace_f2fs_readpages(inode, page, nr_pages);
-+=09trace_f2fs_readpages(inode, readahead_index(rac), readahead_count(rac))=
-;
-=20
- =09if (!f2fs_is_compress_backend_ready(inode))
--=09=09return 0;
-+=09=09return;
-=20
- =09/* If the file has inline data, skip readpages */
- =09if (f2fs_has_inline_data(inode))
--=09=09return 0;
-+=09=09return;
-=20
--=09return f2fs_mpage_readpages(mapping, pages, NULL, nr_pages, true);
-+=09f2fs_mpage_readpages(inode, rac, NULL);
- }
-=20
- int f2fs_encrypt_one_page(struct f2fs_io_info *fio)
-@@ -3784,7 +3774,7 @@ static void f2fs_swap_deactivate(struct file *file)
-=20
- const struct address_space_operations f2fs_dblock_aops =3D {
- =09.readpage=09=3D f2fs_read_data_page,
--=09.readpages=09=3D f2fs_read_data_pages,
-+=09.readahead=09=3D f2fs_readahead,
- =09.writepage=09=3D f2fs_write_data_page,
- =09.writepages=09=3D f2fs_write_data_pages,
- =09.write_begin=09=3D f2fs_write_begin,
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 5355be6b6755..b5e72dee8826 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -3344,9 +3344,8 @@ int f2fs_reserve_new_block(struct dnode_of_data *dn);
- int f2fs_get_block(struct dnode_of_data *dn, pgoff_t index);
- int f2fs_preallocate_blocks(struct kiocb *iocb, struct iov_iter *from);
- int f2fs_reserve_block(struct dnode_of_data *dn, pgoff_t index);
--int f2fs_mpage_readpages(struct address_space *mapping,
--=09=09=09struct list_head *pages, struct page *page,
--=09=09=09unsigned nr_pages, bool is_readahead);
-+int f2fs_mpage_readpages(struct inode *inode, struct readahead_control *ra=
-c,
-+=09=09struct page *page);
- struct page *f2fs_get_read_data_page(struct inode *inode, pgoff_t index,
- =09=09=09int op_flags, bool for_write);
- struct page *f2fs_find_data_page(struct inode *inode, pgoff_t index);
-diff --git a/include/trace/events/f2fs.h b/include/trace/events/f2fs.h
-index 67a97838c2a0..d72da4a33883 100644
---- a/include/trace/events/f2fs.h
-+++ b/include/trace/events/f2fs.h
-@@ -1375,9 +1375,9 @@ TRACE_EVENT(f2fs_writepages,
-=20
- TRACE_EVENT(f2fs_readpages,
-=20
--=09TP_PROTO(struct inode *inode, struct page *page, unsigned int nrpage),
-+=09TP_PROTO(struct inode *inode, pgoff_t start, unsigned int nrpage),
-=20
--=09TP_ARGS(inode, page, nrpage),
-+=09TP_ARGS(inode, start, nrpage),
-=20
- =09TP_STRUCT__entry(
- =09=09__field(dev_t,=09dev)
-@@ -1389,7 +1389,7 @@ TRACE_EVENT(f2fs_readpages,
- =09TP_fast_assign(
- =09=09__entry->dev=09=3D inode->i_sb->s_dev;
- =09=09__entry->ino=09=3D inode->i_ino;
--=09=09__entry->start=09=3D page->index;
-+=09=09__entry->start=09=3D start;
- =09=09__entry->nrpage=09=3D nrpage;
- =09),
-=20
+ =09=09submit_bio(bio);
+ =09return 0;
 --=20
 2.25.0
 
