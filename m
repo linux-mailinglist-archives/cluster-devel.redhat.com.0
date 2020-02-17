@@ -1,81 +1,75 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id D6895161810
-	for <lists+cluster-devel@lfdr.de>; Mon, 17 Feb 2020 17:36:24 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 54960161A2F
+	for <lists+cluster-devel@lfdr.de>; Mon, 17 Feb 2020 19:46:48 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581957383;
+	s=mimecast20190719; t=1581965207;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1cX/x3ZXMTrWMPP/DcTfNohSY+K7u1Uz6Gp0LQ7j7ZE=;
-	b=UbI0hRm2SVx3IosNFM8EFQ93XqCbBLYLbMW1dQoY+rxihDQPG9T4AMyxr9RK9Z1BMrC4eO
-	LbMpjcRBdD/3ZT+A5r0UujeL/eFoM40r/jWSVh3Y5+VYA9h18ujpwoKJrHeWuUv+WYxV4s
-	S4iW0wAY2pKDfX2rgIjWDDEj7Uc5TlA=
+	bh=a64L8yWgmDRznAvnwoJFbI1j63ythJ24vTxFshHlvlc=;
+	b=bdRqqdmfkMRkHJbqAtFWpgitC1sMCxdn/LStDsBucFyj6xE9OyX70qpz4VtNRLudi6sSs1
+	sgjw+M8BbqP9aZfOHb25fyBSBrLdomrmw2AzxTukb/M9CsWzmtQB8jGTyAUAhOFxSek13z
+	vGX96IRM0+qmXskHq93MY8LqBF0g5Kc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-264-hGlynDZaNA6tm1at2mXNDQ-1; Mon, 17 Feb 2020 11:36:22 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-248-ulgVQ4I1MFGQb04oiQbipg-1; Mon, 17 Feb 2020 13:46:41 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 33B288010F6;
-	Mon, 17 Feb 2020 16:36:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9ADC2802560;
+	Mon, 17 Feb 2020 18:46:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 826A55C219;
-	Mon, 17 Feb 2020 16:36:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 88C4D90F55;
+	Mon, 17 Feb 2020 18:46:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8CE6235B01;
-	Mon, 17 Feb 2020 16:36:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DE3135B02;
+	Mon, 17 Feb 2020 18:46:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01HGVNS8016200 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Feb 2020 11:31:23 -0500
+	id 01HIkT0A024882 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Feb 2020 13:46:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6B9E010DCF44; Mon, 17 Feb 2020 16:31:23 +0000 (UTC)
+	id 09BA32166B2B; Mon, 17 Feb 2020 18:46:29 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6746210DCF43
-	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 16:31:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05B482166B2A
+	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 18:46:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E114F80020B
-	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 16:31:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D81F88026EE
+	for <cluster-devel@redhat.com>; Mon, 17 Feb 2020 18:46:28 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-326-rY2UObQ8OUqGenvXi6GYqw-1; Mon, 17 Feb 2020 11:31:17 -0500
-Received: from tmo-109-126.customers.d1-online.com ([80.187.109.126]
-	helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1j3j0c-0006ui-CL; Mon, 17 Feb 2020 16:12:34 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92.3)
-	(envelope-from <mchehab@bombadil.infradead.org>)
-	id 1j3j0a-000faX-Dy; Mon, 17 Feb 2020 17:12:32 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Mon, 17 Feb 2020 17:12:06 +0100
-Message-Id: <1d1c46b7e86bd0a18d9abbea0de0bc2be84e5e2b.1581955849.git.mchehab+huawei@kernel.org>
-In-Reply-To: <cover.1581955849.git.mchehab+huawei@kernel.org>
-References: <cover.1581955849.git.mchehab+huawei@kernel.org>
+	us-mta-327--JAXgRFdPReyarSiXw5z1w-1; Mon, 17 Feb 2020 13:46:26 -0500
+Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1j3lPL-00058b-99; Mon, 17 Feb 2020 18:46:15 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: linux-fsdevel@vger.kernel.org
+Date: Mon, 17 Feb 2020 10:45:41 -0800
+Message-Id: <20200217184613.19668-1-willy@infradead.org>
 MIME-Version: 1.0
-X-MC-Unique: rY2UObQ8OUqGenvXi6GYqw-1
-X-MC-Unique: hGlynDZaNA6tm1at2mXNDQ-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MC-Unique: -JAXgRFdPReyarSiXw5z1w-1
+X-MC-Unique: ulgVQ4I1MFGQb04oiQbipg-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01HGVNS8016200
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01HIkT0A024882
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Mon, 17 Feb 2020 11:36:11 -0500
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	cluster-devel@redhat.com, linux-fsdevel@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 20/44] docs: filesystems: convert
-	gfs2-uevents.txt to ReST
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
+	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-btrfs@vger.kernel.org
+Subject: [Cluster-devel] [PATCH v6 00/19] Change readahead API
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,148 +83,133 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-This document is almost in ReST format: all it needs is to have
-the titles adjusted and add a SPDX header. In other words:
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-- Add a SPDX header;
-- Add a document title;
-- Adjust section titles;
-- Add it to filesystems/index.rst.
+This series adds a readahead address_space operation to eventually
+replace the readpages operation.  The key difference is that
+pages are added to the page cache as they are allocated (and
+then looked up by the filesystem) instead of passing them on a
+list to the readpages operation and having the filesystem add
+them to the page cache.  It's a net reduction in code for each
+implementation, more efficient than walking a list, and solves
+the direct-write vs buffered-read problem reported by yu kuai at
+https://lore.kernel.org/linux-fsdevel/20200116063601.39201-1-yukuai3@huawei=
+.com/
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- .../{gfs2-uevents.txt =3D> gfs2-uevents.rst}    | 20 +++++++++++++++----
- Documentation/filesystems/index.rst           |  1 +
- 2 files changed, 17 insertions(+), 4 deletions(-)
- rename Documentation/filesystems/{gfs2-uevents.txt =3D> gfs2-uevents.rst} =
-(94%)
+The only unconverted filesystems are those which use fscache.
+Their conversion is pending Dave Howells' rewrite which will make the
+conversion substantially easier.
 
-diff --git a/Documentation/filesystems/gfs2-uevents.txt b/Documentation/fil=
-esystems/gfs2-uevents.rst
-similarity index 94%
-rename from Documentation/filesystems/gfs2-uevents.txt
-rename to Documentation/filesystems/gfs2-uevents.rst
-index 19a19ebebc34..f162a2c76c69 100644
---- a/Documentation/filesystems/gfs2-uevents.txt
-+++ b/Documentation/filesystems/gfs2-uevents.rst
-@@ -1,14 +1,18 @@
--                              uevents and GFS2
--                             =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+uevents and GFS2
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
- During the lifetime of a GFS2 mount, a number of uevents are generated.
- This document explains what the events are and what they are used
- for (by gfs_controld in gfs2-utils).
-=20
- A list of GFS2 uevents
-------------------------
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
- 1. ADD
-+------
-=20
- The ADD event occurs at mount time. It will always be the first
- uevent generated by the newly created filesystem. If the mount
-@@ -21,6 +25,7 @@ with no journal assigned), and read-only (with journal as=
-signed) status
- of the filesystem respectively.
-=20
- 2. ONLINE
-+---------
-=20
- The ONLINE uevent is generated after a successful mount or remount. It
- has the same environment variables as the ADD uevent. The ONLINE
-@@ -29,6 +34,7 @@ RDONLY are a relatively recent addition (2.6.32-rc+) and =
-will not
- be generated by older kernels.
-=20
- 3. CHANGE
-+---------
-=20
- The CHANGE uevent is used in two places. One is when reporting the
- successful mount of the filesystem by the first node (FIRSTMOUNT=3DDone).
-@@ -52,6 +58,7 @@ cluster. For this reason the ONLINE uevent was used when =
-adding a new
- uevent for a successful mount or remount.
-=20
- 4. OFFLINE
-+----------
-=20
- The OFFLINE uevent is only generated due to filesystem errors and is used
- as part of the "withdraw" mechanism. Currently this doesn't give any
-@@ -59,6 +66,7 @@ information about what the error is, which is something t=
-hat needs to
- be fixed.
-=20
- 5. REMOVE
-+---------
-=20
- The REMOVE uevent is generated at the end of an unsuccessful mount
- or at the end of a umount of the filesystem. All REMOVE uevents will
-@@ -68,9 +76,10 @@ kobject subsystem.
-=20
-=20
- Information common to all GFS2 uevents (uevent environment variables)
------------------------------------------------------------------------
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
- 1. LOCKTABLE=3D
-+--------------
-=20
- The LOCKTABLE is a string, as supplied on the mount command
- line (locktable=3D) or via fstab. It is used as a filesystem label
-@@ -78,6 +87,7 @@ as well as providing the information for a lock_dlm mount=
- to be
- able to join the cluster.
-=20
- 2. LOCKPROTO=3D
-+-------------
-=20
- The LOCKPROTO is a string, and its value depends on what is set
- on the mount command line, or via fstab. It will be either
-@@ -85,12 +95,14 @@ lock_nolock or lock_dlm. In the future other lock manag=
-ers
- may be supported.
-=20
- 3. JOURNALID=3D
-+-------------
-=20
- If a journal is in use by the filesystem (journals are not
- assigned for spectator mounts) then this will give the
- numeric journal id in all GFS2 uevents.
-=20
- 4. UUID=3D
-+--------
-=20
- With recent versions of gfs2-utils, mkfs.gfs2 writes a UUID
- into the filesystem superblock. If it exists, this will
-diff --git a/Documentation/filesystems/index.rst b/Documentation/filesystem=
-s/index.rst
-index f24befe78326..c16e517e37c5 100644
---- a/Documentation/filesystems/index.rst
-+++ b/Documentation/filesystems/index.rst
-@@ -66,6 +66,7 @@ Documentation for filesystem implementations.
-    ext3
-    f2fs
-    gfs2
-+   gfs2-uevents
-    fuse
-    overlayfs
-    virtiofs
+v6:
+ - Name the private members of readahead_control with a leading underscore
+   (suggested by Christoph Hellwig)
+ - Fix whitespace in rst file
+ - Remove misleading comment in btrfs patch
+ - Add readahead_next() API and use it in iomap
+ - Add iomap_readahead kerneldoc.
+ - Fix the mpage_readahead kerneldoc
+ - Make various readahead functions return void
+ - Keep readahead_index() and readahead_offset() pointing to the start of
+   this batch through the body.  No current user requires this, but it's
+   less surprising.
+ - Add kerneldoc for page_cache_readahead_limit
+ - Make page_idx an unsigned long, and rename it to just 'i'
+ - Get rid of page_offset local variable
+ - Add patch to call memalloc_nofs_save() before allocating pages (suggeste=
+d
+   by Michal Hocko)
+ - Resplit a lot of patches for more logical progression and easier review
+   (suggested by John Hubbard)
+ - Added sign-offs where received, and I deemed still relevant
+
+v5 switched to passing a readahead_control struct (mirroring the
+writepages_control struct passed to writepages).  This has a number of
+advantages:
+ - It fixes a number of bugs in various implementations, eg forgetting to
+   increment 'start', an off-by-one error in 'nr_pages' or treating 'start'
+   as a byte offset instead of a page offset.
+ - It allows us to change the arguments without changing all the
+   implementations of ->readahead which just call mpage_readahead() or
+   iomap_readahead()
+ - Figuring out which pages haven't been attempted by the implementation
+   is more natural this way.
+ - There's less code in each implementation.
+
+Matthew Wilcox (Oracle) (19):
+  mm: Return void from various readahead functions
+  mm: Ignore return value of ->readpages
+  mm: Use readahead_control to pass arguments
+  mm: Rearrange readahead loop
+  mm: Remove 'page_offset' from readahead loop
+  mm: rename readahead loop variable to 'i'
+  mm: Put readahead pages in cache earlier
+  mm: Add readahead address space operation
+  mm: Add page_cache_readahead_limit
+  fs: Convert mpage_readpages to mpage_readahead
+  btrfs: Convert from readpages to readahead
+  erofs: Convert uncompressed files from readpages to readahead
+  erofs: Convert compressed files from readpages to readahead
+  ext4: Convert from readpages to readahead
+  f2fs: Convert from readpages to readahead
+  fuse: Convert from readpages to readahead
+  iomap: Restructure iomap_readpages_actor
+  iomap: Convert from readpages to readahead
+  mm: Use memalloc_nofs_save in readahead path
+
+ Documentation/filesystems/locking.rst |   6 +-
+ Documentation/filesystems/vfs.rst     |  13 ++
+ drivers/staging/exfat/exfat_super.c   |   7 +-
+ fs/block_dev.c                        |   7 +-
+ fs/btrfs/extent_io.c                  |  46 ++-----
+ fs/btrfs/extent_io.h                  |   3 +-
+ fs/btrfs/inode.c                      |  16 +--
+ fs/erofs/data.c                       |  39 ++----
+ fs/erofs/zdata.c                      |  29 ++--
+ fs/ext2/inode.c                       |  10 +-
+ fs/ext4/ext4.h                        |   3 +-
+ fs/ext4/inode.c                       |  23 ++--
+ fs/ext4/readpage.c                    |  22 ++-
+ fs/ext4/verity.c                      |  35 +----
+ fs/f2fs/data.c                        |  50 +++----
+ fs/f2fs/f2fs.h                        |   5 +-
+ fs/f2fs/verity.c                      |  35 +----
+ fs/fat/inode.c                        |   7 +-
+ fs/fuse/file.c                        |  46 +++----
+ fs/gfs2/aops.c                        |  23 ++--
+ fs/hpfs/file.c                        |   7 +-
+ fs/iomap/buffered-io.c                | 118 +++++++----------
+ fs/iomap/trace.h                      |   2 +-
+ fs/isofs/inode.c                      |   7 +-
+ fs/jfs/inode.c                        |   7 +-
+ fs/mpage.c                            |  38 ++----
+ fs/nilfs2/inode.c                     |  15 +--
+ fs/ocfs2/aops.c                       |  34 ++---
+ fs/omfs/file.c                        |   7 +-
+ fs/qnx6/inode.c                       |   7 +-
+ fs/reiserfs/inode.c                   |   8 +-
+ fs/udf/inode.c                        |   7 +-
+ fs/xfs/xfs_aops.c                     |  13 +-
+ fs/zonefs/super.c                     |   7 +-
+ include/linux/fs.h                    |   2 +
+ include/linux/iomap.h                 |   3 +-
+ include/linux/mpage.h                 |   4 +-
+ include/linux/pagemap.h               |  90 +++++++++++++
+ include/trace/events/erofs.h          |   6 +-
+ include/trace/events/f2fs.h           |   6 +-
+ mm/internal.h                         |   8 +-
+ mm/migrate.c                          |   2 +-
+ mm/readahead.c                        | 184 +++++++++++++++++---------
+ 43 files changed, 474 insertions(+), 533 deletions(-)
+
+
+base-commit: 11a48a5a18c63fd7621bb050228cebf13566e4d8
 --=20
-2.24.1
+2.25.0
 
 
