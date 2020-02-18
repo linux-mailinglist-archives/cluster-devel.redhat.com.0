@@ -2,91 +2,78 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 724641633D7
-	for <lists+cluster-devel@lfdr.de>; Tue, 18 Feb 2020 22:05:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3C022163480
+	for <lists+cluster-devel@lfdr.de>; Tue, 18 Feb 2020 22:12:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582059948;
+	s=mimecast20190719; t=1582060368;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3Tzi4YVjiGJU778/orjIDa7TSGwRy5taBn2/82oa+aQ=;
-	b=Hkkl8jkVOIgF4Wb71HdQoWEUAcFg+9SOM8jnff9vaGw8kH2/MtRG8psuY4ENJpwsmQ7kgK
-	VC9mnEHbSMTUP1gJGJMw67g0ZPc4Gf39J0gKd2YcH7hOMsNxzB34hp/iiXns2TnjYFgeII
-	r93xOg7hbWZOYrDGAl+7X2lN8x+Lp0o=
+	bh=6MTH57F1nsK7GJaLchCGquZDIxrmRcHIpVJbhHtFAFE=;
+	b=NiK/qGuT66zmw17PG7X3shv7DxvzW977GqP0i0NUTqzs/GKHIrg6kCNh2hjbzkutiLGAc2
+	s5KHtrtfkOlfA5vG9QGn2kiHk2Oo4S10hv20QfYuGTNP6Dgy8GLmQZ3cM2GMG4Ia5O/FcB
+	VdTnbl47S/YNhk8o4kTFbruiCIrH2Ew=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-332-qhZqEDeUONaBebcZsL3oiw-1; Tue, 18 Feb 2020 16:05:46 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-354-Lj4Bvd8IMYeuzDJGNLPsHQ-1; Tue, 18 Feb 2020 16:12:46 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C7E8618FE88C;
-	Tue, 18 Feb 2020 21:05:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AB3AC800D6C;
+	Tue, 18 Feb 2020 21:12:43 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 008F25C3FA;
-	Tue, 18 Feb 2020 21:05:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 519021001920;
+	Tue, 18 Feb 2020 21:12:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0E44035AF5;
-	Tue, 18 Feb 2020 21:05:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A8DC335AFF;
+	Tue, 18 Feb 2020 21:12:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01IL5ahS018211 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Feb 2020 16:05:36 -0500
+	id 01ILCdgH018510 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Feb 2020 16:12:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5DB732166B28; Tue, 18 Feb 2020 21:05:36 +0000 (UTC)
+	id DE2EE104FF9B; Tue, 18 Feb 2020 21:12:38 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 594CA2166B27
-	for <cluster-devel@redhat.com>; Tue, 18 Feb 2020 21:05:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D9FD31000D92
+	for <cluster-devel@redhat.com>; Tue, 18 Feb 2020 21:12:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C4F48101D23C
-	for <cluster-devel@redhat.com>; Tue, 18 Feb 2020 21:05:33 +0000 (UTC)
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
-	[216.228.121.64]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-380-drC3F3K2MLemJokyykioIQ-1; Tue, 18 Feb 2020 16:05:31 -0500
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
-	hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
-	id <B5e4c517a0000>; Tue, 18 Feb 2020 13:04:58 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
-	by hqpgpgate102.nvidia.com (PGP Universal service);
-	Tue, 18 Feb 2020 13:05:30 -0800
-X-PGP-Universal: processed;
-	by hqpgpgate102.nvidia.com on Tue, 18 Feb 2020 13:05:30 -0800
-Received: from [10.110.48.28] (10.124.1.5) by HQMAIL107.nvidia.com
-	(172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
-	Tue, 18 Feb 2020 21:05:29 +0000
-To: Matthew Wilcox <willy@infradead.org>, <linux-fsdevel@vger.kernel.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0BEB8101D232
+	for <cluster-devel@redhat.com>; Tue, 18 Feb 2020 21:12:37 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-237-ACQsxsVePGi1Kex9dokAeQ-1; Tue, 18 Feb 2020 16:12:34 -0500
+Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1j4AAO-0006yP-HR; Tue, 18 Feb 2020 21:12:28 +0000
+Date: Tue, 18 Feb 2020 13:12:28 -0800
+From: Matthew Wilcox <willy@infradead.org>
+To: Dave Chinner <david@fromorbit.com>
+Message-ID: <20200218211228.GF24185@bombadil.infradead.org>
 References: <20200217184613.19668-1-willy@infradead.org>
-	<20200217184613.19668-2-willy@infradead.org>
-X-Nvconfidentiality: public
-From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <29d2d7ca-7f2b-7eb4-78bc-f2af36c4c426@nvidia.com>
-Date: Tue, 18 Feb 2020 13:05:29 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.5.0
+	<20200217184613.19668-19-willy@infradead.org>
+	<20200218065758.GQ10776@dread.disaster.area>
 MIME-Version: 1.0
-In-Reply-To: <20200217184613.19668-2-willy@infradead.org>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
-	HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-X-MC-Unique: drC3F3K2MLemJokyykioIQ-1
-X-MC-Unique: qhZqEDeUONaBebcZsL3oiw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20200218065758.GQ10776@dread.disaster.area>
+X-MC-Unique: ACQsxsVePGi1Kex9dokAeQ-1
+X-MC-Unique: Lj4Bvd8IMYeuzDJGNLPsHQ-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01ILCdgH018510
 X-loop: cluster-devel@redhat.com
 Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
-	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH v6 01/19] mm: Return void from various
-	readahead functions
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH v6 11/19] btrfs: Convert from readpages
+	to readahead
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,158 +87,194 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On 2/17/20 10:45 AM, Matthew Wilcox wrote:
-> From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-> 
-> ondemand_readahead has two callers, neither of which use the return value.
-> That means that both ra_submit and __do_page_cache_readahead() can return
-> void, and we don't need to worry that a present page in the readahead
-> window causes us to return a smaller nr_pages than we ought to have.
-> 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> ---
->  mm/internal.h  |  8 ++++----
->  mm/readahead.c | 24 ++++++++++--------------
->  2 files changed, 14 insertions(+), 18 deletions(-)
+On Tue, Feb 18, 2020 at 05:57:58PM +1100, Dave Chinner wrote:
+> On Mon, Feb 17, 2020 at 10:45:59AM -0800, Matthew Wilcox wrote:
+> > From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> >=20
+> > Use the new readahead operation in btrfs.  Add a
+> > readahead_for_each_batch() iterator to optimise the loop in the XArray.
+> >=20
+> > Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> > ---
+> >  fs/btrfs/extent_io.c    | 46 +++++++++++++----------------------------
+> >  fs/btrfs/extent_io.h    |  3 +--
+> >  fs/btrfs/inode.c        | 16 +++++++-------
+> >  include/linux/pagemap.h | 27 ++++++++++++++++++++++++
+> >  4 files changed, 49 insertions(+), 43 deletions(-)
+> >=20
+> > diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
+> > index c0f202741e09..e97a6acd6f5d 100644
+> > --- a/fs/btrfs/extent_io.c
+> > +++ b/fs/btrfs/extent_io.c
+> > @@ -4278,52 +4278,34 @@ int extent_writepages(struct address_space *map=
+ping,
+> >  =09return ret;
+> >  }
+> > =20
+> > -int extent_readpages(struct address_space *mapping, struct list_head *=
+pages,
+> > -=09=09     unsigned nr_pages)
+> > +void extent_readahead(struct readahead_control *rac)
+> >  {
+> >  =09struct bio *bio =3D NULL;
+> >  =09unsigned long bio_flags =3D 0;
+> >  =09struct page *pagepool[16];
+> >  =09struct extent_map *em_cached =3D NULL;
+> > -=09struct extent_io_tree *tree =3D &BTRFS_I(mapping->host)->io_tree;
+> > -=09int nr =3D 0;
+> > +=09struct extent_io_tree *tree =3D &BTRFS_I(rac->mapping->host)->io_tr=
+ee;
+> >  =09u64 prev_em_start =3D (u64)-1;
+> > +=09int nr;
+> > =20
+> > -=09while (!list_empty(pages)) {
+> > -=09=09u64 contig_end =3D 0;
+> > -
+> > -=09=09for (nr =3D 0; nr < ARRAY_SIZE(pagepool) && !list_empty(pages);)=
+ {
+> > -=09=09=09struct page *page =3D lru_to_page(pages);
+> > -
+> > -=09=09=09prefetchw(&page->flags);
+> > -=09=09=09list_del(&page->lru);
+> > -=09=09=09if (add_to_page_cache_lru(page, mapping, page->index,
+> > -=09=09=09=09=09=09readahead_gfp_mask(mapping))) {
+> > -=09=09=09=09put_page(page);
+> > -=09=09=09=09break;
+> > -=09=09=09}
+> > -
+> > -=09=09=09pagepool[nr++] =3D page;
+> > -=09=09=09contig_end =3D page_offset(page) + PAGE_SIZE - 1;
+> > -=09=09}
+> > +=09readahead_for_each_batch(rac, pagepool, ARRAY_SIZE(pagepool), nr) {
+> > +=09=09u64 contig_start =3D page_offset(pagepool[0]);
+> > +=09=09u64 contig_end =3D page_offset(pagepool[nr - 1]) + PAGE_SIZE - 1=
+;
+>=20
+> So this assumes a contiguous page range is returned, right?
 
+Yes.  That's documented in the readahead API and is the behaviour of
+the code.  I mean, btrfs asserts it's true while most of the rest of
+the kernel is indifferent to it, but it's the documented and actual
+behaviour.
 
-This is an easy review and obviously correct, so:
+> > =20
+> > -=09=09if (nr) {
+> > -=09=09=09u64 contig_start =3D page_offset(pagepool[0]);
+> > +=09=09ASSERT(contig_start + nr * PAGE_SIZE - 1 =3D=3D contig_end);
+>=20
+> Ok, yes it does. :)
+>=20
+> I don't see how readahead_for_each_batch() guarantees that, though.
 
-    Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+I ... don't see how it doesn't?  We start at rac->_start and iterate
+through the consecutive pages in the page cache.  readahead_for_each_batch(=
+)
+does assume that __do_page_cache_readahead() has its current behaviour
+of putting the pages in the page cache in order, and kicks off a new
+call to ->readahead() every time it has to skip an index for whatever
+reason (eg page already in page cache).
 
+> > -=09if (bio)
+> > -=09=09return submit_one_bio(bio, 0, bio_flags);
+> > -=09return 0;
+> > +=09if (bio) {
+> > +=09=09if (submit_one_bio(bio, 0, bio_flags))
+> > +=09=09=09return;
+> > +=09}
+> >  }
+>=20
+> Shouldn't that just be
+>=20
+> =09if (bio)
+> =09=09submit_one_bio(bio, 0, bio_flags);
 
-Thoughts for the future of the API:
+It should, but some overzealous person decided to mark submit_one_bio()
+as __must_check, so I have to work around that.
 
-I will add that I could envision another patchset that went in the
-opposite direction, and attempted to preserve the information about
-how many pages were successfully read ahead. And that would be nice
-to have (at least IMHO), even all the way out to the syscall level,
-especially for the readahead syscall.
+> > +static inline unsigned int readahead_page_batch(struct readahead_contr=
+ol *rac,
+> > +=09=09struct page **array, unsigned int size)
+> > +{
+> > +=09unsigned int batch =3D 0;
+>=20
+> Confusing when put alongside rac->_batch_count counting the number
+> of pages in the batch, and "batch" being the index into the page
+> array, and they aren't the same counts....
 
-Of course, vague opinions about how the API might be improved are less
-pressing than cleaning up the code now--I'm just bringing this up because
-I suspect some people will wonder, "wouldn't it be helpful if I the 
-syscall would tell me what happened here? Success (returning 0) doesn't
-necessarily mean any pages were even read ahead." It just seems worth 
-mentioning.
+Yes.  Renamed to 'i'.
 
+> > +=09XA_STATE(xas, &rac->mapping->i_pages, rac->_start);
+> > +=09struct page *page;
+> > +
+> > +=09rac->_batch_count =3D 0;
+> > +=09xas_for_each(&xas, page, rac->_start + rac->_nr_pages - 1) {
+>=20
+> That just iterates pages in the start,end doesn't it? What
+> guarantees that this fills the array with a contiguous page range?
 
-thanks,
--- 
-John Hubbard
-NVIDIA
+The behaviour of __do_page_cache_readahead().  Dave Howells also has a
+usecase for xas_for_each_contig(), so I'm going to add that soon.
 
-> 
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 3cf20ab3ca01..f779f058118b 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -49,18 +49,18 @@ void unmap_page_range(struct mmu_gather *tlb,
->  			     unsigned long addr, unsigned long end,
->  			     struct zap_details *details);
->  
-> -extern unsigned int __do_page_cache_readahead(struct address_space *mapping,
-> +extern void __do_page_cache_readahead(struct address_space *mapping,
->  		struct file *filp, pgoff_t offset, unsigned long nr_to_read,
->  		unsigned long lookahead_size);
->  
->  /*
->   * Submit IO for the read-ahead request in file_ra_state.
->   */
-> -static inline unsigned long ra_submit(struct file_ra_state *ra,
-> +static inline void ra_submit(struct file_ra_state *ra,
->  		struct address_space *mapping, struct file *filp)
->  {
-> -	return __do_page_cache_readahead(mapping, filp,
-> -					ra->start, ra->size, ra->async_size);
-> +	__do_page_cache_readahead(mapping, filp,
-> +			ra->start, ra->size, ra->async_size);
->  }
->  
->  /*
-> diff --git a/mm/readahead.c b/mm/readahead.c
-> index 2fe72cd29b47..8ce46d69e6ae 100644
-> --- a/mm/readahead.c
-> +++ b/mm/readahead.c
-> @@ -149,10 +149,8 @@ static int read_pages(struct address_space *mapping, struct file *filp,
->   * the pages first, then submits them for I/O. This avoids the very bad
->   * behaviour which would occur if page allocations are causing VM writeback.
->   * We really don't want to intermingle reads and writes like that.
-> - *
-> - * Returns the number of pages requested, or the maximum amount of I/O allowed.
->   */
-> -unsigned int __do_page_cache_readahead(struct address_space *mapping,
-> +void __do_page_cache_readahead(struct address_space *mapping,
->  		struct file *filp, pgoff_t offset, unsigned long nr_to_read,
->  		unsigned long lookahead_size)
->  {
-> @@ -166,7 +164,7 @@ unsigned int __do_page_cache_readahead(struct address_space *mapping,
->  	gfp_t gfp_mask = readahead_gfp_mask(mapping);
->  
->  	if (isize == 0)
-> -		goto out;
-> +		return;
->  
->  	end_index = ((isize - 1) >> PAGE_SHIFT);
->  
-> @@ -211,8 +209,6 @@ unsigned int __do_page_cache_readahead(struct address_space *mapping,
->  	if (nr_pages)
->  		read_pages(mapping, filp, &page_pool, nr_pages, gfp_mask);
->  	BUG_ON(!list_empty(&page_pool));
-> -out:
-> -	return nr_pages;
->  }
->  
->  /*
-> @@ -378,11 +374,10 @@ static int try_context_readahead(struct address_space *mapping,
->  /*
->   * A minimal readahead algorithm for trivial sequential/random reads.
->   */
-> -static unsigned long
-> -ondemand_readahead(struct address_space *mapping,
-> -		   struct file_ra_state *ra, struct file *filp,
-> -		   bool hit_readahead_marker, pgoff_t offset,
-> -		   unsigned long req_size)
-> +static void ondemand_readahead(struct address_space *mapping,
-> +		struct file_ra_state *ra, struct file *filp,
-> +		bool hit_readahead_marker, pgoff_t offset,
-> +		unsigned long req_size)
->  {
->  	struct backing_dev_info *bdi = inode_to_bdi(mapping->host);
->  	unsigned long max_pages = ra->ra_pages;
-> @@ -428,7 +423,7 @@ ondemand_readahead(struct address_space *mapping,
->  		rcu_read_unlock();
->  
->  		if (!start || start - offset > max_pages)
-> -			return 0;
-> +			return;
->  
->  		ra->start = start;
->  		ra->size = start - offset;	/* old async_size */
-> @@ -464,7 +459,8 @@ ondemand_readahead(struct address_space *mapping,
->  	 * standalone, small random read
->  	 * Read as is, and do not pollute the readahead state.
->  	 */
-> -	return __do_page_cache_readahead(mapping, filp, offset, req_size, 0);
-> +	__do_page_cache_readahead(mapping, filp, offset, req_size, 0);
-> +	return;
->  
->  initial_readahead:
->  	ra->start = offset;
-> @@ -489,7 +485,7 @@ ondemand_readahead(struct address_space *mapping,
->  		}
->  	}
->  
-> -	return ra_submit(ra, mapping, filp);
-> +	ra_submit(ra, mapping, filp);
->  }
->  
->  /**
-> 
+> > +=09=09VM_BUG_ON_PAGE(!PageLocked(page), page);
+> > +=09=09VM_BUG_ON_PAGE(PageTail(page), page);
+> > +=09=09array[batch++] =3D page;
+> > +=09=09rac->_batch_count +=3D hpage_nr_pages(page);
+> > +=09=09if (PageHead(page))
+> > +=09=09=09xas_set(&xas, rac->_start + rac->_batch_count);
+>=20
+> What on earth does this do? Comments please!
+
+=09=09/*
+=09=09 * The page cache isn't using multi-index entries yet,
+=09=09 * so xas_for_each() won't do the right thing for
+=09=09 * large pages.  This can be removed once the page cache
+=09=09 * is converted.
+=09=09 */
+
+> > +
+> > +=09=09if (batch =3D=3D size)
+> > +=09=09=09break;
+> > +=09}
+> > +
+> > +=09return batch;
+> > +}
+>=20
+> Seems a bit big for an inline function.
+
+It's only called by btrfs at the moment.  If it gets more than one caller,
+then sure, let's move it out of line.
+
+> > +
+> > +#define readahead_for_each_batch(rac, array, size, nr)=09=09=09\
+> > +=09for (; (nr =3D readahead_page_batch(rac, array, size));=09=09\
+> > +=09=09=09readahead_next(rac))
+>=20
+> I had to go look at the caller to work out what "size" refered to
+> here.
+>=20
+> This is complex enough that it needs proper API documentation.
+
+How about just:
+
+-#define readahead_for_each_batch(rac, array, size, nr)                 \
+-       for (; (nr =3D readahead_page_batch(rac, array, size));           \
++#define readahead_for_each_batch(rac, array, array_sz, nr)             \
++       for (; (nr =3D readahead_page_batch(rac, array, array_sz));       \
+
+(corresponding rename in readahead_page_batch).  I mean, we could also
+do:
+
+#define readahead_for_each_batch(rac, array, nr)=09=09=09\
+=09for (; (nr =3D readahead_page_batch(rac, array, ARRAY_SIZE(array)); \
+=09=09=09readahead_next(rac))
+
+making it less flexible, but easier to use.
+
 
