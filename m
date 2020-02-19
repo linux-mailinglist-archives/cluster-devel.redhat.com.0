@@ -1,90 +1,78 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id ABD9C163961
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 02:32:46 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 6184C163A1B
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 03:25:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582075965;
+	s=mimecast20190719; t=1582079112;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=a8ZomntyDZQd4T0ETmKn7kyy8sPKQZmX4XFar/4v0t8=;
-	b=dxBKZjwb+zZHskwNvP6amIuaCLdJJFFOTT99EWoPL1IPs9ueufd06ZjFuUTpb4nLFMS1mQ
-	d5Cjrw4zf0dy/XFkg7qo42Rd1BLLbG0vIeQeWFPl5nA0Oq85nUKmoDXY6g2EYiJQUHB8vO
-	H5DltvFinPUae/OQx1LkHkqIdQ/PCsY=
+	bh=kaO4RsWa7WldI8eeq7/RlWCR+VlsOQ5x8L8Pxbp21Hw=;
+	b=QbSGwXyGBldxYMi+yyR9112gBvCSCFf8j5PGH/LUJO13zXNXYeP6orUsRs3EGNlvGDIzNz
+	odT7oXoJZn/6D85JXBMLKunsqkWPZP2DfUvfcoFNCSTkgZrINWWU+nWsTy0Rvjgnc1tCYc
+	kd8/bABUjh8/SeohyGQbrvv2R+M+8/M=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-34-yD1P0u9BOGKX1plens_oqw-1; Tue, 18 Feb 2020 20:32:43 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-107-1kywMlNHO4Ch-BqQ9UU81Q-1; Tue, 18 Feb 2020 21:25:09 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 63407800D55;
-	Wed, 19 Feb 2020 01:32:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 063FE60C80;
-	Wed, 19 Feb 2020 01:32:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7762D800EB2;
+	Wed, 19 Feb 2020 02:25:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C20A90531;
+	Wed, 19 Feb 2020 02:25:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5185A35AE2;
-	Wed, 19 Feb 2020 01:32:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 39DC71809567;
+	Wed, 19 Feb 2020 02:25:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01J1Wcp3000551 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Feb 2020 20:32:38 -0500
+	id 01J2NC2Q003295 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Feb 2020 21:23:12 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8724B2166B28; Wed, 19 Feb 2020 01:32:38 +0000 (UTC)
+	id 0C2F1100296E; Wed, 19 Feb 2020 02:23:12 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82EB92166B27
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 01:32:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 070471000DAA
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 02:23:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16F851017E56
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 01:32:36 +0000 (UTC)
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
-	[216.228.121.64]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-272-epx-gfppMfGLsmko3KHVNg-1; Tue, 18 Feb 2020 20:32:32 -0500
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
-	hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
-	id <B5e4c900f0000>; Tue, 18 Feb 2020 17:31:59 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
-	by hqpgpgate102.nvidia.com (PGP Universal service);
-	Tue, 18 Feb 2020 17:32:31 -0800
-X-PGP-Universal: processed;
-	by hqpgpgate102.nvidia.com on Tue, 18 Feb 2020 17:32:31 -0800
-Received: from [10.110.48.28] (10.124.1.5) by HQMAIL107.nvidia.com
-	(172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
-	Wed, 19 Feb 2020 01:32:31 +0000
-To: Matthew Wilcox <willy@infradead.org>, <linux-fsdevel@vger.kernel.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 269FE101D245
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 02:23:10 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-305-BQ3yKTz0PiGuyeIU8-cJ8g-1; Tue, 18 Feb 2020 21:23:08 -0500
+Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1j4F0v-0003R5-2P; Wed, 19 Feb 2020 02:23:01 +0000
+Date: Tue, 18 Feb 2020 18:23:00 -0800
+From: Matthew Wilcox <willy@infradead.org>
+To: John Hubbard <jhubbard@nvidia.com>
+Message-ID: <20200219022300.GJ24185@bombadil.infradead.org>
 References: <20200217184613.19668-1-willy@infradead.org>
 	<20200217184613.19668-16-willy@infradead.org>
-X-Nvconfidentiality: public
-From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <1263603d-f446-c447-2eac-697d105fa76c@nvidia.com>
-Date: Tue, 18 Feb 2020 17:32:31 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.5.0
+	<1263603d-f446-c447-2eac-697d105fa76c@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20200217184613.19668-16-willy@infradead.org>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
-	HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-X-MC-Unique: epx-gfppMfGLsmko3KHVNg-1
-X-MC-Unique: yD1P0u9BOGKX1plens_oqw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <1263603d-f446-c447-2eac-697d105fa76c@nvidia.com>
+X-MC-Unique: BQ3yKTz0PiGuyeIU8-cJ8g-1
+X-MC-Unique: 1kywMlNHO4Ch-BqQ9UU81Q-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01J2NC2Q003295
 X-loop: cluster-devel@redhat.com
 Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
-	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-btrfs@vger.kernel.org
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Subject: Re: [Cluster-devel] [PATCH v6 09/19] mm: Add
 	page_cache_readahead_limit
 X-BeenThere: cluster-devel@redhat.com
@@ -100,293 +88,100 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On 2/17/20 10:45 AM, Matthew Wilcox wrote:
-> From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-> 
-> ext4 and f2fs have duplicated the guts of the readahead code so
-> they can read past i_size.  Instead, separate out the guts of the
-> readahead code so they can call it directly.
-> 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> ---
->  fs/ext4/verity.c        | 35 ++---------------------
->  fs/f2fs/verity.c        | 35 ++---------------------
->  include/linux/pagemap.h |  4 +++
->  mm/readahead.c          | 61 +++++++++++++++++++++++++++++------------
->  4 files changed, 52 insertions(+), 83 deletions(-)
+On Tue, Feb 18, 2020 at 05:32:31PM -0800, John Hubbard wrote:
+> > +=09=09=09page_cache_readahead_limit(inode->i_mapping, NULL,
+> > +=09=09=09=09=09index, LONG_MAX, num_ra_pages, 0);
+>=20
+>=20
+> LONG_MAX seems bold at first, but then again I can't think of anything sm=
+aller=20
+> that makes any sense, and the previous code didn't have a limit either...=
+OK.
 
+Probably worth looking at Dave's review of this and what we've just
+negotiated on the other subthread ... LONG_MAX is gone.
 
-Just some minor ideas below, mostly documentation, so:
+> I also wondered about the NULL file parameter, and wonder if we're stripp=
+ing out
+> information that is needed for authentication, given that that's what the=
+ newly
+> written kerneldoc says the "file" arg is for. But it seems that if we're =
+this=20
+> deep in the fs code's read routines, file system authentication has long =
+since=20
+> been addressed.
 
-    Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+The authentication is for network filesystems.  Local filesystems
+generally don't use the 'file' parameter, and since we're going to be
+calling back into the filesystem's own readahead routine, we know it's
+not needed.
 
-> 
-> diff --git a/fs/ext4/verity.c b/fs/ext4/verity.c
-> index dc5ec724d889..f6e0bf05933e 100644
-> --- a/fs/ext4/verity.c
-> +++ b/fs/ext4/verity.c
-> @@ -342,37 +342,6 @@ static int ext4_get_verity_descriptor(struct inode *inode, void *buf,
->  	return desc_size;
->  }
->  
-> -/*
-> - * Prefetch some pages from the file's Merkle tree.
-> - *
-> - * This is basically a stripped-down version of __do_page_cache_readahead()
-> - * which works on pages past i_size.
-> - */
-> -static void ext4_merkle_tree_readahead(struct address_space *mapping,
-> -				       pgoff_t start_index, unsigned long count)
-> -{
-> -	LIST_HEAD(pages);
-> -	unsigned int nr_pages = 0;
-> -	struct page *page;
-> -	pgoff_t index;
-> -	struct blk_plug plug;
-> -
-> -	for (index = start_index; index < start_index + count; index++) {
-> -		page = xa_load(&mapping->i_pages, index);
-> -		if (!page || xa_is_value(page)) {
-> -			page = __page_cache_alloc(readahead_gfp_mask(mapping));
-> -			if (!page)
-> -				break;
-> -			page->index = index;
-> -			list_add(&page->lru, &pages);
-> -			nr_pages++;
-> -		}
-> -	}
-> -	blk_start_plug(&plug);
-> -	ext4_mpage_readpages(mapping, &pages, NULL, nr_pages, true);
-> -	blk_finish_plug(&plug);
-> -}
-> -
->  static struct page *ext4_read_merkle_tree_page(struct inode *inode,
->  					       pgoff_t index,
->  					       unsigned long num_ra_pages)
-> @@ -386,8 +355,8 @@ static struct page *ext4_read_merkle_tree_page(struct inode *inode,
->  		if (page)
->  			put_page(page);
->  		else if (num_ra_pages > 1)
-> -			ext4_merkle_tree_readahead(inode->i_mapping, index,
-> -						   num_ra_pages);
-> +			page_cache_readahead_limit(inode->i_mapping, NULL,
-> +					index, LONG_MAX, num_ra_pages, 0);
+> Any actually I don't yet (still working through the patches) see any auth=
+entication,
+> so maybe that parameter will turn out to be unnecessary.
+>=20
+> Anyway, It's nice to see this factored out into a single routine.
+
+I'm kind of thinking about pushing the rac in the other direction too,
+so page_cache_readahead_unlimited(rac, nr_to_read, lookahead_size).
+
+> > +/**
+> > + * page_cache_readahead_limit - Start readahead beyond a file's i_size=
+.
+>=20
+>=20
+> Maybe:=20
+>=20
+>     "Start readahead to a caller-specified end point" ?
+>=20
+> (It's only *potentially* beyond files's i_size.)
+
+My current tree has:
+ * page_cache_readahead_exceed - Start unchecked readahead.
 
 
-LONG_MAX seems bold at first, but then again I can't think of anything smaller 
-that makes any sense, and the previous code didn't have a limit either...OK.
+> > + * @mapping: File address space.
+> > + * @file: This instance of the open file; used for authentication.
+> > + * @offset: First page index to read.
+> > + * @end_index: The maximum page index to read.
+> > + * @nr_to_read: The number of pages to read.
+>=20
+>=20
+> How about:
+>=20
+>     "The number of pages to read, as long as end_index is not exceeded."
 
-I also wondered about the NULL file parameter, and wonder if we're stripping out
-information that is needed for authentication, given that that's what the newly
-written kerneldoc says the "file" arg is for. But it seems that if we're this 
-deep in the fs code's read routines, file system authentication has long since 
-been addressed.
+API change makes this irrelevant ;-)
 
-Any actually I don't yet (still working through the patches) see any authentication,
-so maybe that parameter will turn out to be unnecessary.
+> > + * @lookahead_size: Where to start the next readahead.
+>=20
+> Pre-existing, but...it's hard to understand how a size is "where to start=
+".
+> Should we rename this arg?
 
-Anyway, It's nice to see this factored out into a single routine.
+It should probably be lookahead_count.
 
+> > + *
+> > + * This function is for filesystems to call when they want to start
+> > + * readahead potentially beyond a file's stated i_size.  If you want
+> > + * to start readahead on a normal file, you probably want to call
+> > + * page_cache_async_readahead() or page_cache_sync_readahead() instead=
+.
+> > + *
+> > + * Context: File is referenced by caller.  Mutexes may be held by call=
+er.
+> > + * May sleep, but will not reenter filesystem to reclaim memory.
+>=20
+> In fact, can we say "must not reenter filesystem"?=20
 
->  		page = read_mapping_page(inode->i_mapping, index, NULL);
->  	}
->  	return page;
-> diff --git a/fs/f2fs/verity.c b/fs/f2fs/verity.c
-> index d7d430a6f130..71a3e36721fa 100644
-> --- a/fs/f2fs/verity.c
-> +++ b/fs/f2fs/verity.c
-> @@ -222,37 +222,6 @@ static int f2fs_get_verity_descriptor(struct inode *inode, void *buf,
->  	return size;
->  }
->  
-> -/*
-> - * Prefetch some pages from the file's Merkle tree.
-> - *
-> - * This is basically a stripped-down version of __do_page_cache_readahead()
-> - * which works on pages past i_size.
-> - */
-> -static void f2fs_merkle_tree_readahead(struct address_space *mapping,
-> -				       pgoff_t start_index, unsigned long count)
-> -{
-> -	LIST_HEAD(pages);
-> -	unsigned int nr_pages = 0;
-> -	struct page *page;
-> -	pgoff_t index;
-> -	struct blk_plug plug;
-> -
-> -	for (index = start_index; index < start_index + count; index++) {
-> -		page = xa_load(&mapping->i_pages, index);
-> -		if (!page || xa_is_value(page)) {
-> -			page = __page_cache_alloc(readahead_gfp_mask(mapping));
-> -			if (!page)
-> -				break;
-> -			page->index = index;
-> -			list_add(&page->lru, &pages);
-> -			nr_pages++;
-> -		}
-> -	}
-> -	blk_start_plug(&plug);
-> -	f2fs_mpage_readpages(mapping, &pages, NULL, nr_pages, true);
-> -	blk_finish_plug(&plug);
-> -}
-> -
->  static struct page *f2fs_read_merkle_tree_page(struct inode *inode,
->  					       pgoff_t index,
->  					       unsigned long num_ra_pages)
-> @@ -266,8 +235,8 @@ static struct page *f2fs_read_merkle_tree_page(struct inode *inode,
->  		if (page)
->  			put_page(page);
->  		else if (num_ra_pages > 1)
-> -			f2fs_merkle_tree_readahead(inode->i_mapping, index,
-> -						   num_ra_pages);
-> +			page_cache_readahead_limit(inode->i_mapping, NULL,
-> +					index, LONG_MAX, num_ra_pages, 0);
->  		page = read_mapping_page(inode->i_mapping, index, NULL);
->  	}
->  	return page;
-> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-> index bd4291f78f41..4f36c06d064d 100644
-> --- a/include/linux/pagemap.h
-> +++ b/include/linux/pagemap.h
-> @@ -389,6 +389,10 @@ extern struct page * read_cache_page_gfp(struct address_space *mapping,
->  				pgoff_t index, gfp_t gfp_mask);
->  extern int read_cache_pages(struct address_space *mapping,
->  		struct list_head *pages, filler_t *filler, void *data);
-> +void page_cache_readahead_limit(struct address_space *mapping,
-> +		struct file *file, pgoff_t offset, pgoff_t end_index,
-> +		unsigned long nr_to_read, unsigned long lookahead_size);
-> +
->  
->  static inline struct page *read_mapping_page(struct address_space *mapping,
->  				pgoff_t index, void *data)
-> diff --git a/mm/readahead.c b/mm/readahead.c
-> index 975ff5e387be..94d499cfb657 100644
-> --- a/mm/readahead.c
-> +++ b/mm/readahead.c
-> @@ -142,35 +142,38 @@ static void read_pages(struct readahead_control *rac, struct list_head *pages)
->  	blk_finish_plug(&plug);
->  }
->  
-> -/*
-> - * __do_page_cache_readahead() actually reads a chunk of disk.  It allocates
-> - * the pages first, then submits them for I/O. This avoids the very bad
-> - * behaviour which would occur if page allocations are causing VM writeback.
-> - * We really don't want to intermingle reads and writes like that.
-> +/**
-> + * page_cache_readahead_limit - Start readahead beyond a file's i_size.
+I think it depends which side of the API you're looking at which wording
+you prefer ;-)
 
-
-Maybe: 
-
-    "Start readahead to a caller-specified end point" ?
-
-(It's only *potentially* beyond files's i_size.)
-
-
-> + * @mapping: File address space.
-> + * @file: This instance of the open file; used for authentication.
-> + * @offset: First page index to read.
-> + * @end_index: The maximum page index to read.
-> + * @nr_to_read: The number of pages to read.
-
-
-How about:
-
-    "The number of pages to read, as long as end_index is not exceeded."
-
-
-> + * @lookahead_size: Where to start the next readahead.
-
-
-Pre-existing, but...it's hard to understand how a size is "where to start".
-Should we rename this arg?
-
-> + *
-> + * This function is for filesystems to call when they want to start
-> + * readahead potentially beyond a file's stated i_size.  If you want
-> + * to start readahead on a normal file, you probably want to call
-> + * page_cache_async_readahead() or page_cache_sync_readahead() instead.
-> + *
-> + * Context: File is referenced by caller.  Mutexes may be held by caller.
-> + * May sleep, but will not reenter filesystem to reclaim memory.
-
-
-In fact, can we say "must not reenter filesystem"? 
-
-
->   */
-> -void __do_page_cache_readahead(struct address_space *mapping,
-> -		struct file *filp, pgoff_t offset, unsigned long nr_to_read,
-> -		unsigned long lookahead_size)
-> +void page_cache_readahead_limit(struct address_space *mapping,
-> +		struct file *file, pgoff_t offset, pgoff_t end_index,
-> +		unsigned long nr_to_read, unsigned long lookahead_size)
->  {
-> -	struct inode *inode = mapping->host;
-> -	unsigned long end_index;	/* The last page we want to read */
->  	LIST_HEAD(page_pool);
->  	unsigned long i;
-> -	loff_t isize = i_size_read(inode);
->  	gfp_t gfp_mask = readahead_gfp_mask(mapping);
->  	bool use_list = mapping->a_ops->readpages;
->  	struct readahead_control rac = {
->  		.mapping = mapping,
-> -		.file = filp,
-> +		.file = file,
->  		._start = offset,
->  		._nr_pages = 0,
->  	};
->  
-> -	if (isize == 0)
-> -		return;
-> -
-> -	end_index = ((isize - 1) >> PAGE_SHIFT);
-> -
->  	/*
->  	 * Preallocate as many pages as we will need.
->  	 */
-> @@ -225,6 +228,30 @@ void __do_page_cache_readahead(struct address_space *mapping,
->  		read_pages(&rac, &page_pool);
->  	BUG_ON(!list_empty(&page_pool));
->  }
-> +EXPORT_SYMBOL_GPL(page_cache_readahead_limit);
-> +
-> +/*
-> + * __do_page_cache_readahead() actually reads a chunk of disk.  It allocates
-> + * the pages first, then submits them for I/O. This avoids the very bad
-> + * behaviour which would occur if page allocations are causing VM writeback.
-> + * We really don't want to intermingle reads and writes like that.
-> + */
-> +void __do_page_cache_readahead(struct address_space *mapping,
-> +		struct file *file, pgoff_t offset, unsigned long nr_to_read,
-> +		unsigned long lookahead_size)
-> +{
-> +	struct inode *inode = mapping->host;
-> +	unsigned long end_index;	/* The last page we want to read */
-> +	loff_t isize = i_size_read(inode);
-> +
-> +	if (isize == 0)
-> +		return;
-> +
-> +	end_index = ((isize - 1) >> PAGE_SHIFT);
-> +
-> +	page_cache_readahead_limit(mapping, file, offset, end_index,
-> +			nr_to_read, lookahead_size);
-> +}
->  
->  /*
->   * Chunk the readahead into 2 megabyte units, so that we don't pin too much
-> 
-
-
-thanks,
--- 
-John Hubbard
-NVIDIA
 
