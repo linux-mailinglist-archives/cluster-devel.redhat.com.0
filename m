@@ -1,111 +1,85 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 0A6E8164075
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 10:33:22 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 9325E164391
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 12:42:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582104801;
+	s=mimecast20190719; t=1582112534;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=g7qX9mp4oJ6yBemyXwClHjkdSOM0BIl1OFgwFQscLhE=;
-	b=BA+VoUQsaGD0Opi1Y2ySSUygC6R2VBEbx1Ocr4eowWBZBNUjS5ku7luJ4ZNMKmJ1goLIvy
-	Lt8yxgt2+fEkajg2z09RNGr+ScLvRqUUyDEp5Kf64iLH6Eb+DGqhWsLtvnn1ocC+q4N0TS
-	ojWcfMNLghgNu1h58J3azyGL/wgfNPE=
+	bh=6g3k1M7CQToMcw1YCl1/xbbtV4syQA1VfyirVv5OU8M=;
+	b=PDrecrCbNkON9MQkNkJyWMmpdO+DxCa7C+kDlP9m2s+VTTpSSbCjHcQdQc8bH3IQt7wBYL
+	v1ZIPwFlFL5L9faaz6cVcRv9zzx7qOt7Vgp0Y/crxTH2CPNpMqlMc2Q+0eVFlUB6rTJnfj
+	34Bo5fJ/arOb/qpNi3lz1KmnYjYJJwg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-164-31E53qtZNp2qHWsV7sTHug-1; Wed, 19 Feb 2020 04:33:20 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-368-wBqNdP04MLC9QC2bEyxLGQ-1; Wed, 19 Feb 2020 06:42:10 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 82FF4DB6B;
-	Wed, 19 Feb 2020 09:33:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C53362660;
-	Wed, 19 Feb 2020 09:33:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5604E800D5E;
+	Wed, 19 Feb 2020 11:42:08 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4489790769;
+	Wed, 19 Feb 2020 11:42:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A2D7D1809567;
-	Wed, 19 Feb 2020 09:33:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F29BC35B15;
+	Wed, 19 Feb 2020 11:42:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01J9X5Pk026990 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 19 Feb 2020 04:33:05 -0500
+	id 01J3Aqcw005537 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Feb 2020 22:10:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 455292166B28; Wed, 19 Feb 2020 09:33:05 +0000 (UTC)
+	id 8D6D72063206; Wed, 19 Feb 2020 03:10:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 413932166B2A
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 09:33:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 88BED2026D69
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:10:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E411101D250
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 09:33:03 +0000 (UTC)
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-373-2f_m5vJUMt-3MbrGGGzyjA-1;
-	Wed, 19 Feb 2020 04:32:58 -0500
-Received: from localhost.localdomain (localhost [127.0.0.1])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A9FF801E9C
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:10:50 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-186-AMNDbtuzOHG57ZEE0Ethmg-1;
+	Tue, 18 Feb 2020 22:10:47 -0500
+Received: from sol.localdomain (c-107-3-166-239.hsd1.ca.comcast.net
+	[107.3.166.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 558BA2DC;
-	Wed, 19 Feb 2020 09:32:40 +0000 (UTC)
-Date: Wed, 19 Feb 2020 02:32:34 -0700
-From: Jonathan Corbet <corbet@lwn.net>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Message-ID: <20200219023234.7b704acb@lwn.net>
-In-Reply-To: <20200218110406.098fdc09@kernel.org>
-References: <cover.1581955849.git.mchehab+huawei@kernel.org>
-	<20200218040146.GM7778@bombadil.infradead.org>
-	<20200218110406.098fdc09@kernel.org>
-Organization: LWN.net
+	by mail.kernel.org (Postfix) with ESMTPSA id C25D02176D;
+	Wed, 19 Feb 2020 03:10:45 +0000 (UTC)
+Date: Tue, 18 Feb 2020 19:10:44 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <20200219031044.GA1075@sol.localdomain>
+References: <20200217184613.19668-1-willy@infradead.org>
+	<20200217184613.19668-14-willy@infradead.org>
 MIME-Version: 1.0
-X-MC-Unique: 2f_m5vJUMt-3MbrGGGzyjA-1
-X-MC-Unique: 31E53qtZNp2qHWsV7sTHug-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20200217184613.19668-14-willy@infradead.org>
+X-MC-Unique: AMNDbtuzOHG57ZEE0Ethmg-1
+X-MC-Unique: wBqNdP04MLC9QC2bEyxLGQ-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01J9X5Pk026990
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01J3Aqcw005537
 X-loop: cluster-devel@redhat.com
-Cc: Latchesar Ionkov <lucho@ionkov.net>, Brandenburg <martin@omnibond.com>,
-	Jan Kara <jack@suse.cz>,
-	Linux Doc Mailing List <linux-doc@vger.kernel.org>,
-	Martinet <asmadeus@codewreck.org>, Amir Goldstein <amir73il@gmail.com>,
-	Copeland <me@bobcopeland.com>,
-	David Howells <dhowells@redhat.com>, Mason <clm@fb.com>,
-	linux-mtd@lists.infradead.org, Dominique,
-	Ilya Dryomov <idryomov@gmail.com>, linux-afs@lists.infradead.org,
-	Jan Kara <jack@suse.com>, Mike Marshall <hubcap@omnibond.com>,
-	Aota <naohiro.aota@wdc.com>, cluster-devel@redhat.com,
-	linux-nilfs@vger.kernel.org, Sage Weil <sage@redhat.com>,
-	Richard Weinberger <richard@nod.at>, Matthew Wilcox <willy@infradead.org>,
-	Tyler Hicks <code@tyhicks.com>, Naohiro,
-	v9fs-developer@lists.sourceforge.net,
-	Gao Xiang <xiang@kernel.org>, linux-ext4@vger.kernel.org,
-	Salah Triki <salah.triki@gmail.com>,
-	Alexey Dobriyan <adobriyan@gmail.com>, devel@lists.orangefs.org,
-	Nicolas, Chao Yu <chao@kernel.org>,
-	Eric Van Hensbergen <ericvh@gmail.com>, ecryptfs@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>, Johannes,
-	David Sterba <dsterba@suse.com>,
-	"Tigran A. Aivazian" <aivazian.tigran@gmail.com>, Chris,
-	Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Anton Altaparmakov <anton@tuxera.com>,
-	Damien Le Moal <damien.lemoal@wdc.com>,
-	Luis de Bethencourt <luisbg@kernel.org>,
-	Pitre <nico@fluxnic.net>, linux-ntfs-dev@lists.sourceforge.net,
-	Jeff Layton <jlayton@kernel.org>, linux-f2fs-devel@lists.sourceforge.net,
-	ocfs2-devel@oss.oracle.com, Martin, linux-fsdevel@vger.kernel.org,
-	Phillip Lougher <phillip@squashfs.org.uk>, Bob,
-	Thumshirn <jth@kernel.org>, linux-erofs@lists.ozlabs.org,
-	linux-karma-devel@lists.sourceforge.net, linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH 00/44] Manually convert filesystem FS
-	documents to ReST
+X-Mailman-Approved-At: Wed, 19 Feb 2020 06:42:02 -0500
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	ocfs2-devel@oss.oracle.com
+Subject: Re: [Cluster-devel] [PATCH v6 08/19] mm: Add readahead address
+	space operation
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -119,26 +93,66 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On Tue, 18 Feb 2020 11:04:06 +0100
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+On Mon, Feb 17, 2020 at 10:45:54AM -0800, Matthew Wilcox wrote:
+> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystem=
+s/vfs.rst
+> index 7d4d09dd5e6d..81ab30fbe45c 100644
+> --- a/Documentation/filesystems/vfs.rst
+> +++ b/Documentation/filesystems/vfs.rst
+> @@ -706,6 +706,7 @@ cache in your filesystem.  The following members are =
+defined:
+>  =09=09int (*readpage)(struct file *, struct page *);
+>  =09=09int (*writepages)(struct address_space *, struct writeback_control=
+ *);
+>  =09=09int (*set_page_dirty)(struct page *page);
+> +=09=09void (*readahead)(struct readahead_control *);
+>  =09=09int (*readpages)(struct file *filp, struct address_space *mapping,
+>  =09=09=09=09 struct list_head *pages, unsigned nr_pages);
+>  =09=09int (*write_begin)(struct file *, struct address_space *mapping,
+> @@ -781,12 +782,24 @@ cache in your filesystem.  The following members ar=
+e defined:
+>  =09If defined, it should set the PageDirty flag, and the
+>  =09PAGECACHE_TAG_DIRTY tag in the radix tree.
+> =20
+> +``readahead``
+> +=09Called by the VM to read pages associated with the address_space
+> +=09object.  The pages are consecutive in the page cache and are
+> +=09locked.  The implementation should decrement the page refcount
+> +=09after starting I/O on each page.  Usually the page will be
+> +=09unlocked by the I/O completion handler.  If the function does
+> +=09not attempt I/O on some pages, the caller will decrement the page
+> +=09refcount and unlock the pages for you.=09Set PageUptodate if the
+> +=09I/O completes successfully.  Setting PageError on any page will
+> +=09be ignored; simply unlock the page if an I/O error occurs.
+> +
 
-> Then, do a second pass at files outside the new directories (like
-> admin-guide), in order to better organize things, eventually splitting
-> some files into kAPI, uAPI and/or admin-guide.
+This is unclear about how "not attempting I/O" works and how that affects w=
+ho is
+responsible for putting and unlocking the pages.  How does the caller know =
+which
+pages were not attempted?  Can any arbitrary subset of pages be not attempt=
+ed,
+or just the last N pages?
 
-I'm looking forward to this phase!  Yes it is harder, and it often
-requires selling the idea to skeptical maintainers.  But that is how,
-IMO, we get from where we're at now to something closer to a set of
-coherent kernel docs.
+In the code, the caller actually uses readahead_for_each() to iterate throu=
+gh
+and put+unlock the pages.  That implies that ->readahead() must also use
+readahead_for_each() as well, in order for the iterator to be advanced
+correctly... Right?  And the ownership of each page is transferred to the c=
+allee
+when the callee advances the iterator past that page.
 
-Thanks,
+I don't see how ext4_readahead() and f2fs_readahead() can work at all, give=
+n
+that they don't advance the iterator.
 
-jon
+- Eric
 
 
