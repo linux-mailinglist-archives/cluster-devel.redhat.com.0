@@ -1,91 +1,92 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 4962F163AF2
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 04:16:43 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 8EC0B163AFD
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 04:17:35 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582082202;
+	s=mimecast20190719; t=1582082254;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=B5it12GCWf4TvDZ1mW/WB/nNOIwTUIbnD4Yq7LM0l4A=;
-	b=HFic9Pq7RlAuthGXsIqa9zEEFyhU4YLqZ+pYmqyn3c0tMHHWiUrsrGpqXDu2FWnCqKD3Eu
-	7oZ3IlqPv+qYCqNmXurVGXZypawsMjfajLvmacj021N2pg8+eNd8tQEPDc0k+gGQvDuklM
-	9Vcdg/slOTu6RxPcMFf7a0HdUXetTPc=
+	bh=qudh4G4mbAakXyxDC+CEEfYfnwTeUkkYc+c7DnUQ5iw=;
+	b=LMQ7Hd2H/2ggOl8X0XoLkcpChWBPbTRAByW3SXP9uhelgyGp+x/LB+d5XLdFbVhhNKhGIK
+	rZjrbR54V4Pqab4v8qFANhqJgvFV6214xXqplxPtKAv8p1QjBJ1XsW9LlExgut8Q+QXIqo
+	hqtzyq9oddh7j03dHAIUmO58JfHUxVM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-219-OLuRT-tGPWqov1gYACsMlA-1; Tue, 18 Feb 2020 22:16:40 -0500
+ us-mta-51-NlJnhwwaNJiFBO7lm3i23w-1; Tue, 18 Feb 2020 22:17:29 -0500
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA2278010F2;
-	Wed, 19 Feb 2020 03:16:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A7BE19756;
-	Wed, 19 Feb 2020 03:16:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BA84A800D53;
+	Wed, 19 Feb 2020 03:17:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A806619756;
+	Wed, 19 Feb 2020 03:17:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E032835AF5;
-	Wed, 19 Feb 2020 03:16:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8D48218089C8;
+	Wed, 19 Feb 2020 03:17:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01J3GYOk005889 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Feb 2020 22:16:34 -0500
+	id 01J3HO6P005955 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Feb 2020 22:17:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7CB2AED14E; Wed, 19 Feb 2020 03:16:34 +0000 (UTC)
+	id 2B5B310F8E0C; Wed, 19 Feb 2020 03:17:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7785AED15D
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:16:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2683210F8E06
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:17:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A810C8028B0
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:16:32 +0000 (UTC)
-Received: from mail105.syd.optusnet.com.au (mail105.syd.optusnet.com.au
-	[211.29.132.249]) by relay.mimecast.com with ESMTP id
-	us-mta-346-bz66qu2HNi6tvbuO2frNVw-1; Tue, 18 Feb 2020 22:16:29 -0500
-Received: from dread.disaster.area (pa49-179-138-28.pa.nsw.optusnet.com.au
-	[49.179.138.28])
-	by mail105.syd.optusnet.com.au (Postfix) with ESMTPS id 0C8703A2239;
-	Wed, 19 Feb 2020 14:16:28 +1100 (AEDT)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
-	(envelope-from <david@fromorbit.com>)
-	id 1j4Fqc-0005MI-Kp; Wed, 19 Feb 2020 14:16:26 +1100
-Date: Wed, 19 Feb 2020 14:16:26 +1100
-From: Dave Chinner <david@fromorbit.com>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20200219031626.GC10776@dread.disaster.area>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C02D803866
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:17:22 +0000 (UTC)
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+	[216.228.121.64]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-361-e4pileVYP_CJPo_qf-b7eg-1; Tue, 18 Feb 2020 22:17:20 -0500
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+	hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+	id <B5e4ca89f0000>; Tue, 18 Feb 2020 19:16:47 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+	by hqpgpgate101.nvidia.com (PGP Universal service);
+	Tue, 18 Feb 2020 19:17:19 -0800
+X-PGP-Universal: processed;
+	by hqpgpgate101.nvidia.com on Tue, 18 Feb 2020 19:17:19 -0800
+Received: from [10.110.48.28] (10.124.1.5) by HQMAIL107.nvidia.com
+	(172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+	Wed, 19 Feb 2020 03:17:19 +0000
+To: Matthew Wilcox <willy@infradead.org>, <linux-fsdevel@vger.kernel.org>
 References: <20200217184613.19668-1-willy@infradead.org>
-	<20200217184613.19668-25-willy@infradead.org>
+	<20200217184613.19668-31-willy@infradead.org>
+X-Nvconfidentiality: public
+From: John Hubbard <jhubbard@nvidia.com>
+Message-ID: <d4803ef9-7a2f-965f-8f0f-c5e15396d892@nvidia.com>
+Date: Tue, 18 Feb 2020 19:17:18 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200217184613.19668-25-willy@infradead.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.3 cv=LYdCFQXi c=1 sm=1 tr=0
-	a=zAxSp4fFY/GQY8/esVNjqw==:117 a=zAxSp4fFY/GQY8/esVNjqw==:17
-	a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=l697ptgUJYAA:10
-	a=JfrnYn6hAAAA:8 a=7-415B0cAAAA:8 a=gdF_tSV0u4M_20XL-lkA:9
-	a=CjuIK1q_8ugA:10 a=1CNFftbPRP8L7MoqJWF3:22 a=biEYGPWJfzWAr4FL6Ov7:22
-X-MC-Unique: bz66qu2HNi6tvbuO2frNVw-1
-X-MC-Unique: OLuRT-tGPWqov1gYACsMlA-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01J3GYOk005889
+In-Reply-To: <20200217184613.19668-31-willy@infradead.org>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+	HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+X-MC-Unique: e4pileVYP_CJPo_qf-b7eg-1
+X-MC-Unique: NlJnhwwaNJiFBO7lm3i23w-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
-	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH v6 14/19] ext4: Convert from readpages
-	to readahead
+	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-btrfs@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH v6 17/19] iomap: Restructure
+	iomap_readpages_actor
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,27 +103,102 @@ Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 17, 2020 at 10:46:05AM -0800, Matthew Wilcox wrote:
+On 2/17/20 10:46 AM, Matthew Wilcox wrote:
 > From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
->=20
-> Use the new readahead operation in ext4
->=20
+> 
+> By putting the 'have we reached the end of the page' condition at the end
+> of the loop instead of the beginning, we can remove the 'submit the last
+> page' code from iomap_readpages().  Also check that iomap_readpage_actor()
+> didn't return 0, which would lead to an endless loop.
+
+
+Also added a new WARN_ON() and BUG(), although I'm wondering about the BUG
+below...
+
+
+> 
 > Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> ---
+>  fs/iomap/buffered-io.c | 25 ++++++++++++-------------
+>  1 file changed, 12 insertions(+), 13 deletions(-)
+> 
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index cb3511eb152a..44303f370b2d 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -400,15 +400,9 @@ iomap_readpages_actor(struct inode *inode, loff_t pos, loff_t length,
+>  		void *data, struct iomap *iomap, struct iomap *srcmap)
+>  {
+>  	struct iomap_readpage_ctx *ctx = data;
+> -	loff_t done, ret;
+> +	loff_t ret, done = 0;
+>  
+> -	for (done = 0; done < length; done += ret) {
 
-There's nothing I can see in this that would cause that list
-corruption I saw with ext4.
 
-I'll re-introduce the patch and see if it falls over again.
+nit: this "for" loop was perfect just the way it was. :) I'd vote here for reverting
+the change to a "while" loop. Because with this change, now the code has to 
+separately initialize "done", separately increment "done", and the beauty of a
+for loop is that the loop init and control is all clearly in one place. For things
+that follow that model (as in this case!), that's a Good Thing.
 
-Cheers,
+And I don't see any technical reason (even in the following patch) that requires 
+this change.
 
-Dave.
---=20
-Dave Chinner
-david@fromorbit.com
 
+> -		if (ctx->cur_page && offset_in_page(pos + done) == 0) {
+> -			if (!ctx->cur_page_in_bio)
+> -				unlock_page(ctx->cur_page);
+> -			put_page(ctx->cur_page);
+> -			ctx->cur_page = NULL;
+> -		}
+> +	while (done < length) {
+>  		if (!ctx->cur_page) {
+>  			ctx->cur_page = iomap_next_page(inode, ctx->pages,
+>  					pos, length, &done);
+> @@ -418,6 +412,15 @@ iomap_readpages_actor(struct inode *inode, loff_t pos, loff_t length,
+>  		}
+>  		ret = iomap_readpage_actor(inode, pos + done, length - done,
+>  				ctx, iomap, srcmap);
+> +		if (WARN_ON(ret == 0))
+> +			break;
+> +		done += ret;
+> +		if (offset_in_page(pos + done) == 0) {
+> +			if (!ctx->cur_page_in_bio)
+> +				unlock_page(ctx->cur_page);
+> +			put_page(ctx->cur_page);
+> +			ctx->cur_page = NULL;
+> +		}
+>  	}
+>  
+>  	return done;
+> @@ -451,11 +454,7 @@ iomap_readpages(struct address_space *mapping, struct list_head *pages,
+>  done:
+>  	if (ctx.bio)
+>  		submit_bio(ctx.bio);
+> -	if (ctx.cur_page) {
+> -		if (!ctx.cur_page_in_bio)
+> -			unlock_page(ctx.cur_page);
+> -		put_page(ctx.cur_page);
+> -	}
+> +	BUG_ON(ctx.cur_page);
+
+
+Is a full BUG_ON() definitely called for here? Seems like a WARN might suffice...
+
+
+>  
+>  	/*
+>  	 * Check that we didn't lose a page due to the arcance calling
+> 
+
+
+
+thanks,
+-- 
+John Hubbard
+NVIDIA
 
