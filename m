@@ -1,92 +1,93 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 94B5316384F
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 01:13:15 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 43D801638DC
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 01:59:35 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582071194;
+	s=mimecast20190719; t=1582073974;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=XYyqV3UUSvdocn4sI3PrA/ovYe/qDo2rL7zzBYFMHHQ=;
-	b=eeZXzFsnHAqbkH5InBAXz33qj8sbNkbrtWw+yR6EHQj9bMmDz082/I5SxYoXbQ6dTAUbe/
-	a0rV0m609SMQ1Z9OlQfFkvr7BK4MSJA6gqFj5ftXUBDojFlWs7ROf271GvsP7j4NNtAJmL
-	yeOGxz8f4FXsKXFB1vPWZJk+PP4AMiU=
+	bh=4uUh9rawL2Hc2t7O8maHq37jsFyLzz+otx7wLakgIjk=;
+	b=SggivYUWG9H0xxqkXzE3pFW8oTi0i3gf1aJn4BrG6mLoYvbnxvmbkRluVrkihl6JJsAlJB
+	8neSEQx0qGc0DIs1jBUee32Gj/f0K+qhYtkEFqWk4vE33i2ipW8TWcp9hZjYKOCmBRRuTr
+	cqGQVDtJEKcweqNictNAcOEs4UiQiBk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-266-6l33CmOnPgu-wKfIko-LSA-1; Tue, 18 Feb 2020 19:13:12 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-392-E_Ams8NqPAeak4-Jac25tw-1; Tue, 18 Feb 2020 19:59:32 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53EA11857342;
-	Wed, 19 Feb 2020 00:13:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 604CC107B267;
+	Wed, 19 Feb 2020 00:59:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D78888854;
-	Wed, 19 Feb 2020 00:13:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23BB05C13B;
+	Wed, 19 Feb 2020 00:59:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BCA9B18095FF;
-	Wed, 19 Feb 2020 00:13:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A079D18089C8;
+	Wed, 19 Feb 2020 00:59:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01J0D5Q8028770 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Feb 2020 19:13:05 -0500
+	id 01J0xP9k031604 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Feb 2020 19:59:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 66F542063FE5; Wed, 19 Feb 2020 00:13:05 +0000 (UTC)
+	id 346EFEC4CA; Wed, 19 Feb 2020 00:59:25 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61AEB2026D69
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 00:13:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 30573EC4C8
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 00:59:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42C92801034
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 00:13:03 +0000 (UTC)
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
-	[216.228.121.64]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-58-QCZTcHjCOsmRAqhrjeAQfA-1; Tue, 18 Feb 2020 19:13:01 -0500
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
-	hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
-	id <B5e4c7d6b0000>; Tue, 18 Feb 2020 16:12:27 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
-	by hqpgpgate101.nvidia.com (PGP Universal service);
-	Tue, 18 Feb 2020 16:12:59 -0800
-X-PGP-Universal: processed;
-	by hqpgpgate101.nvidia.com on Tue, 18 Feb 2020 16:12:59 -0800
-Received: from [10.110.48.28] (10.124.1.5) by HQMAIL107.nvidia.com
-	(172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
-	Wed, 19 Feb 2020 00:12:59 +0000
-To: Matthew Wilcox <willy@infradead.org>, <linux-fsdevel@vger.kernel.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51E8318AE965
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 00:59:23 +0000 (UTC)
+Received: from mail105.syd.optusnet.com.au (mail105.syd.optusnet.com.au
+	[211.29.132.249]) by relay.mimecast.com with ESMTP id
+	us-mta-380-EyaiWhS-Pziq2PwJ9R73OA-1; Tue, 18 Feb 2020 19:59:20 -0500
+Received: from dread.disaster.area (pa49-179-138-28.pa.nsw.optusnet.com.au
+	[49.179.138.28])
+	by mail105.syd.optusnet.com.au (Postfix) with ESMTPS id 368A83A2380;
+	Wed, 19 Feb 2020 11:59:16 +1100 (AEDT)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+	(envelope-from <david@fromorbit.com>)
+	id 1j4Dhr-0004cn-HF; Wed, 19 Feb 2020 11:59:15 +1100
+Date: Wed, 19 Feb 2020 11:59:15 +1100
+From: Dave Chinner <david@fromorbit.com>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <20200219005915.GV10776@dread.disaster.area>
 References: <20200217184613.19668-1-willy@infradead.org>
-	<20200217184613.19668-14-willy@infradead.org>
-X-Nvconfidentiality: public
-From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <e6687fed-bbe9-005b-4fde-d888f3d9873f@nvidia.com>
-Date: Tue, 18 Feb 2020 16:12:59 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.5.0
+	<20200217184613.19668-12-willy@infradead.org>
+	<20200218061459.GM10776@dread.disaster.area>
+	<20200218154222.GQ7778@bombadil.infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20200217184613.19668-14-willy@infradead.org>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
-	HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-X-MC-Unique: QCZTcHjCOsmRAqhrjeAQfA-1
-X-MC-Unique: 6l33CmOnPgu-wKfIko-LSA-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <20200218154222.GQ7778@bombadil.infradead.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.3 cv=X6os11be c=1 sm=1 tr=0
+	a=zAxSp4fFY/GQY8/esVNjqw==:117 a=zAxSp4fFY/GQY8/esVNjqw==:17
+	a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=l697ptgUJYAA:10
+	a=JfrnYn6hAAAA:8 a=7-415B0cAAAA:8 a=vUdR-S3ouboEXt6xVngA:9
+	a=CjuIK1q_8ugA:10 a=1CNFftbPRP8L7MoqJWF3:22 a=biEYGPWJfzWAr4FL6Ov7:22
+X-MC-Unique: EyaiWhS-Pziq2PwJ9R73OA-1
+X-MC-Unique: E_Ams8NqPAeak4-Jac25tw-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01J0xP9k031604
 X-loop: cluster-devel@redhat.com
 Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
-	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH v6 08/19] mm: Add readahead address
-	space operation
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH v6 07/19] mm: Put readahead pages in
+	cache earlier
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,176 +101,131 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On 2/17/20 10:45 AM, Matthew Wilcox wrote:
-> From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-> 
-> This replaces ->readpages with a saner interface:
->  - Return void instead of an ignored error code.
->  - Pages are already in the page cache when ->readahead is called.
->  - Implementation looks up the pages in the page cache instead of
->    having them passed in a linked list.
-> 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> ---
->  Documentation/filesystems/locking.rst |  6 +++++-
->  Documentation/filesystems/vfs.rst     | 13 +++++++++++++
->  include/linux/fs.h                    |  2 ++
->  include/linux/pagemap.h               | 18 ++++++++++++++++++
->  mm/readahead.c                        |  8 +++++++-
->  5 files changed, 45 insertions(+), 2 deletions(-)
-> 
+On Tue, Feb 18, 2020 at 07:42:22AM -0800, Matthew Wilcox wrote:
+> On Tue, Feb 18, 2020 at 05:14:59PM +1100, Dave Chinner wrote:
+> > On Mon, Feb 17, 2020 at 10:45:52AM -0800, Matthew Wilcox wrote:
+> > > From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> > >=20
+> > > At allocation time, put the pages in the cache unless we're using
+> > > ->readpages.  Add the readahead_for_each() iterator for the benefit o=
+f
+> > > the ->readpage fallback.  This iterator supports huge pages, even tho=
+ugh
+> > > none of the filesystems to be converted do yet.
+> >=20
+> > This could be better written - took me some time to get my head
+> > around it and the code.
+> >=20
+> > "When populating the page cache for readahead, mappings that don't
+> > use ->readpages need to have their pages added to the page cache
+> > before ->readpage is called. Do this insertion earlier so that the
+> > pages can be looked up immediately prior to ->readpage calls rather
+> > than passing them on a linked list. This early insert functionality
+> > is also required by the upcoming ->readahead method that will
+> > replace ->readpages.
+> >=20
+> > Optimise and simplify the readpage loop by adding a
+> > readahead_for_each() iterator to provide the pages we need to read.
+> > This iterator also supports huge pages, even though none of the
+> > filesystems have been converted to use them yet."
+>=20
+> Thanks, I'll use that.
+>=20
+> > > +static inline struct page *readahead_page(struct readahead_control *=
+rac)
+> > > +{
+> > > +=09struct page *page;
+> > > +
+> > > +=09if (!rac->_nr_pages)
+> > > +=09=09return NULL;
+> >=20
+> > Hmmmm.
+> >=20
+> > > +
+> > > +=09page =3D xa_load(&rac->mapping->i_pages, rac->_start);
+> > > +=09VM_BUG_ON_PAGE(!PageLocked(page), page);
+> > > +=09rac->_batch_count =3D hpage_nr_pages(page);
+> >=20
+> > So we could have rac->_nr_pages =3D 2, and then we get an order 2
+> > large page returned, and so rac->_batch_count =3D 4.
+>=20
+> Well, no, we couldn't.  rac->_nr_pages is incremented by 4 when we add
+> an order-2 page to the readahead.
 
-Looks nice,
+I don't see any code that does that. :)
 
-    Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+i.e. we aren't actually putting high order pages into the page
+cache here - page_alloc() allocates order-0 pages) - so there's
+nothing in the patch that tells me how rac->_nr_pages behaves
+when allocating large pages...
 
+IOWs, we have an undocumented assumption in the implementation...
 
-thanks,
--- 
-John Hubbard
-NVIDIA
+> I can put a
+> =09BUG_ON(rac->_batch_count > rac->_nr_pages)
+> in here to be sure to catch any logic error like that.
 
-> diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
-> index 5057e4d9dcd1..0ebc4491025a 100644
-> --- a/Documentation/filesystems/locking.rst
-> +++ b/Documentation/filesystems/locking.rst
-> @@ -239,6 +239,7 @@ prototypes::
->  	int (*readpage)(struct file *, struct page *);
->  	int (*writepages)(struct address_space *, struct writeback_control *);
->  	int (*set_page_dirty)(struct page *page);
-> +	void (*readahead)(struct readahead_control *);
->  	int (*readpages)(struct file *filp, struct address_space *mapping,
->  			struct list_head *pages, unsigned nr_pages);
->  	int (*write_begin)(struct file *, struct address_space *mapping,
-> @@ -271,7 +272,8 @@ writepage:		yes, unlocks (see below)
->  readpage:		yes, unlocks
->  writepages:
->  set_page_dirty		no
-> -readpages:
-> +readahead:		yes, unlocks
-> +readpages:		no
->  write_begin:		locks the page		 exclusive
->  write_end:		yes, unlocks		 exclusive
->  bmap:
-> @@ -295,6 +297,8 @@ the request handler (/dev/loop).
->  ->readpage() unlocks the page, either synchronously or via I/O
->  completion.
->  
-> +->readahead() unlocks the pages like ->readpage().
-> +
->  ->readpages() populates the pagecache with the passed pages and starts
->  I/O against them.  They come unlocked upon I/O completion.
->  
-> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystems/vfs.rst
-> index 7d4d09dd5e6d..81ab30fbe45c 100644
-> --- a/Documentation/filesystems/vfs.rst
-> +++ b/Documentation/filesystems/vfs.rst
-> @@ -706,6 +706,7 @@ cache in your filesystem.  The following members are defined:
->  		int (*readpage)(struct file *, struct page *);
->  		int (*writepages)(struct address_space *, struct writeback_control *);
->  		int (*set_page_dirty)(struct page *page);
-> +		void (*readahead)(struct readahead_control *);
->  		int (*readpages)(struct file *filp, struct address_space *mapping,
->  				 struct list_head *pages, unsigned nr_pages);
->  		int (*write_begin)(struct file *, struct address_space *mapping,
-> @@ -781,12 +782,24 @@ cache in your filesystem.  The following members are defined:
->  	If defined, it should set the PageDirty flag, and the
->  	PAGECACHE_TAG_DIRTY tag in the radix tree.
->  
-> +``readahead``
-> +	Called by the VM to read pages associated with the address_space
-> +	object.  The pages are consecutive in the page cache and are
-> +	locked.  The implementation should decrement the page refcount
-> +	after starting I/O on each page.  Usually the page will be
-> +	unlocked by the I/O completion handler.  If the function does
-> +	not attempt I/O on some pages, the caller will decrement the page
-> +	refcount and unlock the pages for you.	Set PageUptodate if the
-> +	I/O completes successfully.  Setting PageError on any page will
-> +	be ignored; simply unlock the page if an I/O error occurs.
-> +
->  ``readpages``
->  	called by the VM to read pages associated with the address_space
->  	object.  This is essentially just a vector version of readpage.
->  	Instead of just one page, several pages are requested.
->  	readpages is only used for read-ahead, so read errors are
->  	ignored.  If anything goes wrong, feel free to give up.
-> +	This interface is deprecated; implement readahead instead.
->  
->  ``write_begin``
->  	Called by the generic buffered write code to ask the filesystem
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 3cd4fe6b845e..d4e2d2964346 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -292,6 +292,7 @@ enum positive_aop_returns {
->  struct page;
->  struct address_space;
->  struct writeback_control;
-> +struct readahead_control;
->  
->  /*
->   * Write life time hint values.
-> @@ -375,6 +376,7 @@ struct address_space_operations {
->  	 */
->  	int (*readpages)(struct file *filp, struct address_space *mapping,
->  			struct list_head *pages, unsigned nr_pages);
-> +	void (*readahead)(struct readahead_control *);
->  
->  	int (*write_begin)(struct file *, struct address_space *mapping,
->  				loff_t pos, unsigned len, unsigned flags,
-> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-> index 3613154e79e4..bd4291f78f41 100644
-> --- a/include/linux/pagemap.h
-> +++ b/include/linux/pagemap.h
-> @@ -665,6 +665,24 @@ static inline void readahead_next(struct readahead_control *rac)
->  #define readahead_for_each(rac, page)					\
->  	for (; (page = readahead_page(rac)); readahead_next(rac))
->  
-> +/* The byte offset into the file of this readahead block */
-> +static inline loff_t readahead_offset(struct readahead_control *rac)
-> +{
-> +	return (loff_t)rac->_start * PAGE_SIZE;
-> +}
-> +
-> +/* The number of bytes in this readahead block */
-> +static inline loff_t readahead_length(struct readahead_control *rac)
-> +{
-> +	return (loff_t)rac->_nr_pages * PAGE_SIZE;
-> +}
-> +
-> +/* The index of the first page in this readahead block */
-> +static inline unsigned int readahead_index(struct readahead_control *rac)
-> +{
-> +	return rac->_start;
-> +}
-> +
->  /* The number of pages in this readahead block */
->  static inline unsigned int readahead_count(struct readahead_control *rac)
->  {
-> diff --git a/mm/readahead.c b/mm/readahead.c
-> index 9e430daae42f..975ff5e387be 100644
-> --- a/mm/readahead.c
-> +++ b/mm/readahead.c
-> @@ -121,7 +121,13 @@ static void read_pages(struct readahead_control *rac, struct list_head *pages)
->  
->  	blk_start_plug(&plug);
->  
-> -	if (aops->readpages) {
-> +	if (aops->readahead) {
-> +		aops->readahead(rac);
-> +		readahead_for_each(rac, page) {
-> +			unlock_page(page);
-> +			put_page(page);
-> +		}
-> +	} else if (aops->readpages) {
->  		aops->readpages(rac->file, rac->mapping, pages,
->  				readahead_count(rac));
->  		/* Clean up the remaining pages */
-> 
+Definitely necessary given that we don't insert large pages for
+readahead yet. A comment explaining the assumptions that the
+code makes for large pages is probably in order, too.
+
+> > > -=09=09page->index =3D offset;
+> > > -=09=09list_add(&page->lru, &page_pool);
+> > > +=09=09if (use_list) {
+> > > +=09=09=09page->index =3D offset;
+> > > +=09=09=09list_add(&page->lru, &page_pool);
+> > > +=09=09} else if (add_to_page_cache_lru(page, mapping, offset,
+> > > +=09=09=09=09=09gfp_mask) < 0) {
+> > > +=09=09=09put_page(page);
+> > > +=09=09=09goto read;
+> > > +=09=09}
+> >=20
+> > Ok, so that's why you put read code at the end of the loop. To turn
+> > the code into spaghetti :/
+> >=20
+> > How much does this simplify down when we get rid of ->readpages and
+> > can restructure the loop? This really seems like you're trying to
+> > flatten two nested loops into one by the use of goto....
+>=20
+> I see it as having two failure cases in this loop.  One for "page is
+> already present" (which already existed) and one for "allocated a page,
+> but failed to add it to the page cache" (which used to be done later).
+> I didn't want to duplicate the "call read_pages()" code.  So I reshuffled
+> the code rather than add a nested loop.  I don't think the nested loop
+> is easier to read (we'll be at 5 levels of indentation for some statement=
+s).
+> Could do it this way ...
+
+Can we move the update of @rac inside read_pages()? The next
+start offset^Windex we start at is rac._start + rac._nr_pages, right?
+
+so read_pages() could do:
+
+{
+=09if (readahead_count(rac)) {
+=09=09/* do readahead */
+=09}
+
+=09/* advance the readahead cursor */
+=09rac->_start +=3D rac->_nr_pages;
+=09rac._nr_pages =3D 0;
+}
+
+and then we only need to call read_pages() in these cases and so
+the requirement for avoiding duplicating code is avoided...
+
+Cheers,
+
+Dave.
+--=20
+Dave Chinner
+david@fromorbit.com
+
 
