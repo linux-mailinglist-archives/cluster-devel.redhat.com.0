@@ -1,86 +1,80 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id C3944164392
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 12:42:15 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id A439F16474A
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Feb 2020 15:41:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582112534;
+	s=mimecast20190719; t=1582123305;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2p6FSZA4xU2kcRbnuBO6xNqMkjljQXDAr6fwVYevPL4=;
-	b=Oy/Qru1D6U8bS1zui13tZ8ruRYLMnKgE1XVT7AnzPQkm1S6EJLKqXeTLFW/IQNHgsGTGCK
-	k5NwILJWHKBGpBoiaIPOXXTK9eriUOFmpmMvYC+8I+OfHoqIE6fGxkid36u+m+o0blJ7Y5
-	CV50tE5XlzSC6SmddCTC9H/vH2N6FeI=
+	bh=knnUi5LkGMDeQeEXEeP8yOZ32h7jRplZKEkU0sZlkYw=;
+	b=TNAAjKDr1EYvbOT66dQbKD7+874mwfEc3rnq64HeSmMq2fyiRF+3UFmJyi68p7dlgV+DcZ
+	hInPeBNiVha8YSLTk/vRDi3f7PvqzNFTZMLLk73GclbrFdGAJ/DwIkKn+LFePxUo/VpmcB
+	hebDn7Jrg0a/FJCHYur6RwHdSZqYDl4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-388-DO4p0KPMOiW0nFZ2Eg8DVg-1; Wed, 19 Feb 2020 06:42:11 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-193-GQ4aKRjdMD6nvs35mpzWyg-1; Wed, 19 Feb 2020 09:41:43 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ECB7E801E66;
-	Wed, 19 Feb 2020 11:42:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8B2A90769;
-	Wed, 19 Feb 2020 11:42:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B8AB118AB2C0;
+	Wed, 19 Feb 2020 14:41:40 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 507715C545;
+	Wed, 19 Feb 2020 14:41:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B7A2718089CE;
-	Wed, 19 Feb 2020 11:42:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0ACB135AE2;
+	Wed, 19 Feb 2020 14:41:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01J3twIK008632 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Feb 2020 22:55:58 -0500
+	id 01JEfSAq010959 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 19 Feb 2020 09:41:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5E08D2026D67; Wed, 19 Feb 2020 03:55:58 +0000 (UTC)
+	id 04F7CF4D5A; Wed, 19 Feb 2020 14:41:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 587C52026D69
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:55:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 01248F4983
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 14:41:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2B791803892
-	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 03:55:56 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-241-loqKgKaGPTqOdyLGvU87Bg-1;
-	Tue, 18 Feb 2020 22:55:53 -0500
-Received: from sol.localdomain (c-107-3-166-239.hsd1.ca.comcast.net
-	[107.3.166.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id DCCEB206DB;
-	Wed, 19 Feb 2020 03:55:51 +0000 (UTC)
-Date: Tue, 18 Feb 2020 19:55:50 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20200219035550.GE1075@sol.localdomain>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 225BD803B22
+	for <cluster-devel@redhat.com>; Wed, 19 Feb 2020 14:41:26 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-189-xYtrZTCvMn21p2Ka_3t95Q-1; Wed, 19 Feb 2020 09:41:23 -0500
+Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1j4QXN-00044x-SK; Wed, 19 Feb 2020 14:41:17 +0000
+Date: Wed, 19 Feb 2020 06:41:17 -0800
+From: Matthew Wilcox <willy@infradead.org>
+To: John Hubbard <jhubbard@nvidia.com>
+Message-ID: <20200219144117.GP24185@bombadil.infradead.org>
 References: <20200217184613.19668-1-willy@infradead.org>
-	<20200217184613.19668-18-willy@infradead.org>
-	<20200219032826.GB1075@sol.localdomain>
-	<20200219034741.GK24185@bombadil.infradead.org>
+	<20200217184613.19668-12-willy@infradead.org>
+	<e3671faa-dfb3-ceba-3120-a445b2982a95@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20200219034741.GK24185@bombadil.infradead.org>
-X-MC-Unique: loqKgKaGPTqOdyLGvU87Bg-1
-X-MC-Unique: DO4p0KPMOiW0nFZ2Eg8DVg-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <e3671faa-dfb3-ceba-3120-a445b2982a95@nvidia.com>
+X-MC-Unique: xYtrZTCvMn21p2Ka_3t95Q-1
+X-MC-Unique: GQ4aKRjdMD6nvs35mpzWyg-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01J3twIK008632
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01JEfSAq010959
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Wed, 19 Feb 2020 06:42:02 -0500
-Cc: cluster-devel@redhat.com, linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
-	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	Junxiao Bi <junxiao.bi@oracle.com>, linux-erofs@lists.ozlabs.org,
-	ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH v6 10/19] fs: Convert mpage_readpages to
-	mpage_readahead
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH v6 07/19] mm: Put readahead pages in
+	cache earlier
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,49 +88,68 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=WINDOWS-1252
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: inline
 
-On Tue, Feb 18, 2020 at 07:47:41PM -0800, Matthew Wilcox wrote:
-> On Tue, Feb 18, 2020 at 07:28:26PM -0800, Eric Biggers wrote:
-> > On Mon, Feb 17, 2020 at 10:45:58AM -0800, Matthew Wilcox wrote:
-> > > diff --git a/include/linux/mpage.h b/include/linux/mpage.h
-> > > index 001f1fcf9836..f4f5e90a6844 100644
-> > > --- a/include/linux/mpage.h
-> > > +++ b/include/linux/mpage.h
-> > > @@ -13,9 +13,9 @@
-> > >  #ifdef CONFIG_BLOCK
-> > > =20
-> > >  struct writeback_control;
-> > > +struct readahead_control;
-> > > =20
-> > > -int mpage_readpages(struct address_space *mapping, struct list_head =
-*pages,
-> > > -=09=09=09=09unsigned nr_pages, get_block_t get_block);
-> > > +void mpage_readahead(struct readahead_control *, get_block_t get_blo=
-ck);
-> > >  int mpage_readpage(struct page *page, get_block_t get_block);
-> > >  int mpage_writepages(struct address_space *mapping,
-> > >  =09=09struct writeback_control *wbc, get_block_t get_block);
-> >=20
-> > Can you name the 'struct readahead_control *' parameter?
+On Tue, Feb 18, 2020 at 04:01:43PM -0800, John Hubbard wrote:
+> How about this instead? It uses the "for" loop fully and more naturally,
+> and is easier to read. And it does the same thing:
 >=20
-> What good would that do?  I'm sick of seeing 'struct page *page'.
-> Well, no shit it's a page.  Unless there's some actual information to
-> convey, leave the argument unnamed.  It should be a crime to not name
-> an unsigned long, but not naming the struct address_space pointer is
-> entirely reasonable.
+> static inline struct page *readahead_page(struct readahead_control *rac)
+> {
+> =09struct page *page;
+>=20
+> =09if (!rac->_nr_pages)
+> =09=09return NULL;
+>=20
+> =09page =3D xa_load(&rac->mapping->i_pages, rac->_start);
+> =09VM_BUG_ON_PAGE(!PageLocked(page), page);
+> =09rac->_batch_count =3D hpage_nr_pages(page);
+>=20
+> =09return page;
+> }
+>=20
+> static inline struct page *readahead_next(struct readahead_control *rac)
+> {
+> =09rac->_nr_pages -=3D rac->_batch_count;
+> =09rac->_start +=3D rac->_batch_count;
+>=20
+> =09return readahead_page(rac);
+> }
+>=20
+> #define readahead_for_each(rac, page)=09=09=09\
+> =09for (page =3D readahead_page(rac); page !=3D NULL;=09\
+> =09     page =3D readahead_page(rac))
 
-It's the coding style the community has agreed on, so the tools check for.
+I'll go you one better ... how about we do this instead:
 
-I don't care that much myself; it just appeared like this was a mistake rat=
-her
-than intentional so I thought I'd point it out.
+static inline struct page *readahead_page(struct readahead_control *rac)
+{
+        struct page *page;
 
-- Eric
+        BUG_ON(rac->_batch_count > rac->_nr_pages);
+        rac->_nr_pages -=3D rac->_batch_count;
+        rac->_index +=3D rac->_batch_count;
+        rac->_batch_count =3D 0;
+
+        if (!rac->_nr_pages)
+                return NULL;
+
+        page =3D xa_load(&rac->mapping->i_pages, rac->_index);
+        VM_BUG_ON_PAGE(!PageLocked(page), page);
+        rac->_batch_count =3D hpage_nr_pages(page);
+
+        return page;
+}
+
+#define readahead_for_each(rac, page)                                   \
+        while ((page =3D readahead_page(rac)))
+
+No more readahead_next() to forget to add to filesystems which don't use
+the readahead_for_each() iterator.  Ahem.
 
 
