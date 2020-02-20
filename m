@@ -1,57 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 582381667BC
-	for <lists+cluster-devel@lfdr.de>; Thu, 20 Feb 2020 20:58:10 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id C8914166A73
+	for <lists+cluster-devel@lfdr.de>; Thu, 20 Feb 2020 23:39:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582228689;
+	s=mimecast20190719; t=1582238385;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=V/49CJq+vg8RYSHuQ4JQ+g9P6grtKTmOed/MN9TKxEc=;
-	b=MgbCHWYKYfzCW7/rh/O59K48pQeA+CzQqL1G0Zce3JFpQQt8bd/c0ilk9vrvs0hqDWqpqZ
-	AKQhXih5oLBEr+ZkIQqfdSsJ9u0HF6YNeqJGDdMNbPXnyYNQ4addMzgaS3n6hocILe//JJ
-	2SEYPW4ZZk7gSgt0+htfKuHJpnt/2Iw=
+	bh=c/0B3Jhj2bADGFyqmWOWCzVqTY6ZgGzTo0xqecujkBI=;
+	b=U3mLkBXbp9UzEEhyapAElSFCyYAgP0bnmcUfvF3ZuU6g2e3t3Z1/XCHezNWd3EhkWhV3Ne
+	wwNKNaGC90YDGAJSez80H9xYkoeUOMrAOVBh1VmFuvsYp9obTP/oCUvPof7VKAXXwa6CVu
+	fEswzB8iOzvEsmm7ThHnnyLENwnod9s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-310-l-tDIuR1PRSOaCFIqRWpYg-1; Thu, 20 Feb 2020 14:58:07 -0500
+ us-mta-451-tHA-IT7WOYq5HDGokMOwmw-1; Thu, 20 Feb 2020 17:39:44 -0500
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A456B10776DD;
-	Thu, 20 Feb 2020 19:58:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F2738017CC;
+	Thu, 20 Feb 2020 22:39:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92A9F9076C;
-	Thu, 20 Feb 2020 19:58:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F88B6E3EE;
+	Thu, 20 Feb 2020 22:39:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 707AC8B2CC;
-	Thu, 20 Feb 2020 19:58:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41FE18B2C8;
+	Thu, 20 Feb 2020 22:39:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01KJsgil009434 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 20 Feb 2020 14:54:42 -0500
+	id 01KMdPMx019870 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 20 Feb 2020 17:39:26 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 565939182B; Thu, 20 Feb 2020 19:54:42 +0000 (UTC)
+	id D1AAE2024517; Thu, 20 Feb 2020 22:39:25 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-116-223.ams2.redhat.com [10.36.116.223])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1C83690F57
-	for <cluster-devel@redhat.com>; Thu, 20 Feb 2020 19:54:40 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu, 20 Feb 2020 13:53:29 -0600
-Message-Id: <20200220195329.952027-29-rpeterso@redhat.com>
-In-Reply-To: <20200220195329.952027-1-rpeterso@redhat.com>
-References: <20200220195329.952027-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9E962028CD5
+	for <cluster-devel@redhat.com>; Thu, 20 Feb 2020 22:39:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E55A5185A78F
+	for <cluster-devel@redhat.com>; Thu, 20 Feb 2020 22:39:23 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-254-qK8wGCBLOSSNGG459TqWag-1; Thu, 20 Feb 2020 17:39:21 -0500
+Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1j4uTN-0006hx-9M; Thu, 20 Feb 2020 22:39:09 +0000
+Date: Thu, 20 Feb 2020 14:39:09 -0800
+From: Matthew Wilcox <willy@infradead.org>
+To: dsterba@suse.cz, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+	ocfs2-devel@oss.oracle.com, linux-xfs@vger.kernel.org
+Message-ID: <20200220223909.GB24185@bombadil.infradead.org>
+References: <20200219210103.32400-1-willy@infradead.org>
+	<20200220175400.GB2902@twin.jikos.cz>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20200220175400.GB2902@twin.jikos.cz>
+X-MC-Unique: qK8wGCBLOSSNGG459TqWag-1
+X-MC-Unique: tHA-IT7WOYq5HDGokMOwmw-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01KMdPMx019870
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 28/28] gfs2: allow journal replay to
-	hold sd_log_flush_lock
+Subject: Re: [Cluster-devel] [PATCH v7 00/23] Change readahead API
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,48 +85,87 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: l-tDIuR1PRSOaCFIqRWpYg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-Before this patch, journal replays could stomp on log flushes
-and each other because both log flushes and journal replays used
-the same sd_log_bio. Function gfs2_log_flush prevents other log
-flushes from interfering by taking the sd_log_flush_lock rwsem
-during the flush. However, it does not protect against journal
-replays. This patch allows the journal replay to take the same
-sd_log_flush_lock rwsem so use of the sd_log_bio is not stomped.
+On Thu, Feb 20, 2020 at 06:54:00PM +0100, David Sterba wrote:
+> On Wed, Feb 19, 2020 at 01:00:39PM -0800, Matthew Wilcox wrote:
+> > From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> >=20
+> > This series adds a readahead address_space operation to eventually
+> > replace the readpages operation.  The key difference is that
+> > pages are added to the page cache as they are allocated (and
+> > then looked up by the filesystem) instead of passing them on a
+> > list to the readpages operation and having the filesystem add
+> > them to the page cache.  It's a net reduction in code for each
+> > implementation, more efficient than walking a list, and solves
+> > the direct-write vs buffered-read problem reported by yu kuai at
+> > https://lore.kernel.org/linux-fsdevel/20200116063601.39201-1-yukuai3@hu=
+awei.com/
+> >=20
+> > The only unconverted filesystems are those which use fscache.
+> > Their conversion is pending Dave Howells' rewrite which will make the
+> > conversion substantially easier.
+> >=20
+> > I want to thank the reviewers; Dave Chinner, John Hubbard and Christoph
+> > Hellwig have done a marvellous job of providing constructive criticism.
+> > Eric Biggers pointed out how I'd broken ext4 (which led to a substantia=
+l
+> > change).  I've tried to take it all on board, but I may have missed
+> > something simply because you've done such a thorough job.
+> >=20
+> > This series can also be found at
+> > http://git.infradead.org/users/willy/linux-dax.git/shortlog/refs/tags/r=
+eadahead_v7
+> > (I also pushed the readahead_v6 tag there in case anyone wants to diff,=
+ and
+> > they're both based on 5.6-rc2 so they're easy to diff)
+> >=20
+> > v7:
+> >  - Now passes an xfstests run on ext4!
+>=20
+> On btrfs it still chokes on the first test btrfs/001, with the following
+> warning, the test is stuck there.
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/recovery.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Thanks.  The warning actually wasn't the problem, but it did need to
+be addressed.  I got a test system up & running with btrfs, and it's
+currently on generic/027 with the following patch:
 
-diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-index 8cc26bef4e64..21fc44b31863 100644
---- a/fs/gfs2/recovery.c
-+++ b/fs/gfs2/recovery.c
-@@ -398,6 +398,10 @@ void gfs2_recover_func(struct work_struct *work)
- =09=09fs_info(sdp, "jid=3D%u: Replaying journal...0x%x to 0x%x\n",
- =09=09=09jd->jd_jid, head.lh_tail, head.lh_blkno);
+diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+index 9c782c15f7f7..d23a224d2ad2 100644
+--- a/include/linux/pagemap.h
++++ b/include/linux/pagemap.h
+@@ -676,7 +676,7 @@ static inline unsigned int __readahead_batch(struct rea=
+dahead_control *rac,
+ =09=09struct page **array, unsigned int array_sz)
+ {
+ =09unsigned int i =3D 0;
+-=09XA_STATE(xas, &rac->mapping->i_pages, rac->_index);
++=09XA_STATE(xas, &rac->mapping->i_pages, 0);
+ =09struct page *page;
 =20
-+=09=09/* We take the sd_log_flush_lock here primarily to prevent log
-+=09=09 * flushes and simultaneous journal replays from stomping on
-+=09=09 * each other wrt sd_log_bio. */
-+=09=09down_write(&sdp->sd_log_flush_lock);
- =09=09for (pass =3D 0; pass < 2; pass++) {
- =09=09=09lops_before_scan(jd, &head, pass);
- =09=09=09error =3D foreach_descriptor(jd, head.lh_tail,
-@@ -408,6 +412,7 @@ void gfs2_recover_func(struct work_struct *work)
- =09=09}
+ =09BUG_ON(rac->_batch_count > rac->_nr_pages);
+@@ -684,6 +684,8 @@ static inline unsigned int __readahead_batch(struct rea=
+dahead_control *rac,
+ =09rac->_index +=3D rac->_batch_count;
+ =09rac->_batch_count =3D 0;
 =20
- =09=09clean_journal(jd, &head);
-+=09=09up_write(&sdp->sd_log_flush_lock);
++=09xas_set(&xas, rac->_index);
++=09rcu_read_lock();
+ =09xas_for_each(&xas, page, rac->_index + rac->_nr_pages - 1) {
+ =09=09VM_BUG_ON_PAGE(!PageLocked(page), page);
+ =09=09VM_BUG_ON_PAGE(PageTail(page), page);
+@@ -702,6 +704,7 @@ static inline unsigned int __readahead_batch(struct rea=
+dahead_control *rac,
+ =09=09if (i =3D=3D array_sz)
+ =09=09=09break;
+ =09}
++=09rcu_read_unlock();
 =20
- =09=09gfs2_glock_dq_uninit(&thaw_gh);
- =09=09t_rep =3D ktime_get();
---=20
-2.24.1
+ =09return i;
+ }
+
 
