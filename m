@@ -1,78 +1,79 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id EF24816F1A0
-	for <lists+cluster-devel@lfdr.de>; Tue, 25 Feb 2020 22:49:14 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 3454316F1A7
+	for <lists+cluster-devel@lfdr.de>; Tue, 25 Feb 2020 22:49:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582667353;
+	s=mimecast20190719; t=1582667355;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bEJ0isZSV7C3j5e22M453zHnMzvrqJKZxGC4yi9CBTk=;
-	b=ccu+gCqiii7bgFK08jRUaArniUVXGvqMklveJH6ynKidp7ZjB6iFvbSlvEdHRDpghW3bR+
-	+IDpF5iJTIGMb1ggRldh97XVP5+JURNg4/6tplcqNMRTnSGFClrgZ4GPBuOxIauI8zheQG
-	y9Nm8RymzgabwVFXvfdr8k65WYHov7o=
+	bh=DdcVvRVBLbf1TR9n8387bz5QtXYGzjJ0DCrYENQsj/A=;
+	b=LhNR46z0KJ+kBj/K9XCMmk8fjocnJ/vg0jQEVFVnum/cEd9OqD3EDBExFyWIVjQHjJL80Z
+	ZAcKLkhl67lj6N+FaUrJZsdvoht7s1+vGlsTPAZu/gO2qrAGBrbTqTQIQ1lpFN0w1iCLUe
+	6kiS+ifr2cfF+bNNKd1W5XfLGujjBUM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-314-_2bqndMBPVKWpoFh4HvLpA-1; Tue, 25 Feb 2020 16:49:11 -0500
-X-MC-Unique: _2bqndMBPVKWpoFh4HvLpA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-237-CTSrcvW1OM2gK4iK7tABeQ-1; Tue, 25 Feb 2020 16:49:13 -0500
+X-MC-Unique: CTSrcvW1OM2gK4iK7tABeQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A503E80271B;
-	Tue, 25 Feb 2020 21:49:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9115D60C18;
-	Tue, 25 Feb 2020 21:49:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 95F9C107B0EF;
+	Tue, 25 Feb 2020 21:49:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B67292969;
+	Tue, 25 Feb 2020 21:49:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6F0D28B2DC;
-	Tue, 25 Feb 2020 21:49:08 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5FF4918089CE;
+	Tue, 25 Feb 2020 21:49:07 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01PLmtJQ010662 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 25 Feb 2020 16:48:55 -0500
+	id 01PLmu0U010692 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 25 Feb 2020 16:48:56 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BF3952026D69; Tue, 25 Feb 2020 21:48:55 +0000 (UTC)
+	id 316812026D69; Tue, 25 Feb 2020 21:48:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BABC12026D68
-	for <cluster-devel@redhat.com>; Tue, 25 Feb 2020 21:48:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C8012026D68
+	for <cluster-devel@redhat.com>; Tue, 25 Feb 2020 21:48:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A009480029A
-	for <cluster-devel@redhat.com>; Tue, 25 Feb 2020 21:48:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12E90800FF9
+	for <cluster-devel@redhat.com>; Tue, 25 Feb 2020 21:48:56 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-280-uvsVkU5oP7iIZLp6h7saMg-1; Tue, 25 Feb 2020 16:48:53 -0500
-X-MC-Unique: uvsVkU5oP7iIZLp6h7saMg-1
+	us-mta-164-xT5NFIHqNBWIDduhiJEVNA-1; Tue, 25 Feb 2020 16:48:53 -0500
+X-MC-Unique: xT5NFIHqNBWIDduhiJEVNA-1
 Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1j6i4H-0007pX-2l; Tue, 25 Feb 2020 21:48:41 +0000
+	Hat Linux)) id 1j6i4H-0007pb-3q; Tue, 25 Feb 2020 21:48:41 +0000
 From: Matthew Wilcox <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Tue, 25 Feb 2020 13:48:18 -0800
-Message-Id: <20200225214838.30017-6-willy@infradead.org>
+Date: Tue, 25 Feb 2020 13:48:19 -0800
+Message-Id: <20200225214838.30017-7-willy@infradead.org>
 In-Reply-To: <20200225214838.30017-1-willy@infradead.org>
 References: <20200225214838.30017-1-willy@infradead.org>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01PLmtJQ010662
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01PLmu0U010692
 X-loop: cluster-devel@redhat.com
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: linux-xfs@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>,
+	linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
 	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH v8 05/25] mm: Add new readahead_control API
+	Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org
+Subject: [Cluster-devel] [PATCH v8 06/25] mm: Use readahead_control to pass
+	arguments
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +87,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -94,174 +95,121 @@ Content-Transfer-Encoding: quoted-printable
 
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-Filesystems which implement the upcoming ->readahead method will get
-their pages by calling readahead_page() or readahead_page_batch().
-These functions support large pages, even though none of the filesystems
-to be converted do yet.
+In this patch, only between __do_page_cache_readahead() and read_pages(),
+but it will be extended in upcoming patches.  The read_pages() function
+becomes aops centric, as this makes the most sense by the end of the
+patchset.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/pagemap.h | 140 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 140 insertions(+)
+ mm/readahead.c | 33 +++++++++++++++++++--------------
+ 1 file changed, 19 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 24894b9b90c9..232892d37071 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -638,6 +638,146 @@ static inline int add_to_page_cache(struct page *page=
-,
- =09return error;
+diff --git a/mm/readahead.c b/mm/readahead.c
+index 9fcd4e32b62d..9d9aa4ffc7d4 100644
+--- a/mm/readahead.c
++++ b/mm/readahead.c
+@@ -113,29 +113,32 @@ int read_cache_pages(struct address_space *mapping, s=
+truct list_head *pages,
+=20
+ EXPORT_SYMBOL(read_cache_pages);
+=20
+-static void read_pages(struct address_space *mapping, struct file *filp,
+-=09=09struct list_head *pages, unsigned int nr_pages, gfp_t gfp)
++static void read_pages(struct readahead_control *rac, struct list_head *pa=
+ges,
++=09=09gfp_t gfp)
+ {
++=09const struct address_space_operations *aops =3D rac->mapping->a_ops;
+ =09struct blk_plug plug;
+ =09unsigned page_idx;
+=20
+-=09if (!nr_pages)
++=09if (!readahead_count(rac))
+ =09=09return;
+=20
+ =09blk_start_plug(&plug);
+=20
+-=09if (mapping->a_ops->readpages) {
+-=09=09mapping->a_ops->readpages(filp, mapping, pages, nr_pages);
++=09if (aops->readpages) {
++=09=09aops->readpages(rac->file, rac->mapping, pages,
++=09=09=09=09readahead_count(rac));
+ =09=09/* Clean up the remaining pages */
+ =09=09put_pages_list(pages);
+ =09=09goto out;
+ =09}
+=20
+-=09for (page_idx =3D 0; page_idx < nr_pages; page_idx++) {
++=09for (page_idx =3D 0; page_idx < readahead_count(rac); page_idx++) {
+ =09=09struct page *page =3D lru_to_page(pages);
+ =09=09list_del(&page->lru);
+-=09=09if (!add_to_page_cache_lru(page, mapping, page->index, gfp))
+-=09=09=09mapping->a_ops->readpage(filp, page);
++=09=09if (!add_to_page_cache_lru(page, rac->mapping, page->index,
++=09=09=09=09gfp))
++=09=09=09aops->readpage(rac->file, page);
+ =09=09put_page(page);
+ =09}
+=20
+@@ -143,6 +146,7 @@ static void read_pages(struct address_space *mapping, s=
+truct file *filp,
+ =09blk_finish_plug(&plug);
+=20
+ =09BUG_ON(!list_empty(pages));
++=09rac->_nr_pages =3D 0;
  }
 =20
-+/**
-+ * struct readahead_control - Describes a readahead request.
-+ *
-+ * A readahead request is for consecutive pages.  Filesystems which
-+ * implement the ->readahead method should call readahead_page() or
-+ * readahead_page_batch() in a loop and attempt to start I/O against
-+ * each page in the request.
-+ *
-+ * Most of the fields in this struct are private and should be accessed
-+ * by the functions below.
-+ *
-+ * @file: The file, used primarily by network filesystems for authenticati=
-on.
-+ *=09  May be NULL if invoked internally by the filesystem.
-+ * @mapping: Readahead this filesystem object.
-+ */
-+struct readahead_control {
-+=09struct file *file;
-+=09struct address_space *mapping;
-+/* private: use the readahead_* accessors instead */
-+=09pgoff_t _index;
-+=09unsigned int _nr_pages;
-+=09unsigned int _batch_count;
-+};
-+
-+/**
-+ * readahead_page - Get the next page to read.
-+ * @rac: The current readahead request.
-+ *
-+ * Context: The page is locked and has an elevated refcount.  The caller
-+ * should decreases the refcount once the page has been submitted for I/O
-+ * and unlock the page once all I/O to that page has completed.
-+ * Return: A pointer to the next page, or %NULL if we are done.
-+ */
-+static inline struct page *readahead_page(struct readahead_control *rac)
-+{
-+=09struct page *page;
-+
-+=09BUG_ON(rac->_batch_count > rac->_nr_pages);
-+=09rac->_nr_pages -=3D rac->_batch_count;
-+=09rac->_index +=3D rac->_batch_count;
-+
-+=09if (!rac->_nr_pages) {
-+=09=09rac->_batch_count =3D 0;
-+=09=09return NULL;
-+=09}
-+
-+=09page =3D xa_load(&rac->mapping->i_pages, rac->_index);
-+=09VM_BUG_ON_PAGE(!PageLocked(page), page);
-+=09rac->_batch_count =3D hpage_nr_pages(page);
-+
-+=09return page;
-+}
-+
-+static inline unsigned int __readahead_batch(struct readahead_control *rac=
-,
-+=09=09struct page **array, unsigned int array_sz)
-+{
-+=09unsigned int i =3D 0;
-+=09XA_STATE(xas, &rac->mapping->i_pages, 0);
-+=09struct page *page;
-+
-+=09BUG_ON(rac->_batch_count > rac->_nr_pages);
-+=09rac->_nr_pages -=3D rac->_batch_count;
-+=09rac->_index +=3D rac->_batch_count;
-+=09rac->_batch_count =3D 0;
-+
-+=09xas_set(&xas, rac->_index);
-+=09rcu_read_lock();
-+=09xas_for_each(&xas, page, rac->_index + rac->_nr_pages - 1) {
-+=09=09VM_BUG_ON_PAGE(!PageLocked(page), page);
-+=09=09VM_BUG_ON_PAGE(PageTail(page), page);
-+=09=09array[i++] =3D page;
-+=09=09rac->_batch_count +=3D hpage_nr_pages(page);
-+
-+=09=09/*
-+=09=09 * The page cache isn't using multi-index entries yet,
-+=09=09 * so the xas cursor needs to be manually moved to the
-+=09=09 * next index.  This can be removed once the page cache
-+=09=09 * is converted.
-+=09=09 */
-+=09=09if (PageHead(page))
-+=09=09=09xas_set(&xas, rac->_index + rac->_batch_count);
-+
-+=09=09if (i =3D=3D array_sz)
-+=09=09=09break;
-+=09}
-+=09rcu_read_unlock();
-+
-+=09return i;
-+}
-+
-+/**
-+ * readahead_page_batch - Get a batch of pages to read.
-+ * @rac: The current readahead request.
-+ * @array: An array of pointers to struct page.
-+ *
-+ * Context: The pages are locked and have an elevated refcount.  The calle=
-r
-+ * should decreases the refcount once the page has been submitted for I/O
-+ * and unlock the page once all I/O to that page has completed.
-+ * Return: The number of pages placed in the array.  0 indicates the reque=
-st
-+ * is complete.
-+ */
-+#define readahead_page_batch(rac, array)=09=09=09=09\
-+=09__readahead_batch(rac, array, ARRAY_SIZE(array))
-+
-+/**
-+ * readahead_pos - The byte offset into the file of this readahead request=
-.
-+ * @rac: The readahead request.
-+ */
-+static inline loff_t readahead_pos(struct readahead_control *rac)
-+{
-+=09return (loff_t)rac->_index * PAGE_SIZE;
-+}
-+
-+/**
-+ * readahead_length - The number of bytes in this readahead request.
-+ * @rac: The readahead request.
-+ */
-+static inline loff_t readahead_length(struct readahead_control *rac)
-+{
-+=09return (loff_t)rac->_nr_pages * PAGE_SIZE;
-+}
-+
-+/**
-+ * readahead_index - The index of the first page in this readahead request=
-.
-+ * @rac: The readahead request.
-+ */
-+static inline pgoff_t readahead_index(struct readahead_control *rac)
-+{
-+=09return rac->_index;
-+}
-+
-+/**
-+ * readahead_count - The number of pages in this readahead request.
-+ * @rac: The readahead request.
-+ */
-+static inline unsigned int readahead_count(struct readahead_control *rac)
-+{
-+=09return rac->_nr_pages;
-+}
-+
- static inline unsigned long dir_pages(struct inode *inode)
- {
- =09return (unsigned long)(inode->i_size + PAGE_SIZE - 1) >>
+ /*
+@@ -160,9 +164,12 @@ void __do_page_cache_readahead(struct address_space *m=
+apping,
+ =09unsigned long end_index;=09/* The last page we want to read */
+ =09LIST_HEAD(page_pool);
+ =09int page_idx;
+-=09unsigned int nr_pages =3D 0;
+ =09loff_t isize =3D i_size_read(inode);
+ =09gfp_t gfp_mask =3D readahead_gfp_mask(mapping);
++=09struct readahead_control rac =3D {
++=09=09.mapping =3D mapping,
++=09=09.file =3D filp,
++=09};
+=20
+ =09if (isize =3D=3D 0)
+ =09=09return;
+@@ -185,9 +192,7 @@ void __do_page_cache_readahead(struct address_space *ma=
+pping,
+ =09=09=09 * contiguous pages before continuing with the next
+ =09=09=09 * batch.
+ =09=09=09 */
+-=09=09=09read_pages(mapping, filp, &page_pool, nr_pages,
+-=09=09=09=09=09=09gfp_mask);
+-=09=09=09nr_pages =3D 0;
++=09=09=09read_pages(&rac, &page_pool, gfp_mask);
+ =09=09=09continue;
+ =09=09}
+=20
+@@ -198,7 +203,7 @@ void __do_page_cache_readahead(struct address_space *ma=
+pping,
+ =09=09list_add(&page->lru, &page_pool);
+ =09=09if (page_idx =3D=3D nr_to_read - lookahead_size)
+ =09=09=09SetPageReadahead(page);
+-=09=09nr_pages++;
++=09=09rac._nr_pages++;
+ =09}
+=20
+ =09/*
+@@ -206,7 +211,7 @@ void __do_page_cache_readahead(struct address_space *ma=
+pping,
+ =09 * uptodate then the caller will launch readpage again, and
+ =09 * will then handle the error.
+ =09 */
+-=09read_pages(mapping, filp, &page_pool, nr_pages, gfp_mask);
++=09read_pages(&rac, &page_pool, gfp_mask);
+ }
+=20
+ /*
 --=20
 2.25.0
 
