@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id C379316F19F
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 9DD5616F19E
 	for <lists+cluster-devel@lfdr.de>; Tue, 25 Feb 2020 22:49:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1582667353;
@@ -12,58 +12,59 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MZW6F/fQEfL1hm08E3XhHoCOSmPLoHLWDCQFWoBSIzk=;
-	b=Qe+x1ruvKO2WyRPlRMz7WFEAacOFKVgG7ppzTTsiIY8fXbDKjLK7ClUW68q2KfHt9TC/UM
-	vosbx7mNDognOk0Hj3sjkwWg0ou9sUEE8mZdOqsfBZXQv1soUT0i4lYFU42BWE7LXHwVeF
-	rWbj+iUSl6ZjRRV1UqwlS25Rrl1qiVU=
+	bh=psCO+oEs3HUz1yONJHY12Y1OneN69JV2eu16aJYqps4=;
+	b=Rwo1xm5fPAjj93h8eFr7ftfvnVCbXfunLdEecAU/TC5hLugM6rD1oycv25Izpsa+m0rBeD
+	AqiIsQNLlh9gLR4s4LYC/2psqb1MxXEebERLDvZEXvHQqEcW6yb02bedZsPAb0meA9GasR
+	BYSO1q931Q/UnuAY3XP2w1AvJW5UAtw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-411-xEaT0yiGMmK7m20ZehkOgg-1; Tue, 25 Feb 2020 16:49:11 -0500
-X-MC-Unique: xEaT0yiGMmK7m20ZehkOgg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-434-oIHIXMeZPOWRAxlkNLhJ3Q-1; Tue, 25 Feb 2020 16:49:11 -0500
+X-MC-Unique: oIHIXMeZPOWRAxlkNLhJ3Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 551068010FA;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E60561882CD1;
 	Tue, 25 Feb 2020 21:49:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C42292969;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D2B572718F;
 	Tue, 25 Feb 2020 21:49:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 207C78B2DC;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AC9738B2DB;
 	Tue, 25 Feb 2020 21:49:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01PLmtq3010630 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 01PLmtOk010658 for <cluster-devel@listman.util.phx.redhat.com>;
 	Tue, 25 Feb 2020 16:48:55 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0800D2166B29; Tue, 25 Feb 2020 21:48:55 +0000 (UTC)
+	id 900581004C65; Tue, 25 Feb 2020 21:48:55 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 026852166B2F
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B6E7118DF94
 	for <cluster-devel@redhat.com>; Tue, 25 Feb 2020 21:48:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E40D185A79B
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A1088007C9
 	for <cluster-devel@redhat.com>; Tue, 25 Feb 2020 21:48:53 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-403-ETXzToBVPqm1oDj6UE0NGg-1; Tue, 25 Feb 2020 16:48:51 -0500
-X-MC-Unique: ETXzToBVPqm1oDj6UE0NGg-1
+	us-mta-137-4fiwXfQyOomBhW-kWwNesg-1; Tue, 25 Feb 2020 16:48:51 -0500
+X-MC-Unique: 4fiwXfQyOomBhW-kWwNesg-1
 Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1j6i4H-0007qe-IO; Tue, 25 Feb 2020 21:48:41 +0000
+	Hat Linux)) id 1j6i4H-0007qu-Jc; Tue, 25 Feb 2020 21:48:41 +0000
 From: Matthew Wilcox <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Tue, 25 Feb 2020 13:48:31 -0800
-Message-Id: <20200225214838.30017-19-willy@infradead.org>
+Date: Tue, 25 Feb 2020 13:48:32 -0800
+Message-Id: <20200225214838.30017-20-willy@infradead.org>
 In-Reply-To: <20200225214838.30017-1-willy@infradead.org>
 References: <20200225214838.30017-1-willy@infradead.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01PLmtq3010630
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01PLmtOk010658
 X-loop: cluster-devel@redhat.com
 Cc: linux-xfs@vger.kernel.org, Gao Xiang <gaoxiang25@huawei.com>,
 	linux-kernel@vger.kernel.org,
@@ -72,7 +73,7 @@ Cc: linux-xfs@vger.kernel.org, Gao Xiang <gaoxiang25@huawei.com>,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
 	linux-ext4@vger.kernel.org, linux-erofs@lists.ozlabs.org,
 	linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH v8 18/25] erofs: Convert uncompressed files
+Subject: [Cluster-devel] [PATCH v8 19/25] erofs: Convert compressed files
 	from readpages to readahead
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -87,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -95,132 +96,87 @@ Content-Transfer-Encoding: quoted-printable
 
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-Use the new readahead operation in erofs
+Use the new readahead operation in erofs.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 Acked-by: Gao Xiang <gaoxiang25@huawei.com>
+Reviewed-by: Dave Chinner <dchinner@redhat.com>
 ---
- fs/erofs/data.c              | 39 +++++++++++++-----------------------
- fs/erofs/zdata.c             |  2 +-
- include/trace/events/erofs.h |  6 +++---
- 3 files changed, 18 insertions(+), 29 deletions(-)
+ fs/erofs/zdata.c | 29 +++++++++--------------------
+ 1 file changed, 9 insertions(+), 20 deletions(-)
 
-diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-index fc3a8d8064f8..d0542151e8c4 100644
---- a/fs/erofs/data.c
-+++ b/fs/erofs/data.c
-@@ -280,47 +280,36 @@ static int erofs_raw_access_readpage(struct file *fil=
-e, struct page *page)
- =09return 0;
+diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
+index 17f45fcb8c5c..e64d8ab0900d 100644
+--- a/fs/erofs/zdata.c
++++ b/fs/erofs/zdata.c
+@@ -1303,28 +1303,23 @@ static bool should_decompress_synchronously(struct =
+erofs_sb_info *sbi,
+ =09return nr <=3D sbi->max_sync_decompress_pages;
  }
 =20
--static int erofs_raw_access_readpages(struct file *filp,
--=09=09=09=09      struct address_space *mapping,
--=09=09=09=09      struct list_head *pages,
--=09=09=09=09      unsigned int nr_pages)
-+static void erofs_raw_access_readahead(struct readahead_control *rac)
+-static int z_erofs_readpages(struct file *filp, struct address_space *mapp=
+ing,
+-=09=09=09     struct list_head *pages, unsigned int nr_pages)
++static void z_erofs_readahead(struct readahead_control *rac)
  {
- =09erofs_off_t last_block;
- =09struct bio *bio =3D NULL;
--=09gfp_t gfp =3D readahead_gfp_mask(mapping);
--=09struct page *page =3D list_last_entry(pages, struct page, lru);
--
--=09trace_erofs_readpages(mapping->host, page, nr_pages, true);
-+=09struct page *page;
+-=09struct inode *const inode =3D mapping->host;
++=09struct inode *const inode =3D rac->mapping->host;
+ =09struct erofs_sb_info *const sbi =3D EROFS_I_SB(inode);
 =20
+-=09bool sync =3D should_decompress_synchronously(sbi, nr_pages);
++=09bool sync =3D should_decompress_synchronously(sbi, readahead_count(rac)=
+);
+ =09struct z_erofs_decompress_frontend f =3D DECOMPRESS_FRONTEND_INIT(inode=
+);
+-=09gfp_t gfp =3D mapping_gfp_constraint(mapping, GFP_KERNEL);
+-=09struct page *head =3D NULL;
++=09struct page *page, *head =3D NULL;
+ =09LIST_HEAD(pagepool);
+=20
+-=09trace_erofs_readpages(mapping->host, lru_to_page(pages)->index,
+-=09=09=09      nr_pages, false);
++=09trace_erofs_readpages(inode, readahead_index(rac),
++=09=09=09readahead_count(rac), false);
+=20
+-=09f.headoffset =3D (erofs_off_t)lru_to_page(pages)->index << PAGE_SHIFT;
+-
 -=09for (; nr_pages; --nr_pages) {
--=09=09page =3D list_entry(pages->prev, struct page, lru);
-+=09trace_erofs_readpages(rac->mapping->host, readahead_index(rac),
-+=09=09=09readahead_count(rac), true);
+-=09=09struct page *page =3D lru_to_page(pages);
++=09f.headoffset =3D readahead_pos(rac);
 =20
 +=09while ((page =3D readahead_page(rac))) {
  =09=09prefetchw(&page->flags);
 -=09=09list_del(&page->lru);
 =20
--=09=09if (!add_to_page_cache_lru(page, mapping, page->index, gfp)) {
--=09=09=09bio =3D erofs_read_raw_page(bio, mapping, page,
--=09=09=09=09=09=09  &last_block, nr_pages, true);
-+=09=09bio =3D erofs_read_raw_page(bio, rac->mapping, page, &last_block,
-+=09=09=09=09readahead_count(rac), true);
+ =09=09/*
+ =09=09 * A pure asynchronous readahead is indicated if
+@@ -1333,11 +1328,6 @@ static int z_erofs_readpages(struct file *filp, stru=
+ct address_space *mapping,
+ =09=09 */
+ =09=09sync &=3D !(PageReadahead(page) && !head);
 =20
--=09=09=09/* all the page errors are ignored when readahead */
--=09=09=09if (IS_ERR(bio)) {
--=09=09=09=09pr_err("%s, readahead error at page %lu of nid %llu\n",
--=09=09=09=09       __func__, page->index,
--=09=09=09=09       EROFS_I(mapping->host)->nid);
-+=09=09/* all the page errors are ignored when readahead */
-+=09=09if (IS_ERR(bio)) {
-+=09=09=09pr_err("%s, readahead error at page %lu of nid %llu\n",
-+=09=09=09       __func__, page->index,
-+=09=09=09       EROFS_I(rac->mapping->host)->nid);
-=20
--=09=09=09=09bio =3D NULL;
--=09=09=09}
-+=09=09=09bio =3D NULL;
- =09=09}
-=20
--=09=09/* pages could still be locked */
- =09=09put_page(page);
+-=09=09if (add_to_page_cache_lru(page, mapping, page->index, gfp)) {
+-=09=09=09list_add(&page->lru, &pagepool);
+-=09=09=09continue;
+-=09=09}
+-
+ =09=09set_page_private(page, (unsigned long)head);
+ =09=09head =3D page;
  =09}
--=09DBG_BUGON(!list_empty(pages));
+@@ -1366,11 +1356,10 @@ static int z_erofs_readpages(struct file *filp, str=
+uct address_space *mapping,
 =20
- =09/* the rare case (end in gaps) */
- =09if (bio)
- =09=09submit_bio(bio);
+ =09/* clean up the remaining free pages */
+ =09put_pages_list(&pagepool);
 -=09return 0;
  }
 =20
- static int erofs_get_block(struct inode *inode, sector_t iblock,
-@@ -358,7 +347,7 @@ static sector_t erofs_bmap(struct address_space *mappin=
-g, sector_t block)
- /* for uncompressed (aligned) files and raw access for other files */
- const struct address_space_operations erofs_raw_access_aops =3D {
- =09.readpage =3D erofs_raw_access_readpage,
--=09.readpages =3D erofs_raw_access_readpages,
-+=09.readahead =3D erofs_raw_access_readahead,
- =09.bmap =3D erofs_bmap,
+ const struct address_space_operations z_erofs_aops =3D {
+ =09.readpage =3D z_erofs_readpage,
+-=09.readpages =3D z_erofs_readpages,
++=09.readahead =3D z_erofs_readahead,
  };
 =20
-diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
-index 80e47f07d946..17f45fcb8c5c 100644
---- a/fs/erofs/zdata.c
-+++ b/fs/erofs/zdata.c
-@@ -1315,7 +1315,7 @@ static int z_erofs_readpages(struct file *filp, struc=
-t address_space *mapping,
- =09struct page *head =3D NULL;
- =09LIST_HEAD(pagepool);
-=20
--=09trace_erofs_readpages(mapping->host, lru_to_page(pages),
-+=09trace_erofs_readpages(mapping->host, lru_to_page(pages)->index,
- =09=09=09      nr_pages, false);
-=20
- =09f.headoffset =3D (erofs_off_t)lru_to_page(pages)->index << PAGE_SHIFT;
-diff --git a/include/trace/events/erofs.h b/include/trace/events/erofs.h
-index 27f5caa6299a..bf9806fd1306 100644
---- a/include/trace/events/erofs.h
-+++ b/include/trace/events/erofs.h
-@@ -113,10 +113,10 @@ TRACE_EVENT(erofs_readpage,
-=20
- TRACE_EVENT(erofs_readpages,
-=20
--=09TP_PROTO(struct inode *inode, struct page *page, unsigned int nrpage,
-+=09TP_PROTO(struct inode *inode, pgoff_t start, unsigned int nrpage,
- =09=09bool raw),
-=20
--=09TP_ARGS(inode, page, nrpage, raw),
-+=09TP_ARGS(inode, start, nrpage, raw),
-=20
- =09TP_STRUCT__entry(
- =09=09__field(dev_t,=09=09dev=09)
-@@ -129,7 +129,7 @@ TRACE_EVENT(erofs_readpages,
- =09TP_fast_assign(
- =09=09__entry->dev=09=3D inode->i_sb->s_dev;
- =09=09__entry->nid=09=3D EROFS_I(inode)->nid;
--=09=09__entry->start=09=3D page->index;
-+=09=09__entry->start=09=3D start;
- =09=09__entry->nrpage=09=3D nrpage;
- =09=09__entry->raw=09=3D raw;
- =09),
 --=20
 2.25.0
 
