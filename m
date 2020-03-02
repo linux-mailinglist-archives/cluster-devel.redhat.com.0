@@ -1,58 +1,92 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 4DF26174084
-	for <lists+cluster-devel@lfdr.de>; Fri, 28 Feb 2020 20:47:49 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 493B8175D95
+	for <lists+cluster-devel@lfdr.de>; Mon,  2 Mar 2020 15:52:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582919268;
+	s=mimecast20190719; t=1583160763;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=WSQ06Lkkov9uxrEPmUoIzzm9aWLMjAtdnhTpQNh60h4=;
-	b=Ew4bmipGo3OrrTcRMU7TQ4zD4Uy/FDiWBq8gKA+KkPSkvmrszBmttM0FYE0FRTQPOKPlCK
-	zvEW0sRVeAr/bZ/Vob0OLZ1zaNbdyD1DyaMudiTD3my0xSzILX4xJBoLm5wGZtNjI5aPR/
-	y4bPJ2t11W5TxY4H5alWHhDVrB8VHeU=
+	bh=JJZwjPW6YPmki+tQZfLxAAK1f6nD9R17i9IvBsoEZ5w=;
+	b=NOktksTnCgAC2BIUmCrLTnOm+g/9N2+Ftz7V22x99sIWmoKwrMpJUvDuVucZ+GZPZkdOnA
+	puu9qfE+JyA7KWvuW6T2KCHqd59v6I/dVbs1jk9Cmrdii2Ek8uWtHMx5S3De7k6bTOXeHs
+	KXEAY+dKABQAIaJ1ntdfvxgjYnzY1cI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-158-UlXBm-aWMzeaZJv8Aa0uSQ-1; Fri, 28 Feb 2020 14:47:46 -0500
-X-MC-Unique: UlXBm-aWMzeaZJv8Aa0uSQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-434-k-EGBB3JNEKXVcFJocE2og-1; Mon, 02 Mar 2020 09:52:41 -0500
+X-MC-Unique: k-EGBB3JNEKXVcFJocE2og-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D5EF800D55;
-	Fri, 28 Feb 2020 19:47:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EECC78D541;
-	Fri, 28 Feb 2020 19:47:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C4E558018A9;
+	Mon,  2 Mar 2020 14:52:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8E4290CC3;
+	Mon,  2 Mar 2020 14:52:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 65FC018089CE;
-	Fri, 28 Feb 2020 19:47:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CD0CB8449D;
+	Mon,  2 Mar 2020 14:52:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01SJlcbs017455 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 28 Feb 2020 14:47:39 -0500
+	id 022EqWMe007778 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 2 Mar 2020 09:52:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EDDF690F5B; Fri, 28 Feb 2020 19:47:38 +0000 (UTC)
+	id 0A0EA2038B80; Mon,  2 Mar 2020 14:52:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-116-223.ams2.redhat.com [10.36.116.223])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 514179299C
-	for <cluster-devel@redhat.com>; Fri, 28 Feb 2020 19:47:36 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Fri, 28 Feb 2020 13:47:28 -0600
-Message-Id: <20200228194728.1375940-3-rpeterso@redhat.com>
-In-Reply-To: <20200228194728.1375940-1-rpeterso@redhat.com>
-References: <20200228194728.1375940-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 053EB2038B82
+	for <cluster-devel@redhat.com>; Mon,  2 Mar 2020 14:52:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA85D867B36
+	for <cluster-devel@redhat.com>; Mon,  2 Mar 2020 14:52:29 +0000 (UTC)
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+	[209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-403-AEa6TzP5PLCBrlorutBosA-1; Mon, 02 Mar 2020 09:52:28 -0500
+X-MC-Unique: AEa6TzP5PLCBrlorutBosA-1
+Received: by mail-oi1-f199.google.com with SMTP id e22so68411oig.1
+	for <cluster-devel@redhat.com>; Mon, 02 Mar 2020 06:52:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=VYVayJyPY4AiEnUL9/Tsxm90z3cAV8AjVDcjBsrZlkY=;
+	b=jy4GJMeiaNQ1sV/2/nwRAP1N3vW1AySJE75OXvl8f+1aLGClDqLLuHE+pIKH0z7RuB
+	e3iG4KCh0zXHkoVoNKd+AiHxcz9QZkZ49fPS0ZEVSN3nYctd6sfknzJ9Vncm7cTr6We6
+	1d+SbqBd9njXEOPKuc7/UBMd91nlMp/PRGgXfZDOMHbBY1lk+lPk1Ic2IODlrPbuYYPf
+	APwgYb4TLG6W935a3L9UjdBtPYmuupx6excL9lpxswHDqnPPfMpadktweOOK8M/0/1Y5
+	DHlMUFxPJpgcLaftYgQqSTQnD2f8pO5h43JFWmvlIWLHUus7N6g+9U/n0vHWtlggKNAA
+	MNVA==
+X-Gm-Message-State: APjAAAXF9S6VUEVVnb9irlHX8KZwxQOolBNzKLWIbM34+6Uwll2Y9zFi
+	C3d8RtN2bpJTM//avVz4gV5bjFjkHFrVCPeQ9tHoPBg8UfWG9+LIIChmPWsBrL2cqRGkJjs+gvR
+	9DfhaeZtJsvQdN5lwc98RvJFBEOWuHR1dsu7Riw==
+X-Received: by 2002:a9d:63d6:: with SMTP id e22mr13737253otl.185.1583160747529;
+	Mon, 02 Mar 2020 06:52:27 -0800 (PST)
+X-Google-Smtp-Source: APXvYqweW/duoWFTSNTEbTmyXFtkxDZ7Z6+WqUmcHBicGOctpkBUUZv2cfm3PaCtYi5qgkjBWzXNQFBPicQIBtsMnL0=
+X-Received: by 2002:a9d:63d6:: with SMTP id e22mr13737232otl.185.1583160747107;
+	Mon, 02 Mar 2020 06:52:27 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+References: <20200228194728.1375940-1-rpeterso@redhat.com>
+In-Reply-To: <20200228194728.1375940-1-rpeterso@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Mon, 2 Mar 2020 15:52:16 +0100
+Message-ID: <CAHc6FU6Fsv88Qcr+mEFNV-shUL1cArCrh9vJjo1qqGz0=FZuHA@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 022EqWMe007778
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 2/2] gfs2: Change inode qa_data to
-	allow multiple users
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [GFS2 PATCH 0/2 v2] Clean up and fix quota data
+ allocate and free
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,606 +100,79 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Before this patch, multiple users called gfs2_qa_alloc which allocated
-a qadata structure to the inode, if quotas are turned on. Later, in
-file close or evict, the structure was deleted with gfs2_qa_delete.
-But there can be several competing processes who need access to the
-structure. There were races between file close (release) and the others.
-Thus, a release could delete the structure out from under a process
-that relied upon its existence. For example, chown.
+On Fri, Feb 28, 2020 at 8:47 PM Bob Peterson <rpeterso@redhat.com> wrote:
+>
+> This patch set cleans up a recently discovered race between file close
+> and chown. The problem was that file close would free the quota data
+> structures attached to the in-core inode, but chown relied on them to
+> exist. So if the timing of the close is wrong, the chown can result in
+> kernel panic. The problem is easily recreated with this:
+>
+> On terminal session 1:
+> while true; do chown test /mnt/gfs2/test; chown root /mnt/gfs2/test; done
+>
+> On terminal session 2:
+> while true; do echo "a" > /mnt/gfs2/test; echo "b" > /mnt/gfs2/test;done
+>
+> This is version 2 of this patch set. The first patch hasn't changed from
+> the previous patch #3. The second patch is new. Andreas pointed out that =
+v1
+> kept the memory for quota data allocated too long because it was not free=
+d
+> until evict. This version takes a completely different approach. It chang=
+es
+> the quota data structure to be policed by an atomic count of users.
 
-This patch changes the management of the qadata structures to be
-a get/put scheme. Function gfs2_qa_alloc has been changed to gfs2_qa_get
-and if the structure is allocated, the count essentially starts out at
-2. Function gfs2_qa_delete has been renamed to gfs2_qa_put, and the
-last guy to decrement the count to 0 frees the memory.
+That sounds better, but gfs2_qa_get / gfs2_qa_put is done under
+i_rw_mutex, so qa_ref doesn't need to be an atomic.
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/acl.c    |  6 ++++--
- fs/gfs2/bmap.c   |  2 +-
- fs/gfs2/file.c   | 19 ++++++++++++------
- fs/gfs2/incore.h |  1 +
- fs/gfs2/inode.c  | 31 +++++++++++++++++------------
- fs/gfs2/quota.c  | 51 +++++++++++++++++++++++++++++-------------------
- fs/gfs2/quota.h  |  4 ++--
- fs/gfs2/rgrp.c   |  2 +-
- fs/gfs2/super.c  |  2 ++
- fs/gfs2/xattr.c  | 12 ++++++++----
- 10 files changed, 82 insertions(+), 48 deletions(-)
+> Instead of gfs2_qa_alloc, each user must instead gfs2_qa_get() which
+> allocates the structure if necessary, and initializes its usage count to =
+2.
+> After gfs2_qa_get, callers must call a corresponding gfs2_qa_put().
+> As before, a file close or evict will decrement the counter one last time
+> from 1 to 0, and free the memory.
 
-diff --git a/fs/gfs2/acl.c b/fs/gfs2/acl.c
-index cb09b85c5b10..2e939f5fe751 100644
---- a/fs/gfs2/acl.c
-+++ b/fs/gfs2/acl.c
-@@ -117,14 +117,14 @@ int gfs2_set_acl(struct inode *inode, struct posix_ac=
-l *acl, int type)
- =09if (acl && acl->a_count > GFS2_ACL_MAX_ENTRIES(GFS2_SB(inode)))
- =09=09return -E2BIG;
-=20
--=09ret =3D gfs2_qa_alloc(ip);
-+=09ret =3D gfs2_qa_get(ip);
- =09if (ret)
- =09=09return ret;
-=20
- =09if (!gfs2_glock_is_locked_by_me(ip->i_gl)) {
- =09=09ret =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &gh);
- =09=09if (ret)
--=09=09=09return ret;
-+=09=09=09goto out;
- =09=09need_unlock =3D true;
- =09}
-=20
-@@ -144,5 +144,7 @@ int gfs2_set_acl(struct inode *inode, struct posix_acl =
-*acl, int type)
- unlock:
- =09if (need_unlock)
- =09=09gfs2_glock_dq_uninit(&gh);
-+out:
-+=09gfs2_qa_put(ip);
- =09return ret;
- }
-diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
-index 0f32d2ceb0af..bb67d2ee1b40 100644
---- a/fs/gfs2/bmap.c
-+++ b/fs/gfs2/bmap.c
-@@ -2183,7 +2183,7 @@ int gfs2_setattr_size(struct inode *inode, u64 newsiz=
-e)
-=20
- =09inode_dio_wait(inode);
-=20
--=09ret =3D gfs2_qa_alloc(ip);
-+=09ret =3D gfs2_qa_get(ip);
- =09if (ret)
- =09=09goto out;
-=20
-diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-index 54b0708e6d35..75d6b1a7603f 100644
---- a/fs/gfs2/file.c
-+++ b/fs/gfs2/file.c
-@@ -458,7 +458,7 @@ static vm_fault_t gfs2_page_mkwrite(struct vm_fault *vm=
-f)
-=20
- =09sb_start_pagefault(inode->i_sb);
-=20
--=09ret =3D gfs2_qa_alloc(ip);
-+=09ret =3D gfs2_qa_get(ip);
- =09if (ret)
- =09=09goto out;
-=20
-@@ -553,6 +553,7 @@ static vm_fault_t gfs2_page_mkwrite(struct vm_fault *vm=
-f)
- out_unlock:
- =09gfs2_glock_dq(&gh);
- out_uninit:
-+=09gfs2_qa_put(ip);
- =09gfs2_holder_uninit(&gh);
- =09if (ret =3D=3D 0) {
- =09=09set_page_dirty(page);
-@@ -849,7 +850,7 @@ static ssize_t gfs2_file_write_iter(struct kiocb *iocb,=
- struct iov_iter *from)
- =09struct gfs2_inode *ip =3D GFS2_I(inode);
- =09ssize_t ret;
-=20
--=09ret =3D gfs2_qa_alloc(ip);
-+=09ret =3D gfs2_qa_get(ip);
- =09if (ret)
- =09=09return ret;
-=20
-@@ -860,7 +861,7 @@ static ssize_t gfs2_file_write_iter(struct kiocb *iocb,=
- struct iov_iter *from)
-=20
- =09=09ret =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED, 0, &gh);
- =09=09if (ret)
--=09=09=09return ret;
-+=09=09=09goto out;
- =09=09gfs2_glock_dq_uninit(&gh);
- =09}
-=20
-@@ -918,6 +919,8 @@ static ssize_t gfs2_file_write_iter(struct kiocb *iocb,=
- struct iov_iter *from)
-=20
- out_unlock:
- =09inode_unlock(inode);
-+out:
-+=09gfs2_qa_put(ip);
- =09return ret;
- }
-=20
-@@ -1149,7 +1152,7 @@ static long gfs2_fallocate(struct file *file, int mod=
-e, loff_t offset, loff_t le
- =09if (mode & FALLOC_FL_PUNCH_HOLE) {
- =09=09ret =3D __gfs2_punch_hole(file, offset, len);
- =09} else {
--=09=09ret =3D gfs2_qa_alloc(ip);
-+=09=09ret =3D gfs2_qa_get(ip);
- =09=09if (ret)
- =09=09=09goto out_putw;
-=20
-@@ -1158,6 +1161,7 @@ static long gfs2_fallocate(struct file *file, int mod=
-e, loff_t offset, loff_t le
- =09=09if (ret)
- =09=09=09gfs2_rs_deltree(&ip->i_res);
- =09}
-+=09gfs2_qa_put(ip);
-=20
- out_putw:
- =09put_write_access(inode);
-@@ -1175,14 +1179,17 @@ static ssize_t gfs2_file_splice_write(struct pipe_i=
-node_info *pipe,
- {
- =09int error;
- =09struct gfs2_inode *ip =3D GFS2_I(out->f_mapping->host);
-+=09ssize_t ret;
-=20
--=09error =3D gfs2_qa_alloc(ip);
-+=09error =3D gfs2_qa_get(ip);
- =09if (error)
- =09=09return (ssize_t)error;
-=20
- =09gfs2_size_hint(out, *ppos, len);
-=20
--=09return iter_file_splice_write(pipe, out, ppos, len, flags);
-+=09ret =3D iter_file_splice_write(pipe, out, ppos, len, flags);
-+=09gfs2_qa_put(ip);
-+=09return ret;
- }
-=20
- #ifdef CONFIG_GFS2_FS_LOCKING_DLM
-diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index 04549a8cae7e..38d2b5b29372 100644
---- a/fs/gfs2/incore.h
-+++ b/fs/gfs2/incore.h
-@@ -295,6 +295,7 @@ struct gfs2_qadata { /* quota allocation data */
- =09struct gfs2_quota_data *qa_qd[2 * GFS2_MAXQUOTAS];
- =09struct gfs2_holder qa_qd_ghs[2 * GFS2_MAXQUOTAS];
- =09unsigned int qa_qd_num;
-+=09atomic_t qa_ref;
- };
-=20
- /* Resource group multi-block reservation, in order of appearance:
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index 028c272911f6..2ab399d0a7da 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -594,13 +594,13 @@ static int gfs2_create_inode(struct inode *dir, struc=
-t dentry *dentry,
- =09if (!name->len || name->len > GFS2_FNAMESIZE)
- =09=09return -ENAMETOOLONG;
-=20
--=09error =3D gfs2_qa_alloc(dip);
-+=09error =3D gfs2_qa_get(dip);
- =09if (error)
- =09=09return error;
-=20
- =09error =3D gfs2_rindex_update(sdp);
- =09if (error)
--=09=09return error;
-+=09=09goto fail;
-=20
- =09error =3D gfs2_glock_nq_init(dip->i_gl, LM_ST_EXCLUSIVE, 0, ghs);
- =09if (error)
-@@ -647,7 +647,7 @@ static int gfs2_create_inode(struct inode *dir, struct =
-dentry *dentry,
- =09=09goto fail_gunlock;
-=20
- =09ip =3D GFS2_I(inode);
--=09error =3D gfs2_qa_alloc(ip);
-+=09error =3D gfs2_qa_get(ip);
- =09if (error)
- =09=09goto fail_free_acls;
-=20
-@@ -782,6 +782,7 @@ static int gfs2_create_inode(struct inode *dir, struct =
-dentry *dentry,
- =09clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
- =09gfs2_glock_put(io_gl);
- fail_free_inode:
-+=09gfs2_qa_put(ip);
- =09if (ip->i_gl) {
- =09=09glock_clear_object(ip->i_gl, ip);
- =09=09gfs2_glock_put(ip->i_gl);
-@@ -804,6 +805,7 @@ static int gfs2_create_inode(struct inode *dir, struct =
-dentry *dentry,
- =09if (gfs2_holder_initialized(ghs + 1))
- =09=09gfs2_glock_dq_uninit(ghs + 1);
- fail:
-+=09gfs2_qa_put(dip);
- =09return error;
- }
-=20
-@@ -905,7 +907,7 @@ static int gfs2_link(struct dentry *old_dentry, struct =
-inode *dir,
- =09if (S_ISDIR(inode->i_mode))
- =09=09return -EPERM;
-=20
--=09error =3D gfs2_qa_alloc(dip);
-+=09error =3D gfs2_qa_get(dip);
- =09if (error)
- =09=09return error;
-=20
-@@ -1008,6 +1010,7 @@ static int gfs2_link(struct dentry *old_dentry, struc=
-t inode *dir,
- out_child:
- =09gfs2_glock_dq(ghs);
- out_parent:
-+=09gfs2_qa_put(ip);
- =09gfs2_holder_uninit(ghs);
- =09gfs2_holder_uninit(ghs + 1);
- =09return error;
-@@ -1368,7 +1371,7 @@ static int gfs2_rename(struct inode *odir, struct den=
-try *odentry,
- =09if (error)
- =09=09return error;
-=20
--=09error =3D gfs2_qa_alloc(ndip);
-+=09error =3D gfs2_qa_get(ndip);
- =09if (error)
- =09=09return error;
-=20
-@@ -1568,6 +1571,7 @@ static int gfs2_rename(struct inode *odir, struct den=
-try *odentry,
- =09if (gfs2_holder_initialized(&r_gh))
- =09=09gfs2_glock_dq_uninit(&r_gh);
- out:
-+=09gfs2_qa_put(ndip);
- =09return error;
- }
-=20
-@@ -1880,9 +1884,9 @@ static int setattr_chown(struct inode *inode, struct =
-iattr *attr)
- =09if (!(attr->ia_valid & ATTR_GID) || gid_eq(ogid, ngid))
- =09=09ogid =3D ngid =3D NO_GID_QUOTA_CHANGE;
-=20
--=09error =3D gfs2_qa_alloc(ip);
-+=09error =3D gfs2_qa_get(ip);
- =09if (error)
--=09=09goto out;
-+=09=09return error;
-=20
- =09error =3D gfs2_rindex_update(sdp);
- =09if (error)
-@@ -1920,6 +1924,7 @@ static int setattr_chown(struct inode *inode, struct =
-iattr *attr)
- out_gunlock_q:
- =09gfs2_quota_unlock(ip);
- out:
-+=09gfs2_qa_put(ip);
- =09return error;
- }
-=20
-@@ -1941,21 +1946,21 @@ static int gfs2_setattr(struct dentry *dentry, stru=
-ct iattr *attr)
- =09struct gfs2_holder i_gh;
- =09int error;
-=20
--=09error =3D gfs2_qa_alloc(ip);
-+=09error =3D gfs2_qa_get(ip);
- =09if (error)
- =09=09return error;
-=20
- =09error =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &i_gh);
- =09if (error)
--=09=09return error;
-+=09=09goto out;
-=20
- =09error =3D -EPERM;
- =09if (IS_IMMUTABLE(inode) || IS_APPEND(inode))
--=09=09goto out;
-+=09=09goto error;
-=20
- =09error =3D setattr_prepare(dentry, attr);
- =09if (error)
--=09=09goto out;
-+=09=09goto error;
-=20
- =09if (attr->ia_valid & ATTR_SIZE)
- =09=09error =3D gfs2_setattr_size(inode, attr->ia_size);
-@@ -1967,10 +1972,12 @@ static int gfs2_setattr(struct dentry *dentry, stru=
-ct iattr *attr)
- =09=09=09error =3D posix_acl_chmod(inode, inode->i_mode);
- =09}
-=20
--out:
-+error:
- =09if (!error)
- =09=09mark_inode_dirty(inode);
- =09gfs2_glock_dq_uninit(&i_gh);
-+out:
-+=09gfs2_qa_put(ip);
- =09return error;
- }
-=20
-diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
-index 6ec7b1dcd81a..0ffbab49ec40 100644
---- a/fs/gfs2/quota.c
-+++ b/fs/gfs2/quota.c
-@@ -525,11 +525,11 @@ static void qdsb_put(struct gfs2_quota_data *qd)
- }
-=20
- /**
-- * gfs2_qa_alloc - make sure we have a quota allocations data structure,
-- *                 if necessary
-+ * gfs2_qa_get - make sure we have a quota allocations data structure,
-+ *               if necessary
-  * @ip: the inode for this reservation
-  */
--int gfs2_qa_alloc(struct gfs2_inode *ip)
-+int gfs2_qa_get(struct gfs2_inode *ip)
- {
- =09int error =3D 0;
- =09struct gfs2_sbd *sdp =3D GFS2_SB(&ip->i_inode);
-@@ -542,15 +542,17 @@ int gfs2_qa_alloc(struct gfs2_inode *ip)
- =09=09ip->i_qadata =3D kmem_cache_zalloc(gfs2_qadata_cachep, GFP_NOFS);
- =09=09if (!ip->i_qadata)
- =09=09=09error =3D -ENOMEM;
-+=09=09atomic_set(&ip->i_qadata->qa_ref, 1);
- =09}
-+=09atomic_inc(&ip->i_qadata->qa_ref);
- =09up_write(&ip->i_rw_mutex);
- =09return error;
- }
-=20
--void gfs2_qa_delete(struct gfs2_inode *ip, atomic_t *wcount)
-+void gfs2_qa_put(struct gfs2_inode *ip)
- {
- =09down_write(&ip->i_rw_mutex);
--=09if (ip->i_qadata && ((wcount =3D=3D NULL) || (atomic_read(wcount) <=3D =
-1))) {
-+=09if (ip->i_qadata && atomic_dec_return(&ip->i_qadata->qa_ref) =3D=3D 0) =
-{
- =09=09kmem_cache_free(gfs2_qadata_cachep, ip->i_qadata);
- =09=09ip->i_qadata =3D NULL;
- =09}
-@@ -567,7 +569,7 @@ int gfs2_quota_hold(struct gfs2_inode *ip, kuid_t uid, =
-kgid_t gid)
- =09=09return 0;
-=20
- =09if (ip->i_qadata =3D=3D NULL) {
--=09=09error =3D gfs2_qa_alloc(ip);
-+=09=09error =3D gfs2_qa_get(ip);
- =09=09if (error)
- =09=09=09return error;
- =09}
-@@ -575,18 +577,20 @@ int gfs2_quota_hold(struct gfs2_inode *ip, kuid_t uid=
-, kgid_t gid)
- =09qd =3D ip->i_qadata->qa_qd;
-=20
- =09if (gfs2_assert_warn(sdp, !ip->i_qadata->qa_qd_num) ||
--=09    gfs2_assert_warn(sdp, !test_bit(GIF_QD_LOCKED, &ip->i_flags)))
--=09=09return -EIO;
-+=09    gfs2_assert_warn(sdp, !test_bit(GIF_QD_LOCKED, &ip->i_flags))) {
-+=09=09error =3D -EIO;
-+=09=09goto out;
-+=09}
-=20
- =09error =3D qdsb_get(sdp, make_kqid_uid(ip->i_inode.i_uid), qd);
- =09if (error)
--=09=09goto out;
-+=09=09goto out_unhold;
- =09ip->i_qadata->qa_qd_num++;
- =09qd++;
-=20
- =09error =3D qdsb_get(sdp, make_kqid_gid(ip->i_inode.i_gid), qd);
- =09if (error)
--=09=09goto out;
-+=09=09goto out_unhold;
- =09ip->i_qadata->qa_qd_num++;
- =09qd++;
-=20
-@@ -594,7 +598,7 @@ int gfs2_quota_hold(struct gfs2_inode *ip, kuid_t uid, =
-kgid_t gid)
- =09    !uid_eq(uid, ip->i_inode.i_uid)) {
- =09=09error =3D qdsb_get(sdp, make_kqid_uid(uid), qd);
- =09=09if (error)
--=09=09=09goto out;
-+=09=09=09goto out_unhold;
- =09=09ip->i_qadata->qa_qd_num++;
- =09=09qd++;
- =09}
-@@ -603,14 +607,16 @@ int gfs2_quota_hold(struct gfs2_inode *ip, kuid_t uid=
-, kgid_t gid)
- =09    !gid_eq(gid, ip->i_inode.i_gid)) {
- =09=09error =3D qdsb_get(sdp, make_kqid_gid(gid), qd);
- =09=09if (error)
--=09=09=09goto out;
-+=09=09=09goto out_unhold;
- =09=09ip->i_qadata->qa_qd_num++;
- =09=09qd++;
- =09}
-=20
--out:
-+out_unhold:
- =09if (error)
- =09=09gfs2_quota_unhold(ip);
-+out:
-+=09gfs2_qa_put(ip);
- =09return error;
- }
-=20
-@@ -876,7 +882,7 @@ static int do_sync(unsigned int num_qd, struct gfs2_quo=
-ta_data **qda)
- =09unsigned int nalloc =3D 0, blocks;
- =09int error;
-=20
--=09error =3D gfs2_qa_alloc(ip);
-+=09error =3D gfs2_qa_get(ip);
- =09if (error)
- =09=09return error;
-=20
-@@ -884,8 +890,10 @@ static int do_sync(unsigned int num_qd, struct gfs2_qu=
-ota_data **qda)
- =09=09=09      &data_blocks, &ind_blocks);
-=20
- =09ghs =3D kmalloc_array(num_qd, sizeof(struct gfs2_holder), GFP_NOFS);
--=09if (!ghs)
--=09=09return -ENOMEM;
-+=09if (!ghs) {
-+=09=09error =3D -ENOMEM;
-+=09=09goto out;
-+=09}
-=20
- =09sort(qda, num_qd, sizeof(struct gfs2_quota_data *), sort_qd, NULL);
- =09inode_lock(&ip->i_inode);
-@@ -893,12 +901,12 @@ static int do_sync(unsigned int num_qd, struct gfs2_q=
-uota_data **qda)
- =09=09error =3D gfs2_glock_nq_init(qda[qx]->qd_gl, LM_ST_EXCLUSIVE,
- =09=09=09=09=09   GL_NOCACHE, &ghs[qx]);
- =09=09if (error)
--=09=09=09goto out;
-+=09=09=09goto out_dq;
- =09}
-=20
- =09error =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &i_gh);
- =09if (error)
--=09=09goto out;
-+=09=09goto out_dq;
-=20
- =09for (x =3D 0; x < num_qd; x++) {
- =09=09offset =3D qd2offset(qda[x]);
-@@ -950,13 +958,15 @@ static int do_sync(unsigned int num_qd, struct gfs2_q=
-uota_data **qda)
- =09gfs2_inplace_release(ip);
- out_alloc:
- =09gfs2_glock_dq_uninit(&i_gh);
--out:
-+out_dq:
- =09while (qx--)
- =09=09gfs2_glock_dq_uninit(&ghs[qx]);
- =09inode_unlock(&ip->i_inode);
- =09kfree(ghs);
- =09gfs2_log_flush(ip->i_gl->gl_name.ln_sbd, ip->i_gl,
- =09=09       GFS2_LOG_HEAD_FLUSH_NORMAL | GFS2_LFC_DO_SYNC);
-+out:
-+=09gfs2_qa_put(ip);
- =09return error;
- }
-=20
-@@ -1677,7 +1687,7 @@ static int gfs2_set_dqblk(struct super_block *sb, str=
-uct kqid qid,
- =09if (error)
- =09=09return error;
-=20
--=09error =3D gfs2_qa_alloc(ip);
-+=09error =3D gfs2_qa_get(ip);
- =09if (error)
- =09=09goto out_put;
-=20
-@@ -1746,6 +1756,7 @@ static int gfs2_set_dqblk(struct super_block *sb, str=
-uct kqid qid,
- out_q:
- =09gfs2_glock_dq_uninit(&q_gh);
- out_unlockput:
-+=09gfs2_qa_put(ip);
- =09inode_unlock(&ip->i_inode);
- out_put:
- =09qd_put(qd);
-diff --git a/fs/gfs2/quota.h b/fs/gfs2/quota.h
-index 765627d9a91e..7f9ca8ef40fc 100644
---- a/fs/gfs2/quota.h
-+++ b/fs/gfs2/quota.h
-@@ -15,8 +15,8 @@ struct gfs2_sbd;
- #define NO_UID_QUOTA_CHANGE INVALID_UID
- #define NO_GID_QUOTA_CHANGE INVALID_GID
-=20
--extern int gfs2_qa_alloc(struct gfs2_inode *ip);
--extern void gfs2_qa_delete(struct gfs2_inode *ip, atomic_t *wcount);
-+extern int gfs2_qa_get(struct gfs2_inode *ip);
-+extern void gfs2_qa_put(struct gfs2_inode *ip);
- extern int gfs2_quota_hold(struct gfs2_inode *ip, kuid_t uid, kgid_t gid);
- extern void gfs2_quota_unhold(struct gfs2_inode *ip);
-=20
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 3e3696da5bcb..04e3e13a230c 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -673,7 +673,7 @@ void gfs2_rsqa_delete(struct gfs2_inode *ip, atomic_t *=
-wcount)
- =09if ((wcount =3D=3D NULL) || (atomic_read(wcount) <=3D 1))
- =09=09gfs2_rs_deltree(&ip->i_res);
- =09up_write(&ip->i_rw_mutex);
--=09gfs2_qa_delete(ip, wcount);
-+=09gfs2_qa_put(ip);
- }
-=20
- /**
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 693c6d13473c..2f2b185581e0 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -1409,6 +1409,8 @@ static void gfs2_evict_inode(struct inode *inode)
- =09=09fs_warn(sdp, "gfs2_evict_inode: %d\n", error);
- out:
- =09truncate_inode_pages_final(&inode->i_data);
-+=09if (ip->i_qadata)
-+=09=09gfs2_assert_warn(sdp, atomic_read(&ip->i_qadata->qa_ref) =3D=3D 1);
- =09gfs2_rsqa_delete(ip, NULL);
- =09gfs2_ordered_del_inode(ip);
- =09clear_inode(inode);
-diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
-index c4fbb96e001f..9d7667bc4292 100644
---- a/fs/gfs2/xattr.c
-+++ b/fs/gfs2/xattr.c
-@@ -1222,7 +1222,7 @@ static int gfs2_xattr_set(const struct xattr_handler =
-*handler,
- =09struct gfs2_holder gh;
- =09int ret;
-=20
--=09ret =3D gfs2_qa_alloc(ip);
-+=09ret =3D gfs2_qa_get(ip);
- =09if (ret)
- =09=09return ret;
-=20
-@@ -1231,15 +1231,19 @@ static int gfs2_xattr_set(const struct xattr_handle=
-r *handler,
- =09if (!gfs2_glock_is_locked_by_me(ip->i_gl)) {
- =09=09ret =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &gh);
- =09=09if (ret)
--=09=09=09return ret;
-+=09=09=09goto out;
- =09} else {
--=09=09if (WARN_ON_ONCE(ip->i_gl->gl_state !=3D LM_ST_EXCLUSIVE))
--=09=09=09return -EIO;
-+=09=09if (WARN_ON_ONCE(ip->i_gl->gl_state !=3D LM_ST_EXCLUSIVE)) {
-+=09=09=09ret =3D -EIO;
-+=09=09=09goto out;
-+=09=09}
- =09=09gfs2_holder_mark_uninitialized(&gh);
- =09}
- =09ret =3D __gfs2_xattr_set(inode, name, value, size, flags, handler->flag=
-s);
- =09if (gfs2_holder_initialized(&gh))
- =09=09gfs2_glock_dq_uninit(&gh);
-+out:
-+=09gfs2_qa_put(ip);
- =09return ret;
- }
-=20
---=20
-2.24.1
+This reference counting scheme is bogus, though. It seems we want to
+switch to grabbing a reference in gfs2_open_common when (file->f_mode
+& FMODE_WRITE) and put that reference again in gfs2_release under that
+same condition instead.
+
+> This patch set has not had adequate testing and may require some more cha=
+nges,
+> although it does fix the scenario listed above. I just wanted to throw th=
+is
+> one out as an alternative to the last and see if people like it any bette=
+r.
+>
+> Bob Peterson (2):
+>   gfs2: eliminate gfs2_rsqa_alloc in favor of gfs2_qa_alloc
+>   gfs2: Change inode qa_data to allow multiple users
+>
+>  fs/gfs2/acl.c    |  7 +++++--
+>  fs/gfs2/bmap.c   |  2 +-
+>  fs/gfs2/file.c   | 19 ++++++++++++------
+>  fs/gfs2/incore.h |  1 +
+>  fs/gfs2/inode.c  | 31 +++++++++++++++++------------
+>  fs/gfs2/quota.c  | 51 +++++++++++++++++++++++++++++-------------------
+>  fs/gfs2/quota.h  |  4 ++--
+>  fs/gfs2/rgrp.c   | 12 +-----------
+>  fs/gfs2/rgrp.h   |  1 -
+>  fs/gfs2/super.c  |  2 ++
+>  fs/gfs2/xattr.c  | 12 ++++++++----
+>  11 files changed, 83 insertions(+), 59 deletions(-)
+>
+> --
+> 2.24.1
+>
+
+Thanks,
+Andreas
+
 
