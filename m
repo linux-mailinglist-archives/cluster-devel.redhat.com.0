@@ -1,58 +1,99 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id A1A3F17C39F
-	for <lists+cluster-devel@lfdr.de>; Fri,  6 Mar 2020 18:06:13 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 59F1617E40B
+	for <lists+cluster-devel@lfdr.de>; Mon,  9 Mar 2020 16:53:19 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583514372;
+	s=mimecast20190719; t=1583769197;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=d9PoPTRWANQtdB0juMLme+sCOK5rCS37OeEocTGcrX0=;
-	b=E8Nxsv5xJjQDODlUyvw0+oqJTVbkzNdTxkw84RJFjXDqvGfsZ6CiXkcwC/f+Q2jjfQ16ur
-	6+D1CTyjcowFH+whxZe0pqodgkvOw/z1I3mcoBRuxxmKIKuvVfptO/wOboGWnLrNveurdH
-	kPsH8UtnzKIqZ5fNVCqGyV3fi/7afnM=
+	bh=WtNZxn6xUDvQcyxuK3NUwuq8TtdhIwRGSCtQqhrNE3c=;
+	b=fs2nDIgRShVq6wqE26bdJ8UL0mt2FmR6Ba2Gv79GsqgUCO6NaRwOyb4GsP/Ni01vXk6mN6
+	wRmgfHkdOK2UlbjaVCMt6R2nJCacn8itJlfAtWL3jLFO2CGvgqaN8VlXsXcAlbgJn1ea41
+	7vaqwwzNg+FacITnZSYN7svt5jzP2qo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-227-8Ply3f3WPkGOQnqoPJlsyQ-1; Fri, 06 Mar 2020 12:05:58 -0500
-X-MC-Unique: 8Ply3f3WPkGOQnqoPJlsyQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-232-4pneXF0OPjuCfMzmvFcyvw-1; Mon, 09 Mar 2020 11:53:15 -0400
+X-MC-Unique: 4pneXF0OPjuCfMzmvFcyvw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B3893140F;
-	Fri,  6 Mar 2020 17:05:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 150B9800D6C;
+	Mon,  9 Mar 2020 15:53:13 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C7CC5DA7D;
-	Fri,  6 Mar 2020 17:05:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A5DC60C88;
+	Mon,  9 Mar 2020 15:53:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7B77986A04;
-	Fri,  6 Mar 2020 17:05:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 94E8A86A04;
+	Mon,  9 Mar 2020 15:53:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 026H5sSD028769 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Mar 2020 12:05:54 -0500
+	id 029Fr3xI019088 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 9 Mar 2020 11:53:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 01B468B75D; Fri,  6 Mar 2020 17:05:54 +0000 (UTC)
+	id 5705C10BBCC1; Mon,  9 Mar 2020 15:53:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-116-223.ams2.redhat.com [10.36.116.223])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B94C58B74D
-	for <cluster-devel@redhat.com>; Fri,  6 Mar 2020 17:05:52 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Fri,  6 Mar 2020 11:05:34 -0600
-Message-Id: <20200306170534.1772544-7-rpeterso@redhat.com>
-In-Reply-To: <20200306170534.1772544-1-rpeterso@redhat.com>
-References: <20200306170534.1772544-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 50ABD10BBCD5
+	for <cluster-devel@redhat.com>; Mon,  9 Mar 2020 15:53:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E35B8BA51A
+	for <cluster-devel@redhat.com>; Mon,  9 Mar 2020 15:53:01 +0000 (UTC)
+Received: from gateway31.websitewelcome.com (gateway31.websitewelcome.com
+	[192.185.143.35]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-166-tmggQGtuN7mBXtmz8IUnHA-1; Mon, 09 Mar 2020 11:52:58 -0400
+X-MC-Unique: tmggQGtuN7mBXtmz8IUnHA-1
+Received: from cm16.websitewelcome.com (cm16.websitewelcome.com [100.42.49.19])
+	by gateway31.websitewelcome.com (Postfix) with ESMTP id 8EBED4DC4E
+	for <cluster-devel@redhat.com>; Mon,  9 Mar 2020 10:52:57 -0500 (CDT)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+	id BKi9jI4mT8vkBBKi9jAxY1; Mon, 09 Mar 2020 10:52:57 -0500
+X-Authority-Reason: nr=8
+Received: from [201.162.240.150] (port=28052 helo=embeddedor)
+	by gator4166.hostgator.com with esmtpa (Exim 4.92)
+	(envelope-from <gustavo@embeddedor.com>)
+	id 1jBKi7-00302e-Nn; Mon, 09 Mar 2020 10:52:56 -0500
+Date: Mon, 9 Mar 2020 10:56:08 -0500
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: Christine Caulfield <ccaulfie@redhat.com>,
+	David Teigland <teigland@redhat.com>
+Message-ID: <20200309155608.GA31883@embeddedor>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-AntiAbuse: This header was added to track abuse,
+	please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - redhat.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 201.162.240.150
+X-Source-L: No
+X-Exim-ID: 1jBKi7-00302e-Nn
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: (embeddedor) [201.162.240.150]:28052
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 11
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 029Fr3xI019088
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 6/6] gfs2: Remove unnecessary
-	gfs2_qa_{get, put} pairs
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org,
+	"Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [Cluster-devel] [PATCH][next] dlm: dlm_internal: Replace
+ zero-length array with flexible-array member
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,128 +107,78 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-From: Andreas Gruenbacher <agruenba@redhat.com>
+The current codebase makes use of the zero-length array language
+extension to the C90 standard, but the preferred mechanism to declare
+variable-length types such as these ones is a flexible array member[1][2],
+introduced in C99:
 
-We now get the quota data structure when opening a file writable and put it
-when closing that writable file descriptor, so there no longer is a need fo=
-r
-gfs2_qa_{get,put} while we're holding a writable file descriptor.
+struct foo {
+        int stuff;
+        struct boo array[];
+};
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+By making use of the mechanism above, we will get a compiler warning
+in case the flexible array does not occur last in the structure, which
+will help us prevent some kind of undefined behavior bugs from being
+inadvertently introduced[3] to the codebase from now on.
+
+Also, notice that, dynamic memory allocations won't be affected by
+this change:
+
+"Flexible array members have incomplete type, and so the sizeof operator
+may not be applied. As a quirk of the original implementation of
+zero-length arrays, sizeof evaluates to zero."[1]
+
+This issue was found with the help of Coccinelle.
+
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://github.com/KSPP/linux/issues/21
+[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
 ---
- fs/gfs2/file.c | 28 +---------------------------
- 1 file changed, 1 insertion(+), 27 deletions(-)
+ fs/dlm/dlm_internal.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-index 99a75e779ac0..fe305e4bfd37 100644
---- a/fs/gfs2/file.c
-+++ b/fs/gfs2/file.c
-@@ -458,10 +458,6 @@ static vm_fault_t gfs2_page_mkwrite(struct vm_fault *v=
-mf)
+diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+index 416d9de35679..d231ae5d2c65 100644
+--- a/fs/dlm/dlm_internal.h
++++ b/fs/dlm/dlm_internal.h
+@@ -421,7 +421,7 @@ struct dlm_message {
+ =09int=09=09=09m_bastmode;
+ =09int=09=09=09m_asts;
+ =09int=09=09=09m_result;=09/* 0 or -EXXX */
+-=09char=09=09=09m_extra[0];=09/* name or lvb */
++=09char=09=09=09m_extra[];=09/* name or lvb */
+ };
 =20
- =09sb_start_pagefault(inode->i_sb);
 =20
--=09ret =3D gfs2_qa_get(ip);
--=09if (ret)
--=09=09goto out;
--
- =09gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &gh);
- =09ret =3D gfs2_glock_nq(&gh);
- =09if (ret)
-@@ -553,13 +549,11 @@ static vm_fault_t gfs2_page_mkwrite(struct vm_fault *=
-vmf)
- out_unlock:
- =09gfs2_glock_dq(&gh);
- out_uninit:
--=09gfs2_qa_put(ip);
- =09gfs2_holder_uninit(&gh);
- =09if (ret =3D=3D 0) {
- =09=09set_page_dirty(page);
- =09=09wait_for_stable_page(page);
- =09}
--out:
- =09sb_end_pagefault(inode->i_sb);
- =09return block_page_mkwrite_return(ret);
- }
-@@ -860,10 +854,6 @@ static ssize_t gfs2_file_write_iter(struct kiocb *iocb=
-, struct iov_iter *from)
- =09struct gfs2_inode *ip =3D GFS2_I(inode);
- =09ssize_t ret;
+@@ -450,7 +450,7 @@ struct dlm_rcom {
+ =09uint64_t=09=09rc_id;=09=09/* match reply with request */
+ =09uint64_t=09=09rc_seq;=09=09/* sender's ls_recover_seq */
+ =09uint64_t=09=09rc_seq_reply;=09/* remote ls_recover_seq */
+-=09char=09=09=09rc_buf[0];
++=09char=09=09=09rc_buf[];
+ };
 =20
--=09ret =3D gfs2_qa_get(ip);
--=09if (ret)
--=09=09return ret;
--
- =09gfs2_size_hint(file, iocb->ki_pos, iov_iter_count(from));
+ union dlm_packet {
+@@ -506,7 +506,7 @@ struct rcom_lock {
+ =09__le16=09=09=09rl_wait_type;
+ =09__le16=09=09=09rl_namelen;
+ =09char=09=09=09rl_name[DLM_RESNAME_MAXLEN];
+-=09char=09=09=09rl_lvb[0];
++=09char=09=09=09rl_lvb[];
+ };
 =20
- =09if (iocb->ki_flags & IOCB_APPEND) {
-@@ -871,7 +861,7 @@ static ssize_t gfs2_file_write_iter(struct kiocb *iocb,=
- struct iov_iter *from)
-=20
- =09=09ret =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED, 0, &gh);
- =09=09if (ret)
--=09=09=09goto out;
-+=09=09=09return ret;
- =09=09gfs2_glock_dq_uninit(&gh);
- =09}
-=20
-@@ -929,8 +919,6 @@ static ssize_t gfs2_file_write_iter(struct kiocb *iocb,=
- struct iov_iter *from)
-=20
- out_unlock:
- =09inode_unlock(inode);
--out:
--=09gfs2_qa_put(ip);
- =09return ret;
- }
-=20
-@@ -1162,18 +1150,11 @@ static long gfs2_fallocate(struct file *file, int m=
-ode, loff_t offset, loff_t le
- =09if (mode & FALLOC_FL_PUNCH_HOLE) {
- =09=09ret =3D __gfs2_punch_hole(file, offset, len);
- =09} else {
--=09=09ret =3D gfs2_qa_get(ip);
--=09=09if (ret)
--=09=09=09goto out_putw;
--
- =09=09ret =3D __gfs2_fallocate(file, mode, offset, len);
--
- =09=09if (ret)
- =09=09=09gfs2_rs_deltree(&ip->i_res);
--=09=09gfs2_qa_put(ip);
- =09}
-=20
--out_putw:
- =09put_write_access(inode);
- out_unlock:
- =09gfs2_glock_dq(&gh);
-@@ -1187,18 +1168,11 @@ static ssize_t gfs2_file_splice_write(struct pipe_i=
-node_info *pipe,
- =09=09=09=09      struct file *out, loff_t *ppos,
- =09=09=09=09      size_t len, unsigned int flags)
- {
--=09int error;
--=09struct gfs2_inode *ip =3D GFS2_I(out->f_mapping->host);
- =09ssize_t ret;
-=20
--=09error =3D gfs2_qa_get(ip);
--=09if (error)
--=09=09return (ssize_t)error;
--
- =09gfs2_size_hint(out, *ppos, len);
-=20
- =09ret =3D iter_file_splice_write(pipe, out, ppos, len, flags);
--=09gfs2_qa_put(ip);
- =09return ret;
- }
-=20
+ /*
 --=20
-2.24.1
+2.25.0
+
 
