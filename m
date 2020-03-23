@@ -1,74 +1,80 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
-	by mail.lfdr.de (Postfix) with ESMTP id 56B5E18FF81
-	for <lists+cluster-devel@lfdr.de>; Mon, 23 Mar 2020 21:28:00 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+	by mail.lfdr.de (Postfix) with ESMTP id 46B4F18FEC6
+	for <lists+cluster-devel@lfdr.de>; Mon, 23 Mar 2020 21:23:27 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1584995279;
+	s=mimecast20190719; t=1584995006;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vn+hCEOS4cRRdTkgme4WwwTbyD6CxBDAtjFL2NL5mHM=;
-	b=ad/+lULHajvilBEUShX3ksVwQ9gPoOiTNNOpAFMA6dyYj82DPaA7FNqxGgoVGzQ8VM3cAL
-	fQ8gUWBCUf/8Ug4HID7AaxAWlUlgxKUeHMCe65nGthvP41vWS7EptRMsu7V4KOuPB1jIRZ
-	Bi4rfsgEaZHi0XRY5dn3CkVhFy9Usm8=
+	bh=3bjE6gpzgQnS2z9/LHGOeoZZD5E4eRoSw1SHnIbrpKQ=;
+	b=CAitaIRWmQt2+eu2yXbfB4K0v9OKOyukx/kWv03Z8o3KnVkLkVlB5/7rSYcdSKlYmTRfXO
+	/tyXjfAjTsr9t0jOePJ5cnmJrEW2xNnovFWOgP8tTSqbaI2K7OK+cC+DciUPvMsYW4/+8P
+	tlUWOcLrg6b6dHkvGa7S7PbcTJ2wj5Y=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-443-4UqLB0PjPiOtrLWD81zKnQ-1; Mon, 23 Mar 2020 16:27:34 -0400
-X-MC-Unique: 4UqLB0PjPiOtrLWD81zKnQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-260-trRbHBH7MhuvCR7O4UEuvA-1; Mon, 23 Mar 2020 16:23:24 -0400
+X-MC-Unique: trRbHBH7MhuvCR7O4UEuvA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1AF2C801E5C;
-	Mon, 23 Mar 2020 20:27:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0DE49B932;
-	Mon, 23 Mar 2020 20:27:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2403F13F7;
+	Mon, 23 Mar 2020 20:23:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E463D19C70;
+	Mon, 23 Mar 2020 20:23:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D323B18089CE;
-	Mon, 23 Mar 2020 20:27:31 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8FE1886380;
+	Mon, 23 Mar 2020 20:23:20 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02NKNIK8014694 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Mar 2020 16:23:19 -0400
+	id 02NKNGr8014639 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Mar 2020 16:23:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CDBD42022EAD; Mon, 23 Mar 2020 20:23:18 +0000 (UTC)
+	id EC85A2022EB0; Mon, 23 Mar 2020 20:23:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7D392022EB0
-	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:16 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6EFD2022EB1
+	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:13 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C040B8FF661
-	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A2E8101A55F
+	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:13 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-371-XgxrbqG-O8ebeBvTWqFpvQ-1; Mon, 23 Mar 2020 16:23:14 -0400
-X-MC-Unique: XgxrbqG-O8ebeBvTWqFpvQ-1
+	us-mta-9-jfPsnhNxMfWwX1ESMCQIFg-1; Mon, 23 Mar 2020 16:23:11 -0400
+X-MC-Unique: jfPsnhNxMfWwX1ESMCQIFg-1
 Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1jGTbB-0003US-CA; Mon, 23 Mar 2020 20:23:01 +0000
+	Hat Linux)) id 1jGTbB-0003UV-DC; Mon, 23 Mar 2020 20:23:01 +0000
 From: Matthew Wilcox <willy@infradead.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Date: Mon, 23 Mar 2020 13:22:34 -0700
-Message-Id: <20200323202259.13363-1-willy@infradead.org>
+Date: Mon, 23 Mar 2020 13:22:35 -0700
+Message-Id: <20200323202259.13363-2-willy@infradead.org>
+In-Reply-To: <20200323202259.13363-1-willy@infradead.org>
+References: <20200323202259.13363-1-willy@infradead.org>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02NKNIK8014694
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02NKNGr8014639
 X-loop: cluster-devel@redhat.com
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: linux-xfs@vger.kernel.org, William Kucharski <william.kucharski@oracle.com>,
+	John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
 	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH v10 00/25] Change readahead API
+	linux-erofs@lists.ozlabs.org, Christoph Hellwig <hch@lst.de>,
+	linux-btrfs@vger.kernel.org
+Subject: [Cluster-devel] [PATCH v10 01/25] mm: Move readahead prototypes
+	from mm.h
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -90,196 +96,119 @@ Content-Transfer-Encoding: quoted-printable
 
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-This series adds a readahead address_space operation to replace the
-readpages operation.  The key difference is that pages are added to the
-page cache as they are allocated (and then looked up by the filesystem)
-instead of passing them on a list to the readpages operation and having
-the filesystem add them to the page cache.  It's a net reduction in
-code for each implementation, more efficient than walking a list, and
-solves the direct-write vs buffered-read problem reported by yu kuai at
-https://lore.kernel.org/linux-fsdevel/20200116063601.39201-1-yukuai3@huawei=
-.com/
+The readahead code is part of the page cache so should be found in the
+pagemap.h file.  force_page_cache_readahead is only used within mm,
+so move it to mm/internal.h instead.  Remove the parameter names where
+they add no value, and rename the ones which were actively misleading.
 
-The only unconverted filesystems are those which use fscache.  Their
-conversion is pending Dave Howells' rewrite which will make the conversion
-substantially easier.  This should be completed by the end of the year.
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: William Kucharski <william.kucharski@oracle.com>
+---
+ block/blk-core.c        |  1 +
+ include/linux/mm.h      | 19 -------------------
+ include/linux/pagemap.h |  8 ++++++++
+ mm/fadvise.c            |  2 ++
+ mm/internal.h           |  2 ++
+ 5 files changed, 13 insertions(+), 19 deletions(-)
 
-I want to thank the reviewers/testers; Dave Chinner, John Hubbard,
-Eric Biggers, Johannes Thumshirn, Dave Sterba, Zi Yan and Christoph
-Hellwig have done a marvellous job of providing constructive criticism.
-
-These patches pass an xfstests run on ext4, xfs & btrfs with no
-regressions that I can tell (some of the tests seem a little flaky before
-and remain flaky afterwards).
-
-This series can also be found at
-http://git.infradead.org/users/willy/linux-dax.git/shortlog/refs/tags/reada=
-head_v10
-
-v10: Rebased on linux-next 20200323
- - Collected some more reviewed-by tags
- - Simplify nr_to_read limits (Eric Biggers)
- - Convert fs/exfat instead of drivers/staging/exfat (Namjae Jeon)
- - Explicitly convert a pointer to a boolean in f2fs (Eric Biggers)
-
-v9: No code changes.  Fixed a changelog and added some reviewed-by tags.
-
-v8:
- - btrfs, ext4 and xfs all survive an xfstests run (thanks to Kent Overstre=
-et
-   for providing the ktest framework)
- - iomap restructuring dropped due to Christoph's opposition and the
-   redesign of readahead_page() meaning it wasn't needed any more.
- - f2fs_mpage_readpages() made static again
- - Made iomap_readahead() comment more useful
- - Added kernel-doc for the entire readahead_control API
- - Conditionally zero batch_count in readahead_page() (requested by John)
- - Hold RCU read lock while iterating over the xarray in readahead_page_bat=
-ch()
- - Iterate over the correct pages in readahead_page_batch()
- - Correct the return type of readahead_index() (spotted by Zi Yan)
- - Added a 'skip_page' parameter to read_pages for better documentation
-   purposes and so we can reuse the readahead_control higher in the call
-   chain in future.
- - Removed the use_list bool (requested by Christoph)
- - Removed the explicit initialisation of _nr_pages to 0 (requested by
-   Christoph & John)
- - Add comments explaining why nr_to_read is being capped (requested by Joh=
-n)
- - Reshuffled some of the patches:
-   - Split out adding the readahead_control API from the three patches whic=
-h
-     added it piecemeal
-   - Shift the final two mm patches to be with the other mm patches
-   - Split the f2fs "pass the inode" patch from the "convert to readahead"
-     patch, like ext4
-
-v7:
- - Now passes an xfstests run on ext4!
- - Documentation improvements
- - Move the readahead prototypes out of mm.h (new patch)
- - readahead_for_each* iterators are gone; replaced with readahead_page()
-   and readahead_page_batch()
- - page_cache_readahead_limit() renamed to page_cache_readahead_unbounded()
-   and arguments changed
- - iomap_readahead_actor() restructured differently
- - The readahead code no longer uses the word 'offset' to reduce ambiguity
- - read_pages() now maintains the rac so we can just call it and continue
-   instead of mucking around with branches
- - More assertions
- - More readahead functions return void
-
-v6:
- - Name the private members of readahead_control with a leading underscore
-   (suggested by Christoph Hellwig)
- - Fix whitespace in rst file
- - Remove misleading comment in btrfs patch
- - Add readahead_next() API and use it in iomap
- - Add iomap_readahead kerneldoc.
- - Fix the mpage_readahead kerneldoc
- - Make various readahead functions return void
- - Keep readahead_index() and readahead_offset() pointing to the start of
-   this batch through the body.  No current user requires this, but it's
-   less surprising.
- - Add kerneldoc for page_cache_readahead_limit
- - Make page_idx an unsigned long, and rename it to just 'i'
- - Get rid of page_offset local variable
- - Add patch to call memalloc_nofs_save() before allocating pages (suggeste=
-d
-   by Michal Hocko)
- - Resplit a lot of patches for more logical progression and easier review
-   (suggested by John Hubbard)
- - Added sign-offs where received, and I deemed still relevant
-
-v5 switched to passing a readahead_control struct (mirroring the
-writepages_control struct passed to writepages).  This has a number of
-advantages:
- - It fixes a number of bugs in various implementations, eg forgetting to
-   increment 'start', an off-by-one error in 'nr_pages' or treating 'start'
-   as a byte offset instead of a page offset.
- - It allows us to change the arguments without changing all the
-   implementations of ->readahead which just call mpage_readahead() or
-   iomap_readahead()
- - Figuring out which pages haven't been attempted by the implementation
-   is more natural this way.
- - There's less code in each implementation.
-
-Matthew Wilcox (Oracle) (25):
-  mm: Move readahead prototypes from mm.h
-  mm: Return void from various readahead functions
-  mm: Ignore return value of ->readpages
-  mm: Move readahead nr_pages check into read_pages
-  mm: Add new readahead_control API
-  mm: Use readahead_control to pass arguments
-  mm: Rename various 'offset' parameters to 'index'
-  mm: rename readahead loop variable to 'i'
-  mm: Remove 'page_offset' from readahead loop
-  mm: Put readahead pages in cache earlier
-  mm: Add readahead address space operation
-  mm: Move end_index check out of readahead loop
-  mm: Add page_cache_readahead_unbounded
-  mm: Document why we don't set PageReadahead
-  mm: Use memalloc_nofs_save in readahead path
-  fs: Convert mpage_readpages to mpage_readahead
-  btrfs: Convert from readpages to readahead
-  erofs: Convert uncompressed files from readpages to readahead
-  erofs: Convert compressed files from readpages to readahead
-  ext4: Convert from readpages to readahead
-  ext4: Pass the inode to ext4_mpage_readpages
-  f2fs: Convert from readpages to readahead
-  f2fs: Pass the inode to f2fs_mpage_readpages
-  fuse: Convert from readpages to readahead
-  iomap: Convert from readpages to readahead
-
- Documentation/filesystems/locking.rst |   6 +-
- Documentation/filesystems/vfs.rst     |  15 ++
- block/blk-core.c                      |   1 +
- fs/block_dev.c                        |   7 +-
- fs/btrfs/extent_io.c                  |  43 ++--
- fs/btrfs/extent_io.h                  |   3 +-
- fs/btrfs/inode.c                      |  16 +-
- fs/erofs/data.c                       |  39 ++--
- fs/erofs/zdata.c                      |  29 +--
- fs/exfat/inode.c                      |   7 +-
- fs/ext2/inode.c                       |  10 +-
- fs/ext4/ext4.h                        |   5 +-
- fs/ext4/inode.c                       |  21 +-
- fs/ext4/readpage.c                    |  25 +--
- fs/ext4/verity.c                      |  35 +---
- fs/f2fs/data.c                        |  50 ++---
- fs/f2fs/f2fs.h                        |   3 -
- fs/f2fs/verity.c                      |  35 +---
- fs/fat/inode.c                        |   7 +-
- fs/fuse/file.c                        |  46 ++---
- fs/gfs2/aops.c                        |  23 +--
- fs/hpfs/file.c                        |   7 +-
- fs/iomap/buffered-io.c                |  92 +++------
- fs/iomap/trace.h                      |   2 +-
- fs/isofs/inode.c                      |   7 +-
- fs/jfs/inode.c                        |   7 +-
- fs/mpage.c                            |  38 ++--
- fs/nilfs2/inode.c                     |  15 +-
- fs/ocfs2/aops.c                       |  34 ++--
- fs/omfs/file.c                        |   7 +-
- fs/qnx6/inode.c                       |   7 +-
- fs/reiserfs/inode.c                   |   8 +-
- fs/udf/inode.c                        |   7 +-
- fs/xfs/xfs_aops.c                     |  13 +-
- fs/zonefs/super.c                     |   7 +-
- include/linux/fs.h                    |   2 +
- include/linux/iomap.h                 |   3 +-
- include/linux/mm.h                    |  19 --
- include/linux/mpage.h                 |   4 +-
- include/linux/pagemap.h               | 151 ++++++++++++++
- include/trace/events/erofs.h          |   6 +-
- include/trace/events/f2fs.h           |   6 +-
- mm/fadvise.c                          |   6 +-
- mm/internal.h                         |  12 +-
- mm/migrate.c                          |   2 +-
- mm/readahead.c                        | 275 ++++++++++++++++----------
- 46 files changed, 575 insertions(+), 588 deletions(-)
-
-base-commit: 5149100c3aebe5e640d6ff68e0b5e5a7eb8638e0
+diff --git a/block/blk-core.c b/block/blk-core.c
+index abfdcf81a228..b5b6b17bcd5d 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -20,6 +20,7 @@
+ #include <linux/blk-mq.h>
+ #include <linux/highmem.h>
+ #include <linux/mm.h>
++#include <linux/pagemap.h>
+ #include <linux/kernel_stat.h>
+ #include <linux/string.h>
+ #include <linux/init.h>
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index bfd79d21cfd5..bc3fbde6d081 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2605,25 +2605,6 @@ extern vm_fault_t filemap_page_mkwrite(struct vm_fau=
+lt *vmf);
+ int __must_check write_one_page(struct page *page);
+ void task_dirty_inc(struct task_struct *tsk);
+=20
+-/* readahead.c */
+-#define VM_READAHEAD_PAGES=09(SZ_128K / PAGE_SIZE)
+-
+-int force_page_cache_readahead(struct address_space *mapping, struct file =
+*filp,
+-=09=09=09pgoff_t offset, unsigned long nr_to_read);
+-
+-void page_cache_sync_readahead(struct address_space *mapping,
+-=09=09=09       struct file_ra_state *ra,
+-=09=09=09       struct file *filp,
+-=09=09=09       pgoff_t offset,
+-=09=09=09       unsigned long size);
+-
+-void page_cache_async_readahead(struct address_space *mapping,
+-=09=09=09=09struct file_ra_state *ra,
+-=09=09=09=09struct file *filp,
+-=09=09=09=09struct page *pg,
+-=09=09=09=09pgoff_t offset,
+-=09=09=09=09unsigned long size);
+-
+ extern unsigned long stack_guard_gap;
+ /* Generic expand stack which grows the stack according to GROWS{UP,DOWN} =
+*/
+ extern int expand_stack(struct vm_area_struct *vma, unsigned long address)=
+;
+diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+index 25408958958f..7d43a464b2a4 100644
+--- a/include/linux/pagemap.h
++++ b/include/linux/pagemap.h
+@@ -612,6 +612,14 @@ int replace_page_cache_page(struct page *old, struct p=
+age *new, gfp_t gfp_mask);
+ void delete_from_page_cache_batch(struct address_space *mapping,
+ =09=09=09=09  struct pagevec *pvec);
+=20
++#define VM_READAHEAD_PAGES=09(SZ_128K / PAGE_SIZE)
++
++void page_cache_sync_readahead(struct address_space *, struct file_ra_stat=
+e *,
++=09=09struct file *, pgoff_t index, unsigned long req_count);
++void page_cache_async_readahead(struct address_space *, struct file_ra_sta=
+te *,
++=09=09struct file *, struct page *, pgoff_t index,
++=09=09unsigned long req_count);
++
+ /*
+  * Like add_to_page_cache_locked, but used to add newly allocated pages:
+  * the page is new, so we can just run __SetPageLocked() against it.
+diff --git a/mm/fadvise.c b/mm/fadvise.c
+index 4f17c83db575..3efebfb9952c 100644
+--- a/mm/fadvise.c
++++ b/mm/fadvise.c
+@@ -22,6 +22,8 @@
+=20
+ #include <asm/unistd.h>
+=20
++#include "internal.h"
++
+ /*
+  * POSIX_FADV_WILLNEED could set PG_Referenced, and POSIX_FADV_NOREUSE cou=
+ld
+  * deactivate the pages and clear PG_Referenced.
+diff --git a/mm/internal.h b/mm/internal.h
+index b5634e78f01d..25fee17c7334 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -49,6 +49,8 @@ void unmap_page_range(struct mmu_gather *tlb,
+ =09=09=09     unsigned long addr, unsigned long end,
+ =09=09=09     struct zap_details *details);
+=20
++int force_page_cache_readahead(struct address_space *, struct file *,
++=09=09pgoff_t index, unsigned long nr_to_read);
+ extern unsigned int __do_page_cache_readahead(struct address_space *mappin=
+g,
+ =09=09struct file *filp, pgoff_t offset, unsigned long nr_to_read,
+ =09=09unsigned long lookahead_size);
 --=20
 2.25.1
 
