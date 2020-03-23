@@ -2,7 +2,7 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C7E218FED9
+	by mail.lfdr.de (Postfix) with ESMTP id 5F13518FEDA
 	for <lists+cluster-devel@lfdr.de>; Mon, 23 Mar 2020 21:23:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1584995013;
@@ -12,69 +12,71 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xRokas4Np+UrRILQf6Nfc76KcZnmXvJSFCdYoTUmkaU=;
-	b=WrBCkx4Cg9OAMuWgVe7HBD8pwqGvjyCcR28R8+v+8B5h2S93h/6rlmKur2fLbr7AmtS3tD
-	cFvruxidkBmmy7NRLkHcjWuV345B3XhWbWjh3mWwHSn8D9JaIK6siuxYgaL7+OgRMgrM5d
-	+EPJG0bVRljwchLgYEy0KbPVI9Mm3WM=
+	bh=C8UMAUnQPXMSVuXy87x/4wkFd1XU/EK/DlFNtzbnRkM=;
+	b=UmgGpC/Jo+g58WhKnBgoWdktJBVQvb+XYtoD/jBow6E7f07XZX8mXzgZ717+ohFZQMell7
+	4joGny+kn6oJ1G9qAjT2pXnsqNwwJMn603+yYp+EyzZUyWgZqxjdV81orF3jp1N3W3GivW
+	215eXhlNeOj7s0VkrxNBsJ/zbMe8lNM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-324-WJdL5XstPiOxW_arhgDd6A-1; Mon, 23 Mar 2020 16:23:31 -0400
-X-MC-Unique: WJdL5XstPiOxW_arhgDd6A-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-494-9yC2mDx5NImC4cAY4lJ_DA-1; Mon, 23 Mar 2020 16:23:31 -0400
+X-MC-Unique: 9yC2mDx5NImC4cAY4lJ_DA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BA06A10753FD;
-	Mon, 23 Mar 2020 20:23:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A59315DA7B;
-	Mon, 23 Mar 2020 20:23:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22AE6100550E;
+	Mon, 23 Mar 2020 20:23:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F96C19C70;
+	Mon, 23 Mar 2020 20:23:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 87EE286382;
-	Mon, 23 Mar 2020 20:23:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E8F4518089D0;
+	Mon, 23 Mar 2020 20:23:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02NKNN9F014834 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Mar 2020 16:23:23 -0400
+	id 02NKNL5H014752 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Mar 2020 16:23:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AB2856D9CA; Mon, 23 Mar 2020 20:23:23 +0000 (UTC)
+	id 0324E1003219; Mon, 23 Mar 2020 20:23:21 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A79851C73A
-	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F393D1000D89
+	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F0038FF662
-	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA5F580029A
+	for <cluster-devel@redhat.com>; Mon, 23 Mar 2020 20:23:20 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-364-jQ0oYmFnPDW7Zx7699iT_Q-1; Mon, 23 Mar 2020 16:23:21 -0400
-X-MC-Unique: jQ0oYmFnPDW7Zx7699iT_Q-1
+	us-mta-447-2gR2Y165ON637qOkmYTEbw-1; Mon, 23 Mar 2020 16:23:17 -0400
+X-MC-Unique: 2gR2Y165ON637qOkmYTEbw-1
 Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1jGTbB-0003VM-RD; Mon, 23 Mar 2020 20:23:01 +0000
+	Hat Linux)) id 1jGTbB-0003VP-SE; Mon, 23 Mar 2020 20:23:01 +0000
 From: Matthew Wilcox <willy@infradead.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Date: Mon, 23 Mar 2020 13:22:48 -0700
-Message-Id: <20200323202259.13363-15-willy@infradead.org>
+Date: Mon, 23 Mar 2020 13:22:49 -0700
+Message-Id: <20200323202259.13363-16-willy@infradead.org>
 In-Reply-To: <20200323202259.13363-1-willy@infradead.org>
 References: <20200323202259.13363-1-willy@infradead.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02NKNN9F014834
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02NKNL5H014752
 X-loop: cluster-devel@redhat.com
-Cc: linux-xfs@vger.kernel.org, William Kucharski <william.kucharski@oracle.com>,
+Cc: linux-xfs@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+	William Kucharski <william.kucharski@oracle.com>,
 	linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
 	linux-mm@kvack.org, ocfs2-devel@oss.oracle.com,
-	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, Christoph Hellwig <hch@lst.de>,
-	linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH v10 14/25] mm: Document why we don't set
-	PageReadahead
+	linux-fsdevel@vger.kernel.org,
+	Cong Wang <xiyou.wangcong@gmail.com>, linux-ext4@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Subject: [Cluster-devel] [PATCH v10 15/25] mm: Use memalloc_nofs_save in
+	readahead path
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,7 +90,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -96,36 +98,60 @@ Content-Transfer-Encoding: quoted-printable
 
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-If the page is already in cache, we don't set PageReadahead on it.
+Ensure that memory allocations in the readahead path do not attempt to
+reclaim file-backed pages, which could lead to a deadlock.  It is
+possible, though unlikely this is the root cause of a problem observed
+by Cong Wang.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reported-by: Cong Wang <xiyou.wangcong@gmail.com>
+Suggested-by: Michal Hocko <mhocko@suse.com>
 Reviewed-by: William Kucharski <william.kucharski@oracle.com>
 ---
- mm/readahead.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ mm/readahead.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/mm/readahead.c b/mm/readahead.c
-index ae231a5312cb..73cb59ed5cff 100644
+index 73cb59ed5cff..3c9a8dd7c56c 100644
 --- a/mm/readahead.c
 +++ b/mm/readahead.c
-@@ -195,9 +195,12 @@ void page_cache_readahead_unbounded(struct address_spa=
-ce *mapping,
+@@ -22,6 +22,7 @@
+ #include <linux/mm_inline.h>
+ #include <linux/blk-cgroup.h>
+ #include <linux/fadvise.h>
++#include <linux/sched/mm.h>
 =20
- =09=09if (page && !xa_is_value(page)) {
- =09=09=09/*
--=09=09=09 * Page already present?  Kick off the current batch of
--=09=09=09 * contiguous pages before continuing with the next
--=09=09=09 * batch.
-+=09=09=09 * Page already present?  Kick off the current batch
-+=09=09=09 * of contiguous pages before continuing with the
-+=09=09=09 * next batch.  This page may be the one we would
-+=09=09=09 * have intended to mark as Readahead, but we don't
-+=09=09=09 * have a stable reference to this page, and it's
-+=09=09=09 * not worth getting one just for that.
- =09=09=09 */
- =09=09=09read_pages(&rac, &page_pool, true);
- =09=09=09continue;
+ #include "internal.h"
+=20
+@@ -185,6 +186,18 @@ void page_cache_readahead_unbounded(struct address_spa=
+ce *mapping,
+ =09};
+ =09unsigned long i;
+=20
++=09/*
++=09 * Partway through the readahead operation, we will have added
++=09 * locked pages to the page cache, but will not yet have submitted
++=09 * them for I/O.  Adding another page may need to allocate memory,
++=09 * which can trigger memory reclaim.  Telling the VM we're in
++=09 * the middle of a filesystem operation will cause it to not
++=09 * touch file-backed pages, preventing a deadlock.  Most (all?)
++=09 * filesystems already specify __GFP_NOFS in their mapping's
++=09 * gfp_mask, but let's be explicit here.
++=09 */
++=09unsigned int nofs =3D memalloc_nofs_save();
++
+ =09/*
+ =09 * Preallocate as many pages as we will need.
+ =09 */
+@@ -229,6 +242,7 @@ void page_cache_readahead_unbounded(struct address_spac=
+e *mapping,
+ =09 * will then handle the error.
+ =09 */
+ =09read_pages(&rac, &page_pool, false);
++=09memalloc_nofs_restore(nofs);
+ }
+ EXPORT_SYMBOL_GPL(page_cache_readahead_unbounded);
+=20
 --=20
 2.25.1
 
