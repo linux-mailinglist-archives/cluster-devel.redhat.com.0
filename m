@@ -1,54 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
-	by mail.lfdr.de (Postfix) with ESMTP id CAF9A1946B0
-	for <lists+cluster-devel@lfdr.de>; Thu, 26 Mar 2020 19:40:31 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
+	by mail.lfdr.de (Postfix) with ESMTP id 038041946B3
+	for <lists+cluster-devel@lfdr.de>; Thu, 26 Mar 2020 19:40:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585248030;
+	s=mimecast20190719; t=1585248032;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fSJfxmWCkd29FTtYSy3GSiXMfa43eVbfi9usnyHokzA=;
-	b=YNiZU9Z6Tzsh/L2WizgrH3+7XwjtHv49r3cQ14f45AvEo2cljIzV0cEne95lmBLhrUW1tQ
-	wDBaDm749CCmLJubqNcApB8oaMvVsiHuU39GQYoFX1yk7rz0oUnBTGQ2Rv3tSyZCbHWsr/
-	TmeviqaoqJYRNyQISW2YrY9hdThsjY8=
+	bh=OVduHR5LNCPDMzSW4tuV2sFC9Dvr3Qx/v0nqoyYFUp8=;
+	b=IR5AAByaqsP0dHP8TFEdz5G6Qfjiiz5qLKalJ8BGSm0GtWBDXH9S7jVU4aXOCiEH4AtP2J
+	Vpnd4HotG7sk+MbJvvqBtvNPcxLqQnED510VnbY+BFsVNnmsuuM4bjxetxOXOtdtyHIbXX
+	1wwM4LRIVkTAC7t58noCHPZLH5c5vVY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-fV_DFphRPsaUfa7pBjcYEw-1; Thu, 26 Mar 2020 14:40:29 -0400
-X-MC-Unique: fV_DFphRPsaUfa7pBjcYEw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-285-v8xpX516NKqqUjHvcCwasA-1; Thu, 26 Mar 2020 14:40:29 -0400
+X-MC-Unique: v8xpX516NKqqUjHvcCwasA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACECB19251A2;
-	Thu, 26 Mar 2020 18:40:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 975515C1D4;
-	Thu, 26 Mar 2020 18:40:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 37242800D5B;
+	Thu, 26 Mar 2020 18:40:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 24D995E012;
+	Thu, 26 Mar 2020 18:40:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4313B8A042;
-	Thu, 26 Mar 2020 18:40:26 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0B2CA18089CF;
+	Thu, 26 Mar 2020 18:40:27 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02QIeOjq005015 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 26 Mar 2020 14:40:24 -0400
+	id 02QIePxx005023 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Mar 2020 14:40:25 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 930965C1BA; Thu, 26 Mar 2020 18:40:24 +0000 (UTC)
+	id 077A090538; Thu, 26 Mar 2020 18:40:25 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-112-79.phx2.redhat.com [10.3.112.79])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 20E6092F8F
-	for <cluster-devel@redhat.com>; Thu, 26 Mar 2020 18:40:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BBCB25C1BA
+	for <cluster-devel@redhat.com>; Thu, 26 Mar 2020 18:40:24 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu, 26 Mar 2020 13:40:15 -0500
-Message-Id: <20200326184020.123544-1-rpeterso@redhat.com>
+Date: Thu, 26 Mar 2020 13:40:16 -0500
+Message-Id: <20200326184020.123544-2-rpeterso@redhat.com>
+In-Reply-To: <20200326184020.123544-1-rpeterso@redhat.com>
+References: <20200326184020.123544-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 0/5] gfs2; jdata io deadlocks
+Subject: [Cluster-devel] [GFS2 PATCH 1/5] gfs2: don't lock sd_log_flush_lock
+	in try_rgrp_unlink
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -62,36 +66,41 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-This patch set addresses several problems I encountered while testing write=
-s
-to journaled data (jdata) files.
+In function try_rgrp_unlink, we added a temporary lock of the
+sd_log_flush_lock while searching the bitmaps. This protected us from
+problems in which dinodes being freed were still in a state of flux
+because the rgrp was in an active transaction. It was a kludge.
+Now that we've straightened out the code for inode eviction, deletes,
+and all the recovery mess, we no longer need this kludge.
+This patch removes it, and should improve performance.
 
-Bob Peterson (5):
-  gfs2: don't lock sd_log_flush_lock in try_rgrp_unlink
-  gfs2: instrumentation wrt ail1 stuck
-  gfs2: change from write to read lock for sd_log_flush_lock in journal
-    replay
-  gfs2: special log flush sequence to protect jdata writes
-  gfs2: implement special transaction type for jdata sync writes
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/rgrp.c | 2 --
+ 1 file changed, 2 deletions(-)
 
- fs/gfs2/aops.c       |  25 ++++++--
- fs/gfs2/glops.c      |   2 +-
- fs/gfs2/incore.h     |   1 +
- fs/gfs2/log.c        | 137 +++++++++++++++++++++++++++++++++----------
- fs/gfs2/log.h        |   6 +-
- fs/gfs2/ops_fstype.c |   1 +
- fs/gfs2/recovery.c   |   4 +-
- fs/gfs2/rgrp.c       |   2 -
- fs/gfs2/trans.c      |  39 +++++++++---
- fs/gfs2/trans.h      |   4 ++
- 10 files changed, 171 insertions(+), 50 deletions(-)
-
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index 692dc11d0f13..a321c34e3d6e 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -1806,10 +1806,8 @@ static void try_rgrp_unlink(struct gfs2_rgrpd *rgd, =
+u64 *last_unlinked, u64 skip
+ =09struct gfs2_rbm rbm =3D { .rgd =3D rgd, .bii =3D 0, .offset =3D 0 };
+=20
+ =09while (1) {
+-=09=09down_write(&sdp->sd_log_flush_lock);
+ =09=09error =3D gfs2_rbm_find(&rbm, GFS2_BLKST_UNLINKED, NULL, NULL,
+ =09=09=09=09      true);
+-=09=09up_write(&sdp->sd_log_flush_lock);
+ =09=09if (error =3D=3D -ENOSPC)
+ =09=09=09break;
+ =09=09if (WARN_ON_ONCE(error))
 --=20
 2.25.1
 
