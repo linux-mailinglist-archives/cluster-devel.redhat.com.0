@@ -2,57 +2,57 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
-	by mail.lfdr.de (Postfix) with ESMTP id 27DE7197D4F
-	for <lists+cluster-devel@lfdr.de>; Mon, 30 Mar 2020 15:46:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 01C35197D56
+	for <lists+cluster-devel@lfdr.de>; Mon, 30 Mar 2020 15:46:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585576010;
+	s=mimecast20190719; t=1585576013;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+Ld9pwsE+4yKN477QuPe70xuHmYfZoZ/vt9mTpV4tvs=;
-	b=HKjPYqnwLL9W4xWh3jVE+2+Y/m668B83CW6CNFPUoH5QxjeQDc6GpxDjX+0iD8640lNgHi
-	l1HfoSJVkJUAdnQJ9fkGtKigwR8zWAYXHDL/vwbjQMpT6MnLVTfjO2rnxwn0KKCiN1/YaG
-	yBZTRHPxbSoQRIspyLRvXTeDypECA9w=
+	bh=C6KPB3mrP+66IqtcOT0JIy6sp+aBofIii9hZbbkHrA8=;
+	b=hjYhVRff72AIvRgNVleGwu+TLHYgSoRKMu6OWmcFvX6G+UMvLpJAyYvF0HRWt3Dt7dKWkT
+	kn0Akk5iT4N5lfIl6CtTc48LcT62laz7nwl5STZzfEGZ6nbW1/OpsRu8LX3aEhE2s0cG8W
+	fefbBfewjB1qFHT52TGrEfTbEKCfn/E=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-279-G61QVpoiOGaY0jvxb60yzg-1; Mon, 30 Mar 2020 09:46:48 -0400
-X-MC-Unique: G61QVpoiOGaY0jvxb60yzg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-433-bWXKE_t5MauAcirJjOc1sA-1; Mon, 30 Mar 2020 09:46:50 -0400
+X-MC-Unique: bWXKE_t5MauAcirJjOc1sA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7798F100DFFC;
-	Mon, 30 Mar 2020 13:46:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0EF1085B6F6;
+	Mon, 30 Mar 2020 13:46:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 646535C1C5;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F16036031F;
 	Mon, 30 Mar 2020 13:46:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 410F118089C8;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D620618089CD;
 	Mon, 30 Mar 2020 13:46:40 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02UDkXPF020315 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 02UDkXGs020346 for <cluster-devel@listman.util.phx.redhat.com>;
 	Mon, 30 Mar 2020 09:46:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5155F48; Mon, 30 Mar 2020 13:46:33 +0000 (UTC)
+	id B3A3696F88; Mon, 30 Mar 2020 13:46:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-112-79.phx2.redhat.com [10.3.112.79])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 15BD197B17
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 767E95C1A8
 	for <cluster-devel@redhat.com>; Mon, 30 Mar 2020 13:46:33 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Mon, 30 Mar 2020 08:45:57 -0500
-Message-Id: <20200330134624.259349-13-rpeterso@redhat.com>
+Date: Mon, 30 Mar 2020 08:45:58 -0500
+Message-Id: <20200330134624.259349-14-rpeterso@redhat.com>
 In-Reply-To: <20200330134624.259349-1-rpeterso@redhat.com>
 References: <20200330134624.259349-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 12/39] gfs2: move check_journal_clean
-	to util.c for future use
+Subject: [Cluster-devel] [GFS2 PATCH 13/39] gfs2: Allow some glocks to be
+	used during withdraw
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,158 +66,205 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Before this patch function check_journal_clean was in ops_fstype.c.
-This patch moves it to util.c so we can make use of it elsewhere
-in a future patch.
+We need to allow some glocks to be enqueued, dequeued, promoted, and demote=
+d
+when we're withdrawn. For example, to maintain metadata integrity, we shoul=
+d
+disallow the use of inode and rgrp glocks when withdrawn. Other glocks, lik=
+e
+iopen or the transaction glocks may be safely used because none of their
+metadata goes through the journal. So in general, we should disallow all
+glocks with an address space, and allow all the others. One exception is:
+we need to allow our active journal to be demoted so others may recover it.
+
+Allowing glocks after withdraw gives us the ability to take appropriate
+action (in a following patch) to have our journal properly replayed by
+another node rather than just abandoning the current transactions and
+pretending nothing bad happened, leaving the other nodes free to modify
+the blocks we had in our journal, which may result in file system
+corruption.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/ops_fstype.c | 42 -----------------------------------------
- fs/gfs2/util.c       | 45 ++++++++++++++++++++++++++++++++++++++++++++
- fs/gfs2/util.h       |  1 +
- 3 files changed, 46 insertions(+), 42 deletions(-)
+ fs/gfs2/glock.c      | 33 +++++++++++++++++++++++++++++----
+ fs/gfs2/glops.c      | 10 +++++++---
+ fs/gfs2/incore.h     |  8 +++++---
+ fs/gfs2/ops_fstype.c |  4 ++++
+ 4 files changed, 45 insertions(+), 10 deletions(-)
 
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index b3e904bcc02c..d19ee57c99ce 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -600,48 +600,6 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, stru=
-ct gfs2_holder *ji_gh)
- =09return error;
- }
-=20
--/**
-- * check_journal_clean - Make sure a journal is clean for a spectator moun=
-t
-- * @sdp: The GFS2 superblock
-- * @jd: The journal descriptor
-- *
-- * Returns: 0 if the journal is clean or locked, else an error
-- */
--static int check_journal_clean(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd=
-)
--{
--=09int error;
--=09struct gfs2_holder j_gh;
--=09struct gfs2_log_header_host head;
--=09struct gfs2_inode *ip;
--
--=09ip =3D GFS2_I(jd->jd_inode);
--=09error =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED, LM_FLAG_NOEXP |
--=09=09=09=09   GL_EXACT | GL_NOCACHE, &j_gh);
--=09if (error) {
--=09=09fs_err(sdp, "Error locking journal for spectator mount.\n");
--=09=09return -EPERM;
--=09}
--=09error =3D gfs2_jdesc_check(jd);
--=09if (error) {
--=09=09fs_err(sdp, "Error checking journal for spectator mount.\n");
--=09=09goto out_unlock;
--=09}
--=09error =3D gfs2_find_jhead(jd, &head, false);
--=09if (error) {
--=09=09fs_err(sdp, "Error parsing journal for spectator mount.\n");
--=09=09goto out_unlock;
--=09}
--=09if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT)) {
--=09=09error =3D -EPERM;
--=09=09fs_err(sdp, "jid=3D%u: Journal is dirty, so the first mounter "
--=09=09       "must not be a spectator.\n", jd->jd_jid);
--=09}
--
--out_unlock:
--=09gfs2_glock_dq_uninit(&j_gh);
--=09return error;
--}
--
- static int init_journal(struct gfs2_sbd *sdp, int undo)
- {
- =09struct inode *master =3D d_inode(sdp->sd_master_dir);
-diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
-index 47cd40de08b1..86965e6089c6 100644
---- a/fs/gfs2/util.c
-+++ b/fs/gfs2/util.c
-@@ -16,7 +16,10 @@
- #include "gfs2.h"
- #include "incore.h"
- #include "glock.h"
-+#include "lops.h"
-+#include "recovery.h"
- #include "rgrp.h"
-+#include "super.h"
- #include "util.h"
-=20
- struct kmem_cache *gfs2_glock_cachep __read_mostly;
-@@ -33,6 +36,48 @@ void gfs2_assert_i(struct gfs2_sbd *sdp)
- =09fs_emerg(sdp, "fatal assertion failed\n");
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index 1cb471a8bc87..454d94dd8933 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -133,6 +133,33 @@ static void gfs2_glock_dealloc(struct rcu_head *rcu)
+ =09}
  }
 =20
 +/**
-+ * check_journal_clean - Make sure a journal is clean for a spectator moun=
-t
-+ * @sdp: The GFS2 superblock
-+ * @jd: The journal descriptor
++ * glock_blocked_by_withdraw - determine if we can still use a glock
++ * @gl: the glock
 + *
-+ * Returns: 0 if the journal is clean or locked, else an error
++ * We need to allow some glocks to be enqueued, dequeued, promoted, and de=
+moted
++ * when we're withdrawn. For example, to maintain metadata integrity, we s=
+hould
++ * disallow the use of inode and rgrp glocks when withdrawn. Other glocks,=
+ like
++ * iopen or the transaction glocks may be safely used because none of thei=
+r
++ * metadata goes through the journal. So in general, we should disallow al=
+l
++ * glocks that are journaled, and allow all the others. One exception is:
++ * we need to allow our active journal to be promoted and demoted so other=
+s
++ * may recover it and we can reacquire it when they're done.
 + */
-+int check_journal_clean(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd)
++static bool glock_blocked_by_withdraw(struct gfs2_glock *gl)
 +{
-+=09int error;
-+=09struct gfs2_holder j_gh;
-+=09struct gfs2_log_header_host head;
-+=09struct gfs2_inode *ip;
++=09struct gfs2_sbd *sdp =3D gl->gl_name.ln_sbd;
 +
-+=09ip =3D GFS2_I(jd->jd_inode);
-+=09error =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED, LM_FLAG_NOEXP |
-+=09=09=09=09   GL_EXACT | GL_NOCACHE, &j_gh);
-+=09if (error) {
-+=09=09fs_err(sdp, "Error locking journal for spectator mount.\n");
-+=09=09return -EPERM;
-+=09}
-+=09error =3D gfs2_jdesc_check(jd);
-+=09if (error) {
-+=09=09fs_err(sdp, "Error checking journal for spectator mount.\n");
-+=09=09goto out_unlock;
-+=09}
-+=09error =3D gfs2_find_jhead(jd, &head, false);
-+=09if (error) {
-+=09=09fs_err(sdp, "Error parsing journal for spectator mount.\n");
-+=09=09goto out_unlock;
-+=09}
-+=09if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT)) {
-+=09=09error =3D -EPERM;
-+=09=09fs_err(sdp, "jid=3D%u: Journal is dirty, so the first mounter "
-+=09=09       "must not be a spectator.\n", jd->jd_jid);
-+=09}
-+
-+out_unlock:
-+=09gfs2_glock_dq_uninit(&j_gh);
-+=09return error;
++=09if (likely(!gfs2_withdrawn(sdp)))
++=09=09return false;
++=09if (gl->gl_ops->go_flags & GLOF_NONDISK)
++=09=09return false;
++=09if (!sdp->sd_jdesc ||
++=09    gl->gl_name.ln_number =3D=3D sdp->sd_jdesc->jd_no_addr)
++=09=09return false;
++=09return true;
 +}
 +
- void gfs2_lm(struct gfs2_sbd *sdp, const char *fmt, ...)
+ void gfs2_glock_free(struct gfs2_glock *gl)
  {
- =09struct va_format vaf;
-diff --git a/fs/gfs2/util.h b/fs/gfs2/util.h
-index 16b2cc6c4560..cf613497a20e 100644
---- a/fs/gfs2/util.h
-+++ b/fs/gfs2/util.h
-@@ -136,6 +136,7 @@ static inline void gfs2_metatype_set(struct buffer_head=
- *bh, u16 type,
+ =09struct gfs2_sbd *sdp =3D gl->gl_name.ln_sbd;
+@@ -549,8 +576,7 @@ __acquires(&gl->gl_lockref.lock)
+ =09unsigned int lck_flags =3D (unsigned int)(gh ? gh->gh_flags : 0);
+ =09int ret;
 =20
- int gfs2_io_error_i(struct gfs2_sbd *sdp, const char *function,
- =09=09    char *file, unsigned int line);
-+int check_journal_clean(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd);
+-=09if (unlikely(gfs2_withdrawn(sdp)) &&
+-=09    target !=3D LM_ST_UNLOCKED)
++=09if (target !=3D LM_ST_UNLOCKED && glock_blocked_by_withdraw(gl))
+ =09=09return;
+ =09lck_flags &=3D (LM_FLAG_TRY | LM_FLAG_TRY_1CB | LM_FLAG_NOEXP |
+ =09=09      LM_FLAG_PRIORITY);
+@@ -1194,10 +1220,9 @@ __acquires(&gl->gl_lockref.lock)
+ int gfs2_glock_nq(struct gfs2_holder *gh)
+ {
+ =09struct gfs2_glock *gl =3D gh->gh_gl;
+-=09struct gfs2_sbd *sdp =3D gl->gl_name.ln_sbd;
+ =09int error =3D 0;
 =20
- #define gfs2_io_error(sdp) \
- gfs2_io_error_i((sdp), __func__, __FILE__, __LINE__);
+-=09if (unlikely(gfs2_withdrawn(sdp)))
++=09if (glock_blocked_by_withdraw(gl))
+ =09=09return -EIO;
+=20
+ =09if (test_bit(GLF_LRU, &gl->gl_flags))
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 1c557457c753..3553ca939337 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -579,6 +579,7 @@ static void iopen_go_callback(struct gfs2_glock *gl, bo=
+ol remote)
+=20
+ const struct gfs2_glock_operations gfs2_meta_glops =3D {
+ =09.go_type =3D LM_TYPE_META,
++=09.go_flags =3D GLOF_NONDISK,
+ };
+=20
+ const struct gfs2_glock_operations gfs2_inode_glops =3D {
+@@ -605,30 +606,33 @@ const struct gfs2_glock_operations gfs2_freeze_glops =
+=3D {
+ =09.go_xmote_bh =3D freeze_go_xmote_bh,
+ =09.go_demote_ok =3D freeze_go_demote_ok,
+ =09.go_type =3D LM_TYPE_NONDISK,
++=09.go_flags =3D GLOF_NONDISK,
+ };
+=20
+ const struct gfs2_glock_operations gfs2_iopen_glops =3D {
+ =09.go_type =3D LM_TYPE_IOPEN,
+ =09.go_callback =3D iopen_go_callback,
+-=09.go_flags =3D GLOF_LRU,
++=09.go_flags =3D GLOF_LRU | GLOF_NONDISK,
+ };
+=20
+ const struct gfs2_glock_operations gfs2_flock_glops =3D {
+ =09.go_type =3D LM_TYPE_FLOCK,
+-=09.go_flags =3D GLOF_LRU,
++=09.go_flags =3D GLOF_LRU | GLOF_NONDISK,
+ };
+=20
+ const struct gfs2_glock_operations gfs2_nondisk_glops =3D {
+ =09.go_type =3D LM_TYPE_NONDISK,
++=09.go_flags =3D GLOF_NONDISK,
+ };
+=20
+ const struct gfs2_glock_operations gfs2_quota_glops =3D {
+ =09.go_type =3D LM_TYPE_QUOTA,
+-=09.go_flags =3D GLOF_LVB | GLOF_LRU,
++=09.go_flags =3D GLOF_LVB | GLOF_LRU | GLOF_NONDISK,
+ };
+=20
+ const struct gfs2_glock_operations gfs2_journal_glops =3D {
+ =09.go_type =3D LM_TYPE_JOURNAL,
++=09.go_flags =3D GLOF_NONDISK,
+ };
+=20
+ const struct gfs2_glock_operations *gfs2_glops_list[] =3D {
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index ab89f746b3b6..3072707aff7a 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -244,9 +244,10 @@ struct gfs2_glock_operations {
+ =09void (*go_callback)(struct gfs2_glock *gl, bool remote);
+ =09const int go_type;
+ =09const unsigned long go_flags;
+-#define GLOF_ASPACE 1
+-#define GLOF_LVB    2
+-#define GLOF_LRU    4
++#define GLOF_ASPACE 1 /* address space attached */
++#define GLOF_LVB    2 /* Lock Value Block attached */
++#define GLOF_LRU    4 /* LRU managed */
++#define GLOF_NONDISK   8 /* not I/O related */
+ };
+=20
+ enum {
+@@ -541,6 +542,7 @@ struct gfs2_jdesc {
+ =09struct list_head jd_revoke_list;
+ =09unsigned int jd_replay_tail;
+=20
++=09u64 jd_no_addr;
+ };
+=20
+ struct gfs2_statfs_change_host {
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index d19ee57c99ce..74389d856dd3 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -552,6 +552,8 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struc=
+t gfs2_holder *ji_gh)
+ =09mutex_lock(&sdp->sd_jindex_mutex);
+=20
+ =09for (;;) {
++=09=09struct gfs2_inode *jip;
++
+ =09=09error =3D gfs2_glock_nq_init(dip->i_gl, LM_ST_SHARED, 0, ji_gh);
+ =09=09if (error)
+ =09=09=09break;
+@@ -591,6 +593,8 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struc=
+t gfs2_holder *ji_gh)
+=20
+ =09=09spin_lock(&sdp->sd_jindex_spin);
+ =09=09jd->jd_jid =3D sdp->sd_journals++;
++=09=09jip =3D GFS2_I(jd->jd_inode);
++=09=09jd->jd_no_addr =3D jip->i_no_addr;
+ =09=09list_add_tail(&jd->jd_list, &sdp->sd_jindex_list);
+ =09=09spin_unlock(&sdp->sd_jindex_spin);
+ =09}
 --=20
 2.25.1
 
