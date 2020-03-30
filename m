@@ -1,55 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
-	by mail.lfdr.de (Postfix) with ESMTP id 6CCFD197D49
-	for <lists+cluster-devel@lfdr.de>; Mon, 30 Mar 2020 15:46:49 +0200 (CEST)
+Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
+	by mail.lfdr.de (Postfix) with ESMTP id BB6CB197D65
+	for <lists+cluster-devel@lfdr.de>; Mon, 30 Mar 2020 15:47:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585576008;
+	s=mimecast20190719; t=1585576019;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=eEd+p2Tm8Jh72lGkQKwf0dyyzYpUkXuxe0gw1gjMbOo=;
-	b=H04qRvnUv6evs6+IRPWCqhSlUtLe3XR4OqWOIZlCjX9geN/Zt5Q8eSjXvoYo+u5DcuwKSp
-	sFRa2aa2eY35i79L5c7c+xNBgqmCbulstiC0rhcB8es8ZrJLGPm9mnBNcaubPYq1OXZeOj
-	wf5g29uwAwBru7wDPbyMcLB6HxEm898=
+	bh=2H6/SWlNHmur51okFX7+WtEcevyggNrIP2n1NDDdzmQ=;
+	b=BqlFaeQ+F9HEg8zO7m1TI/w7rhy/V1hhxJIMDOio6cOkxLJqrOtNMYqcJNMHC7xaPnb+nd
+	OI+xgKhgkcieFHnyqqIoxH29aODR2njOTmcHiUaN00sCixNOfKhSbejlFO7wKHPT0Gu0OQ
+	T27OZWqL01XMGvPNrtTmf+ycUfzMNIg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-484-nW5dHStdM1edUp9v-I7BVw-1; Mon, 30 Mar 2020 09:46:44 -0400
-X-MC-Unique: nW5dHStdM1edUp9v-I7BVw-1
+ us-mta-415-CJVVd-_EMu2ZYnampC3Omw-1; Mon, 30 Mar 2020 09:46:57 -0400
+X-MC-Unique: CJVVd-_EMu2ZYnampC3Omw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 55475108C31E;
-	Mon, 30 Mar 2020 13:46:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2C0FF19067F2;
+	Mon, 30 Mar 2020 13:46:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D2DD5C1C5;
-	Mon, 30 Mar 2020 13:46:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A7305C1C5;
+	Mon, 30 Mar 2020 13:46:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DA15518089CD;
-	Mon, 30 Mar 2020 13:46:32 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 01EB518089C8;
+	Mon, 30 Mar 2020 13:46:55 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02UDkSkN020091 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Mar 2020 09:46:28 -0400
+	id 02UDkTte020110 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Mar 2020 09:46:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8496648; Mon, 30 Mar 2020 13:46:28 +0000 (UTC)
+	id E8B8E48; Mon, 30 Mar 2020 13:46:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-112-79.phx2.redhat.com [10.3.112.79])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0350297B13
-	for <cluster-devel@redhat.com>; Mon, 30 Mar 2020 13:46:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id ABA335C1A8
+	for <cluster-devel@redhat.com>; Mon, 30 Mar 2020 13:46:28 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Mon, 30 Mar 2020 08:45:45 -0500
-Message-Id: <20200330134624.259349-1-rpeterso@redhat.com>
+Date: Mon, 30 Mar 2020 08:45:46 -0500
+Message-Id: <20200330134624.259349-2-rpeterso@redhat.com>
+In-Reply-To: <20200330134624.259349-1-rpeterso@redhat.com>
+References: <20200330134624.259349-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 00/39] GFS2: Pre-pull patch posting
-	(merge window)
+Subject: [Cluster-devel] [GFS2 PATCH 01/39] gfs2: Split gfs2_lm_withdraw
+	into two functions
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,103 +72,322 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+From: Andreas Gruenbacher <agruenba@redhat.com>
 
-We've got a lot of patches (39) for this merge window. Most of these patche=
-s
-are related to corruption that occurs when journals are replayed.
-For example:
+Split gfs2_lm_withdraw into a function that prints an error message and a
+function that withdraws the filesystem.
 
-   1. A node fails while writing to the file system.
-   2. Other nodes use the metadata that was once used by the failed node.
-   3. When the node returns to the cluster, its journal is replayed,
-      but the older metadata blocks overwrite the changes from step 2.
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/glops.c |   3 +-
+ fs/gfs2/log.c   |  19 ++++----
+ fs/gfs2/sys.c   |   3 +-
+ fs/gfs2/util.c  | 124 +++++++++++++++++++++++++-----------------------
+ fs/gfs2/util.h  |   3 +-
+ 5 files changed, 82 insertions(+), 70 deletions(-)
 
-o Fixed the recovery sequence to prevent corruption during journal replay.
-o Many bug fixes found during recovery testing.
-o New improved file system withdraw sequence.
-o Fixed how resource group buffers are managed.
-o Fixed how metadata revokes are tracked and written.
-o Improve processing of IO errors hit by daemons like logd and quotad.
-o Improved error checking in metadata writes.
-
-Regards,
-
-Bob Peterson
-
-Andreas Gruenbacher (9):
-  gfs2: Split gfs2_lm_withdraw into two functions
-  gfs2: Report errors before withdraw
-  gfs2: Remove usused cluster_wide arguments of gfs2_consist functions
-  gfs2: Turn gfs2_consist into void functions
-  gfs2: Return bool from gfs2_assert functions
-  gfs2: Clean up inode initialization and teardown
-  gfs2: Switch to list_{first,last}_entry
-  gfs2: Split gfs2_rsqa_delete into gfs2_rs_delete and gfs2_qa_put
-  gfs2: Remove unnecessary gfs2_qa_{get,put} pairs
-
-Bob Peterson (30):
-  gfs2: Introduce concept of a pending withdraw
-  gfs2: clear ail1 list when gfs2 withdraws
-  gfs2: Rework how rgrp buffer_heads are managed
-  gfs2: log error reform
-  gfs2: Only complain the first time an io error occurs in quota or log
-  gfs2: Ignore dlm recovery requests if gfs2 is withdrawn
-  gfs2: move check_journal_clean to util.c for future use
-  gfs2: Allow some glocks to be used during withdraw
-  gfs2: Force withdraw to replay journals and wait for it to finish
-  gfs2: fix infinite loop when checking ail item count before go_inval
-  gfs2: Add verbose option to check_journal_clean
-  gfs2: Issue revokes more intelligently
-  gfs2: Prepare to withdraw as soon as an IO error occurs in log write
-  gfs2: Check for log write errors before telling dlm to unlock
-  gfs2: Do log_flush in gfs2_ail_empty_gl even if ail list is empty
-  gfs2: Withdraw in gfs2_ail1_flush if write_cache_pages fails
-  gfs2: drain the ail2 list after io errors
-  gfs2: Don't demote a glock until its revokes are written
-  gfs2: Do proper error checking for go_sync family of glops functions
-  gfs2: flesh out delayed withdraw for gfs2_log_flush
-  gfs2: don't allow releasepage to free bd still used for revokes
-  gfs2: allow journal replay to hold sd_log_flush_lock
-  gfs2: leaf_dealloc needs to allocate one more revoke
-  gfs2: Additional information when gfs2_ail1_flush withdraws
-  gfs2: eliminate gfs2_rsqa_alloc in favor of gfs2_qa_alloc
-  gfs2: Change inode qa_data to allow multiple users
-  gfs2: don't lock sd_log_flush_lock in try_rgrp_unlink
-  gfs2: instrumentation wrt ail1 stuck
-  gfs2: change from write to read lock for sd_log_flush_lock in journal
-    replay
-  gfs2: Fix oversight in gfs2_ail1_flush
-
- fs/gfs2/acl.c        |   7 +-
- fs/gfs2/aops.c       |  11 +-
- fs/gfs2/bmap.c       |   9 +-
- fs/gfs2/dir.c        |   3 +-
- fs/gfs2/file.c       |  43 ++---
- fs/gfs2/glock.c      | 137 +++++++++++---
- fs/gfs2/glops.c      | 157 +++++++++++++---
- fs/gfs2/incore.h     |  27 ++-
- fs/gfs2/inode.c      |  53 +++---
- fs/gfs2/lock_dlm.c   |  52 ++++++
- fs/gfs2/log.c        | 288 ++++++++++++++++++++---------
- fs/gfs2/log.h        |   1 +
- fs/gfs2/lops.c       |  14 +-
- fs/gfs2/meta_io.c    |   3 +-
- fs/gfs2/ops_fstype.c |  59 ++----
- fs/gfs2/quota.c      |  76 ++++----
- fs/gfs2/quota.h      |   4 +-
- fs/gfs2/recovery.c   |  12 +-
- fs/gfs2/rgrp.c       |  88 ++++-----
- fs/gfs2/rgrp.h       |   4 +-
- fs/gfs2/super.c      | 112 ++++++++----
- fs/gfs2/super.h      |   1 -
- fs/gfs2/sys.c        |   5 +-
- fs/gfs2/trans.c      |   4 +
- fs/gfs2/util.c       | 419 +++++++++++++++++++++++++++++++++----------
- fs/gfs2/util.h       |  76 +++++---
- fs/gfs2/xattr.c      |  12 +-
- 27 files changed, 1168 insertions(+), 509 deletions(-)
-
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 061d22e1ceb6..58431f67665e 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -39,7 +39,8 @@ static void gfs2_ail_error(struct gfs2_glock *gl, const s=
+truct buffer_head *bh)
+ =09fs_err(gl->gl_name.ln_sbd, "AIL glock %u:%llu mapping %p\n",
+ =09       gl->gl_name.ln_type, gl->gl_name.ln_number,
+ =09       gfs2_glock2aspace(gl));
+-=09gfs2_lm_withdraw(gl->gl_name.ln_sbd, "AIL error\n");
++=09gfs2_lm(gl->gl_name.ln_sbd, "AIL error\n");
++=09gfs2_withdraw(gl->gl_name.ln_sbd);
+ }
+=20
+ /**
+diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+index 00a2e721a374..c4c7c013f7a7 100644
+--- a/fs/gfs2/log.c
++++ b/fs/gfs2/log.c
+@@ -165,7 +165,7 @@ void gfs2_ail1_flush(struct gfs2_sbd *sdp, struct write=
+back_control *wbc)
+ =09spin_unlock(&sdp->sd_ail_lock);
+ =09blk_finish_plug(&plug);
+ =09if (withdraw)
+-=09=09gfs2_lm_withdraw(sdp, NULL);
++=09=09gfs2_withdraw(sdp);
+ =09trace_gfs2_ail_flush(sdp, wbc, 0);
+ }
+=20
+@@ -239,8 +239,10 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp)
+ =09ret =3D list_empty(&sdp->sd_ail1_list);
+ =09spin_unlock(&sdp->sd_ail_lock);
+=20
+-=09if (withdraw)
+-=09=09gfs2_lm_withdraw(sdp, "fatal: I/O error(s)\n");
++=09if (withdraw) {
++=09=09gfs2_lm(sdp, "fatal: I/O error(s)\n");
++=09=09gfs2_withdraw(sdp);
++=09}
+=20
+ =09return ret;
+ }
+@@ -1016,11 +1018,12 @@ int gfs2_logd(void *data)
+=20
+ =09=09/* Check for errors writing to the journal */
+ =09=09if (sdp->sd_log_error) {
+-=09=09=09gfs2_lm_withdraw(sdp,
+-=09=09=09=09=09 "GFS2: fsid=3D%s: error %d: "
+-=09=09=09=09=09 "withdrawing the file system to "
+-=09=09=09=09=09 "prevent further damage.\n",
+-=09=09=09=09=09 sdp->sd_fsname, sdp->sd_log_error);
++=09=09=09gfs2_lm(sdp,
++=09=09=09=09"GFS2: fsid=3D%s: error %d: "
++=09=09=09=09"withdrawing the file system to "
++=09=09=09=09"prevent further damage.\n",
++=09=09=09=09sdp->sd_fsname, sdp->sd_log_error);
++=09=09=09gfs2_withdraw(sdp);
+ =09=09}
+=20
+ =09=09did_flush =3D false;
+diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
+index 8ccb68f4ed16..a2eae5c578d6 100644
+--- a/fs/gfs2/sys.c
++++ b/fs/gfs2/sys.c
+@@ -136,7 +136,8 @@ static ssize_t withdraw_store(struct gfs2_sbd *sdp, con=
+st char *buf, size_t len)
+ =09if (val !=3D 1)
+ =09=09return -EINVAL;
+=20
+-=09gfs2_lm_withdraw(sdp, "withdrawing from cluster at user's request\n");
++=09gfs2_lm(sdp, "withdrawing from cluster at user's request\n");
++=09gfs2_withdraw(sdp);
+=20
+ =09return len;
+ }
+diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+index ec600b487498..322012e2064e 100644
+--- a/fs/gfs2/util.c
++++ b/fs/gfs2/util.c
+@@ -33,28 +33,31 @@ void gfs2_assert_i(struct gfs2_sbd *sdp)
+ =09fs_emerg(sdp, "fatal assertion failed\n");
+ }
+=20
+-int gfs2_lm_withdraw(struct gfs2_sbd *sdp, const char *fmt, ...)
++void gfs2_lm(struct gfs2_sbd *sdp, const char *fmt, ...)
++{
++=09struct va_format vaf;
++=09va_list args;
++
++=09if (sdp->sd_args.ar_errors =3D=3D GFS2_ERRORS_WITHDRAW &&
++=09    test_bit(SDF_WITHDRAWN, &sdp->sd_flags))
++=09=09return;
++
++=09va_start(args, fmt);
++=09vaf.fmt =3D fmt;
++=09vaf.va =3D &args;
++=09fs_err(sdp, "%pV", &vaf);
++=09va_end(args);
++}
++
++int gfs2_withdraw(struct gfs2_sbd *sdp)
+ {
+ =09struct lm_lockstruct *ls =3D &sdp->sd_lockstruct;
+ =09const struct lm_lockops *lm =3D ls->ls_ops;
+-=09va_list args;
+-=09struct va_format vaf;
+=20
+ =09if (sdp->sd_args.ar_errors =3D=3D GFS2_ERRORS_WITHDRAW &&
+ =09    test_and_set_bit(SDF_WITHDRAWN, &sdp->sd_flags))
+ =09=09return 0;
+=20
+-=09if (fmt) {
+-=09=09va_start(args, fmt);
+-
+-=09=09vaf.fmt =3D fmt;
+-=09=09vaf.va =3D &args;
+-
+-=09=09fs_err(sdp, "%pV", &vaf);
+-
+-=09=09va_end(args);
+-=09}
+-
+ =09if (sdp->sd_args.ar_errors =3D=3D GFS2_ERRORS_WITHDRAW) {
+ =09=09fs_err(sdp, "about to withdraw this file system\n");
+ =09=09BUG_ON(sdp->sd_args.ar_debug);
+@@ -89,10 +92,12 @@ int gfs2_assert_withdraw_i(struct gfs2_sbd *sdp, char *=
+assertion,
+ =09=09=09   const char *function, char *file, unsigned int line)
+ {
+ =09int me;
+-=09me =3D gfs2_lm_withdraw(sdp,
+-=09=09=09      "fatal: assertion \"%s\" failed\n"
+-=09=09=09      "   function =3D %s, file =3D %s, line =3D %u\n",
+-=09=09=09      assertion, function, file, line);
++
++=09gfs2_lm(sdp,
++=09=09"fatal: assertion \"%s\" failed\n"
++=09=09"   function =3D %s, file =3D %s, line =3D %u\n",
++=09=09assertion, function, file, line);
++=09me =3D gfs2_withdraw(sdp);
+ =09dump_stack();
+ =09return (me) ? -1 : -2;
+ }
+@@ -140,11 +145,10 @@ int gfs2_assert_warn_i(struct gfs2_sbd *sdp, char *as=
+sertion,
+ int gfs2_consist_i(struct gfs2_sbd *sdp, int cluster_wide, const char *fun=
+ction,
+ =09=09   char *file, unsigned int line)
+ {
+-=09int rv;
+-=09rv =3D gfs2_lm_withdraw(sdp,
+-=09=09=09      "fatal: filesystem consistency error - function =3D %s, fil=
+e =3D %s, line =3D %u\n",
+-=09=09=09      function, file, line);
+-=09return rv;
++=09gfs2_lm(sdp,
++=09=09"fatal: filesystem consistency error - function =3D %s, file =3D %s,=
+ line =3D %u\n",
++=09=09function, file, line);
++=09return gfs2_withdraw(sdp);
+ }
+=20
+ /**
+@@ -157,15 +161,15 @@ int gfs2_consist_inode_i(struct gfs2_inode *ip, int c=
+luster_wide,
+ =09=09=09 const char *function, char *file, unsigned int line)
+ {
+ =09struct gfs2_sbd *sdp =3D GFS2_SB(&ip->i_inode);
+-=09int rv;
+-=09rv =3D gfs2_lm_withdraw(sdp,
+-=09=09=09      "fatal: filesystem consistency error\n"
+-=09=09=09      "  inode =3D %llu %llu\n"
+-=09=09=09      "  function =3D %s, file =3D %s, line =3D %u\n",
+-=09=09=09      (unsigned long long)ip->i_no_formal_ino,
+-=09=09=09      (unsigned long long)ip->i_no_addr,
+-=09=09=09      function, file, line);
+-=09return rv;
++
++=09gfs2_lm(sdp,
++=09=09"fatal: filesystem consistency error\n"
++=09=09"  inode =3D %llu %llu\n"
++=09=09"  function =3D %s, file =3D %s, line =3D %u\n",
++=09=09(unsigned long long)ip->i_no_formal_ino,
++=09=09(unsigned long long)ip->i_no_addr,
++=09=09function, file, line);
++=09return gfs2_withdraw(sdp);
+ }
+=20
+ /**
+@@ -179,17 +183,16 @@ int gfs2_consist_rgrpd_i(struct gfs2_rgrpd *rgd, int =
+cluster_wide,
+ {
+ =09struct gfs2_sbd *sdp =3D rgd->rd_sbd;
+ =09char fs_id_buf[sizeof(sdp->sd_fsname) + 7];
+-=09int rv;
+=20
+ =09sprintf(fs_id_buf, "fsid=3D%s: ", sdp->sd_fsname);
+ =09gfs2_rgrp_dump(NULL, rgd->rd_gl, fs_id_buf);
+-=09rv =3D gfs2_lm_withdraw(sdp,
+-=09=09=09      "fatal: filesystem consistency error\n"
+-=09=09=09      "  RG =3D %llu\n"
+-=09=09=09      "  function =3D %s, file =3D %s, line =3D %u\n",
+-=09=09=09      (unsigned long long)rgd->rd_addr,
+-=09=09=09      function, file, line);
+-=09return rv;
++=09gfs2_lm(sdp,
++=09=09"fatal: filesystem consistency error\n"
++=09=09"  RG =3D %llu\n"
++=09=09"  function =3D %s, file =3D %s, line =3D %u\n",
++=09=09(unsigned long long)rgd->rd_addr,
++=09=09function, file, line);
++=09return gfs2_withdraw(sdp);
+ }
+=20
+ /**
+@@ -203,12 +206,14 @@ int gfs2_meta_check_ii(struct gfs2_sbd *sdp, struct b=
+uffer_head *bh,
+ =09=09       unsigned int line)
+ {
+ =09int me;
+-=09me =3D gfs2_lm_withdraw(sdp,
+-=09=09=09      "fatal: invalid metadata block\n"
+-=09=09=09      "  bh =3D %llu (%s)\n"
+-=09=09=09      "  function =3D %s, file =3D %s, line =3D %u\n",
+-=09=09=09      (unsigned long long)bh->b_blocknr, type,
+-=09=09=09      function, file, line);
++
++=09gfs2_lm(sdp,
++=09=09"fatal: invalid metadata block\n"
++=09=09"  bh =3D %llu (%s)\n"
++=09=09"  function =3D %s, file =3D %s, line =3D %u\n",
++=09=09(unsigned long long)bh->b_blocknr, type,
++=09=09function, file, line);
++=09me =3D gfs2_withdraw(sdp);
+ =09return (me) ? -1 : -2;
+ }
+=20
+@@ -223,12 +228,14 @@ int gfs2_metatype_check_ii(struct gfs2_sbd *sdp, stru=
+ct buffer_head *bh,
+ =09=09=09   char *file, unsigned int line)
+ {
+ =09int me;
+-=09me =3D gfs2_lm_withdraw(sdp,
+-=09=09=09      "fatal: invalid metadata block\n"
+-=09=09=09      "  bh =3D %llu (type: exp=3D%u, found=3D%u)\n"
+-=09=09=09      "  function =3D %s, file =3D %s, line =3D %u\n",
+-=09=09=09      (unsigned long long)bh->b_blocknr, type, t,
+-=09=09=09      function, file, line);
++
++=09gfs2_lm(sdp,
++=09=09"fatal: invalid metadata block\n"
++=09=09"  bh =3D %llu (type: exp=3D%u, found=3D%u)\n"
++=09=09"  function =3D %s, file =3D %s, line =3D %u\n",
++=09=09(unsigned long long)bh->b_blocknr, type, t,
++=09=09function, file, line);
++=09me =3D gfs2_withdraw(sdp);
+ =09return (me) ? -1 : -2;
+ }
+=20
+@@ -241,12 +248,11 @@ int gfs2_metatype_check_ii(struct gfs2_sbd *sdp, stru=
+ct buffer_head *bh,
+ int gfs2_io_error_i(struct gfs2_sbd *sdp, const char *function, char *file=
+,
+ =09=09    unsigned int line)
+ {
+-=09int rv;
+-=09rv =3D gfs2_lm_withdraw(sdp,
+-=09=09=09      "fatal: I/O error\n"
+-=09=09=09      "  function =3D %s, file =3D %s, line =3D %u\n",
+-=09=09=09      function, file, line);
+-=09return rv;
++=09gfs2_lm(sdp,
++=09=09"fatal: I/O error\n"
++=09=09"  function =3D %s, file =3D %s, line =3D %u\n",
++=09=09function, file, line);
++=09return gfs2_withdraw(sdp);
+ }
+=20
+ /**
+@@ -266,6 +272,6 @@ void gfs2_io_error_bh_i(struct gfs2_sbd *sdp, struct bu=
+ffer_head *bh,
+ =09=09       (unsigned long long)bh->b_blocknr,
+ =09=09       function, file, line);
+ =09if (withdraw)
+-=09=09gfs2_lm_withdraw(sdp, NULL);
++=09=09gfs2_withdraw(sdp);
+ }
+=20
+diff --git a/fs/gfs2/util.h b/fs/gfs2/util.h
+index f2702bc9837c..fdc218a28609 100644
+--- a/fs/gfs2/util.h
++++ b/fs/gfs2/util.h
+@@ -177,6 +177,7 @@ static inline bool gfs2_withdrawn(struct gfs2_sbd *sdp)
+ gfs2_tune_get_i(&(sdp)->sd_tune, &(sdp)->sd_tune.field)
+=20
+ __printf(2, 3)
+-int gfs2_lm_withdraw(struct gfs2_sbd *sdp, const char *fmt, ...);
++void gfs2_lm(struct gfs2_sbd *sdp, const char *fmt, ...);
++int gfs2_withdraw(struct gfs2_sbd *sdp);
+=20
+ #endif /* __UTIL_DOT_H__ */
 --=20
 2.25.1
 
