@@ -1,84 +1,84 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 79B661AD5F1
-	for <lists+cluster-devel@lfdr.de>; Fri, 17 Apr 2020 08:15:38 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 58DBD1AD78A
+	for <lists+cluster-devel@lfdr.de>; Fri, 17 Apr 2020 09:37:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1587104137;
+	s=mimecast20190719; t=1587109060;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=k2FsAc7M8uxjjCZ0zi9FKu2pZRiPikwPcgtHOBRsOuU=;
-	b=S6v613JRwSR0F0jwENy2U86xLLIzGnDcDwRndbpIjTAr5ixJAK1luTmPcS4m1zRgpIB2WL
-	So+80rIFMV/goUuy41llDIkr66O32vSbMS5JW1efbhhHhS5KmN3u0CLpSNrqtmez8zJcgE
-	MKEfU0NxcWltP5Td6U5n+C/6N51Xuvg=
+	 list-subscribe:list-post; bh=FiBK8aCtFJGIhDoOgWcjhOaSBgPjc38ccOAuZvc+380=;
+	b=Xvjg8UJgyV6OzVvQqFNuWu9qBiM8oc0i6WWpfEkKqUVbYsEjUc296FrjSfcuTQt2/Hl3Ds
+	DtcSVqay+AT7TRV+HnykRdIh0/p0dVQ/BOyDbqQ8KDpt2Xghmt5jX8AffPG02eHgDl5cto
+	l8crApqBlbLb4iVhRImhLlZEtrhdc2A=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-484-Xa1BqRrnOnaHwqaPY0jMCg-1; Fri, 17 Apr 2020 02:15:12 -0400
-X-MC-Unique: Xa1BqRrnOnaHwqaPY0jMCg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-415-JP5DPyQLMsOSEY5Menp2LQ-1; Fri, 17 Apr 2020 03:37:20 -0400
+X-MC-Unique: JP5DPyQLMsOSEY5Menp2LQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 58B1C1137840;
-	Fri, 17 Apr 2020 06:15:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF77E271A1;
-	Fri, 17 Apr 2020 06:15:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A974213F7;
+	Fri, 17 Apr 2020 07:37:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F4455D9E2;
+	Fri, 17 Apr 2020 07:37:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 133C14E44C;
-	Fri, 17 Apr 2020 06:15:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 037F01809567;
+	Fri, 17 Apr 2020 07:37:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03H6ETbE003386 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 17 Apr 2020 02:14:30 -0400
+	id 03H7b89B007751 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 17 Apr 2020 03:37:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D44BF2028CD5; Fri, 17 Apr 2020 06:14:29 +0000 (UTC)
+	id A75BE103F284; Fri, 17 Apr 2020 07:37:08 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF01A2028CD4
-	for <cluster-devel@redhat.com>; Fri, 17 Apr 2020 06:14:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A290F103F282
+	for <cluster-devel@redhat.com>; Fri, 17 Apr 2020 07:37:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E36CF185A78E
-	for <cluster-devel@redhat.com>; Fri, 17 Apr 2020 06:14:27 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5D818FF67E
+	for <cluster-devel@redhat.com>; Fri, 17 Apr 2020 07:37:05 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-470-Hv-SYkJyPAO6GiFTCc_rcg-1; Fri, 17 Apr 2020 02:14:14 -0400
-X-MC-Unique: Hv-SYkJyPAO6GiFTCc_rcg-1
-IronPort-SDR: HI5WWuo5peTaddgfpG9fGVbp3s0t2isHwz7+0NVwq8qG+6NhUlz8NB1chf/7GdmizZ9XksJMy7
-	RRSKThbqji7A==
+	us-mta-167-26nOOXrMNfSjcFs5AhFN6A-1; Fri, 17 Apr 2020 03:36:59 -0400
+X-MC-Unique: 26nOOXrMNfSjcFs5AhFN6A-1
+IronPort-SDR: YqZQjgpyLfIGzn9CTRAAiXm9lbUDgbLgq+v9btwBumjoAoBLP2VGtXJdJE/PF/t/DILBKUxpB8
+	gD+cHJh7UWwg==
 X-Amp-Result: UNKNOWN
 X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-	by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	16 Apr 2020 23:14:12 -0700
-IronPort-SDR: 5XOpxezwxZtYbhvla49yM5TRdAoBy+mLLq6D3BNQlaiWgB30+bHD4biM/BLY9iKXmUv8NBZo/2
-	hkExf8CecZqw==
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+	by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	17 Apr 2020 00:36:57 -0700
+IronPort-SDR: rLSy1FwlsTEll13YRbq9kk/qmaMudhVoSCb2LR6TQ7NT6TK8+NAVodCkvC0ZM3IcIAcWW5BzCU
+	sbmbdLW+Pzjw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,393,1580803200"; 
-	d="gz'50?scan'50,208,50";a="400927942"
+X-IronPort-AV: E=Sophos;i="5.72,394,1580803200"; 
+	d="gz'50?scan'50,208,50";a="246222555"
 Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
-	by orsmga004.jf.intel.com with ESMTP; 16 Apr 2020 23:14:10 -0700
+	by fmsmga008.fm.intel.com with ESMTP; 17 Apr 2020 00:36:55 -0700
 Received: from kbuild by lkp-server01 with local (Exim 4.89)
 	(envelope-from <lkp@intel.com>)
-	id 1jPKGQ-000AUT-7m; Fri, 17 Apr 2020 14:14:10 +0800
-Date: Fri, 17 Apr 2020 14:13:17 +0800
+	id 1jPLYU-0006yn-F3; Fri, 17 Apr 2020 15:36:54 +0800
+Date: Fri, 17 Apr 2020 15:36:24 +0800
 From: kbuild test robot <lkp@intel.com>
 To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <202004171415.lIL4nKyL%lkp@intel.com>
+Message-ID: <202004171521.Z9s8gKSV%lkp@intel.com>
 MIME-Version: 1.0
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, kbuild-all@lists.01.org
-Subject: [Cluster-devel] [gfs2:gfs2-iopen 7/12] fs/gfs2/inode.c:167:5:
- error: label 'fail_put' used but not defined
+Subject: [Cluster-devel] [gfs2:gfs2-iopen 12/12] fs/gfs2/util.c:126:3:
+ error: implicit declaration of function 'gfs2_glock_dq_wait';
+ did you mean 'gfs2_glock_nq_init'?
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,13 +92,13 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="Kj7319i9nmIyA2yE"
+Content-Type: multipart/mixed; boundary="6c2NcOVqGQ03X4Wi"
 Content-Disposition: inline
 
---Kj7319i9nmIyA2yE
+--6c2NcOVqGQ03X4Wi
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -106,15 +106,15 @@ Content-Transfer-Encoding: quoted-printable
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git=
  gfs2-iopen
 head:   c748e1ec9bd20d71265a148042f6bc97ffc5f343
-commit: 5e2ff0b932e982c85ae75fd6872d7252627be65b [7/12] gfs2: Move inode ge=
-neration number check into gfs2_inode_lookup
+commit: c748e1ec9bd20d71265a148042f6bc97ffc5f343 [12/12] gfs2: Remove unuse=
+d function gfs2_glock_dq_wait
 config: s390-defconfig (attached as .config)
 compiler: s390-linux-gcc (GCC) 9.3.0
 reproduce:
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/=
 make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
-        git checkout 5e2ff0b932e982c85ae75fd6872d7252627be65b
+        git checkout c748e1ec9bd20d71265a148042f6bc97ffc5f343
         # save the attached .config to linux build tree
         COMPILER_INSTALL_PATH=3D$HOME/0day GCC_VERSION=3D9.3.0 make.cross A=
 RCH=3Ds390=20
@@ -124,165 +124,296 @@ Reported-by: kbuild test robot <lkp@intel.com>
 
 All errors (new ones prefixed by >>):
 
-   fs/gfs2/inode.c: In function 'gfs2_inode_lookup':
->> fs/gfs2/inode.c:167:5: error: label 'fail_put' used but not defined
-     167 |     goto fail_put;
-         |     ^~~~
+   fs/gfs2/util.c: In function 'signal_our_withdraw':
+>> fs/gfs2/util.c:126:3: error: implicit declaration of function 'gfs2_gloc=
+k_dq_wait'; did you mean 'gfs2_glock_nq_init'? [-Werror=3Dimplicit-function=
+-declaration]
+     126 |   gfs2_glock_dq_wait(&sdp->sd_journal_gh);
+         |   ^~~~~~~~~~~~~~~~~~
+         |   gfs2_glock_nq_init
+   cc1: some warnings being treated as errors
 
-vim +/fail_put +167 fs/gfs2/inode.c
+vim +126 fs/gfs2/util.c
 
-   101=09
-   102=09/**
-   103=09 * gfs2_inode_lookup - Lookup an inode
-   104=09 * @sb: The super block
-   105=09 * @type: The type of the inode
-   106=09 * @no_addr: The inode number
-   107=09 * @no_formal_ino: The inode generation number
-   108=09 * @blktype: Requested block type (GFS2_BLKST_DINODE or GFS2_BLKST=
-_UNLINKED;
-   109=09 *           GFS2_BLKST_FREE to indicate not to verify)
-   110=09 *
-   111=09 * If @type is DT_UNKNOWN, the inode type is fetched from disk.
-   112=09 *
-   113=09 * If @blktype is anything other than GFS2_BLKST_FREE (which is us=
-ed as a
-   114=09 * placeholder because it doesn't otherwise make sense), the on-di=
-sk block type
-   115=09 * is verified to be @blktype.
-   116=09 *
-   117=09 * When @no_formal_ino is non-zero, this function will return ERR_=
-PTR(-ESTALE)
-   118=09 * if it detects that @no_formal_ino doesn't match the actual inod=
-e generation
-   119=09 * number.  However, it doesn't always know unless @type is DT_UNK=
-NOWN.
-   120=09 *
-   121=09 * Returns: A VFS inode, or an error
-   122=09 */
-   123=09
-   124=09struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned i=
-nt type,
-   125=09=09=09=09=09u64 no_addr, u64 no_formal_ino,
-   126=09=09=09=09=09unsigned int blktype)
-   127=09{
-   128=09=09struct inode *inode;
-   129=09=09struct gfs2_inode *ip;
-   130=09=09struct gfs2_glock *io_gl =3D NULL;
-   131=09=09struct gfs2_holder i_gh;
-   132=09=09int error;
-   133=09
-   134=09=09gfs2_holder_mark_uninitialized(&i_gh);
-   135=09=09inode =3D gfs2_iget(sb, no_addr);
-   136=09=09if (!inode)
-   137=09=09=09return ERR_PTR(-ENOMEM);
-   138=09
-   139=09=09ip =3D GFS2_I(inode);
-   140=09
-   141=09=09if (inode->i_state & I_NEW) {
-   142=09=09=09struct gfs2_sbd *sdp =3D GFS2_SB(inode);
-   143=09
-   144=09=09=09error =3D gfs2_glock_get(sdp, no_addr, &gfs2_inode_glops, CR=
-EATE, &ip->i_gl);
-   145=09=09=09if (unlikely(error))
-   146=09=09=09=09goto fail;
-   147=09=09=09flush_delayed_work(&ip->i_gl->gl_work);
-   148=09
-   149=09=09=09error =3D gfs2_glock_get(sdp, no_addr, &gfs2_iopen_glops, CR=
-EATE, &io_gl);
-   150=09=09=09if (unlikely(error))
-   151=09=09=09=09goto fail;
-   152=09
-   153=09=09=09if (type =3D=3D DT_UNKNOWN || blktype !=3D GFS2_BLKST_FREE) =
-{
-   154=09=09=09=09/*
-   155=09=09=09=09 * The GL_SKIP flag indicates to skip reading the inode
-   156=09=09=09=09 * block.  We read the inode with gfs2_inode_refresh
-   157=09=09=09=09 * after possibly checking the block type.
-   158=09=09=09=09 */
-   159=09=09=09=09error =3D gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE,
-   160=09=09=09=09=09=09=09   GL_SKIP, &i_gh);
-   161=09=09=09=09if (error)
-   162=09=09=09=09=09goto fail;
-   163=09
-   164=09=09=09=09error =3D -ESTALE;
-   165=09=09=09=09if (no_formal_ino &&
-   166=09=09=09=09    gfs2_inode_already_deleted(ip->i_gl, no_formal_ino))
- > 167=09=09=09=09=09goto fail_put;
-   168=09
-   169=09=09=09=09if (blktype !=3D GFS2_BLKST_FREE) {
-   170=09=09=09=09=09error =3D gfs2_check_blk_type(sdp, no_addr,
-   171=09=09=09=09=09=09=09=09    blktype);
-   172=09=09=09=09=09if (error)
-   173=09=09=09=09=09=09goto fail;
-   174=09=09=09=09}
-   175=09=09=09}
-   176=09
-   177=09=09=09glock_set_object(ip->i_gl, ip);
-   178=09=09=09set_bit(GIF_INVALID, &ip->i_flags);
-   179=09=09=09error =3D gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, =
-&ip->i_iopen_gh);
-   180=09=09=09if (unlikely(error))
-   181=09=09=09=09goto fail;
-   182=09=09=09cancel_delayed_work_sync(&ip->i_iopen_gh.gh_gl->gl_delete);
-   183=09=09=09glock_set_object(ip->i_iopen_gh.gh_gl, ip);
-   184=09=09=09gfs2_glock_put(io_gl);
-   185=09=09=09io_gl =3D NULL;
-   186=09
-   187=09=09=09/* Lowest possible timestamp; will be overwritten in gfs2_di=
-node_in. */
-   188=09=09=09inode->i_atime.tv_sec =3D 1LL << (8 * sizeof(inode->i_atime.=
-tv_sec) - 1);
-   189=09=09=09inode->i_atime.tv_nsec =3D 0;
-   190=09
-   191=09=09=09if (type =3D=3D DT_UNKNOWN) {
-   192=09=09=09=09/* Inode glock must be locked already */
-   193=09=09=09=09error =3D gfs2_inode_refresh(GFS2_I(inode));
-   194=09=09=09=09if (error)
-   195=09=09=09=09=09goto fail;
-   196=09=09=09} else {
-   197=09=09=09=09ip->i_no_formal_ino =3D no_formal_ino;
-   198=09=09=09=09inode->i_mode =3D DT2IF(type);
-   199=09=09=09}
-   200=09
-   201=09=09=09if (gfs2_holder_initialized(&i_gh))
-   202=09=09=09=09gfs2_glock_dq_uninit(&i_gh);
-   203=09
-   204=09=09=09gfs2_set_iop(inode);
-   205=09=09}
-   206=09
-   207=09=09if (no_formal_ino && ip->i_no_formal_ino &&
-   208=09=09    no_formal_ino !=3D ip->i_no_formal_ino) {
-   209=09=09=09if (inode->i_state & I_NEW)
-   210=09=09=09=09goto fail;
-   211=09=09=09iput(inode);
-   212=09=09=09return ERR_PTR(-ESTALE);
-   213=09=09}
-   214=09
-   215=09=09if (inode->i_state & I_NEW)
-   216=09=09=09unlock_new_inode(inode);
-   217=09
-   218=09=09return inode;
-   219=09
-   220=09fail:
-   221=09=09if (io_gl)
-   222=09=09=09gfs2_glock_put(io_gl);
-   223=09=09if (gfs2_holder_initialized(&i_gh))
-   224=09=09=09gfs2_glock_dq_uninit(&i_gh);
-   225=09=09iget_failed(inode);
-   226=09=09return ERR_PTR(error);
-   227=09}
-   228=09
+0d91061a372671a Bob Peterson 2019-02-18   92 =20
+601ef0d52e96175 Bob Peterson 2020-01-28   93  static void signal_our_withdr=
+aw(struct gfs2_sbd *sdp)
+601ef0d52e96175 Bob Peterson 2020-01-28   94  {
+601ef0d52e96175 Bob Peterson 2020-01-28   95  =09struct gfs2_glock *gl =3D =
+sdp->sd_live_gh.gh_gl;
+601ef0d52e96175 Bob Peterson 2020-01-28   96  =09struct inode *inode =3D sd=
+p->sd_jdesc->jd_inode;
+601ef0d52e96175 Bob Peterson 2020-01-28   97  =09struct gfs2_inode *ip =3D =
+GFS2_I(inode);
+601ef0d52e96175 Bob Peterson 2020-01-28   98  =09u64 no_formal_ino =3D ip->=
+i_no_formal_ino;
+601ef0d52e96175 Bob Peterson 2020-01-28   99  =09int ret =3D 0;
+601ef0d52e96175 Bob Peterson 2020-01-28  100  =09int tries;
+601ef0d52e96175 Bob Peterson 2020-01-28  101 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  102  =09if (test_bit(SDF_NORECOVER=
+Y, &sdp->sd_flags))
+601ef0d52e96175 Bob Peterson 2020-01-28  103  =09=09return;
+601ef0d52e96175 Bob Peterson 2020-01-28  104 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  105  =09/* Prevent any glock dq un=
+til withdraw recovery is complete */
+601ef0d52e96175 Bob Peterson 2020-01-28  106  =09set_bit(SDF_WITHDRAW_RECOV=
+ERY, &sdp->sd_flags);
+601ef0d52e96175 Bob Peterson 2020-01-28  107  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  108  =09 * Don't tell dlm we're ba=
+iling until we have no more buffers in the
+601ef0d52e96175 Bob Peterson 2020-01-28  109  =09 * wind. If journal had an=
+ IO error, the log code should just purge
+601ef0d52e96175 Bob Peterson 2020-01-28  110  =09 * the outstanding buffers=
+ rather than submitting new IO. Making the
+601ef0d52e96175 Bob Peterson 2020-01-28  111  =09 * file system read-only w=
+ill flush the journal, etc.
+601ef0d52e96175 Bob Peterson 2020-01-28  112  =09 *
+601ef0d52e96175 Bob Peterson 2020-01-28  113  =09 * During a normal unmount=
+, gfs2_make_fs_ro calls gfs2_log_shutdown
+601ef0d52e96175 Bob Peterson 2020-01-28  114  =09 * which clears SDF_JOURNA=
+L_LIVE. In a withdraw, we must not write
+601ef0d52e96175 Bob Peterson 2020-01-28  115  =09 * any UNMOUNT log header,=
+ so we can't call gfs2_log_shutdown, and
+601ef0d52e96175 Bob Peterson 2020-01-28  116  =09 * therefore we need to cl=
+ear SDF_JOURNAL_LIVE manually.
+601ef0d52e96175 Bob Peterson 2020-01-28  117  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  118  =09clear_bit(SDF_JOURNAL_LIVE=
+, &sdp->sd_flags);
+601ef0d52e96175 Bob Peterson 2020-01-28  119  =09if (!sb_rdonly(sdp->sd_vfs=
+))
+601ef0d52e96175 Bob Peterson 2020-01-28  120  =09=09ret =3D gfs2_make_fs_ro=
+(sdp);
+601ef0d52e96175 Bob Peterson 2020-01-28  121 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  122  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  123  =09 * Drop the glock for our =
+journal so another node can recover it.
+601ef0d52e96175 Bob Peterson 2020-01-28  124  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  125  =09if (gfs2_holder_initialize=
+d(&sdp->sd_journal_gh)) {
+601ef0d52e96175 Bob Peterson 2020-01-28 @126  =09=09gfs2_glock_dq_wait(&sdp=
+->sd_journal_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  127  =09=09gfs2_holder_uninit(&sdp=
+->sd_journal_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  128  =09}
+601ef0d52e96175 Bob Peterson 2020-01-28  129  =09sdp->sd_jinode_gh.gh_flags=
+ |=3D GL_NOCACHE;
+601ef0d52e96175 Bob Peterson 2020-01-28  130  =09gfs2_glock_dq(&sdp->sd_jin=
+ode_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  131  =09if (test_bit(SDF_FS_FROZEN=
+, &sdp->sd_flags)) {
+601ef0d52e96175 Bob Peterson 2020-01-28  132  =09=09/* Make sure gfs2_unfre=
+eze works if partially-frozen */
+601ef0d52e96175 Bob Peterson 2020-01-28  133  =09=09flush_workqueue(gfs2_fr=
+eeze_wq);
+601ef0d52e96175 Bob Peterson 2020-01-28  134  =09=09atomic_set(&sdp->sd_fre=
+eze_state, SFS_FROZEN);
+601ef0d52e96175 Bob Peterson 2020-01-28  135  =09=09thaw_super(sdp->sd_vfs)=
+;
+601ef0d52e96175 Bob Peterson 2020-01-28  136  =09} else {
+601ef0d52e96175 Bob Peterson 2020-01-28  137  =09=09wait_on_bit(&gl->gl_fla=
+gs, GLF_DEMOTE, TASK_UNINTERRUPTIBLE);
+601ef0d52e96175 Bob Peterson 2020-01-28  138  =09}
+601ef0d52e96175 Bob Peterson 2020-01-28  139 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  140  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  141  =09 * holder_uninit to force =
+glock_put, to force dlm to let go
+601ef0d52e96175 Bob Peterson 2020-01-28  142  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  143  =09gfs2_holder_uninit(&sdp->s=
+d_jinode_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  144 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  145  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  146  =09 * Note: We need to be car=
+eful here:
+601ef0d52e96175 Bob Peterson 2020-01-28  147  =09 * Our iput of jd_inode wi=
+ll evict it. The evict will dequeue its
+601ef0d52e96175 Bob Peterson 2020-01-28  148  =09 * glock, but the glock dq=
+ will wait for the withdraw unless we have
+601ef0d52e96175 Bob Peterson 2020-01-28  149  =09 * exception code in glock=
+_dq.
+601ef0d52e96175 Bob Peterson 2020-01-28  150  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  151  =09iput(inode);
+601ef0d52e96175 Bob Peterson 2020-01-28  152  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  153  =09 * Wait until the journal =
+inode's glock is freed. This allows try locks
+601ef0d52e96175 Bob Peterson 2020-01-28  154  =09 * on other nodes to be su=
+ccessful, otherwise we remain the owner of
+601ef0d52e96175 Bob Peterson 2020-01-28  155  =09 * the glock as far as dlm=
+ is concerned.
+601ef0d52e96175 Bob Peterson 2020-01-28  156  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  157  =09if (gl->gl_ops->go_free) {
+601ef0d52e96175 Bob Peterson 2020-01-28  158  =09=09set_bit(GLF_FREEING, &g=
+l->gl_flags);
+601ef0d52e96175 Bob Peterson 2020-01-28  159  =09=09wait_on_bit(&gl->gl_fla=
+gs, GLF_FREEING, TASK_UNINTERRUPTIBLE);
+601ef0d52e96175 Bob Peterson 2020-01-28  160  =09}
+601ef0d52e96175 Bob Peterson 2020-01-28  161 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  162  =09if (sdp->sd_lockstruct.ls_=
+ops->lm_lock =3D=3D NULL) { /* lock_nolock */
+601ef0d52e96175 Bob Peterson 2020-01-28  163  =09=09clear_bit(SDF_WITHDRAW_=
+RECOVERY, &sdp->sd_flags);
+601ef0d52e96175 Bob Peterson 2020-01-28  164  =09=09goto skip_recovery;
+601ef0d52e96175 Bob Peterson 2020-01-28  165  =09}
+601ef0d52e96175 Bob Peterson 2020-01-28  166  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  167  =09 * Dequeue the "live" gloc=
+k, but keep a reference so it's never freed.
+601ef0d52e96175 Bob Peterson 2020-01-28  168  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  169  =09gfs2_glock_hold(gl);
+601ef0d52e96175 Bob Peterson 2020-01-28  170  =09gfs2_glock_dq_wait(&sdp->s=
+d_live_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  171  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  172  =09 * We enqueue the "live" g=
+lock in EX so that all other nodes
+601ef0d52e96175 Bob Peterson 2020-01-28  173  =09 * get a demote request an=
+d act on it. We don't really want the
+601ef0d52e96175 Bob Peterson 2020-01-28  174  =09 * lock in EX, so we send =
+a "try" lock with 1CB to produce a callback.
+601ef0d52e96175 Bob Peterson 2020-01-28  175  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  176  =09fs_warn(sdp, "Requesting r=
+ecovery of jid %d.\n",
+601ef0d52e96175 Bob Peterson 2020-01-28  177  =09=09sdp->sd_lockstruct.ls_j=
+id);
+601ef0d52e96175 Bob Peterson 2020-01-28  178  =09gfs2_holder_reinit(LM_ST_E=
+XCLUSIVE, LM_FLAG_TRY_1CB | LM_FLAG_NOEXP,
+601ef0d52e96175 Bob Peterson 2020-01-28  179  =09=09=09   &sdp->sd_live_gh)=
+;
+601ef0d52e96175 Bob Peterson 2020-01-28  180  =09msleep(GL_GLOCK_MAX_HOLD);
+601ef0d52e96175 Bob Peterson 2020-01-28  181  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  182  =09 * This will likely fail i=
+n a cluster, but succeed standalone:
+601ef0d52e96175 Bob Peterson 2020-01-28  183  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  184  =09ret =3D gfs2_glock_nq(&sdp=
+->sd_live_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  185 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  186  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  187  =09 * If we actually got the =
+"live" lock in EX mode, there are no other
+601ef0d52e96175 Bob Peterson 2020-01-28  188  =09 * nodes available to repl=
+ay our journal. So we try to replay it
+601ef0d52e96175 Bob Peterson 2020-01-28  189  =09 * ourselves. We hold the =
+"live" glock to prevent other mounters
+601ef0d52e96175 Bob Peterson 2020-01-28  190  =09 * during recovery, then j=
+ust dequeue it and reacquire it in our
+601ef0d52e96175 Bob Peterson 2020-01-28  191  =09 * normal SH mode. Just in=
+ case the problem that caused us to
+601ef0d52e96175 Bob Peterson 2020-01-28  192  =09 * withdraw prevents us fr=
+om recovering our journal (e.g. io errors
+601ef0d52e96175 Bob Peterson 2020-01-28  193  =09 * and such) we still chec=
+k if the journal is clean before proceeding
+601ef0d52e96175 Bob Peterson 2020-01-28  194  =09 * but we may wait forever=
+ until another mounter does the recovery.
+601ef0d52e96175 Bob Peterson 2020-01-28  195  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  196  =09if (ret =3D=3D 0) {
+601ef0d52e96175 Bob Peterson 2020-01-28  197  =09=09fs_warn(sdp, "No other =
+mounters found. Trying to recover our "
+601ef0d52e96175 Bob Peterson 2020-01-28  198  =09=09=09"own journal jid %d.=
+\n", sdp->sd_lockstruct.ls_jid);
+601ef0d52e96175 Bob Peterson 2020-01-28  199  =09=09if (gfs2_recover_journa=
+l(sdp->sd_jdesc, 1))
+601ef0d52e96175 Bob Peterson 2020-01-28  200  =09=09=09fs_warn(sdp, "Unable=
+ to recover our journal jid %d.\n",
+601ef0d52e96175 Bob Peterson 2020-01-28  201  =09=09=09=09sdp->sd_lockstruc=
+t.ls_jid);
+601ef0d52e96175 Bob Peterson 2020-01-28  202  =09=09gfs2_glock_dq_wait(&sdp=
+->sd_live_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  203  =09=09gfs2_holder_reinit(LM_S=
+T_SHARED, LM_FLAG_NOEXP | GL_EXACT,
+601ef0d52e96175 Bob Peterson 2020-01-28  204  =09=09=09=09   &sdp->sd_live_=
+gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  205  =09=09gfs2_glock_nq(&sdp->sd_=
+live_gh);
+601ef0d52e96175 Bob Peterson 2020-01-28  206  =09}
+601ef0d52e96175 Bob Peterson 2020-01-28  207 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  208  =09gfs2_glock_queue_put(gl); =
+/* drop the extra reference we acquired */
+601ef0d52e96175 Bob Peterson 2020-01-28  209  =09clear_bit(SDF_WITHDRAW_REC=
+OVERY, &sdp->sd_flags);
+601ef0d52e96175 Bob Peterson 2020-01-28  210 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  211  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  212  =09 * At this point our journ=
+al is evicted, so we need to get a new inode
+601ef0d52e96175 Bob Peterson 2020-01-28  213  =09 * for it. Once done, we n=
+eed to call gfs2_find_jhead which
+601ef0d52e96175 Bob Peterson 2020-01-28  214  =09 * calls gfs2_map_journal_=
+extents to map it for us again.
+601ef0d52e96175 Bob Peterson 2020-01-28  215  =09 *
+601ef0d52e96175 Bob Peterson 2020-01-28  216  =09 * Note that we don't real=
+ly want it to look up a FREE block. The
+601ef0d52e96175 Bob Peterson 2020-01-28  217  =09 * GFS2_BLKST_FREE simply =
+overrides a block check in gfs2_inode_lookup
+601ef0d52e96175 Bob Peterson 2020-01-28  218  =09 * which would otherwise f=
+ail because it requires grabbing an rgrp
+601ef0d52e96175 Bob Peterson 2020-01-28  219  =09 * glock, which would fail=
+ with -EIO because we're withdrawing.
+601ef0d52e96175 Bob Peterson 2020-01-28  220  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  221  =09inode =3D gfs2_inode_looku=
+p(sdp->sd_vfs, DT_UNKNOWN,
+601ef0d52e96175 Bob Peterson 2020-01-28  222  =09=09=09=09  sdp->sd_jdesc->=
+jd_no_addr, no_formal_ino,
+601ef0d52e96175 Bob Peterson 2020-01-28  223  =09=09=09=09  GFS2_BLKST_FREE=
+);
+601ef0d52e96175 Bob Peterson 2020-01-28  224  =09if (IS_ERR(inode)) {
+601ef0d52e96175 Bob Peterson 2020-01-28  225  =09=09fs_warn(sdp, "Reprocess=
+ing of jid %d failed with %ld.\n",
+601ef0d52e96175 Bob Peterson 2020-01-28  226  =09=09=09sdp->sd_lockstruct.l=
+s_jid, PTR_ERR(inode));
+601ef0d52e96175 Bob Peterson 2020-01-28  227  =09=09goto skip_recovery;
+601ef0d52e96175 Bob Peterson 2020-01-28  228  =09}
+601ef0d52e96175 Bob Peterson 2020-01-28  229  =09sdp->sd_jdesc->jd_inode =
+=3D inode;
+601ef0d52e96175 Bob Peterson 2020-01-28  230 =20
+601ef0d52e96175 Bob Peterson 2020-01-28  231  =09/*
+601ef0d52e96175 Bob Peterson 2020-01-28  232  =09 * Now wait until recovery=
+ is complete.
+601ef0d52e96175 Bob Peterson 2020-01-28  233  =09 */
+601ef0d52e96175 Bob Peterson 2020-01-28  234  =09for (tries =3D 0; tries < =
+10; tries++) {
+7d9f9249580e05a Bob Peterson 2019-02-18  235  =09=09ret =3D check_journal_c=
+lean(sdp, sdp->sd_jdesc, false);
+601ef0d52e96175 Bob Peterson 2020-01-28  236  =09=09if (!ret)
+601ef0d52e96175 Bob Peterson 2020-01-28  237  =09=09=09break;
+601ef0d52e96175 Bob Peterson 2020-01-28  238  =09=09msleep(HZ);
+601ef0d52e96175 Bob Peterson 2020-01-28  239  =09=09fs_warn(sdp, "Waiting f=
+or journal recovery jid %d.\n",
+601ef0d52e96175 Bob Peterson 2020-01-28  240  =09=09=09sdp->sd_lockstruct.l=
+s_jid);
+601ef0d52e96175 Bob Peterson 2020-01-28  241  =09}
+601ef0d52e96175 Bob Peterson 2020-01-28  242  skip_recovery:
+601ef0d52e96175 Bob Peterson 2020-01-28  243  =09if (!ret)
+601ef0d52e96175 Bob Peterson 2020-01-28  244  =09=09fs_warn(sdp, "Journal r=
+ecovery complete for jid %d.\n",
+601ef0d52e96175 Bob Peterson 2020-01-28  245  =09=09=09sdp->sd_lockstruct.l=
+s_jid);
+601ef0d52e96175 Bob Peterson 2020-01-28  246  =09else
+601ef0d52e96175 Bob Peterson 2020-01-28  247  =09=09fs_warn(sdp, "Journal r=
+ecovery skipped for %d until next "
+601ef0d52e96175 Bob Peterson 2020-01-28  248  =09=09=09"mount.\n", sdp->sd_=
+lockstruct.ls_jid);
+601ef0d52e96175 Bob Peterson 2020-01-28  249  =09fs_warn(sdp, "Glock dequeu=
+es delayed: %lu\n", sdp->sd_glock_dqs_held);
+601ef0d52e96175 Bob Peterson 2020-01-28  250  =09sdp->sd_glock_dqs_held =3D=
+ 0;
+601ef0d52e96175 Bob Peterson 2020-01-28  251  =09wake_up_bit(&sdp->sd_flags=
+, SDF_WITHDRAW_RECOVERY);
+601ef0d52e96175 Bob Peterson 2020-01-28  252  }
+601ef0d52e96175 Bob Peterson 2020-01-28  253 =20
+
+:::::: The code at line 126 was first introduced by commit
+:::::: 601ef0d52e9617588fcff3df26953592f2eb44ac gfs2: Force withdraw to rep=
+lay journals and wait for it to finish
+
+:::::: TO: Bob Peterson <rpeterso@redhat.com>
+:::::: CC: Bob Peterson <rpeterso@redhat.com>
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---Kj7319i9nmIyA2yE
+--6c2NcOVqGQ03X4Wi
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICPBBmV4AAy5jb25maWcAlDzLctw4kvf+igr1ZebQbj1stb0bOoAkWIUukqAJsKTShSHLZbei
+H4sICJRXmV4AAy5jb25maWcAlDzLctw4kvf+igr1ZebQbj1stb0bOoAkWIUukqAJsKTShSHLZbei
 9XBIpd1xf/1mAnwkQJClnZhoqzKTQCKBfCLJX3/5dcFe908PN/u725v7+5+L77vH3fPNfvd18e3u
 fvffi0QuCqkXPBH6HRBnd4+v//n95ezT8eLDuz/eHf/2fHuyWO+eH3f3i/jp8dvd91d4+u7p8Zdf
 f4H//wrAhx8w0PN/LfCh3+7x+d++394u/rWM438vPr07e3cMhLEsUrFs4rgRqgHMxc8OBD+aDa+U
@@ -622,5 +753,5 @@ SbfDcsj25dQtkrWfbdGbW3V1MFb61NDxiIjaVv4wgqIhkrlLAuWWQePVtcYoXuwTomywpGhbogys
 xKoLSxoPKWFngu3QFDW4CMhQ/pEJpxw6JTaNcZdAtVduRjaStoyNvDyXdQwrLERTzV81s3UrBQMf
 nIWqfLjEOQ74qIipP3auQWumHu/IKpLZPUdeQp5LY6tQBv/72R68lZiXI8sA4uCE2De6JaSjD8Gv
 TSMkgcCRponR0yIICVR3cv8XKEvqATI6AQA=
---Kj7319i9nmIyA2yE--
+--6c2NcOVqGQ03X4Wi--
 
