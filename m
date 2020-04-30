@@ -1,55 +1,78 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id A8BEF1BE02B
-	for <lists+cluster-devel@lfdr.de>; Wed, 29 Apr 2020 16:06:40 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 7FB641BF308
+	for <lists+cluster-devel@lfdr.de>; Thu, 30 Apr 2020 10:37:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1588169199;
+	s=mimecast20190719; t=1588235831;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=SK32gLNRx01CmvMLyms+FHnCFrzAAxD6ALoF9C/o1/8=;
-	b=dp1j/s6jwHzQZKRwmwdvO0g/tAsNRETt4a5P3Xo5vWHyIGf31JnL7Gjw4E2ObRLeMcjRDn
-	WIf/MP6Mj/7ZZozPfCIb7JnWDaC2jauzwslQtKULavOgHXBp2/e6DKILiYYY8QgdyiAaVY
-	Gr2KBHTCkwDgBecFPHFo+0NeoyqOjyY=
+	bh=i34QmeB1UoKsue+Oc1iLOj14Fbfd4rmGBs8/5YzE8j4=;
+	b=alTXh2E0V+MT04G4M1BxfEJrrMbedhnZ/MB1k/oPCVqEArcVwUNLTIkV8g+BqurLyBgGe+
+	glgQycCfkWLc7EcnV6sZVyntSK4s89ByaP/OqldH5wfrEkZYLXZrKCHmwNRaxIyyq19OEr
+	aSGpBsMzznzbClM1dhLDryuRK7fTUDI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-498-xbyB5OxyODayn37RS3et9g-1; Wed, 29 Apr 2020 10:06:37 -0400
-X-MC-Unique: xbyB5OxyODayn37RS3et9g-1
+ us-mta-264-9eYsH5DJPH2Rvc21kyKB8A-1; Thu, 30 Apr 2020 04:37:09 -0400
+X-MC-Unique: 9eYsH5DJPH2Rvc21kyKB8A-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C103718FF663;
-	Wed, 29 Apr 2020 14:06:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 064B55D70B;
-	Wed, 29 Apr 2020 14:06:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E8178735C0;
+	Thu, 30 Apr 2020 08:37:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A0DEF5EDF1;
+	Thu, 30 Apr 2020 08:37:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D0151809542;
-	Wed, 29 Apr 2020 14:06:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B2E384E982;
+	Thu, 30 Apr 2020 08:37:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03TE6S7J008226 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 29 Apr 2020 10:06:28 -0400
+	id 03U2hbgn001935 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 29 Apr 2020 22:43:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9CD9F1002388; Wed, 29 Apr 2020 14:06:28 +0000 (UTC)
+	id 329452157F23; Thu, 30 Apr 2020 02:43:37 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.home.com (ovpn-114-63.ams2.redhat.com [10.36.114.63])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B23AE1001281;
-	Wed, 29 Apr 2020 14:06:24 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: cluster-devel@redhat.com
-Date: Wed, 29 Apr 2020 16:06:23 +0200
-Message-Id: <20200429140623.236426-1-agruenba@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E99C2156A3B
+	for <cluster-devel@redhat.com>; Thu, 30 Apr 2020 02:43:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 016148007C8
+	for <cluster-devel@redhat.com>; Thu, 30 Apr 2020 02:43:35 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-59-QeneQ-VMMie3lNB7-4lRhg-1; Wed, 29 Apr 2020 22:43:32 -0400
+X-MC-Unique: QeneQ-VMMie3lNB7-4lRhg-1
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
+	by Forcepoint Email with ESMTP id 68B728F3430251F25FA2;
+	Thu, 30 Apr 2020 10:43:25 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+	DGGEMS407-HUB.china.huawei.com (10.3.19.207) with Microsoft SMTP Server
+	id 14.3.487.0; Thu, 30 Apr 2020 10:43:17 +0800
+From: Zou Wei <zou_wei@huawei.com>
+To: <ccaulfie@redhat.com>, <teigland@redhat.com>
+Date: Thu, 30 Apr 2020 10:49:32 +0800
+Message-ID: <1588214972-50988-1-git-send-email-zou_wei@huawei.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Originating-IP: [10.175.103.112]
+X-CFilter-Loop: Reflected
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 03U2hbgn001935
 X-loop: cluster-devel@redhat.com
-Cc: stable@vger.kernel.org
-Subject: [Cluster-devel] [PATCH] gfs2: More gfs2_find_jhead fixes
+X-Mailman-Approved-At: Thu, 30 Apr 2020 04:36:57 -0400
+Cc: cluster-devel@redhat.com, Zou Wei <zou_wei@huawei.com>,
+	linux-kernel@vger.kernel.org
+Subject: [Cluster-devel] [PATCH -next] dlm: Remove unneeded semicolon
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,91 +89,34 @@ Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-It turns out that when extending an existing bio, gfs2_find_jhead fails to
-check if the block number is consecutive, which leads to incorrect reads fo=
-r
-fragmented journals.
+Fixes coccicheck warning:
 
-In addition, limit the maximum bio size to an arbitrary value of 2 megabyte=
-s:
-since commit 07173c3ec276 ("block: enable multipage bvecs"), if we just kee=
-p
-adding pages until bio_add_page fails, bios will grow much larger than usef=
-ul,
-which pins more memory than necessary with barely any additional performanc=
-e
-gains.
+fs/dlm/rcom.c:566:2-3: Unneeded semicolon
 
-Fixes: f4686c26ecc3 ("gfs2: read journal in large chunks")
-Cc: stable@vger.kernel.org # v5.2+
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zou Wei <zou_wei@huawei.com>
 ---
- fs/gfs2/lops.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ fs/dlm/rcom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
-index 5ea96757afc4..48b54ec1c793 100644
---- a/fs/gfs2/lops.c
-+++ b/fs/gfs2/lops.c
-@@ -263,7 +263,7 @@ static struct bio *gfs2_log_alloc_bio(struct gfs2_sbd *=
-sdp, u64 blkno,
- =09struct super_block *sb =3D sdp->sd_vfs;
- =09struct bio *bio =3D bio_alloc(GFP_NOIO, BIO_MAX_PAGES);
+diff --git a/fs/dlm/rcom.c b/fs/dlm/rcom.c
+index e3d9f72..4daf5dc 100644
+--- a/fs/dlm/rcom.c
++++ b/fs/dlm/rcom.c
+@@ -563,7 +563,7 @@ void dlm_receive_rcom(struct dlm_ls *ls, struct dlm_rco=
+m *rc, int nodeid)
+ =09=09lock =3D 1;
+ =09=09reply =3D 1;
+ =09=09break;
+-=09};
++=09}
 =20
--=09bio->bi_iter.bi_sector =3D blkno << (sb->s_blocksize_bits - 9);
-+=09bio->bi_iter.bi_sector =3D blkno << sdp->sd_fsb2bb_shift;
- =09bio_set_dev(bio, sb->s_bdev);
- =09bio->bi_end_io =3D end_io;
- =09bio->bi_private =3D sdp;
-@@ -509,7 +509,7 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_=
-log_header_host *head,
- =09unsigned int bsize =3D sdp->sd_sb.sb_bsize, off;
- =09unsigned int bsize_shift =3D sdp->sd_sb.sb_bsize_shift;
- =09unsigned int shift =3D PAGE_SHIFT - bsize_shift;
--=09unsigned int readahead_blocks =3D BIO_MAX_PAGES << shift;
-+=09unsigned int max_bio_size =3D 2 * 1024 * 1024;
- =09struct gfs2_journal_extent *je;
- =09int sz, ret =3D 0;
- =09struct bio *bio =3D NULL;
-@@ -537,12 +537,17 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs=
-2_log_header_host *head,
- =09=09=09=09off =3D 0;
- =09=09=09}
-=20
--=09=09=09if (!bio || (bio_chained && !off)) {
-+=09=09=09if (!bio || (bio_chained && !off) ||
-+=09=09=09    bio->bi_iter.bi_size >=3D max_bio_size) {
- =09=09=09=09/* start new bio */
- =09=09=09} else {
--=09=09=09=09sz =3D bio_add_page(bio, page, bsize, off);
--=09=09=09=09if (sz =3D=3D bsize)
--=09=09=09=09=09goto block_added;
-+=09=09=09=09sector_t sector =3D dblock << sdp->sd_fsb2bb_shift;
-+
-+=09=09=09=09if (bio_end_sector(bio) =3D=3D sector) {
-+=09=09=09=09=09sz =3D bio_add_page(bio, page, bsize, off);
-+=09=09=09=09=09if (sz =3D=3D bsize)
-+=09=09=09=09=09=09goto block_added;
-+=09=09=09=09}
- =09=09=09=09if (off) {
- =09=09=09=09=09unsigned int blocks =3D
- =09=09=09=09=09=09(PAGE_SIZE - off) >> bsize_shift;
-@@ -568,7 +573,7 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_=
-log_header_host *head,
- =09=09=09off +=3D bsize;
- =09=09=09if (off =3D=3D PAGE_SIZE)
- =09=09=09=09page =3D NULL;
--=09=09=09if (blocks_submitted < blocks_read + readahead_blocks) {
-+=09=09=09if (blocks_submitted < 2 * max_bio_size >> bsize_shift) {
- =09=09=09=09/* Keep at least one bio in flight */
- =09=09=09=09continue;
- =09=09=09}
-
-base-commit: fbe051ea4adf66950e2f23e71ace8eeb4e0e1c73
-prerequisite-patch-id: f37202c2597b647c19a42736cfec807040560d9b
+ =09spin_lock(&ls->ls_recover_lock);
+ =09status =3D ls->ls_recover_status;
 --=20
-2.25.3
+2.6.2
+
 
