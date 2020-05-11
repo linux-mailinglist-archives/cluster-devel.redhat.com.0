@@ -1,84 +1,55 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 946E31CDB5A
-	for <lists+cluster-devel@lfdr.de>; Mon, 11 May 2020 15:37:59 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 681951CDD6C
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 May 2020 16:41:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589204278;
+	s=mimecast20190719; t=1589208103;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=iQJ0NFmWkNmgKs1GHRIZz2yMLqa3G7AY1zZzomY3aY8=;
-	b=LgkzS0yFaV3IX2JQGTiblpUY9XlJR0GiMlpbSIDgzA42p7EWuwCbDT4D50UQvR8iEYpkwz
-	tKztP+Ar8w22Cdxnza5Bl5OUM4ZUueNhzclUAWsOm6K8YADArxd4tlEWED1xytzQDV9HaO
-	k6dxYayavi5DBYtNNUHI5l9VqnAOU2U=
+	bh=W2OH2YEbHGr2XYbLdvmFB5JvgbEVhJKAJ4dSXIDciJQ=;
+	b=DzWlNrvD7hbjVj7H+XGQp7/Zkl/APOMC+jNLkXS6tDdxNqMJuDZGqOVK6rCmleQTl+FPYb
+	l2orACcRU5D+t5ADe9Cf7Yl+sTTLROx/ZtsaB27NGQ49PVveNMPIsplYskJtxEeYhiXPVM
+	OsOH1cRWGUbdWhEt3dtZF3qEwFoY5Jg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-371-Mo3vDXqdNIqRFSxbZNAqVw-1; Mon, 11 May 2020 09:37:56 -0400
-X-MC-Unique: Mo3vDXqdNIqRFSxbZNAqVw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-107-jOOjqf3tO16GNT8flOc7uA-1; Mon, 11 May 2020 10:41:40 -0400
+X-MC-Unique: jOOjqf3tO16GNT8flOc7uA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EDECC835B42;
-	Mon, 11 May 2020 13:37:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 885E01002382;
-	Mon, 11 May 2020 13:37:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F066B91164;
+	Mon, 11 May 2020 14:41:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DE5742E17F;
+	Mon, 11 May 2020 14:41:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E07954E9E6;
-	Mon, 11 May 2020 13:37:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 37BF81809547;
+	Mon, 11 May 2020 14:41:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04BDbkPq000491 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 11 May 2020 09:37:46 -0400
+	id 04BEfWTJ005575 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 11 May 2020 10:41:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E4D63108FE5B; Mon, 11 May 2020 13:37:45 +0000 (UTC)
+	id F189D60CD1; Mon, 11 May 2020 14:41:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E088010F1CBA
-	for <cluster-devel@redhat.com>; Mon, 11 May 2020 13:37:43 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 254D88001E9
-	for <cluster-devel@redhat.com>; Mon, 11 May 2020 13:37:43 +0000 (UTC)
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
-	[216.71.145.142]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-45-I1mBgPDQOQeghn58SGPYvQ-1; Mon, 11 May 2020 09:37:37 -0400
-X-MC-Unique: I1mBgPDQOQeghn58SGPYvQ-1
-IronPort-SDR: LlhoiyEo63qszRUdDCnZwRokjmpdLwgJyc36ymCUY65/pVhvwl350/d8CULPhJocqxhoj7U04a
-	gYpy7dx4zMayMaQs7YUHyRcHd+x+Kx9dArn2xlsJm9/p0OmR95GoqsVJpc2N0QvHrVZdjqN34Z
-	L1AG2fiRjSnU0E0g7r5aSe13IwE7Ns3jd6yorVXEL+2MN2jWlvAvQYWIaNo+rHO4juyvgtAU2V
-	ruemZeAQstijpObHW8f3BwHBCTZqyzmET6mpr0WKfmTHU1A6lqgg24hpJ73zdtBbi2Ui4C470w
-	Psc=
-X-SBRS: 2.7
-X-MesageID: 17480251
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,380,1583211600"; d="scan'208";a="17480251"
-To: Christine Caulfield <ccaulfie@redhat.com>, David Teigland
-	<teigland@redhat.com>
-References: <20200429121541.30802-1-ross.lagerwall@citrix.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Message-ID: <15c5ba2e-20eb-9e3b-6265-f71b06f891e6@citrix.com>
-Date: Mon, 11 May 2020 14:36:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.4.1
+Received: from cicero.redhat.com (unknown [10.33.36.212])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DB0F60BF4
+	for <cluster-devel@redhat.com>; Mon, 11 May 2020 14:41:28 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Mon, 11 May 2020 15:41:20 +0100
+Message-Id: <20200511144125.350891-1-anprice@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200429121541.30802-1-ross.lagerwall@citrix.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, Mark.Syms@citrix.com
-Subject: Re: [Cluster-devel] [PATCH] dlm: Switch to using wait_event()
+Subject: [Cluster-devel] [PATCH 0/5] gfs2_edit savemeta and libgfs2
+	improvements
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,80 +63,50 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-Ping?
+In terms of savemeta this is a half-finished patch set to improve performance, but the libgfs2 improvements are important for other work (and I want to push these patches as a reasonable checkpoint before switching to other work).
 
-On 4/29/20 1:15 PM, Ross Lagerwall wrote:
-> We saw an issue in a production server on a customer deployment where
-> DLM 4.0.7 gets "stuck" and unable to join new lockspaces.
-> 
-> See - https://lists.clusterlabs.org/pipermail/users/2019-January/016054.html
-> 
-> This was forwarded off list to David Teigland who responded thusly.
-> 
-> "
-> Hi, thanks for the debugging info.  You've spent more time looking at
-> this than I have, but from a first glance it seems to me that the
-> initial problem (there may be multiple) is that in the kernel,
-> lockspace.c do_event() does not sensibly handle the ERESTARTSYS error
-> from wait_event_interruptible().  I think do_event() should continue
-> waiting for a uevent result from userspace until it gets one, because
-> the kernel can't do anything sensible until it gets that.
-> 
-> Dave
-> "
-> 
-> The previous attempt at fixing this was NAKed by Linus since it could
-> cause a busy-wait loop. Instead, just switch wait_event_interruptible()
-> to wait_event().
-> 
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> ---
->  fs/dlm/lockspace.c | 18 ++++--------------
->  1 file changed, 4 insertions(+), 14 deletions(-)
-> 
-> diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-> index afb8340918b8..e93670ecfae5 100644
-> --- a/fs/dlm/lockspace.c
-> +++ b/fs/dlm/lockspace.c
-> @@ -197,8 +197,6 @@ static struct kset *dlm_kset;
->  
->  static int do_uevent(struct dlm_ls *ls, int in)
->  {
-> -	int error;
-> -
->  	if (in)
->  		kobject_uevent(&ls->ls_kobj, KOBJ_ONLINE);
->  	else
-> @@ -209,20 +207,12 @@ static int do_uevent(struct dlm_ls *ls, int in)
->  	/* dlm_controld will see the uevent, do the necessary group management
->  	   and then write to sysfs to wake us */
->  
-> -	error = wait_event_interruptible(ls->ls_uevent_wait,
-> -			test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
-> +	wait_event(ls->ls_uevent_wait,
-> +		   test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
->  
-> -	log_rinfo(ls, "group event done %d %d", error, ls->ls_uevent_result);
-> -
-> -	if (error)
-> -		goto out;
-> +	log_rinfo(ls, "group event done %d", ls->ls_uevent_result);
->  
-> -	error = ls->ls_uevent_result;
-> - out:
-> -	if (error)
-> -		log_error(ls, "group %s failed %d %d", in ? "join" : "leave",
-> -			  error, ls->ls_uevent_result);
-> -	return error;
-> +	return ls->ls_uevent_result;
->  }
->  
->  static int dlm_uevent(struct kset *kset, struct kobject *kobj,
->
+The theme here is to remove the bi_bh field from struct gfs2_bitmap (a lot of all-or-nothing churn needed there) and manage the whole resource group bitmap as one multi-block allocation, so that we can speed up processing of the resource groups and simplify memory management thereof.
+
+The next stages will be to improve performance in save_indirect_blocks() and save_block() using a similar "extent" based approach instead of going block-by-block. That will need a similar amount of all-or-nothing churn to kick the dependency on single-block bh's down the call chain.
+
+Andrew Price (5):
+  libgfs2: Don't use bh's in gfs_rgrp_in/out
+  libgfs2: Remove bi_bh from struct gfs2_bitmap
+  savemeta: Save rgrps without using gfs2_buffer_heads
+  savemeta: Check file format version properly
+  savemeta: Use larger buffers for gzip compression
+
+ gfs2/convert/gfs2_convert.c |  48 ++++++------
+ gfs2/edit/extended.c        |  14 ++--
+ gfs2/edit/hexedit.c         |  50 ++++++-------
+ gfs2/edit/journal.c         |   8 +-
+ gfs2/edit/savemeta.c        | 141 +++++++++++++++++++-----------------
+ gfs2/fsck/fs_recovery.c     |  11 ++-
+ gfs2/fsck/initialize.c      |  29 ++++----
+ gfs2/fsck/metawalk.c        |   6 +-
+ gfs2/fsck/pass5.c           |   7 +-
+ gfs2/fsck/rgrepair.c        | 126 ++++++++++++++++++--------------
+ gfs2/fsck/util.c            |   5 +-
+ gfs2/libgfs2/fs_bits.c      |   8 +-
+ gfs2/libgfs2/fs_geometry.c  |  25 +------
+ gfs2/libgfs2/fs_ops.c       |  24 +++---
+ gfs2/libgfs2/gfs1.c         |  19 ++---
+ gfs2/libgfs2/gfs2l.c        |   2 +-
+ gfs2/libgfs2/lang.c         |   2 +-
+ gfs2/libgfs2/libgfs2.h      |  21 +++---
+ gfs2/libgfs2/ondisk.c       |   4 +-
+ gfs2/libgfs2/rgrp.c         | 141 ++++++++++++++++--------------------
+ gfs2/libgfs2/structures.c   |   3 +-
+ gfs2/libgfs2/super.c        |   2 +-
+ tests/check_rgrp.c          |   6 +-
+ 23 files changed, 345 insertions(+), 357 deletions(-)
+
+-- 
+2.26.2
 
