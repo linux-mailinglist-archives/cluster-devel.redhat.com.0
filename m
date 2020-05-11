@@ -1,92 +1,84 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 75D911CD4CD
-	for <lists+cluster-devel@lfdr.de>; Mon, 11 May 2020 11:23:36 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 946E31CDB5A
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 May 2020 15:37:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589189015;
+	s=mimecast20190719; t=1589204278;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=tYjR6s9cuyjlDmq4sL9p5CobFaXnRJm49suPQ+5q4HE=;
-	b=VF1Ji/jfQRQpo4YN+g6T3blJfJzXnq20Z2Y1L3djbAMmuv5oH0tIUf8x9thbFTnz4VRjoL
-	ya3FuNhswhEdbJeWkBhsjb6zJIPkMZN3pQifqz5SJCe4KpVu26fQVB0D2L0KI8NO7OkVY9
-	a94yNAHV7rCU8R7NDg02gOyOu23o0bo=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=iQJ0NFmWkNmgKs1GHRIZz2yMLqa3G7AY1zZzomY3aY8=;
+	b=LgkzS0yFaV3IX2JQGTiblpUY9XlJR0GiMlpbSIDgzA42p7EWuwCbDT4D50UQvR8iEYpkwz
+	tKztP+Ar8w22Cdxnza5Bl5OUM4ZUueNhzclUAWsOm6K8YADArxd4tlEWED1xytzQDV9HaO
+	k6dxYayavi5DBYtNNUHI5l9VqnAOU2U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-7-A1i0JwSVMDi1i50wrtruyQ-1; Mon, 11 May 2020 05:23:32 -0400
-X-MC-Unique: A1i0JwSVMDi1i50wrtruyQ-1
+ us-mta-371-Mo3vDXqdNIqRFSxbZNAqVw-1; Mon, 11 May 2020 09:37:56 -0400
+X-MC-Unique: Mo3vDXqdNIqRFSxbZNAqVw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AECFD107ACF3;
-	Mon, 11 May 2020 09:23:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EDECC835B42;
+	Mon, 11 May 2020 13:37:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 886E11001DC2;
-	Mon, 11 May 2020 09:23:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 885E01002382;
+	Mon, 11 May 2020 13:37:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BE9B34E561;
-	Mon, 11 May 2020 09:23:24 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E07954E9E6;
+	Mon, 11 May 2020 13:37:50 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 048IBJHK006310 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 8 May 2020 14:11:19 -0400
+	id 04BDbkPq000491 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 11 May 2020 09:37:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 758681054EB0; Fri,  8 May 2020 18:11:19 +0000 (UTC)
+	id E4D63108FE5B; Mon, 11 May 2020 13:37:45 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70EE71054EAF
-	for <cluster-devel@redhat.com>; Fri,  8 May 2020 18:11:17 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E088010F1CBA
+	for <cluster-devel@redhat.com>; Mon, 11 May 2020 13:37:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60EEE1859171
-	for <cluster-devel@redhat.com>; Fri,  8 May 2020 18:11:17 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
-	[209.85.214.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-78-IMt14Nt1O3KJKp6otjj_nA-1; Fri, 08 May 2020 14:11:15 -0400
-X-MC-Unique: IMt14Nt1O3KJKp6otjj_nA-1
-Received: by mail-pl1-f196.google.com with SMTP id b8so1073130plm.11
-	for <cluster-devel@redhat.com>; Fri, 08 May 2020 11:11:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=tYjR6s9cuyjlDmq4sL9p5CobFaXnRJm49suPQ+5q4HE=;
-	b=taeJXUyzZPFew+2h48Nksz4PcdC8MUV+yHfRRyFbFL1g5BFMrVju+hwaHNzdqM1oIu
-	xemnBNsG6qL4vyEE/9s/J79Oz2TFgwXg6CkR2G5p+LCuLrcik1GmkoL8+0r6Gjf5mizy
-	Clv9XULbJcyCKgKbHdGc48oNe5N8IPYLanw3ezgfskFORpO3lEcWtcnganbN8NWCPtaD
-	aOwjzzqNc6l3esLXgSjALmbU+afgTy7Pdm0s8G3TkDQycGB2+Wmk8EuZqZvOGViGJD9e
-	LV+jDRFOhvYnXRY7UFWrlxne8N4L21Z7MYBhHJz4lr1RYHlLKLAYfcGMIEpY0bvtZUBh
-	fUng==
-X-Gm-Message-State: AGi0PuYw4YtdD/IGqHTfYLTAXoP/tPKPobZsF1myapGzRI09mc/N3NIA
-	cWFzDLaVqt9BsSDvC5EOQ66cdq/y/3jx+1T4V4jqww==
-X-Google-Smtp-Source: APiQypIYIM9VOOYp5ro1MKdACCeZ5QjjejURIoETZk6jbD9w5jomYTkwA+Xnyz4419TolW8xbVLBKxeTlX2tGLG3yO8=
-X-Received: by 2002:a17:90a:6d03:: with SMTP id
-	z3mr7458232pjj.32.1588961473692; 
-	Fri, 08 May 2020 11:11:13 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 254D88001E9
+	for <cluster-devel@redhat.com>; Mon, 11 May 2020 13:37:43 +0000 (UTC)
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+	[216.71.145.142]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-45-I1mBgPDQOQeghn58SGPYvQ-1; Mon, 11 May 2020 09:37:37 -0400
+X-MC-Unique: I1mBgPDQOQeghn58SGPYvQ-1
+IronPort-SDR: LlhoiyEo63qszRUdDCnZwRokjmpdLwgJyc36ymCUY65/pVhvwl350/d8CULPhJocqxhoj7U04a
+	gYpy7dx4zMayMaQs7YUHyRcHd+x+Kx9dArn2xlsJm9/p0OmR95GoqsVJpc2N0QvHrVZdjqN34Z
+	L1AG2fiRjSnU0E0g7r5aSe13IwE7Ns3jd6yorVXEL+2MN2jWlvAvQYWIaNo+rHO4juyvgtAU2V
+	ruemZeAQstijpObHW8f3BwHBCTZqyzmET6mpr0WKfmTHU1A6lqgg24hpJ73zdtBbi2Ui4C470w
+	Psc=
+X-SBRS: 2.7
+X-MesageID: 17480251
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,380,1583211600"; d="scan'208";a="17480251"
+To: Christine Caulfield <ccaulfie@redhat.com>, David Teigland
+	<teigland@redhat.com>
+References: <20200429121541.30802-1-ross.lagerwall@citrix.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Message-ID: <15c5ba2e-20eb-9e3b-6265-f71b06f891e6@citrix.com>
+Date: Mon, 11 May 2020 14:36:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.4.1
 MIME-Version: 1.0
-References: <20200507213438.1886005-1-arnd@arndb.de>
-In-Reply-To: <20200507213438.1886005-1-arnd@arndb.de>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Fri, 8 May 2020 11:11:02 -0700
-Message-ID: <CAKwvOdmk0bKNY735KNtB1agDgTwcLNM=DEU7pL3wwZTj7hQh2Q@mail.gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <20200429121541.30802-1-ross.lagerwall@citrix.com>
+Content-Language: en-US
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Mon, 11 May 2020 05:23:21 -0400
-Cc: Alexios Zavras <alexios.zavras@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Gustavo A. R. Silva" <gustavo@embeddedor.com>,
-	LKML <linux-kernel@vger.kernel.org>, cluster-devel@redhat.com,
-	clang-built-linux <clang-built-linux@googlegroups.com>,
-	Josh Poimboeuf <jpoimboe@redhat.com>, Richard Fontana <rfontana@redhat.com>
-Subject: Re: [Cluster-devel] [PATCH] dlm: remove BUG() before panic()
+Cc: cluster-devel@redhat.com, Mark.Syms@citrix.com
+Subject: Re: [Cluster-devel] [PATCH] dlm: Switch to using wait_event()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,56 +95,77 @@ Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 7, 2020 at 2:34 PM Arnd Bergmann <arnd@arndb.de> wrote:
->
-> Building a kernel with clang sometimes fails with an objtool error in dlm:
->
-> fs/dlm/lock.o: warning: objtool: revert_lock_pc()+0xbd: can't find jump dest instruction at .text+0xd7fc
->
-> The problem is that BUG() never returns and the compiler knows
-> that anything after it is unreachable, however the panic still
-> emits some code that does not get fully eliminated.
->
-> Having both BUG() and panic() is really pointless as the BUG()
-> kills the current process and the subsequent panic() never hits.
-> In most cases, we probably don't really want either and should
-> replace the DLM_ASSERT() statements with WARN_ON(), as has
-> been done for some of them.
->
-> Remove the BUG() here so the user at least sees the panic message
-> and we can reliably build randconfig kernels.
->
-> Fixes: e7fd41792fc0 ("[DLM] The core of the DLM for GFS2/CLVM")
-> Cc: Josh Poimboeuf <jpoimboe@redhat.com>
-> Cc: clang-built-linux@googlegroups.com
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Ping?
 
-Thanks for the patch.
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-
+On 4/29/20 1:15 PM, Ross Lagerwall wrote:
+> We saw an issue in a production server on a customer deployment where
+> DLM 4.0.7 gets "stuck" and unable to join new lockspaces.
+> 
+> See - https://lists.clusterlabs.org/pipermail/users/2019-January/016054.html
+> 
+> This was forwarded off list to David Teigland who responded thusly.
+> 
+> "
+> Hi, thanks for the debugging info.  You've spent more time looking at
+> this than I have, but from a first glance it seems to me that the
+> initial problem (there may be multiple) is that in the kernel,
+> lockspace.c do_event() does not sensibly handle the ERESTARTSYS error
+> from wait_event_interruptible().  I think do_event() should continue
+> waiting for a uevent result from userspace until it gets one, because
+> the kernel can't do anything sensible until it gets that.
+> 
+> Dave
+> "
+> 
+> The previous attempt at fixing this was NAKed by Linus since it could
+> cause a busy-wait loop. Instead, just switch wait_event_interruptible()
+> to wait_event().
+> 
+> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 > ---
->  fs/dlm/dlm_internal.h | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-> index 416d9de35679..4311d01b02a8 100644
-> --- a/fs/dlm/dlm_internal.h
-> +++ b/fs/dlm/dlm_internal.h
-> @@ -97,7 +97,6 @@ do { \
->                 __LINE__, __FILE__, #x, jiffies); \
->      {do} \
->      printk("\n"); \
-> -    BUG(); \
->      panic("DLM:  Record message above and reboot.\n"); \
->    } \
+>  fs/dlm/lockspace.c | 18 ++++--------------
+>  1 file changed, 4 insertions(+), 14 deletions(-)
+> 
+> diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+> index afb8340918b8..e93670ecfae5 100644
+> --- a/fs/dlm/lockspace.c
+> +++ b/fs/dlm/lockspace.c
+> @@ -197,8 +197,6 @@ static struct kset *dlm_kset;
+>  
+>  static int do_uevent(struct dlm_ls *ls, int in)
+>  {
+> -	int error;
+> -
+>  	if (in)
+>  		kobject_uevent(&ls->ls_kobj, KOBJ_ONLINE);
+>  	else
+> @@ -209,20 +207,12 @@ static int do_uevent(struct dlm_ls *ls, int in)
+>  	/* dlm_controld will see the uevent, do the necessary group management
+>  	   and then write to sysfs to wake us */
+>  
+> -	error = wait_event_interruptible(ls->ls_uevent_wait,
+> -			test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
+> +	wait_event(ls->ls_uevent_wait,
+> +		   test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
+>  
+> -	log_rinfo(ls, "group event done %d %d", error, ls->ls_uevent_result);
+> -
+> -	if (error)
+> -		goto out;
+> +	log_rinfo(ls, "group event done %d", ls->ls_uevent_result);
+>  
+> -	error = ls->ls_uevent_result;
+> - out:
+> -	if (error)
+> -		log_error(ls, "group %s failed %d %d", in ? "join" : "leave",
+> -			  error, ls->ls_uevent_result);
+> -	return error;
+> +	return ls->ls_uevent_result;
 >  }
-> --
-> 2.26.0
-
-
--- 
-Thanks,
-~Nick Desaulniers
+>  
+>  static int dlm_uevent(struct kset *kset, struct kobject *kobj,
+>
 
