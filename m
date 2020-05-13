@@ -1,89 +1,89 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 36A2E1D1CCD
-	for <lists+cluster-devel@lfdr.de>; Wed, 13 May 2020 20:01:23 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 5F53B1D1CEB
+	for <lists+cluster-devel@lfdr.de>; Wed, 13 May 2020 20:03:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589392882;
+	s=mimecast20190719; t=1589393006;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=djizPthGumhy0aa82+s6m3Q9KQZDbFYAxoC6yOMwIJE=;
-	b=Dmz6SYJfmDIM7T/3N/WAkZnr9ZTDTvypOMkMGCl9NycOq2BhZ6jOQrn7GlfdIl24k1RImf
-	6w83Yb6/Tbpo/LzJh8Btj3NLweb3heAib7MN6clCL18uynhZflRkAJ1DyK1uA2ufY5+jOd
-	5sT4aV/vofF3Q3L54Q++Lry36mvsTxs=
+	 list-subscribe:list-post; bh=3rJSQfC8qhqPgAdT7p7uqG4zYxw0cOP69JvDMu+AmoU=;
+	b=KOBi/ROanzOlAeo6qC1UvpQh9E4GHud0jjztT4afGRkX1uMv1p5F2h8ejZOFnG6u4iKDls
+	QyQ32G5N53whshg7AH2n0MhWks5aVkmx+i+TE1xiriRtQlJJpG4E/Ngn/IRFT/MWCpp4ya
+	0mjF+mf90QUSXfW+O96YjXU0nYK9vEQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-90-qmnsetPFOeC-uoC8NP9Nsw-1; Wed, 13 May 2020 14:01:19 -0400
-X-MC-Unique: qmnsetPFOeC-uoC8NP9Nsw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-448-6uVFmGNVO4atEWGCms_2oA-1; Wed, 13 May 2020 14:03:24 -0400
+X-MC-Unique: 6uVFmGNVO4atEWGCms_2oA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53BBF1005512;
-	Wed, 13 May 2020 18:01:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8CB4F100960F;
+	Wed, 13 May 2020 18:03:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A608C61541;
-	Wed, 13 May 2020 18:01:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4973E100EBA9;
+	Wed, 13 May 2020 18:03:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 390C91809542;
-	Wed, 13 May 2020 18:01:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AB7FE1809543;
+	Wed, 13 May 2020 18:03:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04DI1AeH015314 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 13 May 2020 14:01:11 -0400
+	id 04DI3J2a015422 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 13 May 2020 14:03:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C8F472144B38; Wed, 13 May 2020 18:01:10 +0000 (UTC)
+	id 080CD20110C8; Wed, 13 May 2020 18:03:19 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B897C2144B35
-	for <cluster-devel@redhat.com>; Wed, 13 May 2020 18:01:08 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF1BC202696B
+	for <cluster-devel@redhat.com>; Wed, 13 May 2020 18:03:14 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6C5E80CDB3
-	for <cluster-devel@redhat.com>; Wed, 13 May 2020 18:01:07 +0000 (UTC)
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
-	[209.85.160.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-154-wM8cMoj8MjWlA4OE62QVEg-1; Wed, 13 May 2020 14:01:03 -0400
-X-MC-Unique: wM8cMoj8MjWlA4OE62QVEg-1
-Received: by mail-qt1-f195.google.com with SMTP id b1so598823qtt.1;
-	Wed, 13 May 2020 11:01:02 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7CB9108C272
+	for <cluster-devel@redhat.com>; Wed, 13 May 2020 18:03:13 +0000 (UTC)
+Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
+	[209.85.160.194]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-456-JWLWcdYMP_m3FV6JPaabow-1; Wed, 13 May 2020 14:03:06 -0400
+X-MC-Unique: JWLWcdYMP_m3FV6JPaabow-1
+Received: by mail-qt1-f194.google.com with SMTP id 4so585765qtb.4;
+	Wed, 13 May 2020 11:03:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to;
-	bh=djizPthGumhy0aa82+s6m3Q9KQZDbFYAxoC6yOMwIJE=;
-	b=mXYYP/9oAZMPqmJ6uthYkiEGhIAjtgrSXmfKGk97IZophtDZ2D+ypeYpDkBj2OaJpS
-	e4455yU3/vvd+z3fxYvNrmo7hkm6YWxzrCJ/XdORudlX6VT+NiXQrz3bkY9TGXAaNUON
-	x6FIqmo/vA4O1dQ8fnUwCbA15co0MPwF6pR0DkitG5pBNzpyiO2Ycjvj/Pgw2we+Agya
-	ne4gafqRUzEiXRTCcVDJcLvVl7HeBi6NynKaIqGM3zKfMRQ/Hrc0yTmasbRVHZbtrByj
-	1S7OdFxgMdmFn/f4SON4gf4dCB/zcBPcRfuxZl7cW8jZVyxPY1NYP1QV+grZxP4CcDAv
-	EIuQ==
-X-Gm-Message-State: AOAM532+mRIpjijehMrJtKjYCIJq4IA0cPWEn6FLqHwsglYoWIyH6WQK
-	IcRr470nu4VIEiBLLTgChu4=
-X-Google-Smtp-Source: ABdhPJzqbx3RBTNCuLykPLCx+cM+JeljoJjlYEyBds2uiDxtrploYjJasdpV7X3XZIToMReWEu/bXw==
-X-Received: by 2002:ac8:4b67:: with SMTP id g7mr328118qts.346.1589392862149;
-	Wed, 13 May 2020 11:01:02 -0700 (PDT)
-Received: from localhost.localdomain ([2001:1284:f013:f4e9:6bc3:5a0:7baf:1a14])
-	by smtp.gmail.com with ESMTPSA id v28sm310105qtb.49.2020.05.13.11.01.00
+	bh=3rJSQfC8qhqPgAdT7p7uqG4zYxw0cOP69JvDMu+AmoU=;
+	b=XR4sjLfh7FzxJ8EHyVlHj3xTEykN0cI9H9m1YdnxzeGDHt+oYo/M7rqDeQJstoQDyV
+	qTat4cSHuew2GXjxGPKSU6xNGZBukV60qCjgXiwjNLgXtKuqU9D6BxIL0DCJsiauEzlw
+	9iNADmT8JyWh9wF3zJXv2dcp17MOmBRm3v/yI1iQ/2PWPUUntgx+up1XnqFBzL95VhTO
+	5wRYLRTSddugItvZoZ/g07wJ83Ow97N7fpheArG/UR2xBaxQPtR80b5lL8FBoooQwtry
+	3EmLpAQKEteeGrwBwzrnE+Rg4cVS9GgL8pBon84lKANN4OSSlJfYW1CyQWl+5vkA2KkJ
+	F3gQ==
+X-Gm-Message-State: AOAM530qIGQk/7PNE4gDwb5WLl1RJQ+2aaxuBk3AhQowWCuTTr9tO5Og
+	WCwkiec0TjTlWHPb+2VBDqk=
+X-Google-Smtp-Source: ABdhPJxDn2Ym2XNFWojVR75lfnXVzFyakSG9ONLgdWGtZA79aHqlLy1IZQIR41clkG4iLZ4VQYg8Bg==
+X-Received: by 2002:ac8:67cf:: with SMTP id r15mr355571qtp.258.1589392985891; 
+	Wed, 13 May 2020 11:03:05 -0700 (PDT)
+Received: from localhost.localdomain ([168.181.48.228])
+	by smtp.gmail.com with ESMTPSA id f68sm476350qke.74.2020.05.13.11.03.04
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Wed, 13 May 2020 11:01:01 -0700 (PDT)
+	Wed, 13 May 2020 11:03:05 -0700 (PDT)
 Received: by localhost.localdomain (Postfix, from userid 1000)
-	id 88707C08DA; Wed, 13 May 2020 15:00:58 -0300 (-03)
-Date: Wed, 13 May 2020 15:00:58 -0300
+	id 8AE9BC08DA; Wed, 13 May 2020 15:03:02 -0300 (-03)
+Date: Wed, 13 May 2020 15:03:02 -0300
 From: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20200513180058.GB2491@localhost.localdomain>
+Message-ID: <20200513180302.GC2491@localhost.localdomain>
 References: <20200513062649.2100053-1-hch@lst.de>
-	<20200513062649.2100053-28-hch@lst.de>
+	<20200513062649.2100053-33-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20200513062649.2100053-28-hch@lst.de>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20200513062649.2100053-33-hch@lst.de>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: Eric Dumazet <edumazet@google.com>, linux-nvme@lists.infradead.org,
 	linux-sctp@vger.kernel.org, target-devel@vger.kernel.org,
@@ -98,7 +98,8 @@ Cc: Eric Dumazet <edumazet@google.com>, linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org, Jon Maloy <jmaloy@redhat.com>,
 	Ying Xue <ying.xue@windriver.com>, "David S. Miller" <davem@davemloft.net>,
 	ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH 27/33] sctp: export sctp_setsockopt_bindx
+Subject: Re: [Cluster-devel] [PATCH 32/33] sctp: add
+	sctp_sock_get_primary_addr
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -112,93 +113,149 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, May 13, 2020 at 08:26:42AM +0200, Christoph Hellwig wrote:
-> And call it directly from dlm instead of going through kernel_setsockopt.
+On Wed, May 13, 2020 at 08:26:47AM +0200, Christoph Hellwig wrote:
+> Add a helper to directly get the SCTP_PRIMARY_ADDR sockopt from kernel
+> space without going through a fake uaccess.
 
-The advantage on using kernel_setsockopt here is that sctp module will
-only be loaded if dlm actually creates a SCTP socket.  With this
-change, sctp will be loaded on setups that may not be actually using
-it. It's a quite big module and might expose the system.
-
-I'm okay with the SCTP changes, but I'll defer to DLM folks to whether
-that's too bad or what for DLM.
+Same comment as on the other dlm/sctp patch.
 
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->  fs/dlm/lowcomms.c       | 13 ++++++++-----
->  include/net/sctp/sctp.h |  3 +++
->  net/sctp/socket.c       |  5 +++--
->  3 files changed, 14 insertions(+), 7 deletions(-)
+>  fs/dlm/lowcomms.c       | 11 +++-----
+>  include/net/sctp/sctp.h |  1 +
+>  net/sctp/socket.c       | 57 +++++++++++++++++++++++++----------------
+>  3 files changed, 39 insertions(+), 30 deletions(-)
 > 
 > diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-> index b722a09a7ca05..e4939d770df53 100644
+> index 6fa45365666a8..46d2d71b62c57 100644
 > --- a/fs/dlm/lowcomms.c
 > +++ b/fs/dlm/lowcomms.c
-> @@ -1005,14 +1005,17 @@ static int sctp_bind_addrs(struct connection *con, uint16_t port)
->  		memcpy(&localaddr, dlm_local_addr[i], sizeof(localaddr));
->  		make_sockaddr(&localaddr, port, &addr_len);
+> @@ -855,10 +855,9 @@ static int tcp_accept_from_sock(struct connection *con)
+>  static int sctp_accept_from_sock(struct connection *con)
+>  {
+>  	/* Check that the new node is in the lockspace */
+> -	struct sctp_prim prim;
+> +	struct sctp_prim prim = { };
+>  	int nodeid;
+> -	int prim_len, ret;
+> -	int addr_len;
+> +	int addr_len, ret;
+>  	struct connection *newcon;
+>  	struct connection *addcon;
+>  	struct socket *newsock;
+> @@ -876,11 +875,7 @@ static int sctp_accept_from_sock(struct connection *con)
+>  	if (ret < 0)
+>  		goto accept_err;
 >  
-> -		if (!i)
-> +		if (!i) {
->  			result = kernel_bind(con->sock,
->  					     (struct sockaddr *)&localaddr,
->  					     addr_len);
-> -		else
-> -			result = kernel_setsockopt(con->sock, SOL_SCTP,
-> -						   SCTP_SOCKOPT_BINDX_ADD,
-> -						   (char *)&localaddr, addr_len);
-> +		} else {
-> +			lock_sock(con->sock->sk);
-> +			result = sctp_setsockopt_bindx(con->sock->sk,
-> +					(struct sockaddr *)&localaddr, addr_len,
-> +					SCTP_BINDX_ADD_ADDR);
-> +			release_sock(con->sock->sk);
-> +		}
->  
->  		if (result < 0) {
->  			log_print("Can't bind to %d addr number %d, %d.\n",
+> -	memset(&prim, 0, sizeof(struct sctp_prim));
+> -	prim_len = sizeof(struct sctp_prim);
+> -
+> -	ret = kernel_getsockopt(newsock, IPPROTO_SCTP, SCTP_PRIMARY_ADDR,
+> -				(char *)&prim, &prim_len);
+> +	ret = sctp_sock_get_primary_addr(con->sock->sk, &prim);
+>  	if (ret < 0) {
+>  		log_print("getsockopt/sctp_primary_addr failed: %d", ret);
+>  		goto accept_err;
 > diff --git a/include/net/sctp/sctp.h b/include/net/sctp/sctp.h
-> index 3ab5c6bbb90bd..f702b14d768ba 100644
+> index b505fa082f254..c98b1d14db853 100644
 > --- a/include/net/sctp/sctp.h
 > +++ b/include/net/sctp/sctp.h
-> @@ -615,4 +615,7 @@ static inline bool sctp_newsk_ready(const struct sock *sk)
->  	return sock_flag(sk, SOCK_DEAD) || sk->sk_socket;
->  }
+> @@ -618,5 +618,6 @@ static inline bool sctp_newsk_ready(const struct sock *sk)
+>  int sctp_setsockopt_bindx(struct sock *sk, struct sockaddr *kaddrs,
+>  		int addrs_size, int op);
+>  void sctp_sock_set_nodelay(struct sock *sk, bool val);
+> +int sctp_sock_get_primary_addr(struct sock *sk, struct sctp_prim *prim);
 >  
-> +int sctp_setsockopt_bindx(struct sock *sk, struct sockaddr *kaddrs,
-> +		int addrs_size, int op);
-> +
 >  #endif /* __net_sctp_h__ */
 > diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-> index 1c96b52c4aa28..30c981d9f6158 100644
+> index 64c395f7a86d5..39bf8090dbe1e 100644
 > --- a/net/sctp/socket.c
 > +++ b/net/sctp/socket.c
-> @@ -979,8 +979,8 @@ int sctp_asconf_mgmt(struct sctp_sock *sp, struct sctp_sockaddr_entry *addrw)
->   *
->   * Returns 0 if ok, <0 errno code on error.
->   */
-> -static int sctp_setsockopt_bindx(struct sock *sk, struct sockaddr *kaddrs,
-> -				 int addrs_size, int op)
-> +int sctp_setsockopt_bindx(struct sock *sk, struct sockaddr *kaddrs,
-> +		int addrs_size, int op)
->  {
->  	int err;
->  	int addrcnt = 0;
-> @@ -1032,6 +1032,7 @@ static int sctp_setsockopt_bindx(struct sock *sk, struct sockaddr *kaddrs,
->  		return -EINVAL;
->  	}
+> @@ -6411,6 +6411,35 @@ static int sctp_getsockopt_local_addrs(struct sock *sk, int len,
+>  	return err;
 >  }
-> +EXPORT_SYMBOL(sctp_setsockopt_bindx);
 >  
->  static int sctp_connect_new_asoc(struct sctp_endpoint *ep,
->  				 const union sctp_addr *daddr,
+> +static int __sctp_sock_get_primary_addr(struct sock *sk, struct sctp_prim *prim)
+> +{
+> +	struct sctp_association *asoc;
+> +
+> +	asoc = sctp_id2assoc(sk, prim->ssp_assoc_id);
+> +	if (!asoc)
+> +		return -EINVAL;
+> +	if (!asoc->peer.primary_path)
+> +		return -ENOTCONN;
+> +
+> +	memcpy(&prim->ssp_addr, &asoc->peer.primary_path->ipaddr,
+> +		asoc->peer.primary_path->af_specific->sockaddr_len);
+> +
+> +	sctp_get_pf_specific(sk->sk_family)->addr_to_user(sctp_sk(sk),
+> +			(union sctp_addr *)&prim->ssp_addr);
+> +	return 0;
+> +}
+> +
+> +int sctp_sock_get_primary_addr(struct sock *sk, struct sctp_prim *prim)
+> +{
+> +	int ret;
+> +
+> +	lock_sock(sk);
+> +	ret = __sctp_sock_get_primary_addr(sk, prim);
+> +	release_sock(sk);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(sctp_sock_get_primary_addr);
+> +
+>  /* 7.1.10 Set Primary Address (SCTP_PRIMARY_ADDR)
+>   *
+>   * Requests that the local SCTP stack use the enclosed peer address as
+> @@ -6421,35 +6450,19 @@ static int sctp_getsockopt_primary_addr(struct sock *sk, int len,
+>  					char __user *optval, int __user *optlen)
+>  {
+>  	struct sctp_prim prim;
+> -	struct sctp_association *asoc;
+> -	struct sctp_sock *sp = sctp_sk(sk);
+> +	int ret;
+>  
+>  	if (len < sizeof(struct sctp_prim))
+>  		return -EINVAL;
+> -
+> -	len = sizeof(struct sctp_prim);
+> -
+> -	if (copy_from_user(&prim, optval, len))
+> +	if (copy_from_user(&prim, optval, sizeof(struct sctp_prim)))
+>  		return -EFAULT;
+>  
+> -	asoc = sctp_id2assoc(sk, prim.ssp_assoc_id);
+> -	if (!asoc)
+> -		return -EINVAL;
+> -
+> -	if (!asoc->peer.primary_path)
+> -		return -ENOTCONN;
+> -
+> -	memcpy(&prim.ssp_addr, &asoc->peer.primary_path->ipaddr,
+> -		asoc->peer.primary_path->af_specific->sockaddr_len);
+> -
+> -	sctp_get_pf_specific(sk->sk_family)->addr_to_user(sp,
+> -			(union sctp_addr *)&prim.ssp_addr);
+> +	ret = __sctp_sock_get_primary_addr(sk, &prim);
+> +	if (ret)
+> +		return ret;
+>  
+> -	if (put_user(len, optlen))
+> +	if (put_user(len, optlen) || copy_to_user(optval, &prim, len))
+>  		return -EFAULT;
+> -	if (copy_to_user(optval, &prim, len))
+> -		return -EFAULT;
+> -
+>  	return 0;
+>  }
+>  
 > -- 
 > 2.26.2
 > 
