@@ -1,76 +1,80 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 535B81DEA0B
-	for <lists+cluster-devel@lfdr.de>; Fri, 22 May 2020 16:52:21 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 6F87F1DEA0C
+	for <lists+cluster-devel@lfdr.de>; Fri, 22 May 2020 16:52:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590159140;
+	s=mimecast20190719; t=1590159144;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cR+mlHzz0WdIQZfEdjXjxyObdEOGTA4EVtbZ7L0hsOc=;
-	b=MwhoTxcafvPvEHXHcT0QxhMJlgtdv1QWS63g2jYXIyyg5bIXWedZIphGhXG0Ao6YVHZzp8
-	NIooHtS6ldcy8ABDRZGKAu5O7n1XvGKTWye2hnfIhkzeVhk5/eBVakDGBRUkYFPhmvJmmO
-	zBceM670ZfguJG5KVBcicrja01QgVN0=
+	bh=fgUUFJHHjApcOCqKIYNiS18HSMrFK4iHhvU59Jv6wUI=;
+	b=IaNnBD5H9h11nI2dQ0JnOcT5JZemjp9S8PMcBwcErnFR0NHp43T/zfN+NYcfjb4B4PvCys
+	l+j+nvJrgMAORNhSXf0NQWJBZf7q9fAaoyS2nTuAbB6sAkNLFiXmkZgVj//3jFIgB5wBBM
+	tqCdX304COQLAY5NTO7PSWo+w3Co+Ds=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-170-bE4cs2LRPsCGJCqcop_cYA-1; Fri, 22 May 2020 10:52:18 -0400
-X-MC-Unique: bE4cs2LRPsCGJCqcop_cYA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-199-7SVxX_bZNo6e4vP4NxIBvw-1; Fri, 22 May 2020 10:52:22 -0400
+X-MC-Unique: 7SVxX_bZNo6e4vP4NxIBvw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A987B8018A2;
-	Fri, 22 May 2020 14:52:15 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98C292E19E;
-	Fri, 22 May 2020 14:52:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 070D0107ACF4;
+	Fri, 22 May 2020 14:52:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC4BD6ACFC;
+	Fri, 22 May 2020 14:52:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8663F54D0A;
-	Fri, 22 May 2020 14:52:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D967F1809543;
+	Fri, 22 May 2020 14:52:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04MEqEdm009334 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 22 May 2020 10:52:14 -0400
+	id 04MEqH78009347 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 22 May 2020 10:52:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8BF7B2029F61; Fri, 22 May 2020 14:52:13 +0000 (UTC)
+	id 118602156A3B; Fri, 22 May 2020 14:52:17 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 609D2200BCF6
-	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:52:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DE462166BA3
+	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:52:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 301D88007CB
-	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:52:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EA95800FFA
+	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:52:14 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-444-FaEYV_kZORykqAcwPeX4jg-1;
-	Fri, 22 May 2020 10:52:10 -0400
-X-MC-Unique: FaEYV_kZORykqAcwPeX4jg-1
+	by relay.mimecast.com with ESMTP id us-mta-87-K0S4I5YDNxyapSUgLRoiRQ-1; 
+	Fri, 22 May 2020 10:52:11 -0400
+X-MC-Unique: K0S4I5YDNxyapSUgLRoiRQ-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 458C020756;
-	Fri, 22 May 2020 14:52:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 3C658221FF;
+	Fri, 22 May 2020 14:52:09 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 22 May 2020 10:52:03 -0400
-Message-Id: <20200522145207.435314-1-sashal@kernel.org>
+Date: Fri, 22 May 2020 10:52:04 -0400
+Message-Id: <20200522145207.435314-2-sashal@kernel.org>
+In-Reply-To: <20200522145207.435314-1-sashal@kernel.org>
+References: <20200522145207.435314-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04MEqEdm009334
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04MEqH78009347
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.4 1/5] gfs2: don't call
-	quota_unhold if quotas are not locked
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.4 2/5] Revert "gfs2: Don't demote
+	a glock until its revokes are written"
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -92,42 +96,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Bob Peterson <rpeterso@redhat.com>
 
-[ Upstream commit c9cb9e381985bbbe8acd2695bbe6bd24bf06b81c ]
+[ Upstream commit b14c94908b1b884276a6608dea3d0b1b510338b7 ]
 
-Before this patch, function gfs2_quota_unlock checked if quotas are
-turned off, and if so, it branched to label out, which called
-gfs2_quota_unhold. With the new system of gfs2_qa_get and put, we
-no longer want to call gfs2_quota_unhold or we won't balance our
-gets and puts.
+This reverts commit df5db5f9ee112e76b5202fbc331f990a0fc316d6.
+
+This patch fixes a regression: patch df5db5f9ee112 allowed function
+run_queue() to bypass its call to do_xmote() if revokes were queued for
+the glock. That's wrong because its call to do_xmote() is what is
+responsible for calling the go_sync() glops functions to sync both
+the ail list and any revokes queued for it. By bypassing the call,
+gfs2 could get into a stand-off where the glock could not be demoted
+until its revokes are written back, but the revokes would not be
+written back because do_xmote() was never called.
+
+It "sort of" works, however, because there are other mechanisms like
+the log flush daemon (logd) that can sync the ail items and revokes,
+if it deems it necessary. The problem is: without file system pressure,
+it might never deem it necessary.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/quota.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ fs/gfs2/glock.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
-index 3a31226531ea..4af00ed4960a 100644
---- a/fs/gfs2/quota.c
-+++ b/fs/gfs2/quota.c
-@@ -1080,7 +1080,7 @@ void gfs2_quota_unlock(struct gfs2_inode *ip)
- 	int found;
- 
- 	if (!test_and_clear_bit(GIF_QD_LOCKED, &ip->i_flags))
--		goto out;
-+		return;
- 
- 	for (x = 0; x < ip->i_res->rs_qa_qd_num; x++) {
- 		struct gfs2_quota_data *qd;
-@@ -1117,7 +1117,6 @@ void gfs2_quota_unlock(struct gfs2_inode *ip)
- 			qd_unlock(qda[x]);
- 	}
- 
--out:
- 	gfs2_quota_unhold(ip);
- }
- 
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index f80ffccb0316..1eb737c466dd 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -541,9 +541,6 @@ __acquires(&gl->gl_lockref.lock)
+ 			goto out_unlock;
+ 		if (nonblock)
+ 			goto out_sched;
+-		smp_mb();
+-		if (atomic_read(&gl->gl_revokes) != 0)
+-			goto out_sched;
+ 		set_bit(GLF_DEMOTE_IN_PROGRESS, &gl->gl_flags);
+ 		GLOCK_BUG_ON(gl, gl->gl_demote_state == LM_ST_EXCLUSIVE);
+ 		gl->gl_target = gl->gl_demote_state;
 -- 
 2.25.1
 
