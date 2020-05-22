@@ -1,80 +1,79 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 941AA1DE9FA
-	for <lists+cluster-devel@lfdr.de>; Fri, 22 May 2020 16:52:03 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id D2FE01DEA03
+	for <lists+cluster-devel@lfdr.de>; Fri, 22 May 2020 16:52:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590159122;
+	s=mimecast20190719; t=1590159129;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Kw0k1YKxfk/N9GtCfRhXpsto8Nh679G/C7KwyHQhZMo=;
-	b=JibCUSj+OlPEE3PlUcBVlX94v2vbrrBHvx5j0aUU1nqlY2pQ0WGCXHPut/LKciq0dJKrZo
-	1uUwSRacH69Hzg+XKHotY3q37Rx6pcWmjn7lUaJT52TcIJ0/CvCA34pf5l5ghNjMbyTrdN
-	HKYA5eS6cIjO55gtRQ88k5/1Cq/brJY=
+	bh=f3nfMuvb07zH4B6LPHPS7JkmawWZIxGXo7CCos1kU1U=;
+	b=fJIPdYJH1PAUWZiz3UrZiSjvXqd+/NoeLF4mILeWmBXBQVvTN6BHL9cPUusEf4GSkjiJ7e
+	ft8d7qz4AdOa3FndxmDBIqCcDDdT6H47FFqyUJHrhWEDZ9kfg+z3W5f/IMBuzBusfSqepy
+	Q0gR0m0M4wCzLwpYpadmtS3YIO/dXzc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-48-0VTsFiLdNeGA-UX2cYxp8Q-1; Fri, 22 May 2020 10:52:00 -0400
-X-MC-Unique: 0VTsFiLdNeGA-UX2cYxp8Q-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-482-vFa0tvamPj2yTTYHNewYcA-1; Fri, 22 May 2020 10:52:05 -0400
+X-MC-Unique: vFa0tvamPj2yTTYHNewYcA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CEE801005512;
-	Fri, 22 May 2020 14:51:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BE58819167;
-	Fri, 22 May 2020 14:51:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 28C2F100CCC2;
+	Fri, 22 May 2020 14:52:03 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 195285D9CD;
+	Fri, 22 May 2020 14:52:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA48B1809543;
-	Fri, 22 May 2020 14:51:57 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 085A654D0A;
+	Fri, 22 May 2020 14:52:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04MEpuTg009252 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 22 May 2020 10:51:56 -0400
+	id 04MEq0Lf009274 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 22 May 2020 10:52:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EAB9D1069F37; Fri, 22 May 2020 14:51:55 +0000 (UTC)
+	id 757062028CD2; Fri, 22 May 2020 14:52:00 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E692D1069F35
-	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:51:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71B0D2026FFE
+	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:51:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6EE48ECB5E
-	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:51:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B950185A78B
+	for <cluster-devel@redhat.com>; Fri, 22 May 2020 14:51:58 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-16-kLX0pPQRNHeIN-YOTtxAEw-1; 
-	Fri, 22 May 2020 10:51:50 -0400
-X-MC-Unique: kLX0pPQRNHeIN-YOTtxAEw-1
+	by relay.mimecast.com with ESMTP id us-mta-354-3uSE7c9PPYqS7uNsFhzRzA-1;
+	Fri, 22 May 2020 10:51:51 -0400
+X-MC-Unique: 3uSE7c9PPYqS7uNsFhzRzA-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id D63822224A;
-	Fri, 22 May 2020 14:51:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id D22202072C;
+	Fri, 22 May 2020 14:51:49 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 22 May 2020 10:51:35 -0400
-Message-Id: <20200522145142.435086-6-sashal@kernel.org>
+Date: Fri, 22 May 2020 10:51:36 -0400
+Message-Id: <20200522145142.435086-7-sashal@kernel.org>
 In-Reply-To: <20200522145142.435086-1-sashal@kernel.org>
 References: <20200522145142.435086-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04MEpuTg009252
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04MEq0Lf009274
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.14 06/13] gfs2: move privileged
-	user check to gfs2_quota_lock_check
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.14 07/13] gfs2: don't call
+	quota_unhold if quotas are not locked
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,7 +87,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -96,53 +95,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Bob Peterson <rpeterso@redhat.com>
 
-[ Upstream commit 4ed0c30811cb4d30ef89850b787a53a84d5d2bcb ]
+[ Upstream commit c9cb9e381985bbbe8acd2695bbe6bd24bf06b81c ]
 
-Before this patch, function gfs2_quota_lock checked if it was called
-from a privileged user, and if so, it bypassed the quota check:
-superuser can operate outside the quotas.
-That's the wrong place for the check because the lock/unlock functions
-are separate from the lock_check function, and you can do lock and
-unlock without actually checking the quotas.
-
-This patch moves the check to gfs2_quota_lock_check.
+Before this patch, function gfs2_quota_unlock checked if quotas are
+turned off, and if so, it branched to label out, which called
+gfs2_quota_unhold. With the new system of gfs2_qa_get and put, we
+no longer want to call gfs2_quota_unhold or we won't balance our
+gets and puts.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/gfs2/quota.c | 3 +--
- fs/gfs2/quota.h | 3 ++-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
-index e700fb162664..a833e2e07167 100644
+index a833e2e07167..d34a668a432f 100644
 --- a/fs/gfs2/quota.c
 +++ b/fs/gfs2/quota.c
-@@ -1039,8 +1039,7 @@ int gfs2_quota_lock(struct gfs2_inode *ip, kuid_t uid, kgid_t gid)
- 	u32 x;
- 	int error = 0;
+@@ -1112,7 +1112,7 @@ void gfs2_quota_unlock(struct gfs2_inode *ip)
+ 	int found;
  
--	if (capable(CAP_SYS_RESOURCE) ||
--	    sdp->sd_args.ar_quota != GFS2_QUOTA_ON)
-+	if (sdp->sd_args.ar_quota != GFS2_QUOTA_ON)
- 		return 0;
+ 	if (!test_and_clear_bit(GIF_QD_LOCKED, &ip->i_flags))
+-		goto out;
++		return;
  
- 	error = gfs2_quota_hold(ip, uid, gid);
-diff --git a/fs/gfs2/quota.h b/fs/gfs2/quota.h
-index 836f29480be6..e3a6e2404d11 100644
---- a/fs/gfs2/quota.h
-+++ b/fs/gfs2/quota.h
-@@ -47,7 +47,8 @@ static inline int gfs2_quota_lock_check(struct gfs2_inode *ip,
- 	int ret;
+ 	for (x = 0; x < ip->i_qadata->qa_qd_num; x++) {
+ 		struct gfs2_quota_data *qd;
+@@ -1149,7 +1149,6 @@ void gfs2_quota_unlock(struct gfs2_inode *ip)
+ 			qd_unlock(qda[x]);
+ 	}
  
- 	ap->allowed = UINT_MAX; /* Assume we are permitted a whole lot */
--	if (sdp->sd_args.ar_quota == GFS2_QUOTA_OFF)
-+	if (capable(CAP_SYS_RESOURCE) ||
-+	    sdp->sd_args.ar_quota == GFS2_QUOTA_OFF)
- 		return 0;
- 	ret = gfs2_quota_lock(ip, NO_UID_QUOTA_CHANGE, NO_GID_QUOTA_CHANGE);
- 	if (ret)
+-out:
+ 	gfs2_quota_unhold(ip);
+ }
+ 
 -- 
 2.25.1
 
