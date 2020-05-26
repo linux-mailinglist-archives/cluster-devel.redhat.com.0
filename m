@@ -1,83 +1,54 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F2481DF589
-	for <lists+cluster-devel@lfdr.de>; Sat, 23 May 2020 09:23:46 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 411641E22AC
+	for <lists+cluster-devel@lfdr.de>; Tue, 26 May 2020 15:07:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590218625;
+	s=mimecast20190719; t=1590498434;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=AuOA4/sbGRMCAaEBnmJksDdQyYsCuL3VyGzCs5X/ovo=;
-	b=RASOcZwFF4s8n2/nKey7xhKIe18bTVc4QssRsVBQHnz8+coGJ0sQZ1hRg66Y2uxR7Wettu
-	eh+LIpkBkJ3nCN9sI/jqv7hPgR8a3kjZi4hVur2xoU/1k53UciCrpvTiQC/as4dQB35j6w
-	5XJv18sXD97WNXsKi1wRhjYUkqsvD3I=
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=VimsCTyDXNagRHYJ/dxpI7LY+3nIkBybWQH+Za47OW8=;
+	b=YW3MDWu/70CZ8VwhNspCdvzk/kD26AWJgdo06h/nW0h9aB9QyWyZBmKfz4oJ669zMTTa/P
+	Qw57PCdwZ+ZBu6WlpsYERPH1hEUPeMqAoPDVivA8o6yr0pfuz7OdoS6Gw1gaVAzrhPryLr
+	GuHbyXS0Jk1tw5WaW+QL95n24hOAYig=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-83-BVmk24PGOJGEUo5xzkSHzg-1; Sat, 23 May 2020 03:23:43 -0400
-X-MC-Unique: BVmk24PGOJGEUo5xzkSHzg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-276-FkLHpFdaOfy-glLMwu-sgQ-1; Tue, 26 May 2020 09:07:12 -0400
+X-MC-Unique: FkLHpFdaOfy-glLMwu-sgQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3C4611855A01;
-	Sat, 23 May 2020 07:23:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 305A11CA;
-	Sat, 23 May 2020 07:23:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC27E100A91D;
+	Tue, 26 May 2020 13:07:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BF10703BF;
+	Tue, 26 May 2020 13:07:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B820B1809547;
-	Sat, 23 May 2020 07:23:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 57A405FBD8;
+	Tue, 26 May 2020 13:07:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04N7NPXp010564 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 23 May 2020 03:23:25 -0400
+	id 04QD5d6k010669 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 26 May 2020 09:05:39 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6EA11202696C; Sat, 23 May 2020 07:23:25 +0000 (UTC)
+	id E918B5D9E7; Tue, 26 May 2020 13:05:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 613AB2026D5D
-	for <cluster-devel@redhat.com>; Sat, 23 May 2020 07:23:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B2891859160
-	for <cluster-devel@redhat.com>; Sat, 23 May 2020 07:23:23 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-73-zt6SyhZZMNKo6pv8a59jyA-1;
-	Sat, 23 May 2020 03:23:20 -0400
-X-MC-Unique: zt6SyhZZMNKo6pv8a59jyA-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id EB36D68BEB; Sat, 23 May 2020 09:23:16 +0200 (CEST)
-Date: Sat, 23 May 2020 09:23:16 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
-Message-ID: <20200523072316.GA10575@lst.de>
-References: <20200520195509.2215098-1-hch@lst.de>
+Received: from vishnu.redhat.com (ovpn-112-79.phx2.redhat.com [10.3.112.79])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B3AF15D9E5
+	for <cluster-devel@redhat.com>; Tue, 26 May 2020 13:05:36 +0000 (UTC)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Date: Tue, 26 May 2020 08:05:28 -0500
+Message-Id: <20200526130536.295081-1-rpeterso@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200520195509.2215098-1-hch@lst.de>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-sctp@vger.kernel.org, target-devel@vger.kernel.org,
-	linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-	rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org,
-	cluster-devel@redhat.com, Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
-	drbd-dev@tron.linbit.com, ceph-devel@vger.kernel.org,
-	linux-nfs@vger.kernel.org, Neil Horman <nhorman@tuxdriver.com>,
-	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
-	netdev@vger.kernel.org, Vlad Yasevich <vyasevich@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jon Maloy <jmaloy@redhat.com>, Ying Xue <ying.xue@windriver.com>,
-	ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] remove kernel_setsockopt and kernel_getsockopt
-	v2
+Subject: [Cluster-devel] [PATCH 0/8] Misc Patch Collection
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,30 +62,54 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Wed, May 20, 2020 at 09:54:36PM +0200, Christoph Hellwig wrote:
-> Hi Dave,
-> 
-> this series removes the kernel_setsockopt and kernel_getsockopt
-> functions, and instead switches their users to small functions that
-> implement setting (or in one case getting) a sockopt directly using
-> a normal kernel function call with type safety and all the other
-> benefits of not having a function call.
-> 
-> In some cases these functions seem pretty heavy handed as they do
-> a lock_sock even for just setting a single variable, but this mirrors
-> the real setsockopt implementation unlike a few drivers that just set
-> set the fields directly.
+Hi,
 
-Hi Dave and other maintainers,
+I've been working on a problem whereby glock.c was causing a BUG panic
+because gl_revokes was non-zero when the glock is freed. To debug and fix
+this, I developed a series of patches, including some new instrumentation
+and trace points. Some of these patches are independent, so could be pushed
+(or rejected) independently of the others.
 
-can you take a look at and potentially merge patches 1-30 while we
-discuss the sctp refactoring?  It would get a nice headstart by removing
-kernel_getsockopt and most kernel_setsockopt users, and for the next
-follow on I wouldn't need to spam lots of lists with 30+ patches again.
+So this is my current patch collection. The patch that fixes the problem is
+"gfs2: add memory barriers to gfs2_glock_remove_revoke".
+
+Andreas expressed some concerns about some of the others. For example, he
+didn't like that the new "status" sysfs file was taking "try" locks, but
+if the lock is held, I don't know of a better way to do this. He also expressed
+a concern that the new file should be in debugfs rather than sysfs.
+I'm open to opinions. Regardless of where it is, the new debug file is a
+perfect candidate to include in sos reports.
+
+Bob Peterson
+
+Bob Peterson (8):
+  gfs2: Don't ignore inode write errors during inode_go_sync
+  gfs2: Allow lock_nolock mount to specify jid=X
+  gfs2: add memory barriers to gfs2_glock_remove_revoke
+  gfs2: Add new sysfs file for gfs2 status
+  gfs2: print mapping->nrpages in glock dump for address space glocks
+  gfs2: instrumentation wrt log_flush stuck
+  gfs2: Add new trace point for glock ail management
+  gfs2: introduce new gfs2_glock_assert_withdraw
+
+ fs/gfs2/glock.c      |  32 +++++++-----
+ fs/gfs2/glock.h      |   9 ++++
+ fs/gfs2/glops.c      |   8 +--
+ fs/gfs2/log.c        |  32 +++++++++---
+ fs/gfs2/log.h        |   2 +-
+ fs/gfs2/lops.c       |   6 +--
+ fs/gfs2/ops_fstype.c |   2 +-
+ fs/gfs2/sys.c        | 113 +++++++++++++++++++++++++++++++++++++++++++
+ fs/gfs2/trace_gfs2.h |  61 +++++++++++++++++++++++
+ fs/gfs2/trans.c      |   4 +-
+ 10 files changed, 241 insertions(+), 28 deletions(-)
+
+-- 
+2.26.2
 
