@@ -1,58 +1,55 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 87C341E22B0
-	for <lists+cluster-devel@lfdr.de>; Tue, 26 May 2020 15:07:19 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 70A3A1E3BF3
+	for <lists+cluster-devel@lfdr.de>; Wed, 27 May 2020 10:30:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590498438;
+	s=mimecast20190719; t=1590568214;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bLBK8Vzero1OUNvI6dh/HgfhT7UvrHrEI1pRgSkuvWM=;
-	b=eF8S8j0vZMfw55gjNi0N1/csDWlwecJftI94fvcQV3IgA/KB843K7Wxe1Lh/rM3NOLm6MX
-	DVp3wjutbDlMlEXaRCsMDPSIXmn4VwI0f1xa3WUvvMxRJohV7yU7w8h8NaT76z7D5EgWw4
-	ex+fc+mswZK76HFaPOgISIAJrX5QO1k=
+	bh=Jxvnzf7Pm6v54IRwxa2VOfNeWyQtRR5NHXvZvEDRUDU=;
+	b=TL24Oi+faki04eRUPjKSsk5pl1pWlqUogODgXYXF8L4wnx6TpR/LyOQWJcvrike0TJM77v
+	aBihfOrr8TfljCVSCNOd2Z8n8FORfVc30w1/CmS4UckeKGe6EA3XzF+C+nwUIkGrC2OjjC
+	9HkOTCxQ5MI7eN086tiNZirLNJsPihA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-288-lo7-ihz-OPyBteRz9PqA8A-1; Tue, 26 May 2020 09:07:14 -0400
-X-MC-Unique: lo7-ihz-OPyBteRz9PqA8A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-143-7dHXyhs1M5eBEcR-6lunBg-1; Wed, 27 May 2020 04:30:12 -0400
+X-MC-Unique: 7dHXyhs1M5eBEcR-6lunBg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 262F1100CC8C;
-	Tue, 26 May 2020 13:07:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 141709F63;
-	Tue, 26 May 2020 13:07:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4C3A7180180A;
+	Wed, 27 May 2020 08:30:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EEF49A274;
+	Wed, 27 May 2020 08:30:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F20D41809554;
-	Tue, 26 May 2020 13:07:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B66466B499;
+	Wed, 27 May 2020 08:30:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04QD5gNm010720 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 26 May 2020 09:05:42 -0400
+	id 04R8U1Zb023307 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 27 May 2020 04:30:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C05025D9E7; Tue, 26 May 2020 13:05:42 +0000 (UTC)
+	id 741A52AF4D; Wed, 27 May 2020 08:30:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-112-79.phx2.redhat.com [10.3.112.79])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8B3E15D9E5
-	for <cluster-devel@redhat.com>; Tue, 26 May 2020 13:05:42 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Tue, 26 May 2020 08:05:36 -0500
-Message-Id: <20200526130536.295081-9-rpeterso@redhat.com>
-In-Reply-To: <20200526130536.295081-1-rpeterso@redhat.com>
-References: <20200526130536.295081-1-rpeterso@redhat.com>
+Received: from cicero.redhat.com (unknown [10.33.36.6])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E68EF610AF
+	for <cluster-devel@redhat.com>; Wed, 27 May 2020 08:29:57 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Wed, 27 May 2020 09:29:54 +0100
+Message-Id: <20200527082954.1235228-1-anprice@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 8/8] gfs2: introduce new
-	gfs2_glock_assert_withdraw
+Subject: [Cluster-devel] [PATCH] mkfs.gfs2: Don't use optimal_io_size when
+	equal to minimum
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,76 +63,38 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-Before this patch, asserts based on glocks did not print the glock with
-the error. This patch introduces a new macro, gfs2_glock_assert_withdraw
-which first prints the glock, then takes the assert.
+Some devices report an optimal_io_size of 512 instead of 0 when it's not
+larger than the minimum_io_size. Currently mkfs.gfs2 uses the non-zero
+value to choose the block size, which is almost certainly not what we
+want when it's 512. Update the suitability check for optimal_io_size to
+avoid using it when it's the same as minimum_io_size.  The effect is
+that we fall back to using the default block size, 4096.
 
-This also changes a few glock asserts to the new macro.
-
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Resolves: rhbz#1839219
+Signed-off-by: Andrew Price <anprice@redhat.com>
 ---
- fs/gfs2/glock.c | 7 ++++---
- fs/gfs2/glock.h | 9 +++++++++
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ gfs2/mkfs/main_mkfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 9a5dadc93cfc..64541d8bf9ad 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -164,7 +164,7 @@ void gfs2_glock_free(struct gfs2_glock *gl)
- {
- 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
- 
--	BUG_ON(atomic_read(&gl->gl_revokes));
-+	gfs2_glock_assert_withdraw(gl, atomic_read(&gl->gl_revokes) == 0);
- 	rhashtable_remove_fast(&gl_hash_table, &gl->gl_node, ht_parms);
- 	smp_mb();
- 	wake_up_glock(gl);
-@@ -626,7 +626,8 @@ __acquires(&gl->gl_lockref.lock)
- 		 */
- 		if ((atomic_read(&gl->gl_ail_count) != 0) &&
- 		    (!cmpxchg(&sdp->sd_log_error, 0, -EIO))) {
--			gfs2_assert_warn(sdp, !atomic_read(&gl->gl_ail_count));
-+			gfs2_glock_assert_warn(gl,
-+					       !atomic_read(&gl->gl_ail_count));
- 			gfs2_dump_glock(NULL, gl, true);
- 		}
- 		glops->go_inval(gl, target == LM_ST_DEFERRED ? 0 : DIO_METADATA);
-@@ -1836,7 +1837,7 @@ void gfs2_glock_finish_truncate(struct gfs2_inode *ip)
- 	int ret;
- 
- 	ret = gfs2_truncatei_resume(ip);
--	gfs2_assert_withdraw(gl->gl_name.ln_sbd, ret == 0);
-+	gfs2_glock_assert_withdraw(gl, ret == 0);
- 
- 	spin_lock(&gl->gl_lockref.lock);
- 	clear_bit(GLF_LOCK, &gl->gl_flags);
-diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
-index b8adaf80e4c5..8472d5ba0142 100644
---- a/fs/gfs2/glock.h
-+++ b/fs/gfs2/glock.h
-@@ -205,6 +205,15 @@ extern void gfs2_dump_glock(struct seq_file *seq, struct gfs2_glock *gl,
- #define GLOCK_BUG_ON(gl,x) do { if (unlikely(x)) {		\
- 			gfs2_dump_glock(NULL, gl, true);	\
- 			BUG(); } } while(0)
-+#define gfs2_glock_assert_warn(gl, x) do { if (unlikely(!(x))) {	\
-+			gfs2_dump_glock(NULL, gl, true);		\
-+			gfs2_assert_warn((gl)->gl_name.ln_sbd, (x)); } } \
-+	while(0)
-+#define gfs2_glock_assert_withdraw(gl, x) do { if (unlikely(!(x))) {	\
-+			gfs2_dump_glock(NULL, gl, true);		\
-+			gfs2_assert_withdraw((gl)->gl_name.ln_sbd, (x)); } } \
-+	while(0)
-+
- extern __printf(2, 3)
- void gfs2_print_dbg(struct seq_file *seq, const char *fmt, ...);
- 
+diff --git a/gfs2/mkfs/main_mkfs.c b/gfs2/mkfs/main_mkfs.c
+index 846b341f..8b97f3d2 100644
+--- a/gfs2/mkfs/main_mkfs.c
++++ b/gfs2/mkfs/main_mkfs.c
+@@ -505,7 +505,7 @@ static unsigned choose_blocksize(struct mkfs_opts *opts)
+ 	}
+ 	if (!opts->got_bsize && got_topol) {
+ 		if (dev->optimal_io_size <= getpagesize() &&
+-		    dev->optimal_io_size >= dev->minimum_io_size)
++		    dev->optimal_io_size > dev->minimum_io_size)
+ 			bsize = dev->optimal_io_size;
+ 		else if (dev->physical_sector_size <= getpagesize() &&
+ 		         dev->physical_sector_size >= GFS2_DEFAULT_BSIZE)
 -- 
 2.26.2
 
