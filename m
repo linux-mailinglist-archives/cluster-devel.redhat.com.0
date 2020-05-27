@@ -1,55 +1,74 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A0A61E4053
-	for <lists+cluster-devel@lfdr.de>; Wed, 27 May 2020 13:42:47 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 1182A1E4D2F
+	for <lists+cluster-devel@lfdr.de>; Wed, 27 May 2020 20:39:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590579766;
+	s=mimecast20190719; t=1590604771;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=lUF5gYKHCbSAq8u+hxXkfJ6TN4FdnSGAbPW2Du2Cv4c=;
-	b=h1R0IzqfoMl1O13q8XYmi6XgjyVDbQU3eeoC4wLzOWOrigqr8wH4iKoRsM6aSpJ5F0SGpu
-	qqUsU4mtr23vRYBqYl082g7hJ9XOmNaCiBeWOsggSTC/4wAgOZOLNBQlwtZ2JdCbbjeHfn
-	TKJeHQxwrRtapfVHszWp79LzrgFUXVI=
+	bh=LUf7Yx/K7I5FK3axyR59J8rMx6Ue2mwNKAv4IV2euEw=;
+	b=gxDNwXQtUHi4xMiKaC3zUp9Ahg0RyK5nos3tvB+1QJbAu3BqVM7105eDmo1KM611ceJrgB
+	bYvF3OXryPxKhRiJQfRxYe/Swd9dRDd5nAK3hN1Q/RRUjIrscrwL+IiXBXdAOcvC3V98X0
+	jGRvVE+z+Qzf70Lyrk8PK2OnMNCDeuo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-44-CM_vR40IPLSvUxivi-fdgA-1; Wed, 27 May 2020 07:42:44 -0400
-X-MC-Unique: CM_vR40IPLSvUxivi-fdgA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-321-BmJh_VKfOwK_NuBxQdi8OQ-1; Wed, 27 May 2020 14:39:29 -0400
+X-MC-Unique: BmJh_VKfOwK_NuBxQdi8OQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5DB6418FE864;
-	Wed, 27 May 2020 11:42:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BF81D18FE861;
+	Wed, 27 May 2020 18:39:25 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C92875D9E8;
-	Wed, 27 May 2020 11:42:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 242D55C1B0;
+	Wed, 27 May 2020 18:39:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 37B623E1E0;
-	Wed, 27 May 2020 11:42:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 696ED6B49B;
+	Wed, 27 May 2020 18:39:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04RBgZLW003418 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 27 May 2020 07:42:35 -0400
+	id 04RIdGqA004366 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 27 May 2020 14:39:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6A1615D9EF; Wed, 27 May 2020 11:42:35 +0000 (UTC)
+	id D67C82166BA2; Wed, 27 May 2020 18:39:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from cicero.redhat.com (unknown [10.33.36.6])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 807775D9E8
-	for <cluster-devel@redhat.com>; Wed, 27 May 2020 11:42:31 +0000 (UTC)
-From: Andrew Price <anprice@redhat.com>
-To: cluster-devel@redhat.com
-Date: Wed, 27 May 2020 12:42:29 +0100
-Message-Id: <20200527114229.1302836-1-anprice@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA7882166BA0
+	for <cluster-devel@redhat.com>; Wed, 27 May 2020 18:39:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 343F41859162
+	for <cluster-devel@redhat.com>; Wed, 27 May 2020 18:39:13 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-482-hJva4cGKNt6FY5ulacMRhg-1; Wed, 27 May 2020 14:39:11 -0400
+X-MC-Unique: hJva4cGKNt6FY5ulacMRhg-1
+Received: from p4fdb0aaa.dip0.t-ipconnect.de ([79.219.10.170] helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat
+	Linux)) id 1je0hD-00087V-O8; Wed, 27 May 2020 18:22:32 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
+Date: Wed, 27 May 2020 20:22:27 +0200
+Message-Id: <20200527182229.517794-1-hch@lst.de>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH] mkfs.gfs2: Don't use i/o limits hints <4K
-	for block size
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Neil Horman <nhorman@tuxdriver.com>, netdev@vger.kernel.org,
+	Vlad Yasevich <vyasevich@gmail.com>,
+	linux-kernel@vger.kernel.org, cluster-devel@redhat.com
+Subject: [Cluster-devel] remove kernel_getsockopt
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -63,51 +82,14 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-Some devices report an optimal_io_size less than 4K. Currently mkfs.gfs2
-uses the non-zero value to choose the block size, which is almost
-certainly a bad choice when it's less than 4K. Update choose_blocksize()
-to avoid using device topology hints for the block size choice when
-they're less than the default block size (4K). Test case included.
+Hi dear maintainers,
 
-Resolves: rhbz#1839219
-Signed-off-by: Andrew Price <anprice@redhat.com>
----
- gfs2/mkfs/main_mkfs.c | 2 +-
- tests/mkfs.at         | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/gfs2/mkfs/main_mkfs.c b/gfs2/mkfs/main_mkfs.c
-index 846b341f..412d4701 100644
---- a/gfs2/mkfs/main_mkfs.c
-+++ b/gfs2/mkfs/main_mkfs.c
-@@ -505,7 +505,7 @@ static unsigned choose_blocksize(struct mkfs_opts *opts)
- 	}
- 	if (!opts->got_bsize && got_topol) {
- 		if (dev->optimal_io_size <= getpagesize() &&
--		    dev->optimal_io_size >= dev->minimum_io_size)
-+		    dev->optimal_io_size >= GFS2_DEFAULT_BSIZE)
- 			bsize = dev->optimal_io_size;
- 		else if (dev->physical_sector_size <= getpagesize() &&
- 		         dev->physical_sector_size >= GFS2_DEFAULT_BSIZE)
-diff --git a/tests/mkfs.at b/tests/mkfs.at
-index 57785a0d..4c8b2249 100644
---- a/tests/mkfs.at
-+++ b/tests/mkfs.at
-@@ -112,6 +112,8 @@ AT_CLEANUP
- AT_SETUP([Device i/o limits handling])
- AT_KEYWORDS(mkfs.gfs2 mkfs)
- AT_CHECK([$GFS_MKFS -p lock_nolock -o test_topology=0:0:0:0:0 $GFS_TGT], 0, [ignore], [ignore])
-+AT_CHECK([$GFS_MKFS -p lock_nolock -o test_topology=0:512:512:512:512 $GFS_TGT], 0, [ignore], [ignore])
-+AT_CHECK([gfs2_edit -p sb field sb_bsize $GFS_TGT | tr -d '\n' ], 0, [4096], [ignore])
- AT_CHECK([$GFS_MKFS -p lock_nolock -o test_topology=7168:512:0:33553920:512 $GFS_TGT], 0, [ignore], [ignore])
- AT_CHECK([$GFS_MKFS -p lock_nolock -o test_topology=7168:512:8192:33553920:512 $GFS_TGT], 0, [ignore], [Warning: device is not properly aligned. This may harm performance.
- ])
--- 
-2.26.2
+this series reduces scope from the last round and just removes
+kernel_getsockopt to avoid conflicting with the sctp cleanup series.
 
