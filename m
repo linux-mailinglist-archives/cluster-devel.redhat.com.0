@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id CB8141E5586
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id C2C811E5585
 	for <lists+cluster-devel@lfdr.de>; Thu, 28 May 2020 07:14:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1590642862;
@@ -12,59 +12,60 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=OfDlGdyFJbY3guIEMLUBPt/bisXMPCmZcgN0xNtZrAc=;
-	b=AYU4g3c37tbDIbhKqTgz6tjDy9oWCJLQdZgwXDxiX+Et+RSf4dcQM6MneJl1UD+IYTabzw
-	dnnt9/D9uF5H7StxetzDPVhhoJ55ryP2bK2opocwIE9bXGRGIKtbIarGOOmBJ7UvXvTtDp
-	uZ2BbaDCG7Zf0Fvi6uyoekImnwdvoVE=
+	bh=RW7ZqKy2D0i6aMR50NUIoRMS4UGwWL8V3Nqk5vVzkJU=;
+	b=R0aOOxHLW0W8GkRTd+NX5CbKIs5tx011B3fNBVl062MdVTWQkFgNBPlWYR0ODmquV6aYiG
+	3MXPCrvueOf8wG5+pWm9Kp9J/YR6XG5sH0/Ru6oeO6MZsVVrzQvTp6Ihtjps8hO76BGoWs
+	Kxd+GiR6S0Dd6vxtlrdXBEeKwJJIl9c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-148-sozMjS8TMf2UFRAmZLLF7w-1; Thu, 28 May 2020 01:14:20 -0400
-X-MC-Unique: sozMjS8TMf2UFRAmZLLF7w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-64-C4cPLzQnO2KjwqSnGBAOUw-1; Thu, 28 May 2020 01:14:20 -0400
+X-MC-Unique: C4cPLzQnO2KjwqSnGBAOUw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9324B18FE867;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 915CD872FEA;
 	Thu, 28 May 2020 05:14:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B64D1001268;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EE8B19D82;
 	Thu, 28 May 2020 05:14:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3C44F6B4E4;
-	Thu, 28 May 2020 05:14:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B86FE6B518;
+	Thu, 28 May 2020 05:14:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04S5EBi1006399 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 28 May 2020 01:14:11 -0400
+	id 04S5EEHa006425 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 28 May 2020 01:14:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5E6CA2166BA4; Thu, 28 May 2020 05:14:11 +0000 (UTC)
+	id E6C5410D18D9; Thu, 28 May 2020 05:14:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A9432166BA0
-	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E2F4310D18D8
+	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3768A80A0B8
-	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8FBF800260
+	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:13 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-349-Jnj9tgvON9ed_O8vERWrQw-1; Thu, 28 May 2020 01:14:06 -0400
-X-MC-Unique: Jnj9tgvON9ed_O8vERWrQw-1
+	us-mta-187-vQuNn38_POy0-ibDY_Z-bQ-1; Thu, 28 May 2020 01:14:11 -0400
+X-MC-Unique: vQuNn38_POy0-ibDY_Z-bQ-1
 Received: from p4fdb1ad2.dip0.t-ipconnect.de ([79.219.26.210] helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat
-	Linux)) id 1jeArU-0002Pc-U3; Thu, 28 May 2020 05:13:49 +0000
+	Linux)) id 1jeArY-0002SN-1s; Thu, 28 May 2020 05:13:52 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
-Date: Thu, 28 May 2020 07:12:29 +0200
-Message-Id: <20200528051236.620353-22-hch@lst.de>
+Date: Thu, 28 May 2020 07:12:30 +0200
+Message-Id: <20200528051236.620353-23-hch@lst.de>
 In-Reply-To: <20200528051236.620353-1-hch@lst.de>
 References: <20200528051236.620353-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
 	cluster-devel@redhat.com, Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
@@ -73,11 +74,10 @@ Cc: linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
 	Ying Xue <ying.xue@windriver.com>,
 	Eric Dumazet <edumazet@google.com>, target-devel@vger.kernel.org,
 	tipc-discussion@lists.sourceforge.net, linux-nfs@vger.kernel.org,
-	David Howells <dhowells@redhat.com>, drbd-dev@tron.linbit.com,
-	Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
+	drbd-dev@tron.linbit.com, Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
 	ceph-devel@vger.kernel.org, linux-afs@lists.infradead.org,
 	ocfs2-devel@oss.oracle.com, linux-rdma@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 21/28] ipv4: add ip_sock_set_mtu_discover
+Subject: [Cluster-devel] [PATCH 22/28] ipv4: add ip_sock_set_pktinfo
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,113 +91,69 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-Add a helper to directly set the IP_MTU_DISCOVER sockopt from kernel
+Add a helper to directly set the IP_PKTINFO sockopt from kernel
 space without going through a fake uaccess.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: David Howells <dhowells@redhat.com> [rxrpc bits]
 ---
- include/net/ip.h         |  1 +
- net/ipv4/ip_sockglue.c   | 11 +++++++++++
- net/rxrpc/local_object.c |  8 +-------
- net/rxrpc/output.c       | 14 +++++---------
- 4 files changed, 18 insertions(+), 16 deletions(-)
+ include/net/ip.h       | 1 +
+ net/ipv4/ip_sockglue.c | 8 ++++++++
+ net/sunrpc/svcsock.c   | 5 ++---
+ 3 files changed, 11 insertions(+), 3 deletions(-)
 
 diff --git a/include/net/ip.h b/include/net/ip.h
-index f063a491b9063..d3649c49dd333 100644
+index d3649c49dd333..04ebe7bf54c6a 100644
 --- a/include/net/ip.h
 +++ b/include/net/ip.h
-@@ -766,6 +766,7 @@ static inline bool inetdev_valid_mtu(unsigned int mtu)
- }
+@@ -767,6 +767,7 @@ static inline bool inetdev_valid_mtu(unsigned int mtu)
  
  void ip_sock_set_freebind(struct sock *sk);
-+int ip_sock_set_mtu_discover(struct sock *sk, int val);
+ int ip_sock_set_mtu_discover(struct sock *sk, int val);
++void ip_sock_set_pktinfo(struct sock *sk);
  void ip_sock_set_recverr(struct sock *sk);
  void ip_sock_set_tos(struct sock *sk, int val);
  
 diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
-index aca6b81da9bae..aa115be11dcfb 100644
+index aa115be11dcfb..84ec3703c9091 100644
 --- a/net/ipv4/ip_sockglue.c
 +++ b/net/ipv4/ip_sockglue.c
-@@ -597,6 +597,17 @@ void ip_sock_set_recverr(struct sock *sk)
+@@ -608,6 +608,14 @@ int ip_sock_set_mtu_discover(struct sock *sk, int val)
  }
- EXPORT_SYMBOL(ip_sock_set_recverr);
+ EXPORT_SYMBOL(ip_sock_set_mtu_discover);
  
-+int ip_sock_set_mtu_discover(struct sock *sk, int val)
++void ip_sock_set_pktinfo(struct sock *sk)
 +{
-+	if (val < IP_PMTUDISC_DONT || val > IP_PMTUDISC_OMIT)
-+		return -EINVAL;
 +	lock_sock(sk);
-+	inet_sk(sk)->pmtudisc = val;
++	inet_sk(sk)->cmsg_flags |= IP_CMSG_PKTINFO;
 +	release_sock(sk);
-+	return 0;
 +}
-+EXPORT_SYMBOL(ip_sock_set_mtu_discover);
++EXPORT_SYMBOL(ip_sock_set_pktinfo);
 +
  /*
   *	Socket option code for IP. This is the end of the line after any
   *	TCP,UDP etc options on an IP socket.
-diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
-index 4c0e8fe5ec1fb..6f4e6b4817cf2 100644
---- a/net/rxrpc/local_object.c
-+++ b/net/rxrpc/local_object.c
-@@ -174,13 +174,7 @@ static int rxrpc_open_socket(struct rxrpc_local *local, struct net *net)
- 		ip_sock_set_recverr(local->socket->sk);
- 
- 		/* we want to set the don't fragment bit */
--		opt = IP_PMTUDISC_DO;
--		ret = kernel_setsockopt(local->socket, SOL_IP, IP_MTU_DISCOVER,
--					(char *) &opt, sizeof(opt));
--		if (ret < 0) {
--			_debug("setsockopt failed");
--			goto error;
--		}
-+		ip_sock_set_mtu_discover(local->socket->sk, IP_PMTUDISC_DO);
- 
- 		/* We want receive timestamps. */
- 		sock_enable_timestamps(local->socket->sk);
-diff --git a/net/rxrpc/output.c b/net/rxrpc/output.c
-index f8b632a5c6197..1ba43c3df4adb 100644
---- a/net/rxrpc/output.c
-+++ b/net/rxrpc/output.c
-@@ -321,7 +321,7 @@ int rxrpc_send_data_packet(struct rxrpc_call *call, struct sk_buff *skb,
- 	struct kvec iov[2];
- 	rxrpc_serial_t serial;
- 	size_t len;
--	int ret, opt;
-+	int ret;
- 
- 	_enter(",{%d}", skb->len);
- 
-@@ -473,18 +473,14 @@ int rxrpc_send_data_packet(struct rxrpc_call *call, struct sk_buff *skb,
- 	switch (conn->params.local->srx.transport.family) {
- 	case AF_INET6:
+diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
+index 6773dacc64d8e..7a805d165689c 100644
+--- a/net/sunrpc/svcsock.c
++++ b/net/sunrpc/svcsock.c
+@@ -616,9 +616,8 @@ static void svc_udp_init(struct svc_sock *svsk, struct svc_serv *serv)
+ 	/* make sure we get destination address info */
+ 	switch (svsk->sk_sk->sk_family) {
  	case AF_INET:
--		opt = IP_PMTUDISC_DONT;
--		kernel_setsockopt(conn->params.local->socket,
--				  SOL_IP, IP_MTU_DISCOVER,
--				  (char *)&opt, sizeof(opt));
-+		ip_sock_set_mtu_discover(conn->params.local->socket->sk,
-+				IP_PMTUDISC_DONT);
- 		ret = kernel_sendmsg(conn->params.local->socket, &msg,
- 				     iov, 2, len);
- 		conn->params.peer->last_tx_at = ktime_get_seconds();
- 
--		opt = IP_PMTUDISC_DO;
--		kernel_setsockopt(conn->params.local->socket,
--				  SOL_IP, IP_MTU_DISCOVER,
--				  (char *)&opt, sizeof(opt));
-+		ip_sock_set_mtu_discover(conn->params.local->socket->sk,
-+				IP_PMTUDISC_DO);
- 		break;
- 
- 	default:
+-		level = SOL_IP;
+-		optname = IP_PKTINFO;
+-		break;
++		ip_sock_set_pktinfo(svsk->sk_sock->sk);
++		return;
+ 	case AF_INET6:
+ 		level = SOL_IPV6;
+ 		optname = IPV6_RECVPKTINFO;
 -- 
 2.26.2
 
