@@ -1,70 +1,71 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id ADA0E1E5595
-	for <lists+cluster-devel@lfdr.de>; Thu, 28 May 2020 07:14:41 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id DEF251E558D
+	for <lists+cluster-devel@lfdr.de>; Thu, 28 May 2020 07:14:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590642880;
+	s=mimecast20190719; t=1590642877;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=B8AAretIu5FmedPsdm8UByxsgeixSPHOD/FDCOuT058=;
-	b=XbsGu7MWKDsYJqr4Ydjb5HcsbiiCppY2lCcaztp7CAHpuoA5t8wUQ+AT+eziZF0ckZLBv3
-	2lIJfhDM/LWhJun/HdJl64HHvcvWS8HIfmaLmkQo2v3uB5UEA5uEXJHjccRdA7ij8M87mR
-	bBcxkbDnYjgaZeYX+Pg8yDqqJo8DTv8=
+	bh=ArfUN0byB3Uq+uJrbTK/3I3YkF2OfRio3Yy2O4aNtms=;
+	b=cZvSa75NxgL5LOEhhxtV56D7iY5vMWSfsegNI7hOyFEEWNBlKbii+r7rUUM3k2+IYDT5fv
+	KhvUdRasPVLfPGbYWX/UcpoFyujCJ5jIjmXp+tInt/ht7lpqNxolMFfF0JO9XFSKOovBuv
+	IJxiE8uhGqVtpeaJVLx/iUAC8CUCKjY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-477-qWSGR5knOsqjQLwo6GmtWg-1; Thu, 28 May 2020 01:14:38 -0400
-X-MC-Unique: qWSGR5knOsqjQLwo6GmtWg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-154-pVBIH3QKMpOI0vN9z65wOA-1; Thu, 28 May 2020 01:14:35 -0400
+X-MC-Unique: pVBIH3QKMpOI0vN9z65wOA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 67DB218FE863;
-	Thu, 28 May 2020 05:14:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC5D2107ACF6;
+	Thu, 28 May 2020 05:14:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 57ED77D982;
-	Thu, 28 May 2020 05:14:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C7C35C1B0;
+	Thu, 28 May 2020 05:14:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 45B9F1809543;
-	Thu, 28 May 2020 05:14:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8A1FD1809543;
+	Thu, 28 May 2020 05:14:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04S5EYTf006491 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 28 May 2020 01:14:34 -0400
+	id 04S5EVaR006470 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 28 May 2020 01:14:31 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2428C10D18DC; Thu, 28 May 2020 05:14:34 +0000 (UTC)
+	id 4D9BD2166BA0; Thu, 28 May 2020 05:14:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FC9810D18D8
-	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 499822157F24
+	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2098A185A78B
-	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A26482882B
+	for <cluster-devel@redhat.com>; Thu, 28 May 2020 05:14:29 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-335-NOe8Rx3dN5K5qVfwTyF94w-1; Thu, 28 May 2020 01:14:29 -0400
-X-MC-Unique: NOe8Rx3dN5K5qVfwTyF94w-1
+	us-mta-21-cX2tYfgbO5iM7l4i91GZ_g-1; Thu, 28 May 2020 01:14:26 -0400
+X-MC-Unique: cX2tYfgbO5iM7l4i91GZ_g-1
 Received: from p4fdb1ad2.dip0.t-ipconnect.de ([79.219.26.210] helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat
-	Linux)) id 1jeAre-0002XI-Jl; Thu, 28 May 2020 05:13:59 +0000
+	Linux)) id 1jeArh-0002Z7-IZ; Thu, 28 May 2020 05:14:02 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
-Date: Thu, 28 May 2020 07:12:32 +0200
-Message-Id: <20200528051236.620353-25-hch@lst.de>
+Date: Thu, 28 May 2020 07:12:33 +0200
+Message-Id: <20200528051236.620353-26-hch@lst.de>
 In-Reply-To: <20200528051236.620353-1-hch@lst.de>
 References: <20200528051236.620353-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
 Cc: linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
 	cluster-devel@redhat.com, Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
@@ -73,11 +74,11 @@ Cc: linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
 	Ying Xue <ying.xue@windriver.com>,
 	Eric Dumazet <edumazet@google.com>, target-devel@vger.kernel.org,
 	tipc-discussion@lists.sourceforge.net, linux-nfs@vger.kernel.org,
-	David Howells <dhowells@redhat.com>, drbd-dev@tron.linbit.com,
-	Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
+	drbd-dev@tron.linbit.com, Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
 	ceph-devel@vger.kernel.org, linux-afs@lists.infradead.org,
 	ocfs2-devel@oss.oracle.com, linux-rdma@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 24/28] ipv6: add ip6_sock_set_recverr
+Subject: [Cluster-devel] [PATCH 25/28] ipv6: add
+	ip6_sock_set_addr_preferences
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,66 +92,196 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-Add a helper to directly set the IPV6_RECVERR sockopt from kernel space
-without going through a fake uaccess.
+Add a helper to directly set the IPV6_ADD_PREFERENCES sockopt from kernel
+space without going through a fake uaccess.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: David Howells <dhowells@redhat.com>
 ---
- include/net/ipv6.h       |  7 +++++++
- net/rxrpc/local_object.c | 10 ++--------
- 2 files changed, 9 insertions(+), 8 deletions(-)
+ include/net/ipv6.h       | 67 ++++++++++++++++++++++++++++++++++++++++
+ net/ipv6/ipv6_sockglue.c | 59 +----------------------------------
+ net/sunrpc/xprtsock.c    |  7 +++--
+ 3 files changed, 72 insertions(+), 61 deletions(-)
 
 diff --git a/include/net/ipv6.h b/include/net/ipv6.h
-index 9b91188c9a74c..49c4abf991489 100644
+index 49c4abf991489..9a90759830162 100644
 --- a/include/net/ipv6.h
 +++ b/include/net/ipv6.h
-@@ -1188,4 +1188,11 @@ static inline int ip6_sock_set_v6only(struct sock *sk)
- 	return 0;
+@@ -1195,4 +1195,71 @@ static inline void ip6_sock_set_recverr(struct sock *sk)
+ 	release_sock(sk);
  }
  
-+static inline void ip6_sock_set_recverr(struct sock *sk)
++static inline int __ip6_sock_set_addr_preferences(struct sock *sk, int val)
 +{
++	unsigned int pref = 0;
++	unsigned int prefmask = ~0;
++
++	/* check PUBLIC/TMP/PUBTMP_DEFAULT conflicts */
++	switch (val & (IPV6_PREFER_SRC_PUBLIC |
++		       IPV6_PREFER_SRC_TMP |
++		       IPV6_PREFER_SRC_PUBTMP_DEFAULT)) {
++	case IPV6_PREFER_SRC_PUBLIC:
++		pref |= IPV6_PREFER_SRC_PUBLIC;
++		prefmask &= ~(IPV6_PREFER_SRC_PUBLIC |
++			      IPV6_PREFER_SRC_TMP);
++		break;
++	case IPV6_PREFER_SRC_TMP:
++		pref |= IPV6_PREFER_SRC_TMP;
++		prefmask &= ~(IPV6_PREFER_SRC_PUBLIC |
++			      IPV6_PREFER_SRC_TMP);
++		break;
++	case IPV6_PREFER_SRC_PUBTMP_DEFAULT:
++		prefmask &= ~(IPV6_PREFER_SRC_PUBLIC |
++			      IPV6_PREFER_SRC_TMP);
++		break;
++	case 0:
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	/* check HOME/COA conflicts */
++	switch (val & (IPV6_PREFER_SRC_HOME | IPV6_PREFER_SRC_COA)) {
++	case IPV6_PREFER_SRC_HOME:
++		prefmask &= ~IPV6_PREFER_SRC_COA;
++		break;
++	case IPV6_PREFER_SRC_COA:
++		pref |= IPV6_PREFER_SRC_COA;
++		break;
++	case 0:
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	/* check CGA/NONCGA conflicts */
++	switch (val & (IPV6_PREFER_SRC_CGA|IPV6_PREFER_SRC_NONCGA)) {
++	case IPV6_PREFER_SRC_CGA:
++	case IPV6_PREFER_SRC_NONCGA:
++	case 0:
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	inet6_sk(sk)->srcprefs = (inet6_sk(sk)->srcprefs & prefmask) | pref;
++	return 0;
++}
++
++static inline int ip6_sock_set_addr_preferences(struct sock *sk, bool val)
++{
++	int ret;
++
 +	lock_sock(sk);
-+	inet6_sk(sk)->recverr = true;
++	ret = __ip6_sock_set_addr_preferences(sk, val);
 +	release_sock(sk);
++	return ret;
 +}
 +
  #endif /* _NET_IPV6_H */
-diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
-index 6f4e6b4817cf2..c8b2097f499c0 100644
---- a/net/rxrpc/local_object.c
-+++ b/net/rxrpc/local_object.c
-@@ -107,7 +107,7 @@ static struct rxrpc_local *rxrpc_alloc_local(struct rxrpc_net *rxnet,
- static int rxrpc_open_socket(struct rxrpc_local *local, struct net *net)
- {
- 	struct sock *usk;
--	int ret, opt;
-+	int ret;
+diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
+index e10258c2210e8..adbfed6adf11c 100644
+--- a/net/ipv6/ipv6_sockglue.c
++++ b/net/ipv6/ipv6_sockglue.c
+@@ -845,67 +845,10 @@ static int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
+ 		break;
  
- 	_enter("%p{%d,%d}",
- 	       local, local->srx.transport_type, local->srx.transport.family);
-@@ -157,13 +157,7 @@ static int rxrpc_open_socket(struct rxrpc_local *local, struct net *net)
- 	switch (local->srx.transport.family) {
- 	case AF_INET6:
- 		/* we want to receive ICMPv6 errors */
--		opt = 1;
--		ret = kernel_setsockopt(local->socket, SOL_IPV6, IPV6_RECVERR,
--					(char *) &opt, sizeof(opt));
--		if (ret < 0) {
--			_debug("setsockopt failed");
--			goto error;
+ 	case IPV6_ADDR_PREFERENCES:
+-	    {
+-		unsigned int pref = 0;
+-		unsigned int prefmask = ~0;
+-
+ 		if (optlen < sizeof(int))
+ 			goto e_inval;
+-
+-		retv = -EINVAL;
+-
+-		/* check PUBLIC/TMP/PUBTMP_DEFAULT conflicts */
+-		switch (val & (IPV6_PREFER_SRC_PUBLIC|
+-			       IPV6_PREFER_SRC_TMP|
+-			       IPV6_PREFER_SRC_PUBTMP_DEFAULT)) {
+-		case IPV6_PREFER_SRC_PUBLIC:
+-			pref |= IPV6_PREFER_SRC_PUBLIC;
+-			break;
+-		case IPV6_PREFER_SRC_TMP:
+-			pref |= IPV6_PREFER_SRC_TMP;
+-			break;
+-		case IPV6_PREFER_SRC_PUBTMP_DEFAULT:
+-			break;
+-		case 0:
+-			goto pref_skip_pubtmp;
+-		default:
+-			goto e_inval;
 -		}
-+		ip6_sock_set_recverr(local->socket->sk);
+-
+-		prefmask &= ~(IPV6_PREFER_SRC_PUBLIC|
+-			      IPV6_PREFER_SRC_TMP);
+-pref_skip_pubtmp:
+-
+-		/* check HOME/COA conflicts */
+-		switch (val & (IPV6_PREFER_SRC_HOME|IPV6_PREFER_SRC_COA)) {
+-		case IPV6_PREFER_SRC_HOME:
+-			break;
+-		case IPV6_PREFER_SRC_COA:
+-			pref |= IPV6_PREFER_SRC_COA;
+-		case 0:
+-			goto pref_skip_coa;
+-		default:
+-			goto e_inval;
+-		}
+-
+-		prefmask &= ~IPV6_PREFER_SRC_COA;
+-pref_skip_coa:
+-
+-		/* check CGA/NONCGA conflicts */
+-		switch (val & (IPV6_PREFER_SRC_CGA|IPV6_PREFER_SRC_NONCGA)) {
+-		case IPV6_PREFER_SRC_CGA:
+-		case IPV6_PREFER_SRC_NONCGA:
+-		case 0:
+-			break;
+-		default:
+-			goto e_inval;
+-		}
+-
+-		np->srcprefs = (np->srcprefs & prefmask) | pref;
+-		retv = 0;
+-
++		retv = __ip6_sock_set_addr_preferences(sk, val);
+ 		break;
+-	    }
+ 	case IPV6_MINHOPCOUNT:
+ 		if (optlen < sizeof(int))
+ 			goto e_inval;
+diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
+index 0d3ec055bc12f..3a143e250b9ac 100644
+--- a/net/sunrpc/xprtsock.c
++++ b/net/sunrpc/xprtsock.c
+@@ -2150,7 +2150,6 @@ static int xs_tcp_finish_connecting(struct rpc_xprt *xprt, struct socket *sock)
  
- 		/* Fall through and set IPv4 options too otherwise we don't get
- 		 * errors from IPv4 packets sent through the IPv6 socket.
+ 	if (!transport->inet) {
+ 		struct sock *sk = sock->sk;
+-		unsigned int addr_pref = IPV6_PREFER_SRC_PUBLIC;
+ 
+ 		/* Avoid temporary address, they are bad for long-lived
+ 		 * connections such as NFS mounts.
+@@ -2159,8 +2158,10 @@ static int xs_tcp_finish_connecting(struct rpc_xprt *xprt, struct socket *sock)
+ 		 *    knowledge about the normal duration of connections,
+ 		 *    MAY override this as appropriate.
+ 		 */
+-		kernel_setsockopt(sock, SOL_IPV6, IPV6_ADDR_PREFERENCES,
+-				(char *)&addr_pref, sizeof(addr_pref));
++		if (xs_addr(xprt)->sa_family == PF_INET6) {
++			ip6_sock_set_addr_preferences(sk,
++				IPV6_PREFER_SRC_PUBLIC);
++		}
+ 
+ 		xs_tcp_set_socket_timeouts(xprt, sock);
+ 
 -- 
 2.26.2
 
