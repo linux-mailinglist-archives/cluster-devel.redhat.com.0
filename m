@@ -2,71 +2,98 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id C2E861E9A82
-	for <lists+cluster-devel@lfdr.de>; Sun, 31 May 2020 23:23:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BD3551EA007
+	for <lists+cluster-devel@lfdr.de>; Mon,  1 Jun 2020 10:27:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590960204;
+	s=mimecast20190719; t=1591000049;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=Txi1aq/FbpssSHm13WFq8FHI+yAKUy+v78xX4plKyI4=;
-	b=HApzau/NmyCVJigqmNeMnYckyE7SmBZJdkVzs0He7F+w/QgJv/hbjee1AaIjAOvnU29RUS
-	NXWAjvwEsQk3YS1UomwE693DsrH+WNmKvbiXjqee1egir7h1sT/A0zvcsxNwT5r2OkxLdy
-	X3DfSRGTli+30M7xseO04vxga+31XPk=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=PlMBAKqNh8eTHSDw0JACf1Xzwa2DFml2fu0Ayk32yDE=;
+	b=G36JJqurISKtaCx2D9U/VcQIEANoKX16di4AFiYtpEH+TE+hVv7elKKP+LtvOB37l8xH1R
+	xys1N6YUmoDOK7ZTK0GUsZSLkSn6yOs1b10LrwI+N/jv0GaLT10xcBSCYBvPxDe5DY0JmA
+	7+sqk/NMYGU8JilxCCA1ZMgs2rHX/CM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-429-U4Xx4EMdMO-3xbyBnE7USg-1; Sun, 31 May 2020 17:23:22 -0400
-X-MC-Unique: U4Xx4EMdMO-3xbyBnE7USg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-39-BFag295tNq6tjwYw0i3D5A-1; Mon, 01 Jun 2020 04:27:27 -0400
+X-MC-Unique: BFag295tNq6tjwYw0i3D5A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E405C460;
-	Sun, 31 May 2020 21:23:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D3BDE108BD0B;
+	Mon,  1 Jun 2020 08:27:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1B2D60C81;
-	Sun, 31 May 2020 21:23:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CE147C098;
+	Mon,  1 Jun 2020 08:27:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5DAF17F1EB;
-	Sun, 31 May 2020 21:23:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 00795938F2;
+	Mon,  1 Jun 2020 08:27:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04VLN9g9008111 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sun, 31 May 2020 17:23:09 -0400
+	id 0518RHbO015602 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 1 Jun 2020 04:27:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 216662157F25; Sun, 31 May 2020 21:23:09 +0000 (UTC)
+	id 1366EF5688; Mon,  1 Jun 2020 08:27:17 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBD562166B27
-	for <cluster-devel@redhat.com>; Sun, 31 May 2020 21:23:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EDDB9A4868
+	for <cluster-devel@redhat.com>; Mon,  1 Jun 2020 08:27:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A7048007C8
-	for <cluster-devel@redhat.com>; Sun, 31 May 2020 21:23:06 +0000 (UTC)
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E55FB80CDAE
+	for <cluster-devel@redhat.com>; Mon,  1 Jun 2020 08:27:14 +0000 (UTC)
+Received: from eu-smtp-delivery-151.mimecast.com
+	(eu-smtp-delivery-151.mimecast.com [207.82.80.151]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-462-AKySCL8EObyMnG-cIPY5nw-1;
+	Mon, 01 Jun 2020 04:27:11 -0400
+X-MC-Unique: AKySCL8EObyMnG-cIPY5nw-1
+Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-43-BZBu6FhPMueUBzpAnQzssQ-1; Sun, 31 May 2020 17:23:01 -0400
-X-MC-Unique: BZBu6FhPMueUBzpAnQzssQ-1
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
-	id F0CF31C0BD2; Sun, 31 May 2020 23:22:58 +0200 (CEST)
-Date: Sun, 31 May 2020 23:22:58 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Sasha Levin <sashal@kernel.org>
-Message-ID: <20200531212258.GA9004@amd>
-References: <20200522145120.434921-1-sashal@kernel.org>
-	<20200522145120.434921-10-sashal@kernel.org>
+	uk-mta-4-qyf_xz7jMHaz2OtF4B_ISQ-1; Mon, 01 Jun 2020 09:27:08 +0100
+X-MC-Unique: qyf_xz7jMHaz2OtF4B_ISQ-1
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
+	AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft
+	SMTP Server (TLS) id 15.0.1347.2; Mon, 1 Jun 2020 09:27:08 +0100
+Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
+	AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id
+	15.00.1347.000; Mon, 1 Jun 2020 09:27:08 +0100
+From: David Laight <David.Laight@aculab.com>
+To: "'Marcelo Ricardo Leitner'" <marcelo.leitner@gmail.com>, Christoph Hellwig
+	<hch@lst.de>
+Thread-Topic: [PATCH 2/4] sctp: refactor sctp_setsockopt_bindx
+Thread-Index: AQHWNdMG2Q0k5UY/FEi3sQ5al/OVkajDcLLw
+Date: Mon, 1 Jun 2020 08:27:08 +0000
+Message-ID: <ef0754831c294934b67f89fd8c5e1b5b@AcuMS.aculab.com>
+References: <20200529120943.101454-1-hch@lst.de>
+	<20200529120943.101454-3-hch@lst.de>
+	<20200529160544.GI2491@localhost.localdomain>
+In-Reply-To: <20200529160544.GI2491@localhost.localdomain>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-In-Reply-To: <20200522145120.434921-10-sashal@kernel.org>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0518RHbO015602
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH AUTOSEL 4.19 10/19] gfs2: don't call
- quota_unhold if quotas are not locked
+Cc: Neil Horman <nhorman@tuxdriver.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	Vlad Yasevich <vyasevich@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"cluster-devel@redhat.com" <cluster-devel@redhat.com>,
+	"linux-sctp@vger.kernel.org" <linux-sctp@vger.kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Cluster-devel] [PATCH 2/4] sctp: refactor sctp_setsockopt_bindx
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,71 +107,59 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="5vNYLRcllDrimb99"
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---5vNYLRcllDrimb99
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Marcelo Ricardo Leitner
+> Sent: 29 May 2020 17:06
+> On Fri, May 29, 2020 at 02:09:41PM +0200, Christoph Hellwig wrote:
+> > Split out a sctp_setsockopt_bindx_kernel that takes a kernel pointer
+> > to the sockaddr and make sctp_setsockopt_bindx a small wrapper around
+> > it.  This prepares for adding a new bind_add proto op.
+> >
+> > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> 
+> Acked-by: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
+> 
+> > ---
+> >  net/sctp/socket.c | 61 ++++++++++++++++++++++-------------------------
+> >  1 file changed, 28 insertions(+), 33 deletions(-)
+> >
+> > diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+> > index 827a9903ee288..6e745ac3c4a59 100644
+> > --- a/net/sctp/socket.c
+> > +++ b/net/sctp/socket.c
+> > @@ -972,23 +972,22 @@ int sctp_asconf_mgmt(struct sctp_sock *sp, struct sctp_sockaddr_entry *addrw)
+> >   * it.
+> >   *
+> >   * sk        The sk of the socket
+> > - * addrs     The pointer to the addresses in user land
+> > + * addrs     The pointer to the addresses
+> >   * addrssize Size of the addrs buffer
+> >   * op        Operation to perform (add or remove, see the flags of
+> >   *           sctp_bindx)
+> >   *
+> >   * Returns 0 if ok, <0 errno code on error.
+> >   */
+> > -static int sctp_setsockopt_bindx(struct sock *sk,
+> > -				 struct sockaddr __user *addrs,
+> > -				 int addrs_size, int op)
+> > +static int sctp_setsockopt_bindx_kernel(struct sock *sk,
+                        const
+> > +					struct sockaddr *addrs, int addrs_size,
+> > +					int op)
 
-Hi!
+The list of addresses ought to be 'const'.
 
-> [ Upstream commit c9cb9e381985bbbe8acd2695bbe6bd24bf06b81c ]
->=20
-> Before this patch, function gfs2_quota_unlock checked if quotas are
-> turned off, and if so, it branched to label out, which called
-> gfs2_quota_unhold. With the new system of gfs2_qa_get and put, we
-> no longer want to call gfs2_quota_unhold or we won't balance our
-> gets and puts.
+IIRC that requires the test for 'port == 0' be moved down  a few layers.
 
-4.19 does not yet contain gfw2_qa_get; according to the changelog that
-means that this patch is not suitable for 4.19 kernel.
+	David
 
-Best regards,
-=09=09=09=09=09=09=09=09Pavel
-=09=09=09=09=09=09=09=09
-> index dd0f9bc13164..ce47c8233612 100644
-> --- a/fs/gfs2/quota.c
-> +++ b/fs/gfs2/quota.c
-> @@ -1116,7 +1116,7 @@ void gfs2_quota_unlock(struct gfs2_inode *ip)
->  =09int found;
-> =20
->  =09if (!test_and_clear_bit(GIF_QD_LOCKED, &ip->i_flags))
-> -=09=09goto out;
-> +=09=09return;
-> =20
->  =09for (x =3D 0; x < ip->i_qadata->qa_qd_num; x++) {
->  =09=09struct gfs2_quota_data *qd;
-> @@ -1153,7 +1153,6 @@ void gfs2_quota_unlock(struct gfs2_inode *ip)
->  =09=09=09qd_unlock(qda[x]);
->  =09}
-> =20
-> -out:
->  =09gfs2_quota_unhold(ip);
->  }
-> =20
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
+Registration No: 1397386 (Wales)
 
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
-
---5vNYLRcllDrimb99
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAl7UIDIACgkQMOfwapXb+vJu0wCgjsov0xQd93uDe72Sr3YqhVNv
-EPgAniLulgMO2BTGivnJWdmZeVqcclxO
-=TKQj
------END PGP SIGNATURE-----
-
---5vNYLRcllDrimb99--
 
