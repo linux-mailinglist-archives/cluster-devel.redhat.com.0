@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 95CA81F03CA
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 720941F03C9
 	for <lists+cluster-devel@lfdr.de>; Sat,  6 Jun 2020 02:21:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1591402864;
@@ -12,68 +12,68 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=J172nxDFUxzaOGfxoNhmQ/WBOBRUiM9D2W7K9USkYS4=;
-	b=daJ34id6M6CTiI/L2p64VvHesPsBJYL70i2fUl8m1bJZCSP6XkKfKZg0aBGTdFjEMsO/ZX
-	Kn8sprJJtUVqYXBwpEbtrgqTE4oB0o3tZLfusKvjI42J4DBukQfwOchQYHwOaT9LJ0nEVm
-	2FzB/hkTNKn5RW9S6fi2uy1O4aejmbs=
+	bh=yxCd0bOzxiEQL64qkAfguShjd0Io05BLU7eRMTJZ8xo=;
+	b=V0SPB6UhGIZMsV1ED756XY/f+Gf2RF6wdybbfCNIeGum0KU6+fDnOnVr4u2/jq55zy1lnY
+	dEhbVl1DJHyyDFdTAv1L2jedfs0zJBmxE4Bxjc6IOHSbVtHxEXfg0GGhGI48YhaPOEKG8f
+	IUff+Tq6txNXGzAxY6nSehhhAxe8HKY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-514-VZ1Rx2HsPaK-wTc5vKQr1w-1; Fri, 05 Jun 2020 20:21:02 -0400
-X-MC-Unique: VZ1Rx2HsPaK-wTc5vKQr1w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-225-xZVlrhF6OHCv-FdJYChqJQ-1; Fri, 05 Jun 2020 20:21:02 -0400
+X-MC-Unique: xZVlrhF6OHCv-FdJYChqJQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E0993800685;
-	Sat,  6 Jun 2020 00:20:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1DFE2100CD03;
+	Sat,  6 Jun 2020 00:21:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AC08261985;
-	Sat,  6 Jun 2020 00:20:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D65919C58;
+	Sat,  6 Jun 2020 00:21:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 996D987425;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EDB9687423;
 	Sat,  6 Jun 2020 00:20:59 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 055CZOgr029628 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 055CZOtD029629 for <cluster-devel@listman.util.phx.redhat.com>;
 	Fri, 5 Jun 2020 08:35:24 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 023492156A4A; Fri,  5 Jun 2020 12:35:24 +0000 (UTC)
+	id 023E02156A4C; Fri,  5 Jun 2020 12:35:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD0542156A3A
-	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 12:35:20 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D544D2156A2D
+	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 12:35:22 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFB3E80028B
-	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 12:35:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4DEA811E77
+	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 12:35:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-210-pbh3KefUPNqS6X3TF1l4bQ-1;
-	Fri, 05 Jun 2020 08:35:16 -0400
-X-MC-Unique: pbh3KefUPNqS6X3TF1l4bQ-1
+	by relay.mimecast.com with ESMTP id us-mta-192-9qrdsh1ROPCs0oeXXJmbAw-1;
+	Fri, 05 Jun 2020 08:35:15 -0400
+X-MC-Unique: 9qrdsh1ROPCs0oeXXJmbAw-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 218B6207F5;
-	Fri,  5 Jun 2020 12:25:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id B273B20835;
+	Fri,  5 Jun 2020 12:25:51 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri,  5 Jun 2020 08:25:11 -0400
-Message-Id: <20200605122517.2882338-12-sashal@kernel.org>
-In-Reply-To: <20200605122517.2882338-1-sashal@kernel.org>
-References: <20200605122517.2882338-1-sashal@kernel.org>
+Date: Fri,  5 Jun 2020 08:25:36 -0400
+Message-Id: <20200605122540.2882539-10-sashal@kernel.org>
+In-Reply-To: <20200605122540.2882539-1-sashal@kernel.org>
+References: <20200605122540.2882539-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 055CZOgr029628
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 055CZOtD029629
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.6 12/17] gfs2: Even more
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.4 10/14] gfs2: Even more
 	gfs2_find_jhead fixes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -88,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -117,10 +117,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 5 insertions(+), 10 deletions(-)
 
 diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
-index 3a020bdc358c..966ed37c9acd 100644
+index 8303b44a5068..d2ed4dc4434c 100644
 --- a/fs/gfs2/lops.c
 +++ b/fs/gfs2/lops.c
-@@ -505,12 +505,12 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
+@@ -504,12 +504,12 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
  	unsigned int bsize = sdp->sd_sb.sb_bsize, off;
  	unsigned int bsize_shift = sdp->sd_sb.sb_bsize_shift;
  	unsigned int shift = PAGE_SHIFT - bsize_shift;
@@ -135,7 +135,7 @@ index 3a020bdc358c..966ed37c9acd 100644
  	errseq_t since;
  
  	memset(head, 0, sizeof(*head));
-@@ -533,10 +533,7 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
+@@ -532,10 +532,7 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
  				off = 0;
  			}
  
@@ -147,7 +147,7 @@ index 3a020bdc358c..966ed37c9acd 100644
  				sector_t sector = dblock << sdp->sd_fsb2bb_shift;
  
  				if (bio_end_sector(bio) == sector) {
-@@ -549,19 +546,17 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
+@@ -548,19 +545,17 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
  						(PAGE_SIZE - off) >> bsize_shift;
  
  					bio = gfs2_chain_bio(bio, blocks);
@@ -168,7 +168,7 @@ index 3a020bdc358c..966ed37c9acd 100644
  add_block_to_new_bio:
  			sz = bio_add_page(bio, page, bsize, off);
  			BUG_ON(sz != bsize);
-@@ -569,7 +564,7 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
+@@ -568,7 +563,7 @@ int gfs2_find_jhead(struct gfs2_jdesc *jd, struct gfs2_log_header_host *head,
  			off += bsize;
  			if (off == PAGE_SIZE)
  				page = NULL;
