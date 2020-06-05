@@ -1,90 +1,87 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id DBADD1F03DA
-	for <lists+cluster-devel@lfdr.de>; Sat,  6 Jun 2020 02:23:32 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id B73DE1F03DE
+	for <lists+cluster-devel@lfdr.de>; Sat,  6 Jun 2020 02:23:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591403011;
+	s=mimecast20190719; t=1591403027;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=+WE4Lbj5HbIup3fDAwRbZbnNZOZHXXgrGk9ZQaJUWQQ=;
-	b=i6t/hi+y44baXy/u6DTGv9kMAmL3/HDhxAbSQZj1lK+1a/dR03Gtn7ij0zRTECwefI3x9d
-	EXfksmq8VCalvd1tkUUzQJvCHXgCwj2qXpHpNEzY9Wv/4TFqT4t6ZrdVQhxODJUQ88ZJTY
-	RUy3BBtbgBKkl5W/NbaEp7c8vh1rBN8=
+	 list-subscribe:list-post; bh=BQxYJzQBkv5fhCBblUUehlL2KoMzR/BzGBVsfr7Se/o=;
+	b=hahQXMkZ6b2zzmn1ULb+5XA51Ei+diaFTXxsuccGkpYbQdYa9KHgm3KEWRp0eue48RYzjQ
+	ws0rgOL34EpJbfLLLnq32X+gICazLMzjvrGiTn5j/LCglZXFiL3P8VH+hGY3NSwLFmXYx5
+	JsAsjtPdbuwl5mP8CRAbbGDscvUjVYg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-210-J1q_7TfPMtuNbAq_d5Uz2A-1; Fri, 05 Jun 2020 20:23:30 -0400
-X-MC-Unique: J1q_7TfPMtuNbAq_d5Uz2A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-429-7m04YXXFPU2u7ueA1fjUKw-1; Fri, 05 Jun 2020 20:23:46 -0400
+X-MC-Unique: 7m04YXXFPU2u7ueA1fjUKw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CED9680B725;
-	Sat,  6 Jun 2020 00:23:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCAAB61985;
-	Sat,  6 Jun 2020 00:23:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA24987307A;
+	Sat,  6 Jun 2020 00:23:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BAA5F78F1B;
+	Sat,  6 Jun 2020 00:23:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A86421809547;
-	Sat,  6 Jun 2020 00:23:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A89FFB34A7;
+	Sat,  6 Jun 2020 00:23:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 055DOuJq000851 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 5 Jun 2020 09:24:56 -0400
+	id 055Ed7WR008188 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 5 Jun 2020 10:39:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E95D2166B28; Fri,  5 Jun 2020 13:24:56 +0000 (UTC)
+	id 4A0D4422F6; Fri,  5 Jun 2020 14:39:06 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DA902156A49
-	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 13:24:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45A3F42AA8
+	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 14:38:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38E56833B4E
-	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 13:24:54 +0000 (UTC)
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
-	[209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-415-IOfsnPByPsCzpL_THWJgeQ-1; Fri, 05 Jun 2020 09:24:52 -0400
-X-MC-Unique: IOfsnPByPsCzpL_THWJgeQ-1
-Received: by mail-ot1-f70.google.com with SMTP id 93so4679477oti.5
-	for <cluster-devel@redhat.com>; Fri, 05 Jun 2020 06:24:52 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E145F8E2DF3
+	for <cluster-devel@redhat.com>; Fri,  5 Jun 2020 14:38:57 +0000 (UTC)
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+	[209.85.161.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-72-yx1m4OlmM1KDOg6R933cfw-1; Fri, 05 Jun 2020 10:38:56 -0400
+X-MC-Unique: yx1m4OlmM1KDOg6R933cfw-1
+Received: by mail-oo1-f70.google.com with SMTP id x29so2447084ooc.3
+	for <cluster-devel@redhat.com>; Fri, 05 Jun 2020 07:38:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=+WE4Lbj5HbIup3fDAwRbZbnNZOZHXXgrGk9ZQaJUWQQ=;
-	b=Vk0ZXIrlkFhE/WmtEQBv3tj4DMn0lOSJeWJ2udlUynwzbM3QTCBnBEz5DUGLaMxsSB
-	ohndqB3LFsLLk09JkAz4/sH5U47RJFzTObVoYci0o1cdlJiiGfTr/qoIu6E8SvHXInsk
-	Q9+SRvdVKxtVAN+40vEn19hxvEJoMwFFRN0GH/3e0AXhutJ8BcFr+7hvNC2BHgfsPdhG
-	3fNvmsXmM0Bk/KR991jrvVKpl1+GUDkRcgbkOu8k7hiudvp5APPLUnvSBAhS/XmOPMi/
-	i3idNARcO/pesT+vn6s4d/WKTaeFX5rsiGLRMbn2eVHHBypiHu84OpTOL8CWXOcJa6CR
-	3K0g==
-X-Gm-Message-State: AOAM532GwMTJzuy2X7XUL+cFMT7FhA0wPiLmE0lfCeKPGYyuBcGHNK/u
-	fQeTKkoQbcyWsacCJUqQvsyVCiVWMm718gAEuh3lzxZAThRuJhY01K4aGm7jFlbEDF+XSF4EvP+
-	8qHqSHef3fXlNw44X2dCDu2MN4puhl8EfcB8OmQ==
-X-Received: by 2002:a9d:6e96:: with SMTP id a22mr6732165otr.58.1591363491334; 
-	Fri, 05 Jun 2020 06:24:51 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzjDQlVDtuQDGSHd0ugkGxDDaoSpjTYCENGyl927b1oWvljpdjQSPvHMsvqeEW6iAWHJnp2E+XJIFG04q3tBtE=
-X-Received: by 2002:a9d:6e96:: with SMTP id a22mr6732159otr.58.1591363491127; 
-	Fri, 05 Jun 2020 06:24:51 -0700 (PDT)
+	bh=BQxYJzQBkv5fhCBblUUehlL2KoMzR/BzGBVsfr7Se/o=;
+	b=BR6SHlf9CieeCRts5UYUWSfi56m9jHs7aJm+6WuQWaWaGG1LBiS90nHGurvrOnueNM
+	gXPaZP4M1dzgSjJNGNtecpMWV2sJ48q0zplV05ZaDpgEWF8NdnTmlGppOmFhcx+cLa3h
+	hfFdYvirlZdhLCAN1JagHN+0Vzla2cEbG7/LDmtUr+Rg+ib72RdFjpQU39nCz4GESa9k
+	vj2O4in6ZuS5VP+UTSpCtfd5CePfD6hNtfMXXpkXpwq208rtV1uwrde1e1NmFbdwLvwZ
+	QPns/An+bbuItMmSl0HLRaMcYmKw5VpgPe0YFevGDvDlqDbAuxftuIOsICx6q3h20REv
+	DaMw==
+X-Gm-Message-State: AOAM5331WGzAKDsaqRp8Svr3RABo2zrO34OHGRCcuY8IQONlyG03kY7s
+	ag0YtJGSN7fQO5hmFyJ3xWR9WkHnQ89jCv+XebKAheMvs8wHIcxk2Ska9g1nngu5kPJNmcXHju8
+	2Cmzqn72Dyh4Tz/RJh1QsKYxb82vElt5Rhb8Sfg==
+X-Received: by 2002:aca:f38b:: with SMTP id r133mr2044108oih.10.1591367935110; 
+	Fri, 05 Jun 2020 07:38:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxUPmOaH60azPTW0Ad8/ppq4EC8Hku/2xjy5ZDZL6qzKPCRz5ZWNSr+CfgzhqhHn2K159AWvuVM16ZL//ONjtM=
+X-Received: by 2002:aca:f38b:: with SMTP id r133mr2044100oih.10.1591367934908; 
+	Fri, 05 Jun 2020 07:38:54 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200526130536.295081-1-rpeterso@redhat.com>
-	<20200526130536.295081-7-rpeterso@redhat.com>
-In-Reply-To: <20200526130536.295081-7-rpeterso@redhat.com>
+In-Reply-To: <20200526130536.295081-1-rpeterso@redhat.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Fri, 5 Jun 2020 15:24:39 +0200
-Message-ID: <CAHc6FU6Zo3gQCRt=rj8Xf3yyf4T8uX1vfHL9L1DJy3L90XkARQ@mail.gmail.com>
+Date: Fri, 5 Jun 2020 16:38:43 +0200
+Message-ID: <CAHc6FU6mcGB9ZPOfEhn6UTVY6qDL5jxpC5u1b0w5OVr4=jAH0g@mail.gmail.com>
 To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [PATCH 6/8] gfs2: instrumentation wrt log_flush
-	stuck
+Subject: Re: [Cluster-devel] [PATCH 0/8] Misc Patch Collection
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,73 +95,35 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Bob,
 
-On Tue, May 26, 2020 at 3:05 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> This adds checks for gfs2_log_flush being stuck, similarly to the check
-> in gfs2_ail1_flush.
->
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> ---
->  fs/gfs2/log.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-> index 1d51b4781bdd..636c82dda68b 100644
-> --- a/fs/gfs2/log.c
-> +++ b/fs/gfs2/log.c
-> @@ -145,9 +145,6 @@ static void dump_ail_list(struct gfs2_sbd *sdp)
->         struct gfs2_bufdata *bd;
->         struct buffer_head *bh;
->
-> -       fs_err(sdp, "Error: In gfs2_ail1_flush for ten minutes! t=%d\n",
-> -              current->journal_info ? 1 : 0);
-> -
->         list_for_each_entry_reverse(tr, &sdp->sd_ail1_list, tr_list) {
->                 list_for_each_entry_reverse(bd, &tr->tr_ail1_list,
->                                             bd_ail_st_list) {
-> @@ -197,6 +194,8 @@ void gfs2_ail1_flush(struct gfs2_sbd *sdp, struct writeback_control *wbc)
->  restart:
->         ret = 0;
->         if (time_after(jiffies, flush_start + (HZ * 600))) {
-> +               fs_err(sdp, "Error: In gfs2_ail1_flush for ten minutes! "
-> +                      "t=%d\n", current->journal_info ? 1 : 0);
->                 dump_ail_list(sdp);
->                 goto out;
->         }
-> @@ -970,7 +969,16 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
->
->         if (!(flags & GFS2_LOG_HEAD_FLUSH_NORMAL)) {
->                 if (!sdp->sd_log_idle) {
-> +                       unsigned long start = jiffies;
-> +
->                         for (;;) {
-> +                               if (time_after(jiffies, start + (HZ * 600))) {
+On Tue, May 26, 2020 at 3:07 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> Andreas expressed some concerns about some of the others. For example, he
+> didn't like that the new "status" sysfs file was taking "try" locks, but
+> if the lock is held, I don't know of a better way to do this.
 
-This should probably have some rate limiting as well, for example:
+walking a linked list that's protected by a spin lock without holding
+that spin lock is so fundamentally broken that I don't see why we even
+need to discuss it. There's nothing that guarantees that we'll be able
+to walk the list.
 
-                                        start = jiffies;
+The spin_is_locked checks this patch adds for reporting the states of
+spin locks are practically useless as well.
 
-I'm not sure what provides similar rate limiting in gfs2_ail1_flush.
+> He also expressed
+> a concern that the new file should be in debugfs rather than sysfs.
+> I'm open to opinions. Regardless of where it is, the new debug file is a
+> perfect candidate to include in sos reports.
 
-> +                                       fs_err(sdp, "Error: In gfs2_log_flush "
-> +                                              "for 10 minutes! t=%d\n",
-> +                                              current->journal_info ? 1 : 0);
+It may be better to include more relevant information in trace points.
+That way, we automatically get that information correlated with other
+trace events to see what was happening when.
 
-Please don't break the format string up like that; this makes grepping harder.
-
-> +                                       dump_ail_list(sdp);
-> +                                       break;
-> +                               }
->                                 gfs2_ail1_start(sdp);
->                                 gfs2_ail1_wait(sdp);
->                                 if (gfs2_ail1_empty(sdp, 0))
-> --
-> 2.26.2
->
+Thanks,
+Andreas
 
