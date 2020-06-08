@@ -1,58 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 076F21F1CBB
-	for <lists+cluster-devel@lfdr.de>; Mon,  8 Jun 2020 18:02:54 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id D7B0D1F1CAC
+	for <lists+cluster-devel@lfdr.de>; Mon,  8 Jun 2020 18:02:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591632174;
+	s=mimecast20190719; t=1591632150;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=o/nopJeZgMXJNLxzb51xA78VtceNKTkZf9zzlMwZ7aA=;
-	b=af36ykliFOLCf+/aIFBIly315S2RH6NG0kEBFBtSMBWEQUSaTsaVx0KxmdUMLQ1e9NiFDx
-	BsVXy2gR6A86uOLrxL+0UqmOK/WvKkDN4rwn9Co2/AL7+M0TIOlKKUxQv15iOiqdyhadsu
-	icFIYP9GM5pFnKcEq/Mvm4TvRn1AUR4=
+	bh=u/gXtealzS02EM6L88CMKSaoUKjMV4jeQlZ7IM3Bdlc=;
+	b=h91j+9MjEwaTdAk/zAtFRzTD2sYNXO+DDHIRVX2lZoVFcQMzjppM1Q2Ef3wWCxMEUoYV/p
+	sygzQt/xuqbM2Mcra3o/urur36Olee/fQRhd1Gj7xBXSujjkHNbI96m+XfpCMCPcJeJyTV
+	K2ERhjUbPe/C2wMsISpMS3rtzVlZXsg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-305-_5-R-1-ONjWEGDjYurNMuw-1; Mon, 08 Jun 2020 12:02:52 -0400
-X-MC-Unique: _5-R-1-ONjWEGDjYurNMuw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-164-3Au6aVg9NdGQqEr_mwY3jA-1; Mon, 08 Jun 2020 12:02:29 -0400
+X-MC-Unique: 3Au6aVg9NdGQqEr_mwY3jA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E4D18107ACF5;
-	Mon,  8 Jun 2020 16:02:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D538F60C1D;
-	Mon,  8 Jun 2020 16:02:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7AD918FF660;
+	Mon,  8 Jun 2020 16:02:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C6CF578FD7;
+	Mon,  8 Jun 2020 16:02:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C15D41809554;
-	Mon,  8 Jun 2020 16:02:46 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5574B348A;
+	Mon,  8 Jun 2020 16:02:26 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 058G0v5V011681 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 8 Jun 2020 12:00:57 -0400
+	id 058G0w1r011686 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 8 Jun 2020 12:00:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 519FD1CA; Mon,  8 Jun 2020 16:00:57 +0000 (UTC)
+	id 81A3F1CA; Mon,  8 Jun 2020 16:00:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.home.com (unknown [10.40.195.140])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 75BAD648DB;
-	Mon,  8 Jun 2020 16:00:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B28948926C;
+	Mon,  8 Jun 2020 16:00:57 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Mon,  8 Jun 2020 18:00:28 +0200
-Message-Id: <20200608160039.549204-10-agruenba@redhat.com>
+Date: Mon,  8 Jun 2020 18:00:29 +0200
+Message-Id: <20200608160039.549204-11-agruenba@redhat.com>
 In-Reply-To: <20200608160039.549204-1-agruenba@redhat.com>
 References: <20200608160039.549204-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 09/20] gfs2: Keep track of deleted inode
-	generations in LVBs
+Subject: [Cluster-devel] [PATCH 10/20] gfs2: Turn gl_delete into a delayed
+	work
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,120 +66,230 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-When deleting an inode, keep track of the generation of the deleted inode in
-the inode glock Lock Value Block (LVB).  When trying to delete an inode
-remotely, check the last-known inode generation against the deleted inode
-generation to skip duplicate remote deletes.  This avoids taking the resource
-group glock in order to verify the block type.
+This requires flushing delayed work items in gfs2_make_fs_ro (which is called
+before unmounting a filesystem).
+
+When inodes are deleted and then recreated, pending gl_delete work items would
+have no effect because the inode generations will have changed, so we can
+cancel any pending gl_delete works before reusing iopen glocks.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/glock.c                  | 19 +++++++++++++++++++
- fs/gfs2/glock.h                  |  3 +++
- fs/gfs2/glops.c                  |  2 +-
- fs/gfs2/super.c                  |  3 +++
- include/uapi/linux/gfs2_ondisk.h |  6 ++++++
- 5 files changed, 32 insertions(+), 1 deletion(-)
+ fs/gfs2/glock.c  | 47 +++++++++++++++++++++++++++++++++++++++++++++--
+ fs/gfs2/glock.h  |  4 ++++
+ fs/gfs2/glops.c  |  9 ++++++++-
+ fs/gfs2/incore.h |  5 +++--
+ fs/gfs2/inode.c  |  2 ++
+ fs/gfs2/rgrp.c   |  2 +-
+ fs/gfs2/super.c  |  4 ++--
+ 7 files changed, 65 insertions(+), 8 deletions(-)
 
 diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 86e9e621f346..12681616eb76 100644
+index 12681616eb76..0332086f7ab9 100644
 --- a/fs/gfs2/glock.c
 +++ b/fs/gfs2/glock.c
-@@ -755,6 +755,25 @@ __acquires(&gl->gl_lockref.lock)
- 	return;
- }
+@@ -776,11 +776,16 @@ bool gfs2_inode_already_deleted(struct gfs2_glock *gl, u64 generation)
  
-+void gfs2_inode_remember_delete(struct gfs2_glock *gl, u64 generation)
-+{
-+	struct gfs2_inode_lvb *ri = (void *)gl->gl_lksb.sb_lvbptr;
-+
-+	if (ri->ri_magic == 0)
-+		ri->ri_magic = cpu_to_be32(GFS2_MAGIC);
-+	if (ri->ri_magic == cpu_to_be32(GFS2_MAGIC))
-+		ri->ri_generation_deleted = cpu_to_be64(generation);
-+}
-+
-+bool gfs2_inode_already_deleted(struct gfs2_glock *gl, u64 generation)
-+{
-+	struct gfs2_inode_lvb *ri = (void *)gl->gl_lksb.sb_lvbptr;
-+
-+	if (ri->ri_magic != cpu_to_be32(GFS2_MAGIC))
-+		return false;
-+	return generation <= be64_to_cpu(ri->ri_generation_deleted);
-+}
-+
  static void delete_work_func(struct work_struct *work)
  {
- 	struct gfs2_glock *gl = container_of(work, struct gfs2_glock, gl_delete);
-diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
-index b8adaf80e4c5..5c1b60fdedcf 100644
---- a/fs/gfs2/glock.h
-+++ b/fs/gfs2/glock.h
-@@ -306,4 +306,7 @@ static inline void glock_clear_object(struct gfs2_glock *gl, void *object)
- 	spin_unlock(&gl->gl_lockref.lock);
+-	struct gfs2_glock *gl = container_of(work, struct gfs2_glock, gl_delete);
++	struct delayed_work *dwork = to_delayed_work(work);
++	struct gfs2_glock *gl = container_of(dwork, struct gfs2_glock, gl_delete);
+ 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+ 	struct inode *inode;
+ 	u64 no_addr = gl->gl_name.ln_number;
+ 
++	spin_lock(&gl->gl_lockref.lock);
++	clear_bit(GLF_PENDING_DELETE, &gl->gl_flags);
++	spin_unlock(&gl->gl_lockref.lock);
++
+ 	/* If someone's using this glock to create a new dinode, the block must
+ 	   have been freed by another node, then re-used, in which case our
+ 	   iopen callback is too late after the fact. Ignore it. */
+@@ -949,7 +954,7 @@ int gfs2_glock_get(struct gfs2_sbd *sdp, u64 number,
+ 	gl->gl_object = NULL;
+ 	gl->gl_hold_time = GL_GLOCK_DFT_HOLD;
+ 	INIT_DELAYED_WORK(&gl->gl_work, glock_work_func);
+-	INIT_WORK(&gl->gl_delete, delete_work_func);
++	INIT_DELAYED_WORK(&gl->gl_delete, delete_work_func);
+ 
+ 	mapping = gfs2_glock2aspace(gl);
+ 	if (mapping) {
+@@ -1772,6 +1777,44 @@ static void glock_hash_walk(glock_examiner examiner, const struct gfs2_sbd *sdp)
+ 	rhashtable_walk_exit(&iter);
  }
  
-+extern void gfs2_inode_remember_delete(struct gfs2_glock *gl, u64 generation);
-+extern bool gfs2_inode_already_deleted(struct gfs2_glock *gl, u64 generation);
++bool gfs2_queue_delete_work(struct gfs2_glock *gl, unsigned long delay)
++{
++	bool queued;
 +
- #endif /* __GLOCK_DOT_H__ */
++	spin_lock(&gl->gl_lockref.lock);
++	queued = queue_delayed_work(gfs2_delete_workqueue,
++				    &gl->gl_delete, delay);
++	if (queued)
++		set_bit(GLF_PENDING_DELETE, &gl->gl_flags);
++	spin_unlock(&gl->gl_lockref.lock);
++	return queued;
++}
++
++void gfs2_cancel_delete_work(struct gfs2_glock *gl)
++{
++	if (cancel_delayed_work_sync(&gl->gl_delete)) {
++		clear_bit(GLF_PENDING_DELETE, &gl->gl_flags);
++		gfs2_glock_put(gl);
++	}
++}
++
++bool gfs2_delete_work_queued(const struct gfs2_glock *gl)
++{
++	return test_bit(GLF_PENDING_DELETE, &gl->gl_flags);
++}
++
++static void flush_delete_work(struct gfs2_glock *gl)
++{
++	flush_delayed_work(&gl->gl_delete);
++	gfs2_glock_queue_work(gl, 0);
++}
++
++void gfs2_flush_delete_work(struct gfs2_sbd *sdp)
++{
++	glock_hash_walk(flush_delete_work, sdp);
++	flush_workqueue(gfs2_delete_workqueue);
++}
++
+ /**
+  * thaw_glock - thaw out a glock which has an unprocessed reply waiting
+  * @gl: The glock to thaw
+diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
+index 5c1b60fdedcf..711b3005a7ea 100644
+--- a/fs/gfs2/glock.h
++++ b/fs/gfs2/glock.h
+@@ -235,6 +235,10 @@ static inline int gfs2_glock_nq_init(struct gfs2_glock *gl,
+ 
+ extern void gfs2_glock_cb(struct gfs2_glock *gl, unsigned int state);
+ extern void gfs2_glock_complete(struct gfs2_glock *gl, int ret);
++extern bool gfs2_queue_delete_work(struct gfs2_glock *gl, unsigned long delay);
++extern void gfs2_cancel_delete_work(struct gfs2_glock *gl);
++extern bool gfs2_delete_work_queued(const struct gfs2_glock *gl);
++extern void gfs2_flush_delete_work(struct gfs2_sbd *sdp);
+ extern void gfs2_gl_hash_clear(struct gfs2_sbd *sdp);
+ extern void gfs2_glock_finish_truncate(struct gfs2_inode *ip);
+ extern void gfs2_glock_thaw(struct gfs2_sbd *sdp);
 diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 9e9c7a4b8c66..63ae9e45ce34 100644
+index 63ae9e45ce34..909cd722e46a 100644
 --- a/fs/gfs2/glops.c
 +++ b/fs/gfs2/glops.c
-@@ -692,7 +692,7 @@ const struct gfs2_glock_operations gfs2_inode_glops = {
- 	.go_lock = inode_go_lock,
- 	.go_dump = inode_go_dump,
- 	.go_type = LM_TYPE_INODE,
--	.go_flags = GLOF_ASPACE | GLOF_LRU,
-+	.go_flags = GLOF_ASPACE | GLOF_LRU | GLOF_LVB,
- 	.go_free = inode_go_free,
+@@ -608,11 +608,17 @@ static void iopen_go_callback(struct gfs2_glock *gl, bool remote)
+ 	if (gl->gl_demote_state == LM_ST_UNLOCKED &&
+ 	    gl->gl_state == LM_ST_SHARED && ip) {
+ 		gl->gl_lockref.count++;
+-		if (queue_work(gfs2_delete_workqueue, &gl->gl_delete) == 0)
++		if (!queue_delayed_work(gfs2_delete_workqueue,
++					&gl->gl_delete, 0))
+ 			gl->gl_lockref.count--;
+ 	}
+ }
+ 
++static int iopen_go_demote_ok(const struct gfs2_glock *gl)
++{
++       return !gfs2_delete_work_queued(gl);
++}
++
+ /**
+  * inode_go_free - wake up anyone waiting for dlm's unlock ast to free it
+  * @gl: glock being freed
+@@ -716,6 +722,7 @@ const struct gfs2_glock_operations gfs2_freeze_glops = {
+ const struct gfs2_glock_operations gfs2_iopen_glops = {
+ 	.go_type = LM_TYPE_IOPEN,
+ 	.go_callback = iopen_go_callback,
++	.go_demote_ok = iopen_go_demote_ok,
+ 	.go_flags = GLOF_LRU | GLOF_NONDISK,
  };
  
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 84a824293a78..fdcf7a2f06c5 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -345,6 +345,7 @@ enum {
+ 	GLF_OBJECT			= 14, /* Used only for tracing */
+ 	GLF_BLOCKING			= 15,
+ 	GLF_INODE_CREATING		= 16, /* Inode creation occurring */
++	GLF_PENDING_DELETE		= 17,
+ 	GLF_FREEING			= 18, /* Wait for glock to be freed */
+ };
+ 
+@@ -378,8 +379,8 @@ struct gfs2_glock {
+ 	atomic_t gl_revokes;
+ 	struct delayed_work gl_work;
+ 	union {
+-		/* For inode and iopen glocks only */
+-		struct work_struct gl_delete;
++		/* For iopen glocks only */
++		struct delayed_work gl_delete;
+ 		/* For rgrp glocks only */
+ 		struct {
+ 			loff_t start;
+diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+index 5acd3ce30759..a4112906abc2 100644
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@ -170,6 +170,7 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
+ 		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
+ 		if (unlikely(error))
+ 			goto fail;
++		gfs2_cancel_delete_work(ip->i_iopen_gh.gh_gl);
+ 		glock_set_object(ip->i_iopen_gh.gh_gl, ip);
+ 		gfs2_glock_put(io_gl);
+ 		io_gl = NULL;
+@@ -724,6 +725,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	if (error)
+ 		goto fail_gunlock2;
+ 
++	gfs2_cancel_delete_work(ip->i_iopen_gh.gh_gl);
+ 	glock_set_object(ip->i_iopen_gh.gh_gl, ip);
+ 	gfs2_set_iop(inode);
+ 	insert_inode_hash(inode);
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index a321c34e3d6e..074f228ea839 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -1835,7 +1835,7 @@ static void try_rgrp_unlink(struct gfs2_rgrpd *rgd, u64 *last_unlinked, u64 skip
+ 		 */
+ 		ip = gl->gl_object;
+ 
+-		if (ip || queue_work(gfs2_delete_workqueue, &gl->gl_delete) == 0)
++		if (ip || !gfs2_queue_delete_work(gl, 0))
+ 			gfs2_glock_put(gl);
+ 		else
+ 			found++;
 diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 956fced0a8ec..e69efed9fb51 100644
+index e69efed9fb51..71218a6fd9b4 100644
 --- a/fs/gfs2/super.c
 +++ b/fs/gfs2/super.c
-@@ -1315,6 +1315,8 @@ static void gfs2_evict_inode(struct inode *inode)
- 		goto out;
+@@ -626,7 +626,7 @@ int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
+ 		}
  	}
  
-+	if (gfs2_inode_already_deleted(ip->i_gl, ip->i_no_formal_ino))
-+		goto out_truncate;
- 	error = gfs2_check_blk_type(sdp, ip->i_no_addr, GFS2_BLKST_UNLINKED);
- 	if (error)
- 		goto out_truncate;
-@@ -1368,6 +1370,7 @@ static void gfs2_evict_inode(struct inode *inode)
- 	   that subsequent inode creates don't see an old gl_object. */
- 	glock_clear_object(ip->i_gl, ip);
- 	error = gfs2_dinode_dealloc(ip);
-+	gfs2_inode_remember_delete(ip->i_gl, ip->i_no_formal_ino);
- 	goto out_unlock;
+-	flush_workqueue(gfs2_delete_workqueue);
++	gfs2_flush_delete_work(sdp);
+ 	if (!log_write_allowed && current == sdp->sd_quotad_process)
+ 		fs_warn(sdp, "The quotad daemon is withdrawing.\n");
+ 	else if (sdp->sd_quotad_process)
+@@ -1054,7 +1054,7 @@ static int gfs2_drop_inode(struct inode *inode)
+ 		struct gfs2_glock *gl = ip->i_iopen_gh.gh_gl;
  
- out_truncate:
-diff --git a/include/uapi/linux/gfs2_ondisk.h b/include/uapi/linux/gfs2_ondisk.h
-index 2dc10a034de1..07e508e6691b 100644
---- a/include/uapi/linux/gfs2_ondisk.h
-+++ b/include/uapi/linux/gfs2_ondisk.h
-@@ -171,6 +171,12 @@ struct gfs2_rindex {
- #define GFS2_RGF_NOALLOC	0x00000008
- #define GFS2_RGF_TRIMMED	0x00000010
- 
-+struct gfs2_inode_lvb {
-+	__be32 ri_magic;
-+	__be32 __pad;
-+	__be64 ri_generation_deleted;
-+};
-+
- struct gfs2_rgrp_lvb {
- 	__be32 rl_magic;
- 	__be32 rl_flags;
+ 		gfs2_glock_hold(gl);
+-		if (queue_work(gfs2_delete_workqueue, &gl->gl_delete) == 0)
++		if (!gfs2_queue_delete_work(gl, 0))
+ 			gfs2_glock_queue_put(gl);
+ 		return false;
+ 	}
 -- 
 2.26.2
 
