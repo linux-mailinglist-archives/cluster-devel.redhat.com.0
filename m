@@ -1,57 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 8DF251F1CBE
-	for <lists+cluster-devel@lfdr.de>; Mon,  8 Jun 2020 18:02:59 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id ACB341F1C9D
+	for <lists+cluster-devel@lfdr.de>; Mon,  8 Jun 2020 18:01:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591632178;
+	s=mimecast20190719; t=1591632087;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=nf6KHOQpbnjbXd1ES6IXMdzXv/tfH6t5q3CLlrFyZUo=;
-	b=e+3x2959hKSCa9aDrTI2OE9tRz1gpC2hqEpLNknp3RDq+KLAwuRAeO7I/9njnTF4sG7c7V
-	j2HWHgoSJzKyGJ1S/4O1IeyNW6WwJBYVRIPRY6Ipiw3ARgJGdS9Ien9CW4xLQAgVqDcWmS
-	hKBwnOCnbduRA4Sq5d2gOJozah/EIMs=
+	bh=ly/N85wPzNw0dimoErI4Jri4buMlJwKIz/SLvHF5Res=;
+	b=KCMnp9jnndwAQ2p/iPQGexOXFzv3qJDQByJRhLKwHETAo9zR3/iBA3VK2N0RPhBFjsawY+
+	nI5cRCTY2XH0h+WHYHqU9r1UDY+YOTfCywj5tqiA4duWD1GfYG3WKlssWd6uJBzRkIOsFR
+	v22dKPJhGuUTGMdCUpl59F9rJ3oBauE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-0Vrv-XN8Mru4mNJ58Fk93w-1; Mon, 08 Jun 2020 12:02:53 -0400
-X-MC-Unique: 0Vrv-XN8Mru4mNJ58Fk93w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-150-5KZtgPCFOXazIFRjwVqCvQ-1; Mon, 08 Jun 2020 12:01:15 -0400
+X-MC-Unique: 5KZtgPCFOXazIFRjwVqCvQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC5A3108BD0B;
-	Mon,  8 Jun 2020 16:02:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 33AE518FF662;
+	Mon,  8 Jun 2020 16:01:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D7DC5C1BD;
-	Mon,  8 Jun 2020 16:02:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 219367BA09;
+	Mon,  8 Jun 2020 16:01:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 89F87B3490;
-	Mon,  8 Jun 2020 16:02:49 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C6B9B3490;
+	Mon,  8 Jun 2020 16:01:12 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 058G19db011831 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 8 Jun 2020 12:01:09 -0400
+	id 058G1AMS011847 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 8 Jun 2020 12:01:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8402889274; Mon,  8 Jun 2020 16:01:09 +0000 (UTC)
+	id E08888927A; Mon,  8 Jun 2020 16:01:10 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.home.com (unknown [10.40.195.140])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B82DC8927A;
-	Mon,  8 Jun 2020 16:01:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E36F08926C;
+	Mon,  8 Jun 2020 16:01:09 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Mon,  8 Jun 2020 18:00:36 +0200
-Message-Id: <20200608160039.549204-18-agruenba@redhat.com>
+Date: Mon,  8 Jun 2020 18:00:37 +0200
+Message-Id: <20200608160039.549204-19-agruenba@redhat.com>
 In-Reply-To: <20200608160039.549204-1-agruenba@redhat.com>
 References: <20200608160039.549204-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 17/20] gfs2: Smarter iopen glock waiting
+Subject: [Cluster-devel] [PATCH 18/20] gfs2: initialize transaction
+	tr_ailX_lists earlier
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -65,133 +66,67 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-When trying to upgrade the iopen glock from a shared to an exclusive lock in
-gfs2_evict_inode, abort the wait if there is contention on the corresponding
-inode glock: in that case, the inode must still be in active use on another
-node, and we're not guaranteed to get the iopen glock anytime soon.
+From: Bob Peterson <rpeterso@redhat.com>
 
-To make this work even better, when we notice contention on the iopen glock and
-we can't evict the corresponsing inode and release the iopen glock immediately,
-poke the inode glock.  The other node(s) trying to acquire the lock can then
-abort instead of timing out.
+Since transactions may be freed shortly after they're created, before
+a log_flush occurs, we need to initialize their ail1 and ail2 lists
+earlier. Before this patch, the ail1 list was initialized in gfs2_log_flush().
+This moves the initialization to the point when the transaction is first
+created.
 
-Thanks to Heinz Mauelshagen for pointing out a locking bug in a previous
-version of this patch.
-
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/glock.c | 34 ++++++++++++++++++++++++++++++++--
- fs/gfs2/super.c | 11 ++++++++---
- 2 files changed, 40 insertions(+), 5 deletions(-)
+ fs/gfs2/glops.c | 2 ++
+ fs/gfs2/log.c   | 2 --
+ fs/gfs2/trans.c | 2 ++
+ 3 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 7ad06dd49352..71091e35f83d 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -783,6 +783,17 @@ bool gfs2_inode_already_deleted(struct gfs2_glock *gl, u64 generation)
- 	return generation <= be64_to_cpu(ri->ri_generation_deleted);
- }
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 4862dae868a2..224fb3bd503c 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -91,6 +91,8 @@ static int gfs2_ail_empty_gl(struct gfs2_glock *gl)
+ 	memset(&tr, 0, sizeof(tr));
+ 	INIT_LIST_HEAD(&tr.tr_buf);
+ 	INIT_LIST_HEAD(&tr.tr_databuf);
++	INIT_LIST_HEAD(&tr.tr_ail1_list);
++	INIT_LIST_HEAD(&tr.tr_ail2_list);
+ 	tr.tr_revokes = atomic_read(&gl->gl_ail_count);
  
-+static void gfs2_glock_poke(struct gfs2_glock *gl)
-+{
-+	int flags = LM_FLAG_TRY_1CB | LM_FLAG_ANY | GL_SKIP;
-+	struct gfs2_holder gh;
-+	int error;
-+
-+	error = gfs2_glock_nq_init(gl, LM_ST_SHARED, flags, &gh);
-+	if (!error)
-+		gfs2_glock_dq(&gh);
-+}
-+
- static bool gfs2_try_evict(struct gfs2_glock *gl)
- {
- 	struct gfs2_inode *ip;
-@@ -804,6 +815,8 @@ static bool gfs2_try_evict(struct gfs2_glock *gl)
- 		ip = NULL;
- 	spin_unlock(&gl->gl_lockref.lock);
- 	if (ip) {
-+		struct gfs2_glock *inode_gl = NULL;
-+
- 		gl->gl_no_formal_ino = ip->i_no_formal_ino;
- 		set_bit(GIF_DEFERRED_DELETE, &ip->i_flags);
- 		d_prune_aliases(&ip->i_inode);
-@@ -812,9 +825,16 @@ static bool gfs2_try_evict(struct gfs2_glock *gl)
- 		/* If the inode was evicted, gl->gl_object will now be NULL. */
- 		spin_lock(&gl->gl_lockref.lock);
- 		ip = gl->gl_object;
--		if (ip)
-+		if (ip) {
-+			inode_gl = ip->i_gl;
-+			lockref_get(&inode_gl->gl_lockref);
- 			clear_bit(GIF_DEFERRED_DELETE, &ip->i_flags);
-+		}
- 		spin_unlock(&gl->gl_lockref.lock);
-+		if (inode_gl) {
-+			gfs2_glock_poke(inode_gl);
-+			gfs2_glock_put(inode_gl);
-+		}
- 		evicted = !ip;
- 	}
- 	return evicted;
-@@ -845,12 +865,22 @@ static void delete_work_func(struct work_struct *work)
- 		 * has happened.  Otherwise, if we cause contention on the inode glock
- 		 * immediately, the remote node will think that we still have
- 		 * the inode in use, and so it will give up waiting.
-+		 *
-+		 * If we can't evict the inode, signal to the remote node that
-+		 * the inode is still in use.  We'll later try to delete the
-+		 * inode locally in gfs2_evict_inode.
-+		 *
-+		 * FIXME: We only need to verify that the remote node has
-+		 * deleted the inode because nodes before this remote delete
-+		 * rework won't cooperate.  At a later time, when we no longer
-+		 * care about compatibility with such nodes, we can skip this
-+		 * step entirely.
- 		 */
- 		if (gfs2_try_evict(gl)) {
- 			if (gfs2_queue_delete_work(gl, 5 * HZ))
- 				return;
--			goto out;
- 		}
-+		goto out;
- 	}
+ 	if (!tr.tr_revokes) {
+diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+index fcc7f58d74f0..a81af1bde1bb 100644
+--- a/fs/gfs2/log.c
++++ b/fs/gfs2/log.c
+@@ -933,8 +933,6 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
+ 	tr = sdp->sd_log_tr;
+ 	if (tr) {
+ 		sdp->sd_log_tr = NULL;
+-		INIT_LIST_HEAD(&tr->tr_ail1_list);
+-		INIT_LIST_HEAD(&tr->tr_ail2_list);
+ 		tr->tr_first = sdp->sd_log_flush_head;
+ 		if (unlikely (state == SFS_FROZEN))
+ 			if (gfs2_assert_withdraw_delayed(sdp,
+diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
+index ffe840505082..62a65ed9a9f5 100644
+--- a/fs/gfs2/trans.c
++++ b/fs/gfs2/trans.c
+@@ -52,6 +52,8 @@ int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int blocks,
+ 		tr->tr_reserved += gfs2_struct2blk(sdp, revokes);
+ 	INIT_LIST_HEAD(&tr->tr_databuf);
+ 	INIT_LIST_HEAD(&tr->tr_buf);
++	INIT_LIST_HEAD(&tr->tr_ail1_list);
++	INIT_LIST_HEAD(&tr->tr_ail2_list);
  
- 	inode = gfs2_lookup_by_inum(sdp, no_addr, gl->gl_no_formal_ino,
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index bcb56f13f50a..32d8d26126a1 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -1273,8 +1273,12 @@ static bool gfs2_upgrade_iopen_glock(struct inode *inode)
- 	 * If there are no other lock holders, we'll get the lock immediately.
- 	 * Otherwise, the other nodes holding the lock will be notified about
- 	 * our locking request.  If they don't have the inode open, they'll
--	 * evict the cached inode and release the lock.  As a last resort,
--	 * we'll eventually time out.
-+	 * evict the cached inode and release the lock.  Otherwise, if they
-+	 * poke the inode glock, we'll take this as an indication that they
-+	 * still need the iopen glock and that they'll take care of deleting
-+	 * the inode when they're done.  As a last resort, if another node
-+	 * keeps holding the iopen glock without showing any activity on the
-+	 * inode glock, we'll eventually time out.
- 	 *
- 	 * Note that we're passing the LM_FLAG_TRY_1CB flag to the first
- 	 * locking request as an optimization to notify lock holders as soon as
-@@ -1293,7 +1297,8 @@ static bool gfs2_upgrade_iopen_glock(struct inode *inode)
- 		return false;
+ 	sb_start_intwrite(sdp->sd_vfs);
  
- 	timeout = wait_event_interruptible_timeout(sdp->sd_async_glock_wait,
--		!test_bit(HIF_WAIT, &gh->gh_iflags),
-+		!test_bit(HIF_WAIT, &gh->gh_iflags) ||
-+		test_bit(GLF_DEMOTE, &ip->i_gl->gl_flags),
- 		timeout);
- 	if (!test_bit(HIF_HOLDER, &gh->gh_iflags)) {
- 		gfs2_glock_dq(gh);
 -- 
 2.26.2
 
