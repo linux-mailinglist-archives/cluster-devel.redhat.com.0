@@ -1,59 +1,66 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 0C5281F3D75
-	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jun 2020 16:01:00 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id EA0671F3DB5
+	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jun 2020 16:15:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591711260;
+	s=mimecast20190719; t=1591712116;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=M4IaWfK0UirgJkwMl2ybGMFZuZmbaReRQmeuETfjWr0=;
-	b=c6vZk1AsGK4U6K05QdfjvUk1VFqSSozjN7AkOMWW6Na8o1GQpwVSIWvQ7mcaUY8y49XYrS
-	nL3VSD2UoqjxXqdlEMvEcnAWP4/6LqLgTa31B2eOsywUCzhU1K66Hm6FRbTa7pU5xScy4M
-	uz/WUTq6M33xM5NdlFxfifWyC6KVNtY=
+	bh=nOFPOYnZCz3thcScaUp3AvQSnWRMNeLIhrylh1+cMvU=;
+	b=ZX1q2imNpxbSkuRf99IZBDEahaZZX1HAJ445uAfY00LBwmad/8j+VTnL8RfAaG/TO6JFnB
+	lBc4F/g5LrD+wRyysEg3k5BpMID09GBrwUU68s0dasWtFq18W8gU11Z4tvL56avlN1J7CT
+	+9GhQMnkjA1KfBqI1Q/ykI0RYV/jPmk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-110-fw2k3D6LOuKltfqhOgGx7A-1; Tue, 09 Jun 2020 10:00:58 -0400
-X-MC-Unique: fw2k3D6LOuKltfqhOgGx7A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-380-bHVVEQObMTWB56_28QGvxQ-1; Tue, 09 Jun 2020 10:15:06 -0400
+X-MC-Unique: bHVVEQObMTWB56_28QGvxQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A5453801504;
-	Tue,  9 Jun 2020 14:00:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C56F8202B;
-	Tue,  9 Jun 2020 14:00:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 19D3919200C0;
+	Tue,  9 Jun 2020 14:15:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C322891CE;
+	Tue,  9 Jun 2020 14:15:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C1EDF180954D;
-	Tue,  9 Jun 2020 14:00:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 370A297019;
+	Tue,  9 Jun 2020 14:15:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 059E0p7o006243 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Jun 2020 10:00:51 -0400
+	id 059EEwfR007890 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Jun 2020 10:14:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 082E9891E0; Tue,  9 Jun 2020 14:00:51 +0000 (UTC)
+	id EBA939F77; Tue,  9 Jun 2020 14:14:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fogou.chygwyn.com (unknown [10.33.36.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 897E6891CE
-	for <cluster-devel@redhat.com>; Tue,  9 Jun 2020 14:00:47 +0000 (UTC)
-To: cluster-devel@redhat.com
+Received: from colo-mx.corp.redhat.com
+	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4FE561169;
+	Tue,  9 Jun 2020 14:14:56 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 241241809542;
+	Tue,  9 Jun 2020 14:14:56 +0000 (UTC)
+Date: Tue, 9 Jun 2020 10:14:53 -0400 (EDT)
+From: Bob Peterson <rpeterso@redhat.com>
+To: Steven Whitehouse <swhiteho@redhat.com>
+Message-ID: <439170501.32917657.1591712093863.JavaMail.zimbra@redhat.com>
+In-Reply-To: <d9b2cb1b-c190-4945-ff3a-b6fd1fd61803@redhat.com>
 References: <181861383.32913711.1591710911880.JavaMail.zimbra@redhat.com>
-From: Steven Whitehouse <swhiteho@redhat.com>
-Message-ID: <d9b2cb1b-c190-4945-ff3a-b6fd1fd61803@redhat.com>
-Date: Tue, 9 Jun 2020 15:00:46 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.6.0
+	<d9b2cb1b-c190-4945-ff3a-b6fd1fd61803@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <181861383.32913711.1591710911880.JavaMail.zimbra@redhat.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Originating-IP: [10.3.115.80, 10.4.195.26]
+Thread-Topic: gfs2: fix trans slab error when withdraw occurs inside log_flush
+Thread-Index: shx/1IzV8ofnb80S+aaf7qUOrdYA5w==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
+Cc: cluster-devel@redhat.com
 Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: fix trans slab error when
  withdraw occurs inside log_flush
 X-BeenThere: cluster-devel@redhat.com
@@ -69,60 +76,79 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
+----- Original Message -----
+> I'm not sure quite what the aim is here... are you sure that it is ok to
+> move something to the AIL list if there has been a withdrawal? If the
+> log flush has not completed correctly then we should not be moving
+> anything to the AIL lists I think,
+> 
+> Steve.
 
-On 09/06/2020 14:55, Bob Peterson wrote:
-> Hi,
->
-> Log flush operations (gfs2_log_flush()) can target a specific transaction.
-> But if the function encounters errors (e.g. io errors) and withdraws,
-> the transaction was only freed it if was queued to one of the ail lists.
-> If the withdraw occurred before the transaction was queued to the ail1
-> list, function ail_drain never freed it. The result was:
->
-> BUG gfs2_trans: Objects remaining in gfs2_trans on __kmem_cache_shutdown()
->
-> This patch makes log_flush() add the targeted transaction to the ail1
-> list so that function ail_drain() will find and free it properly.
->
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> ---
->   fs/gfs2/log.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
->
-> diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-> index 3e4734431783..2b05415bbc13 100644
-> --- a/fs/gfs2/log.c
-> +++ b/fs/gfs2/log.c
-> @@ -1002,6 +1002,16 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
->   
->   out:
->   	if (gfs2_withdrawn(sdp)) {
-> +		/**
-> +		 * If the tr_list is empty, we're withdrawing during a log
-> +		 * flush that targets a transaction, but the transaction was
-> +		 * never queued onto any of the ail lists. Here we add it to
-> +		 * ail1 just so that ail_drain() will find and free it.
-> +		 */
-> +		spin_lock(&sdp->sd_ail_lock);
-> +		if (tr && list_empty(&tr->tr_list))
-> +			list_add(&tr->tr_list, &sdp->sd_ail1_list);
-> +		spin_unlock(&sdp->sd_ail_lock);
->   		ail_drain(sdp); /* frees all transactions */
->   		tr = NULL;
->   	}
->
-I'm not sure quite what the aim is here... are you sure that it is ok to 
-move something to the AIL list if there has been a withdrawal? If the 
-log flush has not completed correctly then we should not be moving 
-anything to the AIL lists I think,
+Yes, I'm sure it's okay in this case. We only add it temporarily to the
+ail1 list so that function ail_drain() finds and removes it like the rest.
 
-Steve.
+I only coded it this way because Andreas didn't like my somewhat longer
+previous implementation, which follows.
 
+Regards,
+
+Bob
+
+diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+index 3e4734431783..0c45851b88d5 100644
+--- a/fs/gfs2/log.c
++++ b/fs/gfs2/log.c
+@@ -845,8 +845,15 @@ static void log_write_header(struct gfs2_sbd *sdp, u32 flags)
+ /**
+  * ail_drain - drain the ail lists after a withdraw
+  * @sdp: Pointer to GFS2 superblock
++ * @flush_tr: If non-null, transaction that was being flushed
++ *
++ * We're draining the ail lists after a withdraw, during a log flush op.
++ * If the log flush was targeting a specific transaction, it will never
++ * go through "after" lops processing, so we need to free it here.
++ * If we find it on one of the ail lists, we free it as we dequeue it.
++ * If we don't find it, we free it at the end.
+  */
+-static void ail_drain(struct gfs2_sbd *sdp)
++static void ail_drain(struct gfs2_sbd *sdp, struct gfs2_trans *flush_tr)
+ {
+ 	struct gfs2_trans *tr;
+ 
+@@ -865,6 +872,8 @@ static void ail_drain(struct gfs2_sbd *sdp)
+ 		gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
+ 		list_del(&tr->tr_list);
+ 		gfs2_trans_free(sdp, tr);
++		if (tr == flush_tr)
++			flush_tr = NULL;
+ 	}
+ 	while (!list_empty(&sdp->sd_ail2_list)) {
+ 		tr = list_first_entry(&sdp->sd_ail2_list, struct gfs2_trans,
+@@ -872,7 +881,11 @@ static void ail_drain(struct gfs2_sbd *sdp)
+ 		gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
+ 		list_del(&tr->tr_list);
+ 		gfs2_trans_free(sdp, tr);
++		if (tr == flush_tr)
++			flush_tr = NULL;
+ 	}
++	if (flush_tr)
++		gfs2_trans_free(sdp, flush_tr);
+ 	spin_unlock(&sdp->sd_ail_lock);
+ }
+ 
+@@ -1002,7 +1015,7 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
+ 
+ out:
+ 	if (gfs2_withdrawn(sdp)) {
+-		ail_drain(sdp); /* frees all transactions */
++		ail_drain(sdp, tr); /* frees all transactions */
+ 		tr = NULL;
+ 	}
+ 
 
