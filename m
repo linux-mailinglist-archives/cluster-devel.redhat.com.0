@@ -1,90 +1,54 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 89CB51F3DFC
-	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jun 2020 16:23:55 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 76DCB1F3E1D
+	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jun 2020 16:29:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591712634;
+	s=mimecast20190719; t=1591712965;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=eUNdfPEWVXZ411ehxiQndoCFXsS7gdCBSc1nLHLeVjM=;
-	b=SyUn4lhU0FykQaW63Ez+qq2Q1sz9hN8mXCJ99UrEhRqdHqlIaGdFj17HsiEUy/UcnSwF/g
-	eMIRAOgltpyk+xZ1aPK3Vsa6KKJrpuB71ZlGMn2KxYjFWljaCLWlZp4Z07SX2Fte0trKpT
-	nv7SbuqJPePhxRohIfYHgvWDvMndcIc=
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=gh1et1yx9RGVZtgoQEO1MAqCm4vb6gDUylexNoqX8YE=;
+	b=A1phioG+UepEFsgxDCVOjoFPv4egezmriIZL0UewF08JqoL20pqibOian5zuyaKIXa1n2r
+	hoMxDYUveL8aSjQy9DHT8N0SGiEUNZJB7miBSQf0eKVo5Y/bty8nhaBDEYMVQ7yg2wPGja
+	696fOS9k+uJpfBQkD5dIK5lM0CSbLmI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-171-gLtp1fPRNimJFDRHzAdlVg-1; Tue, 09 Jun 2020 10:23:53 -0400
-X-MC-Unique: gLtp1fPRNimJFDRHzAdlVg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-370-CiRVlufmOd2gSgzkqVHXTQ-1; Tue, 09 Jun 2020 10:29:22 -0400
+X-MC-Unique: CiRVlufmOd2gSgzkqVHXTQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 573191B18BD9;
-	Tue,  9 Jun 2020 14:23:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 469855D9E4;
-	Tue,  9 Jun 2020 14:23:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 259CC8735C1;
+	Tue,  9 Jun 2020 14:29:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA4CB8FF60;
+	Tue,  9 Jun 2020 14:29:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E5A69B349E;
-	Tue,  9 Jun 2020 14:23:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9CD9180954D;
+	Tue,  9 Jun 2020 14:29:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 059ENjuB009781 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Jun 2020 10:23:45 -0400
+	id 059ETEhj010266 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Jun 2020 10:29:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8F70EE5966; Tue,  9 Jun 2020 14:23:41 +0000 (UTC)
+	id DDE86100238D; Tue,  9 Jun 2020 14:29:14 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7BB78EE380
-	for <cluster-devel@redhat.com>; Tue,  9 Jun 2020 14:23:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 233D181DA9C
-	for <cluster-devel@redhat.com>; Tue,  9 Jun 2020 14:23:37 +0000 (UTC)
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
-	[209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-56-J4v4wVVwPAixquaoWtt9sg-1; Tue, 09 Jun 2020 10:23:35 -0400
-X-MC-Unique: J4v4wVVwPAixquaoWtt9sg-1
-Received: by mail-oi1-f199.google.com with SMTP id x67so10607557oix.21
-	for <cluster-devel@redhat.com>; Tue, 09 Jun 2020 07:23:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=eUNdfPEWVXZ411ehxiQndoCFXsS7gdCBSc1nLHLeVjM=;
-	b=QBdKmC9hwOESlwQoBROJgsdjrb24MT72LQyFjQUE6SCRugNVMxLLKlGpSKPYd3YHqy
-	bv59ILRnmXFR+batUtj5nggiNpQyQae6VELwGitRkE1ibi4tNlsc/juOpG+pxx1365Ot
-	zP1cDaB2xUlASIRIpgnG9m4ECtMYamhnXp0udKDVBB3a1kwQx0q2L7o5JVxgAFPsjGV7
-	PsaFT42xZsg9FRQSWIlGckf2KuQGkqF6ve8MTDqT1Nl57eDksYXOr+kXmkbTirRTn9K0
-	DQgZcfzLfM/NcAkebWRvKvdc+dkMvW6C48yS/YgehQgDcoouyZWLJDBOF+WpdlIh38LH
-	ULhQ==
-X-Gm-Message-State: AOAM530MYYPk0OsNem+f1FejKG0DBLV6CX7yXBAzYTm8GgVUSbm+lnJd
-	ze8DfDNb/v3JTg6C2+s5YR4MqyX0DPOVLCgh8YDZuCfN3xKic++IndLLB012wGBGjAHh40/wtn1
-	nw+CsN+9zMFJq3bOU2InCbf0rxcwuA2gQQ5EWlA==
-X-Received: by 2002:aca:5049:: with SMTP id e70mr3726894oib.72.1591712614351; 
-	Tue, 09 Jun 2020 07:23:34 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz9ts52Wv7mtF2NklV+c2+j/K+ciye0NNmFIIA2EcLb10QlQCQlQyICqL5sLfr+c8E7BwceUvx1mk5vcDGtX7I=
-X-Received: by 2002:aca:5049:: with SMTP id e70mr3726869oib.72.1591712614079; 
-	Tue, 09 Jun 2020 07:23:34 -0700 (PDT)
+Received: from cicero.redhat.com (unknown [10.33.37.4])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEDE110013C1
+	for <cluster-devel@redhat.com>; Tue,  9 Jun 2020 14:29:10 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Tue,  9 Jun 2020 15:29:07 +0100
+Message-Id: <20200609142907.707114-1-anprice@redhat.com>
 MIME-Version: 1.0
-References: <181861383.32913711.1591710911880.JavaMail.zimbra@redhat.com>
-	<d9b2cb1b-c190-4945-ff3a-b6fd1fd61803@redhat.com>
-	<439170501.32917657.1591712093863.JavaMail.zimbra@redhat.com>
-In-Reply-To: <439170501.32917657.1591712093863.JavaMail.zimbra@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 9 Jun 2020 16:23:22 +0200
-Message-ID: <CAHc6FU6ZLjuU9iygRT1QG232zJaOJ_F8K8-+nsaAH-GPbac_Fw@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: fix trans slab error when
- withdraw occurs inside log_flush
+Subject: [Cluster-devel] [PATCH] gfs2_jadd: Fix static analysis warnings
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,29 +62,60 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 9, 2020 at 4:15 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> ----- Original Message -----
-> > I'm not sure quite what the aim is here... are you sure that it is ok to
-> > move something to the AIL list if there has been a withdrawal? If the
-> > log flush has not completed correctly then we should not be moving
-> > anything to the AIL lists I think,
-> >
-> > Steve.
->
-> Yes, I'm sure it's okay in this case. We only add it temporarily to the
-> ail1 list so that function ail_drain() finds and removes it like the rest.
->
-> I only coded it this way because Andreas didn't like my somewhat longer
-> previous implementation, which follows.
+Fix these warnings:
 
-Note that this previous version fails to free the gfs2_bufdata objects
-attached to the transaction if the transaction isn't on one of the ail
-lists.
+  gfs2/mkfs/main_jadd.c:264:8: warning: Although the value stored to
+  'error' is used in the enclosing expression, the value is never actually
+  read from 'error'
+  gfs2/mkfs/main_jadd.c:514:15: warning: Assigned value is garbage or
+  undefined
 
-Andreas
+Signed-off-by: Andrew Price <anprice@redhat.com>
+---
+ gfs2/mkfs/main_jadd.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/gfs2/mkfs/main_jadd.c b/gfs2/mkfs/main_jadd.c
+index ea89c96b..03134a61 100644
+--- a/gfs2/mkfs/main_jadd.c
++++ b/gfs2/mkfs/main_jadd.c
+@@ -241,7 +241,7 @@ static void print_results(struct jadd_opts *opts)
+ static int create_new_inode(struct jadd_opts *opts, uint64_t *addr)
+ {
+ 	char *name = opts->new_inode;
+-	int fd, error = 0;
++	int fd;
+ 
+ 	for (;;) {
+ 		fd = open(name, O_WRONLY | O_CREAT | O_EXCL | O_NOFOLLOW | O_CLOEXEC, 0600);
+@@ -261,9 +261,10 @@ static int create_new_inode(struct jadd_opts *opts, uint64_t *addr)
+ 	if (addr != NULL) {
+ 		struct stat st;
+ 
+-		if ((error = fstat(fd, &st))) {
++		if (fstat(fd, &st) == -1) {
+ 			perror("fstat");
+-			return close(fd);
++			close(fd);
++			return -1;
+ 		}
+ 		*addr = st.st_ino;
+ 	}
+@@ -481,7 +482,7 @@ static int add_j(struct gfs2_sbd *sdp, struct jadd_opts *opts)
+ 	unsigned int x, blocks =
+ 		sdp->jsize << (20 - sdp->sd_sb.sb_bsize_shift);
+ 	struct gfs2_log_header lh;
+-	uint64_t seq = RANDOM(blocks), addr;
++	uint64_t seq = RANDOM(blocks), addr = 0;
+ 	off_t off = 0;
+ 
+ 	if ((fd = create_new_inode(opts, &addr)) < 0)
+-- 
+2.26.2
 
