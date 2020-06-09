@@ -1,54 +1,64 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 76DCB1F3E1D
-	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jun 2020 16:29:26 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 0119A1F4238
+	for <lists+cluster-devel@lfdr.de>; Tue,  9 Jun 2020 19:29:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591712965;
+	s=mimecast20190719; t=1591723765;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=gh1et1yx9RGVZtgoQEO1MAqCm4vb6gDUylexNoqX8YE=;
-	b=A1phioG+UepEFsgxDCVOjoFPv4egezmriIZL0UewF08JqoL20pqibOian5zuyaKIXa1n2r
-	hoMxDYUveL8aSjQy9DHT8N0SGiEUNZJB7miBSQf0eKVo5Y/bty8nhaBDEYMVQ7yg2wPGja
-	696fOS9k+uJpfBQkD5dIK5lM0CSbLmI=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=uoT+u5bWbyMFJIgKGeUfM5AiiAda1J39gulhjpD/0oo=;
+	b=icfEkhZ/+5qItnRjuCnQlLltKoFOMJS5c+ZQcdqCsqU/1gPX9CRuK3w5GsejmFbg9C+LV7
+	JH5tSchH59IDRpBmqcCIuOfouizjVtkc5PslSY4dsFBuxY0IWlvBtv8oZIZ8C3jdc03+jl
+	7xlE8idXt46n5I5djSlt4/aV0QMNWaA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-370-CiRVlufmOd2gSgzkqVHXTQ-1; Tue, 09 Jun 2020 10:29:22 -0400
-X-MC-Unique: CiRVlufmOd2gSgzkqVHXTQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-43-XjwV0CtTO_a1rjPnq2phsA-1; Tue, 09 Jun 2020 13:29:23 -0400
+X-MC-Unique: XjwV0CtTO_a1rjPnq2phsA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 259CC8735C1;
-	Tue,  9 Jun 2020 14:29:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2C795100CCC2;
+	Tue,  9 Jun 2020 17:29:20 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA4CB8FF60;
-	Tue,  9 Jun 2020 14:29:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 421E55C1BD;
+	Tue,  9 Jun 2020 17:29:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9CD9180954D;
-	Tue,  9 Jun 2020 14:29:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2B2BF1809547;
+	Tue,  9 Jun 2020 17:29:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 059ETEhj010266 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Jun 2020 10:29:14 -0400
+	id 059HTCA5000620 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Jun 2020 13:29:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DDE86100238D; Tue,  9 Jun 2020 14:29:14 +0000 (UTC)
+	id C69D17A8CC; Tue,  9 Jun 2020 17:29:12 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from cicero.redhat.com (unknown [10.33.37.4])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEDE110013C1
-	for <cluster-devel@redhat.com>; Tue,  9 Jun 2020 14:29:10 +0000 (UTC)
-From: Andrew Price <anprice@redhat.com>
-To: cluster-devel@redhat.com
-Date: Tue,  9 Jun 2020 15:29:07 +0100
-Message-Id: <20200609142907.707114-1-anprice@redhat.com>
+Received: from colo-mx.corp.redhat.com
+	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C235E7A1EB
+	for <cluster-devel@redhat.com>; Tue,  9 Jun 2020 17:29:10 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2CEFD1809542
+	for <cluster-devel@redhat.com>; Tue,  9 Jun 2020 17:29:10 +0000 (UTC)
+Date: Tue, 9 Jun 2020 13:29:08 -0400 (EDT)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Message-ID: <1364299943.32999353.1591723748150.JavaMail.zimbra@redhat.com>
+In-Reply-To: <2107416922.32999348.1591723732042.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Originating-IP: [10.3.115.80, 10.4.195.3]
+Thread-Topic: gfs2: Add some flags missing from glock output
+Thread-Index: tWkP+a6FvFLULFj6FLSSMCwb5BUdwg==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH] gfs2_jadd: Fix static analysis warnings
+Subject: [Cluster-devel] [GFS2 PATCH] gfs2: Add some flags missing from
+	glock output
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -62,60 +72,41 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Fix these warnings:
+Hi,
 
-  gfs2/mkfs/main_jadd.c:264:8: warning: Although the value stored to
-  'error' is used in the enclosing expression, the value is never actually
-  read from 'error'
-  gfs2/mkfs/main_jadd.c:514:15: warning: Assigned value is garbage or
-  undefined
+Before this patch, three flags were not represented in the glock output.
+This patch adds them in:
 
-Signed-off-by: Andrew Price <anprice@redhat.com>
+c - GLF_INODE_CREATING
+P - GLF_PENDING_DELETE
+x - GLF_FREEING (both f and F are already used)
+
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- gfs2/mkfs/main_jadd.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ fs/gfs2/glock.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/gfs2/mkfs/main_jadd.c b/gfs2/mkfs/main_jadd.c
-index ea89c96b..03134a61 100644
---- a/gfs2/mkfs/main_jadd.c
-+++ b/gfs2/mkfs/main_jadd.c
-@@ -241,7 +241,7 @@ static void print_results(struct jadd_opts *opts)
- static int create_new_inode(struct jadd_opts *opts, uint64_t *addr)
- {
- 	char *name = opts->new_inode;
--	int fd, error = 0;
-+	int fd;
- 
- 	for (;;) {
- 		fd = open(name, O_WRONLY | O_CREAT | O_EXCL | O_NOFOLLOW | O_CLOEXEC, 0600);
-@@ -261,9 +261,10 @@ static int create_new_inode(struct jadd_opts *opts, uint64_t *addr)
- 	if (addr != NULL) {
- 		struct stat st;
- 
--		if ((error = fstat(fd, &st))) {
-+		if (fstat(fd, &st) == -1) {
- 			perror("fstat");
--			return close(fd);
-+			close(fd);
-+			return -1;
- 		}
- 		*addr = st.st_ino;
- 	}
-@@ -481,7 +482,7 @@ static int add_j(struct gfs2_sbd *sdp, struct jadd_opts *opts)
- 	unsigned int x, blocks =
- 		sdp->jsize << (20 - sdp->sd_sb.sb_bsize_shift);
- 	struct gfs2_log_header lh;
--	uint64_t seq = RANDOM(blocks), addr;
-+	uint64_t seq = RANDOM(blocks), addr = 0;
- 	off_t off = 0;
- 
- 	if ((fd = create_new_inode(opts, &addr)) < 0)
--- 
-2.26.2
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index 2299dcc417ea..d77985ef5be0 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -2103,6 +2103,12 @@ static const char *gflags2str(char *buf, const struct gfs2_glock *gl)
+ 		*p++ = 'o';
+ 	if (test_bit(GLF_BLOCKING, gflags))
+ 		*p++ = 'b';
++	if (test_bit(GLF_INODE_CREATING, gflags))
++		*p++ = 'c';
++	if (test_bit(GLF_PENDING_DELETE, gflags))
++		*p++ = 'P';
++	if (test_bit(GLF_FREEING, gflags))
++		*p++ = 'x';
+ 	*p = 0;
+ 	return buf;
+ }
 
