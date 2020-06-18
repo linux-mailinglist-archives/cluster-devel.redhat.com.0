@@ -1,81 +1,79 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 6CE021FDD9F
-	for <lists+cluster-devel@lfdr.de>; Thu, 18 Jun 2020 03:27:29 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 7018A1FDDB8
+	for <lists+cluster-devel@lfdr.de>; Thu, 18 Jun 2020 03:28:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592443648;
+	s=mimecast20190719; t=1592443686;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3S5i5oTGVCWzldRrADH1Y5uamNwgqYM/VOwzFi6ZP9g=;
-	b=F16qhD1ZtGm+5D0zAU7/EL/4stTg1ALahaa7IMDrqW/0e/EqsIwO/eWWNp9XhjRrHp/SY5
-	w3Sfw8dPHtjfH6jNkUwhVrZaHdP4WUDzcK/irPi26Y6aV0DvhRmXxTUjUK8TuNm+cMoxoI
-	ajFCUW4AxOoDE6J/UKXE47BgjapR53Q=
+	bh=mRmTA2W49gQ7i4dQSvpyb1td8hN6HlvBUHPhaKk1WBU=;
+	b=DN/wk7nRg/tCdyujddk4+g03efiL4NQ1lRcu2+WmomGz1fhe7+m72eG9KiriCS82ijxvD6
+	YIAQ/DccNBggTXPqvL1Od0BbK2Jeby9s/6cYyURuzrQ7xNIIFPuTpTffT57LiBjsSAI001
+	HP6diOLof3wzx9hyuC3RKrb481M3pew=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-161-6Mf_YxgaOcKJiG6fk_wisg-1; Wed, 17 Jun 2020 21:27:23 -0400
-X-MC-Unique: 6Mf_YxgaOcKJiG6fk_wisg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-226-ctguvMpSNpuK6ml6IhotNw-1; Wed, 17 Jun 2020 21:28:04 -0400
+X-MC-Unique: ctguvMpSNpuK6ml6IhotNw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 14A0D8015CE;
-	Thu, 18 Jun 2020 01:27:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C851919729;
-	Thu, 18 Jun 2020 01:27:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 176EF872FE1;
+	Thu, 18 Jun 2020 01:28:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 074745C3E7;
+	Thu, 18 Jun 2020 01:28:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 861451809547;
-	Thu, 18 Jun 2020 01:27:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E7FB2833CA;
+	Thu, 18 Jun 2020 01:28:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05I1RI6k000751 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Jun 2020 21:27:18 -0400
+	id 05I1RxjJ000818 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Jun 2020 21:27:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5E8872157F23; Thu, 18 Jun 2020 01:27:18 +0000 (UTC)
+	id 600152029F6F; Thu, 18 Jun 2020 01:27:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59EA12157F25
-	for <cluster-devel@redhat.com>; Thu, 18 Jun 2020 01:27:15 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5AF882029F62
+	for <cluster-devel@redhat.com>; Thu, 18 Jun 2020 01:27:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4AE4833B49
-	for <cluster-devel@redhat.com>; Thu, 18 Jun 2020 01:27:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 703098007B1
+	for <cluster-devel@redhat.com>; Thu, 18 Jun 2020 01:27:57 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-486-eiZL8o8KOJGG9LSnNIRc4A-1;
-	Wed, 17 Jun 2020 21:27:12 -0400
-X-MC-Unique: eiZL8o8KOJGG9LSnNIRc4A-1
+	by relay.mimecast.com with ESMTP id us-mta-196-fuDCEF49PbSL-9d6oR6kFw-1;
+	Wed, 17 Jun 2020 21:27:54 -0400
+X-MC-Unique: fuDCEF49PbSL-9d6oR6kFw-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 7E1E920776;
-	Thu, 18 Jun 2020 01:27:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 6C778221F7;
+	Thu, 18 Jun 2020 01:27:52 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 17 Jun 2020 21:25:07 -0400
-Message-Id: <20200618012600.608744-55-sashal@kernel.org>
+Date: Wed, 17 Jun 2020 21:25:41 -0400
+Message-Id: <20200618012600.608744-89-sashal@kernel.org>
 In-Reply-To: <20200618012600.608744-1-sashal@kernel.org>
 References: <20200618012600.608744-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 05I1RI6k000751
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 05I1RxjJ000818
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	cluster-devel@redhat.com, clang-built-linux@googlegroups.com,
-	Josh Poimboeuf <jpoimboe@redhat.com>
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.14 055/108] dlm: remove BUG()
-	before panic()
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.14 089/108] gfs2: Allow
+	lock_nolock mount to specify jid=X
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,55 +87,50 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Bob Peterson <rpeterso@redhat.com>
 
-[ Upstream commit fe204591cc9480347af7d2d6029b24a62e449486 ]
+[ Upstream commit ea22eee4e6027d8927099de344f7fff43c507ef9 ]
 
-Building a kernel with clang sometimes fails with an objtool error in dlm:
+Before this patch, a simple typo accidentally added \n to the jid=
+string for lock_nolock mounts. This made it impossible to mount a
+gfs2 file system with a journal other than journal0. Thus:
 
-fs/dlm/lock.o: warning: objtool: revert_lock_pc()+0xbd: can't find jump dest instruction at .text+0xd7fc
+mount -tgfs2 -o hostdata="jid=1" <device> <mount pt>
 
-The problem is that BUG() never returns and the compiler knows
-that anything after it is unreachable, however the panic still
-emits some code that does not get fully eliminated.
+Resulted in:
+mount: wrong fs type, bad option, bad superblock on <device>
 
-Having both BUG() and panic() is really pointless as the BUG()
-kills the current process and the subsequent panic() never hits.
-In most cases, we probably don't really want either and should
-replace the DLM_ASSERT() statements with WARN_ON(), as has
-been done for some of them.
+In most cases this is not a problem. However, for debugging and
+testing purposes we sometimes want to test the integrity of other
+journals. This patch removes the unnecessary \n and thus allows
+lock_nolock users to specify an alternate journal.
 
-Remove the BUG() here so the user at least sees the panic message
-and we can reliably build randconfig kernels.
-
-Fixes: e7fd41792fc0 ("[DLM] The core of the DLM for GFS2/CLVM")
-Cc: Josh Poimboeuf <jpoimboe@redhat.com>
-Cc: clang-built-linux@googlegroups.com
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: David Teigland <teigland@redhat.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dlm/dlm_internal.h | 1 -
- 1 file changed, 1 deletion(-)
+ fs/gfs2/ops_fstype.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index 748e8d59e611..cb287df13a7a 100644
---- a/fs/dlm/dlm_internal.h
-+++ b/fs/dlm/dlm_internal.h
-@@ -99,7 +99,6 @@ do { \
-                __LINE__, __FILE__, #x, jiffies); \
-     {do} \
-     printk("\n"); \
--    BUG(); \
-     panic("DLM:  Record message above and reboot.\n"); \
-   } \
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 057be88eb1b4..7ed0359ebac6 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -922,7 +922,7 @@ static int init_per_node(struct gfs2_sbd *sdp, int undo)
  }
+ 
+ static const match_table_t nolock_tokens = {
+-	{ Opt_jid, "jid=%d\n", },
++	{ Opt_jid, "jid=%d", },
+ 	{ Opt_err, NULL },
+ };
+ 
 -- 
 2.25.1
 
