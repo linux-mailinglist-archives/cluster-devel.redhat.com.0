@@ -1,59 +1,90 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 69D5B20B6F3
-	for <lists+cluster-devel@lfdr.de>; Fri, 26 Jun 2020 19:27:17 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 21BC920B710
+	for <lists+cluster-devel@lfdr.de>; Fri, 26 Jun 2020 19:31:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593192436;
+	s=mimecast20190719; t=1593192718;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=iWYuP09XL9VKlZ0yFTQH9Gd93urAoYAH5xWp/K1DFHA=;
-	b=gLq80YsvhZmem4BgOx8zF4H8VE9aVHgdvQ/aYwCbQH2PxAqB3R0qqJiHAX0tWJ44gCbupX
-	WRmCopxWStwQVU6XGTvMHcoGD/VLG5WYLZsaHZCEtBr7vLYg29HqjLVFdQRxGPF9/YZAQy
-	hSy8KyWIrZSbpCmyF+5g9cDeQsE3Xkg=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=mtoAMY2XW89vhOBgxNqGdUMLTGPUvuzF40jBdbVwg24=;
+	b=Fr5kyLnWgzKUHWxPSCc+/iosgXOVZHZaNHFMNs3r86bV3Mtc1Z0sOceq9yLDq/8vA+Jzlv
+	w4+KOs9Y8OzTiH3XB8ryJ8QjfOdjN1XP4Sd1YDjKWMf4XmR/5slFN462xL6eId4/PWKIN/
+	nIMjWXEtgsWXuMXUK3eWvk5J2Ql70zg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-379-eHE4EfGdPmigLCYrTz_jBA-1; Fri, 26 Jun 2020 13:27:14 -0400
-X-MC-Unique: eHE4EfGdPmigLCYrTz_jBA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-259-BS19KYxzOmGDRaNyXAsTMQ-1; Fri, 26 Jun 2020 13:31:56 -0400
+X-MC-Unique: BS19KYxzOmGDRaNyXAsTMQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3BFC7804003;
-	Fri, 26 Jun 2020 17:27:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E4EA1107ACCA;
+	Fri, 26 Jun 2020 17:31:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2CE225D9C5;
-	Fri, 26 Jun 2020 17:27:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A526F60C80;
+	Fri, 26 Jun 2020 17:31:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 10941875B4;
-	Fri, 26 Jun 2020 17:27:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 62909875B0;
+	Fri, 26 Jun 2020 17:31:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05QHR9xY019166 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 26 Jun 2020 13:27:09 -0400
+	id 05QHVcr8019442 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Jun 2020 13:31:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D990D8FF97; Fri, 26 Jun 2020 17:27:09 +0000 (UTC)
+	id 8E0F9101F0C7; Fri, 26 Jun 2020 17:31:38 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-115-78.rdu2.redhat.com [10.10.115.78])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D17081C8;
-	Fri, 26 Jun 2020 17:27:08 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: davem@davemloft.net
-Date: Fri, 26 Jun 2020 13:26:50 -0400
-Message-Id: <20200626172650.115224-4-aahringo@redhat.com>
-In-Reply-To: <20200626172650.115224-1-aahringo@redhat.com>
-References: <20200626172650.115224-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87B5910336F2
+	for <cluster-devel@redhat.com>; Fri, 26 Jun 2020 17:31:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B416101A525
+	for <cluster-devel@redhat.com>; Fri, 26 Jun 2020 17:31:35 +0000 (UTC)
+Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
+	[209.85.166.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-365-x2Y1BOnlOm6MxWzbVhBEXw-1; Fri, 26 Jun 2020 13:31:33 -0400
+X-MC-Unique: x2Y1BOnlOm6MxWzbVhBEXw-1
+Received: by mail-io1-f70.google.com with SMTP id g17so6810579iob.3
+	for <cluster-devel@redhat.com>; Fri, 26 Jun 2020 10:31:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=mtoAMY2XW89vhOBgxNqGdUMLTGPUvuzF40jBdbVwg24=;
+	b=pqT7mBY1ngmssBnCnm18D9eH7FMDnOR2jBI+9W6z6NSejLmXYj24PTV6/4u/lFVVBm
+	V2J67K1LjebN7yb3BA1dEodfHmeufRPUK0MzXoM6te6934pKr1pYoYmh3DaCTR7oLjv8
+	buNJtMyfWRaIogHE9fT75f+/voyleHtbpv2fz4S9ZqDjvuz9w6k5ogh46qKz5JmO33n/
+	J1DZ/LMLe5KdlH67yQQ3FGtkFo1lrWz7hKT9bm3645oRWFnFmnpZi15Py7NRtrsZ6g36
+	PQxsNf8I09PTxaLgFfUmxj1uAK/amIvByEB0UNgwOWVGKp+FAglFa9c9XgzB7qnPTdaX
+	S4FQ==
+X-Gm-Message-State: AOAM5310Bt6HnUpAg0LNRVCWnqzdWsDwFpgqqyiwcKwgxhk/s1Ntv5xY
+	gsfI3TqKX3LRY7rTVnvJVpMwlu9a9TSpM4RbIEJ/oQCHAVnnp/u73l0pKFMV8GGqFdqXR7pnUhu
+	Qt6ByIvukvSPsgMC6f2nM7yYde3ePuNvww7aCtQ==
+X-Received: by 2002:a92:2802:: with SMTP id l2mr4063551ilf.169.1593192692858; 
+	Fri, 26 Jun 2020 10:31:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJztSdTGrLjmbOoGzDJ4Bdw7tV30WuF+J5ZrNtqwIfiytW0SqHTaYb1Vm7Rb4IY5lpWkdAScMS/3eQENhghGiPA=
+X-Received: by 2002:a92:2802:: with SMTP id l2mr4063540ilf.169.1593192692672; 
+	Fri, 26 Jun 2020 10:31:32 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+References: <20200626172650.115224-1-aahringo@redhat.com>
+	<20200626172650.115224-2-aahringo@redhat.com>
+In-Reply-To: <20200626172650.115224-2-aahringo@redhat.com>
+From: Alexander Ahring Oder Aring <aahringo@redhat.com>
+Date: Fri, 26 Jun 2020 13:31:21 -0400
+Message-ID: <CAK-6q+g+f7BD+C5PKWWc+1Ybd1ruTwNGa7RfogEgr4AWdKtvwA@mail.gmail.com>
+To: davem@davemloft.net
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: netdev@vger.kernel.org, cluster-devel@redhat.com, kuba@kernel.org
-Subject: [Cluster-devel] [PATCHv2 dlm-next 3/3] fs: dlm: set skb mark per
-	peer socket
+Cc: cluster-devel@redhat.com, kuba@kernel.org, netdev@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCHv2 dlm-next 1/3] net: sock: add
+	sock_set_mark
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,170 +98,19 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
 
-This patch adds support to set the skb mark value for the DLM tcp and
-sctp socket per peer. The mark value will be offered as per comm value
-of configfs. At creation time of the peer socket it will be set as
-socket option.
+Dear netdev maintainers,
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/config.c   | 38 ++++++++++++++++++++++++++++++++++++++
- fs/dlm/config.h   |  1 +
- fs/dlm/lowcomms.c | 16 ++++++++++++++++
- 3 files changed, 55 insertions(+)
+These patches are based on dlm/next. Due other changes in dlm/next
+there could be a conflict when applying everything into net-next. Is
+it okay to get this patch merged into dlm/next? Or what is the
+preferred way to get these patches upstream?
 
-diff --git a/fs/dlm/config.c b/fs/dlm/config.c
-index 6dce6ec58d74f..eac241ed9003e 100644
---- a/fs/dlm/config.c
-+++ b/fs/dlm/config.c
-@@ -204,6 +204,7 @@ enum {
- 	COMM_ATTR_LOCAL,
- 	COMM_ATTR_ADDR,
- 	COMM_ATTR_ADDR_LIST,
-+	COMM_ATTR_MARK,
- };
- 
- enum {
-@@ -236,6 +237,7 @@ struct dlm_comm {
- 	int nodeid;
- 	int local;
- 	int addr_count;
-+	unsigned int mark;
- 	struct sockaddr_storage *addr[DLM_MAX_ADDR_COUNT];
- };
- 
-@@ -473,6 +475,7 @@ static struct config_item *make_comm(struct config_group *g, const char *name)
- 	cm->nodeid = -1;
- 	cm->local = 0;
- 	cm->addr_count = 0;
-+	cm->mark = 0;
- 	return &cm->item;
- }
- 
-@@ -668,8 +671,28 @@ static ssize_t comm_addr_list_show(struct config_item *item, char *buf)
- 	return 4096 - allowance;
- }
- 
-+static ssize_t comm_mark_show(struct config_item *item, char *buf)
-+{
-+	return sprintf(buf, "%u\n", config_item_to_comm(item)->mark);
-+}
-+
-+static ssize_t comm_mark_store(struct config_item *item, const char *buf,
-+			       size_t len)
-+{
-+	unsigned int mark;
-+	int rc;
-+
-+	rc = kstrtouint(buf, 0, &mark);
-+	if (rc)
-+		return rc;
-+
-+	config_item_to_comm(item)->mark = mark;
-+	return len;
-+}
-+
- CONFIGFS_ATTR(comm_, nodeid);
- CONFIGFS_ATTR(comm_, local);
-+CONFIGFS_ATTR(comm_, mark);
- CONFIGFS_ATTR_WO(comm_, addr);
- CONFIGFS_ATTR_RO(comm_, addr_list);
- 
-@@ -678,6 +701,7 @@ static struct configfs_attribute *comm_attrs[] = {
- 	[COMM_ATTR_LOCAL] = &comm_attr_local,
- 	[COMM_ATTR_ADDR] = &comm_attr_addr,
- 	[COMM_ATTR_ADDR_LIST] = &comm_attr_addr_list,
-+	[COMM_ATTR_MARK] = &comm_attr_mark,
- 	NULL,
- };
- 
-@@ -837,6 +861,20 @@ int dlm_comm_seq(int nodeid, uint32_t *seq)
- 	return 0;
- }
- 
-+int dlm_comm_mark(int nodeid, unsigned int *mark)
-+{
-+	struct dlm_comm *cm;
-+
-+	cm = get_comm(nodeid);
-+	if (!cm)
-+		return -ENOENT;
-+
-+	*mark = cm->mark;
-+	put_comm(cm);
-+
-+	return 0;
-+}
-+
- int dlm_our_nodeid(void)
- {
- 	return local_comm ? local_comm->nodeid : 0;
-diff --git a/fs/dlm/config.h b/fs/dlm/config.h
-index bc94123ac305a..48b4055fd07ff 100644
---- a/fs/dlm/config.h
-+++ b/fs/dlm/config.h
-@@ -47,6 +47,7 @@ void dlm_config_exit(void);
- int dlm_config_nodes(char *lsname, struct dlm_config_node **nodes_out,
- 		     int *count_out);
- int dlm_comm_seq(int nodeid, uint32_t *seq);
-+int dlm_comm_mark(int nodeid, unsigned int *mark);
- int dlm_our_nodeid(void);
- int dlm_our_addr(struct sockaddr_storage *addr, int num);
- 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index eaedad7d069a8..3fa1b93dbbc7e 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -914,6 +914,7 @@ static void sctp_connect_to_sock(struct connection *con)
- 	int result;
- 	int addr_len;
- 	struct socket *sock;
-+	unsigned int mark;
- 
- 	if (con->nodeid == 0) {
- 		log_print("attempt to connect sock 0 foiled");
-@@ -944,6 +945,13 @@ static void sctp_connect_to_sock(struct connection *con)
- 	if (result < 0)
- 		goto socket_err;
- 
-+	/* set skb mark */
-+	result = dlm_comm_mark(con->nodeid, &mark);
-+	if (result < 0)
-+		goto bind_err;
-+
-+	sock_set_mark(sock->sk, mark);
-+
- 	con->rx_action = receive_from_sock;
- 	con->connect_action = sctp_connect_to_sock;
- 	add_sock(sock, con);
-@@ -1006,6 +1014,7 @@ static void tcp_connect_to_sock(struct connection *con)
- 	struct sockaddr_storage saddr, src_addr;
- 	int addr_len;
- 	struct socket *sock = NULL;
-+	unsigned int mark;
- 	int result;
- 
- 	if (con->nodeid == 0) {
-@@ -1027,6 +1036,13 @@ static void tcp_connect_to_sock(struct connection *con)
- 	if (result < 0)
- 		goto out_err;
- 
-+	/* set skb mark */
-+	result = dlm_comm_mark(con->nodeid, &mark);
-+	if (result < 0)
-+		goto out_err;
-+
-+	sock_set_mark(sock->sk, mark);
-+
- 	memset(&saddr, 0, sizeof(saddr));
- 	result = nodeid_to_addr(con->nodeid, &saddr, NULL, false);
- 	if (result < 0) {
--- 
-2.26.2
+Thank you.
+
+- Alex
 
