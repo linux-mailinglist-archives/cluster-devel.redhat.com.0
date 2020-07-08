@@ -1,67 +1,67 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 57498218BDD
-	for <lists+cluster-devel@lfdr.de>; Wed,  8 Jul 2020 17:43:58 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id DBC49218BF7
+	for <lists+cluster-devel@lfdr.de>; Wed,  8 Jul 2020 17:44:09 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-302-tMvo8hqbN5CGKc2i2f0rGw-1; Wed, 08 Jul 2020 11:43:52 -0400
-X-MC-Unique: tMvo8hqbN5CGKc2i2f0rGw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-9-FDi0q2tNMd-k0c96etQazw-1; Wed, 08 Jul 2020 11:44:06 -0400
+X-MC-Unique: FDi0q2tNMd-k0c96etQazw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 125F58015FB;
-	Wed,  8 Jul 2020 15:43:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2BA98108BD12;
+	Wed,  8 Jul 2020 15:44:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C5DCC79231;
-	Wed,  8 Jul 2020 15:43:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CC4060F8D;
+	Wed,  8 Jul 2020 15:44:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EC5E518095FF;
-	Wed,  8 Jul 2020 15:43:45 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EA8F9180B791;
+	Wed,  8 Jul 2020 15:44:02 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 068Fg7Le000586 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 8 Jul 2020 11:42:07 -0400
+	id 068FgCek000611 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 8 Jul 2020 11:42:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3FDA4110E9B2; Wed,  8 Jul 2020 15:42:07 +0000 (UTC)
+	id A2092110F0CC; Wed,  8 Jul 2020 15:42:12 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D93D110F0D6
-	for <cluster-devel@redhat.com>; Wed,  8 Jul 2020 15:42:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E838100296B
+	for <cluster-devel@redhat.com>; Wed,  8 Jul 2020 15:42:12 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFB0F101A525
-	for <cluster-devel@redhat.com>; Wed,  8 Jul 2020 15:42:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 64FA8108C268
+	for <cluster-devel@redhat.com>; Wed,  8 Jul 2020 15:42:12 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-449-edO160PvMU69peN889Vm_g-1;
-	Wed, 08 Jul 2020 11:41:56 -0400
-X-MC-Unique: edO160PvMU69peN889Vm_g-1
+	by relay.mimecast.com with ESMTP id us-mta-34-AQ72WxG9PtmoTn4iSizxeg-1; 
+	Wed, 08 Jul 2020 11:42:07 -0400
+X-MC-Unique: AQ72WxG9PtmoTn4iSizxeg-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 45BC72080D;
-	Wed,  8 Jul 2020 15:41:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id AB9C7206DF;
+	Wed,  8 Jul 2020 15:42:05 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed,  8 Jul 2020 11:41:34 -0400
-Message-Id: <20200708154135.3199907-15-sashal@kernel.org>
-In-Reply-To: <20200708154135.3199907-1-sashal@kernel.org>
-References: <20200708154135.3199907-1-sashal@kernel.org>
+Date: Wed,  8 Jul 2020 11:41:55 -0400
+Message-Id: <20200708154157.3200116-7-sashal@kernel.org>
+In-Reply-To: <20200708154157.3200116-1-sashal@kernel.org>
+References: <20200708154157.3200116-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 068Fg7Le000586
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 068FgCek000611
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.4 15/16] gfs2: read-only mounts
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.19 7/8] gfs2: read-only mounts
 	should grab the sd_freeze_gl glock
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -76,7 +76,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,10 +105,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index c26c864590cc3..e0c55765b06d2 100644
+index ed77b10bdfb53..9448c8461e576 100644
 --- a/fs/gfs2/ops_fstype.c
 +++ b/fs/gfs2/ops_fstype.c
-@@ -1168,7 +1168,17 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+@@ -1160,7 +1160,17 @@ static int fill_super(struct super_block *sb, struct gfs2_args *args, int silent
  		goto fail_per_node;
  	}
  
