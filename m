@@ -1,59 +1,86 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 79FF821A777
-	for <lists+cluster-devel@lfdr.de>; Thu,  9 Jul 2020 21:05:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1594321504;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=WrekSHBCa7iAmbvg5uxh+ET193Yf7Xg/Z7u9ZkKhakc=;
-	b=CSIEPCv2TOmOlaDRFffZVq0v+DTnXkKXkHQT8pZEZv2bE/5EV5oB4Pon92MPEcpWR7Kbo5
-	B1MRdQRoRG/yJ7Ge5akdD4jlE0Xz1X6lrZIC4LHpLvw3RtVugGhOFOkWiqrF/FqfIDOagl
-	/Pc+BumRP0vlzwyQAIK4pgUcCYP3BRA=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 67CC221AB34
+	for <lists+cluster-devel@lfdr.de>; Fri, 10 Jul 2020 01:06:13 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-36-OKRAu7r5NhGaE7j2ZjCJNA-1; Thu, 09 Jul 2020 15:05:01 -0400
-X-MC-Unique: OKRAu7r5NhGaE7j2ZjCJNA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-83-VpzBJbKhODmUX8W1sX7Naw-1; Thu, 09 Jul 2020 19:06:10 -0400
+X-MC-Unique: VpzBJbKhODmUX8W1sX7Naw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0796F106B242;
-	Thu,  9 Jul 2020 19:04:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA9F260C80;
-	Thu,  9 Jul 2020 19:04:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D33C8186A8D6;
+	Thu,  9 Jul 2020 23:06:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B5175C1BD;
+	Thu,  9 Jul 2020 23:06:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D919B1809554;
-	Thu,  9 Jul 2020 19:04:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 26FB984357;
+	Thu,  9 Jul 2020 23:06:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 069J0Wat025623 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Jul 2020 15:00:32 -0400
+	id 069MxnoQ020086 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 9 Jul 2020 18:59:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1E0A37F8C6; Thu,  9 Jul 2020 19:00:32 +0000 (UTC)
+	id DBA192026D5D; Thu,  9 Jul 2020 22:59:48 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-114-75.rdu2.redhat.com [10.10.114.75])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 875265BACF;
-	Thu,  9 Jul 2020 19:00:31 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Thu,  9 Jul 2020 15:00:01 -0400
-Message-Id: <20200709190001.102450-4-aahringo@redhat.com>
-In-Reply-To: <20200709190001.102450-1-aahringo@redhat.com>
-References: <20200709190001.102450-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D777F207B2B0
+	for <cluster-devel@redhat.com>; Thu,  9 Jul 2020 22:59:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5ABE810B40
+	for <cluster-devel@redhat.com>; Thu,  9 Jul 2020 22:59:45 +0000 (UTC)
+Received: from mail109.syd.optusnet.com.au (mail109.syd.optusnet.com.au
+	[211.29.132.80]) by relay.mimecast.com with ESMTP id
+	us-mta-329-yluJsSY5NkOyMkEk0REp2A-1; Thu, 09 Jul 2020 18:59:43 -0400
+X-MC-Unique: yluJsSY5NkOyMkEk0REp2A-1
+Received: from dread.disaster.area (pa49-180-53-24.pa.nsw.optusnet.com.au
+	[49.180.53.24])
+	by mail109.syd.optusnet.com.au (Postfix) with ESMTPS id 484E0D7A54F;
+	Fri, 10 Jul 2020 08:59:37 +1000 (AEST)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+	(envelope-from <david@fromorbit.com>)
+	id 1jtfVw-00018A-GA; Fri, 10 Jul 2020 08:59:36 +1000
+Date: Fri, 10 Jul 2020 08:59:36 +1000
+From: Dave Chinner <david@fromorbit.com>
+To: "Darrick J. Wong" <darrick.wong@oracle.com>
+Message-ID: <20200709225936.GZ2005@dread.disaster.area>
+References: <20200701075310.GB29884@lst.de>
+	<20200707124346.xnr5gtcysuzehejq@fiona>
+	<20200707125705.GK25523@casper.infradead.org>
+	<20200707130030.GA13870@lst.de>
+	<20200708065127.GM2005@dread.disaster.area>
+	<20200708135437.GP25523@casper.infradead.org>
+	<20200709022527.GQ2005@dread.disaster.area>
+	<20200709160926.GO7606@magnolia>
+	<20200709170519.GH12769@casper.infradead.org>
+	<20200709171038.GE7625@magnolia>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20200709171038.GE7625@magnolia>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.3 cv=X6os11be c=1 sm=1 tr=0
+	a=moVtWZxmCkf3aAMJKIb/8g==:117 a=moVtWZxmCkf3aAMJKIb/8g==:17
+	a=kj9zAlcOel0A:10 a=_RQrkK6FrEwA:10 a=7-415B0cAAAA:8
+	a=CAmLY35Qp_Y7Zt_JOjoA:9 a=CjuIK1q_8ugA:10 a=biEYGPWJfzWAr4FL6Ov7:22
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm-tool 3/3] dlm_controld: add default
-	value handling for unsigned int
+Cc: linux-xfs@vger.kernel.org, fdmanana@gmail.com,
+	Goldwyn Rodrigues <rgoldwyn@suse.de>, dsterba@suse.cz,
+	Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org
+Subject: Re: [Cluster-devel] always fall back to buffered I/O after
+ invalidation failures,
+ was: Re: [PATCH 2/6] iomap: IOMAP_DIO_RWF_NO_STALE_PAGECACHE return if page
+ invalidation fails
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,230 +94,58 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch adds suppot to handle default values for unsigned int.
----
- dlm_controld/dlm_daemon.h |  1 +
- dlm_controld/main.c       | 61 +++++++++++++++++++++------------------
- 2 files changed, 34 insertions(+), 28 deletions(-)
+On Thu, Jul 09, 2020 at 10:10:38AM -0700, Darrick J. Wong wrote:
+> On Thu, Jul 09, 2020 at 06:05:19PM +0100, Matthew Wilcox wrote:
+> > On Thu, Jul 09, 2020 at 09:09:26AM -0700, Darrick J. Wong wrote:
+> > > On Thu, Jul 09, 2020 at 12:25:27PM +1000, Dave Chinner wrote:
+> > > > -	 */
+> > > > -	ret = invalidate_inode_pages2_range(mapping,
+> > > > -			pos >> PAGE_SHIFT, end >> PAGE_SHIFT);
+> > > > -	if (ret)
+> > > > -		dio_warn_stale_pagecache(iocb->ki_filp);
+> > > > -	ret = 0;
+> > > > +	if (iov_iter_rw(iter) == WRITE) {
+> > > > +		/*
+> > > > +		 * Try to invalidate cache pages for the range we're direct
+> > > > +		 * writing.  If this invalidation fails, tough, the write will
+> > > > +		 * still work, but racing two incompatible write paths is a
+> > > > +		 * pretty crazy thing to do, so we don't support it 100%.
+> > > > +		 */
+> > > > +		ret = invalidate_inode_pages2_range(mapping,
+> > > > +				pos >> PAGE_SHIFT, end >> PAGE_SHIFT);
+> > > > +		if (ret)
+> > > > +			dio_warn_stale_pagecache(iocb->ki_filp);
+> > > > +		ret = 0;
+> > > >  
+> > > > -	if (iov_iter_rw(iter) == WRITE && !wait_for_completion &&
+> > > > -	    !inode->i_sb->s_dio_done_wq) {
+> > > > -		ret = sb_init_dio_done_wq(inode->i_sb);
+> > > > -		if (ret < 0)
+> > > > -			goto out_free_dio;
+> > > > +		if (!wait_for_completion &&
+> > > > +		    !inode->i_sb->s_dio_done_wq) {
+> > > > +			ret = sb_init_dio_done_wq(inode->i_sb);
+> > > > +			if (ret < 0)
+> > > > +				goto out_free_dio;
+> 
+> ...and yes I did add in the closing brace here. :P
 
-diff --git a/dlm_controld/dlm_daemon.h b/dlm_controld/dlm_daemon.h
-index 979aab7a..ee21c256 100644
---- a/dlm_controld/dlm_daemon.h
-+++ b/dlm_controld/dlm_daemon.h
-@@ -134,6 +134,7 @@ struct dlm_option {
- 
- 	int default_int;
- 	const char *default_str;
-+	unsigned int default_uint;
- 
- 	int cli_set;
- 	int cli_int;
-diff --git a/dlm_controld/main.c b/dlm_controld/main.c
-index 95107d09..8023f4b0 100644
---- a/dlm_controld/main.c
-+++ b/dlm_controld/main.c
-@@ -1678,6 +1678,8 @@ static void print_usage(void)
- 			printf(" [%d]\n", o->default_int);
- 		else if (o->req_arg == req_arg_bool)
- 			printf(" [%d]\n", o->default_int);
-+		else if (o->req_arg == req_arg_uint)
-+			printf(" [%u]\n", o->default_uint);
- 		else if (o->req_arg == no_arg && !o->default_int)
- 			printf(" [0]\n");
- 		else
-@@ -1688,7 +1690,8 @@ static void print_usage(void)
- }
- 
- static void set_opt_default(int ind, const char *name, char letter, int arg_type,
--			    int default_int, const char *default_str, const char *desc)
-+			    int default_int, const char *default_str,
-+			    unsigned int default_uint, const char *desc)
- {
- 	dlm_options[ind].name = name;
- 	dlm_options[ind].letter = letter;
-@@ -1696,145 +1699,147 @@ static void set_opt_default(int ind, const char *name, char letter, int arg_type
- 	dlm_options[ind].desc = desc;
- 	dlm_options[ind].default_int = default_int;
- 	dlm_options[ind].default_str = default_str;
-+	dlm_options[ind].default_uint = default_uint;
- 	dlm_options[ind].use_int = default_int;
- 	dlm_options[ind].use_str = (char *)default_str;
-+	dlm_options[ind].use_uint = default_uint;
- }
- 
- static void set_opt_defaults(void)
- {
- 	set_opt_default(daemon_debug_ind,
- 			"daemon_debug", 'D', no_arg,
--			0, NULL,
-+			0, NULL, 0,
- 			"enable debugging to stderr and don't fork");
- 
- 	set_opt_default(foreground_ind,
- 			"foreground", '\0', no_arg,
--			0, NULL,
-+			0, NULL, 0,
- 			"don't fork");
- 
- 	set_opt_default(log_debug_ind,
- 			"log_debug", 'K', no_arg,
--			0, NULL,
-+			0, NULL, 0,
- 			"enable kernel dlm debugging messages");
- 
- 	set_opt_default(timewarn_ind,
- 			"timewarn", '\0', req_arg_int,
--			0, NULL,
-+			0, NULL, 0,
- 			""); /* do not advertise */
- 
- 	set_opt_default(protocol_ind,
- 			"protocol", 'r', req_arg_str,
--			-1, "detect",
-+			-1, "detect", 0,
- 			"dlm kernel lowcomms protocol: tcp, sctp, detect");
- 
- 	set_opt_default(bind_all_ind,
- 			"bind_all", '\0', req_arg_int,
--			0, NULL,
-+			0, NULL, 0,
- 			""); /* do not advertise */
- 
- 	set_opt_default(mark_ind,
- 			"mark", '\0', req_arg_uint,
--			0, NULL,
-+			0, NULL, 0,
- 			"set mark value for the DLM in-kernel listen socket");
- 
- 	set_opt_default(debug_logfile_ind,
- 			"debug_logfile", 'L', no_arg,
--			0, NULL,
-+			0, NULL, 0,
- 			"write debugging to log file");
- 
- 	set_opt_default(enable_fscontrol_ind,
- 			"enable_fscontrol", '\0', req_arg_bool,
--			0, NULL,
-+			0, NULL, 0,
- 			""); /* do not advertise */
- 
- 	set_opt_default(enable_plock_ind,
- 			"enable_plock", 'p', req_arg_bool,
--			1, NULL,
-+			1, NULL, 0,
- 			"enable/disable posix lock support for cluster fs");
- 
- 	set_opt_default(enable_waitplock_recovery_ind,
- 			"enable_waitplock_recovery", '\0', req_arg_bool,
--			0, NULL,
-+			0, NULL, 0,
- 			"enable/disable posix lock to wait for dlm recovery after lock acquire");
- 
- 	set_opt_default(plock_debug_ind,
- 			"plock_debug", 'P', no_arg,
--			0, NULL,
-+			0, NULL, 0,
- 			"enable plock debugging");
- 
- 	set_opt_default(plock_rate_limit_ind,
- 			"plock_rate_limit", 'l', req_arg_int,
--			0, NULL,
-+			0, NULL, 0,
- 			"limit rate of plock operations (0 for none)");
- 
- 	set_opt_default(plock_ownership_ind,
- 			"plock_ownership", 'o', req_arg_bool,
--			0, NULL,
-+			0, NULL, 0,
- 			"enable/disable plock ownership");
- 
- 	set_opt_default(drop_resources_time_ind,
- 			"drop_resources_time", 't', req_arg_int,
--			10000, NULL,
-+			10000, NULL, 0,
- 			"plock ownership drop resources time (milliseconds)");
- 
- 	set_opt_default(drop_resources_count_ind,
- 			"drop_resources_count", 'c', req_arg_int,
--			10, NULL,
-+			10, NULL, 0,
- 			"plock ownership drop resources count");
- 
- 	set_opt_default(drop_resources_age_ind,
- 			"drop_resources_age", 'a', req_arg_int,
--			10000, NULL,
-+			10000, NULL, 0,
- 			"plock ownership drop resources age (milliseconds)");
- 
- 	set_opt_default(post_join_delay_ind,
- 			"post_join_delay", 'j', req_arg_int,
--			30, NULL,
-+			30, NULL, 0,
- 			"seconds to delay fencing after cluster join");
- 
- 	set_opt_default(enable_fencing_ind,
- 			"enable_fencing", 'f', req_arg_bool,
--			1, NULL,
-+			1, NULL, 0,
- 			"enable/disable fencing");
- 
- 	set_opt_default(enable_concurrent_fencing_ind,
- 			"enable_concurrent_fencing", '\0', req_arg_bool,
--			0, NULL,
-+			0, NULL, 0,
- 			"enable/disable concurrent fencing");
- 
- 	set_opt_default(enable_startup_fencing_ind,
- 			"enable_startup_fencing", 's', req_arg_bool,
--			1, NULL,
-+			1, NULL, 0,
- 			"enable/disable startup fencing");
- 
- 	set_opt_default(repeat_failed_fencing_ind,
- 			"repeat_failed_fencing", '\0', req_arg_bool,
--			1, NULL,
-+			1, NULL, 0,
- 			"enable/disable retrying after fencing fails");
- 
- 	set_opt_default(enable_quorum_fencing_ind,
- 			"enable_quorum_fencing", 'q', req_arg_bool,
--			1, NULL,
-+			1, NULL, 0,
- 			"enable/disable quorum requirement for fencing");
- 
- 	set_opt_default(enable_quorum_lockspace_ind,
- 			"enable_quorum_lockspace", '\0', req_arg_bool,
--			1, NULL,
-+			1, NULL, 0,
- 			"enable/disable quorum requirement for lockspace operations");
- 
- 	set_opt_default(enable_helper_ind,
- 			"enable_helper", '\0', req_arg_bool,
--			1, NULL,
-+			1, NULL, 0,
- 			"enable/disable helper process for running commands");
- 
- 	set_opt_default(help_ind,
- 			"help", 'h', no_arg,
--			-1, NULL,
-+			-1, NULL, 0,
- 			"print this help, then exit");
- 
- 	set_opt_default(version_ind,
- 			"version", 'V', no_arg,
--			-1, NULL,
-+			-1, NULL, 0,
- 			"Print program version information, then exit");
- }
- 
+Doh! I forgot to refresh the patch after fixing that. :/
+
+Thanks!
+
+Cheers,
+
+Dave.
 -- 
-2.26.2
+Dave Chinner
+david@fromorbit.com
 
