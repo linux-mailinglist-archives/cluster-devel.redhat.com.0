@@ -2,85 +2,57 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 67CC221AB34
-	for <lists+cluster-devel@lfdr.de>; Fri, 10 Jul 2020 01:06:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 983E421B962
+	for <lists+cluster-devel@lfdr.de>; Fri, 10 Jul 2020 17:25:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1594394729;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=9XYubToR8gPoZKz3xGIe2POziR6ztexd5h4TTQatCvU=;
+	b=DsNEA1inxKOS5j3HgMMEmTHabZw2C4YSIBIXtMQzdO6w4CyS84+80QCmxqH4ksmwHSmny0
+	MN+1Vn6i8KxtdipY1Z9FJSf+dliyXU7ycytFqEs9OyZiqZ5aBflC37elILKRGzUCHGZPiH
+	13FWwu0LHHbRUsQ+Sjg9ZHdvCYTJG/c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-83-VpzBJbKhODmUX8W1sX7Naw-1; Thu, 09 Jul 2020 19:06:10 -0400
-X-MC-Unique: VpzBJbKhODmUX8W1sX7Naw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-53-a5uSQSAqNDK7V3rv9DdgmQ-1; Fri, 10 Jul 2020 11:25:27 -0400
+X-MC-Unique: a5uSQSAqNDK7V3rv9DdgmQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D33C8186A8D6;
-	Thu,  9 Jul 2020 23:06:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C99F110059A4;
+	Fri, 10 Jul 2020 15:25:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B5175C1BD;
-	Thu,  9 Jul 2020 23:06:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7507C78A46;
+	Fri, 10 Jul 2020 15:25:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 26FB984357;
-	Thu,  9 Jul 2020 23:06:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F6958436A;
+	Fri, 10 Jul 2020 15:25:19 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 069MxnoQ020086 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Jul 2020 18:59:49 -0400
+	id 06AFNW3T013364 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Jul 2020 11:23:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DBA192026D5D; Thu,  9 Jul 2020 22:59:48 +0000 (UTC)
+	id C076E1755E; Fri, 10 Jul 2020 15:23:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D777F207B2B0
-	for <cluster-devel@redhat.com>; Thu,  9 Jul 2020 22:59:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5ABE810B40
-	for <cluster-devel@redhat.com>; Thu,  9 Jul 2020 22:59:45 +0000 (UTC)
-Received: from mail109.syd.optusnet.com.au (mail109.syd.optusnet.com.au
-	[211.29.132.80]) by relay.mimecast.com with ESMTP id
-	us-mta-329-yluJsSY5NkOyMkEk0REp2A-1; Thu, 09 Jul 2020 18:59:43 -0400
-X-MC-Unique: yluJsSY5NkOyMkEk0REp2A-1
-Received: from dread.disaster.area (pa49-180-53-24.pa.nsw.optusnet.com.au
-	[49.180.53.24])
-	by mail109.syd.optusnet.com.au (Postfix) with ESMTPS id 484E0D7A54F;
-	Fri, 10 Jul 2020 08:59:37 +1000 (AEST)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
-	(envelope-from <david@fromorbit.com>)
-	id 1jtfVw-00018A-GA; Fri, 10 Jul 2020 08:59:36 +1000
-Date: Fri, 10 Jul 2020 08:59:36 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: "Darrick J. Wong" <darrick.wong@oracle.com>
-Message-ID: <20200709225936.GZ2005@dread.disaster.area>
-References: <20200701075310.GB29884@lst.de>
-	<20200707124346.xnr5gtcysuzehejq@fiona>
-	<20200707125705.GK25523@casper.infradead.org>
-	<20200707130030.GA13870@lst.de>
-	<20200708065127.GM2005@dread.disaster.area>
-	<20200708135437.GP25523@casper.infradead.org>
-	<20200709022527.GQ2005@dread.disaster.area>
-	<20200709160926.GO7606@magnolia>
-	<20200709170519.GH12769@casper.infradead.org>
-	<20200709171038.GE7625@magnolia>
+Received: from max.home.com (unknown [10.40.192.179])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 300715C1BD;
+	Fri, 10 Jul 2020 15:23:26 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 10 Jul 2020 17:23:24 +0200
+Message-Id: <20200710152324.1690683-1-agruenba@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200709171038.GE7625@magnolia>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.3 cv=X6os11be c=1 sm=1 tr=0
-	a=moVtWZxmCkf3aAMJKIb/8g==:117 a=moVtWZxmCkf3aAMJKIb/8g==:17
-	a=kj9zAlcOel0A:10 a=_RQrkK6FrEwA:10 a=7-415B0cAAAA:8
-	a=CAmLY35Qp_Y7Zt_JOjoA:9 a=CjuIK1q_8ugA:10 a=biEYGPWJfzWAr4FL6Ov7:22
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Cc: linux-xfs@vger.kernel.org, fdmanana@gmail.com,
-	Goldwyn Rodrigues <rgoldwyn@suse.de>, dsterba@suse.cz,
+Cc: Jens Axboe <axboe@kernel.dk>, Dave Chinner <david@fromorbit.com>,
+	linux-kernel@vger.kernel.org,
 	Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] always fall back to buffered I/O after
- invalidation failures,
- was: Re: [PATCH 2/6] iomap: IOMAP_DIO_RWF_NO_STALE_PAGECACHE return if page
- invalidation fails
+	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
+Subject: [Cluster-devel] [GIT PULL] Fix gfs2 readahead deadlocks
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,58 +66,60 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 09, 2020 at 10:10:38AM -0700, Darrick J. Wong wrote:
-> On Thu, Jul 09, 2020 at 06:05:19PM +0100, Matthew Wilcox wrote:
-> > On Thu, Jul 09, 2020 at 09:09:26AM -0700, Darrick J. Wong wrote:
-> > > On Thu, Jul 09, 2020 at 12:25:27PM +1000, Dave Chinner wrote:
-> > > > -	 */
-> > > > -	ret = invalidate_inode_pages2_range(mapping,
-> > > > -			pos >> PAGE_SHIFT, end >> PAGE_SHIFT);
-> > > > -	if (ret)
-> > > > -		dio_warn_stale_pagecache(iocb->ki_filp);
-> > > > -	ret = 0;
-> > > > +	if (iov_iter_rw(iter) == WRITE) {
-> > > > +		/*
-> > > > +		 * Try to invalidate cache pages for the range we're direct
-> > > > +		 * writing.  If this invalidation fails, tough, the write will
-> > > > +		 * still work, but racing two incompatible write paths is a
-> > > > +		 * pretty crazy thing to do, so we don't support it 100%.
-> > > > +		 */
-> > > > +		ret = invalidate_inode_pages2_range(mapping,
-> > > > +				pos >> PAGE_SHIFT, end >> PAGE_SHIFT);
-> > > > +		if (ret)
-> > > > +			dio_warn_stale_pagecache(iocb->ki_filp);
-> > > > +		ret = 0;
-> > > >  
-> > > > -	if (iov_iter_rw(iter) == WRITE && !wait_for_completion &&
-> > > > -	    !inode->i_sb->s_dio_done_wq) {
-> > > > -		ret = sb_init_dio_done_wq(inode->i_sb);
-> > > > -		if (ret < 0)
-> > > > -			goto out_free_dio;
-> > > > +		if (!wait_for_completion &&
-> > > > +		    !inode->i_sb->s_dio_done_wq) {
-> > > > +			ret = sb_init_dio_done_wq(inode->i_sb);
-> > > > +			if (ret < 0)
-> > > > +				goto out_free_dio;
-> 
-> ...and yes I did add in the closing brace here. :P
+Hi Linus,
 
-Doh! I forgot to refresh the patch after fixing that. :/
+could you please pull the following two commits to fix the gfs2
+deadlocks resulting from the conversion to ->readahead in commit
+d4388340ae0b ("fs: convert mpage_readpages to mpage_readahead")?
 
-Thanks!
+The first commit adds a new IOCB_NOIO flag to generic_file_read_iter.
 
-Cheers,
+In the previous version [1] which you've acked [2] and Matthew Willcox
+has reviewed [3], ->readpage could still be called even when IOCB_NOIO
+was set, so I've added an additional check above that call and I've
+dropped the ack and reviewed-by tags.  In addition, bit 8 is now left
+unused for the new IOCB_WAITQ flag in the block tree per Jens Axboe's
+request.
 
-Dave.
--- 
-Dave Chinner
-david@fromorbit.com
+[1] https://lore.kernel.org/linux-fsdevel/CAHc6FU6LmR7m_8UHmB_77jUpYNo-kgCZ-1YTLqya-PPqvvBy7Q@mail.gmail.com/
+[2] https://lore.kernel.org/linux-fsdevel/CAHk-=whBk-jYM6_HBXbu6+gs7Gtw3hWg4iSLncQ0QTwShm6Jaw@mail.gmail.com/
+[3] https://lore.kernel.org/linux-fsdevel/20200703114108.GE25523@casper.infradead.org/
+
+Thanks a lot,
+Andreas
+
+
+The following changes since commit dcb7fd82c75ee2d6e6f9d8cc71c52519ed52e258:
+
+  Linux 5.8-rc4 (2020-07-05 16:20:22 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.8-rc4.fixes
+
+for you to fetch changes up to 20f829999c38b18e3d17f9e40dea3a28f721fac4:
+
+  gfs2: Rework read and page fault locking (2020-07-07 23:40:12 +0200)
+
+----------------------------------------------------------------
+Fix gfs2 readahead deadlocks
+
+----------------------------------------------------------------
+Andreas Gruenbacher (2):
+      fs: Add IOCB_NOIO flag for generic_file_read_iter
+      gfs2: Rework read and page fault locking
+
+ fs/gfs2/aops.c     | 45 +--------------------------------------------
+ fs/gfs2/file.c     | 52 ++++++++++++++++++++++++++++++++++++++++++++++++++--
+ include/linux/fs.h |  1 +
+ mm/filemap.c       | 23 +++++++++++++++++++++--
+ 4 files changed, 73 insertions(+), 48 deletions(-)
 
