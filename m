@@ -1,99 +1,121 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id B0EEE228A13
-	for <lists+cluster-devel@lfdr.de>; Tue, 21 Jul 2020 22:38:19 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 5E345228C7C
+	for <lists+cluster-devel@lfdr.de>; Wed, 22 Jul 2020 01:11:41 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-398-LpYItYyAOsSOC05wczL_XQ-1; Tue, 21 Jul 2020 16:38:16 -0400
-X-MC-Unique: LpYItYyAOsSOC05wczL_XQ-1
+ us-mta-21-oXyICbIqOYOVe82F7uvyqQ-1; Tue, 21 Jul 2020 19:11:38 -0400
+X-MC-Unique: oXyICbIqOYOVe82F7uvyqQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3577658;
-	Tue, 21 Jul 2020 20:38:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A117861177;
-	Tue, 21 Jul 2020 20:38:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5C55510059AA;
+	Tue, 21 Jul 2020 23:11:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0435B60E1C;
+	Tue, 21 Jul 2020 23:11:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1DDCA1809561;
-	Tue, 21 Jul 2020 20:38:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 59A69730D4;
+	Tue, 21 Jul 2020 23:11:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06LKc6wn002316 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 21 Jul 2020 16:38:06 -0400
+	id 06LN3CMX022398 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 21 Jul 2020 19:03:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 018052156A2D; Tue, 21 Jul 2020 20:38:06 +0000 (UTC)
+	id 78856207B2B0; Tue, 21 Jul 2020 23:03:12 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4A302166B28
-	for <cluster-devel@redhat.com>; Tue, 21 Jul 2020 20:38:03 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 731962026D69
+	for <cluster-devel@redhat.com>; Tue, 21 Jul 2020 23:03:09 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C943D1832D26
-	for <cluster-devel@redhat.com>; Tue, 21 Jul 2020 20:38:03 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93201800658
+	for <cluster-devel@redhat.com>; Tue, 21 Jul 2020 23:03:09 +0000 (UTC)
+Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-72-eNxzAVmpN_-h6ADyIt0zdg-1; Tue, 21 Jul 2020 16:38:01 -0400
-X-MC-Unique: eNxzAVmpN_-h6ADyIt0zdg-1
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	06LKRh4Z178822; Tue, 21 Jul 2020 20:37:54 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
-	by userp2120.oracle.com with ESMTP id 32d6ksku6u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Tue, 21 Jul 2020 20:37:53 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
-	by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	06LKS1pC181699; Tue, 21 Jul 2020 20:37:53 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
-	by aserp3020.oracle.com with ESMTP id 32e5fxdcjx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 21 Jul 2020 20:37:52 +0000
-Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
-	by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 06LKbpxM027485;
-	Tue, 21 Jul 2020 20:37:51 GMT
-Received: from localhost (/10.159.147.229)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Tue, 21 Jul 2020 13:37:51 -0700
-Date: Tue, 21 Jul 2020 13:37:49 -0700
-From: "Darrick J. Wong" <darrick.wong@oracle.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20200721203749.GF3151642@magnolia>
+	us-mta-427-CJGvJkbcPAGsRSCmul9lhA-1; Tue, 21 Jul 2020 19:03:07 -0400
+X-MC-Unique: CJGvJkbcPAGsRSCmul9lhA-1
+IronPort-SDR: 6zXZuTEtaDCKacFjATcPNS9nWGEVoFawZoz6bFVzvgcJOZrIpWghZIMkW+Oc6/PdIlWhEq0xWc
+	dlzleMm/1/HfZ3UVtOH+Cyaa+7DIwLwrzaaT1dm1CR7WJdjRxxnvFkEiomsq5LGOPxLZ/5XBT0
+	ltVxQihIb9/cpkQttY/9VjuE1VeuKg82FvrFB2/1/4ADw91WLmK0UpwbCyqL2iZj4K7hbJCkff
+	oI3ZDfdTfDFGsDPRAvt3eTQfVyrsMYYNWSNetCv3Oq/K0GyOOsCJ9xAGib/CzbIZIgnF3eXNUj
+	Edo=
+X-IronPort-AV: E=Sophos;i="5.75,380,1589212800"; d="scan'208";a="144323903"
+Received: from mail-dm6nam10lp2101.outbound.protection.outlook.com (HELO
+	NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.101])
+	by ob1.hgst.iphmx.com with ESMTP; 22 Jul 2020 07:02:01 +0800
+Received: from CY4PR04MB3751.namprd04.prod.outlook.com (2603:10b6:903:ec::14)
+	by CY4PR04MB0344.namprd04.prod.outlook.com (2603:10b6:903:3d::15)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.25;
+	Tue, 21 Jul 2020 23:02:00 +0000
+Received: from CY4PR04MB3751.namprd04.prod.outlook.com
+	([fe80::d9e5:135e:cfd9:4de0]) by
+	CY4PR04MB3751.namprd04.prod.outlook.com
+	([fe80::d9e5:135e:cfd9:4de0%7]) with mapi id 15.20.3195.025;
+	Tue, 21 Jul 2020 23:01:59 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: Christoph Hellwig <hch@lst.de>, Dave Chinner <david@fromorbit.com>,
+	Goldwyn Rodrigues <rgoldwyn@suse.de>
+Thread-Topic: [PATCH 3/3] iomap: fall back to buffered writes for invalidation
+	failures
+Thread-Index: AQHWX41AZHgnsBRxxUOY+Qc2jgClZg==
+Date: Tue, 21 Jul 2020 23:01:59 +0000
+Message-ID: <CY4PR04MB37517784D29AFC7CCBAD1A0AE7780@CY4PR04MB3751.namprd04.prod.outlook.com>
 References: <20200721183157.202276-1-hch@lst.de>
 	<20200721183157.202276-4-hch@lst.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [60.117.181.124]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b05dc4bb-14de-47a2-0a6c-08d82dca12f6
+x-ms-traffictypediagnostic: CY4PR04MB0344:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR04MB03449217CCEE6D26EF820502E7780@CY4PR04MB0344.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: UyK5kY3yVzzbkszaDCMzLrHJ+c36n4Teb7fx2CAPm/C1vspwRudN/9qkOQIqKYLMvKMswUUx0ZcMnfzrmSWpV05zzS/f8YEfsq8ijzBN3R+gNyJTViTyNQa5u3gwytGRKpL6YS9vjmopt278TBPGNx9GxrKt2x9rJAJWugt27QO1PBJ6Sx8EFohNLlpfnE6z3Coo/i2vIRZ8XNoD4L8PEAQHOKAoLh6oA8/pNx94lnlQ7n+pO/5ea3nFWIWMEsnTnpurMLffZoTTt64l4v420XHvCHVXloEiNXlPh1MIFpVWHnwADVsh5br7GgxTLSCM
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:CY4PR04MB3751.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE; SFTY:;
+	SFS:(4636009)(136003)(39860400002)(376002)(366004)(396003)(346002)(316002)(5660300002)(64756008)(7696005)(8936002)(53546011)(8676002)(6506007)(186003)(66556008)(86362001)(66476007)(66946007)(26005)(76116006)(91956017)(66446008)(7416002)(2906002)(54906003)(110136005)(55016002)(52536014)(71200400001)(478600001)(4326008)(83380400001)(9686003)(33656002);
+	DIR:OUT; SFP:1102;
+x-ms-exchange-antispam-messagedata: cYSFy/CjR18YkyZE8RC0GPQxCBpUmBcSTj6rUU4jEXkT8M3Hu7hy55t8YWAbFP4sR90mwJggBb75OmcCN1r52TlX3A8erHPS1IcjgkVfT3spXkMamwA1vJApBg9ly2pB1EuF2Wm1EL1oUctt/8UKNSA9155XhvJMKPUjVyw5diF9JruiybI7IljoJe3q32Cdqsgjdto/ZfrdV3G3MTi1tI4bInQQwNKAhKarOJTQHfg6FF6TrT/A6NdsT5Zz1yH9LLV9HphLX/MRt8shtbCGck3RQFez8Qo2DzX0YJM/VYY/S4B2EahewAdDnsMOVCMVGg3OemjsgDMIDM+0A02nNsaFNCaPdph1iTehD8EAE6zqgDzJUxxPmvzZybpXZ4MqA6k3FScNbMhfc2t+Es/rxlN9+7+sL5itkXTnV34CximVmTsQ9Lf/25tm0og8CE1WGMJIa26U74c5i5F+/f8sZ1FKFMf2mCSqGM/mPc7vlRtBzYcmje1BSMRLdPfE6Kpt
 MIME-Version: 1.0
-In-Reply-To: <20200721183157.202276-4-hch@lst.de>
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9689
-	signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=5
-	malwarescore=0
-	mlxscore=0 adultscore=0 phishscore=0 spamscore=0 bulkscore=0
-	mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2007210135
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9689
-	signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
-	suspectscore=5
-	bulkscore=0 mlxscore=0 mlxlogscore=999 impostorscore=0
-	priorityscore=1501
-	lowpriorityscore=0 phishscore=0 spamscore=0 adultscore=0 clxscore=1015
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2007210135
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR04MB3751.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b05dc4bb-14de-47a2-0a6c-08d82dca12f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2020 23:01:59.5874 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: owC04WxI1s1W7L02eeMwBeccs9mKHCJNIjDY7BiO1XGrp+rj8+i0LA3y+8OR9T39vWcz3ki9M+0FlCgM+z/aGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR04MB0344
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 06LN3CMX022398
 X-loop: cluster-devel@redhat.com
-Cc: Naohiro Aota <naohiro.aota@wdc.com>, linux-xfs@vger.kernel.org,
-	Damien Le Moal <damien.lemoal@wdc.com>,
-	linux-ext4@vger.kernel.org, Goldwyn Rodrigues <rgoldwyn@suse.de>,
-	Dave Chinner <david@fromorbit.com>,
-	Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
-	Goldwyn Rodrigues <rgoldwyn@suse.com>, linux-fsdevel@vger.kernel.org,
-	Johannes Thumshirn <jth@kernel.org>, linux-btrfs@vger.kernel.org
+Cc: Naohiro Aota <Naohiro.Aota@wdc.com>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+	Goldwyn, Matthew Wilcox <willy@infradead.org>,
+	"cluster-devel@redhat.com" <cluster-devel@redhat.com>,
+	Rodrigues <rgoldwyn@suse.com>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	Johannes Thumshirn <jth@kernel.org>,
+	"linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
 Subject: Re: [Cluster-devel] [PATCH 3/3] iomap: fall back to buffered writes
  for invalidation failures
 X-BeenThere: cluster-devel@redhat.com
@@ -110,12 +132,14 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2020 at 08:31:57PM +0200, Christoph Hellwig wrote:
+On 2020/07/22 3:32, Christoph Hellwig wrote:
 > Failing to invalid the page cache means data in incoherent, which is
 > a very bad state for the system.  Always fall back to buffered I/O
 > through the page cache if we can't invalidate mappings.
@@ -123,18 +147,6 @@ On Tue, Jul 21, 2020 at 08:31:57PM +0200, Christoph Hellwig wrote:
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > Acked-by: Dave Chinner <dchinner@redhat.com>
 > Reviewed-by: Goldwyn Rodrigues <rgoldwyn@suse.com>
-
-For the iomap and xfs parts,
-Reviewed-by: Darrick J. Wong <darrick.wong@oracle.com>
-
-But I'd still like acks from Ted, Andreas, and Damien for ext4, gfs2,
-and zonefs, respectively.
-
-(Particularly if anyone was harboring ideas about trying to get this in
-before 5.10, though I've not yet heard anyone say that explicitly...)
-
---D
-
 > ---
 >  fs/ext4/file.c       |  2 ++
 >  fs/gfs2/file.c       |  3 ++-
@@ -259,7 +271,15 @@ before 5.10, though I've not yet heard anyone say that explicitly...)
 >  
 >  	return zonefs_file_buffered_write(iocb, from);
 >  }
-> -- 
-> 2.27.0
 > 
+
+Looks fine. For zonefs:
+
+Acked-by: Damien Le Moal <damien.lemoal@wdc.com>
+
+-- 
+Damien Le Moal
+Western Digital Research
+
+
 
