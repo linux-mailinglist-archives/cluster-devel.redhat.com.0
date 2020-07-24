@@ -1,59 +1,90 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id E9EE622B1CC
-	for <lists+cluster-devel@lfdr.de>; Thu, 23 Jul 2020 16:49:43 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 0BA8922C749
+	for <lists+cluster-devel@lfdr.de>; Fri, 24 Jul 2020 16:05:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1595515782;
+	s=mimecast20190719; t=1595599502;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=VpR2WVXFlFRPqh5Ig7Ni7RcQgTA42ZIdG8xHZaCTSyI=;
-	b=COL19w087dsc+8pp6LINjOMrchX2ykcvX0pXTF0V10dntH2VVCgYorhDXHIsqvSZPPMIDh
-	E++I+ILt9g1ZpCQlP2iXu25KSGa4OOIwCUFbyLIPG3fJHd9BmzlcngZbTmXa9lFgoXaZgE
-	g531v5ODd34oZPRGKwTOHom2mqYWCqU=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=SrjKBapPtCauYSxY80F/BRuhfRKROGP1uMRyyRTuMg8=;
+	b=gV5jOnNMmUyCExq/X+8Xh0ofu8N0AlvWf/VupowcCwgKaJmkMOKG3dns7Iq5C63zYqvX2K
+	YjocnajE7oC6Z/YuJ2/nmpY9a7NfkSQg1OQTzbzgzeRR3x1BmHD7KsFn/bj/jfN6EZzCYr
+	/co1geS3xhXrjz5szRevEN1T6bK9Csg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-50-yu5fNu8lN2Sq_5yI299Wig-1; Thu, 23 Jul 2020 10:49:40 -0400
-X-MC-Unique: yu5fNu8lN2Sq_5yI299Wig-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-14-8bmYkNHJMrW_IU5yjdrYsw-1; Fri, 24 Jul 2020 10:04:57 -0400
+X-MC-Unique: 8bmYkNHJMrW_IU5yjdrYsw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACA71102C856;
-	Thu, 23 Jul 2020 14:49:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6796E8017FB;
+	Fri, 24 Jul 2020 14:04:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E8AC71D00;
-	Thu, 23 Jul 2020 14:49:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 357B874F64;
+	Fri, 24 Jul 2020 14:04:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8A25C9A135;
-	Thu, 23 Jul 2020 14:49:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F8D8730E1;
+	Fri, 24 Jul 2020 14:04:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06NEnW6R009096 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 23 Jul 2020 10:49:32 -0400
+	id 06OE4jOY012555 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 24 Jul 2020 10:04:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8D3D619D7F; Thu, 23 Jul 2020 14:49:32 +0000 (UTC)
+	id 7FEC7208DD86; Fri, 24 Jul 2020 14:04:45 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-118-215.rdu2.redhat.com [10.10.118.215])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E691F19930;
-	Thu, 23 Jul 2020 14:49:31 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Thu, 23 Jul 2020 10:49:08 -0400
-Message-Id: <20200723144908.271110-5-aahringo@redhat.com>
-In-Reply-To: <20200723144908.271110-1-aahringo@redhat.com>
-References: <20200723144908.271110-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7BE45208DD89
+	for <cluster-devel@redhat.com>; Fri, 24 Jul 2020 14:04:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73E29858F04
+	for <cluster-devel@redhat.com>; Fri, 24 Jul 2020 14:04:43 +0000 (UTC)
+Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
+	[209.85.166.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-471-Gh6LdAQ5MduSFuOGjZzERw-1; Fri, 24 Jul 2020 10:04:41 -0400
+X-MC-Unique: Gh6LdAQ5MduSFuOGjZzERw-1
+Received: by mail-il1-f197.google.com with SMTP id c4so752877ilo.4
+	for <cluster-devel@redhat.com>; Fri, 24 Jul 2020 07:04:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=SrjKBapPtCauYSxY80F/BRuhfRKROGP1uMRyyRTuMg8=;
+	b=iP50PlPxD3v5q8Valu9sHLFQvb8zxUDfaeamcIaoJusQ781ZJL8gN1BNMscmiLZuYL
+	2ib3b8i8fCHluEInumBbWXvv6G05Q+Qyjd/djcfPQdrTIYuZuAQbDZtlDPRFbPIegS82
+	z2zvTonhA8Rf13ORMQFOR4jS6HY3htQ4gDV0sjDK/Dx7VCqnuuX1pncx7T68hsof7Z8E
+	0wk/ogr+YnVstTO76rJTj0circmPqJdqZgUzntJB/zKUbgTiO/7UFiG3gPfiSL1X0P9Y
+	ecX/5AVA/ECgeMsb4QvEE/4j64ubHB/dNjR5fp3wxOlc1pvyFkZ1QJuM2Lf25lxX6pGL
+	rSGw==
+X-Gm-Message-State: AOAM533xlUqqOWVB7+14dUpaLh4SFrVPylZgvTSMiU7NhSR8THmo1RNA
+	wVTusYHvo7FcRv8rJB1nLvXrBhbnOAg2DRzCB7L8V49gY2C8OXmHQ0Qs6oPFySaRZpmSninTOdf
+	/PJVbmpwVSpS4LyhamJItS0zrMMJ3tU5THtVf2w==
+X-Received: by 2002:a92:2802:: with SMTP id l2mr10290523ilf.169.1595599480836; 
+	Fri, 24 Jul 2020 07:04:40 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzANkvWDaksKH7YBBh5rZFjfUpcT7j5USTgjfL4rgjFHZNkg7tZ5zvJhRtaET3SRAXBGx5GjbSc5fJpad85XPA=
+X-Received: by 2002:a92:2802:: with SMTP id l2mr10290512ilf.169.1595599480632; 
+	Fri, 24 Jul 2020 07:04:40 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+References: <20200723144908.271110-1-aahringo@redhat.com>
+	<20200723144908.271110-3-aahringo@redhat.com>
+In-Reply-To: <20200723144908.271110-3-aahringo@redhat.com>
+From: Alexander Ahring Oder Aring <aahringo@redhat.com>
+Date: Fri, 24 Jul 2020 10:04:29 -0400
+Message-ID: <CAK-6q+guZeX-S8vwL=2pa+9_LfsQTAuxhtDuOPMd5RSh_X0PWQ@mail.gmail.com>
+To: David Teigland <teigland@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm-next 4/4] fs: dlm: implement tcp
-	graceful shutdown
+Subject: Re: [Cluster-devel] [PATCH dlm-next 2/4] fs: dlm: fix report error
+	of invalid messages
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,186 +98,48 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
 
-During my code inspection I saw there is no implementation of a graceful
-shutdown for tcp. This patch will introduce a graceful shutdown for tcp
-connections. The shutdown is implemented synchronized as
-dlm_lowcomms_stop() is called to end all dlm communication. After shutdown
-is done, a lot of flush and closing functionality will be called. However
-I don't see a problem with that.
+Hi,
 
-The waitqueue for synchronize the shutdown has a timeout of 10 seconds, if
-timeout a force close will be exectued.
+On Thu, Jul 23, 2020 at 10:49 AM Alexander Aring <aahringo@redhat.com> wrote:
+>
+> This patch fix the error reporting of invalid messages, the return value
+> of -EBADMSG is never returned by dlm_process_incoming_buffer(), so we
+> just check for negative return values.
+>
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> ---
+>  fs/dlm/lowcomms.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+> index ec7ed228a9843..19b50d69babef 100644
+> --- a/fs/dlm/lowcomms.c
+> +++ b/fs/dlm/lowcomms.c
+> @@ -685,9 +685,9 @@ static int receive_from_sock(struct connection *con)
+>                                           page_address(con->rx_page),
+>                                           con->cb.base, con->cb.len,
+>                                           PAGE_SIZE);
+> -       if (ret == -EBADMSG) {
+> -               log_print("lowcomms: addr=%p, base=%u, len=%u, read=%d",
+> -                         page_address(con->rx_page), con->cb.base,
+> +       if (ret < 0) {
+> +               log_print("lowcomms err %d: addr=%p, base=%u, len=%u, read=%d",
+> +                         ret, page_address(con->rx_page), con->cb.base,
+>                           con->cb.len, r);
+>         }
+>         cbuf_eat(&con->cb, ret);
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/lowcomms.c | 77 ++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 72 insertions(+), 5 deletions(-)
+found a problem here. This should be in an else branch of the
+condition above. In case of ret < 0 we should call "cbuf_eat(&con->cb,
+r);". I believe...
+I will send a v2.
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index f5ac40db5e7c1..359d5e003f749 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -63,6 +63,7 @@
- 
- /* Number of messages to send before rescheduling */
- #define MAX_SEND_MSG_COUNT 25
-+#define DLM_SHUTDOWN_WAIT_TIMEOUT msecs_to_jiffies(10000)
- 
- struct cbuf {
- 	unsigned int base;
-@@ -110,10 +111,12 @@ struct connection {
- #define CF_CLOSE 6
- #define CF_APP_LIMITED 7
- #define CF_CLOSING 8
-+#define CF_SHUTDOWN 9
- 	struct list_head writequeue;  /* List of outgoing writequeue_entries */
- 	spinlock_t writequeue_lock;
- 	int (*rx_action) (struct connection *);	/* What to do when active */
- 	void (*connect_action) (struct connection *);	/* What to do to connect */
-+	void (*shutdown_action)(struct connection *con); /* What to do to shutdown */
- 	struct page *rx_page;
- 	struct cbuf cb;
- 	int retries;
-@@ -122,6 +125,7 @@ struct connection {
- 	struct connection *othercon;
- 	struct work_struct rwork; /* Receive workqueue */
- 	struct work_struct swork; /* Send workqueue */
-+	wait_queue_head_t shutdown_wait; /* wait for graceful shutdown */
- };
- #define sock2con(x) ((struct connection *)(x)->sk_user_data)
- 
-@@ -218,6 +222,7 @@ static struct connection *__nodeid2con(int nodeid, gfp_t alloc)
- 	spin_lock_init(&con->writequeue_lock);
- 	INIT_WORK(&con->swork, process_send_sockets);
- 	INIT_WORK(&con->rwork, process_recv_sockets);
-+	init_waitqueue_head(&con->shutdown_wait);
- 
- 	/* Setup action pointers for child sockets */
- 	if (con->nodeid) {
-@@ -619,6 +624,54 @@ static void close_connection(struct connection *con, bool and_other,
- 	clear_bit(CF_CLOSING, &con->flags);
- }
- 
-+static void shutdown_connection(struct connection *con)
-+{
-+	int ret;
-+
-+	if (cancel_work_sync(&con->swork)) {
-+		log_print("canceled swork for node %d", con->nodeid);
-+		clear_bit(CF_WRITE_PENDING, &con->flags);
-+	}
-+
-+	mutex_lock(&con->sock_mutex);
-+	/* nothing to shutdown */
-+	if (!con->sock) {
-+		mutex_unlock(&con->sock_mutex);
-+		return;
-+	}
-+
-+	set_bit(CF_SHUTDOWN, &con->flags);
-+	ret = kernel_sock_shutdown(con->sock, SHUT_WR);
-+	mutex_unlock(&con->sock_mutex);
-+	if (ret) {
-+		log_print("Connection %p failed to shutdown: %d will force close",
-+			  con, ret);
-+		goto force_close;
-+	} else {
-+		ret = wait_event_timeout(con->shutdown_wait,
-+					 !test_bit(CF_SHUTDOWN, &con->flags),
-+					 DLM_SHUTDOWN_WAIT_TIMEOUT);
-+		if (ret == 0) {
-+			log_print("Connection %p shutdown timed out, will force close",
-+				  con);
-+			goto force_close;
-+		}
-+	}
-+
-+	return;
-+
-+force_close:
-+	clear_bit(CF_SHUTDOWN, &con->flags);
-+	close_connection(con, false, true, true);
-+}
-+
-+static void dlm_tcp_shutdown(struct connection *con)
-+{
-+	if (con->othercon)
-+		shutdown_connection(con->othercon);
-+	shutdown_connection(con);
-+}
-+
- /* Data received from remote end */
- static int receive_from_sock(struct connection *con)
- {
-@@ -711,13 +764,18 @@ static int receive_from_sock(struct connection *con)
- out_close:
- 	mutex_unlock(&con->sock_mutex);
- 	if (ret != -EAGAIN) {
--		close_connection(con, false, true, false);
- 		/* Reconnect when there is something to send */
-+		close_connection(con, false, true, false);
-+		if (ret == 0) {
-+			log_print("connection %p got EOF from %d",
-+				  con, con->nodeid);
-+			/* handling for tcp shutdown */
-+			clear_bit(CF_SHUTDOWN, &con->flags);
-+			wake_up(&con->shutdown_wait);
-+			/* signal to breaking receive worker */
-+			ret = -1;
-+		}
- 	}
--	/* Don't return success if we really got EOF */
--	if (ret == 0)
--		ret = -EAGAIN;
--
- 	return ret;
- }
- 
-@@ -801,6 +859,7 @@ static int accept_from_sock(struct connection *con)
- 			spin_lock_init(&othercon->writequeue_lock);
- 			INIT_WORK(&othercon->swork, process_send_sockets);
- 			INIT_WORK(&othercon->rwork, process_recv_sockets);
-+			init_waitqueue_head(&othercon->shutdown_wait);
- 			set_bit(CF_IS_OTHERCON, &othercon->flags);
- 		} else {
- 			/* close other sock con if we have something new */
-@@ -1045,6 +1104,7 @@ static void tcp_connect_to_sock(struct connection *con)
- 
- 	con->rx_action = receive_from_sock;
- 	con->connect_action = tcp_connect_to_sock;
-+	con->shutdown_action = dlm_tcp_shutdown;
- 	add_sock(sock, con);
- 
- 	/* Bind to our cluster-known address connecting to avoid
-@@ -1540,6 +1600,12 @@ static void stop_conn(struct connection *con)
- 	_stop_conn(con, true);
- }
- 
-+static void shutdown_conn(struct connection *con)
-+{
-+	if (con->shutdown_action)
-+		con->shutdown_action(con);
-+}
-+
- static void free_conn(struct connection *con)
- {
- 	close_connection(con, true, true, true);
-@@ -1591,6 +1657,7 @@ void dlm_lowcomms_stop(void)
- 	mutex_lock(&connections_lock);
- 	dlm_allow_conn = 0;
- 	mutex_unlock(&connections_lock);
-+	foreach_conn(shutdown_conn);
- 	work_flush();
- 	clean_writequeues();
- 	foreach_conn(free_conn);
--- 
-2.26.2
+- Alex
 
