@@ -1,58 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 5E9B522CDCE
-	for <lists+cluster-devel@lfdr.de>; Fri, 24 Jul 2020 20:33:24 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id F024C22ECF1
+	for <lists+cluster-devel@lfdr.de>; Mon, 27 Jul 2020 15:14:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1595615603;
+	s=mimecast20190719; t=1595855659;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=BFfSlKTvnYqglxVKqWUmbC6kWS6ohPPCMPx0pIVbQeI=;
-	b=Wo0El/CubKepvX2N04oUbyLi1Z4LYc3SYfVx4olYmZTroK0OQvMdEWIM8GvOvjHLOG/pva
-	SCGDFBQuLuqHX49NDLCO9GLMDHN9qlbt/66RpFXzt5JJbtKDb18VzMWh5wtMVJ1B3QwxJT
-	0tFFSi4p6QZQd2lPzbukgyWX9V1kXw4=
+	bh=h+Zwh0KB5l1ylVGEoea+XWxvzEBd+YiZfOdkt7Fn0lM=;
+	b=Yp8F5pzZdJyioLXLY0Pg8h8K4CYgS0BABvNCR5fTFzsT6Kk+J5s20HBfqwsrFSGmA5HWNs
+	YgLR6OQ6gcTRDsEfhKAQE+OZ/4QW22pc2dX88ip56eB2AAQINfFvYa2BmWOxJsCzqeT8CQ
+	WszVbq5gRdmD5vgXf1azAyZUKXyn9wM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-285-N03-jlzyMr60SE4ZjeKlTw-1; Fri, 24 Jul 2020 14:33:21 -0400
-X-MC-Unique: N03-jlzyMr60SE4ZjeKlTw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-158-VOzTjec9OLOoEMrizxGCXQ-1; Mon, 27 Jul 2020 09:14:13 -0400
+X-MC-Unique: VOzTjec9OLOoEMrizxGCXQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 81FB41DF8;
-	Fri, 24 Jul 2020 18:33:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F486800478;
+	Mon, 27 Jul 2020 13:14:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7150169325;
-	Fri, 24 Jul 2020 18:33:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF293610F3;
+	Mon, 27 Jul 2020 13:14:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3A6151809563;
-	Fri, 24 Jul 2020 18:33:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 47CC71809554;
+	Mon, 27 Jul 2020 13:14:08 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06OIXEUP016337 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 24 Jul 2020 14:33:14 -0400
+	id 06RDE3kk012172 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 27 Jul 2020 09:14:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 307A070599; Fri, 24 Jul 2020 18:33:14 +0000 (UTC)
+	id BDB74619C4; Mon, 27 Jul 2020 13:14:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-112-145.phx2.redhat.com [10.3.112.145])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F2A7A6FEFE
-	for <cluster-devel@redhat.com>; Fri, 24 Jul 2020 18:33:13 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Fri, 24 Jul 2020 13:33:04 -0500
-Message-Id: <20200724183304.366913-12-rpeterso@redhat.com>
-In-Reply-To: <20200724183304.366913-1-rpeterso@redhat.com>
-References: <20200724183304.366913-1-rpeterso@redhat.com>
+Received: from carbon.redhat.com (ovpn-112-138.rdu2.redhat.com [10.10.112.138])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3F73160BF4;
+	Mon, 27 Jul 2020 13:14:00 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Mon, 27 Jul 2020 09:13:35 -0400
+Message-Id: <20200727131338.9111-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 11/11] gfs2: Never call
-	gfs2_block_zero_range with an open transaction
+Cc: cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCHv2 dlm-next 0/3] fs: dlm: receive handling
+	changes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,154 +64,58 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-Before this patch, some functions started transactions then they called
-gfs2_block_zero_range. However, gfs2_block_zero_range, like writes, can
-start transactions, which results in a recursive transaction error.
-For example:
+Hi,
 
-do_shrink
-   trunc_start
-      gfs2_trans_begin <------------------------------------------------
-         gfs2_block_zero_range
-            iomap_zero_range(inode, from, length, NULL, &gfs2_iomap_ops);
-               iomap_apply ... iomap_zero_range_actor
-                  iomap_begin
-                     gfs2_iomap_begin
-                        gfs2_iomap_begin_write
-                  actor (iomap_zero_range_actor)
-		     iomap_zero
-			iomap_write_begin
-			   gfs2_iomap_page_prepare
-			      gfs2_trans_begin <------------------------
+this patch series will do some changes according to the receive handling
+in dlm. My goal is to survive tcpkill [0] which is my main testcase while
+doing some heavy load on dlm. The code is still in a situation where dlm
+can end in a deadlock state while e.g. using gfs2. For generating a lot
+of dlm traffic I use gfs2 and running make_panic [1].
 
-This patch reorders the callers of gfs2_block_zero_range so that they
-only start their transactions after the call. It also adds a BUG_ON to
-ensure this doesn't happen again.
+I mainly just run make_panic on two nodes and let run:
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/bmap.c | 69 ++++++++++++++++++++++++++++----------------------
- 1 file changed, 39 insertions(+), 30 deletions(-)
+tcpkill -9 -i $IFACE port 21064
 
-diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
-index 85cf903011d7..251aa3bcf4e3 100644
---- a/fs/gfs2/bmap.c
-+++ b/fs/gfs2/bmap.c
-@@ -1352,9 +1352,15 @@ int gfs2_extent_map(struct inode *inode, u64 lblock, int *new, u64 *dblock, unsi
- 	return ret;
- }
- 
-+/*
-+ * NOTE: Never call gfs2_block_zero_range with an open transaction because it
-+ * uses iomap write to perform its actions, which begin their own transactions
-+ * (iomap_begin, page_prepare, etc.)
-+ */
- static int gfs2_block_zero_range(struct inode *inode, loff_t from,
- 				 unsigned int length)
- {
-+	BUG_ON(current->journal_info);
- 	return iomap_zero_range(inode, from, length, NULL, &gfs2_iomap_ops);
- }
- 
-@@ -1415,6 +1421,16 @@ static int trunc_start(struct inode *inode, u64 newsize)
- 	u64 oldsize = inode->i_size;
- 	int error;
- 
-+	if (!gfs2_is_stuffed(ip)) {
-+		unsigned int blocksize = i_blocksize(inode);
-+		unsigned int offs = newsize & (blocksize - 1);
-+		if (offs) {
-+			error = gfs2_block_zero_range(inode, newsize,
-+						      blocksize - offs);
-+			if (error)
-+				return error;
-+		}
-+	}
- 	if (journaled)
- 		error = gfs2_trans_begin(sdp, RES_DINODE + RES_JDATA, GFS2_JTRUNC_REVOKES);
- 	else
-@@ -1428,19 +1444,10 @@ static int trunc_start(struct inode *inode, u64 newsize)
- 
- 	gfs2_trans_add_meta(ip->i_gl, dibh);
- 
--	if (gfs2_is_stuffed(ip)) {
-+	if (gfs2_is_stuffed(ip))
- 		gfs2_buffer_clear_tail(dibh, sizeof(struct gfs2_dinode) + newsize);
--	} else {
--		unsigned int blocksize = i_blocksize(inode);
--		unsigned int offs = newsize & (blocksize - 1);
--		if (offs) {
--			error = gfs2_block_zero_range(inode, newsize,
--						      blocksize - offs);
--			if (error)
--				goto out;
--		}
-+	else
- 		ip->i_diskflags |= GFS2_DIF_TRUNC_IN_PROG;
--	}
- 
- 	i_size_write(inode, newsize);
- 	ip->i_inode.i_mtime = ip->i_inode.i_ctime = current_time(&ip->i_inode);
-@@ -2449,25 +2456,7 @@ int __gfs2_punch_hole(struct file *file, loff_t offset, loff_t length)
- 	loff_t start, end;
- 	int error;
- 
--	start = round_down(offset, blocksize);
--	end = round_up(offset + length, blocksize) - 1;
--	error = filemap_write_and_wait_range(inode->i_mapping, start, end);
--	if (error)
--		return error;
--
--	if (gfs2_is_jdata(ip))
--		error = gfs2_trans_begin(sdp, RES_DINODE + 2 * RES_JDATA,
--					 GFS2_JTRUNC_REVOKES);
--	else
--		error = gfs2_trans_begin(sdp, RES_DINODE, 0);
--	if (error)
--		return error;
--
--	if (gfs2_is_stuffed(ip)) {
--		error = stuffed_zero_range(inode, offset, length);
--		if (error)
--			goto out;
--	} else {
-+	if (!gfs2_is_stuffed(ip)) {
- 		unsigned int start_off, end_len;
- 
- 		start_off = offset & (blocksize - 1);
-@@ -2490,6 +2479,26 @@ int __gfs2_punch_hole(struct file *file, loff_t offset, loff_t length)
- 		}
- 	}
- 
-+	start = round_down(offset, blocksize);
-+	end = round_up(offset + length, blocksize) - 1;
-+	error = filemap_write_and_wait_range(inode->i_mapping, start, end);
-+	if (error)
-+		return error;
-+
-+	if (gfs2_is_jdata(ip))
-+		error = gfs2_trans_begin(sdp, RES_DINODE + 2 * RES_JDATA,
-+					 GFS2_JTRUNC_REVOKES);
-+	else
-+		error = gfs2_trans_begin(sdp, RES_DINODE, 0);
-+	if (error)
-+		return error;
-+
-+	if (gfs2_is_stuffed(ip)) {
-+		error = stuffed_zero_range(inode, offset, length);
-+		if (error)
-+			goto out;
-+	}
-+
- 	if (gfs2_is_jdata(ip)) {
- 		BUG_ON(!current->journal_info);
- 		gfs2_journaled_truncate_range(inode, offset, length);
+on both nodes. The first two patches changes the behaviour how to react
+on invalid dlm messages (which does not occur on my test case). The third
+patch increase in my test scenario the stability of dlm connection and
+running tcpkill. The last patch will ensure that the other end agrees
+to close the socket if we want to do a clean tcp termination.
+
+FUTURE WORK:
+
+I still get deadlocks, as PATCH 2/3 shows that I think the TCP stack
+will drop some packets when receiving a tcp reset (and the application
+layer think it's successful send). This is one of my future work to
+solve this behaviour. I also think about to extend the test case to e.g.
+umount/mount gfs2 while my testcase is running and doing randomly
+drops/delaying/reordering of dlm tcp by using the introduced mark
+functionality and traffic control.
+
+- Alex
+
+[0] https://salsa.debian.org/pkg-security-team/dsniff
+[1] https://fedorapeople.org/cgit/teigland/public_git/dct-stuff.git/tree/fs/make_panic
+
+changes since v2:
+ - fixup patch 2/4 with 1/4, otherwise we have some broken state
+ - correct cbuf_eat() to "eat" full received buffer size in case of
+   receiption of invalid dlm message.
+
+Alexander Aring (3):
+  fs: dlm: don't close socket on invalid message
+  fs: dlm: change handling of reconnects
+  fs: dlm: implement tcp graceful shutdown
+
+ fs/dlm/lowcomms.c | 112 +++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 87 insertions(+), 25 deletions(-)
+
 -- 
 2.26.2
 
