@@ -1,89 +1,54 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id F1D3B23ABF2
-	for <lists+cluster-devel@lfdr.de>; Mon,  3 Aug 2020 19:56:55 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 4155523DAD0
+	for <lists+cluster-devel@lfdr.de>; Thu,  6 Aug 2020 15:38:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1596477414;
+	s=mimecast20190719; t=1596721106;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=2gwgHEj6ykRKVSYrLyCe4vx+BSD3YCsGzjAkud6/Uck=;
-	b=VgDchRwqFv+BGRPkpVJHCBi4zwwvW9jMAmskQ01xkkmoYZ2tDCVT3fqX25tXdxRK//xc+a
-	K0NHk1DQTnzPdUwnc1jgDDts5nIk3eUPzyP4eM53JoIm9j4a15jGQS8DKFd6WBMC7q9pTA
-	EMwl3XYHI4Brgi5brOqmNL6mEqFBPus=
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=JzPrF4E7nG0ZR6KP7YRlLe5bBM6jdP72yeC4kVEz3N0=;
+	b=MVxSRCCX8iGR+L4f8zHP7gbXFzrj3oYq1/mf8f2PdLxiBdEDSZXYFslVeK7Zv7wwBMfSpd
+	OWZuOzxjid61NuX3hNX0B1BqENdhv/RkFMS31kEd04LZNCA4I04ki8cnVYPAf+3xTBIRJA
+	N23pCLsSGPg6YG3aCpPKDX02WROPZec=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-168-QgLRxu1UPgmi-O4Fy7hkuA-1; Mon, 03 Aug 2020 13:56:53 -0400
-X-MC-Unique: QgLRxu1UPgmi-O4Fy7hkuA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-305--TlFUdw7O66Il51xEzCYIA-1; Thu, 06 Aug 2020 09:38:24 -0400
+X-MC-Unique: -TlFUdw7O66Il51xEzCYIA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E5E0579EC2;
-	Mon,  3 Aug 2020 17:56:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D39675DA6A;
-	Mon,  3 Aug 2020 17:56:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 38ED2101C8A0;
+	Thu,  6 Aug 2020 13:38:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2939B712F4;
+	Thu,  6 Aug 2020 13:38:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BA8649A11B;
-	Mon,  3 Aug 2020 17:56:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CAE2F1809561;
+	Thu,  6 Aug 2020 13:38:19 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 073Ht7lD014982 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 3 Aug 2020 13:55:07 -0400
+	id 076DcC8X030611 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 6 Aug 2020 09:38:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0CDDEA9FDB; Mon,  3 Aug 2020 17:55:07 +0000 (UTC)
+	id D790160BF1; Thu,  6 Aug 2020 13:38:12 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 08298E2A68
-	for <cluster-devel@redhat.com>; Mon,  3 Aug 2020 17:55:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E31541859163
-	for <cluster-devel@redhat.com>; Mon,  3 Aug 2020 17:55:04 +0000 (UTC)
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
-	[209.85.167.197]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-472-XsALc0a2NG-AcvAnZ_xcGQ-1; Mon, 03 Aug 2020 13:55:03 -0400
-X-MC-Unique: XsALc0a2NG-AcvAnZ_xcGQ-1
-Received: by mail-oi1-f197.google.com with SMTP id o132so21362906oig.12
-	for <cluster-devel@redhat.com>; Mon, 03 Aug 2020 10:55:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=2gwgHEj6ykRKVSYrLyCe4vx+BSD3YCsGzjAkud6/Uck=;
-	b=AF2PRXTlYZRdEtKjBWrw9M29UNBi+k93m0rjLnLgH8GBpjkjCRTped78bUChyGqusZ
-	cRFewQZ4ayGnsZmR81JmKTFVhPMapoTTRpbMWzhcip1O/aW2vCvUaKPgWfmhWFX6vOi5
-	0J9ZVdwY4/sW71zs33aPNXpwjr1vN1SUy3I5v0bXlssq6KkKhLMaTWavkQYTMk1qEQ0s
-	ZPFsgESsD8xXBH0jUv8bJ6w07dmKN70KyauDtDTWn5nTIqELyQ1lWuezSgvqIAd1I+ae
-	FdkHw5rT6GWyyrNn3qF1fYFz/j570AE3yxiAV+w3ZSzQReSGXkJC/WzHJNK0nnE8g7tj
-	kbZA==
-X-Gm-Message-State: AOAM533KOvGfHy57bugk/Cb5oEeS5YCdeM6kmjYoVAxfKki49WYKlptq
-	JgHPWXun2LdRHiWx/BHRSHv3hLJyMfIPHTZPkC7JrphjsMnrx1ulj0pgeliJLl4v7Aqq1uhNS3b
-	4deGuJsxy/2OVxhEOGy42jNnoD8bou3+vD1RxMQ==
-X-Received: by 2002:a4a:be0c:: with SMTP id l12mr15246403oop.22.1596477302243; 
-	Mon, 03 Aug 2020 10:55:02 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxhg6hONR8U+Y7exxti2NUs3fV9aiXlq9Qd4wpE+6KVH3Y1ejZvyA5OBhPhIxJlDCRrhmh5HmKfuqvbQOWsExQ=
-X-Received: by 2002:a4a:be0c:: with SMTP id l12mr15246390oop.22.1596477302049; 
-	Mon, 03 Aug 2020 10:55:02 -0700 (PDT)
+Received: from cicero.redhat.com (unknown [10.33.36.125])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A7F46FEF4
+	for <cluster-devel@redhat.com>; Thu,  6 Aug 2020 13:38:09 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Thu,  6 Aug 2020 14:37:35 +0100
+Message-Id: <20200806133807.111280-1-anprice@redhat.com>
 MIME-Version: 1.0
-References: <20200724183304.366913-1-rpeterso@redhat.com>
-	<20200724183304.366913-3-rpeterso@redhat.com>
-In-Reply-To: <20200724183304.366913-3-rpeterso@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 3 Aug 2020 19:54:50 +0200
-Message-ID: <CAHc6FU7bsaBESt=YkckQsT_dJ+KzFsG4OcdGvnekcYnFNpzZVA@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH 02/11] gfs2: don't break integrity
- writeback on __gfs2_jdata_writepage error
+Subject: [Cluster-devel] [PATCH 00/32] gfs2-utils: savemeta improvements
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,22 +62,77 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Bob,
+This is some groundwork for ongoing performance improvements to gfs2_edit savemeta (and fsck.gfs2 indirectly). These patches are generally beneficial and have survived a bunch of testing so I'm posting them now.
 
-On Fri, Jul 24, 2020 at 8:33 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> Port Brian Foster's patch 3fa750dcf29e8606e3969d13d8e188cc1c0f511d to
-> gfs2's sister function gfs2_write_cache_jdata. Brian's original description: [...]
+The first handful are scattered cleanups and general removal of gfs2_buffer_heads uses to make things more flexible.
 
-I don't think there's a need to repeat Brian's description; it's easy
-enough to look up
-from the sha1. I'd be more interested in learning what this change means in the
-context of gfs2 (that is, what does gfs2 need this change for).
+The theme of the savemeta changes is mainly about creating a better split between reading and saving blocks so that we can make better decisions between those paths, e.g. in some cases we want to collect together ranges of blocks for reading when we know that they're consecutive.
 
-Thanks,
-Andreas
+Andrew Price (32):
+  savemeta: Allow saving to /dev/null
+  mkfs.gfs2: Fix strncpy warnings
+  libgfs2: Separate out gfs2l's language API
+  glocktop: Improve mount info handling
+  savemeta: Don't save bad xattr blocks twice
+  libgfs2: Remove gfs2_buffer_head from gfs_dinode_in()
+  libgfs2: Remove gfs2_buffer_head from lgfs2_gfs_inode_get()
+  libgfs2: Remove gfs2_buffer_head from lgfs2_write_journal_data()
+  libgfs2: Move get_file_buf() into structures.c
+  gfs2l: Remove uses of gfs2_buffer_heads
+  libgfs2: No need to use gfs2_buffer_head in metapointer()
+  gfs2_edit: Don't use gfs2_buffer_head in do_dinode_extended() args
+  libgfs2: Add a display name field to struct lgfs2_metadata
+  gfs2_edit: get_block_type() improvements
+  gfs2_edit: Don't use gfs2_buffer_head in display_block_type()
+  gfs2_edit: Don't use gfs2_buffer_head in display_gfs2()
+  gfs2_edit: restore_block() improvements
+  savemeta: Simplify di_save_len()
+  savemeta: Remove gfs2_buffer_head from get_gfs_struct_info()
+  savemeta: Remove gfs2_buffer_head from save_bh() (and rename it)
+  savemeta: Don't use gfs2_buffer_head in save_leaf_chain()
+  savemeta: Remove gfs2_buffer_head from save_block()
+  savemeta: Split block reading from saving
+  savemeta: Call get_struct_info() in the read path
+  savemeta: Introduce multi-block reads
+  savemeta: Process indirect pointers in chunks
+  savemeta: Don't trim off trailing zeroes when compressing
+  savemeta: Leaf block processing improvements
+  savemeta: Remove some unnecessary reads from save_inode_data()
+  savemeta: Remove some unnecessary jindex reading code
+  savemeta: Move block range queue ops into functions
+  restoremeta: Fix up superblock processing
+
+ gfs2/convert/gfs2_convert.c |   2 +-
+ gfs2/edit/gfs2hex.c         |  52 ++-
+ gfs2/edit/gfs2hex.h         |   5 +-
+ gfs2/edit/hexedit.c         | 170 +++------
+ gfs2/edit/hexedit.h         |   9 +-
+ gfs2/edit/journal.c         |  59 ++--
+ gfs2/edit/savemeta.c        | 672 ++++++++++++++++++++++--------------
+ gfs2/fsck/metawalk.c        |   2 +-
+ gfs2/glocktop/glocktop.c    | 189 +++++-----
+ gfs2/libgfs2/Makefile.am    |  14 +-
+ gfs2/libgfs2/buf.c          |   4 +-
+ gfs2/libgfs2/fs_ops.c       |  33 +-
+ gfs2/libgfs2/gfs1.c         |  49 ++-
+ gfs2/libgfs2/gfs2l.c        |   1 +
+ gfs2/libgfs2/lang.c         | 121 ++++---
+ gfs2/libgfs2/lang.h         |  15 +
+ gfs2/libgfs2/libgfs2.h      |  32 +-
+ gfs2/libgfs2/meta.c         |  30 +-
+ gfs2/libgfs2/structures.c   |  52 ++-
+ gfs2/mkfs/main_mkfs.c       |   4 +-
+ tests/edit.at               |   8 +
+ 21 files changed, 826 insertions(+), 697 deletions(-)
+
+-- 
+2.26.2
 
