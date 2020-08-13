@@ -1,55 +1,54 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 771FF241AF1
-	for <lists+cluster-devel@lfdr.de>; Tue, 11 Aug 2020 14:27:35 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 86A57243F8E
+	for <lists+cluster-devel@lfdr.de>; Thu, 13 Aug 2020 22:01:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1597148854;
+	s=mimecast20190719; t=1597348889;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=k29+uEPca0AJk+IYJ90C/bCJcohKhbXaizP2PkTXFWU=;
-	b=MpeyAYAET21rPXz7x+pqHkdWsU3oQKSQcAIjxNX4UWCalmqy3ZWu3sKgBhbKToL8GgCcCn
-	2NWfpzYW1k/Qb56pM2bR7TOsxFClDQwsgdAbyxyd6zj2junoeC8sCC2FqUvu2Xr7uQb60B
-	+DHjptl99+NIrg0tWZefHqvRK6VSBEc=
+	bh=Ys+KPH4WT3quZkFl0x/yTeFfxgko89eB3LyT2FdFPEs=;
+	b=SVj277CmDC1QRmhA6Y4K8w0pKTILghbIoKDz6d1zb+3p8dQKLJYPAZL7lmKBvbU1KV8PgG
+	zv1chYwKbnNYLdjsi0+RCvs5i99AQ2mj7H29Z2KeD19bFsuJVqkydl/dKJMAPxopInuKIR
+	+o4uHunhxoxdwD+InYqVPYCcsmUALFQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-549-L1XfozoJOXKy3a6Gy7-Xfw-1; Tue, 11 Aug 2020 08:27:32 -0400
-X-MC-Unique: L1XfozoJOXKy3a6Gy7-Xfw-1
+ us-mta-135-zHq8qCxuPGukRbLWSuNuHA-1; Thu, 13 Aug 2020 16:01:27 -0400
+X-MC-Unique: zHq8qCxuPGukRbLWSuNuHA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A24D1800D41;
-	Tue, 11 Aug 2020 12:27:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8B3001008549;
+	Thu, 13 Aug 2020 20:01:25 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A3B3365C77;
-	Tue, 11 Aug 2020 12:27:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B71E7038E;
+	Thu, 13 Aug 2020 20:01:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C72DA553C;
-	Tue, 11 Aug 2020 12:27:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F1394EE16;
+	Thu, 13 Aug 2020 20:01:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07BCRLQT001933 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 11 Aug 2020 08:27:21 -0400
+	id 07DK1J08024960 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 13 Aug 2020 16:01:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 495CD4AC; Tue, 11 Aug 2020 12:27:21 +0000 (UTC)
+	id 0028C5D9F3; Thu, 13 Aug 2020 20:01:19 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from cicero.redhat.com (unknown [10.33.36.125])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BB96E69318
-	for <cluster-devel@redhat.com>; Tue, 11 Aug 2020 12:27:17 +0000 (UTC)
-From: Andrew Price <anprice@redhat.com>
+Received: from radium.msp.redhat.com (radium.msp.redhat.com [10.15.80.88])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C63DA5D9D2
+	for <cluster-devel@redhat.com>; Thu, 13 Aug 2020 20:01:15 +0000 (UTC)
+From: Abhi Das <adas@redhat.com>
 To: cluster-devel@redhat.com
-Date: Tue, 11 Aug 2020 13:27:15 +0100
-Message-Id: <20200811122715.373661-1-anprice@redhat.com>
+Date: Thu, 13 Aug 2020 15:01:11 -0500
+Message-Id: <20200813200114.5665-1-adas@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH] mkfs.gfs2: Don't exceed IOV_MAX when
-	zeroing first alignment gap
+Subject: [Cluster-devel] [PATCH 0/3] local statfs improvements
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,58 +65,29 @@ Errors-To: cluster-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 0.001
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-The first resource group can be aligned far away from the superblock
-when the device has large stripes, and zeroing that gap with a small
-block size can mean that the iovec used exceeds IOV_MAX and causes
-pwritev to fail with EINVAL. Split the writes to guard against that.
+With this patchset, we don't write to the local statfs file
+anymore. The local statfs data is written into the journal
+and synced to the master statfs file during a log flush or
+during recovery.
 
-Signed-off-by: Andrew Price <anprice@redhat.com>
----
- gfs2/mkfs/main_mkfs.c | 13 ++++++++++---
- tests/mkfs.at         |  1 +
- 2 files changed, 11 insertions(+), 3 deletions(-)
+Abhi Das (3):
+  gfs2: Don't write updates to local statfs file
+  gfs2: Add fields for statfs info in struct gfs2_log_header_host
+  gfs2: Recover statfs info in journal head
 
-diff --git a/gfs2/mkfs/main_mkfs.c b/gfs2/mkfs/main_mkfs.c
-index 36fd08e7..3fb2eb92 100644
---- a/gfs2/mkfs/main_mkfs.c
-+++ b/gfs2/mkfs/main_mkfs.c
-@@ -711,9 +711,16 @@ static int place_rgrp(struct gfs2_sbd *sdp, lgfs2_rgrp_t rg, int debug)
- 		prev_end = lgfs2_rgrp_index(prev)->ri_data0 +
- 		           lgfs2_rgrp_index(prev)->ri_data;
- 	}
--	err = zero_gap(sdp, prev_end, ri->ri_addr - prev_end);
--	if (err != 0)
--		return -1;
-+	while (prev_end < ri->ri_addr) {
-+		size_t gap_len = ri->ri_addr - prev_end;
-+
-+		if (gap_len > IOV_MAX)
-+			gap_len = IOV_MAX;
-+		err = zero_gap(sdp, prev_end, gap_len);
-+		if (err != 0)
-+			return -1;
-+		prev_end += gap_len;
-+	}
- 	err = lgfs2_rgrp_write(sdp->device_fd, rg);
- 	if (err != 0) {
- 		perror(_("Failed to write resource group"));
-diff --git a/tests/mkfs.at b/tests/mkfs.at
-index 4c8b2249..96c4f6ab 100644
---- a/tests/mkfs.at
-+++ b/tests/mkfs.at
-@@ -117,6 +117,7 @@ AT_CHECK([gfs2_edit -p sb field sb_bsize $GFS_TGT | tr -d '\n' ], 0, [4096], [ig
- AT_CHECK([$GFS_MKFS -p lock_nolock -o test_topology=7168:512:0:33553920:512 $GFS_TGT], 0, [ignore], [ignore])
- AT_CHECK([$GFS_MKFS -p lock_nolock -o test_topology=7168:512:8192:33553920:512 $GFS_TGT], 0, [ignore], [Warning: device is not properly aligned. This may harm performance.
- ])
-+AT_CHECK([$GFS_MKFS -p lock_nolock -o test_topology=0:512:4194304:8388608:512 -b 1024 $GFS_TGT], 0, [ignore], [ignore])
- AT_CLEANUP
- 
- AT_SETUP([Resource group alignment])
+ fs/gfs2/incore.h   |   4 ++
+ fs/gfs2/lops.c     |  12 ++++-
+ fs/gfs2/lops.h     |   1 +
+ fs/gfs2/recovery.c | 125 +++++++++++++++++++++++++++++++++++++++++++++
+ fs/gfs2/super.c    |   2 +-
+ fs/gfs2/super.h    |   2 +
+ 6 files changed, 143 insertions(+), 3 deletions(-)
+
 -- 
-2.26.2
+2.20.1
 
