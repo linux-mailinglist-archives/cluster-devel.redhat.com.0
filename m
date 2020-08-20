@@ -1,68 +1,93 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 57B3924A4E5
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Aug 2020 19:28:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4853C24B7C5
+	for <lists+cluster-devel@lfdr.de>; Thu, 20 Aug 2020 13:04:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1597858079;
+	s=mimecast20190719; t=1597921475;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=NF5+ElwaZ2PcMxM/oQzjSkQArIh6kAql2mO4mQ7/Ay4=;
-	b=N706O5blpe4c+gLCOQUy4CGOpMKUzihbTxwf7j7h4NZY29t94OEDGb4AWusbbht5JJ28Ps
-	5v+Zf1plafALPtvXceNzBQS4Z9rQ36a2neJZVlq9UflCppWzJ4vj5QCO8/eTWspYGcBSg7
-	rTnx/04dPgEb2jGtZvZbufb7S54uKCg=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=M3ZmHNOyqKErYUbMG+kzslIjbQp+YC1HB1RNBgYVSFM=;
+	b=gifniA2KtQUgaiDMA9KW9MjxTGwg8HqvjFGM8rNuQWaGF5OEXPsZz+8+5ys0uM0ENVPZuV
+	tN2mHZEP0uxs9ypLi078mfHtJBIxO7N84zDnURKsuEqRQvZ1PrXwWOTAnAzKw5ALOS0IVW
+	zR5k7uIwbRaAReMa70gVU5/j803Pg9I=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-351-xzhGzg7AOV6iBLWHQMa3ww-1; Wed, 19 Aug 2020 13:27:57 -0400
-X-MC-Unique: xzhGzg7AOV6iBLWHQMa3ww-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-102-I7KmdwFCNxO_4jRaIrZ2dw-1; Thu, 20 Aug 2020 07:04:32 -0400
+X-MC-Unique: I7KmdwFCNxO_4jRaIrZ2dw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5CC482FD00;
-	Wed, 19 Aug 2020 17:27:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C01875703E;
+	Thu, 20 Aug 2020 11:04:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 57E287BE98;
-	Wed, 19 Aug 2020 17:27:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCAB919C66;
+	Thu, 20 Aug 2020 11:04:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 88BF060370;
-	Wed, 19 Aug 2020 17:27:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 54B8260346;
+	Thu, 20 Aug 2020 11:04:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07JHRoLu018665 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 19 Aug 2020 13:27:50 -0400
+	id 07KB4Hx1010941 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 20 Aug 2020 07:04:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C6097C0AC; Wed, 19 Aug 2020 17:27:50 +0000 (UTC)
+	id 3645E202279A; Thu, 20 Aug 2020 11:04:17 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from colo-mx.corp.redhat.com
-	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D9A57BE98;
-	Wed, 19 Aug 2020 17:27:47 +0000 (UTC)
-Received: from zmail21.collab.prod.int.phx2.redhat.com
-	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 347C11832FC1;
-	Wed, 19 Aug 2020 17:27:47 +0000 (UTC)
-Date: Wed, 19 Aug 2020 13:27:47 -0400 (EDT)
-From: Bob Peterson <rpeterso@redhat.com>
-To: Abhi Das <adas@redhat.com>
-Message-ID: <1768511629.12781656.1597858067052.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200813200114.5665-4-adas@redhat.com>
-References: <20200813200114.5665-1-adas@redhat.com>
-	<20200813200114.5665-4-adas@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 314012028DCC
+	for <cluster-devel@redhat.com>; Thu, 20 Aug 2020 11:04:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17EA0101A540
+	for <cluster-devel@redhat.com>; Thu, 20 Aug 2020 11:04:15 +0000 (UTC)
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+	[209.85.214.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-180-6CPPawpCNuOKdoCkRWT2HA-1; Thu, 20 Aug 2020 07:04:12 -0400
+X-MC-Unique: 6CPPawpCNuOKdoCkRWT2HA-1
+Received: by mail-pl1-f200.google.com with SMTP id w23so1335816pll.21
+	for <cluster-devel@redhat.com>; Thu, 20 Aug 2020 04:04:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=M3ZmHNOyqKErYUbMG+kzslIjbQp+YC1HB1RNBgYVSFM=;
+	b=HvOOyG9Ie5extUPNRI/euvCA9Wm/qqZssuxEBUu0Lu73/ZEdpUQWBdSVPnRehDGHGf
+	NZ629iq36+R/Oi5dmsSQt1zq3OgfRMqI5+2F0P2ZKTcHKZZTFnE/ssvxew6AmdSVOu0N
+	+3nsr6K6DtEtu41C6yxclrtYY7nhLmJAftgu2MelpKHJQNIbBL/gte28thAojL1pTBzC
+	ImYkpA16vCJLK8YFyfd+kdjXwHRemaUNRLWVCmNrqGRmFEPnYuqJBHqF8qlDlBSfDnuX
+	3tWRGfRevYf2rdy5yk1vvSHx5uKvOpuBZSMGTb2NssAT1Y2J/Ff2EJoDyGf9nICop7BK
+	lQlg==
+X-Gm-Message-State: AOAM531vb3sqajYEcw4GYAeW+/lxohJpx218Pjjwww3u8Vr15RUvPXVK
+	j43h/BEY/Ngl93DN90cqoxk/WL4qD+OQHy/7F1JFsptMYXYJB7sBmSfIvb+42eOovHa+WgNIHze
+	kcPsPX8GlapyDY/q4vh+gTNtQDN2u8AN4/0y1sg==
+X-Received: by 2002:a17:90b:193:: with SMTP id
+	t19mr2151214pjs.162.1597921451634; 
+	Thu, 20 Aug 2020 04:04:11 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx3vD3zttuewiHvi6PaG1os47m3vQqCWIlVJwRFtCRCD6NGUog5oqeSiKXc2z6tx3z+BtvQ00OxBGEebTUbGm4=
+X-Received: by 2002:a17:90b:193:: with SMTP id
+	t19mr2151196pjs.162.1597921451372; 
+	Thu, 20 Aug 2020 04:04:11 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.3.112.97, 10.4.195.20]
-Thread-Topic: gfs2: Recover statfs info in journal head
-Thread-Index: vDGPgl2YuWRRXz8sTlG/uC3aqME6uQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+References: <20200813200114.5665-1-adas@redhat.com>
+	<20200813200114.5665-2-adas@redhat.com>
+	<165825613.12780098.1597856846775.JavaMail.zimbra@redhat.com>
+In-Reply-To: <165825613.12780098.1597856846775.JavaMail.zimbra@redhat.com>
+From: Abhijith Das <adas@redhat.com>
+Date: Thu, 20 Aug 2020 06:04:00 -0500
+Message-ID: <CACrDRjiVxrtX_tLmO+Ym=gbCrsndvOYp42z34ESbWNsiB5XP6w@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] [PATCH 3/3] gfs2: Recover statfs info in
- journal	head
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [PATCH 1/3] gfs2: Don't write updates to local
+ statfs file
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,217 +101,167 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Spam-Score: 0.0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative; boundary="0000000000007d0f2705ad4d1403"
 
------ Original Message -----
-> Apply the outstanding statfs changes in the journal head to the
-> master statfs file. Zero out the local statfs file for good measure.
-> 
-> Signed-off-by: Abhi Das <adas@redhat.com>
-> ---
->  fs/gfs2/lops.c     |   2 +-
->  fs/gfs2/lops.h     |   1 +
->  fs/gfs2/recovery.c | 121 +++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 123 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
-> index 53d2dbf6605e..061747b959c8 100644
-> --- a/fs/gfs2/lops.c
-> +++ b/fs/gfs2/lops.c
-> @@ -831,7 +831,7 @@ static int buf_lo_scan_elements(struct gfs2_jdesc *jd,
-> u32 start,
->   *
->   */
->  
-> -static void gfs2_meta_sync(struct gfs2_glock *gl)
-> +void gfs2_meta_sync(struct gfs2_glock *gl)
->  {
->  	struct address_space *mapping = gfs2_glock2aspace(gl);
->  	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
-> diff --git a/fs/gfs2/lops.h b/fs/gfs2/lops.h
-> index 9c5e4e491e03..4a3d8aecdf82 100644
-> --- a/fs/gfs2/lops.h
-> +++ b/fs/gfs2/lops.h
-> @@ -27,6 +27,7 @@ extern void gfs2_log_submit_bio(struct bio **biop, int
-> opf);
->  extern void gfs2_pin(struct gfs2_sbd *sdp, struct buffer_head *bh);
->  extern int gfs2_find_jhead(struct gfs2_jdesc *jd,
->  			   struct gfs2_log_header_host *head, bool keep_cache);
-> +extern void gfs2_meta_sync(struct gfs2_glock *gl);
->  
->  static inline unsigned int buf_limit(struct gfs2_sbd *sdp)
->  {
-> diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-> index a8bb17e355b8..428a0aad49c6 100644
-> --- a/fs/gfs2/recovery.c
-> +++ b/fs/gfs2/recovery.c
-> @@ -296,6 +296,126 @@ static void gfs2_recovery_done(struct gfs2_sbd *sdp,
-> unsigned int jid,
->  		sdp->sd_lockstruct.ls_ops->lm_recovery_result(sdp, jid, message);
->  }
->  
-> +static int lookup_statfs_inodes(struct gfs2_jdesc *jd, struct inode
-> **master,
-> +				struct inode **local)
-> +{
-> +	int error = 0;
-> +	char buf[30];
-> +	struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
-> +	struct inode *md = d_inode(sdp->sd_master_dir), *pn;
-> +
-> +	*master = gfs2_lookup_simple(md, "statfs");
-> +	if (IS_ERR(*master)) {
-> +		error = PTR_ERR(*master);
-> +		fs_err(sdp, "Can't read in statfs inode: %d\n", error);
-> +		goto out;
-> +	}
-> +	pn = gfs2_lookup_simple(md, "per_node");
-> +	if (IS_ERR(pn)) {
-> +		error = PTR_ERR(pn);
-> +		fs_err(sdp, "Can't find per_node directory: %d\n", error);
-> +		goto put_m_ip;
-> +	}
-> +	sprintf(buf, "statfs_change%u", jd->jd_jid);
-> +	*local = gfs2_lookup_simple(pn, buf);
-> +	if (IS_ERR(*local)) {
-> +		error = PTR_ERR(*local);
-> +		fs_err(sdp, "Can't find local \"sc\" file for jid:%u: %d\n",
-> +		       jd->jd_jid, error);
-> +	}
-> +	iput(pn);
-> +	if (!error)
-> +		return error;
-> +put_m_ip:
-> +	iput(*master);
-> +out:
-> +	return error;
-> +}
-> +
-> +static int update_statfs_inode(struct gfs2_jdesc *jd, struct gfs2_inode *ip,
-> +			       struct gfs2_log_header_host *head)
-> +{
-> +	/*
-> +	 * If head is NULL, ip points to a local statfs file.
-> +	 * zero out the statfs data in the inode pointed to by ip.
-> +	 */
-> +	struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
-> +	struct gfs2_statfs_change_host sc;
-> +	struct gfs2_holder gh;
-> +	struct buffer_head *bh;
-> +	int error = 0;
-> +
-> +	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_NOCACHE, &gh);
-> +	if (error)
-> +		goto out;
-> +
-> +	error = gfs2_meta_inode_buffer(ip, &bh);
-> +	if (error)
-> +		goto out_unlock;
-> +
-> +	spin_lock(&sdp->sd_statfs_spin);
-> +	if (head) {
-> +		gfs2_statfs_change_in(&sc, bh->b_data + sizeof(struct gfs2_dinode));
-> +		sc.sc_total += head->lh_local_total;
-> +		sc.sc_free += head->lh_local_free;
-> +		sc.sc_dinodes += head->lh_local_dinodes;
-> +		gfs2_statfs_change_out(&sc, bh->b_data + sizeof(struct gfs2_dinode));
-> +		fs_info(sdp, "jid=%u: Updated master statfs Total:%lld, "
-> +			"Free:%lld, Dinodes:%lld after change "
-> +			"[%+lld,%+lld,%+lld]\n", jd->jd_jid, sc.sc_total,
-> +			sc.sc_free, sc.sc_dinodes, head->lh_local_total,
-> +			head->lh_local_free, head->lh_local_dinodes);
-> +	} else {
-> +		memset(bh->b_data + sizeof(struct gfs2_dinode), 0,
-> +		       sizeof(struct gfs2_statfs_change));
-> +		if (jd->jd_jid == sdp->sd_lockstruct.ls_jid) { /* This node's journal */
-> +			sdp->sd_statfs_local.sc_total = 0;
-> +			sdp->sd_statfs_local.sc_free = 0;
-> +			sdp->sd_statfs_local.sc_dinodes = 0;
-> +		}
-> +	}
-> +	spin_unlock(&sdp->sd_statfs_spin);
-> +	mark_buffer_dirty(bh);
-> +	brelse(bh);
-> +	gfs2_meta_sync(ip->i_gl);
-> +
-> +out_unlock:
-> +	gfs2_glock_dq_uninit(&gh);
-> +out:
-> +	return error;
-> +}
-> +
-> +static void recover_local_statfs(struct gfs2_jdesc *jd,
-> +				 struct gfs2_log_header_host *head)
-> +{
-> +	struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
-> +	struct inode *master = NULL, *local = NULL;
-> +	int error;
-> +
-> +	if (!head->lh_local_total && !head->lh_local_free
-> +	    && !head->lh_local_dinodes) /* No change */
-> +		goto out;
-> +
-> +	error = lookup_statfs_inodes(jd, &master, &local);
-> +	if (error)
-> +		goto out;
-> +	error = update_statfs_inode(jd, GFS2_I(master), head);
-> +	if (error)
-> +		goto iput_inodes;
-> +	error = update_statfs_inode(jd, GFS2_I(local), NULL);
-> +	if (error)
-> +		goto iput_inodes;
-> +	if (jd->jd_jid == sdp->sd_lockstruct.ls_jid)
-> +		memset(&sdp->sd_statfs_local, 0,
-> +		       sizeof(struct gfs2_statfs_change_host));
-> +
-> +iput_inodes:
-> +	iput(master);
-> +	iput(local);
-> +out:
-> +	return;
-> +}
-> +
->  void gfs2_recover_func(struct work_struct *work)
->  {
->  	struct gfs2_jdesc *jd = container_of(work, struct gfs2_jdesc, jd_work);
-> @@ -415,6 +535,7 @@ void gfs2_recover_func(struct work_struct *work)
->  				goto fail_gunlock_thaw;
->  		}
->  
-> +		recover_local_statfs(jd, &head);
->  		clean_journal(jd, &head);
->  		up_read(&sdp->sd_log_flush_lock);
->  
-> --
-> 2.20.1
-> 
-> 
-Hi,
+--0000000000007d0f2705ad4d1403
+Content-Type: text/plain; charset="UTF-8"
 
-Why do we need to look up all these inodes?
+On Wed, Aug 19, 2020 at 12:07 PM Bob Peterson <rpeterso@redhat.com> wrote:
 
-Function init_inodes() looks up sd_statfs_inode and init_per_node() looks up
-the statfs_changeX file, both of which are called pretty early during mount.
+> ----- Original Message -----
+> > We store the local statfs info in the journal header now so
+> > there's no need to write to the local statfs file anymore.
+> >
+> > Signed-off-by: Abhi Das <adas@redhat.com>
+> > ---
+> >  fs/gfs2/lops.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
+> > index cb2a11b458c6..53d2dbf6605e 100644
+> > --- a/fs/gfs2/lops.c
+> > +++ b/fs/gfs2/lops.c
+> > @@ -104,7 +104,15 @@ static void gfs2_unpin(struct gfs2_sbd *sdp, struct
+> > buffer_head *bh,
+> >       BUG_ON(!buffer_pinned(bh));
+> >
+> >       lock_buffer(bh);
+> > -     mark_buffer_dirty(bh);
+> > +     /*
+> > +      * We want to eliminate the local statfs file eventually.
+> > +      * But, for now, we're simply not going to update it by
+> > +      * never marking its buffers dirty
+> > +      */
+> > +     if (!(bd->bd_gl->gl_name.ln_type == LM_TYPE_INODE &&
+> > +           bd->bd_gl->gl_object == GFS2_I(sdp->sd_sc_inode)))
+> > +             mark_buffer_dirty(bh);
+> > +
+> >       clear_buffer_pinned(bh);
+> >
+> >       if (buffer_is_rgrp(bd))
+> > --
+> > 2.20.1
+>
+> Hi,
+>
+> This seems dangerous to me. It can only get to gfs2_unpin by trying to
+> commit buffers for a transaction. If the buffers aren't marked dirty,
+> that means transactions will be queued to the ail1 list that won't be
+> fully written. So what happens to them? Do they eventually get freed?
+>
+> I'm also concerned about a potential impact to performance, since
+> gfs2_unpin gets called with every metadata buffer that's used.
+> The additional if checks may not costs us much time-wise, but it's a
+> pretty hot function.
+>
+> Can't we accomplish the same thing by making function update_statfs()
+> never add the buffers to the transaction in the first place?
+> IOW, by just removing the line:
+>         gfs2_trans_add_meta(m_ip->i_gl, m_bh);
+> That way we don't need to worry about its buffer getting pinned,
+> unpinned and queued to the ail.
+>
+> Regards,
+>
+> Bob Peterson
+>
+>
+Fair point. I'll post an updated version of this patch that  doesn't queue
+the buffer in the first place.
 
-It seems to me sdp->sd_statfs_inode should already contain the master statfs
-inode and sdp->sd_sc_inode should contain the current statfs_changeX inode
-until unmount.
+Cheers!
+--Abhi
 
-Of course, since the recover workqueue is initialized earlier, I'm guessing
-maybe dlm can call gfs2 to do recovery before this initialization is done?
-Maybe we can move the lookups prior to this or the workqueue after it?
+--0000000000007d0f2705ad4d1403
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-It just seems like we can somehow avoid these lookups because they're done
-elsewhere. But I haven't traced the code paths and you have, so maybe I'm
-off base here.
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-family:monospace,monospace"><br></div></div><br><div class=3D"gmail_quote=
+"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Aug 19, 2020 at 12:07 PM Bo=
+b Peterson &lt;<a href=3D"mailto:rpeterso@redhat.com">rpeterso@redhat.com</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">--=
+--- Original Message -----<br>
+&gt; We store the local statfs info in the journal header now so<br>
+&gt; there&#39;s no need to write to the local statfs file anymore.<br>
+&gt; <br>
+&gt; Signed-off-by: Abhi Das &lt;<a href=3D"mailto:adas@redhat.com" target=
+=3D"_blank">adas@redhat.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 fs/gfs2/lops.c | 10 +++++++++-<br>
+&gt;=C2=A0 1 file changed, 9 insertions(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c<br>
+&gt; index cb2a11b458c6..53d2dbf6605e 100644<br>
+&gt; --- a/fs/gfs2/lops.c<br>
+&gt; +++ b/fs/gfs2/lops.c<br>
+&gt; @@ -104,7 +104,15 @@ static void gfs2_unpin(struct gfs2_sbd *sdp, stru=
+ct<br>
+&gt; buffer_head *bh,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0BUG_ON(!buffer_pinned(bh));<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0lock_buffer(bh);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0mark_buffer_dirty(bh);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * We want to eliminate the local statfs file eve=
+ntually.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * But, for now, we&#39;re simply not going to up=
+date it by<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * never marking its buffers dirty<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (!(bd-&gt;bd_gl-&gt;gl_name.ln_type =3D=3D LM_=
+TYPE_INODE &amp;&amp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bd-&gt;bd_gl-&gt;gl_object =
+=3D=3D GFS2_I(sdp-&gt;sd_sc_inode)))<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mark_buffer_dirty(bh)=
+;<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0clear_buffer_pinned(bh);<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (buffer_is_rgrp(bd))<br>
+&gt; --<br>
+&gt; 2.20.1<br>
+<br>
+Hi,<br>
+<br>
+This seems dangerous to me. It can only get to gfs2_unpin by trying to<br>
+commit buffers for a transaction. If the buffers aren&#39;t marked dirty,<b=
+r>
+that means transactions will be queued to the ail1 list that won&#39;t be<b=
+r>
+fully written. So what happens to them? Do they eventually get freed?<br>
+<br>
+I&#39;m also concerned about a potential impact to performance, since<br>
+gfs2_unpin gets called with every metadata buffer that&#39;s used.<br>
+The additional if checks may not costs us much time-wise, but it&#39;s a<br=
+>
+pretty hot function.<br>
+<br>
+Can&#39;t we accomplish the same thing by making function update_statfs()<b=
+r>
+never add the buffers to the transaction in the first place?<br>
+IOW, by just removing the line:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 gfs2_trans_add_meta(m_ip-&gt;i_gl, m_bh);<br>
+That way we don&#39;t need to worry about its buffer getting pinned,<br>
+unpinned and queued to the ail.<br>
+<br>
+Regards,<br>
+<br>
+Bob Peterson<br>
+<br></blockquote><div>=C2=A0</div><div><span class=3D"gmail_default" style=
+=3D"font-family:monospace,monospace">Fair point. I&#39;ll post an updated v=
+ersion of this patch that </span>=C2=A0<span class=3D"gmail_default" style=
+=3D"font-family:monospace,monospace">doesn&#39;t queue the buffer in the fi=
+rst place.</span></div><div><span class=3D"gmail_default" style=3D"font-fam=
+ily:monospace,monospace"><br></span></div><div><span class=3D"gmail_default=
+" style=3D"font-family:monospace,monospace">Cheers!<br>--Abhi</span></div><=
+/div></div>
 
-Regards,
-
-Bob Peterson
+--0000000000007d0f2705ad4d1403--
 
