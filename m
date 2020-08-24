@@ -1,87 +1,86 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 59BD924FBE3
-	for <lists+cluster-devel@lfdr.de>; Mon, 24 Aug 2020 12:47:32 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 4D3FF24FC06
+	for <lists+cluster-devel@lfdr.de>; Mon, 24 Aug 2020 12:55:17 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-523-5_KJ1LajPKil245X2QpGfw-1; Mon, 24 Aug 2020 06:47:18 -0400
-X-MC-Unique: 5_KJ1LajPKil245X2QpGfw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-160-QwmIt4ZINg6fsXsJ0r4bNQ-1; Mon, 24 Aug 2020 06:55:13 -0400
+X-MC-Unique: QwmIt4ZINg6fsXsJ0r4bNQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 751CC1074670;
-	Mon, 24 Aug 2020 10:47:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C4BCE2B46A;
-	Mon, 24 Aug 2020 10:47:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CCE9A1084C88;
+	Mon, 24 Aug 2020 10:55:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C7C960BF1;
+	Mon, 24 Aug 2020 10:55:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9C39F1832FC3;
-	Mon, 24 Aug 2020 10:47:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 39572668F7;
+	Mon, 24 Aug 2020 10:55:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07OAl5mM021760 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 24 Aug 2020 06:47:05 -0400
+	id 07OAt7Pb022534 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 24 Aug 2020 06:55:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7DD7A2028DCC; Mon, 24 Aug 2020 10:47:05 +0000 (UTC)
+	id 12D1B111142B; Mon, 24 Aug 2020 10:55:07 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7875D2026F94
-	for <cluster-devel@redhat.com>; Mon, 24 Aug 2020 10:47:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CCB9111142F
+	for <cluster-devel@redhat.com>; Mon, 24 Aug 2020 10:55:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8523D80096B
-	for <cluster-devel@redhat.com>; Mon, 24 Aug 2020 10:47:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9EA2A80158E
+	for <cluster-devel@redhat.com>; Mon, 24 Aug 2020 10:55:04 +0000 (UTC)
 Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-395-7KcdoK4JOlqjucfL8R9Uvw-1; Mon, 24 Aug 2020 06:46:48 -0400
-X-MC-Unique: 7KcdoK4JOlqjucfL8R9Uvw-1
+	us-mta-575-QWgtAjXNP8ydRB4ds4OilA-1; Mon, 24 Aug 2020 06:54:51 -0400
+X-MC-Unique: QWgtAjXNP8ydRB4ds4OilA-1
 Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
 	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	07OAi4vE117579; Mon, 24 Aug 2020 10:46:45 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-	by aserp2120.oracle.com with ESMTP id 333dbrktny-1
+	07OArkGD125556; Mon, 24 Aug 2020 10:54:48 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+	by aserp2120.oracle.com with ESMTP id 333dbrkuqm-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Mon, 24 Aug 2020 10:46:44 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-	by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	07OAihMv061046; Mon, 24 Aug 2020 10:44:44 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by aserp3030.oracle.com with ESMTP id 333r9hetyn-1
+	verify=FAIL); Mon, 24 Aug 2020 10:54:47 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	07OApELi156444; Mon, 24 Aug 2020 10:52:47 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+	by userp3030.oracle.com with ESMTP id 333r9h13v5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 24 Aug 2020 10:44:44 +0000
+	Mon, 24 Aug 2020 10:52:46 +0000
 Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 07OAiYj2003453;
-	Mon, 24 Aug 2020 10:44:34 GMT
+	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 07OAqjok021243;
+	Mon, 24 Aug 2020 10:52:46 GMT
 Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Mon, 24 Aug 2020 03:44:31 -0700
-Date: Mon, 24 Aug 2020 13:44:25 +0300
+	with ESMTP ; Mon, 24 Aug 2020 03:52:43 -0700
+Date: Mon, 24 Aug 2020 13:52:38 +0300
 From: Dan Carpenter <dan.carpenter@oracle.com>
 To: kbuild@lists.01.org, Bob Peterson <rpeterso@redhat.com>
-Message-ID: <20200824104425.GB1793@kadam>
+Message-ID: <20200824105238.GD1793@kadam>
 MIME-Version: 1.0
 User-Agent: Mutt/1.9.4 (2018-02-28)
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9722
 	signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
-	mlxscore=0 bulkscore=0
-	adultscore=0 spamscore=0 mlxlogscore=999 phishscore=0 suspectscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2008240085
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+	phishscore=0
+	suspectscore=0 malwarescore=0 spamscore=0 mlxlogscore=999 mlxscore=0
+	bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2006250000 definitions=main-2008240086
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9722
 	signatures=668679
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
-	clxscore=1011
+	clxscore=1015
 	priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
 	mlxlogscore=999 spamscore=0 mlxscore=0 lowpriorityscore=0
 	suspectscore=0
 	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2008240085
+	engine=8.12.0-2006250000 definitions=main-2008240086
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -90,11 +89,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, kbuild-all@lists.01.org, lkp@intel.com
-Subject: [Cluster-devel] [gfs2:for-next.bob6m 5/11] fs/gfs2/super.c:1458
- gfs2_evict_inode() error: uninitialized symbol 'error'.
+Subject: [Cluster-devel] [gfs2:for-next.bob6m 6/11] fs/gfs2/super.c:1443
+ gfs2_evict_inode() error: potentially dereferencing uninitialized
+ 'metamapping'.
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -108,21 +108,21 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.001
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="JfVplkuTfB13Rsg5"
+Content-Type: multipart/mixed; boundary="i13qRg9tmWEwo36p"
 Content-Disposition: inline
 
---JfVplkuTfB13Rsg5
+--i13qRg9tmWEwo36p
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next.bob6m
 head:   fd5ce905071cc34294900a21a773d9f8c72f5119
-commit: e7450d984b481c3174f7c69b1e5662150309a9b4 [5/11] gfs2: Calculate number of revokes during evict
+commit: 4b98604ca5531f8d662e07d4a10d5fe98c9d4eae [6/11] gfs2: Create transaction for inodes with i_nlink != 0
 config: i386-randconfig-m021-20200820 (attached as .config)
 compiler: gcc-9 (Debian 9.3.0-15) 9.3.0
 
@@ -130,194 +130,193 @@ If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 
-smatch warnings:
-fs/gfs2/super.c:1458 gfs2_evict_inode() error: uninitialized symbol 'error'.
+New smatch warnings:
+fs/gfs2/super.c:1443 gfs2_evict_inode() error: potentially dereferencing uninitialized 'metamapping'.
 
-# https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=e7450d984b481c3174f7c69b1e5662150309a9b4
+# https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=4b98604ca5531f8d662e07d4a10d5fe98c9d4eae
 git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
 git fetch --no-tags gfs2 for-next.bob6m
-git checkout e7450d984b481c3174f7c69b1e5662150309a9b4
-vim +/error +1458 fs/gfs2/super.c
+git checkout 4b98604ca5531f8d662e07d4a10d5fe98c9d4eae
+vim +/metamapping +1443 fs/gfs2/super.c
 
-d5c1515cf374951 Al Viro             2010-06-07  1332  static void gfs2_evict_inode(struct inode *inode)
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1333  {
-001e8e8df4283dd Steven Whitehouse   2011-03-30  1334  	struct super_block *sb = inode->i_sb;
-001e8e8df4283dd Steven Whitehouse   2011-03-30  1335  	struct gfs2_sbd *sdp = sb->s_fs_info;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1336  	struct gfs2_inode *ip = GFS2_I(inode);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1337  	struct gfs2_holder gh;
-ee530beafeca982 Bob Peterson        2015-12-07  1338  	struct address_space *metamapping;
-e7450d984b481c3 Bob Peterson        2020-08-12  1339  	int nr_revokes;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1340  	int error;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1341  
-059788039f1e634 Abhi Das            2014-03-31  1342  	if (test_bit(GIF_FREE_VFS_INODE, &ip->i_flags)) {
-059788039f1e634 Abhi Das            2014-03-31  1343  		clear_inode(inode);
-059788039f1e634 Abhi Das            2014-03-31  1344  		return;
-059788039f1e634 Abhi Das            2014-03-31  1345  	}
-059788039f1e634 Abhi Das            2014-03-31  1346  
-bc98a42c1f7d0f8 David Howells       2017-07-17  1347  	if (inode->i_nlink || sb_rdonly(sb))
-d5c1515cf374951 Al Viro             2010-06-07  1348  		goto out;
-d5c1515cf374951 Al Viro             2010-06-07  1349  
-e0b62e21b71bbe6 Andreas Gruenbacher 2017-06-30  1350  	if (test_bit(GIF_ALLOC_FAILED, &ip->i_flags)) {
-e0b62e21b71bbe6 Andreas Gruenbacher 2017-06-30  1351  		BUG_ON(!gfs2_glock_is_locked_by_me(ip->i_gl));
-e0b62e21b71bbe6 Andreas Gruenbacher 2017-06-30  1352  		gfs2_holder_mark_uninitialized(&gh);
-8c7b9262a860763 Andreas Gruenbacher 2020-01-13  1353  		goto out_delete;
+d5c1515cf37495 Al Viro             2010-06-07  1332  static void gfs2_evict_inode(struct inode *inode)
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1333  {
+001e8e8df4283d Steven Whitehouse   2011-03-30  1334  	struct super_block *sb = inode->i_sb;
+001e8e8df4283d Steven Whitehouse   2011-03-30  1335  	struct gfs2_sbd *sdp = sb->s_fs_info;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1336  	struct gfs2_inode *ip = GFS2_I(inode);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1337  	struct gfs2_holder gh;
+ee530beafeca98 Bob Peterson        2015-12-07  1338  	struct address_space *metamapping;
+e7450d984b481c Bob Peterson        2020-08-12  1339  	int nr_revokes;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1340  	int error;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1341  
+059788039f1e63 Abhi Das            2014-03-31  1342  	if (test_bit(GIF_FREE_VFS_INODE, &ip->i_flags)) {
+059788039f1e63 Abhi Das            2014-03-31  1343  		clear_inode(inode);
+059788039f1e63 Abhi Das            2014-03-31  1344  		return;
+059788039f1e63 Abhi Das            2014-03-31  1345  	}
+059788039f1e63 Abhi Das            2014-03-31  1346  
+4b98604ca5531f Bob Peterson        2020-08-12  1347  	if (sb_rdonly(sb))
+d5c1515cf37495 Al Viro             2010-06-07  1348  		goto out;
+d5c1515cf37495 Al Viro             2010-06-07  1349  
+e0b62e21b71bbe Andreas Gruenbacher 2017-06-30  1350  	if (test_bit(GIF_ALLOC_FAILED, &ip->i_flags)) {
+e0b62e21b71bbe Andreas Gruenbacher 2017-06-30  1351  		BUG_ON(!gfs2_glock_is_locked_by_me(ip->i_gl));
+e0b62e21b71bbe Andreas Gruenbacher 2017-06-30  1352  		gfs2_holder_mark_uninitialized(&gh);
+8c7b9262a86076 Andreas Gruenbacher 2020-01-13  1353  		goto out_delete;
+e0b62e21b71bbe Andreas Gruenbacher 2017-06-30  1354  	}
+e0b62e21b71bbe Andreas Gruenbacher 2017-06-30  1355  
+8c7b9262a86076 Andreas Gruenbacher 2020-01-13  1356  	if (test_bit(GIF_DEFERRED_DELETE, &ip->i_flags))
+8c7b9262a86076 Andreas Gruenbacher 2020-01-13  1357  		goto out;
+8c7b9262a86076 Andreas Gruenbacher 2020-01-13  1358  
+6a1c8f6dcf815d Andreas Gruenbacher 2017-08-01  1359  	/* Deletes should never happen under memory pressure anymore.  */
+6a1c8f6dcf815d Andreas Gruenbacher 2017-08-01  1360  	if (WARN_ON_ONCE(current->flags & PF_MEMALLOC))
+6a1c8f6dcf815d Andreas Gruenbacher 2017-08-01  1361  		goto out;
+6a1c8f6dcf815d Andreas Gruenbacher 2017-08-01  1362  
+44ad37d69b2cc4 Bob Peterson        2011-03-17  1363  	/* Must not read inode block until block type has been verified */
+44ad37d69b2cc4 Bob Peterson        2011-03-17  1364  	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_SKIP, &gh);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1365  	if (unlikely(error)) {
+240c6235dfe4fe Bob Peterson        2017-07-18  1366  		glock_clear_object(ip->i_iopen_gh.gh_gl, ip);
+a6a4d98b0124b5 Bob Peterson        2013-05-29  1367  		ip->i_iopen_gh.gh_flags |= GL_NOCACHE;
+d4da31986c5da1 Andreas Gruenbacher 2017-02-22  1368  		gfs2_glock_dq_uninit(&ip->i_iopen_gh);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1369  		goto out;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1370  	}
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1371  
+f286d627ef026a Andreas Gruenbacher 2020-01-13  1372  	if (gfs2_inode_already_deleted(ip->i_gl, ip->i_no_formal_ino))
+4b98604ca5531f Bob Peterson        2020-08-12  1373  		goto out_flush;
+acf7e2444acfaf Steven Whitehouse   2009-09-08  1374  	error = gfs2_check_blk_type(sdp, ip->i_no_addr, GFS2_BLKST_UNLINKED);
+4b98604ca5531f Bob Peterson        2020-08-12  1375  	if (error) {
+4b98604ca5531f Bob Peterson        2020-08-12  1376  		error = 0;
+4b98604ca5531f Bob Peterson        2020-08-12  1377  		goto out_flush;
+4b98604ca5531f Bob Peterson        2020-08-12  1378  	}
+acf7e2444acfaf Steven Whitehouse   2009-09-08  1379  
+44ad37d69b2cc4 Bob Peterson        2011-03-17  1380  	if (test_bit(GIF_INVALID, &ip->i_flags)) {
+44ad37d69b2cc4 Bob Peterson        2011-03-17  1381  		error = gfs2_inode_refresh(ip);
+4b98604ca5531f Bob Peterson        2020-08-12  1382  		if (error) {
+4b98604ca5531f Bob Peterson        2020-08-12  1383  			error = 0;
+4b98604ca5531f Bob Peterson        2020-08-12  1384  			goto out_flush;
+4b98604ca5531f Bob Peterson        2020-08-12  1385  		}
+44ad37d69b2cc4 Bob Peterson        2011-03-17  1386  	}
+44ad37d69b2cc4 Bob Peterson        2011-03-17  1387  
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1388  	/*
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1389  	 * The inode may have been recreated in the meantime.
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1390  	 */
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1391  	if (inode->i_nlink)
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1392  		goto out_truncate;
 
->From this goto
+This one is a lot more clearly a bug...
 
-e0b62e21b71bbe6 Andreas Gruenbacher 2017-06-30  1354  	}
-e0b62e21b71bbe6 Andreas Gruenbacher 2017-06-30  1355  
-8c7b9262a860763 Andreas Gruenbacher 2020-01-13  1356  	if (test_bit(GIF_DEFERRED_DELETE, &ip->i_flags))
-8c7b9262a860763 Andreas Gruenbacher 2020-01-13  1357  		goto out;
-8c7b9262a860763 Andreas Gruenbacher 2020-01-13  1358  
-6a1c8f6dcf815d9 Andreas Gruenbacher 2017-08-01  1359  	/* Deletes should never happen under memory pressure anymore.  */
-6a1c8f6dcf815d9 Andreas Gruenbacher 2017-08-01  1360  	if (WARN_ON_ONCE(current->flags & PF_MEMALLOC))
-6a1c8f6dcf815d9 Andreas Gruenbacher 2017-08-01  1361  		goto out;
-6a1c8f6dcf815d9 Andreas Gruenbacher 2017-08-01  1362  
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1363  	/* Must not read inode block until block type has been verified */
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1364  	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_SKIP, &gh);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1365  	if (unlikely(error)) {
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1366  		glock_clear_object(ip->i_iopen_gh.gh_gl, ip);
-a6a4d98b0124b5d Bob Peterson        2013-05-29  1367  		ip->i_iopen_gh.gh_flags |= GL_NOCACHE;
-d4da31986c5da14 Andreas Gruenbacher 2017-02-22  1368  		gfs2_glock_dq_uninit(&ip->i_iopen_gh);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1369  		goto out;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1370  	}
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1371  
-f286d627ef026a4 Andreas Gruenbacher 2020-01-13  1372  	if (gfs2_inode_already_deleted(ip->i_gl, ip->i_no_formal_ino))
-f286d627ef026a4 Andreas Gruenbacher 2020-01-13  1373  		goto out_truncate;
-acf7e2444acfaf4 Steven Whitehouse   2009-09-08  1374  	error = gfs2_check_blk_type(sdp, ip->i_no_addr, GFS2_BLKST_UNLINKED);
-acf7e2444acfaf4 Steven Whitehouse   2009-09-08  1375  	if (error)
-acf7e2444acfaf4 Steven Whitehouse   2009-09-08  1376  		goto out_truncate;
-acf7e2444acfaf4 Steven Whitehouse   2009-09-08  1377  
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1378  	if (test_bit(GIF_INVALID, &ip->i_flags)) {
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1379  		error = gfs2_inode_refresh(ip);
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1380  		if (error)
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1381  			goto out_truncate;
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1382  	}
-44ad37d69b2cc42 Bob Peterson        2011-03-17  1383  
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1384  	/*
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1385  	 * The inode may have been recreated in the meantime.
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1386  	 */
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1387  	if (inode->i_nlink)
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1388  		goto out_truncate;
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1389  
-8c7b9262a860763 Andreas Gruenbacher 2020-01-13  1390  out_delete:
-6df9f9a253c7dc9 Andreas Gruenbacher 2016-06-17  1391  	if (gfs2_holder_initialized(&ip->i_iopen_gh) &&
-7508abc4bdac43d Bob Peterson        2015-12-18  1392  	    test_bit(HIF_HOLDER, &ip->i_iopen_gh.gh_iflags)) {
-9e73330f298acf5 Andreas Gruenbacher 2020-01-14  1393  		if (!gfs2_upgrade_iopen_glock(inode)) {
-9e73330f298acf5 Andreas Gruenbacher 2020-01-14  1394  			gfs2_holder_uninit(&ip->i_iopen_gh);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1395  			goto out_truncate;
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1393  
+8c7b9262a86076 Andreas Gruenbacher 2020-01-13  1394  out_delete:
+6df9f9a253c7dc Andreas Gruenbacher 2016-06-17  1395  	if (gfs2_holder_initialized(&ip->i_iopen_gh) &&
+7508abc4bdac43 Bob Peterson        2015-12-18  1396  	    test_bit(HIF_HOLDER, &ip->i_iopen_gh.gh_iflags)) {
+9e73330f298acf Andreas Gruenbacher 2020-01-14  1397  		if (!gfs2_upgrade_iopen_glock(inode)) {
+9e73330f298acf Andreas Gruenbacher 2020-01-14  1398  			gfs2_holder_uninit(&ip->i_iopen_gh);
+4b98604ca5531f Bob Peterson        2020-08-12  1399  			goto out_flush;
+7508abc4bdac43 Bob Peterson        2015-12-18  1400  		}
+9e73330f298acf Andreas Gruenbacher 2020-01-14  1401  	}
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1402  
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1403  	if (S_ISDIR(inode->i_mode) &&
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1404  	    (ip->i_diskflags & GFS2_DIF_EXHASH)) {
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1405  		error = gfs2_dir_exhash_dealloc(ip);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1406  		if (error)
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1407  			goto out_unlock;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1408  	}
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1409  
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1410  	if (ip->i_eattr) {
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1411  		error = gfs2_ea_dealloc(ip);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1412  		if (error)
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1413  			goto out_unlock;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1414  	}
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1415  
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1416  	if (!gfs2_is_stuffed(ip)) {
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1417  		error = gfs2_file_dealloc(ip);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1418  		if (error)
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1419  			goto out_unlock;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1420  	}
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1421  
+240c6235dfe4fe Bob Peterson        2017-07-18  1422  	/* We're about to clear the bitmap for the dinode, but as soon as we
+240c6235dfe4fe Bob Peterson        2017-07-18  1423  	   do, gfs2_create_inode can create another inode at the same block
+240c6235dfe4fe Bob Peterson        2017-07-18  1424  	   location and try to set gl_object again. We clear gl_object here so
+240c6235dfe4fe Bob Peterson        2017-07-18  1425  	   that subsequent inode creates don't see an old gl_object. */
+240c6235dfe4fe Bob Peterson        2017-07-18  1426  	glock_clear_object(ip->i_gl, ip);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1427  	error = gfs2_dinode_dealloc(ip);
+f286d627ef026a Andreas Gruenbacher 2020-01-13  1428  	gfs2_inode_remember_delete(ip->i_gl, ip->i_no_formal_ino);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1429  	goto out_unlock;
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1430  
+4b98604ca5531f Bob Peterson        2020-08-12  1431  out_flush:
+805c090750a315 Bob Peterson        2018-01-08  1432  	gfs2_log_flush(sdp, ip->i_gl, GFS2_LOG_HEAD_FLUSH_NORMAL |
+805c090750a315 Bob Peterson        2018-01-08  1433  		       GFS2_LFC_EVICT_INODE);
+ee530beafeca98 Bob Peterson        2015-12-07  1434  	metamapping = gfs2_glock2aspace(ip->i_gl);
+2216db70c95a96 Benjamin Marzinski  2012-09-20  1435  	if (test_bit(GLF_DIRTY, &ip->i_gl->gl_flags)) {
+2216db70c95a96 Benjamin Marzinski  2012-09-20  1436  		filemap_fdatawrite(metamapping);
+2216db70c95a96 Benjamin Marzinski  2012-09-20  1437  		filemap_fdatawait(metamapping);
+2216db70c95a96 Benjamin Marzinski  2012-09-20  1438  	}
+40ac218f52aa5c Steven Whitehouse   2011-08-02  1439  	write_inode_now(inode, 1);
+b5b24d7aeb9608 Steven Whitehouse   2011-09-07  1440  	gfs2_ail_flush(ip->i_gl, 0);
+40ac218f52aa5c Steven Whitehouse   2011-08-02  1441  
+4b98604ca5531f Bob Peterson        2020-08-12  1442  out_truncate:
+e7450d984b481c Bob Peterson        2020-08-12 @1443  	nr_revokes = inode->i_mapping->nrpages + metamapping->nrpages;
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^
+This will Oops.
 
-And this goto
-
-7508abc4bdac43d Bob Peterson        2015-12-18  1396  		}
-9e73330f298acf5 Andreas Gruenbacher 2020-01-14  1397  	}
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1398  
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1399  	if (S_ISDIR(inode->i_mode) &&
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1400  	    (ip->i_diskflags & GFS2_DIF_EXHASH)) {
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1401  		error = gfs2_dir_exhash_dealloc(ip);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1402  		if (error)
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1403  			goto out_unlock;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1404  	}
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1405  
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1406  	if (ip->i_eattr) {
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1407  		error = gfs2_ea_dealloc(ip);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1408  		if (error)
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1409  			goto out_unlock;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1410  	}
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1411  
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1412  	if (!gfs2_is_stuffed(ip)) {
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1413  		error = gfs2_file_dealloc(ip);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1414  		if (error)
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1415  			goto out_unlock;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1416  	}
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1417  
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1418  	/* We're about to clear the bitmap for the dinode, but as soon as we
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1419  	   do, gfs2_create_inode can create another inode at the same block
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1420  	   location and try to set gl_object again. We clear gl_object here so
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1421  	   that subsequent inode creates don't see an old gl_object. */
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1422  	glock_clear_object(ip->i_gl, ip);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1423  	error = gfs2_dinode_dealloc(ip);
-f286d627ef026a4 Andreas Gruenbacher 2020-01-13  1424  	gfs2_inode_remember_delete(ip->i_gl, ip->i_no_formal_ino);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1425  	goto out_unlock;
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1426  
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1427  out_truncate:
-805c090750a315c Bob Peterson        2018-01-08  1428  	gfs2_log_flush(sdp, ip->i_gl, GFS2_LOG_HEAD_FLUSH_NORMAL |
-805c090750a315c Bob Peterson        2018-01-08  1429  		       GFS2_LFC_EVICT_INODE);
-ee530beafeca982 Bob Peterson        2015-12-07  1430  	metamapping = gfs2_glock2aspace(ip->i_gl);
-2216db70c95a961 Benjamin Marzinski  2012-09-20  1431  	if (test_bit(GLF_DIRTY, &ip->i_gl->gl_flags)) {
-2216db70c95a961 Benjamin Marzinski  2012-09-20  1432  		filemap_fdatawrite(metamapping);
-2216db70c95a961 Benjamin Marzinski  2012-09-20  1433  		filemap_fdatawait(metamapping);
-2216db70c95a961 Benjamin Marzinski  2012-09-20  1434  	}
-40ac218f52aa5ca Steven Whitehouse   2011-08-02  1435  	write_inode_now(inode, 1);
-b5b24d7aeb96089 Steven Whitehouse   2011-09-07  1436  	gfs2_ail_flush(ip->i_gl, 0);
-40ac218f52aa5ca Steven Whitehouse   2011-08-02  1437  
-e7450d984b481c3 Bob Peterson        2020-08-12  1438  	nr_revokes = inode->i_mapping->nrpages + metamapping->nrpages;
-e7450d984b481c3 Bob Peterson        2020-08-12  1439  	if (!nr_revokes)
-e7450d984b481c3 Bob Peterson        2020-08-12  1440  		goto out_unlock;
-
-To this goto
-
-e7450d984b481c3 Bob Peterson        2020-08-12  1441  
-e7450d984b481c3 Bob Peterson        2020-08-12  1442  	error = gfs2_trans_begin(sdp, 0, nr_revokes);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1443  	if (error)
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1444  		goto out_unlock;
-380f7c65a7eb328 Steven Whitehouse   2011-07-14  1445  	/* Needs to be done before glock release & also in a transaction */
-380f7c65a7eb328 Steven Whitehouse   2011-07-14  1446  	truncate_inode_pages(&inode->i_data, 0);
-ee530beafeca982 Bob Peterson        2015-12-07  1447  	truncate_inode_pages(metamapping, 0);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1448  	gfs2_trans_end(sdp);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1449  
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1450  out_unlock:
-a097dc7e24cba79 Bob Peterson        2015-07-16  1451  	if (gfs2_rs_active(&ip->i_res))
-a097dc7e24cba79 Bob Peterson        2015-07-16  1452  		gfs2_rs_deltree(&ip->i_res);
-8e2e00473598dd5 Bob Peterson        2012-07-19  1453  
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1454  	if (gfs2_holder_initialized(&gh)) {
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1455  		glock_clear_object(ip->i_gl, ip);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1456  		gfs2_glock_dq_uninit(&gh);
-240c6235dfe4fe4 Bob Peterson        2017-07-18  1457  	}
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22 @1458  	if (error && error != GLR_TRYFAILED && error != -EROFS)
-                                                            ^^^^^
-Potentially uninitialized?
-
-d5c1515cf374951 Al Viro             2010-06-07  1459  		fs_warn(sdp, "gfs2_evict_inode: %d\n", error);
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1460  out:
-91b0abe36a7b2b3 Johannes Weiner     2014-04-03  1461  	truncate_inode_pages_final(&inode->i_data);
-2fba46a04c383f9 Bob Peterson        2020-02-27  1462  	if (ip->i_qadata)
-2fba46a04c383f9 Bob Peterson        2020-02-27  1463  		gfs2_assert_warn(sdp, ip->i_qadata->qa_ref == 0);
-1595548fe72ca83 Andreas Gruenbacher 2020-03-06  1464  	gfs2_rs_delete(ip, NULL);
-4513899092b3254 Steven Whitehouse   2013-01-28  1465  	gfs2_ordered_del_inode(ip);
-dbd5768f87ff6fb Jan Kara            2012-05-03  1466  	clear_inode(inode);
-17d539f0499fa2c Steven Whitehouse   2011-06-15  1467  	gfs2_dir_hash_inval(ip);
-40e7e86ef16550c Andreas Gruenbacher 2020-01-24  1468  	if (ip->i_gl) {
-df3d87bde121213 Bob Peterson        2017-07-18  1469  		glock_clear_object(ip->i_gl, ip);
-4fd1a5795214bc6 Andreas Gruenbacher 2017-06-30  1470  		wait_on_bit_io(&ip->i_flags, GIF_GLOP_PENDING, TASK_UNINTERRUPTIBLE);
-29687a2ac8dfcd5 Steven Whitehouse   2011-03-30  1471  		gfs2_glock_add_to_lru(ip->i_gl);
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1472  		gfs2_glock_put_eventually(ip->i_gl);
-d5c1515cf374951 Al Viro             2010-06-07  1473  		ip->i_gl = NULL;
-40e7e86ef16550c Andreas Gruenbacher 2020-01-24  1474  	}
-6df9f9a253c7dc9 Andreas Gruenbacher 2016-06-17  1475  	if (gfs2_holder_initialized(&ip->i_iopen_gh)) {
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1476  		struct gfs2_glock *gl = ip->i_iopen_gh.gh_gl;
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1477  
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1478  		glock_clear_object(gl, ip);
-40e7e86ef16550c Andreas Gruenbacher 2020-01-24  1479  		if (test_bit(HIF_HOLDER, &ip->i_iopen_gh.gh_iflags)) {
-a6a4d98b0124b5d Bob Peterson        2013-05-29  1480  			ip->i_iopen_gh.gh_flags |= GL_NOCACHE;
-40e7e86ef16550c Andreas Gruenbacher 2020-01-24  1481  			gfs2_glock_dq(&ip->i_iopen_gh);
-40e7e86ef16550c Andreas Gruenbacher 2020-01-24  1482  		}
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1483  		gfs2_glock_hold(gl);
-40e7e86ef16550c Andreas Gruenbacher 2020-01-24  1484  		gfs2_holder_uninit(&ip->i_iopen_gh);
-71c1b2136835c88 Andreas Gruenbacher 2017-08-01  1485  		gfs2_glock_put_eventually(gl);
-d5c1515cf374951 Al Viro             2010-06-07  1486  	}
-9e6e0a128bca0a1 Steven Whitehouse   2009-05-22  1487  }
+e7450d984b481c Bob Peterson        2020-08-12  1444  	if (!nr_revokes)
+e7450d984b481c Bob Peterson        2020-08-12  1445  		goto out_unlock;
+e7450d984b481c Bob Peterson        2020-08-12  1446  
+e7450d984b481c Bob Peterson        2020-08-12  1447  	error = gfs2_trans_begin(sdp, 0, nr_revokes);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1448  	if (error)
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1449  		goto out_unlock;
+380f7c65a7eb32 Steven Whitehouse   2011-07-14  1450  	/* Needs to be done before glock release & also in a transaction */
+380f7c65a7eb32 Steven Whitehouse   2011-07-14  1451  	truncate_inode_pages(&inode->i_data, 0);
+ee530beafeca98 Bob Peterson        2015-12-07  1452  	truncate_inode_pages(metamapping, 0);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1453  	gfs2_trans_end(sdp);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1454  
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1455  out_unlock:
+a097dc7e24cba7 Bob Peterson        2015-07-16  1456  	if (gfs2_rs_active(&ip->i_res))
+a097dc7e24cba7 Bob Peterson        2015-07-16  1457  		gfs2_rs_deltree(&ip->i_res);
+8e2e00473598dd Bob Peterson        2012-07-19  1458  
+240c6235dfe4fe Bob Peterson        2017-07-18  1459  	if (gfs2_holder_initialized(&gh)) {
+240c6235dfe4fe Bob Peterson        2017-07-18  1460  		glock_clear_object(ip->i_gl, ip);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1461  		gfs2_glock_dq_uninit(&gh);
+240c6235dfe4fe Bob Peterson        2017-07-18  1462  	}
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1463  	if (error && error != GLR_TRYFAILED && error != -EROFS)
+d5c1515cf37495 Al Viro             2010-06-07  1464  		fs_warn(sdp, "gfs2_evict_inode: %d\n", error);
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1465  out:
+91b0abe36a7b2b Johannes Weiner     2014-04-03  1466  	truncate_inode_pages_final(&inode->i_data);
+2fba46a04c383f Bob Peterson        2020-02-27  1467  	if (ip->i_qadata)
+2fba46a04c383f Bob Peterson        2020-02-27  1468  		gfs2_assert_warn(sdp, ip->i_qadata->qa_ref == 0);
+1595548fe72ca8 Andreas Gruenbacher 2020-03-06  1469  	gfs2_rs_delete(ip, NULL);
+4513899092b325 Steven Whitehouse   2013-01-28  1470  	gfs2_ordered_del_inode(ip);
+dbd5768f87ff6f Jan Kara            2012-05-03  1471  	clear_inode(inode);
+17d539f0499fa2 Steven Whitehouse   2011-06-15  1472  	gfs2_dir_hash_inval(ip);
+40e7e86ef16550 Andreas Gruenbacher 2020-01-24  1473  	if (ip->i_gl) {
+df3d87bde12121 Bob Peterson        2017-07-18  1474  		glock_clear_object(ip->i_gl, ip);
+4fd1a5795214bc Andreas Gruenbacher 2017-06-30  1475  		wait_on_bit_io(&ip->i_flags, GIF_GLOP_PENDING, TASK_UNINTERRUPTIBLE);
+29687a2ac8dfcd Steven Whitehouse   2011-03-30  1476  		gfs2_glock_add_to_lru(ip->i_gl);
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1477  		gfs2_glock_put_eventually(ip->i_gl);
+d5c1515cf37495 Al Viro             2010-06-07  1478  		ip->i_gl = NULL;
+40e7e86ef16550 Andreas Gruenbacher 2020-01-24  1479  	}
+6df9f9a253c7dc Andreas Gruenbacher 2016-06-17  1480  	if (gfs2_holder_initialized(&ip->i_iopen_gh)) {
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1481  		struct gfs2_glock *gl = ip->i_iopen_gh.gh_gl;
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1482  
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1483  		glock_clear_object(gl, ip);
+40e7e86ef16550 Andreas Gruenbacher 2020-01-24  1484  		if (test_bit(HIF_HOLDER, &ip->i_iopen_gh.gh_iflags)) {
+a6a4d98b0124b5 Bob Peterson        2013-05-29  1485  			ip->i_iopen_gh.gh_flags |= GL_NOCACHE;
+40e7e86ef16550 Andreas Gruenbacher 2020-01-24  1486  			gfs2_glock_dq(&ip->i_iopen_gh);
+40e7e86ef16550 Andreas Gruenbacher 2020-01-24  1487  		}
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1488  		gfs2_glock_hold(gl);
+40e7e86ef16550 Andreas Gruenbacher 2020-01-24  1489  		gfs2_holder_uninit(&ip->i_iopen_gh);
+71c1b2136835c8 Andreas Gruenbacher 2017-08-01  1490  		gfs2_glock_put_eventually(gl);
+d5c1515cf37495 Al Viro             2010-06-07  1491  	}
+9e6e0a128bca0a Steven Whitehouse   2009-05-22  1492  }
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---JfVplkuTfB13Rsg5
+--i13qRg9tmWEwo36p
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICCvaPl8AAy5jb25maWcAlFxNd9u20t73V+i0m3bRXn/EaXre4wUIghKuCIIBSFnyBsd1lNSn
+H4sICKjtPl8AAy5jb25maWcAlFxNd9u20t73V+i0m3bRXn/EaXre4wUIghKuCIIBSFnyBsd1lNSn
 jp0r27fNv39nAFAEQNDN7SI1MYPvwcwzg4F++O6HBXl5fvx883x3e3N//3Xxaf+wP9w87z8sPt7d
 7/9vUcpFI7sFK3n3CzDXdw8vf//r7vzd28XFL+9+Ofn5cHuxWO8PD/v7BX18+Hj36QVq3z0+fPfD
 d1Q2FV8aSs2GKc1lYzq27S6//3R7+/Nvix/L/e93Nw+L3345h2ZOL35yf30fVOPaLCm9/DoULcem
@@ -1000,5 +999,5 @@ RAS1FsA77yHTbE7UWrftsKq589PSSig7CcThvVYmjlHDwYaUTRNTG0uzQdAi0/Iu815fbbRP9vQp
 LvxyE9Nc83xAKEzZ19fruNI1iwyEC96yJDXppU5Z4GhmBqd7y7m9zYt6Yy5TE1PGuYU0tSQBVFbA
 PoQSMNIU6aX3xkEI2bi7vym+2A+55j2+KSf2GkJTE7PPp04YeQ1GrJB9Jz6CBRuIbwufZL1BaC6b
 xv8DRBLCcwpWAgA=
---JfVplkuTfB13Rsg5--
+--i13qRg9tmWEwo36p--
 
