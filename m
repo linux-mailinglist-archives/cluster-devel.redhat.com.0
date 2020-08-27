@@ -1,90 +1,90 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B429B253D59
-	for <lists+cluster-devel@lfdr.de>; Thu, 27 Aug 2020 08:01:10 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id E5878253D57
+	for <lists+cluster-devel@lfdr.de>; Thu, 27 Aug 2020 08:00:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1598508069;
+	s=mimecast20190719; t=1598508049;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=HT7xNMqOMe7Doxio6Z1gvgOXGF0U9dwxT8LfIAd4d2A=;
-	b=HwD32XCJ6Sd/0JWOuvRRZuuWAZLudZOcMYwC8AsMhsUhJA4vwRPr7F9KMOvKpmoSkRrWA8
-	XT3KSN+3F33Up2RmgdgqlgjiXTI2PcHBw2kvfU+nxuXG2OxJBu1ODeQEV1GLKe5sSIsZmQ
-	0v5UhVlr2mHEMX1PJvThWfAvF2ckunI=
+	 list-subscribe:list-post; bh=Ra82U5Tyd8fe14dqucBgaDmgTtAtwsBbLEIoedgnbPc=;
+	b=fFWJBzdmRZN1LhPDTxjudexpcVMkDy09aRZhIshfjhMMJOi16eTwP9fQXWtoDysAwUlOY1
+	0g9HLx19+f9m7Vd66RN3CYu+a1pkZREhQI9nCcEBJ3z42HzaWdmflXNCxdAuL+0S4izmZ7
+	bDlmuAdd8xGVdboakye+wMWFK34/E4k=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-283-0lRNO8C-PHO7y-qj4G5YQQ-1; Thu, 27 Aug 2020 02:01:08 -0400
-X-MC-Unique: 0lRNO8C-PHO7y-qj4G5YQQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-578-5qeyd7JZOgC02ojQoYXw8Q-1; Thu, 27 Aug 2020 02:00:47 -0400
+X-MC-Unique: 5qeyd7JZOgC02ojQoYXw8Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DAFE61DE01;
-	Thu, 27 Aug 2020 06:01:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 77F9F807337;
+	Thu, 27 Aug 2020 06:00:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C97C85D9E8;
-	Thu, 27 Aug 2020 06:01:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58646702E7;
+	Thu, 27 Aug 2020 06:00:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9261FA2208;
-	Thu, 27 Aug 2020 06:01:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F01860376;
+	Thu, 27 Aug 2020 06:00:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07R613Pm019317 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 27 Aug 2020 02:01:03 -0400
+	id 07R60Xka019220 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 27 Aug 2020 02:00:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 77092115588B; Thu, 27 Aug 2020 06:01:03 +0000 (UTC)
+	id 1B8BCF5185; Thu, 27 Aug 2020 06:00:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 730531155882
-	for <cluster-devel@redhat.com>; Thu, 27 Aug 2020 06:01:00 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16A20F518A
+	for <cluster-devel@redhat.com>; Thu, 27 Aug 2020 06:00:27 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE583185A78B
-	for <cluster-devel@redhat.com>; Thu, 27 Aug 2020 06:01:00 +0000 (UTC)
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
-	[209.85.161.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-534-bUaJOcEOO1-9esDepZK02g-1; Thu, 27 Aug 2020 02:00:58 -0400
-X-MC-Unique: bUaJOcEOO1-9esDepZK02g-1
-Received: by mail-oo1-f72.google.com with SMTP id a5so2373834ooj.6
-	for <cluster-devel@redhat.com>; Wed, 26 Aug 2020 23:00:58 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29F69101A53F
+	for <cluster-devel@redhat.com>; Thu, 27 Aug 2020 06:00:27 +0000 (UTC)
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+	[209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-525-2nOe1NBRPHuNBrPDZ5fsMg-1; Thu, 27 Aug 2020 02:00:23 -0400
+X-MC-Unique: 2nOe1NBRPHuNBrPDZ5fsMg-1
+Received: by mail-oi1-f200.google.com with SMTP id v188so2201011oie.6
+	for <cluster-devel@redhat.com>; Wed, 26 Aug 2020 23:00:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=HT7xNMqOMe7Doxio6Z1gvgOXGF0U9dwxT8LfIAd4d2A=;
-	b=YQ4Q4dkXCP+HWmsl7zCdVw5ToEO3mXIGB43/lL1SiTyb1zGVgdLwB1qbDPLNp47HHh
-	S2cduEjRm7WLXun8Qk8q8LdlrTY46kS4o8Fns41rbcAgtJ+kMwJG9sy9ULcimlsQmqJv
-	H9wHiPlrYyCVpqIe0aCrX6NYET/EpdFmfzelwsckg6vtleDTrZ7za9ww/3MdveSzvbSH
-	rnwpy/3ZiZ5lIUJvebtyI3s2G+7CPpCsJ5ntRToGZsEesYZRqFQ78k62IS0aEAN58DQj
-	PGlPTe1IAvf2lNkzXIl3eBl0K8h66/d4LRM+l9EasEALgx8SdH2nkO/IvJTag81dch0K
-	8DIw==
-X-Gm-Message-State: AOAM531yGZ+ipc25I7hBsjOPYbqTmp+eXHJiI0SjvrPsy0Eu5pKbS3CV
-	VIRoSQB+u+gFSE8Ahxd3lRU18VPuz7vMrET8NYQOBNoS2rl5vucqCNjcOM+5+aq0Ginj9ZmJvHq
-	A7khUJnPYNiUoNsm/1xBDV1hTLEcZqBwcijaY1g==
-X-Received: by 2002:a54:4007:: with SMTP id x7mr5777929oie.178.1598508057514; 
-	Wed, 26 Aug 2020 23:00:57 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxC1K56UuMhwkWiQllu/L9He6wVtZ1V8Ot/yAQb3nZ3kvZH8bsMXWYMdhcpEhX6K7REgacsGvghBi8F61bPOTw=
-X-Received: by 2002:a54:4007:: with SMTP id x7mr5777918oie.178.1598508057225; 
-	Wed, 26 Aug 2020 23:00:57 -0700 (PDT)
+	bh=Ra82U5Tyd8fe14dqucBgaDmgTtAtwsBbLEIoedgnbPc=;
+	b=QyxPqkVWNJzgjIalyZzN+dv6nvAalyM60pHCOhRn56Lm9BNT7yvYlUs8ISdLDaU2xG
+	n2x6scuXw1TfjgkNLHuQBDicfsuJCuXBdWjV18jwEcvIxWhVs3WnrmeuBNw3g7L/dJHU
+	Y9TCcpH1ZlZ7wcaixYZ9OHvgVW5ZF1cdbYNx+eu6xPR81yC5bUmbUbzDzcQ8AIS1dJQ1
+	Gs/aHBC98EE+7RT9MHiMNY9qUVWmj6+MEdHOKNz3SdAS3nCyd8CHriWLk2Jc9ft6HoXF
+	/c1biUMJ9xQ8MgDELqXEYD4xjjHOjrrBrD2Z5Na6BF3A7cJrY4lxnFYljDYpmnqxFahu
+	PBRg==
+X-Gm-Message-State: AOAM533xjPvRWpsB7nz6h37bEFZVVOHmqj83dm2fUq2xS8cugB9KG5T4
+	ahIaYMfZtl4GCaH7SbQZa+dDjaX206MFErt6hHUSEOCaYtwo0HFNbzBO1/6w3AxIIPrUQ26KZ3w
+	QncimwjhGlvnsOoHElsSpUF8SOLpOlLgFUIN4dA==
+X-Received: by 2002:a9d:2dc9:: with SMTP id g67mr6906024otb.297.1598508022248; 
+	Wed, 26 Aug 2020 23:00:22 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyE4u4TlbPx8C8J+dinGV2KPU+jniJbwyrIISVxKVdLwA1KiCNH8gBfMEpdb4QQxJNFUtL+KJB7X81hJM5fhJE=
+X-Received: by 2002:a9d:2dc9:: with SMTP id g67mr6906015otb.297.1598508021988; 
+	Wed, 26 Aug 2020 23:00:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200821173337.20377-1-rpeterso@redhat.com>
-	<20200821173337.20377-6-rpeterso@redhat.com>
-In-Reply-To: <20200821173337.20377-6-rpeterso@redhat.com>
+	<20200821173337.20377-7-rpeterso@redhat.com>
+In-Reply-To: <20200821173337.20377-7-rpeterso@redhat.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
 Date: Thu, 27 Aug 2020 08:00:00 +0200
-Message-ID: <CAHc6FU6iq27VdNHSOsvv0A_ULz6raGtCCsi-qGS6h2cUxvCvzg@mail.gmail.com>
+Message-ID: <CAHc6FU4u5NW3FYwTz0E4zVp5KWejtUc67YXjMXJNmL=wJfuHjg@mail.gmail.com>
 To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH 05/12] gfs2: Calculate number of
- revokes during evict
+Subject: Re: [Cluster-devel] [GFS2 PATCH 06/12] gfs2: Create transaction for
+ inodes with i_nlink != 0
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,63 +98,101 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Spam-Score: 0.003
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
 On Fri, Aug 21, 2020 at 7:33 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> Before this patch, function gfs2_evict_inode would start a transaction
-> in order to write some unknown number of revokes. Instead of calculating
-> the value, it used sdp->sd_jdesc->jd_blocks, the number of blocks in the
-> entire journal. You can fit a lot of revokes in a block (in a 4K block
-> you can fit 503 of them). For a 512MB journal has 131072 blocks, it would
-> ask for 261 free blocks.
->
-> This patch changes it to calculate the number of revokes based on the
-> nrpages values of the address space plus glock address space. Note that
-> since it does this after clearing out the ail list, we don't need to
-> use the number of (old) revokes in the calculation. We calculate it from
-> the number of standing new items that need revoking.
+> Before this patch, function gfs2_evict_inode would check if i_nlink
+> was non-zero, and if so, go to label out. The problem is, the evicted
+> file may still have outstanding pages that need invalidating, but
+> the call to truncate_inode_pages_final at label out doesn't start a
+> transaction. It needs a transaction in order to write revokes for any
+> pages it has to invalidate.
+
+This is only true for jdata inodes though, right? If so, I'd rather
+just create transactions in the jdata case.
+
+> This patch removes the early check for i_nlink in gfs2_evict_inode.
+> Not much further down in the code, there's another check for i_nlink
+> that skips to out_truncate. That one is proper because the calls
+> to truncate_inode_pages after out_truncate use a proper transaction,
+> so the page invalidates and subsequent revokes may be done properly.
 >
 > Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 > ---
->  fs/gfs2/super.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  fs/gfs2/super.c | 21 +++++++++++++--------
+>  1 file changed, 13 insertions(+), 8 deletions(-)
 >
 > diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-> index 9f4d9e7be839..80ac446f0110 100644
+> index 80ac446f0110..1f3dee740431 100644
 > --- a/fs/gfs2/super.c
 > +++ b/fs/gfs2/super.c
-> @@ -1336,6 +1336,7 @@ static void gfs2_evict_inode(struct inode *inode)
->         struct gfs2_inode *ip = GFS2_I(inode);
->         struct gfs2_holder gh;
->         struct address_space *metamapping;
-> +       int nr_revokes;
->         int error;
+> @@ -1344,7 +1344,7 @@ static void gfs2_evict_inode(struct inode *inode)
+>                 return;
+>         }
 >
->         if (test_bit(GIF_FREE_VFS_INODE, &ip->i_flags)) {
-> @@ -1434,7 +1435,11 @@ static void gfs2_evict_inode(struct inode *inode)
+> -       if (inode->i_nlink || sb_rdonly(sb))
+> +       if (sb_rdonly(sb))
+>                 goto out;
+>         if (test_bit(GIF_ALLOC_FAILED, &ip->i_flags)) {
+> @@ -1370,15 +1370,19 @@ static void gfs2_evict_inode(struct inode *inode)
+>         }
+>
+>         if (gfs2_inode_already_deleted(ip->i_gl, ip->i_no_formal_ino))
+> -               goto out_truncate;
+> +               goto out_flush;
+>         error = gfs2_check_blk_type(sdp, ip->i_no_addr, GFS2_BLKST_UNLINKED);
+> -       if (error)
+> -               goto out_truncate;
+> +       if (error) {
+> +               error = 0;
+> +               goto out_flush;
+> +       }
+>
+>         if (test_bit(GIF_INVALID, &ip->i_flags)) {
+>                 error = gfs2_inode_refresh(ip);
+> -               if (error)
+> -                       goto out_truncate;
+> +               if (error) {
+> +                       error = 0;
+> +                       goto out_flush;
+> +               }
+>         }
+>
+>         /*
+> @@ -1392,7 +1396,7 @@ static void gfs2_evict_inode(struct inode *inode)
+>             test_bit(HIF_HOLDER, &ip->i_iopen_gh.gh_iflags)) {
+>                 if (!gfs2_upgrade_iopen_glock(inode)) {
+>                         gfs2_holder_uninit(&ip->i_iopen_gh);
+> -                       goto out_truncate;
+> +                       goto out_flush;
+>                 }
+>         }
+>
+> @@ -1424,7 +1428,7 @@ static void gfs2_evict_inode(struct inode *inode)
+>         gfs2_inode_remember_delete(ip->i_gl, ip->i_no_formal_ino);
+>         goto out_unlock;
+>
+> -out_truncate:
+> +out_flush:
+>         gfs2_log_flush(sdp, ip->i_gl, GFS2_LOG_HEAD_FLUSH_NORMAL |
+>                        GFS2_LFC_EVICT_INODE);
+>         metamapping = gfs2_glock2aspace(ip->i_gl);
+> @@ -1435,6 +1439,7 @@ static void gfs2_evict_inode(struct inode *inode)
 >         write_inode_now(inode, 1);
 >         gfs2_ail_flush(ip->i_gl, 0);
 >
-> -       error = gfs2_trans_begin(sdp, 0, sdp->sd_jdesc->jd_blocks);
-> +       nr_revokes = inode->i_mapping->nrpages + metamapping->nrpages;
-
-We could surely use a more realistic number of revokes here, but this
-approach really doesn't make any sense, sorry.
-
-> +       if (!nr_revokes)
-> +               goto out_unlock;
-> +
-> +       error = gfs2_trans_begin(sdp, 0, nr_revokes);
->         if (error)
+> +out_truncate:
+>         nr_revokes = inode->i_mapping->nrpages + metamapping->nrpages;
+>         if (!nr_revokes)
 >                 goto out_unlock;
->         /* Needs to be done before glock release & also in a transaction */
 > --
 > 2.26.2
+>
 
 Thanks,
 Andreas
