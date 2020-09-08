@@ -1,52 +1,48 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 6D1F3260637
-	for <lists+cluster-devel@lfdr.de>; Mon,  7 Sep 2020 23:23:45 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id BDDA5261133
+	for <lists+cluster-devel@lfdr.de>; Tue,  8 Sep 2020 14:21:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1599567674;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=8zG/b9SNlfNr01Zokf08lXs9/jIyKpsY8tZKjKpImbs=;
+	b=AvumTyYbTQxlLMPeiZXzCgyUoDPHlY48XAlNqm1v6CWoa7WR24k35x8FG2S4NQBelxiPhf
+	hObGGNsX0+ENC8o+mVzW6Pto6Da3waJyIc9ct32uF7GQ5aX28/wIZXg9Oz5CwE2FRirH4B
+	+RKTPKfqCB+5F8eIHusEQgANGhVpmt8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-179-FlpDnrceNnGmAWT__R4i4A-1; Mon, 07 Sep 2020 17:23:43 -0400
-X-MC-Unique: FlpDnrceNnGmAWT__R4i4A-1
+ us-mta-409-7z-ao6J0P5qWrU8j85qZRQ-1; Tue, 08 Sep 2020 08:21:13 -0400
+X-MC-Unique: 7z-ao6J0P5qWrU8j85qZRQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E21D618B9EE7;
-	Mon,  7 Sep 2020 21:23:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FF3F60BE2;
-	Mon,  7 Sep 2020 21:23:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C605E18BFEDE;
+	Tue,  8 Sep 2020 12:21:08 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1137860E1C;
+	Tue,  8 Sep 2020 12:21:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C8758181A06B;
-	Mon,  7 Sep 2020 21:23:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 532BF7A004;
+	Tue,  8 Sep 2020 12:21:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 087LMDe8003624 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Sep 2020 17:22:14 -0400
+	id 088CL1Cm012575 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Sep 2020 08:21:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C8C242166B44; Mon,  7 Sep 2020 21:22:13 +0000 (UTC)
+	id 1CD195C1BB; Tue,  8 Sep 2020 12:21:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C24082166B28
-	for <cluster-devel@redhat.com>; Mon,  7 Sep 2020 21:22:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70C7B856DE8
-	for <cluster-devel@redhat.com>; Mon,  7 Sep 2020 21:22:11 +0000 (UTC)
-Received: from valentin-vidic.from.hr (valentin-vidic.from.hr
-	[94.229.67.141]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-2-NlwbrJiuMfysVe8xx7XR4w-1; Mon, 07 Sep 2020 17:22:08 -0400
-X-MC-Unique: NlwbrJiuMfysVe8xx7XR4w-1
-X-Virus-Scanned: Debian amavisd-new at valentin-vidic.from.hr
-Received: by valentin-vidic.from.hr (Postfix, from userid 1000)
-	id 3E847357D; Mon,  7 Sep 2020 23:22:01 +0200 (CEST)
-Date: Mon, 7 Sep 2020 23:22:01 +0200
-From: Valentin Vidic <vvidic@debian.org>
-To: Andrew Price <anprice@redhat.com>
-Message-ID: <20200907212201.GS8773@valentin-vidic.from.hr>
+Received: from [10.33.36.138] (unknown [10.33.36.138])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 842E95C221;
+	Tue,  8 Sep 2020 12:20:56 +0000 (UTC)
+To: Valentin Vidic <vvidic@debian.org>
 References: <b1234ece-f35b-f77a-32c1-f8d351ae48a6@redhat.com>
 	<20200903223932.GK8773@valentin-vidic.from.hr>
 	<06377e85-04f1-d828-9e75-d81629fcd59c@redhat.com>
@@ -54,18 +50,15 @@ References: <b1234ece-f35b-f77a-32c1-f8d351ae48a6@redhat.com>
 	<ef84ca52-ea0b-ecda-b1b8-2d33a4480c83@redhat.com>
 	<20200904174205.GQ8773@valentin-vidic.from.hr>
 	<077d4fb3-5642-f050-f68c-fb23964c3e02@redhat.com>
+	<20200907212201.GS8773@valentin-vidic.from.hr>
+From: Andrew Price <anprice@redhat.com>
+Message-ID: <e9e91d5d-d810-6c88-b19e-3edf45d4d493@redhat.com>
+Date: Tue, 8 Sep 2020 13:20:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <077d4fb3-5642-f050-f68c-fb23964c3e02@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20200907212201.GS8773@valentin-vidic.from.hr>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
 Subject: Re: [Cluster-devel] [ClusterLabs] gfs2-utils 3.3.0 released
@@ -87,30 +80,41 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.001
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On Mon, Sep 07, 2020 at 02:00:41PM +0100, Andrew Price wrote:
-> It should be consistent if it's the same alignment issue, I think. Perhaps
-> the build machines are different flavours of arm?
-
-That is possible, second build was scheduled on a different machine.
-
-> Could you give this one a try:
+On 07/09/2020 22:22, Valentin Vidic wrote:
+> On Mon, Sep 07, 2020 at 02:00:41PM +0100, Andrew Price wrote:
+>> It should be consistent if it's the same alignment issue, I think. Perhaps
+>> the build machines are different flavours of arm?
 > 
-> https://pagure.io/gfs2-utils/c/eb102019?branch=andyp-restore-init-align
+> That is possible, second build was scheduled on a different machine.
+> 
+>> Could you give this one a try:
+>>
+>> https://pagure.io/gfs2-utils/c/eb102019?branch=andyp-restore-init-align
+> 
+> Thanks, tests look good again on sparc64 with this patch applied:
+> 
+> gfs2_edit tests
+> 
+>   31: Save/restoremeta, defaults                      ok
+>   32: Save/restoremeta, no compression                ok
+>   33: Save/restoremeta, min. block size               ok
+>   34: Save/restoremeta, 4 journals                    ok
+>   35: Save/restoremeta, min. block size, 4 journals   ok
+>   36: Save metadata to /dev/null                      ok
+> 
 
-Thanks, tests look good again on sparc64 with this patch applied:
+Thanks for testing. I've pushed the patch to master.
 
-gfs2_edit tests
+Thinking about all the other cast-align warnings, we might be able to 
+replace many of our be*_to_cpu() calls with functions that take a char* 
+instead of integer types, so that we never have to cast char* to 
+uint{16,32,64}_t* and widen the alignment when reading the on-disk 
+structures. That should tidy up a lot of code too as we wouldn't need 
+intermediate pointers. I'll look into it.
 
- 31: Save/restoremeta, defaults                      ok
- 32: Save/restoremeta, no compression                ok
- 33: Save/restoremeta, min. block size               ok
- 34: Save/restoremeta, 4 journals                    ok
- 35: Save/restoremeta, min. block size, 4 journals   ok
- 36: Save metadata to /dev/null                      ok
-
--- 
-Valentin
+Andy
 
