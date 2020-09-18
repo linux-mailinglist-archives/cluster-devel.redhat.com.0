@@ -1,58 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 095D526EB45
-	for <lists+cluster-devel@lfdr.de>; Fri, 18 Sep 2020 04:05:45 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 06B0526EBB7
+	for <lists+cluster-devel@lfdr.de>; Fri, 18 Sep 2020 04:09:01 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-546-RxWiXZh1NTuWrt0m5chQaA-1; Thu, 17 Sep 2020 22:05:42 -0400
-X-MC-Unique: RxWiXZh1NTuWrt0m5chQaA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-239-JKzqPlX-Mk-aNA2yWqflgQ-1; Thu, 17 Sep 2020 22:08:58 -0400
+X-MC-Unique: JKzqPlX-Mk-aNA2yWqflgQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DD9A1425DF;
-	Fri, 18 Sep 2020 02:05:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F9EA55765;
-	Fri, 18 Sep 2020 02:05:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 18138186DD3B;
+	Fri, 18 Sep 2020 02:08:56 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05E3D702E7;
+	Fri, 18 Sep 2020 02:08:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1102844A79;
-	Fri, 18 Sep 2020 02:05:36 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 381D1183D040;
+	Fri, 18 Sep 2020 02:08:55 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08I22T2W015934 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Sep 2020 22:02:29 -0400
+	id 08I28qSk016460 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 17 Sep 2020 22:08:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3F59B10A1434; Fri, 18 Sep 2020 02:02:29 +0000 (UTC)
+	id 8ABB010A1432; Fri, 18 Sep 2020 02:08:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3939C10A1431
-	for <cluster-devel@redhat.com>; Fri, 18 Sep 2020 02:02:22 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 861C010A1431
+	for <cluster-devel@redhat.com>; Fri, 18 Sep 2020 02:08:50 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E06E1101A53F
-	for <cluster-devel@redhat.com>; Fri, 18 Sep 2020 02:02:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CBD54900C7E
+	for <cluster-devel@redhat.com>; Fri, 18 Sep 2020 02:08:49 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-44-r4Hsw6HxOnOAGgDNqGiLxw-1; 
-	Thu, 17 Sep 2020 22:02:19 -0400
-X-MC-Unique: r4Hsw6HxOnOAGgDNqGiLxw-1
+	by relay.mimecast.com with ESMTP id us-mta-341-83dxDoIAN7eJMi88T5ngkg-1;
+	Thu, 17 Sep 2020 22:08:45 -0400
+X-MC-Unique: 83dxDoIAN7eJMi88T5ngkg-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 056B823119;
-	Fri, 18 Sep 2020 02:02:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id EDB6523976;
+	Fri, 18 Sep 2020 02:08:42 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 17 Sep 2020 21:56:36 -0400
-Message-Id: <20200918020110.2063155-56-sashal@kernel.org>
-In-Reply-To: <20200918020110.2063155-1-sashal@kernel.org>
-References: <20200918020110.2063155-1-sashal@kernel.org>
+Date: Thu, 17 Sep 2020 22:05:11 -0400
+Message-Id: <20200918020802.2065198-35-sashal@kernel.org>
+In-Reply-To: <20200918020802.2065198-1-sashal@kernel.org>
+References: <20200918020802.2065198-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -66,10 +66,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08I22T2W015934
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08I28qSk016460
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.4 056/330] gfs2: clean up iopen
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.19 035/206] gfs2: clean up iopen
 	glock mess in gfs2_create_inode
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -84,7 +84,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,10 +118,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index 8466166f22e3d..988bb7b17ed8f 100644
+index d968b5c5df217..a52b8b0dceeb9 100644
 --- a/fs/gfs2/inode.c
 +++ b/fs/gfs2/inode.c
-@@ -712,7 +712,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+@@ -715,7 +715,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
  
  	error = gfs2_trans_begin(sdp, blocks, 0);
  	if (error)
@@ -130,7 +130,7 @@ index 8466166f22e3d..988bb7b17ed8f 100644
  
  	if (blocks > 1) {
  		ip->i_eattr = ip->i_no_addr + 1;
-@@ -723,7 +723,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+@@ -726,7 +726,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
  
  	error = gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
  	if (error)
@@ -139,7 +139,7 @@ index 8466166f22e3d..988bb7b17ed8f 100644
  
  	BUG_ON(test_and_set_bit(GLF_INODE_CREATING, &io_gl->gl_flags));
  
-@@ -732,7 +732,6 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+@@ -735,7 +735,6 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
  		goto fail_gunlock2;
  
  	glock_set_object(ip->i_iopen_gh.gh_gl, ip);
@@ -147,7 +147,7 @@ index 8466166f22e3d..988bb7b17ed8f 100644
  	gfs2_set_iop(inode);
  	insert_inode_hash(inode);
  
-@@ -765,6 +764,8 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+@@ -768,6 +767,8 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
  
  	mark_inode_dirty(inode);
  	d_instantiate(dentry, inode);
@@ -156,7 +156,7 @@ index 8466166f22e3d..988bb7b17ed8f 100644
  	if (file) {
  		file->f_mode |= FMODE_CREATED;
  		error = finish_open(file, dentry, gfs2_open_common);
-@@ -772,15 +773,15 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+@@ -775,15 +776,15 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
  	gfs2_glock_dq_uninit(ghs);
  	gfs2_glock_dq_uninit(ghs + 1);
  	clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
