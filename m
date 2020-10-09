@@ -1,67 +1,67 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B9E328B0B6
-	for <lists+cluster-devel@lfdr.de>; Mon, 12 Oct 2020 10:53:25 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id DAB4B28B0B4
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Oct 2020 10:53:24 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-249-2-QcfJURN8K4s2UyXA8NSg-1; Mon, 12 Oct 2020 04:53:22 -0400
-X-MC-Unique: 2-QcfJURN8K4s2UyXA8NSg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-396-ggi8YpbsMCWOYkk1UNS5pg-1; Mon, 12 Oct 2020 04:53:21 -0400
+X-MC-Unique: ggi8YpbsMCWOYkk1UNS5pg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A26EDAE826;
-	Mon, 12 Oct 2020 08:53:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7341D805722;
+	Mon, 12 Oct 2020 08:53:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9094F5C22B;
-	Mon, 12 Oct 2020 08:53:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B43C5D9D2;
+	Mon, 12 Oct 2020 08:53:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C26EA21EA;
-	Mon, 12 Oct 2020 08:53:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 46CFF44A66;
+	Mon, 12 Oct 2020 08:53:18 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 099Jr85O020255 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 9 Oct 2020 15:53:08 -0400
+	id 099JrD8p020280 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 9 Oct 2020 15:53:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4489A2157F4A; Fri,  9 Oct 2020 19:53:08 +0000 (UTC)
+	id 619F12157F23; Fri,  9 Oct 2020 19:53:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E95D2157F49
-	for <cluster-devel@redhat.com>; Fri,  9 Oct 2020 19:53:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D4732166B28
+	for <cluster-devel@redhat.com>; Fri,  9 Oct 2020 19:53:13 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 256AA85828F
-	for <cluster-devel@redhat.com>; Fri,  9 Oct 2020 19:53:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 437198582A8
+	for <cluster-devel@redhat.com>; Fri,  9 Oct 2020 19:53:13 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-274-bXOPcE6LNd-5HCkZYJQdQA-1;
-	Fri, 09 Oct 2020 15:53:04 -0400
-X-MC-Unique: bXOPcE6LNd-5HCkZYJQdQA-1
-IronPort-SDR: WB1bdM3q84aoZ7aM7sffxjWTKg1h/pevXp/q5066/UnJl09p/AEM1Q26HMtgND+QAzZI78vjIl
-	MeexCdbnpPvw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162893561"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162893561"
+	by relay.mimecast.com with ESMTP id us-mta-274-qfomPhvYMyi_wdngqTEmcA-2;
+	Fri, 09 Oct 2020 15:53:06 -0400
+X-MC-Unique: qfomPhvYMyi_wdngqTEmcA-2
+IronPort-SDR: 35XKuZCH+96pznd7HCn71Mhz/maJkI5jbEOHMgQ7lB+YPIaB0fvfjcxQlalO46IgjSwoidGnV6
+	ab1SN8qiBRBQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162893572"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162893572"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
 	by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	09 Oct 2020 12:53:02 -0700
-IronPort-SDR: bH2kRxXxeY8kuFBN5R8RneSpQbEQLW5eawptefbcIpm8xkU067aWcbaReXxx6/6TDXgDaxiIQ5
-	8lenxDucas2g==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="519847131"
+	09 Oct 2020 12:53:06 -0700
+IronPort-SDR: +9tLMQNrOc9ZmtQe+NKSSXZyhjRooFfxfongQijBj4blQjg4c6+fJ/ZHkl3bUeAx7HZ0qDTuwd
+	uW08H1SVCXkg==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="343972363"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-	by fmsmga005-auth.fm.intel.com with
-	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:02 -0700
+	by fmsmga004-auth.fm.intel.com with
+	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:05 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>
-Date: Fri,  9 Oct 2020 12:50:12 -0700
-Message-Id: <20201009195033.3208459-38-ira.weiny@intel.com>
+Date: Fri,  9 Oct 2020 12:50:13 -0700
+Message-Id: <20201009195033.3208459-39-ira.weiny@intel.com>
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
 MIME-Version: 1.0
@@ -98,10 +98,10 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
 	io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
 	linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
 	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, Jan Kara <jack@suse.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH RFC PKS/PMEM 37/58] fs/ext2: Utilize new
+Subject: [Cluster-devel] [PATCH RFC PKS/PMEM 38/58] fs/isofs: Utilize new
 	kmap_thread()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -116,7 +116,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -126,42 +126,36 @@ Content-Type: text/plain; charset="US-ASCII"
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-These kmap() calls are localized to a single thread.  To avoid the over
-head of global PKRS update use the new kmap_thread() call instead.
+These kmap() calls are localized to a single thread.  To avoid the over head of
+global PKRS updates use the new kmap_thread() call.
 
-Cc: Jan Kara <jack@suse.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/ext2/dir.c  | 2 +-
- fs/ext2/ext2.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ fs/isofs/compress.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
-index f3194bf20733..abe97ba458c8 100644
---- a/fs/ext2/dir.c
-+++ b/fs/ext2/dir.c
-@@ -196,7 +196,7 @@ static struct page * ext2_get_page(struct inode *dir, unsigned long n,
- 	struct address_space *mapping = dir->i_mapping;
- 	struct page *page = read_mapping_page(mapping, n, NULL);
- 	if (!IS_ERR(page)) {
--		kmap(page);
-+		kmap_thread(page);
- 		if (unlikely(!PageChecked(page))) {
- 			if (PageError(page) || !ext2_check_page(page, quiet))
- 				goto fail;
-diff --git a/fs/ext2/ext2.h b/fs/ext2/ext2.h
-index 021ec8b42ac3..9bcb6714c255 100644
---- a/fs/ext2/ext2.h
-+++ b/fs/ext2/ext2.h
-@@ -749,7 +749,7 @@ extern struct ext2_dir_entry_2 * ext2_dotdot (struct inode *, struct page **);
- extern void ext2_set_link(struct inode *, struct ext2_dir_entry_2 *, struct page *, struct inode *, int);
- static inline void ext2_put_page(struct page *page)
- {
--	kunmap(page);
-+	kunmap_thread(page);
- 	put_page(page);
- }
+diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
+index bc12ac7e2312..ddd3fd99d2e1 100644
+--- a/fs/isofs/compress.c
++++ b/fs/isofs/compress.c
+@@ -344,7 +344,7 @@ static int zisofs_readpage(struct file *file, struct page *page)
+ 			pages[i] = grab_cache_page_nowait(mapping, index);
+ 		if (pages[i]) {
+ 			ClearPageError(pages[i]);
+-			kmap(pages[i]);
++			kmap_thread(pages[i]);
+ 		}
+ 	}
  
+@@ -356,7 +356,7 @@ static int zisofs_readpage(struct file *file, struct page *page)
+ 			flush_dcache_page(pages[i]);
+ 			if (i == full_page && err)
+ 				SetPageError(pages[i]);
+-			kunmap(pages[i]);
++			kunmap_thread(pages[i]);
+ 			unlock_page(pages[i]);
+ 			if (i != full_page)
+ 				put_page(pages[i]);
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
