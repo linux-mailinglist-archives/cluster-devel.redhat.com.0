@@ -2,61 +2,105 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 946E6285E4E
-	for <lists+cluster-devel@lfdr.de>; Wed,  7 Oct 2020 13:40:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1602070815;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=VnpOHvJy8LvAhL+Lm2aOHdven8UGI5jNfFG54RH0lno=;
-	b=gDxPRq+GCor8QHm7jXfMNMil3N7cUO9Knc1EcQJ/DeZx4cPSRISXWfrXqnoctDblisQeFf
-	MBDplFK6FNhu1r5MfTjMsRMRRFNyOEOC2kBgTmxruiOZZLUoIs9fAlv8er3KEI38UGWLNA
-	Oj5sHs+QVvAgk6vnfwwWGwVYd5ujO6g=
+	by mail.lfdr.de (Postfix) with ESMTP id 04BB828B0A9
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Oct 2020 10:53:22 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-114-vZr0tdmhPoOx77d57g47eQ-1; Wed, 07 Oct 2020 07:40:13 -0400
-X-MC-Unique: vZr0tdmhPoOx77d57g47eQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-356-mqgGLXtHOl6Th5QArzuAkg-1; Mon, 12 Oct 2020 04:53:18 -0400
+X-MC-Unique: mqgGLXtHOl6Th5QArzuAkg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F8911018F7D;
-	Wed,  7 Oct 2020 11:40:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0890D5C1BD;
-	Wed,  7 Oct 2020 11:40:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 241B580EF9D;
+	Mon, 12 Oct 2020 08:53:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DD93261D0;
+	Mon, 12 Oct 2020 08:53:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6B233181A869;
-	Wed,  7 Oct 2020 11:40:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 804C69A04E;
+	Mon, 12 Oct 2020 08:53:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 097Be8l3004585 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 7 Oct 2020 07:40:08 -0400
+	id 099JpqvL019630 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 9 Oct 2020 15:51:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 688265D9F3; Wed,  7 Oct 2020 11:40:08 +0000 (UTC)
+	id 94DB513D2CE0; Fri,  9 Oct 2020 19:51:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from [10.33.36.138] (unknown [10.33.36.138])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C4E675D9E2;
-	Wed,  7 Oct 2020 11:40:02 +0000 (UTC)
-To: syzbot <syzbot+43fa87986bdd31df9de6@syzkaller.appspotmail.com>,
-	agruenba@redhat.com, cluster-devel@redhat.com,
-	linux-kernel@vger.kernel.org, rpeterso@redhat.com,
-	syzkaller-bugs@googlegroups.com
-References: <00000000000035788305b1000361@google.com>
-From: Andrew Price <anprice@redhat.com>
-Message-ID: <48e63ee5-7d68-6502-33e0-9ab5489290ce@redhat.com>
-Date: Wed, 7 Oct 2020 12:40:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.11.0
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E8EB13D2D00
+	for <cluster-devel@redhat.com>; Fri,  9 Oct 2020 19:51:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 169841021F7F
+	for <cluster-devel@redhat.com>; Fri,  9 Oct 2020 19:51:49 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-499-SGe2WpR4O-ernH0MWZBgug-1; Fri, 09 Oct 2020 15:51:44 -0400
+X-MC-Unique: SGe2WpR4O-ernH0MWZBgug-1
+IronPort-SDR: QJeUMKdYMwWsHdSX8LRO6BxcvThzoWymdRTyCG9lsxYsqDzdZiEiiYSYZrt5/7CB9kULGUbivq
+	BOHr2UYK7jSg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="152450717"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="152450717"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	09 Oct 2020 12:50:41 -0700
+IronPort-SDR: wgvSBhlinBwJf2eRaqYm1d4mOPDeheaaBRmvXZpaWhx0BsPjq5MOqCRmfglsuVIrge+HvLIvQ5
+	IT741lyNdN2Q==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="419536654"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+	by fmsmga001-auth.fm.intel.com with
+	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:50:41 -0700
+From: ira.weiny@intel.com
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Date: Fri,  9 Oct 2020 12:49:35 -0700
+Message-Id: <20201009195033.3208459-1-ira.weiny@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <00000000000035788305b1000361@google.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] general protection fault in gfs2_rgrp_dump
+X-Mailman-Approved-At: Mon, 12 Oct 2020 04:53:05 -0400
+Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-mmc@vger.kernel.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+	target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-kselftest@vger.kernel.org, samba-technical@lists.samba.org,
+	Ira Weiny <ira.weiny@intel.com>, ceph-devel@vger.kernel.org,
+	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+	linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org,
+	x86@kernel.org, amd-gfx@lists.freedesktop.org,
+	linux-afs@lists.infradead.org, cluster-devel@redhat.com,
+	linux-cachefs@redhat.com, intel-wired-lan@lists.osuosl.org,
+	xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+	Fenghua Yu <fenghua.yu@intel.com>, linux-um@lists.infradead.org,
+	intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+	drbd-dev@tron.linbit.com, Dan Williams <dan.j.williams@intel.com>,
+	io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
+	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Subject: [Cluster-devel] [PATCH RFC PKS/PMEM 00/58] PMEM: Introduce stray
+	write protection for PMEM
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -70,113 +114,310 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On 06/10/2020 13:48, syzbot wrote:
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    7575fdda Merge tag 'platform-drivers-x86-v5.9-2' of git://..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=14abb7c7900000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=de7f697da23057c7
-> dashboard link: https://syzkaller.appspot.com/bug?extid=43fa87986bdd31df9de6
-> compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
-> 
-> Unfortunately, I don't have any reproducer for this issue yet.
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+43fa87986bdd31df9de6@syzkaller.appspotmail.com
-> 
-> gfs2: fsid=syz:syz.0: ri_addr = 20
-> ri_length = 1
-> ri_data0 = 21
-> ri_data = 2060
-> ri_bitbytes = 0
+From: Ira Weiny <ira.weiny@intel.com>
 
-I could reproduce this by setting ri_bitbytes in the first rindex entry 
-to 0. The bug is in the error path.
+Should a stray write in the kernel occur persistent memory is affected more
+than regular memory.  A write to the wrong area of memory could result in
+latent data corruption which will will persist after a reboot.  PKS provides a
+nice way to restrict access to persistent memory kernel mappings, while
+providing fast access when needed.
 
-Patch submitted: 
-https://www.redhat.com/archives/cluster-devel/2020-October/msg00008.html
+Since the last RFC[1] this patch set has grown quite a bit.  It now depends on
+the core patches submitted separately.
 
-Andy
+	https://lore.kernel.org/lkml/20201009194258.3207172-1-ira.weiny@intel.com/
 
-> start=0 len=0 offset=128
-> general protection fault, probably for non-canonical address 0xdffffc0000000020: 0000 [#1] PREEMPT SMP KASAN
-> KASAN: null-ptr-deref in range [0x0000000000000100-0x0000000000000107]
-> CPU: 1 PID: 19688 Comm: syz-executor.3 Not tainted 5.9.0-rc8-syzkaller #0
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-> RIP: 0010:gfs2_rgrp_dump+0x3b/0x6c0 fs/gfs2/rgrp.c:2220
-> Code: 24 10 48 89 f3 48 89 7c 24 08 48 bd 00 00 00 00 00 fc ff df e8 06 7a 2b fe 48 89 ea 48 81 c3 00 01 00 00 48 89 d8 48 c1 e8 03 <80> 3c 28 00 74 12 48 89 df e8 97 60 6b fe 48 ba 00 00 00 00 00 fc
-> RSP: 0018:ffffc90009037758 EFLAGS: 00010202
-> RAX: 0000000000000020 RBX: 0000000000000100 RCX: 0000000000040000
-> RDX: dffffc0000000000 RSI: 0000000000016753 RDI: 0000000000016754
-> RBP: dffffc0000000000 R08: ffffffff83ddd758 R09: fffff52001206efa
-> R10: fffff52001206efa R11: 0000000000000000 R12: ffffffff89364b22
-> R13: ffff888042e74000 R14: dffffc0000000000 R15: ffffffff89364943
-> FS:  00007fb8f261d700(0000) GS:ffff8880ae900000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00000000016a9e60 CR3: 00000000959d9000 CR4: 00000000001506e0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> Call Trace:
->   gfs2_consist_rgrpd_i+0xa1/0x110 fs/gfs2/util.c:422
->   compute_bitstructs fs/gfs2/rgrp.c:812 [inline]
->   read_rindex_entry fs/gfs2/rgrp.c:909 [inline]
->   gfs2_ri_update+0xb60/0x1860 fs/gfs2/rgrp.c:986
->   gfs2_rindex_update+0x283/0x320 fs/gfs2/rgrp.c:1032
->   init_inodes fs/gfs2/ops_fstype.c:792 [inline]
->   gfs2_fill_super+0x28e7/0x3fe0 fs/gfs2/ops_fstype.c:1125
->   get_tree_bdev+0x3e9/0x5f0 fs/super.c:1342
->   gfs2_get_tree+0x4c/0x1f0 fs/gfs2/ops_fstype.c:1201
->   vfs_get_tree+0x88/0x270 fs/super.c:1547
->   do_new_mount fs/namespace.c:2875 [inline]
->   path_mount+0x179d/0x29e0 fs/namespace.c:3192
->   do_mount fs/namespace.c:3205 [inline]
->   __do_sys_mount fs/namespace.c:3413 [inline]
->   __se_sys_mount+0x126/0x180 fs/namespace.c:3390
->   do_syscall_64+0x31/0x70 arch/x86/entry/common.c:46
->   entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> RIP: 0033:0x46087a
-> Code: b8 a6 00 00 00 0f 05 48 3d 01 f0 ff ff 0f 83 ad 89 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 0f 83 8a 89 fb ff c3 66 0f 1f 84 00 00 00 00 00
-> RSP: 002b:00007fb8f261ca88 EFLAGS: 00000202 ORIG_RAX: 00000000000000a5
-> RAX: ffffffffffffffda RBX: 00007fb8f261cb20 RCX: 000000000046087a
-> RDX: 0000000020000000 RSI: 0000000020000100 RDI: 00007fb8f261cae0
-> RBP: 00007fb8f261cae0 R08: 00007fb8f261cb20 R09: 0000000020000000
-> R10: 0000000000000000 R11: 0000000000000202 R12: 0000000020000000
-> R13: 0000000020000100 R14: 0000000020000200 R15: 0000000020047a20
-> Modules linked in:
-> ---[ end trace 8711b33583174bc7 ]---
-> RIP: 0010:gfs2_rgrp_dump+0x3b/0x6c0 fs/gfs2/rgrp.c:2220
-> Code: 24 10 48 89 f3 48 89 7c 24 08 48 bd 00 00 00 00 00 fc ff df e8 06 7a 2b fe 48 89 ea 48 81 c3 00 01 00 00 48 89 d8 48 c1 e8 03 <80> 3c 28 00 74 12 48 89 df e8 97 60 6b fe 48 ba 00 00 00 00 00 fc
-> RSP: 0018:ffffc90009037758 EFLAGS: 00010202
-> RAX: 0000000000000020 RBX: 0000000000000100 RCX: 0000000000040000
-> RDX: dffffc0000000000 RSI: 0000000000016753 RDI: 0000000000016754
-> RBP: dffffc0000000000 R08: ffffffff83ddd758 R09: fffff52001206efa
-> R10: fffff52001206efa R11: 0000000000000000 R12: ffffffff89364b22
-> R13: ffff888042e74000 R14: dffffc0000000000 R15: ffffffff89364943
-> FS:  00007fb8f261d700(0000) GS:ffff8880ae900000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00000000016a9e60 CR3: 00000000959d9000 CR4: 00000000001506e0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> 
-> 
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
-> 
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-> 
+And contained in the git tree here:
+
+	https://github.com/weiny2/linux-kernel/tree/pks-rfc-v3
+
+However, functionally there is only 1 major change from the last RFC.
+Specifically, kmap() is most often used within a single thread in a 'map/do
+something/unmap' pattern.  In fact this is the pattern used in ~90% of the
+callers of kmap().  This pattern works very well for the pmem use case and the
+testing which was done.  However, there were another ~20-30 kmap users which do
+not follow this pattern.  Some of them seem to expect the mapping to be
+'global' while others require a detailed audit to be sure.[2][3]
+
+While we don't anticipate global mappings to pmem there is a danger in
+changing the semantics of kmap().  Effectively, this would cause an unresolved
+page fault with little to no information about why.
+
+There were a number of options considered.
+
+1) Attempt to change all the thread local kmap() calls to kmap_atomic()
+2) Introduce a flags parameter to kmap() to indicate if the mapping should be
+   global or not
+3) Change ~20-30 call sites to 'kmap_global()' to indicate that they require a
+   global mapping of the pages
+4) Change ~209 call sites to 'kmap_thread()' to indicate that the mapping is to
+   be used within that thread of execution only
+
+Option 1 is simply not feasible kmap_atomic() is not the same semantic as
+kmap() within a single tread.  Option 2 would require all of the call sites of
+kmap() to change.  Option 3 seems like a good minimal change but there is a
+danger that new code may miss the semantic change of kmap() and not get the
+behavior intended for future users.  Therefore, option #4 was chosen.
+
+To handle the global PKRS state in the most efficient manner possible.  We
+lazily override the thread specific PKRS key value only when needed because we
+anticipate PKS to not be needed will not be needed most of the time.  And even
+when it is used 90% of the time it is a thread local call.
+
+
+[1] https://lore.kernel.org/lkml/20200717072056.73134-1-ira.weiny@intel.com/
+
+[2] The following list of callers continue calling kmap() (utilizing the global
+PKRS).  It would be nice if more of them could be converted to kmap_thread()
+
+	drivers/firewire/net.c:         ptr = kmap(dev->broadcast_rcv_buffer.pages[u]);
+	drivers/gpu/drm/i915/gem/i915_gem_pages.c:              return kmap(sg_page(sgt->sgl));
+	drivers/gpu/drm/ttm/ttm_bo_util.c:              map->virtual = kmap(map->page);
+	drivers/infiniband/hw/qib/qib_user_sdma.c:      mpage = kmap(page);
+	drivers/misc/vmw_vmci/vmci_host.c:      context->notify = kmap(context->notify_page) + (uva & (PAGE_SIZE - 1));
+	drivers/misc/xilinx_sdfec.c:            addr = kmap(pages[i]);
+	drivers/mmc/host/usdhi6rol0.c:  host->pg.mapped         = kmap(host->pg.page);
+	drivers/mmc/host/usdhi6rol0.c:  host->pg.mapped = kmap(host->pg.page);
+	drivers/mmc/host/usdhi6rol0.c:  host->pg.mapped = kmap(host->pg.page);
+	drivers/nvme/target/tcp.c:              iov->iov_base = kmap(sg_page(sg)) + sg->offset + sg_offset;
+	drivers/scsi/libiscsi_tcp.c:            segment->sg_mapped = kmap(sg_page(sg));
+	drivers/target/iscsi/iscsi_target.c:            iov[i].iov_base = kmap(sg_page(sg)) + sg->offset + page_off;
+	drivers/target/target_core_transport.c:         return kmap(sg_page(sg)) + sg->offset;
+	fs/btrfs/check-integrity.c:             block_ctx->datav[i] = kmap(block_ctx->pagev[i]);
+	fs/ceph/dir.c:          cache_ctl->dentries = kmap(cache_ctl->page);
+	fs/ceph/inode.c:                ctl->dentries = kmap(ctl->page);
+	fs/erofs/zpvec.h:               kmap_atomic(ctor->curr) : kmap(ctor->curr);
+	lib/scatterlist.c:              miter->addr = kmap(miter->page) + miter->__offset;
+	net/ceph/pagelist.c:    pl->mapped_tail = kmap(page);
+	net/ceph/pagelist.c:            pl->mapped_tail = kmap(page);
+	virt/kvm/kvm_main.c:                    hva = kmap(page);
+
+[3] The following appear to follow the same pattern as ext2 which was converted
+after some code audit.  So I _think_ they too could be converted to
+k[un]map_thread().
+
+	fs/freevxfs/vxfs_subr.c|75| kmap(pp);
+	fs/jfs/jfs_metapage.c|102| kmap(page);
+	fs/jfs/jfs_metapage.c|156| kmap(page);
+	fs/minix/dir.c|72| kmap(page);
+	fs/nilfs2/dir.c|195| kmap(page);
+	fs/nilfs2/ifile.h|24| void *kaddr = kmap(ibh->b_page);
+	fs/ntfs/aops.h|78| kmap(page);
+	fs/ntfs/compress.c|574| kmap(page);
+	fs/qnx6/dir.c|32| kmap(page);
+	fs/qnx6/dir.c|58| kmap(*p = page);
+	fs/qnx6/inode.c|190| kmap(page);
+	fs/qnx6/inode.c|557| kmap(page);
+	fs/reiserfs/inode.c|2397| kmap(bh_result->b_page);
+	fs/reiserfs/xattr.c|444| kmap(page);
+	fs/sysv/dir.c|60| kmap(page);
+	fs/sysv/dir.c|262| kmap(page);
+	fs/ufs/dir.c|194| kmap(page);
+	fs/ufs/dir.c|562| kmap(page);
+
+
+Ira Weiny (58):
+  x86/pks: Add a global pkrs option
+  x86/pks/test: Add testing for global option
+  memremap: Add zone device access protection
+  kmap: Add stray access protection for device pages
+  kmap: Introduce k[un]map_thread
+  kmap: Introduce k[un]map_thread debugging
+  drivers/drbd: Utilize new kmap_thread()
+  drivers/firmware_loader: Utilize new kmap_thread()
+  drivers/gpu: Utilize new kmap_thread()
+  drivers/rdma: Utilize new kmap_thread()
+  drivers/net: Utilize new kmap_thread()
+  fs/afs: Utilize new kmap_thread()
+  fs/btrfs: Utilize new kmap_thread()
+  fs/cifs: Utilize new kmap_thread()
+  fs/ecryptfs: Utilize new kmap_thread()
+  fs/gfs2: Utilize new kmap_thread()
+  fs/nilfs2: Utilize new kmap_thread()
+  fs/hfs: Utilize new kmap_thread()
+  fs/hfsplus: Utilize new kmap_thread()
+  fs/jffs2: Utilize new kmap_thread()
+  fs/nfs: Utilize new kmap_thread()
+  fs/f2fs: Utilize new kmap_thread()
+  fs/fuse: Utilize new kmap_thread()
+  fs/freevxfs: Utilize new kmap_thread()
+  fs/reiserfs: Utilize new kmap_thread()
+  fs/zonefs: Utilize new kmap_thread()
+  fs/ubifs: Utilize new kmap_thread()
+  fs/cachefiles: Utilize new kmap_thread()
+  fs/ntfs: Utilize new kmap_thread()
+  fs/romfs: Utilize new kmap_thread()
+  fs/vboxsf: Utilize new kmap_thread()
+  fs/hostfs: Utilize new kmap_thread()
+  fs/cramfs: Utilize new kmap_thread()
+  fs/erofs: Utilize new kmap_thread()
+  fs: Utilize new kmap_thread()
+  fs/ext2: Use ext2_put_page
+  fs/ext2: Utilize new kmap_thread()
+  fs/isofs: Utilize new kmap_thread()
+  fs/jffs2: Utilize new kmap_thread()
+  net: Utilize new kmap_thread()
+  drivers/target: Utilize new kmap_thread()
+  drivers/scsi: Utilize new kmap_thread()
+  drivers/mmc: Utilize new kmap_thread()
+  drivers/xen: Utilize new kmap_thread()
+  drivers/firmware: Utilize new kmap_thread()
+  drives/staging: Utilize new kmap_thread()
+  drivers/mtd: Utilize new kmap_thread()
+  drivers/md: Utilize new kmap_thread()
+  drivers/misc: Utilize new kmap_thread()
+  drivers/android: Utilize new kmap_thread()
+  kernel: Utilize new kmap_thread()
+  mm: Utilize new kmap_thread()
+  lib: Utilize new kmap_thread()
+  powerpc: Utilize new kmap_thread()
+  samples: Utilize new kmap_thread()
+  dax: Stray access protection for dax_direct_access()
+  nvdimm/pmem: Stray access protection for pmem->virt_addr
+  [dax|pmem]: Enable stray access protection
+
+ Documentation/core-api/protection-keys.rst    |  11 +-
+ arch/powerpc/mm/mem.c                         |   4 +-
+ arch/x86/entry/common.c                       |  28 +++
+ arch/x86/include/asm/pkeys.h                  |   6 +-
+ arch/x86/include/asm/pkeys_common.h           |   8 +-
+ arch/x86/kernel/process.c                     |  74 ++++++-
+ arch/x86/mm/fault.c                           | 193 ++++++++++++++----
+ arch/x86/mm/pkeys.c                           |  88 ++++++--
+ drivers/android/binder_alloc.c                |   4 +-
+ drivers/base/firmware_loader/fallback.c       |   4 +-
+ drivers/base/firmware_loader/main.c           |   4 +-
+ drivers/block/drbd/drbd_main.c                |   4 +-
+ drivers/block/drbd/drbd_receiver.c            |  12 +-
+ drivers/dax/device.c                          |   2 +
+ drivers/dax/super.c                           |   2 +
+ drivers/firmware/efi/capsule-loader.c         |   6 +-
+ drivers/firmware/efi/capsule.c                |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  12 +-
+ drivers/gpu/drm/gma500/gma_display.c          |   4 +-
+ drivers/gpu/drm/gma500/mmu.c                  |  10 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_context.c |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |   8 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |   4 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |   4 +-
+ drivers/gpu/drm/i915/gt/shmem_utils.c         |   4 +-
+ drivers/gpu/drm/i915/i915_gem.c               |   8 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |   4 +-
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |   4 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c           |   4 +-
+ drivers/infiniband/hw/hfi1/sdma.c             |   4 +-
+ drivers/infiniband/hw/i40iw/i40iw_cm.c        |  10 +-
+ drivers/infiniband/sw/siw/siw_qp_tx.c         |  14 +-
+ drivers/md/bcache/request.c                   |   4 +-
+ drivers/misc/vmw_vmci/vmci_queue_pair.c       |  12 +-
+ drivers/mmc/host/mmc_spi.c                    |   4 +-
+ drivers/mmc/host/sdricoh_cs.c                 |   4 +-
+ drivers/mtd/mtd_blkdevs.c                     |  12 +-
+ drivers/net/ethernet/intel/igb/igb_ethtool.c  |   4 +-
+ .../net/ethernet/intel/ixgbe/ixgbe_ethtool.c  |   4 +-
+ drivers/nvdimm/pmem.c                         |   6 +
+ drivers/scsi/ipr.c                            |   8 +-
+ drivers/scsi/pmcraid.c                        |   8 +-
+ drivers/staging/rts5208/rtsx_transport.c      |   4 +-
+ drivers/target/target_core_iblock.c           |   4 +-
+ drivers/target/target_core_rd.c               |   4 +-
+ drivers/target/target_core_transport.c        |   4 +-
+ drivers/xen/gntalloc.c                        |   4 +-
+ fs/afs/dir.c                                  |  16 +-
+ fs/afs/dir_edit.c                             |  16 +-
+ fs/afs/mntpt.c                                |   4 +-
+ fs/afs/write.c                                |   4 +-
+ fs/aio.c                                      |   4 +-
+ fs/binfmt_elf.c                               |   4 +-
+ fs/binfmt_elf_fdpic.c                         |   4 +-
+ fs/btrfs/check-integrity.c                    |   4 +-
+ fs/btrfs/compression.c                        |   4 +-
+ fs/btrfs/inode.c                              |  16 +-
+ fs/btrfs/lzo.c                                |  24 +--
+ fs/btrfs/raid56.c                             |  34 +--
+ fs/btrfs/reflink.c                            |   8 +-
+ fs/btrfs/send.c                               |   4 +-
+ fs/btrfs/zlib.c                               |  32 +--
+ fs/btrfs/zstd.c                               |  20 +-
+ fs/cachefiles/rdwr.c                          |   4 +-
+ fs/cifs/cifsencrypt.c                         |   6 +-
+ fs/cifs/file.c                                |  16 +-
+ fs/cifs/smb2ops.c                             |   8 +-
+ fs/cramfs/inode.c                             |  10 +-
+ fs/ecryptfs/crypto.c                          |   8 +-
+ fs/ecryptfs/read_write.c                      |   8 +-
+ fs/erofs/super.c                              |   4 +-
+ fs/erofs/xattr.c                              |   4 +-
+ fs/exec.c                                     |  10 +-
+ fs/ext2/dir.c                                 |   8 +-
+ fs/ext2/ext2.h                                |   8 +
+ fs/ext2/namei.c                               |  15 +-
+ fs/f2fs/f2fs.h                                |   8 +-
+ fs/freevxfs/vxfs_immed.c                      |   4 +-
+ fs/fuse/readdir.c                             |   4 +-
+ fs/gfs2/bmap.c                                |   4 +-
+ fs/gfs2/ops_fstype.c                          |   4 +-
+ fs/hfs/bnode.c                                |  14 +-
+ fs/hfs/btree.c                                |  20 +-
+ fs/hfsplus/bitmap.c                           |  20 +-
+ fs/hfsplus/bnode.c                            | 102 ++++-----
+ fs/hfsplus/btree.c                            |  18 +-
+ fs/hostfs/hostfs_kern.c                       |  12 +-
+ fs/io_uring.c                                 |   4 +-
+ fs/isofs/compress.c                           |   4 +-
+ fs/jffs2/file.c                               |   8 +-
+ fs/jffs2/gc.c                                 |   4 +-
+ fs/nfs/dir.c                                  |  20 +-
+ fs/nilfs2/alloc.c                             |  34 +--
+ fs/nilfs2/cpfile.c                            |   4 +-
+ fs/ntfs/aops.c                                |   4 +-
+ fs/reiserfs/journal.c                         |   4 +-
+ fs/romfs/super.c                              |   4 +-
+ fs/splice.c                                   |   4 +-
+ fs/ubifs/file.c                               |  16 +-
+ fs/vboxsf/file.c                              |  12 +-
+ fs/zonefs/super.c                             |   4 +-
+ include/linux/entry-common.h                  |   3 +
+ include/linux/highmem.h                       |  63 +++++-
+ include/linux/memremap.h                      |   1 +
+ include/linux/mm.h                            |  43 ++++
+ include/linux/pkeys.h                         |   6 +-
+ include/linux/sched.h                         |   8 +
+ include/trace/events/kmap_thread.h            |  56 +++++
+ init/init_task.c                              |   6 +
+ kernel/fork.c                                 |  18 ++
+ kernel/kexec_core.c                           |   8 +-
+ lib/Kconfig.debug                             |   8 +
+ lib/iov_iter.c                                |  12 +-
+ lib/pks/pks_test.c                            | 138 +++++++++++--
+ lib/test_bpf.c                                |   4 +-
+ lib/test_hmm.c                                |   8 +-
+ mm/Kconfig                                    |  13 ++
+ mm/debug.c                                    |  23 +++
+ mm/memory.c                                   |   8 +-
+ mm/memremap.c                                 |  90 ++++++++
+ mm/swapfile.c                                 |   4 +-
+ mm/userfaultfd.c                              |   4 +-
+ net/ceph/messenger.c                          |   4 +-
+ net/core/datagram.c                           |   4 +-
+ net/core/sock.c                               |   8 +-
+ net/ipv4/ip_output.c                          |   4 +-
+ net/sunrpc/cache.c                            |   4 +-
+ net/sunrpc/xdr.c                              |   8 +-
+ net/tls/tls_device.c                          |   4 +-
+ samples/vfio-mdev/mbochs.c                    |   4 +-
+ 131 files changed, 1284 insertions(+), 565 deletions(-)
+ create mode 100644 include/trace/events/kmap_thread.h
+
+-- 
+2.28.0.rc0.12.gb6a658bd00c9
 
