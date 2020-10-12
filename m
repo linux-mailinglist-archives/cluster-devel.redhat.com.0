@@ -1,71 +1,74 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D09528B621
-	for <lists+cluster-devel@lfdr.de>; Mon, 12 Oct 2020 15:26:14 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id EFD9328B620
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Oct 2020 15:26:13 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-53-k-vhJWmIPiCFzDND4-Geww-1; Mon, 12 Oct 2020 09:26:11 -0400
-X-MC-Unique: k-vhJWmIPiCFzDND4-Geww-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-348-L3SxBxk4M4mWE_MkYOehTw-1; Mon, 12 Oct 2020 09:26:11 -0400
+X-MC-Unique: L3SxBxk4M4mWE_MkYOehTw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D65CA18C5208;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B7CCF18C5207;
 	Mon, 12 Oct 2020 13:26:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C2331002C01;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DC2B27BA6;
 	Mon, 12 Oct 2020 13:26:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F08B5181A06C;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F06999A04F;
 	Mon, 12 Oct 2020 13:26:05 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09CDASsE032263 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 12 Oct 2020 09:10:28 -0400
+	id 09CDDIKx032666 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 12 Oct 2020 09:13:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 982DC114B9A7; Mon, 12 Oct 2020 13:10:28 +0000 (UTC)
+	id 467391006F8C; Mon, 12 Oct 2020 13:13:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9016E114B9C7
-	for <cluster-devel@redhat.com>; Mon, 12 Oct 2020 13:10:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4090E1006ED4
+	for <cluster-devel@redhat.com>; Mon, 12 Oct 2020 13:13:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7FF318007DF
-	for <cluster-devel@redhat.com>; Mon, 12 Oct 2020 13:10:25 +0000 (UTC)
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
-	[209.85.166.69]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-580-oP6pr-hHMyG4Dmu_ejqw7Q-1; Mon, 12 Oct 2020 09:10:22 -0400
-X-MC-Unique: oP6pr-hHMyG4Dmu_ejqw7Q-1
-Received: by mail-io1-f69.google.com with SMTP id y70so10527910iof.1
-	for <cluster-devel@redhat.com>; Mon, 12 Oct 2020 06:10:21 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 334391823616
+	for <cluster-devel@redhat.com>; Mon, 12 Oct 2020 13:13:15 +0000 (UTC)
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
+	[209.85.221.66]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-209-FHqULiC9ObiW-r-_iY9HaA-1; Mon, 12 Oct 2020 09:13:13 -0400
+X-MC-Unique: FHqULiC9ObiW-r-_iY9HaA-1
+Received: by mail-wr1-f66.google.com with SMTP id h7so19169944wre.4
+	for <cluster-devel@redhat.com>; Mon, 12 Oct 2020 06:13:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
-	bh=ty+a1LZxl17gReBYzjTIEx2+QFoT3DIs5fUkSnxzBxs=;
-	b=r07/SNE14Y0kOIaKCucEOBvjPU4eKD2CWKFryzMn7YxzPUCsBtD8o6n4lUoAVrns1y
-	rjKxLmFah0sajNyN9i7w6HrGQfUGX8SPhVlpt7s447QdcMKOLcXFM03SlVlpWgkrULJh
-	enlVkx5pECTzR3Jg1QyM23djFGVhKS5yNt1WRdYP9c+xjZu6zQ18gWDsowumoVcMWOJL
-	JhU2SXdW7/Cof+Ku2gnuWjI+0h5uFoUfUnfia0XLQHJHMcOb3DSUCVFSW9Q83jIuv//W
-	A2ygaNA3numj2GApn7hIHyamLtOyrjgpSCluS+SJb6+T5d1h/uP/9Yp6+wb9XL4uiVny
-	m2ow==
-X-Gm-Message-State: AOAM533G58vKzJR64/1pq8m9PnKpdXnW0liMDUyiSjaEvB2SZrPRTb4P
-	PJYgC8LFKtJs/dbeU0xf3uiPhJB+vvO6vGggsZOrGFp5aRuo
-X-Google-Smtp-Source: ABdhPJyNZvFhmmuyQWlSXrAhghAZG2nABU8cIhFSLaGFhf+Ic89VxBQYh9e5I6CsSoB0ajJmtJhvAwvqrbmux4Td+kv8UMIq9eFN
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=lIqWYtdrXJRoPEdzQF6ybmxcw3AyjDuDv8I1zRLbqvc=;
+	b=IML3eRFszJTZLPg1h05004qdEQdv9KXCVXQ3gueCdiAGPuEsx49AoeRnQiKLVFiSHy
+	jq6KSSZduVe5LqW8dIOXFKC9rGHwq0idmV5S9xa/gVanN8WXTN5lyAvIL5jK1Y1y+tH2
+	XtYfz1NZbG5sjlvjBDAl/pKFMm5duHYYytIztEfU9wET+XIZKp76OHBn42uHWm58p/NU
+	t6MEQyffjbDYxZFycHHs1maxeV96usqiQJG2wiIUmRDNsnc8/8y0Kc0AQXEl8294gikh
+	lYiO6pIT4Sya+y2t4k2Z4gPcDtbDUPj2tjMm5QxClbZ05uGvtVViIW9TyV+8h681HSiM
+	dDhw==
+X-Gm-Message-State: AOAM5335sJRbgiziKs/Y9GH3QKxGCSAjLqTZQa3N1mUTRtrDXfxEA7mg
+	cdm8l1vav/71Sc+z57z4KPKk45SQhBuHfJEcJwgBnBan7W+vywjs8adGuLjNWbnvMyHxrUudtXm
+	MnR4E5jXJh2oXhbdpJKHr2Qaovf1t/uEfUvWlyr7nViTQqP1gPrfks4lHzQcHmILQm2McES6T
+X-Google-Smtp-Source: ABdhPJzxefQCCgCflExpe8d3U4jsCGX2O36CBnYMnNyq8TS9LSRTpS5+eckP/KN5M8c4QA6xI7QPuA==
+X-Received: by 2002:adf:eac6:: with SMTP id o6mr31746580wrn.117.1602508391738; 
+	Mon, 12 Oct 2020 06:13:11 -0700 (PDT)
+Received: from localhost ([82.44.17.50]) by smtp.gmail.com with ESMTPSA id
+	z5sm24572725wrw.37.2020.10.12.06.13.11
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Mon, 12 Oct 2020 06:13:11 -0700 (PDT)
+From: Jamie Iles <jamie@nuviainc.com>
+To: cluster-devel@redhat.com
+Date: Mon, 12 Oct 2020 14:13:09 +0100
+Message-Id: <20201012131309.59316-1-jamie@nuviainc.com>
 MIME-Version: 1.0
-X-Received: by 2002:a02:2ac1:: with SMTP id w184mr19540608jaw.44.1602508221256;
-	Mon, 12 Oct 2020 06:10:21 -0700 (PDT)
-Date: Mon, 12 Oct 2020 06:10:21 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000471ab405b179056d@google.com>
-From: syzbot <syzbot+a5e2482a693e6b1e444b@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, cluster-devel@redhat.com,
-	linux-kernel@vger.kernel.org, rpeterso@redhat.com,
-	syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,10 +77,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 X-Mailman-Approved-At: Mon, 12 Oct 2020 09:26:00 -0400
-Subject: [Cluster-devel] UBSAN: array-index-out-of-bounds in init_sb
+Cc: Jamie Iles <jamie@nuviainc.com>
+Subject: [Cluster-devel] [PATCH 5/5] gfs2: use-after-free in sysfs
+	deregistration
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,80 +98,175 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-Hello,
+syzkaller found the following splat with CONFIG_DEBUG_KOBJECT_RELEASE=y:
 
-syzbot found the following issue on:
+  Read of size 1 at addr ffff000028e896b8 by task kworker/1:2/228
 
-HEAD commit:    6f2f486d Merge tag 'spi-fix-v5.9-rc8' of git://git.kernel...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16887cab900000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c06bcf3cc963d91c
-dashboard link: https://syzkaller.appspot.com/bug?extid=a5e2482a693e6b1e444b
-compiler:       gcc (GCC) 10.1.0-syz 20200507
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1081031b900000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=133c359f900000
+  CPU: 1 PID: 228 Comm: kworker/1:2 Tainted: G S                5.9.0-rc8+ #101
+  Hardware name: linux,dummy-virt (DT)
+  Workqueue: events kobject_delayed_cleanup
+  Call trace:
+   dump_backtrace+0x0/0x4d8
+   show_stack+0x34/0x48
+   dump_stack+0x174/0x1f8
+   print_address_description.constprop.0+0x5c/0x550
+   kasan_report+0x13c/0x1c0
+   __asan_report_load1_noabort+0x34/0x60
+   memcmp+0xd0/0xd8
+   gfs2_uevent+0xc4/0x188
+   kobject_uevent_env+0x54c/0x1240
+   kobject_uevent+0x2c/0x40
+   __kobject_del+0x190/0x1d8
+   kobject_delayed_cleanup+0x2bc/0x3b8
+   process_one_work+0x96c/0x18c0
+   worker_thread+0x3f0/0xc30
+   kthread+0x390/0x498
+   ret_from_fork+0x10/0x18
 
-Bisection is inconclusive: the issue happens on the oldest tested release.
+  Allocated by task 1110:
+   kasan_save_stack+0x28/0x58
+   __kasan_kmalloc.isra.0+0xc8/0xe8
+   kasan_kmalloc+0x10/0x20
+   kmem_cache_alloc_trace+0x1d8/0x2f0
+   alloc_super+0x64/0x8c0
+   sget_fc+0x110/0x620
+   get_tree_bdev+0x190/0x648
+   gfs2_get_tree+0x50/0x228
+   vfs_get_tree+0x84/0x2e8
+   path_mount+0x1134/0x1da8
+   do_mount+0x124/0x138
+   __arm64_sys_mount+0x164/0x238
+   el0_svc_common.constprop.0+0x15c/0x598
+   do_el0_svc+0x60/0x150
+   el0_svc+0x34/0xb0
+   el0_sync_handler+0xc8/0x5b4
+   el0_sync+0x15c/0x180
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=15f3f320500000
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=17f3f320500000
-console output: https://syzkaller.appspot.com/x/log.txt?x=13f3f320500000
+  Freed by task 228:
+   kasan_save_stack+0x28/0x58
+   kasan_set_track+0x28/0x40
+   kasan_set_free_info+0x24/0x48
+   __kasan_slab_free+0x118/0x190
+   kasan_slab_free+0x14/0x20
+   slab_free_freelist_hook+0x6c/0x210
+   kfree+0x13c/0x460
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a5e2482a693e6b1e444b@syzkaller.appspotmail.com
+Use the same pattern as f2fs + ext4 where the kobject destruction must
+complete before allowing the FS itself to be freed.  This means that we
+need an explicit free_sbd in the callers.
 
-gfs2: fsid=loop0: Trying to join cluster "lock_nolock", "loop0"
-gfs2: fsid=loop0: Now mounting FS...
-================================================================================
-UBSAN: array-index-out-of-bounds in fs/gfs2/ops_fstype.c:342:21
-index 11 is out of range for type 'u64 [11]'
-CPU: 0 PID: 6887 Comm: syz-executor693 Not tainted 5.9.0-rc8-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Call Trace:
- __dump_stack lib/dump_stack.c:77 [inline]
- dump_stack+0x198/0x1fd lib/dump_stack.c:118
- ubsan_epilogue+0xb/0x5a lib/ubsan.c:148
- __ubsan_handle_out_of_bounds.cold+0x62/0x6c lib/ubsan.c:356
- gfs2_read_sb fs/gfs2/ops_fstype.c:342 [inline]
- init_sb+0xc37/0xd30 fs/gfs2/ops_fstype.c:479
- gfs2_fill_super+0x1796/0x254a fs/gfs2/ops_fstype.c:1096
- get_tree_bdev+0x421/0x740 fs/super.c:1342
- gfs2_get_tree+0x4a/0x270 fs/gfs2/ops_fstype.c:1201
- vfs_get_tree+0x89/0x2f0 fs/super.c:1547
- do_new_mount fs/namespace.c:2875 [inline]
- path_mount+0x1387/0x20a0 fs/namespace.c:3192
- do_mount fs/namespace.c:3205 [inline]
- __do_sys_mount fs/namespace.c:3413 [inline]
- __se_sys_mount fs/namespace.c:3390 [inline]
- __x64_sys_mount+0x27f/0x300 fs/namespace.c:3390
- do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-RIP: 0033:0x446dba
-Code: b8 08 00 00 00 0f 05 48 3d 01 f0 ff ff 0f 83 fd ad fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 0f 83 da ad fb ff c3 66 0f 1f 84 00 00 00 00 00
-RSP: 002b:00007ffcd944f138 EFLAGS: 00000293 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007ffcd944f190 RCX: 0000000000446dba
-RDX: 0000000020000000 RSI: 0000000020000100 RDI: 00007ffcd944f150
-RBP: 00007ffcd944f150 R08: 00007ffcd944f190 R09: 00007ffc00000015
-R10: 0000000002200000 R11: 0000000000000293 R12: 0000000000000001
-R13: 0000000000000004 R14: 0000000000000003 R15: 0000000000000003
-================================================================================
-
-
+Cc: Bob Peterson <rpeterso@redhat.com>
+Cc: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Jamie Iles <jamie@nuviainc.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ fs/gfs2/incore.h     |  1 +
+ fs/gfs2/ops_fstype.c | 13 +++----------
+ fs/gfs2/super.c      |  1 +
+ fs/gfs2/sys.c        |  5 ++++-
+ 4 files changed, 9 insertions(+), 11 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
-syzbot can test patches for this issue, for details see:
-https://goo.gl/tpsmEJ#testing-patches
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 84a824293a78..03ece455d60a 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -701,6 +701,7 @@ struct gfs2_sbd {
+ 	struct super_block *sd_vfs;
+ 	struct gfs2_pcpu_lkstats __percpu *sd_lkstats;
+ 	struct kobject sd_kobj;
++	struct completion sd_kobj_unregister;
+ 	unsigned long sd_flags;	/* SDF_... */
+ 	struct gfs2_sb_host sd_sb;
+ 
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index e2b69ffcc6a8..49aaba181c29 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -1073,15 +1073,8 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	snprintf(sdp->sd_fsname, sizeof(sdp->sd_fsname), "%s", sdp->sd_table_name);
+ 
+ 	error = gfs2_sys_fs_add(sdp);
+-	/*
+-	 * If we hit an error here, gfs2_sys_fs_add will have called function
+-	 * kobject_put which causes the sysfs usage count to go to zero, which
+-	 * causes sysfs to call function gfs2_sbd_release, which frees sdp.
+-	 * Subsequent error paths here will call gfs2_sys_fs_del, which also
+-	 * kobject_put to free sdp.
+-	 */
+ 	if (error)
+-		return error;
++		goto fail_free;
+ 
+ 	gfs2_create_debugfs_file(sdp);
+ 
+@@ -1168,9 +1161,9 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	gfs2_lm_unmount(sdp);
+ fail_debug:
+ 	gfs2_delete_debugfs_file(sdp);
+-	/* gfs2_sys_fs_del must be the last thing we do, since it causes
+-	 * sysfs to call function gfs2_sbd_release, which frees sdp. */
+ 	gfs2_sys_fs_del(sdp);
++fail_free:
++	free_sbd(sdp);
+ 	sb->s_fs_info = NULL;
+ 	return error;
+ }
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index 956fced0a8ec..8c9006453ffb 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -733,6 +733,7 @@ static void gfs2_put_super(struct super_block *sb)
+ 
+ 	/*  At this point, we're through participating in the lockspace  */
+ 	gfs2_sys_fs_del(sdp);
++	free_sbd(sdp);
+ }
+ 
+ /**
+diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
+index d28c41bd69b0..c3e72dba7418 100644
+--- a/fs/gfs2/sys.c
++++ b/fs/gfs2/sys.c
+@@ -303,7 +303,7 @@ static void gfs2_sbd_release(struct kobject *kobj)
+ {
+ 	struct gfs2_sbd *sdp = container_of(kobj, struct gfs2_sbd, sd_kobj);
+ 
+-	free_sbd(sdp);
++	complete(&sdp->sd_kobj_unregister);
+ }
+ 
+ static struct kobj_type gfs2_ktype = {
+@@ -655,6 +655,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
+ 	sprintf(ro, "RDONLY=%d", sb_rdonly(sb));
+ 	sprintf(spectator, "SPECTATOR=%d", sdp->sd_args.ar_spectator ? 1 : 0);
+ 
++	init_completion(&sdp->sd_kobj_unregister);
+ 	sdp->sd_kobj.kset = gfs2_kset;
+ 	error = kobject_init_and_add(&sdp->sd_kobj, &gfs2_ktype, NULL,
+ 				     "%s", sdp->sd_table_name);
+@@ -685,6 +686,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
+ fail_reg:
+ 	fs_err(sdp, "error %d adding sysfs files\n", error);
+ 	kobject_put(&sdp->sd_kobj);
++	wait_for_completion(&sdp->sd_kobj_unregister);
+ 	sb->s_fs_info = NULL;
+ 	return error;
+ }
+@@ -695,6 +697,7 @@ void gfs2_sys_fs_del(struct gfs2_sbd *sdp)
+ 	sysfs_remove_group(&sdp->sd_kobj, &tune_group);
+ 	sysfs_remove_group(&sdp->sd_kobj, &lock_module_group);
+ 	kobject_put(&sdp->sd_kobj);
++	wait_for_completion(&sdp->sd_kobj_unregister);
+ }
+ 
+ static int gfs2_uevent(struct kset *kset, struct kobject *kobj,
+-- 
+2.25.1
 
