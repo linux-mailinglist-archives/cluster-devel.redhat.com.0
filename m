@@ -2,110 +2,53 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8004C28D5FE
-	for <lists+cluster-devel@lfdr.de>; Tue, 13 Oct 2020 22:53:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 76D2428DE20
+	for <lists+cluster-devel@lfdr.de>; Wed, 14 Oct 2020 11:58:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1602669535;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=QmPszzjLvkneNN20/U0U1+RNRmGJr1WDquHwiAMP0do=;
+	b=IosMh1/QcnS4CqIDtcuSbfg/+SFkjNky0J297iDFH//egJZitP2gTVtaPh8DmfjJ+hCPyH
+	4XGYu8/WVVj1rg4ssLPsBGBizzQhnta0fVCV7wsKyc37O1EcdAWcOZqS5OzYwaTIHFz5ke
+	UTirXbQow55/zq5IuS8axs89mkZaZUg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-517-zFKZBV76O0K1kxJYmRwALg-1; Tue, 13 Oct 2020 16:53:48 -0400
-X-MC-Unique: zFKZBV76O0K1kxJYmRwALg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-297-HBSa1C_eM9KIJr36qLpzGw-1; Wed, 14 Oct 2020 05:58:53 -0400
+X-MC-Unique: HBSa1C_eM9KIJr36qLpzGw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6FC86801F97;
-	Tue, 13 Oct 2020 20:53:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB89410013C4;
-	Tue, 13 Oct 2020 20:53:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E667D87952A;
+	Wed, 14 Oct 2020 09:58:50 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A20166EF52;
+	Wed, 14 Oct 2020 09:58:50 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 537EF58126;
-	Tue, 13 Oct 2020 20:53:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F2DA181A06C;
+	Wed, 14 Oct 2020 09:58:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09DKrhMK004513 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 13 Oct 2020 16:53:43 -0400
+	id 09E9wdNY001332 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 14 Oct 2020 05:58:39 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2078910336FD; Tue, 13 Oct 2020 20:53:43 +0000 (UTC)
+	id CA84B7666D; Wed, 14 Oct 2020 09:58:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19CC71041D6F
-	for <cluster-devel@redhat.com>; Tue, 13 Oct 2020 20:53:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA46980CDBF
-	for <cluster-devel@redhat.com>; Tue, 13 Oct 2020 20:53:40 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-488-i4m1tAcTNred7jLLkaUAdQ-1; Tue, 13 Oct 2020 16:53:38 -0400
-X-MC-Unique: i4m1tAcTNred7jLLkaUAdQ-1
-IronPort-SDR: uM5wB+pdNwOPBx2CoHt94rfUoxE4XW8KtXcMXr8iF/YbIvxXygAZ6AgijGsPfGUshg8go4KPcf
-	3lQ7gdK3DE5Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="166098649"
-X-IronPort-AV: E=Sophos;i="5.77,371,1596524400"; d="scan'208";a="166098649"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	13 Oct 2020 13:53:36 -0700
-IronPort-SDR: 6pC5EU5QwoXbsJ9AhSALdpEnefHex0iyEFu7THvX1eaSFNd77CbWePaQQdxa3yUvYDZ6VBgRvg
-	Vwn0OOQPMwwA==
-X-IronPort-AV: E=Sophos;i="5.77,371,1596524400"; d="scan'208";a="313946459"
-Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-	by orsmga003-auth.jf.intel.com with
-	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 13:53:35 -0700
-Date: Tue, 13 Oct 2020 13:52:49 -0700
-From: Ira Weiny <ira.weiny@intel.com>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <20201013205248.GJ2046448@iweiny-DESK2.sc.intel.com>
-References: <20201009195033.3208459-1-ira.weiny@intel.com>
-	<20201009195033.3208459-25-ira.weiny@intel.com>
-	<20201013112544.GA5249@infradead.org>
+Received: from max.home.com (unknown [10.40.192.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0D0F67666B;
+	Wed, 14 Oct 2020 09:58:35 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: cluster-devel@redhat.com
+Date: Wed, 14 Oct 2020 11:58:16 +0200
+Message-Id: <20201014095833.1035870-1-agruenba@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20201013112544.GA5249@infradead.org>
-User-Agent: Mutt/1.11.1 (2018-12-01)
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	linux-mmc@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
-	dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
-	target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
-	linux-kselftest@vger.kernel.org, samba-technical@lists.samba.org,
-	Thomas Gleixner <tglx@linutronix.de>, devel@driverdev.osuosl.org,
-	linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-nvdimm@lists.01.org,
-	linux-rdma@vger.kernel.org, x86@kernel.org,
-	ceph-devel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
-	io-uring@vger.kernel.org, cluster-devel@redhat.com,
-	Ingo Molnar <mingo@redhat.com>, intel-wired-lan@lists.osuosl.org,
-	xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
-	Fenghua Yu <fenghua.yu@intel.com>, linux-afs@lists.infradead.org,
-	linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
-	ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
-	linux-bcache@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
-	Andy Lutomirski <luto@kernel.org>, drbd-dev@tron.linbit.com,
-	Dan Williams <dan.j.williams@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-cachefs@redhat.com, linux-nfs@vger.kernel.org,
-	linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH RFC PKS/PMEM 24/58] fs/freevxfs: Utilize
-	new kmap_thread()
+Subject: [Cluster-devel] [RFC 00/17] gfs2: resource group glock sharing
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -119,36 +62,74 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Tue, Oct 13, 2020 at 12:25:44PM +0100, Christoph Hellwig wrote:
-> > -	kaddr = kmap(pp);
-> > +	kaddr = kmap_thread(pp);
-> >  	memcpy(kaddr, vip->vii_immed.vi_immed + offset, PAGE_SIZE);
-> > -	kunmap(pp);
-> > +	kunmap_thread(pp);
-> 
-> You only Cced me on this particular patch, which means I have absolutely
-> no idea what kmap_thread and kunmap_thread actually do, and thus can't
-> provide an informed review.
+Here's an update of my resource group glock sharing patches.
 
-Sorry the list was so big I struggled with who to CC and on which patches.
+The key patch of this patch queue is "gfs2: Add per-reservation reserved
+block accounting": with resource group glock sharing, multiple
+allocations can be going on in parallel.  This requires tracking of the
+actual space reserved for each allocation to prevent the allocator from
+handing out more blocks than available.
 
-> 
-> That being said I think your life would be a lot easier if you add
-> helpers for the above code sequence and its counterpart that copies
-> to a potential hughmem page first, as that hides the implementation
-> details from most users.
+Before this commit, the filesystem would report to be out of space when
+the number of tentatively reserved blocks would exceed the free space
+available.  In the most extreme workload that only creates empty inodes,
+that would be the case when only 1/32 of the filesystem is full.
 
-Matthew Wilcox and Al Viro have suggested similar ideas.
+With the above mentioned commit, the filesystem will continue to
+allocate blocks in such situations, but only at a very slow rate because
+the tentatively reserved blocks will still get in the way.  Commit
+"gfs2: Limit the maximum amount of reserved space" changes that to
+shrink the amount of tentatively reserved space to no more than half the
+free space when no more blocks can be reserved.  
 
-https://lore.kernel.org/lkml/20201013205012.GI2046448@iweiny-DESK2.sc.intel.com/
+Thanks,
+Andreas
 
-Ira
+Andreas Gruenbacher (14):
+  gfs2: Turn gfs2_rbm_incr into gfs2_rbm_add
+  gfs2: Only use struct gfs2_rbm for bitmap manipulations
+  gfs2: Get rid of unnecessary variable in gfs2_alloc_blocks
+  gfs2: Minor gfs2_inplace_reserve cleanup
+  Revert "gfs2: Don't reject a supposedly full bitmap if we have blocks
+    reserved"
+  gfs2: Don't clear GBF_FULL flags in rs_deltree
+  gfs2: Set GBF_FULL flags when reading resource groups
+  gfs2: When looking for blocks to allocate, don't clamp at free blocks
+  gfs2: Also reflect single-block allocations in rgd->rd_extfail_pt
+  gfs2: Only pass reservation down to gfs2_rbm_find
+  gfs: Don't search for unreserved space twice
+  gfs2: Add per-reservation reserved block accounting
+  gfs2: Limit the maximum amount of reserved space
+  gfs2: Rename rs_free to rs_wanted
+
+Bob Peterson (3):
+  gfs2: Add local resource group locking
+  gfs2: Allow node-wide exclusive glock sharing
+  gfs2: Use resource group glock sharing
+
+ fs/gfs2/bmap.c       |   4 +-
+ fs/gfs2/file.c       |   4 +-
+ fs/gfs2/glock.c      |  22 +-
+ fs/gfs2/glock.h      |   6 +
+ fs/gfs2/incore.h     |  36 +---
+ fs/gfs2/inode.c      |   6 +-
+ fs/gfs2/lops.c       |   7 +-
+ fs/gfs2/rgrp.c       | 489 ++++++++++++++++++++++++++-----------------
+ fs/gfs2/rgrp.h       |   4 +
+ fs/gfs2/super.c      |   3 +-
+ fs/gfs2/trace_gfs2.h |  33 ++-
+ fs/gfs2/trans.h      |   2 +-
+ fs/gfs2/xattr.c      |   6 +-
+ 13 files changed, 376 insertions(+), 246 deletions(-)
+
+-- 
+2.26.2
 
