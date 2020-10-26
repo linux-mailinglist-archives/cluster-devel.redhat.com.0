@@ -1,57 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CC3BE299D6F
-	for <lists+cluster-devel@lfdr.de>; Tue, 27 Oct 2020 01:07:33 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 44D57299D71
+	for <lists+cluster-devel@lfdr.de>; Tue, 27 Oct 2020 01:07:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-107-x_9_HBapMj2N1rhzPxljdA-1; Mon, 26 Oct 2020 20:07:31 -0400
-X-MC-Unique: x_9_HBapMj2N1rhzPxljdA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-232-hog4zZn6NIKHnjYFEY4aPQ-1; Mon, 26 Oct 2020 20:07:31 -0400
+X-MC-Unique: hog4zZn6NIKHnjYFEY4aPQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 26428809DC9;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DE5AD6408A;
 	Tue, 27 Oct 2020 00:07:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13C4C5C1BB;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFF1C5578C;
 	Tue, 27 Oct 2020 00:07:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EFC2E92F34;
-	Tue, 27 Oct 2020 00:07:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B7665181A06E;
+	Tue, 27 Oct 2020 00:07:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09QNsZu5021097 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 26 Oct 2020 19:54:35 -0400
+	id 09QNujtA021507 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 26 Oct 2020 19:56:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8C782114B9A4; Mon, 26 Oct 2020 23:54:35 +0000 (UTC)
+	id 0CAD62022799; Mon, 26 Oct 2020 23:56:45 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8890B114B9A0
-	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:54:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07A74200E210
+	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:56:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 719A58D6323
-	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:54:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC9B085828D
+	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:56:42 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-313-Ox8Y1SMmOO2rI-HH0_gXzQ-1;
-	Mon, 26 Oct 2020 19:54:30 -0400
-X-MC-Unique: Ox8Y1SMmOO2rI-HH0_gXzQ-1
+	by relay.mimecast.com with ESMTP id us-mta-417-lWV5jWa0PXCuP6mlc81roA-1;
+	Mon, 26 Oct 2020 19:56:40 -0400
+X-MC-Unique: lWV5jWa0PXCuP6mlc81roA-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id BC9B720B1F;
-	Mon, 26 Oct 2020 23:54:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 1C1AC20882;
+	Mon, 26 Oct 2020 23:56:38 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 26 Oct 2020 19:51:48 -0400
-Message-Id: <20201026235205.1023962-116-sashal@kernel.org>
-In-Reply-To: <20201026235205.1023962-1-sashal@kernel.org>
-References: <20201026235205.1023962-1-sashal@kernel.org>
+Date: Mon, 26 Oct 2020 19:55:04 -0400
+Message-Id: <20201026235516.1025100-68-sashal@kernel.org>
+In-Reply-To: <20201026235516.1025100-1-sashal@kernel.org>
+References: <20201026235516.1025100-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -65,13 +66,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09QNsZu5021097
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09QNujtA021507
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, Jamie Iles <jamie@nuviainc.com>,
 	cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.8 116/132] gfs2: use-after-free in
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.4 68/80] gfs2: use-after-free in
 	sysfs deregistration
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -86,7 +87,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -169,10 +170,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  4 files changed, 11 insertions(+), 18 deletions(-)
 
 diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index ca2ec02436ec7..387e99d6eda9e 100644
+index 5f89c515f5bb7..33a6b074209da 100644
 --- a/fs/gfs2/incore.h
 +++ b/fs/gfs2/incore.h
-@@ -705,6 +705,7 @@ struct gfs2_sbd {
+@@ -694,6 +694,7 @@ struct gfs2_sbd {
  	struct super_block *sd_vfs;
  	struct gfs2_pcpu_lkstats __percpu *sd_lkstats;
  	struct kobject sd_kobj;
@@ -181,10 +182,10 @@ index ca2ec02436ec7..387e99d6eda9e 100644
  	struct gfs2_sb_host sd_sb;
  
 diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index 6d18d2c91add2..5bd602a290f72 100644
+index e0c55765b06d2..338666a97fff6 100644
 --- a/fs/gfs2/ops_fstype.c
 +++ b/fs/gfs2/ops_fstype.c
-@@ -1062,26 +1062,14 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+@@ -1094,26 +1094,14 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
  	}
  
  	error = init_names(sdp, silent);
@@ -214,7 +215,7 @@ index 6d18d2c91add2..5bd602a290f72 100644
  
  	gfs2_create_debugfs_file(sdp);
  
-@@ -1179,9 +1167,9 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+@@ -1210,9 +1198,9 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
  	gfs2_lm_unmount(sdp);
  fail_debug:
  	gfs2_delete_debugfs_file(sdp);
@@ -227,10 +228,10 @@ index 6d18d2c91add2..5bd602a290f72 100644
  	return error;
  }
 diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 47d0ae158b699..1f26f1610cba9 100644
+index 5fa1eec4fb4f5..5935ce5ae5636 100644
 --- a/fs/gfs2/super.c
 +++ b/fs/gfs2/super.c
-@@ -735,6 +735,7 @@ static void gfs2_put_super(struct super_block *sb)
+@@ -695,6 +695,7 @@ static void gfs2_put_super(struct super_block *sb)
  
  	/*  At this point, we're through participating in the lockspace  */
  	gfs2_sys_fs_del(sdp);
@@ -239,10 +240,10 @@ index 47d0ae158b699..1f26f1610cba9 100644
  
  /**
 diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
-index d28c41bd69b05..c3e72dba7418a 100644
+index dd15b8e4af2ce..1c6e52dc878e3 100644
 --- a/fs/gfs2/sys.c
 +++ b/fs/gfs2/sys.c
-@@ -303,7 +303,7 @@ static void gfs2_sbd_release(struct kobject *kobj)
+@@ -302,7 +302,7 @@ static void gfs2_sbd_release(struct kobject *kobj)
  {
  	struct gfs2_sbd *sdp = container_of(kobj, struct gfs2_sbd, sd_kobj);
  
@@ -251,7 +252,7 @@ index d28c41bd69b05..c3e72dba7418a 100644
  }
  
  static struct kobj_type gfs2_ktype = {
-@@ -655,6 +655,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
+@@ -652,6 +652,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
  	sprintf(ro, "RDONLY=%d", sb_rdonly(sb));
  	sprintf(spectator, "SPECTATOR=%d", sdp->sd_args.ar_spectator ? 1 : 0);
  
@@ -259,7 +260,7 @@ index d28c41bd69b05..c3e72dba7418a 100644
  	sdp->sd_kobj.kset = gfs2_kset;
  	error = kobject_init_and_add(&sdp->sd_kobj, &gfs2_ktype, NULL,
  				     "%s", sdp->sd_table_name);
-@@ -685,6 +686,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
+@@ -682,6 +683,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
  fail_reg:
  	fs_err(sdp, "error %d adding sysfs files\n", error);
  	kobject_put(&sdp->sd_kobj);
@@ -267,7 +268,7 @@ index d28c41bd69b05..c3e72dba7418a 100644
  	sb->s_fs_info = NULL;
  	return error;
  }
-@@ -695,6 +697,7 @@ void gfs2_sys_fs_del(struct gfs2_sbd *sdp)
+@@ -692,6 +694,7 @@ void gfs2_sys_fs_del(struct gfs2_sbd *sdp)
  	sysfs_remove_group(&sdp->sd_kobj, &tune_group);
  	sysfs_remove_group(&sdp->sd_kobj, &lock_module_group);
  	kobject_put(&sdp->sd_kobj);
