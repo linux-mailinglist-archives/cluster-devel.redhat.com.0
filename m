@@ -1,55 +1,55 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 17E47299D70
-	for <lists+cluster-devel@lfdr.de>; Tue, 27 Oct 2020 01:07:34 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id CC3BE299D6F
+	for <lists+cluster-devel@lfdr.de>; Tue, 27 Oct 2020 01:07:33 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-106-CAlCCcZkM1-2CtBxa11L-A-1; Mon, 26 Oct 2020 20:07:31 -0400
-X-MC-Unique: CAlCCcZkM1-2CtBxa11L-A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-107-x_9_HBapMj2N1rhzPxljdA-1; Mon, 26 Oct 2020 20:07:31 -0400
+X-MC-Unique: x_9_HBapMj2N1rhzPxljdA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 814051800D41;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 26428809DC9;
 	Tue, 27 Oct 2020 00:07:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F83E60FC2;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13C4C5C1BB;
 	Tue, 27 Oct 2020 00:07:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5930B92F35;
-	Tue, 27 Oct 2020 00:07:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EFC2E92F34;
+	Tue, 27 Oct 2020 00:07:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09QNsaNV021103 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 26 Oct 2020 19:54:36 -0400
+	id 09QNsZu5021097 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 26 Oct 2020 19:54:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 165FC85CBE; Mon, 26 Oct 2020 23:54:36 +0000 (UTC)
+	id 8C782114B9A4; Mon, 26 Oct 2020 23:54:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FFB485CA6
-	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:54:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8890B114B9A0
+	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:54:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE6AA858280
-	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:54:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 719A58D6323
+	for <cluster-devel@redhat.com>; Mon, 26 Oct 2020 23:54:35 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-285-zYVjQ6HzNx-zBHxWRUs2oA-1;
-	Mon, 26 Oct 2020 19:54:29 -0400
-X-MC-Unique: zYVjQ6HzNx-zBHxWRUs2oA-1
+	by relay.mimecast.com with ESMTP id us-mta-313-Ox8Y1SMmOO2rI-HH0_gXzQ-1;
+	Mon, 26 Oct 2020 19:54:30 -0400
+X-MC-Unique: Ox8Y1SMmOO2rI-HH0_gXzQ-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 6E3C520770;
-	Mon, 26 Oct 2020 23:54:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id BC9B720B1F;
+	Mon, 26 Oct 2020 23:54:28 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 26 Oct 2020 19:51:47 -0400
-Message-Id: <20201026235205.1023962-115-sashal@kernel.org>
+Date: Mon, 26 Oct 2020 19:51:48 -0400
+Message-Id: <20201026235205.1023962-116-sashal@kernel.org>
 In-Reply-To: <20201026235205.1023962-1-sashal@kernel.org>
 References: <20201026235205.1023962-1-sashal@kernel.org>
 MIME-Version: 1.0
@@ -63,15 +63,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09QNsaNV021103
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09QNsZu5021097
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>,
-	syzbot+43fa87986bdd31df9de6@syzkaller.appspotmail.com,
+Cc: Sasha Levin <sashal@kernel.org>, Jamie Iles <jamie@nuviainc.com>,
 	cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.8 115/132] gfs2: Fix NULL pointer
-	dereference in gfs2_rgrp_dump
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.8 116/132] gfs2: use-after-free in
+	sysfs deregistration
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,125 +94,187 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 8bit
 
-From: Andrew Price <anprice@redhat.com>
+From: Jamie Iles <jamie@nuviainc.com>
 
-[ Upstream commit 0e539ca1bbbe85a86549c97a30a765ada4a09df9 ]
+[ Upstream commit c2a04b02c060c4858762edce4674d5cba3e5a96f ]
 
-When an rindex entry is found to be corrupt, compute_bitstructs() calls
-gfs2_consist_rgrpd() which calls gfs2_rgrp_dump() like this:
+syzkaller found the following splat with CONFIG_DEBUG_KOBJECT_RELEASE=y:
 
-    gfs2_rgrp_dump(NULL, rgd->rd_gl, fs_id_buf);
+  Read of size 1 at addr ffff000028e896b8 by task kworker/1:2/228
 
-gfs2_rgrp_dump then dereferences the gl without checking it and we get
+  CPU: 1 PID: 228 Comm: kworker/1:2 Tainted: G S                5.9.0-rc8+ #101
+  Hardware name: linux,dummy-virt (DT)
+  Workqueue: events kobject_delayed_cleanup
+  Call trace:
+   dump_backtrace+0x0/0x4d8
+   show_stack+0x34/0x48
+   dump_stack+0x174/0x1f8
+   print_address_description.constprop.0+0x5c/0x550
+   kasan_report+0x13c/0x1c0
+   __asan_report_load1_noabort+0x34/0x60
+   memcmp+0xd0/0xd8
+   gfs2_uevent+0xc4/0x188
+   kobject_uevent_env+0x54c/0x1240
+   kobject_uevent+0x2c/0x40
+   __kobject_del+0x190/0x1d8
+   kobject_delayed_cleanup+0x2bc/0x3b8
+   process_one_work+0x96c/0x18c0
+   worker_thread+0x3f0/0xc30
+   kthread+0x390/0x498
+   ret_from_fork+0x10/0x18
 
-    BUG: KASAN: null-ptr-deref in gfs2_rgrp_dump+0x28/0x280
+  Allocated by task 1110:
+   kasan_save_stack+0x28/0x58
+   __kasan_kmalloc.isra.0+0xc8/0xe8
+   kasan_kmalloc+0x10/0x20
+   kmem_cache_alloc_trace+0x1d8/0x2f0
+   alloc_super+0x64/0x8c0
+   sget_fc+0x110/0x620
+   get_tree_bdev+0x190/0x648
+   gfs2_get_tree+0x50/0x228
+   vfs_get_tree+0x84/0x2e8
+   path_mount+0x1134/0x1da8
+   do_mount+0x124/0x138
+   __arm64_sys_mount+0x164/0x238
+   el0_svc_common.constprop.0+0x15c/0x598
+   do_el0_svc+0x60/0x150
+   el0_svc+0x34/0xb0
+   el0_sync_handler+0xc8/0x5b4
+   el0_sync+0x15c/0x180
 
-because there's no rgrp glock involved while reading the rindex on mount.
+  Freed by task 228:
+   kasan_save_stack+0x28/0x58
+   kasan_set_track+0x28/0x40
+   kasan_set_free_info+0x24/0x48
+   __kasan_slab_free+0x118/0x190
+   kasan_slab_free+0x14/0x20
+   slab_free_freelist_hook+0x6c/0x210
+   kfree+0x13c/0x460
 
-Fix this by changing gfs2_rgrp_dump to take an rgrp argument.
+Use the same pattern as f2fs + ext4 where the kobject destruction must
+complete before allowing the FS itself to be freed.  This means that we
+need an explicit free_sbd in the callers.
 
-Reported-by: syzbot+43fa87986bdd31df9de6@syzkaller.appspotmail.com
-Signed-off-by: Andrew Price <anprice@redhat.com>
+Cc: Bob Peterson <rpeterso@redhat.com>
+Cc: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Jamie Iles <jamie@nuviainc.com>
+[Also go to fail_free when init_names fails.]
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/glops.c | 11 ++++++++++-
- fs/gfs2/rgrp.c  |  9 +++------
- fs/gfs2/rgrp.h  |  2 +-
- fs/gfs2/util.c  |  2 +-
- 4 files changed, 15 insertions(+), 9 deletions(-)
+ fs/gfs2/incore.h     |  1 +
+ fs/gfs2/ops_fstype.c | 22 +++++-----------------
+ fs/gfs2/super.c      |  1 +
+ fs/gfs2/sys.c        |  5 ++++-
+ 4 files changed, 11 insertions(+), 18 deletions(-)
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index de1d5f1d9ff85..c2c90747d79b5 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -227,6 +227,15 @@ static void rgrp_go_inval(struct gfs2_glock *gl, int flags)
- 		rgd->rd_flags &= ~GFS2_RDF_UPTODATE;
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index ca2ec02436ec7..387e99d6eda9e 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -705,6 +705,7 @@ struct gfs2_sbd {
+ 	struct super_block *sd_vfs;
+ 	struct gfs2_pcpu_lkstats __percpu *sd_lkstats;
+ 	struct kobject sd_kobj;
++	struct completion sd_kobj_unregister;
+ 	unsigned long sd_flags;	/* SDF_... */
+ 	struct gfs2_sb_host sd_sb;
+ 
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 6d18d2c91add2..5bd602a290f72 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -1062,26 +1062,14 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	}
+ 
+ 	error = init_names(sdp, silent);
+-	if (error) {
+-		/* In this case, we haven't initialized sysfs, so we have to
+-		   manually free the sdp. */
+-		free_sbd(sdp);
+-		sb->s_fs_info = NULL;
+-		return error;
+-	}
++	if (error)
++		goto fail_free;
+ 
+ 	snprintf(sdp->sd_fsname, sizeof(sdp->sd_fsname), "%s", sdp->sd_table_name);
+ 
+ 	error = gfs2_sys_fs_add(sdp);
+-	/*
+-	 * If we hit an error here, gfs2_sys_fs_add will have called function
+-	 * kobject_put which causes the sysfs usage count to go to zero, which
+-	 * causes sysfs to call function gfs2_sbd_release, which frees sdp.
+-	 * Subsequent error paths here will call gfs2_sys_fs_del, which also
+-	 * kobject_put to free sdp.
+-	 */
+ 	if (error)
+-		return error;
++		goto fail_free;
+ 
+ 	gfs2_create_debugfs_file(sdp);
+ 
+@@ -1179,9 +1167,9 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	gfs2_lm_unmount(sdp);
+ fail_debug:
+ 	gfs2_delete_debugfs_file(sdp);
+-	/* gfs2_sys_fs_del must be the last thing we do, since it causes
+-	 * sysfs to call function gfs2_sbd_release, which frees sdp. */
+ 	gfs2_sys_fs_del(sdp);
++fail_free:
++	free_sbd(sdp);
+ 	sb->s_fs_info = NULL;
+ 	return error;
+ }
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index 47d0ae158b699..1f26f1610cba9 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -735,6 +735,7 @@ static void gfs2_put_super(struct super_block *sb)
+ 
+ 	/*  At this point, we're through participating in the lockspace  */
+ 	gfs2_sys_fs_del(sdp);
++	free_sbd(sdp);
  }
  
-+static void gfs2_rgrp_go_dump(struct seq_file *seq, struct gfs2_glock *gl,
-+			      const char *fs_id_buf)
-+{
-+	struct gfs2_rgrpd *rgd = gfs2_glock2rgrp(gl);
-+
-+	if (rgd)
-+		gfs2_rgrp_dump(seq, rgd, fs_id_buf);
-+}
-+
- static struct gfs2_inode *gfs2_glock2inode(struct gfs2_glock *gl)
- {
- 	struct gfs2_inode *ip;
-@@ -712,7 +721,7 @@ const struct gfs2_glock_operations gfs2_rgrp_glops = {
- 	.go_sync = rgrp_go_sync,
- 	.go_inval = rgrp_go_inval,
- 	.go_lock = gfs2_rgrp_go_lock,
--	.go_dump = gfs2_rgrp_dump,
-+	.go_dump = gfs2_rgrp_go_dump,
- 	.go_type = LM_TYPE_RGRP,
- 	.go_flags = GLOF_LVB,
- };
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 074f228ea8390..1bba5a9d45fa3 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -2209,20 +2209,17 @@ static void rgblk_free(struct gfs2_sbd *sdp, struct gfs2_rgrpd *rgd,
  /**
-  * gfs2_rgrp_dump - print out an rgrp
-  * @seq: The iterator
-- * @gl: The glock in question
-+ * @rgd: The rgrp in question
-  * @fs_id_buf: pointer to file system id (if requested)
-  *
-  */
- 
--void gfs2_rgrp_dump(struct seq_file *seq, struct gfs2_glock *gl,
-+void gfs2_rgrp_dump(struct seq_file *seq, struct gfs2_rgrpd *rgd,
- 		    const char *fs_id_buf)
+diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
+index d28c41bd69b05..c3e72dba7418a 100644
+--- a/fs/gfs2/sys.c
++++ b/fs/gfs2/sys.c
+@@ -303,7 +303,7 @@ static void gfs2_sbd_release(struct kobject *kobj)
  {
--	struct gfs2_rgrpd *rgd = gl->gl_object;
- 	struct gfs2_blkreserv *trs;
- 	const struct rb_node *n;
+ 	struct gfs2_sbd *sdp = container_of(kobj, struct gfs2_sbd, sd_kobj);
  
--	if (rgd == NULL)
--		return;
- 	gfs2_print_dbg(seq, "%s R: n:%llu f:%02x b:%u/%u i:%u r:%u e:%u\n",
- 		       fs_id_buf,
- 		       (unsigned long long)rgd->rd_addr, rgd->rd_flags,
-@@ -2253,7 +2250,7 @@ static void gfs2_rgrp_error(struct gfs2_rgrpd *rgd)
- 		(unsigned long long)rgd->rd_addr);
- 	fs_warn(sdp, "umount on all nodes and run fsck.gfs2 to fix the error\n");
- 	sprintf(fs_id_buf, "fsid=%s: ", sdp->sd_fsname);
--	gfs2_rgrp_dump(NULL, rgd->rd_gl, fs_id_buf);
-+	gfs2_rgrp_dump(NULL, rgd, fs_id_buf);
- 	rgd->rd_flags |= GFS2_RDF_ERROR;
+-	free_sbd(sdp);
++	complete(&sdp->sd_kobj_unregister);
  }
  
-diff --git a/fs/gfs2/rgrp.h b/fs/gfs2/rgrp.h
-index a1d7e14fc55b9..9a587ada51eda 100644
---- a/fs/gfs2/rgrp.h
-+++ b/fs/gfs2/rgrp.h
-@@ -67,7 +67,7 @@ extern void gfs2_rlist_add(struct gfs2_inode *ip, struct gfs2_rgrp_list *rlist,
- extern void gfs2_rlist_alloc(struct gfs2_rgrp_list *rlist);
- extern void gfs2_rlist_free(struct gfs2_rgrp_list *rlist);
- extern u64 gfs2_ri_total(struct gfs2_sbd *sdp);
--extern void gfs2_rgrp_dump(struct seq_file *seq, struct gfs2_glock *gl,
-+extern void gfs2_rgrp_dump(struct seq_file *seq, struct gfs2_rgrpd *rgd,
- 			   const char *fs_id_buf);
- extern int gfs2_rgrp_send_discards(struct gfs2_sbd *sdp, u64 offset,
- 				   struct buffer_head *bh,
-diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
-index 1cd0328cae20a..0fba3bf641890 100644
---- a/fs/gfs2/util.c
-+++ b/fs/gfs2/util.c
-@@ -419,7 +419,7 @@ void gfs2_consist_rgrpd_i(struct gfs2_rgrpd *rgd,
- 	char fs_id_buf[sizeof(sdp->sd_fsname) + 7];
+ static struct kobj_type gfs2_ktype = {
+@@ -655,6 +655,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
+ 	sprintf(ro, "RDONLY=%d", sb_rdonly(sb));
+ 	sprintf(spectator, "SPECTATOR=%d", sdp->sd_args.ar_spectator ? 1 : 0);
  
- 	sprintf(fs_id_buf, "fsid=%s: ", sdp->sd_fsname);
--	gfs2_rgrp_dump(NULL, rgd->rd_gl, fs_id_buf);
-+	gfs2_rgrp_dump(NULL, rgd, fs_id_buf);
- 	gfs2_lm(sdp,
- 		"fatal: filesystem consistency error\n"
- 		"  RG = %llu\n"
++	init_completion(&sdp->sd_kobj_unregister);
+ 	sdp->sd_kobj.kset = gfs2_kset;
+ 	error = kobject_init_and_add(&sdp->sd_kobj, &gfs2_ktype, NULL,
+ 				     "%s", sdp->sd_table_name);
+@@ -685,6 +686,7 @@ int gfs2_sys_fs_add(struct gfs2_sbd *sdp)
+ fail_reg:
+ 	fs_err(sdp, "error %d adding sysfs files\n", error);
+ 	kobject_put(&sdp->sd_kobj);
++	wait_for_completion(&sdp->sd_kobj_unregister);
+ 	sb->s_fs_info = NULL;
+ 	return error;
+ }
+@@ -695,6 +697,7 @@ void gfs2_sys_fs_del(struct gfs2_sbd *sdp)
+ 	sysfs_remove_group(&sdp->sd_kobj, &tune_group);
+ 	sysfs_remove_group(&sdp->sd_kobj, &lock_module_group);
+ 	kobject_put(&sdp->sd_kobj);
++	wait_for_completion(&sdp->sd_kobj_unregister);
+ }
+ 
+ static int gfs2_uevent(struct kset *kset, struct kobject *kobj,
 -- 
 2.25.1
 
