@@ -2,78 +2,57 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B1F1299E60
-	for <lists+cluster-devel@lfdr.de>; Tue, 27 Oct 2020 01:15:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 215A429B310
+	for <lists+cluster-devel@lfdr.de>; Tue, 27 Oct 2020 15:55:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1603810511;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=gohJK+wAu9/jW8Ns76d7kRs134KF1jjlxGUGUU3btus=;
+	b=G4SMI2vYyP0xjbCIPZ+zrm/H1s9SYRtia7J3+z1oMSer8EvCaC0mO0cnz0+0W/Sz4QdNW7
+	TNAzxpMAI53UGiwK5mBVK8xijpPJb89bGqBeO41V/yttnWoOnafXqlGNqfQdC+wc+38fer
+	csGb2J70qKOgbo1HaRYDUnQNxpedp4E=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-379-pFzuP_QWMlirgMgADRHfZg-1; Mon, 26 Oct 2020 20:15:12 -0400
-X-MC-Unique: pFzuP_QWMlirgMgADRHfZg-1
+ us-mta-457-OYLDZ6UGMa2Y8jEhKAeROg-1; Tue, 27 Oct 2020 10:55:09 -0400
+X-MC-Unique: OYLDZ6UGMa2Y8jEhKAeROg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BCCC809DCA;
-	Tue, 27 Oct 2020 00:15:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A89605D9CA;
-	Tue, 27 Oct 2020 00:15:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1294D10430C8;
+	Tue, 27 Oct 2020 14:55:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A4FF5D9F1;
+	Tue, 27 Oct 2020 14:55:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1693092F33;
-	Tue, 27 Oct 2020 00:15:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DCEDF1832FB7;
+	Tue, 27 Oct 2020 14:55:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09R0C2JI023628 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 26 Oct 2020 20:12:02 -0400
+	id 09REr7TS005391 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 27 Oct 2020 10:53:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 791CA114B9A4; Tue, 27 Oct 2020 00:12:02 +0000 (UTC)
+	id 97AE3709F6; Tue, 27 Oct 2020 14:53:06 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7517A114B9A0
-	for <cluster-devel@redhat.com>; Tue, 27 Oct 2020 00:11:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AAB77811E78
-	for <cluster-devel@redhat.com>; Tue, 27 Oct 2020 00:11:58 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-88--Iu-68XCMSaaB8kLr0hcEg-1; 
-	Mon, 26 Oct 2020 20:11:53 -0400
-X-MC-Unique: -Iu-68XCMSaaB8kLr0hcEg-1
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
-	[73.47.72.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 59B0020709;
-	Tue, 27 Oct 2020 00:11:51 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 26 Oct 2020 20:11:20 -0400
-Message-Id: <20201027001123.1027642-22-sashal@kernel.org>
-In-Reply-To: <20201027001123.1027642-1-sashal@kernel.org>
-References: <20201027001123.1027642-1-sashal@kernel.org>
+Received: from vishnu.redhat.com (ovpn-113-104.phx2.redhat.com [10.3.113.104])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D552F756CE
+	for <cluster-devel@redhat.com>; Tue, 27 Oct 2020 14:52:28 +0000 (UTC)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Date: Tue, 27 Oct 2020 09:52:20 -0500
+Message-Id: <20201027145222.363422-2-rpeterso@redhat.com>
+In-Reply-To: <20201027145222.363422-1-rpeterso@redhat.com>
+References: <20201027145222.363422-1-rpeterso@redhat.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09R0C2JI023628
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>,
-	Anant Thazhemadam <anant.thazhemadam@gmail.com>,
-	syzbot+af90d47a37376844e731@syzkaller.appspotmail.com,
-	cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.4 22/25] gfs2: add validation
-	checks for size of superblock
+Subject: [Cluster-devel] [GFS2 PATCH 1/3] gfs2: Free rd_bits later in
+	gfs2_clear-rgrpd to fix use-after-free
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,64 +71,37 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-From: Anant Thazhemadam <anant.thazhemadam@gmail.com>
+Before this patch, function gfs2_clear_rgrpd ran through all the rgrps doing
+cleanup, but it called kfree(rgd->rd_bits) then return_all_reservations().
+But return_all_reservations calls __rs_deltree, which calls rbm_bi, and
+rbm_bi references: rbm->rgd->rd_bits + rbm->bii. This is use-after-free.
 
-[ Upstream commit 0ddc5154b24c96f20e94d653b0a814438de6032b ]
+This patch moves the call to kfree after the call to return_all_reservations
+so it can reference it before it is freed.
 
-In gfs2_check_sb(), no validation checks are performed with regards to
-the size of the superblock.
-syzkaller detected a slab-out-of-bounds bug that was primarily caused
-because the block size for a superblock was set to zero.
-A valid size for a superblock is a power of 2 between 512 and PAGE_SIZE.
-Performing validation checks and ensuring that the size of the superblock
-is valid fixes this bug.
-
-Reported-by: syzbot+af90d47a37376844e731@syzkaller.appspotmail.com
-Tested-by: syzbot+af90d47a37376844e731@syzkaller.appspotmail.com
-Suggested-by: Andrew Price <anprice@redhat.com>
-Signed-off-by: Anant Thazhemadam <anant.thazhemadam@gmail.com>
-[Minor code reordering.]
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/ops_fstype.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ fs/gfs2/rgrp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index b7b43d00cc6d7..8ed2b1a716376 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -160,15 +160,19 @@ static int gfs2_check_sb(struct gfs2_sbd *sdp, int silent)
- 		return -EINVAL;
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index ee491bb9c1cc..eb1b29734b7f 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -719,9 +719,9 @@ void gfs2_clear_rgrpd(struct gfs2_sbd *sdp)
+ 		}
+ 
+ 		gfs2_free_clones(rgd);
++		return_all_reservations(rgd);
+ 		kfree(rgd->rd_bits);
+ 		rgd->rd_bits = NULL;
+-		return_all_reservations(rgd);
+ 		kmem_cache_free(gfs2_rgrpd_cachep, rgd);
  	}
- 
--	/*  If format numbers match exactly, we're done.  */
--
--	if (sb->sb_fs_format == GFS2_FORMAT_FS &&
--	    sb->sb_multihost_format == GFS2_FORMAT_MULTI)
--		return 0;
-+	if (sb->sb_fs_format != GFS2_FORMAT_FS ||
-+	    sb->sb_multihost_format != GFS2_FORMAT_MULTI) {
-+		fs_warn(sdp, "Unknown on-disk format, unable to mount\n");
-+		return -EINVAL;
-+	}
- 
--	fs_warn(sdp, "Unknown on-disk format, unable to mount\n");
-+	if (sb->sb_bsize < 512 || sb->sb_bsize > PAGE_SIZE ||
-+	    (sb->sb_bsize & (sb->sb_bsize - 1))) {
-+		pr_warn("Invalid superblock size\n");
-+		return -EINVAL;
-+	}
- 
--	return -EINVAL;
-+	return 0;
  }
- 
- static void end_bio_io_page(struct bio *bio)
 -- 
-2.25.1
-
+2.26.2
 
