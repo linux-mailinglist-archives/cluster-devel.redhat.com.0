@@ -2,58 +2,66 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A9A532A382B
-	for <lists+cluster-devel@lfdr.de>; Tue,  3 Nov 2020 02:04:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D16812A694E
+	for <lists+cluster-devel@lfdr.de>; Wed,  4 Nov 2020 17:20:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604365498;
+	s=mimecast20190719; t=1604506846;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Md5cL3pJ/iRNxiyygWxaatXHZszXdUjB4wg7NOzcr0U=;
-	b=KgaT/EX3D8lJ4cHPbzFq4aXJm7qDGccrKLTSq8YESab/vCQPXxsN2/0j2BDD6COyi8Vn2x
-	n/YETBCfjJz/ziEzhKNhO/LxIbkRnXzpKBXKVVMkwl9StqIVds6UT3m4c5uwmyhlwRdL53
-	DHITpZdCmuMraxKvAtRpL1ts4qi+rUA=
+	bh=PYRj2mqxvPv7nscWvHq0PqXKQpcZzBYDydqX8nDCbZg=;
+	b=RwZiq32MT2fkMEMyzY0swSGLBLEIYl0gV4BU8jE2hz1hYzEjop3+N0vGu5L+e+CWZqgKeW
+	SOzFo6J4JancvblBmZbLf+czJg3T2hWY2Gp0Yx7064g5hMMUs297p8WEcJKJn3dwxxZJb2
+	/HZ6aVCoyNpkoHBl+SNIZYBX73lSvdA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-37-UI6MdqhuNxq6TkJ5MgJVuw-1; Mon, 02 Nov 2020 20:04:56 -0500
-X-MC-Unique: UI6MdqhuNxq6TkJ5MgJVuw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-47-CxQSa4yJP665TryfAaLAsQ-1; Wed, 04 Nov 2020 11:20:45 -0500
+X-MC-Unique: CxQSa4yJP665TryfAaLAsQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2BEEC809DDB;
-	Tue,  3 Nov 2020 01:04:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DCDFC101F7A3;
+	Wed,  4 Nov 2020 16:20:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BBAA5B4DA;
-	Tue,  3 Nov 2020 01:04:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D92C55779;
+	Wed,  4 Nov 2020 16:20:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0721B8C7B0;
-	Tue,  3 Nov 2020 01:04:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4E9288C7C5;
+	Wed,  4 Nov 2020 16:20:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A314qpv003598 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 2 Nov 2020 20:04:52 -0500
+	id 0A4GKR63029012 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Nov 2020 11:20:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 32FD25C5FE; Tue,  3 Nov 2020 01:04:52 +0000 (UTC)
+	id ACD381A885; Wed,  4 Nov 2020 16:20:27 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-115-45.rdu2.redhat.com [10.10.115.45])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BE7E25C5DE;
-	Tue,  3 Nov 2020 01:04:51 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Mon,  2 Nov 2020 20:04:28 -0500
-Message-Id: <20201103010428.1009384-14-aahringo@redhat.com>
-In-Reply-To: <20201103010428.1009384-1-aahringo@redhat.com>
-References: <20201103010428.1009384-1-aahringo@redhat.com>
+Received: from colo-mx.corp.redhat.com
+	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 626F319C4F;
+	Wed,  4 Nov 2020 16:20:24 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 59340181A050;
+	Wed,  4 Nov 2020 16:20:24 +0000 (UTC)
+Date: Wed, 4 Nov 2020 11:20:21 -0500 (EST)
+From: Bob Peterson <rpeterso@redhat.com>
+To: Zhang Qilong <zhangqilong3@huawei.com>
+Message-ID: <783856258.24540058.1604506821579.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20201030101311.39674-1-zhangqilong3@huawei.com>
+References: <20201030101311.39674-1-zhangqilong3@huawei.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Originating-IP: [10.3.113.10, 10.4.195.16]
+Thread-Topic: gfs2: fix possible reference leak in gfs2_check_blk_type
+Thread-Index: NQjE+Q9vER66RAOVkPm7vLvu/y7vlw==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCHv2 RESEND v5.10-rc2 13/13] fs: dlm: check on
-	existing node address
+Subject: Re: [Cluster-devel] [PATCH] gfs2: fix possible reference leak in
+ gfs2_check_blk_type
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,68 +75,74 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-This patch checks if we add twice the same address to a per node address
-array. This should never be the case and we report -EEXIST to the user
-space.
+----- Original Message -----
+> In the fail path of gfs2_check_blk_type, forgetting to call
+> gfs2_glock_dq_uninit will result in rgd_gh reference leak.
+> 
+> Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+> ---
+>  fs/gfs2/rgrp.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+> index ee491bb9c1cc..dd3e888994f7 100644
+> --- a/fs/gfs2/rgrp.c
+> +++ b/fs/gfs2/rgrp.c
+> @@ -2526,8 +2526,10 @@ int gfs2_check_blk_type(struct gfs2_sbd *sdp, u64
+> no_addr, unsigned int type)
+>  
+>  	rbm.rgd = rgd;
+>  	error = gfs2_rbm_from_block(&rbm, no_addr);
+> -	if (WARN_ON_ONCE(error))
+> +	if (WARN_ON_ONCE(error)) {
+> +		gfs2_glock_dq_uninit(&rgd_gh);
+>  		goto fail;
+> +	}
+>  
+>  	if (gfs2_testbit(&rbm, false) != type)
+>  		error = -ESTALE;
+> --
+> 2.17.1
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/lowcomms.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Hi,
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 7f85594b663a..372c34ff8594 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -374,10 +374,25 @@ static int addr_to_nodeid(struct sockaddr_storage *addr, int *nodeid)
- 	return rv;
- }
+Thanks. This is clearly a bug. Can we do something like this instead?
+Andreas, which do you prefer?
+
+ fs/gfs2/rgrp.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index 92d799a193b8..b26d6fcb6915 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -2529,12 +2529,10 @@ int gfs2_check_blk_type(struct gfs2_sbd *sdp, u64 no_addr, unsigned int type)
  
-+/* caller need to held dlm_node_addrs_spin lock */
-+static bool dlm_lowcomms_na_has_addr(const struct dlm_node_addr *na,
-+				     const struct sockaddr_storage *addr)
-+{
-+	int i;
-+
-+	for (i = 0; i < na->addr_count; i++) {
-+		if (addr_compare(na->addr[i], addr))
-+			return true;
+ 	rbm.rgd = rgd;
+ 	error = gfs2_rbm_from_block(&rbm, no_addr);
+-	if (WARN_ON_ONCE(error))
+-		goto fail;
+-
+-	if (gfs2_testbit(&rbm, false) != type)
+-		error = -ESTALE;
+-
++	if (!WARN_ON_ONCE(error)) {
++		if (gfs2_testbit(&rbm, false) != type)
++			error = -ESTALE;
 +	}
-+
-+	return false;
-+}
-+
- int dlm_lowcomms_addr(int nodeid, struct sockaddr_storage *addr, int len)
- {
- 	struct sockaddr_storage *new_addr;
- 	struct dlm_node_addr *new_node, *na;
-+	bool ret;
- 
- 	new_node = kzalloc(sizeof(struct dlm_node_addr), GFP_NOFS);
- 	if (!new_node)
-@@ -402,6 +417,14 @@ int dlm_lowcomms_addr(int nodeid, struct sockaddr_storage *addr, int len)
- 		return 0;
- 	}
- 
-+	ret = dlm_lowcomms_na_has_addr(na, addr);
-+	if (ret) {
-+		spin_unlock(&dlm_node_addrs_spin);
-+		kfree(new_addr);
-+		kfree(new_node);
-+		return -EEXIST;
-+	}
-+
- 	if (na->addr_count >= DLM_MAX_ADDR_COUNT) {
- 		spin_unlock(&dlm_node_addrs_spin);
- 		kfree(new_addr);
--- 
-2.26.2
+ 	gfs2_glock_dq_uninit(&rgd_gh);
+ fail:
+ 	return error;
+
+Regards,
+
+Bob Peterson
 
