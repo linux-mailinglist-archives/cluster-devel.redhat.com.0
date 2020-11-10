@@ -2,56 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 520462ACC8D
-	for <lists+cluster-devel@lfdr.de>; Tue, 10 Nov 2020 04:56:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 911462ACCA1
+	for <lists+cluster-devel@lfdr.de>; Tue, 10 Nov 2020 04:56:31 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-430-9q2tZ4W0Miupfji4Yc_mUA-1; Mon, 09 Nov 2020 22:56:01 -0500
-X-MC-Unique: 9q2tZ4W0Miupfji4Yc_mUA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-112-pKno9GTwMD6OQ-amAfzSAw-1; Mon, 09 Nov 2020 22:56:28 -0500
+X-MC-Unique: pKno9GTwMD6OQ-amAfzSAw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF69256BFE;
-	Tue, 10 Nov 2020 03:55:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51082185FD70;
+	Tue, 10 Nov 2020 03:56:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF8E96EF71;
-	Tue, 10 Nov 2020 03:55:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E3C960CCC;
+	Tue, 10 Nov 2020 03:56:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CBD62180B657;
-	Tue, 10 Nov 2020 03:55:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DF04C180B657;
+	Tue, 10 Nov 2020 03:56:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AA3tv3u002261 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 9 Nov 2020 22:55:57 -0500
+	id 0AA3uKTl002324 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 9 Nov 2020 22:56:21 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E42342024508; Tue, 10 Nov 2020 03:55:56 +0000 (UTC)
+	id D8D842166BCC; Tue, 10 Nov 2020 03:56:20 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF699200E1F2
-	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:55:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D343B2166BA4
+	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:56:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 891128007A4
-	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:55:54 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91724102F1E3
+	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:56:18 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-537-DDmexmrFOUG4PUobCoX6Dg-1;
-	Mon, 09 Nov 2020 22:55:49 -0500
-X-MC-Unique: DDmexmrFOUG4PUobCoX6Dg-1
+	by relay.mimecast.com with ESMTP id us-mta-589-YV3JgjIoM6mByGIdvhfr5g-1;
+	Mon, 09 Nov 2020 22:56:16 -0500
+X-MC-Unique: YV3JgjIoM6mByGIdvhfr5g-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 6B7F020721;
-	Tue, 10 Nov 2020 03:55:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 9C3FE20870;
+	Tue, 10 Nov 2020 03:56:13 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon,  9 Nov 2020 22:55:25 -0500
-Message-Id: <20201110035541.424648-5-sashal@kernel.org>
-In-Reply-To: <20201110035541.424648-1-sashal@kernel.org>
-References: <20201110035541.424648-1-sashal@kernel.org>
+Date: Mon,  9 Nov 2020 22:55:58 -0500
+Message-Id: <20201110035611.424867-2-sashal@kernel.org>
+In-Reply-To: <20201110035611.424867-1-sashal@kernel.org>
+References: <20201110035611.424867-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -63,13 +63,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AA3tv3u002261
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AA3uKTl002324
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.19 05/21] gfs2: check for live vs.
-	read-only file system in gfs2_fitrim
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.14 02/14] gfs2: Free rd_bits later
+	in gfs2_clear_rgrpd to fix use-after-free
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +83,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,45 +93,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Bob Peterson <rpeterso@redhat.com>
 
-[ Upstream commit c5c68724696e7d2f8db58a5fce3673208d35c485 ]
+[ Upstream commit d0f17d3883f1e3f085d38572c2ea8edbd5150172 ]
 
-Before this patch, gfs2_fitrim was not properly checking for a "live" file
-system. If the file system had something to trim and the file system
-was read-only (or spectator) it would start the trim, but when it starts
-the transaction, gfs2_trans_begin returns -EROFS (read-only file system)
-and it errors out. However, if the file system was already trimmed so
-there's no work to do, it never called gfs2_trans_begin. That code is
-bypassed so it never returns the error. Instead, it returns a good
-return code with 0 work. All this makes for inconsistent behavior:
-The same fstrim command can return -EROFS in one case and 0 in another.
-This tripped up xfstests generic/537 which reports the error as:
-
-    +fstrim with unrecovered metadata just ate your filesystem
-
-This patch adds a check for a "live" (iow, active journal, iow, RW)
-file system, and if not, returns the error properly.
+Function gfs2_clear_rgrpd calls kfree(rgd->rd_bits) before calling
+return_all_reservations, but return_all_reservations still dereferences
+rgd->rd_bits in __rs_deltree.  Fix that by moving the call to kfree below the
+call to return_all_reservations.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/rgrp.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/gfs2/rgrp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 1686a40099f21..de9b561b1c385 100644
+index 7cb0672294dfc..70a344d864447 100644
 --- a/fs/gfs2/rgrp.c
 +++ b/fs/gfs2/rgrp.c
-@@ -1387,6 +1387,9 @@ int gfs2_fitrim(struct file *filp, void __user *argp)
- 	if (!capable(CAP_SYS_ADMIN))
- 		return -EPERM;
+@@ -720,9 +720,9 @@ void gfs2_clear_rgrpd(struct gfs2_sbd *sdp)
+ 		}
  
-+	if (!test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags))
-+		return -EROFS;
-+
- 	if (!blk_queue_discard(q))
- 		return -EOPNOTSUPP;
- 
+ 		gfs2_free_clones(rgd);
++		return_all_reservations(rgd);
+ 		kfree(rgd->rd_bits);
+ 		rgd->rd_bits = NULL;
+-		return_all_reservations(rgd);
+ 		kmem_cache_free(gfs2_rgrpd_cachep, rgd);
+ 	}
+ }
 -- 
 2.27.0
 
