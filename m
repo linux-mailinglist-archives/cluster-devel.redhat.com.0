@@ -1,55 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 911462ACCA1
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2A3602ACCA0
 	for <lists+cluster-devel@lfdr.de>; Tue, 10 Nov 2020 04:56:31 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-112-pKno9GTwMD6OQ-amAfzSAw-1; Mon, 09 Nov 2020 22:56:28 -0500
-X-MC-Unique: pKno9GTwMD6OQ-amAfzSAw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-11-yqOFEN8dML2oR3foAq9S9A-1; Mon, 09 Nov 2020 22:56:28 -0500
+X-MC-Unique: yqOFEN8dML2oR3foAq9S9A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51082185FD70;
-	Tue, 10 Nov 2020 03:56:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E3C960CCC;
-	Tue, 10 Nov 2020 03:56:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9ADA4809DC9;
+	Tue, 10 Nov 2020 03:56:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B53850B44;
+	Tue, 10 Nov 2020 03:56:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DF04C180B657;
-	Tue, 10 Nov 2020 03:56:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 764E55810D;
+	Tue, 10 Nov 2020 03:56:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AA3uKTl002324 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 9 Nov 2020 22:56:21 -0500
+	id 0AA3uMvF002334 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 9 Nov 2020 22:56:22 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D8D842166BCC; Tue, 10 Nov 2020 03:56:20 +0000 (UTC)
+	id 55D4C200E1F2; Tue, 10 Nov 2020 03:56:22 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D343B2166BA4
-	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:56:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 506A9202348E
+	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:56:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91724102F1E3
-	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:56:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07CA5811E78
+	for <cluster-devel@redhat.com>; Tue, 10 Nov 2020 03:56:20 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-589-YV3JgjIoM6mByGIdvhfr5g-1;
-	Mon, 09 Nov 2020 22:56:16 -0500
-X-MC-Unique: YV3JgjIoM6mByGIdvhfr5g-1
+	by relay.mimecast.com with ESMTP id us-mta-345-wsdgwsKMNtaXmGQG8msGbg-1;
+	Mon, 09 Nov 2020 22:56:17 -0500
+X-MC-Unique: wsdgwsKMNtaXmGQG8msGbg-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 9C3FE20870;
-	Tue, 10 Nov 2020 03:56:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id D0974208FE;
+	Tue, 10 Nov 2020 03:56:14 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon,  9 Nov 2020 22:55:58 -0500
-Message-Id: <20201110035611.424867-2-sashal@kernel.org>
+Date: Mon,  9 Nov 2020 22:55:59 -0500
+Message-Id: <20201110035611.424867-3-sashal@kernel.org>
 In-Reply-To: <20201110035611.424867-1-sashal@kernel.org>
 References: <20201110035611.424867-1-sashal@kernel.org>
 MIME-Version: 1.0
@@ -63,13 +64,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AA3uKTl002324
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AA3uMvF002334
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.14 02/14] gfs2: Free rd_bits later
-	in gfs2_clear_rgrpd to fix use-after-free
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.14 03/14] gfs2: Add missing
+	truncate_inode_pages_final for sd_aspace
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +84,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,35 +94,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Bob Peterson <rpeterso@redhat.com>
 
-[ Upstream commit d0f17d3883f1e3f085d38572c2ea8edbd5150172 ]
+[ Upstream commit a9dd945ccef07a904e412f208f8de708a3d7159e ]
 
-Function gfs2_clear_rgrpd calls kfree(rgd->rd_bits) before calling
-return_all_reservations, but return_all_reservations still dereferences
-rgd->rd_bits in __rs_deltree.  Fix that by moving the call to kfree below the
-call to return_all_reservations.
+Gfs2 creates an address space for its rgrps called sd_aspace, but it never
+called truncate_inode_pages_final on it. This confused vfs greatly which
+tried to reference the address space after gfs2 had freed the superblock
+that contained it.
+
+This patch adds a call to truncate_inode_pages_final for sd_aspace, thus
+avoiding the use-after-free.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/rgrp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/gfs2/super.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 7cb0672294dfc..70a344d864447 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -720,9 +720,9 @@ void gfs2_clear_rgrpd(struct gfs2_sbd *sdp)
- 		}
- 
- 		gfs2_free_clones(rgd);
-+		return_all_reservations(rgd);
- 		kfree(rgd->rd_bits);
- 		rgd->rd_bits = NULL;
--		return_all_reservations(rgd);
- 		kmem_cache_free(gfs2_rgrpd_cachep, rgd);
- 	}
- }
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index c3f3f1ae4e1b7..639e2c86758a4 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -924,6 +924,7 @@ static void gfs2_put_super(struct super_block *sb)
+ 	gfs2_jindex_free(sdp);
+ 	/*  Take apart glock structures and buffer lists  */
+ 	gfs2_gl_hash_clear(sdp);
++	truncate_inode_pages_final(&sdp->sd_aspace);
+ 	gfs2_delete_debugfs_file(sdp);
+ 	/*  Unmount the locking protocol  */
+ 	gfs2_lm_unmount(sdp);
 -- 
 2.27.0
 
