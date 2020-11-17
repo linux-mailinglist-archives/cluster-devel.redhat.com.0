@@ -2,58 +2,76 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EE1952B5239
-	for <lists+cluster-devel@lfdr.de>; Mon, 16 Nov 2020 21:15:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1605557734;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=+wriHoULAbUDCq+siiMoua5BjeDvrrDlTCLHHQF0y6o=;
-	b=M/ApzF/T2MCNOrYhQDUqMDBdMs+YloVQCc8tgiN8RvkRR+fMkBc3tXOeS/Odk3qZiOwLQR
-	LqVhPiGY5BxMmjNEm7V92rjpSAB5FnQfPlsM4JO5cykmaqMnkL235AbaKT7FldTuZpnyF8
-	hqNv6Lvkf8hg5TZMkZmQVNF+CcHlkG8=
+	by mail.lfdr.de (Postfix) with ESMTP id 6BB0B2B5F73
+	for <lists+cluster-devel@lfdr.de>; Tue, 17 Nov 2020 13:57:44 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-159-__-itQABOgCbhsG1aMbSnw-1; Mon, 16 Nov 2020 15:15:31 -0500
-X-MC-Unique: __-itQABOgCbhsG1aMbSnw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-375-E64RyedEP-6ds-4S5l2aEA-1; Tue, 17 Nov 2020 07:57:41 -0500
+X-MC-Unique: E64RyedEP-6ds-4S5l2aEA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5ABC5F9CB;
-	Mon, 16 Nov 2020 20:15:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 924458030DA;
+	Tue, 17 Nov 2020 12:57:38 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 15A081001901;
-	Mon, 16 Nov 2020 20:15:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFBF25C1D0;
+	Tue, 17 Nov 2020 12:57:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5927C183D020;
-	Mon, 16 Nov 2020 20:15:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 49302180BAFF;
+	Tue, 17 Nov 2020 12:57:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGKFNac023731 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 15:15:23 -0500
+	id 0AHCvQs2004926 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 17 Nov 2020 07:57:26 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 09DA6176BB; Mon, 16 Nov 2020 20:15:23 +0000 (UTC)
+	id 4E8552086F63; Tue, 17 Nov 2020 12:57:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-118-213.rdu2.redhat.com [10.10.118.213])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9E8EA62923;
-	Mon, 16 Nov 2020 20:15:22 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Mon, 16 Nov 2020 15:15:08 -0500
-Message-Id: <20201116201508.223739-2-aahringo@redhat.com>
-In-Reply-To: <20201116201508.223739-1-aahringo@redhat.com>
-References: <20201116201508.223739-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A1B02086F62
+	for <cluster-devel@redhat.com>; Tue, 17 Nov 2020 12:57:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09855858289
+	for <cluster-devel@redhat.com>; Tue, 17 Nov 2020 12:57:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-540-V5Pedzr8OT6OJ6NSOpRqdA-1;
+	Tue, 17 Nov 2020 07:57:19 -0500
+X-MC-Unique: V5Pedzr8OT6OJ6NSOpRqdA-1
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+	[73.47.72.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 403882464E;
+	Tue, 17 Nov 2020 12:57:17 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 17 Nov 2020 07:56:47 -0500
+Message-Id: <20201117125652.599614-16-sashal@kernel.org>
+In-Reply-To: <20201117125652.599614-1-sashal@kernel.org>
+References: <20201117125652.599614-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AHCvQs2004926
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm-tool 2/2] dlm_controld: add option for
-	port number
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
+	Zhang Qilong <zhangqilong3@huawei.com>
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.9 16/21] gfs2: fix possible
+	reference leak in gfs2_check_blk_type
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,67 +85,52 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 8bit
 
-This patch adds an option to specify the port number for dlm. Although
-the cluster attribute is named tcp_port, you can declare the port value
-for any transport protocol. All nodes needs to have the same value,
-otherwise dlm will get into a deadlock.
+From: Zhang Qilong <zhangqilong3@huawei.com>
+
+[ Upstream commit bc923818b190c8b63c91a47702969c8053574f5b ]
+
+In the fail path of gfs2_check_blk_type, forgetting to call
+gfs2_glock_dq_uninit will result in rgd_gh reference leak.
+
+Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- dlm_controld/action.c     | 4 ++++
- dlm_controld/dlm_daemon.h | 1 +
- dlm_controld/main.c       | 5 +++++
- 3 files changed, 10 insertions(+)
+ fs/gfs2/rgrp.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/dlm_controld/action.c b/dlm_controld/action.c
-index 9e18d286..0eff2799 100644
---- a/dlm_controld/action.c
-+++ b/dlm_controld/action.c
-@@ -881,6 +881,10 @@ int setup_configfs_options(void)
- 	    dlm_options[timewarn_ind].file_set)
- 		set_configfs_cluster("timewarn_cs", NULL, opt(timewarn_ind));
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index 1bba5a9d45fa3..fc073cb729854 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -2530,13 +2530,13 @@ int gfs2_check_blk_type(struct gfs2_sbd *sdp, u64 no_addr, unsigned int type)
  
-+	if (dlm_options[port_ind].cli_set ||
-+	    dlm_options[port_ind].file_set)
-+		set_configfs_cluster("tcp_port", NULL, optu(port_ind));
+ 	rbm.rgd = rgd;
+ 	error = gfs2_rbm_from_block(&rbm, no_addr);
+-	if (WARN_ON_ONCE(error))
+-		goto fail;
+-
+-	if (gfs2_testbit(&rbm, false) != type)
+-		error = -ESTALE;
++	if (!WARN_ON_ONCE(error)) {
++		if (gfs2_testbit(&rbm, false) != type)
++			error = -ESTALE;
++	}
+ 
+ 	gfs2_glock_dq_uninit(&rgd_gh);
 +
- 	set_configfs_cluster("mark", NULL, optu(mark_ind));
- 
- 	proto_name = opts(protocol_ind);
-diff --git a/dlm_controld/dlm_daemon.h b/dlm_controld/dlm_daemon.h
-index 95848201..45b295ea 100644
---- a/dlm_controld/dlm_daemon.h
-+++ b/dlm_controld/dlm_daemon.h
-@@ -99,6 +99,7 @@ enum {
-         log_debug_ind,
-         timewarn_ind,
-         protocol_ind,
-+        port_ind,
-         debug_logfile_ind,
- 	bind_all_ind,
-         mark_ind,
-diff --git a/dlm_controld/main.c b/dlm_controld/main.c
-index 41b03efb..c35756d4 100644
---- a/dlm_controld/main.c
-+++ b/dlm_controld/main.c
-@@ -1778,6 +1778,11 @@ static void set_opt_defaults(void)
- 			-1, "detect", 0,
- 			"dlm kernel lowcomms protocol: tcp, sctp, detect");
- 
-+	set_opt_default(port_ind,
-+			"port", 'R', req_arg_uint,
-+			-1, NULL, 21064,
-+			"dlm kernel lowcomms protocol port");
-+
- 	set_opt_default(bind_all_ind,
- 			"bind_all", '\0', req_arg_int,
- 			0, NULL, 0,
+ fail:
+ 	return error;
+ }
 -- 
-2.26.2
+2.27.0
+
 
