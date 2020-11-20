@@ -2,67 +2,57 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 155752C0804
-	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 14:04:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4E8FC2C0C96
+	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 15:10:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-481-CfHTW0ArOzW40PM7tAmKnA-1; Mon, 23 Nov 2020 08:04:00 -0500
-X-MC-Unique: CfHTW0ArOzW40PM7tAmKnA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-159-qEtiQ1JANHq3QRL-7o-vcw-1; Mon, 23 Nov 2020 09:10:20 -0500
+X-MC-Unique: qEtiQ1JANHq3QRL-7o-vcw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 008481009440;
-	Mon, 23 Nov 2020 13:03:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 793AE5C1BD;
-	Mon, 23 Nov 2020 13:03:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AF01C87952B;
+	Mon, 23 Nov 2020 14:10:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B93E1899A;
+	Mon, 23 Nov 2020 14:10:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3521B3A260;
-	Mon, 23 Nov 2020 13:03:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8A5911809CA4;
+	Mon, 23 Nov 2020 14:02:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AND3ppx024925 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Nov 2020 08:03:51 -0500
+	id 0AKJ35iD017444 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 14:03:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 422ED1111C85; Mon, 23 Nov 2020 13:03:51 +0000 (UTC)
+	id 7C2C9F00E6; Fri, 20 Nov 2020 19:03:05 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B38C100402A
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 13:03:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75312F00E2
+	for <cluster-devel@redhat.com>; Fri, 20 Nov 2020 19:03:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58E74187504A
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 13:03:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC4A6802A5D
+	for <cluster-devel@redhat.com>; Fri, 20 Nov 2020 19:03:02 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-451-JcxkM3j_NGihY2o613RXiw-1;
-	Mon, 23 Nov 2020 08:03:43 -0500
-X-MC-Unique: JcxkM3j_NGihY2o613RXiw-1
-Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
+	by relay.mimecast.com with ESMTP id us-mta-470-XsUbK4HTM1WoFwKt1k-orA-1;
+	Fri, 20 Nov 2020 14:03:00 -0500
+X-MC-Unique: XsUbK4HTM1WoFwKt1k-orA-1
+Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
+	[163.114.132.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 191D120758;
-	Mon, 23 Nov 2020 13:03:35 +0000 (UTC)
-Date: Mon, 23 Nov 2020 07:03:48 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20201123130348.GA3119@embeddedor>
+	by mail.kernel.org (Postfix) with ESMTPSA id D19712242B;
+	Fri, 20 Nov 2020 18:53:45 +0000 (UTC)
+Date: Fri, 20 Nov 2020 10:53:44 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Message-ID: <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
 References: <cover.1605896059.git.gustavoars@kernel.org>
-	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011201129.B13FDB3C@keescook>
-	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011220816.8B6591A@keescook>
-	<9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-	<ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
-	<0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
-	<d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
-	<dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
 MIME-Version: 1.0
-In-Reply-To: <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,53 +61,53 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	target-devel@vger.kernel.org,
-	Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-mmc@vger.kernel.org,
+X-Mailman-Approved-At: Mon, 23 Nov 2020 09:02:28 -0500
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
+	linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
 	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+	virtualization@lists.linux-foundation.org,
+	Nathan Chancellor <natechancellor@gmail.com>,
 	linux-ide@vger.kernel.org, dm-devel@redhat.com,
 	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
 	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
-	linux-afs@lists.infradead.org, linux-watchdog@vger.kernel.org,
-	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
-	rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, linux-atm-general@lists.sourceforge.net,
-	ceph-devel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+	usb-storage@lists.one-eyed-alien.net,
+	target-devel@vger.kernel.org, devel@driverdev.osuosl.org,
+	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+	linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
 	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
+	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
 	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
 	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
-	netfilter-devel@vger.kernel.org, linux-media@vger.kernel.org,
-	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
-	linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
-	linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
-	linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-	linux-mediatek@lists.infradead.org,
+	linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
 	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
-	linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org, x86@kernel.org,
 	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	nouveau@lists.freedesktop.org, netdev@vger.kernel.org,
-	linux-decnet-user@lists.sourceforge.net,
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
-	linux-integrity@vger.kernel.org, x86@kernel.org,
+	Kees Cook <keescook@chromium.org>, linux-mm@kvack.org,
+	netdev@vger.kernel.org, linux-decnet-user@lists.sourceforge.net,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
+	linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
+	Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
 	linux-hardening@vger.kernel.org
-Subject: Re: [Cluster-devel] [Intel-wired-lan] [PATCH 000/141] Fix
- fall-through warnings for Clang
+Subject: Re: [Cluster-devel] [PATCH 000/141] Fix fall-through warnings for
+	Clang
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -131,56 +121,36 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 22, 2020 at 11:53:55AM -0800, James Bottomley wrote:
-> On Sun, 2020-11-22 at 11:22 -0800, Joe Perches wrote:
-> > On Sun, 2020-11-22 at 11:12 -0800, James Bottomley wrote:
-> > > On Sun, 2020-11-22 at 10:25 -0800, Joe Perches wrote:
-> > > > On Sun, 2020-11-22 at 10:21 -0800, James Bottomley wrote:
-> > > > > Please tell me our reward for all this effort isn't a single
-> > > > > missing error print.
-> > > > 
-> > > > There were quite literally dozens of logical defects found
-> > > > by the fallthrough additions.  Very few were logging only.
-> > > 
-> > > So can you give us the best examples (or indeed all of them if
-> > > someone is keeping score)?  hopefully this isn't a US election
-> > > situation ...
-> > 
-> > Gustavo?  Are you running for congress now?
-> > 
-> > https://lwn.net/Articles/794944/
+On Fri, 20 Nov 2020 12:21:39 -0600 Gustavo A. R. Silva wrote:
+> This series aims to fix almost all remaining fall-through warnings in
+> order to enable -Wimplicit-fallthrough for Clang.
 > 
-> That's 21 reported fixes of which about 50% seem to produce no change
-> in code behaviour at all, a quarter seem to have no user visible effect
-> with the remaining quarter producing unexpected errors on obscure
-> configuration parameters, which is why no-one really noticed them
-> before.
+> In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
+> add multiple break/goto/return/fallthrough statements instead of just
+> letting the code fall through to the next case.
+> 
+> Notice that in order to enable -Wimplicit-fallthrough for Clang, this
+> change[1] is meant to be reverted at some point. So, this patch helps
+> to move in that direction.
+> 
+> Something important to mention is that there is currently a discrepancy
+> between GCC and Clang when dealing with switch fall-through to empty case
+> statements or to cases that only contain a break/continue/return
+> statement[2][3][4].
 
-The really important point here is the number of bugs this has prevented
-and will prevent in the future. See an example of this, below:
+Are we sure we want to make this change? Was it discussed before?
 
-https://lore.kernel.org/linux-iio/20190813135802.GB27392@kroah.com/
+Are there any bugs Clangs puritanical definition of fallthrough helped
+find?
 
-This work is still relevant, even if the total number of issues/bugs
-we find in the process is zero (which is not the case).
-
-"The sucky thing about doing hard work to deploy hardening is that the
-result is totally invisible by definition (things not happening) [..]"
-- Dmitry Vyukov
-
-Thanks
---
-Gustavo
-
-
-
-
+IMVHO compiler warnings are supposed to warn about issues that could
+be bugs. Falling through to default: break; can hardly be a bug?!
 
