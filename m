@@ -2,134 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 686752BFCE5
-	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 00:05:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 035AD2BFCEB
+	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 00:10:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1606086650;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=ZNG0YH/ZrLTcEZELKyIz/iyG9kEitgfXuqVqYfCQJMc=;
+	b=We8rnni7u/vT8Ng6Akn8kjm3S117ydpFDg9l++Z3Hg4u2QSUhhmyaafHi7pPKwujBn5A1m
+	nixhB3IF/AuZN9U1Cjynr7T7bq8DJQKwG4L6IMee6QCTO+xK19F08SIXhqR0c2BRlLyZdz
+	voD/ClIHsIUMDvTsLkKUcz9HLqax6X8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-332-WHWi_OkMOkenqS1rFCyVpA-1; Sun, 22 Nov 2020 18:05:28 -0500
-X-MC-Unique: WHWi_OkMOkenqS1rFCyVpA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-476-Lcp6bvuANgmM03Lmhdq4bw-1; Sun, 22 Nov 2020 18:10:49 -0500
+X-MC-Unique: Lcp6bvuANgmM03Lmhdq4bw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B46B1005E40;
-	Sun, 22 Nov 2020 23:05:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 122B35D9DD;
-	Sun, 22 Nov 2020 23:05:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91C775204;
+	Sun, 22 Nov 2020 23:10:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 106215C1C4;
+	Sun, 22 Nov 2020 23:10:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 043AE4BB7B;
-	Sun, 22 Nov 2020 23:05:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 77868180954D;
+	Sun, 22 Nov 2020 23:10:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AMN4m8g024185 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sun, 22 Nov 2020 18:04:49 -0500
+	id 0AMNAhH3024780 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sun, 22 Nov 2020 18:10:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D5C8F1111A67; Sun, 22 Nov 2020 23:04:48 +0000 (UTC)
+	id 4D3B05D6D7; Sun, 22 Nov 2020 23:10:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D16DB111287E
-	for <cluster-devel@redhat.com>; Sun, 22 Nov 2020 23:04:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E656E103B801
-	for <cluster-devel@redhat.com>; Sun, 22 Nov 2020 23:04:45 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com
-	(bedivere.hansenpartnership.com [96.44.175.130]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-313-XnmIAGdLP8mYV33bUOpW0g-1;
-	Sun, 22 Nov 2020 18:04:43 -0500
-X-MC-Unique: XnmIAGdLP8mYV33bUOpW0g-1
-Received: from localhost (localhost [127.0.0.1])
-	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 5C1741280900; 
-	Sun, 22 Nov 2020 15:04:41 -0800 (PST)
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
-	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
-	port 10024)
-	with ESMTP id PvG_3ynFL_Uj; Sun, 22 Nov 2020 15:04:41 -0800 (PST)
-Received: from jarvis.int.hansenpartnership.com (unknown
-	[IPv6:2601:600:8280:66d1::527])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id
-	9178D12808F6; Sun, 22 Nov 2020 15:04:37 -0800 (PST)
-Message-ID: <c3371b7c15ed30b92e9bb8609ff65bdaa0ef61fa.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@hansenpartnership.com>
-To: Finn Thain <fthain@telegraphics.com.au>, Miguel Ojeda
-	<miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 22 Nov 2020 15:04:36 -0800
-In-Reply-To: <alpine.LNX.2.23.453.2011230938390.7@nippy.intranet>
-References: <cover.1605896059.git.gustavoars@kernel.org>
-	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011201129.B13FDB3C@keescook>
-	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011220816.8B6591A@keescook>
-	<9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-	<CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
-	<alpine.LNX.2.23.453.2011230938390.7@nippy.intranet>
-User-Agent: Evolution 3.34.4
+Received: from carbon.redhat.com (ovpn-113-14.rdu2.redhat.com [10.10.113.14])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B62AC5D6D3;
+	Sun, 22 Nov 2020 23:10:39 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: cluster-devel@redhat.com
+Date: Sun, 22 Nov 2020 18:10:24 -0500
+Message-Id: <20201122231024.249253-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
-	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
-	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Nathan Chancellor <natechancellor@gmail.com>,
-	linux-ide@vger.kernel.org, dm-devel@redhat.com,
-	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, Linux,
-	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
-	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
-	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
-	Desaulniers <ndesaulniers@google.com>,
-	linux-scsi@vger.kernel.org, Nick, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
-	linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
-	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Ext4 Developers List <linux-ext4@vger.kernel.org>,
-	Media Mailing List <linux-media@vger.kernel.org>,
-	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
-	linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
-	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
-	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	tipc-discussion@lists.sourceforge.net, Linux-MM <linux-mm@kvack.org>,
-	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
-	linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
-	List <linux-crypto@vger.kernel.org>,
-	patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
-	linux-integrity@vger.kernel.org, wcn36xx@lists.infradead.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH 000/141] Fix fall-through warnings for
-	Clang
+Subject: [Cluster-devel] [PATCH gfs2/for-next] gfs2: Fix deadlock dumping
+	resource group glocks
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -143,29 +63,46 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Mon, 2020-11-23 at 09:54 +1100, Finn Thain wrote:
-> But is anyone keeping score of the regressions? If unreported bugs
-> count, what about unreported regressions?
+Commit 0e539ca1bbbe ("gfs2: Fix NULL pointer dereference in gfs2_rgrp_dump")
+introduced additional locking in gfs2_rgrp_go_dump, which is also used for
+dumping resource group glocks via debugfs.  However, on that code path, the
+glock spin lock is already taken in dump_glock, and taking it again in
+gfs2_glock2rgrp leads to deadlock.  This can be reproduced with:
 
-Well, I was curious about the former (obviously no tool will tell me
-about the latter), so I asked git what patches had a fall-through
-series named in a fixes tag and these three popped out:
+  $ mkfs.gfs2 -O -p lock_nolock /dev/FOO
+  $ mount /dev/FOO /mnt/foo
+  $ touch /mnt/foo/bar
+  $ cat /sys/kernel/debug/gfs2/FOO/glocks
 
-9cf51446e686 bpf, powerpc: Fix misuse of fallthrough in bpf_jit_comp()
-6a9dc5fd6170 lib: Revert use of fallthrough pseudo-keyword in lib/
-91dbd73a1739 mips/oprofile: Fix fallthrough placement
+Fix that by not taking the glock spin lock inside the go_dump callback.
 
-I don't think any of these is fixing a significant problem, but they
-did cause someone time and trouble to investigate.
+Fixes: 0e539ca1bbbe ("gfs2: Fix NULL pointer dereference in gfs2_rgrp_dump")
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+---
+ fs/gfs2/glops.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-James
-
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 67f2921ae8d4..6cedeefb7b3f 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -245,7 +245,7 @@ static void rgrp_go_inval(struct gfs2_glock *gl, int flags)
+ static void gfs2_rgrp_go_dump(struct seq_file *seq, struct gfs2_glock *gl,
+ 			      const char *fs_id_buf)
+ {
+-	struct gfs2_rgrpd *rgd = gfs2_glock2rgrp(gl);
++	struct gfs2_rgrpd *rgd = gl->gl_object;
+ 
+ 	if (rgd)
+ 		gfs2_rgrp_dump(seq, rgd, fs_id_buf);
+-- 
+2.26.2
 
