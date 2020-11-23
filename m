@@ -2,88 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 05F3C2C0ED1
-	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 16:31:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 99AC92C0F4C
+	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 16:53:59 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606145468;
+	s=mimecast20190719; t=1606146838;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=n5B+FPNZ7/nI6MLbnAuYG4akrTLBVajklT8NZmNzarw=;
-	b=Zgjn7B48vbO7MhFSjDWkBEzFLolCCCYHF/VKoQI41eWTctr33du9gPdhSSHNfLvZ3JMtR8
-	lIIArCu1qlyt7m5MC61RHJww96+UHKq5yUteNgM1dFs1MnYT6PK9MyQcfXlidvy9fGQeYW
-	G2UKzzQtXhjWZ/pRXPD6+Kr0n3HNMf4=
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=o7TJUd8dXNhoX3PQPNZgNR4FSPUC863SIoS2w2C7gdA=;
+	b=IWvi3dI/uxEl5x2dY+MU6PV2H+Of5xxEDk+sfCIenIrrk4z4InZJ5+7/LTyEgjYSU+tfv2
+	FJDreJjhNMaZUSJnmE+0O4tZsTILcsUHTIbUSFZio5sze79ztBcb9Q0qInSkme872S5/9N
+	/80oy+6izGueZNI5y2NPB9XggrjyX40=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-122-XhZ3xZSTPKuSAw9YRQ6jzA-1; Mon, 23 Nov 2020 10:31:05 -0500
-X-MC-Unique: XhZ3xZSTPKuSAw9YRQ6jzA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-566-UIsdGVeDPoiE0JsuauqF7A-1; Mon, 23 Nov 2020 10:53:55 -0500
+X-MC-Unique: UIsdGVeDPoiE0JsuauqF7A-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DAA3D1876527;
-	Mon, 23 Nov 2020 15:31:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 98846108DE98;
+	Mon, 23 Nov 2020 15:53:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2CFA10016FA;
-	Mon, 23 Nov 2020 15:31:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 171FA6091B;
+	Mon, 23 Nov 2020 15:53:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 842511809C9F;
-	Mon, 23 Nov 2020 15:30:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5379B180954D;
+	Mon, 23 Nov 2020 15:53:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ANFUsJm011979 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Nov 2020 10:30:54 -0500
+	id 0ANFrmVj015389 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Nov 2020 10:53:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6299C2026D49; Mon, 23 Nov 2020 15:30:54 +0000 (UTC)
+	id E78D85D9EF; Mon, 23 Nov 2020 15:53:48 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E3C92026D12
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 15:30:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D85921065069
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 15:30:51 +0000 (UTC)
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
-	[209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-309-n6rWq_XMPf6ldg5RVaSRZQ-1; Mon, 23 Nov 2020 10:30:50 -0500
-X-MC-Unique: n6rWq_XMPf6ldg5RVaSRZQ-1
-Received: by mail-wr1-f70.google.com with SMTP id v5so6061801wrr.0
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 07:30:49 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=n5B+FPNZ7/nI6MLbnAuYG4akrTLBVajklT8NZmNzarw=;
-	b=eSLzBoynWQ4HWH4bMsyc8a0Io938Ox5RzEd5xwqxniEANIro4FZ/tuM1uQrTPrcK0E
-	biUPf7pr33HgEXi6qLExuPHN32mKc5iYtnpJZYTTp6SP+hvPidp//0r9IX68HryO7pLP
-	XXtwI4+KsrUKTRsO6LshFm6NNHkzg+xZWfGCdPb5MApMSZh8+xJg2qBShC5aIE5S72xn
-	K00VDELeYvTyleKwplpKFw+aeHb3zoSlIDQIOeVVedv1+KpTHbqVIwWA9p35WQgPQT+Z
-	HAarciT6zg2MDq8oBeu5Ue8VnfxsnMiIhY7xlJ7xRo3OY4uTZt3loWIIWNXnVe9wJZWM
-	2DXQ==
-X-Gm-Message-State: AOAM533LLXYI4PV8h8UGSvk90yF+94YZaqROeMT7gdSsvg9jR/rAcbcD
-	g+mrzzppk5YQDiuQ0/53wm9aKXoo/GvK8Do+AsmSJ3RD4sz9x6oR8/3E0ve86yQEdi+AUUTUrAJ
-	10+WIx5bXqCvv1xBpgHGgFl+pyQnL8H/OnZuZog==
-X-Received: by 2002:adf:b64b:: with SMTP id i11mr233807wre.78.1606145448872;
-	Mon, 23 Nov 2020 07:30:48 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzepPohFrcwkFvufFYzjTkMx/3VmTCo1TMFA+SsqIyGTMm+QHI0vMzEdDKsr8QA384UVg2iQLJJ3LVHrhBwKwE=
-X-Received: by 2002:adf:b64b:: with SMTP id i11mr233790wre.78.1606145448618;
-	Mon, 23 Nov 2020 07:30:48 -0800 (PST)
+Received: from carbon.redhat.com (ovpn-114-203.rdu2.redhat.com [10.10.114.203])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6B9415D9E3;
+	Mon, 23 Nov 2020 15:53:45 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: cluster-devel@redhat.com
+Date: Mon, 23 Nov 2020 10:53:35 -0500
+Message-Id: <20201123155335.354986-1-aahringo@redhat.com>
 MIME-Version: 1.0
-References: <20201122231024.249253-1-aahringo@redhat.com>
-In-Reply-To: <20201122231024.249253-1-aahringo@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 23 Nov 2020 16:30:36 +0100
-Message-ID: <CAHc6FU6ZeDt9a_d5Aju0uBJCUiHd6tO1BchV6vwFyMyeciDjdw@mail.gmail.com>
-To: Alexander Aring <aahringo@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [PATCH gfs2/for-next] gfs2: Fix deadlock
-	dumping resource group glocks
+Subject: [Cluster-devel] [PATCH gfs2/for-next] fs: gfs2: add set of subclass
+	for iopen glocks
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,52 +63,109 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Mon, Nov 23, 2020 at 12:10 AM Alexander Aring <aahringo@redhat.com> wrote:
-> Commit 0e539ca1bbbe ("gfs2: Fix NULL pointer dereference in gfs2_rgrp_dump")
-> introduced additional locking in gfs2_rgrp_go_dump, which is also used for
-> dumping resource group glocks via debugfs.  However, on that code path, the
-> glock spin lock is already taken in dump_glock, and taking it again in
-> gfs2_glock2rgrp leads to deadlock.  This can be reproduced with:
->
->   $ mkfs.gfs2 -O -p lock_nolock /dev/FOO
->   $ mount /dev/FOO /mnt/foo
->   $ touch /mnt/foo/bar
->   $ cat /sys/kernel/debug/gfs2/FOO/glocks
->
-> Fix that by not taking the glock spin lock inside the go_dump callback.
->
-> Fixes: 0e539ca1bbbe ("gfs2: Fix NULL pointer dereference in gfs2_rgrp_dump")
-> Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> ---
->  fs/gfs2/glops.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-> index 67f2921ae8d4..6cedeefb7b3f 100644
-> --- a/fs/gfs2/glops.c
-> +++ b/fs/gfs2/glops.c
-> @@ -245,7 +245,7 @@ static void rgrp_go_inval(struct gfs2_glock *gl, int flags)
->  static void gfs2_rgrp_go_dump(struct seq_file *seq, struct gfs2_glock *gl,
->                               const char *fs_id_buf)
->  {
-> -       struct gfs2_rgrpd *rgd = gfs2_glock2rgrp(gl);
-> +       struct gfs2_rgrpd *rgd = gl->gl_object;
->
->         if (rgd)
->                 gfs2_rgrp_dump(seq, rgd, fs_id_buf);
-> --
-> 2.26.2
->
+This patch introduce a new globs attribute to define the subclass of the
+glock lockref spinlock. This avoid the following lockdep warning, which
+occurs when we lock an inode lock while an iopen lock is held:
 
-Thanks. I've added this to for-next for now, but I'll try to push this
-to Linus before the 5.10 release.
+============================================
+WARNING: possible recursive locking detected
+5.10.0-rc3+ #4990 Not tainted
+--------------------------------------------
+kworker/0:1/12 is trying to acquire lock:
+ffff9067d45672d8 (&gl->gl_lockref.lock){+.+.}-{3:3}, at: lockref_get+0x9/0x20
 
-Andreas
+but task is already holding lock:
+ffff9067da308588 (&gl->gl_lockref.lock){+.+.}-{3:3}, at: delete_work_func+0x164/0x260
+
+other info that might help us debug this:
+ Possible unsafe locking scenario:
+
+       CPU0
+       ----
+  lock(&gl->gl_lockref.lock);
+  lock(&gl->gl_lockref.lock);
+
+ *** DEADLOCK ***
+
+ May be due to missing lock nesting notation
+
+3 locks held by kworker/0:1/12:
+ #0: ffff9067c1bfdd38 ((wq_completion)delete_workqueue){+.+.}-{0:0}, at: process_one_work+0x1b7/0x540
+ #1: ffffac594006be70 ((work_completion)(&(&gl->gl_delete)->work)){+.+.}-{0:0}, at: process_one_work+0x1b7/0x540
+ #2: ffff9067da308588 (&gl->gl_lockref.lock){+.+.}-{3:3}, at: delete_work_func+0x164/0x260
+
+stack backtrace:
+CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.10.0-rc3+ #4990
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.13.0-2.fc32 04/01/2014
+Workqueue: delete_workqueue delete_work_func
+Call Trace:
+ dump_stack+0x8b/0xb0
+ __lock_acquire.cold+0x19e/0x2e3
+ lock_acquire+0x150/0x410
+ ? lockref_get+0x9/0x20
+ _raw_spin_lock+0x27/0x40
+ ? lockref_get+0x9/0x20
+ lockref_get+0x9/0x20
+ delete_work_func+0x188/0x260
+ process_one_work+0x237/0x540
+ worker_thread+0x4d/0x3b0
+ ? process_one_work+0x540/0x540
+ kthread+0x127/0x140
+ ? __kthread_bind_mask+0x60/0x60
+ ret_from_fork+0x22/0x30
+
+Suggested-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+---
+ fs/gfs2/glock.c  | 1 +
+ fs/gfs2/glops.c  | 1 +
+ fs/gfs2/incore.h | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index d98a2e5dab9f..35a6fd103761 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -1035,6 +1035,7 @@ int gfs2_glock_get(struct gfs2_sbd *sdp, u64 number,
+ 	gl->gl_node.next = NULL;
+ 	gl->gl_flags = 0;
+ 	gl->gl_name = name;
++	lockdep_set_subclass(&gl->gl_lockref.lock, glops->go_subclass);
+ 	gl->gl_lockref.count = 1;
+ 	gl->gl_state = LM_ST_UNLOCKED;
+ 	gl->gl_target = LM_ST_UNLOCKED;
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index dae69ad74544..dc5014739318 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -770,6 +770,7 @@ const struct gfs2_glock_operations gfs2_iopen_glops = {
+ 	.go_callback = iopen_go_callback,
+ 	.go_demote_ok = iopen_go_demote_ok,
+ 	.go_flags = GLOF_LRU | GLOF_NONDISK,
++	.go_subclass = 1,
+ };
+ 
+ const struct gfs2_glock_operations gfs2_flock_glops = {
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index d7707307f4b1..f8858d995b24 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -247,6 +247,7 @@ struct gfs2_glock_operations {
+ 			const char *fs_id_buf);
+ 	void (*go_callback)(struct gfs2_glock *gl, bool remote);
+ 	void (*go_free)(struct gfs2_glock *gl);
++	const int go_subclass;
+ 	const int go_type;
+ 	const unsigned long go_flags;
+ #define GLOF_ASPACE 1 /* address space attached */
+-- 
+2.26.2
 
