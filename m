@@ -2,66 +2,64 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 065962C1058
-	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 17:33:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 58BFF2C135E
+	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 19:56:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-569-OiiTRmmyPtuOcLdoUqHWLQ-1; Mon, 23 Nov 2020 11:33:08 -0500
-X-MC-Unique: OiiTRmmyPtuOcLdoUqHWLQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-431-Ia_-7-lSPAuWE1fn7SU6Cg-1; Mon, 23 Nov 2020 13:56:31 -0500
+X-MC-Unique: Ia_-7-lSPAuWE1fn7SU6Cg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC79F106F6EE;
-	Mon, 23 Nov 2020 16:33:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A598D9A22A;
+	Mon, 23 Nov 2020 18:56:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6660160C61;
-	Mon, 23 Nov 2020 16:33:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5B32620DE;
+	Mon, 23 Nov 2020 18:56:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 13EB84A7C6;
-	Mon, 23 Nov 2020 16:33:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 310654E590;
+	Mon, 23 Nov 2020 18:56:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ANGX1f0020239 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Nov 2020 11:33:01 -0500
+	id 0ANIuKrI010295 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Nov 2020 13:56:21 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 060822166B2C; Mon, 23 Nov 2020 16:33:01 +0000 (UTC)
+	id BA43D2026D49; Mon, 23 Nov 2020 18:56:20 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 010412166B27
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 16:32:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5FB52026D12
+	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 18:56:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5E7A811E98
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 16:32:57 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0092.hostedemail.com
-	[216.40.44.92]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-208-9u3T3Sk8OYaUkTBlnyt1VA-1; Mon, 23 Nov 2020 11:32:55 -0500
-X-MC-Unique: 9u3T3Sk8OYaUkTBlnyt1VA-1
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
-	[216.40.38.60])
-	by smtprelay07.hostedemail.com (Postfix) with ESMTP id A722B181D3025;
-	Mon, 23 Nov 2020 16:32:53 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
-	RULES_HIT:41:355:379:599:960:967:973:988:989:1260:1263:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1535:1541:1593:1594:1711:1730:1747:1777:1792:2393:2525:2565:2682:2685:2740:2828:2859:2912:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3353:3622:3653:3865:3866:3867:3868:3870:3871:3872:3873:3874:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4321:5007:6119:6742:6743:7903:9025:9388:10004:10400:10848:10946:11026:11232:11658:11914:12043:12049:12297:12438:12663:12740:12760:12895:13069:13161:13172:13229:13311:13357:13439:13972:14096:14097:14181:14659:14721:14764:21080:21451:21627:21781:21788:21809:21990:30034:30041:30054:30060:30091,
-	0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
-	DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none,
-	Custom_rules:0:0:0, LFtime:1, LUA_SUMMARY:none
-X-HE-Tag: can43_5c1502d27366
-X-Filterd-Recvd-Size: 5503
-Received: from XPS-9350.home (unknown [47.151.128.180])
-	(Authenticated sender: joe@perches.com)
-	by omf03.hostedemail.com (Postfix) with ESMTPA;
-	Mon, 23 Nov 2020 16:32:42 +0000 (UTC)
-Message-ID: <32dc7423124b51da4e144e931bf099a368ab50a8.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>, Miguel Ojeda
-	<miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 23 Nov 2020 08:32:41 -0800
-In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70B8F811E85
+	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 18:56:18 +0000 (UTC)
+Received: from mail-yb1-f193.google.com (mail-yb1-f193.google.com
+	[209.85.219.193]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-21-8XVF3o6BNje9lznuWjfcUQ-1; Mon, 23 Nov 2020 13:56:12 -0500
+X-MC-Unique: 8XVF3o6BNje9lznuWjfcUQ-1
+Received: by mail-yb1-f193.google.com with SMTP id x17so16902234ybr.8;
+	Mon, 23 Nov 2020 10:56:12 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=KNG9rf3jiBLOHJ1Qe+5HClUHwDC8G2v5PJoNSRMQj2o=;
+	b=S8NcIMdTo76lVtgLmumiu/BFo6P3qESwcMfWco2Uby4tbmmdWCB2gBQ+GeKX8VHf3A
+	d56ONyiIHDbRuI3/k6LaKIBYd9AWu1Gw7ebrDJHfKZqljBfLSFUj3Lopg/ZvFqpI/9y1
+	IcGAWEvSkMA3Nj8DLYauT3LctcllykjxUJY6vlAfLHA8i7V8+aoc/15CQbj2D3kKAYX8
+	xaKLjuStYlXXv04maCJSoumlYZvSj+Q5q/+9ar3x1eHjFFa81DzbPpP5nyphX7TGhdQy
+	F985GiiovbU9Sh9STBWakqqA9fchD0WNsbMfi/jmf65rR7vWQ///Es44wiFt1VOvagZv
+	4x6Q==
+X-Gm-Message-State: AOAM533q6OX5FixEDgAb7qucuKgi0r4uXU7ny4Jo0veyIAyPO3zc/LM6
+	gnvkuA3QH3xf54SQ7wTemUAhiAnyn4lLvmuBHr4=
+X-Google-Smtp-Source: ABdhPJyhWLCSkpSmtD0p55Cmpr9Ao1aJs0IYHWLu4Tcyj9q39OBvqgrIxMZMaEy7w1zacpD3mVr5R93EsjzwMBkGuSA=
+X-Received: by 2002:a25:df55:: with SMTP id w82mr977719ybg.135.1606157772316; 
+	Mon, 23 Nov 2020 10:56:12 -0800 (PST)
+MIME-Version: 1.0
 References: <cover.1605896059.git.gustavoars@kernel.org>
 	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 	<202011201129.B13FDB3C@keescook>
@@ -72,8 +70,11 @@ References: <cover.1605896059.git.gustavoars@kernel.org>
 	<1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
 	<CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
 	<fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-User-Agent: Evolution 3.38.1-1
-MIME-Version: 1.0
+In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 23 Nov 2020 19:56:01 +0100
+Message-ID: <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -82,7 +83,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
 	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
@@ -92,14 +93,14 @@ Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
 	Nathan Chancellor <natechancellor@gmail.com>,
 	linux-ide@vger.kernel.org, dm-devel@redhat.com,
 	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, Linux,
+	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
 	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
 	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
 	usb-storage@lists.one-eyed-alien.net,
 	linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
 	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
-	Desaulniers <ndesaulniers@google.com>,
-	linux-scsi@vger.kernel.org, Nick, linux-rdma@vger.kernel.org,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
 	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
 	linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
 	linux-stm32@st-md-mailman.stormreply.com,
@@ -108,7 +109,7 @@ Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
 	linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Ext4 Developers List <linux-ext4@vger.kernel.org>,
-	Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
 	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 	linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
@@ -127,9 +128,9 @@ Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
 	linux-kernel <linux-kernel@vger.kernel.org>,
 	linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
 	linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
-	List <linux-crypto@vger.kernel.org>,
-	patches@opensource.cirrus.com, linux-integrity@vger.kernel.org,
-	wcn36xx@lists.infradead.org, linux-hardening@vger.kernel.org
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+	linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
 Subject: Re: [Cluster-devel] [PATCH 000/141] Fix fall-through warnings for
 	Clang
 X-BeenThere: cluster-devel@redhat.com
@@ -145,51 +146,68 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 2020-11-23 at 07:58 -0800, James Bottomley wrote:
+On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+>
+> Well, I used git.  It says that as of today in Linus' tree we have 889
+> patches related to fall throughs and the first series went in in
+> october 2017 ... ignoring a couple of outliers back to February.
+
+I can see ~10k insertions over ~1k commits and 15 years that mention a
+fallthrough in the entire repo. That is including some commits (like
+the biggest one, 960 insertions) that have nothing to do with C
+fallthrough. A single kernel release has an order of magnitude more
+changes than this...
+
+But if we do the math, for an author, at even 1 minute per line change
+and assuming nothing can be automated at all, it would take 1 month of
+work. For maintainers, a couple of trivial lines is noise compared to
+many other patches.
+
+In fact, this discussion probably took more time than the time it
+would take to review the 200 lines. :-)
+
 > We're also complaining about the inability to recruit maintainers:
-> 
+>
 > https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
-> 
+>
 > And burn out:
-> 
+>
 > http://antirez.com/news/129
 
-https://www.wired.com/story/open-source-coders-few-tired/
+Accepting trivial and useful 1-line patches is not what makes a
+voluntary maintainer quit... Thankless work with demanding deadlines is.
+
+> The whole crux of your argument seems to be maintainers' time isn't
+> important so we should accept all trivial patches
+
+I have not said that, at all. In fact, I am a voluntary one and I
+welcome patches like this. It takes very little effort on my side to
+review and it helps the kernel overall. Paid maintainers are the ones
+that can take care of big features/reviews.
 
 > What I'm actually trying to articulate is a way of measuring value of
 > the patch vs cost ... it has nothing really to do with who foots the
 > actual bill.
 
-It's unclear how to measure value in consistency.
-
-But one way that costs can be reduced is by automation and _not_
-involving maintainers when the patch itself is provably correct.
+I understand your point, but you were the one putting it in terms of a
+junior FTE. In my view, 1 month-work (worst case) is very much worth
+removing a class of errors from a critical codebase.
 
 > One thesis I'm actually starting to formulate is that this continual
 > devaluing of maintainers is why we have so much difficulty keeping and
 > recruiting them.
 
-The linux kernel has something like 1500 different maintainers listed
-in the MAINTAINERS file.  That's not a trivial number.
+That may very well be true, but I don't feel anybody has devalued
+maintainers in this discussion.
 
-$ git grep '^M:' MAINTAINERS | sort | uniq -c | wc -l
-1543
-$ git grep '^M:' MAINTAINERS| cut -f1 -d'<' | sort | uniq -c | wc -l
-1446
-
-I think the question you are asking is about trust and how it
-effects development.
-
-And back to that wired story, the actual number of what you might
-be considering to be maintainers is likely less than 10% of the
-listed numbers above.
-
+Cheers,
+Miguel
 
