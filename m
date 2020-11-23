@@ -1,135 +1,117 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AF0A22C1ADD
-	for <lists+cluster-devel@lfdr.de>; Tue, 24 Nov 2020 02:33:20 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 454FC2C25B8
+	for <lists+cluster-devel@lfdr.de>; Tue, 24 Nov 2020 13:31:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1606221088;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
+	b=hB0aNZTaIxsoGPCFOX5uETEhMzIgBrApW96HQKMGAaT8+pDeZcDsUV53WkZGyw4n7Ur4az
+	TQaobzSQs6YQwoqW6hg851GVqTTltUraGNNECoeQuQ/07JDGC3uFZPU+IbZYGAbhXT3bn3
+	R7p9uoQD+BASI6g2wqmgFo0cYcc9A4c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-30-NsFiqI1YMGm0EAX5DKquRQ-1; Mon, 23 Nov 2020 20:33:17 -0500
-X-MC-Unique: NsFiqI1YMGm0EAX5DKquRQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-107-IDn4-3xENPy3eYU_k4Y_eQ-1; Tue, 24 Nov 2020 07:31:26 -0500
+X-MC-Unique: IDn4-3xENPy3eYU_k4Y_eQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4125359;
-	Tue, 24 Nov 2020 01:33:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E2A3951FC;
+	Tue, 24 Nov 2020 12:31:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F96C5D9CA;
-	Tue, 24 Nov 2020 01:33:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 269C060875;
+	Tue, 24 Nov 2020 12:31:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3C9685002C;
-	Tue, 24 Nov 2020 01:33:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DA0875002D;
+	Tue, 24 Nov 2020 12:31:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AO1XApY023984 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Nov 2020 20:33:10 -0500
+	id 0ANH6Fcq025745 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Nov 2020 12:06:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 64DE96B582; Tue, 24 Nov 2020 01:33:10 +0000 (UTC)
+	id B745B112D403; Mon, 23 Nov 2020 17:06:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F8996D9F3
-	for <cluster-devel@redhat.com>; Tue, 24 Nov 2020 01:33:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B362E112D172
+	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 17:06:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04964802A5D
-	for <cluster-devel@redhat.com>; Tue, 24 Nov 2020 01:33:08 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
-	[209.85.210.194]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-157-m0gLHuKTPjWNm6fnwIIc0w-1; Mon, 23 Nov 2020 20:33:05 -0500
-X-MC-Unique: m0gLHuKTPjWNm6fnwIIc0w-1
-Received: by mail-pf1-f194.google.com with SMTP id n137so6780437pfd.3
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 17:33:05 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E138811E76
+	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 17:06:11 +0000 (UTC)
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+	[209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-100-5Tb6HpAtM7-KBccO4080Yw-1; Mon, 23 Nov 2020 12:06:09 -0500
+X-MC-Unique: 5Tb6HpAtM7-KBccO4080Yw-1
+Received: by mail-qt1-f199.google.com with SMTP id g12so14128426qtc.15
+	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 09:06:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=1Fpt+3NGNjcuXPoKd+YKzvfWCCI+i2QS11ln4xb/K2c=;
-	b=DH8apKxXcqEVSMRjseaxA5dDaeVemu8BgttTrIa33BBe0J2e+xFGtihxTJBXqTCszW
-	UdFt2GFLfOkhY4ztmvzeO7yKxM9TXH4AoD3w/S0NplU5/T3rZLjGqST1lagYFmbDilAQ
-	Vrn/kz/GVgw33rpq/CsTcdYlCfwJ5AhmCf91B6Fvy3yeCCKcJ1fgflEPcgETCae95c1T
-	KXR/REDzLAZxwk63qVhHanu0yKwC7OHdBDuhzNPafi4/WlwDkaNzAehVshqP2bLq4phm
-	dJKAvS+ebqLVDSnMDHxjeGDGgA6U/mE4R3Wpv7V56FMC39+VWuRlGDWQGyhyFbG7BW76
-	FBWA==
-X-Gm-Message-State: AOAM531BHtBU4xmqye6INbP6qAwNZDI3uvdrTa9AQhbvTjjrHq8H75wO
-	RDPt8Vs5LDd40nw4ojLOLGDTxLOV0dZwxGCj0jj70Q==
-X-Google-Smtp-Source: ABdhPJwQDF2vxX46wbajF4ioOOwzM/J33jC4qlEIQ0nX0CJ8Ae2/iYNAtfiNkgC6UbM9BT3sKlieSNPFWrTquhIIwSk=
-X-Received: by 2002:a65:6a4e:: with SMTP id o14mr1859973pgu.263.1606181584110; 
-	Mon, 23 Nov 2020 17:33:04 -0800 (PST)
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-transfer-encoding
+	:content-language;
+	bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
+	b=aeqVnH2AVCx79eqB3deHW8XReFQGgW/5A2PaB3WUPZgM/pFPvIgT12frkPyFGf3QVG
+	QDnSdNW/N4AFKwddu8PdC7wM3iaje0kHUbHCGpsOO3SNM5yxUeeUjOejoUPfDa1DeP6u
+	Lb9JsZqN/rTKKCMJBHCrsi121s9wb1HGiTjSPRG4ilKEPA/pNKrrZYkyVyhQlTWFZlfF
+	v5saWoyS2AUSmASYmPpUmhiqq9chuOwrfl4RjbEwHZY0hqJPdiPqxqkqwaHuiWDznA9l
+	1671ClbxdfRrdl4pAAT2eF0CK6EIT5fCI6EhvhRvr+Zlur8D4ms4y4ZDG8PQmg3IDWiG
+	E9Vw==
+X-Gm-Message-State: AOAM532jEFqmAZt/LqKVgr29np2b5j7PHqdesDrkG5NVJa77SwVhn1QH
+	28wqu5YEnG4cD13K/m8uKhDKVxT7Io4RcYeHsGlY47ISGEy8PD/bCCZIi78axm87Au41GkPJIcX
+	ctmMQu7GkoX7c/Hd+b3WiJA==
+X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70871qtx.354.1606151168818;
+	Mon, 23 Nov 2020 09:06:08 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwHR8oVpP3xv7xpCkK6lH4mawBfXgRI3GL2dEiLGp13/vfLrDKV7SBtsWnvpv2iFDtHltekRw==
+X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70839qtx.354.1606151168572;
+	Mon, 23 Nov 2020 09:06:08 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+	[75.142.250.213]) by smtp.gmail.com with ESMTPSA id
+	o187sm10226153qkb.120.2020.11.23.09.06.04
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Mon, 23 Nov 2020 09:06:07 -0800 (PST)
+To: Joe Perches <joe@perches.com>, clang-built-linux@googlegroups.com
+References: <20201121165058.1644182-1-trix@redhat.com>
+	<2105f0c05e9eae8bee8e17dcc5314474b3c0bc73.camel@perches.com>
+	<6e8c1926-4209-8f10-d0f9-72c875a85a88@redhat.com>
+	<859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <88eeba27-ee36-df63-8cd9-3cccbe5e0850@redhat.com>
+Date: Mon, 23 Nov 2020 09:06:03 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org>
-	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011201129.B13FDB3C@keescook>
-	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011220816.8B6591A@keescook>
-In-Reply-To: <202011220816.8B6591A@keescook>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 23 Nov 2020 17:32:51 -0800
-Message-ID: <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
-	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
-	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Nathan Chancellor <natechancellor@gmail.com>,
-	linux-ide@vger.kernel.org, dm-devel@redhat.com,
-	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
-	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
-	usb-storage@lists.one-eyed-alien.net,
-	target-devel@vger.kernel.org, devel@driverdev.osuosl.org,
-	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
-	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
-	linux-security-module@vger.kernel.org,
-	amd-gfx list <amd-gfx@lists.freedesktop.org>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
-	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	intel-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org,
-	linux-can@vger.kernel.org, linux-block@vger.kernel.org,
-	linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-	linux-mediatek@lists.infradead.org,
-	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
-	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	tipc-discussion@lists.sourceforge.net,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-	linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
-	<linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
-	Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH 000/141] Fix fall-through warnings for
-	Clang
+X-Mailman-Approved-At: Tue, 24 Nov 2020 07:31:17 -0500
+Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	platform-driver-x86@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net, keyrings@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-scsi@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org, cluster-devel@redhat.com,
+	linux-acpi@vger.kernel.org, tboot-devel@lists.sourceforge.net,
+	coreteam@netfilter.org, xen-devel@lists.xenproject.org,
+	MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
+	alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
+	ecryptfs@vger.kernel.org, linux-omap@vger.kernel.org,
+	devel@acpica.org, linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
+	linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [Cluster-devel] [RFC] MAINTAINERS tag for cleanup robot
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -143,63 +125,72 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On Sun, Nov 22, 2020 at 8:17 AM Kees Cook <keescook@chromium.org> wrote:
+
+On 11/22/20 10:22 AM, Joe Perches wrote:
+> On Sun, 2020-11-22 at 08:33 -0800, Tom Rix wrote:
+>> On 11/21/20 9:10 AM, Joe Perches wrote:
+>>> On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
+>>>> A difficult part of automating commits is composing the subsystem
+>>>> preamble in the commit log.  For the ongoing effort of a fixer producing
+>>>> one or two fixes a release the use of 'treewide:' does not seem appropriate.
+>>>>
+>>>> It would be better if the normal prefix was used.  Unfortunately normal is
+>>>> not consistent across the tree.
+>>>>
+>>>> So I am looking for comments for adding a new tag to the MAINTAINERS file
+>>>>
+>>>> 	D: Commit subsystem prefix
+>>>>
+>>>> ex/ for FPGA DFL DRIVERS
+>>>>
+>>>> 	D: fpga: dfl:
+>>> I'm all for it.  Good luck with the effort.  It's not completely trivial.
+>>>
+>>> From a decade ago:
+>>>
+>>> https://lore.kernel.org/lkml/1289919077.28741.50.camel@Joe-Laptop/
+>>>
+>>> (and that thread started with extra semicolon patches too)
+>> Reading the history, how about this.
+>>
+>> get_maintainer.pl outputs a single prefix, if multiple files have the
+>> same prefix it works, if they don't its an error.
+>>
+>> Another script 'commit_one_file.sh' does the call to get_mainainter.pl
+>> to get the prefix and be called by run-clang-tools.py to get the fixer
+>> specific message.
+> It's not whether the script used is get_maintainer or any other script,
+> the question is really if the MAINTAINERS file is the appropriate place
+> to store per-subsystem patch specific prefixes.
 >
-> On Fri, Nov 20, 2020 at 11:51:42AM -0800, Jakub Kicinski wrote:
-> > If none of the 140 patches here fix a real bug, and there is no change
-> > to machine code then it sounds to me like a W=2 kind of a warning.
+> It is.
 >
-> FWIW, this series has found at least one bug so far:
-> https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
+> Then the question should be how are the forms described and what is the
+> inheritance priority.  My preference would be to have a default of
+> inherit the parent base and add basename(subsystem dirname).
+>
+> Commit history seems to have standardized on using colons as the separator
+> between the commit prefix and the subject.
+>
+> A good mechanism to explore how various subsystems have uses prefixes in
+> the past might be something like:
+>
+> $ git log --no-merges --pretty='%s' -<commit_count> <subsystem_path> | \
+>   perl -n -e 'print substr($_, 0, rindex($_, ":") + 1) . "\n";' | \
+>   sort | uniq -c | sort -rn
 
-So looks like the bulk of these are:
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    break;
-}
+Thanks, I have shamelessly stolen this line and limited the commits to the maintainer.
 
-I have a patch that fixes those up for clang:
-https://reviews.llvm.org/D91895
+I will post something once the generation of the prefixes is done.
 
-There's 3 other cases that don't quite match between GCC and Clang I
-observe in the kernel:
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    goto y;
-}
-y:;
-
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    return;
-}
-
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    ;
-}
-
-Based on your link, and Nathan's comment on my patch, maybe Clang
-should continue to warn for the above (at least the `default: return;`
-case) and GCC should change?  While the last case looks harmless,
-there were only 1 or 2 across the tree in my limited configuration
-testing; I really think we should just add `break`s for those.
--- 
-Thanks,
-~Nick Desaulniers
+Tom
 
