@@ -2,89 +2,138 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 96F442C1892
-	for <lists+cluster-devel@lfdr.de>; Mon, 23 Nov 2020 23:40:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606171253;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=gWH3K54G1ip0OA/whJ8ttGxAkuTqjVve9v8MenmDy/o=;
-	b=WzbsgLQVIfhcxiMuC2Ab1h0f6PUEGlLObKo/PdqlSIi8Z/hljrc9tjRmxpAhq71ZPJDjDk
-	llCJ+1oySteW+ETHsJ7LvY3Phw8HSaMBCYzkEa2j17w7tAjP3meU8n2R/WmI9czgM3l6ny
-	YKgXUOJtP7mNPSFGo8xPM3FPOsUzAZo=
+	by mail.lfdr.de (Postfix) with ESMTP id B15332C1A7A
+	for <lists+cluster-devel@lfdr.de>; Tue, 24 Nov 2020 02:06:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-74-x-yZaSaLO8OxTX-UmjKLDw-1; Mon, 23 Nov 2020 17:40:51 -0500
-X-MC-Unique: x-yZaSaLO8OxTX-UmjKLDw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-574-ZxlaAANKOgu2ideu_mgZyA-1; Mon, 23 Nov 2020 20:06:06 -0500
+X-MC-Unique: ZxlaAANKOgu2ideu_mgZyA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 224BE879524;
-	Mon, 23 Nov 2020 22:40:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 687375D6DC;
-	Mon, 23 Nov 2020 22:40:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1EECD100C679;
+	Tue, 24 Nov 2020 01:06:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C17D0100239F;
+	Tue, 24 Nov 2020 01:06:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3E6E25002C;
-	Mon, 23 Nov 2020 22:40:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75D91180954D;
+	Tue, 24 Nov 2020 01:05:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ANMefRd003123 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Nov 2020 17:40:41 -0500
+	id 0AO15o97020843 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Nov 2020 20:05:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5CD271112873; Mon, 23 Nov 2020 22:40:41 +0000 (UTC)
+	id 15F5A2026D14; Tue, 24 Nov 2020 01:05:50 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59675100404E
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 22:40:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 111432026D13
+	for <cluster-devel@redhat.com>; Tue, 24 Nov 2020 01:05:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32150103B801
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 22:40:38 +0000 (UTC)
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
-	[209.85.166.199]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-347-bkJ8PqPeO56iqaMzL-U_Mw-1; Mon, 23 Nov 2020 17:40:36 -0500
-X-MC-Unique: bkJ8PqPeO56iqaMzL-U_Mw-1
-Received: by mail-il1-f199.google.com with SMTP id r3so15339436ila.3
-	for <cluster-devel@redhat.com>; Mon, 23 Nov 2020 14:40:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=gWH3K54G1ip0OA/whJ8ttGxAkuTqjVve9v8MenmDy/o=;
-	b=QxRzFKvSHzWFgAdWFLcORcTP2Boeavpqxac7O9Olxh9oeOuB+hCoeLe8rpnYOxrEui
-	n67h/REhH1PgdUu0rjuzEPa9NQjtkgjH2Gf9W13iL4LDmnmRa8H+3x34XRpjQkFXubah
-	KJQJeJqBKpZwSxC1/qV2FzDFWQlaE0iCkYH5DQ6ZSEJ0zx0bxd2ponGi0TWGJd3S9KzO
-	InmVIUDX7ISz4aPm56fvbgRV2WkXjQqiJdJ3HACFlcM4u42A6cdfdd2nGvRlALqPUIey
-	+fPyo5ZrlasJJiKqcM3ggIo+NZ9Wid7ecWr61mTNrFHwJjEcnjlrKuMh8TOdZzvJSWW+
-	6kLg==
-X-Gm-Message-State: AOAM532nHHEBvwHV/bwBCC+uRY4BhQ5ETnY1q4afv36E9XEi5RTb69TW
-	XvzJ1BdcPDNKmyqOBsT4JkeoTJpvsY08ySY1hyl8/4vIsG5X/YjnzeRyANwjj3SaVf8l9pYLtCF
-	jbHSNCfI+YOP6AMh8lZdvkh38fAOSgDtUT4FChA==
-X-Received: by 2002:a5d:898c:: with SMTP id m12mr1684378iol.196.1606171235355; 
-	Mon, 23 Nov 2020 14:40:35 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzbyJoy0pDQ713idMKfZuAPN/8lGgEQy9p8i3gAT8KtqFatN400buBud/8tb+gbTF7ErIkBb+QqzIcdXTDnSwk=
-X-Received: by 2002:a5d:898c:: with SMTP id m12mr1684374iol.196.1606171235237; 
-	Mon, 23 Nov 2020 14:40:35 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C296D800962
+	for <cluster-devel@redhat.com>; Tue, 24 Nov 2020 01:05:47 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0068.hostedemail.com
+	[216.40.44.68]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-112-ZYG4tCdpN2eVEO9yEnKArg-1; Mon, 23 Nov 2020 20:05:43 -0500
+X-MC-Unique: ZYG4tCdpN2eVEO9yEnKArg-1
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+	[216.40.38.60])
+	by smtprelay08.hostedemail.com (Postfix) with ESMTP id C6794182CED28;
+	Tue, 24 Nov 2020 01:05:42 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
+	RULES_HIT:41:355:379:599:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1538:1567:1593:1594:1711:1714:1730:1747:1777:1792:2393:2559:2562:2828:3138:3139:3140:3141:3142:3622:3865:3867:3868:3872:3874:4321:5007:6119:6742:6743:7903:10004:10400:10848:11658:11914:12297:12740:12760:12895:13069:13311:13357:13439:14659:21080:21627:30012:30054:30060:30091,
+	0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
+	DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none,
+	Custom_rules:0:0:0, LFtime:1, LUA_SUMMARY:none
+X-HE-Tag: sea70_4d178da27369
+X-Filterd-Recvd-Size: 4565
+Received: from XPS-9350.home (unknown [47.151.128.180])
+	(Authenticated sender: joe@perches.com)
+	by omf04.hostedemail.com (Postfix) with ESMTPA;
+	Tue, 24 Nov 2020 01:05:31 +0000 (UTC)
+Message-ID: <e72a1aaef8673553a3ee9dfa033d6e893e00abcd.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Finn Thain <fthain@telegraphics.com.au>, Miguel Ojeda
+	<miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 23 Nov 2020 17:05:30 -0800
+In-Reply-To: <alpine.LNX.2.23.453.2011241036520.7@nippy.intranet>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+	<202011201129.B13FDB3C@keescook>
+	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+	<202011220816.8B6591A@keescook>
+	<9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+	<CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+	<alpine.LNX.2.23.453.2011230938390.7@nippy.intranet>
+	<CANiq72=z+tmuey9wj3Kk7wX5s0hTHpsQdLhAqcOVNrHon6xn5Q@mail.gmail.com>
+	<alpine.LNX.2.23.453.2011241036520.7@nippy.intranet>
+User-Agent: Evolution 3.38.1-1
 MIME-Version: 1.0
-References: <20201113225814.461167-1-aahringo@redhat.com>
-	<20201113225814.461167-16-aahringo@redhat.com>
-In-Reply-To: <20201113225814.461167-16-aahringo@redhat.com>
-From: Alexander Ahring Oder Aring <aahringo@redhat.com>
-Date: Mon, 23 Nov 2020 17:40:24 -0500
-Message-ID: <CAK-6q+h5YgKegssa=-5Zjpi7FSzYuwyy5EJuOkxRKv-nhRqa0g@mail.gmail.com>
-To: David Teigland <teigland@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] [RFC PATCH dlm/next 15/16] fs: dlm: add
- reliable connection if reconnect
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
+	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	linux-ide@vger.kernel.org, dm-devel@redhat.com,
+	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+	GR-everest-linux-l2@marvell.com, Linux,
+	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
+	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+	Desaulniers <ndesaulniers@google.com>,
+	linux-scsi@vger.kernel.org, Nick, linux-rdma@vger.kernel.org,
+	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+	linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
+	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
+	linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Ext4 Developers List <linux-ext4@vger.kernel.org>,
+	Media Mailing List <linux-media@vger.kernel.org>,
+	Kees Cook <keescook@chromium.org>,
+	Nathan Chancellor <natechancellor@gmail.com>,
+	selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org,
+	linux-can@vger.kernel.org, linux-block@vger.kernel.org,
+	linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+	linux-mediatek@lists.infradead.org,
+	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
+	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
+	Linux ARM <linux-arm-kernel@lists.infradead.org>,
+	linux-hwmon@vger.kernel.org,
+	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
+	tipc-discussion@lists.sourceforge.net, Linux-MM <linux-mm@kvack.org>,
+	Network Development <netdev@vger.kernel.org>,
+	linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
+	linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	List <linux-crypto@vger.kernel.org>,
+	patches@opensource.cirrus.com, linux-integrity@vger.kernel.org,
+	wcn36xx@lists.infradead.org, linux-hardening@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH 000/141] Fix fall-through warnings for
+	Clang
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,29 +147,22 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Tue, 2020-11-24 at 11:58 +1100, Finn Thain wrote:
+> it's not for me to prove that such patches don't affect code 
+> generation. That's for the patch author and (unfortunately) for reviewers.
 
-On Fri, Nov 13, 2020 at 5:58 PM Alexander Aring <aahringo@redhat.com> wrote:
->
-...
-> +
-> +               p = (union dlm_packet *)((unsigned char *)p->opts.o_opts + ret);
-> +
+Ideally, that proof would be provided by the compilation system itself
+and not patch authors nor reviewers nor maintainers.
 
-actually this needs to be:
+Unfortunately gcc does not guarantee repeatability or deterministic output.
+To my knowledge, neither does clang.
 
-p = (union dlm_packet *)((unsigned char *)p->opts.o_opts +
-le16_to_cpu(p->opts.o_optlen));
-
-otherwise it would break if we add options because we would not "jump
-over" the header.
-
-- Alex
 
