@@ -1,69 +1,64 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 86BE62C4C32
-	for <lists+cluster-devel@lfdr.de>; Thu, 26 Nov 2020 01:35:33 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 335112C517F
+	for <lists+cluster-devel@lfdr.de>; Thu, 26 Nov 2020 10:44:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-438-PjriiTFxNaSg7rvQqWUH5w-1; Wed, 25 Nov 2020 19:35:30 -0500
-X-MC-Unique: PjriiTFxNaSg7rvQqWUH5w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-209-c6t6avnVOGOMpoaYq2Wtog-1; Thu, 26 Nov 2020 04:44:50 -0500
+X-MC-Unique: c6t6avnVOGOMpoaYq2Wtog-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8EE17184214E;
-	Thu, 26 Nov 2020 00:35:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CD475C1B4;
-	Thu, 26 Nov 2020 00:35:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6FD141005E70;
+	Thu, 26 Nov 2020 09:44:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B07460864;
+	Thu, 26 Nov 2020 09:44:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 14058180954D;
-	Thu, 26 Nov 2020 00:35:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 221014A7C6;
+	Thu, 26 Nov 2020 09:44:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AQ0Un62024232 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 19:30:49 -0500
+	id 0AP99sAp002884 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 04:09:54 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3FCE11148B6D; Thu, 26 Nov 2020 00:30:49 +0000 (UTC)
+	id 80DF32166B29; Wed, 25 Nov 2020 09:09:54 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3AE8310FFE7D
-	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 00:30:44 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7BD0A2166B27
+	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 09:09:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B42C800B3A
-	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 00:30:44 +0000 (UTC)
-Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
-	[98.124.60.144]) by relay.mimecast.com with ESMTP id
-	us-mta-193-BzJ6lSsDO7KhfbRJdUxxCg-1; Wed, 25 Nov 2020 19:30:41 -0500
-X-MC-Unique: BzJ6lSsDO7KhfbRJdUxxCg-1
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by kvm5.telegraphics.com.au (Postfix) with ESMTP id 742A42A495;
-	Wed, 25 Nov 2020 19:30:37 -0500 (EST)
-Date: Thu, 26 Nov 2020 11:30:36 +1100 (AEDT)
-From: Finn Thain <fthain@telegraphics.com.au>
-To: Nick Desaulniers <ndesaulniers@google.com>
-In-Reply-To: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
-Message-ID: <alpine.LNX.2.23.453.2011261031290.6@nippy.intranet>
-References: <202011201129.B13FDB3C@keescook>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DDA0811E78
+	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 09:09:51 +0000 (UTC)
+Received: from gofer.mess.org (gofer.mess.org [88.97.38.141]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-77-PwziddjFNDaCPjzOovkpig-1;
+	Wed, 25 Nov 2020 04:09:46 -0500
+X-MC-Unique: PwziddjFNDaCPjzOovkpig-1
+Received: by gofer.mess.org (Postfix, from userid 1000)
+	id C2D44C63FB; Wed, 25 Nov 2020 09:01:14 +0000 (GMT)
+Date: Wed, 25 Nov 2020 09:01:14 +0000
+From: Sean Young <sean@mess.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20201125090114.GA24274@gofer.mess.org>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+	<202011201129.B13FDB3C@keescook>
 	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 	<202011220816.8B6591A@keescook>
 	<9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-	<ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
-	<0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
-	<d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
-	<dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
-	<20201123130348.GA3119@embeddedor>
-	<8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
-	<202011241327.BB28F12F6@keescook>
-	<a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
-	<CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
-	<alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
-	<CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
+	<CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+	<1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
+	<CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
+	<fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
 MIME-Version: 1.0
+In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -72,61 +67,59 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	target-devel@vger.kernel.org,
-	Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	dri-devel <dri-devel@lists.freedesktop.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
+X-Mailman-Approved-At: Thu, 26 Nov 2020 04:44:38 -0500
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
+	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Nathan Chancellor <natechancellor@gmail.com>,
 	linux-ide@vger.kernel.org, dm-devel@redhat.com,
 	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
 	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
-	linux-afs@lists.infradead.org, linux-watchdog@vger.kernel.org,
-	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
-	rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, linux-atm-general@lists.sourceforge.net,
-	ceph-devel@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
+	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+	linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
 	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
+	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
 	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
-	selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
-	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
+	linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Ext4 Developers List <linux-ext4@vger.kernel.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
 	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
 	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
 	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
-	linux-can@vger.kernel.org,
+	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
 	Linux ARM <linux-arm-kernel@lists.infradead.org>,
 	linux-hwmon@vger.kernel.org,
 	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
 	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	nouveau@lists.freedesktop.org,
+	tipc-discussion@lists.sourceforge.net, Linux-MM <linux-mm@kvack.org>,
 	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
-	<linux-crypto@vger.kernel.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-renesas-soc@vger.kernel.org,
+	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+	linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
 	patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
-	netfilter-devel@vger.kernel.org, linux-integrity@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [Cluster-devel] [Intel-wired-lan] [PATCH 000/141] Fix
- fall-through warnings for Clang
+	linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH 000/141] Fix fall-through warnings for
+	Clang
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -140,59 +133,56 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-
-
-On Wed, 25 Nov 2020, Nick Desaulniers wrote:
-
-> On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> wrote:
-> >
-> > Or do you think that a codebase can somehow satisfy multiple checkers 
-> > and their divergent interpretations of the language spec?
+On Mon, Nov 23, 2020 at 07:58:06AM -0800, James Bottomley wrote:
+> On Mon, 2020-11-23 at 15:19 +0100, Miguel Ojeda wrote:
+> > On Sun, Nov 22, 2020 at 11:36 PM James Bottomley
+> > <James.Bottomley@hansenpartnership.com> wrote:
+> > > It's not about the risk of the changes it's about the cost of
+> > > implementing them.  Even if you discount the producer time (which
+> > > someone gets to pay for, and if I were the engineering manager, I'd
+> > > be unhappy about), the review/merge/rework time is pretty
+> > > significant in exchange for six minor bug fixes.  Fine, when a new
+> > > compiler warning comes along it's certainly reasonable to see if we
+> > > can benefit from it and the fact that the compiler people think
+> > > it's worthwhile is enough evidence to assume this initially.  But
+> > > at some point you have to ask whether that assumption is supported
+> > > by the evidence we've accumulated over the time we've been using
+> > > it.  And if the evidence doesn't support it perhaps it is time to
+> > > stop the experiment.
+> > 
+> > Maintainers routinely review 1-line trivial patches, not to mention
+> > internal API changes, etc.
 > 
-> Have we found any cases yet that are divergent? I don't think so. 
+> We're also complaining about the inability to recruit maintainers:
+> 
+> https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
+> 
+> And burn out:
+> 
+> http://antirez.com/news/129
+> 
+> The whole crux of your argument seems to be maintainers' time isn't
+> important so we should accept all trivial patches ... I'm pushing back
+> on that assumption in two places, firstly the valulessness of the time
+> and secondly that all trivial patches are valuable.
 
-You mean, aside from -Wimplicit-fallthrough? I'm glad you asked. How about 
--Wincompatible-pointer-types and -Wframe-larger-than?
+You're assuming burn out or recruitment problems is due to patch workload
+or too many "trivial" patches.
 
-All of the following files have been affected by divergent diagnostics 
-produced by clang and gcc.
+In my experience, "other maintainers" is by far the biggest cause of
+burn out for my kernel maintenance work.
 
-arch/arm64/include/asm/neon-intrinsics.h
-arch/powerpc/xmon/Makefile
-drivers/gpu/drm/i915/Makefile
-drivers/gpu/drm/i915/i915_utils.h
-drivers/staging/media/atomisp/pci/atomisp_subdev.c
-fs/ext4/super.c
-include/trace/events/qla.h
-net/mac80211/rate.c
-tools/lib/string.c
-tools/perf/util/setup.py
-tools/scripts/Makefile.include
+Certainly arguing with a maintainer about some obviously-correct patch
+series must be a good example of this.
 
-And if I searched for 'smatch' or 'coverity' instead of 'clang' I'd 
-probably find more divergence.
 
-Here are some of the relevant commits.
-
-0738c8b5915c7eaf1e6007b441008e8f3b460443
-9c87156cce5a63735d1218f0096a65c50a7a32aa
-babaab2f473817f173a2d08e410c25abf5ed0f6b
-065e5e559555e2f100bc95792a8ef1b609bbe130
-93f56de259376d7e4fff2b2d104082e1fa66e237
-6c4798d3f08b81c2c52936b10e0fa872590c96ae
-b7a313d84e853049062011d78cb04b6decd12f5c
-093b75ef5995ea35d7f6bdb6c7b32a42a1999813
-
-And before you object, "but -Wconstant-logical-operand is a clang-only 
-warning! it can't be divergent with gcc!", consider that the special cases 
-added to deal with clang-only warnings have to be removed when gcc catches 
-up, which is more churn. Now multiply that by the number of checkers you 
-care about.
+Sean
 
