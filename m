@@ -2,142 +2,88 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 85CB72C463B
-	for <lists+cluster-devel@lfdr.de>; Wed, 25 Nov 2020 18:04:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B74372C4671
+	for <lists+cluster-devel@lfdr.de>; Wed, 25 Nov 2020 18:08:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1606324090;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=p2PGRXZgV/ejQIOQcfce/yzMdEs6U9sjGuERYZEB2bU=;
+	b=E/Ld39xuNJxs+a4MRL3/WAqP/7/UrDKEWO+HdPJlXE7enkWM/mr8Jcgc6Z4rSazDqmMo9k
+	oaVOgA2YmAmSPB3hSGt5LlJ7SQMSevKL/9J1qzxo6lsPPgMSOYBmLvB2aOfoQbP/aNXEXZ
+	dXy/K++QNHwcIfqeWceis/zA8ontHfg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-5-xMAQOARmMECs-qNpICCaVQ-1; Wed, 25 Nov 2020 12:04:44 -0500
-X-MC-Unique: xMAQOARmMECs-qNpICCaVQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-63-ygXZawMrOiamODsbyUjnXQ-1; Wed, 25 Nov 2020 12:08:06 -0500
+X-MC-Unique: ygXZawMrOiamODsbyUjnXQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F95C9A221;
-	Wed, 25 Nov 2020 17:04:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2224B19D9B;
-	Wed, 25 Nov 2020 17:04:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8218C420F5;
+	Wed, 25 Nov 2020 17:08:03 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7090C189B8;
+	Wed, 25 Nov 2020 17:08:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A3F74BB7B;
-	Wed, 25 Nov 2020 17:04:40 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 062F8180954D;
+	Wed, 25 Nov 2020 17:08:03 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0APH4ZLp010736 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 12:04:35 -0500
+	id 0APH81wT010969 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 12:08:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E0D3D2166B29; Wed, 25 Nov 2020 17:04:34 +0000 (UTC)
+	id 87B4C2166B29; Wed, 25 Nov 2020 17:08:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D907B2166B27
-	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 17:04:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82E482166B27
+	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 17:07:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A18E8811E84
-	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 17:04:32 +0000 (UTC)
-Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
-	[209.85.219.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-64-oL2RPYp3NgOie0X8cIPHyA-1; Wed, 25 Nov 2020 12:04:27 -0500
-X-MC-Unique: oL2RPYp3NgOie0X8cIPHyA-1
-Received: by mail-yb1-f195.google.com with SMTP id v92so372838ybi.4;
-	Wed, 25 Nov 2020 09:04:26 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA1FE8007D9
+	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 17:07:58 +0000 (UTC)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+	[209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-435-q9LaX3gZMVixYvfduprJWA-1; Wed, 25 Nov 2020 12:07:56 -0500
+X-MC-Unique: q9LaX3gZMVixYvfduprJWA-1
+Received: by mail-wr1-f69.google.com with SMTP id p18so1003099wro.9
+	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 09:07:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=U7yONu+GErpj3wVA3mUEvd1gZrZu1iMtuB4J5cc4iYs=;
-	b=hNOqJaoBoZTZ3SSNC1BY2UR5eoV0ccZ1hLGZsvpEglwqs2cvrZZFLUVcH2xrosRdOP
-	RfIR3FmcuzcaVrBiEjdIv6e+Q+snHAeuHSJR7VVga1DQWR4CrEuq1Tyg6RCfar9Lacnj
-	6O7UyObOxGps93yrlcYjn6L3vZXumQb1RQF+GHFSsez1zaGKHHzkjxnj3JQHVe5V2q1l
-	HbHJIzSa6NztkUSGDB7jaJCeSCICjfUJde6lZxlJpMPZJ0TOEJDwJnm6W4tt3mNKdVE8
-	o7m2es8COq0UT61IC4rzX4bix1dynwWWDYy+wdwYa0t+ArpOHOJr7BDLBT0RaAx0E8Pt
-	3vMg==
-X-Gm-Message-State: AOAM533TkmebWqaDNFBMUu7BnJEjkAyZF6zSS6eyEAl4HzRy1ga6588e
-	bh43rUsLBHSJKQBMoowyCUNMuDdohS3kk4l1xm4=
-X-Google-Smtp-Source: ABdhPJwRDTWwRnnt/vVfXeVU3lUNCXdaAf9CCrzUJdkBRbFdtXrCpJBbeymEiGhAam+E5oqqQjDTbAdkVQMGwErIDPw=
-X-Received: by 2002:a25:aac5:: with SMTP id t63mr6307293ybi.22.1606323866493; 
-	Wed, 25 Nov 2020 09:04:26 -0800 (PST)
+	bh=p2PGRXZgV/ejQIOQcfce/yzMdEs6U9sjGuERYZEB2bU=;
+	b=FymY14IxQZejLY4sl9JDrtGgsLyOhTqFWdqoreQRMFEJRSpgDZESTFKlmtDvcDRhto
+	/iOQoM85SeGKfDOs2JUcFhJrCPDN4PJizShQyw9VM9FdzolLoU1aTiei4kp3MofSWLcW
+	xE6ztIi03hTqTEW65xfln0UQeYIaOcQM7LEaS1bHh/JZQqFV3dIaAShOUYQn7OltnZA6
+	OQjUNww6R+9ECC4TMCSvzmTVIV+MAtjzNUiY2FHOFhu5qPP3w3W4iHR+MIfNWMzrUSq4
+	/2dXKAAQ04YZpwjKcwJu3ayORGYRKotE0sxF9daTBMqTBX1Z+yY8aghxxcigtBNx1be3
+	FdcA==
+X-Gm-Message-State: AOAM5336Oa0SY8fV0SEvXmB3zSMNDEOgdJ/Wl7TCJtk/KOdFaOuz/Mf+
+	JR3eANbjk2l9FrsaNTCuBPzrOgJ3zWSAWsdXcI3rBD1AnPxIRt5jVh4btmFhryc21PlVi+EMZ5n
+	DN10TTth7AzJWPTvM6vXPhZvOdzxwgRJycG3gmQ==
+X-Received: by 2002:a7b:c145:: with SMTP id z5mr4968142wmi.164.1606324074890; 
+	Wed, 25 Nov 2020 09:07:54 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwf3XLxWhmbSicXw722zZqSERUqCXp/b/RcDVFrTGstdTyMtNwl9Dup8stVE42W/OowqDsiFy89thLH9aIPYEA=
+X-Received: by 2002:a7b:c145:: with SMTP id z5mr4968126wmi.164.1606324074654; 
+	Wed, 25 Nov 2020 09:07:54 -0800 (PST)
 MIME-Version: 1.0
-References: <202011201129.B13FDB3C@keescook>
-	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011220816.8B6591A@keescook>
-	<9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-	<ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
-	<0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
-	<d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
-	<dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
-	<20201123130348.GA3119@embeddedor>
-	<8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
-	<202011241327.BB28F12F6@keescook>
-	<a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
-	<CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
-	<20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 25 Nov 2020 18:04:15 +0100
-Message-ID: <CANiq72=RuekXf1O6Fxrz2Eend0GtS6=E72P4T2=48SDqVcTChA@mail.gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+References: <355304031.29450600.1606249586453.JavaMail.zimbra@redhat.com>
+	<1409715771.29450602.1606249609812.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1409715771.29450602.1606249609812.JavaMail.zimbra@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 25 Nov 2020 18:07:43 +0100
+Message-ID: <CAHc6FU5sQf2g6NKQUmbAZDswvyDcOGvn-tAdm7Tkq_Mh-rzoDw@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	dri-devel <dri-devel@lists.freedesktop.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-ide@vger.kernel.org, dm-devel@redhat.com,
-	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
-	linux-afs@lists.infradead.org, linux-watchdog@vger.kernel.org,
-	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
-	rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, linux-atm-general@lists.sourceforge.net,
-	ceph-devel@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
-	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input <linux-input@vger.kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
-	Ext4 Developers List <linux-ext4@vger.kernel.org>,
-	virtualization@lists.linux-foundation.org,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
-	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
-	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
-	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org,
-	linux-mediatek@lists.infradead.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
-	linux-can@vger.kernel.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
-	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	nouveau@lists.freedesktop.org,
-	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	gregkh@linuxfoundation.org, Joe Perches <joe@perches.com>,
-	netfilter-devel@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>
-Subject: Re: [Cluster-devel] [Intel-wired-lan] [PATCH 000/141] Fix
-	fall-through warnings for Clang
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: Remove sb_start_write from
+	gfs2_statfs_sync
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -151,53 +97,83 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 25, 2020 at 5:24 PM Jakub Kicinski <kuba@kernel.org> wrote:
+Hi Bob,
+
+On Tue, Nov 24, 2020 at 9:27 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> Before this patch, function gfs2_statfs_sync called sb_start_write. This is a
+> violation of the basic vfs rules that state that sb_start_write should always
+> be taken before s_umount. See this document:
 >
-> And just to spell it out,
+> https://www.kernel.org/doc/htmldocs/filesystems/API-sb-start-write.html
 >
-> case ENUM_VALUE1:
->         bla();
->         break;
-> case ENUM_VALUE2:
->         bla();
-> default:
->         break;
+> "Since freeze protection behaves as a lock, users have to preserve
+> ordering of freeze protection and other filesystem locks. Generally,
+> freeze protection should be the outermost lock. In particular, we have:
 >
-> is a fairly idiomatic way of indicating that not all values of the enum
-> are expected to be handled by the switch statement.
+> sb_start_write -> i_mutex (write path, truncate, directory ops, ...) ->
+> s_umount (freeze_super, thaw_super)"
+>
+> deactivate_super
+>    down_write(&s->s_umount); <------------------------------------ s_umount
+>    deactivate_locked_super
+>       gfs2_kill_sb
+>          kill_block_super
+>             generic_shutdown_super
+>                gfs2_put_super
+>                   gfs2_make_fs_ro
+>                      gfs2_statfs_sync(sdp->sd_vfs, 0);
+>                         sb_start_write <--------------------- sb_start_write
+>
+> As far as I can tell, gfs2_statfs_sync doesn't need to call sb_start_write
+> any more than any other write to the file system, which are policed by glocks.
+> None of the other functions in gfs2 lock sb_start_write so it only affects
+> how vfs calls gfs2.
 
-It looks like a benign typo to me -- `ENUM_VALUE2` does not follow the
-same pattern like `ENUM_VALUE1`. To me, the presence of the `default`
-is what indicates (explicitly) that not everything is handled.
+you're quite right that the sb_start_write doesn't make sense in the
+above code path. That was equally true when the call was added in
+commit 2e60d7683c8d2 ("GFS2: update freeze code to use
+freeze/thaw_super on all nodes"), so I'm wondering what the intention
+may have been here. Are there any code paths not going through the vfs
+that need protection from filesystem freezes?
 
-> Applying a real patch set and then getting a few follow ups the next day
-> for trivial coding things like fallthrough missing or static missing,
-> just because I didn't have the full range of compilers to check with
-> before applying makes me feel pretty shitty, like I'm not doing a good
-> job. YMMV.
+I'll leave this patch out for now, at least until it's more obvious
+what's going on exactly.
 
-The number of compilers, checkers, static analyzers, tests, etc. we
-use keeps going up. That, indeed, means maintainers will miss more
-things (unless maintainers do more work than before). But catching
-bugs before they happen is *not* a bad thing.
+> This patch simply removes the call to sb_start_write.
+>
+> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+> ---
+>  fs/gfs2/super.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+> index b3d951ab8068..2f56acc41c04 100644
+> --- a/fs/gfs2/super.c
+> +++ b/fs/gfs2/super.c
+> @@ -353,7 +353,6 @@ int gfs2_statfs_sync(struct super_block *sb, int type)
+>         struct buffer_head *m_bh, *l_bh;
+>         int error;
+>
+> -       sb_start_write(sb);
+>         error = gfs2_glock_nq_init(m_ip->i_gl, LM_ST_EXCLUSIVE, GL_NOCACHE,
+>                                    &gh);
+>         if (error)
+> @@ -392,7 +391,6 @@ int gfs2_statfs_sync(struct super_block *sb, int type)
+>  out_unlock:
+>         gfs2_glock_dq_uninit(&gh);
+>  out:
+> -       sb_end_write(sb);
+>         return error;
+>  }
+>
 
-Perhaps we could encourage more rebasing in -next (while still giving
-credit to bots and testers) to avoid having many fixing commits
-afterwards, but that is orthogonal.
-
-I really don't think we should encourage the feeling that a maintainer
-is doing a bad job if they don't catch everything on their reviews.
-Any review is worth it. Maintainers, in the end, are just the
-"guaranteed" reviewers that decide when the code looks reasonable
-enough. They should definitely not feel pressured to be perfect.
-
-Cheers,
-Miguel
+Thanks,
+Andreas
 
