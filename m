@@ -1,56 +1,65 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E8C532C44DD
-	for <lists+cluster-devel@lfdr.de>; Wed, 25 Nov 2020 17:24:30 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 85CB72C463B
+	for <lists+cluster-devel@lfdr.de>; Wed, 25 Nov 2020 18:04:47 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-142-tQDP92ofO-eqh3sDMotGig-1; Wed, 25 Nov 2020 11:24:28 -0500
-X-MC-Unique: tQDP92ofO-eqh3sDMotGig-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-5-xMAQOARmMECs-qNpICCaVQ-1; Wed, 25 Nov 2020 12:04:44 -0500
+X-MC-Unique: xMAQOARmMECs-qNpICCaVQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 61AE4805C17;
-	Wed, 25 Nov 2020 16:24:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F95C9A221;
+	Wed, 25 Nov 2020 17:04:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0855710016F7;
-	Wed, 25 Nov 2020 16:24:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2224B19D9B;
+	Wed, 25 Nov 2020 17:04:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B55B25002C;
-	Wed, 25 Nov 2020 16:24:23 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A3F74BB7B;
+	Wed, 25 Nov 2020 17:04:40 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0APGOH17005114 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 11:24:17 -0500
+	id 0APH4ZLp010736 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 12:04:35 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 64EA62166B27; Wed, 25 Nov 2020 16:24:17 +0000 (UTC)
+	id E0D3D2166B29; Wed, 25 Nov 2020 17:04:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EE222166B2A
-	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 16:24:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D907B2166B27
+	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 17:04:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2168B803DDB
-	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 16:24:15 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-263-pZCvvmKKPy6ehMgG3I-5yA-1;
-	Wed, 25 Nov 2020 11:24:12 -0500
-X-MC-Unique: pZCvvmKKPy6ehMgG3I-5yA-1
-Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
-	[163.114.132.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 867952067C;
-	Wed, 25 Nov 2020 16:24:06 +0000 (UTC)
-Date: Wed, 25 Nov 2020 08:24:05 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Message-ID: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A18E8811E84
+	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 17:04:32 +0000 (UTC)
+Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
+	[209.85.219.195]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-64-oL2RPYp3NgOie0X8cIPHyA-1; Wed, 25 Nov 2020 12:04:27 -0500
+X-MC-Unique: oL2RPYp3NgOie0X8cIPHyA-1
+Received: by mail-yb1-f195.google.com with SMTP id v92so372838ybi.4;
+	Wed, 25 Nov 2020 09:04:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=U7yONu+GErpj3wVA3mUEvd1gZrZu1iMtuB4J5cc4iYs=;
+	b=hNOqJaoBoZTZ3SSNC1BY2UR5eoV0ccZ1hLGZsvpEglwqs2cvrZZFLUVcH2xrosRdOP
+	RfIR3FmcuzcaVrBiEjdIv6e+Q+snHAeuHSJR7VVga1DQWR4CrEuq1Tyg6RCfar9Lacnj
+	6O7UyObOxGps93yrlcYjn6L3vZXumQb1RQF+GHFSsez1zaGKHHzkjxnj3JQHVe5V2q1l
+	HbHJIzSa6NztkUSGDB7jaJCeSCICjfUJde6lZxlJpMPZJ0TOEJDwJnm6W4tt3mNKdVE8
+	o7m2es8COq0UT61IC4rzX4bix1dynwWWDYy+wdwYa0t+ArpOHOJr7BDLBT0RaAx0E8Pt
+	3vMg==
+X-Gm-Message-State: AOAM533TkmebWqaDNFBMUu7BnJEjkAyZF6zSS6eyEAl4HzRy1ga6588e
+	bh43rUsLBHSJKQBMoowyCUNMuDdohS3kk4l1xm4=
+X-Google-Smtp-Source: ABdhPJwRDTWwRnnt/vVfXeVU3lUNCXdaAf9CCrzUJdkBRbFdtXrCpJBbeymEiGhAam+E5oqqQjDTbAdkVQMGwErIDPw=
+X-Received: by 2002:a25:aac5:: with SMTP id t63mr6307293ybi.22.1606323866493; 
+	Wed, 25 Nov 2020 09:04:26 -0800 (PST)
+MIME-Version: 1.0
 References: <202011201129.B13FDB3C@keescook>
 	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 	<202011220816.8B6591A@keescook>
@@ -64,7 +73,12 @@ References: <202011201129.B13FDB3C@keescook>
 	<202011241327.BB28F12F6@keescook>
 	<a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
 	<CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
-MIME-Version: 1.0
+	<20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 25 Nov 2020 18:04:15 +0100
+Message-ID: <CANiq72=RuekXf1O6Fxrz2Eend0GtS6=E72P4T2=48SDqVcTChA@mail.gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,13 +93,12 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
 	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
 	linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
 	dri-devel <dri-devel@lists.freedesktop.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
 	James Bottomley <James.Bottomley@hansenpartnership.com>,
 	linux-ide@vger.kernel.org, dm-devel@redhat.com,
 	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, Linux,
-	wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
-	linux1394-devel@lists.sourceforge.net,
+	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+	linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
 	linux-afs@lists.infradead.org, linux-watchdog@vger.kernel.org,
 	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
 	rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
@@ -95,37 +108,36 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
 	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+	linux-input <linux-input@vger.kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
+	Ext4 Developers List <linux-ext4@vger.kernel.org>,
 	virtualization@lists.linux-foundation.org,
-	Management List <linux-mm@kvack.org>,
-	linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
-	selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
 	intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
 	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
 	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org, Joe,
-	drbd-dev@tron.linbit.com, linux-hams@vger.kernel.org,
-	Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
+	op-tee@lists.trustedfirmware.org,
+	linux-mediatek@lists.infradead.org, drbd-dev@tron.linbit.com,
+	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
+	linux-can@vger.kernel.org,
 	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+	linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
 	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
 	nouveau@lists.freedesktop.org,
 	Network Development <netdev@vger.kernel.org>,
 	linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
-	LKML <linux-kernel@vger.kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
 	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
 	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net, Perches <joe@perches.com>,
-	netfilter-devel@vger.kernel.org, open
-	list:HARDWARE RANDOM NUMBER GENERATOR CORE"        
-	<linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
-	linux-integrity@vger.kernel.org, target-devel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, Jonathan Cameron
-	<Jonathan.Cameron@huawei.com>, Greg KH <gregkh@linuxfoundation.org>
+	tipc-discussion@lists.sourceforge.net,
+	gregkh@linuxfoundation.org, Joe Perches <joe@perches.com>,
+	netfilter-devel@vger.kernel.org,
+	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>
 Subject: Re: [Cluster-devel] [Intel-wired-lan] [PATCH 000/141] Fix
- fall-through warnings for Clang
+	fall-through warnings for Clang
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -139,56 +151,53 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 25 Nov 2020 04:24:27 -0800 Nick Desaulniers wrote:
-> I even agree that most of the churn comes from
-> 
-> case 0:
->   ++x;
+On Wed, Nov 25, 2020 at 5:24 PM Jakub Kicinski <kuba@kernel.org> wrote:
+>
+> And just to spell it out,
+>
+> case ENUM_VALUE1:
+>         bla();
+>         break;
+> case ENUM_VALUE2:
+>         bla();
 > default:
->   break;
+>         break;
+>
+> is a fairly idiomatic way of indicating that not all values of the enum
+> are expected to be handled by the switch statement.
 
-And just to spell it out,
+It looks like a benign typo to me -- `ENUM_VALUE2` does not follow the
+same pattern like `ENUM_VALUE1`. To me, the presence of the `default`
+is what indicates (explicitly) that not everything is handled.
 
-case ENUM_VALUE1:
-	bla();
-	break;
-case ENUM_VALUE2:
-	bla();
-default:
-	break;
+> Applying a real patch set and then getting a few follow ups the next day
+> for trivial coding things like fallthrough missing or static missing,
+> just because I didn't have the full range of compilers to check with
+> before applying makes me feel pretty shitty, like I'm not doing a good
+> job. YMMV.
 
-is a fairly idiomatic way of indicating that not all values of the enum
-are expected to be handled by the switch statement. 
+The number of compilers, checkers, static analyzers, tests, etc. we
+use keeps going up. That, indeed, means maintainers will miss more
+things (unless maintainers do more work than before). But catching
+bugs before they happen is *not* a bad thing.
 
-I really hope the Clang folks are reasonable and merge your patch.
+Perhaps we could encourage more rebasing in -next (while still giving
+credit to bots and testers) to avoid having many fixing commits
+afterwards, but that is orthogonal.
 
-> If trivial patches are adding too much to your workload, consider
-> training a co-maintainer or asking for help from one of your reviewers
-> whom you trust.  I don't doubt it's hard to find maintainers, but
-> existing maintainers should go out of their way to entrust
-> co-maintainers especially when they find their workload becomes too
-> high.  And reviewing/picking up trivial patches is probably a great
-> way to get started.  If we allow too much knowledge of any one
-> subsystem to collect with one maintainer, what happens when that
-> maintainer leaves the community (which, given a finite lifespan, is an
-> inevitability)?
+I really don't think we should encourage the feeling that a maintainer
+is doing a bad job if they don't catch everything on their reviews.
+Any review is worth it. Maintainers, in the end, are just the
+"guaranteed" reviewers that decide when the code looks reasonable
+enough. They should definitely not feel pressured to be perfect.
 
-The burn out point is about enjoying your work and feeling that it
-matters. It really doesn't make much difference if you're doing
-something you don't like for 12 hours every day or only in shifts with
-another maintainer. You'll dislike it either way.
-
-Applying a real patch set and then getting a few follow ups the next day
-for trivial coding things like fallthrough missing or static missing,
-just because I didn't have the full range of compilers to check with
-before applying makes me feel pretty shitty, like I'm not doing a good
-job. YMMV.
+Cheers,
+Miguel
 
