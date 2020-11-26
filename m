@@ -2,64 +2,63 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B7C82C5819
-	for <lists+cluster-devel@lfdr.de>; Thu, 26 Nov 2020 16:28:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0DE392C5A11
+	for <lists+cluster-devel@lfdr.de>; Thu, 26 Nov 2020 18:06:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-518-n8jwN5SGNzyxXDmHJIYxaQ-1; Thu, 26 Nov 2020 10:28:45 -0500
-X-MC-Unique: n8jwN5SGNzyxXDmHJIYxaQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-342-EkCZITcXMIut9hWR2uP6Vw-1; Thu, 26 Nov 2020 12:06:16 -0500
+X-MC-Unique: EkCZITcXMIut9hWR2uP6Vw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 576691006C8E;
-	Thu, 26 Nov 2020 15:28:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC344100C602;
+	Thu, 26 Nov 2020 17:06:13 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 245B05C1BD;
-	Thu, 26 Nov 2020 15:28:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8DB891C956;
+	Thu, 26 Nov 2020 17:06:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C67C94BB7B;
-	Thu, 26 Nov 2020 15:28:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1C2A85002C;
+	Thu, 26 Nov 2020 17:06:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AQFSXWS017530 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 26 Nov 2020 10:28:33 -0500
+	id 0AQH64vK028992 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Nov 2020 12:06:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EB2022166B29; Thu, 26 Nov 2020 15:28:32 +0000 (UTC)
+	id E53A7114B301; Thu, 26 Nov 2020 17:06:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E5A692166B27
-	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 15:28:29 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1567100BFEA
+	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 17:06:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 740A1103B803
-	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 15:28:29 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
-	[209.85.210.68]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-354-IOnJUUUXMPqm_ond6Ag3Lw-1; Thu, 26 Nov 2020 10:28:24 -0500
-X-MC-Unique: IOnJUUUXMPqm_ond6Ag3Lw-1
-Received: by mail-ot1-f68.google.com with SMTP id o3so2160474ota.8;
-	Thu, 26 Nov 2020 07:28:24 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5021811E78
+	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 17:06:01 +0000 (UTC)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+	[209.85.219.173]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-424-Sv9OpndSOZ-JGBd-1ehvgQ-1; Thu, 26 Nov 2020 12:05:57 -0500
+X-MC-Unique: Sv9OpndSOZ-JGBd-1ehvgQ-1
+Received: by mail-yb1-f173.google.com with SMTP id l14so2208087ybq.3;
+	Thu, 26 Nov 2020 09:05:57 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=kP9MspVOPl/NnVl8oGn1EIC/+F8CcK5+OXo+jY56Nno=;
-	b=V0t4YwuCvRmHxMAlG4LvThLMvBLTqGR9Kok2MP+oB1xi/r5PUj9BIO0o3rV3FzFHwD
-	qcGwj4DsJ7CyKlKbOHQvFW+3/SgPrWhgbhXXgw4KZAqZ1VQpi9scEJSQ5/jqB8FGn6lr
-	qPTWV6dfC8aWEmTDWf3/KmvkTxNq8PZc7TlKzCZOPbPys9FzNWI1vLw01DoiJ8uKUXk9
-	0p6JLkL6kwBhBHkMWvkosG0npy+W80jdJYmzJ8ASpYkCDHq1Le52AuMe0H4yeiIGFXeF
-	dx+Tx6Pg0Tfef4omOlwmVz+DdcimDfEgEs2uSZcUGhyee7fjCP0vxk9qONydF0w3qJtx
-	klGA==
-X-Gm-Message-State: AOAM532ie6P4NRAnQfqb437LenfiKPEdPOMCFgsDtKEP7IlfheoNwNoy
-	ScMUHqMtIQZJlzfS23H59y3KW31DwZAflNgZ9LY=
-X-Google-Smtp-Source: ABdhPJyYtol6dSfaI6WhgTcuunq7fhBuSULViECyA4Z+K27bCejCuaia55DZ/aziu9dD69JTQZlYwW/4z6Mu7Di+rU4=
-X-Received: by 2002:a05:6830:210a:: with SMTP id
-	i10mr2551843otc.145.1606404504116; 
-	Thu, 26 Nov 2020 07:28:24 -0800 (PST)
+	bh=O/jaIJrbif54isUECHds/J8Ujq0NdoNxUTCCwJWwQ80=;
+	b=ACThVGCEZystUkjzD11eNEz/7zWUcfln7G//XnSJWGvACt+bAKbVDqZeTS8HoWoirx
+	QmCSdJW9/H9b/Ea0lZVKy/CXJsACQ5sXfjL4Q9XwPOk7eZL/3sM6Pu3Cm4HiSfzCCX6z
+	KMkNzcvGuGGVrDHcwPfCoP7eG06yq4tGXJ4m3kfQVcF8vujh5WDpu3APnxy6u2HPNo00
+	n1PU1vCcqw4HolUgs+fLX/hnHo+MaWuF4M6SIuDHZVZP9A2RIwOM9BXvk0XotP0lSd6n
+	kuQ5byTau1izadsaMeTYXZMQice4NrF/IWSumN+XvAPeiKcSfeQPcA40w8HnJO8PkZFI
+	qIQQ==
+X-Gm-Message-State: AOAM530wz192I6FaMn8Kd8njiWL13Etag04diy6V5+lpY/eWQOv026V9
+	v6bcxM0Yz2nQ97ErpdqQrVwh2YMfWRlUftLdpZ4=
+X-Google-Smtp-Source: ABdhPJxMy5ncXEZ6TSWkZ0cAXTnkQ7iw+jjdg+cNNUWTZPlZcmFMrQQcJd2JAoeBontKFrtwmzLazAacI3fdsjx9xvQ=
+X-Received: by 2002:a5b:40e:: with SMTP id m14mr4835621ybp.33.1606410357153;
+	Thu, 26 Nov 2020 09:05:57 -0800 (PST)
 MIME-Version: 1.0
 References: <cover.1605896059.git.gustavoars@kernel.org>
 	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
@@ -76,11 +75,12 @@ References: <cover.1605896059.git.gustavoars@kernel.org>
 	<CANiq72kqO=bYMJnFS2uYRpgWATJ=uXxZuNUsTXT+3aLtrpnzvQ@mail.gmail.com>
 	<44005bde-f6d4-5eaa-39b8-1a5efeedb2d3@gmail.com>
 	<CANiq72nobq=ptWK-qWxU91JHqkKhMcRtJNnw2XJd5-vSJWZd8Q@mail.gmail.com>
-In-Reply-To: <CANiq72nobq=ptWK-qWxU91JHqkKhMcRtJNnw2XJd5-vSJWZd8Q@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Nov 2020 16:28:12 +0100
-Message-ID: <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+	<CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
+In-Reply-To: <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 26 Nov 2020 18:05:45 +0100
+Message-ID: <CANiq72=n4rVvmKt0RCb5aOfQydA8bgDxfntRLDieV8Q2efP8Zg@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -89,7 +89,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
 	bridge@lists.linux-foundation.org,
@@ -167,56 +167,34 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Miguel,
-
-On Thu, Nov 26, 2020 at 3:54 PM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
-> On Wed, Nov 25, 2020 at 11:44 PM Edward Cree <ecree.xilinx@gmail.com> wrote:
-> > To make the intent clear, you have to first be certain that you
-> >  understand the intent; otherwise by adding either a break or a
-> >  fallthrough to suppress the warning you are just destroying the
-> >  information that "the intent of this code is unknown".
+On Thu, Nov 26, 2020 at 4:28 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
 >
-> If you don't know what the intent of your own code is, then you
-> *already* have a problem in your hands.
+> The maintainer is not necessarily the owner/author of the code, and
+> thus may not know the intent of the code.
 
-The maintainer is not necessarily the owner/author of the code, and
-thus may not know the intent of the code.
+Agreed, I was not blaming maintainers -- just trying to point out that
+the problem is there :-)
 
-> > or does it flag up code
-> >  that can be mindlessly "fixed" (in which case the warning is
-> >  worthless)?  Proponents in this thread seem to be trying to
-> >  have it both ways.
->
-> A warning is not worthless just because you can mindlessly fix it.
-> There are many counterexamples, e.g. many
-> checkpatch/lint/lang-format/indentation warnings, functional ones like
-> the `if (a = b)` warning...
+In those cases, it is still very useful: we add the `fallthrough` and
+a comment saying `FIXME: fallthrough intended? Figure this out...`.
+Thus a previous unknown unknown is now a known unknown. And no new
+unknown unknowns will be introduced since we enabled the warning
+globally.
 
-BTW, you cannot mindlessly fix the latter, as you cannot know if
-"(a == b)" or "((a = b))" was intended, without understanding the code
-(and the (possibly unavailable) data sheet, and the hardware, ...).
+> BTW, you cannot mindlessly fix the latter, as you cannot know if
+> "(a == b)" or "((a = b))" was intended, without understanding the code
+> (and the (possibly unavailable) data sheet, and the hardware, ...).
 
-P.S. So far I've stayed out of this thread, as I like it if the compiler
-     flags possible mistakes.  After all I was the one fixing new
-     "may be used uninitialized" warnings thrown up by gcc-4.1, until
-     (a bit later than) support for that compiler was removed...
+That's right, I was referring to the cases where the compiler saves
+someone time from a typo they just made.
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Cheers,
+Miguel
 
