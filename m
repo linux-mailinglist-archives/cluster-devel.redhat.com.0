@@ -2,53 +2,52 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 80F482C4B86
-	for <lists+cluster-devel@lfdr.de>; Thu, 26 Nov 2020 00:22:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 86BE62C4C32
+	for <lists+cluster-devel@lfdr.de>; Thu, 26 Nov 2020 01:35:33 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-398-RxsSEvNBOdK4rN0BEM6qdw-1; Wed, 25 Nov 2020 18:22:18 -0500
-X-MC-Unique: RxsSEvNBOdK4rN0BEM6qdw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-438-PjriiTFxNaSg7rvQqWUH5w-1; Wed, 25 Nov 2020 19:35:30 -0500
+X-MC-Unique: PjriiTFxNaSg7rvQqWUH5w-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D24961E7DA;
-	Wed, 25 Nov 2020 23:22:15 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 028B519C46;
-	Wed, 25 Nov 2020 23:22:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8EE17184214E;
+	Thu, 26 Nov 2020 00:35:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CD475C1B4;
+	Thu, 26 Nov 2020 00:35:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F6F94A7C7;
-	Wed, 25 Nov 2020 23:22:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 14058180954D;
+	Thu, 26 Nov 2020 00:35:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0APNM4k6017697 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 18:22:04 -0500
+	id 0AQ0Un62024232 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 19:30:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F06402166B2B; Wed, 25 Nov 2020 23:22:03 +0000 (UTC)
+	id 3FCE11148B6D; Thu, 26 Nov 2020 00:30:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBB782166B27
-	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 23:22:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3AE8310FFE7D
+	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 00:30:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4AD7811E76
-	for <cluster-devel@redhat.com>; Wed, 25 Nov 2020 23:22:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B42C800B3A
+	for <cluster-devel@redhat.com>; Thu, 26 Nov 2020 00:30:44 +0000 (UTC)
 Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
 	[98.124.60.144]) by relay.mimecast.com with ESMTP id
-	us-mta-500-Rs6ccNViM8uGTJcQd1T_KA-1; Wed, 25 Nov 2020 18:21:58 -0500
-X-MC-Unique: Rs6ccNViM8uGTJcQd1T_KA-1
+	us-mta-193-BzJ6lSsDO7KhfbRJdUxxCg-1; Wed, 25 Nov 2020 19:30:41 -0500
+X-MC-Unique: BzJ6lSsDO7KhfbRJdUxxCg-1
 Received: from localhost (localhost.localdomain [127.0.0.1])
-	by kvm5.telegraphics.com.au (Postfix) with ESMTP id 414EA2A490;
-	Wed, 25 Nov 2020 18:21:54 -0500 (EST)
-Date: Thu, 26 Nov 2020 10:21:54 +1100 (AEDT)
+	by kvm5.telegraphics.com.au (Postfix) with ESMTP id 742A42A495;
+	Wed, 25 Nov 2020 19:30:37 -0500 (EST)
+Date: Thu, 26 Nov 2020 11:30:36 +1100 (AEDT)
 From: Finn Thain <fthain@telegraphics.com.au>
 To: Nick Desaulniers <ndesaulniers@google.com>
 In-Reply-To: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
-Message-ID: <alpine.LNX.2.23.453.2011260918510.6@nippy.intranet>
+Message-ID: <alpine.LNX.2.23.453.2011261031290.6@nippy.intranet>
 References: <202011201129.B13FDB3C@keescook>
 	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 	<202011220816.8B6591A@keescook>
@@ -73,7 +72,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
 	target-devel@vger.kernel.org,
@@ -141,48 +140,59 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
 
+
+
 On Wed, 25 Nov 2020, Nick Desaulniers wrote:
 
-> On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> 
-> wrote:
+> On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> wrote:
 > >
 > > Or do you think that a codebase can somehow satisfy multiple checkers 
 > > and their divergent interpretations of the language spec?
 > 
-> Have we found any cases yet that are divergent? I don't think so.
+> Have we found any cases yet that are divergent? I don't think so. 
 
-There are many implementations, so I think you are guaranteed to find more 
-divergence if you look. That's because the spec is full of language like 
-this: "implementations are encouraged not to emit a diagnostic" and 
-"implementations are encouraged to issue a diagnostic".
+You mean, aside from -Wimplicit-fallthrough? I'm glad you asked. How about 
+-Wincompatible-pointer-types and -Wframe-larger-than?
 
-Some implementations will decide to not emit (under the premise that vast 
-amounts of existing code would have to get patched until the compiler goes 
-quiet) whereas other implementations will decide to emit (under the 
-premise that the author is doing the checking and not the janitor or the 
-packager).
+All of the following files have been affected by divergent diagnostics 
+produced by clang and gcc.
 
-> It sounds to me like GCC's cases it warns for is a subset of Clang's. 
-> Having additional coverage with Clang then should ensure coverage for 
-> both.
-> 
+arch/arm64/include/asm/neon-intrinsics.h
+arch/powerpc/xmon/Makefile
+drivers/gpu/drm/i915/Makefile
+drivers/gpu/drm/i915/i915_utils.h
+drivers/staging/media/atomisp/pci/atomisp_subdev.c
+fs/ext4/super.c
+include/trace/events/qla.h
+net/mac80211/rate.c
+tools/lib/string.c
+tools/perf/util/setup.py
+tools/scripts/Makefile.include
 
-If that claim were true, the solution would be simple. (It's not.)
+And if I searched for 'smatch' or 'coverity' instead of 'clang' I'd 
+probably find more divergence.
 
-For the benefit of projects that enable -Werror and projects that 
-nominated gcc as their preferred compiler, clang would simply need a flag 
-to enable conformance with gcc by suppressing those additional warnings 
-that clang would normally produce.
+Here are some of the relevant commits.
 
-This simple solution is, of course, completely unworkable, since it would 
-force clang to copy some portion of gcc's logic (rewritten under LLVM's 
-unique license) and then to track future changes to that portion of gcc 
-indefinitely.
+0738c8b5915c7eaf1e6007b441008e8f3b460443
+9c87156cce5a63735d1218f0096a65c50a7a32aa
+babaab2f473817f173a2d08e410c25abf5ed0f6b
+065e5e559555e2f100bc95792a8ef1b609bbe130
+93f56de259376d7e4fff2b2d104082e1fa66e237
+6c4798d3f08b81c2c52936b10e0fa872590c96ae
+b7a313d84e853049062011d78cb04b6decd12f5c
+093b75ef5995ea35d7f6bdb6c7b32a42a1999813
+
+And before you object, "but -Wconstant-logical-operand is a clang-only 
+warning! it can't be divergent with gcc!", consider that the special cases 
+added to deal with clang-only warnings have to be removed when gcc catches 
+up, which is more churn. Now multiply that by the number of checkers you 
+care about.
 
