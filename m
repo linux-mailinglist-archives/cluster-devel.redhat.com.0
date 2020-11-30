@@ -2,55 +2,88 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 614ED2C927E
-	for <lists+cluster-devel@lfdr.de>; Tue,  1 Dec 2020 00:27:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9E6232C9283
+	for <lists+cluster-devel@lfdr.de>; Tue,  1 Dec 2020 00:29:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606778830;
+	s=mimecast20190719; t=1606778967;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=pvWvNGan1SxrNBUZl9nFkAEn1lvy21Erq/cTovFLU/4=;
-	b=SUR2OXomNqCHWYM7Zc5weSHEo7AoGVkybFVtfikIulc6ZNDfqNuJqjsI0jW2sM8u72gY+W
-	ZfBFWEfZS6CKtcyLQOXE22M5rTmHcHHyUgqAfczkUVXD25/bAR8IepO5T8m/g6u1IATqbq
-	Bjw3p+oQPsZT3LQjnP3BPHkIBOs33Zw=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=qwePAjO+JoQzIGjZm9jsWctF8D99Rx1DaGUaPJ9flqY=;
+	b=K6vD3I9vs56QtTZEPi9Fnr4GEQV1dm5m/pRnmipFAto1CXwrYpR7uZ3TyCC27heLVBCuLW
+	n9DnkzvUHNm0A2OmDvp3YJypKHIwPvSR7GJw4BW87fJJynNfkUH/ycUKMtxAMBimd+EQjB
+	nlHpE6HEnx7iaVgnjqcZDqhH3ePEh2g=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-424-PZqPqihPO5CLrxysT0cgqA-1; Mon, 30 Nov 2020 18:27:07 -0500
-X-MC-Unique: PZqPqihPO5CLrxysT0cgqA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-286-Ts8-7KBePyC_CWbfJfqrEg-1; Mon, 30 Nov 2020 18:29:20 -0500
+X-MC-Unique: Ts8-7KBePyC_CWbfJfqrEg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E5538030BC;
-	Mon, 30 Nov 2020 23:27:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4EE55C1A3;
-	Mon, 30 Nov 2020 23:27:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A662E8030C2;
+	Mon, 30 Nov 2020 23:29:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D12E60C69;
+	Mon, 30 Nov 2020 23:29:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 93BB5180954D;
-	Mon, 30 Nov 2020 23:26:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5360C4A7C6;
+	Mon, 30 Nov 2020 23:29:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AUNQu6H012974 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Nov 2020 18:26:56 -0500
+	id 0AUNTBIX013134 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Nov 2020 18:29:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 041865C1BB; Mon, 30 Nov 2020 23:26:56 +0000 (UTC)
+	id 499F12166B2C; Mon, 30 Nov 2020 23:29:11 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.home.com (unknown [10.40.192.13])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D0FE15C1A3;
-	Mon, 30 Nov 2020 23:26:49 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: cluster-devel@redhat.com
-Date: Tue,  1 Dec 2020 00:26:48 +0100
-Message-Id: <20201130232648.749135-1-agruenba@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44BF52166B2B
+	for <cluster-devel@redhat.com>; Mon, 30 Nov 2020 23:29:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 023CE8007D9
+	for <cluster-devel@redhat.com>; Mon, 30 Nov 2020 23:29:09 +0000 (UTC)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+	[209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-255-Sk_tvQqtPiGhpGsHVfVReg-1; Mon, 30 Nov 2020 18:29:01 -0500
+X-MC-Unique: Sk_tvQqtPiGhpGsHVfVReg-1
+Received: by mail-wr1-f71.google.com with SMTP id n13so63579wrs.10
+	for <cluster-devel@redhat.com>; Mon, 30 Nov 2020 15:29:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=qwePAjO+JoQzIGjZm9jsWctF8D99Rx1DaGUaPJ9flqY=;
+	b=RUh4vScTwDfZE2XdkLtRufW18Uh2WY9oxiGOEXFx+QQznaNzlXIN+/dKzFu+2LnbDh
+	kSePQQetNMW9eoz3B9lioQCPhwqJk+5Q5aj9dm6kFQeC6ZYICcrECpfCFbLZgmRZjOdl
+	etTZWC95rEyDz0zBrCb3ZnIVYOb3N7LIMFjAmvzM90kruj/NcOy81HuqJi1y9zgU423g
+	JXFhG62sXhTAPjKUZxAkiyG2TfT8k6Szx+/Tn+9/bsFpuOuMGLYpMnqrNnSPMcGMG2B8
+	GbH0giyuDoK3vMDObAWZSKRfwsDpEGLSDxL5dkHDjaWs0gHiVRgHxZlgf3tk1Zf6dx6s
+	nKHQ==
+X-Gm-Message-State: AOAM5331AQZ1HIAIrddql0PLpcBb1nlScUsfZLu5KG/nEjkSiIRfD/3z
+	4vNAMTa/gA1oNAAjkpZD+qmnM0edHkw7LO7a0JydUS6PuWvIoNRzlSdhk3Q+4nVr8OGTp7H162a
+	yy5kphCZt3ZQCgrO6HM3zcHGMoIMN4mmhYmrXuQ==
+X-Received: by 2002:a1c:810c:: with SMTP id c12mr201931wmd.96.1606778940549;
+	Mon, 30 Nov 2020 15:29:00 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxDplTRUudFfAcqGGcEB/r3VSa3uZ3cetM8uY3SP7Vp30Fs+7Sae/U97WuD9sQ0BTHG5vGW41xQ6vEzZCiStqw=
+X-Received: by 2002:a1c:810c:: with SMTP id c12mr201871wmd.96.1606778939628;
+	Mon, 30 Nov 2020 15:28:59 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+References: <20201130194422.741935-1-agruenba@redhat.com>
+In-Reply-To: <20201130194422.741935-1-agruenba@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Tue, 1 Dec 2020 00:28:48 +0100
+Message-ID: <CAHc6FU7zCJmmMXsAzpg1=f8xM68QrH6hV747JYaT8r2tMrKQQA@mail.gmail.com>
+To: cluster-devel <cluster-devel@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Cc: stable@vger.kernel.org
-Subject: [Cluster-devel] [PATCH v2] gfs2: Fix deadlock between
-	gfs2_{create_inode, inode_lookup} and delete_work_func
+Cc: stable <stable@vger.kernel.org>
+Subject: Re: [Cluster-devel] [PATCH] gfs2: Fix deadlock between
+	gfs2_create_inode and delete_work_func
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -64,98 +97,21 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="UTF-8"
 
-In gfs2_create_inode and gfs2_inode_lookup, make sure to cancel any pending
-delete work before taking the inode glock.  Otherwise, gfs2_cancel_delete_work
-may block waiting for delete_work_func to complete, and delete_work_func may
-block trying to acquire the inode glock in gfs2_inode_lookup.
+On Mon, Nov 30, 2020 at 8:44 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
+> In gfs2_create_inode, make sure to cancel any pending delete work before
+> locking the inode glock.  Otherwise, gfs2_cancel_delete_work may block
+> waiting for delete_work_func to complete, and delete_work_func may block
+> trying to acquire the inode glock in gfs2_inode_lookup.
 
-Reported-by: Alexander Aring <aahringo@redhat.com>
-Fixes: a0e3cc65fa29 ("gfs2: Turn gl_delete into a delayed work")
-Cc: stable@vger.kernel.org # v5.8+
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
----
- fs/gfs2/inode.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+(Please see version 2 of this patch.)
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index eed1a1bac6f6..65ae4fc28ede 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -150,6 +150,8 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 		error = gfs2_glock_get(sdp, no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
- 		if (unlikely(error))
- 			goto fail;
-+		if (blktype != GFS2_BLKST_UNLINKED)
-+			gfs2_cancel_delete_work(io_gl);
- 
- 		if (type == DT_UNKNOWN || blktype != GFS2_BLKST_FREE) {
- 			/*
-@@ -180,8 +182,6 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
- 		if (unlikely(error))
- 			goto fail;
--		if (blktype != GFS2_BLKST_UNLINKED)
--			gfs2_cancel_delete_work(ip->i_iopen_gh.gh_gl);
- 		glock_set_object(ip->i_iopen_gh.gh_gl, ip);
- 		gfs2_glock_put(io_gl);
- 		io_gl = NULL;
-@@ -725,13 +725,19 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
- 	flush_delayed_work(&ip->i_gl->gl_work);
- 	glock_set_object(ip->i_gl, ip);
- 
--	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_SKIP, ghs + 1);
-+	error = gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
- 	if (error)
- 		goto fail_free_inode;
-+	gfs2_cancel_delete_work(io_gl);
-+	glock_set_object(io_gl, ip);
-+
-+	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_SKIP, ghs + 1);
-+	if (error)
-+		goto fail_gunlock2;
- 
- 	error = gfs2_trans_begin(sdp, blocks, 0);
- 	if (error)
--		goto fail_free_inode;
-+		goto fail_gunlock2;
- 
- 	if (blocks > 1) {
- 		ip->i_eattr = ip->i_no_addr + 1;
-@@ -740,18 +746,12 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
- 	init_dinode(dip, ip, symname);
- 	gfs2_trans_end(sdp);
- 
--	error = gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
--	if (error)
--		goto fail_free_inode;
--
- 	BUG_ON(test_and_set_bit(GLF_INODE_CREATING, &io_gl->gl_flags));
- 
- 	error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
- 	if (error)
- 		goto fail_gunlock2;
- 
--	gfs2_cancel_delete_work(ip->i_iopen_gh.gh_gl);
--	glock_set_object(ip->i_iopen_gh.gh_gl, ip);
- 	gfs2_set_iop(inode);
- 	insert_inode_hash(inode);
- 
-@@ -803,6 +803,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
- 	gfs2_glock_dq_uninit(&ip->i_iopen_gh);
- fail_gunlock2:
- 	clear_bit(GLF_INODE_CREATING, &io_gl->gl_flags);
-+	glock_clear_object(io_gl, ip);
- 	gfs2_glock_put(io_gl);
- fail_free_inode:
- 	if (ip->i_gl) {
--- 
-2.26.2
+Thanks,
+Andreas
 
