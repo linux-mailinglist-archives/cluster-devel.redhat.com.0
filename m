@@ -1,89 +1,113 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9E6232C9283
-	for <lists+cluster-devel@lfdr.de>; Tue,  1 Dec 2020 00:29:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606778967;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=qwePAjO+JoQzIGjZm9jsWctF8D99Rx1DaGUaPJ9flqY=;
-	b=K6vD3I9vs56QtTZEPi9Fnr4GEQV1dm5m/pRnmipFAto1CXwrYpR7uZ3TyCC27heLVBCuLW
-	n9DnkzvUHNm0A2OmDvp3YJypKHIwPvSR7GJw4BW87fJJynNfkUH/ycUKMtxAMBimd+EQjB
-	nlHpE6HEnx7iaVgnjqcZDqhH3ePEh2g=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 503392C9905
+	for <lists+cluster-devel@lfdr.de>; Tue,  1 Dec 2020 09:21:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-286-Ts8-7KBePyC_CWbfJfqrEg-1; Mon, 30 Nov 2020 18:29:20 -0500
-X-MC-Unique: Ts8-7KBePyC_CWbfJfqrEg-1
+ us-mta-47-5Du9CLAVN0uBvkUAB5XwRg-1; Tue, 01 Dec 2020 03:21:45 -0500
+X-MC-Unique: 5Du9CLAVN0uBvkUAB5XwRg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A662E8030C2;
-	Mon, 30 Nov 2020 23:29:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D12E60C69;
-	Mon, 30 Nov 2020 23:29:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23A151092BA2;
+	Tue,  1 Dec 2020 08:21:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F17F360BE5;
+	Tue,  1 Dec 2020 08:21:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5360C4A7C6;
-	Mon, 30 Nov 2020 23:29:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 15FE41809CA0;
+	Tue,  1 Dec 2020 08:21:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AUNTBIX013134 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Nov 2020 18:29:11 -0500
+	id 0B18LUbQ009685 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Dec 2020 03:21:31 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 499F12166B2C; Mon, 30 Nov 2020 23:29:11 +0000 (UTC)
+	id CA52C112D179; Tue,  1 Dec 2020 08:21:30 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44BF52166B2B
-	for <cluster-devel@redhat.com>; Mon, 30 Nov 2020 23:29:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C5826112D178
+	for <cluster-devel@redhat.com>; Tue,  1 Dec 2020 08:21:28 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 023CE8007D9
-	for <cluster-devel@redhat.com>; Mon, 30 Nov 2020 23:29:09 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
-	[209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-255-Sk_tvQqtPiGhpGsHVfVReg-1; Mon, 30 Nov 2020 18:29:01 -0500
-X-MC-Unique: Sk_tvQqtPiGhpGsHVfVReg-1
-Received: by mail-wr1-f71.google.com with SMTP id n13so63579wrs.10
-	for <cluster-devel@redhat.com>; Mon, 30 Nov 2020 15:29:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=qwePAjO+JoQzIGjZm9jsWctF8D99Rx1DaGUaPJ9flqY=;
-	b=RUh4vScTwDfZE2XdkLtRufW18Uh2WY9oxiGOEXFx+QQznaNzlXIN+/dKzFu+2LnbDh
-	kSePQQetNMW9eoz3B9lioQCPhwqJk+5Q5aj9dm6kFQeC6ZYICcrECpfCFbLZgmRZjOdl
-	etTZWC95rEyDz0zBrCb3ZnIVYOb3N7LIMFjAmvzM90kruj/NcOy81HuqJi1y9zgU423g
-	JXFhG62sXhTAPjKUZxAkiyG2TfT8k6Szx+/Tn+9/bsFpuOuMGLYpMnqrNnSPMcGMG2B8
-	GbH0giyuDoK3vMDObAWZSKRfwsDpEGLSDxL5dkHDjaWs0gHiVRgHxZlgf3tk1Zf6dx6s
-	nKHQ==
-X-Gm-Message-State: AOAM5331AQZ1HIAIrddql0PLpcBb1nlScUsfZLu5KG/nEjkSiIRfD/3z
-	4vNAMTa/gA1oNAAjkpZD+qmnM0edHkw7LO7a0JydUS6PuWvIoNRzlSdhk3Q+4nVr8OGTp7H162a
-	yy5kphCZt3ZQCgrO6HM3zcHGMoIMN4mmhYmrXuQ==
-X-Received: by 2002:a1c:810c:: with SMTP id c12mr201931wmd.96.1606778940549;
-	Mon, 30 Nov 2020 15:29:00 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxDplTRUudFfAcqGGcEB/r3VSa3uZ3cetM8uY3SP7Vp30Fs+7Sae/U97WuD9sQ0BTHG5vGW41xQ6vEzZCiStqw=
-X-Received: by 2002:a1c:810c:: with SMTP id c12mr201871wmd.96.1606778939628;
-	Mon, 30 Nov 2020 15:28:59 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70D45185A794
+	for <cluster-devel@redhat.com>; Tue,  1 Dec 2020 08:21:28 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-129-k0xYW8ZnN16pyfvz5-HCzQ-1;
+	Tue, 01 Dec 2020 03:21:26 -0500
+X-MC-Unique: k0xYW8ZnN16pyfvz5-HCzQ-1
+Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 94ECB20659;
+	Tue,  1 Dec 2020 08:21:17 +0000 (UTC)
+Date: Tue, 1 Dec 2020 02:20:47 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>
+Message-ID: <20201201082047.GA11832@embeddedor>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+	<yq1h7p6gjkk.fsf@ca-mkp.ca.oracle.com>
 MIME-Version: 1.0
-References: <20201130194422.741935-1-agruenba@redhat.com>
-In-Reply-To: <20201130194422.741935-1-agruenba@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 1 Dec 2020 00:28:48 +0100
-Message-ID: <CAHc6FU7zCJmmMXsAzpg1=f8xM68QrH6hV747JYaT8r2tMrKQQA@mail.gmail.com>
-To: cluster-devel <cluster-devel@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <yq1h7p6gjkk.fsf@ca-mkp.ca.oracle.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: stable <stable@vger.kernel.org>
-Subject: Re: [Cluster-devel] [PATCH] gfs2: Fix deadlock between
-	gfs2_create_inode and delete_work_func
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
+	linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org,
+	Nathan Chancellor <natechancellor@gmail.com>,
+	linux-ide@vger.kernel.org, dm-devel@redhat.com,
+	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+	usb-storage@lists.one-eyed-alien.net,
+	target-devel@vger.kernel.org, devel@driverdev.osuosl.org,
+	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+	linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
+	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
+	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+	tipc-discussion@lists.sourceforge.net,
+	linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
+	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org, x86@kernel.org,
+	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
+	Kees Cook <keescook@chromium.org>, linux-mm@kvack.org,
+	netdev@vger.kernel.org, linux-decnet-user@lists.sourceforge.net,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
+	linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
+	Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH 000/141] Fix fall-through warnings for
+	Clang
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,16 +126,21 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, Nov 30, 2020 at 8:44 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> In gfs2_create_inode, make sure to cancel any pending delete work before
-> locking the inode glock.  Otherwise, gfs2_cancel_delete_work may block
-> waiting for delete_work_func to complete, and delete_work_func may block
-> trying to acquire the inode glock in gfs2_inode_lookup.
+On Tue, Dec 01, 2020 at 12:52:27AM -0500, Martin K. Petersen wrote:
+> 
+> Gustavo,
+> 
+> > This series aims to fix almost all remaining fall-through warnings in
+> > order to enable -Wimplicit-fallthrough for Clang.
+> 
+> Applied 20-22,54,120-124 to 5.11/scsi-staging, thanks.
 
-(Please see version 2 of this patch.)
+Awesome! :)
 
-Thanks,
-Andreas
+Thanks, Martin.
+--
+Gustavo
 
