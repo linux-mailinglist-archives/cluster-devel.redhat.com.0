@@ -2,58 +2,58 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A80192CA698
-	for <lists+cluster-devel@lfdr.de>; Tue,  1 Dec 2020 16:10:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E913D2CA6A3
+	for <lists+cluster-devel@lfdr.de>; Tue,  1 Dec 2020 16:11:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606835434;
+	s=mimecast20190719; t=1606835482;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7viDNG3SLyjqcv9YXsiA6QgWzx1F21ipx/zB00yOebo=;
-	b=NQpenbNu4DcobAVvSpOOhZUvtcmXtfrUJQ7GTdIMBDZygMjTk90kxz2zjzWom5EQSVIqjK
-	VH4d99sgAdKQ9CWiGzk2USzzhwlP2z+ZbvzcdU8eafKb2shPeosNYNHj+9j3ASVOvynvq+
-	J1MuglfhfRJz6YouqPCIF/R2nFjJyro=
+	bh=VVaIWgnA+z9268iPUxdsL4J/9UFxptY1WXbrHQhKSWM=;
+	b=ABZaTg5wAo2pTft7fUdw04gPsrPtcTmTLhgZbSnCcbpOz+ODhY3fwn2zn2sBRwInJIrFPe
+	zdTv8slCzxD+jj3h2CGOQp6+eUVcffvw8vdjkKuo1dYs+Kmwg6iKdItSNkOQhlw/Lgis8S
+	RgEtKbucycEjwdQXOhqVzFJwvVvOCZA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-519-1hyn-ah8Os6W890uqTVndA-1; Tue, 01 Dec 2020 10:10:32 -0500
-X-MC-Unique: 1hyn-ah8Os6W890uqTVndA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-249-P9QH5bogP-iI6Ha2ZEcaZQ-1; Tue, 01 Dec 2020 10:11:20 -0500
+X-MC-Unique: P9QH5bogP-iI6Ha2ZEcaZQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E9DA6108442F;
-	Tue,  1 Dec 2020 15:10:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA33F60C64;
-	Tue,  1 Dec 2020 15:10:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4E2AD100C601;
+	Tue,  1 Dec 2020 15:11:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C9FE19C44;
+	Tue,  1 Dec 2020 15:11:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C24341809CA0;
-	Tue,  1 Dec 2020 15:10:28 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 254E54EEEE;
+	Tue,  1 Dec 2020 15:11:17 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
 	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B1FANPo019636 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 0B1FANPl019644 for <cluster-devel@listman.util.phx.redhat.com>;
 	Tue, 1 Dec 2020 10:10:23 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3A20D5D705; Tue,  1 Dec 2020 15:10:23 +0000 (UTC)
+	id E3C3D5D71D; Tue,  1 Dec 2020 15:10:23 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from carbon.redhat.com (ovpn-114-202.rdu2.redhat.com [10.10.114.202])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B17855D6AB;
-	Tue,  1 Dec 2020 15:10:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 664AA5D6AB;
+	Tue,  1 Dec 2020 15:10:23 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Tue,  1 Dec 2020 10:09:47 -0500
-Message-Id: <20201201150957.115068-8-aahringo@redhat.com>
+Date: Tue,  1 Dec 2020 10:09:48 -0500
+Message-Id: <20201201150957.115068-9-aahringo@redhat.com>
 In-Reply-To: <20201201150957.115068-1-aahringo@redhat.com>
 References: <20201201150957.115068-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCHv2 dlm/next 07/17] fs: dlm: use GFP_ZERO for
-	page buffer
+Subject: [Cluster-devel] [PATCHv2 dlm/next 08/17] fs: dlm: simplify
+	writequeue handling
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +67,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,63 +75,153 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch uses GFP_ZERO for allocate a page for the internal dlm
-sending buffer allocator instead of calling memset zero after every
-allocation. An already allocated space will never be reused again.
+This patch cleans up the current dlm sending allocator handling by using
+some named macros, list functionality and removes some goto statements.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lock.c     | 2 --
- fs/dlm/lowcomms.c | 2 +-
- fs/dlm/rcom.c     | 2 --
- 3 files changed, 1 insertion(+), 5 deletions(-)
+ fs/dlm/lowcomms.c | 83 ++++++++++++++++++++++++-----------------------
+ 1 file changed, 43 insertions(+), 40 deletions(-)
 
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index 002123efc6b0..b93df39d0915 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -3541,8 +3541,6 @@ static int _create_message(struct dlm_ls *ls, int mb_len,
- 	if (!mh)
- 		return -ENOBUFS;
- 
--	memset(mb, 0, mb_len);
--
- 	ms = (struct dlm_message *) mb;
- 
- 	ms->m_header.h_version = (DLM_HEADER_MAJOR | DLM_HEADER_MINOR);
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 2b468fbb2b43..02ab939ad8d3 100644
+index 02ab939ad8d3..8c826e95493c 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
-@@ -1336,7 +1336,7 @@ static struct writequeue_entry *new_writequeue_entry(struct connection *con,
+@@ -102,6 +102,9 @@ struct listen_connection {
+ 	struct work_struct rwork;
+ };
+ 
++#define DLM_WQ_REMAIN_BYTES(e) (PAGE_SIZE - e->end)
++#define DLM_WQ_LENGTH_BYTES(e) (e->end - e->offset)
++
+ /* An entry waiting to be sent */
+ struct writequeue_entry {
+ 	struct list_head list;
+@@ -1332,7 +1335,7 @@ static struct writequeue_entry *new_writequeue_entry(struct connection *con,
+ {
+ 	struct writequeue_entry *entry;
+ 
+-	entry = kmalloc(sizeof(struct writequeue_entry), allocation);
++	entry = kzalloc(sizeof(*entry), allocation);
  	if (!entry)
  		return NULL;
  
--	entry->page = alloc_page(allocation);
-+	entry->page = alloc_page(allocation | __GFP_ZERO);
- 	if (!entry->page) {
- 		kfree(entry);
+@@ -1342,20 +1345,48 @@ static struct writequeue_entry *new_writequeue_entry(struct connection *con,
  		return NULL;
-diff --git a/fs/dlm/rcom.c b/fs/dlm/rcom.c
-index 73ddee5159d7..f5b1bd65728d 100644
---- a/fs/dlm/rcom.c
-+++ b/fs/dlm/rcom.c
-@@ -41,7 +41,6 @@ static int create_rcom(struct dlm_ls *ls, int to_nodeid, int type, int len,
- 			  to_nodeid, type, len);
- 		return -ENOBUFS;
  	}
--	memset(mb, 0, mb_len);
  
- 	rc = (struct dlm_rcom *) mb;
+-	entry->offset = 0;
+-	entry->len = 0;
+-	entry->end = 0;
+-	entry->users = 0;
+ 	entry->con = con;
++	entry->users = 1;
  
-@@ -462,7 +461,6 @@ int dlm_send_ls_not_ready(int nodeid, struct dlm_rcom *rc_in)
- 	mh = dlm_lowcomms_get_buffer(nodeid, mb_len, GFP_NOFS, &mb);
- 	if (!mh)
- 		return -ENOBUFS;
--	memset(mb, 0, mb_len);
+ 	return entry;
+ }
  
- 	rc = (struct dlm_rcom *) mb;
++static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
++					     gfp_t allocation, char **ppc)
++{
++	struct writequeue_entry *e;
++
++	spin_lock(&con->writequeue_lock);
++	if (!list_empty(&con->writequeue)) {
++		e = list_last_entry(&con->writequeue, struct writequeue_entry, list);
++		if (DLM_WQ_REMAIN_BYTES(e) >= len) {
++			*ppc = page_address(e->page) + e->end;
++			e->end += len;
++			e->users++;
++			spin_unlock(&con->writequeue_lock);
++
++			return e;
++		}
++	}
++	spin_unlock(&con->writequeue_lock);
++
++	e = new_writequeue_entry(con, allocation);
++	if (!e)
++		return NULL;
++
++	*ppc = page_address(e->page);
++	e->end += len;
++
++	spin_lock(&con->writequeue_lock);
++	list_add_tail(&e->list, &con->writequeue);
++	spin_unlock(&con->writequeue_lock);
++
++	return e;
++};
++
+ void *dlm_lowcomms_get_buffer(int nodeid, int len, gfp_t allocation, char **ppc)
+ {
+ 	struct connection *con;
+-	struct writequeue_entry *e;
+-	int offset = 0;
  
+ 	if (len > DEFAULT_BUFFER_SIZE ||
+ 	    len < sizeof(struct dlm_header)) {
+@@ -1368,35 +1399,7 @@ void *dlm_lowcomms_get_buffer(int nodeid, int len, gfp_t allocation, char **ppc)
+ 	if (!con)
+ 		return NULL;
+ 
+-	spin_lock(&con->writequeue_lock);
+-	e = list_entry(con->writequeue.prev, struct writequeue_entry, list);
+-	if ((&e->list == &con->writequeue) ||
+-	    (PAGE_SIZE - e->end < len)) {
+-		e = NULL;
+-	} else {
+-		offset = e->end;
+-		e->end += len;
+-		e->users++;
+-	}
+-	spin_unlock(&con->writequeue_lock);
+-
+-	if (e) {
+-	got_one:
+-		*ppc = page_address(e->page) + offset;
+-		return e;
+-	}
+-
+-	e = new_writequeue_entry(con, allocation);
+-	if (e) {
+-		spin_lock(&con->writequeue_lock);
+-		offset = e->end;
+-		e->end += len;
+-		e->users++;
+-		list_add_tail(&e->list, &con->writequeue);
+-		spin_unlock(&con->writequeue_lock);
+-		goto got_one;
+-	}
+-	return NULL;
++	return new_wq_entry(con, len, allocation, ppc);
+ }
+ 
+ void dlm_lowcomms_commit_buffer(void *mh)
+@@ -1409,7 +1412,8 @@ void dlm_lowcomms_commit_buffer(void *mh)
+ 	users = --e->users;
+ 	if (users)
+ 		goto out;
+-	e->len = e->end - e->offset;
++
++	e->len = DLM_WQ_LENGTH_BYTES(e);
+ 	spin_unlock(&con->writequeue_lock);
+ 
+ 	queue_work(send_workqueue, &con->swork);
+@@ -1435,11 +1439,10 @@ static void send_to_sock(struct connection *con)
+ 
+ 	spin_lock(&con->writequeue_lock);
+ 	for (;;) {
+-		e = list_entry(con->writequeue.next, struct writequeue_entry,
+-			       list);
+-		if ((struct list_head *) e == &con->writequeue)
++		if (list_empty(&con->writequeue))
+ 			break;
+ 
++		e = list_first_entry(&con->writequeue, struct writequeue_entry, list);
+ 		len = e->len;
+ 		offset = e->offset;
+ 		BUG_ON(len == 0 && e->users == 0);
 -- 
 2.26.2
 
