@@ -2,54 +2,71 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5E9D32CC882
-	for <lists+cluster-devel@lfdr.de>; Wed,  2 Dec 2020 22:00:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606942823;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=+vREiEPZRIjTwsNkTSi1a+k2IWXR/FPdIg8I6gi4lcI=;
-	b=NkN+E/tLQuQuts/3T985h0TEspf0bQ5KbDVPUaagHl197nW66L8a/N7sZtGR5xIfGZ/6vN
-	dRqLZnOmJp3a+Z91DpY5mKObRUWf3F+m46wt9aBBWU5Jx+2XJ4u+Kv014HxlbBE36GxVlg
-	wIxEPu0epAu1vcFs6UDimYOt6PEdf6Q=
+	by mail.lfdr.de (Postfix) with ESMTP id B267E2CCBE5
+	for <lists+cluster-devel@lfdr.de>; Thu,  3 Dec 2020 02:57:59 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-566-_Qh9At1wM3eRXSSjamy0Eg-1; Wed, 02 Dec 2020 16:00:20 -0500
-X-MC-Unique: _Qh9At1wM3eRXSSjamy0Eg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-124-emFo0uZnPSWgAsI5u6RFYw-1; Wed, 02 Dec 2020 20:57:57 -0500
+X-MC-Unique: emFo0uZnPSWgAsI5u6RFYw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8648B10151EC;
-	Wed,  2 Dec 2020 21:00:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B926B9A234;
+	Thu,  3 Dec 2020 01:57:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 424E75D72E;
-	Wed,  2 Dec 2020 21:00:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92D3860BFA;
+	Thu,  3 Dec 2020 01:57:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C85BD5002D;
-	Wed,  2 Dec 2020 21:00:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 04B634A7C6;
+	Thu,  3 Dec 2020 01:57:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B2Kwg0g003635 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Dec 2020 15:58:42 -0500
+	id 0B31viKP002470 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Dec 2020 20:57:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 61C113A3; Wed,  2 Dec 2020 20:58:42 +0000 (UTC)
+	id 2225DC77E7; Thu,  3 Dec 2020 01:57:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.home.com (unknown [10.40.192.13])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3AEDF19D7C;
-	Wed,  2 Dec 2020 20:58:41 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed,  2 Dec 2020 21:58:39 +0100
-Message-Id: <20201202205839.843476-1-agruenba@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CAB7B301E
+	for <cluster-devel@redhat.com>; Thu,  3 Dec 2020 01:57:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6BACF185A794
+	for <cluster-devel@redhat.com>; Thu,  3 Dec 2020 01:57:40 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-437-F4MdBXqQMESjq3DDDSMfVw-1;
+	Wed, 02 Dec 2020 20:57:38 -0500
+X-MC-Unique: F4MdBXqQMESjq3DDDSMfVw-1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20201202205839.843476-1-agruenba@redhat.com>
+References: <20201202205839.843476-1-agruenba@redhat.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20201202205839.843476-1-agruenba@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+	tags/gfs2-v5.10-rc5-fixes
+X-PR-Tracked-Commit-Id: dd0ecf544125639e54056d851e4887dbb94b6d2f
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 34816d20f173a90389c8a7e641166d8ea9dce70a
+Message-Id: <160696065642.25461.15012834995463992596.pr-tracker-bot@kernel.org>
+Date: Thu, 03 Dec 2020 01:57:36 +0000
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [GIT PULL] gfs2 fixes for 5.10-rc5
+Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [Cluster-devel] [GIT PULL] gfs2 fixes for 5.10-rc5
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -63,53 +80,23 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 2
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Hi Linus,
+The pull request you sent on Wed,  2 Dec 2020 21:58:39 +0100:
 
-please consider pulling the following additional gfs2 fixes.
+> git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.10-rc5-fixes
 
-Thanks,
-Andreas
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/34816d20f173a90389c8a7e641166d8ea9dce70a
 
-The following changes since commit 418baf2c28f3473039f2f7377760bd8f6897ae18:
+Thank you!
 
-  Linux 5.10-rc5 (2020-11-22 15:36:08 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.10-rc5-fixes
-
-for you to fetch changes up to dd0ecf544125639e54056d851e4887dbb94b6d2f:
-
-  gfs2: Fix deadlock between gfs2_{create_inode,inode_lookup} and delete_work_func (2020-12-01 00:21:10 +0100)
-
-----------------------------------------------------------------
-Various gfs2 fixes
-
-----------------------------------------------------------------
-Alexander Aring (2):
-      gfs2: Fix deadlock dumping resource group glocks
-      gfs2: set lockdep subclass for iopen glocks
-
-Andreas Gruenbacher (2):
-      gfs2: Upgrade shared glocks for atime updates
-      gfs2: Fix deadlock between gfs2_{create_inode,inode_lookup} and delete_work_func
-
-Bob Peterson (2):
-      gfs2: check for empty rgrp tree in gfs2_ri_update
-      gfs2: Don't freeze the file system during unmount
-
- fs/gfs2/glock.c  |  1 +
- fs/gfs2/glops.c  |  6 ++++--
- fs/gfs2/incore.h |  1 +
- fs/gfs2/inode.c  | 42 ++++++++++++++++++++++++++++++++----------
- fs/gfs2/rgrp.c   |  4 ++++
- 5 files changed, 42 insertions(+), 12 deletions(-)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
