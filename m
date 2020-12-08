@@ -2,57 +2,141 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B679D2CDA05
-	for <lists+cluster-devel@lfdr.de>; Thu,  3 Dec 2020 16:23:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607008980;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=fyHhkJSkyBess1XdCChS5Ti8lqGTkdEpe1oNG6OWW7c=;
-	b=PwZ1l0PF5Bwwgt0vY9BEEPRR+6NprJD30qS9on4jNYPBKpc6HJdI8//NVX73YpavdXPjPK
-	YKpflEF75ZPlXvxPnfqf8dI8G8J4bu8gzV/rnYkaOnTgJFRb0ZRInMKLZqYUt8DQ0QJlA+
-	qi/SxDBDKpXfAni/P9AZhWspCkuzZyM=
+	by mail.lfdr.de (Postfix) with ESMTP id 3D4C82D2257
+	for <lists+cluster-devel@lfdr.de>; Tue,  8 Dec 2020 05:54:24 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-573-eT5MXWJ6PdqGq5LczKMlwA-1; Thu, 03 Dec 2020 10:22:58 -0500
-X-MC-Unique: eT5MXWJ6PdqGq5LczKMlwA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-257-mFS2iDh3Peus2hwh9BJyvg-1; Mon, 07 Dec 2020 23:54:21 -0500
+X-MC-Unique: mFS2iDh3Peus2hwh9BJyvg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0FD641005504;
-	Thu,  3 Dec 2020 15:22:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA22B5D6AC;
-	Thu,  3 Dec 2020 15:22:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E83C1809DC3;
+	Tue,  8 Dec 2020 04:54:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E15D60636;
+	Tue,  8 Dec 2020 04:54:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D6E1E4E58E;
-	Thu,  3 Dec 2020 15:22:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 936E1180954D;
+	Tue,  8 Dec 2020 04:54:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3FMp4v024319 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 10:22:52 -0500
+	id 0B84rJfZ000361 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Dec 2020 23:53:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EF570189A5; Thu,  3 Dec 2020 15:22:51 +0000 (UTC)
+	id 31415100402A; Tue,  8 Dec 2020 04:53:19 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-112-72.phx2.redhat.com [10.3.112.72])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C19586064B
-	for <cluster-devel@redhat.com>; Thu,  3 Dec 2020 15:22:51 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu,  3 Dec 2020 09:22:41 -0600
-Message-Id: <20201203152241.71617-3-rpeterso@redhat.com>
-In-Reply-To: <20201203152241.71617-1-rpeterso@redhat.com>
-References: <20201203152241.71617-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2CFA71004026
+	for <cluster-devel@redhat.com>; Tue,  8 Dec 2020 04:53:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E7982100FBC6
+	for <cluster-devel@redhat.com>; Tue,  8 Dec 2020 04:53:16 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-470-uC2o3CKzN1S_zEIPb2OaSQ-1; Mon, 07 Dec 2020 23:53:15 -0500
+X-MC-Unique: uC2o3CKzN1S_zEIPb2OaSQ-1
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	0B84nPNV064006; Tue, 8 Dec 2020 04:52:35 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by aserp2120.oracle.com with ESMTP id 35825m0srq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=FAIL); Tue, 08 Dec 2020 04:52:35 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	0B84ocw5155469; Tue, 8 Dec 2020 04:52:34 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by userp3020.oracle.com with ESMTP id 358kys9m8s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=FAIL); Tue, 08 Dec 2020 04:52:34 +0000
+Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B84qX4M159553;
+	Tue, 8 Dec 2020 04:52:33 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+	by userp3020.oracle.com with ESMTP id 358kys9m7s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 08 Dec 2020 04:52:33 +0000
+Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
+	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B84qDZf015901;
+	Tue, 8 Dec 2020 04:52:15 GMT
+Received: from ca-mkp.ca.oracle.com (/10.156.108.201)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Mon, 07 Dec 2020 20:52:13 -0800
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+To: linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Date: Mon,  7 Dec 2020 23:52:01 -0500
+Message-Id: <160740299787.710.4201881220590518200.b4-ty@oracle.com>
+In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
+References: <cover.1605896059.git.gustavoars@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9828
+	signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+	adultscore=0 bulkscore=0
+	phishscore=0 mlxlogscore=380 clxscore=1015 priorityscore=1501
+	mlxscore=0
+	spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2012080029
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [RHEL7.9.z PATCH 2/2] gfs2: move freeze glock
-	outside the make_fs_rw and _ro functions
+Cc: linux-fbdev@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
+	alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+	linux-ide@vger.kernel.org, dm-devel@redhat.com,
+	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-hardening@vger.kernel.org, wcn36xx@lists.infradead.org,
+	linux-i3c@lists.infradead.org, linux-decnet-user@lists.sourceforge.net,
+	ceph-devel@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+	Kees Cook <keescook@chromium.org>, devel@driverdev.osuosl.org,
+	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+	linux1394-devel@lists.sourceforge.net,
+	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+	oss-drivers@netronome.com, x86@kernel.org,
+	amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
+	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
+	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
+	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+	xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+	linux-media@vger.kernel.org, bridge@lists.linux-foundation.org,
+	linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
+	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+	samba-technical@lists.samba.org, drbd-dev@tron.linbit.com,
+	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
+	linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
+	tipc-discussion@lists.sourceforge.net,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	nouveau@lists.freedesktop.org, patches@opensource.cirrus.com,
+	linux-usb@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+	linux-sctp@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	target-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
+	Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
+	GR-everest-linux-l2@marvell.com
+Subject: Re: [Cluster-devel] (subset) [PATCH 000/141] Fix fall-through
+	warnings for Clang
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,212 +150,30 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
 
-Before this patch, sister functions gfs2_make_fs_rw and gfs2_make_fs_ro locked
-(held) the freeze glock by calling gfs2_freeze_lock and gfs2_freeze_unlock.
-The problem is, not all the callers of gfs2_make_fs_ro should be doing this.
-The three callers of gfs2_make_fs_ro are: remount (gfs2_reconfigure),
-signal_our_withdraw, and unmount (gfs2_put_super). But when unmounting the
-file system we can get into the following circular lock dependency:
+On Fri, 20 Nov 2020 12:21:39 -0600, Gustavo A. R. Silva wrote:
 
-deactivate_super
-   down_write(&s->s_umount); <-------------------------------------- s_umount
-   deactivate_locked_super
-      gfs2_kill_sb
-         kill_block_super
-            generic_shutdown_super
-               gfs2_put_super
-                  gfs2_make_fs_ro
-                     gfs2_glock_nq_init sd_freeze_gl
-                        freeze_go_sync
-                           if (freeze glock in SH)
-                              freeze_super (vfs)
-                                 down_write(&sb->s_umount); <------- s_umount
+> This series aims to fix almost all remaining fall-through warnings in
+> order to enable -Wimplicit-fallthrough for Clang.
+> 
+> In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
+> add multiple break/goto/return/fallthrough statements instead of just
+> letting the code fall through to the next case.
+> 
+> [...]
 
-This patch moves the hold of the freeze glock outside the two sister rw/ro
-functions to their callers, but it doesn't request the glock from
-gfs2_put_super, thus eliminating the circular dependency.
+Applied to 5.11/scsi-queue, thanks!
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/ops_fstype.c | 31 +++++++++++++++++--------------
- fs/gfs2/super.c      | 22 ----------------------
- fs/gfs2/util.c       | 15 +++++++++++++--
- 3 files changed, 30 insertions(+), 38 deletions(-)
+[054/141] target: Fix fall-through warnings for Clang
+          https://git.kernel.org/mkp/scsi/c/492096ecfa39
 
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index 4ee56f5e93cb..f2c6bbe5cdb8 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -1084,6 +1084,7 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
- 	int silent = fc->sb_flags & SB_SILENT;
- 	struct gfs2_sbd *sdp;
- 	struct gfs2_holder mount_gh;
-+	struct gfs2_holder freeze_gh;
- 	int error;
- 
- 	sdp = init_sbd(sb);
-@@ -1195,23 +1196,18 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto fail_per_node;
- 	}
- 
--	if (sb_rdonly(sb)) {
--		struct gfs2_holder freeze_gh;
-+	error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
-+	if (error)
-+		goto fail_per_node;
- 
--		error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
--		if (error) {
--			fs_err(sdp, "can't make FS RO: %d\n", error);
--			goto fail_per_node;
--		}
--		gfs2_freeze_unlock(&freeze_gh);
--	} else {
-+	if (!sb_rdonly(sb))
- 		error = gfs2_make_fs_rw(sdp);
--		if (error) {
--			fs_err(sdp, "can't make FS RW: %d\n", error);
--			goto fail_per_node;
--		}
--	}
- 
-+	gfs2_freeze_unlock(&freeze_gh);
-+	if (error) {
-+		fs_err(sdp, "can't make FS RW: %d\n", error);
-+		goto fail_per_node;
-+	}
- 	gfs2_glock_dq_uninit(&mount_gh);
- 	gfs2_online_uevent(sdp);
- 	return 0;
-@@ -1512,6 +1508,12 @@ static int gfs2_reconfigure(struct fs_context *fc)
- 		fc->sb_flags |= SB_RDONLY;
- 
- 	if ((sb->s_flags ^ fc->sb_flags) & SB_RDONLY) {
-+		struct gfs2_holder freeze_gh;
-+
-+		error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
-+		if (error)
-+			return -EINVAL;
-+
- 		if (fc->sb_flags & SB_RDONLY) {
- 			error = gfs2_make_fs_ro(sdp);
- 			if (error)
-@@ -1521,6 +1523,7 @@ static int gfs2_reconfigure(struct fs_context *fc)
- 			if (error)
- 				errorfc(fc, "unable to remount read-write");
- 		}
-+		gfs2_freeze_unlock(&freeze_gh);
- 	}
- 	sdp->sd_args = *newargs;
- 
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 801361a05e6f..754ea2a137b4 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -165,7 +165,6 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
- {
- 	struct gfs2_inode *ip = GFS2_I(sdp->sd_jdesc->jd_inode);
- 	struct gfs2_glock *j_gl = ip->i_gl;
--	struct gfs2_holder freeze_gh;
- 	struct gfs2_log_header_host head;
- 	int error;
- 
-@@ -173,10 +172,6 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
- 	if (error)
- 		return error;
- 
--	error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
--	if (error)
--		goto fail_threads;
--
- 	j_gl->gl_ops->go_inval(j_gl, DIO_METADATA);
- 	if (gfs2_withdrawn(sdp)) {
- 		error = -EIO;
-@@ -203,13 +198,9 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
- 
- 	set_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
- 
--	gfs2_freeze_unlock(&freeze_gh);
--
- 	return 0;
- 
- fail:
--	gfs2_freeze_unlock(&freeze_gh);
--fail_threads:
- 	if (sdp->sd_quotad_process)
- 		kthread_stop(sdp->sd_quotad_process);
- 	sdp->sd_quotad_process = NULL;
-@@ -607,20 +598,9 @@ static void gfs2_dirty_inode(struct inode *inode, int flags)
- 
- int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
- {
--	struct gfs2_holder freeze_gh;
- 	int error = 0;
- 	int log_write_allowed = test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
- 
--	gfs2_holder_mark_uninitialized(&freeze_gh);
--	if (sdp->sd_freeze_gl) {
--		error = gfs2_freeze_lock(sdp, &freeze_gh,
--					 log_write_allowed ? 0 : LM_FLAG_TRY);
--		if (error == GLR_TRYFAILED)
--			error = 0;
--		if (error && !gfs2_withdrawn(sdp))
--			return error;
--	}
--
- 	gfs2_flush_delete_work(sdp);
- 	if (!log_write_allowed && current == sdp->sd_quotad_process)
- 		fs_warn(sdp, "The quotad daemon is withdrawing.\n");
-@@ -649,8 +629,6 @@ int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
- 				   atomic_read(&sdp->sd_reserving_log) == 0,
- 				   HZ * 5);
- 	}
--	gfs2_freeze_unlock(&freeze_gh);
--
- 	gfs2_quota_cleanup(sdp);
- 
- 	if (!log_write_allowed)
-diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
-index 9022ea1f5d50..02f7a7ec7a31 100644
---- a/fs/gfs2/util.c
-+++ b/fs/gfs2/util.c
-@@ -132,6 +132,7 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
- 	struct inode *inode = sdp->sd_jdesc->jd_inode;
- 	struct gfs2_inode *ip = GFS2_I(inode);
- 	u64 no_formal_ino = ip->i_no_formal_ino;
-+	int log_write_allowed = test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
- 	int ret = 0;
- 	int tries;
- 
-@@ -152,8 +153,18 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
- 	 * therefore we need to clear SDF_JOURNAL_LIVE manually.
- 	 */
- 	clear_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
--	if (!sb_rdonly(sdp->sd_vfs))
--		ret = gfs2_make_fs_ro(sdp);
-+	if (!sb_rdonly(sdp->sd_vfs)) {
-+		struct gfs2_holder freeze_gh;
-+
-+		ret = gfs2_freeze_lock(sdp, &freeze_gh,
-+				       log_write_allowed ? 0 : LM_FLAG_TRY);
-+		if (ret == GLR_TRYFAILED)
-+			ret = 0;
-+		if (!ret) {
-+			ret = gfs2_make_fs_ro(sdp);
-+			gfs2_freeze_unlock(&freeze_gh);
-+		}
-+	}
- 
- 	if (sdp->sd_lockstruct.ls_ops->lm_lock == NULL) { /* lock_nolock */
- 		if (!ret)
 -- 
-2.28.0
+Martin K. Petersen	Oracle Linux Engineering
 
