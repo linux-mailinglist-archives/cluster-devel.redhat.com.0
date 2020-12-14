@@ -2,57 +2,58 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 49F412D9469
-	for <lists+cluster-devel@lfdr.de>; Mon, 14 Dec 2020 09:55:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 84FCA2D968E
+	for <lists+cluster-devel@lfdr.de>; Mon, 14 Dec 2020 11:47:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607936113;
+	s=mimecast20190719; t=1607942833;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sD5iqE0R9Nc6awKl39SnJkenbWW6Qn6sxW5HlRh7TaY=;
-	b=CIx1H3n5YJVoLXg4v2zTvCkLlCL2aidnP2URmQiB/1ZxI0rP63uDaA/amGyldeJJMPTza+
-	Nkh8xfnBnxioTJL3ImafG/EKNY1JLlx3WEri+zIdm0s31TdTMlmcKth/+yN5Zphlrl5NLN
-	rCzYCPlENeF67taWoAVbYOaiuh3D2eA=
+	bh=KgwlGTHBP3aQZAp0CBk31ZfD/uD/shPdGwpQwutWilU=;
+	b=B1+oikMvEOjy5kswGW0YthuAlS4AwHl7DO7KDMC6/gTyqwmpDlrisxnCsHzLrS9XNnjTNE
+	IGAT7MblS7+wDpZz2TegRLQLxkD0AEf60cMAuCJ/WY8tNuMGhAukvlzpgwttkw2hSos2Sy
+	SpYA5okCsXYtmpFiDkhEwgFFjMVbPVE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-Y05SM6IVMiWee2VRJzFofA-1; Mon, 14 Dec 2020 03:55:11 -0500
-X-MC-Unique: Y05SM6IVMiWee2VRJzFofA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-342-HbzCkrKYPdGOMq4E5suYQw-1; Mon, 14 Dec 2020 05:47:11 -0500
+X-MC-Unique: HbzCkrKYPdGOMq4E5suYQw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 217CD100F356;
-	Mon, 14 Dec 2020 08:55:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11E6660BE2;
-	Mon, 14 Dec 2020 08:55:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D711B8030B9;
+	Mon, 14 Dec 2020 10:47:08 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 36C86669EB;
+	Mon, 14 Dec 2020 10:47:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F0BF15002C;
-	Mon, 14 Dec 2020 08:55:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 241A01809C9F;
+	Mon, 14 Dec 2020 10:47:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BE8t8HN016511 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 14 Dec 2020 03:55:08 -0500
+	id 0BEAkwpx025790 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 14 Dec 2020 05:46:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 54E3D62467; Mon, 14 Dec 2020 08:55:08 +0000 (UTC)
+	id 6E90C10074E5; Mon, 14 Dec 2020 10:46:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.home.com (unknown [10.40.192.194])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8EE426268F;
-	Mon, 14 Dec 2020 08:55:03 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: cluster-devel@redhat.com
-Date: Mon, 14 Dec 2020 09:54:42 +0100
-Message-Id: <20201214085442.45467-13-agruenba@redhat.com>
-In-Reply-To: <20201214085442.45467-1-agruenba@redhat.com>
-References: <20201214085442.45467-1-agruenba@redhat.com>
+Received: from fogou.chygwyn.com (unknown [10.33.36.8])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB86010023AD;
+	Mon, 14 Dec 2020 10:46:54 +0000 (UTC)
+To: Abhijith Das <adas@redhat.com>, cluster-devel <cluster-devel@redhat.com>
+References: <CACrDRjiiXtz6cOO8FmnZHKte2EVKAFzDESXJ5a8oALd7h+EizA@mail.gmail.com>
+From: Steven Whitehouse <swhiteho@redhat.com>
+Message-ID: <878be018-3ff8-5c7d-e5c6-db6513b6de1c@redhat.com>
+Date: Mon, 14 Dec 2020 10:46:52 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.11.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <CACrDRjiiXtz6cOO8FmnZHKte2EVKAFzDESXJ5a8oALd7h+EizA@mail.gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 12/12] gfs2: Use a tighter bound in
-	gfs2_trans_begin
+Subject: Re: [Cluster-devel] Recording extents in GFS2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,44 +67,48 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-Use a tighter bound for the number of blocks required by transactions in
-gfs2_trans_begin: in the worst case, we'll have mixed data and metadata,
-so we'll need a log desciptor for each type.
+Hi,
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
----
- fs/gfs2/trans.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+On 11/12/2020 16:38, Abhijith Das wrote:
+> Hi all,
+>
+> With a recent set of patches, we nearly eliminated the per_node statfs
+> change files by recording that info in the journal. The files and some
+> recovery code remain only for backward compatibility. Similarly, I'd
+> like to get rid of the per_node quota change files and record that
+> info in the journal as well.
+>
+> I've been talking to Andreas and Bob a bit about this and I'm
+> investigating how we can record extents as we allocate and deallocate
+> blocks instead of writing whole blocks. I'm looking into how XFS does
+> this.
+>
+> We could have a new journal block type that adds a list of extents to
+> inodes with alloc/dealloc info. We could add in quota (uid/gid) info
+> to this as well. If we can do this right, the representation of
+> alloc/dealloc becomes compact and consequently we use journal space
+> more efficiently. We can hopefully avoid cases where we need to zero
+> out blocks during allocation as well.
+>
+> I'm sending this out to start a discussion and to get ideas/comments/pointers.
+>
+> Cheers!
+> --Abhi
+>
+I think you need to propose something a bit more concrete. For example 
+what will the data structures look like? How many entries will fit in a 
+journal block at different block sizes? How will we ensure that this is 
+backwards compatible? That will make it easier to have the discussions,
 
-diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
-index c9d8247ffa19..6a6b07499d07 100644
---- a/fs/gfs2/trans.c
-+++ b/fs/gfs2/trans.c
-@@ -60,8 +60,14 @@ int __gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int blocks,
- 	tr->tr_blocks = blocks;
- 	tr->tr_revokes = revokes;
- 	tr->tr_reserved = 1;
--	if (blocks)
--		tr->tr_reserved += 6 + blocks;
-+	if (blocks) {
-+		/*
-+		 * The reserved blocks are either used for data or metadata.
-+		 * We can have mixed data and metadata, each with its own log
-+		 * descriptor block; see calc_reserved().
-+		 */
-+		tr->tr_reserved += blocks + 1 + DIV_ROUND_UP(blocks - 1, databuf_limit(sdp));
-+	}
- 	if (revokes)
- 		tr->tr_reserved += gfs2_struct2blk(sdp, revokes);
- 	INIT_LIST_HEAD(&tr->tr_databuf);
--- 
-2.26.2
+Steve.
+
 
