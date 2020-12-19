@@ -2,57 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 726FC2DF19F
-	for <lists+cluster-devel@lfdr.de>; Sat, 19 Dec 2020 21:49:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C46892DF1A0
+	for <lists+cluster-devel@lfdr.de>; Sat, 19 Dec 2020 21:49:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1608410956;
+	s=mimecast20190719; t=1608410961;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xBalXtYi0VbqkAVcVHSCLmGIccZNxXdcw08rXXJggDI=;
-	b=OuscrSwv6/Ph67fP+6pOnXvKOIVU9fX6nH7yjSmF4N0uFq4ZWGsY9zXm8unw2A32RfFXlR
-	I9nuV8UOfD1aFhIqOQYVD8ZMJYKyM4Xcj2HbRBpuqvwYKaI5lZxUiz/Mm40BE6z+/2Cbc9
-	R4kQOGonBiOAbWfdfsC7i2+j/oYQ5Nc=
+	bh=Cr0VMpDDuDyI5MPSH+x6hIx4mf2HiVrFVzX7iEI1fjE=;
+	b=T4SySvqpuDnJ/90o5wdCi21k1GXI2wLf0bXntYq8YYIDYENLa9S820TrzLVo8GpWw3goEh
+	LpO0CW4bN61aLBit4EiRr36yDF248nq9fCCe77CR/O/tT8VSlGnUPaDKAm4wDd2g0qW/sc
+	idLykhyYCFqiO8FZrPCFmKM4QR8Kb6M=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-539-yT7ouD2ZPFei3vmmi7tH1w-1; Sat, 19 Dec 2020 15:49:14 -0500
-X-MC-Unique: yT7ouD2ZPFei3vmmi7tH1w-1
+ us-mta-319-eXOJy8ZbMwS3F_dwoG5S8w-1; Sat, 19 Dec 2020 15:49:20 -0500
+X-MC-Unique: eXOJy8ZbMwS3F_dwoG5S8w-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 759888015F3;
-	Sat, 19 Dec 2020 20:49:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AACAE1005513;
+	Sat, 19 Dec 2020 20:49:17 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 645502C91E;
-	Sat, 19 Dec 2020 20:49:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BD702C91E;
+	Sat, 19 Dec 2020 20:49:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 511895002C;
-	Sat, 19 Dec 2020 20:49:12 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 88EA85002C;
+	Sat, 19 Dec 2020 20:49:17 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BJKnAxB020161 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 19 Dec 2020 15:49:10 -0500
+	id 0BJKnFQa020177 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 19 Dec 2020 15:49:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8A2EF2DAD0; Sat, 19 Dec 2020 20:49:10 +0000 (UTC)
+	id 6065050ADB; Sat, 19 Dec 2020 20:49:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.home.com (ovpn-115-196.ams2.redhat.com [10.36.115.196])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 68BF139A4E;
-	Sat, 19 Dec 2020 20:49:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4ED2D50A8B;
+	Sat, 19 Dec 2020 20:49:10 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Sat, 19 Dec 2020 21:48:34 +0100
-Message-Id: <20201219204848.285781-7-agruenba@redhat.com>
+Date: Sat, 19 Dec 2020 21:48:35 +0100
+Message-Id: <20201219204848.285781-8-agruenba@redhat.com>
 In-Reply-To: <20201219204848.285781-1-agruenba@redhat.com>
 References: <20201219204848.285781-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH v2 06/20] gfs2: Rename gfs2_{write =>
-	add_aux}_revokes
+Subject: [Cluster-devel] [PATCH v2 07/20] gfs2: Clean up ail2_empty
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,62 +73,67 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Function gfs2_write_revokes doesn't actually write any revokes; instead, it
-adds auxiliary revokes to the system transaction.
+Clean up the logic in ail2_empty (no functional change).
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/log.c  | 4 ++--
- fs/gfs2/log.h  | 2 +-
- fs/gfs2/lops.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ fs/gfs2/log.c | 38 +++++++++++++++++++++-----------------
+ 1 file changed, 21 insertions(+), 17 deletions(-)
 
 diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index 5bc3cc8ef7f4..8efc0c1c5c87 100644
+index 8efc0c1c5c87..d7b0dc94fc8c 100644
 --- a/fs/gfs2/log.c
 +++ b/fs/gfs2/log.c
-@@ -696,7 +696,7 @@ void gfs2_glock_remove_revoke(struct gfs2_glock *gl)
+@@ -367,29 +367,33 @@ static void gfs2_ail_empty_tr(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
+ 	}
  }
  
- /**
-- * gfs2_write_revokes - Add as many revokes to the system transaction as we can
-+ * gfs2_add_aux_revokes - Add as many revokes to the system transaction as we can
-  * @sdp: The GFS2 superblock
-  *
-  * Our usual strategy is to defer writing revokes as much as we can in the hope
-@@ -707,7 +707,7 @@ void gfs2_glock_remove_revoke(struct gfs2_glock *gl)
-  * been written back.  This will basically come at no cost now, and will save
-  * us from having to keep track of those blocks on the AIL2 list later.
-  */
--void gfs2_write_revokes(struct gfs2_sbd *sdp)
-+void gfs2_add_aux_revokes(struct gfs2_sbd *sdp)
++static void __ail2_empty(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
++{
++	gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
++	list_del(&tr->tr_list);
++	gfs2_assert_warn(sdp, list_empty(&tr->tr_ail1_list));
++	gfs2_assert_warn(sdp, list_empty(&tr->tr_ail2_list));
++	gfs2_trans_free(sdp, tr);
++}
++
+ static void ail2_empty(struct gfs2_sbd *sdp, unsigned int new_tail)
  {
- 	/* number of revokes we still have room for */
- 	unsigned int max_revokes;
-diff --git a/fs/gfs2/log.h b/fs/gfs2/log.h
-index 79f97290146e..0a0058f449fc 100644
---- a/fs/gfs2/log.h
-+++ b/fs/gfs2/log.h
-@@ -78,6 +78,6 @@ extern void log_flush_wait(struct gfs2_sbd *sdp);
- extern int gfs2_logd(void *data);
- extern void gfs2_add_revoke(struct gfs2_sbd *sdp, struct gfs2_bufdata *bd);
- extern void gfs2_glock_remove_revoke(struct gfs2_glock *gl);
--extern void gfs2_write_revokes(struct gfs2_sbd *sdp);
-+extern void gfs2_add_aux_revokes(struct gfs2_sbd *sdp);
+-	struct gfs2_trans *tr, *safe;
++	struct list_head *ail2_list = &sdp->sd_ail2_list;
+ 	unsigned int old_tail = sdp->sd_log_tail;
+-	int wrap = (new_tail < old_tail);
+-	int a, b, rm;
++	struct gfs2_trans *tr, *safe;
  
- #endif /* __LOG_DOT_H__ */
-diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
-index 3922b26264f5..3b4e51089bbd 100644
---- a/fs/gfs2/lops.c
-+++ b/fs/gfs2/lops.c
-@@ -845,7 +845,7 @@ static void revoke_lo_before_commit(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
- 	struct page *page;
- 	unsigned int length;
- 
--	gfs2_write_revokes(sdp);
-+	gfs2_add_aux_revokes(sdp);
- 	if (!sdp->sd_log_num_revoke)
- 		return;
+ 	spin_lock(&sdp->sd_ail_lock);
+-
+-	list_for_each_entry_safe(tr, safe, &sdp->sd_ail2_list, tr_list) {
+-		a = (old_tail <= tr->tr_first);
+-		b = (tr->tr_first < new_tail);
+-		rm = (wrap) ? (a || b) : (a && b);
+-		if (!rm)
+-			continue;
+-
+-		gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
+-		list_del(&tr->tr_list);
+-		gfs2_assert_warn(sdp, list_empty(&tr->tr_ail1_list));
+-		gfs2_assert_warn(sdp, list_empty(&tr->tr_ail2_list));
+-		gfs2_trans_free(sdp, tr);
++	if (old_tail <= new_tail) {
++		list_for_each_entry_safe(tr, safe, ail2_list, tr_list) {
++			if (old_tail <= tr->tr_first && tr->tr_first < new_tail)
++				__ail2_empty(sdp, tr);
++		}
++	} else {
++		list_for_each_entry_safe(tr, safe, ail2_list, tr_list) {
++			if (old_tail <= tr->tr_first || tr->tr_first < new_tail)
++				__ail2_empty(sdp, tr);
++		}
+ 	}
+-
+ 	spin_unlock(&sdp->sd_ail_lock);
+ }
  
 -- 
 2.26.2
