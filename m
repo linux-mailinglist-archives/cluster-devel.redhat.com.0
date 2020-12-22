@@ -1,89 +1,89 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C0D1B2E1095
-	for <lists+cluster-devel@lfdr.de>; Wed, 23 Dec 2020 00:28:29 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 15A5A2E10AC
+	for <lists+cluster-devel@lfdr.de>; Wed, 23 Dec 2020 00:58:29 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1608679708;
+	s=mimecast20190719; t=1608681509;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=eHtm99dp+9rQtFIr495DKQntJQtpPfU0fYigfgOF/yo=;
-	b=DzGTMHLIp6+sbxtciTP9I4PK7MDo+KDY9R8UOwc6Xl3Y2efNpAyev6eXPwDER8qH0MbBKT
-	e8it3907OIpgFp3fpse8VOEJfGEt7yVc4EXl3hRuTAuai57BU8vtMnNeXidQi/L/CWMiKz
-	9dcPFSw3wVmU9DhNL4Fbw0LaNZapwhU=
+	 list-subscribe:list-post; bh=5ManLAE/KZx5rXxWyOe00NJizDOMK4zc/R46uAN6VN4=;
+	b=NUbzYeiTSWMscr5nGeBLWeH2P2FbqDzACnmgYiBRBscRg8lkHwvrICnoHaCSW10NdVV0sS
+	s85jPQmlOVNQO1A677qtn0Wq0ZsQa9uKYPJKfLqSBuNucSzmv1Dt+HSmaA77oPDfDDY9HG
+	O+GjX8DMLZb0L68IjIzmjlBTGvxvUe4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-324-wa74nJNJMoSIf_VsCV7uTg-1; Tue, 22 Dec 2020 18:28:27 -0500
-X-MC-Unique: wa74nJNJMoSIf_VsCV7uTg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-219-4ZtpMeFDOOSiNpCVrOnYbQ-1; Tue, 22 Dec 2020 18:58:27 -0500
+X-MC-Unique: 4ZtpMeFDOOSiNpCVrOnYbQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3ACA1005504;
-	Tue, 22 Dec 2020 23:28:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C96AE2DD;
-	Tue, 22 Dec 2020 23:28:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 80F0D1005504;
+	Tue, 22 Dec 2020 23:58:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F4AB5D705;
+	Tue, 22 Dec 2020 23:58:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F2FBD4A7C6;
-	Tue, 22 Dec 2020 23:28:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5808E180954D;
+	Tue, 22 Dec 2020 23:58:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BMNSGXH014907 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 22 Dec 2020 18:28:16 -0500
+	id 0BMNwJ3r017815 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 22 Dec 2020 18:58:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AE3852026D5D; Tue, 22 Dec 2020 23:28:16 +0000 (UTC)
+	id DBC20112D437; Tue, 22 Dec 2020 23:58:19 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A98AC2026D49
-	for <cluster-devel@redhat.com>; Tue, 22 Dec 2020 23:28:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D7BAE112D436
+	for <cluster-devel@redhat.com>; Tue, 22 Dec 2020 23:58:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 62B83811E76
-	for <cluster-devel@redhat.com>; Tue, 22 Dec 2020 23:28:14 +0000 (UTC)
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
-	[209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-200-0c0War1xPGa2yqKPrEiyQg-1; Tue, 22 Dec 2020 18:28:12 -0500
-X-MC-Unique: 0c0War1xPGa2yqKPrEiyQg-1
-Received: by mail-wr1-f72.google.com with SMTP id v7so5247427wra.3
-	for <cluster-devel@redhat.com>; Tue, 22 Dec 2020 15:28:12 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E875858280
+	for <cluster-devel@redhat.com>; Tue, 22 Dec 2020 23:58:16 +0000 (UTC)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+	[209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-204-w_cxUXORMYa65ZW68IqAYA-1; Tue, 22 Dec 2020 18:58:14 -0500
+X-MC-Unique: w_cxUXORMYa65ZW68IqAYA-1
+Received: by mail-wr1-f71.google.com with SMTP id j5so11959228wro.12
+	for <cluster-devel@redhat.com>; Tue, 22 Dec 2020 15:58:14 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=eHtm99dp+9rQtFIr495DKQntJQtpPfU0fYigfgOF/yo=;
-	b=orGc3PtGvKZtBGtmRD8clYDxXaw8Za9HolivXb5+Lqdi9a7SbsrD4xU0wCV6btXfd5
-	s62BuMS4ftbG0vmD+qfTtRmNYbC00LTtm1DT7O2C4VYV/vQtvwLNizRsoSPNJQYIW2YQ
-	v3KCDUSl+OAOIncuWOLaetrHKGa6daXORl6BNtJrTqO7fSRXnnlWRs4o0LJtk05WbjwU
-	Qw/yzv7+AP9lhRzTJoff+t1kirOeTjFAk6mDekhJOEznAQ9xpiZ5D1D5m1RNnubOhjya
-	nw+39Gd0vz6VO9jMyABP+VVc+kRu1riFAXEC5CHQxdXNsAUYs3YBvQjd9DPxnUyxz4dC
-	qQNg==
-X-Gm-Message-State: AOAM530dtxFjQ1vhMLTJmworX1eRiIcugssbULOqWP+3hnjBpWWGgCsn
-	SkhqgUKaT/AFSB1POCVpoR+njoKYaIf7ge4nYBhDEsXldeOR+GM5Rtbuksu/fMzXrY+KNsWHATo
-	qcsEWbjA3zhNc5Vkm1m8dGyyWzein6v8kCazmyA==
-X-Received: by 2002:a1c:27c3:: with SMTP id n186mr24057565wmn.96.1608679691302;
-	Tue, 22 Dec 2020 15:28:11 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJykbpILgQBLR/ZQM2XM63RfYJN5j+bMr916eQac9nADKrRtQQOl4U+DZs+sibOqhXrGNy5FFHIVRxAyuvP5i5k=
-X-Received: by 2002:a1c:27c3:: with SMTP id n186mr24057556wmn.96.1608679691119;
-	Tue, 22 Dec 2020 15:28:11 -0800 (PST)
+	bh=5ManLAE/KZx5rXxWyOe00NJizDOMK4zc/R46uAN6VN4=;
+	b=mkeq6i6TYOalDx2bDSo6LKuNNfL+3ERal/ZPNAx8Yg9XrFGzUMzIk/V9g+CiujpJKp
+	ht9yyc6qmnHL2rsT0oHQXdpmojP+Lv/Wg2fwqgDIYlqpvN+PZoYkeNevFCCvU93+Loht
+	oqP1mta58eycr8IGt5GnQERhKN0uJ+0gKJsqARAZ/wa4cbz9i96ivHgllbv5Ksjp0sXq
+	3x+DuL7Z6A+qvlXjwrR5n//xIjDHS2QjCjSVLxkkN+DHVBiJugdPClhKyFVTTPzsAErt
+	s1PpjEDaYxgFicvkiThDEAH6pH8hHRsu1eKZqGaoEH91jt/m3eBB0zQJlywVLhj2F7Bg
+	hs9A==
+X-Gm-Message-State: AOAM530ZFzPzp9bE7KhkOZyfDN9YpPIU4F5QxPS/dC/SDpj4ZikiKu9/
+	1YarSkpPzHxExkCluPOCeG/up1fGfwncX1AvQCLgygt47UR6dY2ma2fPQUs7Q/ksuT/PWffsx95
+	F4ud6KYsnjk1FLclLpDQiY0Nl0zCMDATM2Ar2uw==
+X-Received: by 2002:a7b:c145:: with SMTP id z5mr23842308wmi.164.1608681493549; 
+	Tue, 22 Dec 2020 15:58:13 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwaS8i0EUdMHhS5p2ZzZdV2BNfcnIhmTByYiE281Y30CZLcqUm7MSnUg52LkMxOLbwdnCmeujzKYkgeTq7Ryrc=
+X-Received: by 2002:a7b:c145:: with SMTP id z5mr23842298wmi.164.1608681493348; 
+	Tue, 22 Dec 2020 15:58:13 -0800 (PST)
 MIME-Version: 1.0
-References: <290202568.38904309.1608669529163.JavaMail.zimbra@redhat.com>
-	<2125295377.38904313.1608669538740.JavaMail.zimbra@redhat.com>
-In-Reply-To: <2125295377.38904313.1608669538740.JavaMail.zimbra@redhat.com>
+References: <20201222204328.78528-1-rpeterso@redhat.com>
+	<20201222204328.78528-3-rpeterso@redhat.com>
+In-Reply-To: <20201222204328.78528-3-rpeterso@redhat.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Wed, 23 Dec 2020 00:27:59 +0100
-Message-ID: <CAHc6FU5w=7CLrqYzE==4Vt39+Mfv4ZNX_PVi7KShqNYzedLeag@mail.gmail.com>
+Date: Wed, 23 Dec 2020 00:58:01 +0100
+Message-ID: <CAHc6FU7WC1j=_xtMk2GZTLng05_VdcGmmBAdB1AWJ_pjUtwi0w@mail.gmail.com>
 To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: make recovery workqueue
- operate on a gfs2 mount point, not journal
+Subject: Re: [Cluster-devel] [GFS2 PATCH 2/2] gfs2: move freeze glock
+ outside the make_fs_rw and _ro functions
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,156 +97,248 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Dec 22, 2020 at 9:39 PM Bob Peterson <rpeterso@redhat.com> wrote:
+On Tue, Dec 22, 2020 at 9:43 PM Bob Peterson <rpeterso@redhat.com> wrote:
 >
-> Hi,
+> Before this patch, sister functions gfs2_make_fs_rw and gfs2_make_fs_ro locked
+> (held) the freeze glock by calling gfs2_freeze_lock and gfs2_freeze_unlock.
+> The problem is, not all the callers of gfs2_make_fs_ro should be doing this.
+> The three callers of gfs2_make_fs_ro are: remount (gfs2_reconfigure),
+> signal_our_withdraw, and unmount (gfs2_put_super). But when unmounting the
+> file system we can get into the following circular lock dependency:
 >
-> Before this patch, journal recovery was done by a workqueue function that
-> operated on a per-journal basis. The problem is, these could run simultaneously
-> which meant that they could all use the same bio, sd_log_bio, to do their
-> writing to all the various journals. These operations overwrote one another
-> eventually causing memory corruption.
+> deactivate_super
+>    down_write(&s->s_umount); <-------------------------------------- s_umount
+>    deactivate_locked_super
+>       gfs2_kill_sb
+>          kill_block_super
+>             generic_shutdown_super
+>                gfs2_put_super
+>                   gfs2_make_fs_ro
+>                      gfs2_glock_nq_init sd_freeze_gl
+>                         freeze_go_sync
+>                            if (freeze glock in SH)
+>                               freeze_super (vfs)
+>                                  down_write(&sb->s_umount); <------- s_umount
 >
-> This patch makes the recovery workqueue operate on a per-superblock basis,
-> which means a mount point using, for example journal0, could do recovery
-> for all journals that need recovery. This is done consecutively so the
-> sd_log_bio is only referenced by one recovery at a time, thus avoiding the
-> chaos.
->
-> Since the journal recovery requests can come in any order, and unpredictably,
-> the new work func loops until there are no more journals to be recovered.
->
-> Since multiple processes may request recovery of a journal, and since they
-> all now use the same sdp-based workqueue, it's okay for them to get an
-> error from queue_work: Queueing work while there's already work queued.
+> This patch moves the hold of the freeze glock outside the two sister rw/ro
+> functions to their callers, but it doesn't request the glock from
+> gfs2_put_super, thus eliminating the circular dependency.
 >
 > Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 > ---
->  fs/gfs2/incore.h     |  2 +-
->  fs/gfs2/ops_fstype.c |  2 +-
->  fs/gfs2/recovery.c   | 32 ++++++++++++++++++++++++++++----
->  3 files changed, 30 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-> index 8e1ab8ed4abc..b393cbf9efeb 100644
-> --- a/fs/gfs2/incore.h
-> +++ b/fs/gfs2/incore.h
-> @@ -529,7 +529,6 @@ struct gfs2_jdesc {
->         struct list_head jd_list;
->         struct list_head extent_list;
->         unsigned int nr_extents;
-> -       struct work_struct jd_work;
->         struct inode *jd_inode;
->         unsigned long jd_flags;
->  #define JDF_RECOVERY 1
-> @@ -746,6 +745,7 @@ struct gfs2_sbd {
->         struct completion sd_locking_init;
->         struct completion sd_wdack;
->         struct delayed_work sd_control_work;
-> +       struct work_struct sd_recovery_work;
->
->         /* Inode Stuff */
+>  fs/gfs2/ops_fstype.c | 31 +++++++++++++++++--------------
+>  fs/gfs2/super.c      | 23 -----------------------
+>  fs/gfs2/util.c       | 18 ++++++++++++++++--
+>  3 files changed, 33 insertions(+), 39 deletions(-)
 >
 > diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-> index 61fce59cb4d3..3d9a6d6d42cb 100644
+> index c71c7beb9257..cd3fd252c771 100644
 > --- a/fs/gfs2/ops_fstype.c
 > +++ b/fs/gfs2/ops_fstype.c
-> @@ -93,6 +93,7 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
->         init_completion(&sdp->sd_locking_init);
->         init_completion(&sdp->sd_wdack);
->         spin_lock_init(&sdp->sd_statfs_spin);
-> +       INIT_WORK(&sdp->sd_recovery_work, gfs2_recover_func);
+> @@ -1084,6 +1084,7 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+>         int silent = fc->sb_flags & SB_SILENT;
+>         struct gfs2_sbd *sdp;
+>         struct gfs2_holder mount_gh;
+> +       struct gfs2_holder freeze_gh;
+>         int error;
 >
->         spin_lock_init(&sdp->sd_rindex_spin);
->         sdp->sd_rindex_tree.rb_node = NULL;
-> @@ -586,7 +587,6 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struct gfs2_holder *ji_gh)
->                 INIT_LIST_HEAD(&jd->extent_list);
->                 INIT_LIST_HEAD(&jd->jd_revoke_list);
+>         sdp = init_sbd(sb);
+> @@ -1195,23 +1196,18 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+>                 goto fail_per_node;
+>         }
 >
-> -               INIT_WORK(&jd->jd_work, gfs2_recover_func);
->                 jd->jd_inode = gfs2_lookupi(sdp->sd_jindex, &name, 1);
->                 if (IS_ERR_OR_NULL(jd->jd_inode)) {
->                         if (!jd->jd_inode)
-> diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-> index c26c68ebd29d..cd3e66cdb560 100644
-> --- a/fs/gfs2/recovery.c
-> +++ b/fs/gfs2/recovery.c
-> @@ -399,9 +399,8 @@ static void recover_local_statfs(struct gfs2_jdesc *jd,
->         return;
->  }
+> -       if (sb_rdonly(sb)) {
+> -               struct gfs2_holder freeze_gh;
+> +       error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
+> +       if (error)
+> +               goto fail_per_node;
 >
-> -void gfs2_recover_func(struct work_struct *work)
-> +static void gfs2_recover_one(struct gfs2_jdesc *jd)
+> -               error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
+> -               if (error) {
+> -                       fs_err(sdp, "can't make FS RO: %d\n", error);
+> -                       goto fail_per_node;
+> -               }
+> -               gfs2_freeze_unlock(&freeze_gh);
+> -       } else {
+> +       if (!sb_rdonly(sb))
+>                 error = gfs2_make_fs_rw(sdp);
+> -               if (error) {
+> -                       fs_err(sdp, "can't make FS RW: %d\n", error);
+> -                       goto fail_per_node;
+> -               }
+> -       }
+>
+> +       gfs2_freeze_unlock(&freeze_gh);
+> +       if (error) {
+> +               fs_err(sdp, "can't make FS RW: %d\n", error);
+> +               goto fail_per_node;
+> +       }
+>         gfs2_glock_dq_uninit(&mount_gh);
+>         gfs2_online_uevent(sdp);
+>         return 0;
+> @@ -1512,6 +1508,12 @@ static int gfs2_reconfigure(struct fs_context *fc)
+>                 fc->sb_flags |= SB_RDONLY;
+>
+>         if ((sb->s_flags ^ fc->sb_flags) & SB_RDONLY) {
+> +               struct gfs2_holder freeze_gh;
+> +
+> +               error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
+> +               if (error)
+> +                       return -EINVAL;
+> +
+>                 if (fc->sb_flags & SB_RDONLY) {
+>                         error = gfs2_make_fs_ro(sdp);
+>                         if (error)
+> @@ -1521,6 +1523,7 @@ static int gfs2_reconfigure(struct fs_context *fc)
+>                         if (error)
+>                                 errorfc(fc, "unable to remount read-write");
+>                 }
+> +               gfs2_freeze_unlock(&freeze_gh);
+>         }
+>         sdp->sd_args = *newargs;
+>
+> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+> index ea312a94ce69..754ea2a137b4 100644
+> --- a/fs/gfs2/super.c
+> +++ b/fs/gfs2/super.c
+> @@ -165,7 +165,6 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
 >  {
-> -       struct gfs2_jdesc *jd = container_of(work, struct gfs2_jdesc, jd_work);
->         struct gfs2_inode *ip = GFS2_I(jd->jd_inode);
->         struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
+>         struct gfs2_inode *ip = GFS2_I(sdp->sd_jdesc->jd_inode);
+>         struct gfs2_glock *j_gl = ip->i_gl;
+> -       struct gfs2_holder freeze_gh;
 >         struct gfs2_log_header_host head;
-> @@ -562,16 +561,41 @@ void gfs2_recover_func(struct work_struct *work)
->         wake_up_bit(&jd->jd_flags, JDF_RECOVERY);
->  }
+>         int error;
 >
-> +void gfs2_recover_func(struct work_struct *work)
-> +{
-> +       struct gfs2_sbd *sdp = container_of(work, struct gfs2_sbd,
-> +                                           sd_recovery_work);
-> +       struct gfs2_jdesc *jd;
-> +       int count, recovered = 0;
-> +
-> +       do {
-> +               count = 0;
-> +               spin_lock(&sdp->sd_jindex_spin);
-> +               list_for_each_entry(jd, &sdp->sd_jindex_list, jd_list) {
-> +                       if (test_bit(JDF_RECOVERY, &jd->jd_flags)) {
-> +                               spin_unlock(&sdp->sd_jindex_spin);
-> +                               gfs2_recover_one(jd);
-> +                               spin_lock(&sdp->sd_jindex_spin);
-> +                               count++;
-> +                               recovered++;
-> +                       }
-> +               }
-> +               spin_unlock(&sdp->sd_jindex_spin);
-> +       } while (count);
-
-Can't this be a simple loop like below?
-
-repeat:
-        spin_lock(&sdp->sd_jindex_spin);
-        list_for_each_entry(jd, &sdp->sd_jindex_list, jd_list) {
-                if (test_bit(JDF_RECOVERY, &jd->jd_flags)) {
-                        spin_unlock(&sdp->sd_jindex_spin);
-                        gfs2_recover_one(jd);
-                        goto repeat;
-                }
-        }
-        spin_unlock(&sdp->sd_jindex_spin);
-
-> +       if (recovered > 1)
-> +               fs_err(sdp, "Journals recovered: %d\n", recovered);
-> +}
-> +
->  int gfs2_recover_journal(struct gfs2_jdesc *jd, bool wait)
+> @@ -173,10 +172,6 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
+>         if (error)
+>                 return error;
+>
+> -       error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
+> -       if (error)
+> -               goto fail_threads;
+> -
+>         j_gl->gl_ops->go_inval(j_gl, DIO_METADATA);
+>         if (gfs2_withdrawn(sdp)) {
+>                 error = -EIO;
+> @@ -203,13 +198,9 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
+>
+>         set_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+>
+> -       gfs2_freeze_unlock(&freeze_gh);
+> -
+>         return 0;
+>
+>  fail:
+> -       gfs2_freeze_unlock(&freeze_gh);
+> -fail_threads:
+>         if (sdp->sd_quotad_process)
+>                 kthread_stop(sdp->sd_quotad_process);
+>         sdp->sd_quotad_process = NULL;
+> @@ -607,21 +598,9 @@ static void gfs2_dirty_inode(struct inode *inode, int flags)
+>
+>  int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
 >  {
-> +       struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
->         int rv;
+> -       struct gfs2_holder freeze_gh;
+>         int error = 0;
+>         int log_write_allowed = test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
 >
->         if (test_and_set_bit(JDF_RECOVERY, &jd->jd_flags))
->                 return -EBUSY;
+> -       gfs2_holder_mark_uninitialized(&freeze_gh);
+> -       if (sdp->sd_freeze_gl &&
+> -           !gfs2_glock_is_locked_by_me(sdp->sd_freeze_gl)) {
+> -               error = gfs2_freeze_lock(sdp, &freeze_gh,
+> -                                        log_write_allowed ? 0 : LM_FLAG_TRY);
+> -               if (error == GLR_TRYFAILED)
+> -                       error = 0;
+> -               if (error && !gfs2_withdrawn(sdp))
+> -                       return error;
+> -       }
+> -
+>         gfs2_flush_delete_work(sdp);
+>         if (!log_write_allowed && current == sdp->sd_quotad_process)
+>                 fs_warn(sdp, "The quotad daemon is withdrawing.\n");
+> @@ -650,8 +629,6 @@ int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
+>                                    atomic_read(&sdp->sd_reserving_log) == 0,
+>                                    HZ * 5);
+>         }
+> -       gfs2_freeze_unlock(&freeze_gh);
+> -
+>         gfs2_quota_cleanup(sdp);
 >
->         /* we have JDF_RECOVERY, queue should always succeed */
-> -       rv = queue_work(gfs_recovery_wq, &jd->jd_work);
-> -       BUG_ON(!rv);
-> +       rv = queue_work(gfs_recovery_wq, &sdp->sd_recovery_work);
+>         if (!log_write_allowed)
+> diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+> index a115c441e2a1..87070e433f96 100644
+> --- a/fs/gfs2/util.c
+> +++ b/fs/gfs2/util.c
+> @@ -122,6 +122,7 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
+>         struct inode *inode = sdp->sd_jdesc->jd_inode;
+>         struct gfs2_inode *ip = GFS2_I(inode);
+>         u64 no_formal_ino = ip->i_no_formal_ino;
+> +       int log_write_allowed = test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+>         int ret = 0;
+>         int tries;
 >
->         if (wait)
->                 wait_on_bit(&jd->jd_flags, JDF_RECOVERY,
+> @@ -142,8 +143,21 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
+>          * therefore we need to clear SDF_JOURNAL_LIVE manually.
+>          */
+>         clear_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+> -       if (!sb_rdonly(sdp->sd_vfs))
+> -               ret = gfs2_make_fs_ro(sdp);
+> +       if (!sb_rdonly(sdp->sd_vfs)) {
+> +               struct gfs2_holder freeze_gh;
+> +
+> +               gfs2_holder_mark_uninitialized(&freeze_gh);
+> +               if (sdp->sd_freeze_gl &&
+> +                   !gfs2_glock_is_locked_by_me(sdp->sd_freeze_gl))
+
+I'm adding a little cleanup here, but otherwise this patch looks good now:
+
+--- a/fs/gfs2/util.c
++++ b/fs/gfs2/util.c
+@@ -148,15 +148,15 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
+
+         gfs2_holder_mark_uninitialized(&freeze_gh);
+         if (sdp->sd_freeze_gl &&
+-            !gfs2_glock_is_locked_by_me(sdp->sd_freeze_gl))
++            !gfs2_glock_is_locked_by_me(sdp->sd_freeze_gl)) {
+             ret = gfs2_freeze_lock(sdp, &freeze_gh,
+                        log_write_allowed ? 0 : LM_FLAG_TRY);
+-        if (ret == GLR_TRYFAILED)
+-            ret = 0;
+-        if (!ret) {
+-            ret = gfs2_make_fs_ro(sdp);
+-            gfs2_freeze_unlock(&freeze_gh);
++            if (ret == GLR_TRYFAILED)
++                ret = 0;
+         }
++        if (!ret)
++            ret = gfs2_make_fs_ro(sdp);
++        gfs2_freeze_unlock(&freeze_gh);
+     }
+
+     if (sdp->sd_lockstruct.ls_ops->lm_lock == NULL) { /* lock_nolock */
+
+> +                       ret = gfs2_freeze_lock(sdp, &freeze_gh,
+> +                                      log_write_allowed ? 0 : LM_FLAG_TRY);
+> +               if (ret == GLR_TRYFAILED)
+> +                       ret = 0;
+> +               if (!ret) {
+> +                       ret = gfs2_make_fs_ro(sdp);
+> +                       gfs2_freeze_unlock(&freeze_gh);
+> +               }
+> +       }
+>
+>         if (sdp->sd_lockstruct.ls_ops->lm_lock == NULL) { /* lock_nolock */
+>                 if (!ret)
+> --
+> 2.29.2
+>
 
 Thanks,
 Andreas
