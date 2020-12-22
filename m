@@ -2,71 +2,66 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A3082DF693
-	for <lists+cluster-devel@lfdr.de>; Sun, 20 Dec 2020 19:53:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AA49F2E0B9A
+	for <lists+cluster-devel@lfdr.de>; Tue, 22 Dec 2020 15:19:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1608646786;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Szf4g0qkdxR1bIEuMFca5/1GZDDn1KZBg5ZDHoHNfSY=;
+	b=E3ptLmPxjLD8IAJK/wY72RkrJdwm0DVn0GS3hif2QaAZL2wwjEGcsFZrm6m6IAnnE+0hLv
+	mNwlZidFL1Qdh8MYwXDa4yUUubo7Z9B+hHQPhiAC48367tFWfvmBH1nSOhF0p6MvU18dPC
+	YQ6+u+GUXvHoc8UMrjdgcF84nrQZ7+Q=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-93-tn3z_NLVNV6mBIvrUcNWTg-1; Sun, 20 Dec 2020 13:53:28 -0500
-X-MC-Unique: tn3z_NLVNV6mBIvrUcNWTg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-571-JlwevAOaMGmMFlh-e3pZtw-1; Tue, 22 Dec 2020 09:19:44 -0500
+X-MC-Unique: JlwevAOaMGmMFlh-e3pZtw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 28C22801817;
-	Sun, 20 Dec 2020 18:53:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 85D3D5C276;
-	Sun, 20 Dec 2020 18:53:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C29E91926DA0;
+	Tue, 22 Dec 2020 14:19:40 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44CDC60BD9;
+	Tue, 22 Dec 2020 14:19:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7A8184A7C6;
-	Sun, 20 Dec 2020 18:53:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5C58D1809CA0;
+	Tue, 22 Dec 2020 14:19:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BKIrGqO019472 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sun, 20 Dec 2020 13:53:16 -0500
+	id 0BMEJWVc019000 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 22 Dec 2020 09:19:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5605B2166B2A; Sun, 20 Dec 2020 18:53:16 +0000 (UTC)
+	id 1C70A6F130; Tue, 22 Dec 2020 14:19:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 501C72166B28
-	for <cluster-devel@redhat.com>; Sun, 20 Dec 2020 18:53:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E482B101A560
-	for <cluster-devel@redhat.com>; Sun, 20 Dec 2020 18:53:13 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-170-Omm7_m7pOi-wyprozVep3A-1;
-	Sun, 20 Dec 2020 13:53:09 -0500
-X-MC-Unique: Omm7_m7pOi-wyprozVep3A-1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20201219211127.287454-1-agruenba@redhat.com>
-References: <20201219211127.287454-1-agruenba@redhat.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20201219211127.287454-1-agruenba@redhat.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-	tags/gfs2-for-5.11
-X-PR-Tracked-Commit-Id: 6e5c4ea37a99e5b97aba227fc43f3682d4bc0496
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 7703f46f2cafa57b9e5e8f4d6ff3dd8dcf0c1656
-Message-Id: <160849038724.26331.16671651916130696802.pr-tracker-bot@kernel.org>
-Date: Sun, 20 Dec 2020 18:53:07 +0000
+Received: from colo-mx.corp.redhat.com
+	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 001F16F985;
+	Tue, 22 Dec 2020 14:19:28 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EBF3518095C9;
+	Tue, 22 Dec 2020 14:19:28 +0000 (UTC)
+Date: Tue, 22 Dec 2020 09:19:26 -0500 (EST)
+From: Bob Peterson <rpeterso@redhat.com>
 To: Andreas Gruenbacher <agruenba@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Message-ID: <2102390291.38869885.1608646766751.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20201219204848.285781-13-agruenba@redhat.com>
+References: <20201219204848.285781-1-agruenba@redhat.com>
+	<20201219204848.285781-13-agruenba@redhat.com>
+MIME-Version: 1.0
+X-Originating-IP: [10.3.112.81, 10.4.195.18]
+Thread-Topic: gfs2: Clean up gfs2_log_reserve
+Thread-Index: sE+VDacDvrtI+vQvkNLWDNoJUm37PA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [Cluster-devel] [GIT PULL] GFS2 changes for 5.11
+Cc: cluster-devel@redhat.com
+Subject: Re: [Cluster-devel] [PATCH v2 12/20] gfs2: Clean up gfs2_log_reserve
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,23 +75,145 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 2
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Sat, 19 Dec 2020 22:11:27 +0100:
+Hi,
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-for-5.11
+Comments inline.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/7703f46f2cafa57b9e5e8f4d6ff3dd8dcf0c1656
+----- Original Message -----
+> Wake up log waiters in gfs2_log_release when log space has actually become
+> available.  This is a much better place for the wakeup than gfs2_logd.
+> 
+> Check if enough log space is immeditely available before anything else.  If
+> there isn't, use io_wait_event to wait instead of open-coding it.
+> 
+> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+> ---
+>  fs/gfs2/log.c | 54 ++++++++++++++++++++++-----------------------------
+>  1 file changed, 23 insertions(+), 31 deletions(-)
+> 
+> diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+> index 95ad444bd3dc..7a65823ad1f3 100644
+> --- a/fs/gfs2/log.c
+> +++ b/fs/gfs2/log.c
+> @@ -420,6 +420,8 @@ void gfs2_log_release(struct gfs2_sbd *sdp, unsigned int
+> blks)
+>  	trace_gfs2_log_blocks(sdp, blks);
+>  	gfs2_assert_withdraw(sdp, atomic_read(&sdp->sd_log_blks_free) <=
+>  				  sdp->sd_jdesc->jd_blocks);
+> +	if (atomic_read(&sdp->sd_log_blks_needed))
+> +		wake_up(&sdp->sd_log_waitq);
+>  }
+>  
+>  /**
+> @@ -444,36 +446,33 @@ void gfs2_log_reserve(struct gfs2_sbd *sdp, unsigned
+> int blks)
+>  {
+>  	unsigned reserved_blks = 7 * (4096 / sdp->sd_vfs->s_blocksize);
+>  	unsigned wanted = blks + reserved_blks;
+> -	DEFINE_WAIT(wait);
+> -	int did_wait = 0;
+>  	unsigned int free_blocks;
+>  
+> -	atomic_add(blks, &sdp->sd_log_blks_needed);
+> -retry:
+>  	free_blocks = atomic_read(&sdp->sd_log_blks_free);
+> -	if (unlikely(free_blocks <= wanted)) {
+> -		do {
+> -			prepare_to_wait_exclusive(&sdp->sd_log_waitq, &wait,
+> -					TASK_UNINTERRUPTIBLE);
+> +	while (free_blocks >= wanted) {
+> +		if (atomic_try_cmpxchg(&sdp->sd_log_blks_free, &free_blocks,
+> +				       free_blocks - blks))
+> +			return;
 
-Thank you!
+This would be a good place to have cond_resched() or schedule() or something, no?
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+> +	}
+> +
+> +	atomic_add(blks, &sdp->sd_log_blks_needed);
+> +	for (;;) {
+> +		if (current != sdp->sd_logd_process)
+>  			wake_up(&sdp->sd_logd_waitq);
+> -			did_wait = 1;
+> -			if (atomic_read(&sdp->sd_log_blks_free) <= wanted)
+> -				io_schedule();
+> -			free_blocks = atomic_read(&sdp->sd_log_blks_free);
+> -		} while(free_blocks <= wanted);
+> -		finish_wait(&sdp->sd_log_waitq, &wait);
+> +		io_wait_event(sdp->sd_log_waitq,
+> +			(free_blocks = atomic_read(&sdp->sd_log_blks_free),
+> +			 free_blocks >= wanted));
+> +		do {
+> +			if (atomic_try_cmpxchg(&sdp->sd_log_blks_free,
+> +					       &free_blocks,
+> +					       free_blocks - blks))
+> +				goto reserved;
+
+Same here. We need to test these patches with a minimal number of cpus.
+
+> +		} while (free_blocks >= wanted);
+>  	}
+> -	if (atomic_cmpxchg(&sdp->sd_log_blks_free, free_blocks,
+> -				free_blocks - blks) != free_blocks)
+> -		goto retry;
+> -	atomic_sub(blks, &sdp->sd_log_blks_needed);
+> -	trace_gfs2_log_blocks(sdp, -blks);
+>  
+> -	/*
+> -	 * If we waited, then so might others, wake them up _after_ we get
+> -	 * our share of the log.
+> -	 */
+> -	if (unlikely(did_wait))
+> +reserved:
+> +	trace_gfs2_log_blocks(sdp, -blks);
+> +	if (atomic_sub_return(blks, &sdp->sd_log_blks_needed))
+>  		wake_up(&sdp->sd_log_waitq);
+>  }
+>  
+> @@ -1190,7 +1189,6 @@ int gfs2_logd(void *data)
+>  	struct gfs2_sbd *sdp = data;
+>  	unsigned long t = 1;
+>  	DEFINE_WAIT(wait);
+> -	bool did_flush;
+>  
+>  	while (!kthread_should_stop()) {
+>  
+> @@ -1209,12 +1207,10 @@ int gfs2_logd(void *data)
+>  			continue;
+>  		}
+>  
+> -		did_flush = false;
+>  		if (gfs2_jrnl_flush_reqd(sdp) || t == 0) {
+>  			gfs2_ail1_empty(sdp, 0);
+>  			gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
+>  				       GFS2_LFC_LOGD_JFLUSH_REQD);
+> -			did_flush = true;
+>  		}
+>  
+>  		if (gfs2_ail_flush_reqd(sdp)) {
+> @@ -1223,12 +1219,8 @@ int gfs2_logd(void *data)
+>  			gfs2_ail1_empty(sdp, 0);
+>  			gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
+>  				       GFS2_LFC_LOGD_AIL_FLUSH_REQD);
+> -			did_flush = true;
+>  		}
+>  
+> -		if (!gfs2_ail_flush_reqd(sdp) || did_flush)
+> -			wake_up(&sdp->sd_log_waitq);
+> -
+>  		t = gfs2_tune_get(sdp, gt_logd_secs) * HZ;
+>  
+>  		try_to_freeze();
+> --
+> 2.26.2
+> 
+> 
 
