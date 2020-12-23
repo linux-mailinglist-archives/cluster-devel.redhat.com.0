@@ -1,60 +1,74 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 71B502E925D
-	for <lists+cluster-devel@lfdr.de>; Mon,  4 Jan 2021 10:14:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1609751642;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=TWJ5QSZgcAbb+pTLsrzDwyXqbAVkKiVgh61KiwcPX8s=;
-	b=Qm0hftvFuLxsbx+coPLA7TklVizIF3mRSkzLOjMlgC8Dvwd+UWngaAKvnqCOYY9UHRvzcO
-	/13st4T9S8yEuspCesi9z9Nyy903/jNSYW3HdFBNCzyPphBglL7BzBQHJk+NjIxAHcGxOf
-	Egd0zvr1EqcasH9yf90bTi1YYVWZjkM=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4F6FB2E9405
+	for <lists+cluster-devel@lfdr.de>; Mon,  4 Jan 2021 12:23:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-226-qrKIQm63M3uhas2WB661cQ-1; Mon, 04 Jan 2021 04:14:00 -0500
-X-MC-Unique: qrKIQm63M3uhas2WB661cQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-467-Zqslni7DPoWnkssh0soADQ-1; Mon, 04 Jan 2021 06:23:31 -0500
+X-MC-Unique: Zqslni7DPoWnkssh0soADQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41F07195D578;
-	Mon,  4 Jan 2021 09:13:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0EE44800D55;
+	Mon,  4 Jan 2021 11:23:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D433E60BE5;
-	Mon,  4 Jan 2021 09:13:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F1DC25D756;
+	Mon,  4 Jan 2021 11:23:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09EEB1809C9F;
-	Mon,  4 Jan 2021 09:13:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F0F7C1809CA1;
+	Mon,  4 Jan 2021 11:23:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1049DnLn024473 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 4 Jan 2021 04:13:49 -0500
+	id 0BNEXFO6021196 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Dec 2020 09:33:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A58CC6F43C; Mon,  4 Jan 2021 09:13:49 +0000 (UTC)
+	id 1E80E2026D3C; Wed, 23 Dec 2020 14:33:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fogou.chygwyn.com (unknown [10.33.36.8])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED94D72168
-	for <cluster-devel@redhat.com>; Mon,  4 Jan 2021 09:13:48 +0000 (UTC)
-To: cluster-devel@redhat.com
-References: <2125295377.38904313.1608669538740.JavaMail.zimbra@redhat.com>
-From: Steven Whitehouse <swhiteho@redhat.com>
-Message-ID: <51252ca2-fa56-acb8-24cf-fb2e992f76de@redhat.com>
-Date: Mon, 4 Jan 2021 09:13:47 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.11.0
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 197CE2026D3A
+	for <cluster-devel@redhat.com>; Wed, 23 Dec 2020 14:33:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DDBCB805AF4
+	for <cluster-devel@redhat.com>; Wed, 23 Dec 2020 14:33:11 +0000 (UTC)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com
+	[45.249.212.190]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-203-0Ai9FahKMRuRn12pv2omBQ-1; Wed, 23 Dec 2020 09:33:08 -0500
+X-MC-Unique: 0Ai9FahKMRuRn12pv2omBQ-1
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
+	by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4D1FWk6JmZz15gmW;
+	Wed, 23 Dec 2020 22:12:02 +0800 (CST)
+Received: from ubuntu.network (10.175.138.68) by
+	DGGEMS412-HUB.china.huawei.com (10.3.19.212) with Microsoft SMTP Server
+	id 14.3.498.0; Wed, 23 Dec 2020 22:12:37 +0800
+From: Zheng Yongjun <zhengyongjun3@huawei.com>
+To: <cluster-devel@redhat.com>, <linux-kernel@vger.kernel.org>
+Date: Wed, 23 Dec 2020 22:13:13 +0800
+Message-ID: <20201223141313.669-1-zhengyongjun3@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <2125295377.38904313.1608669538740.JavaMail.zimbra@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Originating-IP: [10.175.138.68]
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BNEXFO6021196
 X-loop: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: make recovery workqueue
- operate on a gfs2 mount point, not journal
+X-Mailman-Approved-At: Mon, 04 Jan 2021 06:23:24 -0500
+Cc: Zheng Yongjun <zhengyongjun3@huawei.com>
+Subject: [Cluster-devel] [PATCH -next] dlm: use DEFINE_MUTEX (and
+	mutex_init() had been too late)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,154 +82,41 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
+---
+ fs/dlm/lockspace.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-On 22/12/2020 20:38, Bob Peterson wrote:
-> Hi,
->
-> Before this patch, journal recovery was done by a workqueue function that
-> operated on a per-journal basis. The problem is, these could run simultaneously
-> which meant that they could all use the same bio, sd_log_bio, to do their
-> writing to all the various journals. These operations overwrote one another
-> eventually causing memory corruption.
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index 624617c12250..2b3c32f2d29d 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -26,7 +26,7 @@
+ #include "ast.h"
+ 
+ static int			ls_count;
+-static struct mutex		ls_lock;
++static DEFINE_MUTEX(ls_lock);
+ static struct list_head		lslist;
+ static spinlock_t		lslist_lock;
+ static struct task_struct *	scand_task;
+@@ -231,7 +231,6 @@ static const struct kset_uevent_ops dlm_uevent_ops = {
+ int __init dlm_lockspace_init(void)
+ {
+ 	ls_count = 0;
+-	mutex_init(&ls_lock);
+ 	INIT_LIST_HEAD(&lslist);
+ 	spin_lock_init(&lslist_lock);
+ 
+-- 
+2.22.0
 
-Why not just add more bios so that this issue goes away? It would make 
-more sense than preventing recovery from running in parallel. In general 
-recovery should be spread amoung nodes anyway, so the case of having 
-multiple recoveries running on the same node in parallel should be 
-fairly rare too,
-
-Steve.
-
-
->
-> This patch makes the recovery workqueue operate on a per-superblock basis,
-> which means a mount point using, for example journal0, could do recovery
-> for all journals that need recovery. This is done consecutively so the
-> sd_log_bio is only referenced by one recovery at a time, thus avoiding the
-> chaos.
->
-> Since the journal recovery requests can come in any order, and unpredictably,
-> the new work func loops until there are no more journals to be recovered.
->
-> Since multiple processes may request recovery of a journal, and since they
-> all now use the same sdp-based workqueue, it's okay for them to get an
-> error from queue_work: Queueing work while there's already work queued.
->
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> ---
->   fs/gfs2/incore.h     |  2 +-
->   fs/gfs2/ops_fstype.c |  2 +-
->   fs/gfs2/recovery.c   | 32 ++++++++++++++++++++++++++++----
->   3 files changed, 30 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-> index 8e1ab8ed4abc..b393cbf9efeb 100644
-> --- a/fs/gfs2/incore.h
-> +++ b/fs/gfs2/incore.h
-> @@ -529,7 +529,6 @@ struct gfs2_jdesc {
->   	struct list_head jd_list;
->   	struct list_head extent_list;
->   	unsigned int nr_extents;
-> -	struct work_struct jd_work;
->   	struct inode *jd_inode;
->   	unsigned long jd_flags;
->   #define JDF_RECOVERY 1
-> @@ -746,6 +745,7 @@ struct gfs2_sbd {
->   	struct completion sd_locking_init;
->   	struct completion sd_wdack;
->   	struct delayed_work sd_control_work;
-> +	struct work_struct sd_recovery_work;
->   
->   	/* Inode Stuff */
->   
-> diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-> index 61fce59cb4d3..3d9a6d6d42cb 100644
-> --- a/fs/gfs2/ops_fstype.c
-> +++ b/fs/gfs2/ops_fstype.c
-> @@ -93,6 +93,7 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
->   	init_completion(&sdp->sd_locking_init);
->   	init_completion(&sdp->sd_wdack);
->   	spin_lock_init(&sdp->sd_statfs_spin);
-> +	INIT_WORK(&sdp->sd_recovery_work, gfs2_recover_func);
->   
->   	spin_lock_init(&sdp->sd_rindex_spin);
->   	sdp->sd_rindex_tree.rb_node = NULL;
-> @@ -586,7 +587,6 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struct gfs2_holder *ji_gh)
->   		INIT_LIST_HEAD(&jd->extent_list);
->   		INIT_LIST_HEAD(&jd->jd_revoke_list);
->   
-> -		INIT_WORK(&jd->jd_work, gfs2_recover_func);
->   		jd->jd_inode = gfs2_lookupi(sdp->sd_jindex, &name, 1);
->   		if (IS_ERR_OR_NULL(jd->jd_inode)) {
->   			if (!jd->jd_inode)
-> diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-> index c26c68ebd29d..cd3e66cdb560 100644
-> --- a/fs/gfs2/recovery.c
-> +++ b/fs/gfs2/recovery.c
-> @@ -399,9 +399,8 @@ static void recover_local_statfs(struct gfs2_jdesc *jd,
->   	return;
->   }
->   
-> -void gfs2_recover_func(struct work_struct *work)
-> +static void gfs2_recover_one(struct gfs2_jdesc *jd)
->   {
-> -	struct gfs2_jdesc *jd = container_of(work, struct gfs2_jdesc, jd_work);
->   	struct gfs2_inode *ip = GFS2_I(jd->jd_inode);
->   	struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
->   	struct gfs2_log_header_host head;
-> @@ -562,16 +561,41 @@ void gfs2_recover_func(struct work_struct *work)
->   	wake_up_bit(&jd->jd_flags, JDF_RECOVERY);
->   }
->   
-> +void gfs2_recover_func(struct work_struct *work)
-> +{
-> +	struct gfs2_sbd *sdp = container_of(work, struct gfs2_sbd,
-> +					    sd_recovery_work);
-> +	struct gfs2_jdesc *jd;
-> +	int count, recovered = 0;
-> +
-> +	do {
-> +		count = 0;
-> +		spin_lock(&sdp->sd_jindex_spin);
-> +		list_for_each_entry(jd, &sdp->sd_jindex_list, jd_list) {
-> +			if (test_bit(JDF_RECOVERY, &jd->jd_flags)) {
-> +				spin_unlock(&sdp->sd_jindex_spin);
-> +				gfs2_recover_one(jd);
-> +				spin_lock(&sdp->sd_jindex_spin);
-> +				count++;
-> +				recovered++;
-> +			}
-> +		}
-> +		spin_unlock(&sdp->sd_jindex_spin);
-> +	} while (count);
-> +	if (recovered > 1)
-> +		fs_err(sdp, "Journals recovered: %d\n", recovered);
-> +}
-> +
->   int gfs2_recover_journal(struct gfs2_jdesc *jd, bool wait)
->   {
-> +	struct gfs2_sbd *sdp = GFS2_SB(jd->jd_inode);
->   	int rv;
->   
->   	if (test_and_set_bit(JDF_RECOVERY, &jd->jd_flags))
->   		return -EBUSY;
->   
->   	/* we have JDF_RECOVERY, queue should always succeed */
-> -	rv = queue_work(gfs_recovery_wq, &jd->jd_work);
-> -	BUG_ON(!rv);
-> +	rv = queue_work(gfs_recovery_wq, &sdp->sd_recovery_work);
->   
->   	if (wait)
->   		wait_on_bit(&jd->jd_flags, JDF_RECOVERY,
->
 
