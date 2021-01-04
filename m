@@ -1,87 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E36F2E9407
-	for <lists+cluster-devel@lfdr.de>; Mon,  4 Jan 2021 12:23:34 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5BB132E9A1A
+	for <lists+cluster-devel@lfdr.de>; Mon,  4 Jan 2021 17:09:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1609776586;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Tcd5kt0xkgDAzW+l6wYH3ODFkGsnd/JEJ9MQRxVzW8E=;
+	b=SO/0+4Kbs0AuP8yZCodLPc61z5YXjgIY3jqgvsTPAVzft8NmvxIDgo3jea/NXcyJ79oPpS
+	cCvdC000Y7fAOwIpbcZK+MrvsCy5tqyLTs0dnV7pKXh/yOcpFMhowaWYI8w9iTW3E9xx1U
+	2IvCHIeV4H6thFoW6G3b2MvdGHUESOc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-584-5CvxTyZFN_6yQLWQXlk-1Q-1; Mon, 04 Jan 2021 06:23:31 -0500
-X-MC-Unique: 5CvxTyZFN_6yQLWQXlk-1Q-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-561-rczR6CqgPLSMm2qXq9AbuA-1; Mon, 04 Jan 2021 11:09:44 -0500
+X-MC-Unique: rczR6CqgPLSMm2qXq9AbuA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A17C8CE648;
-	Mon,  4 Jan 2021 11:23:29 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8752919713;
-	Mon,  4 Jan 2021 11:23:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 585AFC299;
+	Mon,  4 Jan 2021 16:09:40 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 77E9E60BFA;
+	Mon,  4 Jan 2021 16:09:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 46BC84E58E;
-	Mon,  4 Jan 2021 11:23:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 20CFE180954D;
+	Mon,  4 Jan 2021 16:09:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BS3eD1W013201 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sun, 27 Dec 2020 22:40:13 -0500
+	id 104G9TFt005856 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 4 Jan 2021 11:09:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AA8FD8179; Mon, 28 Dec 2020 03:40:13 +0000 (UTC)
+	id B205B271AB; Mon,  4 Jan 2021 16:09:29 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A41DA9D5B
-	for <cluster-devel@redhat.com>; Mon, 28 Dec 2020 03:40:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C07580018D
-	for <cluster-devel@redhat.com>; Mon, 28 Dec 2020 03:40:11 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
-	[209.85.214.169]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-439-lnF7AUwXOqKEnZ9YVZ4ivw-1; Sun, 27 Dec 2020 22:40:08 -0500
-X-MC-Unique: lnF7AUwXOqKEnZ9YVZ4ivw-1
-Received: by mail-pl1-f169.google.com with SMTP id be12so5039169plb.4;
-	Sun, 27 Dec 2020 19:40:08 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=9ZsnfsGx/6gHWwdeAQR/Y1wC6ZOL+ifFY18pxrPRUEw=;
-	b=g5JuwcF38rK+Ll/3s8EoSNvEkoWAYfTd078IdJ04RexyH4WqoD3Fji0atuvJGn08w4
-	vqDP+dflxEhggWkRj7vYc4pPiN/wFZ3tdYY7H1SRyGTbqg0NvOH5V3bkaEVy4PVXUfvv
-	h0TqZ+M2P9YquAwh4x+iaRksUZNY4xBGoXwy/9JIbNHVxfyUyBC8BnHBpcXMULYtMHwk
-	7by1Q4iYWJsvbowGp2zT1qkrijp/l+ayWkGKRb8OBUzZyPaVxeUcP4YqNfMu8d2wZFJr
-	RbPM8YQf5d4CpT5V2zKqz4W+OFq/9NRmDV90RYs1y2xDi4pfqw9VzgY+xegU9SzsQ77O
-	7AVw==
-X-Gm-Message-State: AOAM531iogofLNdjPcDrSsMtHJHmsfV1g4K0CkRPmLLLgv8Wv0m6ppxO
-	H+6VJWRPqmPwDBWYX4T3lQxrHGto+ZE=
-X-Google-Smtp-Source: ABdhPJwrxI3bvYN86x7BwRmVUvO2jrAglTpnL7ojzNKFZOjZxuj4wK4wp+4ucbPH4OVERWdSpFRJsA==
-X-Received: by 2002:a17:90b:203:: with SMTP id
-	fy3mr19546124pjb.231.1609126807161; 
-	Sun, 27 Dec 2020 19:40:07 -0800 (PST)
-Received: from bj03382pcu.spreadtrum.com ([117.18.48.82])
-	by smtp.gmail.com with ESMTPSA id
-	5sm34320527pff.125.2020.12.27.19.40.04
-	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Sun, 27 Dec 2020 19:40:06 -0800 (PST)
-From: Huangzhaoyang <huangzhaoyang@gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>,
-	Andreas Gruenbacher <agruenba@redhat.com>, cluster-devel@redhat.com,
-	Zhaoyang Huang <zhaoyang.huang@unisoc.com>, linux-kernel@vger.kernel.org
-Date: Mon, 28 Dec 2020 11:40:00 +0800
-Message-Id: <1609126800-19953-1-git-send-email-huangzhaoyang@gmail.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Received: from colo-mx.corp.redhat.com
+	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA5FDE147;
+	Mon,  4 Jan 2021 16:09:26 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7EB624BB40;
+	Mon,  4 Jan 2021 16:09:26 +0000 (UTC)
+Date: Mon, 4 Jan 2021 11:09:24 -0500 (EST)
+From: Bob Peterson <rpeterso@redhat.com>
+To: Steven Whitehouse <swhiteho@redhat.com>
+Message-ID: <561946972.42407585.1609776564024.JavaMail.zimbra@redhat.com>
+In-Reply-To: <51252ca2-fa56-acb8-24cf-fb2e992f76de@redhat.com>
+References: <2125295377.38904313.1608669538740.JavaMail.zimbra@redhat.com>
+	<51252ca2-fa56-acb8-24cf-fb2e992f76de@redhat.com>
+MIME-Version: 1.0
+X-Originating-IP: [10.3.112.52, 10.4.195.1]
+Thread-Topic: gfs2: make recovery workqueue operate on a gfs2 mount point,
+	not journal
+Thread-Index: 7LK3oDG76bkOrb8MT/gKyjb3EgzANg==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Mon, 04 Jan 2021 06:23:24 -0500
-Subject: [Cluster-devel] [PATCH] fs: amend SLAB_RECLAIM_ACCOUNT on
-	gfs2_quotad_cachep
+Cc: cluster-devel@redhat.com
+Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: make recovery workqueue
+ operate on a gfs2 mount point, not journal
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,37 +77,56 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 2
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-From: Zhaoyang Huang <zhaoyang.huang@unisoc.com>
+Hi,
 
-As gfs2_quotad_cachep has registered the shrinker, amending
-SLAB_RECLAIM_ACCOUNT when create gfs2_quotad_cachep, which
-make the slab acount to be presiced.
+----- Original Message -----
+> Hi,
+> 
+> On 22/12/2020 20:38, Bob Peterson wrote:
+> > Hi,
+> >
+> > Before this patch, journal recovery was done by a workqueue function that
+> > operated on a per-journal basis. The problem is, these could run
+> > simultaneously
+> > which meant that they could all use the same bio, sd_log_bio, to do their
+> > writing to all the various journals. These operations overwrote one another
+> > eventually causing memory corruption.
+> 
+> Why not just add more bios so that this issue goes away? It would make
+> more sense than preventing recovery from running in parallel. In general
+> recovery should be spread amoung nodes anyway, so the case of having
+> multiple recoveries running on the same node in parallel should be
+> fairly rare too,
+> 
+> Steve.
 
-Signed-off-by: Zhaoyang Huang <zhaoyang.huang@unisoc.com>
----
- fs/gfs2/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+As I understand it, if we allocate a bio from the same bio_set (as bio_alloc does)
+we need to submit the previous bio before getting the next one, which means
+recovery processes cannot work in parallel, even if they use different bio pointers.
 
-diff --git a/fs/gfs2/main.c b/fs/gfs2/main.c
-index 136484e..db39de9 100644
---- a/fs/gfs2/main.c
-+++ b/fs/gfs2/main.c
-@@ -136,7 +136,7 @@ static int __init init_gfs2_fs(void)
- 
- 	gfs2_quotad_cachep = kmem_cache_create("gfs2_quotad",
- 					       sizeof(struct gfs2_quota_data),
--					       0, 0, NULL);
-+					       0, SLAB_RECLAIM_ACCOUNT, NULL);
- 	if (!gfs2_quotad_cachep)
- 		goto fail_cachep6;
- 
--- 
-1.9.1
+We can, of course, allocate several bio_sets, one for each journal, but I
+remember Jeff Moyer telling me it would use 1MB per bio_set of memory,
+which seems high. (I've not verified that.) I'm testing up to 60 mounts
+times 5 cluster nodes (5 journals) which would add up to 300MB of memory.
+That's not horrible but I remember we decided not to allocate separate
+per-mount rb_trees for glock indexing because of the memory needed, and 
+that seems much less by comparison.
+
+We could also introduce new locking (and multiple bio pointers) to prevent
+the bio from being used by multiple recoveries at the same time. I actually
+tried that on an earlier attempt and immediately ran into deadlock issues,
+probably because our journal writes also use the same bio.
+
+This way is pretty simple and there are fewer recovery processes to worry
+about when analyzing vmcores.
+
+Bob
 
