@@ -2,58 +2,58 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id ED7B92F1D5B
+	by mail.lfdr.de (Postfix) with ESMTP id 37FF92F1D55
 	for <lists+cluster-devel@lfdr.de>; Mon, 11 Jan 2021 19:03:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1610388224;
+	s=mimecast20190719; t=1610388223;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/18R83Jxp6RepZMC5WzsHFBAbkyo7N74eMZojLSpVD0=;
-	b=Qd9MViPV6Z7m3QeXy9aks/mXRlkBuGwQui45PYcTFGup/AfGXb4r2Y4tC3BS/Gg6zx8ZNv
-	eX+j91nEFPo9TIcFJBOxJYZhK5tCI7t0p3t9WPqtaZ42jnj84QN6NK3UHSL6xQqi20gOx9
-	Y9mHZvdLUdQrov8YxYq1aq3pnkVNltU=
+	bh=OSHtZV0Rt/jdRPx1BfNJ5rXr//hxgt7lKkstxU5JlkQ=;
+	b=ZWV5yIFpF3c6NlJYYL88NOsURKOwErGdqTHNt2QcbHj6cVVyFPbj+ZdVk95+Ybd2UTTTRt
+	M801TmMecdYIw9mAoNT5R0wQk7lJ24wQ7xgbbLEqKEQ4IO1XtSZiU8Pn3u34rKUXkIhP+4
+	oFxR3ipCf3kv1HmfH9ledqq5CPYmnc0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-393-HVZaY9FjO2qlXfSnk348oA-1; Mon, 11 Jan 2021 13:03:42 -0500
-X-MC-Unique: HVZaY9FjO2qlXfSnk348oA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-361-ckaqApUJM5i63xNGgncGUA-1; Mon, 11 Jan 2021 13:03:41 -0500
+X-MC-Unique: ckaqApUJM5i63xNGgncGUA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 21843100C605;
-	Mon, 11 Jan 2021 18:03:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 112EF1349A;
-	Mon, 11 Jan 2021 18:03:39 +0000 (UTC)
-Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EB2F74BB40;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9D09FCC622;
 	Mon, 11 Jan 2021 18:03:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D7F85C232;
+	Mon, 11 Jan 2021 18:03:38 +0000 (UTC)
+Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 879FB4E590;
+	Mon, 11 Jan 2021 18:03:36 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10BI3Tv2032209 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 11 Jan 2021 13:03:29 -0500
+	id 10BI3UtA032215 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 11 Jan 2021 13:03:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CE20A5D9F4; Mon, 11 Jan 2021 18:03:29 +0000 (UTC)
+	id 805D75D9F4; Mon, 11 Jan 2021 18:03:30 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from carbon.redhat.com (ovpn-116-187.rdu2.redhat.com [10.10.116.187])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 52C8A5D9DB;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0836D5D9DB;
 	Mon, 11 Jan 2021 18:03:29 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Mon, 11 Jan 2021 13:02:52 -0500
-Message-Id: <20210111180310.122451-3-aahringo@redhat.com>
+Date: Mon, 11 Jan 2021 13:02:53 -0500
+Message-Id: <20210111180310.122451-4-aahringo@redhat.com>
 In-Reply-To: <20210111180310.122451-1-aahringo@redhat.com>
 References: <20210111180310.122451-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCHv4 dlm/next 02/20] fs: dlm: set subclass for
-	othercon sock_mutex
+Subject: [Cluster-devel] [PATCHv4 dlm/next 03/20] fs: dlm: add errno
+	handling to check callback
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +67,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,36 +75,66 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch sets the lockdep subclass for the othercon socket mutex. In
-various places the connection socket mutex is held while locking the
-othercon socket mutex. This patch will remove lockdep warnings when such
-case occurs.
+This allows to return individual errno values for the config attribute
+check callback instead of returning invalid argument only.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lowcomms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/dlm/config.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 2fd1e4c13663..d772e1d4461d 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -911,13 +911,14 @@ static int accept_from_sock(struct listen_connection *con)
- 				goto accept_err;
- 			}
+diff --git a/fs/dlm/config.c b/fs/dlm/config.c
+index 49c5f9407098..73e6643903af 100644
+--- a/fs/dlm/config.c
++++ b/fs/dlm/config.c
+@@ -125,7 +125,7 @@ static ssize_t cluster_cluster_name_store(struct config_item *item,
+ CONFIGFS_ATTR(cluster_, cluster_name);
  
-+			lockdep_set_subclass(&othercon->sock_mutex, 1);
- 			newcon->othercon = othercon;
- 		} else {
- 			/* close other sock con if we have something new */
- 			close_connection(othercon, false, true, false);
- 		}
+ static ssize_t cluster_set(struct dlm_cluster *cl, unsigned int *cl_field,
+-			   int *info_field, bool (*check_cb)(unsigned int x),
++			   int *info_field, int (*check_cb)(unsigned int x),
+ 			   const char *buf, size_t len)
+ {
+ 	unsigned int x;
+@@ -137,8 +137,11 @@ static ssize_t cluster_set(struct dlm_cluster *cl, unsigned int *cl_field,
+ 	if (rc)
+ 		return rc;
  
--		mutex_lock_nested(&othercon->sock_mutex, 1);
-+		mutex_lock(&othercon->sock_mutex);
- 		add_sock(newsock, othercon);
- 		addcon = othercon;
- 		mutex_unlock(&othercon->sock_mutex);
+-	if (check_cb && check_cb(x))
+-		return -EINVAL;
++	if (check_cb) {
++		rc = check_cb(x);
++		if (rc)
++			return rc;
++	}
+ 
+ 	*cl_field = x;
+ 	*info_field = x;
+@@ -161,14 +164,20 @@ static ssize_t cluster_##name##_show(struct config_item *item, char *buf)     \
+ }                                                                             \
+ CONFIGFS_ATTR(cluster_, name);
+ 
+-static bool dlm_check_zero(unsigned int x)
++static int dlm_check_zero(unsigned int x)
+ {
+-	return !x;
++	if (!x)
++		return -EINVAL;
++
++	return 0;
+ }
+ 
+-static bool dlm_check_buffer_size(unsigned int x)
++static int dlm_check_buffer_size(unsigned int x)
+ {
+-	return (x < DEFAULT_BUFFER_SIZE);
++	if (x < DEFAULT_BUFFER_SIZE)
++		return -EINVAL;
++
++	return 0;
+ }
+ 
+ CLUSTER_ATTR(tcp_port, dlm_check_zero);
 -- 
 2.26.2
 
