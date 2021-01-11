@@ -2,58 +2,58 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A8B002F1D5C
-	for <lists+cluster-devel@lfdr.de>; Mon, 11 Jan 2021 19:03:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6A3772F1D58
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 Jan 2021 19:03:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1610388224;
+	s=mimecast20190719; t=1610388223;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3hesqrpI2m9qcRRfvRHXFK/GE/BWZUjt16O8OSbvOPc=;
-	b=PvzsEW2iX5u8XRxjn6uSw4/zfgQXioa11V8b5ZS0X/T46BQb4xUQTkshGUU2UcsHmoMOGL
-	KO0YC06lJ9aI5xxZJef6JAv1dACTmt5+y0aXn5MxHl228P4GggLPOoaQss3ckYfS7WBHGu
-	yjNhYlwB1pFbXhKiKjoIFKI877pU1Vk=
+	bh=hxs4GC8eW+Z23eah/A+LU8txMf+sWa+dBsRSboV4b5o=;
+	b=DbEjoLIWKr7UMwXw21Dwia2467cIm2cHUQlWItgYencLPDux/IQG0xJ4T1szIp/tJGkote
+	LK4B8uErXXm0bEwKM6Rf7DgWGaGpXcuCLxVRYPgowB2Se4MIbD7x7kXyc7aBbRfd3belGl
+	/kcg0PP/FUdZt0HyzK5+dOa8QGaLbAo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-249-9oGYV1PNOzKmAPB3dgCW0g-1; Mon, 11 Jan 2021 13:03:42 -0500
-X-MC-Unique: 9oGYV1PNOzKmAPB3dgCW0g-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-217-ysiHWR88Np67W2pjwE9TtQ-1; Mon, 11 Jan 2021 13:03:41 -0500
+X-MC-Unique: ysiHWR88Np67W2pjwE9TtQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A7DD6CC62B;
-	Mon, 11 Jan 2021 18:03:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 932555C232;
-	Mon, 11 Jan 2021 18:03:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9DAE48030A0;
+	Mon, 11 Jan 2021 18:03:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BA2C60BE2;
+	Mon, 11 Jan 2021 18:03:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7EB54180954D;
-	Mon, 11 Jan 2021 18:03:39 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6C9AA4BB7B;
+	Mon, 11 Jan 2021 18:03:34 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10BI3V60032228 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 10BI3VTI032237 for <cluster-devel@listman.util.phx.redhat.com>;
 	Mon, 11 Jan 2021 13:03:31 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 383C15D9FC; Mon, 11 Jan 2021 18:03:31 +0000 (UTC)
+	id E05195D9F8; Mon, 11 Jan 2021 18:03:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from carbon.redhat.com (ovpn-116-187.rdu2.redhat.com [10.10.116.187])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AEC5E5D9DB;
-	Mon, 11 Jan 2021 18:03:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 651CC5D9DB;
+	Mon, 11 Jan 2021 18:03:31 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Mon, 11 Jan 2021 13:02:54 -0500
-Message-Id: <20210111180310.122451-5-aahringo@redhat.com>
+Date: Mon, 11 Jan 2021 13:02:55 -0500
+Message-Id: <20210111180310.122451-6-aahringo@redhat.com>
 In-Reply-To: <20210111180310.122451-1-aahringo@redhat.com>
 References: <20210111180310.122451-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCHv4 dlm/next 04/20] fs: dlm: add check if dlm
-	is currently running
+Subject: [Cluster-devel] [PATCHv4 dlm/next 05/20] fs: dlm: change allocation
+	limits
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +67,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,104 +75,35 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch adds checks for dlm config attributes regarding to protocol
-parameters as it makes only sense to change them when dlm is not running.
-It also adds a check for valid protocol specifiers and return invalid
-argument if they are not supported.
+While running tcpkill I experienced invalid header length values while
+receiving to check that a node doesn't try to send a invalid dlm message
+we also check on applications minimum allocation limit. Also use
+DEFAULT_BUFFER_SIZE as maximum allocation limit. The define
+LOWCOMMS_MAX_TX_BUFFER_LEN is to calculate maximum buffer limits on
+application layer, future midcomms layer will subtract their needs from
+this define.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/config.c   | 34 ++++++++++++++++++++++++++++++++--
- fs/dlm/lowcomms.c |  2 +-
- fs/dlm/lowcomms.h |  3 +++
- 3 files changed, 36 insertions(+), 3 deletions(-)
+ fs/dlm/lowcomms.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/dlm/config.c b/fs/dlm/config.c
-index 73e6643903af..ab26cf135710 100644
---- a/fs/dlm/config.c
-+++ b/fs/dlm/config.c
-@@ -164,6 +164,36 @@ static ssize_t cluster_##name##_show(struct config_item *item, char *buf)     \
- }                                                                             \
- CONFIGFS_ATTR(cluster_, name);
- 
-+static int dlm_check_protocol_and_dlm_running(unsigned int x)
-+{
-+	switch (x) {
-+	case 0:
-+		/* TCP */
-+		break;
-+	case 1:
-+		/* SCTP */
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (dlm_allow_conn)
-+		return -EBUSY;
-+
-+	return 0;
-+}
-+
-+static int dlm_check_zero_and_dlm_running(unsigned int x)
-+{
-+	if (!x)
-+		return -EINVAL;
-+
-+	if (dlm_allow_conn)
-+		return -EBUSY;
-+
-+	return 0;
-+}
-+
- static int dlm_check_zero(unsigned int x)
- {
- 	if (!x)
-@@ -180,7 +210,7 @@ static int dlm_check_buffer_size(unsigned int x)
- 	return 0;
- }
- 
--CLUSTER_ATTR(tcp_port, dlm_check_zero);
-+CLUSTER_ATTR(tcp_port, dlm_check_zero_and_dlm_running);
- CLUSTER_ATTR(buffer_size, dlm_check_buffer_size);
- CLUSTER_ATTR(rsbtbl_size, dlm_check_zero);
- CLUSTER_ATTR(recover_timer, dlm_check_zero);
-@@ -188,7 +218,7 @@ CLUSTER_ATTR(toss_secs, dlm_check_zero);
- CLUSTER_ATTR(scan_secs, dlm_check_zero);
- CLUSTER_ATTR(log_debug, NULL);
- CLUSTER_ATTR(log_info, NULL);
--CLUSTER_ATTR(protocol, NULL);
-+CLUSTER_ATTR(protocol, dlm_check_protocol_and_dlm_running);
- CLUSTER_ATTR(mark, NULL);
- CLUSTER_ATTR(timewarn_cs, dlm_check_zero);
- CLUSTER_ATTR(waitwarn_us, NULL);
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index d772e1d4461d..d25b9132c593 100644
+index d25b9132c593..2b468fbb2b43 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
-@@ -134,7 +134,7 @@ static DEFINE_SPINLOCK(dlm_node_addrs_spin);
- static struct listen_connection listen_con;
- static struct sockaddr_storage *dlm_local_addr[DLM_MAX_ADDR_COUNT];
- static int dlm_local_count;
--static int dlm_allow_conn;
-+int dlm_allow_conn;
+@@ -1357,8 +1357,9 @@ void *dlm_lowcomms_get_buffer(int nodeid, int len, gfp_t allocation, char **ppc)
+ 	struct writequeue_entry *e;
+ 	int offset = 0;
  
- /* Work queues */
- static struct workqueue_struct *recv_workqueue;
-diff --git a/fs/dlm/lowcomms.h b/fs/dlm/lowcomms.h
-index 0918f9376489..f74888ed43b4 100644
---- a/fs/dlm/lowcomms.h
-+++ b/fs/dlm/lowcomms.h
-@@ -14,6 +14,9 @@
- 
- #define LOWCOMMS_MAX_TX_BUFFER_LEN	4096
- 
-+/* switch to check if dlm is running */
-+extern int dlm_allow_conn;
-+
- int dlm_lowcomms_start(void);
- void dlm_lowcomms_stop(void);
- void dlm_lowcomms_exit(void);
+-	if (len > LOWCOMMS_MAX_TX_BUFFER_LEN) {
+-		BUILD_BUG_ON(PAGE_SIZE < LOWCOMMS_MAX_TX_BUFFER_LEN);
++	if (len > DEFAULT_BUFFER_SIZE ||
++	    len < sizeof(struct dlm_header)) {
++		BUILD_BUG_ON(PAGE_SIZE < DEFAULT_BUFFER_SIZE);
+ 		log_print("failed to allocate a buffer of size %d", len);
+ 		return NULL;
+ 	}
 -- 
 2.26.2
 
