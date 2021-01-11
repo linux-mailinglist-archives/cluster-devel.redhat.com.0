@@ -1,57 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 24C672ED11A
-	for <lists+cluster-devel@lfdr.de>; Thu,  7 Jan 2021 14:46:33 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 7DE012F1D59
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 Jan 2021 19:03:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1610027192;
+	s=mimecast20190719; t=1610388223;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0MZRq7szgOvanAUXVgs+Xie8BvHYjB1PeWUzlsZtZdY=;
-	b=SbRoEcGE/VdRpj4InuWKey0rtKXEBF49FcQqP/7ZcEdWT/07/ZKZrBmhH9K3UhiaOeoTFc
-	eCJ1qZAGBqmTRR70nkXmMlgEGlIIKNzhWLTWA9TcyC5hxFsCehfugD5ITUd554WSmfq4Cq
-	lFRGY5EyQqLTn0UIFt649CpgjHcA1iQ=
+	bh=EADC1src0dSb6iNqCnv+4rvwxPbvt+aHtVASXKPJmpM=;
+	b=B8euy4y/SFUmLtidqP0mEadzYN4NtK3Dc0Q/CwfM0g4bU4555+LYvXkXYZLorXWNK/ZLeF
+	sTmVHVnxo1f6/Dd9rAWw4zzbFOIYymhXfecZ/qZMaYLOaW5eJaJNEL7SOIlOKLJxt9ROAj
+	jNsAIu5Lyuu96rRfurP6HBaezb0az2o=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-175-jarB9BqrP7mH8eDmu6YMMw-1; Thu, 07 Jan 2021 08:46:30 -0500
-X-MC-Unique: jarB9BqrP7mH8eDmu6YMMw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-228-aXCi6P8oONygr9MsN8WqXg-1; Mon, 11 Jan 2021 13:03:41 -0500
+X-MC-Unique: aXCi6P8oONygr9MsN8WqXg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A579DE768;
-	Thu,  7 Jan 2021 13:46:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 957DF1724C;
-	Thu,  7 Jan 2021 13:46:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2FB2DCC626;
+	Mon, 11 Jan 2021 18:03:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D2FA10016F7;
+	Mon, 11 Jan 2021 18:03:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 82B874E58F;
-	Thu,  7 Jan 2021 13:46:27 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 17DEE180954D;
+	Mon, 11 Jan 2021 18:03:34 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 107DkQC1029171 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 7 Jan 2021 08:46:26 -0500
+	id 10BI3SMt032196 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 11 Jan 2021 13:03:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 58B1D5D9DE; Thu,  7 Jan 2021 13:46:26 +0000 (UTC)
+	id 72A0E5D9DB; Mon, 11 Jan 2021 18:03:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from cicero.redhat.com (unknown [10.33.37.29])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DDA35D9DC;
-	Thu,  7 Jan 2021 13:46:25 +0000 (UTC)
-From: Andrew Price <anprice@redhat.com>
-To: cluster-devel@redhat.com
-Date: Thu,  7 Jan 2021 13:46:16 +0000
-Message-Id: <20210107134616.386755-3-anprice@redhat.com>
-In-Reply-To: <20210107134616.386755-1-anprice@redhat.com>
-References: <20210107134616.386755-1-anprice@redhat.com>
+Received: from carbon.redhat.com (ovpn-116-187.rdu2.redhat.com [10.10.116.187])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 37D035D9F4;
+	Mon, 11 Jan 2021 18:03:25 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Mon, 11 Jan 2021 13:02:50 -0500
+Message-Id: <20210111180310.122451-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 2/2] gfs2: Add trusted xattr support
+Cc: cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCHv4 dlm/next 00/20] fs: dlm: introduce dlm
+	re-transmission layer
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -65,7 +64,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -73,211 +72,133 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-From: Andreas Gruenbacher <agruenba@redhat.com>
+Hi,
 
-Add support for an additional filesystem version (sb_fs_format = 1802).
-When a filesystem with the new version is mounted, the filesystem
-supports "trusted.*" xattrs.
+this is the final patch-series to make dlm reliable when re-connection
+occurs. You can easily generate a couple of re-connections by running:
 
-In addition, version 1802 filesystems implement a form of forward
-compatibility for xattrs: when xattrs with an unknown prefix (ea_type)
-are found on a version 1802 filesystem, those attributes are not shown
-by listxattr, and they are not accessible by getxattr, setxattr, or
-removexattr.
+tcpkill -9 -i $IFACE port 21064
 
-This mechanism might turn out to be what we need in the future, but if
-not, we can always bump the filesystem version and break compatibility
-instead.
+on your own to test these patches. At some time dlm will detect message
+drops and will re-transmit messages if necessary. It introduces a new dlm
+protocol behaviour and increases the dlm protocol version. I tested it
+with SCTP as well and tried to be backwards compatible with dlm protocol
+version 3.1. However I don't recommend at all to mix these versions
+in a setup since dlm version 3.2 fixes long-term issues.
 
-[AP: Removed the GFS2_FORMAT_FS_MIN and _MAX values from gfs2_ondisk.h
-and bumped the GFS2_EATYPE_LAST value]
+- Alex
 
-Signed-off-by: Andrew Price <anprice@redhat.com>
----
- fs/gfs2/ops_fstype.c             | 14 +++++++++-
- fs/gfs2/super.h                  |  4 ++-
- fs/gfs2/xattr.c                  | 48 +++++++++++++++++++++++++++++---
- include/uapi/linux/gfs2_ondisk.h |  5 ++--
- 4 files changed, 63 insertions(+), 8 deletions(-)
+changes since v4:
+ - add big midcomms file header comment about what's the idea about
+   midcomms layer and how it works.
+ - add the close mutex lock to prevent running close API call while
+   connection is being terimanted. However when a close call occurs
+   it will terminate the current termination wait until the close
+   lock is released. If the node is removed from the nodes hash the
+   lowcomms close call will occur anyway.
+   
+   I added a define to insert some sleep to test this behaviour.
 
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index 52fe78378faa..64ad19bb978c 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -489,6 +489,19 @@ static int init_sb(struct gfs2_sbd *sdp, int silent)
- 		goto out;
- 	}
- 
-+	switch(sdp->sd_sb.sb_fs_format) {
-+	case GFS2_FS_FORMAT_MAX:
-+		sb->s_xattr = gfs2_xattr_handlers_max;
-+		break;
-+
-+	case GFS2_FS_FORMAT_MIN:
-+		sb->s_xattr = gfs2_xattr_handlers_min;
-+		break;
-+
-+	default:
-+		BUG();
-+	}
-+
- 	/* Set up the buffer cache and SB for real */
- 	if (sdp->sd_sb.sb_bsize < bdev_logical_block_size(sb->s_bdev)) {
- 		ret = -EINVAL;
-@@ -1109,7 +1122,6 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
- 	sb->s_op = &gfs2_super_ops;
- 	sb->s_d_op = &gfs2_dops;
- 	sb->s_export_op = &gfs2_export_ops;
--	sb->s_xattr = gfs2_xattr_handlers;
- 	sb->s_qcop = &gfs2_quotactl_ops;
- 	sb->s_quota_types = QTYPE_MASK_USR | QTYPE_MASK_GRP;
- 	sb_dqopt(sb)->flags |= DQUOT_QUOTA_SYS_FILE;
-diff --git a/fs/gfs2/super.h b/fs/gfs2/super.h
-index 977079693bdc..08e502dec7ec 100644
---- a/fs/gfs2/super.h
-+++ b/fs/gfs2/super.h
-@@ -58,7 +58,9 @@ extern struct file_system_type gfs2meta_fs_type;
- extern const struct export_operations gfs2_export_ops;
- extern const struct super_operations gfs2_super_ops;
- extern const struct dentry_operations gfs2_dops;
--extern const struct xattr_handler *gfs2_xattr_handlers[];
-+
-+extern const struct xattr_handler *gfs2_xattr_handlers_max[];
-+extern const struct xattr_handler **gfs2_xattr_handlers_min;
- 
- #endif /* __SUPER_DOT_H__ */
- 
-diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
-index 9d7667bc4292..a860a144f3d4 100644
---- a/fs/gfs2/xattr.c
-+++ b/fs/gfs2/xattr.c
-@@ -70,6 +70,20 @@ static int ea_check_size(struct gfs2_sbd *sdp, unsigned int nsize, size_t dsize)
- 	return 0;
- }
- 
-+bool gfs2_eatype_valid(struct gfs2_sbd *sdp, u8 type)
-+{
-+	switch(sdp->sd_sb.sb_fs_format) {
-+	case GFS2_FS_FORMAT_MAX:
-+		return true;
-+
-+	case GFS2_FS_FORMAT_MIN:
-+		return type <= GFS2_EATYPE_SECURITY;
-+
-+	default:
-+		return false;
-+	}
-+}
-+
- typedef int (*ea_call_t) (struct gfs2_inode *ip, struct buffer_head *bh,
- 			  struct gfs2_ea_header *ea,
- 			  struct gfs2_ea_header *prev, void *private);
-@@ -77,6 +91,7 @@ typedef int (*ea_call_t) (struct gfs2_inode *ip, struct buffer_head *bh,
- static int ea_foreach_i(struct gfs2_inode *ip, struct buffer_head *bh,
- 			ea_call_t ea_call, void *data)
- {
-+	struct gfs2_sbd *sdp = GFS2_SB(&ip->i_inode);
- 	struct gfs2_ea_header *ea, *prev = NULL;
- 	int error = 0;
- 
-@@ -89,9 +104,8 @@ static int ea_foreach_i(struct gfs2_inode *ip, struct buffer_head *bh,
- 		if (!(bh->b_data <= (char *)ea && (char *)GFS2_EA2NEXT(ea) <=
- 						  bh->b_data + bh->b_size))
- 			goto fail;
--		if (!GFS2_EATYPE_VALID(ea->ea_type))
-+		if (!gfs2_eatype_valid(sdp, ea->ea_type))
- 			goto fail;
--
- 		error = ea_call(ip, bh, ea, prev, data);
- 		if (error)
- 			return error;
-@@ -344,6 +358,7 @@ static int ea_list_i(struct gfs2_inode *ip, struct buffer_head *bh,
- 		     struct gfs2_ea_header *ea, struct gfs2_ea_header *prev,
- 		     void *private)
- {
-+	struct gfs2_sbd *sdp = GFS2_SB(&ip->i_inode);
- 	struct ea_list *ei = private;
- 	struct gfs2_ea_request *er = ei->ei_er;
- 	unsigned int ea_size;
-@@ -353,6 +368,8 @@ static int ea_list_i(struct gfs2_inode *ip, struct buffer_head *bh,
- 	if (ea->ea_type == GFS2_EATYPE_UNUSED)
- 		return 0;
- 
-+	BUG_ON(ea->ea_type > GFS2_EATYPE_SECURITY &&
-+	       sdp->sd_sb.sb_fs_format == GFS2_FS_FORMAT_MIN);
- 	switch (ea->ea_type) {
- 	case GFS2_EATYPE_USR:
- 		prefix = "user.";
-@@ -366,8 +383,12 @@ static int ea_list_i(struct gfs2_inode *ip, struct buffer_head *bh,
- 		prefix = "security.";
- 		l = 9;
- 		break;
-+	case GFS2_EATYPE_TRUSTED:
-+		prefix = "trusted.";
-+		l = 8;
-+		break;
- 	default:
--		BUG();
-+		return 0;
- 	}
- 
- 	ea_size = l + ea->ea_name_len + 1;
-@@ -1463,7 +1484,25 @@ static const struct xattr_handler gfs2_xattr_security_handler = {
- 	.set    = gfs2_xattr_set,
- };
- 
--const struct xattr_handler *gfs2_xattr_handlers[] = {
-+static bool
-+gfs2_xattr_trusted_list(struct dentry *dentry)
-+{
-+	return capable(CAP_SYS_ADMIN);
-+}
-+
-+static const struct xattr_handler gfs2_xattr_trusted_handler = {
-+	.prefix = XATTR_TRUSTED_PREFIX,
-+	.flags  = GFS2_EATYPE_TRUSTED,
-+	.list	= gfs2_xattr_trusted_list,
-+	.get    = gfs2_xattr_get,
-+	.set    = gfs2_xattr_set,
-+};
-+
-+const struct xattr_handler *gfs2_xattr_handlers_max[] = {
-+	/* GFS2_FS_FORMAT_MAX */
-+	&gfs2_xattr_trusted_handler,
-+
-+	/* GFS2_FS_FORMAT_MIN */
- 	&gfs2_xattr_user_handler,
- 	&gfs2_xattr_security_handler,
- 	&posix_acl_access_xattr_handler,
-@@ -1471,3 +1510,4 @@ const struct xattr_handler *gfs2_xattr_handlers[] = {
- 	NULL,
- };
- 
-+const struct xattr_handler **gfs2_xattr_handlers_min = gfs2_xattr_handlers_max + 1;
-diff --git a/include/uapi/linux/gfs2_ondisk.h b/include/uapi/linux/gfs2_ondisk.h
-index 07e508e6691b..6ec4291bcc7a 100644
---- a/include/uapi/linux/gfs2_ondisk.h
-+++ b/include/uapi/linux/gfs2_ondisk.h
-@@ -47,7 +47,7 @@
- #define GFS2_FORMAT_DE		1200
- #define GFS2_FORMAT_QU		1500
- /* These are part of the superblock */
--#define GFS2_FORMAT_FS		1801
-+#define GFS2_FORMAT_FS		1802
- #define GFS2_FORMAT_MULTI	1900
- 
- /*
-@@ -389,8 +389,9 @@ struct gfs2_leaf {
- #define GFS2_EATYPE_USR		1
- #define GFS2_EATYPE_SYS		2
- #define GFS2_EATYPE_SECURITY	3
-+#define GFS2_EATYPE_TRUSTED	4
- 
--#define GFS2_EATYPE_LAST	3
-+#define GFS2_EATYPE_LAST	4
- #define GFS2_EATYPE_VALID(x)	((x) <= GFS2_EATYPE_LAST)
- 
- #define GFS2_EAFLAG_LAST	0x01	/* last ea in block */
+changes since v3:
+ - make dlm messages to 8 byte boundary size (more pads), because there
+   exists uint64_t fields and we should prepared for future 8 byte fields.
+   This will make it directly aligned to 4 and 2 as well.
+ - change unaligned memory access handling. I will not fix it yet. It
+   seems nobody is using dlm on an architecture which cannot handle
+   unaligned memory access at all (panics). However I added a note that
+   this is a known problem. There is a slightly performance improvement
+   (depends on many things e.g. if another message gets allocated after a
+   (len % 8) != 0 message length got allocated). However I saw that such
+   cases are rarely (for now some user space messages only) occur.
+
+   The receiving side is not the problem here, the sending side is it
+   and we run in a unaligned memory access in dlm messages fields there
+   as well. However, fixing sending side will fix the receiving side and
+   more length checks can be applied then to drop invalid message
+   lengths.
+ - be sure to remove node from hash at first at close call
+
+   I am a little bit worried about the midcomms/lowcomms close call and
+   the timer is running at exactly this time and maybe begins to
+   re-transmit messages. I thought about to stop/start the timer but now
+   I ended up to remove the node from the hash at first and be sure that
+   no readers are left when calling lowcomms close. I think this should
+   be fine because we "should" not receive any dlm messages from this
+   node while close is running.
+
+ - add patch "fs: dlm: add per node receive flush"
+
+   As I was worried about that the lowcomms close call flushes the receive
+   work on a socket close and we already removed the node from the hash,
+   I added a functionality to flush the receive work right before we remove
+   the node. With this functionality we male sure we don't receive any
+   messages after we removed the node from the hash.
+ - add patch "fs: dlm: remove obsolete code and comment"
+ - add patch "fs: dlm: check for invalid namelen"
+
+changes since v2:
+ - add patch "fs: dlm: set connected bit after accept"
+ - add patch "fs: dlm: set subclass for othercon sock_mutex"
+ - change title "fs: dlm: public utils header utils" to
+   "fs: dlm: public header in out utility"
+ - squash "fs: dlm: add check for minimum allocation length" into
+   "fs: dlm: remove unaligned memory access handling"
+ - make the midcomms timeout a little bit longer, because I saw
+   sometimes it's not enough (I hope that was the reason)
+ - midcomms: fix version mismatch handling
+ - remove DLM_ACK in invalid sequence handling
+ - add additional length check in dlm_opts_check_msglen()
+ - use optlen to skip DLM_OPTS header
+ - add DLM_MSGLEN_IS_NOT_ALIGNED to check if msglen is proper
+   aligned before parsing
+ - change dlm_midcomms_close() to close first then cut queues,
+   because lowcomms close will may flush some messages which
+   need to be dropped afterwards if seq doesn't fit.
+ - remove newline in "fs: dlm: add more midcomms hooks"
+ - may more changes which I don't have on track.
+ - change defines handling for calculating max application buffer
+   size vs max allocation size
+ - run aspell on my commit msgs
+
+Alexander Aring (20):
+  fs: dlm: set connected bit after accept
+  fs: dlm: set subclass for othercon sock_mutex
+  fs: dlm: add errno handling to check callback
+  fs: dlm: add check if dlm is currently running
+  fs: dlm: change allocation limits
+  fs: dlm: public header in out utility
+  fs: dlm: use GFP_ZERO for page buffer
+  fs: dlm: simplify writequeue handling
+  fs: dlm: add more midcomms hooks
+  fs: dlm: make buffer handling per msg
+  fs: dlm: make new buffer handling softirq ready
+  fs: dlm: add functionality to re-transmit a message
+  fs: dlm: move out some hash functionality
+  fs: dlm: remove unaligned memory access handling
+  fs: dlm: add union in dlm header for lockspace id
+  fs: dlm: add per node receive flush
+  fs: dlm: add reliable connection if reconnect
+  fs: dlm: don't allow half transmitted messages
+  fs: dlm: remove obsolete code and comment
+  fs: dlm: check for invalid namelen
+
+ fs/dlm/config.c       |   60 +-
+ fs/dlm/dlm_internal.h |   41 +-
+ fs/dlm/lock.c         |   16 +-
+ fs/dlm/lockspace.c    |    5 +-
+ fs/dlm/lowcomms.c     |  288 +++++++---
+ fs/dlm/lowcomms.h     |   27 +-
+ fs/dlm/member.c       |   16 +
+ fs/dlm/member.h       |    1 +
+ fs/dlm/midcomms.c     | 1266 +++++++++++++++++++++++++++++++++++++++--
+ fs/dlm/midcomms.h     |   10 +
+ fs/dlm/rcom.c         |   61 +-
+ fs/dlm/recoverd.c     |    3 +
+ fs/dlm/user.c         |    3 +
+ fs/dlm/util.c         |   10 +-
+ fs/dlm/util.h         |    2 +
+ 15 files changed, 1628 insertions(+), 181 deletions(-)
+
 -- 
-2.29.2
+2.26.2
 
