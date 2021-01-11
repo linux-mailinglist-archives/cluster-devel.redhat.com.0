@@ -2,58 +2,58 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2278E2F1D64
-	for <lists+cluster-devel@lfdr.de>; Mon, 11 Jan 2021 19:03:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 11D522F1D63
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 Jan 2021 19:03:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1610388233;
+	s=mimecast20190719; t=1610388232;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aTU089zDP46Bax28doEdsSr967oAySqOVrDo1THzYhQ=;
-	b=aIMSzyull5r0QEOyd3s4nc0a6305va9keMa1ALPGGIx+MB8SspEsUCkqzflpkIDe7uw8RG
-	66sveCsW2MiLTvZ7WNcyPq4mXzqhMxeIq7lwLn5xq2igQoiKq5Bpj+9QUMeFzu1hDvZ7gH
-	QFuH9PLz+xnzUNK3k1Ls5MiiN6gq9vE=
+	bh=fESkMwJUICtqBq1xjYfRCiRQ5dQah9WWCEb+pBCki6k=;
+	b=MqTXFEs9zvzsTfmerBSOU50j36ZZ4VeDMrREbrnxdKsUhhEFv2ALrpOtpR2GpVUH8SwsXl
+	EXKe7urI3BhJud+apjji2p51KC6krDvzpipVd1+bY8ngufzb5aGIL3k4BhAHP4oDOP7LZT
+	3Dz5UZaOdhjqe8fBRlEIr5IXc6X7xMQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-181-c71asyvYNTq7hiyYxFb_tQ-1; Mon, 11 Jan 2021 13:03:50 -0500
-X-MC-Unique: c71asyvYNTq7hiyYxFb_tQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-19-jqb-qAWAOVqVQGnsZQGzvw-1; Mon, 11 Jan 2021 13:03:50 -0500
+X-MC-Unique: jqb-qAWAOVqVQGnsZQGzvw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B393687950C;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA78A107ACFA;
 	Mon, 11 Jan 2021 18:03:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A0D7F1349A;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98C8C5C23E;
 	Mon, 11 Jan 2021 18:03:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 84A271809CA1;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 845581809CA0;
 	Mon, 11 Jan 2021 18:03:46 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10BI3huD032354 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 11 Jan 2021 13:03:43 -0500
+	id 10BI3itN032364 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 11 Jan 2021 13:03:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8C53F5D9F8; Mon, 11 Jan 2021 18:03:43 +0000 (UTC)
+	id 41E4E5D9F8; Mon, 11 Jan 2021 18:03:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from carbon.redhat.com (ovpn-116-187.rdu2.redhat.com [10.10.116.187])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 140CC5D9DB;
-	Mon, 11 Jan 2021 18:03:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BA2085D9DB;
+	Mon, 11 Jan 2021 18:03:43 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Mon, 11 Jan 2021 13:03:04 -0500
-Message-Id: <20210111180310.122451-15-aahringo@redhat.com>
+Date: Mon, 11 Jan 2021 13:03:05 -0500
+Message-Id: <20210111180310.122451-16-aahringo@redhat.com>
 In-Reply-To: <20210111180310.122451-1-aahringo@redhat.com>
 References: <20210111180310.122451-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCHv4 dlm/next 14/20] fs: dlm: remove unaligned
-	memory access handling
+Subject: [Cluster-devel] [PATCHv4 dlm/next 15/20] fs: dlm: add union in dlm
+	header for lockspace id
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +67,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,80 +75,122 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch removes unaligned memory access handling for receiving
-midcomms messages. This handling will not fix the unaligned memory
-access in general. All messages should be length aligned to 8 bytes,
-there exists cases where this isn't the case. It's part of the sending
-handling to not send such messages. As the sending handling itself, with
-the internal allocator of page buffers, can occur in unaligned memory
-access of dlm message fields we just ignore that problem for now as it
-seems this code is used by architecture which can handle it.
-
-This patch adds a comment to take care about that problem in a major
-bump of dlm protocol.
+This patch adds union inside the lockspace id to handle it also for
+another use case for a different dlm command.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/midcomms.c | 31 +++++++++++++++----------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ fs/dlm/dlm_internal.h | 5 ++++-
+ fs/dlm/lock.c         | 8 ++++----
+ fs/dlm/midcomms.c     | 1 -
+ fs/dlm/rcom.c         | 4 ++--
+ fs/dlm/util.c         | 6 ++++--
+ 5 files changed, 14 insertions(+), 10 deletions(-)
 
+diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+index 04fe9f525ac7..917de7367a32 100644
+--- a/fs/dlm/dlm_internal.h
++++ b/fs/dlm/dlm_internal.h
+@@ -377,7 +377,10 @@ static inline int rsb_flag(struct dlm_rsb *r, enum rsb_flags flag)
+ 
+ struct dlm_header {
+ 	uint32_t		h_version;
+-	uint32_t		h_lockspace;
++	union {
++		/* for DLM_MSG and DLM_RCOM */
++		uint32_t	h_lockspace;
++	} u;
+ 	uint32_t		h_nodeid;	/* nodeid of sender */
+ 	uint16_t		h_length;
+ 	uint8_t			h_cmd;		/* DLM_MSG, DLM_RCOM */
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index b3fd823009f4..daa5747c8556 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -3544,7 +3544,7 @@ static int _create_message(struct dlm_ls *ls, int mb_len,
+ 	ms = (struct dlm_message *) mb;
+ 
+ 	ms->m_header.h_version = (DLM_HEADER_MAJOR | DLM_HEADER_MINOR);
+-	ms->m_header.h_lockspace = ls->ls_global_id;
++	ms->m_header.u.h_lockspace = ls->ls_global_id;
+ 	ms->m_header.h_nodeid = dlm_our_nodeid();
+ 	ms->m_header.h_length = mb_len;
+ 	ms->m_header.h_cmd = DLM_MSG;
+@@ -5038,16 +5038,16 @@ void dlm_receive_buffer(union dlm_packet *p, int nodeid)
+ 
+ 	if (hd->h_nodeid != nodeid) {
+ 		log_print("invalid h_nodeid %d from %d lockspace %x",
+-			  hd->h_nodeid, nodeid, hd->h_lockspace);
++			  hd->h_nodeid, nodeid, hd->u.h_lockspace);
+ 		return;
+ 	}
+ 
+-	ls = dlm_find_lockspace_global(hd->h_lockspace);
++	ls = dlm_find_lockspace_global(hd->u.h_lockspace);
+ 	if (!ls) {
+ 		if (dlm_config.ci_log_debug) {
+ 			printk_ratelimited(KERN_DEBUG "dlm: invalid lockspace "
+ 				"%u from %d cmd %d type %d\n",
+-				hd->h_lockspace, nodeid, hd->h_cmd, type);
++				hd->u.h_lockspace, nodeid, hd->h_cmd, type);
+ 		}
+ 
+ 		if (hd->h_cmd == DLM_RCOM && type == DLM_RCOM_STATUS)
 diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index e058e017c77d..45dd3d7d857f 100644
+index 45dd3d7d857f..71a1f0c910b3 100644
 --- a/fs/dlm/midcomms.c
 +++ b/fs/dlm/midcomms.c
-@@ -22,8 +22,6 @@
-  * into packets and sends them to the comms layer.
-  */
+@@ -149,4 +149,3 @@ int dlm_process_incoming_buffer(int nodeid, unsigned char *buf, int len)
  
--#include <asm/unaligned.h>
+ 	return ret;
+ }
 -
- #include "dlm_internal.h"
- #include "lowcomms.h"
- #include "config.h"
-@@ -93,13 +91,22 @@ int dlm_process_incoming_buffer(int nodeid, unsigned char *buf, int len)
- 	while (len >= sizeof(struct dlm_header)) {
- 		hd = (struct dlm_header *)ptr;
+diff --git a/fs/dlm/rcom.c b/fs/dlm/rcom.c
+index 7a7d4a8e4706..06f7a5f1d99d 100644
+--- a/fs/dlm/rcom.c
++++ b/fs/dlm/rcom.c
+@@ -49,7 +49,7 @@ static int create_rcom(struct dlm_ls *ls, int to_nodeid, int type, int len,
+ 	rc = (struct dlm_rcom *) mb;
  
--		/* no message should be more than this otherwise we
--		 * cannot deliver this message to upper layers
-+		/* no message should be more than DEFAULT_BUFFER_SIZE or
-+		 * less than dlm_header size.
-+		 *
-+		 * Some messages does not have a 8 byte length boundary yet
-+		 * which can occur in a unaligned memory access of some dlm
-+		 * messages. However this problem need to be fixed at the
-+		 * sending side, for now it seems nobody run into architecture
-+		 * related issues yet but it slows down some processing.
-+		 * Fixing this issue should be scheduled in future by doing
-+		 * the next major version bump.
- 		 */
--		msglen = get_unaligned_le16(&hd->h_length);
--		if (msglen > DEFAULT_BUFFER_SIZE) {
--			log_print("received invalid length header: %u, will abort message parsing",
--				  msglen);
-+		msglen = le16_to_cpu(hd->h_length);
-+		if (msglen > DEFAULT_BUFFER_SIZE ||
-+		    msglen < sizeof(struct dlm_header)) {
-+			log_print("received invalid length header: %u from node %d, will abort message parsing",
-+				  msglen, nodeid);
- 			return -EBADMSG;
- 		}
+ 	rc->rc_header.h_version = (DLM_HEADER_MAJOR | DLM_HEADER_MINOR);
+-	rc->rc_header.h_lockspace = ls->ls_global_id;
++	rc->rc_header.u.h_lockspace = ls->ls_global_id;
+ 	rc->rc_header.h_nodeid = dlm_our_nodeid();
+ 	rc->rc_header.h_length = mb_len;
+ 	rc->rc_header.h_cmd = DLM_RCOM;
+@@ -476,7 +476,7 @@ int dlm_send_ls_not_ready(int nodeid, struct dlm_rcom *rc_in)
+ 	rc = (struct dlm_rcom *) mb;
  
-@@ -132,14 +139,6 @@ int dlm_process_incoming_buffer(int nodeid, unsigned char *buf, int len)
- 			goto skip;
- 		}
- 
--		/* for aligned memory access, we just copy current message
--		 * to begin of the buffer which contains already parsed buffer
--		 * data and should provide align access for upper layers
--		 * because the start address of the buffer has a aligned
--		 * address. This memmove can be removed when the upperlayer
--		 * is capable of unaligned memory access.
--		 */
--		memmove(buf, ptr, msglen);
- 		dlm_receive_buffer((union dlm_packet *)buf, nodeid);
- 
- skip:
+ 	rc->rc_header.h_version = (DLM_HEADER_MAJOR | DLM_HEADER_MINOR);
+-	rc->rc_header.h_lockspace = rc_in->rc_header.h_lockspace;
++	rc->rc_header.u.h_lockspace = rc_in->rc_header.u.h_lockspace;
+ 	rc->rc_header.h_nodeid = dlm_our_nodeid();
+ 	rc->rc_header.h_length = mb_len;
+ 	rc->rc_header.h_cmd = DLM_RCOM;
+diff --git a/fs/dlm/util.c b/fs/dlm/util.c
+index 74a8c5bfe9b5..58acbcc2081a 100644
+--- a/fs/dlm/util.c
++++ b/fs/dlm/util.c
+@@ -23,7 +23,8 @@
+ void header_out(struct dlm_header *hd)
+ {
+ 	hd->h_version		= cpu_to_le32(hd->h_version);
+-	hd->h_lockspace		= cpu_to_le32(hd->h_lockspace);
++	/* does it for others u32 in union as well */
++	hd->u.h_lockspace	= cpu_to_le32(hd->u.h_lockspace);
+ 	hd->h_nodeid		= cpu_to_le32(hd->h_nodeid);
+ 	hd->h_length		= cpu_to_le16(hd->h_length);
+ }
+@@ -31,7 +32,8 @@ void header_out(struct dlm_header *hd)
+ void header_in(struct dlm_header *hd)
+ {
+ 	hd->h_version		= le32_to_cpu(hd->h_version);
+-	hd->h_lockspace		= le32_to_cpu(hd->h_lockspace);
++	/* does it for others u32 in union as well */
++	hd->u.h_lockspace	= le32_to_cpu(hd->u.h_lockspace);
+ 	hd->h_nodeid		= le32_to_cpu(hd->h_nodeid);
+ 	hd->h_length		= le16_to_cpu(hd->h_length);
+ }
 -- 
 2.26.2
 
