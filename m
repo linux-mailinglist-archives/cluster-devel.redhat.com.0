@@ -2,70 +2,70 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E79B62FB5CB
-	for <lists+cluster-devel@lfdr.de>; Tue, 19 Jan 2021 12:54:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 291CB2FB5E3
+	for <lists+cluster-devel@lfdr.de>; Tue, 19 Jan 2021 12:54:07 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-257-g7VcT7_bPwqcq3hUFCvjiQ-1; Tue, 19 Jan 2021 06:53:59 -0500
-X-MC-Unique: g7VcT7_bPwqcq3hUFCvjiQ-1
+ us-mta-541-6MvOtIRfNyuKyjtNg8sXlg-1; Tue, 19 Jan 2021 06:54:04 -0500
+X-MC-Unique: 6MvOtIRfNyuKyjtNg8sXlg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5764CCE652;
-	Tue, 19 Jan 2021 11:53:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9422581C49A;
+	Tue, 19 Jan 2021 11:53:59 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4459F60C0F;
-	Tue, 19 Jan 2021 11:53:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8131E60C5F;
+	Tue, 19 Jan 2021 11:53:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3AEA04BB40;
-	Tue, 19 Jan 2021 11:53:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F0064BB7B;
+	Tue, 19 Jan 2021 11:53:59 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10J58DLq020484 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 19 Jan 2021 00:08:13 -0500
+	id 10J59OiK021066 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 19 Jan 2021 00:09:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8C2A42166B2F; Tue, 19 Jan 2021 05:08:13 +0000 (UTC)
+	id CEB6D63AFA; Tue, 19 Jan 2021 05:09:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84E4A2166B2C
-	for <cluster-devel@redhat.com>; Tue, 19 Jan 2021 05:08:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75FF16D9D9
+	for <cluster-devel@redhat.com>; Tue, 19 Jan 2021 05:09:22 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70D5E858280
-	for <cluster-devel@redhat.com>; Tue, 19 Jan 2021 05:08:13 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFF19858EEC
+	for <cluster-devel@redhat.com>; Tue, 19 Jan 2021 05:09:22 +0000 (UTC)
+Received: from esa5.hgst.iphmx.com (esa5.hgst.iphmx.com [216.71.153.144])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-464-c1PBr3DgPK-4UjKPU-1sJQ-1; Tue, 19 Jan 2021 00:08:09 -0500
-X-MC-Unique: c1PBr3DgPK-4UjKPU-1sJQ-1
-IronPort-SDR: xf1+e2zuaYnD00G1wZiM21zMfji9aC91/kq4AC6Jt+4HCFD8ZqNO0OzSDcEUDUChULvugTwQip
-	rify+kawWLFAT/pnQZ6wCnM3dWdIr5qXzC8tcgcTtg0yeHfUcWgulxRnz5oGTl+4iHQ89deQas
-	tvxXnAzBk/Kv+VJtUiYqyY5dX9SXpt6VCLCIDeXuSM22J58wh7vdzmlN1sREmJS4Tm84XtnXNs
-	f07iDAEhC/GdigTTHuSbpdhItq4Fb/cQSHGJxRJqIeFvMPfag+qtDhpwHfFYjMeAnMmBlbyoHh
-	EfU=
-X-IronPort-AV: E=Sophos;i="5.79,357,1602518400"; d="scan'208";a="157763877"
+	us-mta-18-nm3Ys2jxMJ-V74tCILc5ZA-1; Tue, 19 Jan 2021 00:09:18 -0500
+X-MC-Unique: nm3Ys2jxMJ-V74tCILc5ZA-1
+IronPort-SDR: wGyXOKbD+ckYA1JTKqMaTrnGe+dH7n10xNbG8mnjShFLNn+HQYSfcBXspp/SjOX0foGi/NVHtP
+	kj+pwRBVyAvq41+xpqDHUVFmRkKHHSY+01arxnTBMOThKihPYCm65z9kjElwQP7SStRuKv0Kcx
+	VIs7L8Off4Px4Ns64u8F9SEORkI1C9yQd1BzIG6qHZ9IiT6kn3dqAOa3jhp54mrt8BbSmnwRqJ
+	z21PhBOMieGt2BN4O4wrgoAbTRRWSdVAeYyl2u2YedQ9cYdXNBUw2Zru0Q6uxmzlwsC77QHmSW
+	oNU=
+X-IronPort-AV: E=Sophos;i="5.79,357,1602518400"; d="scan'208";a="157758606"
 Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
 	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 19 Jan 2021 13:08:07 +0800
-IronPort-SDR: yIYtqCr0qDp0MVmufrLFdVUK6E0UiGrG01LXZ7HHDjt5Guwpcpq0XZkz9D/Kz7IouBB5OwOvX1
-	jRVnUQdc59/RxqDDJ/lefJd0osTRIX9/Z5yTNPgADuG9Gvi8+4PLFO9OQFGaynXU3aOxY90nsx
-	XmdTc8P9dyTBfNaKhrTaQMMRwv/2/fTIJ5BYXN33phsLIWmGd1G6A0vBp/CZPMSUvNAn1t5Q9w
-	1Q7mC0cJHutoDZpZql4PHU0vjJv8mzXxUjaaZoBupFvi4C5m7WqnXdk5PXpT4jVrERE+dN12sL
-	LNWO+pHqrDBirdEAeHLWjK3a
+	by ob1.hgst.iphmx.com with ESMTP; 19 Jan 2021 13:08:14 +0800
+IronPort-SDR: IDA7wKtocHix1EgcoSlVtTqdSCgl397CWuD+0eogeTCpuQOGRfdc6D4iBDr2lMY+f+AAKjV1J9
+	DsAOWU6fYi/mbBWcONqeOoAMd1AfN0Un14S0razd1akCeiehm+SS8PmlLjPgzMjcIdi1e8wqfN
+	Hh2GEAzchtEsK8Dij1i8IRVGfvCtEESbAFKMU3s7K/8Ka66C7U7n2u9g6ygKa1n93CGo5otTkM
+	pGop+f4Q+OAjtMZs4joboHQLFzZyI5oh2erRkaG9DD8kuEAN52OagHV87gVKmbkuvP0GYN32nD
+	mhwo2fzLhEvBE0HJ7P3Uwy7n
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
 	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	18 Jan 2021 20:50:42 -0800
-IronPort-SDR: BI4IRRImuMT37W/0fgUHv+jo9/cFXOLHBSkHLB71uXGRhjXdqsMAnoeLSicBDzNjCtXE6Dh3IX
-	0CYkAjVxbNezhsYqTHeC7O5MKiUI+nte0sRu7g2EHJnUc9MH1BYN8otchvz0lbdHnJk4iU7F4c
-	WmfRkOrAtQMZI0QoGyPGUddwOVe1ADf9CPub9wyiRWCIGto1nEeON+Wfy1+NBrAsdMrCFgxnqp
-	vom68oJ4IlK86VNF+Hzp5EiJIZpEBG12SHeKkbAPc06Spul2+gAW8LkpVcP5k8qn/tXfmApHrz
-	H7o=
+	18 Jan 2021 20:50:50 -0800
+IronPort-SDR: p1tcnYwAx/l/NVCOSE++cI0sO4XNQ+lbfc67fxaPGZ0Kwcqxhdz9+u3CPNrCwOw83oDaMA1Qjm
+	ESU3xmsUtmMt60eRcgdVRVFxzLHWW7CqjKNcfNh1+RIHGbsJ3Ai97YW6MaxhVDB0yLEg9IysxE
+	83VZ2vSeY/l/vgDGSUb38hhYRsZT54dyq7c3WndcswTCZVlwVMvWGE4bWezbXz6r57OZtdR1bX
+	3lpkUR2AIs9h1PW1353M+8ODhhBWH9ueZ25tUnouwQQq8n8IP+3JRSYVgmwudbuVJ26I/RNNul
+	ogs=
 WDCIronportException: Internal
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
-	by uls-op-cesaip02.wdc.com with ESMTP; 18 Jan 2021 21:08:07 -0800
+	by uls-op-cesaip02.wdc.com with ESMTP; 18 Jan 2021 21:08:14 -0800
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-block@vger.kernel.org, linux-xfs@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -74,8 +74,8 @@ To: linux-block@vger.kernel.org, linux-xfs@vger.kernel.org,
 	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
 	linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org,
 	cluster-devel@redhat.com
-Date: Mon, 18 Jan 2021 21:06:07 -0800
-Message-Id: <20210119050631.57073-14-chaitanya.kulkarni@wdc.com>
+Date: Mon, 18 Jan 2021 21:06:08 -0800
+Message-Id: <20210119050631.57073-15-chaitanya.kulkarni@wdc.com>
 In-Reply-To: <20210119050631.57073-1-chaitanya.kulkarni@wdc.com>
 References: <20210119050631.57073-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
@@ -87,7 +87,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
 X-Mailman-Approved-At: Tue, 19 Jan 2021 06:53:48 -0500
 Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net, snitzer@redhat.com,
@@ -101,8 +101,8 @@ Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net, snitzer@redhat.com,
 	tytso@mit.edu, martin.petersen@oracle.com, song@kernel.org,
 	philipp.reisner@linbit.com, jefflexu@linux.alibaba.com,
 	lars.ellenberg@linbit.com, jth@kernel.org, asml.silence@gmail.com
-Subject: [Cluster-devel] [RFC PATCH 13/37] drdb: use bio_init_fields in
-	actlog
+Subject: [Cluster-devel] [RFC PATCH 14/37] drdb: use bio_init_fields in
+	bitmap
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -126,28 +126,28 @@ Content-Type: text/plain; charset="US-ASCII"
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- drivers/block/drbd/drbd_actlog.c | 5 +----
+ drivers/block/drbd/drbd_bitmap.c | 5 +----
  1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/block/drbd/drbd_actlog.c b/drivers/block/drbd/drbd_actlog.c
-index 7227fc7ab8ed..733679cf456b 100644
---- a/drivers/block/drbd/drbd_actlog.c
-+++ b/drivers/block/drbd/drbd_actlog.c
-@@ -139,13 +139,10 @@ static int _drbd_md_sync_page_io(struct drbd_device *device,
- 	op_flags |= REQ_SYNC;
+diff --git a/drivers/block/drbd/drbd_bitmap.c b/drivers/block/drbd/drbd_bitmap.c
+index df53dca5d02c..4fd9746af469 100644
+--- a/drivers/block/drbd/drbd_bitmap.c
++++ b/drivers/block/drbd/drbd_bitmap.c
+@@ -1006,13 +1006,10 @@ static void bm_page_io_async(struct drbd_bm_aio_ctx *ctx, int page_nr) __must_ho
+ 		bm_store_page_idx(page, page_nr);
+ 	} else
+ 		page = b->bm_pages[page_nr];
+-	bio_set_dev(bio, device->ldev->md_bdev);
+-	bio->bi_iter.bi_sector = on_disk_sector;
++	bio_init_fields(bio, device->ldev->md_bdev, on_disk_sector, ctx, drbd_bm_endio, 0, 0);
+ 	/* bio_add_page of a single page to an empty bio will always succeed,
+ 	 * according to api.  Do we want to assert that? */
+ 	bio_add_page(bio, page, len, 0);
+-	bio->bi_private = ctx;
+-	bio->bi_end_io = drbd_bm_endio;
+ 	bio_set_op_attrs(bio, op, 0);
  
- 	bio = bio_alloc_drbd(GFP_NOIO);
--	bio_set_dev(bio, bdev->md_bdev);
--	bio->bi_iter.bi_sector = sector;
-+	bio_init_fields(bio, bdev->md_bdev, sector, device, drbd_md_endio, 0, 0);
- 	err = -EIO;
- 	if (bio_add_page(bio, device->md_io.page, size, 0) != size)
- 		goto out;
--	bio->bi_private = device;
--	bio->bi_end_io = drbd_md_endio;
- 	bio_set_op_attrs(bio, op, op_flags);
- 
- 	if (op != REQ_OP_WRITE && device->state.disk == D_DISKLESS && device->ldev == NULL)
+ 	if (drbd_insert_fault(device, (op == REQ_OP_WRITE) ? DRBD_FAULT_MD_WR : DRBD_FAULT_MD_RD)) {
 -- 
 2.22.1
 
