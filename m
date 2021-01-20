@@ -2,95 +2,173 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 64B432FC0AD
-	for <lists+cluster-devel@lfdr.de>; Tue, 19 Jan 2021 21:14:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1611087282;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=8TkMo+mkckZ7Wu1kMIRF9YBCR3axT/siRqTK6s4mfU0=;
-	b=WcB4U1Uob9RoKI7RqQPYhu4gCAkUM0OIp+h5Jv/zLyOCwPZrGoYiU1HorsDyc2c4XJUbg1
-	cNQtlhQxvyTup6Gbp5uQ7FRONw/W/X6jLcAeBOi2ioQsLhVNScJSBHJvQuzVt+jj1fTMEp
-	4Q0J1XDlMe3PjN2rk3kiiZuTObfOjEE=
+	by mail.lfdr.de (Postfix) with ESMTP id 9745B2FC8D7
+	for <lists+cluster-devel@lfdr.de>; Wed, 20 Jan 2021 04:28:43 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-120-rHM5I0VIM3a7s95vXeN4KQ-1; Tue, 19 Jan 2021 15:14:40 -0500
-X-MC-Unique: rHM5I0VIM3a7s95vXeN4KQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-336-Wdmm_N4rP42pIUOT1wJdzQ-1; Tue, 19 Jan 2021 22:28:40 -0500
+X-MC-Unique: Wdmm_N4rP42pIUOT1wJdzQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D4EB800D53;
-	Tue, 19 Jan 2021 20:14:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A89FA107ACE3;
+	Wed, 20 Jan 2021 03:28:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C3845D6AD;
-	Tue, 19 Jan 2021 20:14:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0232170955;
+	Wed, 20 Jan 2021 03:28:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 03C154BB7B;
-	Tue, 19 Jan 2021 20:14:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E77B14E58E;
+	Wed, 20 Jan 2021 03:28:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10JKERUO026011 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 19 Jan 2021 15:14:27 -0500
+	id 10K3SDEl006913 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 19 Jan 2021 22:28:13 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E49D0A9F34; Tue, 19 Jan 2021 20:14:26 +0000 (UTC)
+	id 711632026D11; Wed, 20 Jan 2021 03:28:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFB49A9F30
-	for <cluster-devel@redhat.com>; Tue, 19 Jan 2021 20:14:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A3042026D5D
+	for <cluster-devel@redhat.com>; Wed, 20 Jan 2021 03:28:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B12F0858EEC
-	for <cluster-devel@redhat.com>; Tue, 19 Jan 2021 20:14:24 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
-	[209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-436-3fwHN1LSNSWaD4Zfl_bZtw-1; Tue, 19 Jan 2021 15:14:23 -0500
-X-MC-Unique: 3fwHN1LSNSWaD4Zfl_bZtw-1
-Received: by mail-wm1-f71.google.com with SMTP id r1so371009wmn.8
-	for <cluster-devel@redhat.com>; Tue, 19 Jan 2021 12:14:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=8TkMo+mkckZ7Wu1kMIRF9YBCR3axT/siRqTK6s4mfU0=;
-	b=C851cshlpqyyUhvBpVn3zhtWNHJg0CsrlnWp+NP/CJvfgD2rsU9UhNNCCZ5NmwCzjC
-	vlu408pjRXHuoVV3X6HNq0X2YKUpTwjOm7rmvnTufEDXcQnS3SdqeNLXLTBPiGLGIgTb
-	chIXqF3ocEsF9Iuo5+7RvMKl99IZtkbAZudnlOCQI2z6z36xg2aeM+99Vp/SxjBCMXQA
-	prLAnvte7X8afZgD0MntrO97FE9lFjCq147uAFLfl5rLzF4c8dIrtXntvvOOaSAeje1h
-	EBfh2rFy3cWL5xGQdxk/DTJQzGbgA6DGck7O9J2ztFVCtkBj84nmbfrY/f7sAXSTk+vG
-	vMjQ==
-X-Gm-Message-State: AOAM53091tEZSqPsW+BLwBOedhpY/7klLErO7oE5QaQRKEEssWd+u5SI
-	XH+WLgRWztOHazRTLDkM5gNqUD2EA0m1Ktb59Bf5qOa4w4Dt5mu7Q8eT1HarSDOGmFMEFV1FVw3
-	OywQEUTAeheGp3JHzumXjPGH6SavOZYvQkUZWrg==
-X-Received: by 2002:a05:600c:4ec6:: with SMTP id
-	g6mr1227950wmq.2.1611087261633; 
-	Tue, 19 Jan 2021 12:14:21 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwFxWJxu0KZYv8F9UYdat794fpbz7fUgmlW0n8Uq+mfvjlj0FJPWlRqVjW6QzY8vVsMFBmvPxFb5Yai9wTe9g8=
-X-Received: by 2002:a05:600c:4ec6:: with SMTP id
-	g6mr1227940wmq.2.1611087261410; 
-	Tue, 19 Jan 2021 12:14:21 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6D79801207
+	for <cluster-devel@redhat.com>; Wed, 20 Jan 2021 03:28:10 +0000 (UTC)
+Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-593-1XRqnMYgMguN9LWkkg4EYg-1; Tue, 19 Jan 2021 22:28:06 -0500
+X-MC-Unique: 1XRqnMYgMguN9LWkkg4EYg-1
+IronPort-SDR: 5+xZGKwR+vWn59Bhi8mkKXqNz/iW4w9Vnu9yAMcqM7RBpWTonEGmyTXdWeHqap0mKuHzjPub3F
+	kgz6zEPhIoanstfyptbr7W4g57Bpiof0QZAMtTOoXa/rDvjPmSz0nab0wpZJcAry9GnAZ8+qcC
+	M3b7Rsuhp8LY8AgjbdN8oEFWgMWeg2ZnqeOsT8yp/K2it2xvQgYSpT/y5b9E/hAldiyfDW2Px3
+	/9Iq5djCd2PWE28ff0fVjFhEynFv3+Q3c6J+cJMdUYE1InGosCicYxFZO8mhm4eSrukifCaTdo
+	RGI=
+X-IronPort-AV: E=Sophos;i="5.79,360,1602518400"; d="scan'208";a="157859380"
+Received: from mail-bn8nam12lp2171.outbound.protection.outlook.com (HELO
+	NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.171])
+	by ob1.hgst.iphmx.com with ESMTP; 20 Jan 2021 11:27:58 +0800
+Received: from BYAPR04MB4965.namprd04.prod.outlook.com (2603:10b6:a03:4d::25)
+	by BYAPR04MB4872.namprd04.prod.outlook.com (2603:10b6:a03:42::27)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.11;
+	Wed, 20 Jan 2021 03:27:55 +0000
+Received: from BYAPR04MB4965.namprd04.prod.outlook.com
+	([fe80::716c:4e0c:c6d1:298a]) by
+	BYAPR04MB4965.namprd04.prod.outlook.com
+	([fe80::716c:4e0c:c6d1:298a%6]) with mapi id 15.20.3742.012;
+	Wed, 20 Jan 2021 03:27:55 +0000
+From: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
+To: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"drbd-dev@lists.linbit.com" <drbd-dev@tron.linbit.com>,
+	"linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>,
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
+	"linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+	"linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+	"cluster-devel@redhat.com" <cluster-devel@redhat.com>
+Thread-Topic: [RFC PATCH 00/37] block: introduce bio_init_fields()
+Thread-Index: AQHW7iDfXiv5iuHOl0mGSxMcJ7OwhA==
+Date: Wed, 20 Jan 2021 03:27:55 +0000
+Message-ID: <BYAPR04MB49652C7B57396757FF064C6686A20@BYAPR04MB4965.namprd04.prod.outlook.com>
+References: <20210119050631.57073-1-chaitanya.kulkarni@wdc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [199.255.45.62]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: a5b4c018-b955-4aff-42d9-08d8bcf3608a
+x-ms-traffictypediagnostic: BYAPR04MB4872:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BYAPR04MB48725C6EE06AE9513255BA5C86A29@BYAPR04MB4872.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:8882
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: lqw/FI7V3h3I7N6LUDiMWfhW2chPZ0fK5VoXZLC7RQTD04IRNr4lXPyMYMfMUREUCjhqbsEYNkR0i0ntiSZcIAZqmjdF57HMmj47+NooF42/0RPaWT26C5YZdfVo75rKokHq9PHjl7dxwLYdYsGdDfeeSENfAfCuDQ6aQWFFVFPiLrgilW2mfde9/lHnT4hAxNphtCZIW+V5C2Py1PVUDiHlYPv2SPmmXl7/djmz9Qbq0Nki1YnQIwziZVTKalwz+WddcgkSnLau7w5rNtFQH859+NQBj6hCuAnSQuBzU1mThUFpsvhXA0yfEbPr+mL40U7l2JqTnG571BQR+R+aM9sPYuQHp0BOzVNjTSR8vodGszQKXWhtLuuwquyO8nXZQjgc+4qjPKcH0W2oDvW51k7EwOI1xZ5LXvKta7v96r3le8A9o3BLdb2CfPmvgpU1Oft1BbJlI4NLPQmkxMqn6sK7khwZMWz9cxpawhQGe8pg2Ierz/Nis188soVv0v/o3jfWHv0lnergYaYQYoLOwQpy9PedA2SAlM0R2GY7OBp1nP3el2JC9YrwDPIXhkfu
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:BYAPR04MB4965.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(4636009)(346002)(136003)(366004)(396003)(376002)(39860400002)(83380400001)(8676002)(921005)(7416002)(64756008)(66446008)(54906003)(53546011)(7696005)(6506007)(71200400001)(86362001)(52536014)(2906002)(5660300002)(478600001)(76116006)(66556008)(66946007)(7406005)(33656002)(66476007)(110136005)(8936002)(316002)(186003)(4744005)(55016002)(26005)(9686003)(4326008);
+	DIR:OUT; SFP:1102
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?CYeIwzL7+LDwBcGUtwWpgfGZXas4/+HyoB5dQvzgRXUwabx1wNppES5QTFxT?=
+	=?us-ascii?Q?kMs/MvxFLYVZI5XqHFhuJeOq9onZPVWZNgeM1d1TVfokEb23W8IjRI9/kJQ8?=
+	=?us-ascii?Q?njDQexyJ0VEFzXOM2fBaNuy8G56NIO9iILmStR8rTXkc+GN1VWuYWqmyqz1p?=
+	=?us-ascii?Q?M8UvAerZCHQTENnAamWt49x4NLAfr9FFpZfux/lxafxQafyaTIS3nxDmer6n?=
+	=?us-ascii?Q?8JRBu5PudXaoLVCIX5TFxJ9BHaj5MvpPcwnMe9yBtbXqD1lRlqEUUHnvhwfK?=
+	=?us-ascii?Q?UIftvmnTQROjFbfkJXhZccpAoL/aq5AS0W+TYV2JB6qHUFtSaFLOv3m+7JSZ?=
+	=?us-ascii?Q?KB9qT49sztiW8OklmFBypBXzxVxH+sFpG6dedI3pzoiKl+1l+yv8lx+IHIc0?=
+	=?us-ascii?Q?bnPJo+pPjByH83zID56ASid+n3EMXQ+AQvu66L3G8/pfCvGGrwcnjiN+wYuE?=
+	=?us-ascii?Q?jgn5p46CJnUPI8fVsBvsOPPQvD6RahqlpOCKp6O2gNqlabFChMaHTa/HtLeg?=
+	=?us-ascii?Q?XaXE4rLcbgkaSWEuoLPG8GlN6LNp18Xjm2RS/25dq8vNTwk1NzTSmsv6RRZc?=
+	=?us-ascii?Q?IhQ78OnwWHRVLF+ZyQ9faxQPYis+oX25aE/PAdTk/AV3kke9/XNbjlyjz6sQ?=
+	=?us-ascii?Q?KIglOzm3XKue4E4mZ/Oc+2YadCcFDjxtp0hf2tyIs9TJL1r/GKvdcThyYVBL?=
+	=?us-ascii?Q?wRV66Eex1KUdgrzLeEjXT1fMhAelxL2Wq+SWqiZp6VmrBxF5LExsi7A+978r?=
+	=?us-ascii?Q?TGNkHEzmUVLuoOEUMQ5T44Jv1898R9lxeWj4JeItOojNBXT3Tq4OcRsZELf6?=
+	=?us-ascii?Q?R1dvqhysFLFxXmuVei/nYnRFepqrdE1rAIghfvG53HAVCMokkzIzD53g+VJu?=
+	=?us-ascii?Q?kM1xatRvJtNTqOB350/tIRKqR8GtrILKDN38GJ3VpbZ6v0ZDSUF2VCgTSLt7?=
+	=?us-ascii?Q?l91pWwrHQtmycz370urFgVYRNv18k5jQ1qOlRwMHa2D1aKdGKoCKPFMikA/F?=
+	=?us-ascii?Q?ocZw?=
 MIME-Version: 1.0
-References: <2125295377.38904313.1608669538740.JavaMail.zimbra@redhat.com>
-	<51252ca2-fa56-acb8-24cf-fb2e992f76de@redhat.com>
-	<561946972.42407585.1609776564024.JavaMail.zimbra@redhat.com>
-	<CAHc6FU7T5RzFhPWF_YbZY9a7+goVTPKrOybh46e12xe6zhL99Q@mail.gmail.com>
-	<1287886465.45164472.1611071084974.JavaMail.zimbra@redhat.com>
-	<CAHc6FU6sNa5CA1Q9deyuVhBA7RohHhb59m6PZ3-EMFueW6W6kg@mail.gmail.com>
-	<1238899263.45200782.1611080322302.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1238899263.45200782.1611080322302.JavaMail.zimbra@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 19 Jan 2021 21:14:10 +0100
-Message-ID: <CAHc6FU4Q52thggDKTA3Z7dJG1Viu=YgyQa05jCrtjo+_pvxhuw@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR04MB4965.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5b4c018-b955-4aff-42d9-08d8bcf3608a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2021 03:27:55.2569 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6GChSPAwRaJR+pnJ/NXEbGatSLvEkK5o5I/huExAKkTALRKQxBWJkWD8S6meD32zVWEaMR/TBIKWTtYqKFHLrIZporw6ZI089anAFL9wihk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB4872
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 10K3SDEl006913
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH] gfs2: make recovery workqueue
- operate on a gfs2 mount point, not journal
+Cc: "shaggy@kernel.org" <shaggy@kernel.org>,
+	"jfs-discussion@lists.sourceforge.net"
+	<jfs-discussion@lists.sourceforge.net>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"gustavo@embeddedor.com" <gustavo@embeddedor.com>,
+	"clm@fb.com" <clm@fb.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+	"hch@lst.de" <hch@lst.de>, Naohiro Aota <Naohiro.Aota@wdc.com>,
+	"sagi@grimberg.me" <sagi@grimberg.me>,
+	"darrick.wong@oracle.com" <darrick.wong@oracle.com>,
+	"osandov@fb.com" <osandov@fb.com>,
+	"kent.overstreet@gmail.com" <kent.overstreet@gmail.com>,
+	"josef@toxicpanda.com" <josef@toxicpanda.com>,
+	"efremov@linux.com" <efremov@linux.com>, "colyli@suse.de" <colyli@suse.de>,
+	"tj@kernel.org" <tj@kernel.org>,
+	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+	"dsterba@suse.com" <dsterba@suse.com>,
+	"bvanassche@acm.org" <bvanassche@acm.org>,
+	"axboe@kernel.dk" <axboe@kernel.dk>,
+	Moal <Damien.LeMoal@wdc.com>, "tytso@mit.edu" <tytso@mit.edu>,
+	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+	"song@kernel.org" <song@kernel.org>, Damien,
+	"philipp.reisner@linbit.com" <philipp.reisner@linbit.com>,
+	"jefflexu@linux.alibaba.com" <jefflexu@linux.alibaba.com>,
+	"lars.ellenberg@linbit.com" <lars.ellenberg@linbit.com>,
+	"jth@kernel.org" <jth@kernel.org>,
+	"asml.silence@gmail.com" <asml.silence@gmail.com>
+Subject: Re: [Cluster-devel] [RFC PATCH 00/37] block: introduce
+	bio_init_fields()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,72 +182,35 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jan 19, 2021 at 7:18 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> ----- Original Message -----
-> > On Tue, Jan 19, 2021 at 4:44 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> > > Sure, the recovery workers' bio allocations and submitting may be
-> > > serialized,
-> > > but that's where it ends. The recovery workers don't prevent races with
-> > > each
-> > > other when using the variable common to all of them: sdp->sd_log_bio.
-> > > This is the case when there are, for example, 5 journals with 5 different
-> > > recovery workers, all trying to use the same sdp->sd_log_bio at the same
-> > > time.
-> >
-> > Well, sdp->sd_log_bio obviously needs to be moved to a per-journal context.
+On 1/18/21 21:06, Chaitanya Kulkarni wrote:
+> Hi,
 >
-> I tried that and it didn't end well. If we keep multiple bio pointers, each
-> recovery worker still needs to make sure all the other bios are submitted
-> before allocating a new one. Sure, it could make sure _its_ previous bio was
-> submitted, and the others would be serialized, but there are cases in which
-> they can run out of bios. Yes, I saw this.
-
-This doesn't make sense. If you've seen starvation, it must have been
-for another reason.
-
-> This can happen, for example,
-> when you have 60 gfs2 mounts times 5 nodes, with lots of workers requesting
-> lots of bios at the same time. Unless, of course, we allocate unique bio_sets
-> that get their own slabs, etc. We can introduce spinlock locking or something
-> to manage this, but when I tried it, I found multiple scenarios that deadlock.
-> It gets ugly really fast.
-
-As long as each worker makes sure it doesn't allocate another bio
-before submitting its previous bio, it doesn't matter how many workers
-there are or what state they're in. They will still make progress as
-long as they can allocate at least one bio overall.
-
-> In practice, when multiple nodes in a cluster go down, their journals are
-> recovered by several of the remaining cluster nodes, which means they happen
-> simultaneously anyway, and pretty quickly. In my case, I've got 5 nodes and
-> 2 of them get shot, so the remaining 3 nodes do the journal recovery, and
-> I've never seen them conflict with one another. Their glocks seem to distribute
-> the work well.
+> This is a *compile only RFC* which adds a generic helper to initialize
+> the various fields of the bio that is repeated all the places in
+> file-systems, block layer, and drivers.
 >
-> The only time you're really going to see multiple journals recovered by the
-> same node (for the same file systems anyway) is when the cluster loses quorum.
-> Then when quorum is regained, there is often a burst of requests to recover
-> multiple journals on the same few nodes. Then the same node often tries to
-> recover several journals for several file systems.
+> The new helper allows callers to initialize various members such as
+> bdev, sector, private, end io callback, io priority, and write hints.
 >
-> So the circumstances are unusual to begin with. But also very recreatable.
+> The objective of this RFC is to only start a discussion, this it not 
+> completely tested at all.                                                                                                            
+> Following diff shows code level benefits of this helper :-
+>  38 files changed, 124 insertions(+), 236 deletions(-)
 >
-> What's wrong with a single worker that handles them all? What's your actual
-> concern with doing it this way? Is it performance? Who cares if journal
-> recovery takes 1.4 seconds rather than 1.2 seconds?
+> -ck
+Thanks for replying Mike, Josef and Christoph.
 
-It was Steve who questioned if serializing recovery in that way was a
-reasonable change. I don't know if recovering multiple journals on the
-same node in parallel is very useful. But I also don't buy your bio
-starvation argument.
+I'll move forward with Christoph's suggestion and get rid of
+optional parameters which is making this API hard to use.
 
-Thanks,
-Andreas
+
 
