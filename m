@@ -2,8 +2,8 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 058823065B3
-	for <lists+cluster-devel@lfdr.de>; Wed, 27 Jan 2021 22:11:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6416F3065B6
+	for <lists+cluster-devel@lfdr.de>; Wed, 27 Jan 2021 22:11:58 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1611781917;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
@@ -12,47 +12,47 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bR+qMM2G5qG7z2kt9DZDMSSqNUW9JcmNttP1pqsuxns=;
-	b=g0oylxAx4EyLpAvTdDGb92z7M9QwaPblO22Yogp+Ofzwf7IDN8gzVVS1IWAWOW3odcIjHO
-	l9VTLKtmR/SvEnB4WwrQVBYdDBVcFaBlaU+/MHyYga96kjsB97vJtJa1IoHalXCg3eBvLn
-	5U8BFSamRsykNzzHhqkzE8Zy14nqhSw=
+	bh=EtFZm1RfuLxX3AoGrQFllBexpp+H/PwUpbZNbpGB3Kc=;
+	b=GHW+/O4yH1/kcJtRfasMnfnhQfEbtsvsf7wLeqFSIBKDX6+SoQPM3BC0majrN2A/H5ljxs
+	LK+XrKz/4phhqKMsZrd9Ukzp+eE001BWtUbNsTWMF6uybGRv/0UrKsXwpLQUwCV4Wu9JU4
+	tYQ1shc7HFjKQ8RZ8/X1eojbAtcyfbc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-172-JveozTquNY-R5nKGQ4rpbg-1; Wed, 27 Jan 2021 16:11:55 -0500
-X-MC-Unique: JveozTquNY-R5nKGQ4rpbg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-596-X98ZzgpiM_6lM5BQvC0Usw-1; Wed, 27 Jan 2021 16:11:56 -0500
+X-MC-Unique: X98ZzgpiM_6lM5BQvC0Usw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACAE7911E4;
-	Wed, 27 Jan 2021 21:11:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B0DF104B52C;
-	Wed, 27 Jan 2021 21:11:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F35161005504;
+	Wed, 27 Jan 2021 21:11:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0FCF6B545;
+	Wed, 27 Jan 2021 21:11:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8698D1809CA9;
-	Wed, 27 Jan 2021 21:11:51 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C34CA50039;
+	Wed, 27 Jan 2021 21:11:52 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10RL8CDf013873 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 27 Jan 2021 16:08:12 -0500
+	id 10RL8DY6013882 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 27 Jan 2021 16:08:13 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C6541702D0; Wed, 27 Jan 2021 21:08:12 +0000 (UTC)
+	id E8CA77047C; Wed, 27 Jan 2021 21:08:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.home.com (unknown [10.40.195.75])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0F2B36F92A;
-	Wed, 27 Jan 2021 21:08:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2C6A86F92A;
+	Wed, 27 Jan 2021 21:08:12 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Wed, 27 Jan 2021 22:07:42 +0100
-Message-Id: <20210127210746.16958-17-agruenba@redhat.com>
+Date: Wed, 27 Jan 2021 22:07:43 +0100
+Message-Id: <20210127210746.16958-18-agruenba@redhat.com>
 In-Reply-To: <20210127210746.16958-1-agruenba@redhat.com>
 References: <20210127210746.16958-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH v3 16/20] gfs2: No revokes for transactions
-	at the tail of the log
+Subject: [Cluster-devel] [PATCH v3 17/20] gfs2: Remove
+	sd_log_committed_revoke
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +66,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,97 +74,95 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-In gfs2_log_flush, we're going through all active transactions.  For
-each of the buffers in those transactions that has completed, we either
-add a revoke to the active transaction immediately, or we move the
-buffer to the transaction's ail2 list, which may result in a revoke
-later.
-
-However, whenever a transaction at the tail of the log completes, the
-current tail of the log advances.  gfs2_log_flush writes out the log
-header for the system transaction, with lh_tail set to that current tail
-(sd_log_flush_head).  This implicitly revokes all previous blocks in the
-log, so the revokes we've just written immediately become obsolete.
-(This is not the case for transactions that haven't completed or aren't
-at the tail of the log.)
-
-Fix this by skipping completed transactions at the tail of the log
-instead of writing revokes for them.
+In gfs2_trans_end -> gfs2_log_commit -> gfs2_log_refund, if we don't have a
+system transaction, always attach the new transaction even if it only accounts
+for revokes.  That way, tr_num_revoke - tr_num_revoke_rm in the system transaction
+(sdp->sd_log_tr) will be the number of revokes committed so far, and we can use
+that in calc_reserved instead.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/log.c | 30 ++++++++++++++++++++++++------
- 1 file changed, 24 insertions(+), 6 deletions(-)
+ fs/gfs2/incore.h |  1 -
+ fs/gfs2/log.c    | 27 ++++++++++-----------------
+ 2 files changed, 10 insertions(+), 18 deletions(-)
 
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index fdf4d942bb1d..3589d02d1df9 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -820,7 +820,6 @@ struct gfs2_sbd {
+ 
+ 	struct gfs2_trans *sd_log_tr;
+ 	unsigned int sd_log_blks_reserved;
+-	int sd_log_committed_revoke;
+ 
+ 	atomic_t sd_log_pinned;
+ 	unsigned int sd_log_num_revoke;
 diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index f3b11bb78614..1fdc3b0dee5e 100644
+index 1fdc3b0dee5e..1ce4300aa81a 100644
 --- a/fs/gfs2/log.c
 +++ b/fs/gfs2/log.c
-@@ -287,16 +287,34 @@ static void gfs2_ail_empty_tr(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
-  * @tr: the transaction
-  * @max_revokes: If nonzero, issue revokes for the bd items for written buffers
-  *
-- * returns: the transaction's count of remaining active items
-+ * Returns: true if the transaction has completed
-  */
- 
--static int gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
-+static bool gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
- 				int *max_revokes)
+@@ -564,21 +564,15 @@ static inline unsigned int log_distance(struct gfs2_sbd *sdp, unsigned int newer
+ static unsigned int calc_reserved(struct gfs2_sbd *sdp)
  {
- 	struct gfs2_bufdata *bd, *s;
- 	struct buffer_head *bh;
--	int active_count = 0;
-+	bool empty;
+ 	unsigned int reserved = 0;
+-	unsigned int mbuf;
+-	unsigned int dbuf;
++	unsigned int blocks;
+ 	struct gfs2_trans *tr = sdp->sd_log_tr;
  
-+	if (!sdp->sd_log_error) {
-+		empty = true;
-+		list_for_each_entry_reverse(bd, &tr->tr_ail1_list, bd_ail_st_list) {
-+			bh = bd->bd_bh;
-+
-+			if (buffer_busy(bh) || !list_empty(&bd->bd_list)) {
-+				empty = false;
-+				break;
-+			}
-+		}
-+		if (empty) {
-+			gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail1_list);
-+			gfs2_ail_empty_tr(sdp, tr, &tr->tr_ail2_list);
-+			return empty;
-+		}
-+	}
-+
-+	empty = true;
- 	list_for_each_entry_safe_reverse(bd, s, &tr->tr_ail1_list,
- 					 bd_ail_st_list) {
- 		bh = bd->bd_bh;
-@@ -311,7 +329,7 @@ static int gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
- 		 * for others.
- 		 */
- 		if (!sdp->sd_log_error && buffer_busy(bh)) {
--			active_count++;
-+			empty = false;
- 			continue;
- 		}
- 		if (!buffer_uptodate(bh) &&
-@@ -332,7 +350,7 @@ static int gfs2_ail1_empty_one(struct gfs2_sbd *sdp, struct gfs2_trans *tr,
- 		}
- 		list_move(&bd->bd_ail_st_list, &tr->tr_ail2_list);
- 	}
--	return active_count;
-+	return empty;
- }
+-	if (tr) {
+-		mbuf = tr->tr_num_buf_new - tr->tr_num_buf_rm;
+-		dbuf = tr->tr_num_databuf_new - tr->tr_num_databuf_rm;
+-		reserved = mbuf + dbuf;
+-		/* Account for header blocks */
+-		reserved += DIV_ROUND_UP(mbuf, buf_limit(sdp));
+-		reserved += DIV_ROUND_UP(dbuf, databuf_limit(sdp));
+-	}
+-
+-	if (sdp->sd_log_committed_revoke > 0)
+-		reserved += gfs2_struct2blk(sdp, sdp->sd_log_committed_revoke);
++	blocks = tr->tr_num_buf_new - tr->tr_num_buf_rm;
++	reserved += blocks + DIV_ROUND_UP(blocks, buf_limit(sdp));
++	blocks = tr->tr_num_databuf_new - tr->tr_num_databuf_rm;
++	reserved += blocks + DIV_ROUND_UP(blocks, databuf_limit(sdp));
++	if (tr->tr_num_revoke - tr->tr_num_revoke_rm)
++		reserved += gfs2_struct2blk(sdp, tr->tr_num_revoke - tr->tr_num_revoke_rm);
+ 	/* One for the overall header */
+ 	if (reserved)
+ 		reserved++;
+@@ -997,7 +991,8 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
+ 		if (gfs2_assert_withdraw_delayed(sdp, !sdp->sd_log_num_revoke))
+ 			goto out_withdraw;
+ 	if (gfs2_assert_withdraw_delayed(sdp,
+-			sdp->sd_log_num_revoke == sdp->sd_log_committed_revoke))
++			sdp->sd_log_num_revoke ==
++			(tr ? tr->tr_num_revoke - tr->tr_num_revoke_rm : 0)))
+ 		goto out_withdraw;
  
- /**
-@@ -351,7 +369,7 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp, int max_revokes)
+ 	gfs2_ordered_write(sdp);
+@@ -1025,7 +1020,6 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
+ 	gfs2_log_lock(sdp);
+ 	gfs2_log_update_head(sdp);
+ 	sdp->sd_log_blks_reserved = 0;
+-	sdp->sd_log_committed_revoke = 0;
  
  	spin_lock(&sdp->sd_ail_lock);
- 	list_for_each_entry_safe_reverse(tr, s, &sdp->sd_ail1_list, tr_list) {
--		if (!gfs2_ail1_empty_one(sdp, tr, &max_revokes) && oldest_tr)
-+		if (gfs2_ail1_empty_one(sdp, tr, &max_revokes) && oldest_tr)
- 			list_move(&tr->tr_list, &sdp->sd_ail2_list);
- 		else
- 			oldest_tr = 0;
+ 	if (tr && !list_empty(&tr->tr_ail1_list)) {
+@@ -1116,12 +1110,11 @@ static void log_refund(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
+ 
+ 	if (sdp->sd_log_tr) {
+ 		gfs2_merge_trans(sdp, tr);
+-	} else if (tr->tr_num_buf_new || tr->tr_num_databuf_new) {
++	} else {
+ 		sdp->sd_log_tr = tr;
+ 		set_bit(TR_ATTACHED, &tr->tr_flags);
+ 	}
+ 
+-	sdp->sd_log_committed_revoke += tr->tr_num_revoke - tr->tr_num_revoke_rm;
+ 	reserved = calc_reserved(sdp);
+ 	maxres = sdp->sd_log_blks_reserved + tr->tr_reserved;
+ 	gfs2_assert_withdraw(sdp, maxres >= reserved);
 -- 
 2.26.2
 
