@@ -2,57 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 074D830E1E9
-	for <lists+cluster-devel@lfdr.de>; Wed,  3 Feb 2021 19:08:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 58BB430E1E3
+	for <lists+cluster-devel@lfdr.de>; Wed,  3 Feb 2021 19:08:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612375695;
+	s=mimecast20190719; t=1612375693;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tanOn66AMHhac3hgzo7oKCWiirZhpRtGw+zE/OEPGlA=;
-	b=bp9hiNfWplUeWh5M4vhI7Pv4K9I2CctlIFBac3tP4mt82eHYkEhnCeaOpmYfQVkA6cAP2X
-	f3FVmaFuu4BVnhNJE9Mxhqbxz9tk54Fp5busxE2rmJIVM17sLbnCMFs1CLpgWN4qj5s3Dh
-	XzHnic+MPy2QflkQQcsDRwVgGk2FiCw=
+	bh=8V0kqgo5knokp5EvckWxTsgV2ysIUC0y/TcUtK2cnTQ=;
+	b=QCr0rYe+vEyVS/kXYE7tHL6tWI1xA5FI2G1pM4tTlNPQjNk0w12Gq87sggDNS18ULPQe0x
+	LLWuwM2vY5TK4UFiu6talZMMKEgu3lVZvzbzXajo3kWvxz7zOLVhHWR/JzjiGu8qQbSrph
+	QtDFxDZm7w29InIZRw6D1DHwH8jBOHU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-516-iMnLpjCYMXaJzYPU6xELNQ-1; Wed, 03 Feb 2021 13:08:11 -0500
-X-MC-Unique: iMnLpjCYMXaJzYPU6xELNQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-328-csGUlac8NdeNlqXSZ1wXrg-1; Wed, 03 Feb 2021 13:08:11 -0500
+X-MC-Unique: csGUlac8NdeNlqXSZ1wXrg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 29A8EAFA90;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A5C13100F347;
 	Wed,  3 Feb 2021 18:08:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 196F960BFA;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 942D4722CE;
 	Wed,  3 Feb 2021 18:08:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 677D118095CD;
-	Wed,  3 Feb 2021 18:08:08 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 76C6818095CC;
+	Wed,  3 Feb 2021 18:08:09 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 113I83TN028516 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Feb 2021 13:08:03 -0500
+	id 113I84GZ028531 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 13:08:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E2AA43828; Wed,  3 Feb 2021 18:08:03 +0000 (UTC)
+	id E851C6F97A; Wed,  3 Feb 2021 18:08:04 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.com (ovpn-112-155.ams2.redhat.com [10.36.112.155])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A53460D07;
-	Wed,  3 Feb 2021 18:08:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 402E43828;
+	Wed,  3 Feb 2021 18:08:04 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Wed,  3 Feb 2021 19:07:38 +0100
-Message-Id: <20210203180755.246596-4-agruenba@redhat.com>
+Date: Wed,  3 Feb 2021 19:07:39 +0100
+Message-Id: <20210203180755.246596-5-agruenba@redhat.com>
 In-Reply-To: <20210203180755.246596-1-agruenba@redhat.com>
 References: <20210203180755.246596-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH v4 03/20] gfs2: Minor gfs2_write_revokes
-	cleanups
+Subject: [Cluster-devel] [PATCH v4 04/20] gfs2: Some documentation updates
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +65,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,34 +73,74 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Clean up the computations in gfs2_write_revokes (no change in functionality).
+The calc_reserved description claims that buf_limit is 502 (on 4k
+filesystems), but it is actually 503.  Fix / clarify the entire
+description.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/log.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ fs/gfs2/log.c | 24 +++++++++++-------------
+ 1 file changed, 11 insertions(+), 13 deletions(-)
 
 diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index 2e9314091c81..ccce17fe605f 100644
+index ccce17fe605f..12e8280f0806 100644
 --- a/fs/gfs2/log.c
 +++ b/fs/gfs2/log.c
-@@ -712,11 +712,13 @@ void gfs2_glock_remove_revoke(struct gfs2_glock *gl)
- void gfs2_write_revokes(struct gfs2_sbd *sdp)
- {
- 	/* number of revokes we still have room for */
--	int max_revokes = (sdp->sd_sb.sb_bsize - sizeof(struct gfs2_log_descriptor)) / sizeof(u64);
-+	unsigned int max_revokes;
+@@ -50,10 +50,12 @@ unsigned int gfs2_struct2blk(struct gfs2_sbd *sdp, unsigned int nstruct)
+ 	unsigned int blks;
+ 	unsigned int first, second;
  
- 	gfs2_log_lock(sdp);
--	while (sdp->sd_log_num_revoke > max_revokes)
--		max_revokes += (sdp->sd_sb.sb_bsize - sizeof(struct gfs2_meta_header)) / sizeof(u64);
-+	max_revokes = sdp->sd_ldptrs;
-+	if (sdp->sd_log_num_revoke > sdp->sd_ldptrs)
-+		max_revokes += roundup(sdp->sd_log_num_revoke - sdp->sd_ldptrs,
-+				       sdp->sd_inptrs);
- 	max_revokes -= sdp->sd_log_num_revoke;
- 	if (!sdp->sd_log_num_revoke) {
- 		atomic_dec(&sdp->sd_log_blks_free);
++	/* The initial struct gfs2_log_descriptor block */
+ 	blks = 1;
+ 	first = sdp->sd_ldptrs;
+ 
+ 	if (nstruct > first) {
++		/* Subsequent struct gfs2_meta_header blocks */
+ 		second = sdp->sd_inptrs;
+ 		blks += DIV_ROUND_UP(nstruct - first, second);
+ 	}
+@@ -507,24 +509,20 @@ static inline unsigned int log_distance(struct gfs2_sbd *sdp, unsigned int newer
+ }
+ 
+ /**
+- * calc_reserved - Calculate the number of blocks to reserve when
+- *                 refunding a transaction's unused buffers.
++ * calc_reserved - Calculate the number of blocks to keep reserved
+  * @sdp: The GFS2 superblock
+  *
+  * This is complex.  We need to reserve room for all our currently used
+- * metadata buffers (e.g. normal file I/O rewriting file time stamps) and 
+- * all our journaled data buffers for journaled files (e.g. files in the 
++ * metadata blocks (e.g. normal file I/O rewriting file time stamps) and
++ * all our journaled data blocks for journaled files (e.g. files in the
+  * meta_fs like rindex, or files for which chattr +j was done.)
+- * If we don't reserve enough space, gfs2_log_refund and gfs2_log_flush
+- * will count it as free space (sd_log_blks_free) and corruption will follow.
++ * If we don't reserve enough space, corruption will follow.
+  *
+- * We can have metadata bufs and jdata bufs in the same journal.  So each
+- * type gets its own log header, for which we need to reserve a block.
+- * In fact, each type has the potential for needing more than one header 
+- * in cases where we have more buffers than will fit on a journal page.
++ * We can have metadata blocks and jdata blocks in the same journal.  Each
++ * type gets its own log descriptor, for which we need to reserve a block.
++ * In fact, each type has the potential for needing more than one log descriptor
++ * in cases where we have more blocks than will fit in a log descriptor.
+  * Metadata journal entries take up half the space of journaled buffer entries.
+- * Thus, metadata entries have buf_limit (502) and journaled buffers have
+- * databuf_limit (251) before they cause a wrap around.
+  *
+  * Also, we need to reserve blocks for revoke journal entries and one for an
+  * overall header for the lot.
+@@ -1008,7 +1006,7 @@ void gfs2_log_flush(struct gfs2_sbd *sdp, struct gfs2_glock *gl, u32 flags)
+ 	if (sdp->sd_log_head != sdp->sd_log_flush_head) {
+ 		log_flush_wait(sdp);
+ 		log_write_header(sdp, flags);
+-	} else if (sdp->sd_log_tail != current_tail(sdp) && !sdp->sd_log_idle){
++	} else if (sdp->sd_log_tail != current_tail(sdp) && !sdp->sd_log_idle) {
+ 		atomic_dec(&sdp->sd_log_blks_free); /* Adjust for unreserved buffer */
+ 		trace_gfs2_log_blocks(sdp, -1);
+ 		log_write_header(sdp, flags);
 -- 
 2.26.2
 
