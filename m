@@ -1,58 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DC11E30E1F2
-	for <lists+cluster-devel@lfdr.de>; Wed,  3 Feb 2021 19:08:18 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 73CD830E1F0
+	for <lists+cluster-devel@lfdr.de>; Wed,  3 Feb 2021 19:08:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612375698;
+	s=mimecast20190719; t=1612375696;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=J7I1Mw1FxvxvHmQUALsDlSe9CHblNx/LXSP3FNjaT/I=;
-	b=Yj0fQKMVHRf67S+61olhApQqZ6J8cdtGRpVVDT6rMUTU8uNzdDtW0w26pECKzJvFreO4rf
-	4464tnJSkNSTx9bqrTjLdr8wEk5VurPSh6r7iZC74x2JEURfJB+mqzMxjdj+m1Abj/t47V
-	sKkTO44aeIVLZj/g4hquEDdHBOKevtk=
+	bh=KuLZ9lq1+6DDIsRQQQ+RdQYRnAFFxQ49tUuU45kuuoE=;
+	b=HfKG4uTpqT4jgN7U6WvrzZpgTzQh+BKs4xaIJLRRz1yJX8GFI2ypAivWc7rR05fOB+wYuQ
+	hX0NV7fR73bpHK/I3eUhfGjiSGewSEjpwky/j3XJLsN8C2uw+Mbgub/vb4XPZu9gWqVq35
+	Q9CvpnLHyGy8c3N/ZRz710NDrrL5O0c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-171-tiLx9M5SNcmwyk1QV6HBKw-1; Wed, 03 Feb 2021 13:08:16 -0500
-X-MC-Unique: tiLx9M5SNcmwyk1QV6HBKw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-374-_CLS85XpM3qp44sNg6wYdw-1; Wed, 03 Feb 2021 13:08:15 -0500
+X-MC-Unique: _CLS85XpM3qp44sNg6wYdw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 92737801963;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC3C9801966;
 	Wed,  3 Feb 2021 18:08:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8039450DE3;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB0545B698;
 	Wed,  3 Feb 2021 18:08:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 65AFA57DFD;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C725718095CD;
 	Wed,  3 Feb 2021 18:08:12 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 113I8AIw028588 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Feb 2021 13:08:10 -0500
+	id 113I8BGJ028600 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 13:08:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 22B84709B7; Wed,  3 Feb 2021 18:08:10 +0000 (UTC)
+	id 2DDF46F97A; Wed,  3 Feb 2021 18:08:11 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.com (ovpn-112-155.ams2.redhat.com [10.36.112.155])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6BC5260D07;
-	Wed,  3 Feb 2021 18:08:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 774BD60D07;
+	Wed,  3 Feb 2021 18:08:10 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Wed,  3 Feb 2021 19:07:44 +0100
-Message-Id: <20210203180755.246596-10-agruenba@redhat.com>
+Date: Wed,  3 Feb 2021 19:07:45 +0100
+Message-Id: <20210203180755.246596-11-agruenba@redhat.com>
 In-Reply-To: <20210203180755.246596-1-agruenba@redhat.com>
 References: <20210203180755.246596-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH v4 09/20] gfs2: Clean up on-stack
-	transactions
+Subject: [Cluster-devel] [PATCH v4 10/20] gfs2: Get rid of sd_reserving_log
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +65,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,208 +73,146 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Replace the TR_ALLOCED flag by its inverse, TR_ONSTACK: that way, the flag only
-needs to be set in the exceptional case of on-stack transactions.  Split off
-__gfs2_trans_begin from gfs2_trans_begin and use it to replace the open-coded
-version in gfs2_ail_empty_gl.
+This counter and the associated wait queue are only used so that
+gfs2_make_fs_ro can efficiently wait for all pending log space
+allocations to fail after setting the filesystem to read-only.  This
+comes at the cost of waking up that wait queue very frequently.
+
+Instead, when gfs2_log_reserve fails because the filesystem has become
+read-only, Wake up sd_log_waitq.  In gfs2_make_fs_ro, set the file
+system read-only and then wait until all the log space has been
+released.  Give up and report the problem after a while.  With that,
+sd_reserving_log and sd_reserving_log_wait can be removed.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/glops.c  | 33 ++++++++++-----------------------
- fs/gfs2/incore.h |  2 +-
- fs/gfs2/log.c    |  2 +-
- fs/gfs2/trans.c  | 40 +++++++++++++++++++++++-----------------
- fs/gfs2/trans.h  |  3 +++
- 5 files changed, 38 insertions(+), 42 deletions(-)
+ fs/gfs2/incore.h     |  3 ---
+ fs/gfs2/log.c        | 17 ++++++++++-------
+ fs/gfs2/log.h        |  1 +
+ fs/gfs2/ops_fstype.c |  2 --
+ fs/gfs2/super.c      | 12 ++++++------
+ fs/gfs2/trans.c      |  2 ++
+ 6 files changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index fd1f52fff170..a067924341e3 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -86,16 +86,12 @@ static int gfs2_ail_empty_gl(struct gfs2_glock *gl)
- {
- 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
- 	struct gfs2_trans tr;
-+	unsigned int revokes;
- 	int ret;
- 
--	memset(&tr, 0, sizeof(tr));
--	INIT_LIST_HEAD(&tr.tr_buf);
--	INIT_LIST_HEAD(&tr.tr_databuf);
--	INIT_LIST_HEAD(&tr.tr_ail1_list);
--	INIT_LIST_HEAD(&tr.tr_ail2_list);
--	tr.tr_revokes = atomic_read(&gl->gl_ail_count);
-+	revokes = atomic_read(&gl->gl_ail_count);
- 
--	if (!tr.tr_revokes) {
-+	if (!revokes) {
- 		bool have_revokes;
- 		bool log_in_flight;
- 
-@@ -122,23 +118,14 @@ static int gfs2_ail_empty_gl(struct gfs2_glock *gl)
- 		return 0;
- 	}
- 
--	/* A shortened, inline version of gfs2_trans_begin()
--         * tr->alloced is not set since the transaction structure is
--         * on the stack */
--	tr.tr_reserved = 1 + gfs2_struct2blk(sdp, tr.tr_revokes);
--	tr.tr_ip = _RET_IP_;
--	sb_start_intwrite(sdp->sd_vfs);
--	ret = gfs2_log_reserve(sdp, tr.tr_reserved);
--	if (ret < 0) {
--		sb_end_intwrite(sdp->sd_vfs);
--		return ret;
--	}
--	WARN_ON_ONCE(current->journal_info);
--	current->journal_info = &tr;
--
--	__gfs2_ail_flush(gl, 0, tr.tr_revokes);
--
-+	memset(&tr, 0, sizeof(tr));
-+	set_bit(TR_ONSTACK, &tr.tr_flags);
-+	ret = __gfs2_trans_begin(&tr, sdp, 0, revokes, _RET_IP_);
-+	if (ret)
-+		goto flush;
-+	__gfs2_ail_flush(gl, 0, revokes);
- 	gfs2_trans_end(sdp);
-+
- flush:
- 	gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
- 		       GFS2_LFC_AIL_EMPTY_GL);
 diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index 8e1ab8ed4abc..c3f6dd378b10 100644
+index c3f6dd378b10..8f8676cf72ed 100644
 --- a/fs/gfs2/incore.h
 +++ b/fs/gfs2/incore.h
-@@ -490,7 +490,7 @@ struct gfs2_quota_data {
- enum {
- 	TR_TOUCHED = 1,
- 	TR_ATTACHED = 2,
--	TR_ALLOCED = 3,
-+	TR_ONSTACK = 3,
- };
+@@ -849,9 +849,6 @@ struct gfs2_sbd {
+ 	int sd_log_error; /* First log error */
+ 	wait_queue_head_t sd_withdraw_wait;
  
- struct gfs2_trans {
+-	atomic_t sd_reserving_log;
+-	wait_queue_head_t sd_reserving_log_wait;
+-
+ 	unsigned int sd_log_flush_head;
+ 
+ 	spinlock_t sd_ail_lock;
 diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index e4dc23a24569..0fceb60907a2 100644
+index 0fceb60907a2..0da05492e8b8 100644
 --- a/fs/gfs2/log.c
 +++ b/fs/gfs2/log.c
-@@ -1114,7 +1114,7 @@ static void log_refund(struct gfs2_sbd *sdp, struct gfs2_trans *tr)
- 	if (sdp->sd_log_tr) {
- 		gfs2_merge_trans(sdp, tr);
- 	} else if (tr->tr_num_buf_new || tr->tr_num_databuf_new) {
--		gfs2_assert_withdraw(sdp, test_bit(TR_ALLOCED, &tr->tr_flags));
-+		gfs2_assert_withdraw(sdp, !test_bit(TR_ONSTACK, &tr->tr_flags));
- 		sdp->sd_log_tr = tr;
- 		set_bit(TR_ATTACHED, &tr->tr_flags);
+@@ -397,6 +397,15 @@ static void ail2_empty(struct gfs2_sbd *sdp, unsigned int new_tail)
+ 	spin_unlock(&sdp->sd_ail_lock);
+ }
+ 
++/**
++ * gfs2_log_is_empty - Check if the log is empty
++ * @sdp: The GFS2 superblock
++ */
++
++bool gfs2_log_is_empty(struct gfs2_sbd *sdp) {
++	return atomic_read(&sdp->sd_log_blks_free) == sdp->sd_jdesc->jd_blocks;
++}
++
+ /**
+  * gfs2_log_release - Release a given number of log blocks
+  * @sdp: The GFS2 superblock
+@@ -461,13 +470,9 @@ int gfs2_log_reserve(struct gfs2_sbd *sdp, unsigned int blks)
+ 		} while(free_blocks <= wanted);
+ 		finish_wait(&sdp->sd_log_waitq, &wait);
  	}
+-	atomic_inc(&sdp->sd_reserving_log);
+ 	if (atomic_cmpxchg(&sdp->sd_log_blks_free, free_blocks,
+-				free_blocks - blks) != free_blocks) {
+-		if (atomic_dec_and_test(&sdp->sd_reserving_log))
+-			wake_up(&sdp->sd_reserving_log_wait);
++				free_blocks - blks) != free_blocks)
+ 		goto retry;
+-	}
+ 	atomic_sub(blks, &sdp->sd_log_blks_needed);
+ 	trace_gfs2_log_blocks(sdp, -blks);
+ 
+@@ -483,8 +488,6 @@ int gfs2_log_reserve(struct gfs2_sbd *sdp, unsigned int blks)
+ 		gfs2_log_release(sdp, blks);
+ 		ret = -EROFS;
+ 	}
+-	if (atomic_dec_and_test(&sdp->sd_reserving_log))
+-		wake_up(&sdp->sd_reserving_log_wait);
+ 	return ret;
+ }
+ 
+diff --git a/fs/gfs2/log.h b/fs/gfs2/log.h
+index a9cdbc990edf..16efbe614279 100644
+--- a/fs/gfs2/log.h
++++ b/fs/gfs2/log.h
+@@ -64,6 +64,7 @@ static inline void gfs2_ordered_add_inode(struct gfs2_inode *ip)
+ extern void gfs2_ordered_del_inode(struct gfs2_inode *ip);
+ extern unsigned int gfs2_struct2blk(struct gfs2_sbd *sdp, unsigned int nstruct);
+ extern void gfs2_remove_from_ail(struct gfs2_bufdata *bd);
++extern bool gfs2_log_is_empty(struct gfs2_sbd *sdp);
+ extern void gfs2_log_release(struct gfs2_sbd *sdp, unsigned int blks);
+ extern int gfs2_log_reserve(struct gfs2_sbd *sdp, unsigned int blks);
+ extern void gfs2_write_log_header(struct gfs2_sbd *sdp, struct gfs2_jdesc *jd,
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 61fce59cb4d3..986dc2ebebf0 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -136,8 +136,6 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+ 
+ 	init_rwsem(&sdp->sd_log_flush_lock);
+ 	atomic_set(&sdp->sd_log_in_flight, 0);
+-	atomic_set(&sdp->sd_reserving_log, 0);
+-	init_waitqueue_head(&sdp->sd_reserving_log_wait);
+ 	init_waitqueue_head(&sdp->sd_log_flush_wait);
+ 	atomic_set(&sdp->sd_freeze_state, SFS_UNFROZEN);
+ 	mutex_init(&sdp->sd_freeze_mutex);
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index ed7a829e9ffe..f188277f7d48 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -645,13 +645,13 @@ int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
+ 
+ 		gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_SHUTDOWN |
+ 			       GFS2_LFC_MAKE_FS_RO);
+-		wait_event(sdp->sd_reserving_log_wait,
+-			   atomic_read(&sdp->sd_reserving_log) == 0);
+-		gfs2_assert_warn(sdp, atomic_read(&sdp->sd_log_blks_free) ==
+-				 sdp->sd_jdesc->jd_blocks);
++		wait_event_timeout(sdp->sd_log_waitq,
++				   gfs2_log_is_empty(sdp),
++				   HZ * 5);
++		gfs2_assert_warn(sdp, gfs2_log_is_empty(sdp));
+ 	} else {
+-		wait_event_timeout(sdp->sd_reserving_log_wait,
+-				   atomic_read(&sdp->sd_reserving_log) == 0,
++		wait_event_timeout(sdp->sd_log_waitq,
++				   gfs2_log_is_empty(sdp),
+ 				   HZ * 5);
+ 	}
+ 	if (gfs2_holder_initialized(&freeze_gh))
 diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
-index ae040b570868..db29ca253853 100644
+index db29ca253853..aefe450e009e 100644
 --- a/fs/gfs2/trans.c
 +++ b/fs/gfs2/trans.c
-@@ -37,10 +37,10 @@ static void gfs2_print_trans(struct gfs2_sbd *sdp, const struct gfs2_trans *tr)
- 		tr->tr_num_revoke, tr->tr_num_revoke_rm);
- }
- 
--int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int blocks,
--		     unsigned int revokes)
-+int __gfs2_trans_begin(struct gfs2_trans *tr, struct gfs2_sbd *sdp,
-+		       unsigned int blocks, unsigned int revokes,
-+		       unsigned long ip)
- {
--	struct gfs2_trans *tr;
- 	int error;
- 
- 	if (current->journal_info) {
-@@ -52,15 +52,10 @@ int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int blocks,
- 	if (!test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags))
- 		return -EROFS;
- 
--	tr = kmem_cache_zalloc(gfs2_trans_cachep, GFP_NOFS);
--	if (!tr)
--		return -ENOMEM;
--
--	tr->tr_ip = _RET_IP_;
-+	tr->tr_ip = ip;
- 	tr->tr_blocks = blocks;
- 	tr->tr_revokes = revokes;
- 	tr->tr_reserved = 1;
--	set_bit(TR_ALLOCED, &tr->tr_flags);
- 	if (blocks)
- 		tr->tr_reserved += 6 + blocks;
- 	if (revokes)
-@@ -74,17 +69,28 @@ int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int blocks,
- 	sb_start_intwrite(sdp->sd_vfs);
- 
+@@ -71,6 +71,8 @@ int __gfs2_trans_begin(struct gfs2_trans *tr, struct gfs2_sbd *sdp,
  	error = gfs2_log_reserve(sdp, tr->tr_reserved);
--	if (error)
--		goto fail;
-+	if (error) {
-+		sb_end_intwrite(sdp->sd_vfs);
-+		return error;
-+	}
- 
- 	current->journal_info = tr;
- 
- 	return 0;
-+}
- 
--fail:
--	sb_end_intwrite(sdp->sd_vfs);
--	kmem_cache_free(gfs2_trans_cachep, tr);
-+int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int blocks,
-+		     unsigned int revokes)
-+{
-+	struct gfs2_trans *tr;
-+	int error;
- 
-+	tr = kmem_cache_zalloc(gfs2_trans_cachep, GFP_NOFS);
-+	if (!tr)
-+		return -ENOMEM;
-+	error = __gfs2_trans_begin(tr, sdp, blocks, revokes, _RET_IP_);
-+	if (error)
-+		kmem_cache_free(gfs2_trans_cachep, tr);
- 	return error;
- }
- 
-@@ -92,13 +98,12 @@ void gfs2_trans_end(struct gfs2_sbd *sdp)
- {
- 	struct gfs2_trans *tr = current->journal_info;
- 	s64 nbuf;
--	int alloced = test_bit(TR_ALLOCED, &tr->tr_flags);
- 
- 	current->journal_info = NULL;
- 
- 	if (!test_bit(TR_TOUCHED, &tr->tr_flags)) {
- 		gfs2_log_release(sdp, tr->tr_reserved);
--		if (alloced)
-+		if (!test_bit(TR_ONSTACK, &tr->tr_flags))
- 			gfs2_trans_free(sdp, tr);
+ 	if (error) {
  		sb_end_intwrite(sdp->sd_vfs);
- 		return;
-@@ -113,7 +118,8 @@ void gfs2_trans_end(struct gfs2_sbd *sdp)
- 		gfs2_print_trans(sdp, tr);
- 
- 	gfs2_log_commit(sdp, tr);
--	if (alloced && !test_bit(TR_ATTACHED, &tr->tr_flags))
-+	if (!test_bit(TR_ONSTACK, &tr->tr_flags) &&
-+	    !test_bit(TR_ATTACHED, &tr->tr_flags))
- 		gfs2_trans_free(sdp, tr);
- 	up_read(&sdp->sd_log_flush_lock);
- 
-diff --git a/fs/gfs2/trans.h b/fs/gfs2/trans.h
-index 83199ce5a5c5..55f253015cf8 100644
---- a/fs/gfs2/trans.h
-+++ b/fs/gfs2/trans.h
-@@ -34,6 +34,9 @@ static inline unsigned int gfs2_rg_blocks(const struct gfs2_inode *ip, unsigned
- 	return rgd->rd_length;
- }
- 
-+extern int __gfs2_trans_begin(struct gfs2_trans *tr, struct gfs2_sbd *sdp,
-+			      unsigned int blocks, unsigned int revokes,
-+			      unsigned long ip);
- extern int gfs2_trans_begin(struct gfs2_sbd *sdp, unsigned int blocks,
- 			    unsigned int revokes);
++		if (error == -EROFS)
++			wake_up(&sdp->sd_log_waitq);
+ 		return error;
+ 	}
  
 -- 
 2.26.2
