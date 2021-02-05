@@ -2,58 +2,53 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CCCB30FFB6
-	for <lists+cluster-devel@lfdr.de>; Thu,  4 Feb 2021 22:51:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C03BD310E57
+	for <lists+cluster-devel@lfdr.de>; Fri,  5 Feb 2021 18:10:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612475514;
+	s=mimecast20190719; t=1612545040;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8sK33Uw5PRvUR4YPgquEOVYA6TvLVSFKzVp1tZvXKd0=;
-	b=Hk9xuN2hMjnyrxvSVnTHwt7p0WimTbM29InM4L273HXPyLOq+UyTsHTxS9HlwxVpCj6zAB
-	K0wn3gNrpl5jvEGQ6elFaFX0xG080Ucvj7k55LApVRlzBREqPjGHJ2HqmLu7POjKqk7Hv2
-	jsCv5CXXOT6/C0EhUqfPArt4bvySZGY=
+	bh=6o3oHpU8oRG8+aIOoSNCNncP/C2IOnnHgJMCA3BnF50=;
+	b=O9BOW4CQ9ToUaViLGqY/kVI8btvFfZAzvbGM7QbgAau0gaHRLLHAUtOCBoCWt3aF4XEoRC
+	VDqY3xmY6cql9ElRT0rCHsTxRz6NWXOYfycSACOOJ09IVdzi8LC/5eXZrUGcBEY/jOdWvo
+	5bXUK8/eGeF7OXprUF73mb7DoBzbxiI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-541-LR0pLLEePFOc0IiWWeYjuQ-1; Thu, 04 Feb 2021 16:51:51 -0500
-X-MC-Unique: LR0pLLEePFOc0IiWWeYjuQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-271-9y-quqpdP3eA4m2k8OkuGw-1; Fri, 05 Feb 2021 12:10:35 -0500
+X-MC-Unique: 9y-quqpdP3eA4m2k8OkuGw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 73475107ACE3;
-	Thu,  4 Feb 2021 21:51:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3AD9D801978;
+	Fri,  5 Feb 2021 17:10:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E5D11A38C;
-	Thu,  4 Feb 2021 21:51:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2AA1760C5D;
+	Fri,  5 Feb 2021 17:10:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4AE8B18095CD;
-	Thu,  4 Feb 2021 21:51:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2C9FE18095CB;
+	Fri,  5 Feb 2021 17:10:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 114LpDSC027580 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 4 Feb 2021 16:51:13 -0500
+	id 115HAOVB000623 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 5 Feb 2021 12:10:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id ED1292B0A5; Thu,  4 Feb 2021 21:51:13 +0000 (UTC)
+	id EB90A5C261; Fri,  5 Feb 2021 17:10:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-116-190.rdu2.redhat.com [10.10.116.190])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5C4282E09A;
-	Thu,  4 Feb 2021 21:51:13 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Thu,  4 Feb 2021 16:50:56 -0500
-Message-Id: <20210204215056.774409-10-aahringo@redhat.com>
-In-Reply-To: <20210204215056.774409-1-aahringo@redhat.com>
-References: <20210204215056.774409-1-aahringo@redhat.com>
+Received: from cicero.redhat.com (unknown [10.33.37.29])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 499135C1B4
+	for <cluster-devel@redhat.com>; Fri,  5 Feb 2021 17:10:20 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Fri,  5 Feb 2021 17:10:16 +0000
+Message-Id: <20210205171018.1677127-1-anprice@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm/next 9/9] fs: dlm: remove unaligned
-	memory access handling
+Subject: [Cluster-devel] [PATCH 0/2] gfs2: fs format 1802 features
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +62,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,75 +70,23 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch removes unaligned memory access handling for receiving
-midcomms messages. This handling will not fix the unaligned memory
-access in general. All messages should be length aligned to 8 bytes,
-there exists cases where this isn't the case. It's part of the sending
-handling to not send such messages. As the sending handling itself, with
-the internal allocator of page buffers, can occur in unaligned memory
-access of dlm message fields we just ignore that problem for now as it
-seems this code is used by architecture which can handle it.
+These patches add trusted.* xattr support and switch on rgrplvb by default when the sb_fs_format field is greater than 1801 (the current version). Filesystems with an 1802 fs format can currently be created with gfs2-utils.git/master using -o format=1802 but that will become the default once this has had some soak time.
 
-This patch adds a comment to take care about that problem in a major
-bump of dlm protocol.
+I've tested the patches with several rounds of xfstests single-node, and in a clustered configuration with a lot of file operations happening on each node, including filling the fs to force resource group contention.
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/midcomms.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+Andreas Gruenbacher (1):
+  gfs2: Add trusted xattr support
 
-diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index 7cda8e4be6fc..b764c18525f7 100644
---- a/fs/dlm/midcomms.c
-+++ b/fs/dlm/midcomms.c
-@@ -22,8 +22,6 @@
-  * into packets and sends them to the comms layer.
-  */
- 
--#include <asm/unaligned.h>
--
- #include "dlm_internal.h"
- #include "lowcomms.h"
- #include "config.h"
-@@ -45,10 +43,18 @@ int dlm_process_incoming_buffer(int nodeid, unsigned char *buf, int len)
- 	while (len > sizeof(struct dlm_header)) {
- 		hd = (struct dlm_header *)ptr;
- 
--		/* no message should be more than this otherwise we
--		 * cannot deliver this message to upper layers
-+		/* no message should be more than DEFAULT_BUFFER_SIZE or
-+		 * less than dlm_header size.
-+		 *
-+		 * Some messages does not have a 8 byte length boundary yet
-+		 * which can occur in a unaligned memory access of some dlm
-+		 * messages. However this problem need to be fixed at the
-+		 * sending side, for now it seems nobody run into architecture
-+		 * related issues yet but it slows down some processing.
-+		 * Fixing this issue should be scheduled in future by doing
-+		 * the next major version bump.
- 		 */
--		msglen = get_unaligned_le16(&hd->h_length);
-+		msglen = le16_to_cpu(hd->h_length);
- 		if (msglen > DEFAULT_BUFFER_SIZE ||
- 		    msglen < sizeof(struct dlm_header)) {
- 			log_print("received invalid length header: %u from node %d, will abort message parsing",
-@@ -85,15 +91,7 @@ int dlm_process_incoming_buffer(int nodeid, unsigned char *buf, int len)
- 			goto skip;
- 		}
- 
--		/* for aligned memory access, we just copy current message
--		 * to begin of the buffer which contains already parsed buffer
--		 * data and should provide align access for upper layers
--		 * because the start address of the buffer has a aligned
--		 * address. This memmove can be removed when the upperlayer
--		 * is capable of unaligned memory access.
--		 */
--		memmove(buf, ptr, msglen);
--		dlm_receive_buffer((union dlm_packet *)buf, nodeid);
-+		dlm_receive_buffer((union dlm_packet *)ptr, nodeid);
- 
- skip:
- 		ret += msglen;
+Andrew Price (1):
+  gfs2: Enable rgrplvb for sb_fs_format 1802
+
+ fs/gfs2/incore.h                 |  1 +
+ fs/gfs2/ops_fstype.c             | 27 +++++++++++++++---
+ fs/gfs2/super.h                  |  8 +++++-
+ fs/gfs2/xattr.c                  | 48 +++++++++++++++++++++++++++++---
+ include/uapi/linux/gfs2_ondisk.h |  5 ++--
+ 5 files changed, 78 insertions(+), 11 deletions(-)
+
 -- 
-2.26.2
+2.29.2
 
