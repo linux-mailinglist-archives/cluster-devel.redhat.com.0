@@ -1,58 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 80D62310E55
-	for <lists+cluster-devel@lfdr.de>; Fri,  5 Feb 2021 18:10:37 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 28C6C310E56
+	for <lists+cluster-devel@lfdr.de>; Fri,  5 Feb 2021 18:10:38 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612545036;
+	s=mimecast20190719; t=1612545037;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8CrmGXAPWCLnV6Z2uvDnjdNaqMyMbg9AKpbqYwABu5U=;
-	b=Crw1GYWXj0NZR1MYFno89XaY83ThsE+3o9XsJhBTzxKksAMU8DJaOBldmViLuGfl7RRkbC
-	wbGPMfqHt3Ik1cN8hMYcwUjqGxtYN4Suz5mKcoiscEhEyb2DdnMpBRDu02yxuH8Kfu+CQa
-	twhznMddhUgRwGE9KJoAkpjoKGh2rMs=
+	bh=dLOSKbMB/O6hUcy/fwM+K2UnozjTzxQXhuGLGfZX6Bc=;
+	b=K08DEIrcPHadWPXXx5RuY5OPnILwIHFetC6FusdFyuUdygXB2lS1y/MioBSOOVqUXclntN
+	QBuWbbuY8puRE2uQPGfNTGNR29+C4bXO7YHElOXYMBFTVWMS17PjWUCRjukY+q21c3yiiA
+	+0IEP5CygzTEXksenHqfz/5g7kgVjxQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-538-Pb2nrgDtPzqD2X1ogIWm1g-1; Fri, 05 Feb 2021 12:10:34 -0500
-X-MC-Unique: Pb2nrgDtPzqD2X1ogIWm1g-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-221-xWN6359NM_GK6SGmIiGJlw-1; Fri, 05 Feb 2021 12:10:34 -0500
+X-MC-Unique: xWN6359NM_GK6SGmIiGJlw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9409B107ACC7;
-	Fri,  5 Feb 2021 17:10:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2EDBE1935780;
+	Fri,  5 Feb 2021 17:10:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E656C6F452;
-	Fri,  5 Feb 2021 17:10:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A9BCD19C47;
+	Fri,  5 Feb 2021 17:10:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D9BC57DFA;
-	Fri,  5 Feb 2021 17:10:29 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 70B5157DFE;
+	Fri,  5 Feb 2021 17:10:31 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 115HAQfq000641 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 5 Feb 2021 12:10:26 -0500
+	id 115HAR9U000652 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 5 Feb 2021 12:10:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 16F0C5C261; Fri,  5 Feb 2021 17:10:26 +0000 (UTC)
+	id 9B94D5C5B5; Fri,  5 Feb 2021 17:10:27 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from cicero.redhat.com (unknown [10.33.37.29])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6391A5C1B4
-	for <cluster-devel@redhat.com>; Fri,  5 Feb 2021 17:10:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92AC45C1B4;
+	Fri,  5 Feb 2021 17:10:26 +0000 (UTC)
 From: Andrew Price <anprice@redhat.com>
 To: cluster-devel@redhat.com
-Date: Fri,  5 Feb 2021 17:10:17 +0000
-Message-Id: <20210205171018.1677127-2-anprice@redhat.com>
+Date: Fri,  5 Feb 2021 17:10:18 +0000
+Message-Id: <20210205171018.1677127-3-anprice@redhat.com>
 In-Reply-To: <20210205171018.1677127-1-anprice@redhat.com>
 References: <20210205171018.1677127-1-anprice@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 1/2] gfs2: Enable rgrplvb for sb_fs_format
-	1802
+Subject: [Cluster-devel] [PATCH 2/2] gfs2: Add trusted xattr support
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +65,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,96 +73,208 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Turn on rgrplvb by default for sb_fs_format > 1801.
+From: Andreas Gruenbacher <agruenba@redhat.com>
 
-Mount options still have to override this so a new args field to
-differentiate between 'off' and 'not specified' is added, and the new
-default is applied only when it's not specified.
+Add support for an additional filesystem version (sb_fs_format = 1802).
+When a filesystem with the new version is mounted, the filesystem
+supports "trusted.*" xattrs.
+
+In addition, version 1802 filesystems implement a form of forward
+compatibility for xattrs: when xattrs with an unknown prefix (ea_type)
+are found on a version 1802 filesystem, those attributes are not shown
+by listxattr, and they are not accessible by getxattr, setxattr, or
+removexattr.
+
+This mechanism might turn out to be what we need in the future, but if
+not, we can always bump the filesystem version and break compatibility
+instead.
 
 Signed-off-by: Andrew Price <anprice@redhat.com>
 ---
- fs/gfs2/incore.h     |  1 +
- fs/gfs2/ops_fstype.c | 13 ++++++++++---
- fs/gfs2/super.h      |  4 ++++
- 3 files changed, 15 insertions(+), 3 deletions(-)
+ fs/gfs2/ops_fstype.c             | 14 +++++++++-
+ fs/gfs2/super.h                  |  4 ++-
+ fs/gfs2/xattr.c                  | 48 +++++++++++++++++++++++++++++---
+ include/uapi/linux/gfs2_ondisk.h |  5 ++--
+ 4 files changed, 63 insertions(+), 8 deletions(-)
 
-diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index 8e1ab8ed4abc..ac4d5e619ecf 100644
---- a/fs/gfs2/incore.h
-+++ b/fs/gfs2/incore.h
-@@ -585,6 +585,7 @@ struct gfs2_args {
- 	unsigned int ar_errors:2;               /* errors=withdraw | panic */
- 	unsigned int ar_nobarrier:1;            /* do not send barriers */
- 	unsigned int ar_rgrplvb:1;		/* use lvbs for rgrp info */
-+	unsigned int ar_got_rgrplvb:1;		/* Was the rgrplvb opt given? */
- 	unsigned int ar_loccookie:1;		/* use location based readdir
- 						   cookies */
- 	s32 ar_commit;				/* Commit interval */
 diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index 61fce59cb4d3..52fe78378faa 100644
+index 52fe78378faa..64ad19bb978c 100644
 --- a/fs/gfs2/ops_fstype.c
 +++ b/fs/gfs2/ops_fstype.c
-@@ -171,7 +171,8 @@ static int gfs2_check_sb(struct gfs2_sbd *sdp, int silent)
- 		return -EINVAL;
+@@ -489,6 +489,19 @@ static int init_sb(struct gfs2_sbd *sdp, int silent)
+ 		goto out;
  	}
  
--	if (sb->sb_fs_format != GFS2_FORMAT_FS ||
-+	if (sb->sb_fs_format < GFS2_FS_FORMAT_MIN ||
-+	    sb->sb_fs_format > GFS2_FS_FORMAT_MAX ||
- 	    sb->sb_multihost_format != GFS2_FORMAT_MULTI) {
- 		fs_warn(sdp, "Unknown on-disk format, unable to mount\n");
- 		return -EINVAL;
-@@ -1032,13 +1033,14 @@ static int gfs2_lm_mount(struct gfs2_sbd *sdp, int silent)
- 	}
- 
- 	if (lm->lm_mount == NULL) {
--		fs_info(sdp, "Now mounting FS...\n");
-+		fs_info(sdp, "Now mounting FS (format %u)...\n", sdp->sd_sb.sb_fs_format);
- 		complete_all(&sdp->sd_locking_init);
- 		return 0;
- 	}
- 	ret = lm->lm_mount(sdp, table);
- 	if (ret == 0)
--		fs_info(sdp, "Joined cluster. Now mounting FS...\n");
-+		fs_info(sdp, "Joined cluster. Now mounting FS (format %u)...\n",
-+		        sdp->sd_sb.sb_fs_format);
- 	complete_all(&sdp->sd_locking_init);
- 	return ret;
- }
-@@ -1156,6 +1158,10 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (error)
- 		goto fail_locking;
- 
-+	/* Turn rgrplvb on by default if fs format is recent enough */
-+	if (!sdp->sd_args.ar_got_rgrplvb && sdp->sd_sb.sb_fs_format > 1801)
-+		sdp->sd_args.ar_rgrplvb = 1;
++	switch(sdp->sd_sb.sb_fs_format) {
++	case GFS2_FS_FORMAT_MAX:
++		sb->s_xattr = gfs2_xattr_handlers_max;
++		break;
 +
- 	error = wait_on_journal(sdp);
- 	if (error)
- 		goto fail_sb;
-@@ -1456,6 +1462,7 @@ static int gfs2_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 		break;
- 	case Opt_rgrplvb:
- 		args->ar_rgrplvb = result.boolean;
-+		args->ar_got_rgrplvb = 1;
- 		break;
- 	case Opt_loccookie:
- 		args->ar_loccookie = result.boolean;
++	case GFS2_FS_FORMAT_MIN:
++		sb->s_xattr = gfs2_xattr_handlers_min;
++		break;
++
++	default:
++		BUG();
++	}
++
+ 	/* Set up the buffer cache and SB for real */
+ 	if (sdp->sd_sb.sb_bsize < bdev_logical_block_size(sb->s_bdev)) {
+ 		ret = -EINVAL;
+@@ -1109,7 +1122,6 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sb->s_op = &gfs2_super_ops;
+ 	sb->s_d_op = &gfs2_dops;
+ 	sb->s_export_op = &gfs2_export_ops;
+-	sb->s_xattr = gfs2_xattr_handlers;
+ 	sb->s_qcop = &gfs2_quotactl_ops;
+ 	sb->s_quota_types = QTYPE_MASK_USR | QTYPE_MASK_GRP;
+ 	sb_dqopt(sb)->flags |= DQUOT_QUOTA_SYS_FILE;
 diff --git a/fs/gfs2/super.h b/fs/gfs2/super.h
-index c9fb2a654181..977079693bdc 100644
+index 977079693bdc..08e502dec7ec 100644
 --- a/fs/gfs2/super.h
 +++ b/fs/gfs2/super.h
-@@ -11,6 +11,10 @@
- #include <linux/dcache.h>
- #include "incore.h"
- 
-+/* Supported fs format version range */
-+#define GFS2_FS_FORMAT_MIN (1801)
-+#define GFS2_FS_FORMAT_MAX (1802)
+@@ -58,7 +58,9 @@ extern struct file_system_type gfs2meta_fs_type;
+ extern const struct export_operations gfs2_export_ops;
+ extern const struct super_operations gfs2_super_ops;
+ extern const struct dentry_operations gfs2_dops;
+-extern const struct xattr_handler *gfs2_xattr_handlers[];
 +
- extern void gfs2_lm_unmount(struct gfs2_sbd *sdp);
++extern const struct xattr_handler *gfs2_xattr_handlers_max[];
++extern const struct xattr_handler **gfs2_xattr_handlers_min;
  
- static inline unsigned int gfs2_jindex_size(struct gfs2_sbd *sdp)
+ #endif /* __SUPER_DOT_H__ */
+ 
+diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
+index 9d7667bc4292..a860a144f3d4 100644
+--- a/fs/gfs2/xattr.c
++++ b/fs/gfs2/xattr.c
+@@ -70,6 +70,20 @@ static int ea_check_size(struct gfs2_sbd *sdp, unsigned int nsize, size_t dsize)
+ 	return 0;
+ }
+ 
++bool gfs2_eatype_valid(struct gfs2_sbd *sdp, u8 type)
++{
++	switch(sdp->sd_sb.sb_fs_format) {
++	case GFS2_FS_FORMAT_MAX:
++		return true;
++
++	case GFS2_FS_FORMAT_MIN:
++		return type <= GFS2_EATYPE_SECURITY;
++
++	default:
++		return false;
++	}
++}
++
+ typedef int (*ea_call_t) (struct gfs2_inode *ip, struct buffer_head *bh,
+ 			  struct gfs2_ea_header *ea,
+ 			  struct gfs2_ea_header *prev, void *private);
+@@ -77,6 +91,7 @@ typedef int (*ea_call_t) (struct gfs2_inode *ip, struct buffer_head *bh,
+ static int ea_foreach_i(struct gfs2_inode *ip, struct buffer_head *bh,
+ 			ea_call_t ea_call, void *data)
+ {
++	struct gfs2_sbd *sdp = GFS2_SB(&ip->i_inode);
+ 	struct gfs2_ea_header *ea, *prev = NULL;
+ 	int error = 0;
+ 
+@@ -89,9 +104,8 @@ static int ea_foreach_i(struct gfs2_inode *ip, struct buffer_head *bh,
+ 		if (!(bh->b_data <= (char *)ea && (char *)GFS2_EA2NEXT(ea) <=
+ 						  bh->b_data + bh->b_size))
+ 			goto fail;
+-		if (!GFS2_EATYPE_VALID(ea->ea_type))
++		if (!gfs2_eatype_valid(sdp, ea->ea_type))
+ 			goto fail;
+-
+ 		error = ea_call(ip, bh, ea, prev, data);
+ 		if (error)
+ 			return error;
+@@ -344,6 +358,7 @@ static int ea_list_i(struct gfs2_inode *ip, struct buffer_head *bh,
+ 		     struct gfs2_ea_header *ea, struct gfs2_ea_header *prev,
+ 		     void *private)
+ {
++	struct gfs2_sbd *sdp = GFS2_SB(&ip->i_inode);
+ 	struct ea_list *ei = private;
+ 	struct gfs2_ea_request *er = ei->ei_er;
+ 	unsigned int ea_size;
+@@ -353,6 +368,8 @@ static int ea_list_i(struct gfs2_inode *ip, struct buffer_head *bh,
+ 	if (ea->ea_type == GFS2_EATYPE_UNUSED)
+ 		return 0;
+ 
++	BUG_ON(ea->ea_type > GFS2_EATYPE_SECURITY &&
++	       sdp->sd_sb.sb_fs_format == GFS2_FS_FORMAT_MIN);
+ 	switch (ea->ea_type) {
+ 	case GFS2_EATYPE_USR:
+ 		prefix = "user.";
+@@ -366,8 +383,12 @@ static int ea_list_i(struct gfs2_inode *ip, struct buffer_head *bh,
+ 		prefix = "security.";
+ 		l = 9;
+ 		break;
++	case GFS2_EATYPE_TRUSTED:
++		prefix = "trusted.";
++		l = 8;
++		break;
+ 	default:
+-		BUG();
++		return 0;
+ 	}
+ 
+ 	ea_size = l + ea->ea_name_len + 1;
+@@ -1463,7 +1484,25 @@ static const struct xattr_handler gfs2_xattr_security_handler = {
+ 	.set    = gfs2_xattr_set,
+ };
+ 
+-const struct xattr_handler *gfs2_xattr_handlers[] = {
++static bool
++gfs2_xattr_trusted_list(struct dentry *dentry)
++{
++	return capable(CAP_SYS_ADMIN);
++}
++
++static const struct xattr_handler gfs2_xattr_trusted_handler = {
++	.prefix = XATTR_TRUSTED_PREFIX,
++	.flags  = GFS2_EATYPE_TRUSTED,
++	.list	= gfs2_xattr_trusted_list,
++	.get    = gfs2_xattr_get,
++	.set    = gfs2_xattr_set,
++};
++
++const struct xattr_handler *gfs2_xattr_handlers_max[] = {
++	/* GFS2_FS_FORMAT_MAX */
++	&gfs2_xattr_trusted_handler,
++
++	/* GFS2_FS_FORMAT_MIN */
+ 	&gfs2_xattr_user_handler,
+ 	&gfs2_xattr_security_handler,
+ 	&posix_acl_access_xattr_handler,
+@@ -1471,3 +1510,4 @@ const struct xattr_handler *gfs2_xattr_handlers[] = {
+ 	NULL,
+ };
+ 
++const struct xattr_handler **gfs2_xattr_handlers_min = gfs2_xattr_handlers_max + 1;
+diff --git a/include/uapi/linux/gfs2_ondisk.h b/include/uapi/linux/gfs2_ondisk.h
+index 07e508e6691b..6ec4291bcc7a 100644
+--- a/include/uapi/linux/gfs2_ondisk.h
++++ b/include/uapi/linux/gfs2_ondisk.h
+@@ -47,7 +47,7 @@
+ #define GFS2_FORMAT_DE		1200
+ #define GFS2_FORMAT_QU		1500
+ /* These are part of the superblock */
+-#define GFS2_FORMAT_FS		1801
++#define GFS2_FORMAT_FS		1802
+ #define GFS2_FORMAT_MULTI	1900
+ 
+ /*
+@@ -389,8 +389,9 @@ struct gfs2_leaf {
+ #define GFS2_EATYPE_USR		1
+ #define GFS2_EATYPE_SYS		2
+ #define GFS2_EATYPE_SECURITY	3
++#define GFS2_EATYPE_TRUSTED	4
+ 
+-#define GFS2_EATYPE_LAST	3
++#define GFS2_EATYPE_LAST	4
+ #define GFS2_EATYPE_VALID(x)	((x) <= GFS2_EATYPE_LAST)
+ 
+ #define GFS2_EAFLAG_LAST	0x01	/* last ea in block */
 -- 
 2.29.2
 
