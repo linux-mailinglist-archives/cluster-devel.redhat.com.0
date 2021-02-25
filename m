@@ -2,78 +2,71 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3F39E3233A3
-	for <lists+cluster-devel@lfdr.de>; Tue, 23 Feb 2021 23:15:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9A19A3255C9
+	for <lists+cluster-devel@lfdr.de>; Thu, 25 Feb 2021 19:48:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1614278905;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=tNhzRHeup11UhoJF3bJwV/W1c3V4zqmWiCzwGpUBpnI=;
+	b=HQotcOnmCnB0BGf+sD0Dfg9/Jlsp5+JTDHEgxvzQm8KmaoPxZQCo5z9aYtPEPW4ryP2nQA
+	rrMVFqPKVSp65UHf5U4fe5+nVL49Cqp8XTlOKEKmnMDXFTGhDm4q4nn3LcQocgEFoXIQ9+
+	xX/niQSUJ7ewIii/lnHa/D6ocXqmyx4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-37-quEtcp_BOdKUvtHtDSdl5Q-1; Tue, 23 Feb 2021 17:15:39 -0500
-X-MC-Unique: quEtcp_BOdKUvtHtDSdl5Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-491-gi-Xwp3YMLuaq_CE3fp53w-1; Thu, 25 Feb 2021 13:48:24 -0500
+X-MC-Unique: gi-Xwp3YMLuaq_CE3fp53w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5C5A84E266;
-	Tue, 23 Feb 2021 22:15:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23F93107ACC7;
+	Thu, 25 Feb 2021 18:48:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 403A55D9D0;
-	Tue, 23 Feb 2021 22:15:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8046577714;
+	Thu, 25 Feb 2021 18:48:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 93C534E58E;
-	Tue, 23 Feb 2021 22:15:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A296358076;
+	Thu, 25 Feb 2021 18:48:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11NMFMwm010443 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Feb 2021 17:15:23 -0500
+	id 11PImBXx014381 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 25 Feb 2021 13:48:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D15B4F885F; Tue, 23 Feb 2021 22:15:22 +0000 (UTC)
+	id 6AC1E10016FF; Thu, 25 Feb 2021 18:48:11 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC04FF8850
-	for <cluster-devel@redhat.com>; Tue, 23 Feb 2021 22:15:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A90A186E121
-	for <cluster-devel@redhat.com>; Tue, 23 Feb 2021 22:15:20 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-183-doZcLRgsMkCP9F934TpoMg-1;
-	Tue, 23 Feb 2021 17:15:18 -0500
-X-MC-Unique: doZcLRgsMkCP9F934TpoMg-1
-Received: by mail.kernel.org (Postfix) with ESMTPS id 64A1A64EC9;
-	Tue, 23 Feb 2021 22:06:22 +0000 (UTC)
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
-	[127.0.0.1])
-	by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id
-	54C816096F; Tue, 23 Feb 2021 22:06:22 +0000 (UTC)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20210223193429.873467-1-agruenba@redhat.com>
-References: <20210223193429.873467-1-agruenba@redhat.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20210223193429.873467-1-agruenba@redhat.com>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-	tags/gfs2-for-5.12
-X-PR-Tracked-Commit-Id: 17d77684088510df84ff8285982d0eed52cd5890
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: f6e1e1d1e149802ed4062fa514c2d184d30aacdf
-Message-Id: <161411798229.10508.13745625337067735518.pr-tracker-bot@kernel.org>
-Date: Tue, 23 Feb 2021 22:06:22 +0000
+Received: from colo-mx.corp.redhat.com
+	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 72AB610013D6;
+	Thu, 25 Feb 2021 18:48:08 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 66AC858075;
+	Thu, 25 Feb 2021 18:48:08 +0000 (UTC)
+Date: Thu, 25 Feb 2021 13:48:06 -0500 (EST)
+From: Bob Peterson <rpeterso@redhat.com>
 To: Andreas Gruenbacher <agruenba@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Message-ID: <899455839.58326316.1614278886083.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CAHc6FU6fs+Oizg4acpn-afLW1atRrnHmfDx5F0YV3RjMvqe_Aw@mail.gmail.com>
+References: <CACrDRjiiXtz6cOO8FmnZHKte2EVKAFzDESXJ5a8oALd7h+EizA@mail.gmail.com>
+	<CACrDRjjOgEsqOSWK1PeMro4WQxKkmR=KEfCCRQzBGCwtY+fevQ@mail.gmail.com>
+	<93452e4c-af81-225f-34f5-f297473164ae@redhat.com>
+	<CAHc6FU6jQ3KGgKgQHy_WaX-40nqWxGbJNqmAcSFtJPweR7AtQg@mail.gmail.com>
+	<cd213bd4-3bc0-bb8f-0e8f-de2a26a62731@redhat.com>
+	<CAHc6FU4C1FaLjxZmz5USHS+Nruthto4WYhxqkW0wjB_h8tX6=g@mail.gmail.com>
+	<CAHc6FU6fs+Oizg4acpn-afLW1atRrnHmfDx5F0YV3RjMvqe_Aw@mail.gmail.com>
+MIME-Version: 1.0
+X-Originating-IP: [10.3.114.41, 10.4.195.6]
+Thread-Topic: Recording extents in GFS2
+Thread-Index: ZCZR3Ttb9/epcGKMtUNDt5iwIdhybA==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [Cluster-devel] [GIT PULL] GFS2 changes for 5.12
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] Recording extents in GFS2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,23 +80,30 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 2
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Tue, 23 Feb 2021 20:34:29 +0100:
+----- Original Message -----
+> >> once we change the journal format, in addition to recording block numbers
+> >> as extents, there are some additional issues we should address at the same
+> >> time:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-for-5.12
+One thing I've always thought we should improve upon was the way we manage
+our bitmaps. Right now, if you allocate or free a block, unless it's on the
+first block of the rgrp, we need to write two blocks: (1) One for the bitmap
+that needs to change and, (2) Another for the rgrp to adjust its allocated and
+free numbers. The rgrplvb code will make this faster, but it would be nice if
+we would somehow keep "version 2" bitmaps such that each keeps its own statistics.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/f6e1e1d1e149802ed4062fa514c2d184d30aacdf
+That way we only need to journal and write the affected bitmap, and not
+necessarily its rgrp block as well. I could see us keep separate glocks
+for each bitmap, for example, and allowing multiple nodes to work on the
+same portion of the file system, but on unique bitmaps.
 
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Bob
 
