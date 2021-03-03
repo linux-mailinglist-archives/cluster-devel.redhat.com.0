@@ -1,66 +1,63 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 687FE32B8FF
-	for <lists+cluster-devel@lfdr.de>; Wed,  3 Mar 2021 16:40:38 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A97F432B91C
+	for <lists+cluster-devel@lfdr.de>; Wed,  3 Mar 2021 17:12:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614786037;
+	s=mimecast20190719; t=1614787941;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=v/B/vFyvdim6DFmRje+NahSs84+dybnbCq6JUenc1xY=;
-	b=V5R5Szo7WsZyPy4uUVh2e4Zq5KC66vMORDCY0ClurG9/D5YwF3xlIAaj9tweRlVQplBeXj
-	YadeR5ki6e6W341rA9Uvf/qzq9z4LQfzZqFK7RXog5bOLofeQoyFZbT0Oo2YPWD4Q/6eCt
-	ZIaHUiAQB+79tBaiep4aFPkk5LivZnk=
+	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=n5gzn0pdFXaYBku1Cve/2IOUIdp67VJRaOg/WXQ3zoo=;
+	b=XD/gdVvJgwR1HcZ5La4A5BnZpIomA2lephpYsG2qu2F+vy5EBqtxb/D7rteQnpA5tKu9S1
+	hY0LITb1baQwOxEE2Q+wjaCQ/Lt01cBiC8Bpzr1rQRrTnhXeBC7h6aI9gYtzhbvE9mSnjF
+	rFDd8y6zaW1SdB8sSDXZvAyHuyWU1HM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-244-7QzWGFTBMNKZN3f0BmbnIA-1; Wed, 03 Mar 2021 10:40:36 -0500
-X-MC-Unique: 7QzWGFTBMNKZN3f0BmbnIA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-73-qPsO5eVjPmqN0qyLpx4iew-1; Wed, 03 Mar 2021 11:12:18 -0500
+X-MC-Unique: qPsO5eVjPmqN0qyLpx4iew-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C49E91005501;
-	Wed,  3 Mar 2021 15:40:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D7C5560BD9;
-	Wed,  3 Mar 2021 15:40:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C6A331E561;
+	Wed,  3 Mar 2021 16:12:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 413F96091B;
+	Wed,  3 Mar 2021 16:12:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BFBB58073;
-	Wed,  3 Mar 2021 15:40:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4A7F318095CB;
+	Wed,  3 Mar 2021 16:12:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 123FeL1x015488 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Mar 2021 10:40:21 -0500
+	id 123GC31w019889 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Mar 2021 11:12:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8002750DE6; Wed,  3 Mar 2021 15:40:21 +0000 (UTC)
+	id 31FAA5D745; Wed,  3 Mar 2021 16:12:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from colo-mx.corp.redhat.com
-	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7639D6FEED;
-	Wed,  3 Mar 2021 15:40:21 +0000 (UTC)
+	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BFD5F5D705;
+	Wed,  3 Mar 2021 16:11:59 +0000 (UTC)
 Received: from zmail21.collab.prod.int.phx2.redhat.com
 	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8B93718095CB;
-	Wed,  3 Mar 2021 15:40:20 +0000 (UTC)
-Date: Wed, 3 Mar 2021 10:40:20 -0500 (EST)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B64464BB40;
+	Wed,  3 Mar 2021 16:11:59 +0000 (UTC)
+Date: Wed, 3 Mar 2021 11:11:59 -0500 (EST)
 From: Bob Peterson <rpeterso@redhat.com>
-To: Yang Li <yang.lee@linux.alibaba.com>
-Message-ID: <270744488.59307524.1614786020378.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1614676526-102967-1-git-send-email-yang.lee@linux.alibaba.com>
-References: <1614676526-102967-1-git-send-email-yang.lee@linux.alibaba.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Message-ID: <353695111.59314152.1614787919661.JavaMail.zimbra@redhat.com>
+In-Reply-To: <677297398.59314116.1614787840714.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.3.112.116, 10.4.195.12]
-Thread-Topic: gfs2: Remove unneeded return variable
-Thread-Index: 3VuNkBJDA75kU/6FZuU1wYet5NWkVw==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Originating-IP: [10.3.112.116, 10.4.195.16]
+Thread-Topic: gfs2: fix use-after-free in trans_drain
+Thread-Index: ekcVwyijrlb+svbFPSVJid34XXGZrA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH] gfs2: Remove unneeded return variable
+Subject: [Cluster-devel] [GFS2 PATCH] gfs2: fix use-after-free in trans_drain
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,7 +71,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,52 +79,52 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
------ Original Message -----
-> This patch removes unneeded return variables, using only
-> '0' instead.
-> It fixes the following warning detected by coccinelle:
-> ./fs/gfs2/super.c:592:5-10: Unneeded variable: "error". Return "0" on
-> line 628
-> 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
-> ---
->  fs/gfs2/super.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-> index 861ed5f..fe2dae4 100644
-> --- a/fs/gfs2/super.c
-> +++ b/fs/gfs2/super.c
-> @@ -589,7 +589,6 @@ static void gfs2_dirty_inode(struct inode *inode, int
-> flags)
->  
->  int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
->  {
-> -	int error = 0;
->  	int log_write_allowed = test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
->  
->  	gfs2_flush_delete_work(sdp);
-> @@ -625,7 +624,7 @@ int gfs2_make_fs_ro(struct gfs2_sbd *sdp)
->  	if (!log_write_allowed)
->  		sdp->sd_vfs->s_flags |= SB_RDONLY;
->  
-> -	return error;
-> +	return 0;
->  }
->  
->  /**
-> --
-> 1.8.3.1
+This patch adds code to function trans_drain to remove drained
+bd elements from the ail lists, if queued, before freeing the bd.
+If we don't remove the bd from the ail, function ail_drain will
+try to reference the bd after it has been freed by trans_drain.
 
-Hi Yang,
+Thanks to Andy Price for his analysis of the problem.
 
-Thanks for submitting your patch. I like it. However, since gfs2_make_fs_ro
-always returns 0, we should also be able to make it a void function instead
-of int, and change its callers to not act on any return code.
+Reported-by: Andy Price <anprice@redhat.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/log.c   | 4 ++++
+ fs/gfs2/trans.c | 2 ++
+ 2 files changed, 6 insertions(+)
 
-Regards,
-
-Bob Peterson
-Red Hat File Systems
+diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+index 16937ebb2a3e..760af666576c 100644
+--- a/fs/gfs2/log.c
++++ b/fs/gfs2/log.c
+@@ -998,12 +998,16 @@ static void trans_drain(struct gfs2_trans *tr)
+ 	while (!list_empty(head)) {
+ 		bd = list_first_entry(head, struct gfs2_bufdata, bd_list);
+ 		list_del_init(&bd->bd_list);
++		if (!list_empty(&bd->bd_ail_st_list))
++			gfs2_remove_from_ail(bd);
+ 		kmem_cache_free(gfs2_bufdata_cachep, bd);
+ 	}
+ 	head = &tr->tr_databuf;
+ 	while (!list_empty(head)) {
+ 		bd = list_first_entry(head, struct gfs2_bufdata, bd_list);
+ 		list_del_init(&bd->bd_list);
++		if (!list_empty(&bd->bd_ail_st_list))
++			gfs2_remove_from_ail(bd);
+ 		kmem_cache_free(gfs2_bufdata_cachep, bd);
+ 	}
+ }
+diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
+index ab96cf0bf26b..63fec11ef2ce 100644
+--- a/fs/gfs2/trans.c
++++ b/fs/gfs2/trans.c
+@@ -169,6 +169,8 @@ static struct gfs2_bufdata *gfs2_alloc_bufdata(struct gfs2_glock *gl,
+ 	bd->bd_bh = bh;
+ 	bd->bd_gl = gl;
+ 	INIT_LIST_HEAD(&bd->bd_list);
++	INIT_LIST_HEAD(&bd->bd_ail_st_list);
++	INIT_LIST_HEAD(&bd->bd_ail_gl_list);
+ 	bh->b_private = bd;
+ 	return bd;
+ }
 
