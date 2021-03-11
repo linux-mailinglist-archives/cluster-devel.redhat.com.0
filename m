@@ -2,66 +2,66 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 87114337F5D
-	for <lists+cluster-devel@lfdr.de>; Thu, 11 Mar 2021 22:09:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C2D5337FEE
+	for <lists+cluster-devel@lfdr.de>; Thu, 11 Mar 2021 22:53:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-516-oEim5bPCMMO1GNu7SU9Xbw-1; Thu, 11 Mar 2021 16:09:49 -0500
-X-MC-Unique: oEim5bPCMMO1GNu7SU9Xbw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-540-VhHC4kTHMN2Qul1F6_8S1Q-1; Thu, 11 Mar 2021 16:52:59 -0500
+X-MC-Unique: VhHC4kTHMN2Qul1F6_8S1Q-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 48EC0A0C01;
-	Thu, 11 Mar 2021 21:09:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 468D0369A;
-	Thu, 11 Mar 2021 21:09:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A60A91084D68;
+	Thu, 11 Mar 2021 21:52:56 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70F2A5D75F;
+	Thu, 11 Mar 2021 21:52:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 04F4C464F9;
-	Thu, 11 Mar 2021 21:09:44 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B91EB1809C84;
+	Thu, 11 Mar 2021 21:52:55 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12BL9arp012457 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 11 Mar 2021 16:09:36 -0500
+	id 12BLqqVG017308 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 11 Mar 2021 16:52:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1CD6CFA729; Thu, 11 Mar 2021 21:09:36 +0000 (UTC)
+	id 6AD7BFED53; Thu, 11 Mar 2021 21:52:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1662763796
-	for <cluster-devel@redhat.com>; Thu, 11 Mar 2021 21:09:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64B14FED55
+	for <cluster-devel@redhat.com>; Thu, 11 Mar 2021 21:52:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E107C1021E2A
-	for <cluster-devel@redhat.com>; Thu, 11 Mar 2021 21:09:33 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-2-dljnPZ_5PoOnOQetypnKXA-1; Thu, 11 Mar 2021 16:09:27 -0500
-X-MC-Unique: dljnPZ_5PoOnOQetypnKXA-1
-IronPort-SDR: sKN8WAi/iDpCn5XUcFVF6KwbdsfzQ32TGTqwCVgE3ehxhBBBy4e4di8Dn0O2sYcUyWFaTsQ9jp
-	ABiqRkmAu+FA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="176333468"
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56D5E811E7A
+	for <cluster-devel@redhat.com>; Thu, 11 Mar 2021 21:52:50 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-411-Z5eRRWQGPOGMV1Lnr1G_zQ-1;
+	Thu, 11 Mar 2021 16:52:36 -0500
+X-MC-Unique: Z5eRRWQGPOGMV1Lnr1G_zQ-1
+IronPort-SDR: KA7jOGU3Kfytky3NQAS55H3fXaZEpkRQgQkgJFQMaCf7mkx2j/e/2Pg9GkJAqHgbE/D0ybEFXE
+	Qqnsn0uU/6Rg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="188110475"
 X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; 
-	d="gz'50?scan'50,208,50";a="176333468"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-	by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	11 Mar 2021 13:09:25 -0800
-IronPort-SDR: yJ0vq9VptfmNlCJMM/kMI0mk4duXJqelfdsppyddnG6m+otnMhTC/NdBWTgveeQKGrgw0Nh+wR
-	ssEPvL5tlz9w==
+	d="gz'50?scan'50,208,50";a="188110475"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+	by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	11 Mar 2021 13:51:30 -0800
+IronPort-SDR: 3b77WIocyfxXD2I5jXc6IClkSGb/agrCUHZ+Kx/dZCXbeSFpJVN6S5Ngppkye2M+82q9y8bDwo
+	DXDSL4YCl5cw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; 
-	d="gz'50?scan'50,208,50";a="603687575"
+	d="gz'50?scan'50,208,50";a="600373296"
 Received: from lkp-server02.sh.intel.com (HELO ce64c092ff93) ([10.239.97.151])
-	by fmsmga005.fm.intel.com with ESMTP; 11 Mar 2021 13:09:23 -0800
+	by fmsmga006.fm.intel.com with ESMTP; 11 Mar 2021 13:51:28 -0800
 Received: from kbuild by ce64c092ff93 with local (Exim 4.92)
 	(envelope-from <lkp@intel.com>)
-	id 1lKSYd-0000xv-9p; Thu, 11 Mar 2021 21:09:23 +0000
-Date: Fri, 12 Mar 2021 05:08:46 +0800
+	id 1lKTDL-0000z8-MN; Thu, 11 Mar 2021 21:51:27 +0000
+Date: Fri, 12 Mar 2021 05:50:33 +0800
 From: kernel test robot <lkp@intel.com>
 To: Bob Peterson <rpeterso@redhat.com>
-Message-ID: <202103120539.YWdnuZAg-lkp@intel.com>
+Message-ID: <202103120523.lLMnZxvH-lkp@intel.com>
 MIME-Version: 1.0
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -75,9 +75,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, kbuild-all@lists.01.org
-Subject: [Cluster-devel] [gfs2:for-next.radical6j 22/26]
- fs/gfs2/glock.c:2137:9: sparse: sparse: context imbalance in 'clear_glock'
- - wrong count at exit
+Subject: [Cluster-devel] [gfs2:for-next.radical6j 23/26]
+ fs/gfs2/glock.c:1627:6: sparse: sparse: context imbalance in
+ 'gfs2_glock_dq' - wrong count at exit
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,30 +91,30 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="6TrnltStXW4iwmi0"
+Content-Type: multipart/mixed; boundary="opJtzjQTFsWo+cga"
 Content-Disposition: inline
 
---6TrnltStXW4iwmi0
+--opJtzjQTFsWo+cga
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next.radical6j
 head:   7b8c8263459404aea0c41574ef44e827d7ea1215
-commit: cd52bd209f8ecfa145ace8ed08d19877ef38d43e [22/26] gfs2: Call state machine directly in clear_glock
+commit: e1112869d94825c3692450ed0508f349fadb9f36 [23/26] gfs2: Call state machine on non-delayed dequeue
 config: x86_64-randconfig-s022-20210311 (attached as .config)
 compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
 reproduce:
         # apt-get install sparse
         # sparse version: v0.6.3-262-g5e674421-dirty
-        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=cd52bd209f8ecfa145ace8ed08d19877ef38d43e
+        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=e1112869d94825c3692450ed0508f349fadb9f36
         git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
         git fetch --no-tags gfs2 for-next.radical6j
-        git checkout cd52bd209f8ecfa145ace8ed08d19877ef38d43e
+        git checkout e1112869d94825c3692450ed0508f349fadb9f36
         # save the attached .config to linux build tree
         make W=1 C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' ARCH=x86_64 
 
@@ -126,40 +126,90 @@ Reported-by: kernel test robot <lkp@intel.com>
    fs/gfs2/glock.c: note: in included file:
    fs/gfs2/glock.h:222:36: sparse: sparse: context imbalance in '__gfs2_glock_put' - unexpected unlock
    fs/gfs2/glock.c:973:9: sparse: sparse: context imbalance in 'state_machine' - wrong count at exit
-   fs/gfs2/glock.c:1949:26: sparse: sparse: context imbalance in 'gfs2_dispose_glock_lru' - different lock contexts for basic block
->> fs/gfs2/glock.c:2137:9: sparse: sparse: context imbalance in 'clear_glock' - wrong count at exit
+>> fs/gfs2/glock.c:1627:6: sparse: sparse: context imbalance in 'gfs2_glock_dq' - wrong count at exit
+   fs/gfs2/glock.c:1963:26: sparse: sparse: context imbalance in 'gfs2_dispose_glock_lru' - different lock contexts for basic block
+   fs/gfs2/glock.c:2151:9: sparse: sparse: context imbalance in 'clear_glock' - wrong count at exit
 
-vim +/clear_glock +2137 fs/gfs2/glock.c
+vim +/gfs2_glock_dq +1627 fs/gfs2/glock.c
 
-  2123	
-  2124	/**
-  2125	 * clear_glock - look at a glock and see if we can free it from glock cache
-  2126	 * @gl: the glock to look at
-  2127	 *
-  2128	 */
-  2129	
-  2130	static void clear_glock(struct gfs2_glock *gl)
-  2131	{
-  2132		gfs2_glock_remove_from_lru(gl);
-  2133	
-  2134		spin_lock(&gl->gl_lockref.lock);
-  2135		if (gl->gl_state != LM_ST_UNLOCKED)
-  2136			request_unlock(gl);
-> 2137		if (!__state_machine(gl, GL_ST_RUN_QUEUE))
-  2138			spin_unlock(&gl->gl_lockref.lock);
-  2139	}
-  2140	
+b3b94faa5fe596 David Teigland      2006-01-16  1620  
+b3b94faa5fe596 David Teigland      2006-01-16  1621  /**
+b3b94faa5fe596 David Teigland      2006-01-16  1622   * gfs2_glock_dq - dequeue a struct gfs2_holder from a glock (release a glock)
+b3b94faa5fe596 David Teigland      2006-01-16  1623   * @gh: the glock holder
+b3b94faa5fe596 David Teigland      2006-01-16  1624   *
+b3b94faa5fe596 David Teigland      2006-01-16  1625   */
+b3b94faa5fe596 David Teigland      2006-01-16  1626  
+b3b94faa5fe596 David Teigland      2006-01-16 @1627  void gfs2_glock_dq(struct gfs2_holder *gh)
+b3b94faa5fe596 David Teigland      2006-01-16  1628  {
+b3b94faa5fe596 David Teigland      2006-01-16  1629  	struct gfs2_glock *gl = gh->gh_gl;
+601ef0d52e9617 Bob Peterson        2020-01-28  1630  	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+c4f68a130fc179 Benjamin Marzinski  2007-08-23  1631  	unsigned delay = 0;
+6802e3400ff454 Steven Whitehouse   2008-05-21  1632  	int fast_path = 0;
+b3b94faa5fe596 David Teigland      2006-01-16  1633  
+f3dd1649122b9e Andreas Gruenbacher 2015-10-29  1634  	spin_lock(&gl->gl_lockref.lock);
+601ef0d52e9617 Bob Peterson        2020-01-28  1635  	/*
+601ef0d52e9617 Bob Peterson        2020-01-28  1636  	 * If we're in the process of file system withdraw, we cannot just
+601ef0d52e9617 Bob Peterson        2020-01-28  1637  	 * dequeue any glocks until our journal is recovered, lest we
+601ef0d52e9617 Bob Peterson        2020-01-28  1638  	 * introduce file system corruption. We need two exceptions to this
+601ef0d52e9617 Bob Peterson        2020-01-28  1639  	 * rule: We need to allow unlocking of nondisk glocks and the glock
+601ef0d52e9617 Bob Peterson        2020-01-28  1640  	 * for our own journal that needs recovery.
+601ef0d52e9617 Bob Peterson        2020-01-28  1641  	 */
+601ef0d52e9617 Bob Peterson        2020-01-28  1642  	if (test_bit(SDF_WITHDRAW_RECOVERY, &sdp->sd_flags) &&
+601ef0d52e9617 Bob Peterson        2020-01-28  1643  	    glock_blocked_by_withdraw(gl) &&
+601ef0d52e9617 Bob Peterson        2020-01-28  1644  	    gh->gh_gl != sdp->sd_jinode_gl) {
+601ef0d52e9617 Bob Peterson        2020-01-28  1645  		sdp->sd_glock_dqs_held++;
+601ef0d52e9617 Bob Peterson        2020-01-28  1646  		might_sleep();
+601ef0d52e9617 Bob Peterson        2020-01-28  1647  		wait_on_bit(&sdp->sd_flags, SDF_WITHDRAW_RECOVERY,
+601ef0d52e9617 Bob Peterson        2020-01-28  1648  			    TASK_UNINTERRUPTIBLE);
+601ef0d52e9617 Bob Peterson        2020-01-28  1649  	}
+b3b94faa5fe596 David Teigland      2006-01-16  1650  	if (gh->gh_flags & GL_NOCACHE)
+4897a284e835c9 Bob Peterson        2021-03-09  1651  		request_unlock(gl);
+b3b94faa5fe596 David Teigland      2006-01-16  1652  
+b3b94faa5fe596 David Teigland      2006-01-16  1653  	list_del_init(&gh->gh_list);
+7508abc4bdac43 Bob Peterson        2015-12-18  1654  	clear_bit(HIF_HOLDER, &gh->gh_iflags);
+6802e3400ff454 Steven Whitehouse   2008-05-21  1655  	if (find_first_holder(gl) == NULL) {
+6802e3400ff454 Steven Whitehouse   2008-05-21  1656  		if (list_empty(&gl->gl_holders) &&
+6802e3400ff454 Steven Whitehouse   2008-05-21  1657  		    !test_bit(GLF_PENDING_DEMOTE, &gl->gl_flags) &&
+6802e3400ff454 Steven Whitehouse   2008-05-21  1658  		    !test_bit(GLF_DEMOTE, &gl->gl_flags))
+6802e3400ff454 Steven Whitehouse   2008-05-21  1659  			fast_path = 1;
+b3b94faa5fe596 David Teigland      2006-01-16  1660  	}
+7881ef3f33bb80 Ross Lagerwall      2019-03-27  1661  	if (!test_bit(GLF_LFLUSH, &gl->gl_flags) && demote_ok(gl))
+4abb6ad9eae0ae Bob Peterson        2012-08-09  1662  		gfs2_glock_add_to_lru(gl);
+4abb6ad9eae0ae Bob Peterson        2012-08-09  1663  
+63997775b795f9 Steven Whitehouse   2009-06-12  1664  	trace_gfs2_glock_queue(gh, 0);
+6b0c7440bcb4b7 Andreas Gruenbacher 2017-06-30  1665  	if (unlikely(!fast_path)) {
+6b0c7440bcb4b7 Andreas Gruenbacher 2017-06-30  1666  		gl->gl_lockref.count++;
+c4f68a130fc179 Benjamin Marzinski  2007-08-23  1667  		if (test_bit(GLF_PENDING_DEMOTE, &gl->gl_flags) &&
+7cf8dcd3b68a76 Bob Peterson        2011-06-15  1668  		    !test_bit(GLF_DEMOTE, &gl->gl_flags) &&
+7cf8dcd3b68a76 Bob Peterson        2011-06-15  1669  		    gl->gl_name.ln_type == LM_TYPE_INODE)
+7cf8dcd3b68a76 Bob Peterson        2011-06-15  1670  			delay = gl->gl_hold_time;
+e1112869d94825 Bob Peterson        2021-03-09  1671  		if (delay)
+6b0c7440bcb4b7 Andreas Gruenbacher 2017-06-30  1672  			__gfs2_glock_queue_work(gl, delay);
+e1112869d94825 Bob Peterson        2021-03-09  1673  		else {
+e1112869d94825 Bob Peterson        2021-03-09  1674  			if (__state_machine(gl, GL_ST_RUN_QUEUE))
+e1112869d94825 Bob Peterson        2021-03-09  1675  				return;
+e1112869d94825 Bob Peterson        2021-03-09  1676  		}
+6b0c7440bcb4b7 Andreas Gruenbacher 2017-06-30  1677  	}
+6b0c7440bcb4b7 Andreas Gruenbacher 2017-06-30  1678  	spin_unlock(&gl->gl_lockref.lock);
+b3b94faa5fe596 David Teigland      2006-01-16  1679  }
+b3b94faa5fe596 David Teigland      2006-01-16  1680  
+
+:::::: The code at line 1627 was first introduced by commit
+:::::: b3b94faa5fe5968827ba0640ee9fba4b3e7f736e [GFS2] The core of GFS2
+
+:::::: TO: David Teigland <teigland@redhat.com>
+:::::: CC: Steven Whitehouse <swhiteho@redhat.com>
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---6TrnltStXW4iwmi0
+--opJtzjQTFsWo+cga
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICLp9SmAAAy5jb25maWcAjFzLc9w20r/nr5hyLsnBWUm2VU59pQOGBGeQIQkaAOehC0uRx45q
+H4sICLOJSmAAAy5jb25maWcAjFzLc9w20r/nr5hyLsnBWUm2VU59pQOGBGeQIQkaAOehC0uRx45q
 bcmfHrvxf7/dAEgCYHPiPWQtdBPPRvevH5iff/p5wV6eH77ePN/d3nz58n3x+Xh/fLx5Pn5cfLr7
 cvy/RS4XtTQLngvzGzCXd/cvf//r7/eX3eXbxbvfzi9+O3v9eHux2Bwf749fFtnD/ae7zy/Qwd3D
 /U8//5TJuhCrLsu6LVdayLozfG+uXn2+vX39++KX/Pjn3c394vff3kA3Fxe/un+9Cj4Tultl2dX3
@@ -745,5 +795,5 @@ ZjlDl60EdSZePqj5CUgB5o0KKL5R82YFAol+E+uKnrH5jClk/w/tnC45/trSrCk2gSf9sFg6lGSJ
 33xZB2d8HgsuxNo0yYzKHGMTFbMo4RaiI6bTRvfD8MbOKWJKx8lXAc12S1qTRDLQ3K6j4IveaNli
 cxXVzDYA+TgKYIP5tyw5lpiP5qqk5/4kphTPJuSSmmABRWzry1mxxQm9JYwx/w+uPrCkkxoCAA==
 
---6TrnltStXW4iwmi0--
+--opJtzjQTFsWo+cga--
 
