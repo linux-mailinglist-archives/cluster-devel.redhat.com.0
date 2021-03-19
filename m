@@ -1,68 +1,67 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E1AAF34289B
-	for <lists+cluster-devel@lfdr.de>; Fri, 19 Mar 2021 23:20:06 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 10E5C342909
+	for <lists+cluster-devel@lfdr.de>; Sat, 20 Mar 2021 00:04:02 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-190-ET5kSutyNwOBhFMaClmtAA-1; Fri, 19 Mar 2021 18:20:02 -0400
-X-MC-Unique: ET5kSutyNwOBhFMaClmtAA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-378-9PJ8LTbeNRGePguF4e0DhQ-1; Fri, 19 Mar 2021 19:03:56 -0400
+X-MC-Unique: 9PJ8LTbeNRGePguF4e0DhQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 665C21007467;
-	Fri, 19 Mar 2021 22:19:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AAE18107ACCD;
+	Fri, 19 Mar 2021 23:03:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E09660C04;
-	Fri, 19 Mar 2021 22:19:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6324560CDF;
+	Fri, 19 Mar 2021 23:03:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8CFAE1809C84;
-	Fri, 19 Mar 2021 22:19:52 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D6E41809C83;
+	Fri, 19 Mar 2021 23:03:53 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12JMJm0C020603 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 19 Mar 2021 18:19:48 -0400
+	id 12JN3nS3026239 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Mar 2021 19:03:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 672C62166BA3; Fri, 19 Mar 2021 22:19:48 +0000 (UTC)
+	id ACA702166BA9; Fri, 19 Mar 2021 23:03:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FD8E2166B44
-	for <cluster-devel@redhat.com>; Fri, 19 Mar 2021 22:19:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5E422166BA3
+	for <cluster-devel@redhat.com>; Fri, 19 Mar 2021 23:03:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F13980A1D2
-	for <cluster-devel@redhat.com>; Fri, 19 Mar 2021 22:19:45 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-588-6oTKWsSHOLWPx23PNP-Epg-1;
-	Fri, 19 Mar 2021 18:19:39 -0400
-X-MC-Unique: 6oTKWsSHOLWPx23PNP-Epg-1
-IronPort-SDR: 9AP806HvCLPEqfCK0RxN/5vpgXmdVibvw+qfD7qKc57SllvlBN2Q7eNkMzh2FfxPRNidfQw4zX
-	qRKoJHCWMDFw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9928"; a="187629302"
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F25ED100DE78
+	for <cluster-devel@redhat.com>; Fri, 19 Mar 2021 23:03:45 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-598-ZAMmcl0TPIqXvmlXKhacCw-1;
+	Fri, 19 Mar 2021 19:03:41 -0400
+X-MC-Unique: ZAMmcl0TPIqXvmlXKhacCw-1
+IronPort-SDR: Ncpf21TC6cj8Ex+Ka/WAB7kpGnY/8ccMhc7BuLtQbn1GTbk/i/tDEHGurgGkbZ55jC+0l/CTc4
+	DzTF0wNZxeVQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9928"; a="169287928"
 X-IronPort-AV: E=Sophos;i="5.81,263,1610438400"; 
-	d="gz'50?scan'50,208,50";a="187629302"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	19 Mar 2021 15:19:36 -0700
-IronPort-SDR: a3OJOqpE4egMjzkBeb1jtvIUOuTLvB/pNRPDnRzvRO0ukBfkP9a2DtUHnkrjOrhxZk7hv4rjmL
-	+wUBgSzd5lwA==
+	d="gz'50?scan'50,208,50";a="169287928"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	19 Mar 2021 16:03:40 -0700
+IronPort-SDR: IZtLzYLDCNPhxP8onBT2t0LZsxVSHyjX7FMmsRr+EY4o9bBkRU+zO6n7UKVd8wTMJC/c6leugh
+	1KqqfMRBk8MQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.81,263,1610438400"; 
-	d="gz'50?scan'50,208,50";a="373205413"
+	d="gz'50?scan'50,208,50";a="440247590"
 Received: from lkp-server02.sh.intel.com (HELO 1c294c63cb86) ([10.239.97.151])
-	by orsmga003.jf.intel.com with ESMTP; 19 Mar 2021 15:19:34 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 19 Mar 2021 16:03:38 -0700
 Received: from kbuild by 1c294c63cb86 with local (Exim 4.92)
 	(envelope-from <lkp@intel.com>)
-	id 1lNNSv-00026P-Df; Fri, 19 Mar 2021 22:19:33 +0000
-Date: Sat, 20 Mar 2021 06:19:10 +0800
+	id 1lNO9Z-00028Y-Bw; Fri, 19 Mar 2021 23:03:37 +0000
+Date: Sat, 20 Mar 2021 07:02:49 +0800
 From: kernel test robot <lkp@intel.com>
 To: Bob Peterson <rpeterso@redhat.com>
-Message-ID: <202103200603.vQHDtFsm-lkp@intel.com>
+Message-ID: <202103200747.iD0vWuDJ-lkp@intel.com>
 MIME-Version: 1.0
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -76,9 +75,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, kbuild-all@lists.01.org
-Subject: [Cluster-devel] [gfs2:for-next.radical6m 4/27] fs/gfs2/dir.c:2279:
- warning: expecting prototype for __gfs2_dir_exhash_dealloc(). Prototype was
- for gfs2_dir_exhash_dealloc() instead
+Subject: [Cluster-devel] [gfs2:for-next.radical6m 19/27]
+ fs/gfs2/glock.c:583:22: warning: variable 'gh' set but not used
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,30 +90,30 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="xHFwDpU9dbj6ez1V"
+Content-Type: multipart/mixed; boundary="AhhlLboLdkugWU4S"
 Content-Disposition: inline
 
---xHFwDpU9dbj6ez1V
+--AhhlLboLdkugWU4S
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next.radical6m
 head:   ade69cc95ecf986b020e19bb73214d45eeda8fd1
-commit: a03d1603414614e331382c8cd2117764bca83a4d [4/27] gfs2: fast dealloc for exhash directories
+commit: 005282b7d34999f81185091c78b4d90a1920cb6c [19/27] gfs2: Introduce new GL_ST_XMOTE_DENIED state
 config: parisc-randconfig-r006-20210318 (attached as .config)
 compiler: hppa-linux-gcc (GCC) 9.3.0
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
-        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=a03d1603414614e331382c8cd2117764bca83a4d
+        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=005282b7d34999f81185091c78b4d90a1920cb6c
         git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
         git fetch --no-tags gfs2 for-next.radical6m
-        git checkout a03d1603414614e331382c8cd2117764bca83a4d
+        git checkout 005282b7d34999f81185091c78b4d90a1920cb6c
         # save the attached .config to linux build tree
         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-9.3.0 make.cross ARCH=parisc 
 
@@ -124,72 +122,75 @@ Reported-by: kernel test robot <lkp@intel.com>
 
 All warnings (new ones prefixed by >>):
 
-   fs/gfs2/dir.c:782: warning: Function parameter or member 'index' not described in 'get_leaf_nr'
-   fs/gfs2/dir.c:908: warning: Function parameter or member 'inode' not described in 'dir_make_exhash'
-   fs/gfs2/dir.c:908: warning: Excess function parameter 'dip' description in 'dir_make_exhash'
-   fs/gfs2/dir.c:1003: warning: Function parameter or member 'inode' not described in 'dir_split_leaf'
-   fs/gfs2/dir.c:1003: warning: Function parameter or member 'name' not described in 'dir_split_leaf'
-   fs/gfs2/dir.c:1003: warning: Excess function parameter 'dip' description in 'dir_split_leaf'
-   fs/gfs2/dir.c:1003: warning: Excess function parameter 'leaf_no' description in 'dir_split_leaf'
-   fs/gfs2/dir.c:1269: warning: Function parameter or member 'sort_start' not described in 'do_filldir_main'
-   fs/gfs2/dir.c:1480: warning: Function parameter or member 'inode' not described in 'gfs2_dir_readahead'
-   fs/gfs2/dir.c:1480: warning: Function parameter or member 'hsize' not described in 'gfs2_dir_readahead'
-   fs/gfs2/dir.c:1480: warning: Function parameter or member 'index' not described in 'gfs2_dir_readahead'
-   fs/gfs2/dir.c:1480: warning: Function parameter or member 'f_ra' not described in 'gfs2_dir_readahead'
-   fs/gfs2/dir.c:1529: warning: Function parameter or member 'inode' not described in 'dir_e_read'
-   fs/gfs2/dir.c:1529: warning: Function parameter or member 'f_ra' not described in 'dir_e_read'
-   fs/gfs2/dir.c:1529: warning: Excess function parameter 'dip' description in 'dir_e_read'
-   fs/gfs2/dir.c:1643: warning: Function parameter or member 'dir' not described in 'gfs2_dir_search'
-   fs/gfs2/dir.c:1643: warning: Excess function parameter 'dip' description in 'gfs2_dir_search'
-   fs/gfs2/dir.c:1879: warning: Function parameter or member 'dentry' not described in 'gfs2_dir_del'
-   fs/gfs2/dir.c:1879: warning: Excess function parameter 'filename' description in 'gfs2_dir_del'
-   fs/gfs2/dir.c:1940: warning: Function parameter or member 'filename' not described in 'gfs2_dir_mvino'
-   fs/gfs2/dir.c:1940: warning: Function parameter or member 'nip' not described in 'gfs2_dir_mvino'
-   fs/gfs2/dir.c:1940: warning: Function parameter or member 'new_type' not described in 'gfs2_dir_mvino'
-   fs/gfs2/dir.c:1940: warning: Excess function parameter 'new_inode' description in 'gfs2_dir_mvino'
-   fs/gfs2/dir.c:1977: warning: Function parameter or member 'last_dealloc' not described in 'leaf_dealloc'
-   fs/gfs2/dir.c:2143: warning: Function parameter or member 'rgd' not described in 'leaves_in_this_rgd'
-   fs/gfs2/dir.c:2143: warning: Function parameter or member 'lp' not described in 'leaves_in_this_rgd'
-   fs/gfs2/dir.c:2143: warning: Function parameter or member 'hsize' not described in 'leaves_in_this_rgd'
->> fs/gfs2/dir.c:2279: warning: expecting prototype for __gfs2_dir_exhash_dealloc(). Prototype was for gfs2_dir_exhash_dealloc() instead
-   fs/gfs2/dir.c:2297: warning: Function parameter or member 'inode' not described in 'gfs2_diradd_alloc_required'
-   fs/gfs2/dir.c:2297: warning: Function parameter or member 'name' not described in 'gfs2_diradd_alloc_required'
-   fs/gfs2/dir.c:2297: warning: Excess function parameter 'ip' description in 'gfs2_diradd_alloc_required'
-   fs/gfs2/dir.c:2297: warning: Excess function parameter 'filname' description in 'gfs2_diradd_alloc_required'
+   fs/gfs2/glock.c: In function 'state_finish_xmote':
+>> fs/gfs2/glock.c:583:22: warning: variable 'gh' set but not used [-Wunused-but-set-variable]
+     583 |  struct gfs2_holder *gh;
+         |                      ^~
 
 
-vim +2279 fs/gfs2/dir.c
+vim +/gh +583 fs/gfs2/glock.c
 
-  2267	
-  2268	/**
-  2269	 * __gfs2_dir_exhash_dealloc - free all the leaf blocks in a directory
-  2270	 * @dip: the directory
-  2271	 *
-  2272	 * Dealloc all on-disk directory leaves to FREEMETA state
-  2273	 * Change on-disk inode type to "regular file"
-  2274	 *
-  2275	 * Returns: errno
-  2276	 */
-  2277	
-  2278	int gfs2_dir_exhash_dealloc(struct gfs2_inode *dip)
-> 2279	{
-  2280		if (dip->i_diskflags & GFS2_DIF_NO_NEXT_LEAF)
-  2281			return dir_exhash_fast_dealloc(dip);
-  2282	
-  2283		return __gfs2_dir_exhash_dealloc(dip);
-  2284	}
-  2285	
+   573	
+   574	/**
+   575	 * state_finish_xmote - The DLM has replied to one of our lock requests
+   576	 * @gl: The glock
+   577	 *
+   578	 */
+   579	
+   580	static void state_finish_xmote(struct gfs2_glock *gl)
+   581	{
+   582		const struct gfs2_glock_operations *glops = gl->gl_ops;
+ > 583		struct gfs2_holder *gh;
+   584		unsigned int state = gl->gl_req & LM_OUT_ST_MASK;
+   585		int rv;
+   586	
+   587		trace_gfs2_glock_state_change(gl, state);
+   588		state_change(gl, state);
+   589	
+   590		/* Demote to UN request arrived during demote to SH or DF */
+   591		if (test_bit(GLF_DEMOTE_IN_PROGRESS, &gl->gl_flags) &&
+   592		    state != LM_ST_UNLOCKED && gl->gl_demote_state == LM_ST_UNLOCKED)
+   593			gl->gl_target = LM_ST_UNLOCKED;
+   594	
+   595		/* Check for state != intended state */
+   596		if (unlikely(state != gl->gl_target)) {
+   597			next_state(gl, GL_ST_XMOTE_DENIED);
+   598			return;
+   599		}
+   600	
+   601		/* Fast path - we got what we asked for */
+   602		if (test_and_clear_bit(GLF_DEMOTE_IN_PROGRESS, &gl->gl_flags))
+   603			gfs2_demote_wake(gl);
+   604		if (state != LM_ST_UNLOCKED) {
+   605			if (glops->go_xmote_bh) {
+   606				gh = find_first_waiter(gl);
+   607				spin_unlock(&gl->gl_lockref.lock);
+   608				rv = glops->go_xmote_bh(gl);
+   609				spin_lock(&gl->gl_lockref.lock);
+   610				if (rv) {
+   611					do_error(gl, rv);
+   612					goto out;
+   613				}
+   614			}
+   615			rv = do_promote(gl);
+   616			if (rv == 2)
+   617				return;
+   618		}
+   619	out:
+   620		clear_bit(GLF_LOCK, &gl->gl_flags);
+   621	}
+   622	
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---xHFwDpU9dbj6ez1V
+--AhhlLboLdkugWU4S
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICFobVWAAAy5jb25maWcAjFxdc9u20r7vr9CkN+1M0/ojcZJ5xxcgCFKoSIIBQEn2DcZxlFRT
+H4sICEsnVWAAAy5jb25maWcAjFxdc9u20r7vr9CkN+1M0/ojcZJ5xxcgCFKoSIIBQEn2DcZxlFRT
 x/bYcnv6799d8AsAQSVn5qTi7uJ7sfvsAvDPP/28IC+Hh283h/3tzd3df4uvu/vd081h93nxZX+3
 +79FKhaV0AuWcv07CBf7+5f//fF487R/vl28/f307PeT10+3Z4vV7ul+d7egD/df9l9foIL9w/1P
 P/9ERZXx3FBq1kwqLiqj2VZfvvrr8fHm9R3W9frr7e3il5zSXxcffj///eSVU4YrA4zL/3pSPtZz
@@ -942,5 +943,5 @@ L9zv9nlghJc4R4FeseZ0aRRK9lHh5CnqV6tan/Ft2pGJ93Tn9BmN9itu/J63snGcV/V1GIBbOx+C
 gqoDi2VQvT5AitXedSL1ytl6B54KaOmxNljioVWrrM2g24CJ1SpSFtDrgy3ii6UoMY9U61wqud8u
 hSxAKlPMQA+jiVh0P+tihzt6MfIiYdCu4DOlFUT0f/MlosNm4sJSnujEl/CRr8oc4gmj4ovKCBie
 DS6itEo62IitI9y1urIQmjHQGqt3jPd/6ZlOuX22AgA=
---xHFwDpU9dbj6ez1V--
+--AhhlLboLdkugWU4S--
 
