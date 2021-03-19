@@ -1,72 +1,55 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 83E9233E564
-	for <lists+cluster-devel@lfdr.de>; Wed, 17 Mar 2021 02:03:59 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5A26D341801
+	for <lists+cluster-devel@lfdr.de>; Fri, 19 Mar 2021 10:11:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1616145095;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=f1Dgk+cSyxy8JaMZKTv1IdlgNRjq4EPY9Izyj3ffsbM=;
+	b=caPMiqTFf0T/0Wuac+MXtK+Xr1+i62wcNyOidcP551DVKwpyLiDyemLDaZimMai5FR542V
+	WlqHB2NRN1URaNmTVy9LMtptPiG8FXoiUMxF6cwMMVdqqWwnpT9WPty1KHVRWNjrHgJNcb
+	RFmW3PU+6k9vLFOQtibDE6OT8C82Nt4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-41-dNuZL9h6PP-mpNIAO0gktA-1; Tue, 16 Mar 2021 21:03:56 -0400
-X-MC-Unique: dNuZL9h6PP-mpNIAO0gktA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-100-8zQRJBO1NIu24mR7MfcASA-1; Fri, 19 Mar 2021 05:11:33 -0400
+X-MC-Unique: 8zQRJBO1NIu24mR7MfcASA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 20A0E801984;
-	Wed, 17 Mar 2021 01:03:54 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D301B5D739;
-	Wed, 17 Mar 2021 01:03:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 82629107AFA5;
+	Fri, 19 Mar 2021 09:11:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E6BB10013D7;
+	Fri, 19 Mar 2021 09:11:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E790D57DC0;
-	Wed, 17 Mar 2021 01:03:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9B6B41800216;
+	Fri, 19 Mar 2021 09:11:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12H13oT0031543 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 16 Mar 2021 21:03:50 -0400
+	id 12J9BMUu020921 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Mar 2021 05:11:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4E86A1003210; Wed, 17 Mar 2021 01:03:50 +0000 (UTC)
+	id 35D495D740; Fri, 19 Mar 2021 09:11:22 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A7591005B82
-	for <cluster-devel@redhat.com>; Wed, 17 Mar 2021 01:03:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CA7880A0B0
-	for <cluster-devel@redhat.com>; Wed, 17 Mar 2021 01:03:47 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-350-DjVmIUx8MJ2uBfUzaesX3w-1;
-	Tue, 16 Mar 2021 21:03:43 -0400
-X-MC-Unique: DjVmIUx8MJ2uBfUzaesX3w-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 99B5B64F96;
-	Wed, 17 Mar 2021 00:55:58 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 16 Mar 2021 20:54:52 -0400
-Message-Id: <20210317005536.724046-18-sashal@kernel.org>
-In-Reply-To: <20210317005536.724046-1-sashal@kernel.org>
-References: <20210317005536.724046-1-sashal@kernel.org>
+Received: from cicero.redhat.com (unknown [10.33.36.56])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 97C075D72E
+	for <cluster-devel@redhat.com>; Fri, 19 Mar 2021 09:11:18 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Fri, 19 Mar 2021 09:11:15 +0000
+Message-Id: <20210319091116.219088-1-anprice@redhat.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12H13oT0031543
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.11 18/61] gfs2: fix use-after-free
-	in trans_drain
+Subject: [Cluster-devel] [PATCH 1/2] gfs2_jadd: Use fallocate to preallocate
+	journals
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,69 +63,88 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-From: Bob Peterson <rpeterso@redhat.com>
+Fall back to writes for ancient kernels and use larger writes in that
+case to reduce the chance of fragmentation.
 
-[ Upstream commit 1a5a2cfd34c17db73c53ef127272c8c1ae220485 ]
-
-This patch adds code to function trans_drain to remove drained
-bd elements from the ail lists, if queued, before freeing the bd.
-If we don't remove the bd from the ail, function ail_drain will
-try to reference the bd after it has been freed by trans_drain.
-
-Thanks to Andy Price for his analysis of the problem.
-
-Reported-by: Andy Price <anprice@redhat.com>
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Andrew Price <anprice@redhat.com>
 ---
- fs/gfs2/log.c   | 4 ++++
- fs/gfs2/trans.c | 2 ++
- 2 files changed, 6 insertions(+)
+ gfs2/mkfs/main_jadd.c | 48 +++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 40 insertions(+), 8 deletions(-)
 
-diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index 2e9314091c81..1955dea999f7 100644
---- a/fs/gfs2/log.c
-+++ b/fs/gfs2/log.c
-@@ -935,12 +935,16 @@ static void trans_drain(struct gfs2_trans *tr)
- 	while (!list_empty(head)) {
- 		bd = list_first_entry(head, struct gfs2_bufdata, bd_list);
- 		list_del_init(&bd->bd_list);
-+		if (!list_empty(&bd->bd_ail_st_list))
-+			gfs2_remove_from_ail(bd);
- 		kmem_cache_free(gfs2_bufdata_cachep, bd);
- 	}
- 	head = &tr->tr_databuf;
- 	while (!list_empty(head)) {
- 		bd = list_first_entry(head, struct gfs2_bufdata, bd_list);
- 		list_del_init(&bd->bd_list);
-+		if (!list_empty(&bd->bd_ail_st_list))
-+			gfs2_remove_from_ail(bd);
- 		kmem_cache_free(gfs2_bufdata_cachep, bd);
- 	}
+diff --git a/gfs2/mkfs/main_jadd.c b/gfs2/mkfs/main_jadd.c
+index 7583ba0f..0a18bfb2 100644
+--- a/gfs2/mkfs/main_jadd.c
++++ b/gfs2/mkfs/main_jadd.c
+@@ -480,6 +480,43 @@ static uint64_t find_block_address(int fd, off_t offset, unsigned bsize)
  }
-diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
-index 6d4bf7ea7b3b..7f850ff6a05d 100644
---- a/fs/gfs2/trans.c
-+++ b/fs/gfs2/trans.c
-@@ -134,6 +134,8 @@ static struct gfs2_bufdata *gfs2_alloc_bufdata(struct gfs2_glock *gl,
- 	bd->bd_bh = bh;
- 	bd->bd_gl = gl;
- 	INIT_LIST_HEAD(&bd->bd_list);
-+	INIT_LIST_HEAD(&bd->bd_ail_st_list);
-+	INIT_LIST_HEAD(&bd->bd_ail_gl_list);
- 	bh->b_private = bd;
- 	return bd;
- }
+ #endif
+ 
++static int alloc_new_journal(int fd, unsigned bytes)
++{
++#define ALLOC_BUF_SIZE (4 << 20)
++	unsigned left = bytes;
++	int error;
++	char *buf;
++
++	error = fallocate(fd, 0, 0, bytes);
++	if (error == 0)
++	       return 0;
++	if (errno != EOPNOTSUPP)
++		goto out_errno;
++
++	/* No fallocate support, fall back to writes */
++	buf = calloc(1, ALLOC_BUF_SIZE);
++	if (buf == NULL)
++		goto out_errno;
++
++	while (left > 0) {
++		unsigned sz = ALLOC_BUF_SIZE;
++
++		if (left < ALLOC_BUF_SIZE)
++			sz = left;
++
++		if (pwrite(fd, buf, sz, bytes - left) != sz) {
++			free(buf);
++			goto out_errno;
++		}
++		left -= sz;
++	}
++	free(buf);
++	return 0;
++out_errno:
++	perror("Failed to allocate space for new journal");
++	return -1;
++}
++
+ static int add_j(struct gfs2_sbd *sdp, struct jadd_opts *opts)
+ {
+ 	int fd, error = 0;
+@@ -496,14 +533,9 @@ static int add_j(struct gfs2_sbd *sdp, struct jadd_opts *opts)
+ 	if ((error = set_flags(fd, JA_FL_CLEAR, FS_JOURNAL_DATA_FL)))
+ 		goto close_fd;
+ 
+-	memset(buf, 0, sdp->bsize);
+-	for (x=0; x<blocks; x++) {
+-		if (write(fd, buf, sdp->bsize) != sdp->bsize) {
+-			perror("add_j write");
+-			error = -1;
+-			goto close_fd;
+-		}
+-	}
++	error = alloc_new_journal(fd, sdp->jsize << 20);
++	if (error != 0)
++		goto close_fd;
+ 
+ 	if ((error = lseek(fd, 0, SEEK_SET)) < 0) {
+ 		perror("add_j lseek");
 -- 
-2.30.1
-
+2.30.2
 
