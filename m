@@ -2,63 +2,63 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0544D3446DC
-	for <lists+cluster-devel@lfdr.de>; Mon, 22 Mar 2021 15:15:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 10E323446EB
+	for <lists+cluster-devel@lfdr.de>; Mon, 22 Mar 2021 15:18:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616422500;
+	s=mimecast20190719; t=1616422682;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=F+PsZXo88/nuq7d4E4k9izc43ojFbG3JIaApZCFWZfM=;
-	b=LNpldxcxaX/9wmB7CPAT9dcW3EHoXzj6DMdE9WQDQ0uz77NDzclahLpt2PQSZWqpir1Rb4
-	2x7AHubsV37Sq2wA6dfzO8n3icEXPpH6GLZamlwOCGrZxVfYWyULfaIVbiBBT2Afo4zpVH
-	PnuRke7einti7DDL/0Cx6Bg5AwuOZ5w=
+	 list-subscribe:list-post; bh=TzPZlwBP5HR794/z1pV5dC2WwRb0z0qq9meP/hMIGtU=;
+	b=MKYvJGDYdnyjSqyOPnmyR8wxcwh3SXsoZ8v2hubnF44H06TLuhI+Z4E70I6xiieBDYP1oW
+	TpVAWXHx0rAX4QSOQCFLPZfSgpLu4+B5b+BGdyhUFHiLdGV2J/DI/CpKNOK8D1C1GJcxEe
+	JA7cXVZ7f4wLXDOJ/35W71r0pTq1aHU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-304-bDxK5FHkOrWHje273_nrqw-1; Mon, 22 Mar 2021 10:14:58 -0400
-X-MC-Unique: bDxK5FHkOrWHje273_nrqw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-518-sUrz4SIkOyiSQX6TmXm5ZQ-1; Mon, 22 Mar 2021 10:18:00 -0400
+X-MC-Unique: sUrz4SIkOyiSQX6TmXm5ZQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F448100747E;
-	Mon, 22 Mar 2021 14:14:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AA855B6A8;
-	Mon, 22 Mar 2021 14:14:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7421985EE8B;
+	Mon, 22 Mar 2021 14:17:58 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6446F5C1A3;
+	Mon, 22 Mar 2021 14:17:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C0E191809C83;
-	Mon, 22 Mar 2021 14:14:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EE3C34BB7C;
+	Mon, 22 Mar 2021 14:17:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12MEEm6f030673 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 22 Mar 2021 10:14:48 -0400
+	id 12MEHrat031019 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 22 Mar 2021 10:17:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 79EC013493; Mon, 22 Mar 2021 14:14:48 +0000 (UTC)
+	id DF20A3697; Mon, 22 Mar 2021 14:17:53 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from colo-mx.corp.redhat.com
-	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 74E6B9CA0
-	for <cluster-devel@redhat.com>; Mon, 22 Mar 2021 14:14:45 +0000 (UTC)
+	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D9E465C1C4
+	for <cluster-devel@redhat.com>; Mon, 22 Mar 2021 14:17:51 +0000 (UTC)
 Received: from zmail21.collab.prod.int.phx2.redhat.com
 	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1CB884BB7C
-	for <cluster-devel@redhat.com>; Mon, 22 Mar 2021 14:14:45 +0000 (UTC)
-Date: Mon, 22 Mar 2021 10:14:45 -0400 (EDT)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 216E51809C81
+	for <cluster-devel@redhat.com>; Mon, 22 Mar 2021 14:17:51 +0000 (UTC)
+Date: Mon, 22 Mar 2021 10:17:51 -0400 (EDT)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Message-ID: <1435600148.65195184.1616422485023.JavaMail.zimbra@redhat.com>
-In-Reply-To: <163225009.65195112.1616422443178.JavaMail.zimbra@redhat.com>
+Message-ID: <118080683.65195486.1616422671077.JavaMail.zimbra@redhat.com>
+In-Reply-To: <212220598.65195485.1616422666102.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.3.112.85, 10.4.195.7]
-Thread-Topic: gfs2: fast dealloc for exhash directories
-Thread-Index: RrZVdeq9y2gEaCCTz1jINXnjdpquQQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Originating-IP: [10.3.112.85, 10.4.195.12]
+Thread-Topic: gfs2: Fix dir.c function parameter descriptions
+Thread-Index: JyM4PPrzJ9NrBH8m1rh0R4WJuiMmqw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH v2] gfs2: fast dealloc for exhash
-	directories
+Subject: [Cluster-devel] [GFS2 PATCH] gfs2: Fix dir.c function parameter
+	descriptions
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,7 +72,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -80,266 +80,138 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-Before this patch, whenever a directory was deleted, it called function
-__gfs2_dir_exhash_dealloc to deallocate the directory's leaf blocks.
-But __gfs2_dir_exhash_dealloc never knew if any given leaf block had
-leaf continuation aka "next" blocks, so it read every single leaf block
-in, only to determine in 99% of the cases that there was none. Still,
-this reading in of all the leaf blocks was very slow.
+This patch simply fixes a bunch of function parameter comments
+in dir.c that were reported by the kernel test robot.
 
-This patch adds a new disk flag that indicates whether a directory is
-clean of any "next leaf" blocks. If so, it takes an optimized path that
-just deletes the leaf blocks and zeroes out the hash table.
-
-It would seem to make more sense to have the new bit indicate when a
-directory contains "next leaf" blocks rather than the inverse, but we
-need to treat file systems created by older versions of gfs2 as if
-they have "next leaf" blocks.
-
+Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/dir.c                    | 168 ++++++++++++++++++++++++++++++++++++---
- fs/gfs2/inode.c                  |   2 +-
- include/uapi/linux/gfs2_ondisk.h |  15 ++++
- 3 files changed, 173 insertions(+), 12 deletions(-)
+ fs/gfs2/dir.c | 39 ++++++++++++++++++++++-----------------
+ 1 file changed, 22 insertions(+), 17 deletions(-)
 
 diff --git a/fs/gfs2/dir.c b/fs/gfs2/dir.c
-index c0f2875c946c..44875fbdfc64 100644
+index 44875fbdfc64..6ff211ed7dcf 100644
 --- a/fs/gfs2/dir.c
 +++ b/fs/gfs2/dir.c
-@@ -69,6 +69,7 @@
- #include "meta_io.h"
- #include "quota.h"
- #include "rgrp.h"
-+#include "super.h"
- #include "trans.h"
- #include "bmap.h"
- #include "util.h"
-@@ -1761,6 +1762,11 @@ static int dir_new_leaf(struct inode *inode, const struct qstr *name)
- 		return error;
- 	gfs2_trans_add_meta(ip->i_gl, bh);
- 	gfs2_add_inode_blocks(&ip->i_inode, 1);
-+	/*
-+	 * This dinode now has a "next leaf" so we need to deallocate it the
-+	 * old, slow way.
-+	 */
-+	ip->i_diskflags &= ~GFS2_DIF_NO_NEXT_LEAF;
- 	gfs2_dinode_out(ip, bh->b_data);
- 	brelse(bh);
- 	return 0;
-@@ -2083,17 +2089,7 @@ static int leaf_dealloc(struct gfs2_inode *dip, u32 index, u32 len,
- 	return error;
- }
+@@ -771,14 +771,13 @@ static int get_leaf(struct gfs2_inode *dip, u64 leaf_no,
+ /**
+  * get_leaf_nr - Get a leaf number associated with the index
+  * @dip: The GFS2 inode
+- * @index:
+- * @leaf_out:
++ * @index: hash table index of the targeted leaf
++ * @leaf_out: Resulting leaf block number
+  *
+  * Returns: 0 on success, error code otherwise
+  */
  
--/**
-- * gfs2_dir_exhash_dealloc - free all the leaf blocks in a directory
-- * @dip: the directory
-- *
-- * Dealloc all on-disk directory leaves to FREEMETA state
-- * Change on-disk inode type to "regular file"
-- *
-- * Returns: errno
-- */
--
--int gfs2_dir_exhash_dealloc(struct gfs2_inode *dip)
-+static int __gfs2_dir_exhash_dealloc(struct gfs2_inode *dip)
+-static int get_leaf_nr(struct gfs2_inode *dip, u32 index,
+-		       u64 *leaf_out)
++static int get_leaf_nr(struct gfs2_inode *dip, u32 index, u64 *leaf_out)
  {
- 	struct buffer_head *bh;
- 	struct gfs2_leaf *leaf;
-@@ -2140,6 +2136,156 @@ int gfs2_dir_exhash_dealloc(struct gfs2_inode *dip)
- 	return error;
- }
+ 	__be64 *hash;
+ 	int error;
+@@ -899,7 +898,7 @@ static struct gfs2_leaf *new_leaf(struct inode *inode, struct buffer_head **pbh,
  
-+/**
-+ * leaves_in_this_rgd - count the leaf blocks in the index with the same rgrp
-+ * @rgd: the target resource group structure
-+ * @lp: the in-core directory hash table
-+ * @hsize: the hash table size
-+ */
-+static int leaves_in_this_rgd(struct gfs2_rgrpd *rgd, __be64 *lp, u32 hsize)
-+{
-+	int index, leaves_in_rgd = 0;
-+	u64 leaf_no, prev_leaf = 0;
-+
-+	for (index = 0; index < hsize; index++) {
-+		leaf_no = be64_to_cpu(lp[index]);
-+		if (!leaf_no)
-+			continue;
-+		if (leaf_no == prev_leaf)
-+			continue;
-+		prev_leaf = leaf_no;
-+		if (rgrp_contains_block(rgd, leaf_no))
-+			leaves_in_rgd++;
-+	}
-+	return leaves_in_rgd;
-+}
-+
-+static int dir_exhash_fast_dealloc(struct gfs2_inode *dip)
-+{
-+	struct gfs2_sbd *sdp = GFS2_SB(&dip->i_inode);
-+	struct gfs2_rgrpd *rgd;
-+	struct gfs2_holder gh;
-+	struct buffer_head *dibh;
-+	u32 hsize, index = 0, next_index = 0;
-+	__be64 *lp;
-+	u64 leaf_no, freed_leaf;
-+	int ret = 0;
-+	int leaf_count;
-+	int freed_blocks;
-+
-+	hsize = BIT(dip->i_depth);
-+	lp = gfs2_dir_get_hash_table(dip);
-+	if (IS_ERR(lp))
-+		return PTR_ERR(lp);
-+	ret = gfs2_quota_hold(dip, NO_UID_QUOTA_CHANGE, NO_GID_QUOTA_CHANGE);
-+	if (ret)
-+		return ret;
-+
-+new_rgrp:
-+	rgd = NULL;
-+	freed_leaf = 0;
-+	gfs2_holder_mark_uninitialized(&gh);
-+	freed_blocks = 0;
-+	while (index < hsize) {
-+		leaf_no = be64_to_cpu(lp[index]);
-+		if (!leaf_no)
-+			goto skip_dups;
-+		if (rgd) {
-+			if (!rgrp_contains_block(rgd, leaf_no)) {
-+				if (!next_index)
-+					next_index = index;
-+				goto skip_dups;
-+			}
-+		} else {
-+			rgd = gfs2_blk2rgrpd(sdp, leaf_no, true);
-+			if (!rgd) {
-+				fs_err(sdp, "Error: rgrp for block 0x%llx "
-+				       "not found in dir 0x%llx\n",
-+				       (unsigned long long)leaf_no,
-+				       (unsigned long long)dip->i_no_addr);
-+				goto out_err;
-+			}
-+			ret = gfs2_glock_nq_init(rgd->rd_gl, LM_ST_EXCLUSIVE,
-+						 LM_FLAG_NODE_SCOPE, &gh);
-+			if (ret)
-+				goto out_err;
-+			leaf_count = leaves_in_this_rgd(rgd, lp, hsize);
-+			ret = gfs2_trans_begin(sdp, RES_DINODE + RES_STATFS +
-+					       RES_QUOTA + rgd->rd_length,
-+					       leaf_count);
-+			if (ret)
-+				goto out_rg_gunlock;
-+		}
-+		__gfs2_free_blocks(dip, rgd, leaf_no, 1, 1);
-+		freed_blocks++;
-+		freed_leaf = leaf_no;
-+skip_dups:
-+		while (index < hsize && be64_to_cpu(lp[index]) == leaf_no) {
-+			if (leaf_no == freed_leaf)
-+				lp[index] = 0;
-+			index++;
-+		}
-+	}
-+	if (current->journal_info) {
-+		gfs2_statfs_change(sdp, 0, freed_blocks, 0);
-+		gfs2_quota_change(dip, -(s64)freed_blocks, dip->i_inode.i_uid,
-+				  dip->i_inode.i_gid);
-+		gfs2_add_inode_blocks(&dip->i_inode, -freed_blocks);
-+		ret = gfs2_meta_inode_buffer(dip, &dibh);
-+		if (ret) {
-+			fs_err(sdp, "Error: Unable to read dinode 0x%llx\n",
-+			       (unsigned long long)dip->i_no_addr);
-+			gfs2_consist_inode(dip);
-+			gfs2_trans_end(sdp);
-+			gfs2_glock_dq_uninit(&gh);
-+			goto out_err;
-+		}
-+		gfs2_trans_add_meta(dip->i_gl, dibh);
-+		/*
-+		 * On the last dealloc, make this a regular file in case we
-+		 * crash. (We don't want to free these blocks a second time.)
-+		 */
-+		if (!next_index)
-+			dip->i_inode.i_mode = S_IFREG;
-+		gfs2_dinode_out(dip, dibh->b_data);
-+		brelse(dibh);
-+		gfs2_trans_end(sdp);
-+out_rg_gunlock:
-+		gfs2_glock_dq_uninit(&gh);
-+	}
-+	if (!ret && next_index) {
-+		index = next_index;
-+		next_index = 0;
-+		goto new_rgrp;
-+	}
-+
-+	if (index != hsize) {
-+out_err:
-+		gfs2_consist_inode(dip);
-+		ret = -EIO;
-+	}
-+	gfs2_quota_unhold(dip);
-+	return ret;
-+}
-+
-+/**
-+ * gfs2_dir_exhash_dealloc - free all the leaf blocks in a directory
-+ * @dip: the directory
-+ *
-+ * Dealloc all on-disk directory leaves to FREEMETA state
-+ * Change on-disk inode type to "regular file"
-+ *
-+ * Returns: errno
-+ */
-+
-+int gfs2_dir_exhash_dealloc(struct gfs2_inode *dip)
-+{
-+	if (dip->i_diskflags & GFS2_DIF_NO_NEXT_LEAF)
-+		return dir_exhash_fast_dealloc(dip);
-+
-+	return __gfs2_dir_exhash_dealloc(dip);
-+}
-+
+ /**
+  * dir_make_exhash - Convert a stuffed directory into an ExHash directory
+- * @dip: The GFS2 inode
++ * @inode: The directory inode to be converted to exhash
+  *
+  * Returns: 0 on success, error code otherwise
+  */
+@@ -992,9 +991,8 @@ static int dir_make_exhash(struct inode *inode)
+ 
+ /**
+  * dir_split_leaf - Split a leaf block into two
+- * @dip: The GFS2 inode
+- * @index:
+- * @leaf_no:
++ * @inode: The directory inode to be split
++ * @name: name of the dirent we're trying to insert
+  *
+  * Returns: 0 on success, error code on failure
+  */
+@@ -1253,6 +1251,7 @@ static int compare_dents(const void *a, const void *b)
+  * @ctx: what to feed the entries to
+  * @darr: an array of struct gfs2_dirent pointers to read
+  * @entries: the number of entries in darr
++ * @sort_start: index of the directory array to start our sort
+  * @copied: pointer to int that's non-zero if a entry has been copied out
+  *
+  * Jump through some hoops to make sure that if there are hash collsions,
+@@ -1469,6 +1468,10 @@ static int gfs2_dir_read_leaf(struct inode *inode, struct dir_context *ctx,
+ 
+ /**
+  * gfs2_dir_readahead - Issue read-ahead requests for leaf blocks.
++ * @inode: the directory inode
++ * @hsize: hash table size
++ * @index: index into the hash table
++ * @f_ra: read-ahead parameters
+  *
+  * Note: we can't calculate each index like dir_e_read can because we don't
+  * have the leaf, and therefore we don't have the depth, and therefore we
+@@ -1518,8 +1521,9 @@ static void gfs2_dir_readahead(struct inode *inode, unsigned hsize, u32 index,
+ 
+ /**
+  * dir_e_read - Reads the entries from a directory into a filldir buffer
+- * @dip: dinode pointer
++ * @inode: the directory inode
+  * @ctx: actor to feed the entries to
++ * @f_ra: read-ahead parameters
+  *
+  * Returns: errno
+  */
+@@ -1628,7 +1632,7 @@ int gfs2_dir_read(struct inode *inode, struct dir_context *ctx,
+ 
+ /**
+  * gfs2_dir_search - Search a directory
+- * @dip: The GFS2 dir inode
++ * @dir: The GFS2 directory inode
+  * @name: The name we are looking up
+  * @fail_on_exist: Fail if the name exists rather than looking it up
+  *
+@@ -1870,7 +1874,7 @@ int gfs2_dir_add(struct inode *inode, const struct qstr *name,
+ /**
+  * gfs2_dir_del - Delete a directory entry
+  * @dip: The GFS2 inode
+- * @filename: The filename
++ * @dentry: The directory entry we want to delete
+  *
+  * Returns: 0 on success, error code on failure
+  */
+@@ -1924,9 +1928,10 @@ int gfs2_dir_del(struct gfs2_inode *dip, const struct dentry *dentry)
+ 
+ /**
+  * gfs2_dir_mvino - Change inode number of directory entry
+- * @dip: The GFS2 inode
+- * @filename:
+- * @new_inode:
++ * @dip: The GFS2 directory inode
++ * @filename: the filename to be moved
++ * @nip: the new GFS2 inode
++ * @new_type: the de_type of the new dirent
+  *
+  * This routine changes the inode number of a directory entry.  It's used
+  * by rename to change ".." when a directory is moved.
+@@ -1966,7 +1971,7 @@ int gfs2_dir_mvino(struct gfs2_inode *dip, const struct qstr *filename,
+  * @len: the number of pointers to this leaf
+  * @leaf_no: the leaf number
+  * @leaf_bh: buffer_head for the starting leaf
+- * last_dealloc: 1 if this is the final dealloc for the leaf, else 0
++ * @last_dealloc: 1 if this is the final dealloc for the leaf, else 0
+  *
+  * Returns: errno
+  */
+@@ -2288,8 +2293,8 @@ int gfs2_dir_exhash_dealloc(struct gfs2_inode *dip)
+ 
  /**
   * gfs2_diradd_alloc_required - find if adding entry will require an allocation
-  * @ip: the file being written to
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index c9775d5c6594..1b7dcdf789ee 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -700,7 +700,7 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
- 		break;
- 	case S_IFDIR:
- 		ip->i_diskflags |= (dip->i_diskflags & GFS2_DIF_INHERIT_JDATA);
--		ip->i_diskflags |= GFS2_DIF_JDATA;
-+		ip->i_diskflags |= GFS2_DIF_JDATA | GFS2_DIF_NO_NEXT_LEAF;
- 		ip->i_entries = 2;
- 		break;
- 	}
-diff --git a/include/uapi/linux/gfs2_ondisk.h b/include/uapi/linux/gfs2_ondisk.h
-index 6ec4291bcc7a..ef793871a84b 100644
---- a/include/uapi/linux/gfs2_ondisk.h
-+++ b/include/uapi/linux/gfs2_ondisk.h
-@@ -258,6 +258,21 @@ enum {
- #define GFS2_DIF_SYNC			0x00000100
- #define GFS2_DIF_SYSTEM			0x00000200 /* New in gfs2 */
- #define GFS2_DIF_TOPDIR			0x00000400 /* New in gfs2 */
-+/*
-+ * GFS2_DIF_NO_NEXT_LEAF will be set for directory leaf blocks that do not have
-+ * "next leaf block", lf_next. For EXHASH directories, when leaves have
-+ * the maximum number of possible dirents, gfs2 allocates these next leaf
-+ * blocks and they're chained together such that one terminating leaf points
-+ * to another leaf with the same hash. We need to indicate which directories
-+ * have none (as opposed to which ones have them) so that file systems created
-+ * by older gfs2 kernels will not be treated as having no next leaf blocks.
-+ *
-+ * The reason we distinguish directories having "next leaf" versus none is
-+ * to optimize performance of rmdir operations. When we have "next leaf"
-+ * somewhere--anywhere--we need to read in all the leaf blocks to find it when
-+ * deallocating. When we don't we can just deallocate the leaf blocks.
-+ */
-+#define GFS2_DIF_NO_NEXT_LEAF		0x00000800 /* No next leaf */
- #define GFS2_DIF_TRUNC_IN_PROG		0x20000000 /* New in gfs2 */
- #define GFS2_DIF_INHERIT_DIRECTIO	0x40000000 /* only in gfs1 */
- #define GFS2_DIF_INHERIT_JDATA		0x80000000
+- * @ip: the file being written to
+- * @filname: the filename that's going to be added
++ * @inode: the directory inode being written to
++ * @name: the filename that's going to be added
+  * @da: The structure to return dir alloc info
+  *
+  * Returns: 0 if ok, -ve on error
 
