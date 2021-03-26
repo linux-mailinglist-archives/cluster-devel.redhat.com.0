@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D9FA834ADA1
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A9EAF34ADA0
 	for <lists+cluster-devel@lfdr.de>; Fri, 26 Mar 2021 18:34:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1616780039;
@@ -12,48 +12,48 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=S1PFphfKqoomBVFhnkj5PlHKR79DkKOeItm5JbvOP6E=;
-	b=QNlEmXfFIU+fKyuHD/MtWAyXjQAF+VLiIzwSLykifht+y9uSWsTHRAR2aKTbhKAtCZi2Py
-	72kRRzLyLUEpjSt6jiYriAMVjkFqjIe2RviWuJ69f3B1GKdpOr88miqaZ3jhcmh2ACgujS
-	utSUG5RQPSGYNjqEqwAD9CVqlFIORQU=
+	bh=Cd5gNI5JtIzTnGpNQNyeBXqQbn9+wT3wpC2PW7uGZiY=;
+	b=GsPVBAXVxxiKHLbwFz4UAI7SYJvVYCO8RZJdGCYG9r0xIqYI3u2WdWxbp/c6Pia/56//xr
+	TS7hmU2RyQBC/Zb2vtpU5RPt1nDeity5vJ0AGraQD4vRFvmUkI6VBSRDu6/ZC/rxoz2/zZ
+	j+1w9qbqduqtEfeF5sWpOWqUhUa+APY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-539-11obnsgTMT-8X30mZyeAfw-1; Fri, 26 Mar 2021 13:33:58 -0400
-X-MC-Unique: 11obnsgTMT-8X30mZyeAfw-1
+ us-mta-558-kEfYXR_5N36Hhf3VdW_5Yw-1; Fri, 26 Mar 2021 13:33:58 -0400
+X-MC-Unique: kEfYXR_5N36Hhf3VdW_5Yw-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A33D38189C7;
-	Fri, 26 Mar 2021 17:33:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5824710CE7A7;
+	Fri, 26 Mar 2021 17:33:56 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9156F19C71;
-	Fri, 26 Mar 2021 17:33:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45A6B19C71;
+	Fri, 26 Mar 2021 17:33:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1A0C81809C83;
-	Fri, 26 Mar 2021 17:33:54 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F24DF180B450;
+	Fri, 26 Mar 2021 17:33:55 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12QHXonN009410 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 26 Mar 2021 13:33:50 -0400
+	id 12QHXpxt009420 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Mar 2021 13:33:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B7CC61007625; Fri, 26 Mar 2021 17:33:50 +0000 (UTC)
+	id 94BA01002EE6; Fri, 26 Mar 2021 17:33:51 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from carbon.redhat.com (ovpn-117-90.rdu2.redhat.com [10.10.117.90])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1085C10074FD;
-	Fri, 26 Mar 2021 17:33:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E1A2F1000324;
+	Fri, 26 Mar 2021 17:33:50 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Fri, 26 Mar 2021 13:33:32 -0400
-Message-Id: <20210326173337.44231-4-aahringo@redhat.com>
+Date: Fri, 26 Mar 2021 13:33:33 -0400
+Message-Id: <20210326173337.44231-5-aahringo@redhat.com>
 In-Reply-To: <20210326173337.44231-1-aahringo@redhat.com>
 References: <20210326173337.44231-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, pabeni@redhat.com, gnault@redhat.com
-Subject: [Cluster-devel] [PATCHv3 dlm/next 3/8] fs: dlm: make buffer
-	handling per msg
+Subject: [Cluster-devel] [PATCHv3 dlm/next 4/8] fs: dlm: add functionality
+	to re-transmit a message
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,276 +75,223 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch makes the void pointer handle for lowcomms functionality per
-message and not per page allocation entry. A refcount handling for the
-handle was added to keep the message alive until the user doesn't need
-it anymore.
+This patch introduces a irqsafe retransmit functionality for a lowcomms
+message handle. It's just allocates a new buffer and transmit it again,
+no special handling about prioritize it because keeping bytestream in
+order.
 
-There exists now a per message callback which will be called when
-allocating a new buffer. This callback will be guaranteed to be called
-according the order of the sending buffer, which can be used that the
-caller increments a sequence number.
+To avoid another connection look some refactor was done to make a new
+buffer allocation with a preexisting connection pointer.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lowcomms.c | 100 +++++++++++++++++++++++++++++++++++++++++-----
- fs/dlm/lowcomms.h |   5 ++-
- fs/dlm/midcomms.c |   8 +++-
- 3 files changed, 101 insertions(+), 12 deletions(-)
+ fs/dlm/lowcomms.c | 84 +++++++++++++++++++++++++++++++----------------
+ fs/dlm/lowcomms.h |  1 +
+ 2 files changed, 56 insertions(+), 29 deletions(-)
 
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 73cc1809050a..ba782ea84281 100644
+index ba782ea84281..d2be58496fd0 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
-@@ -114,6 +114,17 @@ struct writequeue_entry {
- 	int end;
- 	int users;
- 	struct connection *con;
-+	struct list_head msgs;
-+	struct kref ref;
-+};
-+
-+struct dlm_msg {
-+	struct writequeue_entry *entry;
-+	void *ppc;
-+	int len;
-+
-+	struct list_head list;
-+	struct kref ref;
- };
- 
- struct dlm_node_addr {
-@@ -976,12 +987,36 @@ static int accept_from_sock(struct listen_connection *con)
- 	return result;
- }
- 
--static void free_entry(struct writequeue_entry *e)
-+static void dlm_page_release(struct kref *kref)
- {
-+	struct writequeue_entry *e = container_of(kref, struct writequeue_entry,
-+						  ref);
-+
- 	__free_page(e->page);
- 	kfree(e);
- }
- 
-+static void dlm_msg_release(struct kref *kref)
-+{
-+	struct dlm_msg *msg = container_of(kref, struct dlm_msg, ref);
-+
-+	kref_put(&msg->entry->ref, dlm_page_release);
-+	kfree(msg);
-+}
-+
-+static void free_entry(struct writequeue_entry *e)
-+{
-+	struct dlm_msg *msg, *tmp;
-+
-+	list_for_each_entry_safe(msg, tmp, &e->msgs, list) {
-+		list_del(&msg->list);
-+		kref_put(&msg->ref, dlm_msg_release);
-+	}
-+
-+	list_del(&e->list);
-+	kref_put(&e->ref, dlm_page_release);
-+}
-+
- /*
-  * writequeue_entry_complete - try to delete and free write queue entry
-  * @e: write queue entry to try to delete
-@@ -994,10 +1029,8 @@ static void writequeue_entry_complete(struct writequeue_entry *e, int completed)
- 	e->offset += completed;
- 	e->len -= completed;
- 
--	if (e->len == 0 && e->users == 0) {
--		list_del(&e->list);
-+	if (e->len == 0 && e->users == 0)
- 		free_entry(e);
--	}
- }
- 
- /*
-@@ -1363,12 +1396,16 @@ static struct writequeue_entry *new_writequeue_entry(struct connection *con,
- 
- 	entry->con = con;
- 	entry->users = 1;
-+	kref_init(&entry->ref);
-+	INIT_LIST_HEAD(&entry->msgs);
- 
- 	return entry;
- }
- 
- static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
--					     gfp_t allocation, char **ppc)
-+					     gfp_t allocation, char **ppc,
-+					     void (*cb)(void *buf, void *priv),
-+					     void *priv)
+@@ -1409,7 +1409,7 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
  {
  	struct writequeue_entry *e;
  
-@@ -1376,7 +1413,12 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
+-	spin_lock(&con->writequeue_lock);
++	spin_lock_bh(&con->writequeue_lock);
  	if (!list_empty(&con->writequeue)) {
  		e = list_last_entry(&con->writequeue, struct writequeue_entry, list);
  		if (DLM_WQ_REMAIN_BYTES(e) >= len) {
-+			kref_get(&e->ref);
-+
- 			*ppc = page_address(e->page) + e->end;
-+			if (cb)
-+				cb(*ppc, priv);
-+
+@@ -1421,12 +1421,12 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
+ 
  			e->end += len;
  			e->users++;
- 			spin_unlock(&con->writequeue_lock);
-@@ -1390,19 +1432,26 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
- 	if (!e)
- 		return NULL;
+-			spin_unlock(&con->writequeue_lock);
++			spin_unlock_bh(&con->writequeue_lock);
  
-+	kref_get(&e->ref);
+ 			return e;
+ 		}
+ 	}
+-	spin_unlock(&con->writequeue_lock);
++	spin_unlock_bh(&con->writequeue_lock);
+ 
+ 	e = new_writequeue_entry(con, allocation);
+ 	if (!e)
+@@ -1436,35 +1436,24 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
  	*ppc = page_address(e->page);
  	e->end += len;
  
- 	spin_lock(&con->writequeue_lock);
-+	if (cb)
-+		cb(*ppc, priv);
-+
+-	spin_lock(&con->writequeue_lock);
++	spin_lock_bh(&con->writequeue_lock);
+ 	if (cb)
+ 		cb(*ppc, priv);
+ 
  	list_add_tail(&e->list, &con->writequeue);
- 	spin_unlock(&con->writequeue_lock);
+-	spin_unlock(&con->writequeue_lock);
++	spin_unlock_bh(&con->writequeue_lock);
  
  	return e;
  };
  
--void *dlm_lowcomms_get_buffer(int nodeid, int len, gfp_t allocation, char **ppc)
+-void *dlm_lowcomms_new_buffer(int nodeid, int len, gfp_t allocation, char **ppc,
+-			      void (*cb)(void *buf, void *priv), void *priv)
++static void *dlm_lowcomms_new_buffer_con(struct connection *con, int len,
++					 gfp_t allocation, char **ppc,
++					 void (*cb)(void *buf, void *priv),
++					 void *priv)
+ {
+ 	struct writequeue_entry *e;
+-	struct connection *con;
+ 	struct dlm_msg *msg;
+ 
+-	if (len > DEFAULT_BUFFER_SIZE ||
+-	    len < sizeof(struct dlm_header)) {
+-		BUILD_BUG_ON(PAGE_SIZE < DEFAULT_BUFFER_SIZE);
+-		log_print("failed to allocate a buffer of size %d", len);
+-		WARN_ON(1);
+-		return NULL;
+-	}
+-
+-	con = nodeid2con(nodeid, allocation);
+-	if (!con)
+-		return NULL;
+-
+ 	msg = kzalloc(sizeof(*msg), allocation);
+ 	if (!msg)
+ 		return NULL;
+@@ -1484,6 +1473,26 @@ void *dlm_lowcomms_new_buffer(int nodeid, int len, gfp_t allocation, char **ppc,
+ 	return msg;
+ }
+ 
 +void *dlm_lowcomms_new_buffer(int nodeid, int len, gfp_t allocation, char **ppc,
 +			      void (*cb)(void *buf, void *priv), void *priv)
- {
-+	struct writequeue_entry *e;
- 	struct connection *con;
-+	struct dlm_msg *msg;
- 
- 	if (len > DEFAULT_BUFFER_SIZE ||
- 	    len < sizeof(struct dlm_header)) {
-@@ -1416,16 +1465,36 @@ void *dlm_lowcomms_get_buffer(int nodeid, int len, gfp_t allocation, char **ppc)
- 	if (!con)
- 		return NULL;
- 
--	return new_wq_entry(con, len, allocation, ppc);
-+	msg = kzalloc(sizeof(*msg), allocation);
-+	if (!msg)
-+		return NULL;
++{
++	struct connection *con;
 +
-+	kref_init(&msg->ref);
-+
-+	e = new_wq_entry(con, len, allocation, ppc, cb, priv);
-+	if (!e) {
-+		kfree(msg);
++	if (len > DEFAULT_BUFFER_SIZE ||
++	    len < sizeof(struct dlm_header)) {
++		BUILD_BUG_ON(PAGE_SIZE < DEFAULT_BUFFER_SIZE);
++		log_print("failed to allocate a buffer of size %d", len);
++		WARN_ON(1);
 +		return NULL;
 +	}
 +
-+	msg->ppc = *ppc;
-+	msg->len = len;
-+	msg->entry = e;
++	con = nodeid2con(nodeid, allocation);
++	if (!con)
++		return NULL;
 +
-+	return msg;
- }
- 
++	return dlm_lowcomms_new_buffer_con(con, len, GFP_ATOMIC, ppc, cb, priv);
++}
++
  void dlm_lowcomms_commit_buffer(void *mh)
  {
--	struct writequeue_entry *e = (struct writequeue_entry *)mh;
-+	struct dlm_msg *msg = mh;
-+	struct writequeue_entry *e = msg->entry;
+ 	struct dlm_msg *msg = mh;
+@@ -1491,7 +1500,7 @@ void dlm_lowcomms_commit_buffer(void *mh)
  	struct connection *con = e->con;
  	int users;
  
- 	spin_lock(&con->writequeue_lock);
-+	list_add(&msg->list, &e->msgs);
-+	kref_get(&msg->ref);
-+
- 	users = --e->users;
- 	if (users)
+-	spin_lock(&con->writequeue_lock);
++	spin_lock_bh(&con->writequeue_lock);
+ 	list_add(&msg->list, &e->msgs);
+ 	kref_get(&msg->ref);
+ 
+@@ -1500,13 +1509,13 @@ void dlm_lowcomms_commit_buffer(void *mh)
  		goto out;
-@@ -1441,6 +1510,20 @@ void dlm_lowcomms_commit_buffer(void *mh)
+ 
+ 	e->len = DLM_WQ_LENGTH_BYTES(e);
+-	spin_unlock(&con->writequeue_lock);
++	spin_unlock_bh(&con->writequeue_lock);
+ 
+ 	queue_work(send_workqueue, &con->swork);
+ 	return;
+ 
+ out:
+-	spin_unlock(&con->writequeue_lock);
++	spin_unlock_bh(&con->writequeue_lock);
  	return;
  }
  
-+void dlm_lowcomms_put_buffer(void *mh)
+@@ -1524,6 +1533,23 @@ void dlm_lowcomms_get_buffer(void *mh)
+ 	kref_get(&msg->ref);
+ }
+ 
++/* irqsafe */
++void dlm_lowcomms_resend_buffer(void *mh)
 +{
 +	struct dlm_msg *msg = mh;
++	void *mh_new;
++	char *ppc;
 +
-+	kref_put(&msg->ref, dlm_msg_release);
-+}
++	mh_new = dlm_lowcomms_new_buffer_con(msg->entry->con, msg->len, GFP_ATOMIC,
++					     &ppc, NULL, NULL);
++	if (!mh_new)
++		return;
 +
-+void dlm_lowcomms_get_buffer(void *mh)
-+{
-+	struct dlm_msg *msg = mh;
-+
-+	kref_get(&msg->ref);
++	memcpy(ppc, msg->ppc, msg->len);
++	dlm_lowcomms_commit_buffer(mh_new);
++	dlm_lowcomms_put_buffer(mh_new);
 +}
 +
  /* Send a message */
  static void send_to_sock(struct connection *con)
  {
-@@ -1519,7 +1602,6 @@ static void clean_one_writequeue(struct connection *con)
+@@ -1537,7 +1563,7 @@ static void send_to_sock(struct connection *con)
+ 	if (con->sock == NULL)
+ 		goto out_connect;
  
- 	spin_lock(&con->writequeue_lock);
+-	spin_lock(&con->writequeue_lock);
++	spin_lock_bh(&con->writequeue_lock);
+ 	for (;;) {
+ 		if (list_empty(&con->writequeue))
+ 			break;
+@@ -1546,7 +1572,7 @@ static void send_to_sock(struct connection *con)
+ 		len = e->len;
+ 		offset = e->offset;
+ 		BUG_ON(len == 0 && e->users == 0);
+-		spin_unlock(&con->writequeue_lock);
++		spin_unlock_bh(&con->writequeue_lock);
+ 
+ 		ret = 0;
+ 		if (len) {
+@@ -1574,10 +1600,10 @@ static void send_to_sock(struct connection *con)
+ 			count = 0;
+ 		}
+ 
+-		spin_lock(&con->writequeue_lock);
++		spin_lock_bh(&con->writequeue_lock);
+ 		writequeue_entry_complete(e, ret);
+ 	}
+-	spin_unlock(&con->writequeue_lock);
++	spin_unlock_bh(&con->writequeue_lock);
+ out:
+ 	mutex_unlock(&con->sock_mutex);
+ 	return;
+@@ -1600,11 +1626,11 @@ static void clean_one_writequeue(struct connection *con)
+ {
+ 	struct writequeue_entry *e, *safe;
+ 
+-	spin_lock(&con->writequeue_lock);
++	spin_lock_bh(&con->writequeue_lock);
  	list_for_each_entry_safe(e, safe, &con->writequeue, list) {
--		list_del(&e->list);
  		free_entry(e);
  	}
- 	spin_unlock(&con->writequeue_lock);
+-	spin_unlock(&con->writequeue_lock);
++	spin_unlock_bh(&con->writequeue_lock);
+ }
+ 
+ /* Called from recovery when it knows that a node has
 diff --git a/fs/dlm/lowcomms.h b/fs/dlm/lowcomms.h
-index 48bbc4e18761..fa735497dad8 100644
+index fa735497dad8..345aed7e00cc 100644
 --- a/fs/dlm/lowcomms.h
 +++ b/fs/dlm/lowcomms.h
-@@ -22,11 +22,14 @@ void dlm_lowcomms_shutdown(void);
- void dlm_lowcomms_stop(void);
- void dlm_lowcomms_exit(void);
- int dlm_lowcomms_close(int nodeid);
--void *dlm_lowcomms_get_buffer(int nodeid, int len, gfp_t allocation, char **ppc);
-+void *dlm_lowcomms_new_buffer(int nodeid, int len, gfp_t allocation, char **ppc,
-+			      void (*cb)(void *buf, void *priv), void *priv);
- void dlm_lowcomms_commit_buffer(void *mh);
- int dlm_lowcomms_connect_node(int nodeid);
- int dlm_lowcomms_nodes_set_mark(int nodeid, unsigned int mark);
+@@ -30,6 +30,7 @@ int dlm_lowcomms_nodes_set_mark(int nodeid, unsigned int mark);
  int dlm_lowcomms_addr(int nodeid, struct sockaddr_storage *addr, int len);
-+void dlm_lowcomms_put_buffer(void *mh);
-+void dlm_lowcomms_get_buffer(void *mh);
+ void dlm_lowcomms_put_buffer(void *mh);
+ void dlm_lowcomms_get_buffer(void *mh);
++void dlm_lowcomms_resend_buffer(void *mh);
  
  #endif				/* __LOWCOMMS_DOT_H__ */
  
-diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index bbcb242e6101..2ea0449a82ab 100644
---- a/fs/dlm/midcomms.c
-+++ b/fs/dlm/midcomms.c
-@@ -30,23 +30,27 @@
- 
- void *dlm_midcomms_get_buffer(int nodeid, int len, gfp_t allocation, char **ppc)
- {
--	return dlm_lowcomms_get_buffer(nodeid, len, allocation, ppc);
-+	return dlm_lowcomms_new_buffer(nodeid, len, allocation, ppc, NULL,
-+				       NULL);
- }
- 
- void dlm_midcomms_commit_buffer(void *mh)
- {
- 	dlm_lowcomms_commit_buffer(mh);
-+	dlm_lowcomms_put_buffer(mh);
- }
- 
- void *dlm_midcomms_stateless_get_buffer(int nodeid, int len, gfp_t allocation,
- 					char **ppc)
- {
--	return dlm_lowcomms_get_buffer(nodeid, len, allocation, ppc);
-+	return dlm_lowcomms_new_buffer(nodeid, len, allocation, ppc, NULL,
-+				       NULL);
- }
- 
- void dlm_midcomms_stateless_commit_buffer(void *mh)
- {
- 	dlm_lowcomms_commit_buffer(mh);
-+	dlm_lowcomms_put_buffer(mh);
- }
- 
- void midcomms_add_member(int nodeid)
 -- 
 2.26.3
 
