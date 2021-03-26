@@ -1,72 +1,73 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3DCDF34A467
-	for <lists+cluster-devel@lfdr.de>; Fri, 26 Mar 2021 10:31:27 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4F3BE34A456
+	for <lists+cluster-devel@lfdr.de>; Fri, 26 Mar 2021 10:31:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-347-Pa4znUKMMuCrTyop_dGp5Q-1; Fri, 26 Mar 2021 05:31:19 -0400
-X-MC-Unique: Pa4znUKMMuCrTyop_dGp5Q-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-582-3xxtkOtpOJuzsxvXlp5grg-1; Fri, 26 Mar 2021 05:31:15 -0400
+X-MC-Unique: 3xxtkOtpOJuzsxvXlp5grg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8658987A841;
-	Fri, 26 Mar 2021 09:31:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 321C35C3DF;
-	Fri, 26 Mar 2021 09:31:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 28FA010866AD;
+	Fri, 26 Mar 2021 09:31:13 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 184C7299A1;
+	Fri, 26 Mar 2021 09:31:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DBBA4A7C9;
-	Fri, 26 Mar 2021 09:31:10 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F22971800216;
+	Fri, 26 Mar 2021 09:31:12 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12Q9C7R0012303 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 12Q9C7hB012300 for <cluster-devel@listman.util.phx.redhat.com>;
 	Fri, 26 Mar 2021 05:12:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1126021CAC78; Fri, 26 Mar 2021 09:12:07 +0000 (UTC)
+	id 0D06F21CAC6F; Fri, 26 Mar 2021 09:12:07 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F317B21CAC80
-	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 09:12:04 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F24A021CAC7D
+	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 09:12:06 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D51BE85A5A8
-	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 09:12:04 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
-	[209.85.208.48]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-472-G2AF5oWmNH2tU5zFw_cRYw-1; Fri, 26 Mar 2021 05:12:01 -0400
-X-MC-Unique: G2AF5oWmNH2tU5zFw_cRYw-1
-Received: by mail-ed1-f48.google.com with SMTP id e7so5449042edu.10
-	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 02:12:01 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D00CE8002E2
+	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 09:12:06 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+	[209.85.218.43]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-352-l716npKuNUWnGcKQNSxlqg-1; Fri, 26 Mar 2021 05:12:02 -0400
+X-MC-Unique: l716npKuNUWnGcKQNSxlqg-1
+Received: by mail-ej1-f43.google.com with SMTP id ce10so7315433ejb.6
+	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 02:12:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references:mime-version:content-transfer-encoding;
-	bh=0HmJyYvfh3odbCbwdOHWuZiUzII2bd3LZhTWqsOobYI=;
-	b=SrcSvczFUVQ0Bobge9AclnsNFEgwyo8S6FC99ZDMDSLKw0rHx6QoJ+CuxcHMoMst3q
-	3rpcBluBg0SfxhfM6sWMgP+wqEsaYwv0VJMD0wF6wSUsk+WL+Ka64G+Ihmy2Gf/RWQe1
-	Frk/wxh5m6EgnaVNZaN5DpHhAawTsxp7piE75vqx4B8y72/VDuhnT5dFcoc2TuYNpJie
-	kDDLZ4YuO5gdUMQOIp1jii6D7LosTC1cpyem8L+cm6AJj3S4CT0PE5SMYRGeoq4VZEjX
-	MPpozY/55tRweUJxVFT0L8TVgizf9wFyG7ZfweKFeE2LSbqz7+sMUHKjgQjPDvT28itm
-	nHWw==
-X-Gm-Message-State: AOAM533eXBtAyndMF2rja1JsU08znuedtqrgmcpjBxijknMDkOM/gkCQ
-	uL61hZ4HkTIXfBLhSVAPX31rUw==
-X-Google-Smtp-Source: ABdhPJwcTGxKuSBwMe2dMJDiuvrGr8lNWPG+oL26fueAytWs2j7U54il3jlM5OiuJ+e4Af833Pa2LQ==
-X-Received: by 2002:a50:fd8b:: with SMTP id o11mr13665751edt.346.1616749920526;
-	Fri, 26 Mar 2021 02:12:00 -0700 (PDT)
+	bh=dDw5EBc2NIDbfXjwrfN0J0Ba7xy8ebZtYdNOOedaL18=;
+	b=Hkp++DGJ13vtHnNDYpqciGyJck9kJ5NIzYEclsMpDjHtax1Go0K6rX7ttSoGp40Bbh
+	tbmTW1Lpb8MfGmwbOA4+qo0uqhP6DqfbhmNeJXJtmA7rr/qOqmFo8Zz2svPG1L/24bIK
+	giZIFep6n8kfAVNmkDmXqUoIX2H2gxCLKmmsHYgr6zGTzpQTREX/e2rFIM3+MG88vAYz
+	zhhj8N5tTavXfFk2BBT/HYKsv1l7yOh8GamfveM+9M73+ZT+2FbkLS6Spl8OOuFEmdQ1
+	at/frxiwVXp6D6C8E8GEDdTNOcmtKVv50tXB4Wppvoy3IbS7aUiFaSgV40BAw9AIgZxq
+	VJJQ==
+X-Gm-Message-State: AOAM533oo6sRY7MmI8sTK5pjwTuMQ0HVUKRpR+KZwsUgCu/ZAVJyBxy8
+	4Sj7TDFte3/GVGcRed7jiw0WBw==
+X-Google-Smtp-Source: ABdhPJwkM6j9lU8imYlDo/vSfQp9mpMjEVbgfo99VUa6BnQG8RsyEmnHiKf6leg8wDggLrqKVgWyzQ==
+X-Received: by 2002:a17:906:c08f:: with SMTP id
+	f15mr14171512ejz.318.1616749921488; 
+	Fri, 26 Mar 2021 02:12:01 -0700 (PDT)
 Received: from dell.default ([91.110.221.194])
-	by smtp.gmail.com with ESMTPSA id r13sm3895645edy.3.2021.03.26.02.11.59
+	by smtp.gmail.com with ESMTPSA id r13sm3895645edy.3.2021.03.26.02.12.00
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 26 Mar 2021 02:12:00 -0700 (PDT)
+	Fri, 26 Mar 2021 02:12:01 -0700 (PDT)
 From: Lee Jones <lee.jones@linaro.org>
 To: lee.jones@linaro.org
-Date: Fri, 26 Mar 2021 09:11:39 +0000
-Message-Id: <20210326091151.311647-7-lee.jones@linaro.org>
+Date: Fri, 26 Mar 2021 09:11:40 +0000
+Message-Id: <20210326091151.311647-8-lee.jones@linaro.org>
 In-Reply-To: <20210326091151.311647-1-lee.jones@linaro.org>
 References: <20210326091151.311647-1-lee.jones@linaro.org>
 MIME-Version: 1.0
@@ -82,8 +83,8 @@ X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
 X-Mailman-Approved-At: Fri, 26 Mar 2021 05:31:04 -0400
 Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 06/18] fs: gfs2: lops: Help out worthy
-	kernel-doc headers and demote others
+Subject: [Cluster-devel] [PATCH 07/18] fs: gfs2: glock: Fix some deficient
+	kernel-doc headers and demote non-conformant ones
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,93 +108,69 @@ Content-Type: text/plain; charset="US-ASCII"
 
 Fixes the following W=1 kernel build warning(s):
 
- fs/gfs2/lops.c:106: warning: Function parameter or member 'tr' not described in 'gfs2_unpin'
- fs/gfs2/lops.c:106: warning: Excess function parameter 'flags' description in 'gfs2_unpin'
- fs/gfs2/lops.c:300: warning: Function parameter or member 'biop' not described in 'gfs2_log_get_bio'
- fs/gfs2/lops.c:300: warning: Excess function parameter 'bio' description in 'gfs2_log_get_bio'
- fs/gfs2/lops.c:333: warning: Function parameter or member 'jd' not described in 'gfs2_log_write'
- fs/gfs2/lops.c:428: warning: Function parameter or member 'head' not described in 'gfs2_jhead_pg_srch'
- fs/gfs2/lops.c:471: warning: Function parameter or member 'head' not described in 'gfs2_jhead_process_page'
- fs/gfs2/lops.c:513: warning: Function parameter or member 'keep_cache' not described in 'gfs2_find_jhead'
- fs/gfs2/lops.c:983: warning: Function parameter or member 'sdp' not described in 'databuf_lo_before_commit'
- fs/gfs2/lops.c:983: warning: Function parameter or member 'tr' not described in 'databuf_lo_before_commit'
+ fs/gfs2/glock.c:365: warning: Function parameter or member 'gl' not described in 'do_error'
+ fs/gfs2/glock.c:365: warning: Function parameter or member 'ret' not described in 'do_error'
+ fs/gfs2/glock.c:461: warning: Function parameter or member 'new_state' not described in 'state_change'
+ fs/gfs2/glock.c:1277: warning: Function parameter or member 'delay' not described in 'handle_callback'
+ fs/gfs2/glock.c:1277: warning: Function parameter or member 'remote' not described in 'handle_callback'
+ fs/gfs2/glock.c:1578: warning: Function parameter or member 'p' not described in 'nq_m_sync'
+ fs/gfs2/glock.c:1993: warning: Excess function parameter 'wait' description in 'gfs2_gl_hash_clear'
 
 Cc: Bob Peterson <rpeterso@redhat.com>
 Cc: Andreas Gruenbacher <agruenba@redhat.com>
 Cc: cluster-devel@redhat.com
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- fs/gfs2/lops.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ fs/gfs2/glock.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
-index a82f4747aa8d5..390ac939aa757 100644
---- a/fs/gfs2/lops.c
-+++ b/fs/gfs2/lops.c
-@@ -92,13 +92,10 @@ static void maybe_release_space(struct gfs2_bufdata *bd)
- 	rgrp_unlock_local(rgd);
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index 7cccc5e863a8a..c590e27aaf097 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -356,7 +356,7 @@ static void gfs2_holder_wake(struct gfs2_holder *gh)
+ 	}
  }
  
 -/**
 +/*
-  * gfs2_unpin - Unpin a buffer
-  * @sdp: the filesystem the buffer belongs to
-  * @bh: The buffer to unpin
-- * @ai:
-- * @flags: The inode dirty flags
+  * do_error - Something unexpected has happened during a lock request
+  *
+  */
+@@ -453,8 +453,7 @@ static inline struct gfs2_holder *find_first_waiter(const struct gfs2_glock *gl)
+ /**
+  * state_change - record that the glock is now in a different state
+  * @gl: the glock
+- * @new_state the new state
 - *
++ * @new_state: the new state
   */
  
- static void gfs2_unpin(struct gfs2_sbd *sdp, struct buffer_head *bh,
-@@ -281,7 +278,7 @@ static struct bio *gfs2_log_alloc_bio(struct gfs2_sbd *sdp, u64 blkno,
-  * gfs2_log_get_bio - Get cached log bio, or allocate a new one
-  * @sdp: The super block
-  * @blkno: The device block number we want to write to
-- * @bio: The bio to get or allocate
-+ * @biop: The bio to get or allocate
-  * @op: REQ_OP
-  * @end_io: The bi_end_io callback
-  * @flush: Always flush the current bio and allocate a new one?
-@@ -317,6 +314,7 @@ static struct bio *gfs2_log_get_bio(struct gfs2_sbd *sdp, u64 blkno,
- /**
-  * gfs2_log_write - write to log
-  * @sdp: the filesystem
-+ * @jd: The journal descriptor
-  * @page: the page to write
-  * @size: the size of the data to write
-  * @offset: the offset within the page 
-@@ -417,6 +415,7 @@ static void gfs2_end_log_read(struct bio *bio)
- /**
-  * gfs2_jhead_pg_srch - Look for the journal head in a given page.
-  * @jd: The journal descriptor
-+ * @head: the head journal to start from
-  * @page: The page to look in
-  *
-  * Returns: 1 if found, 0 otherwise.
-@@ -450,6 +449,7 @@ static bool gfs2_jhead_pg_srch(struct gfs2_jdesc *jd,
-  * gfs2_jhead_process_page - Search/cleanup a page
-  * @jd: The journal descriptor
-  * @index: Index of the page to look into
-+ * @head: the head journal to start from
-  * @done: If set, perform only cleanup, else search and set if found.
-  *
-  * Find the page with 'index' in the journal's mapping. Search the page for
-@@ -502,6 +502,7 @@ static struct bio *gfs2_chain_bio(struct bio *prev, unsigned int nr_iovecs)
-  * gfs2_find_jhead - find the head of a log
-  * @jd: The journal descriptor
-  * @head: The log descriptor for the head of the log is returned here
-+ * @keep_cache: If set inode pages will not be truncated
-  *
-  * Do a search of a journal by reading it in large chunks using bios and find
-  * the valid log entry with the highest sequence number.  (i.e. the log head)
-@@ -974,7 +975,7 @@ static void revoke_lo_after_scan(struct gfs2_jdesc *jd, int error, int pass)
- 	gfs2_revoke_clean(jd);
+ static void state_change(struct gfs2_glock *gl, unsigned int new_state)
+@@ -1263,7 +1262,7 @@ int gfs2_glock_async_wait(unsigned int num_gh, struct gfs2_holder *ghs)
+ 	return ret;
  }
  
 -/**
 +/*
-  * databuf_lo_before_commit - Scan the data buffers, writing as we go
+  * handle_callback - process a demote request
+  * @gl: the glock
+  * @state: the state the caller wants us to change to
+@@ -1568,6 +1567,7 @@ static int glock_compare(const void *arg_a, const void *arg_b)
+  * nq_m_sync - synchonously acquire more than one glock in deadlock free order
+  * @num_gh: the number of structures
+  * @ghs: an array of struct gfs2_holder structures
++ * @p: placeholder for the holder structure to pass back
   *
+  * Returns: 0 on success (all glocks acquired),
+  *          errno on failure (no glocks acquired)
+@@ -1984,7 +1984,6 @@ static void dump_glock_func(struct gfs2_glock *gl)
+ /**
+  * gfs2_gl_hash_clear - Empty out the glock hash table
+  * @sdp: the filesystem
+- * @wait: wait until it's all gone
+  *
+  * Called when unmounting the filesystem.
   */
 -- 
 2.27.0
