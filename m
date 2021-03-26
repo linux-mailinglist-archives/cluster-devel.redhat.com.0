@@ -1,56 +1,86 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F1F23498D4
-	for <lists+cluster-devel@lfdr.de>; Thu, 25 Mar 2021 18:58:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616695130;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=verpugg21D5LL4lesxU0d/Cvj6wVxhGctHKzMCv0uV4=;
-	b=WxROFajODf4DIbs1mt/eNPvYSE765MFzWwtXpn5HdG0k9i0GLuWy6bvcPduvTVYb+AvbSE
-	PYeUFZX+E4jPFlxeB/grW5Qx8s/XMPVhUDXCXxgsmm1aIcjxO4DlO3bwWk0wPQU7pyahhC
-	idFxskb2d75/CX4vFh35y9t6+hj2D7M=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 50F5F34A457
+	for <lists+cluster-devel@lfdr.de>; Fri, 26 Mar 2021 10:31:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-562-84P9sAcjO-qde3v6k1oZ9A-1; Thu, 25 Mar 2021 13:58:49 -0400
-X-MC-Unique: 84P9sAcjO-qde3v6k1oZ9A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-256-pvnLACOdMy29sUcQMJA_YQ-1; Fri, 26 Mar 2021 05:31:15 -0400
+X-MC-Unique: pvnLACOdMy29sUcQMJA_YQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 389FB1922961;
-	Thu, 25 Mar 2021 17:58:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A22FB610AE;
-	Thu, 25 Mar 2021 17:58:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E9C0814338;
+	Fri, 26 Mar 2021 09:31:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31CED299A1;
+	Fri, 26 Mar 2021 09:31:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BA3B51809C83;
-	Thu, 25 Mar 2021 17:58:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 67CF74A7C8;
+	Fri, 26 Mar 2021 09:31:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12PHwagO008322 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 25 Mar 2021 13:58:36 -0400
+	id 12Q9C1wM012275 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Mar 2021 05:12:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 678B15D741; Thu, 25 Mar 2021 17:58:36 +0000 (UTC)
+	id D2721FA742; Fri, 26 Mar 2021 09:12:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-117-113.rdu2.redhat.com [10.10.117.113])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E419B5D6D5;
-	Thu, 25 Mar 2021 17:58:32 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: anprice@redhat.com
-Date: Thu, 25 Mar 2021 13:58:28 -0400
-Message-Id: <20210325175828.12708-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9805FA74E
+	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 09:11:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12E4680D2B8
+	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 09:11:59 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+	[209.85.218.53]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-195-mp0oWY1QPy2-4Tp93RH44w-1; Fri, 26 Mar 2021 05:11:55 -0400
+X-MC-Unique: mp0oWY1QPy2-4Tp93RH44w-1
+Received: by mail-ej1-f53.google.com with SMTP id r12so7316143ejr.5
+	for <cluster-devel@redhat.com>; Fri, 26 Mar 2021 02:11:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=d5DZ45h/RpaWq13JyZLjT9LQ1ZqjNiweLlYOo/ZaYXM=;
+	b=NhAEVps9kT4x1T7DTgS1XGZIEQd4kySAMJp93WsgcDahd1txGFER89fAlHwqSU/uae
+	/LCdvEGykTf6tBUvDAlC41Im9zaOaFJXXH2idGnDOcZf+yqwNuQUQ2aWmNc+2B+3a8C1
+	mNVLSDCjxiJHk4bzIgjIocby4XdxLDjVqvMpaGPTW7af4i70kpgDBir6OY3inSsLBQGl
+	lwXybYnGj4jWZYm2bnuilKw0Zj5pgAGXFKBGYTucIXAxu1OHQVWZe2jTJSRmEXmglOOo
+	8amErobmZURr8FBg8I6vrRNpWiyhEMLzhCUDb7NngaE/Whnxy5gpytNzPymjDr63bXLG
+	XFDQ==
+X-Gm-Message-State: AOAM533aTWseRoqmVudABL3YG1mF6mUC3rMsKOQjc1R4LYqUZAbmqTaJ
+	QByryurL9iKGxnurhGP1lIS9nBKIp42oSg==
+X-Google-Smtp-Source: ABdhPJwNkJzoSyBqRRjCKPX1E4A0iDVoJ3n3WyHamx41u8DVwNPy/Qr4ZE9aLevdZdE2AUs6ce0vYA==
+X-Received: by 2002:a17:907:76a3:: with SMTP id
+	jw3mr14379620ejc.353.1616749914533; 
+	Fri, 26 Mar 2021 02:11:54 -0700 (PDT)
+Received: from dell.default ([91.110.221.194])
+	by smtp.gmail.com with ESMTPSA id r13sm3895645edy.3.2021.03.26.02.11.53
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Fri, 26 Mar 2021 02:11:54 -0700 (PDT)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Date: Fri, 26 Mar 2021 09:11:33 +0000
+Message-Id: <20210326091151.311647-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH gfs2-utils] man: gfs2.5: remove barrier
-	automatically turned off note
+X-Mailman-Approved-At: Fri, 26 Mar 2021 05:31:04 -0400
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
+Subject: [Cluster-devel] [PATCH 00/18] Rid W=1 warnings from GFS2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -64,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -72,44 +102,60 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch removes a note that the barrier option is automatically turned
-off if the underlaying device doesn't support I/O barriers. So far I
-understand it's default on, means "barriers" option is applied which
-should not make any problems if the underlaying device supports something
-or not. There is by the kernel or gfs2-utils no automatically detection
-going on which changes this mount option. However there could be third
-party software which has an automatically detection but this isn't part
-of kernel or gfs2-utils collection and the user is running out of scope
-of this manpage entry.
+This set is part of a larger effort attempting to clean-up W=1
+kernel builds, which are currently overwhelmingly riddled with
+niggly little warnings.
 
-Additional this patch adds a point at the end of the manpage section
-entry which seems to be missing.
+Lee Jones (18):
+  fs: gfs2: dir: Finish off mostly complete headers demote others
+  fs: gfs2: xattr: Help out some kernel-doc header demote non-conformant
+    ones
+  fs: gfs2: bmap: Demote half-complete kernel-doc headers fix others
+  fs: gfs2: glops: Fix a couple of kernel-doc misdemeanours demote
+    others
+  fs: gfs2: log: Fix a couple of param descriptions and demote
+    non-conformant headers
+  fs: gfs2: lops: Help out worthy kernel-doc headers and demote others
+  fs: gfs2: glock: Fix some deficient kernel-doc headers and demote
+    non-conformant ones
+  fs: gfs2: aops: Fix a little potential doc-rot
+  fs: gfs2: meta_io: Add missing description for 'rahead' param
+  fs: gfs2: inode: Fix worthy function headers demote others
+  fs: gfs2: file: Strip out superflouous param description and demote
+    kernel-doc abuse
+  fs: gfs2: ops_fstype: Fix a little doc-rot
+  fs: gfs2: quota: Fix incorrect param name in 'gfs2_quotad'
+  fs: gfs2: rgrp: Fix a few kernel-doc misdemeanours
+  fs: gfs2: recovery: Provide missing param descriptions and remove one
+    other
+  fs: gfs2: super: Fix kernel-doc issues where feasible demote one other
+  fs: gfs2: util: Fix one conformant kernel-doc header and demote a
+    bunch of abuses
+  fs: gfs2: lock_dlm: Demote incomplete kernel-doc header
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- gfs2/man/gfs2.5 | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ fs/gfs2/aops.c       |  5 +----
+ fs/gfs2/bmap.c       |  4 ++--
+ fs/gfs2/dir.c        | 35 +++++++++++++----------------------
+ fs/gfs2/file.c       |  3 +--
+ fs/gfs2/glock.c      |  9 ++++-----
+ fs/gfs2/glops.c      | 18 ++++++------------
+ fs/gfs2/inode.c      | 22 ++++++++++++----------
+ fs/gfs2/lock_dlm.c   |  3 +--
+ fs/gfs2/log.c        | 11 ++++-------
+ fs/gfs2/lops.c       | 13 +++++++------
+ fs/gfs2/meta_io.c    |  1 +
+ fs/gfs2/ops_fstype.c |  7 ++-----
+ fs/gfs2/quota.c      |  2 +-
+ fs/gfs2/recovery.c   |  3 ++-
+ fs/gfs2/rgrp.c       |  4 +++-
+ fs/gfs2/super.c      | 13 ++++++-------
+ fs/gfs2/util.c       | 19 ++++++++++---------
+ fs/gfs2/xattr.c      | 25 +++++++------------------
+ 18 files changed, 83 insertions(+), 114 deletions(-)
 
-diff --git a/gfs2/man/gfs2.5 b/gfs2/man/gfs2.5
-index 8f67ce23..38d97bb1 100644
---- a/gfs2/man/gfs2.5
-+++ b/gfs2/man/gfs2.5
-@@ -127,11 +127,10 @@ in kernel version 2.6.30 and above.
- .TP
- \fBbarrier\fP
- This option, which defaults to on, causes GFS2 to send I/O barriers
--when flushing the journal. The option is automatically turned off
--if the underlying device does not support I/O barriers. We highly
--recommend the use of I/O barriers with GFS2 at all times unless
--the block device is designed so that it cannot lose its write cache
--content (e.g. its on a UPS, or it doesn't have a write cache)
-+when flushing the journal. We highly recommend the use of I/O barriers
-+with GFS2 at all times unless the block device is designed so that it
-+cannot lose its write cache content (e.g. its on a UPS, or it doesn't
-+have a write cache).
- .TP
- \fBcommit=\fP\fIsecs\fR
- This is similar to the ext3 \fBcommit=\fP option in that it sets
+Cc: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: Bob Peterson <rpeterso@redhat.com>
+Cc: cluster-devel@redhat.com
 -- 
-2.26.3
+2.27.0
 
