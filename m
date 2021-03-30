@@ -1,72 +1,73 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 22FD634EE3B
-	for <lists+cluster-devel@lfdr.de>; Tue, 30 Mar 2021 18:47:09 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5F51734EE2B
+	for <lists+cluster-devel@lfdr.de>; Tue, 30 Mar 2021 18:45:30 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-241-EXI3BOAcN0eOiBVzu3MulQ-1; Tue, 30 Mar 2021 12:47:05 -0400
-X-MC-Unique: EXI3BOAcN0eOiBVzu3MulQ-1
+ us-mta-50-xjoYqRRsPg6VazXbjyKyGA-1; Tue, 30 Mar 2021 12:45:27 -0400
+X-MC-Unique: xjoYqRRsPg6VazXbjyKyGA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2D3FC6B9C0;
-	Tue, 30 Mar 2021 16:47:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 60CE7881278;
+	Tue, 30 Mar 2021 16:45:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A8885DEAD;
-	Tue, 30 Mar 2021 16:47:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 430525DDAD;
+	Tue, 30 Mar 2021 16:45:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EEC5C180B451;
-	Tue, 30 Mar 2021 16:47:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1A30C1809C83;
+	Tue, 30 Mar 2021 16:45:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12UGjMMH010914 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Mar 2021 12:45:23 -0400
+	id 12UGjLN3010903 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Mar 2021 12:45:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DE4312026D7F; Tue, 30 Mar 2021 16:45:22 +0000 (UTC)
+	id 3534411457C2; Tue, 30 Mar 2021 16:45:21 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8D642026D64
-	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 16:45:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C066110334A1
-	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 16:45:22 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
-	[209.85.128.41]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-497-AOcvTQ8AOvuWCKV1GYsygA-1; Tue, 30 Mar 2021 12:45:18 -0400
-X-MC-Unique: AOcvTQ8AOvuWCKV1GYsygA-1
-Received: by mail-wm1-f41.google.com with SMTP id 12so8739198wmf.5
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 311CE11457C0
+	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 16:45:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C7F785A5BB
+	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 16:45:21 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+	[209.85.221.54]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-588-v5ol0qrmOYuLSOagX5QJxQ-1; Tue, 30 Mar 2021 12:45:19 -0400
+X-MC-Unique: v5ol0qrmOYuLSOagX5QJxQ-1
+Received: by mail-wr1-f54.google.com with SMTP id x13so16872423wrs.9
 	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 09:45:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references:mime-version:content-transfer-encoding;
-	bh=zJd8mXXYqEzxi+Ta+kTFG2L+mB09Pvob5bInoEtWOJs=;
-	b=K1ITG8B6+1I+60xGrm6gCkmTkg0wKl/cGewPZs9CpQ9dazCdLhsMRIRoXz4MR2BT9x
-	yAIjYMSc5cEUDHL34+/AIi4FDYwzulKqDo9HFMIPMhKxjVUGw4+24G3WSxsIY//UcXZ6
-	La8JQFyFOFKhLCQ3ac0k9iF69pMtJoaKPNTkrK8NIxbA7BU6hjK68B9Fs1Mgp2Ynk5XA
-	l3QThOixlouh8gChjMrQQsuR34CoXvg2ata0o6o8gWxoH70eS9CywE8Rd2YL/74gGhqb
-	RK7gnVjhKvSki8CXB2O5NVVVwoHTc9ziFX0wZP5gle6XpsneJ29LZQT16lppeGbhba6X
-	Ullg==
-X-Gm-Message-State: AOAM530xrcHyqNo0j2TV5MJIHAWoeyb+Z9YhtnTi7lFMCS3MRXrojl14
-	vvxaYyPNf1wY+UXqbi0+IVswMg==
-X-Google-Smtp-Source: ABdhPJy7x+893j7xrlcHpLBGkGCyLPyYwjJIiUPlSoLFR8ppUyFsX66UUEf901V2mos9wK16DUvsCQ==
-X-Received: by 2002:a7b:cb99:: with SMTP id m25mr5082442wmi.64.1617122717141; 
+	bh=edOfNQI8AxXW7owzJ+vXm3rW8pIpWNBkr0sH8eSakq4=;
+	b=TxP6Tex4hASFQ4CKl/DII/iJ2/sQmAUArxiRyJ17Gn6Ie3jJVESed6fZ8Rfqc+gieo
+	Vyt26yghSH+pcnw7Ct8QcgDRtC/TwfObDBk5egyu/XG8/+fslGY+h70Ca7b76uMLltKp
+	KYJbT+HPDqTdKYYes0f4ZzqzHCC3ycfLZlSfuqjscT9rdBPSehB+fh8RVxAptCHdvggn
+	8nCwsNGlUW0bMfrFWj9726Z0pBGHBp6xsT5v0zFIogx2bu+LKYCBIDPBWkB3BBOdGM+7
+	9jusKN7n27pUJqNP56/78Op15g9SObu/3n+XiN2WXRfLC6YrmRcu7ta3E7LhQ4ON0leA
+	Nm3Q==
+X-Gm-Message-State: AOAM533WmPEgfUKroxNRJQ7HVVh3+YQ5TItaz4/Bb2MdAOi39ojZ4gJ6
+	bYq2IczI2AHX9FS6Eh5NSN7t3w==
+X-Google-Smtp-Source: ABdhPJxbrNab3mr9QP4a+su/M3GAuG6S6BSajMeGGgRh/T/rdaBUOhI+pVoSN5nJVee6y2SvbBKClw==
+X-Received: by 2002:adf:c389:: with SMTP id p9mr34872246wrf.410.1617122717880; 
 	Tue, 30 Mar 2021 09:45:17 -0700 (PDT)
 Received: from dell.default ([91.110.221.217])
 	by smtp.gmail.com with ESMTPSA id
-	a15sm25660805wrr.53.2021.03.30.09.45.16
+	a15sm25660805wrr.53.2021.03.30.09.45.17
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 30 Mar 2021 09:45:16 -0700 (PDT)
+	Tue, 30 Mar 2021 09:45:17 -0700 (PDT)
 From: Lee Jones <lee.jones@linaro.org>
 To: lee.jones@linaro.org
-Date: Tue, 30 Mar 2021 17:44:43 +0100
-Message-Id: <20210330164458.1625478-17-lee.jones@linaro.org>
+Date: Tue, 30 Mar 2021 17:44:44 +0100
+Message-Id: <20210330164458.1625478-18-lee.jones@linaro.org>
 In-Reply-To: <20210330164458.1625478-1-lee.jones@linaro.org>
 References: <20210330164458.1625478-1-lee.jones@linaro.org>
 MIME-Version: 1.0
@@ -78,11 +79,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 16/31] fs: gfs2: super: Fix kernel-doc
-	issues where feasible demote one other
+Subject: [Cluster-devel] [PATCH 17/31] fs: gfs2: util: Fix one conformant
+	kernel-doc header and demote a bunch of abuses
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,85 +107,154 @@ Content-Type: text/plain; charset="US-ASCII"
 
 Fixes the following W=1 kernel build warning(s):
 
- fs/gfs2/super.c:397: warning: Excess function parameter 'state' description in 'gfs2_lock_fs_check_clean'
- fs/gfs2/super.c:397: warning: Excess function parameter 't_gh' description in 'gfs2_lock_fs_check_clean'
- fs/gfs2/super.c:709: warning: Function parameter or member 'wait' not described in 'gfs2_sync_fs'
- fs/gfs2/super.c:821: warning: expecting prototype for statfs_fill(). Prototype was for statfs_slow_fill() instead
- fs/gfs2/super.c:916: warning: Function parameter or member 'sc' not described in 'gfs2_statfs_i'
- fs/gfs2/super.c:916: warning: Excess function parameter 'sg' description in 'gfs2_statfs_i'
- fs/gfs2/super.c:948: warning: Function parameter or member 'dentry' not described in 'gfs2_statfs'
- fs/gfs2/super.c:948: warning: Function parameter or member 'buf' not described in 'gfs2_statfs'
- fs/gfs2/super.c:948: warning: Excess function parameter 'sb' description in 'gfs2_statfs'
- fs/gfs2/super.c:948: warning: Excess function parameter 'statfsbuf' description in 'gfs2_statfs'
- fs/gfs2/super.c:1281: warning: Function parameter or member 'gh' not described in 'evict_should_delete'
+ fs/gfs2/util.c:52: warning: Function parameter or member 'verbose' not described in 'check_journal_clean'
+ fs/gfs2/util.c:372: warning: Function parameter or member 'sdp' not described in 'gfs2_assert_withdraw_i'
+ fs/gfs2/util.c:372: warning: Function parameter or member 'assertion' not described in 'gfs2_assert_withdraw_i'
+ fs/gfs2/util.c:372: warning: Function parameter or member 'function' not described in 'gfs2_assert_withdraw_i'
+ fs/gfs2/util.c:372: warning: Function parameter or member 'file' not described in 'gfs2_assert_withdraw_i'
+ fs/gfs2/util.c:372: warning: Function parameter or member 'line' not described in 'gfs2_assert_withdraw_i'
+ fs/gfs2/util.c:372: warning: Function parameter or member 'delayed' not described in 'gfs2_assert_withdraw_i'
+ fs/gfs2/util.c:401: warning: Function parameter or member 'sdp' not described in 'gfs2_assert_warn_i'
+ fs/gfs2/util.c:401: warning: Function parameter or member 'assertion' not described in 'gfs2_assert_warn_i'
+ fs/gfs2/util.c:401: warning: Function parameter or member 'function' not described in 'gfs2_assert_warn_i'
+ fs/gfs2/util.c:401: warning: Function parameter or member 'file' not described in 'gfs2_assert_warn_i'
+ fs/gfs2/util.c:401: warning: Function parameter or member 'line' not described in 'gfs2_assert_warn_i'
+ fs/gfs2/util.c:431: warning: Function parameter or member 'sdp' not described in 'gfs2_consist_i'
+ fs/gfs2/util.c:431: warning: Function parameter or member 'function' not described in 'gfs2_consist_i'
+ fs/gfs2/util.c:431: warning: Function parameter or member 'file' not described in 'gfs2_consist_i'
+ fs/gfs2/util.c:431: warning: Function parameter or member 'line' not described in 'gfs2_consist_i'
+ fs/gfs2/util.c:444: warning: Function parameter or member 'ip' not described in 'gfs2_consist_inode_i'
+ fs/gfs2/util.c:444: warning: Function parameter or member 'function' not described in 'gfs2_consist_inode_i'
+ fs/gfs2/util.c:444: warning: Function parameter or member 'file' not described in 'gfs2_consist_inode_i'
+ fs/gfs2/util.c:444: warning: Function parameter or member 'line' not described in 'gfs2_consist_inode_i'
+ fs/gfs2/util.c:463: warning: Function parameter or member 'rgd' not described in 'gfs2_consist_rgrpd_i'
+ fs/gfs2/util.c:463: warning: Function parameter or member 'function' not described in 'gfs2_consist_rgrpd_i'
+ fs/gfs2/util.c:463: warning: Function parameter or member 'file' not described in 'gfs2_consist_rgrpd_i'
+ fs/gfs2/util.c:463: warning: Function parameter or member 'line' not described in 'gfs2_consist_rgrpd_i'
+ fs/gfs2/util.c:487: warning: Function parameter or member 'sdp' not described in 'gfs2_meta_check_ii'
+ fs/gfs2/util.c:487: warning: Function parameter or member 'bh' not described in 'gfs2_meta_check_ii'
+ fs/gfs2/util.c:487: warning: Function parameter or member 'type' not described in 'gfs2_meta_check_ii'
+ fs/gfs2/util.c:487: warning: Function parameter or member 'function' not described in 'gfs2_meta_check_ii'
+ fs/gfs2/util.c:487: warning: Function parameter or member 'file' not described in 'gfs2_meta_check_ii'
+ fs/gfs2/util.c:487: warning: Function parameter or member 'line' not described in 'gfs2_meta_check_ii'
+ fs/gfs2/util.c:509: warning: Function parameter or member 'sdp' not described in 'gfs2_metatype_check_ii'
+ fs/gfs2/util.c:509: warning: Function parameter or member 'bh' not described in 'gfs2_metatype_check_ii'
+ fs/gfs2/util.c:509: warning: Function parameter or member 'type' not described in 'gfs2_metatype_check_ii'
+ fs/gfs2/util.c:509: warning: Function parameter or member 't' not described in 'gfs2_metatype_check_ii'
+ fs/gfs2/util.c:509: warning: Function parameter or member 'function' not described in 'gfs2_metatype_check_ii'
+ fs/gfs2/util.c:509: warning: Function parameter or member 'file' not described in 'gfs2_metatype_check_ii'
+ fs/gfs2/util.c:509: warning: Function parameter or member 'line' not described in 'gfs2_metatype_check_ii'
+ fs/gfs2/util.c:530: warning: Function parameter or member 'sdp' not described in 'gfs2_io_error_i'
+ fs/gfs2/util.c:530: warning: Function parameter or member 'function' not described in 'gfs2_io_error_i'
+ fs/gfs2/util.c:530: warning: Function parameter or member 'file' not described in 'gfs2_io_error_i'
+ fs/gfs2/util.c:530: warning: Function parameter or member 'line' not described in 'gfs2_io_error_i'
+ fs/gfs2/util.c:546: warning: Function parameter or member 'sdp' not described in 'gfs2_io_error_bh_i'
+ fs/gfs2/util.c:546: warning: Function parameter or member 'bh' not described in 'gfs2_io_error_bh_i'
+ fs/gfs2/util.c:546: warning: Function parameter or member 'function' not described in 'gfs2_io_error_bh_i'
+ fs/gfs2/util.c:546: warning: Function parameter or member 'file' not described in 'gfs2_io_error_bh_i'
+ fs/gfs2/util.c:546: warning: Function parameter or member 'line' not described in 'gfs2_io_error_bh_i'
 
 Cc: Bob Peterson <rpeterso@redhat.com>
 Cc: Andreas Gruenbacher <agruenba@redhat.com>
 Cc: cluster-devel@redhat.com
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- fs/gfs2/super.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ fs/gfs2/util.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 669ce921d0096..841b430d532cd 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -387,8 +387,6 @@ struct lfcc {
-  * gfs2_lock_fs_check_clean - Stop all writes to the FS and check that all
-  *                            journals are clean
-  * @sdp: the file system
-- * @state: the state to put the transaction lock into
-- * @t_gh: the hold on the transaction lock
+diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+index 4f034b87b4276..3e08027a6c81b 100644
+--- a/fs/gfs2/util.c
++++ b/fs/gfs2/util.c
+@@ -44,6 +44,7 @@ void gfs2_assert_i(struct gfs2_sbd *sdp)
+  * check_journal_clean - Make sure a journal is clean for a spectator mount
+  * @sdp: The GFS2 superblock
+  * @jd: The journal descriptor
++ * @verbose: Show more prints in the log
   *
-  * Returns: errno
+  * Returns: 0 if the journal is clean or locked, else an error
   */
-@@ -698,7 +696,7 @@ static void gfs2_put_super(struct super_block *sb)
- 	free_sbd(sdp);
+@@ -362,7 +363,7 @@ int gfs2_withdraw(struct gfs2_sbd *sdp)
+ 	return -1;
  }
  
 -/**
 +/*
-  * gfs2_sync_fs - sync the filesystem
-  * @sb: the superblock
-  *
-@@ -811,7 +809,7 @@ static int gfs2_unfreeze(struct super_block *sb)
+  * gfs2_assert_withdraw_i - Cause the machine to withdraw if @assertion is false
+  */
+ 
+@@ -392,7 +393,7 @@ void gfs2_assert_withdraw_i(struct gfs2_sbd *sdp, char *assertion,
+ 	dump_stack();
  }
  
- /**
-- * statfs_fill - fill in the sg for a given RG
-+ * statfs_slow_fill - fill in the sg for a given RG
-  * @rgd: the RG
-  * @sc: the sc structure
-  *
-@@ -909,7 +907,7 @@ static int gfs2_statfs_slow(struct gfs2_sbd *sdp, struct gfs2_statfs_change_host
- /**
-  * gfs2_statfs_i - Do a statfs
-  * @sdp: the filesystem
-- * @sg: the sg structure
-+ * @sc: the sc structure
-  *
-  * Returns: errno
+-/**
++/*
+  * gfs2_assert_warn_i - Print a message to the console if @assertion is false
   */
-@@ -940,8 +938,8 @@ static int gfs2_statfs_i(struct gfs2_sbd *sdp, struct gfs2_statfs_change_host *s
  
- /**
-  * gfs2_statfs - Gather and return stats about the filesystem
-- * @sb: The superblock
-- * @statfsbuf: The buffer
-+ * @dentry: The name of the link
-+ * @buf: The buffer
-  *
-  * Returns: 0 on success or error code
+@@ -422,7 +423,7 @@ void gfs2_assert_warn_i(struct gfs2_sbd *sdp, char *assertion,
+ 	sdp->sd_last_warning = jiffies;
+ }
+ 
+-/**
++/*
+  * gfs2_consist_i - Flag a filesystem consistency error and withdraw
   */
-@@ -1272,6 +1270,7 @@ static bool gfs2_upgrade_iopen_glock(struct inode *inode)
- /**
-  * evict_should_delete - determine whether the inode is eligible for deletion
-  * @inode: The inode to evict
-+ * @gh: the holder structure
-  *
-  * This function determines whether the evicted inode is eligible to be deleted
-  * and locks the inode glock.
+ 
+@@ -435,7 +436,7 @@ void gfs2_consist_i(struct gfs2_sbd *sdp, const char *function,
+ 	gfs2_withdraw(sdp);
+ }
+ 
+-/**
++/*
+  * gfs2_consist_inode_i - Flag an inode consistency error and withdraw
+  */
+ 
+@@ -454,7 +455,7 @@ void gfs2_consist_inode_i(struct gfs2_inode *ip,
+ 	gfs2_withdraw(sdp);
+ }
+ 
+-/**
++/*
+  * gfs2_consist_rgrpd_i - Flag a RG consistency error and withdraw
+  */
+ 
+@@ -475,7 +476,7 @@ void gfs2_consist_rgrpd_i(struct gfs2_rgrpd *rgd,
+ 	gfs2_withdraw(sdp);
+ }
+ 
+-/**
++/*
+  * gfs2_meta_check_ii - Flag a magic number consistency error and withdraw
+  * Returns: -1 if this call withdrew the machine,
+  *          -2 if it was already withdrawn
+@@ -497,7 +498,7 @@ int gfs2_meta_check_ii(struct gfs2_sbd *sdp, struct buffer_head *bh,
+ 	return (me) ? -1 : -2;
+ }
+ 
+-/**
++/*
+  * gfs2_metatype_check_ii - Flag a metadata type consistency error and withdraw
+  * Returns: -1 if this call withdrew the machine,
+  *          -2 if it was already withdrawn
+@@ -519,7 +520,7 @@ int gfs2_metatype_check_ii(struct gfs2_sbd *sdp, struct buffer_head *bh,
+ 	return (me) ? -1 : -2;
+ }
+ 
+-/**
++/*
+  * gfs2_io_error_i - Flag an I/O error and withdraw
+  * Returns: -1 if this call withdrew the machine,
+  *          0 if it was already withdrawn
+@@ -535,7 +536,7 @@ int gfs2_io_error_i(struct gfs2_sbd *sdp, const char *function, char *file,
+ 	return gfs2_withdraw(sdp);
+ }
+ 
+-/**
++/*
+  * gfs2_io_error_bh_i - Flag a buffer I/O error
+  * @withdraw: withdraw the filesystem
+  */
 -- 
 2.27.0
 
