@@ -1,89 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8366734EE2C
-	for <lists+cluster-devel@lfdr.de>; Tue, 30 Mar 2021 18:45:32 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B9F2735089D
+	for <lists+cluster-devel@lfdr.de>; Wed, 31 Mar 2021 22:56:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1617224168;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=evIEQ+RgIB3xOnMF7tGhmyzc3wZeRuX+rQpJ4y++R2A=;
+	b=Lydu+k5ofH6xYlbOsuSOzQoG2yW8Mmo/ANyyorujrNFqMHaNhArlmQj5IeMMAMT0I3FnEi
+	rBou3JQaPKNiuvBwBPF1cDTG72pqIjeF5wu5s+CPIFDh6UgEw2GpBZFtPa+p3f1NuY7SGv
+	4V7Cm+5VPDGEnuX1nxl4Fa5iT90jVkQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-433-DQqR-kgWPKKbC3DN2jnX8g-1; Tue, 30 Mar 2021 12:45:28 -0400
-X-MC-Unique: DQqR-kgWPKKbC3DN2jnX8g-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-332-uEIkNRSsNCS2LhXFm61Ldw-1; Wed, 31 Mar 2021 16:56:06 -0400
+X-MC-Unique: uEIkNRSsNCS2LhXFm61Ldw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0BD28802B5B;
-	Tue, 30 Mar 2021 16:45:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6E0E19C44;
-	Tue, 30 Mar 2021 16:45:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F0FF18189CE;
+	Wed, 31 Mar 2021 20:56:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6DAAE5C1B4;
+	Wed, 31 Mar 2021 20:56:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C50971809C83;
-	Tue, 30 Mar 2021 16:45:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5D84D4BB7C;
+	Wed, 31 Mar 2021 20:56:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12UGjMv8010908 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Mar 2021 12:45:22 -0400
+	id 12VKtq0p019652 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 31 Mar 2021 16:55:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 26A386CA9A; Tue, 30 Mar 2021 16:45:22 +0000 (UTC)
+	id D7C1C2B0A5; Wed, 31 Mar 2021 20:55:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 216CF6CA9C
-	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 16:45:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09AA6802BEE
-	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 16:45:22 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
-	[209.85.221.42]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-225-gRpXBJ7gPQ2DcaLI4i_Vww-1; Tue, 30 Mar 2021 12:45:19 -0400
-X-MC-Unique: gRpXBJ7gPQ2DcaLI4i_Vww-1
-Received: by mail-wr1-f42.google.com with SMTP id c8so16872089wrq.11
-	for <cluster-devel@redhat.com>; Tue, 30 Mar 2021 09:45:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references:mime-version:content-transfer-encoding;
-	bh=EhZMxOF5DIQEa6gsAl2dfJPPNSUSMOj2y0CwF6nVMAo=;
-	b=nVALFkCbxwxz+c7UPqoOWTMFwnUr+5fEgaFgWw91KBahMs367KRyva5FoX4tynXvhY
-	CnjG9X/b7mBHD69hshCFH6sSSIShwGKRuYfV5nTz7QZEEtpfDkhKf6o1CL3ZDFpZ42sn
-	CyXfPkE+BHeTSHd30fiSYyBZGWXjA6GaimapFYRzkzPyVtuc4wUDjRB7OzS1ZeVxd3h2
-	fScDv8gdhJ8N6l/8T8V0vPGfTv8cGLvR/8g1MnQ9oJXHk1MCzd1q3B6Wl8XEd7c+XhEI
-	nkWcEZVbrZSICgpj2+eadf94ybXmlXLvjr1irQua0z3Kq7Hgeh/NepFhxu4ThwfsC0U6
-	OJ3A==
-X-Gm-Message-State: AOAM532DGlnzY+z8D3p3j96Eddl6lgo998GtL6aivqPkh+0oaD637VQk
-	9FKn5xAC18I/5yqVugrNDJnwJA==
-X-Google-Smtp-Source: ABdhPJzFIj5h10clKCWBJEdUpQezJbeJoineJgqfOaOnso+v4mKYZjMoAftK2fVTD522I5ySmS8LdQ==
-X-Received: by 2002:a05:6000:1281:: with SMTP id
-	f1mr35171282wrx.243.1617122718750; 
-	Tue, 30 Mar 2021 09:45:18 -0700 (PDT)
-Received: from dell.default ([91.110.221.217])
-	by smtp.gmail.com with ESMTPSA id
-	a15sm25660805wrr.53.2021.03.30.09.45.17
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 30 Mar 2021 09:45:18 -0700 (PDT)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Date: Tue, 30 Mar 2021 17:44:45 +0100
-Message-Id: <20210330164458.1625478-19-lee.jones@linaro.org>
-In-Reply-To: <20210330164458.1625478-1-lee.jones@linaro.org>
-References: <20210330164458.1625478-1-lee.jones@linaro.org>
+Received: from carbon.redhat.com (ovpn-117-7.rdu2.redhat.com [10.10.117.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E044C60CCD;
+	Wed, 31 Mar 2021 20:55:45 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Wed, 31 Mar 2021 16:55:26 -0400
+Message-Id: <20210331205526.351253-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 18/31] fs: gfs2: lock_dlm: Demote incomplete
-	kernel-doc header
+Cc: cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH dlm-tool] dlm_controld: create var parent
+	directories
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,7 +64,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,35 +72,137 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Fixes the following W=1 kernel build warning(s):
+This patch creates /var/log/dlm_controld and /var/run/dlm_controld
+and it's parents if not exists before. In case of logging there was a
+likely issue no log file is created when /var/log/dlm_controld didn't
+exists before starting dlm_controld.
 
- fs/gfs2/lock_dlm.c:48: warning: Function parameter or member 's' not described in 'gfs2_update_stats'
- fs/gfs2/lock_dlm.c:48: warning: Function parameter or member 'index' not described in 'gfs2_update_stats'
- fs/gfs2/lock_dlm.c:48: warning: Excess function parameter 'mv' description in 'gfs2_update_stats'
-
-Cc: Bob Peterson <rpeterso@redhat.com>
-Cc: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: cluster-devel@redhat.com
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reported-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/lock_dlm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ dlm_controld/dlm_daemon.h |  8 ++++++--
+ dlm_controld/logging.c    | 24 ++++++++++++++++++++++++
+ dlm_controld/main.c       | 20 ++++++++++++++++----
+ 3 files changed, 46 insertions(+), 6 deletions(-)
 
-diff --git a/fs/gfs2/lock_dlm.c b/fs/gfs2/lock_dlm.c
-index 153272f82984b..4afd98c91e73e 100644
---- a/fs/gfs2/lock_dlm.c
-+++ b/fs/gfs2/lock_dlm.c
-@@ -22,9 +22,8 @@
- #include "sys.h"
- #include "trace_gfs2.h"
+diff --git a/dlm_controld/dlm_daemon.h b/dlm_controld/dlm_daemon.h
+index 45b295ea..436fc910 100644
+--- a/dlm_controld/dlm_daemon.h
++++ b/dlm_controld/dlm_daemon.h
+@@ -65,8 +65,12 @@
  
--/**
-+/*
-  * gfs2_update_stats - Update time based stats
-- * @mv: Pointer to mean/variance structure to update
-  * @sample: New data to include
-  *
-  * @delta is the difference between the current rtt sample and the
+ /* TODO: get CONFDIR, LOGDIR, RUNDIR from build */
+ 
+-#define RUNDIR                   "/var/run/dlm_controld"
+-#define LOGDIR                   "/var/log/dlm_controld"
++#define SYS_VARDIR              "/var"
++#define SYS_RUNDIR              SYS_VARDIR "/run"
++#define SYS_LOGDIR              SYS_VARDIR "/log"
++
++#define RUNDIR                  SYS_RUNDIR "/dlm_controld"
++#define LOGDIR                  SYS_LOGDIR "/dlm_controld"
+ #define CONFDIR                  "/etc/dlm"
+ 
+ #define RUN_FILE_NAME            "dlm_controld.pid"
+diff --git a/dlm_controld/logging.c b/dlm_controld/logging.c
+index 4aa3406c..d48b8aeb 100644
+--- a/dlm_controld/logging.c
++++ b/dlm_controld/logging.c
+@@ -16,6 +16,9 @@ static FILE *logfile_fp;
+ 
+ void init_logging(void)
+ {
++	mode_t old_umask;
++	int rv;
++
+ 	syslog_facility = DEFAULT_SYSLOG_FACILITY;
+ 	syslog_priority = DEFAULT_SYSLOG_PRIORITY;
+ 	logfile_priority = DEFAULT_LOGFILE_PRIORITY;
+@@ -28,6 +31,26 @@ void init_logging(void)
+ 		logfile_priority = LOG_DEBUG;
+ 
+ 	if (logfile[0]) {
++		old_umask = umask(0077);
++		rv = mkdir(SYS_VARDIR, 0700);
++		if (rv < 0 && errno != EEXIST) {
++			umask(old_umask);
++			goto skip_logfile;
++		}
++
++		rv = mkdir(SYS_LOGDIR, 0700);
++		if (rv < 0 && errno != EEXIST) {
++			umask(old_umask);
++			goto skip_logfile;
++		}
++
++		rv = mkdir(LOGDIR, 0700);
++		if (rv < 0 && errno != EEXIST) {
++			umask(old_umask);
++			goto skip_logfile;
++		}
++		umask(old_umask);
++
+ 		logfile_fp = fopen(logfile, "a+");
+ 		if (logfile_fp != NULL) {
+ 			int fd = fileno(logfile_fp);
+@@ -35,6 +58,7 @@ void init_logging(void)
+ 		}
+ 	}
+ 
++skip_logfile:
+ 	openlog(DAEMON_NAME, LOG_CONS | LOG_PID, syslog_facility);
+ }
+ 
+diff --git a/dlm_controld/main.c b/dlm_controld/main.c
+index c35756d4..504cafa1 100644
+--- a/dlm_controld/main.c
++++ b/dlm_controld/main.c
+@@ -1598,7 +1598,7 @@ static int loop(void)
+ 	return rv;
+ }
+ 
+-static int lockfile(const char *dir, const char *name)
++static int lockfile(const char *name)
+ {
+ 	char path[PATH_MAX];
+ 	char buf[16];
+@@ -1607,14 +1607,26 @@ static int lockfile(const char *dir, const char *name)
+ 	int fd, rv;
+ 
+ 	old_umask = umask(0022);
+-	rv = mkdir(dir, 0775);
++	rv = mkdir(SYS_VARDIR, 0775);
++	if (rv < 0 && errno != EEXIST) {
++		umask(old_umask);
++		return rv;
++	}
++
++	rv = mkdir(SYS_RUNDIR, 0775);
++	if (rv < 0 && errno != EEXIST) {
++		umask(old_umask);
++		return rv;
++	}
++
++	rv = mkdir(RUNDIR, 0775);
+ 	if (rv < 0 && errno != EEXIST) {
+ 		umask(old_umask);
+ 		return rv;
+ 	}
+ 	umask(old_umask);
+ 
+-	snprintf(path, PATH_MAX, "%s/%s", dir, name);
++	snprintf(path, PATH_MAX, "%s/%s", RUNDIR, name);
+ 
+ 	fd = open(path, O_CREAT|O_WRONLY|O_CLOEXEC, 0644);
+ 	if (fd < 0) {
+@@ -2125,7 +2137,7 @@ int main(int argc, char **argv)
+ 
+ 	init_logging();
+ 
+-	fd = lockfile(RUNDIR, RUN_FILE_NAME);
++	fd = lockfile(RUN_FILE_NAME);
+ 	if (fd < 0)
+ 		return 1;
+ 
 -- 
-2.27.0
+2.26.3
 
