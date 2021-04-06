@@ -2,90 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 125673557C3
-	for <lists+cluster-devel@lfdr.de>; Tue,  6 Apr 2021 17:28:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B8F1A355A11
+	for <lists+cluster-devel@lfdr.de>; Tue,  6 Apr 2021 19:11:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1617722911;
+	s=mimecast20190719; t=1617729114;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=lSAo36/1ny0ZeyecXydUwJvGLEfgkACXKOkRRqOOlIs=;
-	b=PkM+WrXcjEFuTRik71c3aImxAPNAWuDbwBn3Pe2iQcqOBxZEGbBN1bj0uj49mNavVJcXKO
-	zLthSUCmsseppUhFY/UBbDGoVVSDTREo+JQaMi+vEPcwlBGdwls+6IL3f4phTpiA+G2JYO
-	s7C8K7MbghtUj67escAQGVuigm6+BNA=
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=BouHmAwE0awbAExXDI6V819kgOhxefSxuyY/v3x6MkA=;
+	b=hY8v6mkzAPz+zxP7nNkD1QsAVrduBUAu+2PgVs3juPdR58yuYa/ou/7Dysc7E21NbiewOw
+	bttvkgSnNgfEqcMYP0NEsDCJAvXB43qqqkT2r4ZtQ9X/9xW/KZjGwG+4kz3iA5ZrMoQjHU
+	5HEKDiPIYNInxvMIvQVuWBCfKAwY06s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-66-jvQbZ7eaMaCb5BHrxxSYbQ-1; Tue, 06 Apr 2021 11:28:28 -0400
-X-MC-Unique: jvQbZ7eaMaCb5BHrxxSYbQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-484-Js_fkxEzOVelhs3vdT6V6Q-1; Tue, 06 Apr 2021 13:11:53 -0400
+X-MC-Unique: Js_fkxEzOVelhs3vdT6V6Q-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 10ACB1083E84;
-	Tue,  6 Apr 2021 15:28:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3F3AD8030A1;
+	Tue,  6 Apr 2021 17:11:51 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C6555D741;
-	Tue,  6 Apr 2021 15:28:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ECDFF60854;
+	Tue,  6 Apr 2021 17:11:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 99E324BB7C;
-	Tue,  6 Apr 2021 15:28:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 65FD34A7CD;
+	Tue,  6 Apr 2021 17:11:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 136FPMWQ023267 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 6 Apr 2021 11:25:22 -0400
+	id 136H9uZ9032559 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 6 Apr 2021 13:09:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3419D112CA37; Tue,  6 Apr 2021 15:25:22 +0000 (UTC)
+	id 2ED09226FD; Tue,  6 Apr 2021 17:09:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 30D95112CA34
-	for <cluster-devel@redhat.com>; Tue,  6 Apr 2021 15:25:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03102811E93
-	for <cluster-devel@redhat.com>; Tue,  6 Apr 2021 15:25:19 +0000 (UTC)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
-	[209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-340-9tGiZE1kO4-ddGbNkpFQkw-1; Tue, 06 Apr 2021 11:25:17 -0400
-X-MC-Unique: 9tGiZE1kO4-ddGbNkpFQkw-1
-Received: by mail-wr1-f69.google.com with SMTP id 75so10074476wrl.3
-	for <cluster-devel@redhat.com>; Tue, 06 Apr 2021 08:25:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=lSAo36/1ny0ZeyecXydUwJvGLEfgkACXKOkRRqOOlIs=;
-	b=J0A+7TAuWl+3YZ9AG8M53XKV4pAUXeuKZ9KVxHGDvcvbEhZSaqaXZu5KBAQLKiCNOv
-	Ozk63XQqJtrPxsfASm6A0jtX+xs/CtGMXLgR2m+k8T+d4Oz2MARlojFDCNhha4PaPqi9
-	mxPLL/sxvfqJmuDT2yqiNqDdEVs2o9pmM4dvD2c5Vu7e3iZKNX0ALeiMJ2aREldcJYdV
-	pQtfogQIcVLVZPxNDIVm31NAIKDyL0s8rPjDtLbFCbfhyhsGgLOL28CqTPJbih311KsE
-	A86b+K7KAC/SlXoLxz7EhtrxWDucfa0QC+TluYIzLN+seXr9OFlT7inIwBi5oYB3IGfJ
-	SqYg==
-X-Gm-Message-State: AOAM533Aoc2PHCZ3DR9g9NCPvnFHsMVcMBL6yTehD6JEnqsNNGnynakY
-	PfXCm6Yo4pQqp8NkmQjnMUsZNMWwHutHZnQmoErLQyF5GuG4hQzdlglFREBbgqBLx/7qBlfqdYo
-	aCKcp1BrVMIjey/K4cMlM+BJynkg5JjFyrquRuw==
-X-Received: by 2002:a7b:cb45:: with SMTP id v5mr1294701wmj.2.1617722715767;
-	Tue, 06 Apr 2021 08:25:15 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzlOd1yJee2I0h1TAL1N1Y+IENhg3EmupdGYdLKQVOFjDT6LJKOBL4hx0sj32YWbQy7zvuXs82K+ziu7QBjB4M=
-X-Received: by 2002:a7b:cb45:: with SMTP id v5mr1294690wmj.2.1617722715620;
-	Tue, 06 Apr 2021 08:25:15 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210326091151.311647-1-lee.jones@linaro.org>
-	<20210406091126.GT2916463@dell>
-	<468723920.4255981.1617709446972.JavaMail.zimbra@redhat.com>
-	<052f97ad-5fd3-e4f8-6339-bacaf0d8fd77@schindlerman.de>
-In-Reply-To: <052f97ad-5fd3-e4f8-6339-bacaf0d8fd77@schindlerman.de>
+Received: from max.com (unknown [10.40.192.37])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6B3C560854;
+	Tue,  6 Apr 2021 17:09:51 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 6 Apr 2021 17:25:04 +0200
-Message-ID: <CAHc6FU4J01ATJ7fA5OXRrxkfAWQELKcru+DmVW6D95Us_185wQ@mail.gmail.com>
-To: andreas.schindler@schindlerman.de
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+To: cluster-devel@redhat.com
+Date: Tue,  6 Apr 2021 19:09:49 +0200
+Message-Id: <20210406170949.106524-1-agruenba@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] Unsubscribe from list
+Subject: [Cluster-devel] [PATCH] gfs2: Allocate bufdata object before taking
+	log lock
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,23 +63,120 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-Hi,
+Before this patch, functions gfs2_trans_add_{meta,data} would take the
+log lock, then if they needed to allocate a new bufdata object, they
+would drop the lock and reacquire it.  This patch changes it so that if
+there's apparently no bufdata object, it allocates a new one before
+taking the log lock.  After taking the log lock, it checks for conflicts
+and takes measures to resolve the conflict.  This is for performance.
 
-On Tue, Apr 6, 2021 at 4:11 PM Andreas Schindler
-<andreas.schindler@schindlerman.de> wrote:
-> Please unsubscribe my email address or give me a link where i can do it on my own.see the headers of any email from the list:
+I haven't verified if the page locking in gfs2_trans_add_meta,
+originally introduced in commit 18ec7d5c3f434 ("Make journaled data
+files identical to normal files on disk"), is actually still needed.
 
-see the headers of any mail delivered to you via the list:
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+---
+ fs/gfs2/trans.c | 46 +++++++++++++++++++++++++---------------------
+ 1 file changed, 25 insertions(+), 21 deletions(-)
 
-List-Unsubscribe: <https://listman.redhat.com/mailman/options/cluster-devel>
-
-Regards,
-Andreas
+diff --git a/fs/gfs2/trans.c b/fs/gfs2/trans.c
+index 63fec11ef2ce..c50de22d7cbf 100644
+--- a/fs/gfs2/trans.c
++++ b/fs/gfs2/trans.c
+@@ -171,7 +171,6 @@ static struct gfs2_bufdata *gfs2_alloc_bufdata(struct gfs2_glock *gl,
+ 	INIT_LIST_HEAD(&bd->bd_list);
+ 	INIT_LIST_HEAD(&bd->bd_ail_st_list);
+ 	INIT_LIST_HEAD(&bd->bd_ail_gl_list);
+-	bh->b_private = bd;
+ 	return bd;
+ }
+ 
+@@ -193,24 +192,24 @@ void gfs2_trans_add_data(struct gfs2_glock *gl, struct buffer_head *bh)
+ {
+ 	struct gfs2_trans *tr = current->journal_info;
+ 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+-	struct gfs2_bufdata *bd;
++	struct gfs2_bufdata *bd = NULL;
+ 
+ 	lock_buffer(bh);
+ 	if (buffer_pinned(bh)) {
+ 		set_bit(TR_TOUCHED, &tr->tr_flags);
+ 		goto out;
+ 	}
+-	gfs2_log_lock(sdp);
+-	bd = bh->b_private;
+-	if (bd == NULL) {
+-		gfs2_log_unlock(sdp);
++	if (!bh->b_private) {
+ 		unlock_buffer(bh);
+-		if (bh->b_private == NULL)
+-			bd = gfs2_alloc_bufdata(gl, bh);
+-		else
+-			bd = bh->b_private;
++		bd = gfs2_alloc_bufdata(gl, bh);
+ 		lock_buffer(bh);
+-		gfs2_log_lock(sdp);
++	}
++	gfs2_log_lock(sdp);
++	if (bh->b_private) {
++		kfree(bd);
++		bd = bh->b_private;
++	} else {
++		bh->b_private = bd;
+ 	}
+ 	gfs2_assert(sdp, bd->bd_gl == gl);
+ 	set_bit(TR_TOUCHED, &tr->tr_flags);
+@@ -230,7 +229,7 @@ void gfs2_trans_add_meta(struct gfs2_glock *gl, struct buffer_head *bh)
+ {
+ 
+ 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+-	struct gfs2_bufdata *bd;
++	struct gfs2_bufdata *bd = NULL;
+ 	struct gfs2_meta_header *mh;
+ 	struct gfs2_trans *tr = current->journal_info;
+ 	enum gfs2_freeze_state state = atomic_read(&sdp->sd_freeze_state);
+@@ -240,19 +239,24 @@ void gfs2_trans_add_meta(struct gfs2_glock *gl, struct buffer_head *bh)
+ 		set_bit(TR_TOUCHED, &tr->tr_flags);
+ 		goto out;
+ 	}
+-	gfs2_log_lock(sdp);
+-	bd = bh->b_private;
+-	if (bd == NULL) {
+-		gfs2_log_unlock(sdp);
++	if (!bh->b_private) {
+ 		unlock_buffer(bh);
++		bd = gfs2_alloc_bufdata(gl, bh);
++		lock_buffer(bh);
++	}
++	gfs2_log_lock(sdp);
++	if (bh->b_private) {
++		kfree(bd);
++		bd = bh->b_private;
++	} else {
+ 		lock_page(bh->b_page);
+-		if (bh->b_private == NULL)
+-			bd = gfs2_alloc_bufdata(gl, bh);
+-		else
++		if (bh->b_private) {
++			kfree(bd);
+ 			bd = bh->b_private;
++		} else {
++			bh->b_private = bd;
++		}
+ 		unlock_page(bh->b_page);
+-		lock_buffer(bh);
+-		gfs2_log_lock(sdp);
+ 	}
+ 	gfs2_assert(sdp, bd->bd_gl == gl);
+ 	set_bit(TR_TOUCHED, &tr->tr_flags);
+-- 
+2.26.3
 
