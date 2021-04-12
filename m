@@ -1,63 +1,93 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 09E1935ADCA
-	for <lists+cluster-devel@lfdr.de>; Sat, 10 Apr 2021 15:49:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1618062564;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=lb5zlHrvTZly7L6yf73VMjWUjBuv+ZeTC/BqBxlr4jQ=;
-	b=cdrIZwClskNrbb/yd7cobXB9GH4ndVrP5rOUxAQuk6necKmxIRq3YU9mwkPLUNEArP2Ume
-	KgsLWnex7iOPttl+ge7Mpw4MaryI10Pw1pb+VKf0m0haDEFuUX0bnQJYWSIMJXxq2iYd8Z
-	SquxIFDPpvm30Bqddw4pr4y54EbMjGE=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 659A435BAF1
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Apr 2021 09:40:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-542-B5kVkz1qPG-NoZ2blXStFg-1; Sat, 10 Apr 2021 09:49:23 -0400
-X-MC-Unique: B5kVkz1qPG-NoZ2blXStFg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-81-VeVDA1eePXan8ImXMVGoYA-1; Mon, 12 Apr 2021 03:40:09 -0400
+X-MC-Unique: VeVDA1eePXan8ImXMVGoYA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B442F1856A63;
-	Sat, 10 Apr 2021 13:49:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B4D8487A83B;
+	Mon, 12 Apr 2021 07:40:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 95F315D6D5;
-	Sat, 10 Apr 2021 13:49:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D1C865C559;
+	Mon, 12 Apr 2021 07:40:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B259E44A5B;
-	Sat, 10 Apr 2021 13:49:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B17835534C;
+	Mon, 12 Apr 2021 07:40:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13ADn5Ib009969 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 10 Apr 2021 09:49:05 -0400
+	id 13C7c2Ix015412 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 12 Apr 2021 03:38:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 71A623A47; Sat, 10 Apr 2021 13:49:05 +0000 (UTC)
+	id 783132182DEF; Mon, 12 Apr 2021 07:38:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from colo-mx.corp.redhat.com
-	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C4595D736
-	for <cluster-devel@redhat.com>; Sat, 10 Apr 2021 13:49:01 +0000 (UTC)
-Received: from zmail21.collab.prod.int.phx2.redhat.com
-	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AD851C98
-	for <cluster-devel@redhat.com>; Sat, 10 Apr 2021 13:49:01 +0000 (UTC)
-Date: Sat, 10 Apr 2021 09:49:01 -0400 (EDT)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Message-ID: <344305871.6577253.1618062541261.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1528588397.6568321.1618062440748.JavaMail.zimbra@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70CFA2182DED
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 07:37:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67E4A811E93
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 07:37:59 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+	[209.85.128.53]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-473-bQalT4UlNq6YkNIk7kGrYw-1; Mon, 12 Apr 2021 03:37:57 -0400
+X-MC-Unique: bQalT4UlNq6YkNIk7kGrYw-1
+Received: by mail-wm1-f53.google.com with SMTP id
+	j4-20020a05600c4104b029010c62bc1e20so6264833wmi.3
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 00:37:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:content-transfer-encoding
+	:in-reply-to;
+	bh=HIQ9nS2DnwZgvR48t9GVmzUOt4mImx9+3jm/clQDwpY=;
+	b=UhbFJmS+PSyFTp+ZiKUfHcq0+4uBUqJAR8yTITMKZqANw4R6HwoXme2Hht+ekGsYm8
+	wVIrBs08qLPPZhYnqI9fV8nUyUm4+j3NaRJ/rNcZFnE6UkmhFUHtpwCzR+7zlivfHXIs
+	psU1vhISk6i9mUt2QPULCiqHjqBBLzSRTGLxWNQGetjKLLKzTxI9r79KrhtwA/MWvqm2
+	wcN8nkMwmY+ClOQ2VO4uJNhnyqCFrwCO4mLonP5+N1nUmyKFZrCvMJF7eiSh4C9X3GJT
+	Tn3ITz+IXd017T5NV9Ni9INvbXPNxo1bgZ8cwEF0ns9Z5IZEChv7TyiyhqueyFz91uYT
+	HS2g==
+X-Gm-Message-State: AOAM531rNzuBqAclQGZ6+0qlTawTzhurk/q8vO8YQcmN9sVQVa0kV5tU
+	pZhCf+B4/4LCBKTNtYIaS+SAEw==
+X-Google-Smtp-Source: ABdhPJwjS/qzIbhP6Zi3YtFpCzdnzG3pyEYGlKEP/6TmD6q9pko48oi0coPJ+NgMiMrgN0VAVE6f+A==
+X-Received: by 2002:a7b:c195:: with SMTP id y21mr2482976wmi.178.1618213076201; 
+	Mon, 12 Apr 2021 00:37:56 -0700 (PDT)
+Received: from dell ([91.110.221.215]) by smtp.gmail.com with ESMTPSA id
+	o5sm13676490wmc.44.2021.04.12.00.37.55
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Mon, 12 Apr 2021 00:37:55 -0700 (PDT)
+Date: Mon, 12 Apr 2021 08:37:54 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <20210412073754.GA4869@dell>
+References: <20210326091151.311647-1-lee.jones@linaro.org>
+	<20210406091126.GT2916463@dell>
+	<468723920.4255981.1617709446972.JavaMail.zimbra@redhat.com>
+	<20210406115434.GU2916463@dell>
+	<CAHc6FU4bH91pWgFMytuvhgkr9YJs_VdggZdjEC6EwQJ-9Jj+3Q@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.10.120.209, 10.4.195.15]
-Thread-Topic: gfs2: allocate pages for clone bitmaps
-Thread-Index: mIQB1KSEdUqH02qEEVvfxNL9NPRBwA==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <CAHc6FU4bH91pWgFMytuvhgkr9YJs_VdggZdjEC6EwQJ-9Jj+3Q@mail.gmail.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [gfs2 PATCH] gfs2: allocate pages for clone bitmaps
+Cc: cluster-devel <cluster-devel@redhat.com>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Cluster-devel] [PATCH 00/18] Rid W=1 warnings from GFS2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,145 +101,38 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Resource group (rgrp) bitmaps have in-core-only "clone" bitmaps that
-ensure freed fs space from deletes are not reused until the transaction
-is complete. Before this patch, these clone bitmaps were allocated with
-kmalloc, but with the default 4K block size, kmalloc is wasteful because
-of the way slab keeps track of them. As a matter of fact, kernel docs
-only recommend slab for allocations "less than page size." See:
-https://www.kernel.org/doc/html/v5.0/core-api/mm-api.html#mm-api-gfp-flags
-In fact, if you turn on kernel slab debugging options, slab will give
-you warnings that gfs2 should not do this.
+On Fri, 09 Apr 2021, Andreas Gruenbacher wrote:
 
-This patch switches the clone bitmap allocations to alloc_page, which
-has much less overhead and uses less memory. The down side is: if we
-allocate a whole page for block sizes smaller than page size, we will
-use more memory and it will be wasteful. But in general, we've always
-recommended using block size = page size for efficiency and performance.
+> Hi Lee,
+> 
+> On Tue, Apr 6, 2021 at 1:54 PM Lee Jones <lee.jones@linaro.org> wrote:
+> > > > These have been on the list for a couple of weeks now.
+> 
+> thanks for your fixes, I've gone through them now. I've fixed up some
+> comments instead of "demoting" them to make the patch somewhat less
+> destructive, and I found a few more minor issues along the way. Those
+> changes are now all in the following commit:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=c551f66c5dfef
 
-In a recent test I did with 24 simultaneous recursive file deletes,
-on a large dataset (each working to delete a separate directory), this
-patch yielded a 16 percent increase in speed. Total accumulated real
-(clock) time of the test went from 41310 seconds (11.5 hours) down to
-just 34742 seconds (9.65 hours) (This was lock_nolock on a single node).
+You squashed all of the changes across all of the files into
+one-big-patch (tm)?  I haven't seen anyone do that for years.
+Hopefully none of it needs reverting or bisecting!
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/incore.h |  2 +-
- fs/gfs2/lops.c   |  2 +-
- fs/gfs2/rgrp.c   | 25 +++++++++++++++----------
- 3 files changed, 17 insertions(+), 12 deletions(-)
+Anyway, thanks for merging.
 
-diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index e6f820f146cb..a708094381ce 100644
---- a/fs/gfs2/incore.h
-+++ b/fs/gfs2/incore.h
-@@ -90,7 +90,7 @@ struct gfs2_log_operations {
-  */
- struct gfs2_bitmap {
- 	struct buffer_head *bi_bh;
--	char *bi_clone;
-+	struct page *bi_clone;
- 	unsigned long bi_flags;
- 	u32 bi_offset;
- 	u32 bi_start;
-diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
-index a82f4747aa8d..cf037f74e86f 100644
---- a/fs/gfs2/lops.c
-+++ b/fs/gfs2/lops.c
-@@ -81,7 +81,7 @@ static void maybe_release_space(struct gfs2_bufdata *bd)
- 		goto out;
- 	if (sdp->sd_args.ar_discard)
- 		gfs2_rgrp_send_discards(sdp, rgd->rd_data0, bd->bd_bh, bi, 1, NULL);
--	memcpy(bi->bi_clone + bi->bi_offset,
-+	memcpy(page_address(bi->bi_clone) + bi->bi_offset,
- 	       bd->bd_bh->b_data + bi->bi_offset, bi->bi_bytes);
- 	clear_bit(GBF_FULL, &bi->bi_flags);
- 	rgd->rd_free_clone = rgd->rd_free;
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 2dab313442a7..e64aea44d02d 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -123,7 +123,8 @@ static inline void gfs2_setbit(const struct gfs2_rbm *rbm, bool do_clone,
- 	*byte1 ^= (cur_state ^ new_state) << bit;
- 
- 	if (do_clone && bi->bi_clone) {
--		byte2 = bi->bi_clone + bi->bi_offset + (rbm->offset / GFS2_NBBY);
-+		byte2 = page_address(bi->bi_clone) + bi->bi_offset +
-+			(rbm->offset / GFS2_NBBY);
- 		cur_state = (*byte2 >> bit) & GFS2_BIT_MASK;
- 		*byte2 ^= (cur_state ^ new_state) << bit;
- 	}
-@@ -148,7 +149,7 @@ static inline u8 gfs2_testbit(const struct gfs2_rbm *rbm, bool use_clone)
- 	unsigned int bit;
- 
- 	if (use_clone && bi->bi_clone)
--		buffer = bi->bi_clone;
-+		buffer = page_address(bi->bi_clone);
- 	else
- 		buffer = bi->bi_bh->b_data;
- 	buffer += bi->bi_offset;
-@@ -392,7 +393,7 @@ static u32 gfs2_free_extlen(const struct gfs2_rbm *rrbm, u32 len)
- 		bi = rbm_bi(&rbm);
- 		start = bi->bi_bh->b_data;
- 		if (bi->bi_clone)
--			start = bi->bi_clone;
-+			start = page_address(bi->bi_clone);
- 		start += bi->bi_offset;
- 		end = start + bi->bi_bytes;
- 		BUG_ON(rbm.offset & 3);
-@@ -611,8 +612,10 @@ void gfs2_free_clones(struct gfs2_rgrpd *rgd)
- 
- 	for (x = 0; x < rgd->rd_length; x++) {
- 		struct gfs2_bitmap *bi = rgd->rd_bits + x;
--		kfree(bi->bi_clone);
--		bi->bi_clone = NULL;
-+		if (bi->bi_clone) {
-+			__free_page(bi->bi_clone);
-+			bi->bi_clone = NULL;
-+		}
- 	}
- }
- 
-@@ -1331,7 +1334,8 @@ int gfs2_rgrp_send_discards(struct gfs2_sbd *sdp, u64 offset,
- 	u8 diff;
- 
- 	for (x = 0; x < bi->bi_bytes; x++) {
--		const u8 *clone = bi->bi_clone ? bi->bi_clone : bi->bi_bh->b_data;
-+		const u8 *clone = bi->bi_clone ? page_address(bi->bi_clone) :
-+			bi->bi_bh->b_data;
- 		clone += bi->bi_offset;
- 		clone += x;
- 		if (bh) {
-@@ -1775,7 +1779,7 @@ static int gfs2_rbm_find(struct gfs2_rbm *rbm, u8 state, u32 *minext,
- 		buffer = bh->b_data + bi->bi_offset;
- 		WARN_ON(!buffer_uptodate(bh));
- 		if (state != GFS2_BLKST_UNLINKED && bi->bi_clone)
--			buffer = bi->bi_clone + bi->bi_offset;
-+			buffer = page_address(bi->bi_clone) + bi->bi_offset;
- 		offset = gfs2_bitfit(buffer, bi->bi_bytes, rbm->offset, state);
- 		if (offset == BFITNOENT) {
- 			if (state == GFS2_BLKST_FREE && rbm->offset == 0)
-@@ -2277,9 +2281,10 @@ static void rgblk_free(struct gfs2_sbd *sdp, struct gfs2_rgrpd *rgd,
- 		bi = rbm_bi(&rbm);
- 		if (bi != bi_prev) {
- 			if (!bi->bi_clone) {
--				bi->bi_clone = kmalloc(bi->bi_bh->b_size,
--						      GFP_NOFS | __GFP_NOFAIL);
--				memcpy(bi->bi_clone + bi->bi_offset,
-+				bi->bi_clone = alloc_page(GFP_NOFS |
-+							  __GFP_NOFAIL);
-+				memcpy(page_address(bi->bi_clone) +
-+				       bi->bi_offset,
- 				       bi->bi_bh->b_data + bi->bi_offset,
- 				       bi->bi_bytes);
- 			}
+-- 
+Lee Jones [李琼斯]
+Senior Technical Lead - Developer Services
+Linaro.org │ Open source software for Arm SoCs
+Follow Linaro: Facebook | Twitter | Blog
 
