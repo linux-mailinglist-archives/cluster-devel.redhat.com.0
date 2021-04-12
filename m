@@ -2,91 +2,92 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 863E135CA01
-	for <lists+cluster-devel@lfdr.de>; Mon, 12 Apr 2021 17:35:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CAE6935CA44
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Apr 2021 17:42:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1618241755;
+	s=mimecast20190719; t=1618242153;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=ewmXPFSLxjGv26g7aAQAaOA903AC+9P2sCTSs4VwiBQ=;
-	b=fj0R3DmPiX8Y3CNXZgXaFwWY9wDAObypokx+dZMl07TLQcuAlgUEABoZlDe575OdZgzRiW
-	bVi05KL0DU//Qi/eYgAlldx00ilWDX33PRyRIo6Gnr0i0xqP3IwnQOJ5XYTWEOiwwARSbc
-	WaNPisvvdxj62kzgC5GOWZo7hcPe+I0=
+	 list-subscribe:list-post; bh=zVFlOQIKsbDtmM0t2lJ+0TBYJVRS0MmP/XcG40rdfA8=;
+	b=TigeeOzMQkwDeqq/G1ovosjGCJiFWeEsC52/0fkOzXXZJAAcZBV2A4twhqhjw4EkxctCWA
+	7x7tnwh30tYwh2KOv+dohXqOm1mopWGqScBwW3kESR5HU8LGm3JM/9vrHlY+OmBmYMrOb4
+	BGlzOdpnhd5TGVjA5hzZr8qmmabUgM8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-555-HxUjW1d9PlaWclZbGGcVfQ-1; Mon, 12 Apr 2021 11:35:52 -0400
-X-MC-Unique: HxUjW1d9PlaWclZbGGcVfQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-543-685ADrX3NAue2VJtW4GPzA-1; Mon, 12 Apr 2021 11:42:32 -0400
+X-MC-Unique: 685ADrX3NAue2VJtW4GPzA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2143E10054F6;
-	Mon, 12 Apr 2021 15:35:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB49319726;
-	Mon, 12 Apr 2021 15:35:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FF04DF8AD;
+	Mon, 12 Apr 2021 15:42:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 751635C1C2;
+	Mon, 12 Apr 2021 15:42:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C49DA44A6A;
-	Mon, 12 Apr 2021 15:35:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3515C1806D0E;
+	Mon, 12 Apr 2021 15:42:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13CFZl9n000389 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 12 Apr 2021 11:35:47 -0400
+	id 13CFgQD3000873 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 12 Apr 2021 11:42:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E1F5221E20E2; Mon, 12 Apr 2021 15:35:46 +0000 (UTC)
+	id D6F8262181; Mon, 12 Apr 2021 15:42:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D760921E20E6
-	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 15:35:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D1259621BD
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 15:42:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A4F1100DE77
-	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 15:35:44 +0000 (UTC)
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
-	[209.85.166.200]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-560-qfGR4RHGPgKESuqZhkxXhA-1; Mon, 12 Apr 2021 11:35:42 -0400
-X-MC-Unique: qfGR4RHGPgKESuqZhkxXhA-1
-Received: by mail-il1-f200.google.com with SMTP id h1so4793907ils.16
-	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 08:35:42 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E903C85A5A8
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 15:42:23 +0000 (UTC)
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+	[209.85.166.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-476-esArtjgfPfaO2SbrsQcScg-1; Mon, 12 Apr 2021 11:42:22 -0400
+X-MC-Unique: esArtjgfPfaO2SbrsQcScg-1
+Received: by mail-io1-f69.google.com with SMTP id v14so2723257iob.5
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 08:42:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=ewmXPFSLxjGv26g7aAQAaOA903AC+9P2sCTSs4VwiBQ=;
-	b=XgL99PseCp3H1nu29beOCNP4s6mIu60KjoGF376M8KP1iEktjR0XfNtjvxfsJYWulB
-	KGoegIvPBavN0szrCB8dqb/uzDJZONuJjk52mKExh4pp8jhOl6sEDKc8RKqkJHbuwccc
-	k/1FZPEEDXAPbaHsC3M+wtElXgFvd2+OO9RE6TQdQ7MeDypznRw5PSVxerZHVJbIpE17
-	RKgpKiUv0T8BXch/+kALAEarKCAzKniEAR/xwVyFEs4NgZs4mpaR2Or6Ctch+3IRH/Oc
-	VR/WOO8J2zEkdbJCAXeguI4/2myoByHYgZjIpk+ItESmGa60IkpziLgt3Up1YKaiQA2G
-	WF0Q==
-X-Gm-Message-State: AOAM5334hdEJCqwZPdxEADUb0ZqCrU1LGshskmowTK4aYDxCAfewy+kc
-	ELKfyE9zqTXMrX5iBQRm9qldL7A/XR0qbU4qKSd+wtnNd/mCRUHXl7+ngtYATlp4Rq8xDoQ5xvZ
-	vIOrik8iWmSSi2SgSGbNTT7Jw2hy+YMGxVKKMTQ==
-X-Received: by 2002:a05:6e02:501:: with SMTP id
-	d1mr17134169ils.76.1618241741845; 
-	Mon, 12 Apr 2021 08:35:41 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyWMREBF90GrIm7d8eQk1E82lIXhg8fB77eEDz5CM0TEan/N5M1J2tesORAwqjnqn23gYP98HqNyzDA2Y1fKXg=
-X-Received: by 2002:a05:6e02:501:: with SMTP id
-	d1mr17134158ils.76.1618241741711; 
-	Mon, 12 Apr 2021 08:35:41 -0700 (PDT)
+	bh=zVFlOQIKsbDtmM0t2lJ+0TBYJVRS0MmP/XcG40rdfA8=;
+	b=D5pmXF+xUFUNVlnFkgi0DIVg5UTB8LKTX6zbmicojYwd3JBkyz8XE/w7D3K5nyaZaV
+	dXSM3hjPQymnDrRrR6iSzWwTc5iXBlHdONxrtnOFAL6ARlujLZaDO/2N7C5HshFgwx4R
+	qBJRgrBN4FwasURT9iBP+Z/sn3dr7IaB9BFjEvimANMW/OTLd5lPR0Yq76lVHYWwNOVR
+	GOvA9CtNM4C5CrTff9byxbJJ1RxOfM1pQB3T6PfwbYIteoDgsnnbP8D7siRlG+06y3DV
+	A0Tw2FroDSxJSQ9prYjXTWC08h4G2ZE8QIDXvOFWr+ZEwZF0SnFubSrWIHbbDG1/Nsu8
+	M+5g==
+X-Gm-Message-State: AOAM532xKbB7ylBez3QsjTTqgSwuTyWxgIt+uOAUmUz+a38wFJ/Pkm7a
+	d9va5AW3ncnG1kxhEbdr/4O5UuwbVtLk0NJ6iyYkbSw2HSzbPqDZCyfcgquGhqpFQ1kp8iv7EjJ
+	dunNEtmuQI4JfzbckZMVjRWzu+As04E2bwEHB1w==
+X-Received: by 2002:a02:70d6:: with SMTP id
+	f205mr29084653jac.124.1618242141308; 
+	Mon, 12 Apr 2021 08:42:21 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyWVe8PceCoB1Azst0LTqnyIceXNPjyD0Ulx/MZN6ML4UFC8yAWdQTo/5XRLnH8bFqwRIHiAOHZDokqYSUXTn8=
+X-Received: by 2002:a02:70d6:: with SMTP id
+	f205mr29084637jac.124.1618242141093; 
+	Mon, 12 Apr 2021 08:42:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210326173337.44231-1-aahringo@redhat.com>
 	<20210326173337.44231-8-aahringo@redhat.com>
 	<20210402205351.GA24027@linux-2.home>
 	<CAK-6q+hnj94xQS+QceDF3GyDR78ns61-T1UVLs7o6kJsPzT=Fw@mail.gmail.com>
 	<CAK-6q+giMt8HUg5jY0msrKGazUeRnGNqC6nNPqNa2Mca8NRCuQ@mail.gmail.com>
-	<CAK-6q+i5YmXV_NkwCGerPfNTjCE=or626Refuz_7CQDRhrJj1A@mail.gmail.com>
-	<20210409211107.GD30244@linux-2.home>
-In-Reply-To: <20210409211107.GD30244@linux-2.home>
+	<20210409204443.GC30244@linux-2.home>
+	<CAK-6q+gBDO2UO78ohssyLdqRsjvkcMYw9H6v2DvDJZL-VdhpZQ@mail.gmail.com>
+In-Reply-To: <CAK-6q+gBDO2UO78ohssyLdqRsjvkcMYw9H6v2DvDJZL-VdhpZQ@mail.gmail.com>
 From: Alexander Ahring Oder Aring <aahringo@redhat.com>
-Date: Mon, 12 Apr 2021 11:35:30 -0400
-Message-ID: <CAK-6q+iECeLw-zoWzGgo7AQpdQsBz_j39GMOVZakmZRN4jBrnw@mail.gmail.com>
+Date: Mon, 12 Apr 2021 11:42:10 -0400
+Message-ID: <CAK-6q+hvV2L+XeUzLTzwEK4NCpupgAoLxH6a9+833KDjSAtZRw@mail.gmail.com>
 To: Guillaume Nault <gnault@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, Paolo Abeni <pabeni@redhat.com>
 Subject: Re: [Cluster-devel] [PATCHv3 dlm/next 7/8] fs: dlm: add reliable
@@ -104,7 +105,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -113,14 +114,14 @@ Content-Type: text/plain; charset="UTF-8"
 
 Hi,
 
-On Fri, Apr 9, 2021 at 5:11 PM Guillaume Nault <gnault@redhat.com> wrote:
+On Mon, Apr 12, 2021 at 11:30 AM Alexander Ahring Oder Aring
+<aahringo@redhat.com> wrote:
 >
-> On Mon, Apr 05, 2021 at 04:29:10PM -0400, Alexander Ahring Oder Aring wrote:
-> > Hi,
+> Hi,
+>
+> On Fri, Apr 9, 2021 at 4:44 PM Guillaume Nault <gnault@redhat.com> wrote:
 > >
-> > On Mon, Apr 5, 2021 at 1:33 PM Alexander Ahring Oder Aring
-> > <aahringo@redhat.com> wrote:
-> > >
+> > On Mon, Apr 05, 2021 at 01:33:48PM -0400, Alexander Ahring Oder Aring wrote:
 > > > Hi,
 > > >
 > > > On Sat, Apr 3, 2021 at 11:34 AM Alexander Ahring Oder Aring
@@ -141,31 +142,51 @@ On Fri, Apr 9, 2021 at 5:11 PM Guillaume Nault <gnault@redhat.com> wrote:
 > > > >
 > > >
 > > > I have an implementation of this running and so far I don't see any problems.
+> > >
+> > > > > Also, couldn't we set the DLM sequence numbers in
+> > > > > dlm_midcomms_commit_buffer_3_2() rather than using a callback function
+> > > > > in dlm_lowcomms_new_buffer()?
+> > > > >
+> > > ...
+> > > >
+> > > > Yes, I looked into TCP_REPAIR at first and I agree it can be used to
+> > > > solve this problem. However TCP_REPAIR can be used as a part of a more
+> > > > generic solution, there needs to be something "additional handling"
+> > > > done e.g. additional socket options to let the application layer save
+> > > > states before receiving errors. I am also concerned how it would work
+> > >
+> > > The code [0] is what I meant above. It will call
+> > > tcp_write_queue_purge(); before reporting the error over error
+> > > queue/callback. That need to be handled differently to allow dumping
+> > > the actual TCP state and restore at reconnect, at least that is what I
+> > > have in my mind.
 > >
-> > There is a problem but it's related to the behaviour how reconnections
-> > are triggered. The whole communication can be stuck because the send()
-> > triggers a reconnection if not connected anymore. Before, the timer
-> > was triggering some send() and this was triggering a reconnection in a
-> > periodic way. Therefore we never had any stuck situation where nobody
-> > was sending anything anymore. It's a rare case but I am currently
-> > running into it. However I think I need to change how the
-> > reconnections are triggered with some "forever periodic try" which
-> > should solve this issue.
+> > Thanks. That's not usable as is, indeed.
+> > Also, by retransmitting data from the previous send-queue, we risk
+> > resending messages that the peer already received (for example because
+> > the previous connection didn't receive the latest ACKs). I guess that
+> > receiving the same DLM messages twice is going to confuse the peer.
+> > So it looks like we'll need application level sequence numbers anyway.
 >
-> Would it be sufficient to detect socket errors to avoid this problem?
-> For example by letting lowcomms_error_report() do the reconnection when
-> necessary?
+> I agree, the new "retransmit all unacknowledged messages on reconnect"
+> method will filter at the receiving side the already received messages
+> because they have the sequence numbers, this case occurs a lot.
+>
+> However I think there is still the possibility to use TCP_REPAIR here,
+> we need to restore states about all 3 queues, rx, tx (write,
+> retransmit) and sequence numbers. Window size is an optional
+> additional thing. On the application layer we need to be sure that we
+> don't drop anything if error occurs and start to transmit them after
+> restoring the state again. Of course both endpoints need to support it
+> and have been correctly configured.
 
-I have something like that as a patch for afterwards, it also contains
-some change in the lowcomms workqueue handling and removal of the
-"othercon" race paradigm. There are sometimes two connections
-established because of a race which I mentioned in midcomms as well
-for version detection. In short every node wants to connect
-immediately after the cluster manager reports membership to the kernel
-dlm implementation. However I ignored that problem of reconnection for
-now as it occurs never/rarely but I think it's still there.
 
-Thanks for your review.
+I am not sure if this ends in something like "ignore some error cases
+in TCP", at least TCP_RST is something which seems to be triggered
+sometimes because "smart hardware" in the network e.g. but cable out
+and in again (not sure about that one). I think restoring the state
+might be work, but transparent proxies (haproxy, etc.) could be
+confused? I am not sure here...
 
 - Alex
 
