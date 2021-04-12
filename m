@@ -2,90 +2,93 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2792235C536
-	for <lists+cluster-devel@lfdr.de>; Mon, 12 Apr 2021 13:32:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B158E35C9AA
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Apr 2021 17:21:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1618227172;
+	s=mimecast20190719; t=1618240905;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=32rsc2AMRbzObQAbgCkkNeZVKIlszgJHXH+1Cz61vsE=;
-	b=gbpW9V/nESqq1fX00YAJcMO+JruugPKC5FiHZoaQyC/syIUHHgaSD3CSm737OKChrB/cqN
-	c35Pi+z97WJUU0xDgBB8OiEYnnyEkBWZHpwle6YAmPuDcAyOtSQucn6UvQmLJ7Jv0rs2p7
-	mN9qnK2Dbbz5bWw31W4yybpEYg+f1RA=
+	 list-subscribe:list-post; bh=/g/9UWsIg89KEwiE7o6cJ0IFIWMBwhUp0iHoc+KXYLw=;
+	b=hcn9w29ffRrODZMU1B3hC7oV8PAf3DAS/YqGiUw34ujCvdXzuCZusKqge40Saobd5tolH1
+	7jHryx4ZXCUh7jKexsvMgeM7dLvER6UU1M3Fp/pHH7l9tRmVsIrKDXau6xwJNEyCvJDHDY
+	ahnpv+kQLOeA/h21nArOb/dX+Xj+AcI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-427-Z9lv7WjBN6S_zCafGVnEbw-1; Mon, 12 Apr 2021 07:32:50 -0400
-X-MC-Unique: Z9lv7WjBN6S_zCafGVnEbw-1
+ us-mta-133-p9HIjISiPeiBZnkXvr2mrg-1; Mon, 12 Apr 2021 11:21:44 -0400
+X-MC-Unique: p9HIjISiPeiBZnkXvr2mrg-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87614189C44D;
-	Mon, 12 Apr 2021 11:32:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E93515C559;
-	Mon, 12 Apr 2021 11:32:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ABE0491279;
+	Mon, 12 Apr 2021 15:21:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC01F5C1C2;
+	Mon, 12 Apr 2021 15:21:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CBDB31806D0E;
-	Mon, 12 Apr 2021 11:32:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B558144A5A;
+	Mon, 12 Apr 2021 15:21:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13CBWKr9004858 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 12 Apr 2021 07:32:20 -0400
+	id 13CFLW1T030039 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 12 Apr 2021 11:21:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 633081111A65; Mon, 12 Apr 2021 11:32:20 +0000 (UTC)
+	id D17F521E20C4; Mon, 12 Apr 2021 15:21:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E9181111A64
-	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 11:32:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0481A811E7A
-	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 11:32:18 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
-	[209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-106-3aRp3QoWP22U1Qj78a-YRA-1; Mon, 12 Apr 2021 07:32:16 -0400
-X-MC-Unique: 3aRp3QoWP22U1Qj78a-YRA-1
-Received: by mail-wm1-f71.google.com with SMTP id
-	b20-20020a7bc2540000b029010f7732a35fso5968658wmj.1
-	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 04:32:15 -0700 (PDT)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CB17021E20C2
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 15:21:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B0D781C964
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 15:21:30 +0000 (UTC)
+Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
+	[209.85.166.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-369-g4PgTnbzMVql3W8oTUSqPQ-1; Mon, 12 Apr 2021 11:21:28 -0400
+X-MC-Unique: g4PgTnbzMVql3W8oTUSqPQ-1
+Received: by mail-il1-f199.google.com with SMTP id i1so194613ilu.3
+	for <cluster-devel@redhat.com>; Mon, 12 Apr 2021 08:21:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=32rsc2AMRbzObQAbgCkkNeZVKIlszgJHXH+1Cz61vsE=;
-	b=sh+tUeA0WmhQyln69d/ayofsW/TNgH1zHOTdPEGR34vECAvuqnag69jlNVFmb5IUzG
-	lRcZLMRFBwphSFRbuSLXo/fV2epL4t8OD8+Dum6YqBs0en4brAwo4HSXbMDCbo0WTW3S
-	O5SLzuv69+vcc5uoRCxkBBv0TSlaDtqScnEJbUVyp/rEjHBf1ph8gV9nkEfUjbGKQvju
-	0YBAoIipIMf45BZxhoyoMBfy2jVhg5cKjbLUqwj6JIOZVdzseHh8o2DqD2gzjYe7NCB2
-	Swun9TVw0ZTAjPr4++simEayALZugueUpAneySPw0cTODxK93jx1vsLVhb8Tms3LLwVw
-	arwg==
-X-Gm-Message-State: AOAM532TA+dVNzHuJvDt6rgO1DsWiqxsSySymXs0PKdTQ1VscSo5R24L
-	j32onPDwegTYhVILF/EfMH/DtZdI8D//Go+//GRSA4LqhCeM0LHZ6yztczzxOHRuDzAlwM1/wKW
-	V+DRQ7HXJiykr99b7kcFln7o+Ol9lu5RgoNBUcw==
-X-Received: by 2002:a5d:69ca:: with SMTP id s10mr14980653wrw.78.1618227134961; 
-	Mon, 12 Apr 2021 04:32:14 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzppa93t1nwXaTt6iid4iWS6hqP6kOhO6Md8/GbM+JbVUonPnDeQFVIOPW2xDM+0m1eR6uuhZhuMiyBsOSa9oY=
-X-Received: by 2002:a5d:69ca:: with SMTP id s10mr14980643wrw.78.1618227134817; 
-	Mon, 12 Apr 2021 04:32:14 -0700 (PDT)
+	bh=/g/9UWsIg89KEwiE7o6cJ0IFIWMBwhUp0iHoc+KXYLw=;
+	b=Ds8xErjot8MgIg6sY3BtJDpbGFjovR9+y90GejWh2ivuuO/jXp+1oqaQ8vZ3C6LOzH
+	dkRMV0ux+3EmN5agKKYNax6wVTQ5+1/52dw2AJmIoPDpHJlYzDRLvWaAZqu83437DSS6
+	s4HkobOhclkLboS3eI7+cz7TkS9/5zYPWmticvvILUUfmk7EDE6SLBJxCI67/hy8kZbF
+	lzaLow3oW08K8mMl/wJUMHad3Yhc75lFCJbNbZWbvtJJaQ/8bsjA90sWCBp61EtvMA3x
+	GhI2QSNNH9SEPfLnOl4yXrbhL+d3RBU4sO3CPu2CYFDIBiiXa5UIVkP3gP+VvZT/0P+8
+	1LsQ==
+X-Gm-Message-State: AOAM530kZ5iFsAR33mvQi3aF+w+Ffqy2mMZyDaRyseiM67u0Ji+KhgNs
+	sSFaVA14kTPPvX85CaNia2qewr1rkg40zmHIcTIRzPQsFCCZqmcWc8loFR+HX1fRf7jmVPDlKXM
+	NWmuQlFrJvWaGEhRS2C8I5TtWj46FgtdDwWJJhw==
+X-Received: by 2002:a02:70d6:: with SMTP id
+	f205mr28993141jac.124.1618240887930; 
+	Mon, 12 Apr 2021 08:21:27 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyteDZtAZZfBIpXevF2YNK5xOAUJ5gk4l7Zu23K/tUavF6tTi7KUUKkV9SgjHMP0Lr9m6KwprDFd25dJ7ERuxw=
+X-Received: by 2002:a02:70d6:: with SMTP id
+	f205mr28993121jac.124.1618240887651; 
+	Mon, 12 Apr 2021 08:21:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <1528588397.6568321.1618062440748.JavaMail.zimbra@redhat.com>
-	<344305871.6577253.1618062541261.JavaMail.zimbra@redhat.com>
-In-Reply-To: <344305871.6577253.1618062541261.JavaMail.zimbra@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 12 Apr 2021 13:32:03 +0200
-Message-ID: <CAHc6FU5=0p6=V3va3UNPB0ci2At3TuZ+TxgD2yQPBNjGzb4WqQ@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+References: <20210326173337.44231-1-aahringo@redhat.com>
+	<20210326173337.44231-8-aahringo@redhat.com>
+	<20210402205351.GA24027@linux-2.home>
+	<CAK-6q+hnj94xQS+QceDF3GyDR78ns61-T1UVLs7o6kJsPzT=Fw@mail.gmail.com>
+	<20210409203221.GB30244@linux-2.home>
+In-Reply-To: <20210409203221.GB30244@linux-2.home>
+From: Alexander Ahring Oder Aring <aahringo@redhat.com>
+Date: Mon, 12 Apr 2021 11:21:16 -0400
+Message-ID: <CAK-6q+jog8D6YcSc807wL08eQWqnUSX6iU+dkka+E5iGJzxKZg@mail.gmail.com>
+To: Guillaume Nault <gnault@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [gfs2 PATCH] gfs2: allocate pages for clone
-	bitmaps
+Cc: cluster-devel@redhat.com, Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [Cluster-devel] [PATCHv3 dlm/next 7/8] fs: dlm: add reliable
+	connection if reconnect
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,43 +109,137 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Apr 10, 2021 at 3:49 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> Resource group (rgrp) bitmaps have in-core-only "clone" bitmaps that
-> ensure freed fs space from deletes are not reused until the transaction
-> is complete. Before this patch, these clone bitmaps were allocated with
-> kmalloc, but with the default 4K block size, kmalloc is wasteful because
-> of the way slab keeps track of them. As a matter of fact, kernel docs
-> only recommend slab for allocations "less than page size." See:
-> https://www.kernel.org/doc/html/v5.0/core-api/mm-api.html#mm-api-gfp-flags
-> In fact, if you turn on kernel slab debugging options, slab will give
-> you warnings that gfs2 should not do this.
+Hi,
+
+On Fri, Apr 9, 2021 at 4:32 PM Guillaume Nault <gnault@redhat.com> wrote:
+...
+> >
+> > Yes, there is one thing missing. I detected a synchronization issue
+> > because the node membership of a lockspace is done by a different
+> > protocol handled in user space. This protocol declares the actual peer
+> > of the DLM protocol. In short, there are two protocols here, whereas
+> > one handles the membership of peers and the other handles the actual
+> > operations. There is a missing synchronization between operations and
+> > membership which I solved with a DLM_FIN message.
 >
-> This patch switches the clone bitmap allocations to alloc_page, which
-> has much less overhead and uses less memory. The down side is: if we
-> allocate a whole page for block sizes smaller than page size, we will
-> use more memory and it will be wasteful. But in general, we've always
-> recommended using block size = page size for efficiency and performance.
+> Thanks, I'll re-read the parts about DLM_FIN with this explanation in
+> mind.
+>
 
-If we really want to switch to page-granularity allocations, vmalloc
-would be more appropriate. Note that vmalloc doesn't support
-__GFP_NOFAIL, so we should get rid of that by doing the allocation in
-a context where we can sleep first.
-Looking at rgblk_free and gfs2_free_clones, another cheap improvement
-would be to make a single allocation for all clone bitmaps of a
-resource group instead of an allocation per bitmap.
+okay. Thank you.
 
-But first, I'd like to understand what's actually going on here.
+> > > I feel that this patch goes very far into re-implementing TCP-like
+> > > features. For example, why is fast-retransmit even needed? DLM seems to
+> > > always uses a transport protocol that guarantees reliable and in order
+> > > delivery. Therefore, duplicate DLM acknowledgements can't happen on an
+> > > established connection. Even when reconnecting, it'd be the sender's
+> > > responsibility to resend the last unackowledged data first. How could
+> > > this lead to holes in the DLM sequence numbers on the receiver's side?
+> > >
+> >
+> > I agree it's a TCP re-implementation on the application layer.
+> >
+> > Fast-retransmit is not needed as it is not needed in TCP. However it
+> > solves drops faster, in DLM and GFS2 you would experience a stuck in
+> > some filesystem syscalls until the drop is resolved.
+>
+> I was not talking about fast retransmits in general. My question was:
+> how could a DLM fast retransmit even be triggered? This can only happen
+> when some DLM messages get lost or are received out of order. But the
+> transport layer guarantees lossless and in order delivery. Even in case
+> of a reconnection, I can't see how the peer could get holes in its
+> receive queue. What am I missing?
+>
 
-> In a recent test I did with 24 simultaneous recursive file deletes,
-> on a large dataset (each working to delete a separate directory), this
-> patch yielded a 16 percent increase in speed. Total accumulated real
-> (clock) time of the test went from 41310 seconds (11.5 hours) down to
-> just 34742 seconds (9.65 hours) (This was lock_nolock on a single node).
+It can be triggered in cases that DLM just does some other operations
+which triggers new messages after a reconnect and drop. The receiver
+will send back multiple ack frames back with the same sequence number
+which indicates for the sender a drop. If the ack count with multiple
+times the same sequence number (the receiver expected sequence number)
+a retransmission will be triggered. Just like in [0].
 
-I find that really hard to believe. Did you look at the frequency of
-clone bitmap allocations? If that is the problem, are we simply too
-aggressive freeing the clone bitmaps?
+> > > It seems to me that the only time DLM might need to retransmit data, is
+> > > when recovering from a connection failure. So why can't we just resend
+> > > unacknowledged data at reconnection time? That'd probably simplify the
+> > > code a lot (no need to maintain a retransmission timeout on TX, no need
+> > > to handle sequence numbers that are in the future on RX).
+> > >
+> >
+> > I can try to remove the timer, timeout and do the above approach to
+> > retransmit at reconnect. Then I test it again and I will report back
+> > to see if it works or why we have other problems.
+>
+> I see you've posted a new version of the patch series. I'll look at it
+> soon.
+>
 
-Thanks,
-Andreas
+ok.
+
+> > > Also, couldn't we set the DLM sequence numbers in
+> > > dlm_midcomms_commit_buffer_3_2() rather than using a callback function
+> > > in dlm_lowcomms_new_buffer()?
+> > >
+> >
+> > That has something to do with the internal buffer allocator. The order
+> > is defined in dlm_lowcomms_new_buffer() and there is an internal lock
+> > which needs to be held there. I can't do this without somehow making
+> > the lock accessible in dlm_midcomms_commit_buffer_3_2(). The code is
+> > also optimized that the lock isn't held during kmalloc().
+>
+> I missed that. Thanks for the explanation.
+>
+
+ok, no problem. It took some time for me to figure that out as well.
+
+> > > Finally, I wonder if we could avoid adding DLM sequence numbers
+> > > entirely. Have you considered using the TCP_REPAIR infrastructure to
+> > > retrieve the send queue of the failed socket and resend that data once
+> > > the new socket is connected?
+> > >
+> >
+> > Yes, I looked into TCP_REPAIR at first and I agree it can be used to
+> > solve this problem. However TCP_REPAIR can be used as a part of a more
+> > generic solution, there needs to be something "additional handling"
+> > done e.g. additional socket options to let the application layer save
+> > states before receiving errors. I am also concerned how it would work
+> > with haproxy, etc. It also has some advantages to restore window size,
+> > etc. I was thinking about submitting a proposal to the next netdevconf
+> > after doing some experiments with it.
+>
+> Well, I was thinking of using TCP_REPAIR only to retrieve the send
+> queue. I didn't mean to avoid the hand-check like in the CRIU use case.
+> A TCP connection break is a sign that something went wrong between the
+> peers, so a full reconnection is in order IMHO.
+>
+
+I am somehow worried about what data-format they are in the "queues"
+and even if we can figure out message boundaries? Yes "queues" so far
+I remember/know there exists two queues for TCP, a write queue and
+retransmit queue. I am not sure if the data payload is with TCP header
+or not, something to figure out. Otherwise we would need to parse TCP
+here?
+
+> > We decided to solve this problem at the application layer first, then
+> > look into how to make a more generic solution. For me, I am not sure
+> > how cifs deals with reconnects or it just allows drops.
+>
+> Indeed, it'd be interesting to know how other protocols handle this
+> case.
+>
+
+Yes, this protocol is very picky if there is any drop. Of course we
+are talking about lock operations over the network, it can be very
+fatal if drops occur. Pablo review mentions a lot of "security"
+related things and disconnecting peers if they happen. We work here in
+the cluster world which operates a little bit differently. What we can
+do is send an event to the cluster manager to fence nodes. However I
+am not aware that we currently support such handling if something runs
+out-of-boundaries of queues, sequence numbers, etc. We need to trust
+the network anyway because you can easily trigger deadlocks from
+outside, I guess. Trusting network != things run crazy, for the crazy
+case we could send events to fence a specific node.
+
+- Alex
+
+[0] https://www.isi.edu/nsnam/DIRECTED_RESEARCH/DR_WANIDA/DR/images/fast-retransmit-2.gif
 
