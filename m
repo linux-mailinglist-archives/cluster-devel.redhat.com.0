@@ -1,67 +1,68 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BA01236D17D
-	for <lists+cluster-devel@lfdr.de>; Wed, 28 Apr 2021 06:59:24 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2A2A836D468
+	for <lists+cluster-devel@lfdr.de>; Wed, 28 Apr 2021 11:02:35 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-105-34f2wpWqNna6z4ycPdOzjQ-1; Wed, 28 Apr 2021 00:59:21 -0400
-X-MC-Unique: 34f2wpWqNna6z4ycPdOzjQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-296-wh6tXXwvNu6A0Dmj7Tup6g-1; Wed, 28 Apr 2021 05:02:30 -0400
+X-MC-Unique: wh6tXXwvNu6A0Dmj7Tup6g-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E21EB107ACF3;
-	Wed, 28 Apr 2021 04:59:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B0DA62AFA;
-	Wed, 28 Apr 2021 04:59:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7A37B81A33E;
+	Wed, 28 Apr 2021 09:02:14 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 470C15F729;
+	Wed, 28 Apr 2021 09:02:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 764F41806D1B;
-	Wed, 28 Apr 2021 04:59:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1056244A58;
+	Wed, 28 Apr 2021 09:02:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13S4uAUf005344 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 28 Apr 2021 00:56:10 -0400
+	id 13S924rX023478 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 28 Apr 2021 05:02:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 464DA21D8D6C; Wed, 28 Apr 2021 04:56:10 +0000 (UTC)
+	id 08DB320FE6CB; Wed, 28 Apr 2021 09:02:04 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 41D6221D8D6D
-	for <cluster-devel@redhat.com>; Wed, 28 Apr 2021 04:56:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2B0F9104D9A1
-	for <cluster-devel@redhat.com>; Wed, 28 Apr 2021 04:56:07 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-319-zqDB9UFjP5OaNjD8tKJT8Q-1; Wed, 28 Apr 2021 00:56:03 -0400
-X-MC-Unique: zqDB9UFjP5OaNjD8tKJT8Q-1
-IronPort-SDR: 1BGH9PrDoWhEEaR7LAJIZ1xIlGW3VZmeTxM5RN4N7RHMHRCcpHPLTTU7gWZfGdbZ4ets4NfnLL
-	9u22r9bilXbw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9967"; a="183797659"
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 012BA21111B5
+	for <cluster-devel@redhat.com>; Wed, 28 Apr 2021 09:02:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 916AF811E9B
+	for <cluster-devel@redhat.com>; Wed, 28 Apr 2021 09:02:01 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-515-uM067pNGOUK6ObTo38dCtQ-1;
+	Wed, 28 Apr 2021 05:01:55 -0400
+X-MC-Unique: uM067pNGOUK6ObTo38dCtQ-1
+IronPort-SDR: 156YxZKLMNSZqT/ttZ8dAayQz41crLjPssxiEtrc6v5BgB6AzTtn8JLulWJaImV66+sd49jKuG
+	nK8L6Oec/zTA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9967"; a="282029739"
 X-IronPort-AV: E=Sophos;i="5.82,257,1613462400"; 
-	d="gz'50?scan'50,208,50";a="183797659"
+	d="gz'50?scan'50,208,50";a="282029739"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-	by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	27 Apr 2021 21:54:59 -0700
-IronPort-SDR: PZcWSu8BF/4RKjViVPtI2HMKNpk7ACsnPmoYEwI3FaTVSeOWkSE/eatlG/AzmpnuxaPb9H8l7Y
-	Zl2REkCIGldw==
+	by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	28 Apr 2021 02:00:51 -0700
+IronPort-SDR: OLOndj0AY+uHS9B4KtX9Fi/qdunqGUNoxwYllbquxaq4L3KZAc3+7WRcmkFwEq0frdkt/dlI16
+	2RiSYk0acsvg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.82,257,1613462400"; 
-	d="gz'50?scan'50,208,50";a="423360703"
+	d="gz'50?scan'50,208,50";a="423435566"
 Received: from lkp-server01.sh.intel.com (HELO a48ff7ddd223) ([10.239.97.150])
-	by fmsmga008.fm.intel.com with ESMTP; 27 Apr 2021 21:54:55 -0700
+	by fmsmga008.fm.intel.com with ESMTP; 28 Apr 2021 02:00:49 -0700
 Received: from kbuild by a48ff7ddd223 with local (Exim 4.92)
 	(envelope-from <lkp@intel.com>)
-	id 1lbcDu-0006x5-Qp; Wed, 28 Apr 2021 04:54:54 +0000
-Date: Wed, 28 Apr 2021 12:54:26 +0800
+	id 1lbg3s-00072n-3f; Wed, 28 Apr 2021 09:00:48 +0000
+Date: Wed, 28 Apr 2021 17:00:29 +0800
 From: kernel test robot <lkp@intel.com>
 To: Bob Peterson <rpeterso@redhat.com>
-Message-ID: <202104281224.bKHfHBBZ-lkp@intel.com>
+Message-ID: <202104281725.2XQMNgdw-lkp@intel.com>
 MIME-Version: 1.0
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -72,13 +73,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, clang-built-linux@googlegroups.com,
 	kbuild-all@lists.01.org
-Subject: [Cluster-devel] [gfs2:for-next.radical8h 13/30]
- fs/gfs2/glock.h:163:15: warning: 'const' type qualifier on return type has
- no effect
+Subject: [Cluster-devel] [gfs2:for-next.radical8h 22/30]
+ fs/gfs2/glock.c:572:1: warning: unused label 'out'
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,21 +92,21 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="bp/iNruPH9dso1Pn"
+Content-Type: multipart/mixed; boundary="C7zPtVaVf+AK4Oqc"
 Content-Disposition: inline
 
---bp/iNruPH9dso1Pn
+--C7zPtVaVf+AK4Oqc
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next.radical8h
 head:   3c95769f71be56000ea9bd18703ed6cd5f8f5181
-commit: 9aafdeff8c090ce2912cf63a77b5c1bead745549 [13/30] gfs2: eliminate gl_mode
+commit: cdf7a5eaeeba5ae3833e339d1de6d1577fe946b5 [22/30] gfs2: Introduce new GL_ST_XMOTE_DENIED state
 config: x86_64-randconfig-a004-20210428 (attached as .config)
 compiler: clang version 13.0.0 (https://github.com/llvm/llvm-project 87fc97169e7901dfe56ca0da0d92da0c02d2ef48)
 reproduce (this is a W=1 build):
@@ -114,10 +114,10 @@ reproduce (this is a W=1 build):
         chmod +x ~/bin/make.cross
         # install x86_64 cross compiling tool for clang build
         # apt-get install binutils-x86-64-linux-gnu
-        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=9aafdeff8c090ce2912cf63a77b5c1bead745549
+        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=cdf7a5eaeeba5ae3833e339d1de6d1577fe946b5
         git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
         git fetch --no-tags gfs2 for-next.radical8h
-        git checkout 9aafdeff8c090ce2912cf63a77b5c1bead745549
+        git checkout cdf7a5eaeeba5ae3833e339d1de6d1577fe946b5
         # save the attached .config to linux build tree
         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 ARCH=x86_64 
 
@@ -126,42 +126,76 @@ Reported-by: kernel test robot <lkp@intel.com>
 
 All warnings (new ones prefixed by >>):
 
-   In file included from fs/gfs2/acl.c:21:
->> fs/gfs2/glock.h:163:15: warning: 'const' type qualifier on return type has no effect [-Wignored-qualifiers]
+   In file included from fs/gfs2/glock.c:39:
+   fs/gfs2/glock.h:208:15: warning: 'const' type qualifier on return type has no effect [-Wignored-qualifiers]
    static inline const int gl_mode(const struct gfs2_glock *gl)
                  ^~~~~~
-   1 warning generated.
---
-   In file included from fs/gfs2/bmap.c:19:
->> fs/gfs2/glock.h:163:15: warning: 'const' type qualifier on return type has no effect [-Wignored-qualifiers]
-   static inline const int gl_mode(const struct gfs2_glock *gl)
-                 ^~~~~~
-   In file included from fs/gfs2/bmap.c:30:
->> fs/gfs2/trace_gfs2.h:65:15: warning: 'const' type qualifier on return type has no effect [-Wignored-qualifiers]
+   In file included from fs/gfs2/glock.c:49:
+   fs/gfs2/trace_gfs2.h:65:15: warning: 'const' type qualifier on return type has no effect [-Wignored-qualifiers]
    static inline const u8 glock_trace_mode(const unsigned int mode)
                  ^~~~~~
-   2 warnings generated.
+>> fs/gfs2/glock.c:572:1: warning: unused label 'out' [-Wunused-label]
+   out:
+   ^~~~
+   fs/gfs2/glock.c:557:6: warning: unused variable 'rv' [-Wunused-variable]
+           int rv;
+               ^
+   fs/gfs2/glock.c:554:38: warning: unused variable 'glops' [-Wunused-variable]
+           const struct gfs2_glock_operations *glops = gl->gl_ops;
+                                               ^
+   5 warnings generated.
 
 
-vim +/const +163 fs/gfs2/glock.h
+vim +/out +572 fs/gfs2/glock.c
 
-   162	
- > 163	static inline const int gl_mode(const struct gfs2_glock *gl)
-   164	{
-   165		return gl->gl_reply & LM_OUT_ST_MASK;
-   166	}
-   167	
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  545  
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  546  /**
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  547   * state_finish_xmote - The lock manager replied to one of our lock requests
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  548   * @gl: The glock
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  549   *
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  550   */
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  551  
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  552  static noinline void state_finish_xmote(struct gfs2_glock *gl)
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  553  {
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  554  	const struct gfs2_glock_operations *glops = gl->gl_ops;
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  555  	int ret = gl->gl_reply;
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  556  	unsigned mode = ret & LM_OUT_ST_MASK;
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  557  	int rv;
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  558  
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  559  	/* Check for dlm mode != requested mode */
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  560  	if (unlikely(mode != gl->gl_req)) {
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  561  		next_state(gl, GL_ST_XMOTE_DENIED);
+cdf7a5eaeeba5a Bob Peterson      2021-04-23  562  		return;
+6802e3400ff454 Steven Whitehouse 2008-05-21  563  	}
+6802e3400ff454 Steven Whitehouse 2008-05-21  564  
+6802e3400ff454 Steven Whitehouse 2008-05-21  565  	/* Fast path - we got what we asked for */
+6802e3400ff454 Steven Whitehouse 2008-05-21  566  	if (test_and_clear_bit(GLF_DEMOTE_IN_PROGRESS, &gl->gl_flags))
+6802e3400ff454 Steven Whitehouse 2008-05-21  567  		gfs2_demote_wake(gl);
+37eabf9ca6285b Bob Peterson      2021-04-21  568  	if (mode != LM_ST_UNLOCKED) {
+32e1ca803a1757 Bob Peterson      2021-04-23  569  		next_state(gl, GL_ST_PROMOTE);
+9756705add3bc4 Bob Peterson      2020-12-08  570  		return;
+6802e3400ff454 Steven Whitehouse 2008-05-21  571  	}
+6802e3400ff454 Steven Whitehouse 2008-05-21 @572  out:
+6802e3400ff454 Steven Whitehouse 2008-05-21  573  	clear_bit(GLF_LOCK, &gl->gl_flags);
+9756705add3bc4 Bob Peterson      2020-12-08  574  }
+9756705add3bc4 Bob Peterson      2020-12-08  575  
+
+:::::: The code at line 572 was first introduced by commit
+:::::: 6802e3400ff4549525930ee744030c36fce9cc73 [GFS2] Clean up the glock core
+
+:::::: TO: Steven Whitehouse <swhiteho@redhat.com>
+:::::: CC: Steven Whitehouse <swhiteho@redhat.com>
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---bp/iNruPH9dso1Pn
+--C7zPtVaVf+AK4Oqc
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICDbciGAAAy5jb25maWcAjDxLc+M20vf8CtXkkj1kIns8zuTb8gEiQQkRSXAAUA9fWI4tz3rj
+H4sICPgNiWAAAy5jb25maWcAjDxLc+M20vf8CtXkkj1kIns8zuTb8gEiQQkRSXAAUA9fWI4tz3rj
 x6wsJ5l//3UDpAiATSVTKUdCN9797oa+/+77CXs7vDzdHB5ubx4fv02+7J53+5vD7m5y//C4+/ck
 lZNSmglPhXkPyPnD89tfP/316bK5vJh8fH92/n764/7242S52z/vHifJy/P9w5c3GODh5fm7779L
 ZJmJeZMkzYorLWTZGL4xV+9uH2+ev0z+2O1fAW9y9uH99P108sOXh8P//fQT/H162O9f9j89Pv7x
@@ -714,5 +748,5 @@ JqiFy+t5NGbZcWLraOouXnwqhLkpBaxg09q2HB5xXedehWq2I/I6o6UgqE505UYmcaoaa/IGuLyC
 FrvXlXCUumEvZdMVo929HFCNRwNYgqkUb7/vTFPXZUezQNKa7twJ1wVNRg5EmbW419//gQrFrSue
 umC4hKPMM4xzkCrghFM81jYuA4I+w0BEF3KoNHKJZ1H0jYPrDzM53F7sD+ke838fhiHbvPoBAA==
 
---bp/iNruPH9dso1Pn--
+--C7zPtVaVf+AK4Oqc--
 
