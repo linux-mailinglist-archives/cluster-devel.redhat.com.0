@@ -1,53 +1,53 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 506FD374076
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 May 2021 18:34:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 083A53740BD
+	for <lists+cluster-devel@lfdr.de>; Wed,  5 May 2021 18:37:11 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-316-qDXbeRyAMUmvY-_SxKAnaw-1; Wed, 05 May 2021 12:34:35 -0400
-X-MC-Unique: qDXbeRyAMUmvY-_SxKAnaw-1
+ us-mta-297-TD2QZpG2P0m-GvPHOwddsQ-1; Wed, 05 May 2021 12:37:08 -0400
+X-MC-Unique: TD2QZpG2P0m-GvPHOwddsQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0B329EC1A5;
-	Wed,  5 May 2021 16:34:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5674581840C;
+	Wed,  5 May 2021 16:37:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE8845D703;
-	Wed,  5 May 2021 16:34:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 496D55D703;
+	Wed,  5 May 2021 16:37:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D81EB5534E;
-	Wed,  5 May 2021 16:34:33 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 36F4655346;
+	Wed,  5 May 2021 16:37:05 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 145GYV1o031991 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 5 May 2021 12:34:31 -0400
+	id 145Gb3Yx032161 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 5 May 2021 12:37:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B9F732062C1B; Wed,  5 May 2021 16:34:31 +0000 (UTC)
+	id EA48D20877C5; Wed,  5 May 2021 16:37:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B60C02053497
-	for <cluster-devel@redhat.com>; Wed,  5 May 2021 16:34:31 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4C0120877CB
+	for <cluster-devel@redhat.com>; Wed,  5 May 2021 16:36:58 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F777857D00
-	for <cluster-devel@redhat.com>; Wed,  5 May 2021 16:34:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B054106655B
+	for <cluster-devel@redhat.com>; Wed,  5 May 2021 16:36:58 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-41-mxw5jlLCNjeSlCL8WzUgng-5; 
-	Wed, 05 May 2021 12:34:28 -0400
-X-MC-Unique: mxw5jlLCNjeSlCL8WzUgng-5
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5610661582;
-	Wed,  5 May 2021 16:34:27 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-501-Q_zmF3XsOnGxEOkUJm930w-1;
+	Wed, 05 May 2021 12:36:54 -0400
+X-MC-Unique: Q_zmF3XsOnGxEOkUJm930w-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0404F61946;
+	Wed,  5 May 2021 16:36:51 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed,  5 May 2021 12:32:39 -0400
-Message-Id: <20210505163413.3461611-10-sashal@kernel.org>
-In-Reply-To: <20210505163413.3461611-1-sashal@kernel.org>
-References: <20210505163413.3461611-1-sashal@kernel.org>
+Date: Wed,  5 May 2021 12:35:25 -0400
+Message-Id: <20210505163648.3462507-2-sashal@kernel.org>
+In-Reply-To: <20210505163648.3462507-1-sashal@kernel.org>
+References: <20210505163648.3462507-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -61,11 +61,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 145GYV1o031991
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 145Gb3Yx032161
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.11 010/104] fs: dlm: add shutdown
-	hook
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.10 02/85] fs: dlm: fix debugfs dump
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,193 +88,36 @@ Content-Transfer-Encoding: 8bit
 
 From: Alexander Aring <aahringo@redhat.com>
 
-[ Upstream commit 9d232469bcd772dbedb9e75a165c681b920524ee ]
+[ Upstream commit 92c48950b43f4a767388cf87709d8687151a641f ]
 
-This patch fixes issues which occurs when dlm lowcomms synchronize their
-workqueues but dlm application layer already released the lockspace. In
-such cases messages like:
+This patch fixes the following message which randomly pops up during
+glocktop call:
 
-dlm: gfs2: release_lockspace final free
-dlm: invalid lockspace 3841231384 from 1 cmd 1 type 11
+seq_file: buggy .next function table_seq_next did not update position index
 
-are printed on the kernel log. This patch is solving this issue by
-introducing a new "shutdown" hook before calling "stop" hook when the
-lockspace is going to be released finally. This should pretend any
-dlm messages sitting in the workqueues during or after lockspace
-removal.
-
-It's necessary to call dlm_scand_stop() as I instrumented
-dlm_lowcomms_get_buffer() code to report a warning after it's called after
-dlm_midcomms_shutdown() functionality, see below:
-
-WARNING: CPU: 1 PID: 3794 at fs/dlm/midcomms.c:1003 dlm_midcomms_get_buffer+0x167/0x180
-Modules linked in: joydev iTCO_wdt intel_pmc_bxt iTCO_vendor_support drm_ttm_helper ttm pcspkr serio_raw i2c_i801 i2c_smbus drm_kms_helper virtio_scsi lpc_ich virtio_balloon virtio_console xhci_pci xhci_pci_renesas cec qemu_fw_cfg drm [last unloaded: qxl]
-CPU: 1 PID: 3794 Comm: dlm_scand Tainted: G        W         5.11.0+ #26
-Hardware name: Red Hat KVM/RHEL-AV, BIOS 1.13.0-2.module+el8.3.0+7353+9de0a3cc 04/01/2014
-RIP: 0010:dlm_midcomms_get_buffer+0x167/0x180
-Code: 5d 41 5c 41 5d 41 5e 41 5f c3 0f 0b 45 31 e4 5b 5d 4c 89 e0 41 5c 41 5d 41 5e 41 5f c3 4c 89 e7 45 31 e4 e8 3b f1 ec ff eb 86 <0f> 0b 4c 89 e7 45 31 e4 e8 2c f1 ec ff e9 74 ff ff ff 0f 1f 80 00
-RSP: 0018:ffffa81503f8fe60 EFLAGS: 00010202
-RAX: 0000000000000008 RBX: ffff8f969827f200 RCX: 0000000000000001
-RDX: 0000000000000000 RSI: ffffffffad1e89a0 RDI: ffff8f96a5294160
-RBP: 0000000000000001 R08: 0000000000000000 R09: ffff8f96a250bc60
-R10: 00000000000045d3 R11: 0000000000000000 R12: ffff8f96a250bc60
-R13: ffffa81503f8fec8 R14: 0000000000000070 R15: 0000000000000c40
-FS:  0000000000000000(0000) GS:ffff8f96fbc00000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055aa3351c000 CR3: 000000010bf22000 CR4: 00000000000006e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- dlm_scan_rsbs+0x420/0x670
- ? dlm_uevent+0x20/0x20
- dlm_scand+0xbf/0xe0
- kthread+0x13a/0x150
- ? __kthread_bind_mask+0x60/0x60
- ret_from_fork+0x22/0x30
-
-To synchronize all dlm scand messages we stop it right before shutdown
-hook.
+The issue is that seq_read_iter() in fs/seq_file.c also needs an
+increment of the index in an non next record case as well which this
+patch fixes otherwise seq_read_iter() will print out the above message.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 Signed-off-by: David Teigland <teigland@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dlm/lockspace.c | 20 +++++++++++---------
- fs/dlm/lowcomms.c  | 42 +++++++++++++++++++++++-------------------
- fs/dlm/lowcomms.h  |  1 +
- 3 files changed, 35 insertions(+), 28 deletions(-)
+ fs/dlm/debug_fs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index 561dcad08ad6..c14cf2b7faab 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -404,12 +404,6 @@ static int threads_start(void)
- 	return error;
- }
+diff --git a/fs/dlm/debug_fs.c b/fs/dlm/debug_fs.c
+index d6bbccb0ed15..d5bd990bcab8 100644
+--- a/fs/dlm/debug_fs.c
++++ b/fs/dlm/debug_fs.c
+@@ -542,6 +542,7 @@ static void *table_seq_next(struct seq_file *seq, void *iter_ptr, loff_t *pos)
  
--static void threads_stop(void)
--{
--	dlm_scand_stop();
--	dlm_lowcomms_stop();
--}
--
- static int new_lockspace(const char *name, const char *cluster,
- 			 uint32_t flags, int lvblen,
- 			 const struct dlm_lockspace_ops *ops, void *ops_arg,
-@@ -702,8 +696,11 @@ int dlm_new_lockspace(const char *name, const char *cluster,
- 		ls_count++;
- 	if (error > 0)
- 		error = 0;
--	if (!ls_count)
--		threads_stop();
-+	if (!ls_count) {
-+		dlm_scand_stop();
-+		dlm_lowcomms_shutdown();
-+		dlm_lowcomms_stop();
-+	}
-  out:
- 	mutex_unlock(&ls_lock);
- 	return error;
-@@ -788,6 +785,11 @@ static int release_lockspace(struct dlm_ls *ls, int force)
- 
- 	dlm_recoverd_stop(ls);
- 
-+	if (ls_count == 1) {
-+		dlm_scand_stop();
-+		dlm_lowcomms_shutdown();
-+	}
-+
- 	dlm_callback_stop(ls);
- 
- 	remove_lockspace(ls);
-@@ -880,7 +882,7 @@ int dlm_release_lockspace(void *lockspace, int force)
- 	if (!error)
- 		ls_count--;
- 	if (!ls_count)
--		threads_stop();
-+		dlm_lowcomms_stop();
- 	mutex_unlock(&ls_lock);
- 
- 	return error;
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 2ab2a38cb3b7..6a3660bdbb46 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -1607,6 +1607,29 @@ static int work_start(void)
- 	return 0;
- }
- 
-+static void shutdown_conn(struct connection *con)
-+{
-+	if (con->shutdown_action)
-+		con->shutdown_action(con);
-+}
-+
-+void dlm_lowcomms_shutdown(void)
-+{
-+	/* Set all the flags to prevent any
-+	 * socket activity.
-+	 */
-+	dlm_allow_conn = 0;
-+
-+	if (recv_workqueue)
-+		flush_workqueue(recv_workqueue);
-+	if (send_workqueue)
-+		flush_workqueue(send_workqueue);
-+
-+	dlm_close_sock(&listen_con.sock);
-+
-+	foreach_conn(shutdown_conn);
-+}
-+
- static void _stop_conn(struct connection *con, bool and_other)
- {
- 	mutex_lock(&con->sock_mutex);
-@@ -1628,12 +1651,6 @@ static void stop_conn(struct connection *con)
- 	_stop_conn(con, true);
- }
- 
--static void shutdown_conn(struct connection *con)
--{
--	if (con->shutdown_action)
--		con->shutdown_action(con);
--}
--
- static void connection_release(struct rcu_head *rcu)
- {
- 	struct connection *con = container_of(rcu, struct connection, rcu);
-@@ -1690,19 +1707,6 @@ static void work_flush(void)
- 
- void dlm_lowcomms_stop(void)
- {
--	/* Set all the flags to prevent any
--	   socket activity.
--	*/
--	dlm_allow_conn = 0;
--
--	if (recv_workqueue)
--		flush_workqueue(recv_workqueue);
--	if (send_workqueue)
--		flush_workqueue(send_workqueue);
--
--	dlm_close_sock(&listen_con.sock);
--
--	foreach_conn(shutdown_conn);
- 	work_flush();
- 	foreach_conn(free_conn);
- 	work_stop();
-diff --git a/fs/dlm/lowcomms.h b/fs/dlm/lowcomms.h
-index bcd4dbd1dc98..48bbc4e18761 100644
---- a/fs/dlm/lowcomms.h
-+++ b/fs/dlm/lowcomms.h
-@@ -18,6 +18,7 @@
- extern int dlm_allow_conn;
- 
- int dlm_lowcomms_start(void);
-+void dlm_lowcomms_shutdown(void);
- void dlm_lowcomms_stop(void);
- void dlm_lowcomms_exit(void);
- int dlm_lowcomms_close(int nodeid);
+ 		if (bucket >= ls->ls_rsbtbl_size) {
+ 			kfree(ri);
++			++*pos;
+ 			return NULL;
+ 		}
+ 		tree = toss ? &ls->ls_rsbtbl[bucket].toss : &ls->ls_rsbtbl[bucket].keep;
 -- 
 2.30.2
 
