@@ -2,87 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AEC9538AD9C
-	for <lists+cluster-devel@lfdr.de>; Thu, 20 May 2021 14:08:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 07D6138AE5A
+	for <lists+cluster-devel@lfdr.de>; Thu, 20 May 2021 14:34:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1621514071;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=bm4G0D5fPgHkFz6Tq2cMmRepmQ5JO/RLPWPnNdJIAWg=;
+	b=aaI73gPCky6WkX+71rJ2250Ws5sgU9zTp60YWKvqA1w2Htu0Y/BR+rQAUV2wEZ3WlLDtK7
+	/0F+Icgm/cO6WziBkfOTlwqsMgQNHMOVzKx0iCzcczCfa6gp8/gXd+33nyaiVFZIVF+U9o
+	6k8u7jbDjDOcEfhY7xNPLG8wOZb3Ik8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-229-iEpOWF7vMfuPpWs8htVZ-w-1; Thu, 20 May 2021 08:07:59 -0400
-X-MC-Unique: iEpOWF7vMfuPpWs8htVZ-w-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-413-yECxM2cMN8WYJl1awC9tBQ-1; Thu, 20 May 2021 08:34:29 -0400
+X-MC-Unique: yECxM2cMN8WYJl1awC9tBQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3532A107ACC7;
-	Thu, 20 May 2021 12:07:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 28D9360CE9;
-	Thu, 20 May 2021 12:07:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D8989F92B;
+	Thu, 20 May 2021 12:34:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F98A60C04;
+	Thu, 20 May 2021 12:34:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A6835F9B0;
-	Thu, 20 May 2021 12:07:57 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EDD55180B463;
+	Thu, 20 May 2021 12:34:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14KC0wuj028103 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 20 May 2021 08:00:58 -0400
+	id 14KCPhBb030467 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 20 May 2021 08:25:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7392C113B66; Thu, 20 May 2021 12:00:58 +0000 (UTC)
+	id 5EBAB60C13; Thu, 20 May 2021 12:25:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6DCC6113B70
-	for <cluster-devel@redhat.com>; Thu, 20 May 2021 12:00:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A8D795F34C
-	for <cluster-devel@redhat.com>; Thu, 20 May 2021 12:00:50 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
-	[209.85.221.44]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-151-Iamub6hwOJqBnAAb7sxrxQ-1; Thu, 20 May 2021 08:00:48 -0400
-X-MC-Unique: Iamub6hwOJqBnAAb7sxrxQ-1
-Received: by mail-wr1-f44.google.com with SMTP id y14so15293342wrm.13
-	for <cluster-devel@redhat.com>; Thu, 20 May 2021 05:00:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references:mime-version:content-transfer-encoding;
-	bh=litDP3dBoSqeZ9ru2ThnWBI6UxCaLCk4fTIzC6ohx5w=;
-	b=lI1fa/X/3gBv0i1DqEMhiK3+lka8k28jhAWnmTWeEgP6K1FxY38A0TgIlvaRD0yAlW
-	RU1BuXzGkA9gtsn2i5IJ80rhIVWnnrGIaw7om+OdxiEMLNWd19KyUf+XVeA5hxzQXr59
-	qQA58C4s1QfIODg0u6k+GzzKIQqlQ1Eyb7EgOfofin0vEiGqQNN/lyRapnjuxNHeSh1a
-	2X8x6BGA/UEeRwifx+16Qh9ialCuw3Sk8T8Wv+XKFHHu+9a9BTG0EBEgiYrQTQpLGNj7
-	IhinRN63NcCsup/DTB02FK5tHPuPSDQOSjJjDmsfMadcS5lsLaD9IAJ76Mnc+T3g1hzG
-	m6FQ==
-X-Gm-Message-State: AOAM531yY+XpD6uVakZre0i8/ks/jE3YRlAsBci1mM7YjHIi05xRrO7H
-	IYQk1fAma6a6+b6IDCF48EzypA==
-X-Google-Smtp-Source: ABdhPJwEhQLoR/jKiPzjr4RLG0YjO1K801kkHxeAW1FaHiBqq24IajxLwf28og9Am1zvLL3RF1gTeQ==
-X-Received: by 2002:adf:fdce:: with SMTP id i14mr3788703wrs.303.1621512047225; 
-	Thu, 20 May 2021 05:00:47 -0700 (PDT)
-Received: from dell.default ([91.110.221.215])
-	by smtp.gmail.com with ESMTPSA id
-	s199sm8848269wme.43.2021.05.20.05.00.46
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 20 May 2021 05:00:46 -0700 (PDT)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Date: Thu, 20 May 2021 13:00:30 +0100
-Message-Id: <20210520120043.3462759-3-lee.jones@linaro.org>
-In-Reply-To: <20210520120043.3462759-1-lee.jones@linaro.org>
-References: <20210520120043.3462759-1-lee.jones@linaro.org>
+Received: from max.com (unknown [10.40.195.97])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 343FA60C4A;
+	Thu, 20 May 2021 12:25:37 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, cluster-devel@redhat.com
+Date: Thu, 20 May 2021 14:25:30 +0200
+Message-Id: <20210520122536.1596602-1-agruenba@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 02/15] fs: gfs2: glock: Fix some deficient
-	kernel-doc headers and demote non-conformant ones
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, Jan Kara <jack@suse.cz>
+Subject: [Cluster-devel] [PATCH 0/6] gfs2: Handle page faults during read
+	and write
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +64,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,46 +72,73 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Fixes the following W=1 kernel build warning(s):
+Hello,
 
- fs/gfs2/glock.c:365: warning: Function parameter or member 'gl' not described in 'do_error'
- fs/gfs2/glock.c:365: warning: Function parameter or member 'ret' not described in 'do_error'
- fs/gfs2/glock.c:461: warning: Function parameter or member 'new_state' not described in 'state_change'
- fs/gfs2/glock.c:1277: warning: Function parameter or member 'delay' not described in 'handle_callback'
- fs/gfs2/glock.c:1277: warning: Function parameter or member 'remote' not described in 'handle_callback'
- fs/gfs2/glock.c:1578: warning: Function parameter or member 'p' not described in 'nq_m_sync'
- fs/gfs2/glock.c:1993: warning: Excess function parameter 'wait' description in 'gfs2_gl_hash_clear'
+this is an update to my previous posting [1] on how to deal with
+potential mmap + page fault deadlocks in gfs2.
 
-Cc: Bob Peterson <rpeterso@redhat.com>
-Cc: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: cluster-devel@redhat.com
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
----
- fs/gfs2/glock.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+What's happening is that a page fault triggers during a read or write
+operation, while we're holding a glock (the cluster-wide gfs2 inode
+lock), and the page fault requires another glock.  We can recognize and
+handle the case when both glocks are the same, but when the page fault
+requires another glock, there is a chance that taking that other glock
+will deadlock.
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index ea7fc5c641c7e..0b34f50b51331 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -356,7 +356,7 @@ static void gfs2_holder_wake(struct gfs2_holder *gh)
- 	}
- }
- 
--/**
-+/*
-  * do_error - Something unexpected has happened during a lock request
-  * @gl: The glock
-  * @ret: The status from the DLM
-@@ -1263,7 +1263,7 @@ int gfs2_glock_async_wait(unsigned int num_gh, struct gfs2_holder *ghs)
- 	return ret;
- }
- 
--/**
-+/*
-  * handle_callback - process a demote request
-  * @gl: the glock
-  * @state: the state the caller wants us to change to
+The solution I've come up with for this is to turn locking requests into
+locking attempts when we're in a potential recursive locking situation,
+and to actively fault in pages and retry at the outer level when a
+locking attempt fails.  Those kinds of conflicts should be relatively
+rare.
+
+Note that we need to fault in pages writable in ->read_iter, so this
+patch set adds a new iov_iter_fault_in_writeable() helper hat mirrors
+iov_iter_fault_in_readable().
+
+In the initial prototype [1], I've added a restart_hack flag to struct
+task_struct; this has now been moved to the lower two bits of
+current->journal_info.
+
+I've posted a new fstest [2] that triggers the self-recursion case so
+that those kind of bugs will be caught early next time, with no feedback
+in the last two weeks.
+
+Those patches are currently on the gfs2 for-next branch [3].  If there
+are no objections, I'll ask Linus to pull them from there.
+
+Thanks,
+Andreas
+
+[1] [RFC] Trigger retry from fault vm operation,
+https://lore.kernel.org/linux-fsdevel/20210511140113.1225981-1-agruenba@redhat.com/
+
+[2] https://lore.kernel.org/fstests/20210520114218.1595735-1-agruenba@redhat.com/T/#u
+
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/log/?h=for-next
+
+Andreas Gruenbacher (6):
+  gfs2: Fix mmap + page fault deadlocks (part 1)
+  iov_iter: Add iov_iter_fault_in_writeable()
+  gfs2: Add wrappers for accessing journal_info
+  gfs2: Encode glock holding and retry flags in journal_info
+  gfs2: Add LM_FLAG_OUTER glock holder flag
+  gfs2: Fix mmap + page fault deadlocks (part 2)
+
+ fs/gfs2/aops.c      |   6 +--
+ fs/gfs2/bmap.c      |  31 +++++++-------
+ fs/gfs2/file.c      | 102 +++++++++++++++++++++++++++++++++++++-------
+ fs/gfs2/glock.c     |  12 ++++++
+ fs/gfs2/glock.h     |  13 ++++--
+ fs/gfs2/incore.h    |  41 ++++++++++++++++++
+ fs/gfs2/inode.c     |   2 +-
+ fs/gfs2/log.c       |   4 +-
+ fs/gfs2/lops.c      |   2 +-
+ fs/gfs2/meta_io.c   |   6 +--
+ fs/gfs2/super.c     |   2 +-
+ fs/gfs2/trans.c     |  16 +++----
+ include/linux/uio.h |   1 +
+ lib/iov_iter.c      |  20 ++++++++-
+ 14 files changed, 204 insertions(+), 54 deletions(-)
+
 -- 
-2.31.1
+2.26.3
 
