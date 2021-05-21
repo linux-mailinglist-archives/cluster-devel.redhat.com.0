@@ -2,98 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D799438CA61
-	for <lists+cluster-devel@lfdr.de>; Fri, 21 May 2021 17:46:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1F58738CDED
+	for <lists+cluster-devel@lfdr.de>; Fri, 21 May 2021 21:09:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1621611988;
+	s=mimecast20190719; t=1621624155;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=Oiv5CMTfVr5fGq4A95QHsr3IkiN3wgJIlDUHsc03NSs=;
-	b=D6UWCgjghtRHXwDm0eI0z4T3kIzP2wuQfExldC0KxGE03dYuQDdlE2igTGrD2CA2uCyL18
-	Vy73itF198/G1sSp48WbONmgJIe7NAn07q3/KoxhhSahrW4Ro/4IeHQKwxkrLVLUr1gc63
-	WZ7XtuWljdb5+i+lp4HAK32S4fqQoMg=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=rqXWJRu77S9IwY6XY8Cq0EST19BbF6ghPQ4lToXY7XY=;
+	b=TKv4fHvHJmS8ckmeIJplVERcUbgtMyXUnjo3AikiNBSCKXY6KdTYDQVasVMXHtnZY0Cx7B
+	rLtzpbG10TEg0dJHIGGdRGDbVozX2qtkHVbPR9jzRaWtaVcVgK84gTB2lHbuUl4mBmkXJ9
+	IS3WEAzzdchimwqgEluxH7Q7tmuV3Pg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-281-sX2ymtRsOviE3JPQBYkmCQ-1; Fri, 21 May 2021 11:46:27 -0400
-X-MC-Unique: sX2ymtRsOviE3JPQBYkmCQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-439-b7suEkKqMR2IC_o7vr-bpw-1; Fri, 21 May 2021 15:09:13 -0400
+X-MC-Unique: b7suEkKqMR2IC_o7vr-bpw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3B6A180FD6D;
-	Fri, 21 May 2021 15:46:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B68094536;
-	Fri, 21 May 2021 15:46:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E12BEE7B6B;
+	Fri, 21 May 2021 19:09:08 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D3C495D9CA;
+	Fri, 21 May 2021 19:09:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5A1CA44A61;
-	Fri, 21 May 2021 15:46:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2D1FE1800BB4;
+	Fri, 21 May 2021 19:09:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14LFkLJo016049 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 11:46:22 -0400
+	id 14LJ92NK005111 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 15:09:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D8A0920A8C0B; Fri, 21 May 2021 15:46:21 +0000 (UTC)
+	id 697CE5C67A; Fri, 21 May 2021 19:09:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D44E1212AA9C
-	for <cluster-devel@redhat.com>; Fri, 21 May 2021 15:46:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AA56833942
-	for <cluster-devel@redhat.com>; Fri, 21 May 2021 15:46:19 +0000 (UTC)
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
-	[209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-375-1zlQOXRwMWecvxas_GZYYQ-1; Fri, 21 May 2021 11:46:17 -0400
-X-MC-Unique: 1zlQOXRwMWecvxas_GZYYQ-1
-Received: by mail-wr1-f72.google.com with SMTP id
-	7-20020adf95070000b02901104ad3ef04so9629586wrs.16
-	for <cluster-devel@redhat.com>; Fri, 21 May 2021 08:46:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=Oiv5CMTfVr5fGq4A95QHsr3IkiN3wgJIlDUHsc03NSs=;
-	b=PY9r0CRgXJ+xyLE5Edn4nP/OHGi2+pJO8J3wVmQSEDacMKT2tFVP5J75Y7bGlIYky9
-	s2svu6+Fj3EyduIHjuH5APd8fGBtOdLXppw9PFPp7h3wE59CGlwmLuoo4OIGCFQXMHhT
-	m0q1g+3Difa46V7lXKNXU3IyDQZ4nVkpTOPJB5fxvOdMZV+mSYDTlLrNuxJwRqxCutLz
-	QQpi/2GxWSNySZdNcU3wiWqjUVEWr+bSKTWkrT6+V/56nCpr6Rs4UhfFOHxXhSTx3hc7
-	Tv2vbfsglGZ9EIlDq/wsfStQLfhyIbvzmIF9ZI+lWrEZ1gfuPIQA6r/7npaUOWQmbcYC
-	t+jA==
-X-Gm-Message-State: AOAM531vchaEixaghKqUMYPZouWZTPS90XZ2LHVQPizxtf1zJ81fn3aW
-	1kapNoSMlAO8QsinLlyYO2OdmP/4L9Fqcq6BFLfHWrzz0iQ0Iz5ek9cmVTe1m65MOSBwXbzYxuR
-	y+Uy6rgZOqWx5sU5tL6QYC6fVyZgX0OnRMVw8GQ==
-X-Received: by 2002:a05:600c:4f4e:: with SMTP id
-	m14mr9769344wmq.164.1621611976426; 
-	Fri, 21 May 2021 08:46:16 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwNiKyNNQUg0ROCG/SSOfEtN4zmZrv2U5Ehc2HYyxeDqg4kgiTzYPVs1QJPabytJJQk6QNyxHUQkFNSA09pUs4=
-X-Received: by 2002:a05:600c:4f4e:: with SMTP id
-	m14mr9769331wmq.164.1621611976235; 
-	Fri, 21 May 2021 08:46:16 -0700 (PDT)
+Received: from carbon.redhat.com (ovpn-115-19.rdu2.redhat.com [10.10.115.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 911DA5C1BB;
+	Fri, 21 May 2021 19:08:58 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Fri, 21 May 2021 15:08:32 -0400
+Message-Id: <20210521190848.350176-1-aahringo@redhat.com>
 MIME-Version: 1.0
-References: <20210520122536.1596602-1-agruenba@redhat.com>
-	<20210520122536.1596602-7-agruenba@redhat.com>
-	<20210520133015.GC18952@quack2.suse.cz>
-	<CAHc6FU7ESASp+G59d218LekK8+YMBvH9GxbPr-qOVBhzyVmq4Q@mail.gmail.com>
-	<20210521152352.GQ18952@quack2.suse.cz>
-In-Reply-To: <20210521152352.GQ18952@quack2.suse.cz>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Fri, 21 May 2021 17:46:04 +0200
-Message-ID: <CAHc6FU6df7cBbjmYOZE35v_FALWRO62cYjg2Y9rY+Hd6x5yeyw@mail.gmail.com>
-To: Jan Kara <jack@suse.cz>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Andy Lutomirski <luto@kernel.org>, Linux-MM <linux-mm@kvack.org>
-Subject: Re: [Cluster-devel] [PATCH 6/6] gfs2: Fix mmap + page fault
-	deadlocks (part 2)
+Cc: cluster-devel@redhat.com, gnault@redhat.com, pabeni@redhat.com
+Subject: [Cluster-devel] [PATCHv6 v5.13-rc1 dlm/next 00/16] fs: dlm:
+	introduce dlm re-transmission layer
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,112 +64,204 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Fri, May 21, 2021 at 5:23 PM Jan Kara <jack@suse.cz> wrote:
-> On Thu 20-05-21 16:07:56, Andreas Gruenbacher wrote:
-> > On Thu, May 20, 2021 at 3:30 PM Jan Kara <jack@suse.cz> wrote:
-> > > On Thu 20-05-21 14:25:36, Andreas Gruenbacher wrote:
-> > > > Now that we handle self-recursion on the inode glock in gfs2_fault and
-> > > > gfs2_page_mkwrite, we need to take care of more complex deadlock
-> > > > scenarios like the following (example by Jan Kara):
-> > > >
-> > > > Two independent processes P1, P2. Two files F1, F2, and two mappings M1,
-> > > > M2 where M1 is a mapping of F1, M2 is a mapping of F2. Now P1 does DIO
-> > > > to F1 with M2 as a buffer, P2 does DIO to F2 with M1 as a buffer. They
-> > > > can race like:
-> > > >
-> > > > P1                                      P2
-> > > > read()                                  read()
-> > > >   gfs2_file_read_iter()                   gfs2_file_read_iter()
-> > > >     gfs2_file_direct_read()                 gfs2_file_direct_read()
-> > > >       locks glock of F1                       locks glock of F2
-> > > >       iomap_dio_rw()                          iomap_dio_rw()
-> > > >         bio_iov_iter_get_pages()                bio_iov_iter_get_pages()
-> > > >           <fault in M2>                           <fault in M1>
-> > > >             gfs2_fault()                            gfs2_fault()
-> > > >               tries to grab glock of F2               tries to grab glock of F1
-> > > >
-> > > > Those kinds of scenarios are much harder to reproduce than
-> > > > self-recursion.
-> > > >
-> > > > We deal with such situations by using the LM_FLAG_OUTER flag to mark
-> > > > "outer" glock taking.  Then, when taking an "inner" glock, we use the
-> > > > LM_FLAG_TRY flag so that locking attempts that don't immediately succeed
-> > > > will be aborted.  In case of a failed locking attempt, we "unroll" to
-> > > > where the "outer" glock was taken, drop the "outer" glock, and fault in
-> > > > the first offending user page.  This will re-trigger the "inner" locking
-> > > > attempt but without the LM_FLAG_TRY flag.  Once that has happened, we
-> > > > re-acquire the "outer" glock and retry the original operation.
-> > > >
-> > > > Reported-by: Jan Kara <jack@suse.cz>
-> > > > Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-> > >
-> > > ...
-> > >
-> > > > diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-> > > > index 7d88abb4629b..8b26893f8dc6 100644
-> > > > --- a/fs/gfs2/file.c
-> > > > +++ b/fs/gfs2/file.c
-> > > > @@ -431,21 +431,30 @@ static vm_fault_t gfs2_page_mkwrite(struct vm_fault *vmf)
-> > > >       vm_fault_t ret = VM_FAULT_LOCKED;
-> > > >       struct gfs2_holder gh;
-> > > >       unsigned int length;
-> > > > +     u16 flags = 0;
-> > > >       loff_t size;
-> > > >       int err;
-> > > >
-> > > >       sb_start_pagefault(inode->i_sb);
-> > > >
-> > > > -     gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &gh);
-> > > > +     if (current_holds_glock())
-> > > > +             flags |= LM_FLAG_TRY;
-> > > > +
-> > > > +     gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, flags, &gh);
-> > > >       if (likely(!outer_gh)) {
-> > > >               err = gfs2_glock_nq(&gh);
-> > > >               if (err) {
-> > > >                       ret = block_page_mkwrite_return(err);
-> > > > +                     if (err == GLR_TRYFAILED) {
-> > > > +                             set_current_needs_retry(true);
-> > > > +                             ret = VM_FAULT_SIGBUS;
-> > > > +                     }
-> > >
-> > > I've checked to make sure but do_user_addr_fault() indeed calls do_sigbus()
-> > > which raises the SIGBUS signal. So if the application does not ignore
-> > > SIGBUS, your retry will be visible to the application and can cause all
-> > > sorts of interesting results...
-> >
-> > I would have noticed that, but no SIGBUS signals were actually
-> > delivered. So we probably end up in kernelmode_fixup_or_oops() when in
-> > kernel mode, which just does nothing in that case.
->
-> Hum, but how would we get there? I don't think fatal_signal_pending() would
-> return true yet...
+Hi,
 
-Hmm, right ...
+this is the final patch-series to make dlm reliable when re-connection
+occurs. You can easily generate a couple of re-connections by running:
 
-> > > So you probably need to add a new VM_FAULT_
-> > > return code that will behave like VM_FAULT_SIGBUS except it will not raise
-> > > the signal.
-> >
-> > A new VM_FAULT_* flag might make the code easier to read, but I don't
-> > know if we can have one.
->
-> Well, this is kernel-internal API and there's still plenty of space in
-> vm_fault_reason.
+tcpkill -9 -i $IFACE port 21064
 
-That's in the context of the page fault. The other issue is how to
-propagate that out through iov_iter_fault_in_readable ->
-fault_in_pages_readable -> __get_user, for example. I don't think
-there's much of a chance to get an additional error code out of
-__get_user and __put_user.
+on your own to test these patches. At some time dlm will detect message
+drops and will re-transmit messages if necessary. It introduces a new dlm
+protocol behaviour and increases the dlm protocol version. I tested it
+with SCTP as well and tried to be backwards compatible with dlm protocol
+version 3.1. However I don't recommend at all to mix these versions
+in a setup since dlm version 3.2 fixes long-term issues.
 
-Thanks,
-Andreas
+- Alex
+
+changes since v6:
+ - add "fs: dlm: always run complete for possible waiter"
+ - add "fs: dlm: cancel work sync othercon"
+ - fix midcomms_hook to run remove_member on member list clear as well
+ - change users count of cluster membership that we never reset the
+   value, we always trust the cluster membership callbacks and assume
+   them to be working correctly. There was some invalid users state
+   in case of fencing. We never set it to zero.
+ - remove the flag DLM_NODE_FLAG_REMOVED, which was inidcating that
+   a node is in a passive shutdown when users count reached zero.
+   Instead we using directly users == 0 which is protected by the
+   state lock.
+ - fix some comment identation.
+ - add ack sending in case of msg sequence mismatch and the msg sequence
+   number is lower than the expected one. This will retry acking messages
+   in case of acks got lost.
+ - remove flush of lowcomms queue, there is only shutdown which will
+   do that anyway later in lowcomms shutdown call if there exists
+   anything.
+
+changes since v5:
+ - huge change about how we handle the FIN handling, it does not now
+   block at cluster membership removal. I think I got more information
+   regarding to this issue. It's about ls->ls_nodes attribute and the
+   function dlm_is_member(ls). So far the member is still in this list
+   the DLM subsystem will send msgs to it. In a passive shutdown case
+   we need to wait until this happens and close the connection after
+   such event otherwise it could happen something like (note printout
+   doesn't match to recent implementation):
+
+[ 3341.497741] receive fin from passive shutdown from node 3, send_queue_cnt 0, flags 4
+[ 3341.498667] send fin from passive shutdown case 1 to node 3
+[ 3341.503333] ------------[ cut here ]------------
+[ 3341.503971] WARNING: CPU: 1 PID: 455 at fs/dlm/midcomms.c:878 dlm_midcomms_get_mhandle+0x24b/0x260
+...
+[ 3341.523797] Call Trace:
+[ 3341.524110]  _request_lock+0x305/0x500
+[ 3341.524509]  ? do_request+0xc0/0xc0
+[ 3341.524922]  ? create_lkb+0x1fa/0x2b0
+[ 3341.525319]  ? lock_downgrade+0x3d0/0x3d0
+[ 3341.525679]  request_lock.part.0+0x137/0x190
+...
+[ 3341.537588]  gfs2_atomic_open+0x59/0x110
+
+   DLM will send requests message, so there is only one question that
+   we cannot receive anything anymore but the requestqueue will handle
+   this and change the handling of the messages in such cases so far I
+   understood? In the above warning the fin message was sent before
+   membership removal of ls->ls_nodes. This patch will take care that
+   there are two cases for a send_fin event either if we receive fin
+   and removal was already happened or delay the send_fin event when
+   the removal happens (half-closed socket case) to still send out
+   messages to the other peer. I think there is now a more higher risk
+   to fail, because we wait for the cluster manager event of membership
+   removal but it should happened.
+
+   Otherwise a lot of new state functionality copied from RFC 793 was
+   added for the termination case. See midcomms comment for a nice
+   state diagramm.
+
+   Good news is, I don't have any issues anymore with FIN handling and
+   think this is the right approach.
+
+ - add debugfs
+ - add resend state
+ - fix that we was resend messages which wasn't committed
+ - add fix srcu patch
+ - add flush lowcomms workqueue
+ - add fix of tcp half-socket closing with workqueue handling
+ - ratelimit some print messages
+ - use dlm_mhandle and dlm_msg instead of void * as recommended
+   by Guillaume
+ - remove #if 0 #endif handling to parse possible options
+ - add reconnect on error report patch, there is still a weird handling
+   with the othercon paradigm but I cannot remove it without breaking
+   backwards compatiblility.
+
+changes since v4:
+ - remove fast retransmit and the timer, introduce logic to retransmit
+   all unacknowledged message when doing reconnect. The receiver side
+   will deliver the next fit sequence number then.
+
+   There might be still problems with that we don't trigger a
+   reconnection again if we don't transmit anything (but still have
+   something unacknowledged in midcomms). This is still an issue in
+   lowcomms implementation which I want to fix in due courses.
+ - Change comments/commit msg how it works regarding to the new
+   behaviour.
+ - Let the send_queue now have messages in order according to the seq
+   this is necessary for the new behaviour that the receiver side can
+   resolve drops by receiving unacknowledged messages in their order of
+   delivery. If sequence .e.g. 1 3 2 is received then the receiver will
+   not be able to resolve the drop because 3 will be dropped and not
+   retransmitted again.
+ - change the dlm fin waiting mechanism to split the wait into fin ack
+   received and fin message received. Also change the timeout handling
+   a little bit there.
+ - add a missing flush send_queue in midcomms_close
+ - update patch 04 to not be irqsafe anymore
+ - fix use-after-free for dlm version 3.1 and recent nodes_srcu changes
+
+I thought about to update patch 08 to drop all pending messages inside
+the write queue, because we retransmit all unacknowledged messages
+at reconnect anyway. However that makes a very bad behaviour on
+reconnects with DLM version 3.1 so I only drop half-transmitted page
+buffers to don't start the bytestream inside the middle of an DLM
+message which is terrible as well. It might send more duplicate messages
+at reconnect, but the receive should solve these duplicates.
+
+I still have some problems with synchronization of membership with
+DLM_FIN. However I think my testcase is overkill and I have zero
+problems with any synchronization when not running tcpkill. It gets
+a lot of more worse when I don't have any synchronization and the
+"midcomms membership" and sequence numbers are out of sync with the
+"cluster manager membership". I think such synchronization need to be
+there but there might be more additional handling. (I hope non protocol
+changes needed).
+
+changes since v3:
+ - add comment about why queues are unbound
+ - move rcu usage to version receive handler
+
+changes since v2:
+ - make timer handling pending only if messages are on air, the sync
+   isn't quite correct there but doesn't need to be precise
+ - use before() from tcp to check if seq is before other seq with
+   respect of overflows
+ - change srcu handling to hold srcu in all places where nodes are
+   referencing - we should not get a disadvantage of holding that
+   lock. We should update also lowcomms regarding to that.
+ - add some WARN_ON() to check that nothing in send/recv is going
+   anymore otherwise it's likely an issue.
+ - add more future work regarding to fencing of nodes if over
+   cluster manager timeout/bad seq happens
+ - add note about missing length size check of tail payload
+   (resource name length) regarding to the receive buffer
+ - remove some include which isn't necessary in recoverd.c
+
+Thanks to Paolo Abeni and Guillaume Nault for their reviews and
+recommendations.
+
+Alexander Aring (16):
+  fs: dlm: always run complete for possible waiters
+  fs: dlm: add dlm macros for ratelimit log
+  fs: dlm: fix srcu read lock usage
+  fs: dlm: set is othercon flag
+  fs: dlm: reconnect if socket error report occurs
+  fs: dlm: cancel work sync othercon
+  fs: dlm: fix connection tcp EOF handling
+  fs: dlm: public header in out utility
+  fs: dlm: add more midcomms hooks
+  fs: dlm: make buffer handling per msg
+  fs: dlm: add functionality to re-transmit a message
+  fs: dlm: move out some hash functionality
+  fs: dlm: add union in dlm header for lockspace id
+  fs: dlm: add reliable connection if reconnect
+  fs: dlm: add midcomms debugfs functionality
+  fs: dlm: don't allow half transmitted messages
+
+ fs/dlm/config.c       |    3 +-
+ fs/dlm/debug_fs.c     |   54 ++
+ fs/dlm/dlm_internal.h |   42 +-
+ fs/dlm/lock.c         |   16 +-
+ fs/dlm/lockspace.c    |   14 +-
+ fs/dlm/lowcomms.c     |  356 ++++++++---
+ fs/dlm/lowcomms.h     |   25 +-
+ fs/dlm/member.c       |   35 +-
+ fs/dlm/midcomms.c     | 1317 ++++++++++++++++++++++++++++++++++++++++-
+ fs/dlm/midcomms.h     |   15 +
+ fs/dlm/rcom.c         |  113 ++--
+ fs/dlm/util.c         |   10 +-
+ fs/dlm/util.h         |    2 +
+ 13 files changed, 1840 insertions(+), 162 deletions(-)
+
+-- 
+2.26.3
 
