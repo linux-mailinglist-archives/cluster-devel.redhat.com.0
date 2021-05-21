@@ -1,59 +1,59 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2677438CDF7
-	for <lists+cluster-devel@lfdr.de>; Fri, 21 May 2021 21:09:23 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 80C8738CDF6
+	for <lists+cluster-devel@lfdr.de>; Fri, 21 May 2021 21:09:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1621624162;
+	s=mimecast20190719; t=1621624161;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qcTFGCB/Cxs3lUY2jnyX0WfCG1Wdgs/GJmhJxx6jy28=;
-	b=jUS/PP4F5C1lcNNm5pz28RXmYNxcV86fV5XnWURaudhwIbBWf/tZiiqKhGAgxs423KlfoH
-	mZ4BSkYT5H3/Y33gOQRQGrfdKIukf2tTOMguGt+76QScNLIFqIy/espDsVglMuR/J2lDNw
-	3i3QmtvdedCz5Sy8uafLKJB+qziNc90=
+	bh=wEvLwRg4M6DBoG3hM6lyCmpJf/2YlTS+dNux8/nw1WM=;
+	b=dCEznrMJYo8T01huitjuID91+sV+URM8weVK+E3SLpejaTpwlJ29FOGC0/OTOYvrHvZRqD
+	JbYd+tEI2k88C02Bg/NpF4M5tv+NjF3D6B+wTYaytnsuj9llju2McdAh2w4xDYTY7wGS5n
+	k/264OyAOu2q6O9TOSo9sJ5fE+2cwBY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-107-7dEqoCR5PGa7An3kIwxXtw-1; Fri, 21 May 2021 15:09:20 -0400
-X-MC-Unique: 7dEqoCR5PGa7An3kIwxXtw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-318-SYoMcckvMs2HejXpfN-U0Q-1; Fri, 21 May 2021 15:09:19 -0400
+X-MC-Unique: SYoMcckvMs2HejXpfN-U0Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE1CDEC1A5;
-	Fri, 21 May 2021 19:09:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A4DC188E3C2;
+	Fri, 21 May 2021 19:09:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDE5B19C45;
-	Fri, 21 May 2021 19:09:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C03F5D9CA;
+	Fri, 21 May 2021 19:09:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA2C31800BB4;
-	Fri, 21 May 2021 19:09:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A6F71800BB4;
+	Fri, 21 May 2021 19:09:18 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14LJ9FUY005225 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 15:09:15 -0400
+	id 14LJ9Gnv005234 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 15:09:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C060A5C890; Fri, 21 May 2021 19:09:15 +0000 (UTC)
+	id 7D3C05C890; Fri, 21 May 2021 19:09:16 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from carbon.redhat.com (ovpn-115-19.rdu2.redhat.com [10.10.115.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 370435C1BB;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E93165C1BB;
 	Fri, 21 May 2021 19:09:15 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Fri, 21 May 2021 15:08:43 -0400
-Message-Id: <20210521190848.350176-12-aahringo@redhat.com>
+Date: Fri, 21 May 2021 15:08:44 -0400
+Message-Id: <20210521190848.350176-13-aahringo@redhat.com>
 In-Reply-To: <20210521190848.350176-1-aahringo@redhat.com>
 References: <20210521190848.350176-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, gnault@redhat.com, pabeni@redhat.com
-Subject: [Cluster-devel] [PATCHv6 v5.13-rc1 dlm/next 11/16] fs: dlm: add
-	functionality to re-transmit a message
+Subject: [Cluster-devel] [PATCHv6 v5.13-rc1 dlm/next 12/16] fs: dlm: move
+	out some hash functionality
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +67,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,181 +75,63 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch introduces a retransmit functionality for a lowcomms message
-handle. It's just allocates a new buffer and transmit it again, no
-special handling about prioritize it because keeping bytestream in order.
-
-To avoid another connection look some refactor was done to make a new
-buffer allocation with a preexisting connection pointer.
+This patch moves out some lowcomms hash functionality into lowcomms
+header to provide them to other layers like midcomms as well.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lowcomms.c | 85 ++++++++++++++++++++++++++++++++++++-----------
- fs/dlm/lowcomms.h |  1 +
- 2 files changed, 67 insertions(+), 19 deletions(-)
+ fs/dlm/lowcomms.c |  9 ---------
+ fs/dlm/lowcomms.h | 10 ++++++++++
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index d222e6088ab2..df9827ec12f3 100644
+index df9827ec12f3..1f2759cfda09 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
-@@ -126,6 +126,8 @@ struct writequeue_entry {
+@@ -59,7 +59,6 @@
+ #include "config.h"
  
- struct dlm_msg {
- 	struct writequeue_entry *entry;
-+	struct dlm_msg *orig_msg;
-+	bool retransmit;
- 	void *ppc;
- 	int len;
- 	int idx; /* new()/commit() idx exchange */
-@@ -1055,6 +1057,10 @@ static void free_entry(struct writequeue_entry *e)
- 	struct dlm_msg *msg, *tmp;
+ #define NEEDED_RMEM (4*1024*1024)
+-#define CONN_HASH_SIZE 32
  
- 	list_for_each_entry_safe(msg, tmp, &e->msgs, list) {
-+		if (msg->orig_msg) {
-+			msg->orig_msg->retransmit = false;
-+			kref_put(&msg->orig_msg->ref, dlm_msg_release);
-+		}
- 		list_del(&msg->list);
- 		kref_put(&msg->ref, dlm_msg_release);
- 	}
-@@ -1494,11 +1500,37 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
- 	return e;
- };
+ /* Number of messages to send before rescheduling */
+ #define MAX_SEND_MSG_COUNT 25
+@@ -175,14 +174,6 @@ static void sctp_connect_to_sock(struct connection *con);
+ static void tcp_connect_to_sock(struct connection *con);
+ static void dlm_tcp_shutdown(struct connection *con);
  
-+static struct dlm_msg *dlm_lowcomms_new_msg_con(struct connection *con, int len,
-+						gfp_t allocation, char **ppc,
-+						void (*cb)(struct dlm_mhandle *mh),
-+						struct dlm_mhandle *mh)
-+{
-+	struct writequeue_entry *e;
-+	struct dlm_msg *msg;
-+
-+	msg = kzalloc(sizeof(*msg), allocation);
-+	if (!msg)
-+		return NULL;
-+
-+	kref_init(&msg->ref);
-+
-+	e = new_wq_entry(con, len, allocation, ppc, cb, mh);
-+	if (!e) {
-+		kfree(msg);
-+		return NULL;
-+	}
-+
-+	msg->ppc = *ppc;
-+	msg->len = len;
-+	msg->entry = e;
-+
-+	return msg;
-+}
-+
- struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
- 				     char **ppc, void (*cb)(struct dlm_mhandle *mh),
- 				     struct dlm_mhandle *mh)
+-/* This is deliberately very simple because most clusters have simple
+-   sequential nodeids, so we should be able to go straight to a connection
+-   struct in the array */
+-static inline int nodeid_hash(int nodeid)
+-{
+-	return nodeid & (CONN_HASH_SIZE-1);
+-}
+-
+ static struct connection *__find_con(int nodeid, int r)
  {
--	struct writequeue_entry *e;
  	struct connection *con;
- 	struct dlm_msg *msg;
- 	int idx;
-@@ -1518,32 +1550,18 @@ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
- 		return NULL;
- 	}
- 
--	msg = kzalloc(sizeof(*msg), allocation);
-+	msg = dlm_lowcomms_new_msg_con(con, len, allocation, ppc, cb, mh);
- 	if (!msg) {
- 		srcu_read_unlock(&connections_srcu, idx);
- 		return NULL;
- 	}
- 
--	kref_init(&msg->ref);
--
--	e = new_wq_entry(con, len, allocation, ppc, cb, mh);
--	if (!e) {
--		srcu_read_unlock(&connections_srcu, idx);
--		kfree(msg);
--		return NULL;
--	}
--
--	msg->ppc = *ppc;
--	msg->len = len;
--	msg->entry = e;
--
- 	/* we assume if successful commit must called */
- 	msg->idx = idx;
--
- 	return msg;
- }
- 
--void dlm_lowcomms_commit_msg(struct dlm_msg *msg)
-+static void _dlm_lowcomms_commit_msg(struct dlm_msg *msg)
- {
- 	struct writequeue_entry *e = msg->entry;
- 	struct connection *con = e->con;
-@@ -1561,20 +1579,49 @@ void dlm_lowcomms_commit_msg(struct dlm_msg *msg)
- 	spin_unlock(&con->writequeue_lock);
- 
- 	queue_work(send_workqueue, &con->swork);
--	srcu_read_unlock(&connections_srcu, msg->idx);
- 	return;
- 
- out:
- 	spin_unlock(&con->writequeue_lock);
--	srcu_read_unlock(&connections_srcu, msg->idx);
- 	return;
- }
- 
-+void dlm_lowcomms_commit_msg(struct dlm_msg *msg)
-+{
-+	_dlm_lowcomms_commit_msg(msg);
-+	srcu_read_unlock(&connections_srcu, msg->idx);
-+}
-+
- void dlm_lowcomms_put_msg(struct dlm_msg *msg)
- {
- 	kref_put(&msg->ref, dlm_msg_release);
- }
- 
-+/* does not held connections_srcu, usage workqueue only */
-+int dlm_lowcomms_resend_msg(struct dlm_msg *msg)
-+{
-+	struct dlm_msg *msg_resend;
-+	char *ppc;
-+
-+	if (msg->retransmit)
-+		return 1;
-+
-+	msg_resend = dlm_lowcomms_new_msg_con(msg->entry->con, msg->len,
-+					      GFP_ATOMIC, &ppc, NULL, NULL);
-+	if (!msg_resend)
-+		return -ENOMEM;
-+
-+	msg->retransmit = true;
-+	kref_get(&msg->ref);
-+	msg_resend->orig_msg = msg;
-+
-+	memcpy(ppc, msg->ppc, msg->len);
-+	_dlm_lowcomms_commit_msg(msg_resend);
-+	dlm_lowcomms_put_msg(msg_resend);
-+
-+	return 0;
-+}
-+
- /* Send a message */
- static void send_to_sock(struct connection *con)
- {
 diff --git a/fs/dlm/lowcomms.h b/fs/dlm/lowcomms.h
-index cdb8f066f0d8..a4384826442c 100644
+index a4384826442c..66dc1bb3de7f 100644
 --- a/fs/dlm/lowcomms.h
 +++ b/fs/dlm/lowcomms.h
-@@ -27,6 +27,7 @@ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
- 				     struct dlm_mhandle *mh);
- void dlm_lowcomms_commit_msg(struct dlm_msg *msg);
- void dlm_lowcomms_put_msg(struct dlm_msg *msg);
-+int dlm_lowcomms_resend_msg(struct dlm_msg *msg);
- int dlm_lowcomms_connect_node(int nodeid);
- int dlm_lowcomms_nodes_set_mark(int nodeid, unsigned int mark);
- int dlm_lowcomms_addr(int nodeid, struct sockaddr_storage *addr, int len);
+@@ -13,6 +13,16 @@
+ #define __LOWCOMMS_DOT_H__
+ 
+ #define LOWCOMMS_MAX_TX_BUFFER_LEN	4096
++#define CONN_HASH_SIZE 32
++
++/* This is deliberately very simple because most clusters have simple
++ * sequential nodeids, so we should be able to go straight to a connection
++ * struct in the array
++ */
++static inline int nodeid_hash(int nodeid)
++{
++	return nodeid & (CONN_HASH_SIZE-1);
++}
+ 
+ /* switch to check if dlm is running */
+ extern int dlm_allow_conn;
 -- 
 2.26.3
 
