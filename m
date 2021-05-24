@@ -2,58 +2,80 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AC3BF38CDFC
-	for <lists+cluster-devel@lfdr.de>; Fri, 21 May 2021 21:09:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1621624168;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=T1NMvr9+RvCYlLixu6OyXtdrIG1ma2aDuYnIFa+qKAI=;
-	b=HPJdxaCir49rQcKJL1Od1cgSri3EJepD1cT1EHOy0k6J5giOnKZDIP2V93hnkQVqiobLIT
-	0yDBFflmGAxA0luGwHjucAaPNlHXD7KShrD4qsSNPCwcBtQBnPVinYS2+J1nVIGyJjby3j
-	AQLxJhUPtmjH185ZUy9e3scp3U/MKhQ=
+	by mail.lfdr.de (Postfix) with ESMTP id 8F69638E26D
+	for <lists+cluster-devel@lfdr.de>; Mon, 24 May 2021 10:39:45 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-331-b_ZIDBZXOWaPpydxkjWPmw-1; Fri, 21 May 2021 15:09:26 -0400
-X-MC-Unique: b_ZIDBZXOWaPpydxkjWPmw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-445-rWbgtsHEOa-69DRuDL3FjA-1; Mon, 24 May 2021 04:39:43 -0400
+X-MC-Unique: rWbgtsHEOa-69DRuDL3FjA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B07B0801817;
-	Fri, 21 May 2021 19:09:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 74EEA106BAE4;
+	Mon, 24 May 2021 08:39:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A38EE7012E;
-	Fri, 21 May 2021 19:09:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 258A86E71A;
+	Mon, 24 May 2021 08:39:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8DFCC18095C4;
-	Fri, 21 May 2021 19:09:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 071191800FFC;
+	Mon, 24 May 2021 08:39:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14LJ9Mis005293 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 15:09:22 -0400
+	id 14O8dSFC017788 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 24 May 2021 04:39:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A99595C648; Fri, 21 May 2021 19:09:22 +0000 (UTC)
+	id D7590111143F; Mon, 24 May 2021 08:39:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from carbon.redhat.com (ovpn-115-19.rdu2.redhat.com [10.10.115.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 215535C1BB;
-	Fri, 21 May 2021 19:09:22 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Fri, 21 May 2021 15:08:48 -0400
-Message-Id: <20210521190848.350176-17-aahringo@redhat.com>
-In-Reply-To: <20210521190848.350176-1-aahringo@redhat.com>
-References: <20210521190848.350176-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D0F6C1111443
+	for <cluster-devel@redhat.com>; Mon, 24 May 2021 08:39:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71AD7196F581
+	for <cluster-devel@redhat.com>; Mon, 24 May 2021 08:39:23 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-11-cjPMVnHsMtO0m2Ai756omA-1;
+	Mon, 24 May 2021 04:39:21 -0400
+X-MC-Unique: cjPMVnHsMtO0m2Ai756omA-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 8720BABB1;
+	Mon, 24 May 2021 08:39:19 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id 1DDAD1F2CA2; Mon, 24 May 2021 10:39:19 +0200 (CEST)
+Date: Mon, 24 May 2021 10:39:19 +0200
+From: Jan Kara <jack@suse.cz>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <20210524083919.GA32705@quack2.suse.cz>
+References: <20210520122536.1596602-1-agruenba@redhat.com>
+	<20210520122536.1596602-7-agruenba@redhat.com>
+	<20210520133015.GC18952@quack2.suse.cz>
+	<CAHc6FU7ESASp+G59d218LekK8+YMBvH9GxbPr-qOVBhzyVmq4Q@mail.gmail.com>
+	<20210521152352.GQ18952@quack2.suse.cz>
+	<CAHc6FU6df7cBbjmYOZE35v_FALWRO62cYjg2Y9rY+Hd6x5yeyw@mail.gmail.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+In-Reply-To: <CAHc6FU6df7cBbjmYOZE35v_FALWRO62cYjg2Y9rY+Hd6x5yeyw@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, gnault@redhat.com, pabeni@redhat.com
-Subject: [Cluster-devel] [PATCHv6 v5.13-rc1 dlm/next 16/16] fs: dlm: don't
-	allow half transmitted messages
+Cc: Jan Kara <jack@suse.cz>, cluster-devel <cluster-devel@redhat.com>,
+	Linux-MM <linux-mm@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Andy Lutomirski <luto@kernel.org>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>
+Subject: Re: [Cluster-devel] [PATCH 6/6] gfs2: Fix mmap + page fault
+	deadlocks (part 2)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,169 +89,39 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch will clean a dirty page buffer if a reconnect occurs. If a page
-buffer was half transmitted we cannot start inside the middle of a dlm
-message if a node connects again. I observed invalid length receptions
-errors and was guessing that this behaviour occurs, after this patch I
-never saw an invalid message length again. This patch might drops more
-messages for dlm version 3.1 but 3.1 can't deal with half messages as
-well, for 3.2 it might trigger more re-transmissions but will not leave dlm
-in a broken state.
+On Fri 21-05-21 17:46:04, Andreas Gruenbacher wrote:
+> On Fri, May 21, 2021 at 5:23 PM Jan Kara <jack@suse.cz> wrote:
+> > On Thu 20-05-21 16:07:56, Andreas Gruenbacher wrote:
+> > > > So you probably need to add a new VM_FAULT_
+> > > > return code that will behave like VM_FAULT_SIGBUS except it will not raise
+> > > > the signal.
+> > >
+> > > A new VM_FAULT_* flag might make the code easier to read, but I don't
+> > > know if we can have one.
+> >
+> > Well, this is kernel-internal API and there's still plenty of space in
+> > vm_fault_reason.
+> 
+> That's in the context of the page fault. The other issue is how to
+> propagate that out through iov_iter_fault_in_readable ->
+> fault_in_pages_readable -> __get_user, for example. I don't think
+> there's much of a chance to get an additional error code out of
+> __get_user and __put_user.
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/lowcomms.c | 95 ++++++++++++++++++++++++++++++-----------------
- 1 file changed, 60 insertions(+), 35 deletions(-)
+Yes, at that level we'd get EFAULT as in any other case. Really the only
+difference of the new VM_FAULT_ error code from a case of "standard" error
+and VM_FAULT_SIGBUS would be not raising the signal.
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index fe9113bd5ba0..36adccc4f849 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -118,6 +118,7 @@ struct writequeue_entry {
- 	int len;
- 	int end;
- 	int users;
-+	bool dirty;
- 	struct connection *con;
- 	struct list_head msgs;
- 	struct kref ref;
-@@ -700,6 +701,42 @@ static void make_sockaddr(struct sockaddr_storage *saddr, uint16_t port,
- 	memset((char *)saddr + *addr_len, 0, sizeof(struct sockaddr_storage) - *addr_len);
- }
- 
-+static void dlm_page_release(struct kref *kref)
-+{
-+	struct writequeue_entry *e = container_of(kref, struct writequeue_entry,
-+						  ref);
-+
-+	__free_page(e->page);
-+	kfree(e);
-+}
-+
-+static void dlm_msg_release(struct kref *kref)
-+{
-+	struct dlm_msg *msg = container_of(kref, struct dlm_msg, ref);
-+
-+	kref_put(&msg->entry->ref, dlm_page_release);
-+	kfree(msg);
-+}
-+
-+static void free_entry(struct writequeue_entry *e)
-+{
-+	struct dlm_msg *msg, *tmp;
-+
-+	list_for_each_entry_safe(msg, tmp, &e->msgs, list) {
-+		if (msg->orig_msg) {
-+			msg->orig_msg->retransmit = false;
-+			kref_put(&msg->orig_msg->ref, dlm_msg_release);
-+		}
-+
-+		list_del(&msg->list);
-+		kref_put(&msg->ref, dlm_msg_release);
-+	}
-+
-+	list_del(&e->list);
-+	atomic_dec(&e->con->writequeue_cnt);
-+	kref_put(&e->ref, dlm_page_release);
-+}
-+
- static void dlm_close_sock(struct socket **sock)
- {
- 	if (*sock) {
-@@ -714,6 +751,7 @@ static void close_connection(struct connection *con, bool and_other,
- 			     bool tx, bool rx)
- {
- 	bool closing = test_and_set_bit(CF_CLOSING, &con->flags);
-+	struct writequeue_entry *e;
- 
- 	if (tx && !closing && cancel_work_sync(&con->swork)) {
- 		log_print("canceled swork for node %d", con->nodeid);
-@@ -732,6 +770,26 @@ static void close_connection(struct connection *con, bool and_other,
- 		close_connection(con->othercon, false, tx, rx);
- 	}
- 
-+	/* if we send a writequeue entry only a half way, we drop the
-+	 * whole entry because reconnection and that we not start of the
-+	 * middle of a msg which will confuse the other end.
-+	 *
-+	 * we can always drop messages because retransmits, but what we
-+	 * cannot allow is to transmit half messages which may be processed
-+	 * at the other side.
-+	 *
-+	 * our policy is to start on a clean state when disconnects, we don't
-+	 * know what's send/received on transport layer in this case.
-+	 */
-+	spin_lock(&con->writequeue_lock);
-+	if (!list_empty(&con->writequeue)) {
-+		e = list_first_entry(&con->writequeue, struct writequeue_entry,
-+				     list);
-+		if (e->dirty)
-+			free_entry(e);
-+	}
-+	spin_unlock(&con->writequeue_lock);
-+
- 	con->rx_leftover = 0;
- 	con->retries = 0;
- 	clear_bit(CF_CONNECTED, &con->flags);
-@@ -1026,41 +1084,6 @@ static int accept_from_sock(struct listen_connection *con)
- 	return result;
- }
- 
--static void dlm_page_release(struct kref *kref)
--{
--	struct writequeue_entry *e = container_of(kref, struct writequeue_entry,
--						  ref);
--
--	__free_page(e->page);
--	kfree(e);
--}
--
--static void dlm_msg_release(struct kref *kref)
--{
--	struct dlm_msg *msg = container_of(kref, struct dlm_msg, ref);
--
--	kref_put(&msg->entry->ref, dlm_page_release);
--	kfree(msg);
--}
--
--static void free_entry(struct writequeue_entry *e)
--{
--	struct dlm_msg *msg, *tmp;
--
--	list_for_each_entry_safe(msg, tmp, &e->msgs, list) {
--		if (msg->orig_msg) {
--			msg->orig_msg->retransmit = false;
--			kref_put(&msg->orig_msg->ref, dlm_msg_release);
--		}
--		list_del(&msg->list);
--		kref_put(&msg->ref, dlm_msg_release);
--	}
--
--	list_del(&e->list);
--	atomic_dec(&e->con->writequeue_cnt);
--	kref_put(&e->ref, dlm_page_release);
--}
--
- /*
-  * writequeue_entry_complete - try to delete and free write queue entry
-  * @e: write queue entry to try to delete
-@@ -1072,6 +1095,8 @@ static void writequeue_entry_complete(struct writequeue_entry *e, int completed)
- {
- 	e->offset += completed;
- 	e->len -= completed;
-+	/* signal that page was half way transmitted */
-+	e->dirty = true;
- 
- 	if (e->len == 0 && e->users == 0)
- 		free_entry(e);
+								Honza
 -- 
-2.26.3
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
