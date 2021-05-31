@@ -2,97 +2,91 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 21A71396786
-	for <lists+cluster-devel@lfdr.de>; Mon, 31 May 2021 19:57:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8644D396906
+	for <lists+cluster-devel@lfdr.de>; Mon, 31 May 2021 22:32:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1622493178;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=eIPtoH3V1uRSKTYJIeUQjqM9k7RxE6f0M/KOCbORxjo=;
+	b=DZ637Yoo6ZlXCQdSQoMhwNHapSpu2+oH75SJY4uP/KeB/KmAwCjtVmbzhpfGc1e2zaxMFw
+	L3DmFrYyySZl8ZXKlpkoe2tEvvb1JvyDbHxLC9TCWaV/6xgrz5xZWa4zyP9vucgG+xodL/
+	cr9c4gWLPgi+ivcA+NW9ZQEI++la16s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-54-6thNL2VFPDKmF9Z4xzA5FQ-1; Mon, 31 May 2021 13:57:41 -0400
-X-MC-Unique: 6thNL2VFPDKmF9Z4xzA5FQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-112-DhTrs7o6M5-GQWuKhQRAOQ-1; Mon, 31 May 2021 16:32:57 -0400
+X-MC-Unique: DhTrs7o6M5-GQWuKhQRAOQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B506501E0;
-	Mon, 31 May 2021 17:57:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0202C1005D4E;
+	Mon, 31 May 2021 20:32:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2674310074EF;
-	Mon, 31 May 2021 17:57:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EB3119C71;
+	Mon, 31 May 2021 20:32:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8EE5955346;
-	Mon, 31 May 2021 17:57:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 188D544A58;
+	Mon, 31 May 2021 20:32:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14VHvW2Q023061 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 31 May 2021 13:57:32 -0400
+	id 14VKWjkO032391 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 31 May 2021 16:32:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 84B6353D6; Mon, 31 May 2021 17:57:32 +0000 (UTC)
+	id 5E5F0112D42B; Mon, 31 May 2021 20:32:45 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EFF4778C
-	for <cluster-devel@redhat.com>; Mon, 31 May 2021 17:57:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 594ED112D42D
+	for <cluster-devel@redhat.com>; Mon, 31 May 2021 20:32:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A87080D0E3
-	for <cluster-devel@redhat.com>; Mon, 31 May 2021 17:57:30 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
-	[209.85.167.51]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-562-DzIJ6fSON6mjUTacVF4fUA-1; Mon, 31 May 2021 13:57:26 -0400
-X-MC-Unique: DzIJ6fSON6mjUTacVF4fUA-1
-Received: by mail-lf1-f51.google.com with SMTP id w33so17866526lfu.7
-	for <cluster-devel@redhat.com>; Mon, 31 May 2021 10:57:26 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1807858F0D
+	for <cluster-devel@redhat.com>; Mon, 31 May 2021 20:32:42 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+	[209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-474-clwpKXqDN6q6bnmAeAqn0g-1; Mon, 31 May 2021 16:32:40 -0400
+X-MC-Unique: clwpKXqDN6q6bnmAeAqn0g-1
+Received: by mail-wm1-f72.google.com with SMTP id
+	v25-20020a1cf7190000b0290197a4be97b7so356285wmh.9
+	for <cluster-devel@redhat.com>; Mon, 31 May 2021 13:32:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=KAUYadnTw7VJHbDqses7xfJDE0hYF2SvozEuuZImjIU=;
-	b=LZAvTwX5z3Qst5X4uzQzJ8oSEfcgZeOkJNfJzCQjg69XWSbVtezhEkzu7gMJAg25nN
-	yberaJfPXfR4J9LChGjZBCGBLYlbOuEA7pIM6O3z19OR15rOYjYyM3NBoabxTDB6evV1
-	RAku9ii39m+V0UJ6KQFUt0oA6kcW5Dmq3Tc5b6omgRSfVN0+sSrj5MnDh/Dk5cUDOILs
-	XUhp1M1wjP1Zn8+bbNYk/s3WWa0hz9i4ftFxKVkO/+U6/t+Z0Jc9v/4OJor0SHFoD5TH
-	vl+lJ/k6MyyBtQiSXkPdu2QM7/pwB4+isGPqhhPygwUcjQK0fM3RqmrQ1/pHbhLI0mZ7
-	j1Ew==
-X-Gm-Message-State: AOAM531iR/U1DchwIA/tS+RmJVul91rI4pmw+sniEsj+Msc5c9f1L4NE
-	sriFQ0tQc7RCfXBOWoSMCRzFmqM5ATtOjV/C
-X-Google-Smtp-Source: ABdhPJwH1C1aZ0aYsot+2A4b+rJdb4Gn8ACJ25gj5AXoPb8GgGHS2Y6ZlvC9SBRDiMTUv3lO5k33pQ==
-X-Received: by 2002:a05:6512:38c4:: with SMTP id
-	p4mr16043855lft.314.1622483845005; 
-	Mon, 31 May 2021 10:57:25 -0700 (PDT)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com.
-	[209.85.208.177])
-	by smtp.gmail.com with ESMTPSA id y1sm1328947lfl.68.2021.05.31.10.57.24
-	for <cluster-devel@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Mon, 31 May 2021 10:57:24 -0700 (PDT)
-Received: by mail-lj1-f177.google.com with SMTP id s25so15924891ljo.11
-	for <cluster-devel@redhat.com>; Mon, 31 May 2021 10:57:24 -0700 (PDT)
-X-Received: by 2002:a2e:c52:: with SMTP id o18mr17117820ljd.411.1622483843727; 
-	Mon, 31 May 2021 10:57:23 -0700 (PDT)
+	bh=eIPtoH3V1uRSKTYJIeUQjqM9k7RxE6f0M/KOCbORxjo=;
+	b=ayInujKqqcjOyuHLGt27pDGaeG+Fli2vOzvLTOTa9RRAx1LCiaOw99vc1R+Y5iGps5
+	xOSKuQ9VrSBEH0f2HVrHJkEDGU3Jxd6K+nkmL2KWrEawynMOpZjT0QznejowPKdny3ln
+	4Xo6MchuSsBaBGguYET2+8np3R2i9kfctbA4VeaoO4e9VbeuDxHpmG7pC0Dk5TpICPgf
+	QWHmOMOxweRRYIG0R9JNN6J23N+seRxNkHqgsNhPMaz+efZA1Ispwaj9aP0njhpSG5Y1
+	a1wGt7GBKw2HVR6h1FzMBQcjnZMZHsU2otS7fz5Zn/tFi/79DjSDAxD3ZhYb2XZGGPx7
+	FoxQ==
+X-Gm-Message-State: AOAM5331DGdHZTLl6bJgYSYjq0ju7iRKg1dipHjl/Slo3t4DL1D2Z73C
+	ndMmJ3VcphxfZIQqO5mXTx/ccoBdRiE94F+Nh0R8m95TwSZNY6/OCwdGEMB4KdUz4su7pMnnsDH
+	b0Mrr7Oszyziq6SjewrqdKoG+rnIOQvL9LsMugw==
+X-Received: by 2002:a7b:c19a:: with SMTP id y26mr742487wmi.132.1622493159719; 
+	Mon, 31 May 2021 13:32:39 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwuUP4NISItoptr6oKYfry3Adwhj9c5n6SHwj4ZPOi4fGsXEBkf39U4RUlwoOP+qpxNp07En9r9I5ue0x82AUU=
+X-Received: by 2002:a7b:c19a:: with SMTP id y26mr742477wmi.132.1622493159526; 
+	Mon, 31 May 2021 13:32:39 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210531170123.243771-1-agruenba@redhat.com>
-In-Reply-To: <20210531170123.243771-1-agruenba@redhat.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 31 May 2021 07:57:11 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wgX=fZ+y=SxBsod8CvZmZ0-X7vZ6dV6EgLPkpBXbt=nQQ@mail.gmail.com>
-Message-ID: <CAHk-=wgX=fZ+y=SxBsod8CvZmZ0-X7vZ6dV6EgLPkpBXbt=nQQ@mail.gmail.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>,
-	Al Viro <viro@zeniv.linux.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+References: <20210531105606.228314-1-agruenba@redhat.com>
+	<CAHk-=wj8EWr_D65i4oRSj2FTbrc6RdNydNNCGxeabRnwtoU=3Q@mail.gmail.com>
+In-Reply-To: <CAHk-=wj8EWr_D65i4oRSj2FTbrc6RdNydNNCGxeabRnwtoU=3Q@mail.gmail.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Mon, 31 May 2021 22:32:28 +0200
+Message-ID: <CAHc6FU51=5cNZX9hdDHj3AJ6fy4bK7nH1qwAi2m2wB45WPoq8Q@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>
-Subject: Re: [Cluster-devel] [RFC 0/9] gfs2: handle page faults during read
-	and write
+Cc: linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	cluster-devel <cluster-devel@redhat.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [Cluster-devel] [GIT PULL] gfs2 fixes for v5.13-rc5
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,113 +100,124 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="00000000000029203205c3a3f547"
-
---00000000000029203205c3a3f547
 Content-Type: text/plain; charset="UTF-8"
 
-Sorry, I'm on a boat right now, with only a cellphone. Which is why this
-html mess email, and quick reply.
-
-Due to the html, this may get a bounce from the mailing list, and only make
-it to the personal email recipients. Feel free to quote more just in case
-others didn't get my original email through the lists.
-
-I'll be out most of the day, but I'll try to take a deeper look this
-evening.
-
-I'm the meantime, a couple of questions and comments..
-
-On Mon, May 31, 2021, 07:01 Andreas Gruenbacher <agruenba@redhat.com> wrote:
-
+On Mon, May 31, 2021 at 6:30 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+> [ Adding fsdevel, because this is not limited to gfs2 ]
 >
-> here's a set of fixes for how gfs2 handles page faults during read and
-> write syscalls.
-
-
-So how much of this is due to the confusion you just introduced where you
-pointlessly and incorrectly take an exclusive luck for write faults?
-
-See my reply to that pull request for why it's wrong and pointless.
-
-  The patch queue is ready for merging except for two
-> open issues.
+> On Mon, May 31, 2021 at 12:56 AM Andreas Gruenbacher
+> <agruenba@redhat.com> wrote:
+> >
+> > Andreas Gruenbacher (2):
+> >       gfs2: Fix mmap locking for write faults
 >
-
-There is no way this series is acceptable for 5.13. This kind of change is
-very much a merge window thing. Much much too late to make fundamental
-locking changes. Maybe it can then be backported to stable (including at
-that point 5.13 of course) if it's been shown to be ok.
-
-This deadlock is not new, we've very much had the same kind of thing when
-writing to a file in the generic filemap_write() function, where we take
-the page lock and then copy from user space. If that copy faults, and needs
-the same page for the source due to an odd mmap issue (usually malicious),
-you get a deadlock on the page lock it you aren't careful.
-
-I'm surprised that gfs2 hasn't seen this, I thought we had fstests for it.
-And I'd have expected that case to also trigger any internal gfs2 issues,
-although it's possible that the generic code just does such a good job at
-avoiding the issue that we'd need another test for your case.
-
-      Linus
-
+> This is bogus.
 >
+> I've pulled it, but this is just wrong.
+>
+> A write fault on a mmap IS NOT A WRITE to the filesystem.
+>
+> It's a read.
+>
+> Yes, it will later then allow writes to the page, but that's entirely
+> immaterial - because the write is going to happen not at fault time,
+> but long *after* the fault, and long *after* the filesystem has
+> installed the page.
+>
+> The actual write will happen when the kernel returns from the user space.
+>
+> And no, the explanation in that commit makes no sense either:
+>
+>    "When a write fault occurs, we need to take the inode glock of the underlying
+>     inode in exclusive mode.  Otherwise, there's no guarantee that the
+> dirty page
+>     will be written back to disk"
+>
+> the thing is, FAULT_FLAG_WRITE only says that the *currently* pending
+> access that triggered the fault was a write. That's entirely
+> irrelevant to a filesystem, because
+>
+>  (a) it might be a private mapping, and a write to a page will cause a
+> COW by the VM layer, and it's not actually a filesystem write at all
+>
+> AND
+>
+>  (b) if it's a shared mapping, the first access that paged things in
+> is likely a READ, and the page will be marked writable (because it's a
+> shared mapping!) and subsequent writes will not cause any faults at
+> all.
+>
+> In other words, a filesystem that checks for FAULT_FLAG_WRITE is
+> _doubly_ wrong. It's absolutely never the right thing to do. It
+> *cannot* be the right thing to do.
+>
+> And yes, some other filesystems do this crazy thing too. If your
+> friends jumped off a bridge, would you jump too?
+>
+> The xfs and ext3/ext4 cases are wrong too - but at least they spent
+> five seconds (but no more) thinking about it, and they added the check
+> for VM_SHARED. So they are only wrong for reason (b)
+>
+> But wrong is wrong. The new code is not right in gfs2, and the old
+> code in xfs/ext4 is not right either.
+>
+> Yeah, yeah, you can - and people do - do things like "always mark the
+> page readable on initial page fault, use mkwrite to catch when it
+> becomes writable, and do timestamps carefully, at at least have full
+> knowledge of "something might become dirty"
+>
+> But even then it is ENTIRELY BOGUS to do things like write locking.
+>
+> Really.
+>
+> Because the actual write HASN'T HAPPENED YET, AND YOU WILL RELEASE THE
+> LOCK BEFORE IT EVER DOES! So the lock? It does nothing. If you think
+> it protects anything at all, you're wrong.
+>
+> So don't do write locking. At an absolute most, you can do things like
+>
+>  - update file times (and honestly, that's quite questionable -
+> because again - THE WRITE HASN'T HAPPENED YET - so any tests that
+> depend on exact file access times to figure out when the last write
+> was done is not being helped by your extra code, because you're
+> setting the WRONG time.
+>
+>  - set some "this inode will have dirty pages" flag just for some
+> possible future use. But honestly, if this is about consistency etc,
+> you need to do it not for a fault, but across the whole mmap/munmap.
+>
+> So some things may be less bogus - but still very very questionable.
+>
+> But locking? Bogus. Reads and writes aren't really any different from
+> a timestamp standpoint (if you think you need to mtime for write
+> accesses, you should do atime for reads, so from a filesystem
+> timestamp standpoint read and write faults are exactly the same - and
+> both are bogus, because by definition for a mmap both the reads and
+> the writes can then happen long long long afterwards, and repeatedly).
+>
+> And if that "set some flag" thing needs a write lock, but a read
+> doesn't, you're doing something wrong and odd.
+>
+> Look at the VM code. The VM code does this right. The mmap_sem is
+> taken for writing for mmap and for munmap. But a page fault is always
+> a read lock, even if the access that caused the page fault is a write.
+>
+> The actual real honest-to-goodness *write* happens much later, and the
+> only time the filesystem really knows when it is done is at writeback
+> time. Not at fault time. So if you take locks, logically you should
+> take them when the fault happens, and release them when the writeback
+> is done.
+>
+> Are you doing that? No. So don't do the write lock over the read
+> portion of the page fault. It is not a sensible operation.
 
---00000000000029203205c3a3f547
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks for the detailed explanation. I'll work on a fix.
 
-<div dir=3D"auto"><div>Sorry, I&#39;m on a boat right now, with only a cell=
-phone. Which is why this html mess email, and quick reply.</div><div dir=3D=
-"auto"><br></div><div dir=3D"auto">Due to the html, this may get a bounce f=
-rom the mailing list, and only make it to the personal email recipients. Fe=
-el free to quote more just in case others didn&#39;t get my original email =
-through the lists.<br><div dir=3D"auto"><br></div><div dir=3D"auto">I&#39;l=
-l be out most of the day, but I&#39;ll try to take a deeper look this eveni=
-ng.</div><br>I&#39;m the meantime, a couple of questions and comments..</di=
-v><div dir=3D"auto"><br><div class=3D"gmail_quote" dir=3D"auto"><div dir=3D=
-"ltr" class=3D"gmail_attr">On Mon, May 31, 2021, 07:01 Andreas Gruenbacher =
-&lt;<a href=3D"mailto:agruenba@redhat.com">agruenba@redhat.com</a>&gt; wrot=
-e:</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
--left:1px #ccc solid;padding-left:1ex">
-<br>
-here&#39;s a set of fixes for how gfs2 handles page faults during read and<=
-br>
-write syscalls.</blockquote></div></div><div dir=3D"auto"><br></div><div di=
-r=3D"auto">So how much of this is due to the confusion you just introduced =
-where you pointlessly and incorrectly take an exclusive luck for write faul=
-ts?</div><div dir=3D"auto"><br></div><div dir=3D"auto">See my reply to that=
- pull request for why it&#39;s wrong and pointless.</div><div dir=3D"auto">=
-<br></div><div dir=3D"auto"><div class=3D"gmail_quote" dir=3D"auto"><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">=C2=A0 The patch queue is ready for merging except =
-for two<br>
-open issues.=C2=A0=C2=A0<br></blockquote></div></div><div dir=3D"auto"><br>=
-</div><div dir=3D"auto">There is no way this series is acceptable for 5.13.=
- This kind of change is very much a merge window thing. Much much too late =
-to make fundamental locking changes. Maybe it can then be backported to sta=
-ble (including at that point 5.13 of course) if it&#39;s been shown to be o=
-k.</div><div dir=3D"auto"><br></div><div dir=3D"auto">This deadlock is not =
-new, we&#39;ve very much had the same kind of thing when writing to a file =
-in the generic filemap_write() function, where we take the page lock and th=
-en copy from user space. If that copy faults, and needs the same page for t=
-he source due to an odd mmap issue (usually malicious), you get a deadlock =
-on the page lock it you aren&#39;t careful.</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">I&#39;m surprised that gfs2 hasn&#39;t seen this, I tho=
-ught we had fstests for it. And I&#39;d have expected that case to also tri=
-gger any internal gfs2 issues, although it&#39;s possible that the generic =
-code just does such a good job at avoiding the issue that we&#39;d need ano=
-ther test for your case.</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
->=C2=A0 =C2=A0 =C2=A0 Linus</div><div dir=3D"auto"><div class=3D"gmail_quot=
-e" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
-x;border-left:1px #ccc solid;padding-left:1ex">
-</blockquote></div></div></div>
-
---00000000000029203205c3a3f547--
+Andreas
 
