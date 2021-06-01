@@ -1,98 +1,64 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6BE9B396D19
-	for <lists+cluster-devel@lfdr.de>; Tue,  1 Jun 2021 08:00:42 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 466993975FF
+	for <lists+cluster-devel@lfdr.de>; Tue,  1 Jun 2021 17:01:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1622559690;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=331ry0pnnqcU0URsxv4p9cP6gMEUnGWqUazo7Z7FwH0=;
+	b=abyMxaprtvl07hLO7YopWKtyKJCVbEEJmuw9enTf26JBOHzQ/u9eS2wMBUXzJag7lilbHC
+	12QR8IhdLcyaj6fck7jTMLlRnOzM5WnulUcIBYtvu5PAqXceahpoMVIjJcG6T0E3piiLDL
+	OINt+t/K3KlNtPWD3zUPO1ODXS7TXyM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-108-G3WXU3_gPqyxu8YPC840kA-1; Tue, 01 Jun 2021 02:00:39 -0400
-X-MC-Unique: G3WXU3_gPqyxu8YPC840kA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-473-jD5_S8JbPO-TKH2n_LwDxA-1; Tue, 01 Jun 2021 11:01:27 -0400
+X-MC-Unique: jD5_S8JbPO-TKH2n_LwDxA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2AC84180FD6A;
-	Tue,  1 Jun 2021 06:00:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E83B96B8E8;
-	Tue,  1 Jun 2021 06:00:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 322CEEC1A2;
+	Tue,  1 Jun 2021 15:01:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8CAA60BD8;
+	Tue,  1 Jun 2021 15:01:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A54CB1801029;
-	Tue,  1 Jun 2021 06:00:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 379D344A57;
+	Tue,  1 Jun 2021 15:01:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15160Yts013969 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 1 Jun 2021 02:00:34 -0400
+	id 151F1IST003028 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Jun 2021 11:01:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E45B72155D1D; Tue,  1 Jun 2021 06:00:33 +0000 (UTC)
+	id D1167376E; Tue,  1 Jun 2021 15:01:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFA8B2155D16
-	for <cluster-devel@redhat.com>; Tue,  1 Jun 2021 06:00:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 84DF3858F0D
-	for <cluster-devel@redhat.com>; Tue,  1 Jun 2021 06:00:30 +0000 (UTC)
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
-	[209.85.208.180]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-422-dS_WblXKNF-BzuKO_fYR_A-1; Tue, 01 Jun 2021 02:00:27 -0400
-X-MC-Unique: dS_WblXKNF-BzuKO_fYR_A-1
-Received: by mail-lj1-f180.google.com with SMTP id f12so17646636ljp.2
-	for <cluster-devel@redhat.com>; Mon, 31 May 2021 23:00:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=FMK+BlVA/bqQ4G3j0umpuAtgbjll4fk10VR8BwqsbnM=;
-	b=FO1NfSEfDBoUTzqebzmOvvt6EUfzCVqi0LMysn1juoc6LxJXuSA865DX1ydhiPXsUq
-	nkbfArfBHm5KzwW+u9clFuyZ4u7TUzOCt6TRlrh4sGvg8TjXDxwJTYYN/ahbKPXtaE+J
-	T1Fb9a4AdLk/+NvRlBj4ZnTomuUFli2zoTxQxkVARuwxvf7HMU/LxDw6e5Yk83BIRAJ0
-	QGv5Pi8tjyqo+2hqgauf4H/KGCjbyZxkls/pYSWtQ4f04bHzzRa+wsl9beXa0SBoCx04
-	koSjk432p2jyNYcB6HmNkmJT4tO410WrbGuKfg9JNyKP3z8sgbkEV0cz+pEpykY2NJxL
-	A2Ow==
-X-Gm-Message-State: AOAM5318DafbXYGVJkPd7xv7CWa/SqKhU/93U1gkiSYsExuSoiw1D7Gp
-	496FaBNBxuJh6RzFk8rl67LaNxPDlLA475NU
-X-Google-Smtp-Source: ABdhPJyQZzYw0SR4EB2UREPL//foEOJjvlA88cPzFoEVra1VceunTASTi1vaMRseIWWDVJGNf+WxAw==
-X-Received: by 2002:a2e:b5d8:: with SMTP id g24mr19550990ljn.115.1622527226122;
-	Mon, 31 May 2021 23:00:26 -0700 (PDT)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com.
-	[209.85.208.177]) by smtp.gmail.com with ESMTPSA id
-	d7sm1570686lfg.253.2021.05.31.23.00.25 for <cluster-devel@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Mon, 31 May 2021 23:00:25 -0700 (PDT)
-Received: by mail-lj1-f177.google.com with SMTP id a4so17630628ljd.5
-	for <cluster-devel@redhat.com>; Mon, 31 May 2021 23:00:25 -0700 (PDT)
-X-Received: by 2002:a2e:9644:: with SMTP id z4mr1911003ljh.507.1622527224567; 
-	Mon, 31 May 2021 23:00:24 -0700 (PDT)
+Received: from colo-mx.corp.redhat.com
+	(colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CB81F5D9D5
+	for <cluster-devel@redhat.com>; Tue,  1 Jun 2021 15:01:15 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 955D044A57
+	for <cluster-devel@redhat.com>; Tue,  1 Jun 2021 15:01:15 +0000 (UTC)
+Date: Tue, 1 Jun 2021 11:01:15 -0400 (EDT)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Message-ID: <476705118.34917344.1622559675541.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1185476875.34917197.1622559665475.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-References: <20210531170123.243771-1-agruenba@redhat.com>
-	<20210531170123.243771-5-agruenba@redhat.com>
-In-Reply-To: <20210531170123.243771-5-agruenba@redhat.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 31 May 2021 20:00:08 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wiB9gvUsebmiOaRXzYVUxJDUt1SozGtRyxR_MDR=Nv7YQ@mail.gmail.com>
-Message-ID: <CAHk-=wiB9gvUsebmiOaRXzYVUxJDUt1SozGtRyxR_MDR=Nv7YQ@mail.gmail.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Originating-IP: [10.3.112.53, 10.4.195.4]
+Thread-Topic: gfs2: Fix glock recursion in freeze_go_xmote_bh
+Thread-Index: F7rVPYetzexnO5sFkP5gIGNEnq3vxA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [Cluster-devel] [RFC 4/9] gfs2: Fix mmap + page fault deadlocks
-	(part 1)
+Subject: [Cluster-devel] [gfs2 PATCH] gfs2: Fix glock recursion in
+	freeze_go_xmote_bh
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,56 +72,64 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 31, 2021 at 7:01 AM Andreas Gruenbacher <agruenba@redhat.com> wrote:
->
-> Fix that by recognizing the self-recursion case.
+We must not call gfs2_consist (which does a file system withdraw) from
+the freeze glock's freeze_go_xmote_bh function because the withdraw
+will try to use the freeze glock, thus causing a glock recursion error.
 
-Hmm. I get the feeling that the self-recursion case should never have
-been allowed to happen in the first place.
+This patch changes freeze_go_xmote_bh to call function
+gfs2_assert_withdraw_delayed instead of gfs2_consist to avoid recursion.
 
-IOW, is there some reason why you can't make the user accesses always
-be doen with page faults disabled (ie using the "atomic" user space
-access model), and then if you get a partial read (or write) to user
-space, at that point you drop the locks in read/write, do the "try to
-make readable/writable" and try again.
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/glops.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-IOW, none of this "detect recursion" thing. Just "no recursion in the
-first place".
-
-That way you'd not have these odd rules at fault time at all, because
-a fault while holding a lock would never get to the filesystem at all,
-it would be aborted early. And you'd not have any odd "inner/outer"
-locks, or lock compatibility rules or anything like that. You'd
-literally have just "oh, I didn't get everything at RW time while I
-held locks, so let's drop the locks, try to access user space, and
-retry".
-
-Wouldn't that be a lot simpler and more robust?
-
-Because what if the mmap is something a bit more complex, like
-overlayfs or usefaultfd, and completing the fault isn't about gfs2
-handling it as a "fault", but about some *other* entity calling back
-to gfs2 and doing a read/write instead? Now all your "inner/outer"
-lock logic ends up being entirely pointless, as far as I can tell, and
-you end up deadlocking on the lock you are holding over the user space
-access _anyway_.
-
-So I literally think that your approach is
-
- (a) too complicated
-
- (b) doesn't actually fix the issue in the more general case
-
-But maybe I'm missing something.
-
-              Linus
-
-                    Linus
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 54d3fbeb3002..4939308d54f3 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -604,24 +604,24 @@ static int freeze_go_xmote_bh(struct gfs2_glock *gl)
+ 	struct gfs2_inode *ip = GFS2_I(sdp->sd_jdesc->jd_inode);
+ 	struct gfs2_glock *j_gl = ip->i_gl;
+ 	struct gfs2_log_header_host head;
+-	int error;
++	int error = 0;
+ 
+ 	if (test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags)) {
+ 		j_gl->gl_ops->go_inval(j_gl, DIO_METADATA);
+ 
+ 		error = gfs2_find_jhead(sdp->sd_jdesc, &head, false);
+-		if (error)
+-			gfs2_consist(sdp);
+-		if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT))
+-			gfs2_consist(sdp);
+-
+-		/*  Initialize some head of the log stuff  */
+-		if (!gfs2_withdrawn(sdp)) {
+-			sdp->sd_log_sequence = head.lh_sequence + 1;
+-			gfs2_log_pointers_init(sdp, head.lh_blkno);
++		if (gfs2_assert_withdraw_delayed(sdp, !error))
++			goto out;
++		if (gfs2_assert_withdraw_delayed(sdp, head.lh_flags &
++						 GFS2_LOG_HEAD_UNMOUNT)) {
++			error = -EIO;
++			goto out;
+ 		}
++		sdp->sd_log_sequence = head.lh_sequence + 1;
++		gfs2_log_pointers_init(sdp, head.lh_blkno);
+ 	}
+-	return 0;
++out:
++	return error;
+ }
+ 
+ /**
 
