@@ -2,58 +2,57 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 57108398AF3
-	for <lists+cluster-devel@lfdr.de>; Wed,  2 Jun 2021 15:46:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 55A05398AF6
+	for <lists+cluster-devel@lfdr.de>; Wed,  2 Jun 2021 15:46:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1622641584;
+	s=mimecast20190719; t=1622641588;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=SSQMu6CcOfbZrzgLRnvDPI7g0o5p5hSerAgIpbwJR5Y=;
-	b=Kk8rVNsTUzEvr69immY2Lzg8InEKo2GGYzpTJ1K7XH/QAJGMPVpv8xu6aMnLNxMmXbGXUB
-	1dH3LrSgTz5IxZhztOsY4G7T3wDvzJcucTSLpGJVBEh7uX3hWSwR27fkEDgHZ2KhEjVHSL
-	7plFe56s6+R/FkLGdQymxnK6t38ooBU=
+	bh=c1M7LfeeAUPn7+L7PFd/aKNE89T0tCkt0jn92zXYgc8=;
+	b=Kc/WcoLTAHAITTF+8xfn054qnIBtnSOImwwAHyjP3NPim9SD/uKDb5m2d9ZRxUOc8KnoML
+	yA4LQaeOeekuG5DXyR2RcO9NjT8ps1Cgc/i0KvnF1n89kCyuEohFAnIy9Nv9nmjU9V1Q2U
+	7T/RCQHnBS+mzNMp5mqEvj14RJjtk7c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-450-jSGOFctjOtqd_emE1xe-1w-1; Wed, 02 Jun 2021 09:46:22 -0400
-X-MC-Unique: jSGOFctjOtqd_emE1xe-1w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-504-UzRdXyQzOgWuAVT32tgOxg-1; Wed, 02 Jun 2021 09:46:26 -0400
+X-MC-Unique: UzRdXyQzOgWuAVT32tgOxg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AB1CA1090135;
-	Wed,  2 Jun 2021 13:45:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C0D9F18127B1;
+	Wed,  2 Jun 2021 13:45:51 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7682074ADB;
-	Wed,  2 Jun 2021 13:45:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7867118174;
+	Wed,  2 Jun 2021 13:45:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 58E1044A58;
-	Wed,  2 Jun 2021 13:45:52 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 28C9844A5C;
+	Wed,  2 Jun 2021 13:45:51 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 152DjmsU029969 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 152DjmIM029974 for <cluster-devel@listman.util.phx.redhat.com>;
 	Wed, 2 Jun 2021 09:45:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E67311045EA9; Wed,  2 Jun 2021 13:45:47 +0000 (UTC)
+	id 5CFAA1037F57; Wed,  2 Jun 2021 13:45:48 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from carbon.redhat.com (ovpn-116-136.rdu2.redhat.com [10.10.116.136])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 26FDA10023AB;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D37E61045EA5;
 	Wed,  2 Jun 2021 13:45:47 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Wed,  2 Jun 2021 09:45:17 -0400
-Message-Id: <20210602134520.71030-3-aahringo@redhat.com>
+Date: Wed,  2 Jun 2021 09:45:18 -0400
+Message-Id: <20210602134520.71030-4-aahringo@redhat.com>
 In-Reply-To: <20210602134520.71030-1-aahringo@redhat.com>
 References: <20210602134520.71030-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm/next 3/6] fs: dlm: use
-	alloc_ordered_workqueue
+Subject: [Cluster-devel] [PATCH dlm/next 4/6] fs: dlm: move dlm allow conn
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +66,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,37 +74,39 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-The proper way to allocate ordered workqueues is to use
-alloc_ordered_workqueue() function. The current way implies an ordered
-workqueue which is also required by dlm.
+This patch checks if possible allowing new connections is allowed before
+queueing the listen socket to accept new connections.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lowcomms.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ fs/dlm/lowcomms.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index b71f7eafb808..02b636d113fb 100644
+index 02b636d113fb..6b150e3aa30c 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
-@@ -1816,15 +1816,13 @@ static void work_stop(void)
+@@ -471,6 +471,9 @@ static void lowcomms_data_ready(struct sock *sk)
  
- static int work_start(void)
+ static void lowcomms_listen_data_ready(struct sock *sk)
  {
--	recv_workqueue = alloc_workqueue("dlm_recv",
--					 WQ_UNBOUND | WQ_MEM_RECLAIM, 1);
-+	recv_workqueue = alloc_ordered_workqueue("dlm_recv", WQ_MEM_RECLAIM);
- 	if (!recv_workqueue) {
- 		log_print("can't start dlm_recv");
- 		return -ENOMEM;
- 	}
++	if (!dlm_allow_conn)
++		return;
++
+ 	queue_work(recv_workqueue, &listen_con.rwork);
+ }
  
--	send_workqueue = alloc_workqueue("dlm_send",
--					 WQ_UNBOUND | WQ_MEM_RECLAIM, 1);
-+	send_workqueue = alloc_ordered_workqueue("dlm_send", WQ_MEM_RECLAIM);
- 	if (!send_workqueue) {
- 		log_print("can't start dlm_send");
- 		destroy_workqueue(recv_workqueue);
+@@ -969,10 +972,6 @@ static int accept_from_sock(struct listen_connection *con)
+ 	struct connection *addcon;
+ 	unsigned int mark;
+ 
+-	if (!dlm_allow_conn) {
+-		return -1;
+-	}
+-
+ 	if (!con->sock)
+ 		return -ENOTCONN;
+ 
 -- 
 2.26.3
 
