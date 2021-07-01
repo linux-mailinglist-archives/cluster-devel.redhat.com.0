@@ -2,84 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 51B773B87C2
-	for <lists+cluster-devel@lfdr.de>; Wed, 30 Jun 2021 19:33:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5DFEE3B97C4
+	for <lists+cluster-devel@lfdr.de>; Thu,  1 Jul 2021 22:44:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1625172250;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=/rlxSk4TpBTCOQxjT8/d0pQ0I9sTjA/v3s2Ukk0Nuz8=;
+	b=KaH402Kc6Q7rLmx9vfVUdxo5PAiBt0W/mpakaYxaYzr5QeYuikDEYedOKzhJ7Fe7212rLj
+	gTYEuaXKTPj2VVdYA+Ld69SfTvgH6mx7lJiA0MTQQPIDERNfpqKj4zPP/5SDphGx2ZZMzI
+	Hp/6pxEwNcjUIrpCtN0AaR/Q1oyqUYk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-128-dc180KI-OAytpzsF2Pni0A-1; Wed, 30 Jun 2021 13:33:13 -0400
-X-MC-Unique: dc180KI-OAytpzsF2Pni0A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-454-t6DFBtVuNFOiabPcgsBS2g-1; Thu, 01 Jul 2021 16:44:09 -0400
+X-MC-Unique: t6DFBtVuNFOiabPcgsBS2g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8A8C99F936;
-	Wed, 30 Jun 2021 17:32:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5FEB4802C92;
+	Thu,  1 Jul 2021 20:44:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8577360843;
-	Wed, 30 Jun 2021 17:32:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7BC4260C17;
+	Thu,  1 Jul 2021 20:44:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CFA4A4EA2F;
-	Wed, 30 Jun 2021 17:32:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F6414EA2F;
+	Thu,  1 Jul 2021 20:44:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15UGQYft024353 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 30 Jun 2021 12:26:34 -0400
+	id 161Kgug8008730 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 1 Jul 2021 16:42:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 28D931000DB8; Wed, 30 Jun 2021 16:26:34 +0000 (UTC)
+	id 4D2AA19D9B; Thu,  1 Jul 2021 20:42:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 24B4F111E41D
-	for <cluster-devel@redhat.com>; Wed, 30 Jun 2021 16:26:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AC5F1065295
-	for <cluster-devel@redhat.com>; Wed, 30 Jun 2021 16:26:29 +0000 (UTC)
-Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
-	[209.85.166.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-458-NJHhshbiO-GPwiKe8CUm5Q-1; Wed, 30 Jun 2021 12:26:26 -0400
-X-MC-Unique: NJHhshbiO-GPwiKe8CUm5Q-1
-Received: by mail-io1-f70.google.com with SMTP id
-	p4-20020a5d9c840000b02904fbbc3e404aso2262948iop.11
-	for <cluster-devel@redhat.com>; Wed, 30 Jun 2021 09:26:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
-	bh=rim975nXZVZywCYilCGa7/3xyFa5zoe093VUS5CetDo=;
-	b=suyWp0HAQVqOWY/DRZD7T0YtLkagny5b1NOqnCVrmuiH6dHtjY0aamx726n5T5MJAT
-	q5VLcbyRfM6e6XS4FTIgzC9F63Fhb+ltS6H5Y1tG8+etJzlhrKV8ImnwUMCd3gLaTH1O
-	wjT5dEgdPN55WPxOLm1MHunKO7D7eRrRBPkuqY1o0FGR2oce277ZlbpanIa8CEpRA3T0
-	Fr6yCx7q1lDs5AiKf54Iva5ikST2aBaLuF/WJRMkmPZuQx96MpzqVc6ZsPVaKG26EebC
-	r6AvhaOpEd8wwzdlV+UuUg53kd1yMqSBr+hw6a3YYyALzf7uh7fNAuv9NIcEvJhKqTEp
-	nrbw==
-X-Gm-Message-State: AOAM533jk8dIkN2UIl1c7OPsYOuXxGCCX9vy5NqQN8GnG7Ip+ZoG5Zzl
-	H+4JmZTJ647LMYtjxuRBph2M9SKRH6dhmHd4So1GGkSTgAn9
-X-Google-Smtp-Source: ABdhPJyuAAYISWpFuIpXWMRo0V9lQ2ryWt1aE7aRNqU7lu+FrhiNN+1J1fCKXivnvaZvbZ3N5wbFt7ks76sxgkkNmQwbax2cWA3r
+Received: from max.com (unknown [10.40.193.232])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0E05B19C45;
+	Thu,  1 Jul 2021 20:42:47 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu,  1 Jul 2021 22:42:46 +0200
+Message-Id: <20210701204246.2037142-1-agruenba@redhat.com>
 MIME-Version: 1.0
-X-Received: by 2002:a92:ddc6:: with SMTP id d6mr25187753ilr.51.1625070386323; 
-	Wed, 30 Jun 2021 09:26:26 -0700 (PDT)
-Date: Wed, 30 Jun 2021 09:26:26 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000001ca9eb05c5fe2f21@google.com>
-From: syzbot <syzbot+a498b19f2d8b0d716088@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, cluster-devel@redhat.com,
-	linux-kernel@vger.kernel.org, rpeterso@redhat.com,
-	syzkaller-bugs@googlegroups.com
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Wed, 30 Jun 2021 13:32:52 -0400
-Subject: [Cluster-devel] [syzbot] UBSAN: shift-out-of-bounds in init_sb
+Cc: Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Subject: [Cluster-devel] [PATCH] gfs2: Fix mmap + page fault deadlocks
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,69 +65,251 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 1
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-Hello,
+Hi Linus,
 
-syzbot found the following issue on:
+here's another attempt at fixing the mmap + page fault deadlocks we're
+seeing on gfs2.  Still not ideal because get_user_pages_fast ignores the
+current->pagefault_disabled flag, but at least this fixes the
+easy-to-exploit problems.  Would you mind having a look?
 
-HEAD commit:    62fb9874 Linux 5.13
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12b490fbd00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e8e1ef25331bf17e
-dashboard link: https://syzkaller.appspot.com/bug?extid=a498b19f2d8b0d716088
+For getting get_user_pages_fast changed to fix this properly, I'd need
+help from the memory management folks.  With that, we could get rid of
+the pagefault_disabled() checks in gfs2_page_mkwrite and gfs2_fault.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Thanks,
+Andreas
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a498b19f2d8b0d716088@syzkaller.appspotmail.com
+--
 
-gfs2: fsid=syz:syz: Now mounting FS (format 1801)...
-================================================================================
-UBSAN: shift-out-of-bounds in fs/gfs2/ops_fstype.c:299:19
-shift exponent 100663299 is too large for 64-bit type 'long unsigned int'
-CPU: 1 PID: 30834 Comm: syz-executor.4 Not tainted 5.13.0-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Call Trace:
- __dump_stack lib/dump_stack.c:79 [inline]
- dump_stack+0x141/0x1d7 lib/dump_stack.c:120
- ubsan_epilogue+0xb/0x5a lib/ubsan.c:148
- __ubsan_handle_shift_out_of_bounds.cold+0xb1/0x181 lib/ubsan.c:327
- gfs2_read_sb fs/gfs2/ops_fstype.c:299 [inline]
- init_sb.cold+0x19/0x109 fs/gfs2/ops_fstype.c:489
- gfs2_fill_super+0x18a6/0x2680 fs/gfs2/ops_fstype.c:1171
- get_tree_bdev+0x440/0x760 fs/super.c:1293
- gfs2_get_tree+0x4a/0x270 fs/gfs2/ops_fstype.c:1273
- vfs_get_tree+0x89/0x2f0 fs/super.c:1498
- do_new_mount fs/namespace.c:2905 [inline]
- path_mount+0x132a/0x1fa0 fs/namespace.c:3235
- do_mount fs/namespace.c:3248 [inline]
- __do_sys_mount fs/namespace.c:3456 [inline]
- __se_sys_mount fs/namespace.c:3433 [inline]
- __x64_sys_mount+0x27f/0x300 fs/namespace.c:3433
- do_syscall_64+0x3a/0xb0 arch/x86/entry/common.c:47
- entry_SYSCALL_64_after_hwframe+0x44/0xae
-RIP: 0033:0x467afa
-Code: 48 c7 c2 bc ff ff ff f7 d8 64 89 02 b8 ff ff ff ff eb d2 e8 b8 04 00 00 0f 1f 84 00 00 00 00 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 bc ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fd3a69ebfa8 EFLAGS: 00000202 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 0000000020000200 RCX: 0000000000467afa
-RDX: 0000000020000000 RSI: 0000000020000100 RDI: 00007fd3a69ec000
-RBP: 00007fd3a69ec040 R08: 00007fd3a69ec040 R09: 0000000020000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000020000000
-R13: 0000000020000100 R14: 00007fd3a69ec000 R15: 0000000020047a20
-================================================================================
+In the .read_iter and .write_iter file operations, we're accessing
+user-space memory while holding the inode's glock.  There's a possibility
+that the memory is mapped to the same file, in which case we'd recurse on
+the same glock.  More complex scenarios can involve multiple glocks,
+processes, and cluster nodes.
 
+This patch avoids these kinds of problems by disabling page faults during
+read and write operations.  If a page fault occurs, we either end up with a
+partial read or write, or with -EFAULT if nothing could be read or written.
+In that case, we drop the outer glock, fault in the pages manually, and
+repeat the operation.
 
+The caveat is that direct I/O doesn't trigger page faults.  Instead, it
+faults in user pages manually via bio_iov_iter_get_pages ->
+iov_iter_get_pages -> get_user_pages_fast, which ignores the
+current->pagefault_disabled flag.  The consequence is that we can end up in
+a random .fault or .page_mkwrite vm operation with page faults disabled,
+which can lead to the same kind of deadlock (directly if we end up in
+gfs2_fault or gfs2_page_mkwrite; indirectly if we happen to end up in a
+handler that ultimately depends on the glock we're holding).
+
+I believe it would make sense to change get_user_pages_fast to check for
+the pagefault_disabled flag.  Meanwhile, we can at least check if page
+faults are disabled in gfs2_fault and gfs2_page_mkwrite to prevent gfs2
+from directly faulting in pages when it shouldn't.
+
+This case of recursive locking was originally reported by Jan Kara.
+Disabling page faults was suggested by Linus, with help from Al Viro and
+Matthew Wilcox.
+
+Reported-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ fs/gfs2/file.c | 81 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+index 55ec1cadc9e6..5b1af227d0b9 100644
+--- a/fs/gfs2/file.c
++++ b/fs/gfs2/file.c
+@@ -433,6 +433,14 @@ static vm_fault_t gfs2_page_mkwrite(struct vm_fault *vmf)
+ 	loff_t size;
+ 	int err;
+ 
++	if (pagefault_disabled()) {
++		/*
++		 * Direct I/O; pagefault_disabled flag ignored by
++		 * iov_iter_get_pages -> get_user_pages_fast.
++		 */
++		return VM_FAULT_SIGBUS;
++	}
++
+ 	sb_start_pagefault(inode->i_sb);
+ 
+ 	gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, &gh);
+@@ -561,6 +569,14 @@ static vm_fault_t gfs2_fault(struct vm_fault *vmf)
+ 	vm_fault_t ret;
+ 	int err;
+ 
++	if (pagefault_disabled()) {
++		/*
++		 * Direct I/O; pagefault_disabled flag ignored by
++		 * iov_iter_get_pages -> get_user_pages_fast.
++		 */
++		return VM_FAULT_SIGBUS;
++	}
++
+ 	gfs2_holder_init(ip->i_gl, LM_ST_SHARED, 0, &gh);
+ 	err = gfs2_glock_nq(&gh);
+ 	if (err) {
+@@ -776,25 +792,59 @@ static int gfs2_fsync(struct file *file, loff_t start, loff_t end,
+ 	return ret ? ret : ret1;
+ }
+ 
++static bool gfs2_fault_in_pages(struct iov_iter *i, struct page ***pages,
++				unsigned int *nrpages)
++{
++	size_t start;
++	ssize_t size;
++
++	if (*pages)
++		return false;
++	size = iov_iter_get_pages_alloc(i, pages, 256 * PAGE_SIZE, &start);
++	if (size < 0)
++		return false;
++	*nrpages = DIV_ROUND_UP(start + size, PAGE_SIZE);
++	return true;
++}
++
++static void gfs2_release_pages(struct page **pages, unsigned int nrpages)
++{
++	unsigned int i;
++
++	for (i = 0; i < nrpages; i++)
++		put_page(pages[i]);
++	kvfree(pages);
++}
++
+ static ssize_t gfs2_file_direct_read(struct kiocb *iocb, struct iov_iter *to,
+ 				     struct gfs2_holder *gh)
+ {
+ 	struct file *file = iocb->ki_filp;
+ 	struct gfs2_inode *ip = GFS2_I(file->f_mapping->host);
+ 	size_t count = iov_iter_count(to);
++	struct page **pages = NULL;
++	unsigned int nrpages;
+ 	ssize_t ret;
+ 
+ 	if (!count)
+ 		return 0; /* skip atime */
+ 
+ 	gfs2_holder_init(ip->i_gl, LM_ST_DEFERRED, 0, gh);
++retry:
+ 	ret = gfs2_glock_nq(gh);
+ 	if (ret)
+ 		goto out_uninit;
+ 
++	pagefault_disable();
+ 	ret = iomap_dio_rw(iocb, to, &gfs2_iomap_ops, NULL, 0);
++	pagefault_enable();
+ 	gfs2_glock_dq(gh);
++	if (unlikely(ret == -EFAULT) &&
++	    gfs2_fault_in_pages(to, &pages, &nrpages))
++		goto retry;
+ out_uninit:
++	if (unlikely(pages))
++		gfs2_release_pages(pages, nrpages);
+ 	gfs2_holder_uninit(gh);
+ 	return ret;
+ }
+@@ -807,6 +857,8 @@ static ssize_t gfs2_file_direct_write(struct kiocb *iocb, struct iov_iter *from,
+ 	struct gfs2_inode *ip = GFS2_I(inode);
+ 	size_t len = iov_iter_count(from);
+ 	loff_t offset = iocb->ki_pos;
++	struct page **pages = NULL;
++	unsigned int nrpages;
+ 	ssize_t ret;
+ 
+ 	/*
+@@ -818,6 +870,7 @@ static ssize_t gfs2_file_direct_write(struct kiocb *iocb, struct iov_iter *from,
+ 	 * VFS does.
+ 	 */
+ 	gfs2_holder_init(ip->i_gl, LM_ST_DEFERRED, 0, gh);
++retry:
+ 	ret = gfs2_glock_nq(gh);
+ 	if (ret)
+ 		goto out_uninit;
+@@ -826,18 +879,27 @@ static ssize_t gfs2_file_direct_write(struct kiocb *iocb, struct iov_iter *from,
+ 	if (offset + len > i_size_read(&ip->i_inode))
+ 		goto out;
+ 
++	pagefault_disable();
+ 	ret = iomap_dio_rw(iocb, from, &gfs2_iomap_ops, NULL, 0);
++	pagefault_enable();
+ 	if (ret == -ENOTBLK)
+ 		ret = 0;
+ out:
+ 	gfs2_glock_dq(gh);
++	if (unlikely(ret == -EFAULT) &&
++	    gfs2_fault_in_pages(from, &pages, &nrpages))
++		goto retry;
+ out_uninit:
++	if (unlikely(pages))
++		gfs2_release_pages(pages, nrpages);
+ 	gfs2_holder_uninit(gh);
+ 	return ret;
+ }
+ 
+ static ssize_t gfs2_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ {
++	struct page **pages = NULL;
++	unsigned int nrpages;
+ 	struct gfs2_inode *ip;
+ 	struct gfs2_holder gh;
+ 	size_t written = 0;
+@@ -864,14 +926,22 @@ static ssize_t gfs2_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 	}
+ 	ip = GFS2_I(iocb->ki_filp->f_mapping->host);
+ 	gfs2_holder_init(ip->i_gl, LM_ST_SHARED, 0, &gh);
++retry:
+ 	ret = gfs2_glock_nq(&gh);
+ 	if (ret)
+ 		goto out_uninit;
++	pagefault_disable();
+ 	ret = generic_file_read_iter(iocb, to);
++	pagefault_enable();
+ 	if (ret > 0)
+ 		written += ret;
+ 	gfs2_glock_dq(&gh);
++	if (unlikely(ret == -EFAULT) &&
++	    gfs2_fault_in_pages(to, &pages, &nrpages))
++		goto retry;
+ out_uninit:
++	if (unlikely(pages))
++		gfs2_release_pages(pages, nrpages);
+ 	gfs2_holder_uninit(&gh);
+ 	return written ? written : ret;
+ }
+@@ -880,11 +950,22 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb, struct iov_iter *fro
+ {
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
++	struct page **pages = NULL;
++	unsigned int nrpages;
+ 	ssize_t ret;
+ 
++retry:
+ 	current->backing_dev_info = inode_to_bdi(inode);
++	pagefault_disable();
+ 	ret = iomap_file_buffered_write(iocb, from, &gfs2_iomap_ops);
++	pagefault_enable();
+ 	current->backing_dev_info = NULL;
++	if (unlikely(ret == -EFAULT) &&
++	    gfs2_fault_in_pages(from, &pages, &nrpages))
++		goto retry;
++	if (unlikely(pages))
++		gfs2_release_pages(pages, nrpages);
++
+ 	return ret;
+ }
+ 
+-- 
+2.26.3
 
