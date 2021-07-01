@@ -2,80 +2,81 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 22C223B9850
-	for <lists+cluster-devel@lfdr.de>; Thu,  1 Jul 2021 23:46:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 79B323B9862
+	for <lists+cluster-devel@lfdr.de>; Thu,  1 Jul 2021 23:58:10 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-468-qZX7Y9slNdGrQ6LInfS_xw-1; Thu, 01 Jul 2021 17:46:27 -0400
-X-MC-Unique: qZX7Y9slNdGrQ6LInfS_xw-1
+ us-mta-206-N8-z_lYlMMeoE3w771hUag-1; Thu, 01 Jul 2021 17:58:08 -0400
+X-MC-Unique: N8-z_lYlMMeoE3w771hUag-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1982F1084F4B;
-	Thu,  1 Jul 2021 21:46:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 81A411030C22;
+	Thu,  1 Jul 2021 21:58:06 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F8865D6A8;
-	Thu,  1 Jul 2021 21:46:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D7755D6D3;
+	Thu,  1 Jul 2021 21:58:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 756B11809C99;
-	Thu,  1 Jul 2021 21:46:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D698F1809C98;
+	Thu,  1 Jul 2021 21:58:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 161LfdMK014244 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 1 Jul 2021 17:41:40 -0400
+	id 161LqYhY014868 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 1 Jul 2021 17:52:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BC91110F02D; Thu,  1 Jul 2021 21:41:39 +0000 (UTC)
+	id C615A20B8DB5; Thu,  1 Jul 2021 21:52:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B76E8107668
-	for <cluster-devel@redhat.com>; Thu,  1 Jul 2021 21:41:36 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C24B520B8DA8
+	for <cluster-devel@redhat.com>; Thu,  1 Jul 2021 21:52:32 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C65280D090
-	for <cluster-devel@redhat.com>; Thu,  1 Jul 2021 21:41:36 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
-	[209.85.167.44]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-22-tPEVAS6FO1yhc7oBbFqG8w-1; Thu, 01 Jul 2021 17:41:34 -0400
-X-MC-Unique: tPEVAS6FO1yhc7oBbFqG8w-1
-Received: by mail-lf1-f44.google.com with SMTP id f30so14435052lfj.1
-	for <cluster-devel@redhat.com>; Thu, 01 Jul 2021 14:41:34 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 399658A3D23
+	for <cluster-devel@redhat.com>; Thu,  1 Jul 2021 21:52:32 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+	[209.85.167.48]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-584-SF9edMBMMfah4NBUGXKHCg-1; Thu, 01 Jul 2021 17:52:30 -0400
+X-MC-Unique: SF9edMBMMfah4NBUGXKHCg-1
+Received: by mail-lf1-f48.google.com with SMTP id a15so14435195lfr.6
+	for <cluster-devel@redhat.com>; Thu, 01 Jul 2021 14:52:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=cSLIj5ijLv21MczqPZ//LmnEGNGY+Io9XntuI4cnzoQ=;
-	b=OMN9BvxKa2B5yiaktWjJnmylZ8xQgGUr6t0v0/qnbsPHZMD7kA6vuBGy+c3gFHozbU
-	LGH9MFPdvu1D/KzPvZjDkb52FD4Zz55kgC12ZJNAFvApWTK2WsDyQm+Oa2HJlDSZ8fTf
-	BM9AViXXdZz2+9RMdUdPomkvyIH+05sNWG/EPaM3R4j84TP22YLqctRlrB+7+ysgt6AX
-	1Np0AJWJscvA5Bd8mKBw0UA+pdaorGGZqPEm2xAG4fshxIgohO9xcJwgMBbJtAC1lVRF
-	TtzuS/7XyfjyFe2fKGg2DHyzOoTFJPqsd0SdTpaJz0qGylHwY+Zt0jEKyJV0MEd0wyxa
-	R+QQ==
-X-Gm-Message-State: AOAM533vRcN9vrM5sPLHnGZFNyXQG3fNuSqaqtQTRsLgrIzWiW6QY69U
-	B18AejtaHVMRPuclIg7+YfUgptgAGHXNlUJSWh8=
-X-Google-Smtp-Source: ABdhPJz8HL536soLC2TN5+0OVgFLZIAGKC95+8oLgBmcnR558/dvEzyxj0sWgUWrZeROKOG/1NsJ/w==
-X-Received: by 2002:a19:650f:: with SMTP id z15mr1213995lfb.511.1625175692354; 
-	Thu, 01 Jul 2021 14:41:32 -0700 (PDT)
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
-	[209.85.208.181])
-	by smtp.gmail.com with ESMTPSA id h37sm81342lfv.85.2021.07.01.14.41.31
+	bh=J39z1K1H9iYgiKTRenHzC+Q5MRshLFfVFTh3xPa3JgM=;
+	b=IIMuKAMKwch7wyjkwKKAzn+u+cNzPpd2C1YBmfO/zj/rn14sBcyJgEcu+iIF2HlBed
+	8wmAIZHKqllRaoXxFurf20HXlCyST8NDZuo/coDWbUTGFzRbm6obE39mMpgKf6BONAEY
+	RGw5xsYK1b3D4tTE/S4Et2qh0esNXNkFH/0jm8VqrQvjoSByeCpdDXyEwBGWy2qa1BFN
+	Tu5hQXMPJzYSZFMsTIqzGbljCO7XKxWW1Qi6fpO7fVEm33vEOahiit/RPCo8EvSaQjmn
+	N42j8uQNNfjl12Bcq9yDSB2E2IYePhLlDCVRuWUHMck98ToEplRekdVI3fU5dKciI+w7
+	nQug==
+X-Gm-Message-State: AOAM5336tzoXOJiTfM30xyV8eAZfm9aK3nz/HqnnXmWtRHRymJmNPb2x
+	y9upY5bNKQ9EtXZJRTgrgvBP0eGE66gQaUkSkEo=
+X-Google-Smtp-Source: ABdhPJwhsA+6HEYKhbPdVNKIlG/FX4bGZwKXjvc2tQw3jjbbYCpHrbfjqnVqw6zJFK/8UIDMWXcgYw==
+X-Received: by 2002:a05:6512:1303:: with SMTP id
+	x3mr1271900lfu.276.1625176348727; 
+	Thu, 01 Jul 2021 14:52:28 -0700 (PDT)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com.
+	[209.85.167.49])
+	by smtp.gmail.com with ESMTPSA id y16sm82326lfe.213.2021.07.01.14.52.27
 	for <cluster-devel@redhat.com>
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 01 Jul 2021 14:41:31 -0700 (PDT)
-Received: by mail-lj1-f181.google.com with SMTP id u25so10439796ljj.11
-	for <cluster-devel@redhat.com>; Thu, 01 Jul 2021 14:41:31 -0700 (PDT)
-X-Received: by 2002:a05:651c:32e:: with SMTP id
-	b14mr1183040ljp.251.1625175691224; 
-	Thu, 01 Jul 2021 14:41:31 -0700 (PDT)
+	Thu, 01 Jul 2021 14:52:27 -0700 (PDT)
+Received: by mail-lf1-f49.google.com with SMTP id f30so14478643lfj.1
+	for <cluster-devel@redhat.com>; Thu, 01 Jul 2021 14:52:27 -0700 (PDT)
+X-Received: by 2002:a19:7d04:: with SMTP id y4mr1222289lfc.201.1625176347073; 
+	Thu, 01 Jul 2021 14:52:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210701204246.2037142-1-agruenba@redhat.com>
-In-Reply-To: <20210701204246.2037142-1-agruenba@redhat.com>
+	<CAHk-=wjk6KP3vSLFNPMjoaZ4xY4u=DjTM+C+hCS3QKt+XAE6OA@mail.gmail.com>
+In-Reply-To: <CAHk-=wjk6KP3vSLFNPMjoaZ4xY4u=DjTM+C+hCS3QKt+XAE6OA@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 1 Jul 2021 14:41:15 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjk6KP3vSLFNPMjoaZ4xY4u=DjTM+C+hCS3QKt+XAE6OA@mail.gmail.com>
-Message-ID: <CAHk-=wjk6KP3vSLFNPMjoaZ4xY4u=DjTM+C+hCS3QKt+XAE6OA@mail.gmail.com>
+Date: Thu, 1 Jul 2021 14:52:11 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whHTB6dOrz3AkPVL7h5t8k0Ety1dy1r+BEy3+xptzF3bQ@mail.gmail.com>
+Message-ID: <CAHk-=whHTB6dOrz3AkPVL7h5t8k0Ety1dy1r+BEy3+xptzF3bQ@mail.gmail.com>
 To: Andreas Gruenbacher <agruenba@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -85,7 +86,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -112,36 +113,16 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jul 1, 2021 at 1:43 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
+On Thu, Jul 1, 2021 at 2:41 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> here's another attempt at fixing the mmap + page fault deadlocks we're
-> seeing on gfs2.  Still not ideal because get_user_pages_fast ignores the
-> current->pagefault_disabled flag
+> So what the direct-IO code _should_ do is to turn an ITER_IOVEC into a
+> ITER_KVEC by doing the page lookup ahead of time
 
-Of course get_user_pages_fast() ignores the pagefault_disabled flag,
-because it doesn't do any page faults.
+Actually, an ITER_BVEC, not ITER_KVEC. It wants a page array, not a
+kernel pointer array.
 
-If you don't want to fall back to the "maybe do IO" case, you should
-use the FOLL_FAST_ONLY flag - or get_user_pages_fast_only(), which
-does that itself.
+But I hope people understood what I meant..
 
-> For getting get_user_pages_fast changed to fix this properly, I'd need
-> help from the memory management folks.
-
-I really don't think you need anything at all from the mm people,
-because we already support that whole "fast only" case.
-
-Also, I have to say that I think the direct-IO code is fundamentally
-mis-designed. Why it is doing the page lookup _during_ the IO is a
-complete mystery to me. Why wasn't that done ahead of time before the
-filesystem took the locks it needed?
-
-So what the direct-IO code _should_ do is to turn an ITER_IOVEC into a
-ITER_KVEC by doing the page lookup ahead of time, and none of these
-issues should even exist, and then the whole pagefault_disabled and/or
-FOLL_FAST_ONLY would be a complete non-issue.
-
-Is there any reason why that isn't what it does (other than historical baggage)?
-
-               Linus
+             Linus
 
