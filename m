@@ -2,85 +2,90 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 450D63B99FD
-	for <lists+cluster-devel@lfdr.de>; Fri,  2 Jul 2021 02:20:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1625185255;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=rQPsdOkVHeGKBuEsStJMLYq9tWsj5wYRKjPTUAXJMQg=;
-	b=U6+1EdKsbAI5DLbwC6M8q1f1/2v/ktuSDaZ/VkHw7LrTS4CwxBHm2tn+FqTyu+jjEV/Nsj
-	k70xmPB6YKUuH9VBZcdrM+abOsUQ5rQSHBxNxkn/NeuEtEI+5CtQcVPdFYtgRJMq4JFstv
-	JolONBL6V1B/pz4ki89H5xAkApughUI=
+	by mail.lfdr.de (Postfix) with ESMTP id 6F8123B9A35
+	for <lists+cluster-devel@lfdr.de>; Fri,  2 Jul 2021 02:46:42 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-115-Elk8pp4rMd23ifiQb1XaaA-1; Thu, 01 Jul 2021 20:20:54 -0400
-X-MC-Unique: Elk8pp4rMd23ifiQb1XaaA-1
+ us-mta-171-0DjR5I0OOlSPvRhLdY5o8g-1; Thu, 01 Jul 2021 20:46:40 -0400
+X-MC-Unique: 0DjR5I0OOlSPvRhLdY5o8g-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D07D1804308;
-	Fri,  2 Jul 2021 00:20:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0564860864;
-	Fri,  2 Jul 2021 00:20:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 46A148030D7;
+	Fri,  2 Jul 2021 00:46:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 39F9960871;
+	Fri,  2 Jul 2021 00:46:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E96134A712;
-	Fri,  2 Jul 2021 00:20:45 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 28FC01809C98;
+	Fri,  2 Jul 2021 00:46:38 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1620KcMC026519 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 1 Jul 2021 20:20:38 -0400
+	id 1620Uqn7027636 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 1 Jul 2021 20:30:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C94A10F05B; Fri,  2 Jul 2021 00:20:38 +0000 (UTC)
+	id 9B48410F059; Fri,  2 Jul 2021 00:30:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07AA110F059
-	for <cluster-devel@redhat.com>; Fri,  2 Jul 2021 00:20:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9621D10F02E
+	for <cluster-devel@redhat.com>; Fri,  2 Jul 2021 00:30:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E7B0B89C7DB
-	for <cluster-devel@redhat.com>; Fri,  2 Jul 2021 00:20:34 +0000 (UTC)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
-	[209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-478-zIXQ-HeYNqG3Z9dooNkB1A-1; Thu, 01 Jul 2021 20:20:33 -0400
-X-MC-Unique: zIXQ-HeYNqG3Z9dooNkB1A-1
-Received: by mail-wm1-f69.google.com with SMTP id
-	z4-20020a1ce2040000b02901ee8d8e151eso5431288wmg.1
-	for <cluster-devel@redhat.com>; Thu, 01 Jul 2021 17:20:33 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A19D41857F10
+	for <cluster-devel@redhat.com>; Fri,  2 Jul 2021 00:30:49 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+	[209.85.167.54]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-254-En8I7Nn7N2iS03RRueGovA-1; Thu, 01 Jul 2021 20:30:47 -0400
+X-MC-Unique: En8I7Nn7N2iS03RRueGovA-1
+Received: by mail-lf1-f54.google.com with SMTP id bq39so2417678lfb.12
+	for <cluster-devel@redhat.com>; Thu, 01 Jul 2021 17:30:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=rQPsdOkVHeGKBuEsStJMLYq9tWsj5wYRKjPTUAXJMQg=;
-	b=QdTHozgvkkrKnBUH7N3+/94H5pgydxvhpRo1mE61tnUFm8eQfu/H2+ibQX4jDjuGE7
-	XWz48gQ9gXlh2WxIVfV9a+pkE1zvyfhprGP/8L3ZxRYofV4MbCUYAdkXbrPbauIltsY4
-	LnCk1im5xxujmzREzclcDCM0PK3po9+DZhlUo6BbEZEJRcgKCQZmt7i3mxbZShVCW8Sm
-	TbL6eFtBLdiTSvbOYg7JQtF675ABYMakITY48d43HyLHhuz+H4uUaw2yLekED2RA26FJ
-	bsFQ7zVS96uQDZs/fAnZi94YcBG+8dvwnkK7Gied25VzuSuXe3HlAFOron299nQgm+oa
-	Ilfg==
-X-Gm-Message-State: AOAM53318HmaK0/3CkwfERhqZ90+44vYxcNIXxZZ8GebcZ2OkG8tOpvi
-	LImEOZAZ5d8eoDCnAYj4scdoLYbdQuhHjRDvIk2anRiTfSsBwHAYKUdb7O2NozI1DIOPmwiEVuC
-	uf/kK3HmauQSGjRZ+TpI2XJtRr0PMvRzCb8ImhQ==
-X-Received: by 2002:a7b:c4da:: with SMTP id g26mr13499687wmk.3.1625185232446; 
-	Thu, 01 Jul 2021 17:20:32 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz2mrmrFqhY+KJO7OmT5+cTABba2Xcud4NJgvF/TCklQGhDqfs42VqLXpLsCT79j3xMTA47vuLYlFge+nI55lQ=
-X-Received: by 2002:a7b:c4da:: with SMTP id g26mr13499672wmk.3.1625185232278; 
-	Thu, 01 Jul 2021 17:20:32 -0700 (PDT)
+	bh=bJvQk/Alftrz3YVUjbu29T6DoGupesSg/dDRXRbYPhA=;
+	b=KS5VfoVV3AL4mZOPYHol5X2j3Ep4a0Qw5MKbwRISAbwj2SGZUpSzLqhuc/DAnshhCH
+	Lyeubl5JYjIfwwoHm3v1Ry3uJZ/AzMZjboSNVLv3IhtxJ419/dwmVSwzGt6Jsw9xZlhi
+	dNw9UrLYxB1e8wwDqMfJLCMIRQ6SzBWYy9I9518kLurA3QpzgguOGykrPw4qnXt4niKS
+	WdAXNaWeF+w1jZh8br5a+/PGkwejuiY+f6cuoNy1DrSaHJTS0HWXPZkLCzdFuPmbkDw0
+	WBoBMbHVfBhXuaSxBZ0j4Op73Xq0zBldzNlFX1aISrNGgOONnqbKKR8RtH8Sr9KCZsgi
+	4JmQ==
+X-Gm-Message-State: AOAM5300a2dM0q1BfCTkQR/ZokfqebBzTbSDwKI/QFtDleRHvBxsY8ov
+	hI3KjN8qDCpMMliFXpypADbbdCCPfdbLTyujafk=
+X-Google-Smtp-Source: ABdhPJxTVOXXB4z8eiKbpq7h/HdXjz/HIpWciw4w/zBhGg9HAy2W4YpEL/6psQCJcJ713S4yfbu+Bg==
+X-Received: by 2002:a05:6512:3155:: with SMTP id
+	s21mr1618192lfi.358.1625185845527; 
+	Thu, 01 Jul 2021 17:30:45 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com.
+	[209.85.167.54]) by smtp.gmail.com with ESMTPSA id
+	p19sm172048ljm.129.2021.07.01.17.30.44 for <cluster-devel@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Thu, 01 Jul 2021 17:30:44 -0700 (PDT)
+Received: by mail-lf1-f54.google.com with SMTP id k10so14946906lfv.13
+	for <cluster-devel@redhat.com>; Thu, 01 Jul 2021 17:30:44 -0700 (PDT)
+X-Received: by 2002:ac2:4903:: with SMTP id n3mr551418lfi.487.1625185844416;
+	Thu, 01 Jul 2021 17:30:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210701204246.2037142-1-agruenba@redhat.com>
 	<CAHk-=wjk6KP3vSLFNPMjoaZ4xY4u=DjTM+C+hCS3QKt+XAE6OA@mail.gmail.com>
-In-Reply-To: <CAHk-=wjk6KP3vSLFNPMjoaZ4xY4u=DjTM+C+hCS3QKt+XAE6OA@mail.gmail.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Fri, 2 Jul 2021 02:20:20 +0200
-Message-ID: <CAHc6FU5XMfTOBW1a0OnMaPSmgWECvO-KYAo8HeVNsCyd-HyV3g@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
+	<CAHc6FU5XMfTOBW1a0OnMaPSmgWECvO-KYAo8HeVNsCyd-HyV3g@mail.gmail.com>
+In-Reply-To: <CAHc6FU5XMfTOBW1a0OnMaPSmgWECvO-KYAo8HeVNsCyd-HyV3g@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 1 Jul 2021 17:30:28 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whaRsSuUeVBn_rLECWyG6h9RGuF9idsT_S+==vnsT8org@mail.gmail.com>
+Message-ID: <CAHk-=whaRsSuUeVBn_rLECWyG6h9RGuF9idsT_S+==vnsT8org@mail.gmail.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
@@ -108,55 +113,35 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jul 1, 2021 at 11:41 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Thu, Jul 1, 2021 at 1:43 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> > here's another attempt at fixing the mmap + page fault deadlocks we're
-> > seeing on gfs2.  Still not ideal because get_user_pages_fast ignores the
-> > current->pagefault_disabled flag
+On Thu, Jul 1, 2021 at 5:20 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
 >
-> Of course get_user_pages_fast() ignores the pagefault_disabled flag,
-> because it doesn't do any page faults.
+> On Thu, Jul 1, 2021 at 11:41 PM Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> > Also, I have to say that I think the direct-IO code is fundamentally
+> > mis-designed. Why it is doing the page lookup _during_ the IO is a
+> > complete mystery to me. Why wasn't that done ahead of time before the
+> > filesystem took the locks it needed?
 >
-> If you don't want to fall back to the "maybe do IO" case, you should
-> use the FOLL_FAST_ONLY flag - or get_user_pages_fast_only(), which
-> does that itself.
->
-> > For getting get_user_pages_fast changed to fix this properly, I'd need
-> > help from the memory management folks.
->
-> I really don't think you need anything at all from the mm people,
-> because we already support that whole "fast only" case.
+> That would be inconvenient for reads, when the number of bytes read is
+> much smaller than the buffer size and we won't need to page in the
+> entire buffer.
 
-Yes, fair enough.
+What?
 
-> Also, I have to say that I think the direct-IO code is fundamentally
-> mis-designed. Why it is doing the page lookup _during_ the IO is a
-> complete mystery to me. Why wasn't that done ahead of time before the
-> filesystem took the locks it needed?
+A file read will READ THE WHOLE BUFFER.
 
-That would be inconvenient for reads, when the number of bytes read is
-much smaller than the buffer size and we won't need to page in the
-entire buffer.
+We're not talking pipes or ttys here. If you ask for X bytes, you'll
+get X bytes.
 
-> So what the direct-IO code _should_ do is to turn an ITER_IOVEC into a
-> ITER_KVEC by doing the page lookup ahead of time, and none of these
-> issues should even exist, and then the whole pagefault_disabled and/or
-> FOLL_FAST_ONLY would be a complete non-issue.
->
-> Is there any reason why that isn't what it does (other than historical baggage)?
+Of course, if you ask for more data than the file has, that's another
+thing, but who really does that with direct-IO? And if they do, why
+should we care about their silly behavior?
 
-It turns out that there's an even deeper issue with keeping references
-to user-space pages. Those references will essentially pin the glock
-of the associated inode to the node. Moving a glock off a node
-requires truncating the inode's page cache, but the page references
-would prevent that. So we'd only end up with different kinds of
-potential deadlocks.
+Face it, right now direct-IO is *BUGGY* because of this, and you can
+deadlock filesystems with it.
 
-If we could get iomap_dio_rw to use "fast only" mode when requested,
-we could fault in the pages without keeping references, try the IO,
-and repeat when necessary.
+So tell me again how it's "inconvenient" to fix this bug, and fix the
+bad direct-IO design?
 
-Thanks a lot,
-Adreas
+              Linus
 
