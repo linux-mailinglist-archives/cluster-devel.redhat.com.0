@@ -2,53 +2,53 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2949D3BBF05
-	for <lists+cluster-devel@lfdr.de>; Mon,  5 Jul 2021 17:29:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 25C8C3BBF62
+	for <lists+cluster-devel@lfdr.de>; Mon,  5 Jul 2021 17:29:48 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-566-qzCfsynKNNeE-jrwYEVenw-1; Mon, 05 Jul 2021 11:29:00 -0400
-X-MC-Unique: qzCfsynKNNeE-jrwYEVenw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-98-Lsjt9uBzPme2Hx6ywADxWA-1; Mon, 05 Jul 2021 11:29:45 -0400
+X-MC-Unique: Lsjt9uBzPme2Hx6ywADxWA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CBD9A1084F4C;
-	Mon,  5 Jul 2021 15:28:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCEC75D9DE;
-	Mon,  5 Jul 2021 15:28:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D9681107AD82;
+	Mon,  5 Jul 2021 15:29:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C784D5D6A1;
+	Mon,  5 Jul 2021 15:29:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A80961809C9A;
-	Mon,  5 Jul 2021 15:28:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5EC14EA29;
+	Mon,  5 Jul 2021 15:29:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 165FSt4A031888 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 5 Jul 2021 11:28:56 -0400
+	id 165FTfgl031958 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 5 Jul 2021 11:29:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D6BCC1112C34; Mon,  5 Jul 2021 15:28:55 +0000 (UTC)
+	id 92A62202A433; Mon,  5 Jul 2021 15:29:41 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBFBF1000DA4
-	for <cluster-devel@redhat.com>; Mon,  5 Jul 2021 15:28:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E0CE202A426
+	for <cluster-devel@redhat.com>; Mon,  5 Jul 2021 15:29:35 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 349B91071CE1
-	for <cluster-devel@redhat.com>; Mon,  5 Jul 2021 15:28:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9DF2D108C0A0
+	for <cluster-devel@redhat.com>; Mon,  5 Jul 2021 15:29:35 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-249-9zXUHzPAOcqEuTCZyFf_7Q-1;
-	Mon, 05 Jul 2021 11:28:47 -0400
-X-MC-Unique: 9zXUHzPAOcqEuTCZyFf_7Q-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A67AC6198C;
-	Mon,  5 Jul 2021 15:28:45 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-283-TKq1fTVtOVOL1_Q5gfcAVQ-1;
+	Mon, 05 Jul 2021 11:29:33 -0400
+X-MC-Unique: TKq1fTVtOVOL1_Q5gfcAVQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id ED5EE6197D;
+	Mon,  5 Jul 2021 15:29:30 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon,  5 Jul 2021 11:27:39 -0400
-Message-Id: <20210705152815.1520546-23-sashal@kernel.org>
-In-Reply-To: <20210705152815.1520546-1-sashal@kernel.org>
-References: <20210705152815.1520546-1-sashal@kernel.org>
+Date: Mon,  5 Jul 2021 11:28:35 -0400
+Message-Id: <20210705152913.1521036-14-sashal@kernel.org>
+In-Reply-To: <20210705152913.1521036-1-sashal@kernel.org>
+References: <20210705152913.1521036-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -60,11 +60,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.13 23/59] fs: dlm: fix memory leak
-	when fenced
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.12 14/52] fs: dlm: reconnect if
+	socket error report occurs
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,7 +78,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,81 +88,149 @@ Content-Type: text/plain; charset="US-ASCII"
 
 From: Alexander Aring <aahringo@redhat.com>
 
-[ Upstream commit 700ab1c363c7b54c9ea3222379b33fc00ab02f7b ]
+[ Upstream commit ba868d9deaab2bb1c09e50650127823925154802 ]
 
-I got some kmemleak report when a node was fenced. The user space tool
-dlm_controld will therefore run some rmdir() in dlm configfs which was
-triggering some memleaks. This patch stores the sps and cms attributes
-which stores some handling for subdirectories of the configfs cluster
-entry and free them if they get released as the parent directory gets
-freed.
-
-unreferenced object 0xffff88810d9e3e00 (size 192):
-  comm "dlm_controld", pid 342, jiffies 4294698126 (age 55438.801s)
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 73 70 61 63 65 73 00 00  ........spaces..
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace:
-    [<00000000db8b640b>] make_cluster+0x5d/0x360
-    [<000000006a571db4>] configfs_mkdir+0x274/0x730
-    [<00000000b094501c>] vfs_mkdir+0x27e/0x340
-    [<0000000058b0adaf>] do_mkdirat+0xff/0x1b0
-    [<00000000d1ffd156>] do_syscall_64+0x40/0x80
-    [<00000000ab1408c8>] entry_SYSCALL_64_after_hwframe+0x44/0xae
-unreferenced object 0xffff88810d9e3a00 (size 192):
-  comm "dlm_controld", pid 342, jiffies 4294698126 (age 55438.801s)
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 63 6f 6d 6d 73 00 00 00  ........comms...
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace:
-    [<00000000a7ef6ad2>] make_cluster+0x82/0x360
-    [<000000006a571db4>] configfs_mkdir+0x274/0x730
-    [<00000000b094501c>] vfs_mkdir+0x27e/0x340
-    [<0000000058b0adaf>] do_mkdirat+0xff/0x1b0
-    [<00000000d1ffd156>] do_syscall_64+0x40/0x80
-    [<00000000ab1408c8>] entry_SYSCALL_64_after_hwframe+0x44/0xae
+This patch will change the reconnect handling that if an error occurs
+if a socket error callback is occurred. This will also handle reconnects
+in a non blocking connecting case which is currently missing. If error
+ECONNREFUSED is reported we delay the reconnect by one second.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 Signed-off-by: David Teigland <teigland@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dlm/config.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ fs/dlm/lowcomms.c | 60 ++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 39 insertions(+), 21 deletions(-)
 
-diff --git a/fs/dlm/config.c b/fs/dlm/config.c
-index 88d95d96e36c..52bcda64172a 100644
---- a/fs/dlm/config.c
-+++ b/fs/dlm/config.c
-@@ -79,6 +79,9 @@ struct dlm_cluster {
- 	unsigned int cl_new_rsb_count;
- 	unsigned int cl_recover_callbacks;
- 	char cl_cluster_name[DLM_LOCKSPACE_LEN];
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 45c2fdaf34c4..01b672cee783 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -79,6 +79,8 @@ struct connection {
+ #define CF_CLOSING 8
+ #define CF_SHUTDOWN 9
+ #define CF_CONNECTED 10
++#define CF_RECONNECT 11
++#define CF_DELAY_CONNECT 12
+ 	struct list_head writequeue;  /* List of outgoing writequeue_entries */
+ 	spinlock_t writequeue_lock;
+ 	void (*connect_action) (struct connection *);	/* What to do to connect */
+@@ -87,6 +89,7 @@ struct connection {
+ #define MAX_CONNECT_RETRIES 3
+ 	struct hlist_node list;
+ 	struct connection *othercon;
++	struct connection *sendcon;
+ 	struct work_struct rwork; /* Receive workqueue */
+ 	struct work_struct swork; /* Send workqueue */
+ 	wait_queue_head_t shutdown_wait; /* wait for graceful shutdown */
+@@ -584,6 +587,22 @@ static void lowcomms_error_report(struct sock *sk)
+ 				   dlm_config.ci_tcp_port, sk->sk_err,
+ 				   sk->sk_err_soft);
+ 	}
 +
-+	struct dlm_spaces *sps;
-+	struct dlm_comms *cms;
- };
- 
- static struct dlm_cluster *config_item_to_cluster(struct config_item *i)
-@@ -409,6 +412,9 @@ static struct config_group *make_cluster(struct config_group *g,
- 	if (!cl || !sps || !cms)
- 		goto fail;
- 
-+	cl->sps = sps;
-+	cl->cms = cms;
++	/* below sendcon only handling */
++	if (test_bit(CF_IS_OTHERCON, &con->flags))
++		con = con->sendcon;
 +
- 	config_group_init_type_name(&cl->group, name, &cluster_type);
- 	config_group_init_type_name(&sps->ss_group, "spaces", &spaces_type);
- 	config_group_init_type_name(&cms->cs_group, "comms", &comms_type);
-@@ -458,6 +464,9 @@ static void drop_cluster(struct config_group *g, struct config_item *i)
- static void release_cluster(struct config_item *i)
- {
- 	struct dlm_cluster *cl = config_item_to_cluster(i);
++	switch (sk->sk_err) {
++	case ECONNREFUSED:
++		set_bit(CF_DELAY_CONNECT, &con->flags);
++		break;
++	default:
++		break;
++	}
 +
-+	kfree(cl->sps);
-+	kfree(cl->cms);
- 	kfree(cl);
++	if (!test_and_set_bit(CF_RECONNECT, &con->flags))
++		queue_work(send_workqueue, &con->swork);
++
+ out:
+ 	read_unlock_bh(&sk->sk_callback_lock);
+ 	if (orig_report)
+@@ -701,6 +720,8 @@ static void close_connection(struct connection *con, bool and_other,
+ 	con->rx_leftover = 0;
+ 	con->retries = 0;
+ 	clear_bit(CF_CONNECTED, &con->flags);
++	clear_bit(CF_DELAY_CONNECT, &con->flags);
++	clear_bit(CF_RECONNECT, &con->flags);
+ 	mutex_unlock(&con->sock_mutex);
+ 	clear_bit(CF_CLOSING, &con->flags);
  }
+@@ -839,18 +860,15 @@ static int receive_from_sock(struct connection *con)
  
+ out_close:
+ 	mutex_unlock(&con->sock_mutex);
+-	if (ret != -EAGAIN) {
+-		/* Reconnect when there is something to send */
++	if (ret == 0) {
+ 		close_connection(con, false, true, false);
+-		if (ret == 0) {
+-			log_print("connection %p got EOF from %d",
+-				  con, con->nodeid);
+-			/* handling for tcp shutdown */
+-			clear_bit(CF_SHUTDOWN, &con->flags);
+-			wake_up(&con->shutdown_wait);
+-			/* signal to breaking receive worker */
+-			ret = -1;
+-		}
++		log_print("connection %p got EOF from %d",
++			  con, con->nodeid);
++		/* handling for tcp shutdown */
++		clear_bit(CF_SHUTDOWN, &con->flags);
++		wake_up(&con->shutdown_wait);
++		/* signal to breaking receive worker */
++		ret = -1;
+ 	}
+ 	return ret;
+ }
+@@ -933,6 +951,7 @@ static int accept_from_sock(struct listen_connection *con)
+ 			}
+ 
+ 			newcon->othercon = othercon;
++			othercon->sendcon = newcon;
+ 		} else {
+ 			/* close other sock con if we have something new */
+ 			close_connection(othercon, false, true, false);
+@@ -1478,7 +1497,7 @@ static void send_to_sock(struct connection *con)
+ 				cond_resched();
+ 				goto out;
+ 			} else if (ret < 0)
+-				goto send_error;
++				goto out;
+ 		}
+ 
+ 		/* Don't starve people filling buffers */
+@@ -1495,14 +1514,6 @@ static void send_to_sock(struct connection *con)
+ 	mutex_unlock(&con->sock_mutex);
+ 	return;
+ 
+-send_error:
+-	mutex_unlock(&con->sock_mutex);
+-	close_connection(con, false, false, true);
+-	/* Requeue the send work. When the work daemon runs again, it will try
+-	   a new connection, then call this function again. */
+-	queue_work(send_workqueue, &con->swork);
+-	return;
+-
+ out_connect:
+ 	mutex_unlock(&con->sock_mutex);
+ 	queue_work(send_workqueue, &con->swork);
+@@ -1574,8 +1585,15 @@ static void process_send_sockets(struct work_struct *work)
+ 	struct connection *con = container_of(work, struct connection, swork);
+ 
+ 	clear_bit(CF_WRITE_PENDING, &con->flags);
+-	if (con->sock == NULL) /* not mutex protected so check it inside too */
++
++	if (test_and_clear_bit(CF_RECONNECT, &con->flags))
++		close_connection(con, false, false, true);
++
++	if (con->sock == NULL) { /* not mutex protected so check it inside too */
++		if (test_and_clear_bit(CF_DELAY_CONNECT, &con->flags))
++			msleep(1000);
+ 		con->connect_action(con);
++	}
+ 	if (!list_empty(&con->writequeue))
+ 		send_to_sock(con);
+ }
 -- 
 2.30.2
 
