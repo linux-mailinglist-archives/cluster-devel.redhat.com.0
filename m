@@ -2,7 +2,7 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 294503BE778
+	by mail.lfdr.de (Postfix) with ESMTP id 520163BE77A
 	for <lists+cluster-devel@lfdr.de>; Wed,  7 Jul 2021 13:55:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1625658944;
@@ -12,40 +12,40 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qPJsqAcnSU2ZAj50+YTPOM8+B3MPWLT+Iz3R/yvUMtE=;
-	b=D3ZH+XX+6NITJ3t673+fFCtkuj0PI1+vAhrJQNLdn5EahlkogKMNrm91GxgAYeWS487rbJ
-	zWbuSfR8c3MOVFVw+G9I6k3WY4ZutoCR4z7T9sWI8pLDXlNGYrc+nVsUEersZWiO4K1V1L
-	aiWRk0iKZtmaA/ZYczOuG1UNEPJVXWA=
+	bh=pmZDH/DEXLKzetTFHJTrnle9t5h1vn/VXibFPU+EECg=;
+	b=KGjyc88/7P+GLtqfr51gSSetf2XNgHB+ncRQr150VNJZlDwPF/ORXItxqQCiGhQGasDAds
+	JoCNU2DzTyTW6Psm+8CXASP6iVty+VYyd8CffEKpqE7lfxtMJLbz4QAOFwOQ08vIcMhmqt
+	j59c0bNQh7L3CdLYze1Oeh/Y+j/1Oug=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-602-YsVSsi9XODuWGtsKWXtWQw-1; Wed, 07 Jul 2021 07:55:43 -0400
-X-MC-Unique: YsVSsi9XODuWGtsKWXtWQw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-144-Q9fAER-1ObCrVulLuxKsPg-1; Wed, 07 Jul 2021 07:55:43 -0400
+X-MC-Unique: Q9fAER-1ObCrVulLuxKsPg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1496218D6A3B;
-	Wed,  7 Jul 2021 11:55:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6997C80430E;
+	Wed,  7 Jul 2021 11:55:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EEBEB60854;
-	Wed,  7 Jul 2021 11:55:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0F8D6267C;
+	Wed,  7 Jul 2021 11:55:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B988C1809CB3;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E3651809C98;
 	Wed,  7 Jul 2021 11:55:39 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
 	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 167BtY2I030172 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 7 Jul 2021 07:55:34 -0400
+	id 167Bta4n030182 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 7 Jul 2021 07:55:36 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2302C3AC2; Wed,  7 Jul 2021 11:55:34 +0000 (UTC)
+	id 2385F5D741; Wed,  7 Jul 2021 11:55:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.com (unknown [10.40.192.108])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4D5FA5D6AB;
-	Wed,  7 Jul 2021 11:55:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 786B45D6AB;
+	Wed,  7 Jul 2021 11:55:34 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: Christoph Hellwig <hch@infradead.org>
-Date: Wed,  7 Jul 2021 13:55:22 +0200
-Message-Id: <20210707115524.2242151-2-agruenba@redhat.com>
+Date: Wed,  7 Jul 2021 13:55:23 +0200
+Message-Id: <20210707115524.2242151-3-agruenba@redhat.com>
 In-Reply-To: <20210707115524.2242151-1-agruenba@redhat.com>
 References: <20210707115524.2242151-1-agruenba@redhat.com>
 MIME-Version: 1.0
@@ -53,9 +53,9 @@ X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, "Darrick J . Wong" <djwong@kernel.org>,
 	Matthew Wilcox <willy@infradead.org>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>
-Subject: [Cluster-devel] [PATCH v3 1/3] iomap: Permit pages without an iop
-	to enter writeback
+	linux-fsdevel@vger.kernel.org
+Subject: [Cluster-devel] [PATCH v3 2/3] iomap: Don't create iomap_page
+	objects for inline files
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,7 +69,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -77,40 +77,47 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Create an iop in the writeback path if one doesn't exist.  This allows us
-to avoid creating the iop in some cases.  We'll initially do that for pages
-with inline data, but it can be extended to pages which are entirely within
-an extent.  It also allows for an iop to be removed from pages in the
-future (eg page split).
+In iomap_readpage_actor, don't create iop objects for inline inodes.
+Otherwise, iomap_read_inline_data will set PageUptodate without setting
+iop->uptodate, and iomap_page_release will eventually complain.
 
-Co-developed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+To prevent this kind of bug from occurring in the future, make sure the
+page doesn't have private data attached in iomap_read_inline_data.
+
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/iomap/buffered-io.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ fs/iomap/buffered-io.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 9023717c5188..598fcfabc337 100644
+index 598fcfabc337..6330dabc451e 100644
 --- a/fs/iomap/buffered-io.c
 +++ b/fs/iomap/buffered-io.c
-@@ -1334,14 +1334,13 @@ iomap_writepage_map(struct iomap_writepage_ctx *wpc,
- 		struct writeback_control *wbc, struct inode *inode,
- 		struct page *page, u64 end_offset)
+@@ -215,6 +215,7 @@ iomap_read_inline_data(struct inode *inode, struct page *page,
+ 	if (PageUptodate(page))
+ 		return;
+ 
++	BUG_ON(page_has_private(page));
+ 	BUG_ON(page->index);
+ 	BUG_ON(size > PAGE_SIZE - offset_in_page(iomap->inline_data));
+ 
+@@ -239,7 +240,7 @@ iomap_readpage_actor(struct inode *inode, loff_t pos, loff_t length, void *data,
  {
--	struct iomap_page *iop = to_iomap_page(page);
-+	struct iomap_page *iop = iomap_page_create(inode, page);
- 	struct iomap_ioend *ioend, *next;
- 	unsigned len = i_blocksize(inode);
- 	u64 file_offset; /* file offset of page */
- 	int error = 0, count = 0, i;
- 	LIST_HEAD(submit_list);
+ 	struct iomap_readpage_ctx *ctx = data;
+ 	struct page *page = ctx->cur_page;
+-	struct iomap_page *iop = iomap_page_create(inode, page);
++	struct iomap_page *iop;
+ 	bool same_page = false, is_contig = false;
+ 	loff_t orig_pos = pos;
+ 	unsigned poff, plen;
+@@ -252,6 +253,7 @@ iomap_readpage_actor(struct inode *inode, loff_t pos, loff_t length, void *data,
+ 	}
  
--	WARN_ON_ONCE(i_blocks_per_page(inode, page) > 1 && !iop);
- 	WARN_ON_ONCE(iop && atomic_read(&iop->write_bytes_pending) != 0);
- 
- 	/*
+ 	/* zero post-eof blocks as the page may be mapped */
++	iop = iomap_page_create(inode, page);
+ 	iomap_adjust_read_range(inode, iop, &pos, length, &poff, &plen);
+ 	if (plen == 0)
+ 		goto done;
 -- 
 2.26.3
 
