@@ -1,60 +1,60 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B66E63CBDB1
-	for <lists+cluster-devel@lfdr.de>; Fri, 16 Jul 2021 22:23:10 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9E87B3CBDB7
+	for <lists+cluster-devel@lfdr.de>; Fri, 16 Jul 2021 22:23:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1626466989;
+	s=mimecast20190719; t=1626466992;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aB74qKW0foSzz5iqf0BBBsggk6QFSPm5S8nrP/sB5nM=;
-	b=Zz8BPItDjoAikWk+nA1j73h8kdXiEbe/VRYJjvu5fmKzhJnSRthcOrXP0HntxP3Fi4Pcs/
-	ig4o8fXkQ1kXCe+6HelmwcGk5ab1TUvx6uYjAtvu9vJcOwEbgy1gxqYKczMYJpMN2nBcS0
-	WuKRJajXLpt2yaljuFU+ATzW49Dojyc=
+	bh=NqPDjsPfSYWzi+WX6wbXNU8yrkcfxUsXmsfCNYdwws0=;
+	b=ePjTk8tlwt6MwHnqcVok3dIU1C71s+dsCE3TsBK8gJ3OsA25UWjCZRy7o148Bra/T+sJsI
+	Mo60DPUFCmwXEGztJFHAdQ68pdYMHhBgfUg5VFeUumJt8Kp6EJbLcRRk60aIw6g3cO+avi
+	d+R8Ct3hnBfkvpg/qp6es96SJzxoMgM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-243-kSRH-JylOkORNk1cogs0Dg-1; Fri, 16 Jul 2021 16:23:08 -0400
-X-MC-Unique: kSRH-JylOkORNk1cogs0Dg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-440-R3rwJQIIO7ajKxrcxaNPxA-1; Fri, 16 Jul 2021 16:23:11 -0400
+X-MC-Unique: R3rwJQIIO7ajKxrcxaNPxA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 528488030D2;
-	Fri, 16 Jul 2021 20:23:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A5CE99F93D;
+	Fri, 16 Jul 2021 20:23:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 457A960C4A;
-	Fri, 16 Jul 2021 20:23:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 955801000324;
+	Fri, 16 Jul 2021 20:23:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3528E4EA29;
-	Fri, 16 Jul 2021 20:23:06 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 839A74EA37;
+	Fri, 16 Jul 2021 20:23:09 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
 	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16GKN5PX026084 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 16GKN5GQ026089 for <cluster-devel@listman.util.phx.redhat.com>;
 	Fri, 16 Jul 2021 16:23:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 49F7F5D719; Fri, 16 Jul 2021 20:23:05 +0000 (UTC)
+	id A6D255D6D5; Fri, 16 Jul 2021 20:23:05 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
 	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 080105D6AB;
-	Fri, 16 Jul 2021 20:23:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6553A5D6AB;
+	Fri, 16 Jul 2021 20:23:05 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Fri, 16 Jul 2021 16:22:40 -0400
-Message-Id: <20210716202245.1262791-8-aahringo@redhat.com>
+Date: Fri, 16 Jul 2021 16:22:41 -0400
+Message-Id: <20210716202245.1262791-9-aahringo@redhat.com>
 In-Reply-To: <20210716202245.1262791-1-aahringo@redhat.com>
 References: <20210716202245.1262791-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH v5.14-rc1 07/12] fs: dlm: move to static
-	proto ops
+Subject: [Cluster-devel] [PATCH v5.14-rc1 08/12] fs: dlm: introduce generic
+	listen
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,7 +68,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -76,144 +76,307 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch moves the per transport socket callbacks to a static const
-array. We can support only one transport socket for the init namespace
-which will be determinted by reading the dlm config at lowcomms_start().
+This patch combines each transport layer listen functionality into one
+listen function. Per transport layer differences are provided by
+additional callbacks in dlm_proto_ops.
+
+This patch drops silently sock_set_keepalive() for listen tcp sockets
+only. This socket option is not set at connecting sockets, I also don't
+see the sense of set keepalive for sockets which are created by accept()
+only.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lowcomms.c | 52 +++++++++++++++++++++++++++--------------------
- 1 file changed, 30 insertions(+), 22 deletions(-)
+ fs/dlm/lowcomms.c | 228 +++++++++++++++++++++++-----------------------
+ 1 file changed, 113 insertions(+), 115 deletions(-)
 
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 9d21a8b9e9fb..9a4e7421567e 100644
+index 9a4e7421567e..a042ea413f74 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
-@@ -84,9 +84,6 @@ struct connection {
- 	struct list_head writequeue;  /* List of outgoing writequeue_entries */
- 	spinlock_t writequeue_lock;
- 	atomic_t writequeue_cnt;
--	void (*connect_action) (struct connection *);	/* What to do to connect */
--	void (*shutdown_action)(struct connection *con); /* What to do to shutdown */
--	bool (*eof_condition)(struct connection *con); /* What to do to eof check */
- 	int retries;
- #define MAX_CONNECT_RETRIES 3
- 	struct hlist_node list;
-@@ -145,6 +142,15 @@ struct dlm_node_addr {
- 	struct sockaddr_storage *addr[DLM_MAX_ADDR_COUNT];
+@@ -143,6 +143,13 @@ struct dlm_node_addr {
  };
  
-+struct dlm_proto_ops {
-+	/* What to do to connect */
-+	void (*connect_action)(struct connection *con);
-+	/* What to do to shutdown */
-+	void (*shutdown_action)(struct connection *con);
-+	/* What to do to eof check */
-+	bool (*eof_condition)(struct connection *con);
-+};
+ struct dlm_proto_ops {
++	const char *name;
++	int proto;
 +
- static struct listen_sock_callbacks {
- 	void (*sk_error_report)(struct sock *);
- 	void (*sk_data_ready)(struct sock *);
-@@ -168,12 +174,13 @@ static struct hlist_head connection_hash[CONN_HASH_SIZE];
- static DEFINE_SPINLOCK(connections_lock);
- DEFINE_STATIC_SRCU(connections_srcu);
- 
-+static const struct dlm_proto_ops *dlm_proto_ops;
++	int (*listen_validate)(void);
++	void (*listen_sockopts)(struct socket *sock);
++	int (*listen_bind)(struct socket *sock);
 +
- static void process_recv_sockets(struct work_struct *work);
- static void process_send_sockets(struct work_struct *work);
+ 	/* What to do to connect */
+ 	void (*connect_action)(struct connection *con);
+ 	/* What to do to shutdown */
+@@ -1327,59 +1334,6 @@ static void tcp_connect_to_sock(struct connection *con)
+ 	return;
+ }
  
- static void sctp_connect_to_sock(struct connection *con);
- static void tcp_connect_to_sock(struct connection *con);
--static void dlm_tcp_shutdown(struct connection *con);
+-/* On error caller must run dlm_close_sock() for the
+- * listen connection socket.
+- */
+-static int tcp_create_listen_sock(struct listen_connection *con,
+-				  struct sockaddr_storage *saddr)
+-{
+-	struct socket *sock = NULL;
+-	int result = 0;
+-	int addr_len;
+-
+-	if (dlm_local_addr[0]->ss_family == AF_INET)
+-		addr_len = sizeof(struct sockaddr_in);
+-	else
+-		addr_len = sizeof(struct sockaddr_in6);
+-
+-	/* Create a socket to communicate with */
+-	result = sock_create_kern(&init_net, dlm_local_addr[0]->ss_family,
+-				  SOCK_STREAM, IPPROTO_TCP, &sock);
+-	if (result < 0) {
+-		log_print("Can't create listening comms socket");
+-		goto create_out;
+-	}
+-
+-	sock_set_mark(sock->sk, dlm_config.ci_mark);
+-
+-	/* Turn off Nagle's algorithm */
+-	tcp_sock_set_nodelay(sock->sk);
+-
+-	sock_set_reuseaddr(sock->sk);
+-
+-	add_listen_sock(sock, con);
+-
+-	/* Bind to our port */
+-	make_sockaddr(saddr, dlm_config.ci_tcp_port, &addr_len);
+-	result = sock->ops->bind(sock, (struct sockaddr *) saddr, addr_len);
+-	if (result < 0) {
+-		log_print("Can't bind to port %d", dlm_config.ci_tcp_port);
+-		goto create_out;
+-	}
+-	sock_set_keepalive(sock->sk);
+-
+-	result = sock->ops->listen(sock, 5);
+-	if (result < 0) {
+-		log_print("Can't listen on port %d", dlm_config.ci_tcp_port);
+-		goto create_out;
+-	}
+-
+-	return 0;
+-
+-create_out:
+-	return result;
+-}
+-
+ /* Get local addresses */
+ static void init_local(void)
+ {
+@@ -1406,63 +1360,6 @@ static void deinit_local(void)
+ 		kfree(dlm_local_addr[i]);
+ }
  
- /* need to held writequeue_lock */
- static struct writequeue_entry *con_next_wq(struct connection *con)
-@@ -224,20 +231,6 @@ static int dlm_con_init(struct connection *con, int nodeid)
- 	INIT_WORK(&con->rwork, process_recv_sockets);
- 	init_waitqueue_head(&con->shutdown_wait);
- 
--	switch (dlm_config.ci_protocol) {
--	case DLM_PROTO_TCP:
--		con->connect_action = tcp_connect_to_sock;
--		con->shutdown_action = dlm_tcp_shutdown;
--		con->eof_condition = tcp_eof_condition;
--		break;
--	case DLM_PROTO_SCTP:
--		con->connect_action = sctp_connect_to_sock;
--		break;
--	default:
--		kfree(con->rx_buf);
+-/* Initialise SCTP socket and bind to all interfaces
+- * On error caller must run dlm_close_sock() for the
+- * listen connection socket.
+- */
+-static int sctp_listen_for_all(struct listen_connection *con)
+-{
+-	struct socket *sock = NULL;
+-	int result = -EINVAL;
+-
+-	log_print("Using SCTP for communications");
+-
+-	result = sock_create_kern(&init_net, dlm_local_addr[0]->ss_family,
+-				  SOCK_STREAM, IPPROTO_SCTP, &sock);
+-	if (result < 0) {
+-		log_print("Can't create comms socket, check SCTP is loaded");
+-		goto out;
+-	}
+-
+-	sock_set_rcvbuf(sock->sk, NEEDED_RMEM);
+-	sock_set_mark(sock->sk, dlm_config.ci_mark);
+-	sctp_sock_set_nodelay(sock->sk);
+-
+-	add_listen_sock(sock, con);
+-
+-	/* Bind to all addresses. */
+-	result = sctp_bind_addrs(con->sock, dlm_config.ci_tcp_port);
+-	if (result < 0)
+-		goto out;
+-
+-	result = sock->ops->listen(sock, 5);
+-	if (result < 0) {
+-		log_print("Can't set socket listening");
+-		goto out;
+-	}
+-
+-	return 0;
+-
+-out:
+-	return result;
+-}
+-
+-static int tcp_listen_for_all(void)
+-{
+-	/* We don't support multi-homed hosts */
+-	if (dlm_local_count > 1) {
+-		log_print("TCP protocol can't handle multi-homed hosts, "
+-			  "try SCTP");
 -		return -EINVAL;
 -	}
 -
- 	return 0;
- }
- 
-@@ -962,7 +955,8 @@ static int receive_from_sock(struct connection *con)
- 		log_print("connection %p got EOF from %d",
- 			  con, con->nodeid);
- 
--		if (con->eof_condition && con->eof_condition(con)) {
-+		if (dlm_proto_ops->eof_condition &&
-+		    dlm_proto_ops->eof_condition(con)) {
- 			set_bit(CF_EOF, &con->flags);
- 			mutex_unlock(&con->sock_mutex);
- 		} else {
-@@ -1813,7 +1807,7 @@ static void process_send_sockets(struct work_struct *work)
- 	if (con->sock == NULL) { /* not mutex protected so check it inside too */
- 		if (test_and_clear_bit(CF_DELAY_CONNECT, &con->flags))
- 			msleep(1000);
--		con->connect_action(con);
-+		dlm_proto_ops->connect_action(con);
- 	}
- 	if (!list_empty(&con->writequeue))
- 		send_to_sock(con);
-@@ -1853,8 +1847,8 @@ static int work_start(void)
- 
- static void shutdown_conn(struct connection *con)
+-	log_print("Using TCP for communications");
+-
+-	return tcp_create_listen_sock(&listen_con, dlm_local_addr[0]);
+-}
+-
+-
+-
+ static struct writequeue_entry *new_writequeue_entry(struct connection *con,
+ 						     gfp_t allocation)
  {
--	if (con->shutdown_action)
--		con->shutdown_action(con);
-+	if (dlm_proto_ops->shutdown_action)
-+		dlm_proto_ops->shutdown_action(con);
+@@ -1959,13 +1856,112 @@ void dlm_lowcomms_stop(void)
+ 	dlm_proto_ops = NULL;
  }
  
- void dlm_lowcomms_shutdown(void)
-@@ -1961,8 +1955,20 @@ void dlm_lowcomms_stop(void)
- 	srcu_read_unlock(&connections_srcu, idx);
- 	work_stop();
- 	deinit_local();
++static int dlm_listen_for_all(void)
++{
++	struct socket *sock;
++	int result;
 +
-+	dlm_proto_ops = NULL;
- }
++	log_print("Using %s for communications",
++		  dlm_proto_ops->name);
++
++	if (dlm_proto_ops->listen_validate) {
++		result = dlm_proto_ops->listen_validate();
++		if (result < 0)
++			return result;
++	}
++
++	result = sock_create_kern(&init_net, dlm_local_addr[0]->ss_family,
++				  SOCK_STREAM, dlm_proto_ops->proto, &sock);
++	if (result < 0) {
++		log_print("Can't create comms socket, check SCTP is loaded");
++		goto out;
++	}
++
++	sock_set_mark(sock->sk, dlm_config.ci_mark);
++	dlm_proto_ops->listen_sockopts(sock);
++
++	result = dlm_proto_ops->listen_bind(sock);
++	if (result < 0)
++		goto out;
++
++	save_listen_callbacks(sock);
++	add_listen_sock(sock, &listen_con);
++
++	INIT_WORK(&listen_con.rwork, process_listen_recv_socket);
++	result = sock->ops->listen(sock, 5);
++	if (result < 0) {
++		dlm_close_sock(&listen_con.sock);
++		goto out;
++	}
++
++	return 0;
++
++out:
++	sock_release(sock);
++	return result;
++}
++
++static int dlm_tcp_listen_validate(void)
++{
++	/* We don't support multi-homed hosts */
++	if (dlm_local_count > 1) {
++		log_print("TCP protocol can't handle multi-homed hosts, try SCTP");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static void dlm_tcp_sockopts(struct socket *sock)
++{
++	/* Turn off Nagle's algorithm */
++	tcp_sock_set_nodelay(sock->sk);
++}
++
++static void dlm_tcp_listen_sockopts(struct socket *sock)
++{
++	dlm_tcp_sockopts(sock);
++	sock_set_reuseaddr(sock->sk);
++}
++
++static int dlm_tcp_listen_bind(struct socket *sock)
++{
++	int addr_len;
++
++	/* Bind to our port */
++	make_sockaddr(dlm_local_addr[0], dlm_config.ci_tcp_port, &addr_len);
++	return sock->ops->bind(sock, (struct sockaddr *)dlm_local_addr[0],
++			       addr_len);
++}
++
+ static const struct dlm_proto_ops dlm_tcp_ops = {
++	.name = "TCP",
++	.proto = IPPROTO_TCP,
++	.listen_validate = dlm_tcp_listen_validate,
++	.listen_sockopts = dlm_tcp_listen_sockopts,
++	.listen_bind = dlm_tcp_listen_bind,
+ 	.connect_action = tcp_connect_to_sock,
+ 	.shutdown_action = dlm_tcp_shutdown,
+ 	.eof_condition = tcp_eof_condition,
+ };
  
-+static const struct dlm_proto_ops dlm_tcp_ops = {
-+	.connect_action = tcp_connect_to_sock,
-+	.shutdown_action = dlm_tcp_shutdown,
-+	.eof_condition = tcp_eof_condition,
-+};
++static int dlm_sctp_bind_listen(struct socket *sock)
++{
++	return sctp_bind_addrs(sock, dlm_config.ci_tcp_port);
++}
 +
-+static const struct dlm_proto_ops dlm_sctp_ops = {
-+	.connect_action = sctp_connect_to_sock,
-+};
++static void dlm_sctp_sockopts(struct socket *sock)
++{
++	/* Turn off Nagle's algorithm */
++	sctp_sock_set_nodelay(sock->sk);
++	sock_set_rcvbuf(sock->sk, NEEDED_RMEM);
++}
 +
- int dlm_lowcomms_start(void)
- {
- 	int error = -EINVAL;
-@@ -1989,9 +1995,11 @@ int dlm_lowcomms_start(void)
- 	/* Start listening */
+ static const struct dlm_proto_ops dlm_sctp_ops = {
++	.name = "SCTP",
++	.proto = IPPROTO_SCTP,
++	.listen_sockopts = dlm_sctp_sockopts,
++	.listen_bind = dlm_sctp_bind_listen,
+ 	.connect_action = sctp_connect_to_sock,
+ };
+ 
+@@ -1996,24 +1992,26 @@ int dlm_lowcomms_start(void)
  	switch (dlm_config.ci_protocol) {
  	case DLM_PROTO_TCP:
-+		dlm_proto_ops = &dlm_tcp_ops;
- 		error = tcp_listen_for_all();
+ 		dlm_proto_ops = &dlm_tcp_ops;
+-		error = tcp_listen_for_all();
  		break;
  	case DLM_PROTO_SCTP:
-+		dlm_proto_ops = &dlm_sctp_ops;
- 		error = sctp_listen_for_all(&listen_con);
+ 		dlm_proto_ops = &dlm_sctp_ops;
+-		error = sctp_listen_for_all(&listen_con);
  		break;
  	default:
+ 		log_print("Invalid protocol identifier %d set",
+ 			  dlm_config.ci_protocol);
+ 		error = -EINVAL;
+-		break;
++		goto fail_proto_ops;
+ 	}
++
++	error = dlm_listen_for_all();
+ 	if (error)
+-		goto fail_unlisten;
++		goto fail_listen;
+ 
+ 	return 0;
+ 
+-fail_unlisten:
++fail_listen:
++	dlm_proto_ops = NULL;
++fail_proto_ops:
+ 	dlm_allow_conn = 0;
+ 	dlm_close_sock(&listen_con.sock);
+ 	work_stop();
 -- 
 2.27.0
 
