@@ -2,52 +2,51 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 050273CD2EA
-	for <lists+cluster-devel@lfdr.de>; Mon, 19 Jul 2021 13:00:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DD72F3CD282
+	for <lists+cluster-devel@lfdr.de>; Mon, 19 Jul 2021 12:59:29 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-103-yUCqz_uVPQG1vbGGlxSGRA-1; Mon, 19 Jul 2021 07:00:39 -0400
-X-MC-Unique: yUCqz_uVPQG1vbGGlxSGRA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-347-IUtzTDLpOkKnTugLgGl0Yg-1; Mon, 19 Jul 2021 06:59:28 -0400
+X-MC-Unique: IUtzTDLpOkKnTugLgGl0Yg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA60DA0CB2;
-	Mon, 19 Jul 2021 11:00:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4DBE17A9B;
-	Mon, 19 Jul 2021 11:00:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA754100C664;
+	Mon, 19 Jul 2021 10:59:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B71D95D6BA;
+	Mon, 19 Jul 2021 10:59:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BB7CA1809C9A;
-	Mon, 19 Jul 2021 11:00:36 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A32884EA2A;
+	Mon, 19 Jul 2021 10:59:25 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16JAvYQe008257 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 19 Jul 2021 06:57:34 -0400
+	id 16JAxOef008350 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 19 Jul 2021 06:59:24 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2A2141111C95; Mon, 19 Jul 2021 10:57:34 +0000 (UTC)
+	id 41FC61111C7C; Mon, 19 Jul 2021 10:59:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 260511111C7C
-	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 10:57:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DB871006115
+	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 10:59:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22CB5866DF1
-	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 10:57:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4646A80B720
+	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 10:59:21 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-197-mJoacgrUMYO30vBMSJ4ESw-1; Mon, 19 Jul 2021 06:57:26 -0400
-X-MC-Unique: mJoacgrUMYO30vBMSJ4ESw-1
+	us-mta-576-qxPipXVUNmypA-iO3xrxMQ-1; Mon, 19 Jul 2021 06:59:19 -0400
+X-MC-Unique: qxPipXVUNmypA-iO3xrxMQ-1
 Received: from [2001:4bb8:193:7660:d2a4:8d57:2e55:21d0] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1m5QvV-006lx6-Hf; Mon, 19 Jul 2021 10:55:29 +0000
+	id 1m5Qwj-006m1S-EQ; Mon, 19 Jul 2021 10:56:50 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: "Darrick J. Wong" <djwong@kernel.org>
-Date: Mon, 19 Jul 2021 12:35:10 +0200
-Message-Id: <20210719103520.495450-18-hch@lst.de>
+Date: Mon, 19 Jul 2021 12:35:11 +0200
+Message-Id: <20210719103520.495450-19-hch@lst.de>
 In-Reply-To: <20210719103520.495450-1-hch@lst.de>
 References: <20210719103520.495450-1-hch@lst.de>
 MIME-Version: 1.0
@@ -68,7 +67,7 @@ Cc: nvdimm@lists.linux.dev, cluster-devel@redhat.com,
 	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
 	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	Dan Williams <dan.j.williams@intel.com>, linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 17/27] iomap: switch iomap_seek_hole to use
+Subject: [Cluster-devel] [PATCH 18/27] iomap: switch iomap_seek_data to use
 	iomap_iter
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -83,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,58 +90,51 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Rewrite iomap_seek_hole to use iomap_iter.
+Rewrite iomap_seek_data to use iomap_iter.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/iomap/seek.c | 46 +++++++++++++++++++++++-----------------------
- 1 file changed, 23 insertions(+), 23 deletions(-)
+ fs/iomap/seek.c | 42 +++++++++++++++++++++---------------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
 
 diff --git a/fs/iomap/seek.c b/fs/iomap/seek.c
-index ce6fb810854fec..7d6ed9af925e96 100644
+index 7d6ed9af925e96..0a758e3851fcb7 100644
 --- a/fs/iomap/seek.c
 +++ b/fs/iomap/seek.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-  * Copyright (C) 2017 Red Hat, Inc.
-- * Copyright (c) 2018 Christoph Hellwig.
-+ * Copyright (c) 2018-2021 Christoph Hellwig.
-  */
- #include <linux/module.h>
- #include <linux/compiler.h>
-@@ -10,21 +10,19 @@
- #include <linux/pagemap.h>
- #include <linux/pagevec.h>
+@@ -55,23 +55,21 @@ iomap_seek_hole(struct inode *inode, loff_t offset, const struct iomap_ops *ops)
+ }
+ EXPORT_SYMBOL_GPL(iomap_seek_hole);
  
 -static loff_t
--iomap_seek_hole_actor(struct inode *inode, loff_t start, loff_t length,
+-iomap_seek_data_actor(struct inode *inode, loff_t start, loff_t length,
 -		      void *data, struct iomap *iomap, struct iomap *srcmap)
-+static loff_t iomap_seek_hole_iter(const struct iomap_iter *iter, loff_t *pos)
++static loff_t iomap_seek_data_iter(const struct iomap_iter *iter, loff_t *pos)
  {
 -	loff_t offset = start;
 +	loff_t length = iomap_length(iter);
  
 -	switch (iomap->type) {
 +	switch (iter->iomap.type) {
+ 	case IOMAP_HOLE:
+ 		return length;
  	case IOMAP_UNWRITTEN:
 -		offset = mapping_seek_hole_data(inode->i_mapping, start,
--				start + length, SEEK_HOLE);
--		if (offset == start + length)
+-				start + length, SEEK_DATA);
+-		if (offset < 0)
 +		*pos = mapping_seek_hole_data(iter->inode->i_mapping,
-+				iter->pos, iter->pos + length, SEEK_HOLE);
-+		if (*pos == iter->pos + length)
++				iter->pos, iter->pos + length, SEEK_DATA);
++		if (*pos < 0)
  			return length;
 -		fallthrough;
 +		return 0;
- 	case IOMAP_HOLE:
+ 	default:
 -		*(loff_t *)data = offset;
 +		*pos = iter->pos;
  		return 0;
- 	default:
- 		return length;
-@@ -35,23 +33,25 @@ loff_t
- iomap_seek_hole(struct inode *inode, loff_t offset, const struct iomap_ops *ops)
+ 	}
+ }
+@@ -80,22 +78,24 @@ loff_t
+ iomap_seek_data(struct inode *inode, loff_t offset, const struct iomap_ops *ops)
  {
  	loff_t size = i_size_read(inode);
 -	loff_t ret;
@@ -159,26 +151,24 @@ index ce6fb810854fec..7d6ed9af925e96 100644
  
 -	while (offset < size) {
 -		ret = iomap_apply(inode, offset, size - offset, IOMAP_REPORT,
--				  ops, &offset, iomap_seek_hole_actor);
+-				  ops, &offset, iomap_seek_data_actor);
 -		if (ret < 0)
 -			return ret;
 -		if (ret == 0)
--			break;
+-			return offset;
 -		offset += ret;
 -	}
 -
--	return offset;
 +	iter.len = size - offset;
 +	while ((ret = iomap_iter(&iter, ops)) > 0)
-+		iter.processed = iomap_seek_hole_iter(&iter, &offset);
++		iter.processed = iomap_seek_data_iter(&iter, &offset);
 +	if (ret < 0)
 +		return ret;
 +	if (iter.len)
 +		return offset;
-+	return size;
+ 	/* We've reached the end of the file without finding data */
+ 	return -ENXIO;
  }
- EXPORT_SYMBOL_GPL(iomap_seek_hole);
- 
 -- 
 2.30.2
 
