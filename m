@@ -1,52 +1,52 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 022B13CD2EC
-	for <lists+cluster-devel@lfdr.de>; Mon, 19 Jul 2021 13:01:34 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 6EB523CD2EF
+	for <lists+cluster-devel@lfdr.de>; Mon, 19 Jul 2021 13:02:19 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-179-IwTBMVaXPRShmob_JIRoVg-1; Mon, 19 Jul 2021 07:01:33 -0400
-X-MC-Unique: IwTBMVaXPRShmob_JIRoVg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-564-oR6zZa51PayWwhffdbX_xg-1; Mon, 19 Jul 2021 07:02:14 -0400
+X-MC-Unique: oR6zZa51PayWwhffdbX_xg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B73E3100C609;
-	Mon, 19 Jul 2021 11:01:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6D735DAA5;
-	Mon, 19 Jul 2021 11:01:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 52A13802E61;
+	Mon, 19 Jul 2021 11:02:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4335860877;
+	Mon, 19 Jul 2021 11:02:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6D89F4EA2A;
-	Mon, 19 Jul 2021 11:01:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 31C341809C99;
+	Mon, 19 Jul 2021 11:02:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16JB1Srx008563 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 19 Jul 2021 07:01:28 -0400
+	id 16JB2AqU008611 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 19 Jul 2021 07:02:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 383D26B580; Mon, 19 Jul 2021 11:01:28 +0000 (UTC)
+	id 57C1221568A4; Mon, 19 Jul 2021 11:02:10 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 326166D9E2
-	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 11:01:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 724F31064E6F
-	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 11:01:24 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 538D921568A3
+	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 11:02:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 121941801388
+	for <cluster-devel@redhat.com>; Mon, 19 Jul 2021 11:02:06 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-320-o996YFpGOQWWrHBnbGwBlA-1; Mon, 19 Jul 2021 07:01:21 -0400
-X-MC-Unique: o996YFpGOQWWrHBnbGwBlA-1
+	us-mta-125-6s8pQgEtOZWgwNVq1eaVdw-1; Mon, 19 Jul 2021 07:02:04 -0400
+X-MC-Unique: 6s8pQgEtOZWgwNVq1eaVdw-1
 Received: from [2001:4bb8:193:7660:d2a4:8d57:2e55:21d0] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1m5Qym-006m9O-Tv; Mon, 19 Jul 2021 10:58:44 +0000
+	id 1m5Qzh-006mCY-BC; Mon, 19 Jul 2021 10:59:46 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: "Darrick J. Wong" <djwong@kernel.org>
-Date: Mon, 19 Jul 2021 12:35:13 +0200
-Message-Id: <20210719103520.495450-21-hch@lst.de>
+Date: Mon, 19 Jul 2021 12:35:14 +0200
+Message-Id: <20210719103520.495450-22-hch@lst.de>
 In-Reply-To: <20210719103520.495450-1-hch@lst.de>
 References: <20210719103520.495450-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,15 +60,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, cluster-devel@redhat.com,
 	Matthew Wilcox <willy@infradead.org>,
 	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
 	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	Dan Williams <dan.j.williams@intel.com>, linux-btrfs@vger.kernel.org
-Subject: [Cluster-devel] [PATCH 20/27] fsdax: switch dax_iomap_rw to use
-	iomap_iter
+Subject: [Cluster-devel] [PATCH 21/27] iomap: remove iomap_apply
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +81,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,118 +89,209 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Switch the dax_iomap_rw implementation to use iomap_iter.
+iomap_apply is unused now, so remove it.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/dax.c | 49 ++++++++++++++++++++++++-------------------------
- 1 file changed, 24 insertions(+), 25 deletions(-)
+ fs/iomap/Makefile     |  1 -
+ fs/iomap/apply.c      | 99 -------------------------------------------
+ fs/iomap/trace.h      | 40 -----------------
+ include/linux/iomap.h | 10 -----
+ 4 files changed, 150 deletions(-)
+ delete mode 100644 fs/iomap/apply.c
 
-diff --git a/fs/dax.c b/fs/dax.c
-index 4d63040fd71f56..51da45301350a6 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -1103,20 +1103,21 @@ s64 dax_iomap_zero(loff_t pos, u64 length, struct iomap *iomap)
- 	return size;
- }
+diff --git a/fs/iomap/Makefile b/fs/iomap/Makefile
+index 85034deb5a2f19..ebd9866d80ae90 100644
+--- a/fs/iomap/Makefile
++++ b/fs/iomap/Makefile
+@@ -9,7 +9,6 @@ ccflags-y += -I $(srctree)/$(src)		# needed for trace events
+ obj-$(CONFIG_FS_IOMAP)		+= iomap.o
  
--static loff_t
--dax_iomap_actor(struct inode *inode, loff_t pos, loff_t length, void *data,
--		struct iomap *iomap, struct iomap *srcmap)
-+static loff_t dax_iomap_iter(const struct iomap_iter *iomi,
-+		struct iov_iter *iter)
- {
-+	const struct iomap *iomap = &iomi->iomap;
-+	loff_t length = iomap_length(iomi);
-+	loff_t pos = iomi->pos;
- 	struct block_device *bdev = iomap->bdev;
- 	struct dax_device *dax_dev = iomap->dax_dev;
--	struct iov_iter *iter = data;
- 	loff_t end = pos + length, done = 0;
- 	ssize_t ret = 0;
- 	size_t xfer;
- 	int id;
- 
- 	if (iov_iter_rw(iter) == READ) {
--		end = min(end, i_size_read(inode));
-+		end = min(end, i_size_read(iomi->inode));
- 		if (pos >= end)
- 			return 0;
- 
-@@ -1133,7 +1134,7 @@ dax_iomap_actor(struct inode *inode, loff_t pos, loff_t length, void *data,
- 	 * written by write(2) is visible in mmap.
- 	 */
- 	if (iomap->flags & IOMAP_F_NEW) {
--		invalidate_inode_pages2_range(inode->i_mapping,
-+		invalidate_inode_pages2_range(iomi->inode->i_mapping,
- 					      pos >> PAGE_SHIFT,
- 					      (end - 1) >> PAGE_SHIFT);
- 	}
-@@ -1209,31 +1210,29 @@ ssize_t
- dax_iomap_rw(struct kiocb *iocb, struct iov_iter *iter,
- 		const struct iomap_ops *ops)
- {
--	struct address_space *mapping = iocb->ki_filp->f_mapping;
--	struct inode *inode = mapping->host;
--	loff_t pos = iocb->ki_pos, ret = 0, done = 0;
--	unsigned flags = 0;
-+	struct iomap_iter iomi = {
-+		.inode		= iocb->ki_filp->f_mapping->host,
-+		.pos		= iocb->ki_pos,
-+		.len		= iov_iter_count(iter),
-+	};
-+	loff_t done = 0;
-+	int ret;
- 
- 	if (iov_iter_rw(iter) == WRITE) {
--		lockdep_assert_held_write(&inode->i_rwsem);
--		flags |= IOMAP_WRITE;
-+		lockdep_assert_held_write(&iomi.inode->i_rwsem);
-+		iomi.flags |= IOMAP_WRITE;
- 	} else {
--		lockdep_assert_held(&inode->i_rwsem);
-+		lockdep_assert_held(&iomi.inode->i_rwsem);
- 	}
- 
- 	if (iocb->ki_flags & IOCB_NOWAIT)
--		flags |= IOMAP_NOWAIT;
-+		iomi.flags |= IOMAP_NOWAIT;
- 
--	while (iov_iter_count(iter)) {
--		ret = iomap_apply(inode, pos, iov_iter_count(iter), flags, ops,
--				iter, dax_iomap_actor);
--		if (ret <= 0)
--			break;
--		pos += ret;
--		done += ret;
+ iomap-y				+= trace.o \
+-				   apply.o \
+ 				   iter.o \
+ 				   buffered-io.o \
+ 				   direct-io.o \
+diff --git a/fs/iomap/apply.c b/fs/iomap/apply.c
+deleted file mode 100644
+index 26ab6563181fc6..00000000000000
+--- a/fs/iomap/apply.c
++++ /dev/null
+@@ -1,99 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * Copyright (C) 2010 Red Hat, Inc.
+- * Copyright (c) 2016-2018 Christoph Hellwig.
+- */
+-#include <linux/module.h>
+-#include <linux/compiler.h>
+-#include <linux/fs.h>
+-#include <linux/iomap.h>
+-#include "trace.h"
+-
+-/*
+- * Execute a iomap write on a segment of the mapping that spans a
+- * contiguous range of pages that have identical block mapping state.
+- *
+- * This avoids the need to map pages individually, do individual allocations
+- * for each page and most importantly avoid the need for filesystem specific
+- * locking per page. Instead, all the operations are amortised over the entire
+- * range of pages. It is assumed that the filesystems will lock whatever
+- * resources they require in the iomap_begin call, and release them in the
+- * iomap_end call.
+- */
+-loff_t
+-iomap_apply(struct inode *inode, loff_t pos, loff_t length, unsigned flags,
+-		const struct iomap_ops *ops, void *data, iomap_actor_t actor)
+-{
+-	struct iomap iomap = { .type = IOMAP_HOLE };
+-	struct iomap srcmap = { .type = IOMAP_HOLE };
+-	loff_t written = 0, ret;
+-	u64 end;
+-
+-	trace_iomap_apply(inode, pos, length, flags, ops, actor, _RET_IP_);
+-
+-	/*
+-	 * Need to map a range from start position for length bytes. This can
+-	 * span multiple pages - it is only guaranteed to return a range of a
+-	 * single type of pages (e.g. all into a hole, all mapped or all
+-	 * unwritten). Failure at this point has nothing to undo.
+-	 *
+-	 * If allocation is required for this range, reserve the space now so
+-	 * that the allocation is guaranteed to succeed later on. Once we copy
+-	 * the data into the page cache pages, then we cannot fail otherwise we
+-	 * expose transient stale data. If the reserve fails, we can safely
+-	 * back out at this point as there is nothing to undo.
+-	 */
+-	ret = ops->iomap_begin(inode, pos, length, flags, &iomap, &srcmap);
+-	if (ret)
+-		return ret;
+-	if (WARN_ON(iomap.offset > pos)) {
+-		written = -EIO;
+-		goto out;
 -	}
-+	while ((ret = iomap_iter(&iomi, ops)) > 0)
-+		iomi.processed = dax_iomap_iter(&iomi, iter);
+-	if (WARN_ON(iomap.length == 0)) {
+-		written = -EIO;
+-		goto out;
+-	}
+-
+-	trace_iomap_apply_dstmap(inode, &iomap);
+-	if (srcmap.type != IOMAP_HOLE)
+-		trace_iomap_apply_srcmap(inode, &srcmap);
+-
+-	/*
+-	 * Cut down the length to the one actually provided by the filesystem,
+-	 * as it might not be able to give us the whole size that we requested.
+-	 */
+-	end = iomap.offset + iomap.length;
+-	if (srcmap.type != IOMAP_HOLE)
+-		end = min(end, srcmap.offset + srcmap.length);
+-	if (pos + length > end)
+-		length = end - pos;
+-
+-	/*
+-	 * Now that we have guaranteed that the space allocation will succeed,
+-	 * we can do the copy-in page by page without having to worry about
+-	 * failures exposing transient data.
+-	 *
+-	 * To support COW operations, we read in data for partially blocks from
+-	 * the srcmap if the file system filled it in.  In that case we the
+-	 * length needs to be limited to the earlier of the ends of the iomaps.
+-	 * If the file system did not provide a srcmap we pass in the normal
+-	 * iomap into the actors so that they don't need to have special
+-	 * handling for the two cases.
+-	 */
+-	written = actor(inode, pos, length, data, &iomap,
+-			srcmap.type != IOMAP_HOLE ? &srcmap : &iomap);
+-
+-out:
+-	/*
+-	 * Now the data has been copied, commit the range we've copied.  This
+-	 * should not fail unless the filesystem has had a fatal error.
+-	 */
+-	if (ops->iomap_end) {
+-		ret = ops->iomap_end(inode, pos, length,
+-				     written > 0 ? written : 0,
+-				     flags, &iomap);
+-	}
+-
+-	return written ? written : ret;
+-}
+diff --git a/fs/iomap/trace.h b/fs/iomap/trace.h
+index 1012d7af6b689b..f1519f9a140320 100644
+--- a/fs/iomap/trace.h
++++ b/fs/iomap/trace.h
+@@ -138,49 +138,9 @@ DECLARE_EVENT_CLASS(iomap_class,
+ DEFINE_EVENT(iomap_class, name,	\
+ 	TP_PROTO(struct inode *inode, struct iomap *iomap), \
+ 	TP_ARGS(inode, iomap))
+-DEFINE_IOMAP_EVENT(iomap_apply_dstmap);
+-DEFINE_IOMAP_EVENT(iomap_apply_srcmap);
+ DEFINE_IOMAP_EVENT(iomap_iter_dstmap);
+ DEFINE_IOMAP_EVENT(iomap_iter_srcmap);
  
--	iocb->ki_pos += done;
-+	done = iomi.pos - iocb->ki_pos;
-+	iocb->ki_pos = iomi.pos;
- 	return done ? done : ret;
+-TRACE_EVENT(iomap_apply,
+-	TP_PROTO(struct inode *inode, loff_t pos, loff_t length,
+-		unsigned int flags, const void *ops, void *actor,
+-		unsigned long caller),
+-	TP_ARGS(inode, pos, length, flags, ops, actor, caller),
+-	TP_STRUCT__entry(
+-		__field(dev_t, dev)
+-		__field(u64, ino)
+-		__field(loff_t, pos)
+-		__field(loff_t, length)
+-		__field(unsigned int, flags)
+-		__field(const void *, ops)
+-		__field(void *, actor)
+-		__field(unsigned long, caller)
+-	),
+-	TP_fast_assign(
+-		__entry->dev = inode->i_sb->s_dev;
+-		__entry->ino = inode->i_ino;
+-		__entry->pos = pos;
+-		__entry->length = length;
+-		__entry->flags = flags;
+-		__entry->ops = ops;
+-		__entry->actor = actor;
+-		__entry->caller = caller;
+-	),
+-	TP_printk("dev %d:%d ino 0x%llx pos %lld length %lld flags %s (0x%x) "
+-		  "ops %ps caller %pS actor %ps",
+-		  MAJOR(__entry->dev), MINOR(__entry->dev),
+-		   __entry->ino,
+-		   __entry->pos,
+-		   __entry->length,
+-		   __print_flags(__entry->flags, "|", IOMAP_FLAGS_STRINGS),
+-		   __entry->flags,
+-		   __entry->ops,
+-		   (void *)__entry->caller,
+-		   __entry->actor)
+-);
+-
+ TRACE_EVENT(iomap_iter,
+ 	TP_PROTO(struct iomap_iter *iter, const void *ops,
+ 		 unsigned long caller),
+diff --git a/include/linux/iomap.h b/include/linux/iomap.h
+index da01226886eca4..2f13e34c2c0b0b 100644
+--- a/include/linux/iomap.h
++++ b/include/linux/iomap.h
+@@ -199,16 +199,6 @@ static inline struct iomap *iomap_iter_srcmap(struct iomap_iter *i)
+ 	return &i->iomap;
  }
- EXPORT_SYMBOL_GPL(dax_iomap_rw);
-@@ -1307,7 +1306,7 @@ static vm_fault_t dax_iomap_pte_fault(struct vm_fault *vmf, pfn_t *pfnp,
- 	}
  
- 	/*
--	 * Note that we don't bother to use iomap_apply here: DAX required
-+	 * Note that we don't bother to use iomap_iter here: DAX required
- 	 * the file system block size to be equal the page size, which means
- 	 * that we never have to deal with more than a single extent here.
- 	 */
-@@ -1561,7 +1560,7 @@ static vm_fault_t dax_iomap_pmd_fault(struct vm_fault *vmf, pfn_t *pfnp,
- 	}
- 
- 	/*
--	 * Note that we don't use iomap_apply here.  We aren't doing I/O, only
-+	 * Note that we don't use iomap_iter here.  We aren't doing I/O, only
- 	 * setting up a mapping, so really we're using iomap_begin() as a way
- 	 * to look up our filesystem block.
- 	 */
+-/*
+- * Main iomap iterator function.
+- */
+-typedef loff_t (*iomap_actor_t)(struct inode *inode, loff_t pos, loff_t len,
+-		void *data, struct iomap *iomap, struct iomap *srcmap);
+-
+-loff_t iomap_apply(struct inode *inode, loff_t pos, loff_t length,
+-		unsigned flags, const struct iomap_ops *ops, void *data,
+-		iomap_actor_t actor);
+-
+ ssize_t iomap_file_buffered_write(struct kiocb *iocb, struct iov_iter *from,
+ 		const struct iomap_ops *ops);
+ int iomap_readpage(struct page *page, const struct iomap_ops *ops);
 -- 
 2.30.2
 
