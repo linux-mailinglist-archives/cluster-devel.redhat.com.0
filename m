@@ -2,63 +2,101 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F114C3D49A0
-	for <lists+cluster-devel@lfdr.de>; Sat, 24 Jul 2021 21:36:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1627155405;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=6ntLsmc5XNVL0pv/5Iysvxppb5ipDFKMwVnPrClPlLs=;
-	b=Z9HM6M1Cjsl1dYqcxSjtDF/BU8cyPmWfABXSbzI68gE+zJyQGLdYhCrecy3iFpk/oQURph
-	q0+ocZXR9DK4DeXNRfZP8ieDCTCFjBkV/sQgtYRwe+xsoi3LuvgSN+LaYxstJkSGMH6I+O
-	jyEOIUkTle9UGnycS2XbJkzR4/0lAFQ=
+	by mail.lfdr.de (Postfix) with ESMTP id 31FC13D49B4
+	for <lists+cluster-devel@lfdr.de>; Sat, 24 Jul 2021 21:53:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-519-K1uATiw5MROuy5sYT-yTHQ-1; Sat, 24 Jul 2021 15:36:44 -0400
-X-MC-Unique: K1uATiw5MROuy5sYT-yTHQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-257-dVKLB8lJPuyDfM7xcadwjg-1; Sat, 24 Jul 2021 15:53:05 -0400
+X-MC-Unique: dVKLB8lJPuyDfM7xcadwjg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BF187802935;
-	Sat, 24 Jul 2021 19:36:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AEB7F1007606;
-	Sat, 24 Jul 2021 19:36:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DCEA11074664;
+	Sat, 24 Jul 2021 19:53:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9AA705C1D0;
+	Sat, 24 Jul 2021 19:53:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CFA04A7CA;
-	Sat, 24 Jul 2021 19:36:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4E8AE180BAB1;
+	Sat, 24 Jul 2021 19:53:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16OJZPZc017039 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 24 Jul 2021 15:35:25 -0400
+	id 16OJqv2q020180 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 24 Jul 2021 15:52:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 63C1318432; Sat, 24 Jul 2021 19:35:25 +0000 (UTC)
+	id D5ADE2156897; Sat, 24 Jul 2021 19:52:57 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.com (unknown [10.40.194.164])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 013A7544F1;
-	Sat, 24 Jul 2021 19:35:22 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christoph Hellwig <hch@infradead.org>,
-	"Darrick J. Wong" <djwong@kernel.org>
-Date: Sat, 24 Jul 2021 21:34:49 +0200
-Message-Id: <20210724193449.361667-9-agruenba@redhat.com>
-In-Reply-To: <20210724193449.361667-1-agruenba@redhat.com>
-References: <20210724193449.361667-1-agruenba@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D0DEF2156896
+	for <cluster-devel@redhat.com>; Sat, 24 Jul 2021 19:52:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3825580066D
+	for <cluster-devel@redhat.com>; Sat, 24 Jul 2021 19:52:55 +0000 (UTC)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+	[209.85.208.176]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-300-Nm-8cdYZPMyLiuSgxIbpxQ-1; Sat, 24 Jul 2021 15:52:53 -0400
+X-MC-Unique: Nm-8cdYZPMyLiuSgxIbpxQ-1
+Received: by mail-lj1-f176.google.com with SMTP id l17so6125463ljn.2
+	for <cluster-devel@redhat.com>; Sat, 24 Jul 2021 12:52:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=lpee2uSXjqYzurXDPtFtjsJbLcrcS7+O9pSXA980Af4=;
+	b=lqt99hmDiMqPBoV+vr9dOfj7K6Op+aOHBbghx0YGBx3ZOd/F+EOic4pwpEWXymTbul
+	OUJj3IzOjhvCZHLONIz3PPeGaWwCCar/cDPQGJHXYZ8azdj5N09DLz12ywWeoLUgSKvr
+	0s92r7+8IGntuestYA0B5RpFL0rZT3rmFqQRFTWnfdJ2eDnlGzUZcW46A/SYyJzRUZT9
+	Nd6XyKGvwaDbuiRzdU0E/xGMT+I0o/or5Mk07zkdlG6Qbas9bACLS69lRbUHLCT/6cq6
+	UoGlfmfYPin+vuIHu3zVqmozVyRXLxdJmRyROF1AHpPKAEZOVj5KhbUbViBkxf4mxkXV
+	hVzg==
+X-Gm-Message-State: AOAM530SVefhBlqTPLy0fYVv0tBU4K043rpfTrUnMThcInQ6TFgPtSB6
+	MbG/Aich/cq4+VET1xR1B75yBYXCFRIvEmE5
+X-Google-Smtp-Source: ABdhPJxqod2TpVIB6oXetzQBhbm1Ok56L3OIvP3W4mOXysX4vRnZ2QVebtKiPRV24Pf+6I7o2G5aAQ==
+X-Received: by 2002:a2e:9c14:: with SMTP id s20mr6861098lji.393.1627156371085; 
+	Sat, 24 Jul 2021 12:52:51 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com.
+	[209.85.167.46]) by smtp.gmail.com with ESMTPSA id
+	bp40sm2520647lfb.221.2021.07.24.12.52.50
+	for <cluster-devel@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Sat, 24 Jul 2021 12:52:50 -0700 (PDT)
+Received: by mail-lf1-f46.google.com with SMTP id r26so8001224lfp.5
+	for <cluster-devel@redhat.com>; Sat, 24 Jul 2021 12:52:50 -0700 (PDT)
+X-Received: by 2002:a05:6512:3f82:: with SMTP id
+	x2mr7023206lfa.421.1627156370007; 
+	Sat, 24 Jul 2021 12:52:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+References: <20210724193449.361667-1-agruenba@redhat.com>
+	<20210724193449.361667-2-agruenba@redhat.com>
+In-Reply-To: <20210724193449.361667-2-agruenba@redhat.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sat, 24 Jul 2021 12:52:34 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whodi=ZPhoJy_a47VD+-aFtz385B4_GHvQp8Bp9NdTKUg@mail.gmail.com>
+Message-ID: <CAHk-=whodi=ZPhoJy_a47VD+-aFtz385B4_GHvQp8Bp9NdTKUg@mail.gmail.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Cc: Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org,
-	Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org, ocfs2-devel@oss.oracle.com
-Subject: [Cluster-devel] [PATCH v4 8/8] gfs2: Fix mmap + page fault
-	deadlocks for direct I/O
+Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, ocfs2-devel@oss.oracle.com
+Subject: Re: [Cluster-devel] [PATCH v4 1/8] iov_iter: Introduce
+	iov_iter_fault_in_writeable helper
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,124 +110,45 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="UTF-8"
 
-Also disable page faults during direct I/O requests and implement the same
-kind of retry logic as in the buffered I/O case.
+On Sat, Jul 24, 2021 at 12:35 PM Andreas Gruenbacher
+<agruenba@redhat.com> wrote:
+>
+> +int iov_iter_fault_in_writeable(const struct iov_iter *i, size_t bytes)
+> +{
+...
+> +                       if (fault_in_user_pages(start, len, true) != len)
+> +                               return -EFAULT;
 
-Direct I/O requests differ from buffered I/O requests in that they use
-bio_iov_iter_get_pages for grabbing page references and faulting in pages
-instead of triggering physical page faults.  Those manual page faults can be
-disabled with the new iocb->noio flag.
+Looking at this once more, I think this is likely wrong.
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
----
- fs/gfs2/file.c | 47 +++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 2 deletions(-)
+Why?
 
-diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-index eea42cc94585..fbdee282185f 100644
---- a/fs/gfs2/file.c
-+++ b/fs/gfs2/file.c
-@@ -782,21 +782,47 @@ static ssize_t gfs2_file_direct_read(struct kiocb *iocb, struct iov_iter *to,
- 	struct file *file = iocb->ki_filp;
- 	struct gfs2_inode *ip = GFS2_I(file->f_mapping->host);
- 	size_t count = iov_iter_count(to);
-+	size_t written = 0;
- 	ssize_t ret;
- 
-+	/*
-+	 * In this function, we disable page faults when we're holding the
-+	 * inode glock while doing I/O.  If a page fault occurs, we drop the
-+	 * inode glock, fault in the pages manually, and then we retry.
-+	 *
-+	 * Unlike generic_file_read_iter, for reads, iomap_dio_rw can trigger
-+	 * physical as well as manual page faults, and we need to disable both
-+	 * kinds.
-+	 */
-+
- 	if (!count)
- 		return 0; /* skip atime */
- 
- 	gfs2_holder_init(ip->i_gl, LM_ST_DEFERRED, 0, gh);
-+retry:
- 	ret = gfs2_glock_nq(gh);
- 	if (ret)
- 		goto out_uninit;
- 
--	ret = iomap_dio_rw(iocb, to, &gfs2_iomap_ops, NULL, 0, 0);
-+	pagefault_disable();
-+	to->noio = true;
-+	ret = iomap_dio_rw(iocb, to, &gfs2_iomap_ops, NULL,
-+			   IOMAP_DIO_FAULT_RETRY, written);
-+	to->noio = false;
-+	pagefault_enable();
-+
- 	gfs2_glock_dq(gh);
-+	if (ret > 0)
-+		written = ret;
-+	if (unlikely(iov_iter_count(to) && (ret > 0 || ret == -EFAULT)) &&
-+	    iter_is_iovec(to) &&
-+	    iov_iter_fault_in_writeable(to, SIZE_MAX) == 0)
-+		goto retry;
- out_uninit:
- 	gfs2_holder_uninit(gh);
--	return ret;
-+	if (ret < 0)
-+		return ret;
-+	return written;
- }
- 
- static ssize_t gfs2_file_direct_write(struct kiocb *iocb, struct iov_iter *from,
-@@ -809,6 +835,15 @@ static ssize_t gfs2_file_direct_write(struct kiocb *iocb, struct iov_iter *from,
- 	loff_t offset = iocb->ki_pos;
- 	ssize_t ret;
- 
-+	/*
-+	 * In this function, we disable page faults when we're holding the
-+	 * inode glock while doing I/O.  If a page fault occurs, we drop the
-+	 * inode glock, fault in the pages manually, and then we retry.
-+	 *
-+	 * For writes, iomap_dio_rw only triggers manual page faults, so we
-+	 * don't need to disable physical ones.
-+	 */
-+
- 	/*
- 	 * Deferred lock, even if its a write, since we do no allocation on
- 	 * this path. All we need to change is the atime, and this lock mode
-@@ -818,6 +853,7 @@ static ssize_t gfs2_file_direct_write(struct kiocb *iocb, struct iov_iter *from,
- 	 * VFS does.
- 	 */
- 	gfs2_holder_init(ip->i_gl, LM_ST_DEFERRED, 0, gh);
-+retry:
- 	ret = gfs2_glock_nq(gh);
- 	if (ret)
- 		goto out_uninit;
-@@ -826,11 +862,18 @@ static ssize_t gfs2_file_direct_write(struct kiocb *iocb, struct iov_iter *from,
- 	if (offset + len > i_size_read(&ip->i_inode))
- 		goto out;
- 
-+	from->noio = true;
- 	ret = iomap_dio_rw(iocb, from, &gfs2_iomap_ops, NULL, 0, 0);
-+	from->noio = false;
-+
- 	if (ret == -ENOTBLK)
- 		ret = 0;
- out:
- 	gfs2_glock_dq(gh);
-+	if (unlikely(ret == -EFAULT) &&
-+	    iter_is_iovec(from) &&
-+	    iov_iter_fault_in_readable(from, SIZE_MAX) == 0)
-+		goto retry;
- out_uninit:
- 	gfs2_holder_uninit(gh);
- 	return ret;
--- 
-2.26.3
+Because any user can/should only care about at least *part* of the
+area being writable.
+
+Imagine that you're doing a large read. If the *first* page is
+writable, you should still return the partial read, not -EFAULT.
+
+So I think the code needs to return 0 if _any_ fault was successful.
+Or perhaps return how much it was able to fault in. Because returning
+-EFAULT if any of it failed seems wrong, and doesn't allow for partial
+success being reported.
+
+The other reaction I have is that you now only do the
+iov_iter_fault_in_writeable, but then you make fault_in_user_pages()
+still have that "bool write" argument.
+
+We already have 'fault_in_pages_readable()', and that one is more
+efficient (well, at least if the fault isn't needed it is). So it
+would make more sense to just implement fault_in_pages_writable()
+instead of that "fault_in_user_pages(, bool write)".
+
+                 Linus
 
