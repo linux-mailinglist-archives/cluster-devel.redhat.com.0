@@ -2,56 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CF6F83D6F81
-	for <lists+cluster-devel@lfdr.de>; Tue, 27 Jul 2021 08:31:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2FEF63D6FEE
+	for <lists+cluster-devel@lfdr.de>; Tue, 27 Jul 2021 09:06:06 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-99-USvcEgk1MqqFYvU62NzEow-1; Tue, 27 Jul 2021 02:31:56 -0400
-X-MC-Unique: USvcEgk1MqqFYvU62NzEow-1
+ us-mta-473-Z1PdnGsnOh-MX1SceEMsOg-1; Tue, 27 Jul 2021 03:06:04 -0400
+X-MC-Unique: Z1PdnGsnOh-MX1SceEMsOg-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BA22510066E9;
-	Tue, 27 Jul 2021 06:31:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0BFEF801AC0;
+	Tue, 27 Jul 2021 07:06:02 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 85B4660BD9;
-	Tue, 27 Jul 2021 06:31:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E406F710C4;
+	Tue, 27 Jul 2021 07:06:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 516224BB7C;
-	Tue, 27 Jul 2021 06:31:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 42FAC4BB7B;
+	Tue, 27 Jul 2021 07:06:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16R6VljB012838 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 27 Jul 2021 02:31:47 -0400
+	id 16R75wFx016384 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 27 Jul 2021 03:05:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 53483200D8F3; Tue, 27 Jul 2021 06:31:47 +0000 (UTC)
+	id 5E8062124210; Tue, 27 Jul 2021 07:05:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F189200D8CA
-	for <cluster-devel@redhat.com>; Tue, 27 Jul 2021 06:31:44 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59E4B2141807
+	for <cluster-devel@redhat.com>; Tue, 27 Jul 2021 07:05:55 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6265E845DFA
-	for <cluster-devel@redhat.com>; Tue, 27 Jul 2021 06:31:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0FBFC10AF951
+	for <cluster-devel@redhat.com>; Tue, 27 Jul 2021 07:05:55 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-447-ROrMV7EPPtGLMLfPQvRNbg-1;
-	Tue, 27 Jul 2021 02:31:42 -0400
-X-MC-Unique: ROrMV7EPPtGLMLfPQvRNbg-1
+	relay.mimecast.com with ESMTP id us-mta-101-T6vmfdMeNL6m8_NT9e9Ieg-1;
+	Tue, 27 Jul 2021 03:05:50 -0400
+X-MC-Unique: T6vmfdMeNL6m8_NT9e9Ieg-1
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 0300B67373; Tue, 27 Jul 2021 08:31:39 +0200 (CEST)
-Date: Tue, 27 Jul 2021 08:31:38 +0200
+	id A915E68BEB; Tue, 27 Jul 2021 09:05:47 +0200 (CEST)
+Date: Tue, 27 Jul 2021 09:05:46 +0200
 From: Christoph Hellwig <hch@lst.de>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Message-ID: <20210727063138.GA10143@lst.de>
-References: <20210719103520.495450-1-hch@lst.de>
-	<20210719103520.495450-17-hch@lst.de>
-	<20210719170545.GF22402@magnolia> <20210726081942.GD14853@lst.de>
-	<20210726163922.GA559142@magnolia>
+To: Bob Peterson <rpeterso@redhat.com>
+Message-ID: <20210727070546.GA12839@lst.de>
+References: <20210726140058.GA9206@lst.de>
+	<612d262a-e997-e887-ade9-1edc5efab758@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210726163922.GA559142@magnolia>
+In-Reply-To: <612d262a-e997-e887-ade9-1edc5efab758@redhat.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,16 +59,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Cc: nvdimm@lists.linux.dev, cluster-devel@redhat.com,
-	Matthew Wilcox <willy@infradead.org>,
-	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
-	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	Dan Williams <dan.j.williams@intel.com>,
-	Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH 16/27] iomap: switch iomap_bmap to use
-	iomap_iter
+Cc: cluster-devel@redhat.com, Christoph Hellwig <hch@lst.de>
+Subject: Re: [Cluster-devel] gfs2 hang in xfstests generic/361 (v3)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,29 +84,17 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Jul 26, 2021 at 09:39:22AM -0700, Darrick J. Wong wrote:
-> The documentation needs to be much more explicit about the fact that you
-> cannot "break;" your way out of an iomap_iter loop.  I think the comment
-> should be rewritten along these lines:
-> 
-> "Iterate over filesystem-provided space mappings for the provided file
-> range.  This function handles cleanup of resources acquired for
-> iteration when the filesystem indicates there are no more space
-> mappings, which means that this function must be called in a loop that
-> continues as long it returns a positive value.  If 0 or a negative value
-> is returned, the caller must not return to the loop body.  Within a loop
-> body, there are two ways to break out of the loop body: leave
-> @iter.processed unchanged, or set it to the usual negative errno."
-> 
-> Hm.
+On Mon, Jul 26, 2021 at 01:50:11PM -0500, Bob Peterson wrote:
+> FYI: I just pushed a replacement patch to linux-gfs2/for-next.next4.
+> The patch I mentioned last time had problems, so this is a simplified
+> middle-ground between that patch and the one I suggested earlier.
+> Patch is a89a427e0afe.
 
-Yes, I'll update the documentation.
+With just that patch cherry picked the test still hangs.
 
-> Clunky, for sure, but at least we still get to use break as the language
-> designers intended.
+The entire linux-gfs2/for-next.next4 completes a quick group xfstests
+run, but with a lot of failures:
 
-I can't see any advantage there over just proper documentation.  If you
-are totally attached to a working break we might have to come up with
-a nasty for_each macro that ensures we have a final iomap_apply, but I
-doubt it is worth the effort.
+Failures: generic/079 generic/082 generic/092 generic/094 generic/103 generic/219 generic/230 generic/235 generic/244 generic/294 generic/306 generic/347 generic/379 generic/380 generic/382 generic/383 generic/384 generic/385 generic/386 generic/400 generic/441 generic/452 generic/488 generic/545 generic/566 generic/587 generic/594 generic/600 generic/601 generic/603
+Failed 30 of 514 tests
 
