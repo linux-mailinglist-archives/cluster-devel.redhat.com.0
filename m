@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B11843D7C4B
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id CF3603D7C4C
 	for <lists+cluster-devel@lfdr.de>; Tue, 27 Jul 2021 19:37:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1627407445;
@@ -12,47 +12,47 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DI+im945LK8y2nb7PCGQWpuV7b5azOOfgV5xFXdINJ4=;
-	b=eO0tN7mMQs3e6ZiLfDv3hTnnQ3qAcuNd+Et7tHxz1Q+5kv6GPciFtdQFr9cZ0Oy1mIPDMW
-	2tB8CLgbre5x0FxEtf3GRt0uQMLkSTII6f+EP7DBn4XuOAabqq2mLSwAUYBPKFpDdUOoSF
-	lMHSAgGqWDHcZ345J51GXv7IucE5vfY=
+	bh=kcaz582mRm6J88X0Sw1XVibOu4gxj5bW37uVNj4DxQE=;
+	b=NVc3EaTZHZLyMhQvofDoSG17FYyOON+5gigJ2RYlMo0rsvV9Q7p0eTTB5yEImQAECU+7wr
+	maIDJiEmoNXQ+vYKmgVTfn0H3jLKjpsPZPh1bivk9j5zBvG5HIpQ7315NRuao5Xxyn2TJ6
+	PrCSjiNSM6xPINTM6zmTgmAC5HqTzu8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-375-bolQ5rxgNfyU5XM2WbEuwA-1; Tue, 27 Jul 2021 13:37:24 -0400
-X-MC-Unique: bolQ5rxgNfyU5XM2WbEuwA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-290-IJfAxhdpOGawoh3SE0Jd3Q-1; Tue, 27 Jul 2021 13:37:24 -0400
+X-MC-Unique: IJfAxhdpOGawoh3SE0Jd3Q-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7D1BBA0C03;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3E3787D550;
 	Tue, 27 Jul 2021 17:37:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70A9419630;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E357E6A8F8;
 	Tue, 27 Jul 2021 17:37:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 61002180084A;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D216C180084A;
 	Tue, 27 Jul 2021 17:37:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16RHbHgD022849 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 16RHbHfn022854 for <cluster-devel@listman.util.phx.redhat.com>;
 	Tue, 27 Jul 2021 13:37:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 61ED219630; Tue, 27 Jul 2021 17:37:17 +0000 (UTC)
+	id AC75A1980E; Tue, 27 Jul 2021 17:37:17 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (ovpn-112-120.phx2.redhat.com [10.3.112.120])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3466D6E6E2
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7EC8E19630
 	for <cluster-devel@redhat.com>; Tue, 27 Jul 2021 17:37:17 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Tue, 27 Jul 2021 12:37:03 -0500
-Message-Id: <20210727173709.210711-10-rpeterso@redhat.com>
+Date: Tue, 27 Jul 2021 12:37:04 -0500
+Message-Id: <20210727173709.210711-11-rpeterso@redhat.com>
 In-Reply-To: <20210727173709.210711-1-rpeterso@redhat.com>
 References: <20210727173709.210711-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 09/15] gfs2: fix deadlock in
-	gfs2_ail1_empty withdraw
+Subject: [Cluster-devel] [GFS2 PATCH 10/15] gfs2: replace sd_aspace with
+	sd_inode
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +66,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,77 +74,192 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Before this patch, function gfs2_ail1_empty could issue a file system
-withdraw when IO errors were discovered. However, there are several
-callers, including gfs2_flush_revokes() which holds the gfs2_log_lock
-before calling gfs2_ail1_empty. If gfs2_ail1_empty needed to withdraw
-it would leave the gfs2_log_lock held, which resulted in a deadlock
-due to other processes that needed the log_lock.
+Before this patch, gfs2 kept its own address space for rgrps, but this
+caused a lockdep problem because vfs assumes a 1:1 relationship between
+address spaces and their inode. One problematic area is this:
 
-Another problem discovered by Christoph Helwig is that we cannot
-withdraw from the log_flush process because it may be called from
-the glock workqueue, and the withdraw process waits for that very
-workqueue to be flushed. So the withdraw must be ignored until it may
-be handled by a more appropriate context like the gfs2_logd daemon.
+gfs2_unpin
+   mark_buffer_dirty(bh);
+      mapping = page_mapping(page);
+         __set_page_dirty(page, mapping, memcg, 0);
+            xa_lock_irqsave(&mapping->i_pages, flags);
+                 ^---locks page->mapping->i_pages
+            account_page_dirtied(page, mapping)
+	       struct inode *inode = mapping->host;
+                 ^---assumes the mapping points to an inode
+               inode_to_wb(inode)
+                  WARN_ON_ONCE !lockdep_is_held(&inode->i_mapping->
+                                                i_pages.xa_lock)
 
-This patch moves the withdraw out of function gfs2_ail1_empty and
-makes each of the callers check for a withdraw by calling new function
-check_ail1_withdraw. Function gfs2_flush_revokes now does this check
-after releasing the gfs2_log_lock to avoid the deadlock.
+It manifests as a lockdep warning you see in the last line.
+
+This patch removes sd_aspace in favor of an entire inode, sd_inode.
+Functions that need to access the address space may use a new function
+that follows the inode to its address space. This creates the 1:1 relation
+between the inode and its address space, so lockdep doesn't complain.
+This is how some other file systems manage their metadata, such as btrfs.
 
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/log.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ fs/gfs2/glops.c      |  4 ++--
+ fs/gfs2/incore.h     |  7 ++++++-
+ fs/gfs2/meta_io.c    |  2 +-
+ fs/gfs2/meta_io.h    |  2 --
+ fs/gfs2/ops_fstype.c | 27 ++++++++++++++++-----------
+ fs/gfs2/super.c      |  2 +-
+ 6 files changed, 26 insertions(+), 18 deletions(-)
 
-diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
-index f0ee3ff6f9a8..c687a8c4e044 100644
---- a/fs/gfs2/log.c
-+++ b/fs/gfs2/log.c
-@@ -364,11 +364,6 @@ static int gfs2_ail1_empty(struct gfs2_sbd *sdp, int max_revokes)
- 	ret = list_empty(&sdp->sd_ail1_list);
- 	spin_unlock(&sdp->sd_ail_lock);
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 744cacd27213..5d755d30d91c 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -162,7 +162,7 @@ void gfs2_ail_flush(struct gfs2_glock *gl, bool fsync)
+ static int gfs2_rgrp_metasync(struct gfs2_glock *gl)
+ {
+ 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+-	struct address_space *metamapping = &sdp->sd_aspace;
++	struct address_space *metamapping = gfs2_aspace(sdp);
+ 	struct gfs2_rgrpd *rgd = gfs2_glock2rgrp(gl);
+ 	const unsigned bsize = sdp->sd_sb.sb_bsize;
+ 	loff_t start = (rgd->rd_addr * bsize) & PAGE_MASK;
+@@ -219,7 +219,7 @@ static int rgrp_go_sync(struct gfs2_glock *gl)
+ static void rgrp_go_inval(struct gfs2_glock *gl, int flags)
+ {
+ 	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+-	struct address_space *mapping = &sdp->sd_aspace;
++	struct address_space *mapping = gfs2_aspace(sdp);
+ 	struct gfs2_rgrpd *rgd = gfs2_glock2rgrp(gl);
+ 	const unsigned bsize = sdp->sd_sb.sb_bsize;
+ 	loff_t start = (rgd->rd_addr * bsize) & PAGE_MASK;
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 6f31a067a5f2..4a03c3031347 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -795,7 +795,7 @@ struct gfs2_sbd {
  
--	if (test_bit(SDF_WITHDRAWING, &sdp->sd_flags)) {
--		gfs2_lm(sdp, "fatal: I/O error(s)\n");
--		gfs2_withdraw(sdp);
--	}
--
- 	return ret;
- }
+ 	/* Log stuff */
  
-@@ -786,6 +781,15 @@ void gfs2_glock_remove_revoke(struct gfs2_glock *gl)
- 	}
- }
+-	struct address_space sd_aspace;
++	struct inode *sd_inode;
  
-+static void check_ail1_withdraw(struct gfs2_sbd *sdp)
+ 	spinlock_t sd_log_lock;
+ 
+@@ -851,6 +851,11 @@ struct gfs2_sbd {
+ 	unsigned long sd_glock_dqs_held;
+ };
+ 
++static inline struct address_space *gfs2_aspace(struct gfs2_sbd *sdp)
 +{
-+	if (!test_bit(SDF_WITHDRAWING, &sdp->sd_flags))
-+		return;
-+
-+	gfs2_lm(sdp, "fatal: I/O error(s)\n");
-+	gfs2_withdraw(sdp);
++	return sdp->sd_inode->i_mapping;
 +}
 +
- /**
-  * gfs2_flush_revokes - Add as many revokes to the system transaction as we can
-  * @sdp: The GFS2 superblock
-@@ -1317,6 +1321,7 @@ int gfs2_logd(void *data)
+ static inline void gfs2_glstats_inc(struct gfs2_glock *gl, int which)
+ {
+ 	gl->gl_stats.stats[which]++;
+diff --git a/fs/gfs2/meta_io.c b/fs/gfs2/meta_io.c
+index 7c9619997355..0123437d9c12 100644
+--- a/fs/gfs2/meta_io.c
++++ b/fs/gfs2/meta_io.c
+@@ -120,7 +120,7 @@ struct buffer_head *gfs2_getbuf(struct gfs2_glock *gl, u64 blkno, int create)
+ 	unsigned int bufnum;
  
- 		if (gfs2_jrnl_flush_reqd(sdp) || t == 0) {
- 			gfs2_ail1_empty(sdp, 0);
-+			check_ail1_withdraw(sdp);
- 			gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
- 						  GFS2_LFC_LOGD_JFLUSH_REQD);
- 		}
-@@ -1325,6 +1330,7 @@ int gfs2_logd(void *data)
- 			gfs2_ail1_start(sdp);
- 			gfs2_ail1_wait(sdp);
- 			gfs2_ail1_empty(sdp, 0);
-+			check_ail1_withdraw(sdp);
- 			gfs2_log_flush(sdp, NULL, GFS2_LOG_HEAD_FLUSH_NORMAL |
- 						  GFS2_LFC_LOGD_AIL_FLUSH_REQD);
- 		}
+ 	if (mapping == NULL)
+-		mapping = &sdp->sd_aspace;
++		mapping = gfs2_aspace(sdp);
+ 
+ 	shift = PAGE_SHIFT - sdp->sd_sb.sb_bsize_shift;
+ 	index = blkno >> shift;             /* convert block to page */
+diff --git a/fs/gfs2/meta_io.h b/fs/gfs2/meta_io.h
+index 21880d72081a..70b9c41ecb46 100644
+--- a/fs/gfs2/meta_io.h
++++ b/fs/gfs2/meta_io.h
+@@ -42,8 +42,6 @@ static inline struct gfs2_sbd *gfs2_mapping2sbd(struct address_space *mapping)
+ 	struct inode *inode = mapping->host;
+ 	if (mapping->a_ops == &gfs2_meta_aops)
+ 		return (((struct gfs2_glock *)mapping) - 1)->gl_name.ln_sbd;
+-	else if (mapping->a_ops == &gfs2_rgrp_aops)
+-		return container_of(mapping, struct gfs2_sbd, sd_aspace);
+ 	else
+ 		return inode->i_sb->s_fs_info;
+ }
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 5b90d2b7db47..8051f130cf53 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -72,7 +72,6 @@ void free_sbd(struct gfs2_sbd *sdp)
+ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+ {
+ 	struct gfs2_sbd *sdp;
+-	struct address_space *mapping;
+ 
+ 	sdp = kzalloc(sizeof(struct gfs2_sbd), GFP_KERNEL);
+ 	if (!sdp)
+@@ -112,16 +111,6 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+ 
+ 	INIT_LIST_HEAD(&sdp->sd_sc_inodes_list);
+ 
+-	mapping = &sdp->sd_aspace;
+-
+-	address_space_init_once(mapping);
+-	mapping->a_ops = &gfs2_rgrp_aops;
+-	mapping->host = sb->s_bdev->bd_inode;
+-	mapping->flags = 0;
+-	mapping_set_gfp_mask(mapping, GFP_NOFS);
+-	mapping->private_data = NULL;
+-	mapping->writeback_index = 0;
+-
+ 	spin_lock_init(&sdp->sd_log_lock);
+ 	atomic_set(&sdp->sd_log_pinned, 0);
+ 	INIT_LIST_HEAD(&sdp->sd_log_revokes);
+@@ -1140,6 +1129,7 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	struct gfs2_sbd *sdp;
+ 	struct gfs2_holder mount_gh;
+ 	struct gfs2_holder freeze_gh;
++	struct address_space *mapping;
+ 	int error;
+ 
+ 	sdp = init_sbd(sb);
+@@ -1161,6 +1151,21 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sb->s_flags |= SB_NOSEC;
+ 	sb->s_magic = GFS2_MAGIC;
+ 	sb->s_op = &gfs2_super_ops;
++
++	/* Set up an address space for metadata writes */
++	sdp->sd_inode = new_inode(sb);
++	if (!sdp->sd_inode)
++		goto fail_free;
++	sdp->sd_inode->i_ino = GFS2_MAGIC;
++	set_nlink(sdp->sd_inode, 1);
++	sdp->sd_inode->i_size = i_size_read(sb->s_bdev->bd_inode);
++	insert_inode_hash(sdp->sd_inode);
++
++	mapping = gfs2_aspace(sdp);
++	mapping->a_ops = &gfs2_rgrp_aops;
++	mapping_set_gfp_mask(mapping, GFP_NOFS);
++	mapping->writeback_index = 0;
++
+ 	sb->s_d_op = &gfs2_dops;
+ 	sb->s_export_op = &gfs2_export_ops;
+ 	sb->s_qcop = &gfs2_quotactl_ops;
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index 0a5b7dfa7a45..9857d8725b2d 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -617,13 +617,13 @@ static void gfs2_put_super(struct super_block *sb)
+ 	gfs2_jindex_free(sdp);
+ 	/*  Take apart glock structures and buffer lists  */
+ 	gfs2_gl_hash_clear(sdp);
+-	truncate_inode_pages_final(&sdp->sd_aspace);
+ 	gfs2_delete_debugfs_file(sdp);
+ 	/*  Unmount the locking protocol  */
+ 	gfs2_lm_unmount(sdp);
+ 
+ 	/*  At this point, we're through participating in the lockspace  */
+ 	gfs2_sys_fs_del(sdp);
++	iput(sdp->sd_inode);
+ 	free_sbd(sdp);
+ }
+ 
 -- 
 2.31.1
 
