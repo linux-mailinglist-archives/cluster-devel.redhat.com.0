@@ -1,102 +1,90 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E8CB3D8F0F
-	for <lists+cluster-devel@lfdr.de>; Wed, 28 Jul 2021 15:30:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 262533D9549
+	for <lists+cluster-devel@lfdr.de>; Wed, 28 Jul 2021 20:29:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1627479034;
+	s=mimecast20190719; t=1627496963;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=PJc5jHPRQqe2lrGxEyprGCas7oMz/9sFCsfbOyVa0KE=;
-	b=irECpq8zbDgD97lDDtwSvijOaKlcTB4Uu/0sMi0lC9EaN9LwnIQtEKYUtAXDqqalXAJpNH
-	4YURYzx1DlhzNSlkQAgXDfPTxRw+1Zq7C/jxZ1nop1dCQvwDfu81e+dquiv9RcJVvdq/IL
-	Cwo+YZVtY8gXDOIGOTZLuN6eICEYrDc=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=dsqfNl4dSAxOlG5YsbYQ/wApeEY/B/MuM0gwCH241I8=;
+	b=L4TXOI6erX4GyF0XVWfrjVp/YCcc5roV2vw22roKJuBgyGGXfpbVc11Hsvb5o+HblrfE6n
+	dk0V0s8TSHPJ1cg8doehJIvJZuOy0ecXzc6xyJZwtO19gCZKNy7cE8DYEAva5fDBDeHGPI
+	B/GCSf7gAYdzkpcXCzN5gE5tyrcEWjY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-191-1_yWL_NvOgC091Z08mMlDw-1; Wed, 28 Jul 2021 09:30:27 -0400
-X-MC-Unique: 1_yWL_NvOgC091Z08mMlDw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-186-UUV4jfgdOMiKkJ2EzQIaBA-1; Wed, 28 Jul 2021 14:29:22 -0400
+X-MC-Unique: UUV4jfgdOMiKkJ2EzQIaBA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5E1D87D542;
-	Wed, 28 Jul 2021 13:30:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F0DC190A7A0;
+	Wed, 28 Jul 2021 18:29:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C10CB5D6B1;
-	Wed, 28 Jul 2021 13:30:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10C3910016FD;
+	Wed, 28 Jul 2021 18:29:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E5E88180BAB1;
-	Wed, 28 Jul 2021 13:30:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 83F48180BAB1;
+	Wed, 28 Jul 2021 18:29:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16SDUDqw029712 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 28 Jul 2021 09:30:13 -0400
+	id 16SITB4N014110 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 28 Jul 2021 14:29:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 58789EE84E; Wed, 28 Jul 2021 13:30:13 +0000 (UTC)
+	id 372E42089A12; Wed, 28 Jul 2021 18:29:11 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 22E8BEB33E
-	for <cluster-devel@redhat.com>; Wed, 28 Jul 2021 13:30:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2708101A529
-	for <cluster-devel@redhat.com>; Wed, 28 Jul 2021 13:30:10 +0000 (UTC)
-Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
-	[209.85.166.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-364-FhPn2qQLOxWEt5EUKwpg6g-1; Wed, 28 Jul 2021 09:30:09 -0400
-X-MC-Unique: FhPn2qQLOxWEt5EUKwpg6g-1
-Received: by mail-io1-f70.google.com with SMTP id
-	p7-20020a6b63070000b02904f58bb90366so1724024iog.14
-	for <cluster-devel@redhat.com>; Wed, 28 Jul 2021 06:30:09 -0700 (PDT)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31D6F208AB85
+	for <cluster-devel@redhat.com>; Wed, 28 Jul 2021 18:29:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A732480018D
+	for <cluster-devel@redhat.com>; Wed, 28 Jul 2021 18:29:08 +0000 (UTC)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+	[209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-433-ZbOaFmjzOQC2wH97UV_pAA-1; Wed, 28 Jul 2021 14:29:07 -0400
+X-MC-Unique: ZbOaFmjzOQC2wH97UV_pAA-1
+Received: by mail-wr1-f69.google.com with SMTP id
+	f6-20020adfe9060000b0290153abe88c2dso1253114wrm.20
+	for <cluster-devel@redhat.com>; Wed, 28 Jul 2021 11:29:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=PJc5jHPRQqe2lrGxEyprGCas7oMz/9sFCsfbOyVa0KE=;
-	b=C+6C/hotz8zzRNFa22+DvtbIrhy0SwoMaSqRqYx91aG2W8mNzrxbJj9wCtAkAxjC45
-	Rq5FFqhRzi18Zf8VUmqKGCt/CJuxp24dm6/qBZCctZnNG+htcmuA7nFTv9dMl9o0Riuv
-	Dxtimj91v2DCUg50LzGpKfYDYzdQtc65GdgV/utz5fvOeVi1d4vWAgRYCq8kyxMzisrQ
-	nQDyEcoDOv3fLp+cUnt/8XROls+f07zeEL8FYt83/7Ro2mxNZv0+RvjifUBFcwe9Mkhn
-	5jxBAAm4f6f64wYSaQKIE5ceXrAxYZr/QFERpqUxGDrh6Ysv3Np5q+DJm0YPmfO4CCO7
-	JlGg==
-X-Gm-Message-State: AOAM531pQWDbvOnG6Nk6MtAW0T1Lnus0tnAG+NeI2kU+T25VVBAL1sYg
-	PljwaihB9dbNQbjxlYWqEWx424mKhxUPKmenbZYyl11Nmy+0qDkaf5ptCcs/0V6gD6OlyRovl9A
-	aDIRZ1Xbh50nAO9TkwDcb1I/8yJSeeNmpFaO2jGn64xRf4WV9AVM+ssBauxyU6vNIsdZGyn82lg
-	==
-X-Received: by 2002:a6b:b795:: with SMTP id h143mr23708574iof.74.1627479008257;
-	Wed, 28 Jul 2021 06:30:08 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzP4w1S/N1bhmrn50SNvGNeFbn13qwMPItKBJeXEumHI9YVeudSY1UB7NnCmVtz8j9zTBoFQA==
-X-Received: by 2002:a6b:b795:: with SMTP id h143mr23708559iof.74.1627479008024;
-	Wed, 28 Jul 2021 06:30:08 -0700 (PDT)
-Received: from [172.16.0.19] (209-212-39-192.brainerd.net. [209.212.39.192])
-	by smtp.gmail.com with ESMTPSA id w7sm5024732iox.1.2021.07.28.06.30.07
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Wed, 28 Jul 2021 06:30:07 -0700 (PDT)
-To: Andreas Gruenbacher <agruenba@redhat.com>
-References: <20210727173709.210711-1-rpeterso@redhat.com>
-	<20210727173709.210711-10-rpeterso@redhat.com>
-	<CAHc6FU5CQgo1wgwANoVetfNhZKGduyLBhS5s6MGTepOgKB9bbA@mail.gmail.com>
-From: Bob Peterson <rpeterso@redhat.com>
-Message-ID: <097fc264-fd96-6bc4-eff4-e56fb9ea58ad@redhat.com>
-Date: Wed, 28 Jul 2021 08:30:06 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.11.0
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=dsqfNl4dSAxOlG5YsbYQ/wApeEY/B/MuM0gwCH241I8=;
+	b=OfWLp8E6DLDtcF09nq1XNCWgK4r84vNQWKyQmUMtcD2bYTKs0s+ZXA2DihBsSH3S6z
+	4YaHVHDH8QwJVB4Zu79eM2Ru4lk9w7Gr965wp2egCyML4EbZ3Z35n2ewCcGO8NKcr3UK
+	KkQ9VQXy5r0MAOK4J9XrvY+cW680Qtcluw3SGC3eEIK+SUWn8JZ78+kcxvjtC2LIBbF/
+	LEOyyuemXsrukHalVCbftWDIJg5QQleN4bIF+WQhcPMxKAepXOa5cekfizl0M+UDfQZw
+	sz71tAJHZm847wUdsgdD5cNmUbDDHGMSHgLxBeLRYYdiPxYbNVP7cd5SjIJ47tvq9sDI
+	21Gg==
+X-Gm-Message-State: AOAM532aUacFJonRlbDE1340kTy3ANOotukEnLk2frAJU6GQYoqRm41S
+	wi4vvwfsEb9/Gka0MxoR25S/nED2h7iG7hsCiQD40cyHBQBNP3SklweOSc9CVTNFqesGSWdcbGN
+	We1b5vS2pTo6XFr+ORWhRhqTpJipE78Sha55eOQ==
+X-Received: by 2002:a5d:540d:: with SMTP id g13mr678887wrv.329.1627496946014; 
+	Wed, 28 Jul 2021 11:29:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzmQqyvdNyA/YfTla5wNd1PZMi8ok6Yyj9KZjkxXhHJKcCpghgx/kg3XyiRqVdphl+xYtbklNIsO801A9zqFoY=
+X-Received: by 2002:a5d:540d:: with SMTP id g13mr678875wrv.329.1627496945854; 
+	Wed, 28 Jul 2021 11:29:05 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAHc6FU5CQgo1wgwANoVetfNhZKGduyLBhS5s6MGTepOgKB9bbA@mail.gmail.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+References: <20210727173709.210711-1-rpeterso@redhat.com>
+	<20210727173709.210711-14-rpeterso@redhat.com>
+In-Reply-To: <20210727173709.210711-14-rpeterso@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 28 Jul 2021 20:28:54 +0200
+Message-ID: <CAHc6FU4MUkurXhtbRrwuF846Dz7eT9+RBFntEs+_bzV6YO=GSA@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [GFS2 PATCH 09/15] gfs2: fix deadlock in
- gfs2_ail1_empty withdraw
+Subject: Re: [Cluster-devel] [GFS2 PATCH 13/15] gfs2: ignore
+ usr|grp|prjquota mount options
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -110,43 +98,61 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
 
-On 7/28/21 12:38 AM, Andreas Gruenbacher wrote:
-> Hi Bob,
-> 
-> On Tue, Jul 27, 2021 at 7:37 PM Bob Peterson <rpeterso@redhat.com> wrote:
->> Before this patch, function gfs2_ail1_empty could issue a file system
->> withdraw when IO errors were discovered. However, there are several
->> callers, including gfs2_flush_revokes() which holds the gfs2_log_lock
->> before calling gfs2_ail1_empty. If gfs2_ail1_empty needed to withdraw
->> it would leave the gfs2_log_lock held, which resulted in a deadlock
->> due to other processes that needed the log_lock.
->>
->> Another problem discovered by Christoph Helwig is that we cannot
->> withdraw from the log_flush process because it may be called from
->> the glock workqueue, and the withdraw process waits for that very
->> workqueue to be flushed. So the withdraw must be ignored until it may
->> be handled by a more appropriate context like the gfs2_logd daemon.
->>
->> This patch moves the withdraw out of function gfs2_ail1_empty and
->> makes each of the callers check for a withdraw by calling new function
->> check_ail1_withdraw.
-> 
->> Function gfs2_flush_revokes now does this check
->> after releasing the gfs2_log_lock to avoid the deadlock.
-> 
-> I don't see that in the code.
+On Tue, Jul 27, 2021 at 7:37 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> Before this patch, gfs2 rejected mounts attempted with the usrquota,
+> grpquota, or prjquota mount options. That caused numerous xfstests tests
+> to fail. This patch allows gfs2 to accept but ignore those mount options
+> so the tests may be run.
 
-Yeah, the comment was wrong. I noticed the problem and already removed 
-the paragraph after the patch set was sent out.
+We can't just fake this up. Instead, the fstests need to be fixed to
+skip tests that don't run on particular filesystems.
 
-Bob
+> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+> ---
+>  fs/gfs2/ops_fstype.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+> index 8051f130cf53..69bdc2917fb5 100644
+> --- a/fs/gfs2/ops_fstype.c
+> +++ b/fs/gfs2/ops_fstype.c
+> @@ -1373,6 +1373,7 @@ enum gfs2_param {
+>         Opt_barrier,
+>         Opt_rgrplvb,
+>         Opt_loccookie,
+> +       Opt_ignore,
+>  };
+>
+>  static const struct constant_table gfs2_param_quota[] = {
+> @@ -1431,6 +1432,9 @@ static const struct fs_parameter_spec gfs2_fs_parameters[] = {
+>         /* quota can be a flag or an enum so it gets special treatment */
+>         fsparam_flag_no("quota",              Opt_quota_flag),
+>         fsparam_enum("quota",                 Opt_quota, gfs2_param_quota),
+> +       fsparam_flag("usrquota",              Opt_ignore),
+> +       fsparam_flag("grpquota",              Opt_ignore),
+> +       fsparam_flag("prjquota",              Opt_ignore),
+>         {}
+>  };
+>
+> @@ -1532,6 +1536,8 @@ static int gfs2_parse_param(struct fs_context *fc, struct fs_parameter *param)
+>         case Opt_loccookie:
+>                 args->ar_loccookie = result.boolean;
+>                 break;
+> +       case Opt_ignore:
+> +               break;
+>         default:
+>                 return invalfc(fc, "invalid mount option: %s", param->key);
+>         }
+> --
+> 2.31.1
+>
+
+Andreas
 
