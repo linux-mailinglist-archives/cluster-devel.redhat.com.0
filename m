@@ -2,65 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9FB7F3E4EFF
-	for <lists+cluster-devel@lfdr.de>; Tue, 10 Aug 2021 00:11:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 92D243E53AC
+	for <lists+cluster-devel@lfdr.de>; Tue, 10 Aug 2021 08:40:16 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-o6oSEvgGOqe4O8lPs5PmXQ-1; Mon, 09 Aug 2021 18:11:12 -0400
-X-MC-Unique: o6oSEvgGOqe4O8lPs5PmXQ-1
+ us-mta-179-cknWDvaEOfGir3u54fYF2w-1; Tue, 10 Aug 2021 02:40:14 -0400
+X-MC-Unique: cknWDvaEOfGir3u54fYF2w-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 708B26409C;
-	Mon,  9 Aug 2021 22:11:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F2065190B2A0;
+	Tue, 10 Aug 2021 06:40:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 853C41036D05;
-	Mon,  9 Aug 2021 22:11:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A2721036D2E;
+	Tue, 10 Aug 2021 06:40:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D1F974BB7C;
-	Mon,  9 Aug 2021 22:11:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 86EAD4BB7C;
+	Tue, 10 Aug 2021 06:40:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 179MB0FJ023811 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 9 Aug 2021 18:11:00 -0400
+	id 17A6e0mf006376 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 10 Aug 2021 02:40:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 327342141E05; Mon,  9 Aug 2021 22:11:00 +0000 (UTC)
+	id F2076200C0C7; Tue, 10 Aug 2021 06:39:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2CAFF2141E02
-	for <cluster-devel@redhat.com>; Mon,  9 Aug 2021 22:10:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED9C32031A5A
+	for <cluster-devel@redhat.com>; Tue, 10 Aug 2021 06:39:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE028858EEC
-	for <cluster-devel@redhat.com>; Mon,  9 Aug 2021 22:10:55 +0000 (UTC)
-Received: from mail109.syd.optusnet.com.au (mail109.syd.optusnet.com.au
-	[211.29.132.80]) by relay.mimecast.com with ESMTP id
-	us-mta-530-fXK_NC63MWC4ra3EDbKRPA-1; Mon, 09 Aug 2021 18:10:53 -0400
-X-MC-Unique: fXK_NC63MWC4ra3EDbKRPA-1
-Received: from dread.disaster.area (pa49-195-182-146.pa.nsw.optusnet.com.au
-	[49.195.182.146])
-	by mail109.syd.optusnet.com.au (Postfix) with ESMTPS id 919098552B;
-	Tue, 10 Aug 2021 08:10:49 +1000 (AEST)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
-	(envelope-from <david@fromorbit.com>)
-	id 1mDDTr-00GSfc-Td; Tue, 10 Aug 2021 08:10:47 +1000
-Date: Tue, 10 Aug 2021 08:10:47 +1000
-From: Dave Chinner <david@fromorbit.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58517101A529
+	for <cluster-devel@redhat.com>; Tue, 10 Aug 2021 06:39:57 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-151-9V4BwEh9PFqW1djVhrxhoQ-1;
+	Tue, 10 Aug 2021 02:39:53 -0400
+X-MC-Unique: 9V4BwEh9PFqW1djVhrxhoQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B50DD60238;
+	Tue, 10 Aug 2021 06:39:51 +0000 (UTC)
+Date: Mon, 9 Aug 2021 23:39:51 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210809221047.GC3657114@dread.disaster.area>
+Message-ID: <20210810063951.GH3601443@magnolia>
 References: <20210809061244.1196573-1-hch@lst.de>
-	<20210809061244.1196573-12-hch@lst.de>
+	<20210809061244.1196573-20-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20210809061244.1196573-12-hch@lst.de>
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.3 cv=YKPhNiOx c=1 sm=1 tr=0
-	a=QpfB3wCSrn/dqEBSktpwZQ==:117 a=QpfB3wCSrn/dqEBSktpwZQ==:17
-	a=kj9zAlcOel0A:10 a=MhDmnRu9jo8A:10 a=JfrnYn6hAAAA:8 a=7-415B0cAAAA:8
-	a=c-sO9qzMkAf5MM67-4kA:9 a=CjuIK1q_8ugA:10 a=1CNFftbPRP8L7MoqJWF3:22
-	a=biEYGPWJfzWAr4FL6Ov7:22
+In-Reply-To: <20210809061244.1196573-20-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -69,16 +59,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, cluster-devel@redhat.com,
-	"Darrick J. Wong" <djwong@kernel.org>,
 	Matthew Wilcox <willy@infradead.org>,
 	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
 	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	Dan Williams <dan.j.williams@intel.com>, linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH 11/30] iomap: add the new iomap_iter
-	model
+Subject: Re: [Cluster-devel] [PATCH 19/30] iomap: switch iomap_bmap to use
+	iomap_iter
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,51 +89,91 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Aug 09, 2021 at 08:12:25AM +0200, Christoph Hellwig wrote:
-> The iomap_iter struct provides a convenient way to package up and
-> maintain all the arguments to the various mapping and operation
-> functions.  It is operated on using the iomap_iter() function that
-> is called in loop until the whole range has been processed.  Compared
-> to the existing iomap_apply() function this avoid an indirect call
-> for each iteration.
-> 
-> For now iomap_iter() calls back into the existing ->iomap_begin and
-> ->iomap_end methods, but in the future this could be further optimized
-> to avoid indirect calls entirely.
-> 
-> Based on an earlier patch from Matthew Wilcox <willy@infradead.org>.
+On Mon, Aug 09, 2021 at 08:12:33AM +0200, Christoph Hellwig wrote:
+> Rewrite the ->bmap implementation based on iomap_iter.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->  fs/iomap/Makefile     |  1 +
->  fs/iomap/core.c       | 79 +++++++++++++++++++++++++++++++++++++++++++
->  fs/iomap/trace.h      | 37 +++++++++++++++++++-
->  include/linux/iomap.h | 56 ++++++++++++++++++++++++++++++
->  4 files changed, 172 insertions(+), 1 deletion(-)
->  create mode 100644 fs/iomap/core.c
+>  fs/iomap/fiemap.c | 31 +++++++++++++------------------
+>  1 file changed, 13 insertions(+), 18 deletions(-)
 > 
-> diff --git a/fs/iomap/Makefile b/fs/iomap/Makefile
-> index eef2722d93a183..6b56b10ded347a 100644
-> --- a/fs/iomap/Makefile
-> +++ b/fs/iomap/Makefile
-> @@ -10,6 +10,7 @@ obj-$(CONFIG_FS_IOMAP)		+= iomap.o
+> diff --git a/fs/iomap/fiemap.c b/fs/iomap/fiemap.c
+> index acad09a8c188df..60daadba16c149 100644
+> --- a/fs/iomap/fiemap.c
+> +++ b/fs/iomap/fiemap.c
+> @@ -92,35 +92,30 @@ int iomap_fiemap(struct inode *inode, struct fiemap_extent_info *fi,
+>  }
+>  EXPORT_SYMBOL_GPL(iomap_fiemap);
 >  
->  iomap-y				+= trace.o \
->  				   apply.o \
-> +				   core.o \
+> -static loff_t
+> -iomap_bmap_actor(struct inode *inode, loff_t pos, loff_t length,
+> -		void *data, struct iomap *iomap, struct iomap *srcmap)
+> -{
+> -	sector_t *bno = data, addr;
+> -
+> -	if (iomap->type == IOMAP_MAPPED) {
+> -		addr = (pos - iomap->offset + iomap->addr) >> inode->i_blkbits;
+> -		*bno = addr;
+> -	}
+> -	return 0;
+> -}
+> -
+>  /* legacy ->bmap interface.  0 is the error return (!) */
+>  sector_t
+>  iomap_bmap(struct address_space *mapping, sector_t bno,
+>  		const struct iomap_ops *ops)
+>  {
+> -	struct inode *inode = mapping->host;
+> -	loff_t pos = bno << inode->i_blkbits;
+> -	unsigned blocksize = i_blocksize(inode);
+> +	struct iomap_iter iter = {
+> +		.inode	= mapping->host,
+> +		.pos	= (loff_t)bno << mapping->host->i_blkbits,
+> +		.len	= i_blocksize(mapping->host),
+> +		.flags	= IOMAP_REPORT,
+> +	};
+>  	int ret;
+>  
+>  	if (filemap_write_and_wait(mapping))
+>  		return 0;
+>  
+>  	bno = 0;
+> -	ret = iomap_apply(inode, pos, blocksize, 0, ops, &bno,
+> -			  iomap_bmap_actor);
+> +	while ((ret = iomap_iter(&iter, ops)) > 0) {
+> +		if (iter.iomap.type != IOMAP_MAPPED)
+> +			continue;
 
-This creates a discontinuity in the iomap git history. Can you add
-these new functions to iomap/apply.c, then when the old apply code
-is removed later in the series rename the file to core.c? At least
-that way 'git log --follow fs/iomap/core.c' will walk back into the
-current history of fs/iomap/apply.c and the older pre-disaggregation
-fs/iomap.c without having to take the tree back in time to find
-those files...
+I still feel uncomfortable about this use of "continue" here, because it
+really means "call iomap_iter again to clean up and exit even though we
+know it won't even look for more iomaps to iterate".
 
-Cheers,
+To me that feels subtly broken (I usually associate 'continue' with
+'go run the loop body again'), and even though bmap has been a quirky
+hot mess for 45 years, we don't need to make it even moreso.
 
-Dave.
--- 
-Dave Chinner
-david@fromorbit.com
+Can't this at least be rephrased as:
+
+	const uint bno_shift = (mapping->host->i_blkbits - SECTOR_SHIFT);
+
+	while ((ret = iomap_iter(&iter, ops)) > 0) {
+		if (iter.iomap.type == IOMAP_MAPPED)
+			bno = iomap_sector(iomap, iter.pos) << bno_shift;
+		/* leave iter.processed unset to stop iteration */
+	}
+
+to make the loop exit more explicit?
+
+--D
+
+> +		bno = (iter.pos - iter.iomap.offset + iter.iomap.addr) >>
+> +				mapping->host->i_blkbits;
+> +	}
+> +
+>  	if (ret)
+>  		return 0;
+>  	return bno;
+> -- 
+> 2.30.2
+> 
 
