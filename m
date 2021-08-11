@@ -1,56 +1,55 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 612B43E870B
-	for <lists+cluster-devel@lfdr.de>; Wed, 11 Aug 2021 02:10:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E41AB3E872C
+	for <lists+cluster-devel@lfdr.de>; Wed, 11 Aug 2021 02:19:22 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-414-cKGuTHb9NlOccpz98UsG3A-1; Tue, 10 Aug 2021 20:10:02 -0400
-X-MC-Unique: cKGuTHb9NlOccpz98UsG3A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-395-uaG9zO2SNSW30Hd8I1VQiQ-1; Tue, 10 Aug 2021 20:19:20 -0400
+X-MC-Unique: uaG9zO2SNSW30Hd8I1VQiQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D36601007C87;
-	Wed, 11 Aug 2021 00:10:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AECFB801A92;
+	Wed, 11 Aug 2021 00:19:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BFCBF4536;
-	Wed, 11 Aug 2021 00:10:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A05FD620DE;
+	Wed, 11 Aug 2021 00:19:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A84DF181A0F2;
-	Wed, 11 Aug 2021 00:10:00 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 88CF0181A0F2;
+	Wed, 11 Aug 2021 00:19:18 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17B08o8c002813 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 10 Aug 2021 20:08:50 -0400
+	id 17B0CYke003110 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 10 Aug 2021 20:12:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9F393204470C; Wed, 11 Aug 2021 00:08:50 +0000 (UTC)
+	id 1DC69204470E; Wed, 11 Aug 2021 00:12:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9AFCB2044714
-	for <cluster-devel@redhat.com>; Wed, 11 Aug 2021 00:08:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 457CE8556F0
-	for <cluster-devel@redhat.com>; Wed, 11 Aug 2021 00:08:47 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19BE7204470C
+	for <cluster-devel@redhat.com>; Wed, 11 Aug 2021 00:12:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2722185A7A4
+	for <cluster-devel@redhat.com>; Wed, 11 Aug 2021 00:12:30 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-156-AAQQv_9OPT6tevTDtbs-kA-1;
-	Tue, 10 Aug 2021 20:08:45 -0400
-X-MC-Unique: AAQQv_9OPT6tevTDtbs-kA-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C6007600CD;
-	Wed, 11 Aug 2021 00:08:43 +0000 (UTC)
-Date: Tue, 10 Aug 2021 17:08:43 -0700
+	by relay.mimecast.com with ESMTP id us-mta-587-6QXkgRf3O7WqMexKK17zJw-1;
+	Tue, 10 Aug 2021 20:12:26 -0400
+X-MC-Unique: 6QXkgRf3O7WqMexKK17zJw-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6B88260F25;
+	Wed, 11 Aug 2021 00:12:25 +0000 (UTC)
+Date: Tue, 10 Aug 2021 17:12:25 -0700
 From: "Darrick J. Wong" <djwong@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210811000843.GR3601443@magnolia>
+Message-ID: <20210811001225.GS3601443@magnolia>
 References: <20210809061244.1196573-1-hch@lst.de>
-	<20210809061244.1196573-23-hch@lst.de>
+	<20210809061244.1196573-22-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20210809061244.1196573-23-hch@lst.de>
+In-Reply-To: <20210809061244.1196573-22-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,8 +65,8 @@ Cc: nvdimm@lists.linux.dev, cluster-devel@redhat.com,
 	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
 	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	Dan Williams <dan.j.williams@intel.com>, linux-btrfs@vger.kernel.org
-Subject: Re: [Cluster-devel] [PATCH 22/30] iomap: switch
- iomap_swapfile_activate to use iomap_iter
+Subject: Re: [Cluster-devel] [PATCH 21/30] iomap: switch iomap_seek_data to
+	use iomap_iter
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +80,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,100 +88,96 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Aug 09, 2021 at 08:12:36AM +0200, Christoph Hellwig wrote:
-> Switch iomap_swapfile_activate to use iomap_iter.
+On Mon, Aug 09, 2021 at 08:12:35AM +0200, Christoph Hellwig wrote:
+> Rewrite iomap_seek_data to use iomap_iter.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Smooooooth
+Nice cleanup,
 Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 
 --D
 
 > ---
->  fs/iomap/swapfile.c | 38 ++++++++++++++++----------------------
->  1 file changed, 16 insertions(+), 22 deletions(-)
+>  fs/iomap/seek.c | 47 ++++++++++++++++++++++++-----------------------
+>  1 file changed, 24 insertions(+), 23 deletions(-)
 > 
-> diff --git a/fs/iomap/swapfile.c b/fs/iomap/swapfile.c
-> index 6250ca6a1f851d..7069606eca85b2 100644
-> --- a/fs/iomap/swapfile.c
-> +++ b/fs/iomap/swapfile.c
-> @@ -88,13 +88,9 @@ static int iomap_swapfile_fail(struct iomap_swapfile_info *isi, const char *str)
->   * swap only cares about contiguous page-aligned physical extents and makes no
->   * distinction between written and unwritten extents.
->   */
-> -static loff_t iomap_swapfile_activate_actor(struct inode *inode, loff_t pos,
-> -		loff_t count, void *data, struct iomap *iomap,
-> -		struct iomap *srcmap)
-> +static loff_t iomap_swapfile_iter(const struct iomap_iter *iter,
-> +		struct iomap *iomap, struct iomap_swapfile_info *isi)
+> diff --git a/fs/iomap/seek.c b/fs/iomap/seek.c
+> index fed8f9005f9e46..a845c012b50c67 100644
+> --- a/fs/iomap/seek.c
+> +++ b/fs/iomap/seek.c
+> @@ -56,47 +56,48 @@ iomap_seek_hole(struct inode *inode, loff_t pos, const struct iomap_ops *ops)
+>  }
+>  EXPORT_SYMBOL_GPL(iomap_seek_hole);
+>  
+> -static loff_t
+> -iomap_seek_data_actor(struct inode *inode, loff_t start, loff_t length,
+> -		      void *data, struct iomap *iomap, struct iomap *srcmap)
+> +static loff_t iomap_seek_data_iter(const struct iomap_iter *iter,
+> +		loff_t *hole_pos)
 >  {
-> -	struct iomap_swapfile_info *isi = data;
-> -	int error;
-> -
->  	switch (iomap->type) {
->  	case IOMAP_MAPPED:
+> -	loff_t offset = start;
+> +	loff_t length = iomap_length(iter);
+>  
+> -	switch (iomap->type) {
+> +	switch (iter->iomap.type) {
+>  	case IOMAP_HOLE:
+>  		return length;
 >  	case IOMAP_UNWRITTEN:
-> @@ -125,12 +121,12 @@ static loff_t iomap_swapfile_activate_actor(struct inode *inode, loff_t pos,
->  		isi->iomap.length += iomap->length;
->  	} else {
->  		/* Otherwise, add the retained iomap and store this one. */
-> -		error = iomap_swapfile_add_extent(isi);
-> +		int error = iomap_swapfile_add_extent(isi);
->  		if (error)
->  			return error;
->  		memcpy(&isi->iomap, iomap, sizeof(isi->iomap));
+> -		offset = mapping_seek_hole_data(inode->i_mapping, start,
+> -				start + length, SEEK_DATA);
+> -		if (offset < 0)
+> +		*hole_pos = mapping_seek_hole_data(iter->inode->i_mapping,
+> +				iter->pos, iter->pos + length, SEEK_DATA);
+> +		if (*hole_pos < 0)
+>  			return length;
+> -		fallthrough;
+> +		return 0;
+>  	default:
+> -		*(loff_t *)data = offset;
+> +		*hole_pos = iter->pos;
+>  		return 0;
 >  	}
-> -	return count;
-> +	return iomap_length(iter);
 >  }
 >  
->  /*
-> @@ -141,16 +137,19 @@ int iomap_swapfile_activate(struct swap_info_struct *sis,
->  		struct file *swap_file, sector_t *pagespan,
->  		const struct iomap_ops *ops)
+>  loff_t
+> -iomap_seek_data(struct inode *inode, loff_t offset, const struct iomap_ops *ops)
+> +iomap_seek_data(struct inode *inode, loff_t pos, const struct iomap_ops *ops)
 >  {
-> +	struct inode *inode = swap_file->f_mapping->host;
+>  	loff_t size = i_size_read(inode);
+> -	loff_t ret;
 > +	struct iomap_iter iter = {
 > +		.inode	= inode,
-> +		.pos	= 0,
-> +		.len	= ALIGN_DOWN(i_size_read(inode), PAGE_SIZE),
+> +		.pos	= pos,
 > +		.flags	= IOMAP_REPORT,
 > +	};
->  	struct iomap_swapfile_info isi = {
->  		.sis = sis,
->  		.lowest_ppage = (sector_t)-1ULL,
->  		.file = swap_file,
->  	};
-> -	struct address_space *mapping = swap_file->f_mapping;
-> -	struct inode *inode = mapping->host;
-> -	loff_t pos = 0;
-> -	loff_t len = ALIGN_DOWN(i_size_read(inode), PAGE_SIZE);
-> -	loff_t ret;
 > +	int ret;
 >  
->  	/*
->  	 * Persist all file mapping metadata so that we won't have any
-> @@ -160,15 +159,10 @@ int iomap_swapfile_activate(struct swap_info_struct *sis,
->  	if (ret)
->  		return ret;
+>  	/* Nothing to be found before or beyond the end of the file. */
+> -	if (offset < 0 || offset >= size)
+> +	if (pos < 0 || pos >= size)
+>  		return -ENXIO;
 >  
-> -	while (len > 0) {
-> -		ret = iomap_apply(inode, pos, len, IOMAP_REPORT,
-> -				ops, &isi, iomap_swapfile_activate_actor);
-> -		if (ret <= 0)
+> -	while (offset < size) {
+> -		ret = iomap_apply(inode, offset, size - offset, IOMAP_REPORT,
+> -				  ops, &offset, iomap_seek_data_actor);
+> -		if (ret < 0)
 > -			return ret;
-> -
-> -		pos += ret;
-> -		len -= ret;
+> -		if (ret == 0)
+> -			return offset;
+> -		offset += ret;
 > -	}
+> -
+> +	iter.len = size - pos;
 > +	while ((ret = iomap_iter(&iter, ops)) > 0)
-> +		iter.processed = iomap_swapfile_iter(&iter, &iter.iomap, &isi);
+> +		iter.processed = iomap_seek_data_iter(&iter, &pos);
 > +	if (ret < 0)
 > +		return ret;
->  
->  	if (isi.iomap.length) {
->  		ret = iomap_swapfile_add_extent(&isi);
+> +	if (iter.len) /* found data before EOF */
+> +		return pos;
+>  	/* We've reached the end of the file without finding data */
+>  	return -ENXIO;
+>  }
 > -- 
 > 2.30.2
 > 
