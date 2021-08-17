@@ -2,95 +2,86 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D003F3EDDB7
-	for <lists+cluster-devel@lfdr.de>; Mon, 16 Aug 2021 21:14:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1629141275;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=lWy3l2+IfO7xO6oKpqVQHj7y0vYczHZZ4SIluKLQLb8=;
-	b=a3nh1saZZDsv4fG01W196ApSbz2Ua1g3fdI0tK1JFMtD/Js12d5cZX9MhY0cMLw00qdssX
-	kqkiwkpRSSKEDcPB5LSf7SqTJVvP3gScfLX+D7qfj+C9S5jWGWGjG3nt+iPZg/1q4+XSZa
-	cSdoXqJPUugKCTVIofotSCSnY+XVla4=
+	by mail.lfdr.de (Postfix) with ESMTP id 269D13EE481
+	for <lists+cluster-devel@lfdr.de>; Tue, 17 Aug 2021 04:39:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-68-cYLjPwhSO4ufQVT_IOEeMg-1; Mon, 16 Aug 2021 15:14:34 -0400
-X-MC-Unique: cYLjPwhSO4ufQVT_IOEeMg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-600-RE_v7abjOHKr2hUVqv8LOQ-1; Mon, 16 Aug 2021 22:39:10 -0400
+X-MC-Unique: RE_v7abjOHKr2hUVqv8LOQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D81561082921;
-	Mon, 16 Aug 2021 19:14:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25EF61082921;
+	Tue, 17 Aug 2021 02:39:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 792B019C44;
-	Mon, 16 Aug 2021 19:14:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 14856100EBB0;
+	Tue, 17 Aug 2021 02:39:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 355D3181AC06;
-	Mon, 16 Aug 2021 19:14:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F0BBB181A1CD;
+	Tue, 17 Aug 2021 02:39:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17GJERw3014954 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Aug 2021 15:14:27 -0400
+	id 17H2YuSD032415 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Aug 2021 22:34:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F187B2144B46; Mon, 16 Aug 2021 19:14:26 +0000 (UTC)
+	id CA26D202F34D; Tue, 17 Aug 2021 02:34:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ECD292144B45
-	for <cluster-devel@redhat.com>; Mon, 16 Aug 2021 19:14:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7855F80158D
-	for <cluster-devel@redhat.com>; Mon, 16 Aug 2021 19:14:23 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
-	[209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-523-iptDxdmyNz2T51brSvbAaw-1; Mon, 16 Aug 2021 15:14:22 -0400
-X-MC-Unique: iptDxdmyNz2T51brSvbAaw-1
-Received: by mail-wm1-f71.google.com with SMTP id
-	10-20020a05600c024a00b002e6bf2ee820so78163wmj.6
-	for <cluster-devel@redhat.com>; Mon, 16 Aug 2021 12:14:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=lWy3l2+IfO7xO6oKpqVQHj7y0vYczHZZ4SIluKLQLb8=;
-	b=gSz21UbgIc333ttVDFw4Nc6a/Jk575jEXtI92enNrQ34LMeGwfZoBBzJQY4ytm/AG/
-	pzZQjAwScX0Y2ZMCf7Ryw2ZKgWnsvV+4UznXkTtExIFsFvRS5iPvmc8FkMCsdCsYhUUC
-	wqPdzkrRCoO3WYS7g7kfA4Ex+oJ90Rbjkhe2/JijYbAKPEI9ddcnWwZM81MV7TTJyK6c
-	YEHS6cgFvyPMOfEuAyhsxwA7Y3b3bLEa9o2Iqt/t79LAn61rGbTDJHA/GXEQRR7yuPHd
-	MYybFGu40c4uMhF51XPf/WM8JlxdQ59dgf5myAC+CcJSf1TVn7QpiwZOCY4udCkZCPXw
-	fBvg==
-X-Gm-Message-State: AOAM530/DJBoKmQWVAa/3b7fxV5GMXLg2MrB7+Wph/twlpMYGhQ/PyAO
-	QDvFcqG0lIDQEtXtds9Wv+w4I1FjteikaB0ROUcLB8AmNpCLZFUORcii1McOSHNQZKJEoG5hMeT
-	F1sC0Vw8t7GnsERqipaKZf7qQI9QGvCVTMbnpAg==
-X-Received: by 2002:a5d:674b:: with SMTP id l11mr18978886wrw.357.1629141260957;
-	Mon, 16 Aug 2021 12:14:20 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx3e2hMfKU0iq3mIOu2m32crL3qBkqbuiWv8L806qkeQbGdArMICY3wU0R/Jc0O1nkrsAQGzAuFreIkqVtHZaU=
-X-Received: by 2002:a5d:674b:: with SMTP id l11mr18978869wrw.357.1629141260774;
-	Mon, 16 Aug 2021 12:14:20 -0700 (PDT)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C56EC202F34C
+	for <cluster-devel@redhat.com>; Tue, 17 Aug 2021 02:34:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5630F1857F02
+	for <cluster-devel@redhat.com>; Tue, 17 Aug 2021 02:34:53 +0000 (UTC)
+Received: from mail104.syd.optusnet.com.au (mail104.syd.optusnet.com.au
+	[211.29.132.246]) by relay.mimecast.com with ESMTP id
+	us-mta-104-YXuGlCKlOduorsTFx-_7DA-1; Mon, 16 Aug 2021 22:34:51 -0400
+X-MC-Unique: YXuGlCKlOduorsTFx-_7DA-1
+Received: from dread.disaster.area (pa49-195-182-146.pa.nsw.optusnet.com.au
+	[49.195.182.146])
+	by mail104.syd.optusnet.com.au (Postfix) with ESMTPS id AFB4F869CF3;
+	Tue, 17 Aug 2021 12:34:46 +1000 (AEST)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+	(envelope-from <david@fromorbit.com>)
+	id 1mFow9-001ajs-JP; Tue, 17 Aug 2021 12:34:45 +1000
+Date: Tue, 17 Aug 2021 12:34:45 +1000
+From: Dave Chinner <david@fromorbit.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Message-ID: <20210817023445.GG3657114@dread.disaster.area>
+References: <20210809061244.1196573-1-hch@lst.de>
+	<20210809061244.1196573-12-hch@lst.de>
+	<20210811191720.GG3601443@magnolia>
 MIME-Version: 1.0
-References: <20210803191818.993968-1-agruenba@redhat.com>
-	<CAHk-=wj+_Y7NQ-NhhE0jk52c9ZB0VJbO1AjtMJFB8wP=PO+bdw@mail.gmail.com>
-In-Reply-To: <CAHk-=wj+_Y7NQ-NhhE0jk52c9ZB0VJbO1AjtMJFB8wP=PO+bdw@mail.gmail.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 16 Aug 2021 21:14:09 +0200
-Message-ID: <CAHc6FU6H5q20qiQ5FX1726i0FJHyh=Y46huWkCBZTR3sk+3Dhg@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20210811191720.GG3601443@magnolia>
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.3 cv=YKPhNiOx c=1 sm=1 tr=0
+	a=QpfB3wCSrn/dqEBSktpwZQ==:117 a=QpfB3wCSrn/dqEBSktpwZQ==:17
+	a=kj9zAlcOel0A:10 a=MhDmnRu9jo8A:10 a=JfrnYn6hAAAA:8 a=VwQbUJbxAAAA:8
+	a=20KFwNOVAAAA:8 a=7-415B0cAAAA:8 a=25Yfc8azc3NZfLh1rZQA:9
+	a=CjuIK1q_8ugA:10 a=1CNFftbPRP8L7MoqJWF3:22 a=AjGcO6oz07-iQ99wixmX:22
+	a=biEYGPWJfzWAr4FL6Ov7:22
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Cc: kvm-ppc@vger.kernel.org, Paul Mackerras <paulus@ozlabs.org>,
-	cluster-devel <cluster-devel@redhat.com>,
-	Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+Cc: nvdimm@lists.linux.dev, cluster-devel@redhat.com,
 	Matthew Wilcox <willy@infradead.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH v5 00/12] gfs2: Fix mmap + page fault
-	deadlocks
+	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
+	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	Dan Williams <dan.j.williams@intel.com>,
+	Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org
+Subject: Re: [Cluster-devel] [PATCH v2.1 11/30] iomap: add the new
+	iomap_iter model
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,92 +95,40 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Tue, Aug 3, 2021 at 9:45 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Tue, Aug 3, 2021 at 12:18 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> > With this patch queue, fstest generic/208 (aio-dio-invalidate-failure.c)
-> > endlessly spins in gfs2_file_direct_write.  It looks as if there's a bug
-> > in get_user_pages_fast when called with FOLL_FAST_ONLY:
-> >
-> >  (1) The test case performs an aio write into a 32 MB buffer.
-> >
-> >  (2) The buffer is initially not in memory, so when iomap_dio_rw() ->
-> >      ... -> bio_iov_iter_get_pages() is called with the iter->noio flag
-> >      set, we get to get_user_pages_fast() with FOLL_FAST_ONLY set.
-> >      get_user_pages_fast() returns 0, which causes
-> >      bio_iov_iter_get_pages to return -EFAULT.
-> >
-> >  (3) Then gfs2_file_direct_write faults in the entire buffer with
-> >      fault_in_iov_iter_readable(), which succeeds.
-> >
-> >  (4) With the buffer in memory, we retry the iomap_dio_rw() ->
-> >      ... -> bio_iov_iter_get_pages() -> ... -> get_user_pages_fast().
-> >      This should succeed now, but get_user_pages_fast() still returns 0.
->
-> Hmm. Have you tried to figure out why that "still returns 0" happens?
+On Wed, Aug 11, 2021 at 12:17:20PM -0700, Darrick J. Wong wrote:
+> From: Christoph Hellwig <hch@lst.de>
+> 
+> The iomap_iter struct provides a convenient way to package up and
+> maintain all the arguments to the various mapping and operation
+> functions.  It is operated on using the iomap_iter() function that
+> is called in loop until the whole range has been processed.  Compared
+> to the existing iomap_apply() function this avoid an indirect call
+> for each iteration.
+> 
+> For now iomap_iter() calls back into the existing ->iomap_begin and
+> ->iomap_end methods, but in the future this could be further optimized
+> to avoid indirect calls entirely.
+> 
+> Based on an earlier patch from Matthew Wilcox <willy@infradead.org>.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> [djwong: add to apply.c to preserve git history of iomap loop control]
+> Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+> Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 
-The call stack is:
+Looks like a straight translation of Christoph's original. Seems
+fine to me as a simepl step towards preserving the git history.
 
-gup_pte_range
-gup_pmd_range
-gup_pud_range
-gup_p4d_range
-gup_pgd_range
-lockless_pages_from_mm
-internal_get_user_pages_fast
-get_user_pages_fast
-iov_iter_get_pages
-__bio_iov_iter_get_pages
-bio_iov_iter_get_pages
-iomap_dio_bio_actor
-iomap_dio_actor
-iomap_apply
-iomap_dio_rw
-gfs2_file_direct_write
-
-In gup_pte_range, pte_special(pte) is true and so we return 0.
-
-> One option - for debugging only - would be to introduce a new flag to
-> get_user_pages_fast() that says "print out reason if failed" and make
-> the retry (but not the original one) have that flag set.
->
-> There are a couple of things of note when it comes to "get_user_pages_fast()":
->
->  (a) some architectures don't even enable it
->
->  (b) it can be very picky about the page table contents, and wants the
-> accessed bit to already be set (or the dirty bit, in the case of a
-> write).
->
-> but (a) shouldn't be an issue on any common platform and (b) shouldn't
-> be an issue with  fault_in_iov_iter_readable() that actually does a
-> __get_user() so it will access through the page tables.
->
-> (It might be more of an issue with fault_in_iov_iter_writable() due to
-> walking the page tables by hand - if we don't do the proper
-> access/dirty setting, I could see get_user_pages_fast() failing).
->
-> Anyway, for reason (a) I do think that eventually we should probably
-> introduce FOLL_NOFAULT, and allow the full "slow" page table walk -
-> just not calling down to handle_mm_fault() if it fails.
->
-> But (a) should be a non-issue in your test environment, and so it
-> would be interesting to hear what it is that fails. Because scanning
-> through the patches, they all _look_ fine to me (apart from the one
-> comment about return values, which is more about being consistent with
-> copy_to/from_user() and making the code simpler - not about
-> correctness)
->
->                        Linus
->
-
-Thanks,
-Andreas
+Reviewed-by: Dave Chinner <dchinner@redhat.com>
+-- 
+Dave Chinner
+david@fromorbit.com
 
