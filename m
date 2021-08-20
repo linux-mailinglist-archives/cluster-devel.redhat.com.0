@@ -1,95 +1,108 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 958423F2D01
-	for <lists+cluster-devel@lfdr.de>; Fri, 20 Aug 2021 15:19:25 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 958433F2D4B
+	for <lists+cluster-devel@lfdr.de>; Fri, 20 Aug 2021 15:41:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1629465564;
+	s=mimecast20190719; t=1629466910;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=Wpck0e8AqvXN86BNbpcERlh1fNBjt0D/mM/a3eVJMzI=;
-	b=G4QjtyNrvOnrthVCXswFOmmUkhZHno7DyB3qX5fPrW5RU4xDjHujELIOXQS0RKQ6eUJsBH
-	xhPcovizjNpnM2tbJk0SvzfsAiBhBJDAN8rv/kJ1bIiHmk0ewDdr2GOJ5kDCR8SedmxBmX
-	2twUsSeJVG1f/MULfZ/V4nShu8IU0LM=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=4KjTjMbm6Ax2NoBz/SV8LRb7ROzLCYCzwIW7Ojvzm8c=;
+	b=bph3rXS5GK3XFQaxTQXkxX+4WhKDwOVx5bn5ywlRJJDhLvuPxZXWQjPiONAZbz1I7SPu1i
+	jwBJN41gaQrEbvgbCgTIcGbiuc8I2qqdIVx6kuhSGrMwEkEX30ltbqgIb1V91mKtMmz9To
+	YA2wTCvdBMCD91Pfb9/02Qq8cM5Dwko=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-300-XuGH6vz7M-2UtBO9EFeYPg-1; Fri, 20 Aug 2021 09:19:23 -0400
-X-MC-Unique: XuGH6vz7M-2UtBO9EFeYPg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-429-DvQTM1FCM52Q0umF73w5bA-1; Fri, 20 Aug 2021 09:41:49 -0400
+X-MC-Unique: DvQTM1FCM52Q0umF73w5bA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DD0641026202;
-	Fri, 20 Aug 2021 13:19:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C88035C1BB;
-	Fri, 20 Aug 2021 13:19:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9617A87D548;
+	Fri, 20 Aug 2021 13:41:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 827B56A8FE;
+	Fri, 20 Aug 2021 13:41:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AFDF7181A0F8;
-	Fri, 20 Aug 2021 13:19:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DF644A7CA;
+	Fri, 20 Aug 2021 13:41:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17KDI2J6017002 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Aug 2021 09:18:03 -0400
+	id 17KDfiok020272 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Aug 2021 09:41:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DFBAF20BEDD6; Fri, 20 Aug 2021 13:18:02 +0000 (UTC)
+	id CF7B51054594; Fri, 20 Aug 2021 13:41:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB26120BEDE5
-	for <cluster-devel@redhat.com>; Fri, 20 Aug 2021 13:17:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E0714800883
-	for <cluster-devel@redhat.com>; Fri, 20 Aug 2021 13:17:57 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
-	[209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-517-PfXS_I2wOMiNjZw4SUtKyQ-1; Fri, 20 Aug 2021 09:17:54 -0400
-X-MC-Unique: PfXS_I2wOMiNjZw4SUtKyQ-1
-Received: by mail-wr1-f71.google.com with SMTP id
-	f25-20020a5d58f9000000b00157197bd8efso1495670wrd.13
-	for <cluster-devel@redhat.com>; Fri, 20 Aug 2021 06:17:54 -0700 (PDT)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAF3310545B2
+	for <cluster-devel@redhat.com>; Fri, 20 Aug 2021 13:41:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12C8A185A7A4
+	for <cluster-devel@redhat.com>; Fri, 20 Aug 2021 13:41:38 +0000 (UTC)
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+	[209.85.218.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-595-3FC98ZL0MS2BH8Q40nmhsA-1; Fri, 20 Aug 2021 09:41:34 -0400
+X-MC-Unique: 3FC98ZL0MS2BH8Q40nmhsA-1
+Received: by mail-ej1-f69.google.com with SMTP id
+	ja25-20020a1709079899b02905b2a2bf1a62so3727427ejc.4
+	for <cluster-devel@redhat.com>; Fri, 20 Aug 2021 06:41:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=Wpck0e8AqvXN86BNbpcERlh1fNBjt0D/mM/a3eVJMzI=;
-	b=jhmOTyOvHItSq7fThoN2hF9fW3gzZuevCjuWfENIFOnAp3pmRIBhA5x5+QpYbCCHyl
-	XeI+EHbyCOFM8F7CYJeyhgtt+R4RnZ0YJHk5P10SmZgEkia4641F3HS2TcBYVj+O+jiY
-	q+W9/QYK3jouxFmFGbc4mqMPTvc4gHH3603EoywokcG5LU5cZEALg5mHpHO3soiW7W96
-	tHEFJYuhve+DUtDkXaJHSqCWkeiNcxDrE0nFPBj7JpR6QBMJx5WHxq/9LcZhJM12mgIv
-	1GAREWuGXnRbIBiOjA4qSiERm0S2bX8dkfV8E6SVhDBo4hoh+ZG9c/C27O+0JDa+uNpj
-	Yl2A==
-X-Gm-Message-State: AOAM531N/3igzA9xqawXp+FgtSegL98ZxkgYaRLCtC1M+T+XaSJRlWpv
-	L4jFl/pl7OKzjs3ZvaKkvwhxLRUw6wWbHhUfwZ3mhtwUBBcJC+jW57Mbdkuxt/vh3qQf+uoFRon
-	7Y0nLKb6+fkDj/rMoLvqBhxNd2rKXsPqvm58o8w==
-X-Received: by 2002:a5d:674b:: with SMTP id l11mr10096041wrw.357.1629465473111;
-	Fri, 20 Aug 2021 06:17:53 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxaOj+xRpqTpCdRjBBMNYLIqX6obx5Qu7XAobp4tWowOF1CcguAZLMCq7dGTX+CKrCDIZyxQlBbYLfqGWiDMk0=
-X-Received: by 2002:a5d:674b:: with SMTP id l11mr10095989wrw.357.1629465472672;
-	Fri, 20 Aug 2021 06:17:52 -0700 (PDT)
-MIME-Version: 1.0
+	h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+	:references:organization:user-agent:mime-version
+	:content-transfer-encoding;
+	bh=4KjTjMbm6Ax2NoBz/SV8LRb7ROzLCYCzwIW7Ojvzm8c=;
+	b=NYZg9vVupmxsV0z6W9kWui6qjMOfiympNfW/YiFnv4SGdJUeCQBTxoNHD74W326aC/
+	RGEuFNv+s7qta2dFlZMtPtxcJMMf0JTOFNg79ZBJOUfg5TEdvC0gyBIDOWYiZn34ix5Z
+	D4vIe55aaaCec8vZO+4MiBJg75TpxzB9qL3mL+WoRlAAiWOamBirhmn6AQQaTYtPJU7C
+	/Bir6OAmc24CFo+ehJTN94PQqmTXIn6c1Hl73DxO1F4MiprczJjE8yggtcmkmL+ZX/xL
+	zwTK5Jv2c7LS0Gy1Ttt0LAPPn+vhjuW/sZo++GM8w2fSzYqcpCPAlYM05SAMaHfxPLAX
+	OMJA==
+X-Gm-Message-State: AOAM5318qdPnFQPmGeErIvDcsNBbXwiHOQzU7L9UvbUk4OOHq6cS+IRY
+	zKAEJEbOmdooIlY6lg2a83ucNpa/jbZU3kGOVpVM/aFDwqU+JQirh2ip/C7vAONH66oBT8teSHw
+	/convVjJYBeO45OpCz/bMQQ==
+X-Received: by 2002:aa7:db8b:: with SMTP id u11mr22178960edt.362.1629466893416;
+	Fri, 20 Aug 2021 06:41:33 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx0hLwN+s7rk8F847DLOmn4dy1Ao93kGJxxgV8+oY8fbxG+6Lejz40d6vR1Ye9lqW0fsphjXg==
+X-Received: by 2002:aa7:db8b:: with SMTP id u11mr22178939edt.362.1629466893221;
+	Fri, 20 Aug 2021 06:41:33 -0700 (PDT)
+Received: from
+	0.7.3.c.2.b.0.0.0.3.7.8.9.5.0.2.0.0.0.0.a.d.f.f.0.b.8.0.1.0.0.2.ip6.arpa
+	(0.7.3.c.2.b.0.0.0.3.7.8.9.5.0.2.0.0.0.0.a.d.f.f.0.b.8.0.1.0.0.2.ip6.arpa.
+	[2001:8b0:ffda:0:2059:8730:b2:c370])
+	by smtp.gmail.com with ESMTPSA id
+	g14sm3636121edr.47.2021.08.20.06.41.32
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Fri, 20 Aug 2021 06:41:32 -0700 (PDT)
+Message-ID: <2508f12f0d2a5eedaad0c6b77657f53222b33e3c.camel@redhat.com>
+From: Steven Whitehouse <swhiteho@redhat.com>
+To: Bob Peterson <rpeterso@redhat.com>, Andreas Gruenbacher
+	<agruenba@redhat.com>, Linus Torvalds <torvalds@linux-foundation.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christoph Hellwig
+	<hch@infradead.org>, "Darrick J. Wong" <djwong@kernel.org>
+Date: Fri, 20 Aug 2021 14:41:32 +0100
+In-Reply-To: <cf284633-a9db-9f88-6b60-4377bc33e473@redhat.com>
 References: <20210819194102.1491495-1-agruenba@redhat.com>
 	<20210819194102.1491495-11-agruenba@redhat.com>
 	<5e8a20a8d45043e88013c6004636eae5dadc9be3.camel@redhat.com>
-In-Reply-To: <5e8a20a8d45043e88013c6004636eae5dadc9be3.camel@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Fri, 20 Aug 2021 15:17:41 +0200
-Message-ID: <CAHc6FU7jz9z9FEu3gY0S2A2Rv6cQJzp7p_5NOnU3b8Zpz+QsVg@mail.gmail.com>
-To: Steven Whitehouse <swhiteho@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+	<cf284633-a9db-9f88-6b60-4377bc33e473@redhat.com>
+Organization: Red Hat UK Ltd
+User-Agent: Evolution 3.34.4 (3.34.4-1.fc31)
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
-	"Darrick J. Wong" <djwong@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>, ocfs2-devel@oss.oracle.com
+Cc: Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, ocfs2-devel@oss.oracle.com
 Subject: Re: [Cluster-devel] [PATCH v6 10/19] gfs2: Introduce flag for glock
  holder auto-demotion
 X-BeenThere: cluster-devel@redhat.com
@@ -105,564 +118,67 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 20, 2021 at 11:35 AM Steven Whitehouse <swhiteho@redhat.com> wrote:
-> On Thu, 2021-08-19 at 21:40 +0200, Andreas Gruenbacher wrote:
-> > From: Bob Peterson <rpeterso@redhat.com>
-> >
-> > This patch introduces a new HIF_MAY_DEMOTE flag and infrastructure
-> > that will allow glocks to be demoted automatically on locking conflicts.
-> > When a locking request comes in that isn't compatible with the locking
-> > state of a holder and that holder has the HIF_MAY_DEMOTE flag set, the
-> > holder will be demoted automatically before the incoming locking request
-> > is granted.
->
-> I'm not sure I understand what is going on here. When there are locking
-> conflicts we generate call backs and those result in glock demotion.
-> There is no need for a flag to indicate that I think, since it is the
-> default behaviour anyway. Or perhaps the explanation is just a bit
-> confusing...
+Hi,
 
-When a glock has active holders (with the HIF_HOLDER flag set), the
-glock won't be demoted to a state incompatible with any of those
-holders.
+On Fri, 2021-08-20 at 08:11 -0500, Bob Peterson wrote:
+> On 8/20/21 4:35 AM, Steven Whitehouse wrote:
+> > Hi,
+> > 
+> > On Thu, 2021-08-19 at 21:40 +0200, Andreas Gruenbacher wrote:
+> > > From: Bob Peterson <rpeterso@redhat.com>
+> > > 
+> > > This patch introduces a new HIF_MAY_DEMOTE flag and
+> > > infrastructure
+> > > that
+> > > will allow glocks to be demoted automatically on locking
+> > > conflicts.
+> > > When a locking request comes in that isn't compatible with the
+> > > locking
+> > > state of a holder and that holder has the HIF_MAY_DEMOTE flag
+> > > set,
+> > > the
+> > > holder will be demoted automatically before the incoming locking
+> > > request
+> > > is granted.
+> > > 
+> > I'm not sure I understand what is going on here. When there are
+> > locking
+> > conflicts we generate call backs and those result in glock
+> > demotion.
+> > There is no need for a flag to indicate that I think, since it is
+> > the
+> > default behaviour anyway. Or perhaps the explanation is just a bit
+> > confusing...
+> 
+> I agree that the whole concept and explanation are confusing.
+> Andreas 
+> and I went through several heated arguments about the symantics, 
+> comments, patch descriptions, etc. We played around with many
+> different 
+> flag name ideas, etc. We did not agree on the best way to describe
+> the 
+> whole concept. He didn't like my explanation and I didn't like his.
+> So 
+> yes, it is confusing.
+> 
+That seems to be a good reason to take a step back and look at this a
+bit closer. If we are finding this confusing, then someone else looking
+at it at a future date, who may not be steeped in GFS2 knowledge is
+likely to find it almost impossible.
 
-> > Processes that allow a glock holder to be taken away indicate this by
-> > calling gfs2_holder_allow_demote().  When they need the glock again,
-> > they call gfs2_holder_disallow_demote() and then they check if the
-> > holder is still queued: if it is, they're still holding the glock; if
-> > it isn't, they need to re-acquire the glock.
-> >
-> > This allows processes to hang on to locks that could become part of a
-> > cyclic locking dependency.  The locks will be given up when a (rare)
-> > conflicting locking request occurs, and don't need to be given up
-> > prematurely.
->
-> This seems backwards to me. We already have the glock layer cache the
-> locks until they are required by another node. We also have the min
-> hold time to make sure that we don't bounce locks too much. So what is
-> the problem that you are trying to solve here I wonder?
+So at least the description needs some work here I think, to make it
+much clearer what the overall aim is. It would be good to start with a
+statement of the problem that it is trying to solve which Andreas has
+hinted at in his reply just now,
 
-This solves the problem of faulting in pages during read and write
-operations: on the one hand, we want to hold the inode glock across
-those operations. On the other hand, those operations may fault in
-pages, which may require taking the same or other inode glocks,
-directly or indirectly, which can deadlock.
+Steve.
 
-So before we fault in pages, we indicate with
-gfs2_holder_allow_demote(gh) that we can cope if the glock is taken
-away from us. After faulting in the pages, we indicate with
-gfs2_holder_disallow_demote(gh) that we now actually need the glock
-again. At that point, we either still have the glock (i.e., the holder
-is still queued and it has the HIF_HOLDER flag set), or we don't.
-
-The different kinds of read and write operations differ in how they
-handle the latter case:
-
- * When a buffered read or write loses the inode glock, it returns a
-short result. This
-   prevents torn writes and reading things that have never existed on
-disk in that form.
-
- * When a direct read or write loses the inode glock, it re-acquires
-it before resuming
-   the operation. Direct I/O is not expected to return partial results
-and doesn't provide
-   any kind of synchronization among processes.
-
-We could solve this kind of problem in other ways, for example, by
-keeping a glock generation number, dropping the glock before faulting
-in pages, re-acquiring it afterwards, and checking if the generation
-number has changed. This would still be an additional piece of glock
-infrastructure, but more heavyweight than the HIF_MAY_DEMOTE flag
-which uses the existing glock holder infrastructure.
-
-> > Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> > ---
-> >  fs/gfs2/glock.c  | 221 +++++++++++++++++++++++++++++++++++++++----
-> > ----
-> >  fs/gfs2/glock.h  |  20 +++++
-> >  fs/gfs2/incore.h |   1 +
-> >  3 files changed, 206 insertions(+), 36 deletions(-)
-> >
-> > diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-> > index f24db2ececfb..d1b06a09ce2f 100644
-> > --- a/fs/gfs2/glock.c
-> > +++ b/fs/gfs2/glock.c
-> > @@ -58,6 +58,7 @@ struct gfs2_glock_iter {
-> >  typedef void (*glock_examiner) (struct gfs2_glock * gl);
-> >
-> >  static void do_xmote(struct gfs2_glock *gl, struct gfs2_holder *gh,
-> > unsigned int target);
-> > +static void __gfs2_glock_dq(struct gfs2_holder *gh);
-> >
-> >  static struct dentry *gfs2_root;
-> >  static struct workqueue_struct *glock_workqueue;
-> > @@ -197,6 +198,12 @@ static int demote_ok(const struct gfs2_glock
-> > *gl)
-> >
-> >       if (gl->gl_state == LM_ST_UNLOCKED)
-> >               return 0;
-> > +     /*
-> > +      * Note that demote_ok is used for the lru process of disposing
-> > of
-> > +      * glocks. For this purpose, we don't care if the glock's
-> > holders
-> > +      * have the HIF_MAY_DEMOTE flag set or not. If someone is using
-> > +      * them, don't demote.
-> > +      */
-> >       if (!list_empty(&gl->gl_holders))
-> >               return 0;
-> >       if (glops->go_demote_ok)
-> > @@ -379,7 +386,7 @@ static void do_error(struct gfs2_glock *gl, const
-> > int ret)
-> >       struct gfs2_holder *gh, *tmp;
-> >
-> >       list_for_each_entry_safe(gh, tmp, &gl->gl_holders, gh_list) {
-> > -             if (test_bit(HIF_HOLDER, &gh->gh_iflags))
-> > +             if (!test_bit(HIF_WAIT, &gh->gh_iflags))
-> >                       continue;
-> >               if (ret & LM_OUT_ERROR)
-> >                       gh->gh_error = -EIO;
-> > @@ -393,6 +400,40 @@ static void do_error(struct gfs2_glock *gl,
-> > const int ret)
-> >       }
-> >  }
-> >
-> > +/**
-> > + * demote_incompat_holders - demote incompatible demoteable holders
-> > + * @gl: the glock we want to promote
-> > + * @new_gh: the new holder to be promoted
-> > + */
-> > +static void demote_incompat_holders(struct gfs2_glock *gl,
-> > +                                 struct gfs2_holder *new_gh)
-> > +{
-> > +     struct gfs2_holder *gh;
-> > +
-> > +     /*
-> > +      * Demote incompatible holders before we make ourselves
-> > eligible.
-> > +      * (This holder may or may not allow auto-demoting, but we
-> > don't want
-> > +      * to demote the new holder before it's even granted.)
-> > +      */
-> > +     list_for_each_entry(gh, &gl->gl_holders, gh_list) {
-> > +             /*
-> > +              * Since holders are at the front of the list, we stop
-> > when we
-> > +              * find the first non-holder.
-> > +              */
-> > +             if (!test_bit(HIF_HOLDER, &gh->gh_iflags))
-> > +                     return;
-> > +             if (test_bit(HIF_MAY_DEMOTE, &gh->gh_iflags) &&
-> > +                 !may_grant(gl, new_gh, gh)) {
-> > +                     /*
-> > +                      * We should not recurse into do_promote
-> > because
-> > +                      * __gfs2_glock_dq only calls handle_callback,
-> > +                      * gfs2_glock_add_to_lru and
-> > __gfs2_glock_queue_work.
-> > +                      */
-> > +                     __gfs2_glock_dq(gh);
-> > +             }
-> > +     }
-> > +}
-> > +
-> >  /**
-> >   * find_first_holder - find the first "holder" gh
-> >   * @gl: the glock
-> > @@ -411,6 +452,26 @@ static inline struct gfs2_holder
-> > *find_first_holder(const struct gfs2_glock *gl)
-> >       return NULL;
-> >  }
-> >
-> > +/**
-> > + * find_first_strong_holder - find the first non-demoteable holder
-> > + * @gl: the glock
-> > + *
-> > + * Find the first holder that doesn't have the HIF_MAY_DEMOTE flag
-> > set.
-> > + */
-> > +static inline struct gfs2_holder
-> > +*find_first_strong_holder(struct gfs2_glock *gl)
-> > +{
-> > +     struct gfs2_holder *gh;
-> > +
-> > +     list_for_each_entry(gh, &gl->gl_holders, gh_list) {
-> > +             if (!test_bit(HIF_HOLDER, &gh->gh_iflags))
-> > +                     return NULL;
-> > +             if (!test_bit(HIF_MAY_DEMOTE, &gh->gh_iflags))
-> > +                     return gh;
-> > +     }
-> > +     return NULL;
-> > +}
-> > +
-> >  /**
-> >   * do_promote - promote as many requests as possible on the current
-> > queue
-> >   * @gl: The glock
-> > @@ -425,15 +486,27 @@ __acquires(&gl->gl_lockref.lock)
-> >  {
-> >       const struct gfs2_glock_operations *glops = gl->gl_ops;
-> >       struct gfs2_holder *gh, *tmp, *first_gh;
-> > +     bool incompat_holders_demoted = false;
-> >       int ret;
-> >
-> > -     first_gh = find_first_holder(gl);
-> > +     first_gh = find_first_strong_holder(gl);
-> >
-> >  restart:
-> >       list_for_each_entry_safe(gh, tmp, &gl->gl_holders, gh_list) {
-> > -             if (test_bit(HIF_HOLDER, &gh->gh_iflags))
-> > +             if (!test_bit(HIF_WAIT, &gh->gh_iflags))
-> >                       continue;
-> >               if (may_grant(gl, first_gh, gh)) {
-> > +                     if (!incompat_holders_demoted) {
-> > +                             demote_incompat_holders(gl, first_gh);
-> > +                             incompat_holders_demoted = true;
-> > +                             first_gh = gh;
-> > +                     }
-> > +                     /*
-> > +                      * The first holder (and only the first holder)
-> > on the
-> > +                      * list to be promoted needs to call the
-> > go_lock
-> > +                      * function. This does things like
-> > inode_refresh
-> > +                      * to read an inode from disk.
-> > +                      */
-> >                       if (gh->gh_list.prev == &gl->gl_holders &&
-> >                           glops->go_lock) {
-> >                               spin_unlock(&gl->gl_lockref.lock);
-> > @@ -459,6 +532,11 @@ __acquires(&gl->gl_lockref.lock)
-> >                       gfs2_holder_wake(gh);
-> >                       continue;
-> >               }
-> > +             /*
-> > +              * If we get here, it means we may not grant this
-> > holder for
-> > +              * some reason. If this holder is the head of the list,
-> > it
-> > +              * means we have a blocked holder at the head, so
-> > return 1.
-> > +              */
-> >               if (gh->gh_list.prev == &gl->gl_holders)
-> >                       return 1;
-> >               do_error(gl, 0);
-> > @@ -1373,7 +1451,7 @@ __acquires(&gl->gl_lockref.lock)
-> >               if (test_bit(GLF_LOCK, &gl->gl_flags)) {
-> >                       struct gfs2_holder *first_gh;
-> >
-> > -                     first_gh = find_first_holder(gl);
-> > +                     first_gh = find_first_strong_holder(gl);
-> >                       try_futile = !may_grant(gl, first_gh, gh);
-> >               }
-> >               if (test_bit(GLF_INVALIDATE_IN_PROGRESS, &gl-
-> > >gl_flags))
-> > @@ -1382,7 +1460,8 @@ __acquires(&gl->gl_lockref.lock)
-> >
-> >       list_for_each_entry(gh2, &gl->gl_holders, gh_list) {
-> >               if (unlikely(gh2->gh_owner_pid == gh->gh_owner_pid &&
-> > -                 (gh->gh_gl->gl_ops->go_type != LM_TYPE_FLOCK)))
-> > +                 (gh->gh_gl->gl_ops->go_type != LM_TYPE_FLOCK) &&
-> > +                 !test_bit(HIF_MAY_DEMOTE, &gh2->gh_iflags)))
-> >                       goto trap_recursive;
-> >               if (try_futile &&
-> >                   !(gh2->gh_flags & (LM_FLAG_TRY | LM_FLAG_TRY_1CB)))
-> > {
-> > @@ -1478,51 +1557,83 @@ int gfs2_glock_poll(struct gfs2_holder *gh)
-> >       return test_bit(HIF_WAIT, &gh->gh_iflags) ? 0 : 1;
-> >  }
-> >
-> > -/**
-> > - * gfs2_glock_dq - dequeue a struct gfs2_holder from a glock
-> > (release a glock)
-> > - * @gh: the glock holder
-> > - *
-> > - */
-> > +static inline bool needs_demote(struct gfs2_glock *gl)
-> > +{
-> > +     return (test_bit(GLF_DEMOTE, &gl->gl_flags) ||
-> > +             test_bit(GLF_PENDING_DEMOTE, &gl->gl_flags));
-> > +}
-> >
-> > -void gfs2_glock_dq(struct gfs2_holder *gh)
-> > +static void __gfs2_glock_dq(struct gfs2_holder *gh)
-> >  {
-> >       struct gfs2_glock *gl = gh->gh_gl;
-> >       struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
-> >       unsigned delay = 0;
-> >       int fast_path = 0;
-> >
-> > -     spin_lock(&gl->gl_lockref.lock);
-> >       /*
-> > -      * If we're in the process of file system withdraw, we cannot
-> > just
-> > -      * dequeue any glocks until our journal is recovered, lest we
-> > -      * introduce file system corruption. We need two exceptions to
-> > this
-> > -      * rule: We need to allow unlocking of nondisk glocks and the
-> > glock
-> > -      * for our own journal that needs recovery.
-> > +      * This while loop is similar to function
-> > demote_incompat_holders:
-> > +      * If the glock is due to be demoted (which may be from another
-> > node
-> > +      * or even if this holder is GL_NOCACHE), the weak holders are
-> > +      * demoted as well, allowing the glock to be demoted.
-> >        */
-> > -     if (test_bit(SDF_WITHDRAW_RECOVERY, &sdp->sd_flags) &&
-> > -         glock_blocked_by_withdraw(gl) &&
-> > -         gh->gh_gl != sdp->sd_jinode_gl) {
-> > -             sdp->sd_glock_dqs_held++;
-> > -             spin_unlock(&gl->gl_lockref.lock);
-> > -             might_sleep();
-> > -             wait_on_bit(&sdp->sd_flags, SDF_WITHDRAW_RECOVERY,
-> > -                         TASK_UNINTERRUPTIBLE);
-> > -             spin_lock(&gl->gl_lockref.lock);
-> > -     }
-> > -     if (gh->gh_flags & GL_NOCACHE)
-> > -             handle_callback(gl, LM_ST_UNLOCKED, 0, false);
-> > +     while (gh) {
-> > +             /*
-> > +              * If we're in the process of file system withdraw, we
-> > cannot
-> > +              * just dequeue any glocks until our journal is
-> > recovered, lest
-> > +              * we introduce file system corruption. We need two
-> > exceptions
-> > +              * to this rule: We need to allow unlocking of nondisk
-> > glocks
-> > +              * and the glock for our own journal that needs
-> > recovery.
-> > +              */
-> > +             if (test_bit(SDF_WITHDRAW_RECOVERY, &sdp->sd_flags) &&
-> > +                 glock_blocked_by_withdraw(gl) &&
-> > +                 gh->gh_gl != sdp->sd_jinode_gl) {
-> > +                     sdp->sd_glock_dqs_held++;
-> > +                     spin_unlock(&gl->gl_lockref.lock);
-> > +                     might_sleep();
-> > +                     wait_on_bit(&sdp->sd_flags,
-> > SDF_WITHDRAW_RECOVERY,
-> > +                                 TASK_UNINTERRUPTIBLE);
-> > +                     spin_lock(&gl->gl_lockref.lock);
-> > +             }
-> > +
-> > +             /*
-> > +              * This holder should not be cached, so mark it for
-> > demote.
-> > +              * Note: this should be done before the check for
-> > needs_demote
-> > +              * below.
-> > +              */
-> > +             if (gh->gh_flags & GL_NOCACHE)
-> > +                     handle_callback(gl, LM_ST_UNLOCKED, 0, false);
-> >
-> > -     list_del_init(&gh->gh_list);
-> > -     clear_bit(HIF_HOLDER, &gh->gh_iflags);
-> > -     if (list_empty(&gl->gl_holders) &&
-> > -         !test_bit(GLF_PENDING_DEMOTE, &gl->gl_flags) &&
-> > -         !test_bit(GLF_DEMOTE, &gl->gl_flags))
-> > -             fast_path = 1;
-> > +             list_del_init(&gh->gh_list);
-> > +             clear_bit(HIF_HOLDER, &gh->gh_iflags);
-> > +             trace_gfs2_glock_queue(gh, 0);
-> > +
-> > +             /*
-> > +              * If there hasn't been a demote request we are done.
-> > +              * (Let the remaining holders, if any, keep holding
-> > it.)
-> > +              */
-> > +             if (!needs_demote(gl)) {
-> > +                     if (list_empty(&gl->gl_holders))
-> > +                             fast_path = 1;
-> > +                     break;
-> > +             }
-> > +             /*
-> > +              * If we have another strong holder (we cannot auto-
-> > demote)
-> > +              * we are done. It keeps holding it until it is done.
-> > +              */
-> > +             if (find_first_strong_holder(gl))
-> > +                     break;
-> > +
-> > +             /*
-> > +              * If we have a weak holder at the head of the list, it
-> > +              * (and all others like it) must be auto-demoted. If
-> > there
-> > +              * are no more weak holders, we exit the while loop.
-> > +              */
-> > +             gh = find_first_holder(gl);
-> > +     }
-> >
-> >       if (!test_bit(GLF_LFLUSH, &gl->gl_flags) && demote_ok(gl))
-> >               gfs2_glock_add_to_lru(gl);
-> >
-> > -     trace_gfs2_glock_queue(gh, 0);
-> >       if (unlikely(!fast_path)) {
-> >               gl->gl_lockref.count++;
-> >               if (test_bit(GLF_PENDING_DEMOTE, &gl->gl_flags) &&
-> > @@ -1531,6 +1642,19 @@ void gfs2_glock_dq(struct gfs2_holder *gh)
-> >                       delay = gl->gl_hold_time;
-> >               __gfs2_glock_queue_work(gl, delay);
-> >       }
-> > +}
-> > +
-> > +/**
-> > + * gfs2_glock_dq - dequeue a struct gfs2_holder from a glock
-> > (release a glock)
-> > + * @gh: the glock holder
-> > + *
-> > + */
-> > +void gfs2_glock_dq(struct gfs2_holder *gh)
-> > +{
-> > +     struct gfs2_glock *gl = gh->gh_gl;
-> > +
-> > +     spin_lock(&gl->gl_lockref.lock);
-> > +     __gfs2_glock_dq(gh);
-> >       spin_unlock(&gl->gl_lockref.lock);
-> >  }
-> >
-> > @@ -1693,6 +1817,7 @@ void gfs2_glock_dq_m(unsigned int num_gh,
-> > struct gfs2_holder *ghs)
-> >
-> >  void gfs2_glock_cb(struct gfs2_glock *gl, unsigned int state)
-> >  {
-> > +     struct gfs2_holder mock_gh = { .gh_gl = gl, .gh_state = state,
-> > };
-> >       unsigned long delay = 0;
-> >       unsigned long holdtime;
-> >       unsigned long now = jiffies;
-> > @@ -1707,6 +1832,28 @@ void gfs2_glock_cb(struct gfs2_glock *gl,
-> > unsigned int state)
-> >               if (test_bit(GLF_REPLY_PENDING, &gl->gl_flags))
-> >                       delay = gl->gl_hold_time;
-> >       }
-> > +     /*
-> > +      * Note 1: We cannot call demote_incompat_holders from
-> > handle_callback
-> > +      * or gfs2_set_demote due to recursion problems like:
-> > gfs2_glock_dq ->
-> > +      * handle_callback -> demote_incompat_holders -> gfs2_glock_dq
-> > +      * Plus, we only want to demote the holders if the request
-> > comes from
-> > +      * a remote cluster node because local holder conflicts are
-> > resolved
-> > +      * elsewhere.
-> > +      *
-> > +      * Note 2: if a remote node wants this glock in EX mode,
-> > lock_dlm will
-> > +      * request that we set our state to UNLOCKED. Here we mock up a
-> > holder
-> > +      * to make it look like someone wants the lock EX locally. Any
-> > SH
-> > +      * and DF requests should be able to share the lock without
-> > demoting.
-> > +      *
-> > +      * Note 3: We only want to demote the demoteable holders when
-> > there
-> > +      * are no more strong holders. The demoteable holders might as
-> > well
-> > +      * keep the glock until the last strong holder is done with it.
-> > +      */
-> > +     if (!find_first_strong_holder(gl)) {
-> > +             if (state == LM_ST_UNLOCKED)
-> > +                     mock_gh.gh_state = LM_ST_EXCLUSIVE;
-> > +             demote_incompat_holders(gl, &mock_gh);
-> > +     }
-> >       handle_callback(gl, state, delay, true);
-> >       __gfs2_glock_queue_work(gl, delay);
-> >       spin_unlock(&gl->gl_lockref.lock);
-> > @@ -2096,6 +2243,8 @@ static const char *hflags2str(char *buf, u16
-> > flags, unsigned long iflags)
-> >               *p++ = 'H';
-> >       if (test_bit(HIF_WAIT, &iflags))
-> >               *p++ = 'W';
-> > +     if (test_bit(HIF_MAY_DEMOTE, &iflags))
-> > +             *p++ = 'D';
-> >       *p = 0;
-> >       return buf;
-> >  }
-> > diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
-> > index 31a8f2f649b5..9012487da4c6 100644
-> > --- a/fs/gfs2/glock.h
-> > +++ b/fs/gfs2/glock.h
-> > @@ -150,6 +150,8 @@ static inline struct gfs2_holder
-> > *gfs2_glock_is_locked_by_me(struct gfs2_glock *
-> >       list_for_each_entry(gh, &gl->gl_holders, gh_list) {
-> >               if (!test_bit(HIF_HOLDER, &gh->gh_iflags))
-> >                       break;
-> > +             if (test_bit(HIF_MAY_DEMOTE, &gh->gh_iflags))
-> > +                     continue;
-> >               if (gh->gh_owner_pid == pid)
-> >                       goto out;
-> >       }
-> > @@ -325,6 +327,24 @@ static inline void glock_clear_object(struct
-> > gfs2_glock *gl, void *object)
-> >       spin_unlock(&gl->gl_lockref.lock);
-> >  }
-> >
-> > +static inline void gfs2_holder_allow_demote(struct gfs2_holder *gh)
-> > +{
-> > +     struct gfs2_glock *gl = gh->gh_gl;
-> > +
-> > +     spin_lock(&gl->gl_lockref.lock);
-> > +     set_bit(HIF_MAY_DEMOTE, &gh->gh_iflags);
-> > +     spin_unlock(&gl->gl_lockref.lock);
-> > +}
-> > +
-> > +static inline void gfs2_holder_disallow_demote(struct gfs2_holder
-> > *gh)
-> > +{
-> > +     struct gfs2_glock *gl = gh->gh_gl;
-> > +
-> > +     spin_lock(&gl->gl_lockref.lock);
-> > +     clear_bit(HIF_MAY_DEMOTE, &gh->gh_iflags);
-> > +     spin_unlock(&gl->gl_lockref.lock);
-> > +}
-> > +
->
-> This looks a bit strange... bit operations are atomic anyway, so why do
-> we need that spinlock here?
-
-This is about making sure that the glock state engine will make
-consistent decisions. Currently, those decisions are made under that
-spin lock. We could set the HIF_MAY_DEMOTE flag followed by a memory
-barrier and the glock state engine would *probably* still make the
-right decisions most of the time, but that's not easy to ensure
-anymore.
-
-We surely want to prevent the glock state engine from making changes
-while clearing the flag, though.
-
-> Steve.
->
-> >  extern void gfs2_inode_remember_delete(struct gfs2_glock *gl, u64
-> > generation);
-> >  extern bool gfs2_inode_already_deleted(struct gfs2_glock *gl, u64
-> > generation);
-> >
-> > diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-> > index 5c6b985254aa..e73a81db0714 100644
-> > --- a/fs/gfs2/incore.h
-> > +++ b/fs/gfs2/incore.h
-> > @@ -252,6 +252,7 @@ struct gfs2_lkstats {
-> >
-> >  enum {
-> >       /* States */
-> > +     HIF_MAY_DEMOTE          = 1,
-> >       HIF_HOLDER              = 6,  /* Set for gh that "holds" the
-> > glock */
-> >       HIF_WAIT                = 10,
-> >  };
->
-
-Thanks,
-Andreas
 
