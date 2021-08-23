@@ -2,90 +2,98 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D996B3F4BDD
-	for <lists+cluster-devel@lfdr.de>; Mon, 23 Aug 2021 15:49:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1629726569;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=LZPZkxYippsu1lCOLx533ylh2ORQahlDMxoSxv8jTxM=;
-	b=YWtQq1SpfqqLWibUeGIcIumdyHIp5gCXGa3ZKkjPdolh8V6heVmWZHev4yqT6YcJZoMbGv
-	hvLOH2RMyuRAcyfxVbBpp46t+Qp8ltff3tc0Dy4EQwkRiehasXPW5YuZx9KDx4Yq4HaIeo
-	sSIxQfnKYDiKzi/jZ4JNtVeqGKRLbKg=
+	by mail.lfdr.de (Postfix) with ESMTP id C15F73F4DD6
+	for <lists+cluster-devel@lfdr.de>; Mon, 23 Aug 2021 17:55:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-22-93DYPNRIPpavmTfTE4m_Cw-1; Mon, 23 Aug 2021 09:49:28 -0400
-X-MC-Unique: 93DYPNRIPpavmTfTE4m_Cw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-126-U7WBDZj0MRe3nS85jXvCww-1; Mon, 23 Aug 2021 11:55:31 -0400
+X-MC-Unique: U7WBDZj0MRe3nS85jXvCww-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E7A51801AC5;
-	Mon, 23 Aug 2021 13:49:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 30D8D107ACF5;
+	Mon, 23 Aug 2021 15:55:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F26B860BD9;
-	Mon, 23 Aug 2021 13:49:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E721418361;
+	Mon, 23 Aug 2021 15:55:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 903A64BB7C;
-	Mon, 23 Aug 2021 13:49:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 993634BB7C;
+	Mon, 23 Aug 2021 15:55:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17NDnIxU010015 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Aug 2021 09:49:18 -0400
+	id 17NFCSb0022627 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Aug 2021 11:12:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6F4B3200ACFC; Mon, 23 Aug 2021 13:49:18 +0000 (UTC)
+	id 0F9006E1DF; Mon, 23 Aug 2021 15:12:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AB1921568A1
-	for <cluster-devel@redhat.com>; Mon, 23 Aug 2021 13:49:15 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A1EA6E1AC
+	for <cluster-devel@redhat.com>; Mon, 23 Aug 2021 15:12:24 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73A591801387
-	for <cluster-devel@redhat.com>; Mon, 23 Aug 2021 13:49:15 +0000 (UTC)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
-	[209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-101-eC6xuHR1NciLO8MOJJkbhg-1; Mon, 23 Aug 2021 09:49:13 -0400
-X-MC-Unique: eC6xuHR1NciLO8MOJJkbhg-1
-Received: by mail-qv1-f72.google.com with SMTP id
-	dv7-20020ad44ee7000000b0036fa79fd337so1987244qvb.6
-	for <cluster-devel@redhat.com>; Mon, 23 Aug 2021 06:49:13 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 338F780122D
+	for <cluster-devel@redhat.com>; Mon, 23 Aug 2021 15:12:24 +0000 (UTC)
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+	[209.85.210.45]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-327-lDINVULyPNu5ODhHcjbTDA-1; Mon, 23 Aug 2021 11:12:20 -0400
+X-MC-Unique: lDINVULyPNu5ODhHcjbTDA-1
+Received: by mail-ot1-f45.google.com with SMTP id
+	i8-20020a056830402800b0051afc3e373aso25914984ots.5; 
+	Mon, 23 Aug 2021 08:12:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=LZPZkxYippsu1lCOLx533ylh2ORQahlDMxoSxv8jTxM=;
-	b=mLVVhlRPnt7MqmH8Ouybnmqvptm1v0/5GcZMDM/cuR+N4CNdUKOyD4C1GpUr4f4+dI
-	TucAmAP5eNABs5q+8E8DsuJLZV1nfSmnj1fT8k8f4wMtLwoh0NedjqOdm4pUb6c2Bpgk
-	tXFMcT4wScd6eoGLhRec8jyo1yEadyOjsqE9ixPpGUsajN9OMeVYkbHXapqdYN+1UDJd
-	+7swBSpx8kNiI107r9WE01ELr4FP7IkeD1Ld9b6HkIJYDQVvCr8CF+qhD4iFzKwZqIh8
-	rO4pxAy3+jDMXh+RC1Au173X2u7jMIu3fJZlcBPhYPi/VBFjeFKjCpByuJdC9AAl2I1H
-	FUqQ==
-X-Gm-Message-State: AOAM532IyYd2uB867iVMx5wnQM4D5YkTtQ78zDlKc3n2gEjF8xlRvDIc
-	+ILJ0pMD6fO7vEw8Ad5TW06Kwf/4gUG2NLgg/NCr66y2a0T9Qt80+b70rKZmjGoig4KSdxu0p4z
-	5zmkMgo278FC+pwGUrzO7M52bufFJf/i1ugEBoQ==
-X-Received: by 2002:a05:620a:1aa5:: with SMTP id
-	bl37mr5584321qkb.84.1629726553528; 
-	Mon, 23 Aug 2021 06:49:13 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJytT8paIEvWZ4rsPRX3ah8p3FZYidCytCBvLPqdoTF0DP/suPoY/IIwm9zdR2ds/CxDWqO45gxHB0aqTxxSntc=
-X-Received: by 2002:a05:620a:1aa5:: with SMTP id
-	bl37mr5584300qkb.84.1629726553286; 
-	Mon, 23 Aug 2021 06:49:13 -0700 (PDT)
+	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+	:references:mime-version:content-disposition:in-reply-to;
+	bh=glsVm3RqzgVIRj8dlGS0GV9R6abZS+EPRBwu7DUdpRE=;
+	b=Vn9Y6L1rhl+8cA706VZhiv5q64v9/QhK9UQvhkD6wUxW9Av216DWylIb950PiVctka
+	OuGe6JrznCjvOx5RL4EaxyH4NLeQ4W/S7UHfLWm+YkYxscDsvaW2ipEvF5F5vIaz3edX
+	DbzBHGFaXE6eOQHEGtEkglMvajIHQXnyN/6Tpre8v2rLtjeJk9Z9XqnrTsTHiocn4sMQ
+	B6gJUk9CFkwpWVeAgTYdmUaDsXcgqJ+Eg83m3R3jSDA55xd5hRVIDA0qPZ5/Fs2l9pIv
+	26yAbO7tmehouoBnFuPzXACNuj0HCQlHT4+IkX8iUa8UIJBIV7PXO4AjZHhIPgQLjJ4/
+	280A==
+X-Gm-Message-State: AOAM532Q8WvVHkC4swanUBpL3qUj5+cAt0RjgtZBQ0btKY3AHrnCOrVp
+	X5MAQnYFuq6aXB4vR+KG3eM=
+X-Google-Smtp-Source: ABdhPJyJ5czS6h1Rn8yLUnHyeAc8fE6iKUGAXlI1IWym95rnmTI3fYFfSDHvx3dJqvpj0H4G9i7JDA==
+X-Received: by 2002:a9d:d35:: with SMTP id 50mr27267919oti.22.1629731538903;
+	Mon, 23 Aug 2021 08:12:18 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+	by smtp.gmail.com with ESMTPSA id
+	k8sm3382890oom.20.2021.08.23.08.12.17
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Mon, 23 Aug 2021 08:12:17 -0700 (PDT)
+Date: Mon, 23 Aug 2021 08:12:16 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <20210823151216.GA1122156@roeck-us.net>
+References: <20210820163919.435135-1-jlayton@kernel.org>
+	<20210820163919.435135-3-jlayton@kernel.org>
 MIME-Version: 1.0
-References: <AM6PR04MB64883088DB106BD3BC49B216CFC49@AM6PR04MB6488.eurprd04.prod.outlook.com>
-In-Reply-To: <AM6PR04MB64883088DB106BD3BC49B216CFC49@AM6PR04MB6488.eurprd04.prod.outlook.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 23 Aug 2021 09:49:02 -0400
-Message-ID: <CAK-6q+jtpogQirTu86nR=pBrAZtaP6b5ouY275GuvXYq0K-1YA@mail.gmail.com>
-To: Gang He <GHe@suse.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20210820163919.435135-3-jlayton@kernel.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
-Cc: "cluster-devel@redhat.com" <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] FS/DLM module triggered kernel BUG
+X-Mailman-Approved-At: Mon, 23 Aug 2021 11:55:24 -0400
+Cc: bfields@fieldses.org, linux-nfs@vger.kernel.org, david@redhat.com,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	willy@infradead.org, cluster-devel@redhat.com,
+	linux-mm@kvack.org, rostedt@goodmis.org, ebiederm@xmission.com,
+	luto@kernel.org, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, akpm@linux-foundation.org,
+	torvalds@linux-foundation.org, linux-afs@lists.infradead.org,
+	ocfs2-devel@oss.oracle.com, viro@zeniv.linux.org.uk
+Subject: Re: [Cluster-devel] [PATCH v3 2/2] fs: remove mandatory file
+	locking support
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,89 +107,868 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Gang He,
+On Fri, Aug 20, 2021 at 12:39:19PM -0400, Jeff Layton wrote:
+> We added CONFIG_MANDATORY_FILE_LOCKING in 2015, and soon after turned it
+> off in Fedora and RHEL8. Several other distros have followed suit.
+> 
+> I've heard of one problem in all that time: Someone migrated from an
+> older distro that supported "-o mand" to one that didn't, and the host
+> had a fstab entry with "mand" in it which broke on reboot. They didn't
+> actually _use_ mandatory locking so they just removed the mount option
+> and moved on.
+> 
+> This patch rips out mandatory locking support wholesale from the kernel,
+> along with the Kconfig option and the Documentation file. It also
+> changes the mount code to ignore the "mand" mount option instead of
+> erroring out, and to throw a big, ugly warning.
+> 
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-On Mon, Aug 23, 2021 at 1:43 AM Gang He <GHe@suse.com> wrote:
->
-> Hello Guys,
->
-> I used kernel 5.13.8, I sometimes encountered the dlm module triggered kernel BUG.
+This patch leaves a number of unused variables and labels behind,
+as can be seen in allmodcoinfig builds for various architectures.
+Do you expect those to be fixed individually, or do you plan to
+fix those up yourself ?
 
-What do you exactly do? I would like to test it on a recent upstream
-version, or you can do it?
+Guenter
 
-> Since the dlm kernel module is not the latest source code, I am not sure if this problem is fixed, or not.
->
-
-could be, see below.
-
-> The backtrace is as below,
->
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: remove member 172204615
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_members 2 nodes
-> [Fri Aug 20 16:24:14 2021] dlm: connection 000000005ef82293 got EOF from 172204615
-
-here we disconnect from nodeid 172204615.
-
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: generation 4 slots 2 1:172204786 2:172204748
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_directory
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_directory 8 in 1 new
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_directory 1 out 1 messages
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_masters
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_masters 33587 of 33599
-> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_locks 0 out
-> [Fri Aug 20 16:24:14 2021] BUG: unable to handle page fault for address: ffffdd99ffd16650
-> [Fri Aug 20 16:24:14 2021] #PF: supervisor write access in kernel mode
-> [Fri Aug 20 16:24:14 2021] #PF: error_code(0x0002) - not-present page
-> [Fri Aug 20 16:24:14 2021] PGD 1040067 P4D 1040067 PUD 19c3067 PMD 19c4067 PTE 0
-> [Fri Aug 20 16:24:14 2021] Oops: 0002 [#1] SMP PTI
-> [Fri Aug 20 16:24:14 2021] CPU: 1 PID: 25221 Comm: kworker/u4:1 Tainted: G        W         5.13.8-1-default #1 openSUSE Tumbleweed
-> [Fri Aug 20 16:24:14 2021] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.9.1-0-gb3ef39f-prebuilt.qemu-project.org 04/01/2014
-> [Fri Aug 20 16:24:14 2021] Workqueue: dlm_recv process_recv_sockets [dlm]
-> [Fri Aug 20 16:24:14 2021] RIP: 0010:__srcu_read_unlock+0x15/0x20
-> [Fri Aug 20 16:24:14 2021] Code: 01 65 48 ff 04 c2 f0 83 44 24 fc 00 44 89 c0 c3 0f 1f 44 00 00 0f 1f 44 00 00 f0 83 44 24 fc 00 48 8b 87 e8 0c 00 00 48 63 f6 <65> 48 ff 44 f0 10 c3 0f 1f 40 00 0f 1f 44 00 00 41 54 49 89 fc 55
-> [Fri Aug 20 16:24:14 2021] RSP: 0018:ffffbd9a041ebd80 EFLAGS: 00010282
-> [Fri Aug 20 16:24:14 2021] RAX: 00003cc9c100ec00 RBX: 00000000000000dc RCX: 0000000000000830
-> [Fri Aug 20 16:24:14 2021] RDX: 0000000000000000 RSI: 0000000000000f48 RDI: ffffffffc06b4420
-> [Fri Aug 20 16:24:14 2021] RBP: ffffa0d028423974 R08: 0000000000000001 R09: 0000000000000004
-> [Fri Aug 20 16:24:14 2021] R10: 0000000000000000 R11: 0000000000000000 R12: ffffa0d028425000
-> [Fri Aug 20 16:24:14 2021] R13: 000000000a43a2f2 R14: ffffa0d028425770 R15: 000000000a43a2f2
-> [Fri Aug 20 16:24:14 2021] FS:  0000000000000000(0000) GS:ffffa0d03ed00000(0000) knlGS:0000000000000000
-> [Fri Aug 20 16:24:14 2021] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [Fri Aug 20 16:24:14 2021] CR2: ffffdd99ffd16650 CR3: 0000000002696000 CR4: 00000000000406e0
-> [Fri Aug 20 16:24:14 2021] Call Trace:
-> [Fri Aug 20 16:24:14 2021]  dlm_receive_buffer+0x66/0x150 [dlm]
-
-It would be interesting if we got here some message from nodeid
-172204615 and I think this is what happens. There is maybe some use
-after free going on and we should not receive anymore messages from
-nodeid 172204615.
-I recently added some dlm tracing infrastructure. It should be simple
-to add a trace event here, print out the nodeid and compare
-timestamps.
-
-I recently fixed a synchronization issue which is not part of kernel
-5.13.8 and has something to do with what you are seeing here.
-There exists a workaround or a simple test if this really affects you,
-simply create a dummy lockspace on all nodes so we actually never do
-any disconnects and look if you are running again into this issue.
-
-> [Fri Aug 20 16:24:14 2021]  dlm_process_incoming_buffer+0x38/0x90 [dlm]
-> [Fri Aug 20 16:24:14 2021]  receive_from_sock+0xd4/0x1f0 [dlm]
-> [Fri Aug 20 16:24:14 2021]  process_recv_sockets+0x1a/0x20 [dlm]
-> [Fri Aug 20 16:24:14 2021]  process_one_work+0x1df/0x370
-> [Fri Aug 20 16:24:14 2021]  worker_thread+0x50/0x400
-> [Fri Aug 20 16:24:14 2021]  ? process_one_work+0x370/0x370
-> [Fri Aug 20 16:24:14 2021]  kthread+0x127/0x150
-> [Fri Aug 20 16:24:14 2021]  ? set_kthread_struct+0x40/0x40
-> [Fri Aug 20 16:24:14 2021]  ret_from_fork+0x22/0x30
-
-- Alex
+> ---
+>  .../filesystems/mandatory-locking.rst         | 188 ------------------
+>  fs/9p/vfs_file.c                              |  12 --
+>  fs/Kconfig                                    |  10 -
+>  fs/afs/flock.c                                |   4 -
+>  fs/ceph/locks.c                               |   3 -
+>  fs/gfs2/file.c                                |   3 -
+>  fs/locks.c                                    | 116 +----------
+>  fs/namei.c                                    |   4 +-
+>  fs/namespace.c                                |  29 +--
+>  fs/nfs/file.c                                 |   4 -
+>  fs/nfsd/nfs4state.c                           |  13 --
+>  fs/nfsd/vfs.c                                 |  15 --
+>  fs/ocfs2/locks.c                              |   4 -
+>  fs/open.c                                     |   8 +-
+>  fs/read_write.c                               |   7 -
+>  fs/remap_range.c                              |  10 -
+>  include/linux/fs.h                            |  84 --------
+>  mm/mmap.c                                     |   6 -
+>  mm/nommu.c                                    |   3 -
+>  19 files changed, 14 insertions(+), 509 deletions(-)
+>  delete mode 100644 Documentation/filesystems/mandatory-locking.rst
+> 
+> diff --git a/Documentation/filesystems/mandatory-locking.rst b/Documentation/filesystems/mandatory-locking.rst
+> deleted file mode 100644
+> index 9ce73544a8f0..000000000000
+> --- a/Documentation/filesystems/mandatory-locking.rst
+> +++ /dev/null
+> @@ -1,188 +0,0 @@
+> -.. SPDX-License-Identifier: GPL-2.0
+> -
+> -=====================================================
+> -Mandatory File Locking For The Linux Operating System
+> -=====================================================
+> -
+> -		Andy Walker <andy@lysaker.kvaerner.no>
+> -
+> -			   15 April 1996
+> -
+> -		     (Updated September 2007)
+> -
+> -0. Why you should avoid mandatory locking
+> ------------------------------------------
+> -
+> -The Linux implementation is prey to a number of difficult-to-fix race
+> -conditions which in practice make it not dependable:
+> -
+> -	- The write system call checks for a mandatory lock only once
+> -	  at its start.  It is therefore possible for a lock request to
+> -	  be granted after this check but before the data is modified.
+> -	  A process may then see file data change even while a mandatory
+> -	  lock was held.
+> -	- Similarly, an exclusive lock may be granted on a file after
+> -	  the kernel has decided to proceed with a read, but before the
+> -	  read has actually completed, and the reading process may see
+> -	  the file data in a state which should not have been visible
+> -	  to it.
+> -	- Similar races make the claimed mutual exclusion between lock
+> -	  and mmap similarly unreliable.
+> -
+> -1. What is  mandatory locking?
+> -------------------------------
+> -
+> -Mandatory locking is kernel enforced file locking, as opposed to the more usual
+> -cooperative file locking used to guarantee sequential access to files among
+> -processes. File locks are applied using the flock() and fcntl() system calls
+> -(and the lockf() library routine which is a wrapper around fcntl().) It is
+> -normally a process' responsibility to check for locks on a file it wishes to
+> -update, before applying its own lock, updating the file and unlocking it again.
+> -The most commonly used example of this (and in the case of sendmail, the most
+> -troublesome) is access to a user's mailbox. The mail user agent and the mail
+> -transfer agent must guard against updating the mailbox at the same time, and
+> -prevent reading the mailbox while it is being updated.
+> -
+> -In a perfect world all processes would use and honour a cooperative, or
+> -"advisory" locking scheme. However, the world isn't perfect, and there's
+> -a lot of poorly written code out there.
+> -
+> -In trying to address this problem, the designers of System V UNIX came up
+> -with a "mandatory" locking scheme, whereby the operating system kernel would
+> -block attempts by a process to write to a file that another process holds a
+> -"read" -or- "shared" lock on, and block attempts to both read and write to a 
+> -file that a process holds a "write " -or- "exclusive" lock on.
+> -
+> -The System V mandatory locking scheme was intended to have as little impact as
+> -possible on existing user code. The scheme is based on marking individual files
+> -as candidates for mandatory locking, and using the existing fcntl()/lockf()
+> -interface for applying locks just as if they were normal, advisory locks.
+> -
+> -.. Note::
+> -
+> -   1. In saying "file" in the paragraphs above I am actually not telling
+> -      the whole truth. System V locking is based on fcntl(). The granularity of
+> -      fcntl() is such that it allows the locking of byte ranges in files, in
+> -      addition to entire files, so the mandatory locking rules also have byte
+> -      level granularity.
+> -
+> -   2. POSIX.1 does not specify any scheme for mandatory locking, despite
+> -      borrowing the fcntl() locking scheme from System V. The mandatory locking
+> -      scheme is defined by the System V Interface Definition (SVID) Version 3.
+> -
+> -2. Marking a file for mandatory locking
+> ----------------------------------------
+> -
+> -A file is marked as a candidate for mandatory locking by setting the group-id
+> -bit in its file mode but removing the group-execute bit. This is an otherwise
+> -meaningless combination, and was chosen by the System V implementors so as not
+> -to break existing user programs.
+> -
+> -Note that the group-id bit is usually automatically cleared by the kernel when
+> -a setgid file is written to. This is a security measure. The kernel has been
+> -modified to recognize the special case of a mandatory lock candidate and to
+> -refrain from clearing this bit. Similarly the kernel has been modified not
+> -to run mandatory lock candidates with setgid privileges.
+> -
+> -3. Available implementations
+> -----------------------------
+> -
+> -I have considered the implementations of mandatory locking available with
+> -SunOS 4.1.x, Solaris 2.x and HP-UX 9.x.
+> -
+> -Generally I have tried to make the most sense out of the behaviour exhibited
+> -by these three reference systems. There are many anomalies.
+> -
+> -All the reference systems reject all calls to open() for a file on which
+> -another process has outstanding mandatory locks. This is in direct
+> -contravention of SVID 3, which states that only calls to open() with the
+> -O_TRUNC flag set should be rejected. The Linux implementation follows the SVID
+> -definition, which is the "Right Thing", since only calls with O_TRUNC can
+> -modify the contents of the file.
+> -
+> -HP-UX even disallows open() with O_TRUNC for a file with advisory locks, not
+> -just mandatory locks. That would appear to contravene POSIX.1.
+> -
+> -mmap() is another interesting case. All the operating systems mentioned
+> -prevent mandatory locks from being applied to an mmap()'ed file, but  HP-UX
+> -also disallows advisory locks for such a file. SVID actually specifies the
+> -paranoid HP-UX behaviour.
+> -
+> -In my opinion only MAP_SHARED mappings should be immune from locking, and then
+> -only from mandatory locks - that is what is currently implemented.
+> -
+> -SunOS is so hopeless that it doesn't even honour the O_NONBLOCK flag for
+> -mandatory locks, so reads and writes to locked files always block when they
+> -should return EAGAIN.
+> -
+> -I'm afraid that this is such an esoteric area that the semantics described
+> -below are just as valid as any others, so long as the main points seem to
+> -agree. 
+> -
+> -4. Semantics
+> -------------
+> -
+> -1. Mandatory locks can only be applied via the fcntl()/lockf() locking
+> -   interface - in other words the System V/POSIX interface. BSD style
+> -   locks using flock() never result in a mandatory lock.
+> -
+> -2. If a process has locked a region of a file with a mandatory read lock, then
+> -   other processes are permitted to read from that region. If any of these
+> -   processes attempts to write to the region it will block until the lock is
+> -   released, unless the process has opened the file with the O_NONBLOCK
+> -   flag in which case the system call will return immediately with the error
+> -   status EAGAIN.
+> -
+> -3. If a process has locked a region of a file with a mandatory write lock, all
+> -   attempts to read or write to that region block until the lock is released,
+> -   unless a process has opened the file with the O_NONBLOCK flag in which case
+> -   the system call will return immediately with the error status EAGAIN.
+> -
+> -4. Calls to open() with O_TRUNC, or to creat(), on a existing file that has
+> -   any mandatory locks owned by other processes will be rejected with the
+> -   error status EAGAIN.
+> -
+> -5. Attempts to apply a mandatory lock to a file that is memory mapped and
+> -   shared (via mmap() with MAP_SHARED) will be rejected with the error status
+> -   EAGAIN.
+> -
+> -6. Attempts to create a shared memory map of a file (via mmap() with MAP_SHARED)
+> -   that has any mandatory locks in effect will be rejected with the error status
+> -   EAGAIN.
+> -
+> -5. Which system calls are affected?
+> ------------------------------------
+> -
+> -Those which modify a file's contents, not just the inode. That gives read(),
+> -write(), readv(), writev(), open(), creat(), mmap(), truncate() and
+> -ftruncate(). truncate() and ftruncate() are considered to be "write" actions
+> -for the purposes of mandatory locking.
+> -
+> -The affected region is usually defined as stretching from the current position
+> -for the total number of bytes read or written. For the truncate calls it is
+> -defined as the bytes of a file removed or added (we must also consider bytes
+> -added, as a lock can specify just "the whole file", rather than a specific
+> -range of bytes.)
+> -
+> -Note 3: I may have overlooked some system calls that need mandatory lock
+> -checking in my eagerness to get this code out the door. Please let me know, or
+> -better still fix the system calls yourself and submit a patch to me or Linus.
+> -
+> -6. Warning!
+> ------------
+> -
+> -Not even root can override a mandatory lock, so runaway processes can wreak
+> -havoc if they lock crucial files. The way around it is to change the file
+> -permissions (remove the setgid bit) before trying to read or write to it.
+> -Of course, that might be a bit tricky if the system is hung :-(
+> -
+> -7. The "mand" mount option
+> ---------------------------
+> -Mandatory locking is disabled on all filesystems by default, and must be
+> -administratively enabled by mounting with "-o mand". That mount option
+> -is only allowed if the mounting task has the CAP_SYS_ADMIN capability.
+> -
+> -Since kernel v4.5, it is possible to disable mandatory locking
+> -altogether by setting CONFIG_MANDATORY_FILE_LOCKING to "n". A kernel
+> -with this disabled will reject attempts to mount filesystems with the
+> -"mand" mount option with the error status EPERM.
+> diff --git a/fs/9p/vfs_file.c b/fs/9p/vfs_file.c
+> index 59c32c9b799f..153a99e8c620 100644
+> --- a/fs/9p/vfs_file.c
+> +++ b/fs/9p/vfs_file.c
+> @@ -121,10 +121,6 @@ static int v9fs_file_lock(struct file *filp, int cmd, struct file_lock *fl)
+>  
+>  	p9_debug(P9_DEBUG_VFS, "filp: %p lock: %p\n", filp, fl);
+>  
+> -	/* No mandatory locks */
+> -	if (__mandatory_lock(inode) && fl->fl_type != F_UNLCK)
+> -		return -ENOLCK;
+> -
+>  	if ((IS_SETLK(cmd) || IS_SETLKW(cmd)) && fl->fl_type != F_UNLCK) {
+>  		filemap_write_and_wait(inode->i_mapping);
+>  		invalidate_mapping_pages(&inode->i_data, 0, -1);
+> @@ -312,10 +308,6 @@ static int v9fs_file_lock_dotl(struct file *filp, int cmd, struct file_lock *fl)
+>  	p9_debug(P9_DEBUG_VFS, "filp: %p cmd:%d lock: %p name: %pD\n",
+>  		 filp, cmd, fl, filp);
+>  
+> -	/* No mandatory locks */
+> -	if (__mandatory_lock(inode) && fl->fl_type != F_UNLCK)
+> -		goto out_err;
+> -
+>  	if ((IS_SETLK(cmd) || IS_SETLKW(cmd)) && fl->fl_type != F_UNLCK) {
+>  		filemap_write_and_wait(inode->i_mapping);
+>  		invalidate_mapping_pages(&inode->i_data, 0, -1);
+> @@ -348,10 +340,6 @@ static int v9fs_file_flock_dotl(struct file *filp, int cmd,
+>  	p9_debug(P9_DEBUG_VFS, "filp: %p cmd:%d lock: %p name: %pD\n",
+>  		 filp, cmd, fl, filp);
+>  
+> -	/* No mandatory locks */
+> -	if (__mandatory_lock(inode) && fl->fl_type != F_UNLCK)
+> -		goto out_err;
+> -
+>  	if (!(fl->fl_flags & FL_FLOCK))
+>  		goto out_err;
+>  
+> diff --git a/fs/Kconfig b/fs/Kconfig
+> index 141a856c50e7..4e8747885459 100644
+> --- a/fs/Kconfig
+> +++ b/fs/Kconfig
+> @@ -101,16 +101,6 @@ config FILE_LOCKING
+>            for filesystems like NFS and for the flock() system
+>            call. Disabling this option saves about 11k.
+>  
+> -config MANDATORY_FILE_LOCKING
+> -	bool "Enable Mandatory file locking"
+> -	depends on FILE_LOCKING
+> -	default y
+> -	help
+> -	  This option enables files appropriately marked files on appropriely
+> -	  mounted filesystems to support mandatory locking.
+> -
+> -	  To the best of my knowledge this is dead code that no one cares about.
+> -
+>  source "fs/crypto/Kconfig"
+>  
+>  source "fs/verity/Kconfig"
+> diff --git a/fs/afs/flock.c b/fs/afs/flock.c
+> index cb3054c7843e..c4210a3964d8 100644
+> --- a/fs/afs/flock.c
+> +++ b/fs/afs/flock.c
+> @@ -772,10 +772,6 @@ int afs_lock(struct file *file, int cmd, struct file_lock *fl)
+>  	       fl->fl_type, fl->fl_flags,
+>  	       (long long) fl->fl_start, (long long) fl->fl_end);
+>  
+> -	/* AFS doesn't support mandatory locks */
+> -	if (__mandatory_lock(&vnode->vfs_inode) && fl->fl_type != F_UNLCK)
+> -		return -ENOLCK;
+> -
+>  	if (IS_GETLK(cmd))
+>  		return afs_do_getlk(file, fl);
+>  
+> diff --git a/fs/ceph/locks.c b/fs/ceph/locks.c
+> index fa8a847743d0..bdeb271f47d9 100644
+> --- a/fs/ceph/locks.c
+> +++ b/fs/ceph/locks.c
+> @@ -240,9 +240,6 @@ int ceph_lock(struct file *file, int cmd, struct file_lock *fl)
+>  
+>  	if (!(fl->fl_flags & FL_POSIX))
+>  		return -ENOLCK;
+> -	/* No mandatory locks */
+> -	if (__mandatory_lock(file->f_mapping->host) && fl->fl_type != F_UNLCK)
+> -		return -ENOLCK;
+>  
+>  	dout("ceph_lock, fl_owner: %p\n", fl->fl_owner);
+>  
+> diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+> index 84ec053d43b4..c559827cb6f9 100644
+> --- a/fs/gfs2/file.c
+> +++ b/fs/gfs2/file.c
+> @@ -1237,9 +1237,6 @@ static int gfs2_lock(struct file *file, int cmd, struct file_lock *fl)
+>  
+>  	if (!(fl->fl_flags & FL_POSIX))
+>  		return -ENOLCK;
+> -	if (__mandatory_lock(&ip->i_inode) && fl->fl_type != F_UNLCK)
+> -		return -ENOLCK;
+> -
+>  	if (cmd == F_CANCELLK) {
+>  		/* Hack: */
+>  		cmd = F_SETLK;
+> diff --git a/fs/locks.c b/fs/locks.c
+> index 74b2a1dfe8d8..da6a6d4ee480 100644
+> --- a/fs/locks.c
+> +++ b/fs/locks.c
+> @@ -1397,103 +1397,6 @@ static int posix_lock_inode_wait(struct inode *inode, struct file_lock *fl)
+>  	return error;
+>  }
+>  
+> -#ifdef CONFIG_MANDATORY_FILE_LOCKING
+> -/**
+> - * locks_mandatory_locked - Check for an active lock
+> - * @file: the file to check
+> - *
+> - * Searches the inode's list of locks to find any POSIX locks which conflict.
+> - * This function is called from locks_verify_locked() only.
+> - */
+> -int locks_mandatory_locked(struct file *file)
+> -{
+> -	int ret;
+> -	struct inode *inode = locks_inode(file);
+> -	struct file_lock_context *ctx;
+> -	struct file_lock *fl;
+> -
+> -	ctx = smp_load_acquire(&inode->i_flctx);
+> -	if (!ctx || list_empty_careful(&ctx->flc_posix))
+> -		return 0;
+> -
+> -	/*
+> -	 * Search the lock list for this inode for any POSIX locks.
+> -	 */
+> -	spin_lock(&ctx->flc_lock);
+> -	ret = 0;
+> -	list_for_each_entry(fl, &ctx->flc_posix, fl_list) {
+> -		if (fl->fl_owner != current->files &&
+> -		    fl->fl_owner != file) {
+> -			ret = -EAGAIN;
+> -			break;
+> -		}
+> -	}
+> -	spin_unlock(&ctx->flc_lock);
+> -	return ret;
+> -}
+> -
+> -/**
+> - * locks_mandatory_area - Check for a conflicting lock
+> - * @inode:	the file to check
+> - * @filp:       how the file was opened (if it was)
+> - * @start:	first byte in the file to check
+> - * @end:	lastbyte in the file to check
+> - * @type:	%F_WRLCK for a write lock, else %F_RDLCK
+> - *
+> - * Searches the inode's list of locks to find any POSIX locks which conflict.
+> - */
+> -int locks_mandatory_area(struct inode *inode, struct file *filp, loff_t start,
+> -			 loff_t end, unsigned char type)
+> -{
+> -	struct file_lock fl;
+> -	int error;
+> -	bool sleep = false;
+> -
+> -	locks_init_lock(&fl);
+> -	fl.fl_pid = current->tgid;
+> -	fl.fl_file = filp;
+> -	fl.fl_flags = FL_POSIX | FL_ACCESS;
+> -	if (filp && !(filp->f_flags & O_NONBLOCK))
+> -		sleep = true;
+> -	fl.fl_type = type;
+> -	fl.fl_start = start;
+> -	fl.fl_end = end;
+> -
+> -	for (;;) {
+> -		if (filp) {
+> -			fl.fl_owner = filp;
+> -			fl.fl_flags &= ~FL_SLEEP;
+> -			error = posix_lock_inode(inode, &fl, NULL);
+> -			if (!error)
+> -				break;
+> -		}
+> -
+> -		if (sleep)
+> -			fl.fl_flags |= FL_SLEEP;
+> -		fl.fl_owner = current->files;
+> -		error = posix_lock_inode(inode, &fl, NULL);
+> -		if (error != FILE_LOCK_DEFERRED)
+> -			break;
+> -		error = wait_event_interruptible(fl.fl_wait,
+> -					list_empty(&fl.fl_blocked_member));
+> -		if (!error) {
+> -			/*
+> -			 * If we've been sleeping someone might have
+> -			 * changed the permissions behind our back.
+> -			 */
+> -			if (__mandatory_lock(inode))
+> -				continue;
+> -		}
+> -
+> -		break;
+> -	}
+> -	locks_delete_block(&fl);
+> -
+> -	return error;
+> -}
+> -EXPORT_SYMBOL(locks_mandatory_area);
+> -#endif /* CONFIG_MANDATORY_FILE_LOCKING */
+> -
+>  static void lease_clear_pending(struct file_lock *fl, int arg)
+>  {
+>  	switch (arg) {
+> @@ -2486,14 +2389,6 @@ int fcntl_setlk(unsigned int fd, struct file *filp, unsigned int cmd,
+>  	if (file_lock == NULL)
+>  		return -ENOLCK;
+>  
+> -	/* Don't allow mandatory locks on files that may be memory mapped
+> -	 * and shared.
+> -	 */
+> -	if (mandatory_lock(inode) && mapping_writably_mapped(filp->f_mapping)) {
+> -		error = -EAGAIN;
+> -		goto out;
+> -	}
+> -
+>  	error = flock_to_posix_lock(filp, file_lock, flock);
+>  	if (error)
+>  		goto out;
+> @@ -2618,14 +2513,6 @@ int fcntl_setlk64(unsigned int fd, struct file *filp, unsigned int cmd,
+>  	if (file_lock == NULL)
+>  		return -ENOLCK;
+>  
+> -	/* Don't allow mandatory locks on files that may be memory mapped
+> -	 * and shared.
+> -	 */
+> -	if (mandatory_lock(inode) && mapping_writably_mapped(filp->f_mapping)) {
+> -		error = -EAGAIN;
+> -		goto out;
+> -	}
+> -
+>  	error = flock64_to_posix_lock(filp, file_lock, flock);
+>  	if (error)
+>  		goto out;
+> @@ -2857,8 +2744,7 @@ static void lock_get_status(struct seq_file *f, struct file_lock *fl,
+>  			seq_puts(f, "POSIX ");
+>  
+>  		seq_printf(f, " %s ",
+> -			     (inode == NULL) ? "*NOINODE*" :
+> -			     mandatory_lock(inode) ? "MANDATORY" : "ADVISORY ");
+> +			     (inode == NULL) ? "*NOINODE*" : "ADVISORY ");
+>  	} else if (IS_FLOCK(fl)) {
+>  		if (fl->fl_type & LOCK_MAND) {
+>  			seq_puts(f, "FLOCK  MSNFS     ");
+> diff --git a/fs/namei.c b/fs/namei.c
+> index 79b0ff9b151e..3502719e5a2d 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -3010,9 +3010,7 @@ static int handle_truncate(struct user_namespace *mnt_userns, struct file *filp)
+>  	/*
+>  	 * Refuse to truncate files with mandatory locks held on them.
+>  	 */
+> -	error = locks_verify_locked(filp);
+> -	if (!error)
+> -		error = security_path_truncate(path);
+> +	error = security_path_truncate(path);
+>  	if (!error) {
+>  		error = do_truncate(mnt_userns, path->dentry, 0,
+>  				    ATTR_MTIME|ATTR_CTIME|ATTR_OPEN,
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index 2279473d0d6f..0833aea82d87 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -1715,22 +1715,14 @@ static inline bool may_mount(void)
+>  	return ns_capable(current->nsproxy->mnt_ns->user_ns, CAP_SYS_ADMIN);
+>  }
+>  
+> -#ifdef	CONFIG_MANDATORY_FILE_LOCKING
+> -static bool may_mandlock(void)
+> +static void warn_mandlock(void)
+>  {
+> -	pr_warn_once("======================================================\n"
+> -		     "WARNING: the mand mount option is being deprecated and\n"
+> -		     "         will be removed in v5.15!\n"
+> -		     "======================================================\n");
+> -	return capable(CAP_SYS_ADMIN);
+> +	pr_warn_once("=======================================================\n"
+> +		     "WARNING: The mand mount option has been deprecated and\n"
+> +		     "         and is ignored by this kernel. Remove the mand\n"
+> +		     "         option from the mount to silence this warning.\n"
+> +		     "=======================================================\n");
+>  }
+> -#else
+> -static inline bool may_mandlock(void)
+> -{
+> -	pr_warn("VFS: \"mand\" mount option not supported");
+> -	return false;
+> -}
+> -#endif
+>  
+>  static int can_umount(const struct path *path, int flags)
+>  {
+> @@ -3183,8 +3175,8 @@ int path_mount(const char *dev_name, struct path *path,
+>  		return ret;
+>  	if (!may_mount())
+>  		return -EPERM;
+> -	if ((flags & SB_MANDLOCK) && !may_mandlock())
+> -		return -EPERM;
+> +	if (flags & SB_MANDLOCK)
+> +		warn_mandlock();
+>  
+>  	/* Default to relatime unless overriden */
+>  	if (!(flags & MS_NOATIME))
+> @@ -3567,9 +3559,8 @@ SYSCALL_DEFINE3(fsmount, int, fs_fd, unsigned int, flags,
+>  	if (fc->phase != FS_CONTEXT_AWAITING_MOUNT)
+>  		goto err_unlock;
+>  
+> -	ret = -EPERM;
+> -	if ((fc->sb_flags & SB_MANDLOCK) && !may_mandlock())
+> -		goto err_unlock;
+> +	if (fc->sb_flags & SB_MANDLOCK)
+> +		warn_mandlock();
+>  
+>  	newmount.mnt = vfs_create_mount(fc);
+>  	if (IS_ERR(newmount.mnt)) {
+> diff --git a/fs/nfs/file.c b/fs/nfs/file.c
+> index 1fef107961bc..514be5d28d70 100644
+> --- a/fs/nfs/file.c
+> +++ b/fs/nfs/file.c
+> @@ -806,10 +806,6 @@ int nfs_lock(struct file *filp, int cmd, struct file_lock *fl)
+>  
+>  	nfs_inc_stats(inode, NFSIOS_VFSLOCK);
+>  
+> -	/* No mandatory locks over NFS */
+> -	if (__mandatory_lock(inode) && fl->fl_type != F_UNLCK)
+> -		goto out_err;
+> -
+>  	if (NFS_SERVER(inode)->flags & NFS_MOUNT_LOCAL_FCNTL)
+>  		is_local = 1;
+>  
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index b517a8794400..3aa9ffb539d7 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -5628,16 +5628,6 @@ check_special_stateids(struct net *net, svc_fh *current_fh, stateid_t *stateid,
+>  				NFS4_SHARE_DENY_READ);
+>  }
+>  
+> -/*
+> - * Allow READ/WRITE during grace period on recovered state only for files
+> - * that are not able to provide mandatory locking.
+> - */
+> -static inline int
+> -grace_disallows_io(struct net *net, struct inode *inode)
+> -{
+> -	return opens_in_grace(net) && mandatory_lock(inode);
+> -}
+> -
+>  static __be32 check_stateid_generation(stateid_t *in, stateid_t *ref, bool has_session)
+>  {
+>  	/*
+> @@ -5928,9 +5918,6 @@ nfs4_preprocess_stateid_op(struct svc_rqst *rqstp,
+>  	if (nfp)
+>  		*nfp = NULL;
+>  
+> -	if (grace_disallows_io(net, ino))
+> -		return nfserr_grace;
+> -
+>  	if (ZERO_STATEID(stateid) || ONE_STATEID(stateid)) {
+>  		status = check_special_stateids(net, fhp, stateid, flags);
+>  		goto done;
+> diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+> index 15adf1f6ab21..f16ed7049192 100644
+> --- a/fs/nfsd/vfs.c
+> +++ b/fs/nfsd/vfs.c
+> @@ -348,14 +348,6 @@ nfsd_get_write_access(struct svc_rqst *rqstp, struct svc_fh *fhp,
+>  	if (host_err)
+>  		goto out_nfserrno;
+>  
+> -	host_err = locks_verify_truncate(inode, NULL, iap->ia_size);
+> -	if (host_err)
+> -		goto out_put_write_access;
+> -	return 0;
+> -
+> -out_put_write_access:
+> -	put_write_access(inode);
+> -out_nfserrno:
+>  	return nfserrno(host_err);
+>  }
+>  
+> @@ -750,13 +742,6 @@ __nfsd_open(struct svc_rqst *rqstp, struct svc_fh *fhp, umode_t type,
+>  	err = nfserr_perm;
+>  	if (IS_APPEND(inode) && (may_flags & NFSD_MAY_WRITE))
+>  		goto out;
+> -	/*
+> -	 * We must ignore files (but only files) which might have mandatory
+> -	 * locks on them because there is no way to know if the accesser has
+> -	 * the lock.
+> -	 */
+> -	if (S_ISREG((inode)->i_mode) && mandatory_lock(inode))
+> -		goto out;
+>  
+>  	if (!inode->i_fop)
+>  		goto out;
+> diff --git a/fs/ocfs2/locks.c b/fs/ocfs2/locks.c
+> index fab7c6a4a7d0..73a3854b2afb 100644
+> --- a/fs/ocfs2/locks.c
+> +++ b/fs/ocfs2/locks.c
+> @@ -101,8 +101,6 @@ int ocfs2_flock(struct file *file, int cmd, struct file_lock *fl)
+>  
+>  	if (!(fl->fl_flags & FL_FLOCK))
+>  		return -ENOLCK;
+> -	if (__mandatory_lock(inode))
+> -		return -ENOLCK;
+>  
+>  	if ((osb->s_mount_opt & OCFS2_MOUNT_LOCALFLOCKS) ||
+>  	    ocfs2_mount_local(osb))
+> @@ -121,8 +119,6 @@ int ocfs2_lock(struct file *file, int cmd, struct file_lock *fl)
+>  
+>  	if (!(fl->fl_flags & FL_POSIX))
+>  		return -ENOLCK;
+> -	if (__mandatory_lock(inode) && fl->fl_type != F_UNLCK)
+> -		return -ENOLCK;
+>  
+>  	return ocfs2_plock(osb->cconn, OCFS2_I(inode)->ip_blkno, file, cmd, fl);
+>  }
+> diff --git a/fs/open.c b/fs/open.c
+> index 53bc0573c0ec..8bded6279598 100644
+> --- a/fs/open.c
+> +++ b/fs/open.c
+> @@ -105,9 +105,7 @@ long vfs_truncate(const struct path *path, loff_t length)
+>  	if (error)
+>  		goto put_write_and_out;
+>  
+> -	error = locks_verify_truncate(inode, NULL, length);
+> -	if (!error)
+> -		error = security_path_truncate(path);
+> +	error = security_path_truncate(path);
+>  	if (!error)
+>  		error = do_truncate(mnt_userns, path->dentry, length, 0, NULL);
+>  
+> @@ -189,9 +187,7 @@ long do_sys_ftruncate(unsigned int fd, loff_t length, int small)
+>  	if (IS_APPEND(file_inode(f.file)))
+>  		goto out_putf;
+>  	sb_start_write(inode->i_sb);
+> -	error = locks_verify_truncate(inode, f.file, length);
+> -	if (!error)
+> -		error = security_path_truncate(&f.file->f_path);
+> +	error = security_path_truncate(&f.file->f_path);
+>  	if (!error)
+>  		error = do_truncate(file_mnt_user_ns(f.file), dentry, length,
+>  				    ATTR_MTIME | ATTR_CTIME, f.file);
+> diff --git a/fs/read_write.c b/fs/read_write.c
+> index 9db7adf160d2..ffe821b8588e 100644
+> --- a/fs/read_write.c
+> +++ b/fs/read_write.c
+> @@ -388,13 +388,6 @@ int rw_verify_area(int read_write, struct file *file, const loff_t *ppos, size_t
+>  			if (!unsigned_offsets(file))
+>  				return retval;
+>  		}
+> -
+> -		if (unlikely(inode->i_flctx && mandatory_lock(inode))) {
+> -			retval = locks_mandatory_area(inode, file, pos, pos + count - 1,
+> -					read_write == READ ? F_RDLCK : F_WRLCK);
+> -			if (retval < 0)
+> -				return retval;
+> -		}
+>  	}
+>  
+>  	return security_file_permission(file,
+> diff --git a/fs/remap_range.c b/fs/remap_range.c
+> index e4a5fdd7ad7b..ec6d26c526b3 100644
+> --- a/fs/remap_range.c
+> +++ b/fs/remap_range.c
+> @@ -107,16 +107,6 @@ static int remap_verify_area(struct file *file, loff_t pos, loff_t len,
+>  	if (unlikely((loff_t) (pos + len) < 0))
+>  		return -EINVAL;
+>  
+> -	if (unlikely(inode->i_flctx && mandatory_lock(inode))) {
+> -		loff_t end = len ? pos + len - 1 : OFFSET_MAX;
+> -		int retval;
+> -
+> -		retval = locks_mandatory_area(inode, file, pos, end,
+> -				write ? F_WRLCK : F_RDLCK);
+> -		if (retval < 0)
+> -			return retval;
+> -	}
+> -
+>  	return security_file_permission(file, write ? MAY_WRITE : MAY_READ);
+>  }
+>  
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 02bf57e6f6e2..eec877b1008c 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2570,90 +2570,6 @@ extern struct kobject *fs_kobj;
+>  
+>  #define MAX_RW_COUNT (INT_MAX & PAGE_MASK)
+>  
+> -#ifdef CONFIG_MANDATORY_FILE_LOCKING
+> -extern int locks_mandatory_locked(struct file *);
+> -extern int locks_mandatory_area(struct inode *, struct file *, loff_t, loff_t, unsigned char);
+> -
+> -/*
+> - * Candidates for mandatory locking have the setgid bit set
+> - * but no group execute bit -  an otherwise meaningless combination.
+> - */
+> -
+> -static inline int __mandatory_lock(struct inode *ino)
+> -{
+> -	return (ino->i_mode & (S_ISGID | S_IXGRP)) == S_ISGID;
+> -}
+> -
+> -/*
+> - * ... and these candidates should be on SB_MANDLOCK mounted fs,
+> - * otherwise these will be advisory locks
+> - */
+> -
+> -static inline int mandatory_lock(struct inode *ino)
+> -{
+> -	return IS_MANDLOCK(ino) && __mandatory_lock(ino);
+> -}
+> -
+> -static inline int locks_verify_locked(struct file *file)
+> -{
+> -	if (mandatory_lock(locks_inode(file)))
+> -		return locks_mandatory_locked(file);
+> -	return 0;
+> -}
+> -
+> -static inline int locks_verify_truncate(struct inode *inode,
+> -				    struct file *f,
+> -				    loff_t size)
+> -{
+> -	if (!inode->i_flctx || !mandatory_lock(inode))
+> -		return 0;
+> -
+> -	if (size < inode->i_size) {
+> -		return locks_mandatory_area(inode, f, size, inode->i_size - 1,
+> -				F_WRLCK);
+> -	} else {
+> -		return locks_mandatory_area(inode, f, inode->i_size, size - 1,
+> -				F_WRLCK);
+> -	}
+> -}
+> -
+> -#else /* !CONFIG_MANDATORY_FILE_LOCKING */
+> -
+> -static inline int locks_mandatory_locked(struct file *file)
+> -{
+> -	return 0;
+> -}
+> -
+> -static inline int locks_mandatory_area(struct inode *inode, struct file *filp,
+> -                                       loff_t start, loff_t end, unsigned char type)
+> -{
+> -	return 0;
+> -}
+> -
+> -static inline int __mandatory_lock(struct inode *inode)
+> -{
+> -	return 0;
+> -}
+> -
+> -static inline int mandatory_lock(struct inode *inode)
+> -{
+> -	return 0;
+> -}
+> -
+> -static inline int locks_verify_locked(struct file *file)
+> -{
+> -	return 0;
+> -}
+> -
+> -static inline int locks_verify_truncate(struct inode *inode, struct file *filp,
+> -					size_t size)
+> -{
+> -	return 0;
+> -}
+> -
+> -#endif /* CONFIG_MANDATORY_FILE_LOCKING */
+> -
+> -
+>  #ifdef CONFIG_FILE_LOCKING
+>  static inline int break_lease(struct inode *inode, unsigned int mode)
+>  {
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index aa9de981b659..737ff2018327 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+> @@ -1518,12 +1518,6 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+>  			if (IS_APPEND(inode) && (file->f_mode & FMODE_WRITE))
+>  				return -EACCES;
+>  
+> -			/*
+> -			 * Make sure there are no mandatory locks on the file.
+> -			 */
+> -			if (locks_verify_locked(file))
+> -				return -EAGAIN;
+> -
+>  			vm_flags |= VM_SHARED | VM_MAYSHARE;
+>  			if (!(file->f_mode & FMODE_WRITE))
+>  				vm_flags &= ~(VM_MAYWRITE | VM_SHARED);
+> diff --git a/mm/nommu.c b/mm/nommu.c
+> index affda71641ca..b6543254d3ee 100644
+> --- a/mm/nommu.c
+> +++ b/mm/nommu.c
+> @@ -826,9 +826,6 @@ static int validate_mmap_request(struct file *file,
+>  			    (file->f_mode & FMODE_WRITE))
+>  				return -EACCES;
+>  
+> -			if (locks_verify_locked(file))
+> -				return -EAGAIN;
+> -
+>  			if (!(capabilities & NOMMU_MAP_DIRECT))
+>  				return -ENODEV;
+>  
+> -- 
+> 2.31.1
+> 
 
