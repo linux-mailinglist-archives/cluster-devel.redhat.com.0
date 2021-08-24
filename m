@@ -2,53 +2,92 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 78C663F67D4
-	for <lists+cluster-devel@lfdr.de>; Tue, 24 Aug 2021 19:39:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EC7393F6A73
+	for <lists+cluster-devel@lfdr.de>; Tue, 24 Aug 2021 22:31:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1629826775;
+	s=mimecast20190719; t=1629837112;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=UBK8ZGXQ0j3xaQ39YOt65JNosHYdvoP4FTbpen9sVnc=;
-	b=VMZs8kcFccGyu3Tqt53wuAyw6E4wGJhOU3UTHpT92IiUtuODwD20jt1OS0e8E7is7rxlmw
-	WO+Q1F2bxxv7F6+3zcpVCTktXiVQj9SNoljzOUi83q7cga9ShVA9ZTV7q42N+q9LvCFseL
-	2u3d7XCAipQyzI/O78mmFvr6alhgt+s=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=adPphQgUyPiKKj8pxXMbNRvZkdSwIV0QhUyabrpZyH8=;
+	b=JiBfqeKp9yHVAZS08E9i/xVGyaip8WXlMueBFxZEUBTBN/uUfjQvnBiht+tcIGefpaxMM/
+	cdsGDLX0xyjAJP6GmneILH2uX2gteUhSkO4vBpvcEYkErAjHB4cp4E9dRD6J1bUFeHV2Wg
+	WTYRXmzS80MTIdMt+rJgalgFcs+T2W4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-272-a-4Vl3GaNoascpv79PeeQQ-1; Tue, 24 Aug 2021 13:39:34 -0400
-X-MC-Unique: a-4Vl3GaNoascpv79PeeQQ-1
+ us-mta-428-SMpS46mDNPq8hEd0AyZrgA-1; Tue, 24 Aug 2021 16:31:50 -0400
+X-MC-Unique: SMpS46mDNPq8hEd0AyZrgA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7BDDD801A92;
-	Tue, 24 Aug 2021 17:39:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 63D771008064;
+	Tue, 24 Aug 2021 20:31:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A3BF93AC1;
-	Tue, 24 Aug 2021 17:39:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07D2A18649;
+	Tue, 24 Aug 2021 20:31:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D9B3B181A0F8;
-	Tue, 24 Aug 2021 17:39:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E494C181A0F8;
+	Tue, 24 Aug 2021 20:31:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17OHdP4m022043 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Aug 2021 13:39:25 -0400
+	id 17OKVeCj003649 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Aug 2021 16:31:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 731EB5C25A; Tue, 24 Aug 2021 17:39:25 +0000 (UTC)
+	id 5EFF52044734; Tue, 24 Aug 2021 20:31:40 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-114-176.phx2.redhat.com [10.3.114.176])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 41E5A5C1A3
-	for <cluster-devel@redhat.com>; Tue, 24 Aug 2021 17:39:22 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Tue, 24 Aug 2021 12:39:22 -0500
-Message-Id: <20210824173922.154369-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5AA252044732
+	for <cluster-devel@redhat.com>; Tue, 24 Aug 2021 20:31:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4022801E6D
+	for <cluster-devel@redhat.com>; Tue, 24 Aug 2021 20:31:37 +0000 (UTC)
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+	[209.85.222.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-391-FUCq1zPNMxKdw4YoNZDM0A-1; Tue, 24 Aug 2021 16:31:34 -0400
+X-MC-Unique: FUCq1zPNMxKdw4YoNZDM0A-1
+Received: by mail-qk1-f199.google.com with SMTP id
+	x19-20020a05620a099300b003f64d79cbbaso9501365qkx.7
+	for <cluster-devel@redhat.com>; Tue, 24 Aug 2021 13:31:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=adPphQgUyPiKKj8pxXMbNRvZkdSwIV0QhUyabrpZyH8=;
+	b=C/0CR+AZ8CnBV2pxufAxxOFAUXLnN7jAyue5+f9PEMv72h4l2W9qOktJ3XDA8WL+9h
+	STSaUJaIdkgi18lHJ7E6Uu9CVlcPxdMMiSwy671+k6Maul6sUoCAqE9FG9x6ei+PvAc/
+	mgexDPzm3efVd0F4amYL4uldL2rjEEYraLSi2AkjQUzPjwffaKfKa7KEhqPfMoGLV2Wk
+	avQALuWIyNHXSdkV3mesPfQSbk2YKXLbwN+9dCwcC6rmVLrV+qeWY/lUCQcPY2sUe4ny
+	8dBDip4MQC5JL4ErXOXqJMx67wv0YI0iSTqUox7vJqQhUUzUqFjVGJL+pa/09AyIKrUS
+	bPMg==
+X-Gm-Message-State: AOAM532RCv9cJgbKBrBZ2WS6pAHuXnWPLFY9tKSe6uFfwrJVNLJxG37/
+	Qujhx0KAhtyx7srxhT862n2MX7lLBU7/RQvBdAnWLJvPbrNjbWg8/hRNdoRp/byyT1MK68F3yaY
+	nn445SgxF5DAj4m4KLPdSqV17qtHmBTRvV4nD/g==
+X-Received: by 2002:a37:9fcd:: with SMTP id
+	i196mr27615398qke.247.1629837085195; 
+	Tue, 24 Aug 2021 13:31:25 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz4BbCTkhMbJQXbuN1hdtf8dH3gRlbUZSWP46Z9BA6dbgWfb97VFCsa8YXexctbOsbIDeeoyZWfOHAkg8KObEc=
+X-Received: by 2002:a37:9fcd:: with SMTP id
+	i196mr27615388qke.247.1629837085021; 
+	Tue, 24 Aug 2021 13:31:25 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+References: <AM6PR04MB64883088DB106BD3BC49B216CFC49@AM6PR04MB6488.eurprd04.prod.outlook.com>
+	<CAK-6q+jtpogQirTu86nR=pBrAZtaP6b5ouY275GuvXYq0K-1YA@mail.gmail.com>
+	<69e3b252-7929-9f4b-7ff4-eef47374e0c1@suse.com>
+	<CAK-6q+iqY8iitFW7yewESyQ_0QUYHZP_RsnMwmev+456d758dA@mail.gmail.com>
+In-Reply-To: <CAK-6q+iqY8iitFW7yewESyQ_0QUYHZP_RsnMwmev+456d758dA@mail.gmail.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Tue, 24 Aug 2021 16:31:14 -0400
+Message-ID: <CAK-6q+i8oKdHC_+Vikn95-RTtKQyfnJHYcHSuP=zfUt558PHjw@mail.gmail.com>
+To: Gang He <ghe@suse.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH] gfs2: Fix broken freeze_go_xmote_bh
+Cc: "cluster-devel@redhat.com" <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] FS/DLM module triggered kernel BUG
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,203 +106,38 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="UTF-8"
 
-The freeze glock is used in several places whenever a gfs2 file system
-is frozen, thawed, mounted, unmounted, remounted, or withdrawn. It is
-used to prevent those things from clashing with one another.
+Hi Gang He,
 
-The freeze glock is sometimes held with a "live" journal (In other words
-SDF_JOURNAL_LIVE is set, meaning the journal is actively in use) and
-sometimes not. For example, a journal is live when gfs2_reconfigure locks
-the freeze lock for transitions from rw to ro ("remount -o remount,ro")
-but it is not live when gfs2_fill_super calls gfs2_freeze_lock before
-gfs2_make_fs_rw sets SDF_JOURNAL_LIVE at first mount time.
+On Tue, Aug 24, 2021 at 10:18 AM Alexander Aring <aahringo@redhat.com> wrote:
+...
+> > >
+> > >> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: generation 4 slots 2 1:172204786 2:172204748
+> > >> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_directory
+> > >> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_directory 8 in 1 new
+> > >> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_directory 1 out 1 messages
+> > >> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_masters
+> > >> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_masters 33587 of 33599
+> > >> [Fri Aug 20 16:24:14 2021] dlm: CEC5E19D749E473B99A0B792AD570441: dlm_recover_locks 0 out
+> > >> [Fri Aug 20 16:24:14 2021] BUG: unable to handle page fault for address: ffffdd99ffd16650
+> > >> [Fri Aug 20 16:24:14 2021] #PF: supervisor write access in kernel mode
+> > >> [Fri Aug 20 16:24:14 2021] #PF: error_code(0x0002) - not-present page
+> > >> [Fri Aug 20 16:24:14 2021] PGD 1040067 P4D 1040067 PUD 19c3067 PMD 19c4067 PTE 0
+> > >> [Fri Aug 20 16:24:14 2021] Oops: 0002 [#1] SMP PTI
+> > >> [Fri Aug 20 16:24:14 2021] CPU: 1 PID: 25221 Comm: kworker/u4:1 Tainted: G        W         5.13.8-1-default #1 openSUSE Tumbleweed
+> > >> [Fri Aug 20 16:24:14 2021] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.9.1-0-gb3ef39f-prebuilt.qemu-project.org 04/01/2014
+> > >> [Fri Aug 20 16:24:14 2021] Workqueue: dlm_recv process_recv_sockets [dlm]
+> > >> [Fri Aug 20 16:24:14 2021] RIP: 0010:__srcu_read_unlock+0x15/0x20
 
-Function freeze_go_xmote_bh, which is called when the freeze glock is
-held, checks to make sure the journal assigned to the cluster node is
-clean: IOW, if the log ends with an UNMOUNT log header (LH). If it does,
-all is well. If not, the file system is withdrawn: it cannot be used
-until the journal is recovered (or fscked) and made clean again.
+that was suspicious to me and I was looking into the code in v5.13.8
+again and found an issue. I believe you are hitting an out-of-bounds
+array access of __srcu_read_unlock() while some concurrency handling
+was updating the idx parameter which became invalid at that moment.
+However the idx handling could be invalid in several other cases. It's
+fixed in the current mainline kernel, but v5.13.8 is still broken. I
+will send a patch marked as RFC for you. Please test it and report
+back, then I will resend it for v5.13.8.
 
-Before this patch, freeze_go_xmote_bh only checked if the journal was
-clean in cases where the journal was "live" (SDF_JOURNAL_LIVE is set)
-meaning the journal is actively being used. That's sometimes wrong
-because if the journal is live, any transaction guarantees the journal
-is not clean: gfs2_find_jhead will never find an unmount LH at the end.
-
-Most of the time this was not a problem because during these transitions
-(for example, remount from ro to rw) there are usually no transactions
-pending. However, if transactions were pending, for example, during
-"remount -o ro", as per xfstests generic/294, it would fail.
-
-On the other hand, if the journal was not live, the check for a clean
-journal was skipped. That's exactly when we need to do this check.
-However, the problem was never noticed because gfs2_make_fs_rw had
-redundant code for the exact same checks as freeze_go_xmote_bh, and
-therefore it did not matter that the check was skipped in
-freeze_go_xmote_bh.
-
-This patch attempts to clean up the mess by removing the redundant code
-from gfs2_make_fs_rw and changing the callers of gfs2_freeze_lock to
-specify whether they need the journal checked for consistency:
-If the journal consistency check is unwanted, they specify GL_SKIP in
-the holder. If the check is needed, they do not specify GL_SKIP.
-
-Most callers determine if the consistency check is needed based on if
-the journal is being transitioned from "not live" to "live": If it is
-becoming live, the check is needed, otherwise it is not.
-
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/glops.c      | 31 ++++++++++++++++++++-----------
- fs/gfs2/ops_fstype.c |  5 +++--
- fs/gfs2/recovery.c   |  3 ++-
- fs/gfs2/super.c      | 34 ++++++++++++----------------------
- 4 files changed, 37 insertions(+), 36 deletions(-)
-
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 6d0770564493..8ae2f33e014e 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -609,18 +609,27 @@ static int freeze_go_xmote_bh(struct gfs2_holder *gh)
- 	struct gfs2_log_header_host head;
- 	int error;
- 
--	if (test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags)) {
--		j_gl->gl_ops->go_inval(j_gl, DIO_METADATA);
-+	if (gh->gh_flags & GL_SKIP)
-+		return 0;
- 
--		error = gfs2_find_jhead(sdp->sd_jdesc, &head, false);
--		if (gfs2_assert_withdraw_delayed(sdp, !error))
--			return error;
--		if (gfs2_assert_withdraw_delayed(sdp, head.lh_flags &
--						 GFS2_LOG_HEAD_UNMOUNT))
--			return -EIO;
--		sdp->sd_log_sequence = head.lh_sequence + 1;
--		gfs2_log_pointers_init(sdp, head.lh_blkno);
--	}
-+	/*
-+	 * If our journal is truly live, rw, it is guaranteed to be dirty.
-+	 * If our journal is ro, and we are soon to make it live, we need to
-+	 * check whether it was cleanly unmounted. If not, we withdraw.
-+	 */
-+	if (gfs2_assert_withdraw_delayed(sdp,
-+				 !test_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags)))
-+		return -EIO;
-+	j_gl->gl_ops->go_inval(j_gl, DIO_METADATA);
-+
-+	error = gfs2_find_jhead(sdp->sd_jdesc, &head, false);
-+	if (gfs2_assert_withdraw_delayed(sdp, !error))
-+		return error;
-+	if (gfs2_assert_withdraw_delayed(sdp, head.lh_flags &
-+					 GFS2_LOG_HEAD_UNMOUNT))
-+		return -EIO;
-+	sdp->sd_log_sequence = head.lh_sequence + 1;
-+	gfs2_log_pointers_init(sdp, head.lh_blkno);
- 	return 0;
- }
- 
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index 7f8410d8fdc1..6f4be312bd34 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -1263,7 +1263,7 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
- 		}
- 	}
- 
--	error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
-+	error = gfs2_freeze_lock(sdp, &freeze_gh, sb_rdonly(sb) ? GL_SKIP : 0);
- 	if (error)
- 		goto fail_per_node;
- 
-@@ -1584,7 +1584,8 @@ static int gfs2_reconfigure(struct fs_context *fc)
- 	if ((sb->s_flags ^ fc->sb_flags) & SB_RDONLY) {
- 		struct gfs2_holder freeze_gh;
- 
--		error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
-+		error = gfs2_freeze_lock(sdp, &freeze_gh,
-+				 fc->sb_flags & SB_RDONLY ? GL_SKIP : 0);
- 		if (error)
- 			return -EINVAL;
- 
-diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-index 016ed1b2ca1d..be0037da3bb4 100644
---- a/fs/gfs2/recovery.c
-+++ b/fs/gfs2/recovery.c
-@@ -472,7 +472,8 @@ void gfs2_recover_func(struct work_struct *work)
- 
- 		/* Acquire a shared hold on the freeze lock */
- 
--		error = gfs2_freeze_lock(sdp, &thaw_gh, LM_FLAG_PRIORITY);
-+		error = gfs2_freeze_lock(sdp, &thaw_gh, LM_FLAG_PRIORITY |
-+					 GL_SKIP);
- 		if (error)
- 			goto fail_gunlock_ji;
- 
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 6e00d15ef0a8..fe6cea188199 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -128,28 +128,8 @@ int gfs2_jdesc_check(struct gfs2_jdesc *jd)
- 
- int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
- {
--	struct gfs2_inode *ip = GFS2_I(sdp->sd_jdesc->jd_inode);
--	struct gfs2_glock *j_gl = ip->i_gl;
--	struct gfs2_log_header_host head;
- 	int error;
- 
--	j_gl->gl_ops->go_inval(j_gl, DIO_METADATA);
--	if (gfs2_withdrawn(sdp))
--		return -EIO;
--
--	error = gfs2_find_jhead(sdp->sd_jdesc, &head, false);
--	if (error || gfs2_withdrawn(sdp))
--		return error;
--
--	if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT)) {
--		gfs2_consist(sdp);
--		return -EIO;
--	}
--
--	/*  Initialize some head of the log stuff  */
--	sdp->sd_log_sequence = head.lh_sequence + 1;
--	gfs2_log_pointers_init(sdp, head.lh_blkno);
--
- 	error = gfs2_quota_init(sdp);
- 	if (!error && !gfs2_withdrawn(sdp))
- 		set_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
-@@ -346,7 +326,8 @@ static int gfs2_lock_fs_check_clean(struct gfs2_sbd *sdp)
- 	}
- 
- 	error = gfs2_glock_nq_init(sdp->sd_freeze_gl, LM_ST_EXCLUSIVE,
--				   LM_FLAG_NOEXP, &sdp->sd_freeze_gh);
-+				   LM_FLAG_NOEXP | GL_SKIP,
-+				   &sdp->sd_freeze_gh);
- 	if (error)
- 		goto out;
- 
-@@ -654,7 +635,16 @@ void gfs2_freeze_func(struct work_struct *work)
- 	struct super_block *sb = sdp->sd_vfs;
- 
- 	atomic_inc(&sb->s_active);
--	error = gfs2_freeze_lock(sdp, &freeze_gh, 0);
-+	/*
-+	 * Here we take the freeze lock in SH to wait until a freeze operation
-+	 * (that began with gfs2_freeze's call to gfs2_lock_fs_check_clean
-+	 * which takes the freeze gl in EX) has been thawed. Function
-+	 * gfs2_lock_fs_check_clean checks that all the journals are clean,
-+	 * so we don't need to do it again with this gfs2_freeze_lock.
-+	 * In fact, our journal is live when this glock is granted, so the
-+	 * freeze_go_xmote_bh will withdraw unless we specify GL_SKIP.
-+	 */
-+	error = gfs2_freeze_lock(sdp, &freeze_gh, GL_SKIP);
- 	if (error) {
- 		gfs2_assert_withdraw(sdp, 0);
- 	} else {
--- 
-2.31.1
+- Alex
 
