@@ -1,85 +1,62 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E46A93FA6EB
-	for <lists+cluster-devel@lfdr.de>; Sat, 28 Aug 2021 19:14:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 3138D3FA754
+	for <lists+cluster-devel@lfdr.de>; Sat, 28 Aug 2021 21:31:10 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-560-vXR_Puf5PXeWXVTMtt5T5w-1; Sat, 28 Aug 2021 13:13:54 -0400
-X-MC-Unique: vXR_Puf5PXeWXVTMtt5T5w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-525-Le8qaBEvPY-eNtQHbWt-WQ-1; Sat, 28 Aug 2021 15:31:02 -0400
+X-MC-Unique: Le8qaBEvPY-eNtQHbWt-WQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D086C185302D;
-	Sat, 28 Aug 2021 17:13:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 49A951008064;
+	Sat, 28 Aug 2021 19:30:59 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F89F100EBAD;
-	Sat, 28 Aug 2021 17:13:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34B285C1B4;
+	Sat, 28 Aug 2021 19:30:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 92F3B1819AC9;
-	Sat, 28 Aug 2021 17:13:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08DE51819AC9;
+	Sat, 28 Aug 2021 19:30:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17SHDagj017499 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 28 Aug 2021 13:13:37 -0400
+	id 17SJSSan028181 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 28 Aug 2021 15:28:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D69302166B25; Sat, 28 Aug 2021 17:13:36 +0000 (UTC)
+	id E6BF45F270; Sat, 28 Aug 2021 19:28:27 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D15EB2166B40
-	for <cluster-devel@redhat.com>; Sat, 28 Aug 2021 17:13:34 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E24795F26C
+	for <cluster-devel@redhat.com>; Sat, 28 Aug 2021 19:28:25 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 053E98007B1
-	for <cluster-devel@redhat.com>; Sat, 28 Aug 2021 17:13:34 +0000 (UTC)
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
-	[209.85.167.41]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-15-VBIcX2b7M5CwQ1C9IHUs-w-1; Sat, 28 Aug 2021 13:13:31 -0400
-X-MC-Unique: VBIcX2b7M5CwQ1C9IHUs-w-1
-Received: by mail-lf1-f41.google.com with SMTP id l2so13356771lfp.2
-	for <cluster-devel@redhat.com>; Sat, 28 Aug 2021 10:13:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=PG8z+XIonuWGdu3czEMXRzaWItNuzacbk0dZJgvuswY=;
-	b=e617JEIAXz5IGW9TfblqrUyJCnuzpY+foB13BP8m4AYAgLUjQ8f0tEm/260+QrUHd+
-	KPDar/9FGb9CYqnjvWoxpBvwOayhhX+7gA/o7KkOQc4Ygn/+EfbVMfhzHJsmg0ETz9qf
-	9D+ZET/47NqpdTLWBh/CSaymSNSnGkiucH/fj+mpxxxsjtYT8BswdLwJtP7pI3MKu04i
-	I5NElYy8RBAezBh2Cyxbbi4VVQVg/Ggbw63x8J+fDBz6PcjvL+DyJZ8xfp2GnXxumkvH
-	AZNg1brcJSEe/ARKA2Qdd7/mUTy4xoQnMSDU4tIk/6XYR/5crcDJmh7OuhxF7fUin1iQ
-	8RGw==
-X-Gm-Message-State: AOAM532w49f9ctFPnv5KiezZb7oj3mgbwzZALxMs7NKakrfeg/rcMY+c
-	ORzVHuyleWtEL5w9qDbh9juJCkrIYO+CI4pS
-X-Google-Smtp-Source: ABdhPJzd+MGZio2Jf8/twutyw8gljZRZZjfkPIdm0/RMpeotc5ETcN1nNUC61ZE19B6vYQau2WyxPw==
-X-Received: by 2002:a05:6512:ad5:: with SMTP id
-	n21mr11271832lfu.214.1630170809665; 
-	Sat, 28 Aug 2021 10:13:29 -0700 (PDT)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com.
-	[209.85.208.171]) by smtp.gmail.com with ESMTPSA id
-	c24sm1002957lfc.140.2021.08.28.10.13.27
-	for <cluster-devel@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Sat, 28 Aug 2021 10:13:27 -0700 (PDT)
-Received: by mail-lj1-f171.google.com with SMTP id m4so17418138ljq.8
-	for <cluster-devel@redhat.com>; Sat, 28 Aug 2021 10:13:27 -0700 (PDT)
-X-Received: by 2002:a2e:7d0e:: with SMTP id y14mr12752568ljc.251.1630170807239;
-	Sat, 28 Aug 2021 10:13:27 -0700 (PDT)
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E71C857AA9
+	for <cluster-devel@redhat.com>; Sat, 28 Aug 2021 19:28:25 +0000 (UTC)
+Received: from zeniv-ca.linux.org.uk (zeniv-ca.linux.org.uk
+	[142.44.231.140]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-145-9wuXMQMVNx6wChy6_NV65w-1; Sat, 28 Aug 2021 15:28:20 -0400
+X-MC-Unique: 9wuXMQMVNx6wChy6_NV65w-1
+Received: from viro by zeniv-ca.linux.org.uk with local (Exim 4.94.2 #2 (Red
+	Hat Linux)) id 1mK401-00GsRY-Fl; Sat, 28 Aug 2021 19:28:17 +0000
+Date: Sat, 28 Aug 2021 19:28:17 +0000
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <YSqOUb7yZ7kBoKRY@zeniv-ca.linux.org.uk>
 References: <20210827164926.1726765-1-agruenba@redhat.com>
-	<20210827164926.1726765-5-agruenba@redhat.com>
-	<20210827205644.lkihrypv27er5km3@kari-VirtualBox>
-In-Reply-To: <20210827205644.lkihrypv27er5km3@kari-VirtualBox>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 28 Aug 2021 10:13:11 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wh-TeAeraYo9jM7FsAVDtfCji_5ao=B3eoO10Sf2SdeTA@mail.gmail.com>
-Message-ID: <CAHk-=wh-TeAeraYo9jM7FsAVDtfCji_5ao=B3eoO10Sf2SdeTA@mail.gmail.com>
-To: Kari Argillander <kari.argillander@gmail.com>
+	<20210827164926.1726765-6-agruenba@redhat.com>
+	<YSkz025ncjhyRmlB@zeniv-ca.linux.org.uk>
+	<CAHk-=wh5p6zpgUUoY+O7e74X9BZyODhnsqvv=xqnTaLRNj3d_Q@mail.gmail.com>
+	<YSk7xfcHVc7CxtQO@zeniv-ca.linux.org.uk>
+	<CAHk-=wjMyZLH+ta5SohAViSc10iPj-hRnHc-KPDoj1XZCmxdBg@mail.gmail.com>
+	<YSk+9cTMYi2+BFW7@zeniv-ca.linux.org.uk>
+	<YSldx9uhMYhT/G8X@zeniv-ca.linux.org.uk>
+MIME-Version: 1.0
+In-Reply-To: <YSldx9uhMYhT/G8X@zeniv-ca.linux.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -88,18 +65,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
 	"Darrick J. Wong" <djwong@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Matthew Wilcox <willy@infradead.org>, Josef Bacik <josef@toxicpanda.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH v7 04/19] iov_iter: Turn
-	iov_iter_fault_in_readable into fault_in_iov_iter_readable
+	Will Deacon <will@kernel.org>, ocfs2-devel@oss.oracle.com
+Subject: [Cluster-devel] [RFC][arm64] possible infinite loop in btrfs
+	search_ioctl()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -113,36 +89,62 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Fri, Aug 27, 2021 at 1:56 PM Kari Argillander
-<kari.argillander@gmail.com> wrote:
->
-> At least this patch will break ntfs3 which is in next. It has been there
-> just couple weeks so I understand. I added Konstantin and ntfs3 list so
-> that we know what is going on. Can you please info if and when do we
-> need rebase.
+	AFAICS, a48b73eca4ce "btrfs: fix potential deadlock in the search ioctl"
+has introduced a bug at least on arm64.
 
-No need to rebase. It just makes it harder for me to pick one pull
-over another, since it would mix the two things together.
+Relevant bits: in search_ioctl() we have
+        while (1) {
+                ret = fault_in_pages_writeable(ubuf + sk_offset,
+                                               *buf_size - sk_offset);
+                if (ret)
+                        break;
 
-I'll notice the semantic conflict as I do my merge build test, and
-it's easy for me to fix as part of the merge - whichever one I merge
-later.
+                ret = btrfs_search_forward(root, &key, path, sk->min_transid);
+                if (ret != 0) {
+                        if (ret > 0)
+                                ret = 0;
+                        goto err;
+                }
+                ret = copy_to_sk(path, &key, sk, buf_size, ubuf,
+                                 &sk_offset, &num_found);
+                btrfs_release_path(path);
+                if (ret)
+                        break;
 
-It's good if both sides remind me about the issue, but these kinds of
-conflicts are not a problem.
+        }
+and in copy_to_sk() -
+                sh.objectid = key->objectid;
+                sh.offset = key->offset;
+                sh.type = key->type;
+                sh.len = item_len;
+                sh.transid = found_transid;
 
-And yes, it does happen that I miss conflicts like this if I merge
-while on the road and don't do my full build tests, or if it's some
-architecture-specific thing or a problem that doesn't happen on my
-usual allmodconfig testing.  But neither of those cases should be
-present in this situation.
+                /*
+                 * Copy search result header. If we fault then loop again so we
+                 * can fault in the pages and -EFAULT there if there's a
+                 * problem. Otherwise we'll fault and then copy the buffer in
+                 * properly this next time through
+                 */
+                if (copy_to_user_nofault(ubuf + *sk_offset, &sh, sizeof(sh))) {
+                        ret = 0;
+                        goto out;
+                }
+with sk_offset left unchanged if the very first copy_to_user_nofault() fails.
 
-                    Linus
+Now, consider a situation on arm64 where ubuf points to the beginning of page,
+ubuf[0] can be accessed, but ubuf[16] can not (possible with MTE, AFAICS).  We do
+fault_in_pages_writeable(), which succeeds.  When we get to copy_to_user_nofault()
+we fail as soon as it gets past the first 16 bytes.  And we repeat everything from
+scratch, with no progress made, since short copies are treated as "discard and
+repeat" here.
+
+Am I misreading what's going on there?
 
