@@ -2,88 +2,90 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 737353FC6FA
-	for <lists+cluster-devel@lfdr.de>; Tue, 31 Aug 2021 14:20:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E5AFC3FCA9E
+	for <lists+cluster-devel@lfdr.de>; Tue, 31 Aug 2021 17:16:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1630422985;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=geN9iKiMV4jfX+gPjsViYlu0xMJFQxzklaZaxE7XMfM=;
+	b=WxvuhRtf5eKeDMKIwH/hHWtFZk71f7qbO1pFChfhzoFgI7/8MH7FIDgsp1o3EkhgKS46yu
+	SNYO0ZdyDavok8yRMD6cbSn77Peihrg05gHR1uLnuRHsBEHEa5P9fl4RQYY5Ac+F9OYEBY
+	pbe0stqSqgyfNbjzk+V5fn59w6tIBoc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-424-Rw-auU4ROdyYf67m6cSmZA-1; Tue, 31 Aug 2021 08:19:42 -0400
-X-MC-Unique: Rw-auU4ROdyYf67m6cSmZA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-146-TIOmqTgjM1GTRoAClgRBiQ-1; Tue, 31 Aug 2021 11:16:23 -0400
+X-MC-Unique: TIOmqTgjM1GTRoAClgRBiQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 28C491902EDF;
-	Tue, 31 Aug 2021 12:19:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 912C46A055;
-	Tue, 31 Aug 2021 12:19:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DD360106F718;
+	Tue, 31 Aug 2021 15:16:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AEA660CC9;
+	Tue, 31 Aug 2021 15:16:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1C31C181A1CE;
-	Tue, 31 Aug 2021 12:19:37 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AD7BA4A7C8;
+	Tue, 31 Aug 2021 15:16:18 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17V9LgAK008939 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 31 Aug 2021 05:21:42 -0400
+	id 17VF27hB016128 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 31 Aug 2021 11:02:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EE9E31006F9F; Tue, 31 Aug 2021 09:21:41 +0000 (UTC)
+	id 36F69114B2F4; Tue, 31 Aug 2021 15:02:07 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA8B1100611D
-	for <cluster-devel@redhat.com>; Tue, 31 Aug 2021 09:21:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F30B589C7E1
-	for <cluster-devel@redhat.com>; Tue, 31 Aug 2021 09:21:38 +0000 (UTC)
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
-	[209.85.215.177]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-33-ltQFSk4YM7-6bUUmRk0Iog-1; Tue, 31 Aug 2021 05:21:35 -0400
-X-MC-Unique: ltQFSk4YM7-6bUUmRk0Iog-1
-Received: by mail-pg1-f177.google.com with SMTP id k24so16024758pgh.8;
-	Tue, 31 Aug 2021 02:21:35 -0700 (PDT)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32747114B2F0
+	for <cluster-devel@redhat.com>; Tue, 31 Aug 2021 15:02:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 54675802319
+	for <cluster-devel@redhat.com>; Tue, 31 Aug 2021 15:02:04 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+	[209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-556-3p2h9AiqNBeCec0SysdT3w-1; Tue, 31 Aug 2021 11:02:02 -0400
+X-MC-Unique: 3p2h9AiqNBeCec0SysdT3w-1
+Received: by mail-wm1-f72.google.com with SMTP id
+	h1-20020a05600c350100b002e751bf6733so1434108wmq.8
+	for <cluster-devel@redhat.com>; Tue, 31 Aug 2021 08:02:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=44UO0xEw3VXiQ6bhQ7qA+cut2xomVvEwS3t/fwSgC0U=;
-	b=JafgST6Q8SRgXw5Y3fHHS2rT30MSRxnY39k2VDAOV8BOZHKwKc37bQ+hBReXbtf8kb
-	CPFnEATelgUl+7H0o66kIISp71J9SnfKzE1MxdGlsBeYSrxRI8X6gAdvDSdtCfdT5eFT
-	TXiEyNQpq/3dPKlPKby/k8YwADLpczKCLiW3s559MSKdFk5/m5hWaHZrD+r0p8/VcdoQ
-	Iy0CVyDhUlcMVSdJ/OIENcUBWbxsRYFJSXNrBeOCwIJTQVdt65vo6mbwDShcRiKi9DVq
-	fX2rKQ2xRVcKs7bPFyFsC9LFBQV+VkoSTQm5Iou1Z9nzX4d82d2Mo00vQkR+Ao0ekYVX
-	wzHg==
-X-Gm-Message-State: AOAM531oJZQzSyoJBx31qpPfubVkNJMSnpPHhLWSzJ2kXSpO0rSSYqxN
-	oZoVk6MA0HNtwNL2HTnZEaewiLoFHW4=
-X-Google-Smtp-Source: ABdhPJw7/Y5YisCYs7PlqhDldGkq5ZZ1RxcYJJDCS+6iyEAxIEn//L963mMfRpbxUTgRMouAm8TgJg==
-X-Received: by 2002:a05:6a00:787:b0:405:700b:69ce with SMTP id
-	g7-20020a056a00078700b00405700b69cemr1863016pfu.50.1630401694372;
-	Tue, 31 Aug 2021 02:21:34 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
-	by smtp.gmail.com with ESMTPSA id
-	c23sm19959506pgb.74.2021.08.31.02.21.32
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 31 Aug 2021 02:21:34 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: ccaulfie@redhat.com
-Date: Tue, 31 Aug 2021 02:21:28 -0700
-Message-Id: <20210831092128.15981-1-chi.minghao@zte.com.cn>
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=geN9iKiMV4jfX+gPjsViYlu0xMJFQxzklaZaxE7XMfM=;
+	b=tA7u9k9IT83L9iCBPvlmMR8C1R1AQF0+NSIjx3/a5hSmFbEX/O0faIGXpYGD9kaz9Q
+	7gs6jDKWTmVGIo9Q88EyrKFwXwmxbCQRuGbdFpXetZta7TLWhUizZYe3Zuxr5XW3/s9j
+	dl8tRfN8o4OtC1zV67yAK0f7V93scd7a7Kj3GtxT99HzaYkXR4LS4h0qkcMr1AW2fsaB
+	diw/btrUTPQiJDUObi9L9xfeHqUYLkCfpPW9FDf6seC/SQHZHGTo302cszbGt6snnQ0h
+	m+Eqy7M6MuvBnD5khW0y+qLXVIbeubzM8bhsrd202FmyM9gTVKyrbO+1YKOap/5xA+vG
+	0CoA==
+X-Gm-Message-State: AOAM531qwYUxaIha2GKelrpwDzb6yYxFhuMhYJhlLrjhaSx/h/tBWPk5
+	yjKdrRzXJPmh/aDZ3HY0LfKpC9BEgg1DdfwGYgea3oF/uZf+4RKqAHyJ6ojK1YkwCu3ImbYMwH3
+	aEaUIopOwezY+0nUbdLlkjD9FpsVKBfjckmejww==
+X-Received: by 2002:a05:600c:3ba3:: with SMTP id
+	n35mr4712197wms.166.1630422119496; 
+	Tue, 31 Aug 2021 08:01:59 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzWBRYd7VRXYzGstG1+NFlxgSwXpf+/Nr//YhmkDW+0FjfFhjYdoY83Dp0k2jY8TKlOXXCcDEtctWTcyUBM5e8=
+X-Received: by 2002:a05:600c:3ba3:: with SMTP id
+	n35mr4712190wms.166.1630422119361; 
+	Tue, 31 Aug 2021 08:01:59 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+References: <20210831100729.GA16317@kili>
+In-Reply-To: <20210831100729.GA16317@kili>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Tue, 31 Aug 2021 17:01:48 +0200
+Message-ID: <CAHc6FU6fEGXEd0xwA3qqOifscga+DYUCWEhnQcUBbim=gE1uow@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-X-Mailman-Approved-At: Tue, 31 Aug 2021 08:19:31 -0400
-Cc: cluster-devel@redhat.com, Zeal Robot <zealci@zte.com.cn>,
-	linux-kernel@vger.kernel.org, Chi Minghao <chi.minghao@zte.com.cn>
-Subject: [Cluster-devel] [PATCH] fs: dlm: remove unneeded semicolon
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [bug report] new ->follow_link() and
+ ->put_link() calling conventions
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,38 +99,31 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="UTF-8"
 
-From: Chi Minghao <chi.minghao@zte.com.cn>
+Hi Dan,
 
-Fix the following coccicheck REVIEW:
-./fs/dlm/midcomms.c:972:2-3 REVIEW Unneeded semicolon
+On Tue, Aug 31, 2021 at 12:15 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> Hello GFS2 devs,
+>
+> The ancient patch 680baacbca69: "new ->follow_link() and ->put_link()
+> calling conventions" from May 2, 2015, leads to the following
+> Smatch static checker warning:
+>
+>         fs/gfs2/inode.c:1806 gfs2_get_link()
+>         error: passing non negative 13 to ERR_PTR
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Chi Minghao <chi.minghao@zte.com.cn>
----
- fs/dlm/midcomms.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+this looks like a false positive: gh->gh_error will only be set to
+GLR_TRYFAILED when try_futile is true, and try_futile will only be
+true when the LM_FLAG_TRY or LM_FLAG_TRY_1CB flag in gh->gh_flags is
+set. The code is a bit convoluted, and it's not surprising that smatch
+doesn't understand what's going on.
 
-diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index 7ae39ec8d9b0..aa4215388b62 100644
---- a/fs/dlm/midcomms.c
-+++ b/fs/dlm/midcomms.c
-@@ -969,7 +969,7 @@ void dlm_midcomms_receive_done(int nodeid)
- 		spin_unlock(&node->state_lock);
- 		/* do nothing FIN has it's own ack send */
- 		break;
--	};
-+	}
- 	srcu_read_unlock(&nodes_srcu, idx);
- }
- 
--- 
-2.25.1
+Thanks,
+Andreas
 
