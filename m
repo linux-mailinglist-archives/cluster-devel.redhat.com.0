@@ -1,99 +1,98 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A51FA3FE380
-	for <lists+cluster-devel@lfdr.de>; Wed,  1 Sep 2021 22:02:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1630526575;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=bFy1F+QsYxR5COx5bC/TDu7Bi/by603yH1cn5pidm4Q=;
-	b=PcExKEgSla5aWXK1EK2QvotCrD49r/VEtf+GsawwtYjCYdwP1urdwLFEpHgQQiSM4LFP2U
-	51OvQCAXvxzpn2DJFMLJTpQj2ZO09VNDEGn7khobH9h+P/2Eee3XHJ3GCoJ6iJ4vz9o+6g
-	xf26V9jBJP5Lav4ADPrjlhiqob78Lno=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id AFD9F400266
+	for <lists+cluster-devel@lfdr.de>; Fri,  3 Sep 2021 17:35:35 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-439-1BwiZSifOtuU2W6h-KlhVA-1; Wed, 01 Sep 2021 16:02:54 -0400
-X-MC-Unique: 1BwiZSifOtuU2W6h-KlhVA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-500-bhzi6LgbOQaNRDnSRBkSMQ-1; Fri, 03 Sep 2021 11:35:33 -0400
+X-MC-Unique: bhzi6LgbOQaNRDnSRBkSMQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B381D188E3C2;
-	Wed,  1 Sep 2021 20:02:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88304835DE0;
+	Fri,  3 Sep 2021 15:35:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EAF465C23A;
-	Wed,  1 Sep 2021 20:02:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B29B76A91E;
+	Fri,  3 Sep 2021 15:35:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C7CBD1809C98;
-	Wed,  1 Sep 2021 20:02:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B2D8A18087F1;
+	Fri,  3 Sep 2021 15:35:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 181JrD1Y023569 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 1 Sep 2021 15:53:13 -0400
+	id 183Ev9du031398 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Sep 2021 10:57:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 12BA210E60FC; Wed,  1 Sep 2021 19:53:13 +0000 (UTC)
+	id 1895C1B1D39; Fri,  3 Sep 2021 14:57:09 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E264101461B
-	for <cluster-devel@redhat.com>; Wed,  1 Sep 2021 19:53:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 85085886483
-	for <cluster-devel@redhat.com>; Wed,  1 Sep 2021 19:53:05 +0000 (UTC)
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
-	[209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-360-Sd60WpfdOrSlhJlCqqcZYg-1; Wed, 01 Sep 2021 15:53:04 -0400
-X-MC-Unique: Sd60WpfdOrSlhJlCqqcZYg-1
-Received: by mail-wr1-f72.google.com with SMTP id
-	h6-20020a5d4fc6000000b00157503046afso265705wrw.3
-	for <cluster-devel@redhat.com>; Wed, 01 Sep 2021 12:53:04 -0700 (PDT)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 12FE11B1D36
+	for <cluster-devel@redhat.com>; Fri,  3 Sep 2021 14:57:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2FB08800186
+	for <cluster-devel@redhat.com>; Fri,  3 Sep 2021 14:57:06 +0000 (UTC)
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+	[209.85.222.181]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-239-DmAaxHReOVWiAmilpgs_XA-1; Fri, 03 Sep 2021 10:57:04 -0400
+X-MC-Unique: DmAaxHReOVWiAmilpgs_XA-1
+Received: by mail-qk1-f181.google.com with SMTP id a66so6050851qkc.1;
+	Fri, 03 Sep 2021 07:57:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=bFy1F+QsYxR5COx5bC/TDu7Bi/by603yH1cn5pidm4Q=;
-	b=NtO1GWOXM7/k7+q+MslXpfoLPHwe8pfYLHQhn2ioh+k754nG4hPrl+HgHrc77V07T6
-	iXCUjQ3nSZl38RaK8olPFYDdekPXxVKA06Dpb2nW5MAhxSNvUN6SFDA1nOmLkxhMJfZd
-	cHwF4H+lDTCW4hkntRSP7sNI1GvCL9R+yLrdD+2Poa1+q5TPlGO1atN2sBa3B6K9myWt
-	3DS1vV36T7uqLjnrSjibhPp62m+IW1hxx75kp2c2E7h5tyb/0yxS4NFRaoEjC9UFAQiG
-	rwYP/p6l/7WYVhqWcQ8JH7f3cSxEo4Bog0wQDMbE6FRq8LPT9qMjZ/LltSaPgNp6+96N
-	uQ7Q==
-X-Gm-Message-State: AOAM533jbJY1bPq77/pfrXrOVtijd+2fOtfVPXUB1OhOXjskoG/kSIrV
-	5QCDfsJsgyOdAPnXtXUTyDKjHlxBm7v5F2MfPul3yZRLs03Cg3mzLpF4sLkA3LMt1Hvnx6ObIBQ
-	WUi2+FpS8xgG5kLVQY2BcflgFK2ZFyXhXoCvdPQ==
-X-Received: by 2002:a5d:674b:: with SMTP id l11mr1134424wrw.357.1630525983086; 
-	Wed, 01 Sep 2021 12:53:03 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy13a9+qZa6g03QLR52J8E62dIEzq7mnQQkvBXnCkrMx+s+g3F4vOoKLHB3KfUO0ib83MII2IoHGfd93bk24N8=
-X-Received: by 2002:a5d:674b:: with SMTP id l11mr1134407wrw.357.1630525982924; 
-	Wed, 01 Sep 2021 12:53:02 -0700 (PDT)
+	h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+	:from:date:message-id:subject:to:cc:content-transfer-encoding;
+	bh=zZZ87vz+C4ZG1Hl87mUuE3qkrU78d+Yyq+IOBIIOZx8=;
+	b=eQGllZ6gcK8avJC/SEWfqOm010V4ZEnkBMhFyt8teBCpgDD6tnfsdGYtL1ee/ULtGx
+	fD+G1prgvZeQupOWXXDxpY0vI3noLnFAz+JXLi+amgSmd2BGFw9AFDq46wLk7pnLZeOu
+	8Yy4XbQzMVVPe4kOuHlCXnjJcj6yDOnqBEuqFheWQbPDfBAyLNGfwnIP/wjpy2INOCzd
+	ht0sQ2dYMIe8sqDiVAXooUHuNTgqzrPqZWnOhTaXXNkpud9eVpJmVbJRZcrH4fk4nZYI
+	aejGhXGvmTxHJd5jZKUIIKK+HLchnr3juiiluTfvqhP6wEYrrn+JpP/yASmGUoOk5ksn
+	z37g==
+X-Gm-Message-State: AOAM532LqP7l7nMXkXx2HamXbCjdY9efaMdaht/jyHT+RZIgC5WV3ntn
+	I3VL7VsInSjcTOkmNt9NcSJcRBoWdfKYU4aAjDFKyul7
+X-Google-Smtp-Source: ABdhPJya3MW9SYu99by6AJvnWGomTIJpxGGxiaEezkkc/DxB/L0cwQit7tm7pIwIsRCcEVqrBxOxbWHmrGM7YzS6H+Q=
+X-Received: by 2002:a05:620a:2844:: with SMTP id
+	h4mr3864553qkp.388.1630681023513; 
+	Fri, 03 Sep 2021 07:57:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210827164926.1726765-1-agruenba@redhat.com>
-	<CAHk-=wiUtyoTWuzroNJQwQDM9GHRXvq4974VL=y8T_3tUxDbkA@mail.gmail.com>
-In-Reply-To: <CAHk-=wiUtyoTWuzroNJQwQDM9GHRXvq4974VL=y8T_3tUxDbkA@mail.gmail.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Wed, 1 Sep 2021 21:52:51 +0200
-Message-ID: <CAHc6FU7K0Ho=nH6fCK+Amc7zEg2G31v+gE3920ric3NE4MfH=A@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+	<20210827164926.1726765-4-agruenba@redhat.com>
+In-Reply-To: <20210827164926.1726765-4-agruenba@redhat.com>
+From: Filipe Manana <fdmanana@gmail.com>
+Date: Fri, 3 Sep 2021 15:56:27 +0100
+Message-ID: <CAL3q7H7PdBTuK28tN=3fGUyTP9wJU8Ydrq35YtNsfA_3xRQhzQ@mail.gmail.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 183Ev9du031398
 X-loop: cluster-devel@redhat.com
-Cc: kvm-ppc@vger.kernel.org, Paul Mackerras <paulus@ozlabs.org>,
-	cluster-devel <cluster-devel@redhat.com>,
-	Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
+X-Mailman-Approved-At: Fri, 03 Sep 2021 11:27:42 -0400
+Cc: cluster-devel@redhat.com, Jan Kara <jack@suse.cz>,
+	"Darrick J. Wong" <djwong@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	Matthew Wilcox <willy@infradead.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH v7 00/19] gfs2: Fix mmap + page fault
-	deadlocks
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>, ocfs2-devel@oss.oracle.com
+Subject: Re: [Cluster-devel] [PATCH v7 03/19] gup: Turn
+ fault_in_pages_{readable, writeable} into fault_in_{readable, writeable}
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
+Reply-To: fdmanana@gmail.com
 List-Id: "\[Cluster devel\]" <cluster-devel.redhat.com>
 List-Unsubscribe: <https://listman.redhat.com/mailman/options/cluster-devel>, 
 	<mailto:cluster-devel-request@redhat.com?subject=unsubscribe>
@@ -104,37 +103,379 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 27, 2021 at 7:17 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Fri, Aug 27, 2021 at 9:49 AM Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> >
-> > here's another update on top of v5.14-rc7.  Changes:
-> >
-> >  * Some of the patch descriptions have been improved.
-> >
-> >  * Patch "gfs2: Eliminate ip->i_gh" has been moved further to the front.
-> >
-> > At this point, I'm not aware of anything that still needs fixing,
+On Fri, Aug 27, 2021 at 5:52 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
 >
-> From a quick scan, I didn't see anything that raised my hackles.
+> Turn fault_in_pages_{readable,writeable} into versions that return the
+> number of bytes not faulted in (similar to copy_to_user) instead of
+> returning a non-zero value when any of the requested pages couldn't be
+> faulted in.  This supports the existing users that require all pages to
+> be faulted in as well as new users that are happy if any pages can be
+> faulted in at all.
+>
+> Neither of these functions is entirely trivial and it doesn't seem
+> useful to inline them, so move them to mm/gup.c.
+>
+> Rename the functions to fault_in_{readable,writeable} to make sure that
+> this change doesn't silently break things.
+>
+> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+> ---
+>  arch/powerpc/kernel/kvm.c           |  3 +-
+>  arch/powerpc/kernel/signal_32.c     |  4 +-
+>  arch/powerpc/kernel/signal_64.c     |  2 +-
+>  arch/x86/kernel/fpu/signal.c        |  7 ++-
+>  drivers/gpu/drm/armada/armada_gem.c |  7 ++-
+>  fs/btrfs/ioctl.c                    |  5 +-
+>  include/linux/pagemap.h             | 57 ++---------------------
+>  lib/iov_iter.c                      | 10 ++--
+>  mm/filemap.c                        |  2 +-
+>  mm/gup.c                            | 72 +++++++++++++++++++++++++++++
+>  10 files changed, 93 insertions(+), 76 deletions(-)
+>
+> diff --git a/arch/powerpc/kernel/kvm.c b/arch/powerpc/kernel/kvm.c
+> index d89cf802d9aa..6568823cf306 100644
+> --- a/arch/powerpc/kernel/kvm.c
+> +++ b/arch/powerpc/kernel/kvm.c
+> @@ -669,7 +669,8 @@ static void __init kvm_use_magic_page(void)
+>         on_each_cpu(kvm_map_magic_page, &features, 1);
+>
+>         /* Quick self-test to see if the mapping works */
+> -       if (fault_in_pages_readable((const char *)KVM_MAGIC_PAGE, sizeof(u32))) {
+> +       if (fault_in_readable((const char __user *)KVM_MAGIC_PAGE,
+> +                             sizeof(u32))) {
+>                 kvm_patching_worked = false;
+>                 return;
+>         }
+> diff --git a/arch/powerpc/kernel/signal_32.c b/arch/powerpc/kernel/signal_32.c
+> index 0608581967f0..38c3eae40c14 100644
+> --- a/arch/powerpc/kernel/signal_32.c
+> +++ b/arch/powerpc/kernel/signal_32.c
+> @@ -1048,7 +1048,7 @@ SYSCALL_DEFINE3(swapcontext, struct ucontext __user *, old_ctx,
+>         if (new_ctx == NULL)
+>                 return 0;
+>         if (!access_ok(new_ctx, ctx_size) ||
+> -           fault_in_pages_readable((u8 __user *)new_ctx, ctx_size))
+> +           fault_in_readable((char __user *)new_ctx, ctx_size))
+>                 return -EFAULT;
+>
+>         /*
+> @@ -1237,7 +1237,7 @@ SYSCALL_DEFINE3(debug_setcontext, struct ucontext __user *, ctx,
+>  #endif
+>
+>         if (!access_ok(ctx, sizeof(*ctx)) ||
+> -           fault_in_pages_readable((u8 __user *)ctx, sizeof(*ctx)))
+> +           fault_in_readable((char __user *)ctx, sizeof(*ctx)))
+>                 return -EFAULT;
+>
+>         /*
+> diff --git a/arch/powerpc/kernel/signal_64.c b/arch/powerpc/kernel/signal_64.c
+> index 1831bba0582e..9f471b4a11e3 100644
+> --- a/arch/powerpc/kernel/signal_64.c
+> +++ b/arch/powerpc/kernel/signal_64.c
+> @@ -688,7 +688,7 @@ SYSCALL_DEFINE3(swapcontext, struct ucontext __user *, old_ctx,
+>         if (new_ctx == NULL)
+>                 return 0;
+>         if (!access_ok(new_ctx, ctx_size) ||
+> -           fault_in_pages_readable((u8 __user *)new_ctx, ctx_size))
+> +           fault_in_readable((char __user *)new_ctx, ctx_size))
+>                 return -EFAULT;
+>
+>         /*
+> diff --git a/arch/x86/kernel/fpu/signal.c b/arch/x86/kernel/fpu/signal.c
+> index 445c57c9c539..ba6bdec81603 100644
+> --- a/arch/x86/kernel/fpu/signal.c
+> +++ b/arch/x86/kernel/fpu/signal.c
+> @@ -205,7 +205,7 @@ int copy_fpstate_to_sigframe(void __user *buf, void __user *buf_fx, int size)
+>         fpregs_unlock();
+>
+>         if (ret) {
+> -               if (!fault_in_pages_writeable(buf_fx, fpu_user_xstate_size))
+> +               if (!fault_in_writeable(buf_fx, fpu_user_xstate_size))
+>                         goto retry;
+>                 return -EFAULT;
+>         }
+> @@ -278,10 +278,9 @@ static int restore_fpregs_from_user(void __user *buf, u64 xrestore,
+>                 if (ret != -EFAULT)
+>                         return -EINVAL;
+>
+> -               ret = fault_in_pages_readable(buf, size);
+> -               if (!ret)
+> +               if (!fault_in_readable(buf, size))
+>                         goto retry;
+> -               return ret;
+> +               return -EFAULT;
+>         }
+>
+>         /*
+> diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
+> index 21909642ee4c..8fbb25913327 100644
+> --- a/drivers/gpu/drm/armada/armada_gem.c
+> +++ b/drivers/gpu/drm/armada/armada_gem.c
+> @@ -336,7 +336,7 @@ int armada_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+>         struct drm_armada_gem_pwrite *args = data;
+>         struct armada_gem_object *dobj;
+>         char __user *ptr;
+> -       int ret;
+> +       int ret = 0;
+>
+>         DRM_DEBUG_DRIVER("handle %u off %u size %u ptr 0x%llx\n",
+>                 args->handle, args->offset, args->size, args->ptr);
+> @@ -349,9 +349,8 @@ int armada_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+>         if (!access_ok(ptr, args->size))
+>                 return -EFAULT;
+>
+> -       ret = fault_in_pages_readable(ptr, args->size);
+> -       if (ret)
+> -               return ret;
+> +       if (fault_in_readable(ptr, args->size))
+> +               return -EFAULT;
+>
+>         dobj = armada_gem_object_lookup(file, args->handle);
+>         if (dobj == NULL)
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index 0ba98e08a029..9233ecc31e2e 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -2244,9 +2244,8 @@ static noinline int search_ioctl(struct inode *inode,
+>         key.offset = sk->min_offset;
+>
+>         while (1) {
+> -               ret = fault_in_pages_writeable(ubuf + sk_offset,
+> -                                              *buf_size - sk_offset);
+> -               if (ret)
+> +               ret = -EFAULT;
+> +               if (fault_in_writeable(ubuf + sk_offset, *buf_size - sk_offset))
+>                         break;
+>
+>                 ret = btrfs_search_forward(root, &key, path, sk->min_transid);
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index ed02aa522263..7c9edc9694d9 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -734,61 +734,10 @@ int wait_on_page_private_2_killable(struct page *page);
+>  extern void add_page_wait_queue(struct page *page, wait_queue_entry_t *waiter);
+>
+>  /*
+> - * Fault everything in given userspace address range in.
+> + * Fault in userspace address range.
+>   */
+> -static inline int fault_in_pages_writeable(char __user *uaddr, int size)
+> -{
+> -       char __user *end = uaddr + size - 1;
+> -
+> -       if (unlikely(size == 0))
+> -               return 0;
+> -
+> -       if (unlikely(uaddr > end))
+> -               return -EFAULT;
+> -       /*
+> -        * Writing zeroes into userspace here is OK, because we know that if
+> -        * the zero gets there, we'll be overwriting it.
+> -        */
+> -       do {
+> -               if (unlikely(__put_user(0, uaddr) != 0))
+> -                       return -EFAULT;
+> -               uaddr += PAGE_SIZE;
+> -       } while (uaddr <= end);
+> -
+> -       /* Check whether the range spilled into the next page. */
+> -       if (((unsigned long)uaddr & PAGE_MASK) ==
+> -                       ((unsigned long)end & PAGE_MASK))
+> -               return __put_user(0, end);
+> -
+> -       return 0;
+> -}
+> -
+> -static inline int fault_in_pages_readable(const char __user *uaddr, int size)
+> -{
+> -       volatile char c;
+> -       const char __user *end = uaddr + size - 1;
+> -
+> -       if (unlikely(size == 0))
+> -               return 0;
+> -
+> -       if (unlikely(uaddr > end))
+> -               return -EFAULT;
+> -
+> -       do {
+> -               if (unlikely(__get_user(c, uaddr) != 0))
+> -                       return -EFAULT;
+> -               uaddr += PAGE_SIZE;
+> -       } while (uaddr <= end);
+> -
+> -       /* Check whether the range spilled into the next page. */
+> -       if (((unsigned long)uaddr & PAGE_MASK) ==
+> -                       ((unsigned long)end & PAGE_MASK)) {
+> -               return __get_user(c, end);
+> -       }
+> -
+> -       (void)c;
+> -       return 0;
+> -}
+> +size_t fault_in_writeable(char __user *uaddr, size_t size);
+> +size_t fault_in_readable(const char __user *uaddr, size_t size);
+>
+>  int add_to_page_cache_locked(struct page *page, struct address_space *mapping,
+>                                 pgoff_t index, gfp_t gfp_mask);
+> diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+> index 25dfc48536d7..069cedd9d7b4 100644
+> --- a/lib/iov_iter.c
+> +++ b/lib/iov_iter.c
+> @@ -191,7 +191,7 @@ static size_t copy_page_to_iter_iovec(struct page *page, size_t offset, size_t b
+>         buf = iov->iov_base + skip;
+>         copy = min(bytes, iov->iov_len - skip);
+>
+> -       if (IS_ENABLED(CONFIG_HIGHMEM) && !fault_in_pages_writeable(buf, copy)) {
+> +       if (IS_ENABLED(CONFIG_HIGHMEM) && !fault_in_writeable(buf, copy)) {
+>                 kaddr = kmap_atomic(page);
+>                 from = kaddr + offset;
+>
+> @@ -275,7 +275,7 @@ static size_t copy_page_from_iter_iovec(struct page *page, size_t offset, size_t
+>         buf = iov->iov_base + skip;
+>         copy = min(bytes, iov->iov_len - skip);
+>
+> -       if (IS_ENABLED(CONFIG_HIGHMEM) && !fault_in_pages_readable(buf, copy)) {
+> +       if (IS_ENABLED(CONFIG_HIGHMEM) && !fault_in_readable(buf, copy)) {
+>                 kaddr = kmap_atomic(page);
+>                 to = kaddr + offset;
+>
+> @@ -446,13 +446,11 @@ int iov_iter_fault_in_readable(const struct iov_iter *i, size_t bytes)
+>                         bytes = i->count;
+>                 for (p = i->iov, skip = i->iov_offset; bytes; p++, skip = 0) {
+>                         size_t len = min(bytes, p->iov_len - skip);
+> -                       int err;
+>
+>                         if (unlikely(!len))
+>                                 continue;
+> -                       err = fault_in_pages_readable(p->iov_base + skip, len);
+> -                       if (unlikely(err))
+> -                               return err;
+> +                       if (fault_in_readable(p->iov_base + skip, len))
+> +                               return -EFAULT;
+>                         bytes -= len;
+>                 }
+>         }
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index d1458ecf2f51..4dec3bc7752e 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -88,7 +88,7 @@
+>   *    ->lock_page              (access_process_vm)
+>   *
+>   *  ->i_mutex                  (generic_perform_write)
+> - *    ->mmap_lock              (fault_in_pages_readable->do_page_fault)
+> + *    ->mmap_lock              (fault_in_readable->do_page_fault)
+>   *
+>   *  bdi->wb.list_lock
+>   *    sb_lock                  (fs/fs-writeback.c)
+> diff --git a/mm/gup.c b/mm/gup.c
+> index b94717977d17..0cf47955e5a1 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -1672,6 +1672,78 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
+>  }
+>  #endif /* !CONFIG_MMU */
+>
+> +/**
+> + * fault_in_writeable - fault in userspace address range for writing
+> + * @uaddr: start of address range
+> + * @size: size of address range
+> + *
+> + * Returns the number of bytes not faulted in (like copy_to_user() and
+> + * copy_from_user()).
+> + */
+> +size_t fault_in_writeable(char __user *uaddr, size_t size)
+> +{
+> +       char __user *start = uaddr, *end;
+> +
+> +       if (unlikely(size == 0))
+> +               return 0;
+> +       if (!PAGE_ALIGNED(uaddr)) {
+> +               if (unlikely(__put_user(0, uaddr) != 0))
+> +                       return size;
+> +               uaddr = (char __user *)PAGE_ALIGN((unsigned long)uaddr);
+> +       }
+> +       end = (char __user *)PAGE_ALIGN((unsigned long)start + size);
+> +       if (unlikely(end < start))
+> +               end = NULL;
+> +       while (uaddr != end) {
+> +               if (unlikely(__put_user(0, uaddr) != 0))
+> +                       goto out;
+> +               uaddr += PAGE_SIZE;
 
-So there's a minor merge conflict between Christoph's iomap_iter
-conversion and this patch queue now, and I should probably clarify the
-description of "iomap: Add done_before argument to iomap_dio_rw" that
-Darrick ran into. Then there are the user copy issues that Al has
-pointed out. Fixing those will create superficial conflicts with this
-patch queue, but probably nothing serious.
+Won't we loop endlessly or corrupt some unwanted page when 'end' was
+set to NULL?
 
-So how should I proceed: do you expect a v8 of this patch queue on top
-of the current mainline?
+> +       }
+> +
+> +out:
+> +       if (size > uaddr - start)
+> +               return size - (uaddr - start);
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL(fault_in_writeable);
+> +
+> +/**
+> + * fault_in_readable - fault in userspace address range for reading
+> + * @uaddr: start of user address range
+> + * @size: size of user address range
+> + *
+> + * Returns the number of bytes not faulted in (like copy_to_user() and
+> + * copy_from_user()).
+> + */
+> +size_t fault_in_readable(const char __user *uaddr, size_t size)
+> +{
+> +       const char __user *start = uaddr, *end;
+> +       volatile char c;
+> +
+> +       if (unlikely(size == 0))
+> +               return 0;
+> +       if (!PAGE_ALIGNED(uaddr)) {
+> +               if (unlikely(__get_user(c, uaddr) != 0))
+> +                       return size;
+> +               uaddr = (const char __user *)PAGE_ALIGN((unsigned long)uaddr);
+> +       }
+> +       end = (const char __user *)PAGE_ALIGN((unsigned long)start + size);
+> +       if (unlikely(end < start))
+> +               end = NULL;
+> +       while (uaddr != end) {
 
-Thanks,
-Andreas
+Same kind of issue here, when 'end' was set to NULL?
+
+Thanks.
+
+> +               if (unlikely(__get_user(c, uaddr) != 0))
+> +                       goto out;
+> +               uaddr += PAGE_SIZE;
+> +       }
+> +
+> +out:
+> +       (void)c;
+> +       if (size > uaddr - start)
+> +               return size - (uaddr - start);
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL(fault_in_readable);
+> +
+>  /**
+>   * get_dump_page() - pin user page in memory while writing it to core dump
+>   * @addr: user address
+> --
+> 2.26.3
+>
+
+
+-- 
+Filipe David Manana,
+
+“Whether you think you can, or you think you can't — you're right.”
+
 
