@@ -2,57 +2,86 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 80A314004F2
-	for <lists+cluster-devel@lfdr.de>; Fri,  3 Sep 2021 20:33:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EF66640054C
+	for <lists+cluster-devel@lfdr.de>; Fri,  3 Sep 2021 20:49:05 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-558-5yHPNTfdPn2Q3Ue73UYK6g-1; Fri, 03 Sep 2021 14:33:43 -0400
-X-MC-Unique: 5yHPNTfdPn2Q3Ue73UYK6g-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-534-tH6QGrlFN7Ou_Kbo-hA3Hg-1; Fri, 03 Sep 2021 14:49:03 -0400
+X-MC-Unique: tH6QGrlFN7Ou_Kbo-hA3Hg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 61641835DE3;
-	Fri,  3 Sep 2021 18:33:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7BC3E10016F5;
-	Fri,  3 Sep 2021 18:33:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6B245824FA6;
+	Fri,  3 Sep 2021 18:49:01 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2980C5C1C5;
+	Fri,  3 Sep 2021 18:49:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6ED9918005A2;
-	Fri,  3 Sep 2021 18:33:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CFBDB44A59;
+	Fri,  3 Sep 2021 18:49:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 183IPuhk017806 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 3 Sep 2021 14:25:56 -0400
+	id 183Ila9s018838 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Sep 2021 14:47:36 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8F4D32051CFF; Fri,  3 Sep 2021 18:25:56 +0000 (UTC)
+	id 6DA5F20C15D5; Fri,  3 Sep 2021 18:47:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A8C52051D0E
-	for <cluster-devel@redhat.com>; Fri,  3 Sep 2021 18:25:53 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6923620C1665
+	for <cluster-devel@redhat.com>; Fri,  3 Sep 2021 18:47:33 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D9096811E93
-	for <cluster-devel@redhat.com>; Fri,  3 Sep 2021 18:25:53 +0000 (UTC)
-Received: from zeniv-ca.linux.org.uk (zeniv-ca.linux.org.uk
-	[142.44.231.140]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-561-Ars0py0-NvWxcoGUXqz_-w-1; Fri, 03 Sep 2021 14:25:49 -0400
-X-MC-Unique: Ars0py0-NvWxcoGUXqz_-w-1
-Received: from viro by zeniv-ca.linux.org.uk with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1mMDso-000qie-AY; Fri, 03 Sep 2021 18:25:46 +0000
-Date: Fri, 3 Sep 2021 18:25:46 +0000
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <YTJoqq0fVB+xAB7w@zeniv-ca.linux.org.uk>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E83910AF7C2
+	for <cluster-devel@redhat.com>; Fri,  3 Sep 2021 18:47:33 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+	[209.85.167.43]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-158-QgRWlvePPSKXaGBguMn0rQ-1; Fri, 03 Sep 2021 14:47:31 -0400
+X-MC-Unique: QgRWlvePPSKXaGBguMn0rQ-1
+Received: by mail-lf1-f43.google.com with SMTP id x27so144842lfu.5
+	for <cluster-devel@redhat.com>; Fri, 03 Sep 2021 11:47:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=DxQ+Qr7YPaLGE685i8Qhsb70C5/CP3uq+dG10rbYZ70=;
+	b=ai0mlebj88FhyZBHFfEbkI4nb61uVLpMo3gfFPGISH6p06AWnTB3snaJ7tMgM70JCh
+	rfriOncyzi7OXdYJrG+tPU/DPHFMOJiLsQQ/JvBgnzpbecdGlgJb+ju+HsVV6PGLi9lY
+	1LQtCbVwjqW2WeVhO6bvzIuhMaZwgvBf1NRkmLtt5bCeLQeAqW5MWE/fiYjY2nrrDCqk
+	XXiC30QHSKbY5zuzjO3NGGe/Ok+ORagyT1asZlzk7ighaBVhV8wS8Ym+9hKhIUttEfRd
+	f96DzWyq93hWY6Kx0I9PMwHadIlAnxNLtZW3ShXbeecnYRHnjKsFsV7FtlZpHTScH0Q/
+	MBrg==
+X-Gm-Message-State: AOAM533FGsAI5gbjSNbfR6HA4Mcwybmzs/D5pC/kGpcGOpRlTQvxB0Et
+	KwSyrXIu8qnaXLp+boa0pmz6Jni3Sg99y6BGUxA=
+X-Google-Smtp-Source: ABdhPJwRnQqjMOive/eMlhwO+m/BarzY6EI8xp5JCjlqIzulikdnbDyik1bRSCegIAjpH/O7jja5zg==
+X-Received: by 2002:ac2:4e0f:: with SMTP id e15mr229397lfr.565.1630694849758; 
+	Fri, 03 Sep 2021 11:47:29 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com.
+	[209.85.167.41])
+	by smtp.gmail.com with ESMTPSA id z1sm21980lfu.222.2021.09.03.11.47.28
+	for <cluster-devel@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Fri, 03 Sep 2021 11:47:29 -0700 (PDT)
+Received: by mail-lf1-f41.google.com with SMTP id p38so229855lfa.0
+	for <cluster-devel@redhat.com>; Fri, 03 Sep 2021 11:47:28 -0700 (PDT)
+X-Received: by 2002:a05:6512:3987:: with SMTP id
+	j7mr269355lfu.280.1630694848707; 
+	Fri, 03 Sep 2021 11:47:28 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210827164926.1726765-1-agruenba@redhat.com>
 	<CAHk-=wiUtyoTWuzroNJQwQDM9GHRXvq4974VL=y8T_3tUxDbkA@mail.gmail.com>
 	<CAHc6FU7K0Ho=nH6fCK+Amc7zEg2G31v+gE3920ric3NE4MfH=A@mail.gmail.com>
 	<CAHk-=wjUs8qy3hTEy-7QX4L=SyS85jF58eiT2Yq2YMUdTFAgvA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAHk-=wjUs8qy3hTEy-7QX4L=SyS85jF58eiT2Yq2YMUdTFAgvA@mail.gmail.com>
+	<YTJoqq0fVB+xAB7w@zeniv-ca.linux.org.uk>
+In-Reply-To: <YTJoqq0fVB+xAB7w@zeniv-ca.linux.org.uk>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 3 Sep 2021 11:47:12 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whVNs=67KdMg21wxQdKuOJNg2p3d9t6dX-u3Jw+tzxjoQ@mail.gmail.com>
+Message-ID: <CAHk-=whVNs=67KdMg21wxQdKuOJNg2p3d9t6dX-u3Jw+tzxjoQ@mail.gmail.com>
+To: Al Viro <viro@zeniv.linux.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,7 +90,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: Paul Mackerras <paulus@ozlabs.org>,
 	cluster-devel <cluster-devel@redhat.com>,
@@ -84,45 +113,23 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 03, 2021 at 08:52:00AM -0700, Linus Torvalds wrote:
-> On Wed, Sep 1, 2021 at 12:53 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> >
-> > So there's a minor merge conflict between Christoph's iomap_iter
-> > conversion and this patch queue now, and I should probably clarify the
-> > description of "iomap: Add done_before argument to iomap_dio_rw" that
-> > Darrick ran into. Then there are the user copy issues that Al has
-> > pointed out. Fixing those will create superficial conflicts with this
-> > patch queue, but probably nothing serious.
-> >
-> > So how should I proceed: do you expect a v8 of this patch queue on top
-> > of the current mainline?
-> 
-> So if you rebase for fixes, it's going to be a "next merge window" thing again.
-> 
-> Personally, I'm ok with the series as is, and the conflict isn't an
-> issue. So I'd take it as is, and then people can fix up niggling
-> issues later.
-> 
-> But if somebody screams loudly..
+On Fri, Sep 3, 2021 at 11:28 AM Al Viro <viro@zeniv.linux.org.uk> wrote:
+>
+> FWIW, my objections regarding the calling conventions are still there.
 
-FWIW, my objections regarding the calling conventions are still there.
+So I'm happy to further change the calling conventions, but by now
+_that_ part is most definitely a "not this merge window". The need for
+that ternary state is still there.
 
-Out of 3 callers that do want more than "success/failure", one is gone
-(series by tglx) and one more is broken (regardless of the semantics,
-btrfs on arm64).  Which leaves 1 caller (fault-in for read in FPU
-handling on x86 sigreturn).  That caller turns out to be correct, but
-IMO there are fairly strong arguments in favour of *not* using the
-normal fault-in in that case.
+It might go away in the future, but I think that's literally that: a
+future cleanup. Not really related to the problem at hand.
 
-	"how many bytes can we fault in" is misleading, unless we really
-poke into every cacheline in the affected area.  Which might be a primitive
-worth having, but it's a lot heavier than needed by the majority of callers.
+              Linus
 
