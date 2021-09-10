@@ -2,50 +2,50 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 826674060D6
-	for <lists+cluster-devel@lfdr.de>; Fri, 10 Sep 2021 02:20:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 752084060B9
+	for <lists+cluster-devel@lfdr.de>; Fri, 10 Sep 2021 02:18:29 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-118-sEI_ysEDPIGZVEUzyNvhkw-1; Thu, 09 Sep 2021 20:20:35 -0400
-X-MC-Unique: sEI_ysEDPIGZVEUzyNvhkw-1
+ us-mta-44-w_K1xEXlOeair5XprUs4cA-1; Thu, 09 Sep 2021 20:18:27 -0400
+X-MC-Unique: w_K1xEXlOeair5XprUs4cA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2C0541084680;
-	Fri, 10 Sep 2021 00:20:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D9731808301;
+	Fri, 10 Sep 2021 00:18:25 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D36A100E107;
-	Fri, 10 Sep 2021 00:20:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD60B100E107;
+	Fri, 10 Sep 2021 00:18:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 040134E58E;
-	Fri, 10 Sep 2021 00:20:33 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D48584E58E;
+	Fri, 10 Sep 2021 00:18:22 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18A0HIeE017752 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Sep 2021 20:17:18 -0400
+	id 18A0IFGf017798 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 9 Sep 2021 20:18:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2B5A510CB289; Fri, 10 Sep 2021 00:17:18 +0000 (UTC)
+	id 0E13410C6EDF; Fri, 10 Sep 2021 00:18:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 26FFE10CB28A
-	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:17:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41FA1100B8C3
-	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:17:15 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09AC810C7346
+	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:18:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26FAE831558
+	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:18:03 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-155-UF5BVOZpNwalaf1rBYHaPQ-1;
-	Thu, 09 Sep 2021 20:17:11 -0400
-X-MC-Unique: UF5BVOZpNwalaf1rBYHaPQ-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B00DE6120E;
-	Fri, 10 Sep 2021 00:17:08 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-594-bnIPT66MPeOt6mEn9DjJew-1;
+	Thu, 09 Sep 2021 20:17:59 -0400
+X-MC-Unique: bnIPT66MPeOt6mEn9DjJew-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 01DD1611C5;
+	Fri, 10 Sep 2021 00:17:56 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu,  9 Sep 2021 20:15:10 -0400
-Message-Id: <20210910001558.173296-51-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 20:15:45 -0400
+Message-Id: <20210910001558.173296-86-sashal@kernel.org>
 In-Reply-To: <20210910001558.173296-1-sashal@kernel.org>
 References: <20210910001558.173296-1-sashal@kernel.org>
 MIME-Version: 1.0
@@ -61,9 +61,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.14 51/99] fs: dlm: fix return
-	-EINTR on recovery stopped
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
+	Chris Mackowski <cmackows@redhat.com>
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.14 86/99] fs: dlm: avoid comms
+	shutdown delay in release_lockspace
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,88 +88,42 @@ Content-Type: text/plain; charset="US-ASCII"
 
 From: Alexander Aring <aahringo@redhat.com>
 
-[ Upstream commit aee742c9928ab4f5f4e0b00f41fb2d2cffae179e ]
+[ Upstream commit ecd95673142ef80169a6c003b569b8a86d1e6329 ]
 
-This patch will return -EINTR instead of 1 if recovery is stopped. In
-case of ping_members() the return value will be checked if the error is
--EINTR for signaling another recovery was triggered and the whole
-recovery process will come to a clean end to process the next one.
-Returning 1 will abort the recovery process and can leave the recovery
-in a broken state.
+When dlm_release_lockspace does active shutdown on connections to
+other nodes, the active shutdown will wait for any exisitng passive
+shutdowns to be resolved.  But, the sequence of operations during
+dlm_release_lockspace can prevent the normal resolution of passive
+shutdowns (processed normally by way of lockspace recovery.)
+This disruption of passive shutdown handling can cause the active
+shutdown to wait for a full timeout period, delaying the completion
+of dlm_release_lockspace.
 
-It was reported with the following kernel log message attached and a gfs2
-mount stopped working:
+To fix this, make dlm_release_lockspace resolve existing passive
+shutdowns (by calling dlm_clear_members earlier), before it does
+active shutdowns.  The active shutdowns will not find any passive
+shutdowns to wait for, and will not be delayed.
 
-"dlm: bobvirt1: dlm_recover_members error 1"
-
-whereas 1 was returned because of a conversion of "dlm_recovery_stopped()"
-to an errno was missing which this patch will introduce. While on it all
-other possible missing errno conversions at other places were added as
-they are done as in other places.
-
-It might be worth to check the error case at this recovery level,
-because some of the functionality also returns -ENOBUFS and check why
-recovery ends in a broken state. However this will fix the issue if
-another recovery was triggered at some points of recovery handling.
-
-Reported-by: Bob Peterson <rpeterso@redhat.com>
+Reported-by: Chris Mackowski <cmackows@redhat.com>
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 Signed-off-by: David Teigland <teigland@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dlm/dir.c      | 4 +++-
- fs/dlm/member.c   | 4 +++-
- fs/dlm/recoverd.c | 4 +++-
- 3 files changed, 9 insertions(+), 3 deletions(-)
+ fs/dlm/lockspace.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/dlm/dir.c b/fs/dlm/dir.c
-index 10c36ae1a8f9..45ebbe602bbf 100644
---- a/fs/dlm/dir.c
-+++ b/fs/dlm/dir.c
-@@ -85,8 +85,10 @@ int dlm_recover_directory(struct dlm_ls *ls)
- 		for (;;) {
- 			int left;
- 			error = dlm_recovery_stopped(ls);
--			if (error)
-+			if (error) {
-+				error = -EINTR;
- 				goto out_free;
-+			}
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index d71aba8c3e64..e51ae83fc5b4 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -793,6 +793,7 @@ static int release_lockspace(struct dlm_ls *ls, int force)
  
- 			error = dlm_rcom_names(ls, memb->nodeid,
- 					       last_name, last_len);
-diff --git a/fs/dlm/member.c b/fs/dlm/member.c
-index d9e1e4170eb1..731d489aa323 100644
---- a/fs/dlm/member.c
-+++ b/fs/dlm/member.c
-@@ -443,8 +443,10 @@ static int ping_members(struct dlm_ls *ls)
+ 	if (ls_count == 1) {
+ 		dlm_scand_stop();
++		dlm_clear_members(ls);
+ 		dlm_midcomms_shutdown();
+ 	}
  
- 	list_for_each_entry(memb, &ls->ls_nodes, list) {
- 		error = dlm_recovery_stopped(ls);
--		if (error)
-+		if (error) {
-+			error = -EINTR;
- 			break;
-+		}
- 		error = dlm_rcom_status(ls, memb->nodeid, 0);
- 		if (error)
- 			break;
-diff --git a/fs/dlm/recoverd.c b/fs/dlm/recoverd.c
-index 85e245392715..97d052cea5a9 100644
---- a/fs/dlm/recoverd.c
-+++ b/fs/dlm/recoverd.c
-@@ -125,8 +125,10 @@ static int ls_recover(struct dlm_ls *ls, struct dlm_recover *rv)
- 	dlm_recover_waiters_pre(ls);
- 
- 	error = dlm_recovery_stopped(ls);
--	if (error)
-+	if (error) {
-+		error = -EINTR;
- 		goto fail;
-+	}
- 
- 	if (neg || dlm_no_directory(ls)) {
- 		/*
 -- 
 2.30.2
 
