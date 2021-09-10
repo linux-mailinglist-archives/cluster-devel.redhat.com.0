@@ -2,55 +2,59 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 223C14060F9
-	for <lists+cluster-devel@lfdr.de>; Fri, 10 Sep 2021 02:24:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D14D4067FB
+	for <lists+cluster-devel@lfdr.de>; Fri, 10 Sep 2021 09:47:50 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-309-henWfInHMtabnKm2d8U5-w-1; Thu, 09 Sep 2021 20:24:26 -0400
-X-MC-Unique: henWfInHMtabnKm2d8U5-w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-535-FJkSbKUuPwOwoYU6Ltz6sQ-1; Fri, 10 Sep 2021 03:47:48 -0400
+X-MC-Unique: FJkSbKUuPwOwoYU6Ltz6sQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B8AD61084680;
-	Fri, 10 Sep 2021 00:24:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB02E6D981;
-	Fri, 10 Sep 2021 00:24:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 14C7B1808307;
+	Fri, 10 Sep 2021 07:47:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFFBD5C23A;
+	Fri, 10 Sep 2021 07:47:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 916F21809C81;
-	Fri, 10 Sep 2021 00:24:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5B6544EA29;
+	Fri, 10 Sep 2021 07:47:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18A0OLmO018121 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Sep 2021 20:24:21 -0400
+	id 18A7kd5e020632 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 03:46:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A840310ABC84; Fri, 10 Sep 2021 00:24:21 +0000 (UTC)
+	id BF4391B1D4B; Fri, 10 Sep 2021 07:46:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A3C9810C733D
-	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:24:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9B591B1D40
+	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 07:46:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD09D802E5E
-	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:24:18 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-240-Eq6wKi13PK--HoFFP-zOlg-1;
-	Thu, 09 Sep 2021 20:24:15 -0400
-X-MC-Unique: Eq6wKi13PK--HoFFP-zOlg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B4714610A3;
-	Fri, 10 Sep 2021 00:24:12 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu,  9 Sep 2021 20:23:56 -0400
-Message-Id: <20210910002403.176887-7-sashal@kernel.org>
-In-Reply-To: <20210910002403.176887-1-sashal@kernel.org>
-References: <20210910002403.176887-1-sashal@kernel.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E8476800B29
+	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 07:46:36 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-443-u90XxCDxOpisbiz6VoS8eA-1; Fri, 10 Sep 2021 03:46:35 -0400
+X-MC-Unique: u90XxCDxOpisbiz6VoS8eA-1
+Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
+	Linux)) id 1mOatG-00AmTN-Ld; Fri, 10 Sep 2021 07:24:19 +0000
+Date: Fri, 10 Sep 2021 08:24:02 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <YTsIEqoJqRUVneHq@infradead.org>
+References: <20210827164926.1726765-1-agruenba@redhat.com>
+	<20210827164926.1726765-18-agruenba@redhat.com>
+	<YTnxruxm/xA/BBmQ@infradead.org>
+	<CAHk-=wj4RER3XeG34nLH2PgvuRuj_NRgDx=wLTKv=jYaQnFe+Q@mail.gmail.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+In-Reply-To: <CAHk-=wj4RER3XeG34nLH2PgvuRuj_NRgDx=wLTKv=jYaQnFe+Q@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -59,11 +63,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.4 07/14] fs: dlm: fix return
-	-EINTR on recovery stopped
+Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, ocfs2-devel@oss.oracle.com
+Subject: Re: [Cluster-devel] [PATCH v7 17/19] gup: Introduce FOLL_NOFAULT
+ flag to disable page faults
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,98 +86,23 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Alexander Aring <aahringo@redhat.com>
+On Thu, Sep 09, 2021 at 10:17:14AM -0700, Linus Torvalds wrote:
+> So I think we should treat FOLL_FAST_ONLY as a special "internal to
+> gup.c" flag, and perhaps not really compare it to the new
+> FOLL_NOFAULT.
+> 
+> In fact, maybe we could even just make FOLL_FAST_ONLY be the high bit,
+> and not expose it in <linux/mm.h> and make it entirely private as a
+> name in gup.c.
 
-[ Upstream commit aee742c9928ab4f5f4e0b00f41fb2d2cffae179e ]
-
-This patch will return -EINTR instead of 1 if recovery is stopped. In
-case of ping_members() the return value will be checked if the error is
--EINTR for signaling another recovery was triggered and the whole
-recovery process will come to a clean end to process the next one.
-Returning 1 will abort the recovery process and can leave the recovery
-in a broken state.
-
-It was reported with the following kernel log message attached and a gfs2
-mount stopped working:
-
-"dlm: bobvirt1: dlm_recover_members error 1"
-
-whereas 1 was returned because of a conversion of "dlm_recovery_stopped()"
-to an errno was missing which this patch will introduce. While on it all
-other possible missing errno conversions at other places were added as
-they are done as in other places.
-
-It might be worth to check the error case at this recovery level,
-because some of the functionality also returns -ENOBUFS and check why
-recovery ends in a broken state. However this will fix the issue if
-another recovery was triggered at some points of recovery handling.
-
-Reported-by: Bob Peterson <rpeterso@redhat.com>
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
-Signed-off-by: David Teigland <teigland@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/dlm/dir.c      | 4 +++-
- fs/dlm/member.c   | 4 +++-
- fs/dlm/recoverd.c | 4 +++-
- 3 files changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/fs/dlm/dir.c b/fs/dlm/dir.c
-index d975851a7e1e..c4de04ef8b01 100644
---- a/fs/dlm/dir.c
-+++ b/fs/dlm/dir.c
-@@ -87,8 +87,10 @@ int dlm_recover_directory(struct dlm_ls *ls)
- 		for (;;) {
- 			int left;
- 			error = dlm_recovery_stopped(ls);
--			if (error)
-+			if (error) {
-+				error = -EINTR;
- 				goto out_free;
-+			}
- 
- 			error = dlm_rcom_names(ls, memb->nodeid,
- 					       last_name, last_len);
-diff --git a/fs/dlm/member.c b/fs/dlm/member.c
-index a47ae99f7bcb..e8a5bdc39634 100644
---- a/fs/dlm/member.c
-+++ b/fs/dlm/member.c
-@@ -437,8 +437,10 @@ static int ping_members(struct dlm_ls *ls)
- 
- 	list_for_each_entry(memb, &ls->ls_nodes, list) {
- 		error = dlm_recovery_stopped(ls);
--		if (error)
-+		if (error) {
-+			error = -EINTR;
- 			break;
-+		}
- 		error = dlm_rcom_status(ls, memb->nodeid, 0);
- 		if (error)
- 			break;
-diff --git a/fs/dlm/recoverd.c b/fs/dlm/recoverd.c
-index 6859b4bf971e..206c8b29429a 100644
---- a/fs/dlm/recoverd.c
-+++ b/fs/dlm/recoverd.c
-@@ -127,8 +127,10 @@ static int ls_recover(struct dlm_ls *ls, struct dlm_recover *rv)
- 	dlm_recover_waiters_pre(ls);
- 
- 	error = dlm_recovery_stopped(ls);
--	if (error)
-+	if (error) {
-+		error = -EINTR;
- 		goto fail;
-+	}
- 
- 	if (neg || dlm_no_directory(ls)) {
- 		/*
--- 
-2.30.2
+There are quite a few bits like that.  I've been wanting to make them
+private for 5.16.
 
