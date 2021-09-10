@@ -2,82 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B187405BF4
-	for <lists+cluster-devel@lfdr.de>; Thu,  9 Sep 2021 19:23:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 826674060D6
+	for <lists+cluster-devel@lfdr.de>; Fri, 10 Sep 2021 02:20:37 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-484-_GZd_yJXP0qtTltI1_rH-w-1; Thu, 09 Sep 2021 13:23:24 -0400
-X-MC-Unique: _GZd_yJXP0qtTltI1_rH-w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-118-sEI_ysEDPIGZVEUzyNvhkw-1; Thu, 09 Sep 2021 20:20:35 -0400
+X-MC-Unique: sEI_ysEDPIGZVEUzyNvhkw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53ACC802935;
-	Thu,  9 Sep 2021 17:23:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3596F60C82;
-	Thu,  9 Sep 2021 17:23:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2C0541084680;
+	Fri, 10 Sep 2021 00:20:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D36A100E107;
+	Fri, 10 Sep 2021 00:20:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 10F361800FE4;
-	Thu,  9 Sep 2021 17:23:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 040134E58E;
+	Fri, 10 Sep 2021 00:20:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 189HNHtQ016058 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Sep 2021 13:23:17 -0400
+	id 18A0HIeE017752 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 9 Sep 2021 20:17:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 09A5D2051B78; Thu,  9 Sep 2021 17:23:17 +0000 (UTC)
+	id 2B5A510CB289; Fri, 10 Sep 2021 00:17:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04F5B204FF25
-	for <cluster-devel@redhat.com>; Thu,  9 Sep 2021 17:23:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E167110665A3
-	for <cluster-devel@redhat.com>; Thu,  9 Sep 2021 17:23:16 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
-	[209.85.208.176]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-246-H2EaK235Mcm2MSbrX45mrw-1; Thu, 09 Sep 2021 13:23:15 -0400
-X-MC-Unique: H2EaK235Mcm2MSbrX45mrw-1
-Received: by mail-lj1-f176.google.com with SMTP id m4so4139840ljq.8
-	for <cluster-devel@redhat.com>; Thu, 09 Sep 2021 10:23:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=p6IJpdyTV9RM1+HAVghvZCBeKL8NDMdT8/thsJ+vYl0=;
-	b=aXua5svtbHa4mKABGAvEXFVgcXxizZD+7K25Ul92jo7rjUMiHv5hdeqirhqpu0kIzd
-	ucgDXamxnGk0UADyJpKuYVqrCvwjeBO4ZlHUXefZ4ODSH0xqeC7DzBiF1O5/ylc3kEuI
-	VxZQWFIgSyQ9vscp82XiBIPQl0hpGwim4T8iVMo8GgMQWoQdS35JUK2KHUe6E4emnwH2
-	VLqkxmf+geuSDignG2JHZBce991LO20+fcs9QI7BRXZlCG25tyNkiha8v9yhaljnZhce
-	3CM3QSWzyVjLZ8vj/tAK2YCMnbMGFmo4D9/0xfK3ddsBBYHTrB1KrjqF1EkPykzb6BrP
-	+EWA==
-X-Gm-Message-State: AOAM5309s7Oqi4EgG0+xCTrnfxCKRSMn1tZP9lAuVoEUf5Zk49HiM5y9
-	PUuO8zWoTnRsytc///Xq27eEKWuehUDlqcnDLO0=
-X-Google-Smtp-Source: ABdhPJzD+HqWYgyrDIJlTk4JBn/rkfy+kyhL8BoyHrW/jCGjMClmvsireZyJeiUa5g3t24fHGQdCAw==
-X-Received: by 2002:a2e:90da:: with SMTP id o26mr789299ljg.504.1631208193428; 
-	Thu, 09 Sep 2021 10:23:13 -0700 (PDT)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com.
-	[209.85.208.182])
-	by smtp.gmail.com with ESMTPSA id a17sm260498lfb.91.2021.09.09.10.23.12
-	for <cluster-devel@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 09 Sep 2021 10:23:12 -0700 (PDT)
-Received: by mail-lj1-f182.google.com with SMTP id w4so4118689ljh.13
-	for <cluster-devel@redhat.com>; Thu, 09 Sep 2021 10:23:12 -0700 (PDT)
-X-Received: by 2002:a2e:a363:: with SMTP id i3mr806608ljn.56.1631208192152;
-	Thu, 09 Sep 2021 10:23:12 -0700 (PDT)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 26FFE10CB28A
+	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:17:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41FA1100B8C3
+	for <cluster-devel@redhat.com>; Fri, 10 Sep 2021 00:17:15 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-155-UF5BVOZpNwalaf1rBYHaPQ-1;
+	Thu, 09 Sep 2021 20:17:11 -0400
+X-MC-Unique: UF5BVOZpNwalaf1rBYHaPQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B00DE6120E;
+	Fri, 10 Sep 2021 00:17:08 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu,  9 Sep 2021 20:15:10 -0400
+Message-Id: <20210910001558.173296-51-sashal@kernel.org>
+In-Reply-To: <20210910001558.173296-1-sashal@kernel.org>
+References: <20210910001558.173296-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20210827164926.1726765-1-agruenba@redhat.com>
-	<20210827164926.1726765-17-agruenba@redhat.com>
-	<YTnwZU8Q0eqBccmM@infradead.org>
-In-Reply-To: <YTnwZU8Q0eqBccmM@infradead.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 9 Sep 2021 10:22:56 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wgF7TPaumMU6HjBjawjFWjvEg=116=gtnzsxAcfdP4wAw@mail.gmail.com>
-Message-ID: <CAHk-=wgF7TPaumMU6HjBjawjFWjvEg=116=gtnzsxAcfdP4wAw@mail.gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -86,16 +59,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	cluster-devel <cluster-devel@redhat.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH v7 16/19] iomap: Add done_before
-	argument to iomap_dio_rw
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.14 51/99] fs: dlm: fix return
+	-EINTR on recovery stopped
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,34 +77,98 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Thu, Sep 9, 2021 at 4:31 AM Christoph Hellwig <hch@infradead.org> wrote:
->
-> What about just passing done_before as an argument to
-> iomap_dio_complete? gfs2 would have to switch to __iomap_dio_rw +
-> iomap_dio_complete instead of iomap_dio_rw for that, and it obviously
-> won't work for async completions, but you force sync in this case
-> anyway, right?
+From: Alexander Aring <aahringo@redhat.com>
 
-I think you misunderstand.
+[ Upstream commit aee742c9928ab4f5f4e0b00f41fb2d2cffae179e ]
 
-Or maybe I do.
+This patch will return -EINTR instead of 1 if recovery is stopped. In
+case of ping_members() the return value will be checked if the error is
+-EINTR for signaling another recovery was triggered and the whole
+recovery process will come to a clean end to process the next one.
+Returning 1 will abort the recovery process and can leave the recovery
+in a broken state.
 
-It very much doesn't force sync in this case. It did the *first* part
-of it synchronously, but then it wants to continue with that async
-part for the rest, and very much do that async completion.
+It was reported with the following kernel log message attached and a gfs2
+mount stopped working:
 
-And that's why it wants to add that "I already did X much of the
-work", exactly so that the async completion can report the full end
-result.
+"dlm: bobvirt1: dlm_recover_members error 1"
 
-But maybe now it's me who is misunderstanding.
+whereas 1 was returned because of a conversion of "dlm_recovery_stopped()"
+to an errno was missing which this patch will introduce. While on it all
+other possible missing errno conversions at other places were added as
+they are done as in other places.
 
-          Linus
+It might be worth to check the error case at this recovery level,
+because some of the functionality also returns -ENOBUFS and check why
+recovery ends in a broken state. However this will fix the issue if
+another recovery was triggered at some points of recovery handling.
+
+Reported-by: Bob Peterson <rpeterso@redhat.com>
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+Signed-off-by: David Teigland <teigland@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/dlm/dir.c      | 4 +++-
+ fs/dlm/member.c   | 4 +++-
+ fs/dlm/recoverd.c | 4 +++-
+ 3 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/fs/dlm/dir.c b/fs/dlm/dir.c
+index 10c36ae1a8f9..45ebbe602bbf 100644
+--- a/fs/dlm/dir.c
++++ b/fs/dlm/dir.c
+@@ -85,8 +85,10 @@ int dlm_recover_directory(struct dlm_ls *ls)
+ 		for (;;) {
+ 			int left;
+ 			error = dlm_recovery_stopped(ls);
+-			if (error)
++			if (error) {
++				error = -EINTR;
+ 				goto out_free;
++			}
+ 
+ 			error = dlm_rcom_names(ls, memb->nodeid,
+ 					       last_name, last_len);
+diff --git a/fs/dlm/member.c b/fs/dlm/member.c
+index d9e1e4170eb1..731d489aa323 100644
+--- a/fs/dlm/member.c
++++ b/fs/dlm/member.c
+@@ -443,8 +443,10 @@ static int ping_members(struct dlm_ls *ls)
+ 
+ 	list_for_each_entry(memb, &ls->ls_nodes, list) {
+ 		error = dlm_recovery_stopped(ls);
+-		if (error)
++		if (error) {
++			error = -EINTR;
+ 			break;
++		}
+ 		error = dlm_rcom_status(ls, memb->nodeid, 0);
+ 		if (error)
+ 			break;
+diff --git a/fs/dlm/recoverd.c b/fs/dlm/recoverd.c
+index 85e245392715..97d052cea5a9 100644
+--- a/fs/dlm/recoverd.c
++++ b/fs/dlm/recoverd.c
+@@ -125,8 +125,10 @@ static int ls_recover(struct dlm_ls *ls, struct dlm_recover *rv)
+ 	dlm_recover_waiters_pre(ls);
+ 
+ 	error = dlm_recovery_stopped(ls);
+-	if (error)
++	if (error) {
++		error = -EINTR;
+ 		goto fail;
++	}
+ 
+ 	if (neg || dlm_no_directory(ls)) {
+ 		/*
+-- 
+2.30.2
 
