@@ -2,52 +2,52 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5B72B409FD1
-	for <lists+cluster-devel@lfdr.de>; Tue, 14 Sep 2021 00:34:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F3EC0409FE1
+	for <lists+cluster-devel@lfdr.de>; Tue, 14 Sep 2021 00:34:37 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-477-OC1s5phkPBOumLExQa5JrA-1; Mon, 13 Sep 2021 18:34:08 -0400
-X-MC-Unique: OC1s5phkPBOumLExQa5JrA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-117-xmsk031aMkKp00IzgNBTww-1; Mon, 13 Sep 2021 18:34:32 -0400
+X-MC-Unique: xmsk031aMkKp00IzgNBTww-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 34C91362F9;
-	Mon, 13 Sep 2021 22:34:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A0D3260C13;
-	Mon, 13 Sep 2021 22:34:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E21721808302;
+	Mon, 13 Sep 2021 22:34:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9A0D4180;
+	Mon, 13 Sep 2021 22:34:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CCA431800FE4;
-	Mon, 13 Sep 2021 22:34:00 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF0494E58E;
+	Mon, 13 Sep 2021 22:34:27 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18DMXtPT031396 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 13 Sep 2021 18:33:55 -0400
+	id 18DMYQ77031461 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 13 Sep 2021 18:34:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 29C7C200D8EB; Mon, 13 Sep 2021 22:33:55 +0000 (UTC)
+	id EA489202E9FA; Mon, 13 Sep 2021 22:34:25 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 259A1200C0E7
-	for <cluster-devel@redhat.com>; Mon, 13 Sep 2021 22:33:52 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6A88200D8F8
+	for <cluster-devel@redhat.com>; Mon, 13 Sep 2021 22:34:23 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A1478934E0
-	for <cluster-devel@redhat.com>; Mon, 13 Sep 2021 22:33:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FBFE811E76
+	for <cluster-devel@redhat.com>; Mon, 13 Sep 2021 22:34:23 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-428-ljHDmoJsN26gHbWoTfaUjA-1;
-	Mon, 13 Sep 2021 18:33:48 -0400
-X-MC-Unique: ljHDmoJsN26gHbWoTfaUjA-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6EB036112E;
-	Mon, 13 Sep 2021 22:33:46 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-460-0ONK21vnMUahshl9Z28dzw-1;
+	Mon, 13 Sep 2021 18:34:21 -0400
+X-MC-Unique: 0ONK21vnMUahshl9Z28dzw-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E00B61211;
+	Mon, 13 Sep 2021 22:34:19 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 13 Sep 2021 18:33:19 -0400
-Message-Id: <20210913223339.435347-5-sashal@kernel.org>
-In-Reply-To: <20210913223339.435347-1-sashal@kernel.org>
-References: <20210913223339.435347-1-sashal@kernel.org>
+Date: Mon, 13 Sep 2021 18:33:59 -0400
+Message-Id: <20210913223415.435654-3-sashal@kernel.org>
+In-Reply-To: <20210913223415.435654-1-sashal@kernel.org>
+References: <20210913223415.435654-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -63,7 +63,7 @@ X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
 	Al Viro <viro@zeniv.linux.org.uk>
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.14 05/25] gfs2: Switch to
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.13 03/19] gfs2: Switch to
 	may_setattr in gfs2_setattr
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -78,7 +78,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
