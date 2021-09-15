@@ -1,70 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F3EC0409FE1
-	for <lists+cluster-devel@lfdr.de>; Tue, 14 Sep 2021 00:34:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 998E940CE5D
+	for <lists+cluster-devel@lfdr.de>; Wed, 15 Sep 2021 22:43:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1631738620;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=ewGDvYzNtNGIYSp5xbBNyFdtiGP+q//aamKrbPWWic4=;
+	b=EA6Gmm6PcqQ39SX79BBP07zASwiAlMS4pME/hceOqexBNrR3Op6j6DPFyTe7J/zadjQhDV
+	VSyfoDchlsRFdp0u3etDKBe9FnKn7jHB89vjK3XA3YVZWI4m/hVcASCuRlKu43wdfo/kru
+	iQFQ4WjzynZHrUDYvuGtsFKwwBkwqhI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-117-xmsk031aMkKp00IzgNBTww-1; Mon, 13 Sep 2021 18:34:32 -0400
-X-MC-Unique: xmsk031aMkKp00IzgNBTww-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-192-vViXrsakPGSLj8BDFzXDPg-1; Wed, 15 Sep 2021 16:43:39 -0400
+X-MC-Unique: vViXrsakPGSLj8BDFzXDPg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E21721808302;
-	Mon, 13 Sep 2021 22:34:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9A0D4180;
-	Mon, 13 Sep 2021 22:34:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0474F8042C3;
+	Wed, 15 Sep 2021 20:43:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EDDD7100238C;
+	Wed, 15 Sep 2021 20:43:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF0494E58E;
-	Mon, 13 Sep 2021 22:34:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E61961809C81;
+	Wed, 15 Sep 2021 20:43:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18DMYQ77031461 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 13 Sep 2021 18:34:26 -0400
+	id 18FKdSU7032303 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Sep 2021 16:39:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EA489202E9FA; Mon, 13 Sep 2021 22:34:25 +0000 (UTC)
+	id 9FB2360BD8; Wed, 15 Sep 2021 20:39:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6A88200D8F8
-	for <cluster-devel@redhat.com>; Mon, 13 Sep 2021 22:34:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FBFE811E76
-	for <cluster-devel@redhat.com>; Mon, 13 Sep 2021 22:34:23 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-460-0ONK21vnMUahshl9Z28dzw-1;
-	Mon, 13 Sep 2021 18:34:21 -0400
-X-MC-Unique: 0ONK21vnMUahshl9Z28dzw-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E00B61211;
-	Mon, 13 Sep 2021 22:34:19 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 13 Sep 2021 18:33:59 -0400
-Message-Id: <20210913223415.435654-3-sashal@kernel.org>
-In-Reply-To: <20210913223415.435654-1-sashal@kernel.org>
-References: <20210913223415.435654-1-sashal@kernel.org>
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5E7B7604CC;
+	Wed, 15 Sep 2021 20:39:28 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Wed, 15 Sep 2021 16:39:13 -0400
+Message-Id: <20210915203916.3661690-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
-	Al Viro <viro@zeniv.linux.org.uk>
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.13 03/19] gfs2: Switch to
-	may_setattr in gfs2_setattr
+Cc: cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH dlm/next 0/3] fs: dlm: recovery ops and wait
+	changes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,7 +65,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,38 +73,42 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-From: Andreas Gruenbacher <agruenba@redhat.com>
+Hi,
 
-[ Upstream commit d75b9fa053e4cd278281386d860c26fdbfbe9d03 ]
+this patch series changes the recovery behaviour to call
+dlm_lsop_recover_prep() callback only once between dlm_ls_start() and
+dlm_ls_stop(). Currently if recovery gets interrupted by another
+dlm_ls_stop() it could be we calling this callback multiple times and
+the dlm_lsop_recover_done() was not called yet. Users might depend on the
+behaviour that the dlm_lsop_recover_prep() is only called once followed
+by a final dlm_lsop_recover_done() call.
 
-The permission check in gfs2_setattr is an old and outdated version of
-may_setattr().  Switch to the updated version.
+Another change is that dlm_new_lockspace() will wait until the recovery is
+done. The current behaviour is that the dlm_new_lockspace() will wait until
+lockspace member configuration seems to be valid. After the members
+configuration the recovery can still get interrupted by another
+dlm_ls_stop() call and dlm_new_lockspace() moves on at that point when
+recovery is still not done yet. The most kernel users have already a wait
+for the dlm_lsop_recover_done() after calling dlm_new_lockspace() which
+is not necessary now. However the old behaviour should still work.
 
-Fixes fstest generic/079.
+I tested this patch series with an experimental python bindings to libdlm.
+I will send soon patches which will add those bindings and test to the
+dlm user space software repository.
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/gfs2/inode.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+- Alex
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index 6e15434b23ac..3130f85d2b3f 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -1985,8 +1985,8 @@ static int gfs2_setattr(struct user_namespace *mnt_userns,
- 	if (error)
- 		goto out;
- 
--	error = -EPERM;
--	if (IS_IMMUTABLE(inode) || IS_APPEND(inode))
-+	error = may_setattr(&init_user_ns, inode, attr->ia_valid);
-+	if (error)
- 		goto error;
- 
- 	error = setattr_prepare(&init_user_ns, dentry, attr);
+Alexander Aring (3):
+  fs: dlm: add notes for recovery and membership handling
+  fs: dlm: call dlm_lsop_recover_prep once
+  fs: dlm: let new_lockspace() wait until recovery
+
+ fs/dlm/dlm_internal.h |  4 ++--
+ fs/dlm/lockspace.c    |  9 +++++----
+ fs/dlm/member.c       | 30 +++++++++++++++---------------
+ fs/dlm/recoverd.c     | 17 +++++++++++++++++
+ 4 files changed, 39 insertions(+), 21 deletions(-)
+
 -- 
-2.30.2
+2.27.0
 
