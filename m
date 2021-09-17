@@ -1,58 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3B19A40EAB2
-	for <lists+cluster-devel@lfdr.de>; Thu, 16 Sep 2021 21:11:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9F92140FFF0
+	for <lists+cluster-devel@lfdr.de>; Fri, 17 Sep 2021 21:45:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631819462;
+	s=mimecast20190719; t=1631907916;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dEOwUksKQLzywPBe4hcXjaULbsy+2RLJEHy7VQ8Sue0=;
-	b=TugbPWkrVhZTsZ7YOIKXR6OWjzssabvd9LrKcEO9zFBm1OHM3578rK9rbZCHvFWYUdJu4I
-	qlY7GUbybAIFIJnMnL3aignQZbAguggG+0TY2jPGiUrjtdYWwoKuP8Rw/rHICzXaij0vnt
-	e3H0W6NT9xK1reXtpIZRELvOoAdRAg4=
+	bh=/bOMjTOmuGIre07c9iAeigct5z5EcPjs28HtXo1rmXM=;
+	b=JWUlWzgVg8qYjHal1QeywY7CZJACmgCpag1rAc047dFi78d2A429kharjxY7eWDPNbx04m
+	RzweRlDUEmTncMSELz6OEfuBQaRisz4py5JQgKgMO0W15ejoW38KK23GnCisreR1owFAbL
+	bP1IWjUL44sN/2+UnayJz2cevxlo3Jg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-326-ch74ApnEPO-YeikeKlnO0A-1; Thu, 16 Sep 2021 15:11:01 -0400
-X-MC-Unique: ch74ApnEPO-YeikeKlnO0A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-593-B3zEMPBDObCMEtQxOVSAUw-1; Fri, 17 Sep 2021 15:45:02 -0400
+X-MC-Unique: B3zEMPBDObCMEtQxOVSAUw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0706D84A5E3;
-	Thu, 16 Sep 2021 19:10:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1AB679126B;
+	Fri, 17 Sep 2021 19:45:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC57D10027C4;
-	Thu, 16 Sep 2021 19:10:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 899705D9FC;
+	Fri, 17 Sep 2021 19:44:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D13F84EA30;
-	Thu, 16 Sep 2021 19:10:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 56B774E58F;
+	Fri, 17 Sep 2021 19:44:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18GJAuCa021666 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 16 Sep 2021 15:10:56 -0400
+	id 18HJimN3012116 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 17 Sep 2021 15:44:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C58065C25A; Thu, 16 Sep 2021 19:10:56 +0000 (UTC)
+	id 9CE3760E1C; Fri, 17 Sep 2021 19:44:48 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.redhat.com (ovpn-114-63.phx2.redhat.com [10.3.114.63])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 94EA05C261
-	for <cluster-devel@redhat.com>; Thu, 16 Sep 2021 19:10:37 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu, 16 Sep 2021 14:10:03 -0500
-Message-Id: <20210916191003.105866-7-rpeterso@redhat.com>
-In-Reply-To: <20210916191003.105866-1-rpeterso@redhat.com>
-References: <20210916191003.105866-1-rpeterso@redhat.com>
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 173C560CC9;
+	Fri, 17 Sep 2021 19:44:42 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Fri, 17 Sep 2021 15:44:40 -0400
+Message-Id: <20210917194440.4121521-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH v2 6/6] gfs2: introduce and use new
-	glops go_lock_needed
+Cc: cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH dlm/tool] python: add bindings and test
+	example
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +65,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,197 +73,362 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Before this patch, when a glock was locked, the very first holder on the
-queue would unlock the lockref and call the go_lock glops function (if
-one exists), unless GL_SKIP was specified. When we introduced the new
-node-scope concept, we allowed multiple holders to lock glocks in EX mode
-and share the lock, but node-scope introduced a new problem: if the
-first holder has GL_SKIP and the next one does NOT, since it is not the
-first holder on the queue, the go_lock op was not called. Eventually the
-GL_SKIP holder may call the go_lock sub-function (e.g. gfs2_rgrp_bh_get)
-but there's still a race in which another non-GL_SKIP holder assumes the
-go_lock function was called by the first holder. In the case of rgrp
-glocks, this leads to a NULL pointer dereference on the buffer_heads.
-
-This patch tries to fix the problem by introducing a new go_lock_needed
-glops function: Now ALL callers who do not specify GL_SKIP should call
-the go_lock_needed glops function to see if it should still be called.
-This allows any holder (secondary, teriary, etc) to call the go_lock
-function when needed.
-
-However, this introduces a new race: Several node-scope EX holders could
-all decide the lock needs go_lock, and call the go_lock function to read
-in the buffers and operate on them. This can lead to situations in which
-one process can call go_lock then create a reservation (rd_reserved+=)
-but another process can do the same, then hit the gfs2_rgrp_bh_get
-BUG_ON(rgd->rd_reserved) for the first holder's reservation.
-
-To prevent this race, we hold the rgrp_lock_local during the rgrp_go_lock
-function. The first caller will get the local lock, submit the IO
-request and wait for it to complete. The second caller will wait for the
-rgrp_local_lock, then gfs2_rgrp_bh_get will decide it no longer needs
-to do the read, and continue on without penalty.
-
-fixes: 06e908cd9ead ("gfs2: Allow node-wide exclusive glock sharing")
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+This patch introduces a python directory with some python examples. This
+is still in some experimental state to provide some dlm testing
+framework by using libdlm.
 ---
- fs/gfs2/glock.c  | 30 +++++++++++++++---------------
- fs/gfs2/glops.c  | 16 +++++++++++++---
- fs/gfs2/incore.h |  1 +
- fs/gfs2/rgrp.c   | 22 +++++++++++++++++++++-
- fs/gfs2/rgrp.h   |  1 +
- 5 files changed, 51 insertions(+), 19 deletions(-)
+ python/README                   |   7 +
+ python/bindings/__init__.py     |   0
+ python/bindings/dlm.py          | 244 ++++++++++++++++++++++++++++++++
+ python/tests/dlm.py             |   1 +
+ python/tests/recovery_interrupt |  60 ++++++++
+ 5 files changed, 312 insertions(+)
+ create mode 100644 python/README
+ create mode 100644 python/bindings/__init__.py
+ create mode 100644 python/bindings/dlm.py
+ create mode 120000 python/tests/dlm.py
+ create mode 100755 python/tests/recovery_interrupt
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 4fcf340603e7..6dfd33dc206b 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -403,21 +403,21 @@ __acquires(&gl->gl_lockref.lock)
- 			continue;
- 		if (may_grant(gl, gh)) {
- 			first = gfs2_first_holder(gh);
--			if (first && glops->go_lock) {
--				if (!(gh->gh_flags & GL_SKIP)) {
--					spin_unlock(&gl->gl_lockref.lock);
--					/* FIXME: eliminate this eventually */
--					ret = glops->go_lock(gh);
--					spin_lock(&gl->gl_lockref.lock);
--					if (ret) {
--						if (ret == 1)
--							return 2;
--						gh->gh_error = ret;
--						list_del_init(&gh->gh_list);
--						trace_gfs2_glock_queue(gh, 0);
--						gfs2_holder_wake(gh);
--						goto restart;
--					}
-+			if (!(gh->gh_flags & GL_SKIP) &&
-+			    glops->go_lock_needed &&
-+			    glops->go_lock_needed(gh)) {
-+				spin_unlock(&gl->gl_lockref.lock);
-+				/* FIXME: eliminate this eventually */
-+				ret = glops->go_lock(gh);
-+				spin_lock(&gl->gl_lockref.lock);
-+				if (ret) {
-+					if (ret == 1)
-+						return 2;
-+					gh->gh_error = ret;
-+					list_del_init(&gh->gh_list);
-+					trace_gfs2_glock_queue(gh, 0);
-+					gfs2_holder_wake(gh);
-+					goto restart;
- 				}
- 			}
- 			set_bit(HIF_HOLDER, &gh->gh_iflags);
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 4b19f513570f..e0fa8d7f96d3 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -481,6 +481,17 @@ int gfs2_inode_refresh(struct gfs2_inode *ip)
- 	return error;
- }
- 
-+static bool inode_go_lock_needed(struct gfs2_holder *gh)
-+{
-+	struct gfs2_glock *gl = gh->gh_gl;
+diff --git a/python/README b/python/README
+new file mode 100644
+index 00000000..b598a53d
+--- /dev/null
++++ b/python/README
+@@ -0,0 +1,7 @@
++This directory contains python bindings to libdlm and short written tests in python to test dlm functionality.
++NOTE: the bindings are still experimental and only used for testing now.
 +
-+	if (!gl->gl_object)
-+		return false;
-+	if (!gfs2_first_holder(gh))
-+		return false;
-+	return !(gh->gh_flags & GL_SKIP);
-+}
++Future work:
++	- look into pytest
++	- add ebpf examples
++	- look into MPI for barrier()
+diff --git a/python/bindings/__init__.py b/python/bindings/__init__.py
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/python/bindings/dlm.py b/python/bindings/dlm.py
+new file mode 100644
+index 00000000..b77d374c
+--- /dev/null
++++ b/python/bindings/dlm.py
+@@ -0,0 +1,244 @@
++from enum import IntEnum, IntFlag
++import sys, os, errno, platform
++import ctypes, ctypes.util
 +
- /**
-  * inode_go_lock - operation done after an inode lock is locked by a process
-  * @gh: The glock holder
-@@ -495,9 +506,6 @@ static int inode_go_lock(struct gfs2_holder *gh)
- 	struct gfs2_inode *ip = gl->gl_object;
- 	int error = 0;
- 
--	if (!ip)
--		return 0;
--
- 	if (test_bit(GIF_INVALID, &ip->i_flags)) {
- 		error = gfs2_inode_refresh(ip);
- 		if (error)
-@@ -740,6 +748,7 @@ const struct gfs2_glock_operations gfs2_inode_glops = {
- 	.go_sync = inode_go_sync,
- 	.go_inval = inode_go_inval,
- 	.go_demote_ok = inode_go_demote_ok,
-+	.go_lock_needed = inode_go_lock_needed,
- 	.go_lock = inode_go_lock,
- 	.go_dump = inode_go_dump,
- 	.go_type = LM_TYPE_INODE,
-@@ -750,6 +759,7 @@ const struct gfs2_glock_operations gfs2_inode_glops = {
- const struct gfs2_glock_operations gfs2_rgrp_glops = {
- 	.go_sync = rgrp_go_sync,
- 	.go_inval = rgrp_go_inval,
-+	.go_lock_needed = gfs2_rgrp_go_lock_needed,
- 	.go_lock = gfs2_rgrp_go_lock,
- 	.go_dump = gfs2_rgrp_go_dump,
- 	.go_type = LM_TYPE_RGRP,
-diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index 0fe49770166e..dc5c9dccb060 100644
---- a/fs/gfs2/incore.h
-+++ b/fs/gfs2/incore.h
-@@ -225,6 +225,7 @@ struct gfs2_glock_operations {
- 			const char *fs_id_buf);
- 	void (*go_callback)(struct gfs2_glock *gl, bool remote);
- 	void (*go_free)(struct gfs2_glock *gl);
-+	bool (*go_lock_needed)(struct gfs2_holder *gh);
- 	const int go_subclass;
- 	const int go_type;
- 	const unsigned long go_flags;
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 96b2fbed6bf1..9848c5f4fbc4 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -1288,11 +1288,31 @@ static int update_rgrp_lvb(struct gfs2_rgrpd *rgd)
- 	return 0;
- }
- 
-+bool gfs2_rgrp_go_lock_needed(struct gfs2_holder *gh)
-+{
-+	struct gfs2_rgrpd *rgd = gh->gh_gl->gl_object;
++#bindings
 +
-+	if (gh->gh_flags & GL_SKIP)
-+		return false;
++if platform.system() != "Linux":
++	sys.exit("Not supported")
 +
-+	if (rgd->rd_bits[0].bi_bh)
-+		return false;
-+	return true;
-+}
++c_path_libdlm = ctypes.util.find_library("dlm_lt")
++if not c_path_libdlm:
++	print("Unable to find the specified library.")
++	sys.exit()
 +
- int gfs2_rgrp_go_lock(struct gfs2_holder *gh)
- {
-+	int ret;
++try:
++	c_libdlm = ctypes.CDLL(c_path_libdlm)
++except OSError:
++	print("Unable to load the system C library")
++	sys.exit()
 +
- 	struct gfs2_rgrpd *rgd = gh->gh_gl->gl_object;
- 
--	return gfs2_rgrp_bh_get(rgd);
-+	if (gfs2_glock_is_held_excl(rgd->rd_gl))
-+		rgrp_lock_local(rgd);
-+	ret = gfs2_rgrp_bh_get(rgd);
-+	if (gfs2_glock_is_held_excl(rgd->rd_gl))
-+		rgrp_unlock_local(rgd);
++class C_DLM_LSHANDLE(ctypes.c_void_p):
++	pass
 +
-+	return ret;
- }
- 
- /**
-diff --git a/fs/gfs2/rgrp.h b/fs/gfs2/rgrp.h
-index a6855fd796e0..4b62ba5d8e20 100644
---- a/fs/gfs2/rgrp.h
-+++ b/fs/gfs2/rgrp.h
-@@ -31,6 +31,7 @@ extern struct gfs2_rgrpd *gfs2_rgrpd_get_next(struct gfs2_rgrpd *rgd);
- extern void gfs2_clear_rgrpd(struct gfs2_sbd *sdp);
- extern int gfs2_rindex_update(struct gfs2_sbd *sdp);
- extern void gfs2_free_clones(struct gfs2_rgrpd *rgd);
-+extern bool gfs2_rgrp_go_lock_needed(struct gfs2_holder *gh);
- extern int gfs2_rgrp_go_lock(struct gfs2_holder *gh);
- extern void gfs2_rgrp_brelse(struct gfs2_rgrpd *rgd);
- 
++class C_DLM_LKSB(ctypes.Structure):
++	_fields_ = [('sb_status', ctypes.c_int),
++		    ('sb_lkid', ctypes.c_uint32),
++		    ('sb_flags', ctypes.c_char),
++		    ('sb_lvbptr', ctypes.c_char_p)]
++
++C_BAST_CB = ctypes.CFUNCTYPE(None, ctypes.py_object)
++
++#dlm_create_lockspace
++c_dlm_create_lockspace = c_libdlm.dlm_create_lockspace
++c_dlm_create_lockspace.argtypes = [ctypes.c_char_p, #name
++				   ctypes.c_uint, #mode
++				  ]
++c_dlm_create_lockspace.restype = C_DLM_LSHANDLE
++
++#dlm_release_lockspace
++c_dlm_release_lockspace = c_libdlm.dlm_release_lockspace
++c_dlm_release_lockspace.argtypes = [ctypes.c_char_p, #name
++				    C_DLM_LSHANDLE, #ls
++				    ctypes.c_int, #force
++				   ]
++c_dlm_release_lockspace.restype = ctypes.c_int
++
++#dlm_ls_lock_wait
++c_dlm_ls_lock_wait = c_libdlm.dlm_ls_lock_wait
++c_dlm_ls_lock_wait.argtypes = [C_DLM_LSHANDLE, #ls
++			       ctypes.c_uint32, #mode
++			       ctypes.POINTER(C_DLM_LKSB), #lksb
++			       ctypes.c_uint32, #flags
++			       ctypes.c_char_p, #name
++			       ctypes.c_uint, #namelen
++			       ctypes.c_uint32, #parent
++			       ctypes.py_object, #bastarg
++			       C_BAST_CB, #bastaddr
++			       ctypes.c_void_p, #range
++			      ]
++c_dlm_ls_lock_wait.restype = ctypes.c_int
++
++#dlm_ls_unlock_wait
++c_dlm_ls_unlock_wait = c_libdlm.dlm_ls_unlock_wait
++c_dlm_ls_unlock_wait.argtypes = [C_DLM_LSHANDLE, #ls
++				 ctypes.c_uint32, #lkid
++				 ctypes.c_uint32, #flags
++				 ctypes.POINTER(C_DLM_LKSB), #lksb
++				]
++c_dlm_ls_unlock_wait.restype = ctypes.c_int
++
++#classes
++
++class LockMode(IntEnum):
++	IV = -1
++	NL = 0
++	CR = 1
++	CW = 2
++	PR = 3
++	PW = 4
++	EX = 5
++
++class LockFlag(IntFlag):
++	NOQUEUE = 0x00000001
++	CANCEL = 0x00000002
++	CONVERT = 0x00000004
++	VALBLK = 0x00000008
++	QUECVT = 0x00000010
++	IVVALBLK = 0x00000020
++	CONVDEADLK = 0x00000040
++	PERSISTENT = 0x00000080
++	NODLCKWT = 0x00000100
++	NODLCKBLK = 0x00000200
++	EXPEDITE = 0x00000400
++	NOQUEUEBAST = 0x00000800
++	HEADQUE = 0x00001000
++	NOORDER = 0x00002000
++	ORPHAN = 0x00004000
++	ALTPR = 0x00008000
++	ALTCW = 0x00010000
++	FORCEUNLOCK = 0x00020000
++	TIMEOUT = 0x00040000
++
++class LockSBFlag(IntFlag):
++	DEMOTED = 0x01
++	VALNOTVALID = 0x02
++	ALTMODE = 0x04
++
++class DLMError(OSError):
++
++	def __init__(self, errno):
++		if not errno < 0:
++			raise ValueError()
++
++		errno = abs(errno)
++		super().__init__(errno, os.strerror(errno))
++
++DLM_LOCK_TO_STR_FORMAT = \
++"""name: {}
++last_mode: {}
++last_flags: {}
++local_locked: {}
++last_sb: status: {}, lkid: {}, flags: {}, lvb: {}"""
++
++class Lockspace:
++
++	def __init__(self, name="default", mode=0o600):
++		self.__lsname = name
++		self.__ls = c_dlm_create_lockspace(self.__lsname.encode(), mode)
++		if not self.__ls:
++			raise DLMError(-errno.ENOMEM)
++
++	def release(self, force=0):
++		if not self.__ls:
++			return
++
++		rc = c_dlm_release_lockspace(self.__lsname.encode(), self.__ls,
++					     force)
++		if rc:
++			raise DLMError(rc)
++
++		self.__ls = None
++
++	def __del__(self):
++		self.release()
++
++	def __str__(self):
++		return "Lockspace: {}".format(self.__lsname)
++
++	def get_name(self):
++		return self.__lsname
++
++	# lockspace lock factory
++	def create_lock(self, name):
++		class Lock:
++
++			#note name should be 8 byte aligned for now
++			def __init__(self, ls, c_ls, name):
++				self.__local_locked = False
++				self.__last_mode = LockMode.IV
++				self.__last_flags = LockFlag(0)
++
++				self.__lk = C_DLM_LKSB()
++				self.__lk.sb_status = 0
++				self.__lk.sb_lkid = 0
++				self.__lk.sb_flags = LockSBFlag(0)
++				self.__lk.sb_lvbptr = None
++
++				self.__ls = ls
++				self.__c_ls = c_ls
++				self.__name = name
++
++			def __del__(self):
++				if self.__local_locked:
++					self.unlock_wait()
++
++			def __str__(self):
++				sb = self.get_sb()
++				return DLM_LOCK_TO_STR_FORMAT.format(
++						self.__name,
++						str(self.__last_mode),
++						str(self.__last_flags),
++						self.__local_locked,
++						str(sb.status),
++						sb.lkid, str(sb.flags),
++						str(sb.lvb))
++
++			def get_name(self):
++				return self.__name
++
++			def get_ls(self):
++				return self.__ls
++
++			# get a copy of current sb state in high-level python
++			def get_sb(self):
++				class LockSB:
++
++					def __init__(self, status, lkid,
++						     flags, lvb):
++						self.status = status
++						self.lkid = lkid
++						self.flags = LockSBFlag(flags[0])
++						self.lvb = lvb
++
++				return LockSB(self.__lk.sb_status,
++					      self.__lk.sb_lkid,
++					      self.__lk.sb_flags,
++					      self.__lk.sb_lvbptr)
++
++			def lock_wait(self, mode=LockMode.EX,
++				      flags=LockFlag(0), bast=None,
++				      bastarg=None):
++				if bast:
++					bast = C_BAST_CB(bast)
++				else:
++					bast = ctypes.cast(None, C_BAST_CB)
++
++				rc = c_dlm_ls_lock_wait(self.__c_ls, mode,
++							ctypes.byref(self.__lk),
++							flags,
++							self.__name.encode(),
++							len(self.__name), 0,
++							bastarg, bast, None)
++				if rc:
++					raise DLMError(rc)
++
++				self.__last_mode = mode
++				self.__last_flags = flags
++				self.__local_locked = True
++
++			def unlock_wait(self, flags=0):
++				rc = c_dlm_ls_unlock_wait(self.__c_ls,
++							  self.__lk.sb_lkid,
++							  flags,
++							  ctypes.byref(self.__lk))
++				if rc:
++					raise DLMError(rc)
++
++				self.__last_flags = flags
++				self.__local_locked = False
++
++		lock = Lock(self, self.__ls, name)
++		return lock
++
++# vim: tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
+diff --git a/python/tests/dlm.py b/python/tests/dlm.py
+new file mode 120000
+index 00000000..057a99c5
+--- /dev/null
++++ b/python/tests/dlm.py
+@@ -0,0 +1 @@
++../bindings/dlm.py
+\ No newline at end of file
+diff --git a/python/tests/recovery_interrupt b/python/tests/recovery_interrupt
+new file mode 100755
+index 00000000..de9d2600
+--- /dev/null
++++ b/python/tests/recovery_interrupt
+@@ -0,0 +1,60 @@
++#!/bin/env python3
++
++from signal import signal, SIGINT
++from dlm import Lockspace
++import argparse
++import logging
++import time
++
++parser = argparse.ArgumentParser()
++
++parser.add_argument('-l', '--lock',
++		    action='store_true',
++		    help='do lock activity between ls start/stop')
++parser.add_argument('-w', '--wait',
++		    help='wait time for contention',
++		    type=int, default=1)
++parser.add_argument("-d", "--debug", default="info",
++		    help=("logging debug level"),
++		    choices=["debug", "info", "warning"])
++
++args = parser.parse_args()
++
++debug_levels = {"debug": logging.DEBUG, "info": logging.INFO, "warning": logging.WARNING}
++debug_level = debug_levels[args.debug.lower()]
++
++logging.basicConfig(level=debug_level, format="%(asctime)s:%(levelname)s: %(message)s")
++
++def handler(signal, frame):
++	global end
++	end = True
++
++signal(SIGINT, handler)
++end = False
++while not end:
++	ls = Lockspace()
++	lsname = ls.get_name()
++	logging.info("lockspace {} created".format(lsname))
++
++	if args.lock:
++		lock = ls.create_lock("fooobaar")
++		lockname = lock.get_name()
++		logging.info("lock {} created".format(lockname))
++
++		lock.lock_wait()
++		logging.info("lock {} lock()".format(lockname))
++
++		#contention
++		logging.info("lock {} wait for {} secs".format(lockname, args.wait))
++		time.sleep(args.wait)
++
++		lock.unlock_wait()
++		logging.info("lock {} unlock()".format(lockname))
++
++		del lock
++		logging.info("lock {} removed".format(lockname))
++
++	del ls
++	logging.info("lockspace {} removed".format(lsname))
++
++# vim: tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
 -- 
-2.31.1
+2.27.0
 
