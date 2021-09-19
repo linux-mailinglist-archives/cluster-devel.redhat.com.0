@@ -2,121 +2,124 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 84C09410A77
+	by mail.lfdr.de (Postfix) with ESMTP id B7F57410A79
 	for <lists+cluster-devel@lfdr.de>; Sun, 19 Sep 2021 08:47:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-542-rnKelBjDOhWueQh3T3nfMw-1; Sun, 19 Sep 2021 02:47:04 -0400
-X-MC-Unique: rnKelBjDOhWueQh3T3nfMw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-544-NNFcuyzmPcS4ZXrK8tQAoQ-1; Sun, 19 Sep 2021 02:47:04 -0400
+X-MC-Unique: NNFcuyzmPcS4ZXrK8tQAoQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4CD651006AA6;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F6F5824FA7;
 	Sun, 19 Sep 2021 06:47:02 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C0531007606;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 909CD6B559;
 	Sun, 19 Sep 2021 06:47:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2A3A24EA2A;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7BC154EA2F;
 	Sun, 19 Sep 2021 06:47:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18J6hevb030375 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sun, 19 Sep 2021 02:43:40 -0400
+	id 18J6hk9e030385 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sun, 19 Sep 2021 02:43:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A6FAE21677F6; Sun, 19 Sep 2021 06:43:40 +0000 (UTC)
+	id 184C3100A20A; Sun, 19 Sep 2021 06:43:46 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A0D6621677F2
-	for <cluster-devel@redhat.com>; Sun, 19 Sep 2021 06:43:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 135401112875
+	for <cluster-devel@redhat.com>; Sun, 19 Sep 2021 06:43:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E5261066685
-	for <cluster-devel@redhat.com>; Sun, 19 Sep 2021 06:43:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 80EDF8007B1
+	for <cluster-devel@redhat.com>; Sun, 19 Sep 2021 06:43:43 +0000 (UTC)
 Received: from de-smtp-delivery-102.mimecast.com
 	(de-smtp-delivery-102.mimecast.com [194.104.111.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-160-woETwB04M52ZUs5QIivNqw-1;
-	Sun, 19 Sep 2021 02:43:33 -0400
-X-MC-Unique: woETwB04M52ZUs5QIivNqw-1
+	relay.mimecast.com with ESMTP id us-mta-417-oQ-Mu3hVMAC2-iXDdRlMqA-1;
+	Sun, 19 Sep 2021 02:43:39 -0400
+X-MC-Unique: oQ-Mu3hVMAC2-iXDdRlMqA-1
 Received: from EUR04-HE1-obe.outbound.protection.outlook.com
-	(mail-he1eur04lp2051.outbound.protection.outlook.com [104.47.13.51])
+	(mail-he1eur04lp2056.outbound.protection.outlook.com [104.47.13.56])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-22-kkmrepIIMDKaSObKh1WCVg-1; Sun, 19 Sep 2021 08:43:31 +0200
-X-MC-Unique: kkmrepIIMDKaSObKh1WCVg-1
+	de-mta-20-OC5bagKJO-aBttNHIP4cag-1; Sun, 19 Sep 2021 08:43:37 +0200
+X-MC-Unique: OC5bagKJO-aBttNHIP4cag-1
 Received: from DB7PR04MB4666.eurprd04.prod.outlook.com (2603:10a6:5:2b::14) by
 	DB7PR04MB5113.eurprd04.prod.outlook.com (2603:10a6:10:14::27) with
 	Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.4523.14; Sun, 19 Sep 2021 06:43:30 +0000
+	15.20.4523.14; Sun, 19 Sep 2021 06:43:36 +0000
 Received: from DB7PR04MB4666.eurprd04.prod.outlook.com
 	([fe80::41ea:157:e802:5d8d]) by DB7PR04MB4666.eurprd04.prod.outlook.com
 	([fe80::41ea:157:e802:5d8d%6]) with mapi id 15.20.4523.018;
-	Sun, 19 Sep 2021 06:43:30 +0000
+	Sun, 19 Sep 2021 06:43:36 +0000
 From: Heming Zhao <heming.zhao@suse.com>
 To: teigland@redhat.com, aahringo@redhat.com, cluster-devel@redhat.com
-Date: Sun, 19 Sep 2021 14:43:12 +0800
-Message-ID: <20210919064322.1670-1-heming.zhao@suse.com>
-X-ClientProxiedBy: HK2PR0302CA0015.apcprd03.prod.outlook.com
-	(2603:1096:202::25) To DB7PR04MB4666.eurprd04.prod.outlook.com
+Date: Sun, 19 Sep 2021 14:43:13 +0800
+Message-ID: <20210919064322.1670-2-heming.zhao@suse.com>
+In-Reply-To: <20210919064322.1670-1-heming.zhao@suse.com>
+References: <20210919064322.1670-1-heming.zhao@suse.com>
+X-ClientProxiedBy: HK2PR0302CA0002.apcprd03.prod.outlook.com
+	(2603:1096:202::12) To DB7PR04MB4666.eurprd04.prod.outlook.com
 	(2603:10a6:5:2b::14)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost (123.123.135.184) by
-	HK2PR0302CA0015.apcprd03.prod.outlook.com (2603:1096:202::25)
+	HK2PR0302CA0002.apcprd03.prod.outlook.com (2603:1096:202::12)
 	with Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.6
-	via Frontend Transport; Sun, 19 Sep 2021 06:43:29 +0000
+	via Frontend Transport; Sun, 19 Sep 2021 06:43:35 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9d79d64e-dcc1-4369-8f65-08d97b38ca94
+X-MS-Office365-Filtering-Correlation-Id: f1a58a51-a661-458b-4e10-08d97b38ce3d
 X-MS-TrafficTypeDiagnostic: DB7PR04MB5113:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DB7PR04MB51139C618210A0220EC644EC97DF9@DB7PR04MB5113.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882
+X-Microsoft-Antispam-PRVS: <DB7PR04MB511348DE62CA090AF2709C4097DF9@DB7PR04MB5113.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3173
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: dbYtRaUcFjXy/PAVLYwvk99oiwy72fXA0utxtm73TMK8oeSJODhjnuVBHvGTKZoy5jaIBPF/6E3GRQpTS8nFLA+Cuk2L2ayEuFQTrGg8Q9Tmr6difxhJsDmDQNbP5AwF64K12LgAZpgmhnWyO+1SafGzgxJa8GnVZclfM89+wYM7T6NDy4HWVlLutd6LArR0ViDozDwQhlqVG6+Ch4uqn8ylYKZt7SgxgrZjpfoWEmhebapnmlVhxI+3EqyYEd55gEkc3frBDbHkYrUwJ4UwM+pjsKtUgzuCpo/uC2aGpzJ5R+nPOon0NxXCCg/DHwYU8HLfW9F0FAZYql5b57afWsNja+A/zUITjsLyDa8mqKaoX8zHMaz3dCHwLl2zzEb9eLBuvpflZ/C6SX5TxmlgKKQJEKTpDHj/q2n8UAeOT9boSn91bx6M49txwld2S3/xroplTNU5rCGD1ZipUGqLdCW7wPD96SEB7Rv69wdg53D9rhl2Kdd4ZH/acIGrHzlTEbG+zwYkjxDR5JC+aeBxZYgH/oHFJl14uGyrVXq9Ith84rDqW0Z0TITWewKDvXcMgbuiKkvpXPtJFbOz0XHscE5WQ423msxGizrqN3yMT4RfEReggivmnxvwEqlZDR9oazuU029wDd9ye3yLcdYZhyyZ3AUOexbwUMPHQLfab8UMGTRdMTyU8Dw5T/E7BwXE
+X-Microsoft-Antispam-Message-Info: HNaC2hbqnlFLDBe4SL1AoYa4dmu2A06LW4t4bOsLvF+bJMRzYWES4tqGNXpAqUB1hgvcrXLayQwakPNguTDTGjHLEz16zw6/h0/Kl/n9fP0ganhSlfeGAacVydywcvd5/ocfkTiGmpjOPvXkE9vew0ooHFDU7tU2st0IA29T6FuMAbB3IC+jxIf0gdltT9u5OnfiX5H6rIA+mj41NAyeQvpm66cO7sGAsDIveAd0uJMHzOvNAsPcbziI5c+x7dCqXJvCI/fM6+8zjAh+cGwDmiqGugXF8VkC0zTnrw0MHAEWcaiV1zNZ42wrlCUHuMf5EddLf0Z4+jkwCn3849FoJx+f1Kh9DmEK6ZZR+3X5qLa+2xnt8JwCRb5Mi/Jr3DB5wpJSawHlw9FDgK6rYpqfrF+xc3avT9HA3UffUQfuw0mwOvhQy5/mXXdsz+qYpIi+u5iQk0LfbSfFFf7Yrdd8OdqG3dnMx+OBYZld12eglYziZ04w64LrfvGqPEwNtlDw/byJXjD1SvbdXd+kGSGg7ozOczdq5pmEekq/uxA17avi+xyp2Ysvf38TqPvYjSOrANwtONU+Iz+3PW9NjvmUfO3YeVviUCwLrSO1u2U4tuzd6N+SfhYhm0vqutCMdY9ngdBBTWVQlZsPYdgtFeSxiX4oh2TWpK/ZUxwVPXhcu3ceOwAS0F4RW2e/d/EQlc2B
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:DB7PR04MB4666.eurprd04.prod.outlook.com;
 	PTR:; CAT:NONE;
 	SFS:(136003)(366004)(39850400004)(396003)(346002)(376002)(66476007)(8676002)(8936002)(86362001)(6486002)(2906002)(478600001)(36756003)(5660300002)(66556008)(66946007)(6496006)(956004)(2616005)(450100002)(1076003)(26005)(107886003)(38100700002)(316002)(83380400001)(186003)(44832011)(4326008)(6666004)(9126006);
 	DIR:OUT; SFP:1101
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XZ+VABEydPXPF1KibyVi8i2RiJrbmSfCoB8r5lOS3Cn4iH6V5qHwsi06y31+?=
-	=?us-ascii?Q?vb5FIaFaBjkf8tMHsSmcbgaJgXEG96+aGd5Yaxrk0Fgj1bFXCSntL0VtWoeG?=
-	=?us-ascii?Q?HPFM9m+WobYpz5So9Uy/ad0GyYlaqRctYzkbZIIVzZQ3mNDNmOv5QeYiyZTv?=
-	=?us-ascii?Q?FWG7wyBKYWEV6remRJJvbQQE+X+ERUSbnoFViGzs+JFjBfxQdBwAvKcP30mI?=
-	=?us-ascii?Q?2oLgPgZr//R04htyOlsUxGavLwbUlHoDvPAH/C1C555mEfxvavn70EGnZ0HI?=
-	=?us-ascii?Q?rlqG2B7anBbzyczY1rfZ3TI33tO7MK2r2KEiOIEt7J3jnA16xMtiicSjQI1v?=
-	=?us-ascii?Q?Ky5DK3ZV0tchCZZrEI3ttfYDhIu8HSmlY21skR2I+Uz4FSXRpP9koqVzWYPr?=
-	=?us-ascii?Q?384bO93DNpI+CY7tc68QRe7s/s2bbOmzUSONq5G9jgb5gATq35dR9bFrro2J?=
-	=?us-ascii?Q?l18qimYbaaJbckn6ZE371DVfPlqSmbKYealsRMrEVyB/5I+cakr8t/CXiu2r?=
-	=?us-ascii?Q?+jkl4ASKIessPBiJj9PQIx3kL4m7v05g2BKS+Dt7QVprxDXPcIAEprOZYfFE?=
-	=?us-ascii?Q?N9Rc5oMXw8o3jkX/B0Pkv9zv6vynEjYdoePXaETwenk86CBD/DjP9LhitySx?=
-	=?us-ascii?Q?obUqV+slhb384SwtcpCH73c58bu+K3efag19+kKZDDExjTFBX2UhDPZU740Y?=
-	=?us-ascii?Q?0tiGFysO0cfAUvgTcjWDVHqqtrrImDNzhWcDNPGsLVK716gOqXfYQ9iYwGvp?=
-	=?us-ascii?Q?KpqqFySuP6O37J2gR6pqnHA9ldkPcAmjn3p3SXJ0BZD1zmFybH3Zu6UKVBk1?=
-	=?us-ascii?Q?68WwIgzFzrrzRfcHRNOsK4+/26mg5LPNIsRfc2ug3M0rRA7XXH2c3oY1lRLG?=
-	=?us-ascii?Q?jRaPKdrKhoCbNs7jI5flBX/6Acb654y7n5o5BO2d62E66n+7VB3S+ShvvdcO?=
-	=?us-ascii?Q?R5Mv3v8nCL9xx/KJAN/oU3k1CpoTbg5vQ0SmKHKvPNtcIPSfqbdIBvJnJYn3?=
-	=?us-ascii?Q?rwSuz47f92yA03JeuzpUuKJpnU8gD1zID3vcgSUBedMoPQ51MeGYU4XSJ5Er?=
-	=?us-ascii?Q?ee0smttsn4MNN4FHq13Vy9P2Uz4u4NGGSdCvhGf36Vt9P2AOfaR/wQ3PrUNc?=
-	=?us-ascii?Q?BbosCiO9D7yVl3xEgD6KA2U5EBS+V8mvZGfhkFd55VgNA/Z6knqY4kQ84S6/?=
-	=?us-ascii?Q?Uv/xji7zZGEljyLPs36slNQb8c5w8lO0oNdxnEYrctuz2K92+vmH73QXlO7o?=
-	=?us-ascii?Q?SVI3tYpOPDWboDHcYOI2Sa2X4pR1hk6FSpOhP4D+XZqZ75PG8bseaDgLKnN6?=
-	=?us-ascii?Q?xNw5ERtJqrVMLXooC34ggyuQ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AQpkauV7NWZLdWQ9fe0/hDaVf0x3Jou+XxUfgywwd3L8iuOX65K95hwPN/uW?=
+	=?us-ascii?Q?/7nIPmyW+gx/g2lF7P4ySbwwAiDwBeaHoHezLnYNrJBe0iWXJ3Q81vzi/ZPf?=
+	=?us-ascii?Q?utO5IHyBOmGdOvHo1+Oy2PiwXEStqSv9MnMbDjuQVVlMxlx26Ns9DrbxDTd0?=
+	=?us-ascii?Q?Sd04tfoI/VHrhmlFULNCk998gMhdcX+q/ErxP3R7COMHl86OqPoCAYhen6UG?=
+	=?us-ascii?Q?eO+SJxCUY4Gp3dAodk4QWoKE+uSRaUZyzTxQY/9cBJvQRnk0dZor4H1gZLBz?=
+	=?us-ascii?Q?LRp4xY5jnj7rvgxIhY9LbpmXzKZalqi11mAcqcL8yMhr7cE7cK0kfS21LeIW?=
+	=?us-ascii?Q?IBma7CQ1dxgAoX1jJbvw6e4bNKQlkizBdg2ZLMSadxU2Dez9Ipx0JVvUWglY?=
+	=?us-ascii?Q?MEBzNVyjJKVZ9uqjoE8IWYYf3PLPOYhqkg5LcPcdrfMpuANC1TtLODJG709w?=
+	=?us-ascii?Q?VHkXv+G+2Rjs6b4/Z3bd47Bx80xrWpXs5WgGXym3GqVLxT7g8WgjoKLhRpnv?=
+	=?us-ascii?Q?90kxi+G+Sfc1DD1943/mz+bs/vgiZTn4LOkVYmHillzfG0lgko8WqblLfcSE?=
+	=?us-ascii?Q?GEuh54qOh+hA+tZ3gh4eeRwxdsE+NDgC4Lwxzrl9uA1SFs6VivlMAgOhXKxD?=
+	=?us-ascii?Q?F8z9OHks4Q4jj2IcHEFYOBruHd2fxkOupGG/ZHqbDskQU5kOa05mgcJkheYK?=
+	=?us-ascii?Q?kZ5e0ZnGnqoEtM/8CGh+8Us5ECaDOeqOI1MIa0cMA0ML4tdU5I9JRGDoTjIs?=
+	=?us-ascii?Q?vhI22wgVJdtPXouZEr4s4bWrFyk7YkIhfCL6gyl6oQwpza2jvGcQ5Zx8yi3q?=
+	=?us-ascii?Q?1EV21aILBDd5i42do47LCiIvi2tzd7KUqEv//1vj/R4bNa4IhUpa3BNyKtjp?=
+	=?us-ascii?Q?2M6OGASchZFaujEaFS/3QoyD3BczF1RGwlAJDa0hx+LDXdp9HCS4NHL/B9rt?=
+	=?us-ascii?Q?3QBDoAd1zUEfFao019c3Hgle/ETu6T+DapXTtaKlo1eXIV54VO6pPDGkFsn7?=
+	=?us-ascii?Q?Pe0Ethv1M6pmhAaLqHCAJjcTDdOpn3FalEw5n4LdSQTyon7Xz5Rn4Ea6RTAP?=
+	=?us-ascii?Q?BCfplq0fOPASRJX1qEjak9q75xegHoxec40uRxdhLDcF7gj1MD4jsetD+y4I?=
+	=?us-ascii?Q?5Lnn98lptVsZ65jgvE3B0IQzHMNkSZ4uEIWe1YI7/syZcA5xkET0mZnooqvj?=
+	=?us-ascii?Q?7k/7L5t3H9sNBYjef+u8cnjZnT90lmgvM+nlzXy12Fg4QYPM6lezrMIFOaLR?=
+	=?us-ascii?Q?u1RtlQ26dg1TbKYAM9cXM1rXm9VUT8bAUWOKSTzO3Rb7klbqBbeAkwvJ+iGJ?=
+	=?us-ascii?Q?yoZUYwEe9vz8rQFpsD56y+J8?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d79d64e-dcc1-4369-8f65-08d97b38ca94
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1a58a51-a661-458b-4e10-08d97b38ce3d
 X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4666.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2021 06:43:29.9584 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2021 06:43:36.0825 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9K0fZSNpcH1maTkqqdTq5R0y+PeK8rEtD7m+VpHjzE3sfJaXKoZv4QntXKiP8KOn7dae0Tt3GRVdABgOAhS9Jg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: MP0dk1k7pc/LR1putzh/qj/xILZVMq6qOv82yrRFrfFxEzw176LFRL38TJSOn4OP+BpFNze5IEebVDfrnFQBxg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5113
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -126,13 +129,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18J6hevb030375
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18J6hk9e030385
 X-loop: cluster-devel@redhat.com
 Cc: zzhou@suse.com
-Subject: [Cluster-devel] [RFC PATCH dlm 00/10] dlm_controld config settings
-	can be
+Subject: [Cluster-devel] [PATCH 01/10] dlm_tool man: add command "joinleave",
+	add "USAGE" section
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -146,7 +149,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -154,41 +157,108 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 
-This new feature gives dlm ability to change config settings dynamically.
-It's very useful for debugging, and also useful for adjusting HA 
-behaviours while running. This feature gives more power function to
-advanced users. And HA Resource-Agent (RA) could also benefit from this
-feature.
+Signed-off-by: Heming Zhao <heming.zhao@suse.com>
+---
+ dlm_tool/dlm_tool.8 | 79 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
 
-The new man page dlm_tool.8 show some example of this feature.
-
-For easy managing command running list, there is a patch to add "-A" on
-"dlm run_(check|cancel)". We can get rid of the boring uuid input when
-checking lots of running commands result/status.
-
-Heming Zhao (10):
-  dlm_tool man: add command "joinleave", add "USAGE" section
-  dlm_tool: add run_(check|cancel) all feature
-  dlm_tool man: add dynamic setting and examples
-  dlm_controld: put MAX_LINE in header file
-  dlm_controld: add dynamic setting items in "struct dlm_option"
-  dlm_controld: change dlm_options[] to shared memory type
-  dlm_controld: make few APIs public
-  dlm_controld: support "dlm_tool dump_config" to show dynamic setting
-  dlm_controld: add new API set_opt_online()
-  dlm_controld: enable "dlm_tool run|run_start" dynamic setting feature
-
- dlm_controld/action.c      |   5 ++
- dlm_controld/config.c      | 132 +++++++++++++++++++++++++++++++++--
- dlm_controld/dlm_daemon.h  |  15 +++-
- dlm_controld/helper.c      |  41 ++++++++---
- dlm_controld/logging.c     |  18 +++--
- dlm_controld/main.c        |  86 ++++++++++++++---------
- dlm_controld/node_config.c |   2 -
- dlm_tool/dlm_tool.8        | 139 +++++++++++++++++++++++++++++++++++++
- dlm_tool/main.c            |  80 +++++++++++++++------
- 9 files changed, 442 insertions(+), 76 deletions(-)
-
+diff --git a/dlm_tool/dlm_tool.8 b/dlm_tool/dlm_tool.8
+index bbc11c261b7e..056c4af0213c 100644
+--- a/dlm_tool/dlm_tool.8
++++ b/dlm_tool/dlm_tool.8
+@@ -48,6 +48,10 @@ dlm_tool \- a utility for the dlm and dlm_controld daemon
+ .br
+ 	Leave a lockspace.
+ 
++.BI joinleave " name"
++.br
++	Do two actions: first Join then Leave a lockspace.
++
+ .BI lockdebug " name"
+ .br
+ 	Complete display of locks from the lockspace.
+@@ -112,6 +116,81 @@ Print help, then exit
+ .B \-V
+ Print program version information, then exit
+ 
++.SH USAGE
++
++dlm_tool ls [-n] [ls_name]
++
++-
++
++dlm_tool status [-v]
++
++-
++
++dlm_tool dump
++
++-
++
++dlm_tool dump_config
++
++-
++
++dlm_tool fence_ack \fIls-name\fP
++
++-
++
++dlm_tool log_plock
++
++-
++
++dlm_tool plocks \fIls-name\fP
++
++-
++
++dlm_tool join [-e 0|1] [-f 0|1] \fIls-name\fP
++
++-
++
++dlm_tool leave \fIls-name\fP
++
++-
++
++dlm_tool joinleave [-e 0|1] [-f 0|1] \fIls-name\fP
++
++-
++
++dlm_tool lockdebug [-s] [-v] [-w] \fIls-name\fP
++
++-
++
++dlm_tool lockdump [-M] \fIls-name\fP
++
++-
++
++dlm_tool run|run_start [-n] \fIcommand\fP
++
++* current run & run_start support \fIcommand\fP:
++.RS 4
++"lvm lvchange --refresh"
++.br
++"lvm lvs"
++.RE
++
++-
++
++dlm_tool run_check|run_cancel [-i "sec"] \fIuuid\fP
++
++-
++
++dlm_tool run_list
++
++-
++
++dlm_tool -h
++
++-
++
++dlm_tool -V
++
+ .SH SEE ALSO
+ .BR dlm_controld (8),
+ .BR dlm.conf (5)
 -- 
 2.32.0
 
