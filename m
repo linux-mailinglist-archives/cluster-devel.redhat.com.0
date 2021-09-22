@@ -2,150 +2,92 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id ACDE5414534
-	for <lists+cluster-devel@lfdr.de>; Wed, 22 Sep 2021 11:33:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AE4C8414846
+	for <lists+cluster-devel@lfdr.de>; Wed, 22 Sep 2021 13:58:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1632311906;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=tqzij2X2CYoOZm+DuhdnE4SFH9lyo8rTUbpVgX/FBOE=;
+	b=PFNAJu63d35Hd2H16SYp1GaawfOhqs0Fzt/NsOVJJ4/8VkOBnKW5w7cN+et7F4PfyOQYT6
+	QJ7WddonsFQIqoykmAXA47pIyZQTeNe4AhSBYumVMx4XJZ4xg+iLmTBD1ovWG8CSri8Cm2
+	D7c3pxrt8GbE7R+DJJD2yZ5mkOufC3Q=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-170-RciyfUOhNAC-TTwuMb1lyg-1; Wed, 22 Sep 2021 05:33:27 -0400
-X-MC-Unique: RciyfUOhNAC-TTwuMb1lyg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-468-zwjnYpmDMJeVrusZGFghDQ-1; Wed, 22 Sep 2021 07:58:25 -0400
+X-MC-Unique: zwjnYpmDMJeVrusZGFghDQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4E917100CCC6;
-	Wed, 22 Sep 2021 09:33:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBA7A60BF4;
-	Wed, 22 Sep 2021 09:33:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AF88119200C1;
+	Wed, 22 Sep 2021 11:58:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D029210016FF;
+	Wed, 22 Sep 2021 11:58:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BE88B1801241;
-	Wed, 22 Sep 2021 09:33:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DA1A14E58F;
+	Wed, 22 Sep 2021 11:58:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18M9XCYJ030092 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 22 Sep 2021 05:33:12 -0400
+	id 18MBwEwA009883 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 22 Sep 2021 07:58:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E1194F3D2B; Wed, 22 Sep 2021 09:33:11 +0000 (UTC)
+	id 202242089A00; Wed, 22 Sep 2021 11:58:14 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFF21F4ECD
-	for <cluster-devel@redhat.com>; Wed, 22 Sep 2021 09:33:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B0AA2089A02
+	for <cluster-devel@redhat.com>; Wed, 22 Sep 2021 11:58:11 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96466100B8DC
-	for <cluster-devel@redhat.com>; Wed, 22 Sep 2021 09:33:06 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [194.104.109.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-104-j99VJ70MOLewQCGRJNr_bQ-1;
-	Wed, 22 Sep 2021 05:33:02 -0400
-X-MC-Unique: j99VJ70MOLewQCGRJNr_bQ-1
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
-	(mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-39-MXkqdNpmO6uPR-z5obBRHQ-1; Wed, 22 Sep 2021 11:33:00 +0200
-X-MC-Unique: MXkqdNpmO6uPR-z5obBRHQ-1
-Received: from DB7PR04MB4666.eurprd04.prod.outlook.com (2603:10a6:5:2b::14) by
-	DBBPR04MB6090.eurprd04.prod.outlook.com (2603:10a6:10:c4::22) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.4523.18; Wed, 22 Sep 2021 09:32:59 +0000
-Received: from DB7PR04MB4666.eurprd04.prod.outlook.com
-	([fe80::41ea:157:e802:5d8d]) by DB7PR04MB4666.eurprd04.prod.outlook.com
-	([fe80::41ea:157:e802:5d8d%6]) with mapi id 15.20.4523.018;
-	Wed, 22 Sep 2021 09:32:58 +0000
-To: David Teigland <teigland@redhat.com>
-References: <20210919064322.1670-1-heming.zhao@suse.com>
-	<20210920175736.GA19901@redhat.com>
-	<d8d58ce5-6a38-9b76-8b9c-8e52e8760681@suse.com>
-	<20210921135404.GA27196@redhat.com>
-From: "heming.zhao@suse.com" <heming.zhao@suse.com>
-Message-ID: <36d545a4-0551-6ab4-42da-0816020c4da6@suse.com>
-Date: Wed, 22 Sep 2021 17:32:49 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.14.0
-In-Reply-To: <20210921135404.GA27196@redhat.com>
-X-ClientProxiedBy: HKAPR03CA0035.apcprd03.prod.outlook.com
-	(2603:1096:203:c9::22) To DB7PR04MB4666.eurprd04.prod.outlook.com
-	(2603:10a6:5:2b::14)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5279E1066681
+	for <cluster-devel@redhat.com>; Wed, 22 Sep 2021 11:58:11 +0000 (UTC)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+	[209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-369-HlwMcphkNdy9W7zNpbA_vg-1; Wed, 22 Sep 2021 07:58:10 -0400
+X-MC-Unique: HlwMcphkNdy9W7zNpbA_vg-1
+Received: by mail-wr1-f71.google.com with SMTP id
+	r9-20020a5d4989000000b0015d0fbb8823so1890555wrq.18
+	for <cluster-devel@redhat.com>; Wed, 22 Sep 2021 04:58:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=tqzij2X2CYoOZm+DuhdnE4SFH9lyo8rTUbpVgX/FBOE=;
+	b=KlNgjCOq7Zc2hoGbRIsOFHQ3RtcKEZTNKut9OvJIUfGfUqBlTiU3ZlbTbWmWI+IpsE
+	vKWcHBj51RCG3YvNhRqYFOHiwc6HCQ5mQlE3C5iF/SF8uUF6yPCluyPN6qHO+jSvy7Tc
+	LTDpb4u+Ul7IWHsZkG/V/ebVrQqMJH/oZk84oj4+fYVOFIl1aevNDYU88oEI+XGHfpPH
+	zWAFMRaRDsR5N4dyMbdSAukg5hkjgwlvnh0v5fn6H8CLa47UI2wKR/zTA1tP42h6bOnU
+	clk11rUoKR80K1die2MFhkKeUcXzUMhxtZZMdnKARPLFFo1K/+Ra56donvPzZ3A8pyHJ
+	KlNg==
+X-Gm-Message-State: AOAM53010x1+FBScHEgB9l8NyFTr9xogzGBqFAP6mx2llzb4gi79xgxS
+	Vup1VfOdw2oUAoz9yAHPszeM/yrpUK8mDozfdSYaoz8M3nw2wtOlgqhc2ds5pia0D3CuQ9xmSrh
+	lyxeAinAPHdV8YSYvX/aQYDQYjEKPibPPONXGvA==
+X-Received: by 2002:a05:600c:2301:: with SMTP id
+	1mr10419541wmo.138.1632311888336; 
+	Wed, 22 Sep 2021 04:58:08 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxYjMSm9o2pEDp64HaqyuLd8OMLvhWJLJ+Q4KKUmYFXkzSTZUZMb8Yu21tBgMOrvJZNs9MfjdSErLdHTaeCv0g=
+X-Received: by 2002:a05:600c:2301:: with SMTP id
+	1mr10419514wmo.138.1632311887985; 
+	Wed, 22 Sep 2021 04:58:07 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from c73.home (123.123.134.130) by
-	HKAPR03CA0035.apcprd03.prod.outlook.com (2603:1096:203:c9::22)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.7
-	via Frontend Transport; Wed, 22 Sep 2021 09:32:56 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 68d0ffea-8f13-4648-9b39-08d97dabf6f7
-X-MS-TrafficTypeDiagnostic: DBBPR04MB6090:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DBBPR04MB6090E6631B57302C3B01A71D97A29@DBBPR04MB6090.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: dw/E04+DUam1KwyPDrO03wZnub8GyfvTLValMQXEhAVFY2gKJM2eT1PMXSdGVC+BW/QupneAQ9uOQgAyMlLujRM+oDTxwUAmI63MMhVAOpoVgqtUCHO/C0NRXe0PcMSaWHghRyeLO6NLiap6r4iqV+Miy4ut0pS0bIg+YLZR7n1hphoHOommClu7Khh9KZ3vhohzrYRXyLNh+qbuQZsibJamHUX6yeS5sliIEEq7dcEVEMC4aIRu9d4w/akl8UjsTgD4Y53C64yWcczTMIOpRn25LV8aGwh55zqyI45UmNXfZ/X2VMMLZAQoBmbWNV5Mu+0GgHgAM+RM8p5vK0nUz/fvdNb8jg9FCxKUa3iK111sD7pIBNpRvukiOV23D4yni6Otkd9OgJuRN3RW70u4CzwEEcmDw2nh/XXWn7AfLPcP/rfoqnYd4nf0h1UHvNgZkTII2/937uaMMYCMJmMA79vyPLbI/qvotQeqS/TQ1eilIKXuZO28TQDtjEWsENWWoGRGcxSxq/qRJUqEx36cRlV18t83lZ0rlFNPXTHG2q1fwkZ4+7JxW2yIXX5ENJpuNNssLoWFqqocalV1hVG4ERIuOsfd/OyPTDzPJQMEIfL7myUd9QeM7NX+Dho1In8YMHauMU23H/Jv9vR8u6UzeysL0qams9IUGDZzVPu+xdejXEXK0UzrTkunMwVaFLbOaOp5SzHay0PNXVYRCww3D0n92jviWrDNDWoNmEGvmBcK4WPfoW/rq8MeQdnjo/Us
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB7PR04MB4666.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(366004)(83380400001)(31696002)(450100002)(86362001)(316002)(6916009)(31686004)(6512007)(956004)(8936002)(66556008)(6506007)(66946007)(8676002)(8886007)(6666004)(38100700002)(66476007)(186003)(508600001)(4326008)(2616005)(36756003)(6486002)(5660300002)(53546011)(26005)(2906002)(107886003)(9126006)(45980500001)(43740500002);
-	DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjhGZDNrRUszRFNIMnlUZkFDNE02cU8rZzVwSTBvUkNrR0JDajN3dkllUU12?=
-	=?utf-8?B?YWhiUGUxVFdUSHV6dUh2VkJGemFkTzhFTTVsSS8rbE0wQXhRbmNXTndiaW5j?=
-	=?utf-8?B?ckRZVlo5YisvZm81a1p2T3FMaEl2bzJNTDZyU09nOGdrODIvcFlkNExXbWZp?=
-	=?utf-8?B?ekhuWW5qMEEzaDU5VWRrdTdYMmVIWVFtVDdVYWo4WmdCQldRVXQvWVJSQldl?=
-	=?utf-8?B?ZkJ0VlNiVUQzcURsbHlvOG9HM1h1WHNoMmFiNlBrQXo4bENXV3RKdUlWMEhy?=
-	=?utf-8?B?YXlQK0orNHNwdXc5UFNKYzMramVGRVk3VTVPN1VtYkxhS1dvR25YYjZUNXQ5?=
-	=?utf-8?B?YVhOL0tBTkpRdGRraDVPUWlyRDkvY1A5Y3RHMzM0a0Rvc3E1THdqTlhoZHRO?=
-	=?utf-8?B?a2l3OXE2SlprR29kNFFIZGtSZGQ4TG1BMm5kRHdjTVAyQlZwT21XV2E4bHhn?=
-	=?utf-8?B?amk5ZkUxdjdQM01jVldVdVBKUWkxZGN0bXVrUE53RWhxZnAzU3JjVWorREVj?=
-	=?utf-8?B?QjB6UFBKeEE0NmM3dXZ5STRZS1lsR0FheUVoU3hmcURZNzdtZ3FNUzVOa09U?=
-	=?utf-8?B?SmZpQnVvYnpveXc5WCtrVndGT3JoMWtDTkVxRGt4aEhURXVJZkl3Qnk5Wkww?=
-	=?utf-8?B?R1ZiQ1dlTWhZZ3dxVzc1enVPUVdhN1I1ZTBXV0J4WjEzNjJYSXcveUlUUkpi?=
-	=?utf-8?B?MElrR0FUb01lWEk0eU1LVVpSWEIxZ0RqZnhjSG1pSE1MaGNxZUFqNGtZaU04?=
-	=?utf-8?B?TXh6U3ZxeGFJb3oxSVh3bUpHQ0tDMEgyOGYycjQwUmFBeHllZlhFbi8wTlB1?=
-	=?utf-8?B?YWZqVEh2YUV2aCs2dTFaZ0dpNzlEd1hoU2owbzk5RzZUVEFQQVRjay8vcFds?=
-	=?utf-8?B?T3YxZFo4V3RxYm5YckVhc1NUMnNMVWg2ZWdhNCtGNHFUM0twOUpYVjQ1czVs?=
-	=?utf-8?B?SHFVYVF0K2R1QXFYTUROL3dodlZkRFVlWFRoZkV4djhTQ0JWbWJONWVoaUQ5?=
-	=?utf-8?B?OTY0ZWpRbUpPTGxuc2dtbEIrUHNQaWlyemREYW5YRk5xcHNwUnFFVnB5dll2?=
-	=?utf-8?B?SHZpeWdvK2ZjRWhUYXVKRW4xd21PNm9FeldndFdkNjF6cm1rYW8rdklNRnhZ?=
-	=?utf-8?B?Qmg3S1NvRmw1S1lFbnZjdlgyMjZJMG1vZ3BxSndCdHFwT2l0dG56VzBPL3Yr?=
-	=?utf-8?B?cnMwOHByWUxXSFlRbW5pQWszT01BWEE0ck81dE9keEJseWdtTzk4d1lMUFhq?=
-	=?utf-8?B?KzV6SkhpSC9OYjdIOEVvQythK1BtQ3dOYUZXRE9GbTY0aEs3aG9oTGFQckh3?=
-	=?utf-8?B?c21oamdBb3c4WExyZkk5RDBvUFQ3Smt6U2xmMkpJVGdxMjJ6dXlRdkNjWW5h?=
-	=?utf-8?B?SGlhR0c2RUtKVkVFTEtNSGVDRW5QNHBZK3A2bThVT1ZkMTFQVXhjVXhzZVoy?=
-	=?utf-8?B?Q0FaaThhTGdDTHFucnpWL0F2VktNU3NpbU84ekhLZ1hTYjRMY2lpeUhFRzZT?=
-	=?utf-8?B?T2w2VXJPR3pWQWN2Y05XdTVpNW9UT25ValRRRkRlb1J0eGdqQ0toaUNSRW5y?=
-	=?utf-8?B?OGJwcmFiS25uYngzMExsSnpFR21Xd3JPaHBVWUc4SVQ3cTRXNENibjBZR2xR?=
-	=?utf-8?B?WGU0RUNoVzI2T2Z5Z1FEazJ1aGszcFduWlNRK3BPWk9yM0NrQXZvK25PN0k4?=
-	=?utf-8?B?V1BvWmwza05DZU5KSVlsZGZSVHNaKzlwdkZYR3ROV0w4cUFhMVdEM0ppdFBP?=
-	=?utf-8?Q?MgE34z1QxhDc17qaQeD7hFe3v/GLY+1Clt1fh3E?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68d0ffea-8f13-4648-9b39-08d97dabf6f7
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4666.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 09:32:58.7963 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0hD0M/N5FDYuFG/CWhQi59nYta/GpesETUbGcCDJgPA06beSiOodcOF6des5rHwwEusy4BZHCUL4JjkyvZINCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6090
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+References: <20210916191003.105866-1-rpeterso@redhat.com>
+	<20210916191003.105866-7-rpeterso@redhat.com>
+In-Reply-To: <20210916191003.105866-7-rpeterso@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 22 Sep 2021 13:57:56 +0200
+Message-ID: <CAHc6FU5=0U-mv8Jdu+RtJ2DKXCA7q0DPMfwNUGFrd2v_QKDiiw@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, zzhou@suse.com
-Subject: Re: [Cluster-devel] [RFC PATCH dlm 00/10] dlm_controld config
-	settings can be
+Cc: cluster-devel <cluster-devel@redhat.com>
+Subject: Re: [Cluster-devel] [GFS2 PATCH v2 6/6] gfs2: introduce and use new
+ glops go_lock_needed
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -159,66 +101,225 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/21/21 9:54 PM, David Teigland wrote:
-> On Tue, Sep 21, 2021 at 02:38:45PM +0800, heming.zhao@suse.com wrote:
->> But I am ok with the reload_config idea, it's more basic.
->> We could give dlm_controld a chance to change behavior on the fly.
->> If needed, I could file a new patch for feature "reload_config", can I do it?
-> 
-> Yes, I'd welcome a patch adding a dlm_tool reload_config option to reread
-> dlm.conf and apply new settings from it.
-> Thanks,
-> Dave
-> 
+On Thu, Sep 16, 2021 at 9:11 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> Before this patch, when a glock was locked, the very first holder on the
+> queue would unlock the lockref and call the go_lock glops function (if
+> one exists), unless GL_SKIP was specified. When we introduced the new
+> node-scope concept, we allowed multiple holders to lock glocks in EX mode
+> and share the lock, but node-scope introduced a new problem: if the
+> first holder has GL_SKIP and the next one does NOT, since it is not the
+> first holder on the queue, the go_lock op was not called.
 
-Before sending the new feature patch, I want to have more discussion.
+We use go_lock to (re)validate inodes (for inode glocks) and to read
+in bitmaps (for resource group glocks). I can see how calling go_lock
+was originally tied to the first lock holder, but GL_SKIP already
+broke the simple model that the first holder will call go_lock. The
+go_lock_needed callback only makes things worse yet again,
+unfortunately.
 
-In my opinion, changing and reloading dlm.conf is a ***heavy*** way to update
-dlm_controld settings. This manner is well suited for the change of a setting
-still valid to next turn startup dlm_controld.
-There are some use cases which require a ***light*** way to update settings.
-It just needs updating settings in memory and validating in a short time
-(or until one dlm_controld running turn).
+How about we introduce a new GLF_REVALIDATE flag that indicates that
+go_lock needs to be called? The flag would be set when instantiating a
+new glock and when dequeuing the last holder, and cleared in go_lock
+(and in gfs2_inode_refresh for GL_SKIP holders). I'm not sure if
+GLF_REVALIDATE can fully replace GIF_INVALID as well, but it looks
+like it at first glance.
 
-Examples:
+Thanks,
+Andreas
 
-1. debug
-
-debugging the code temporarily with no intention to change dlm.conf.
-
-2. to get some log
-
-temporarily enable dlm log for checking status.
-
-3. temporarily change dlm_controld behaviour
-
-(there is a production use case.)
-a. In 3+ nodes HA cluster env, dlm_controld startup with default settings.
-b. after stopping 2 of 3 nodes in cluster. (by cmd "crm cluster stop")
-c. the only left node is lacking quorum and quorate become "NO". (by cmd "corosync-quorumtool")
-d. on the last active node, run "crm cluster stop" to stop this node.
-    the result is the node will be hung and will be fenced for a short while by trigging timeout.
-
-The hanging in <d> can be avoid by temporarily changing settings:
-enable_quorum_fencing and enable_quorum_lockspace from default value 1 to 0.
-and the changing does not need lasting for node restart.
-
-So,
-If there is no chance to add dynamic updating setting by run command.
-Is it a good idea to add a parameter "-I", like "dlm_tool -I reload_config".
-"-I" means directly change without reading from dlm.conf.
-When users want to restore the original setting, run "dlm_tool reload_config"
-(without "-I") to override with predefined/default values.
-
-Thanks
-Heming
+> Eventually the
+> GL_SKIP holder may call the go_lock sub-function (e.g. gfs2_rgrp_bh_get)
+> but there's still a race in which another non-GL_SKIP holder assumes the
+> go_lock function was called by the first holder. In the case of rgrp
+> glocks, this leads to a NULL pointer dereference on the buffer_heads.
+>
+> This patch tries to fix the problem by introducing a new go_lock_needed
+> glops function: Now ALL callers who do not specify GL_SKIP should call
+> the go_lock_needed glops function to see if it should still be called.
+> This allows any holder (secondary, teriary, etc) to call the go_lock
+> function when needed.
+>
+> However, this introduces a new race: Several node-scope EX holders could
+> all decide the lock needs go_lock, and call the go_lock function to read
+> in the buffers and operate on them. This can lead to situations in which
+> one process can call go_lock then create a reservation (rd_reserved+=)
+> but another process can do the same, then hit the gfs2_rgrp_bh_get
+> BUG_ON(rgd->rd_reserved) for the first holder's reservation.
+>
+> To prevent this race, we hold the rgrp_lock_local during the rgrp_go_lock
+> function. The first caller will get the local lock, submit the IO
+> request and wait for it to complete. The second caller will wait for the
+> rgrp_local_lock, then gfs2_rgrp_bh_get will decide it no longer needs
+> to do the read, and continue on without penalty.
+>
+> fixes: 06e908cd9ead ("gfs2: Allow node-wide exclusive glock sharing")
+> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+> ---
+>  fs/gfs2/glock.c  | 30 +++++++++++++++---------------
+>  fs/gfs2/glops.c  | 16 +++++++++++++---
+>  fs/gfs2/incore.h |  1 +
+>  fs/gfs2/rgrp.c   | 22 +++++++++++++++++++++-
+>  fs/gfs2/rgrp.h   |  1 +
+>  5 files changed, 51 insertions(+), 19 deletions(-)
+>
+> diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+> index 4fcf340603e7..6dfd33dc206b 100644
+> --- a/fs/gfs2/glock.c
+> +++ b/fs/gfs2/glock.c
+> @@ -403,21 +403,21 @@ __acquires(&gl->gl_lockref.lock)
+>                         continue;
+>                 if (may_grant(gl, gh)) {
+>                         first = gfs2_first_holder(gh);
+> -                       if (first && glops->go_lock) {
+> -                               if (!(gh->gh_flags & GL_SKIP)) {
+> -                                       spin_unlock(&gl->gl_lockref.lock);
+> -                                       /* FIXME: eliminate this eventually */
+> -                                       ret = glops->go_lock(gh);
+> -                                       spin_lock(&gl->gl_lockref.lock);
+> -                                       if (ret) {
+> -                                               if (ret == 1)
+> -                                                       return 2;
+> -                                               gh->gh_error = ret;
+> -                                               list_del_init(&gh->gh_list);
+> -                                               trace_gfs2_glock_queue(gh, 0);
+> -                                               gfs2_holder_wake(gh);
+> -                                               goto restart;
+> -                                       }
+> +                       if (!(gh->gh_flags & GL_SKIP) &&
+> +                           glops->go_lock_needed &&
+> +                           glops->go_lock_needed(gh)) {
+> +                               spin_unlock(&gl->gl_lockref.lock);
+> +                               /* FIXME: eliminate this eventually */
+> +                               ret = glops->go_lock(gh);
+> +                               spin_lock(&gl->gl_lockref.lock);
+> +                               if (ret) {
+> +                                       if (ret == 1)
+> +                                               return 2;
+> +                                       gh->gh_error = ret;
+> +                                       list_del_init(&gh->gh_list);
+> +                                       trace_gfs2_glock_queue(gh, 0);
+> +                                       gfs2_holder_wake(gh);
+> +                                       goto restart;
+>                                 }
+>                         }
+>                         set_bit(HIF_HOLDER, &gh->gh_iflags);
+> diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+> index 4b19f513570f..e0fa8d7f96d3 100644
+> --- a/fs/gfs2/glops.c
+> +++ b/fs/gfs2/glops.c
+> @@ -481,6 +481,17 @@ int gfs2_inode_refresh(struct gfs2_inode *ip)
+>         return error;
+>  }
+>
+> +static bool inode_go_lock_needed(struct gfs2_holder *gh)
+> +{
+> +       struct gfs2_glock *gl = gh->gh_gl;
+> +
+> +       if (!gl->gl_object)
+> +               return false;
+> +       if (!gfs2_first_holder(gh))
+> +               return false;
+> +       return !(gh->gh_flags & GL_SKIP);
+> +}
+> +
+>  /**
+>   * inode_go_lock - operation done after an inode lock is locked by a process
+>   * @gh: The glock holder
+> @@ -495,9 +506,6 @@ static int inode_go_lock(struct gfs2_holder *gh)
+>         struct gfs2_inode *ip = gl->gl_object;
+>         int error = 0;
+>
+> -       if (!ip)
+> -               return 0;
+> -
+>         if (test_bit(GIF_INVALID, &ip->i_flags)) {
+>                 error = gfs2_inode_refresh(ip);
+>                 if (error)
+> @@ -740,6 +748,7 @@ const struct gfs2_glock_operations gfs2_inode_glops = {
+>         .go_sync = inode_go_sync,
+>         .go_inval = inode_go_inval,
+>         .go_demote_ok = inode_go_demote_ok,
+> +       .go_lock_needed = inode_go_lock_needed,
+>         .go_lock = inode_go_lock,
+>         .go_dump = inode_go_dump,
+>         .go_type = LM_TYPE_INODE,
+> @@ -750,6 +759,7 @@ const struct gfs2_glock_operations gfs2_inode_glops = {
+>  const struct gfs2_glock_operations gfs2_rgrp_glops = {
+>         .go_sync = rgrp_go_sync,
+>         .go_inval = rgrp_go_inval,
+> +       .go_lock_needed = gfs2_rgrp_go_lock_needed,
+>         .go_lock = gfs2_rgrp_go_lock,
+>         .go_dump = gfs2_rgrp_go_dump,
+>         .go_type = LM_TYPE_RGRP,
+> diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+> index 0fe49770166e..dc5c9dccb060 100644
+> --- a/fs/gfs2/incore.h
+> +++ b/fs/gfs2/incore.h
+> @@ -225,6 +225,7 @@ struct gfs2_glock_operations {
+>                         const char *fs_id_buf);
+>         void (*go_callback)(struct gfs2_glock *gl, bool remote);
+>         void (*go_free)(struct gfs2_glock *gl);
+> +       bool (*go_lock_needed)(struct gfs2_holder *gh);
+>         const int go_subclass;
+>         const int go_type;
+>         const unsigned long go_flags;
+> diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+> index 96b2fbed6bf1..9848c5f4fbc4 100644
+> --- a/fs/gfs2/rgrp.c
+> +++ b/fs/gfs2/rgrp.c
+> @@ -1288,11 +1288,31 @@ static int update_rgrp_lvb(struct gfs2_rgrpd *rgd)
+>         return 0;
+>  }
+>
+> +bool gfs2_rgrp_go_lock_needed(struct gfs2_holder *gh)
+> +{
+> +       struct gfs2_rgrpd *rgd = gh->gh_gl->gl_object;
+> +
+> +       if (gh->gh_flags & GL_SKIP)
+> +               return false;
+> +
+> +       if (rgd->rd_bits[0].bi_bh)
+> +               return false;
+> +       return true;
+> +}
+> +
+>  int gfs2_rgrp_go_lock(struct gfs2_holder *gh)
+>  {
+> +       int ret;
+> +
+>         struct gfs2_rgrpd *rgd = gh->gh_gl->gl_object;
+>
+> -       return gfs2_rgrp_bh_get(rgd);
+> +       if (gfs2_glock_is_held_excl(rgd->rd_gl))
+> +               rgrp_lock_local(rgd);
+> +       ret = gfs2_rgrp_bh_get(rgd);
+> +       if (gfs2_glock_is_held_excl(rgd->rd_gl))
+> +               rgrp_unlock_local(rgd);
+> +
+> +       return ret;
+>  }
+>
+>  /**
+> diff --git a/fs/gfs2/rgrp.h b/fs/gfs2/rgrp.h
+> index a6855fd796e0..4b62ba5d8e20 100644
+> --- a/fs/gfs2/rgrp.h
+> +++ b/fs/gfs2/rgrp.h
+> @@ -31,6 +31,7 @@ extern struct gfs2_rgrpd *gfs2_rgrpd_get_next(struct gfs2_rgrpd *rgd);
+>  extern void gfs2_clear_rgrpd(struct gfs2_sbd *sdp);
+>  extern int gfs2_rindex_update(struct gfs2_sbd *sdp);
+>  extern void gfs2_free_clones(struct gfs2_rgrpd *rgd);
+> +extern bool gfs2_rgrp_go_lock_needed(struct gfs2_holder *gh);
+>  extern int gfs2_rgrp_go_lock(struct gfs2_holder *gh);
+>  extern void gfs2_rgrp_brelse(struct gfs2_rgrpd *rgd);
+>
+> --
+> 2.31.1
+>
 
