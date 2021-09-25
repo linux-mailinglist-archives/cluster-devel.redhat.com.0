@@ -1,60 +1,138 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 77DC2417EA4
-	for <lists+cluster-devel@lfdr.de>; Sat, 25 Sep 2021 02:31:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1632529867;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=ogu+CinRavNBEheLs5x1e2quYoD0987vU+Bosn2fNOI=;
-	b=E+ghCRhb2H/wRBUn+ZIxzQDKRrYfSH2rsx/TXN6g7SumBhTs+5qoW/9K/n/oAodJuMjEXa
-	/taTEqBbZCpRpdTUgdRxVCPr/XCWA6zLRgTNCwplDP2c+e4dMVeCKd4rofxMaNsYb87Auo
-	gvx78e+HqSjjYdAH9mIoxtxLLw/KVLA=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 051384182A7
+	for <lists+cluster-devel@lfdr.de>; Sat, 25 Sep 2021 16:24:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-3-VpI76r26PgGh4DTu1ARusw-1; Fri, 24 Sep 2021 20:31:06 -0400
-X-MC-Unique: VpI76r26PgGh4DTu1ARusw-1
+ us-mta-326-RrA4DaEgOu-jnbICEh9v3Q-1; Sat, 25 Sep 2021 10:24:10 -0400
+X-MC-Unique: RrA4DaEgOu-jnbICEh9v3Q-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32A021006AA6;
-	Sat, 25 Sep 2021 00:31:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 86FE51808304;
+	Sat, 25 Sep 2021 14:24:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23E251000358;
-	Sat, 25 Sep 2021 00:31:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 776A210016FE;
+	Sat, 25 Sep 2021 14:24:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0EAC61803B30;
-	Sat, 25 Sep 2021 00:31:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 61D8C1800B9E;
+	Sat, 25 Sep 2021 14:24:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18P0V2ar008955 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 24 Sep 2021 20:31:02 -0400
+	id 18PELuHE014606 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 25 Sep 2021 10:21:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A62B16091B; Sat, 25 Sep 2021 00:31:02 +0000 (UTC)
+	id 2B3322164DCD; Sat, 25 Sep 2021 14:21:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
-	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 668B760936;
-	Sat, 25 Sep 2021 00:31:02 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 24FDC2164DCC
+	for <cluster-devel@redhat.com>; Sat, 25 Sep 2021 14:21:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 932F680B913
+	for <cluster-devel@redhat.com>; Sat, 25 Sep 2021 14:21:53 +0000 (UTC)
+Received: from de-smtp-delivery-102.mimecast.com
+	(de-smtp-delivery-102.mimecast.com [194.104.109.102]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-94-SujV8b_nPw-6wvnfqqJclg-1;
+	Sat, 25 Sep 2021 10:21:51 -0400
+X-MC-Unique: SujV8b_nPw-6wvnfqqJclg-1
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+	(mail-ve1eur01lp2052.outbound.protection.outlook.com [104.47.1.52])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	de-mta-17-BoQ3jcaZMyiqX7mw7vXIRQ-1; Sat, 25 Sep 2021 16:21:49 +0200
+X-MC-Unique: BoQ3jcaZMyiqX7mw7vXIRQ-1
+Received: from DB7PR04MB4666.eurprd04.prod.outlook.com (2603:10a6:5:2b::14) by
+	DB8PR04MB7066.eurprd04.prod.outlook.com (2603:10a6:10:12e::14) with
+	Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.4544.18; Sat, 25 Sep 2021 14:21:48 +0000
+Received: from DB7PR04MB4666.eurprd04.prod.outlook.com
+	([fe80::41ea:157:e802:5d8d]) by DB7PR04MB4666.eurprd04.prod.outlook.com
+	([fe80::41ea:157:e802:5d8d%6]) with mapi id 15.20.4544.020;
+	Sat, 25 Sep 2021 14:21:48 +0000
+From: Heming Zhao <heming.zhao@suse.com>
 To: teigland@redhat.com
-Date: Fri, 24 Sep 2021 20:30:15 -0400
-Message-Id: <20210925003015.1862586-5-aahringo@redhat.com>
-In-Reply-To: <20210925003015.1862586-1-aahringo@redhat.com>
-References: <20210925003015.1862586-1-aahringo@redhat.com>
+Date: Sat, 25 Sep 2021 22:21:37 +0800
+Message-ID: <20210925142142.1821-1-heming.zhao@suse.com>
+X-ClientProxiedBy: HKAPR03CA0008.apcprd03.prod.outlook.com
+	(2603:1096:203:c8::13) To DB7PR04MB4666.eurprd04.prod.outlook.com
+	(2603:10a6:5:2b::14)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Received: from localhost (123.123.135.254) by
+	HKAPR03CA0008.apcprd03.prod.outlook.com (2603:1096:203:c8::13)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.7
+	via Frontend Transport; Sat, 25 Sep 2021 14:21:48 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7a5bdcba-66ab-47d9-ef8c-08d9802fcfa4
+X-MS-TrafficTypeDiagnostic: DB8PR04MB7066:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DB8PR04MB7066113902EE061BAE343DE897A59@DB8PR04MB7066.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: 5o7jcqYnOrx3MiW/WkEIN4N3dsWy31B/gwWU7uiASIn04JrN34qomt6DrYB+2jGIYHTqRi3V7u7raYshKh9XImmHlfl7ZdBVe4ClqpNvcUHiryX3F/yx2iHr1zBYx7PYMn9FoiNdxIT45cUEnlXIEnYkXchY5a5LRok/kAVs1vR29CUxHPnIMnn2aGfLdcX9KDbMhlKWpyA+kVOtnYAjBwXKCmVBQGPLhIsivfhQu9MykF6gbFWoV++tpW1lUjmewZ/DkzjiRHfWaQ+jzQnaHUgZ+cTt1bdeRJyG0E6meaFmk2I12a/MArUFHJjQVuTy7FrQ6ApR+gocFDgGbGnfCxnkT2cWiVFSQgA2cVR3ojfwSb3i3DJpN3nAdFx8czh+3kmQmRQ25AIqhQfX15XJOEv24HcOay79KGIzYPZJ1gQD/tvzUHm1E7igwCyRHaTLXlc2dLdDjc7j57AIL+WkNzOKbhQlASr/O0m3NOVlfKisEWXtrMq9/UlYG/4po3AZ+QB0mYbczjun5zG0j2HNPycHhoq56Az6264SEI84Ta5yCc0ckt2JD4Bzp2IvduscDr7ZhlICETgSeGAd5zcQlH/tugSzTFcZOeZbShp2hhLdZogbI1pweKW5bc+p2jlJH6CJche3waBTw9CYIB8CKM7og6HXvxIJpcLtgPNOQQg06RFItnNkAYFdF0D8rkHS
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:DB7PR04MB4666.eurprd04.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(366004)(83380400001)(316002)(5660300002)(38100700002)(186003)(26005)(44832011)(6496006)(6486002)(2616005)(450100002)(6916009)(956004)(8936002)(4326008)(36756003)(86362001)(8676002)(66946007)(66476007)(66556008)(508600001)(6666004)(2906002)(107886003)(1076003)(9126006);
+	DIR:OUT; SFP:1101
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PMxdDMICn9r1jz460v5gE06JahTp3jO0FUOYJBcI/71UajmfWV9VJYguW58b?=
+	=?us-ascii?Q?arhA4tUVGNgEQ9MVGwReBNVll5ZhrSBhPNRWJehobLBmy9cH5FT0E/Pi2aHV?=
+	=?us-ascii?Q?hvRRr8sdQupFLBHjJmf8iU+SWPAaSenFRDUqgQgk5NyX1Yn0HGuYywqM5aSG?=
+	=?us-ascii?Q?cDGmeOYqxyCUWtMaPIY+soB14r4lEFRZ7YbjKRc2sTo++vY/CihQDztiZG2z?=
+	=?us-ascii?Q?UJno7x3NtA1OCQ+hTeS2+0t+twFuyw43CyMy1y3aOohkdw2Wxz8t8VHKCgyW?=
+	=?us-ascii?Q?4b/gsSkJBy1rNx8fnG+v+CTGhc0RPTG6VltFcXn5sxq5pCVy2d8shS+3CTa3?=
+	=?us-ascii?Q?68NZSs141eWJRy7bwZr7WrIpuWU8gDagBFjVhEvtgfkHxuxaAVDHUJGGRGtQ?=
+	=?us-ascii?Q?Wad0l+tGQT8CVcw9Y0Wh05zKo+4T5w8Qz2i3wMHaOxsGBCfgZmLkZ6HtAULY?=
+	=?us-ascii?Q?nGPoOg9G+VYI0rcKyTtuwgSiYT8CoIWhoOfLCTxH4jlWTuO0p+CcdQl0CnfZ?=
+	=?us-ascii?Q?mVCJz1tgVmFAN/YjVM0al+NKtCCSsbrZNdsyWF+f0PAkFtZ9v44kY7yiU7sh?=
+	=?us-ascii?Q?F1UJ9z+A6ZAy2Ra6luaAJUmnH45iEmqNgr7tXCDM+2AyYaC3hLElNg9V7p41?=
+	=?us-ascii?Q?MPb5Sg43RYfCdh1KOutZmp6e2SkaXZATuyUobo/yqOZdhZ6lsSVWVNrT3uwc?=
+	=?us-ascii?Q?OdIb7a/KYPuAfuUVPyepXyrJivSchhjEXXkvtcE/P6VfbuceoXRDDfKB8rar?=
+	=?us-ascii?Q?ZyLRsVSxk44Sv03ke7zTL+rqgWwCHRbHyaBvdmBGSmd+c+zN2PcInki3cOtJ?=
+	=?us-ascii?Q?VxkzSdvdsVtLYfQB+HltcK8Gj+54R3dTpfNCyZ4UaNucMNtmkCqOFQjDORFG?=
+	=?us-ascii?Q?wWRI1pMaPtyzyH7TFgLRykI3N+KMX9We49XeM77fk74MDVOXVN5Y7nQwkssJ?=
+	=?us-ascii?Q?Y+oxb1xqzHNqQrojmtTuyTgHr4JK8DqQ9xdQvMLZ2ejTvXNG6zPWjEuD9YjS?=
+	=?us-ascii?Q?RTgO04eBErAijGqxnlu05QqfsYJRZdZiNCHd1BexEC6rN+QG4wupHJ4YeOWw?=
+	=?us-ascii?Q?A78K/tlRx82OO3UhR1RkZcK7WbHiUGWCBAYqlY4zh2tA8JfeUyUm4M+vibvn?=
+	=?us-ascii?Q?lvhw5wYAW2rB0tbnVHOoKgxLfAXCkbCSpmK13AeoxIU5exCWWC8QzDw8BMyM?=
+	=?us-ascii?Q?ZIGwAnRLyadTDW+DMBFmIdZjwNBTG4cbEfv2D65yg1MPFZ29iKdqNYfFOBiM?=
+	=?us-ascii?Q?Z93ZZdTbod0YN2LZF/S6IDfHQhHu7HpwQy/yw1QyLqqHyZVw7ZodcpIbVWM6?=
+	=?us-ascii?Q?2k6q/Uve2xGXLyEppAuqGTwv?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a5bdcba-66ab-47d9-ef8c-08d9802fcfa4
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4666.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2021 14:21:48.6266 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DGjIB5LwnyKN5BI1NIU0BcyCYCmnsEvQRz+rvIATQ5r/orhvcm3OIXv/e/95S5z0QDI9Vuji+xNGJFz5UDt8Og==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7066
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18PELuHE014606
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm/next 5/5] fs: dlm: avoid ls_waiter_mutex
-	circular lock dependency warning
+Cc: cluster-devel@redhat.com, zzhou@suse.com
+Subject: [Cluster-devel] [RFC PATCH 0/5] add new command reload_config
+	set_config
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,540 +151,58 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
 
-This patch avoids to get the following circular lock dependency warning:
+This serial patches gives dlm ability to change config settings
+on the fly.
+It's very useful for debugging, and also useful for adjusting HA
+behaviours while running. This feature gives more power function to
+advanced users. And HA Resource-Agent (RA) could also benefit from this
+feature.
 
-[  619.855891] ======================================================
-[  619.856858] WARNING: possible circular locking dependency detected
-[  619.857865] 5.14.0-1.el9.x86_64+debug #1 Not tainted
-[  619.858646] ------------------------------------------------------
-[  619.859646] dlm_recoverd/3961 is trying to acquire lock:
-[  619.860478] ffff888019dcd628 (&r->res_mutex){+.+.}-{3:3}, at: _receive_unlock_reply+0x78/0x600 [dlm]
-[  619.861999]
-[  619.861999] but task is already holding lock:
-[  619.862933] ffff88800ee901a8 (&ls->ls_waiters_mutex){+.+.}-{3:3}, at: dlm_recover_waiters_pre+0x72/0xc80 [dlm]
-[  619.864529]
-[  619.864529] which lock already depends on the new lock.
-[  619.864529]
-[  619.865837]
-[  619.865837] the existing dependency chain (in reverse order) is:
-[  619.866993]
-[  619.866993] -> #1 (&ls->ls_waiters_mutex){+.+.}-{3:3}:
-[  619.868088]        __lock_acquire+0xb72/0x1870
-[  619.868861]        lock_acquire+0x1ca/0x570
-[  619.869554]        __mutex_lock+0x14c/0x1170
-[  619.870283]        add_to_waiters+0x6a/0x500 [dlm]
-[  619.871047]        _request_lock+0x39f/0x9f0 [dlm]
-[  619.871860]        request_lock.part.0+0x1ae/0x220 [dlm]
-[  619.872713]        dlm_user_request+0x237/0x5a0 [dlm]
-[  619.873555]        device_user_lock+0x42c/0x660 [dlm]
-[  619.874366]        device_write+0x5ff/0x8d0 [dlm]
-[  619.875116]        vfs_write+0x1c7/0x850
-[  619.875762]        ksys_write+0xf9/0x1d0
-[  619.876385]        do_syscall_64+0x3b/0x90
-[  619.877034]        entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  619.877972]
-[  619.877972] -> #0 (&r->res_mutex){+.+.}-{3:3}:
-[  619.878931]        check_prev_add+0x15e/0x20f0
-[  619.879699]        validate_chain+0xaba/0xde0
-[  619.880404]        __lock_acquire+0xb72/0x1870
-[  619.881100]        lock_acquire+0x1ca/0x570
-[  619.881823]        __mutex_lock+0x14c/0x1170
-[  619.882506]        _receive_unlock_reply+0x78/0x600 [dlm]
-[  619.883365]        dlm_recover_waiters_pre+0x6e8/0xc80 [dlm]
-[  619.884262]        ls_recover.isra.0+0x517/0x1090 [dlm]
-[  619.885087]        dlm_recoverd+0x348/0x430 [dlm]
-[  619.885844]        kthread+0x329/0x3e0
-[  619.886456]        ret_from_fork+0x22/0x30
-[  619.887113]
-[  619.887113] other info that might help us debug this:
-[  619.887113]
-[  619.888376]  Possible unsafe locking scenario:
-[  619.888376]
-[  619.889359]        CPU0                    CPU1
-[  619.890064]        ----                    ----
-[  619.890775]   lock(&ls->ls_waiters_mutex);
-[  619.891436]                                lock(&r->res_mutex);
-[  619.892378]                                lock(&ls->ls_waiters_mutex);
-[  619.893436]   lock(&r->res_mutex);
-[  619.893991]
-[  619.893991]  *** DEADLOCK ***
-[  619.893991]
-[  619.894930] 3 locks held by dlm_recoverd/3961:
-[  619.895647]  #0: ffff88800ee90d78 (&ls->ls_in_recovery){++++}-{3:3}, at: dlm_recoverd+0x1d1/0x430 [dlm]
-[  619.897173]  #1: ffff88800ee90c68 (&ls->ls_recoverd_active){+.+.}-{3:3}, at: ls_recover.isra.0+0xf9/0x1090 [dlm]
-[  619.898759]  #2: ffff88800ee901a8 (&ls->ls_waiters_mutex){+.+.}-{3:3}, at: dlm_recover_waiters_pre+0x72/0xc80 [dlm]
-[  619.900439]
-[  619.900439] stack backtrace:
-[  619.901145] CPU: 1 PID: 3961 Comm: dlm_recoverd Not tainted 5.14.0-1.el9.x86_64+debug #1
-[  619.902461] Hardware name: Red Hat KVM, BIOS 0.5.1 01/01/2011
-[  619.903390] Call Trace:
-[  619.903808]  dump_stack_lvl+0x57/0x7d
-[  619.904493]  check_noncircular+0x26a/0x310
-[  619.905155]  ? print_circular_bug+0x1f0/0x1f0
-[  619.905839]  ? alloc_chain_hlocks+0x1de/0x530
-[  619.906528]  check_prev_add+0x15e/0x20f0
-[  619.907155]  validate_chain+0xaba/0xde0
-[  619.907787]  ? check_prev_add+0x20f0/0x20f0
-[  619.908489]  __lock_acquire+0xb72/0x1870
-[  619.909147]  lock_acquire+0x1ca/0x570
-[  619.909730]  ? _receive_unlock_reply+0x78/0x600 [dlm]
-[  619.910554]  ? rcu_read_unlock+0x40/0x40
-[  619.911183]  ? __lock_acquired+0x1d2/0x8c0
-[  619.911826]  ? dlm_recoverd+0x348/0x430 [dlm]
-[  619.912541]  __mutex_lock+0x14c/0x1170
-[  619.913160]  ? _receive_unlock_reply+0x78/0x600 [dlm]
-[  619.913997]  ? _receive_unlock_reply+0x78/0x600 [dlm]
-[  619.914838]  ? mutex_lock_io_nested+0xfc0/0xfc0
-[  619.915552]  ? dlm_recover_waiters_pre+0x72/0xc80 [dlm]
-[  619.916380]  ? io_schedule_timeout+0x150/0x150
-[  619.917072]  ? mutex_lock_io_nested+0xfc0/0xfc0
-[  619.917833]  ? lockdep_hardirqs_on_prepare.part.0+0x19a/0x350
-[  619.918738]  ? _receive_unlock_reply+0x78/0x600 [dlm]
-[  619.919568]  _receive_unlock_reply+0x78/0x600 [dlm]
-[  619.920352]  dlm_recover_waiters_pre+0x6e8/0xc80 [dlm]
-[  619.921186]  ls_recover.isra.0+0x517/0x1090 [dlm]
-[  619.921941]  ? dlm_clear_toss+0x280/0x280 [dlm]
-[  619.922666]  ? dlm_recoverd+0x33d/0x430 [dlm]
-[  619.923384]  dlm_recoverd+0x348/0x430 [dlm]
-[  619.924053]  ? ls_recover.isra.0+0x1090/0x1090 [dlm]
-[  619.924896]  kthread+0x329/0x3e0
-[  619.925422]  ? _raw_spin_unlock_irq+0x24/0x30
-[  619.926100]  ? set_kthread_struct+0x100/0x100
-[  619.926788]  ret_from_fork+0x22/0x30
+There are two ways to do the dynamic changing job:
+- by modification dlm.conf
+- by dlm_tool command
 
-The problem here what this warning is telling us is pretty simple. We
-have sometimes a different lock order between
-"lock(&ls->ls_waiters_mutex);" and "lock(&r->res_mutex);" which could
-occur a deadlock.
+The man page of dlm_tool.8 and dlm.conf.5 show examples of this feature.
 
-This warning is a false-positive because while
-"dlm_recover_waiters_pre()" runs every lock operation is stopped by
-"ls->ls_in_recovery" lock which is held during
-"dlm_recover_waiters_pre()". However it's annoying to see this message
-and this patch is avoiding the message by removing the
-ls->ls_waiters_mutex lock and replacing it by sleepable rcu mechanism.
-There is one problem to solve, with srcu it's possible that we have
-multiple readers of "ls->ls_waiters" list. Concurrent iterations are
-not anymore protected by "ls->ls_waiters_mutex". The assumption is here
-that the "ls->ls_waiters_mutex" lock is used before to mostly protect list
-manipulations while iteration and this can be easily replaced by rcu.
+Original code has bug for those no_arg type options. Whatever use 0 or 1
+to set no_arg type option, the option value always 1. To fix this bug,
+the 03/05 patch changes some options type from no_arg to req_arg_bool:
+ daemon_debug, foreground, log_debug, debug_logfile, plock_debug.
+Only keeps help & version with no_arg type.
 
-The following functions are problematic and how I argument why it's okay
-to have possible lkb access while iterate which was previously protected
-by "ls->ls_waiters_mutex":
+For daemon_debug option, the 03/05 patch changes dlm_controld behavior.
+Before this patch, when the value is 1, dlm_controld won't become a
+daemon.
+With 03/05 patch, daemon_debug only means dlm_controld enter debug mode.
+the foreground option totally controls whether the program becomes a
+daemon.
 
-- waiters_read()
 
-Only used for debugging, the srcu_read_lock() should prevent freeing of
-the resource while iterating.
+Heming Zhao (5):
+  dlm_tool man: add command "joinleave", add "USAGE" section
+  man: add reload_config in dlm_tool & dlm.conf
+  dlm_controld: add reload_config feature
+  dlm_tool man: add new command set_config
+  dlm_controld: add new feature set_config
 
-- dlm_recover_waiters_pre()
+ dlm_controld/action.c        |   5 +
+ dlm_controld/config.c        | 288 +++++++++++++++++++++++++++++++++--
+ dlm_controld/dlm.conf.5      |  42 +++--
+ dlm_controld/dlm_controld.h  |   2 +
+ dlm_controld/dlm_daemon.h    |  15 ++
+ dlm_controld/helper.c        |   4 -
+ dlm_controld/lib.c           |  55 +++++++
+ dlm_controld/libdlmcontrol.h |   2 +
+ dlm_controld/logging.c       |  18 ++-
+ dlm_controld/main.c          | 146 +++++++++++-------
+ dlm_tool/dlm_tool.8          | 179 ++++++++++++++++++++++
+ dlm_tool/main.c              |  48 +++++-
+ 12 files changed, 715 insertions(+), 89 deletions(-)
 
-As note above, this function can't concurrent run with
-_remove_from_waiters() or dlm_recover_waiters_post() which accessing the
-same fields of a lkb. It's protected by "ls->ls_in_recovery".
-
-- dlm_adjust_timeouts()
-- find_resend_waiter()
-
-This is to access lkb_wait_time, I introduced the lkb_wait_time_lock to
-protect read/updates while others might using it. This behaviour can maybe
-improved by deference it once and update atomically.
-
-- release_lockspace()
-
-To be sure no reader is running while freeing lkbs by
-"idr_for_each(&ls->ls_lkbidr, lkb_idr_free, ls);" we call
-"synchronize_srcu(&ls->ls_lkb_srcu);cleanup_srcu_struct(&ls->ls_lkb_srcu);"
-before to avoid use after free.
-
-- _remove_from_waiters()
-- dlm_recover_waiters_post()
-
-Those function can be called concurrent and mostly accessing the same
-fields. In this case the r->res_mutex of the resource which belongs to
-the lkb is held and should protecting that those fields are protected by
-this lock.
-
-All references which are held and ls->ls_lkb_srcu is not held is
-assumed to work as previously and program logic prevents that a lkb
-can't be freed.
-
-Reported-by: Nate Straz <nstraz@redhat.com>
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/debug_fs.c     |   7 +--
- fs/dlm/dlm_internal.h |   6 ++-
- fs/dlm/lock.c         | 109 +++++++++++++++++++++++-------------------
- fs/dlm/lockspace.c    |   9 +++-
- 4 files changed, 76 insertions(+), 55 deletions(-)
-
-diff --git a/fs/dlm/debug_fs.c b/fs/dlm/debug_fs.c
-index 47e9d57e4cae..d51da780ea12 100644
---- a/fs/dlm/debug_fs.c
-+++ b/fs/dlm/debug_fs.c
-@@ -704,12 +704,13 @@ static ssize_t waiters_read(struct file *file, char __user *userbuf,
- 	struct dlm_ls *ls = file->private_data;
- 	struct dlm_lkb *lkb;
- 	size_t len = DLM_DEBUG_BUF_LEN, pos = 0, ret, rv;
-+	int idx;
- 
- 	mutex_lock(&debug_buf_lock);
--	mutex_lock(&ls->ls_waiters_mutex);
- 	memset(debug_buf, 0, sizeof(debug_buf));
- 
--	list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
-+	idx = srcu_read_lock(&ls->ls_lkb_srcu);
-+	list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
- 		ret = snprintf(debug_buf + pos, len - pos, "%x %d %d %s\n",
- 			       lkb->lkb_id, lkb->lkb_wait_type,
- 			       lkb->lkb_nodeid, lkb->lkb_resource->res_name);
-@@ -717,7 +718,7 @@ static ssize_t waiters_read(struct file *file, char __user *userbuf,
- 			break;
- 		pos += ret;
- 	}
--	mutex_unlock(&ls->ls_waiters_mutex);
-+	srcu_read_unlock(&ls->ls_lkb_srcu, idx);
- 
- 	rv = simple_read_from_buffer(userbuf, count, ppos, debug_buf, pos);
- 	mutex_unlock(&debug_buf_lock);
-diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index 49cf83e04c80..cae06a26fedb 100644
---- a/fs/dlm/dlm_internal.h
-+++ b/fs/dlm/dlm_internal.h
-@@ -257,6 +257,7 @@ struct dlm_lkb {
- 	struct list_head	lkb_ownqueue;	/* list of locks for a process */
- 	struct list_head	lkb_time_list;
- 	ktime_t			lkb_timestamp;
-+	spinlock_t		lkb_wait_time_lock;
- 	ktime_t			lkb_wait_time;
- 	unsigned long		lkb_timeout_cs;
- 
-@@ -279,6 +280,7 @@ struct dlm_lkb {
- 		void			*lkb_astparam;	/* caller's ast arg */
- 		struct dlm_user_args	*lkb_ua;
- 	};
-+	struct rcu_head		rcu;
- };
- 
- /*
-@@ -568,7 +570,9 @@ struct dlm_ls {
- 	struct dlm_rsbtable	*ls_rsbtbl;
- 	uint32_t		ls_rsbtbl_size;
- 
--	struct mutex		ls_waiters_mutex;
-+	struct srcu_struct	ls_lkb_srcu;
-+
-+	spinlock_t		ls_waiters_lock;
- 	struct list_head	ls_waiters;	/* lkbs needing a reply */
- 
- 	struct mutex		ls_orphans_mutex;
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index c502c065d007..dbd3ef8a94b6 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -1196,6 +1196,7 @@ static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
- 	INIT_LIST_HEAD(&lkb->lkb_cb_list);
- 	mutex_init(&lkb->lkb_cb_mutex);
- 	INIT_WORK(&lkb->lkb_cb_work, dlm_callback_work);
-+	spin_lock_init(&lkb->lkb_wait_time_lock);
- 
- 	idr_preload(GFP_NOFS);
- 	spin_lock(&ls->ls_lkbidr_spin);
-@@ -1239,6 +1240,20 @@ static void kill_lkb(struct kref *kref)
- 	DLM_ASSERT(!lkb->lkb_status, dlm_print_lkb(lkb););
- }
- 
-+
-+static void _dlm_free_lkb(struct rcu_head *rcu)
-+{
-+	struct dlm_lkb *lkb = container_of(rcu, struct dlm_lkb, rcu);
-+
-+	detach_lkb(lkb);
-+
-+	/* for local/process lkbs, lvbptr points to caller's lksb */
-+	if (lkb->lkb_lvbptr && is_master_copy(lkb))
-+		dlm_free_lvb(lkb->lkb_lvbptr);
-+
-+	dlm_free_lkb(lkb);
-+}
-+
- /* __put_lkb() is used when an lkb may not have an rsb attached to
-    it so we need to provide the lockspace explicitly */
- 
-@@ -1251,12 +1266,7 @@ static int __put_lkb(struct dlm_ls *ls, struct dlm_lkb *lkb)
- 		idr_remove(&ls->ls_lkbidr, lkid);
- 		spin_unlock(&ls->ls_lkbidr_spin);
- 
--		detach_lkb(lkb);
--
--		/* for local/process lkbs, lvbptr points to caller's lksb */
--		if (lkb->lkb_lvbptr && is_master_copy(lkb))
--			dlm_free_lvb(lkb->lkb_lvbptr);
--		dlm_free_lkb(lkb);
-+		call_srcu(&ls->ls_lkb_srcu, &lkb->rcu, _dlm_free_lkb);
- 		return 1;
- 	} else {
- 		spin_unlock(&ls->ls_lkbidr_spin);
-@@ -1399,24 +1409,30 @@ void dlm_scan_waiters(struct dlm_ls *ls)
- 	u32 debug_expired = 0;
- 	int num_nodes = 0;
- 	int *warned = NULL;
-+	int idx;
- 
- 	if (!dlm_config.ci_waitwarn_us)
- 		return;
- 
--	mutex_lock(&ls->ls_waiters_mutex);
--
--	list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
--		if (!lkb->lkb_wait_time)
-+	idx = srcu_read_lock(&ls->ls_lkb_srcu);
-+	list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
-+		spin_lock(&lkb->lkb_wait_time_lock);
-+		if (!lkb->lkb_wait_time) {
-+			spin_unlock(&lkb->lkb_wait_time_lock);
- 			continue;
-+		}
- 
- 		debug_scanned++;
- 
- 		us = ktime_to_us(ktime_sub(ktime_get(), lkb->lkb_wait_time));
- 
--		if (us < dlm_config.ci_waitwarn_us)
-+		if (us < dlm_config.ci_waitwarn_us) {
-+			spin_unlock(&lkb->lkb_wait_time_lock);
- 			continue;
-+		}
- 
- 		lkb->lkb_wait_time = 0;
-+		spin_unlock(&lkb->lkb_wait_time_lock);
- 
- 		debug_expired++;
- 		if (us > debug_maxus)
-@@ -1435,7 +1451,7 @@ void dlm_scan_waiters(struct dlm_ls *ls)
- 			  "node %d", lkb->lkb_id, (long long)us,
- 			  dlm_config.ci_waitwarn_us, lkb->lkb_wait_nodeid);
- 	}
--	mutex_unlock(&ls->ls_waiters_mutex);
-+	srcu_read_unlock(&ls->ls_lkb_srcu, idx);
- 	kfree(warned);
- 
- 	if (debug_expired)
-@@ -1452,8 +1468,6 @@ static int add_to_waiters(struct dlm_lkb *lkb, int mstype, int to_nodeid)
- 	struct dlm_ls *ls = lkb->lkb_resource->res_ls;
- 	int error = 0;
- 
--	mutex_lock(&ls->ls_waiters_mutex);
--
- 	if (is_overlap_unlock(lkb) ||
- 	    (is_overlap_cancel(lkb) && (mstype == DLM_MSG_CANCEL))) {
- 		error = -EINVAL;
-@@ -1487,16 +1501,19 @@ static int add_to_waiters(struct dlm_lkb *lkb, int mstype, int to_nodeid)
- 
- 	lkb->lkb_wait_count++;
- 	lkb->lkb_wait_type = mstype;
-+	spin_lock(&ls->ls_waiters_lock);
- 	lkb->lkb_wait_time = ktime_get();
-+	spin_unlock(&ls->ls_waiters_lock);
- 	lkb->lkb_wait_nodeid = to_nodeid; /* for debugging */
- 	hold_lkb(lkb);
--	list_add(&lkb->lkb_wait_reply, &ls->ls_waiters);
-+	spin_lock(&ls->ls_waiters_lock);
-+	list_add_rcu(&lkb->lkb_wait_reply, &ls->ls_waiters);
-+	spin_unlock(&ls->ls_waiters_lock);
-  out:
- 	if (error)
- 		log_error(ls, "addwait error %x %d flags %x %d %d %s",
- 			  lkb->lkb_id, error, lkb->lkb_flags, mstype,
- 			  lkb->lkb_wait_type, lkb->lkb_resource->res_name);
--	mutex_unlock(&ls->ls_waiters_mutex);
- 	return error;
- }
- 
-@@ -1584,21 +1601,18 @@ static int _remove_from_waiters(struct dlm_lkb *lkb, int mstype,
- 
- 	lkb->lkb_flags &= ~DLM_IFL_RESEND;
- 	lkb->lkb_wait_count--;
--	if (!lkb->lkb_wait_count)
--		list_del_init(&lkb->lkb_wait_reply);
-+	if (!lkb->lkb_wait_count) {
-+		spin_lock(&ls->ls_waiters_lock);
-+		list_del_rcu(&lkb->lkb_wait_reply);
-+		spin_unlock(&ls->ls_waiters_lock);
-+	}
- 	unhold_lkb(lkb);
- 	return 0;
- }
- 
- static int remove_from_waiters(struct dlm_lkb *lkb, int mstype)
- {
--	struct dlm_ls *ls = lkb->lkb_resource->res_ls;
--	int error;
--
--	mutex_lock(&ls->ls_waiters_mutex);
--	error = _remove_from_waiters(lkb, mstype, NULL);
--	mutex_unlock(&ls->ls_waiters_mutex);
--	return error;
-+	return _remove_from_waiters(lkb, mstype, NULL);
- }
- 
- /* Handles situations where we might be processing a "fake" or "stub" reply in
-@@ -1606,15 +1620,7 @@ static int remove_from_waiters(struct dlm_lkb *lkb, int mstype)
- 
- static int remove_from_waiters_ms(struct dlm_lkb *lkb, struct dlm_message *ms)
- {
--	struct dlm_ls *ls = lkb->lkb_resource->res_ls;
--	int error;
--
--	if (ms->m_flags != DLM_IFL_STUB_MS)
--		mutex_lock(&ls->ls_waiters_mutex);
--	error = _remove_from_waiters(lkb, ms->m_type, ms);
--	if (ms->m_flags != DLM_IFL_STUB_MS)
--		mutex_unlock(&ls->ls_waiters_mutex);
--	return error;
-+	return _remove_from_waiters(lkb, ms->m_type, ms);
- }
- 
- /* If there's an rsb for the same resource being removed, ensure
-@@ -1922,6 +1928,7 @@ void dlm_adjust_timeouts(struct dlm_ls *ls)
- {
- 	struct dlm_lkb *lkb;
- 	u64 adj_us = jiffies_to_usecs(jiffies - ls->ls_recover_begin);
-+	int idx;
- 
- 	ls->ls_recover_begin = 0;
- 	mutex_lock(&ls->ls_timeout_mutex);
-@@ -1932,12 +1939,14 @@ void dlm_adjust_timeouts(struct dlm_ls *ls)
- 	if (!dlm_config.ci_waitwarn_us)
- 		return;
- 
--	mutex_lock(&ls->ls_waiters_mutex);
--	list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
-+	idx = srcu_read_lock(&ls->ls_lkb_srcu);
-+	spin_lock(&lkb->lkb_wait_time_lock);
-+	list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
- 		if (ktime_to_us(lkb->lkb_wait_time))
- 			lkb->lkb_wait_time = ktime_get();
- 	}
--	mutex_unlock(&ls->ls_waiters_mutex);
-+	spin_lock(&lkb->lkb_wait_time_lock);
-+	srcu_read_unlock(&ls->ls_lkb_srcu, idx);
- }
- 
- /* lkb is master or local copy */
-@@ -5116,18 +5125,17 @@ static int waiter_needs_recovery(struct dlm_ls *ls, struct dlm_lkb *lkb,
- 
- void dlm_recover_waiters_pre(struct dlm_ls *ls)
- {
--	struct dlm_lkb *lkb, *safe;
- 	struct dlm_message *ms_stub;
- 	int wait_type, stub_unlock_result, stub_cancel_result;
--	int dir_nodeid;
-+	struct dlm_lkb *lkb;
-+	int dir_nodeid, idx;
- 
- 	ms_stub = kmalloc(sizeof(*ms_stub), GFP_KERNEL);
- 	if (!ms_stub)
- 		return;
- 
--	mutex_lock(&ls->ls_waiters_mutex);
--
--	list_for_each_entry_safe(lkb, safe, &ls->ls_waiters, lkb_wait_reply) {
-+	idx = srcu_read_lock(&ls->ls_lkb_srcu);
-+	list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
- 
- 		dir_nodeid = dlm_dir_nodeid(lkb->lkb_resource);
- 
-@@ -5221,7 +5229,8 @@ void dlm_recover_waiters_pre(struct dlm_ls *ls)
- 		}
- 		schedule();
- 	}
--	mutex_unlock(&ls->ls_waiters_mutex);
-+	srcu_read_unlock(&ls->ls_lkb_srcu, idx);
-+
- 	kfree(ms_stub);
- }
- 
-@@ -5230,15 +5239,13 @@ static struct dlm_lkb *find_resend_waiter(struct dlm_ls *ls)
- 	struct dlm_lkb *lkb;
- 	int found = 0;
- 
--	mutex_lock(&ls->ls_waiters_mutex);
--	list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
-+	list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
- 		if (lkb->lkb_flags & DLM_IFL_RESEND) {
- 			hold_lkb(lkb);
- 			found = 1;
- 			break;
- 		}
- 	}
--	mutex_unlock(&ls->ls_waiters_mutex);
- 
- 	if (!found)
- 		lkb = NULL;
-@@ -5265,8 +5272,9 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
- {
- 	struct dlm_lkb *lkb;
- 	struct dlm_rsb *r;
--	int error = 0, mstype, err, oc, ou;
-+	int error = 0, mstype, err, oc, ou, idx;
- 
-+	idx = srcu_read_lock(&ls->ls_lkb_srcu);
- 	while (1) {
- 		if (dlm_locking_stopped(ls)) {
- 			log_debug(ls, "recover_waiters_post aborted");
-@@ -5302,9 +5310,9 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
- 		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
- 		lkb->lkb_wait_type = 0;
- 		lkb->lkb_wait_count = 0;
--		mutex_lock(&ls->ls_waiters_mutex);
--		list_del_init(&lkb->lkb_wait_reply);
--		mutex_unlock(&ls->ls_waiters_mutex);
-+		spin_lock(&ls->ls_waiters_lock);
-+		list_del_rcu(&lkb->lkb_wait_reply);
-+		spin_unlock(&ls->ls_waiters_lock);
- 		unhold_lkb(lkb); /* for waiters list */
- 
- 		if (oc || ou) {
-@@ -5353,6 +5361,7 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
- 		put_rsb(r);
- 		dlm_put_lkb(lkb);
- 	}
-+	srcu_read_unlock(&ls->ls_lkb_srcu, idx);
- 
- 	return error;
- }
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index 2896f96cf2d3..46e68219a9e6 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -524,7 +524,8 @@ static int new_lockspace(const char *name, const char *cluster,
- 	spin_lock_init(&ls->ls_lkbidr_spin);
- 
- 	INIT_LIST_HEAD(&ls->ls_waiters);
--	mutex_init(&ls->ls_waiters_mutex);
-+	init_srcu_struct(&ls->ls_lkb_srcu);
-+	spin_lock_init(&ls->ls_waiters_lock);
- 	INIT_LIST_HEAD(&ls->ls_orphans);
- 	mutex_init(&ls->ls_orphans_mutex);
- 	INIT_LIST_HEAD(&ls->ls_timeout);
-@@ -810,6 +811,12 @@ static int release_lockspace(struct dlm_ls *ls, int force)
- 	idr_destroy(&ls->ls_recover_idr);
- 	kfree(ls->ls_recover_buf);
- 
-+	/*
-+	 * wait all readers of ls_waiters and srcu callers are left before free
-+	 */
-+	synchronize_srcu(&ls->ls_lkb_srcu);
-+	cleanup_srcu_struct(&ls->ls_lkb_srcu);
-+
- 	/*
- 	 * Free all lkb's in idr
- 	 */
 -- 
-2.27.0
+2.32.0
+
 
