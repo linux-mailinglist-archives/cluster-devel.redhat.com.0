@@ -1,139 +1,91 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 92BE54182A6
-	for <lists+cluster-devel@lfdr.de>; Sat, 25 Sep 2021 16:23:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4C87941A360
+	for <lists+cluster-devel@lfdr.de>; Tue, 28 Sep 2021 00:55:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1632783347;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=HVh7OAu3h/oKWxNqt95Um5qb59RNMzSzBV2hph+uaD8=;
+	b=gQ8T3wgVwUO1JuafI3ftRaIzK+NaI9hs445LduiSMlZuyRUG1nmzI0JY1ldfbFRm2ngtao
+	BdzQQnUV6XyvCV9MQobIpwJ18frbFSgXrAZiOTdv0XrJif/JBuGEdp5Dv3qcLu1H5QW4jr
+	zVplmKtXvQjk782irApVKB39ZBrkNZ8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-353-2tSti4ocNsGgnv37cELvnw-1; Sat, 25 Sep 2021 10:23:04 -0400
-X-MC-Unique: 2tSti4ocNsGgnv37cELvnw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-37-oLuLmk1qN72KT6cukF61WA-1; Mon, 27 Sep 2021 18:55:46 -0400
+X-MC-Unique: oLuLmk1qN72KT6cukF61WA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 809AA1084683;
-	Sat, 25 Sep 2021 14:23:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FB5818506;
-	Sat, 25 Sep 2021 14:23:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7933D801E72;
+	Mon, 27 Sep 2021 22:55:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C995B18B5E;
+	Mon, 27 Sep 2021 22:55:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9C3374E58E;
-	Sat, 25 Sep 2021 14:23:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DF1B31809C84;
+	Mon, 27 Sep 2021 22:55:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18PEMRd2014696 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 25 Sep 2021 10:22:27 -0400
+	id 18RMsjko029998 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 27 Sep 2021 18:54:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 375EE1005B68; Sat, 25 Sep 2021 14:22:27 +0000 (UTC)
+	id 0C67F202F328; Mon, 27 Sep 2021 22:54:45 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 320DF111E3F1
-	for <cluster-devel@redhat.com>; Sat, 25 Sep 2021 14:22:27 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0798A201B078
+	for <cluster-devel@redhat.com>; Mon, 27 Sep 2021 22:54:42 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08860800883
-	for <cluster-devel@redhat.com>; Sat, 25 Sep 2021 14:22:27 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [194.104.111.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-461-WnNsJJNtOIKDmkWJsOPCtQ-1;
-	Sat, 25 Sep 2021 10:22:24 -0400
-X-MC-Unique: WnNsJJNtOIKDmkWJsOPCtQ-1
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
-	(mail-ve1eur01lp2053.outbound.protection.outlook.com [104.47.1.53])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-22-jCMr2PmSNv2BNCPLW4QLNQ-1; Sat, 25 Sep 2021 16:22:22 +0200
-X-MC-Unique: jCMr2PmSNv2BNCPLW4QLNQ-1
-Received: from DB7PR04MB4666.eurprd04.prod.outlook.com (2603:10a6:5:2b::14) by
-	DB8PR04MB7066.eurprd04.prod.outlook.com (2603:10a6:10:12e::14) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.4544.18; Sat, 25 Sep 2021 14:22:21 +0000
-Received: from DB7PR04MB4666.eurprd04.prod.outlook.com
-	([fe80::41ea:157:e802:5d8d]) by DB7PR04MB4666.eurprd04.prod.outlook.com
-	([fe80::41ea:157:e802:5d8d%6]) with mapi id 15.20.4544.020;
-	Sat, 25 Sep 2021 14:22:21 +0000
-From: Heming Zhao <heming.zhao@suse.com>
-To: teigland@redhat.com
-Date: Sat, 25 Sep 2021 22:21:42 +0800
-Message-ID: <20210925142142.1821-6-heming.zhao@suse.com>
-In-Reply-To: <20210925142142.1821-1-heming.zhao@suse.com>
-References: <20210925142142.1821-1-heming.zhao@suse.com>
-X-ClientProxiedBy: HK2P15301CA0016.APCP153.PROD.OUTLOOK.COM
-	(2603:1096:202:1::26) To DB7PR04MB4666.eurprd04.prod.outlook.com
-	(2603:10a6:5:2b::14)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38432100E658
+	for <cluster-devel@redhat.com>; Mon, 27 Sep 2021 22:54:42 +0000 (UTC)
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+	[209.85.160.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-552-hgRg5VJ5P1qEswZfrQ0jVg-1; Mon, 27 Sep 2021 18:54:40 -0400
+X-MC-Unique: hgRg5VJ5P1qEswZfrQ0jVg-1
+Received: by mail-qt1-f200.google.com with SMTP id
+	61-20020aed2143000000b002a6a0f52ce7so83281358qtc.0
+	for <cluster-devel@redhat.com>; Mon, 27 Sep 2021 15:54:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=HVh7OAu3h/oKWxNqt95Um5qb59RNMzSzBV2hph+uaD8=;
+	b=qGaGRy9ZX7A+Ag5NAq3O+O3BxXtE3S2+OfZCALWemPDVyedyo7CzLqEGjMofqY4TwH
+	nVzykjBKx5w3n9ywqqn9bC/mGGY5LvVbb4aSbAZ21w8QV1MEUhbuL6n4MYUXujqeL6LU
+	jX3gmLY9+xmSsQ8u0wF5KXzedLaqJktkiHu/w2JCIckBLNnDu3cCSTCoYnhhTCFy9bv7
+	6pjyDlasqLq4uHILdsUm5ZrkqZY1/DgyBdtpIodg34NW/5n1w/EfjpFN2w8tq5RE/SMj
+	3tqkf6mlxbHcHCD+eLpMvbgw7fOunGqYdbGEtRKCfPIsohLI0Ahn3JxI2OIj3dAfaLm/
+	7bkg==
+X-Gm-Message-State: AOAM533exf63/p9EzkJtx9rnf1FXOT8NuNWCzsTSr8wn77wGIk+d3UCP
+	IpFkbt0uZOwWWyzRoWpJE3cx11ivmcpSaAuhawzSm2OiK2e7qb8b5oVTDmvk2JTUi3IIsn+Cj9a
+	4ZTMomab40w+ZgvfrAP/iRRypETtMMlptBMp1gg==
+X-Received: by 2002:a0c:85c5:: with SMTP id o63mr2282058qva.12.1632783279920; 
+	Mon, 27 Sep 2021 15:54:39 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxbyEVprQ0HpTTgSMlFwf2GLOCJZRieg6UFzzbvulGo94b5WnGJeUPkq9pm1RcMytsyae3XKoAXKOr2jETa8V4=
+X-Received: by 2002:a0c:85c5:: with SMTP id o63mr2282034qva.12.1632783279443; 
+	Mon, 27 Sep 2021 15:54:39 -0700 (PDT)
 MIME-Version: 1.0
-Received: from localhost (123.123.135.254) by
-	HK2P15301CA0016.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::26)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.0
-	via Frontend Transport; Sat, 25 Sep 2021 14:22:20 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5083173c-1a62-494a-11bb-08d9802fe306
-X-MS-TrafficTypeDiagnostic: DB8PR04MB7066:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DB8PR04MB70669887BF810CD2FF075C4897A59@DB8PR04MB7066.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: ApBd+vDKk0ecvzcxf0fozp1skmckuDWnw4xBEnEWINvh9v4kuS4au/q9KF4nD9fLBIWp1GbKOFkbs5hTXHfx4eESFyZ7ywmxhZXh11CRkGI+4BLffk+efttzpO1BQA/ral9/MQTR8d+09P48LSzsG6sw2GaZ4jnqmhK6XtbMGMgct1Pckys65fxUn8Iv8VTbYbh6maubmigwgdf0A+hOy4U627e30fkFs8vv/TIqh8XDxI/xcirnWl6MS9G9wH4aJqfu7rAs5MPbM0uvuS2G3wJwz02MdJKtbr4lGTE+L5IkL2I0mr6K8MucZQrSl56an5YYkhMHhT8qnYr2ieFPDgL5UTC2dR6+hvut7HqlJ9c7fr5rj0wkcIbq0KObF+d9TmSwdfm1PkAv6VzfiImLkGKhcwajoSadPx5UxMTcZ/pJfp4Bul21feah0eOFCg7PqLEq34OlaIeAm39kdO2sdVM7HqxBk4nL/ZZ+Ypsm8R3aQxIOxu5U26fMbzJQz0nBnGxDqS4Hvxl96yZ7Es8/qkge0CySAX8SScEJgY0g0liFyWb6ttOzO5ywZ4drbPkCyb4CluxJLxphi2240DpqC/jMPErlwHfd4jp0I6ho4etjiOW4JJJfMXgFHhsRNF9QMGSO0hSE2ZgJyLmxx8J2qkP0xSeEqynAu4QUFBeAb20SaIfX+f6UjTyCraCXpkW1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB7PR04MB4666.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(366004)(83380400001)(316002)(5660300002)(38100700002)(186003)(26005)(44832011)(6496006)(6486002)(30864003)(2616005)(450100002)(6916009)(956004)(8936002)(4326008)(36756003)(86362001)(8676002)(66946007)(66476007)(66556008)(508600001)(6666004)(2906002)(107886003)(1076003)(9126006);
-	DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8fIecm5+GyQwz9ax1NK2YaOVT8YpH8ywdtTrgsFdeWSnwRRhBvJgHBIAeu6n?=
-	=?us-ascii?Q?n1u9j+P3JoSuoK2C82hg+KSDT2nct1CMlNo1jH/A2vdLI1dCJeS1QqU5CBLt?=
-	=?us-ascii?Q?Z0Jh7Ie90R8nd4uWlD6CyMdIWcSPG+ScJ2Ko6EqppDfw5DaSMso31cWP6XcU?=
-	=?us-ascii?Q?pzzbZLe7Sy7jtvB8MJlMRDv6YC9c73JZee2AtfUKvdl2CFMK0OhEumvnnxew?=
-	=?us-ascii?Q?fY2A76RAb72X48SaACHfMFwBE1vw7iiJf9eekkeBjW3t2q2cdmCCPavdXWF2?=
-	=?us-ascii?Q?Vq35GiLDYNkLO1SFqDUaHcnHVGmpBNRnd4tRsvlOyx5WJ4NET+bQ18Mro4Eu?=
-	=?us-ascii?Q?MLjB0BJPm0GZ41vYgCBd9MqsiQH0B98E/Q2jUFEc2mI8n5+qxvyofLjrykFu?=
-	=?us-ascii?Q?fUBjevU9tDlm8UNkb1yFPg+8DlSstC98FW5qhMDmoZntRFLDVR1bizyhkHPU?=
-	=?us-ascii?Q?WQDTI/99MCsr9H4RSh33lKC2e+t7eizQGUsytDxEJTlRNL8cBq2o2gAQl6vw?=
-	=?us-ascii?Q?sRRkLaCObJez0Kaou2Q8mQlgLfg5+hC00vwQaHBULCqEj5Jsirq0sbxT45qK?=
-	=?us-ascii?Q?TjqCIG0Opa4moCRJDM5i9PbTN+rbr/mUZDF96uAZqt4uzT1ORpX+kh90pe3V?=
-	=?us-ascii?Q?HqHD96ONfJhlgVH0t5vhBr2/6rUt7ZuifJS0CaLW9SDIyEvzJAsAgMb/pNgx?=
-	=?us-ascii?Q?pYUDpBbmz4oNsXH1wz2n4ab2eQLljaPmCEFvvyYGYphbIacp2hXB44pd4CJA?=
-	=?us-ascii?Q?5FjZwCjUC5g21QxHfTSafEzcimYMqaM+iDc6oQH59szafCStaHl9l8a3bvMR?=
-	=?us-ascii?Q?dGZ2P8CtXk+6Lf8vnDjC7rynZGvBfe9FVkn5zuqq1nIynEMvU5WrCZCSRG2X?=
-	=?us-ascii?Q?IvXjYXvMaoiuW+lBeoZYLrdH6PjIySE8gvWxjWG4H91alxrCQaBjXLPRV5LZ?=
-	=?us-ascii?Q?/shVEojZwLcvrJlFzPeUzxCwp5CZB4gCSiAVjeTMgVGZdevc6OUyEaqp0tmO?=
-	=?us-ascii?Q?ejuPQo/PeC4jBfdpWp0+Dwz4f9KFn2LP9nGFzBFB+sXfi7iI6SWOKiPqVjny?=
-	=?us-ascii?Q?FdIID1+o4TTmCNZFkkV+oTTzl+nOThDA+EnjwYNEf1bUN97Sef/JT2sgPZMd?=
-	=?us-ascii?Q?sIS5KEKH+VsNgBwv+OTi/mv6JazBAj8ZvMSatT4f39rJkvQIGoy7GCuje288?=
-	=?us-ascii?Q?uv432sbJvxofwLj/WmdVnfnec9oWe9bBJpatldtn9naG1CRv75EM9z4/RtmS?=
-	=?us-ascii?Q?KgByLMrL3aKbFI2B6hHxPtc5cbIno1SfAiOD4pvydoe2RgEBOB4Espqj8HW1?=
-	=?us-ascii?Q?cTDEr8x6P6pd8vRIzl7MxEnh?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5083173c-1a62-494a-11bb-08d9802fe306
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4666.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2021 14:22:21.3637 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: otU2479kJpEm9R3R7zMjmUKsp782m0IuacQrKR/Nx8YXi4dqRaxbH4oRf7JQ8q3c/8Go4z2DdtWB2rUNqxU0yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7066
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18PEMRd2014696
+References: <20210925003015.1862586-1-aahringo@redhat.com>
+	<20210925003015.1862586-5-aahringo@redhat.com>
+In-Reply-To: <20210925003015.1862586-5-aahringo@redhat.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Mon, 27 Sep 2021 18:54:28 -0400
+Message-ID: <CAK-6q+ip2M5xqPZ8cWVbk61BqtUZFCtTk5YKpOB9g+qqTy+Fkw@mail.gmail.com>
+To: David Teigland <teigland@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, zzhou@suse.com
-Subject: [Cluster-devel] [PATCH 5/5] dlm_controld: add new feature set_config
+Cc: cluster-devel@redhat.com
+Subject: Re: [Cluster-devel] [PATCH dlm/next 5/5] fs: dlm: avoid
+ ls_waiter_mutex circular lock dependency warning
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -147,468 +99,578 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Heming Zhao <heming.zhao@suse.com>
----
- dlm_controld/config.c        | 169 +++++++++++++++++++++++++++++++++++
- dlm_controld/dlm_controld.h  |   1 +
- dlm_controld/dlm_daemon.h    |  11 +++
- dlm_controld/helper.c        |   4 -
- dlm_controld/lib.c           |  38 +++++++-
- dlm_controld/libdlmcontrol.h |   1 +
- dlm_controld/main.c          |  18 +++-
- dlm_tool/main.c              |  29 +++++-
- 8 files changed, 260 insertions(+), 11 deletions(-)
+Hi,
 
-diff --git a/dlm_controld/config.c b/dlm_controld/config.c
-index 91ca10a62b15..e825e2f8a1a6 100644
---- a/dlm_controld/config.c
-+++ b/dlm_controld/config.c
-@@ -387,3 +387,172 @@ void set_opt_file(int update)
- 	fclose(file);
- }
- 
-+/*
-+ * do the clean/restore job:
-+ * - clean up dlm_options[].dynamic_xx
-+ * - using top priority item to set use option.
-+ */
-+static void reset_dynamic(int index)
-+{
-+	struct dlm_option *o = &dlm_options[index];
-+
-+	if (!o->reload)
-+		return;
-+
-+	o->dynamic_set = 0;
-+	o->dynamic_int = 0;
-+	if (o->dynamic_str){
-+		free(o->dynamic_str);
-+		o->dynamic_str = NULL;
-+	}
-+	o->dynamic_uint = 0;
-+	reset_opt_value(index);
-+
-+	return;
-+}
-+
-+/* copy code from exec_command() */
-+void set_opt_online(char *cmd_str, int cmd_len)
-+{
-+	int i, ind, val = 0;
-+	int av_count = 0;
-+	int arg_len;
-+	unsigned int uval = 0;
-+	struct dlm_option *o;
-+	char str[MAX_LINE];
-+	char arg[ONE_ARG_LEN];
-+	char *av[MAX_AV_COUNT + 1]; /* +1 for NULL */
-+
-+	if (cmd_len > RUN_COMMAND_LEN)
-+		return;
-+
-+	for (i = 0; i < MAX_AV_COUNT + 1; i++)
-+		av[i] = NULL;
-+
-+	if (!cmd_str[0])
-+		return;
-+
-+	/* this should already be done, but make sure */
-+	cmd_str[cmd_len - 1] = '\0';
-+
-+	memset(&arg, 0, sizeof(arg));
-+	arg_len = 0;
-+	cmd_len = strlen(cmd_str);
-+
-+	for (i = 0; i < cmd_len; i++) {
-+		if (!cmd_str[i])
-+			break;
-+
-+		if (av_count == MAX_AV_COUNT)
-+			break;
-+
-+		if (cmd_str[i] == '\\') {
-+			if (i == (cmd_len - 1))
-+				break;
-+			i++;
-+
-+			if (cmd_str[i] == '\\') {
-+				arg[arg_len++] = cmd_str[i];
-+				continue;
-+			}
-+			if (isspace(cmd_str[i])) {
-+				arg[arg_len++] = cmd_str[i];
-+				continue;
-+			} else {
-+				break;
-+			}
-+		}
-+
-+		if (isalnum(cmd_str[i]) || ispunct(cmd_str[i])) {
-+			arg[arg_len++] = cmd_str[i];
-+		} else if (isspace(cmd_str[i])) {
-+			if (arg_len)
-+				av[av_count++] = strdup(arg);
-+
-+			memset(arg, 0, sizeof(arg));
-+			arg_len = 0;
-+		} else {
-+			break;
-+		}
-+	}
-+
-+	if ((av_count < MAX_AV_COUNT) && arg_len) {
-+		av[av_count++] = strdup(arg);
-+	}
-+
-+	/*
-+	for (i = 0; i < MAX_AV_COUNT + 1; i++) {
-+		if (!av[i])
-+			break;
-+
-+		syslog(LOG_ERR, "command av[%d] \"%s\"", i, av[i]);
-+	}
-+	*/
-+
-+	if (!strcmp(av[0], "restore_all")) {
-+		for (i = 0; i < dlm_options_max; i++)
-+			reset_dynamic(i);
-+		return;
-+	}
-+
-+    i = -1;
-+	while (++i < av_count) {
-+
-+		ind = get_ind_name(av[i]);
-+		if (ind < 0)
-+			continue;
-+		o = &dlm_options[ind];
-+		if (!o || !o->reload)
-+			continue;
-+
-+		get_val_str(av[i], str);
-+		if (!strcmp(str, "restore")) {
-+			reset_dynamic(ind);
-+			continue;
-+		}
-+
-+		o->dynamic_set++;
-+
-+		if (!o->req_arg || o->req_arg == req_arg_int) {
-+			get_val_int(av[i], &val);
-+			if (!o->req_arg)
-+				val = val ? 1 : 0;
-+
-+			o->dynamic_int = val;
-+
-+			log_debug("config dynamic %s = %d previous use %d",
-+				  o->name, o->dynamic_int, o->use_int);
-+			o->use_int = o->dynamic_int;
-+
-+		} else if (o->req_arg == req_arg_uint) {
-+			get_val_uint(av[i], &uval);
-+			o->dynamic_uint = uval;
-+
-+			log_debug("config dynamic %s = %u previous use %u",
-+				  o->name, o->dynamic_uint, o->use_uint);
-+			o->use_uint = o->dynamic_uint;
-+
-+		} else if (o->req_arg == req_arg_bool) {
-+			get_val_int(av[i], &val);
-+			o->dynamic_int = val ? 1 : 0;
-+
-+			log_debug("config dynamic %s = %d previous use %d",
-+				  o->name, o->dynamic_int, o->use_int);
-+			o->use_int = o->dynamic_int;
-+
-+		} else if (o->req_arg == req_arg_str) {
-+			memset(str, 0, sizeof(str));
-+			get_val_str(av[i], str);
-+
-+			o->dynamic_str = strdup(str);
-+
-+			log_debug("config dynamic %s = %s previous use %s",
-+				  o->name, o->dynamic_str, o->use_str);
-+			o->use_str = o->dynamic_str;
-+		}
-+
-+		reload_setting(ind);
-+	}
-+
-+	return;
-+}
-diff --git a/dlm_controld/dlm_controld.h b/dlm_controld/dlm_controld.h
-index 0ea3548fce7d..94e5c49e88bd 100644
---- a/dlm_controld/dlm_controld.h
-+++ b/dlm_controld/dlm_controld.h
-@@ -36,6 +36,7 @@
- #define DLMC_CMD_RUN_CHECK		16
- #define DLMC_CMD_DUMP_RUN		17
- #define DLMC_CMD_RELOAD_CONFIG	18
-+#define DLMC_CMD_SET_CONFIG		19
- 
- struct dlmc_header {
- 	unsigned int magic;
-diff --git a/dlm_controld/dlm_daemon.h b/dlm_controld/dlm_daemon.h
-index 9e68f8257cb5..da261774bee0 100644
---- a/dlm_controld/dlm_daemon.h
-+++ b/dlm_controld/dlm_daemon.h
-@@ -25,6 +25,7 @@
- #include <arpa/inet.h>
- #include <net/if.h>
- #include <stdio.h>
-+#include <ctype.h>
- #include <errno.h>
- #include <string.h>
- #include <stdlib.h>
-@@ -133,6 +134,7 @@ struct dlm_option {
- 	char letter;
- 	int req_arg;
- 	char reload;
-+	char dynamic;
- 	const char *desc;
- 
- 	int use_int;
-@@ -152,6 +154,11 @@ struct dlm_option {
- 	int file_int;
- 	char *file_str;
- 	unsigned int file_uint;
-+
-+	int dynamic_set;
-+	int dynamic_int;
-+	char *dynamic_str;
-+	unsigned int dynamic_uint;
- };
- 
- EXTERN struct dlm_option dlm_options[dlm_options_max];
-@@ -328,6 +335,9 @@ struct lockspace {
- 
- #define RUN_COMMAND_LEN DLMC_RUN_COMMAND_LEN /* 1024 */
- 
-+#define MAX_AV_COUNT 32
-+#define ONE_ARG_LEN 256
-+
- struct run_info {
- 	int dest_nodeid;
- 	int start_nodeid;
-@@ -390,6 +400,7 @@ int set_configfs_opt(const char *name, char *str, int num);
- void set_opt_file(int update);
- int get_weight(struct lockspace *ls, int nodeid);
- void setup_lockspace_config(struct lockspace *ls);
-+void set_opt_online(char *cmd_str, int cmd_len);
- 
- /* cpg.c */
- void process_lockspace_changes(void);
-diff --git a/dlm_controld/helper.c b/dlm_controld/helper.c
-index a20965b76195..469dd22095f0 100644
---- a/dlm_controld/helper.c
-+++ b/dlm_controld/helper.c
-@@ -20,7 +20,6 @@
- #include <time.h>
- #include <stdarg.h>
- #include <signal.h>
--#include <ctype.h>
- #include <sys/time.h>
- #include <sys/types.h>
- #include <sys/wait.h>
-@@ -29,9 +28,6 @@
- 
- #include "dlm_daemon.h"
- 
--#define MAX_AV_COUNT 32
--#define ONE_ARG_LEN 256
--
- 
- static int _log_stderr;
- 
-diff --git a/dlm_controld/lib.c b/dlm_controld/lib.c
-index 951eb6561ba9..8cbdd27f15e2 100644
---- a/dlm_controld/lib.c
-+++ b/dlm_controld/lib.c
-@@ -189,7 +189,43 @@ int dlmc_reload_config(void)
- 
- 	rv = do_write(fd, &h, sizeof(h));
- 	close(fd);
-- out:
-+out:
-+	return rv;
-+}
-+
-+int dlmc_set_config(char *command)
-+{
-+	struct dlmc_header h;
-+	char *cmdbuf;
-+	int fd, rv;
-+
-+	cmdbuf = malloc(DLMC_RUN_COMMAND_LEN);
-+	if (!cmdbuf)
-+		return -1;
-+
-+	memset(cmdbuf, 0, DLMC_RUN_COMMAND_LEN);
-+	strncpy(cmdbuf, command, DLMC_RUN_COMMAND_LEN-1);
-+
-+	init_header(&h, DLMC_CMD_SET_CONFIG, NULL, DLMC_RUN_COMMAND_LEN);
-+
-+	fd = do_connect(DLMC_SOCK_PATH);
-+	if (fd < 0) {
-+		rv = fd;
-+		goto out;
-+	}
-+
-+	rv = do_write(fd, &h, sizeof(h));
-+	if (rv < 0)
-+		goto out_close;
-+
-+	rv = do_write(fd, cmdbuf, DLMC_RUN_COMMAND_LEN);
-+	if (rv < 0)
-+		goto out_close;
-+
-+out_close:
-+	close(fd);
-+out:
-+	free(cmdbuf);
- 	return rv;
- }
- 
-diff --git a/dlm_controld/libdlmcontrol.h b/dlm_controld/libdlmcontrol.h
-index ac84e702fb58..a106171b1073 100644
---- a/dlm_controld/libdlmcontrol.h
-+++ b/dlm_controld/libdlmcontrol.h
-@@ -92,6 +92,7 @@ int dlmc_lockspace_nodes(char *lsname, int type, int max, int *count,
- 			 struct dlmc_node *nodes);
- int dlmc_print_status(uint32_t flags);
- int dlmc_reload_config(void);
-+int dlmc_set_config(char *command);
- 
- #define DLMC_RESULT_REGISTER	1
- #define DLMC_RESULT_NOTIFIED	2
-diff --git a/dlm_controld/main.c b/dlm_controld/main.c
-index a49bb0c9b9ad..02fe89bbc60b 100644
---- a/dlm_controld/main.c
-+++ b/dlm_controld/main.c
-@@ -919,17 +919,24 @@ static void copy_options(char *buf, int *len)
- {
- 	struct dlm_option *o;
- 	char tmp[256];
--	int i, ret, pos = 0;
-+	int i, ret, pos = 0, p=5;
- 
- 	for (i = 0; i < dlm_options_max; i++) {
- 		o = &dlm_options[i];
- 
- 		memset(tmp, 0, sizeof(tmp));
- 
-+		if (o->reload)
-+			snprintf(tmp, p+1, "(%c%c) ", '*', o->dynamic_set ? '+' : '-');
-+		else
-+			memset(tmp, ' ', p);
-+
- 		if (o->req_arg == req_arg_str)
--			snprintf(tmp, 255, "%s=%s\n", o->name, o->use_str);
-+			snprintf(tmp+p, 250, "%s=%s\n", o->name, o->use_str);
-+		else if (o->req_arg == req_arg_uint)
-+			snprintf(tmp+p, 250, "%s=%u\n", o->name, o->use_uint);
- 		else
--			snprintf(tmp, 255, "%s=%d\n", o->name, o->use_int);
-+			snprintf(tmp+p, 250, "%s=%d\n", o->name, o->use_int);
- 
- 		if (pos + strlen(tmp) >= LOG_DUMP_SIZE)
- 			break;
-@@ -1234,6 +1241,11 @@ static void process_connection(int ci)
- 		set_opt_file(1);
- 		break;
- 
-+	case DLMC_CMD_SET_CONFIG:
-+		if (extra_len)
-+			set_opt_online(extra, extra_len);
-+		break;
-+
- 	default:
- 		log_error("process_connection %d unknown command %d",
- 			  ci, h.command);
-diff --git a/dlm_tool/main.c b/dlm_tool/main.c
-index 07f020d71a66..5364f7ea22d8 100644
---- a/dlm_tool/main.c
-+++ b/dlm_tool/main.c
-@@ -48,6 +48,7 @@
- #define OP_RUN_LIST			18
- #define OP_DUMP_RUN			19
- #define OP_RELOAD_CONFIG	20
-+#define OP_SET_CONFIG		21
- 
- static char *prog_name;
- static char *lsname;
-@@ -197,7 +198,8 @@ static void print_usage(void)
- 	printf("dlm_tool [command] [options] [name]\n");
- 	printf("\n");
- 	printf("Commands:\n");
--	printf("ls, status, dump, dump_config, reload_config, fence_ack\n");
-+	printf("ls, status, dump, fence_ack\n");
-+	printf("dump_config, reload_config, set_config\n");
- 	printf("log_plock, plocks\n");
- 	printf("join, leave, lockdebug\n");
- 	printf("run, run_start, run_check, run_cancel, run_list\n");
-@@ -370,6 +372,13 @@ static void decode_arguments(int argc, char **argv)
- 			opt_ind = optind + 1;
- 			need_lsname = 0;
- 			break;
-+		} else if (!strncmp(argv[optind], "set_config", 10) &&
-+			   (strlen(argv[optind]) == 10)) {
-+			operation = OP_SET_CONFIG;
-+			opt_ind = optind + 1;
-+			need_lsname = 0;
-+			need_command = 1;
-+			break;
- 		} else if (!strncmp(argv[optind], "plocks", 6) &&
- 			   (strlen(argv[optind]) == 6)) {
- 			operation = OP_PLOCKS;
-@@ -477,8 +486,10 @@ static void decode_arguments(int argc, char **argv)
- 			exit(EXIT_FAILURE);
- 		}
- 
--		strcat(run_command, argv[i]);
--		strcat(run_command, " ");
-+		if (strlen(argv[i])) {
-+			strcat(run_command, argv[i]);
-+			strcat(run_command, " ");
-+		}
- 	}
- }
- 
-@@ -1487,6 +1498,14 @@ static void do_reload_config(void)
- 		printf("Issue reload_config done.\n");
- }
- 
-+static void do_set_config(void)
-+{
-+	if (dlmc_set_config(run_command) < 0)
-+		printf("Issue set_config failed.\n");
-+	else
-+		printf("Issue set_config done.\n");
-+}
-+
- static void do_log_plock(void)
- {
- 	char buf[DLMC_DUMP_SIZE];
-@@ -1589,6 +1608,10 @@ int main(int argc, char **argv)
- 		do_reload_config();
- 		break;
- 
-+	case OP_SET_CONFIG:
-+		do_set_config();
-+		break;
-+
- 	case OP_LOG_PLOCK:
- 		do_log_plock();
- 		break;
--- 
-2.32.0
+found some issues with this patch. I hope I found everything now. I
+think removing that lock is still the way to go and it looks to me
+that it is one of the locks which could be removed by another locking
+mechanism. Whereas this lock is even part of the hotpath of dlm, so
+it's good to have it removed.
 
+On Fri, Sep 24, 2021 at 8:31 PM Alexander Aring <aahringo@redhat.com> wrote:
+>
+> This patch avoids to get the following circular lock dependency warning:
+>
+> [  619.855891] ======================================================
+> [  619.856858] WARNING: possible circular locking dependency detected
+> [  619.857865] 5.14.0-1.el9.x86_64+debug #1 Not tainted
+> [  619.858646] ------------------------------------------------------
+> [  619.859646] dlm_recoverd/3961 is trying to acquire lock:
+> [  619.860478] ffff888019dcd628 (&r->res_mutex){+.+.}-{3:3}, at: _receive_unlock_reply+0x78/0x600 [dlm]
+> [  619.861999]
+> [  619.861999] but task is already holding lock:
+> [  619.862933] ffff88800ee901a8 (&ls->ls_waiters_mutex){+.+.}-{3:3}, at: dlm_recover_waiters_pre+0x72/0xc80 [dlm]
+> [  619.864529]
+> [  619.864529] which lock already depends on the new lock.
+> [  619.864529]
+> [  619.865837]
+> [  619.865837] the existing dependency chain (in reverse order) is:
+> [  619.866993]
+> [  619.866993] -> #1 (&ls->ls_waiters_mutex){+.+.}-{3:3}:
+> [  619.868088]        __lock_acquire+0xb72/0x1870
+> [  619.868861]        lock_acquire+0x1ca/0x570
+> [  619.869554]        __mutex_lock+0x14c/0x1170
+> [  619.870283]        add_to_waiters+0x6a/0x500 [dlm]
+> [  619.871047]        _request_lock+0x39f/0x9f0 [dlm]
+> [  619.871860]        request_lock.part.0+0x1ae/0x220 [dlm]
+> [  619.872713]        dlm_user_request+0x237/0x5a0 [dlm]
+> [  619.873555]        device_user_lock+0x42c/0x660 [dlm]
+> [  619.874366]        device_write+0x5ff/0x8d0 [dlm]
+> [  619.875116]        vfs_write+0x1c7/0x850
+> [  619.875762]        ksys_write+0xf9/0x1d0
+> [  619.876385]        do_syscall_64+0x3b/0x90
+> [  619.877034]        entry_SYSCALL_64_after_hwframe+0x44/0xae
+> [  619.877972]
+> [  619.877972] -> #0 (&r->res_mutex){+.+.}-{3:3}:
+> [  619.878931]        check_prev_add+0x15e/0x20f0
+> [  619.879699]        validate_chain+0xaba/0xde0
+> [  619.880404]        __lock_acquire+0xb72/0x1870
+> [  619.881100]        lock_acquire+0x1ca/0x570
+> [  619.881823]        __mutex_lock+0x14c/0x1170
+> [  619.882506]        _receive_unlock_reply+0x78/0x600 [dlm]
+> [  619.883365]        dlm_recover_waiters_pre+0x6e8/0xc80 [dlm]
+> [  619.884262]        ls_recover.isra.0+0x517/0x1090 [dlm]
+> [  619.885087]        dlm_recoverd+0x348/0x430 [dlm]
+> [  619.885844]        kthread+0x329/0x3e0
+> [  619.886456]        ret_from_fork+0x22/0x30
+> [  619.887113]
+> [  619.887113] other info that might help us debug this:
+> [  619.887113]
+> [  619.888376]  Possible unsafe locking scenario:
+> [  619.888376]
+> [  619.889359]        CPU0                    CPU1
+> [  619.890064]        ----                    ----
+> [  619.890775]   lock(&ls->ls_waiters_mutex);
+> [  619.891436]                                lock(&r->res_mutex);
+> [  619.892378]                                lock(&ls->ls_waiters_mutex);
+> [  619.893436]   lock(&r->res_mutex);
+> [  619.893991]
+> [  619.893991]  *** DEADLOCK ***
+> [  619.893991]
+> [  619.894930] 3 locks held by dlm_recoverd/3961:
+> [  619.895647]  #0: ffff88800ee90d78 (&ls->ls_in_recovery){++++}-{3:3}, at: dlm_recoverd+0x1d1/0x430 [dlm]
+> [  619.897173]  #1: ffff88800ee90c68 (&ls->ls_recoverd_active){+.+.}-{3:3}, at: ls_recover.isra.0+0xf9/0x1090 [dlm]
+> [  619.898759]  #2: ffff88800ee901a8 (&ls->ls_waiters_mutex){+.+.}-{3:3}, at: dlm_recover_waiters_pre+0x72/0xc80 [dlm]
+> [  619.900439]
+> [  619.900439] stack backtrace:
+> [  619.901145] CPU: 1 PID: 3961 Comm: dlm_recoverd Not tainted 5.14.0-1.el9.x86_64+debug #1
+> [  619.902461] Hardware name: Red Hat KVM, BIOS 0.5.1 01/01/2011
+> [  619.903390] Call Trace:
+> [  619.903808]  dump_stack_lvl+0x57/0x7d
+> [  619.904493]  check_noncircular+0x26a/0x310
+> [  619.905155]  ? print_circular_bug+0x1f0/0x1f0
+> [  619.905839]  ? alloc_chain_hlocks+0x1de/0x530
+> [  619.906528]  check_prev_add+0x15e/0x20f0
+> [  619.907155]  validate_chain+0xaba/0xde0
+> [  619.907787]  ? check_prev_add+0x20f0/0x20f0
+> [  619.908489]  __lock_acquire+0xb72/0x1870
+> [  619.909147]  lock_acquire+0x1ca/0x570
+> [  619.909730]  ? _receive_unlock_reply+0x78/0x600 [dlm]
+> [  619.910554]  ? rcu_read_unlock+0x40/0x40
+> [  619.911183]  ? __lock_acquired+0x1d2/0x8c0
+> [  619.911826]  ? dlm_recoverd+0x348/0x430 [dlm]
+> [  619.912541]  __mutex_lock+0x14c/0x1170
+> [  619.913160]  ? _receive_unlock_reply+0x78/0x600 [dlm]
+> [  619.913997]  ? _receive_unlock_reply+0x78/0x600 [dlm]
+> [  619.914838]  ? mutex_lock_io_nested+0xfc0/0xfc0
+> [  619.915552]  ? dlm_recover_waiters_pre+0x72/0xc80 [dlm]
+> [  619.916380]  ? io_schedule_timeout+0x150/0x150
+> [  619.917072]  ? mutex_lock_io_nested+0xfc0/0xfc0
+> [  619.917833]  ? lockdep_hardirqs_on_prepare.part.0+0x19a/0x350
+> [  619.918738]  ? _receive_unlock_reply+0x78/0x600 [dlm]
+> [  619.919568]  _receive_unlock_reply+0x78/0x600 [dlm]
+> [  619.920352]  dlm_recover_waiters_pre+0x6e8/0xc80 [dlm]
+> [  619.921186]  ls_recover.isra.0+0x517/0x1090 [dlm]
+> [  619.921941]  ? dlm_clear_toss+0x280/0x280 [dlm]
+> [  619.922666]  ? dlm_recoverd+0x33d/0x430 [dlm]
+> [  619.923384]  dlm_recoverd+0x348/0x430 [dlm]
+> [  619.924053]  ? ls_recover.isra.0+0x1090/0x1090 [dlm]
+> [  619.924896]  kthread+0x329/0x3e0
+> [  619.925422]  ? _raw_spin_unlock_irq+0x24/0x30
+> [  619.926100]  ? set_kthread_struct+0x100/0x100
+> [  619.926788]  ret_from_fork+0x22/0x30
+>
+> The problem here what this warning is telling us is pretty simple. We
+> have sometimes a different lock order between
+> "lock(&ls->ls_waiters_mutex);" and "lock(&r->res_mutex);" which could
+> occur a deadlock.
+>
+> This warning is a false-positive because while
+> "dlm_recover_waiters_pre()" runs every lock operation is stopped by
+> "ls->ls_in_recovery" lock which is held during
+> "dlm_recover_waiters_pre()". However it's annoying to see this message
+> and this patch is avoiding the message by removing the
+> ls->ls_waiters_mutex lock and replacing it by sleepable rcu mechanism.
+> There is one problem to solve, with srcu it's possible that we have
+> multiple readers of "ls->ls_waiters" list. Concurrent iterations are
+> not anymore protected by "ls->ls_waiters_mutex". The assumption is here
+> that the "ls->ls_waiters_mutex" lock is used before to mostly protect list
+> manipulations while iteration and this can be easily replaced by rcu.
+>
+> The following functions are problematic and how I argument why it's okay
+> to have possible lkb access while iterate which was previously protected
+> by "ls->ls_waiters_mutex":
+>
+> - waiters_read()
+>
+> Only used for debugging, the srcu_read_lock() should prevent freeing of
+> the resource while iterating.
+>
+> - dlm_recover_waiters_pre()
+>
+> As note above, this function can't concurrent run with
+> _remove_from_waiters() or dlm_recover_waiters_post() which accessing the
+> same fields of a lkb. It's protected by "ls->ls_in_recovery".
+>
+> - dlm_adjust_timeouts()
+> - find_resend_waiter()
+>
+> This is to access lkb_wait_time, I introduced the lkb_wait_time_lock to
+> protect read/updates while others might using it. This behaviour can maybe
+> improved by deference it once and update atomically.
+>
+> - release_lockspace()
+>
+> To be sure no reader is running while freeing lkbs by
+> "idr_for_each(&ls->ls_lkbidr, lkb_idr_free, ls);" we call
+> "synchronize_srcu(&ls->ls_lkb_srcu);cleanup_srcu_struct(&ls->ls_lkb_srcu);"
+> before to avoid use after free.
+>
+> - _remove_from_waiters()
+
+I forgot "add_to_waiters()" here, I added:
+
+WARN_ON_ONCE(!mutex_is_locked(&lkb->lkb_resource->res_mutex));
+
+at the beginning of "_remove_from_waiters()" and "add_to_waiters()" to
+be sure this mutex is held. For "dlm_recover_waiters_post()" it's
+clear that res_mutex is held.
+
+> - dlm_recover_waiters_post()
+>
+> Those function can be called concurrent and mostly accessing the same
+> fields. In this case the r->res_mutex of the resource which belongs to
+> the lkb is held and should protecting that those fields are protected by
+> this lock.
+>
+> All references which are held and ls->ls_lkb_srcu is not held is
+> assumed to work as previously and program logic prevents that a lkb
+> can't be freed.
+>
+> Reported-by: Nate Straz <nstraz@redhat.com>
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> ---
+>  fs/dlm/debug_fs.c     |   7 +--
+>  fs/dlm/dlm_internal.h |   6 ++-
+>  fs/dlm/lock.c         | 109 +++++++++++++++++++++++-------------------
+>  fs/dlm/lockspace.c    |   9 +++-
+>  4 files changed, 76 insertions(+), 55 deletions(-)
+>
+> diff --git a/fs/dlm/debug_fs.c b/fs/dlm/debug_fs.c
+> index 47e9d57e4cae..d51da780ea12 100644
+> --- a/fs/dlm/debug_fs.c
+> +++ b/fs/dlm/debug_fs.c
+> @@ -704,12 +704,13 @@ static ssize_t waiters_read(struct file *file, char __user *userbuf,
+>         struct dlm_ls *ls = file->private_data;
+>         struct dlm_lkb *lkb;
+>         size_t len = DLM_DEBUG_BUF_LEN, pos = 0, ret, rv;
+> +       int idx;
+>
+>         mutex_lock(&debug_buf_lock);
+> -       mutex_lock(&ls->ls_waiters_mutex);
+>         memset(debug_buf, 0, sizeof(debug_buf));
+>
+> -       list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
+> +       idx = srcu_read_lock(&ls->ls_lkb_srcu);
+> +       list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
+>                 ret = snprintf(debug_buf + pos, len - pos, "%x %d %d %s\n",
+>                                lkb->lkb_id, lkb->lkb_wait_type,
+>                                lkb->lkb_nodeid, lkb->lkb_resource->res_name);
+> @@ -717,7 +718,7 @@ static ssize_t waiters_read(struct file *file, char __user *userbuf,
+>                         break;
+>                 pos += ret;
+>         }
+> -       mutex_unlock(&ls->ls_waiters_mutex);
+> +       srcu_read_unlock(&ls->ls_lkb_srcu, idx);
+>
+>         rv = simple_read_from_buffer(userbuf, count, ppos, debug_buf, pos);
+>         mutex_unlock(&debug_buf_lock);
+> diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+> index 49cf83e04c80..cae06a26fedb 100644
+> --- a/fs/dlm/dlm_internal.h
+> +++ b/fs/dlm/dlm_internal.h
+> @@ -257,6 +257,7 @@ struct dlm_lkb {
+>         struct list_head        lkb_ownqueue;   /* list of locks for a process */
+>         struct list_head        lkb_time_list;
+>         ktime_t                 lkb_timestamp;
+> +       spinlock_t              lkb_wait_time_lock;
+>         ktime_t                 lkb_wait_time;
+>         unsigned long           lkb_timeout_cs;
+>
+> @@ -279,6 +280,7 @@ struct dlm_lkb {
+>                 void                    *lkb_astparam;  /* caller's ast arg */
+>                 struct dlm_user_args    *lkb_ua;
+>         };
+> +       struct rcu_head         rcu;
+>  };
+>
+>  /*
+> @@ -568,7 +570,9 @@ struct dlm_ls {
+>         struct dlm_rsbtable     *ls_rsbtbl;
+>         uint32_t                ls_rsbtbl_size;
+>
+> -       struct mutex            ls_waiters_mutex;
+> +       struct srcu_struct      ls_lkb_srcu;
+> +
+> +       spinlock_t              ls_waiters_lock;
+>         struct list_head        ls_waiters;     /* lkbs needing a reply */
+>
+>         struct mutex            ls_orphans_mutex;
+> diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+> index c502c065d007..dbd3ef8a94b6 100644
+> --- a/fs/dlm/lock.c
+> +++ b/fs/dlm/lock.c
+> @@ -1196,6 +1196,7 @@ static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
+>         INIT_LIST_HEAD(&lkb->lkb_cb_list);
+>         mutex_init(&lkb->lkb_cb_mutex);
+>         INIT_WORK(&lkb->lkb_cb_work, dlm_callback_work);
+> +       spin_lock_init(&lkb->lkb_wait_time_lock);
+>
+>         idr_preload(GFP_NOFS);
+>         spin_lock(&ls->ls_lkbidr_spin);
+> @@ -1239,6 +1240,20 @@ static void kill_lkb(struct kref *kref)
+>         DLM_ASSERT(!lkb->lkb_status, dlm_print_lkb(lkb););
+>  }
+>
+> +
+> +static void _dlm_free_lkb(struct rcu_head *rcu)
+> +{
+> +       struct dlm_lkb *lkb = container_of(rcu, struct dlm_lkb, rcu);
+> +
+> +       detach_lkb(lkb);
+> +
+
+There is a race. We need to do it here because several ls->ls_waiters
+readers are dereferencing  e.g. "lkb->lkb_resource->res_name"
+debug_fs.c without holding ref counters.
+But when it reaches zero we move the rsb to the toss list which races
+with "dlm_clear_toss()". We need to be sure that queued "call_srcu()"
+functions are done before that. Otherwise we get "dlm_create_root_list
+toss not empty" messages. It is solved by calling "srcu_barrier()" in
+"dlm_clear_toss()" before clearing all rsb entries from the toss list.
+We are then sure that all pending "call_srcu()" for a
+"_dlm_free_lkb()" are done before clearing the toss list and there
+can't be a "rb_insert" into the toss list anymore.
+
+After that I never saw "dlm_create_root_list toss not empty" again.
+
+> +       /* for local/process lkbs, lvbptr points to caller's lksb */
+> +       if (lkb->lkb_lvbptr && is_master_copy(lkb))
+> +               dlm_free_lvb(lkb->lkb_lvbptr);
+> +
+> +       dlm_free_lkb(lkb);
+> +}
+> +
+>  /* __put_lkb() is used when an lkb may not have an rsb attached to
+>     it so we need to provide the lockspace explicitly */
+>
+> @@ -1251,12 +1266,7 @@ static int __put_lkb(struct dlm_ls *ls, struct dlm_lkb *lkb)
+>                 idr_remove(&ls->ls_lkbidr, lkid);
+>                 spin_unlock(&ls->ls_lkbidr_spin);
+>
+> -               detach_lkb(lkb);
+> -
+> -               /* for local/process lkbs, lvbptr points to caller's lksb */
+> -               if (lkb->lkb_lvbptr && is_master_copy(lkb))
+> -                       dlm_free_lvb(lkb->lkb_lvbptr);
+> -               dlm_free_lkb(lkb);
+> +               call_srcu(&ls->ls_lkb_srcu, &lkb->rcu, _dlm_free_lkb);
+>                 return 1;
+>         } else {
+>                 spin_unlock(&ls->ls_lkbidr_spin);
+> @@ -1399,24 +1409,30 @@ void dlm_scan_waiters(struct dlm_ls *ls)
+>         u32 debug_expired = 0;
+>         int num_nodes = 0;
+>         int *warned = NULL;
+> +       int idx;
+>
+>         if (!dlm_config.ci_waitwarn_us)
+>                 return;
+>
+> -       mutex_lock(&ls->ls_waiters_mutex);
+> -
+> -       list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
+> -               if (!lkb->lkb_wait_time)
+> +       idx = srcu_read_lock(&ls->ls_lkb_srcu);
+> +       list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
+> +               spin_lock(&lkb->lkb_wait_time_lock);
+> +               if (!lkb->lkb_wait_time) {
+> +                       spin_unlock(&lkb->lkb_wait_time_lock);
+>                         continue;
+> +               }
+>
+>                 debug_scanned++;
+>
+>                 us = ktime_to_us(ktime_sub(ktime_get(), lkb->lkb_wait_time));
+>
+> -               if (us < dlm_config.ci_waitwarn_us)
+> +               if (us < dlm_config.ci_waitwarn_us) {
+> +                       spin_unlock(&lkb->lkb_wait_time_lock);
+>                         continue;
+> +               }
+>
+>                 lkb->lkb_wait_time = 0;
+> +               spin_unlock(&lkb->lkb_wait_time_lock);
+>
+>                 debug_expired++;
+>                 if (us > debug_maxus)
+> @@ -1435,7 +1451,7 @@ void dlm_scan_waiters(struct dlm_ls *ls)
+>                           "node %d", lkb->lkb_id, (long long)us,
+>                           dlm_config.ci_waitwarn_us, lkb->lkb_wait_nodeid);
+>         }
+> -       mutex_unlock(&ls->ls_waiters_mutex);
+> +       srcu_read_unlock(&ls->ls_lkb_srcu, idx);
+>         kfree(warned);
+>
+>         if (debug_expired)
+> @@ -1452,8 +1468,6 @@ static int add_to_waiters(struct dlm_lkb *lkb, int mstype, int to_nodeid)
+>         struct dlm_ls *ls = lkb->lkb_resource->res_ls;
+>         int error = 0;
+>
+> -       mutex_lock(&ls->ls_waiters_mutex);
+> -
+>         if (is_overlap_unlock(lkb) ||
+>             (is_overlap_cancel(lkb) && (mstype == DLM_MSG_CANCEL))) {
+>                 error = -EINVAL;
+> @@ -1487,16 +1501,19 @@ static int add_to_waiters(struct dlm_lkb *lkb, int mstype, int to_nodeid)
+>
+>         lkb->lkb_wait_count++;
+>         lkb->lkb_wait_type = mstype;
+> +       spin_lock(&ls->ls_waiters_lock);
+>         lkb->lkb_wait_time = ktime_get();
+> +       spin_unlock(&ls->ls_waiters_lock);
+
+should be "&lkb->lkb_wait_time_lock".
+
+>         lkb->lkb_wait_nodeid = to_nodeid; /* for debugging */
+>         hold_lkb(lkb);
+> -       list_add(&lkb->lkb_wait_reply, &ls->ls_waiters);
+> +       spin_lock(&ls->ls_waiters_lock);
+> +       list_add_rcu(&lkb->lkb_wait_reply, &ls->ls_waiters);
+> +       spin_unlock(&ls->ls_waiters_lock);
+>   out:
+>         if (error)
+>                 log_error(ls, "addwait error %x %d flags %x %d %d %s",
+>                           lkb->lkb_id, error, lkb->lkb_flags, mstype,
+>                           lkb->lkb_wait_type, lkb->lkb_resource->res_name);
+> -       mutex_unlock(&ls->ls_waiters_mutex);
+>         return error;
+>  }
+>
+> @@ -1584,21 +1601,18 @@ static int _remove_from_waiters(struct dlm_lkb *lkb, int mstype,
+>
+>         lkb->lkb_flags &= ~DLM_IFL_RESEND;
+>         lkb->lkb_wait_count--;
+> -       if (!lkb->lkb_wait_count)
+> -               list_del_init(&lkb->lkb_wait_reply);
+> +       if (!lkb->lkb_wait_count) {
+> +               spin_lock(&ls->ls_waiters_lock);
+> +               list_del_rcu(&lkb->lkb_wait_reply);
+> +               spin_unlock(&ls->ls_waiters_lock);
+> +       }
+>         unhold_lkb(lkb);
+>         return 0;
+>  }
+>
+>  static int remove_from_waiters(struct dlm_lkb *lkb, int mstype)
+>  {
+> -       struct dlm_ls *ls = lkb->lkb_resource->res_ls;
+> -       int error;
+> -
+> -       mutex_lock(&ls->ls_waiters_mutex);
+> -       error = _remove_from_waiters(lkb, mstype, NULL);
+> -       mutex_unlock(&ls->ls_waiters_mutex);
+> -       return error;
+> +       return _remove_from_waiters(lkb, mstype, NULL);
+>  }
+>
+>  /* Handles situations where we might be processing a "fake" or "stub" reply in
+> @@ -1606,15 +1620,7 @@ static int remove_from_waiters(struct dlm_lkb *lkb, int mstype)
+>
+>  static int remove_from_waiters_ms(struct dlm_lkb *lkb, struct dlm_message *ms)
+>  {
+> -       struct dlm_ls *ls = lkb->lkb_resource->res_ls;
+> -       int error;
+> -
+> -       if (ms->m_flags != DLM_IFL_STUB_MS)
+> -               mutex_lock(&ls->ls_waiters_mutex);
+> -       error = _remove_from_waiters(lkb, ms->m_type, ms);
+> -       if (ms->m_flags != DLM_IFL_STUB_MS)
+> -               mutex_unlock(&ls->ls_waiters_mutex);
+> -       return error;
+> +       return _remove_from_waiters(lkb, ms->m_type, ms);
+>  }
+>
+>  /* If there's an rsb for the same resource being removed, ensure
+> @@ -1922,6 +1928,7 @@ void dlm_adjust_timeouts(struct dlm_ls *ls)
+>  {
+>         struct dlm_lkb *lkb;
+>         u64 adj_us = jiffies_to_usecs(jiffies - ls->ls_recover_begin);
+> +       int idx;
+>
+>         ls->ls_recover_begin = 0;
+>         mutex_lock(&ls->ls_timeout_mutex);
+> @@ -1932,12 +1939,14 @@ void dlm_adjust_timeouts(struct dlm_ls *ls)
+>         if (!dlm_config.ci_waitwarn_us)
+>                 return;
+>
+> -       mutex_lock(&ls->ls_waiters_mutex);
+> -       list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
+> +       idx = srcu_read_lock(&ls->ls_lkb_srcu);
+> +       spin_lock(&lkb->lkb_wait_time_lock);
+> +       list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
+>                 if (ktime_to_us(lkb->lkb_wait_time))
+>                         lkb->lkb_wait_time = ktime_get();
+>         }
+> -       mutex_unlock(&ls->ls_waiters_mutex);
+> +       spin_lock(&lkb->lkb_wait_time_lock);
+> +       srcu_read_unlock(&ls->ls_lkb_srcu, idx);
+>  }
+>
+>  /* lkb is master or local copy */
+> @@ -5116,18 +5125,17 @@ static int waiter_needs_recovery(struct dlm_ls *ls, struct dlm_lkb *lkb,
+>
+>  void dlm_recover_waiters_pre(struct dlm_ls *ls)
+>  {
+> -       struct dlm_lkb *lkb, *safe;
+>         struct dlm_message *ms_stub;
+>         int wait_type, stub_unlock_result, stub_cancel_result;
+> -       int dir_nodeid;
+> +       struct dlm_lkb *lkb;
+> +       int dir_nodeid, idx;
+>
+>         ms_stub = kmalloc(sizeof(*ms_stub), GFP_KERNEL);
+>         if (!ms_stub)
+>                 return;
+>
+> -       mutex_lock(&ls->ls_waiters_mutex);
+> -
+> -       list_for_each_entry_safe(lkb, safe, &ls->ls_waiters, lkb_wait_reply) {
+> +       idx = srcu_read_lock(&ls->ls_lkb_srcu);
+> +       list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
+>
+>                 dir_nodeid = dlm_dir_nodeid(lkb->lkb_resource);
+>
+> @@ -5221,7 +5229,8 @@ void dlm_recover_waiters_pre(struct dlm_ls *ls)
+>                 }
+>                 schedule();
+>         }
+> -       mutex_unlock(&ls->ls_waiters_mutex);
+> +       srcu_read_unlock(&ls->ls_lkb_srcu, idx);
+> +
+>         kfree(ms_stub);
+>  }
+>
+> @@ -5230,15 +5239,13 @@ static struct dlm_lkb *find_resend_waiter(struct dlm_ls *ls)
+>         struct dlm_lkb *lkb;
+>         int found = 0;
+>
+> -       mutex_lock(&ls->ls_waiters_mutex);
+> -       list_for_each_entry(lkb, &ls->ls_waiters, lkb_wait_reply) {
+> +       list_for_each_entry_rcu(lkb, &ls->ls_waiters, lkb_wait_reply) {
+>                 if (lkb->lkb_flags & DLM_IFL_RESEND) {
+>                         hold_lkb(lkb);
+>                         found = 1;
+>                         break;
+>                 }
+>         }
+> -       mutex_unlock(&ls->ls_waiters_mutex);
+>
+>         if (!found)
+>                 lkb = NULL;
+> @@ -5265,8 +5272,9 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
+>  {
+>         struct dlm_lkb *lkb;
+>         struct dlm_rsb *r;
+> -       int error = 0, mstype, err, oc, ou;
+> +       int error = 0, mstype, err, oc, ou, idx;
+>
+> +       idx = srcu_read_lock(&ls->ls_lkb_srcu);
+>         while (1) {
+>                 if (dlm_locking_stopped(ls)) {
+>                         log_debug(ls, "recover_waiters_post aborted");
+> @@ -5302,9 +5310,9 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
+>                 lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
+>                 lkb->lkb_wait_type = 0;
+>                 lkb->lkb_wait_count = 0;
+> -               mutex_lock(&ls->ls_waiters_mutex);
+> -               list_del_init(&lkb->lkb_wait_reply);
+> -               mutex_unlock(&ls->ls_waiters_mutex);
+> +               spin_lock(&ls->ls_waiters_lock);
+> +               list_del_rcu(&lkb->lkb_wait_reply);
+> +               spin_unlock(&ls->ls_waiters_lock);
+>                 unhold_lkb(lkb); /* for waiters list */
+>
+>                 if (oc || ou) {
+> @@ -5353,6 +5361,7 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
+>                 put_rsb(r);
+>                 dlm_put_lkb(lkb);
+>         }
+> +       srcu_read_unlock(&ls->ls_lkb_srcu, idx);
+>
+>         return error;
+>  }
+> diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+> index 2896f96cf2d3..46e68219a9e6 100644
+> --- a/fs/dlm/lockspace.c
+> +++ b/fs/dlm/lockspace.c
+> @@ -524,7 +524,8 @@ static int new_lockspace(const char *name, const char *cluster,
+>         spin_lock_init(&ls->ls_lkbidr_spin);
+>
+>         INIT_LIST_HEAD(&ls->ls_waiters);
+> -       mutex_init(&ls->ls_waiters_mutex);
+> +       init_srcu_struct(&ls->ls_lkb_srcu);
+> +       spin_lock_init(&ls->ls_waiters_lock);
+>         INIT_LIST_HEAD(&ls->ls_orphans);
+>         mutex_init(&ls->ls_orphans_mutex);
+>         INIT_LIST_HEAD(&ls->ls_timeout);
+> @@ -810,6 +811,12 @@ static int release_lockspace(struct dlm_ls *ls, int force)
+>         idr_destroy(&ls->ls_recover_idr);
+>         kfree(ls->ls_recover_buf);
+>
+> +       /*
+> +        * wait all readers of ls_waiters and srcu callers are left before free
+> +        */
+> +       synchronize_srcu(&ls->ls_lkb_srcu);
+
+should be "srcu_barrier()"
+
+- Alex
 
