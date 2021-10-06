@@ -1,60 +1,82 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 46462422F52
-	for <lists+cluster-devel@lfdr.de>; Tue,  5 Oct 2021 19:38:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1633455483;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=V5/yT9hxXyjQ4bYIaXX2OPoaRT3QG95zvt7eF60efuU=;
-	b=FG9euMxB0rpfVxG4l8ElBIkbR+mC8TVyzqK7kjXWn1VuBeTWwi9KtMrHcOPIGzBcl6aEGh
-	r8G1zUL6Sfjz9KwaYBkyXJido/uj8TR81bCOW//ewEGBY1AeiLeLZraZCjZmJ0aXE33i2z
-	IhSfOMQxK50+4YZNjNbRhdKH96cAZ28=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id BA2A0423A8D
+	for <lists+cluster-devel@lfdr.de>; Wed,  6 Oct 2021 11:29:56 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-31-JyNkCMgfN0WYmcnuB6wK-w-1; Tue, 05 Oct 2021 13:38:02 -0400
-X-MC-Unique: JyNkCMgfN0WYmcnuB6wK-w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-486-vJXDHmwHPjK8ZPNxhZUT1w-1; Wed, 06 Oct 2021 05:29:54 -0400
+X-MC-Unique: vJXDHmwHPjK8ZPNxhZUT1w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1189D1084684;
-	Tue,  5 Oct 2021 17:38:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9F4760C13;
-	Tue,  5 Oct 2021 17:37:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F57419057A1;
+	Wed,  6 Oct 2021 09:29:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 189F760853;
+	Wed,  6 Oct 2021 09:29:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7108C1800B9E;
-	Tue,  5 Oct 2021 17:37:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E6A04E58F;
+	Wed,  6 Oct 2021 09:29:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 195HYmR4028239 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 5 Oct 2021 13:34:48 -0400
+	id 1968oYIn018001 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 6 Oct 2021 04:50:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B69B7100763D; Tue,  5 Oct 2021 17:34:48 +0000 (UTC)
+	id F2D101111C7A; Wed,  6 Oct 2021 08:50:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
-	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 577A9100164A;
-	Tue,  5 Oct 2021 17:34:48 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Tue,  5 Oct 2021 13:34:10 -0400
-Message-Id: <20211005173410.4004891-2-aahringo@redhat.com>
-In-Reply-To: <20211005173410.4004891-1-aahringo@redhat.com>
-References: <20211005173410.4004891-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C90701111C73
+	for <cluster-devel@redhat.com>; Wed,  6 Oct 2021 08:50:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27EF7106655B
+	for <cluster-devel@redhat.com>; Wed,  6 Oct 2021 08:50:20 +0000 (UTC)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+	[209.85.215.172]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-586-xWKAhxVaNnSM5Ewm4OR4Mw-1; Wed, 06 Oct 2021 04:50:18 -0400
+X-MC-Unique: xWKAhxVaNnSM5Ewm4OR4Mw-1
+Received: by mail-pg1-f172.google.com with SMTP id m21so1846138pgu.13;
+	Wed, 06 Oct 2021 01:50:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=LxKB3Z4BeksT4+ri8p3FaoCWWPOgr+gZjaYw4P86Xr8=;
+	b=20lnBhJbCJh0H6DFdQkhLKtTCOMhXy5YTubUlSLNZhheBS89pybEyP7QD5HZpgi/XQ
+	WBnvU2KGa1I6Qx0VKwNn1xl05++bTUQi1lflUz0Lcq2S6xOlQhlVZvD0tV+EGeA/MYw9
+	uYX5h5Gd+ZoLtNfHoDs7KvcDj4gFDIFnpvTqXOKGq6jlOY1WED5bRCNTMDbr/OMnmgK1
+	dnI9ukCAHqfuRYfuTl0YpX3RBSC3xImvIPQxczGIM2KgUmIRgYNvs76PxP4AguhIKFMf
+	5fA9B8rmBPS8SErX8wR1Q1Xs77pfdruTP7FS8q3MXcCpWPF4OXJOOmFoaQd0IWeMWleZ
+	5EYw==
+X-Gm-Message-State: AOAM533ZpeCAoQTpEcN67o4AwwxmOOFRKJqoz5R+Eo7uDwz44+FJiRd9
+	VeFZ1V4P94viYden3Hw/CdUok6txpCPnaQ/MwVs1nIXLp/RRkio=
+X-Google-Smtp-Source: ABdhPJyoNc3LWpNUEkZVvte9LOhwYpwfuiD10xHcG/aqb9r50ClL/HDoTtO5p2AU8a3RMnCXreNY8w2lr0DQtmIdL4g=
+X-Received: by 2002:a65:6389:: with SMTP id h9mr19768206pgv.83.1633510216787; 
+	Wed, 06 Oct 2021 01:50:16 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+From: Hao Sun <sunhao.th@gmail.com>
+Date: Wed, 6 Oct 2021 16:50:05 +0800
+Message-ID: <CACkBjsbEcdArgkRDy0QVegPoDCUPNGDikPCa_hBprEQb-6TThQ@mail.gmail.com>
+To: rpeterso@redhat.com, agruenba@redhat.com, cluster-devel@redhat.com,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	akpm@linux-foundation.org, Linux MM <linux-mm@kvack.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm/next 2/2] fs: dlm: use
-	dlm_recovery_stopped in condition
+X-Mailman-Approved-At: Wed, 06 Oct 2021 05:22:48 -0400
+Subject: [Cluster-devel] WARNING in __set_page_dirty
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,69 +90,78 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="UTF-8"
 
-This patch will change to evaluate the dlm_recovery_stopped() in the
-condition of the if branch instead fetch it before evaluating the
-condition. As this is an atomic test-set operation it should be
-evaluated in the condition itself.
+Hello,
 
-Reported-by: Andreas Gruenbacher <agruenba@redhat.com>
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/dir.c      | 3 +--
- fs/dlm/member.c   | 3 +--
- fs/dlm/recoverd.c | 3 +--
- 3 files changed, 3 insertions(+), 6 deletions(-)
+When using Healer to fuzz the latest Linux kernel, the following crash
+was triggered.
 
-diff --git a/fs/dlm/dir.c b/fs/dlm/dir.c
-index 45ebbe602bbf..b6692f81ec83 100644
---- a/fs/dlm/dir.c
-+++ b/fs/dlm/dir.c
-@@ -84,8 +84,7 @@ int dlm_recover_directory(struct dlm_ls *ls)
- 
- 		for (;;) {
- 			int left;
--			error = dlm_recovery_stopped(ls);
--			if (error) {
-+			if (dlm_recovery_stopped(ls)) {
- 				error = -EINTR;
- 				goto out_free;
- 			}
-diff --git a/fs/dlm/member.c b/fs/dlm/member.c
-index 3122c5a718c4..7eca9148d25c 100644
---- a/fs/dlm/member.c
-+++ b/fs/dlm/member.c
-@@ -442,8 +442,7 @@ static int ping_members(struct dlm_ls *ls)
- 	int error = 0;
- 
- 	list_for_each_entry(memb, &ls->ls_nodes, list) {
--		error = dlm_recovery_stopped(ls);
--		if (error) {
-+		if (dlm_recovery_stopped(ls)) {
- 			error = -EINTR;
- 			break;
- 		}
-diff --git a/fs/dlm/recoverd.c b/fs/dlm/recoverd.c
-index 62642dc67c2d..3ccb2395b663 100644
---- a/fs/dlm/recoverd.c
-+++ b/fs/dlm/recoverd.c
-@@ -129,8 +129,7 @@ static int ls_recover(struct dlm_ls *ls, struct dlm_recover *rv)
- 
- 	dlm_recover_waiters_pre(ls);
- 
--	error = dlm_recovery_stopped(ls);
--	if (error) {
-+	if (dlm_recovery_stopped(ls)) {
- 		error = -EINTR;
- 		goto fail;
- 	}
--- 
-2.27.0
+HEAD commit: 0513e464f900 Merge tag 'perf-tools-fixes-for-v5.15-2021-09-27'
+git tree: upstream
+console output:
+https://drive.google.com/file/d/1Tqtv5Qcx5LDPwnv7b2uJS2bilqpGfipG/view?usp=sharing
+kernel config: https://drive.google.com/file/d/1Jqhc4DpCVE8X7d-XBdQnrMoQzifTG5ho/view?usp=sharing
+
+If you fix this issue, please add the following tag to the commit:
+Reported-by: Hao Sun <sunhao.th@gmail.com>
+
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 19902 at ./include/linux/backing-dev.h:286
+inode_to_wb include/linux/backing-dev.h:283 [inline]
+WARNING: CPU: 0 PID: 19902 at ./include/linux/backing-dev.h:286
+account_page_dirtied mm/page-writeback.c:2452 [inline]
+WARNING: CPU: 0 PID: 19902 at ./include/linux/backing-dev.h:286
+__set_page_dirty+0x50b/0x6e0 mm/page-writeback.c:2500
+Modules linked in:
+CPU: 0 PID: 19902 Comm: syz-executor Not tainted 5.15.0-rc3+ #21
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+rel-1.12.0-59-gc9ba5276e321-prebuilt.qemu.org 04/01/2014
+RIP: 0010:inode_to_wb include/linux/backing-dev.h:283 [inline]
+RIP: 0010:account_page_dirtied mm/page-writeback.c:2452 [inline]
+RIP: 0010:__set_page_dirty+0x50b/0x6e0 mm/page-writeback.c:2500
+Code: fc ff ff e8 d7 0a f1 ff 49 8b 87 a8 01 00 00 be ff ff ff ff 48
+8d 78 70 e8 a2 42 de 02 85 c0 0f 85 18 fc ff ff e8 b5 0a f1 ff <0f> 0b
+e9 0c fc ff ff e8 a9 0a f1 ff 48 89 ef e8 f1 ea d8 00 48 8b
+RSP: 0018:ffffc90003e7bd08 EFLAGS: 00010093
+RAX: 0000000000000000 RBX: ffffea000083a140 RCX: 0000000000000000
+RDX: ffff88810e1b8000 RSI: ffffffff814686ab RDI: ffffffff853ccbb6
+RBP: ffff88800ce0bec8 R08: 0000000000000001 R09: 0000000000000000
+R10: ffffc90003e7bbb8 R11: 0000000000000003 R12: ffff8881100ecc98
+R13: ffff8881045ac000 R14: 0000000000000293 R15: ffff88800ce0bec8
+FS:  00007f72d08c8700(0000) GS:ffff88807dc00000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000003 CR3: 000000001a0a6000 CR4: 0000000000750ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+PKRU: 55555554
+Call Trace:
+ mark_buffer_dirty+0x1d4/0x2b0 fs/buffer.c:1108
+ gfs2_unpin+0x74/0x460 fs/gfs2/lops.c:111
+ buf_lo_after_commit+0x6b/0x80 fs/gfs2/lops.c:750
+ lops_after_commit fs/gfs2/lops.h:49 [inline]
+ gfs2_log_flush+0x9ba/0x1050 fs/gfs2/log.c:1108
+ gfs2_sync_fs+0x3c/0x50 fs/gfs2/super.c:644
+ sync_fs_one_sb+0x40/0x50 fs/sync.c:81
+ iterate_supers+0xa7/0x130 fs/super.c:695
+ ksys_sync+0x60/0xc0 fs/sync.c:116
+ __do_sys_sync+0xa/0x10 fs/sync.c:125
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x34/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x200008ca
+Code: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 98 4a 2a e9 2c b8 b6 4c 0f 05 <bf> 00
+00 40 00 c4 a3 7b f0 c5 01 41 e2 e9 c4 22 e9 aa bb 3c 00 00
+RSP: 002b:00007f72d08c7ba8 EFLAGS: 00000a83 ORIG_RAX: 00000000000000a2
+RAX: ffffffffffffffda RBX: 0000000000000009 RCX: 00000000200008ca
+RDX: 0000000000004c01 RSI: 0000000000000003 RDI: 0000000000400000
+RBP: 00000000000000eb R08: 0000000000000005 R09: 0000000000000006
+R10: 0000000000000007 R11: 0000000000000a83 R12: 000000000000000b
+R13: 000000000000000c R14: 000000000000000d R15: 00007ffe4f7c7800
 
