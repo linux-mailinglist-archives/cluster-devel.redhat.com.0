@@ -2,53 +2,80 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2DE194257E7
-	for <lists+cluster-devel@lfdr.de>; Thu,  7 Oct 2021 18:25:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1633623935;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=huN0qiqtKshcwoQQWPoOtweSqrVBgKdkPBPxqZVeYWs=;
-	b=UWRFBJkaaA676wNWXnjlp1KYtMiuJpZKWNVnDi+dkWnnmBDNPo+btrcsAitS3LHd0RsRFI
-	F8YBAm38fXJtRkRElBYQeEfLnGS/vNqk4ZTg0DuvnnWZj4umGr4VB8jdATUthmIKKZcQZl
-	oiwgPxzxuYmZHS9t5QGZ0KfYGJTKelU=
+	by mail.lfdr.de (Postfix) with ESMTP id 8381542960A
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 Oct 2021 19:47:31 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-435-H7vO9oRBNZiHrfChhSNirA-1; Thu, 07 Oct 2021 10:43:50 -0400
-X-MC-Unique: H7vO9oRBNZiHrfChhSNirA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-535-4SyogEhsMH2z6U7U40YK3g-1; Mon, 11 Oct 2021 13:47:27 -0400
+X-MC-Unique: 4SyogEhsMH2z6U7U40YK3g-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DCD1A84A5ED;
-	Thu,  7 Oct 2021 14:43:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 001A018A0728;
+	Mon, 11 Oct 2021 17:47:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2241226367;
-	Thu,  7 Oct 2021 14:43:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD1975C232;
+	Mon, 11 Oct 2021 17:47:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D7B7C4E590;
-	Thu,  7 Oct 2021 14:43:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EE50B4E58F;
+	Mon, 11 Oct 2021 17:47:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 197EK8AP018284 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 7 Oct 2021 10:20:08 -0400
+	id 19BHl9oT019186 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 11 Oct 2021 13:47:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 90BA6179B3; Thu,  7 Oct 2021 14:20:08 +0000 (UTC)
+	id 95F162166B2D; Mon, 11 Oct 2021 17:47:09 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.com (unknown [10.40.192.65])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D7C4652B7;
-	Thu,  7 Oct 2021 14:19:51 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: cluster-devel@redhat.com
-Date: Thu,  7 Oct 2021 16:19:49 +0200
-Message-Id: <20211007141949.2948426-1-agruenba@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 90E6A2166B25
+	for <cluster-devel@redhat.com>; Mon, 11 Oct 2021 17:47:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6957811E76
+	for <cluster-devel@redhat.com>; Mon, 11 Oct 2021 17:47:06 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-568-FsEyIGi2NT-MpkZTbK4CdQ-1;
+	Mon, 11 Oct 2021 13:47:05 -0400
+X-MC-Unique: FsEyIGi2NT-MpkZTbK4CdQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2A26E60560;
+	Mon, 11 Oct 2021 17:37:56 +0000 (UTC)
+Date: Mon, 11 Oct 2021 18:37:52 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Al Viro <viro@zeniv.linux.org.uk>
+Message-ID: <YWR2cPKeDrc0uHTK@arm.com>
+References: <20210827164926.1726765-6-agruenba@redhat.com>
+	<YSkz025ncjhyRmlB@zeniv-ca.linux.org.uk>
+	<CAHk-=wh5p6zpgUUoY+O7e74X9BZyODhnsqvv=xqnTaLRNj3d_Q@mail.gmail.com>
+	<YSk7xfcHVc7CxtQO@zeniv-ca.linux.org.uk>
+	<CAHk-=wjMyZLH+ta5SohAViSc10iPj-hRnHc-KPDoj1XZCmxdBg@mail.gmail.com>
+	<YSk+9cTMYi2+BFW7@zeniv-ca.linux.org.uk>
+	<YSldx9uhMYhT/G8X@zeniv-ca.linux.org.uk>
+	<YSqOUb7yZ7kBoKRY@zeniv-ca.linux.org.uk> <YS40qqmXL7CMFLGq@arm.com>
+	<YS5KudP4DBwlbPEp@zeniv-ca.linux.org.uk>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <YS5KudP4DBwlbPEp@zeniv-ca.linux.org.uk>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH] gfs2: Fix glock_hash_walk bugs
+Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
+	Will Deacon <will@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Matthew Wilcox <willy@infradead.org>, Josef Bacik <josef@toxicpanda.com>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	"ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>
+Subject: Re: [Cluster-devel] [RFC][arm64] possible infinite loop in btrfs
+	search_ioctl()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -62,88 +89,46 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-So far, glock_hash_walk took a reference on each glock it iterated over, and it
-was the examiner's responsibility to drop those references.  Dropping the final
-reference to a glock can sleep and the examiners are called in a RCU critical
-section with spin locks held, so examiners that didn't need the extra reference
-had to drop it asynchronously via gfs2_glock_queue_put or similar.  This wasn't
-done correctly in thaw_glock which did call gfs2_glock_put, and not at all in
-dump_glock_func.
+On Tue, Aug 31, 2021 at 03:28:57PM +0000, Al Viro wrote:
+> On Tue, Aug 31, 2021 at 02:54:50PM +0100, Catalin Marinas wrote:
+> > An arm64-specific workaround would be for pagefault_disable() to disable
+> > tag checking. It's a pretty big hammer, weakening the out of bounds
+> > access detection of MTE. My preference would be a fix in the btrfs code.
+> > 
+> > A btrfs option would be for copy_to_sk() to return an indication of
+> > where the fault occurred and get fault_in_pages_writeable() to check
+> > that location, even if the copying would restart from an earlier offset
+> > (this requires open-coding copy_to_user_nofault()). An attempt below,
+> > untested and does not cover read_extent_buffer_to_user_nofault():
+> 
+> Umm...  There's another copy_to_user_nofault() call in the same function
+> (same story, AFAICS).
 
-Change glock_hash_walk to not take glock references at all.  That way, the
-examiners that don't need them won't have to bother with slow asynchronous
-puts, and the examiners that do need references can take them themselves.
+I cleaned up this patch [1] but I realised it still doesn't solve it.
+The arm64 __copy_to_user_inatomic(), while ensuring progress if called
+in a loop, it does not guarantee precise copy to the fault position. The
+copy_to_sk(), after returning an error, starts again from the previous
+sizeof(sh) boundary rather than from where the __copy_to_user_inatomic()
+stopped. So it can get stuck attempting to copy the same search header.
 
-Reported-by: Alexander Aring <aahringo@redhat.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
----
- fs/gfs2/glock.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+An ugly fix is to fall back to byte by byte copying so that we can
+attempt the actual fault address in fault_in_pages_writeable().
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index e0eaa9cf9fb6..058d06e5d8c3 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -1893,10 +1893,10 @@ static void glock_hash_walk(glock_examiner examiner, const struct gfs2_sbd *sdp)
- 	do {
- 		rhashtable_walk_start(&iter);
- 
--		while ((gl = rhashtable_walk_next(&iter)) && !IS_ERR(gl))
--			if (gl->gl_name.ln_sbd == sdp &&
--			    lockref_get_not_dead(&gl->gl_lockref))
-+		while ((gl = rhashtable_walk_next(&iter)) && !IS_ERR(gl)) {
-+			if (gl->gl_name.ln_sbd == sdp)
- 				examiner(gl);
-+		}
- 
- 		rhashtable_walk_stop(&iter);
- 	} while (cond_resched(), gl == ERR_PTR(-EAGAIN));
-@@ -1938,7 +1938,6 @@ static void flush_delete_work(struct gfs2_glock *gl)
- 					   &gl->gl_delete, 0);
- 		}
- 	}
--	gfs2_glock_queue_work(gl, 0);
- }
- 
- void gfs2_flush_delete_work(struct gfs2_sbd *sdp)
-@@ -1955,10 +1954,10 @@ void gfs2_flush_delete_work(struct gfs2_sbd *sdp)
- 
- static void thaw_glock(struct gfs2_glock *gl)
- {
--	if (!test_and_clear_bit(GLF_FROZEN, &gl->gl_flags)) {
--		gfs2_glock_put(gl);
-+	if (!test_and_clear_bit(GLF_FROZEN, &gl->gl_flags))
-+		return;
-+	if (!lockref_get_not_dead(&gl->gl_lockref))
- 		return;
--	}
- 	set_bit(GLF_REPLY_PENDING, &gl->gl_flags);
- 	gfs2_glock_queue_work(gl, 0);
- }
-@@ -1974,9 +1973,12 @@ static void clear_glock(struct gfs2_glock *gl)
- 	gfs2_glock_remove_from_lru(gl);
- 
- 	spin_lock(&gl->gl_lockref.lock);
--	if (gl->gl_state != LM_ST_UNLOCKED)
--		handle_callback(gl, LM_ST_UNLOCKED, 0, false);
--	__gfs2_glock_queue_work(gl, 0);
-+	if (!__lockref_is_dead(&gl->gl_lockref)) {
-+		gl->gl_lockref.count++;
-+		if (gl->gl_state != LM_ST_UNLOCKED)
-+			handle_callback(gl, LM_ST_UNLOCKED, 0, false);
-+		__gfs2_glock_queue_work(gl, 0);
-+	}
- 	spin_unlock(&gl->gl_lockref.lock);
- }
- 
+If the sh being recreated in copy_to_sk() is the same on the retried
+iteration, we could use an *sk_offset that is not a multiple of
+sizeof(sh) in order to have progress. But it's not clear to me whether
+the data being copied can change once btrfs_release_path() is called.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git/log/?h=devel/btrfs-fix
+
 -- 
-2.26.3
+Catalin
 
