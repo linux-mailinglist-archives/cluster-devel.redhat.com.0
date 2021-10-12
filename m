@@ -2,51 +2,75 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4FDE842AAB4
-	for <lists+cluster-devel@lfdr.de>; Tue, 12 Oct 2021 19:27:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 09BC942AB64
+	for <lists+cluster-devel@lfdr.de>; Tue, 12 Oct 2021 19:59:19 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-38-TnjbEWq_NIixWTL90SJqGQ-1; Tue, 12 Oct 2021 13:27:42 -0400
-X-MC-Unique: TnjbEWq_NIixWTL90SJqGQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-384-McdMPVOlMgyqkuky7cH1Gg-1; Tue, 12 Oct 2021 13:59:17 -0400
+X-MC-Unique: McdMPVOlMgyqkuky7cH1Gg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 12821FC9B;
-	Tue, 12 Oct 2021 17:27:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ECB8A800FF0;
+	Tue, 12 Oct 2021 17:59:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 038271002EEC;
-	Tue, 12 Oct 2021 17:27:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 49C8F19C79;
+	Tue, 12 Oct 2021 17:59:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B651F1803B30;
-	Tue, 12 Oct 2021 17:27:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4D6591809C81;
+	Tue, 12 Oct 2021 17:59:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19CHROLc030334 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 12 Oct 2021 13:27:24 -0400
+	id 19CHx8pL000617 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 12 Oct 2021 13:59:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2D2D4422F9; Tue, 12 Oct 2021 17:27:24 +0000 (UTC)
+	id 3FB7D404727C; Tue, 12 Oct 2021 17:59:08 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 277B544054
-	for <cluster-devel@redhat.com>; Tue, 12 Oct 2021 17:27:16 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B4ED4047272
+	for <cluster-devel@redhat.com>; Tue, 12 Oct 2021 17:59:08 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 545071066562
-	for <cluster-devel@redhat.com>; Tue, 12 Oct 2021 17:27:16 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-598-Icm7_PLTOn-lz0Zl1RaJzg-1;
-	Tue, 12 Oct 2021 13:27:13 -0400
-X-MC-Unique: Icm7_PLTOn-lz0Zl1RaJzg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E0EB460EFE;
-	Tue, 12 Oct 2021 17:27:09 +0000 (UTC)
-Date: Tue, 12 Oct 2021 18:27:06 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <YWXFagjRVdNanGSy@arm.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 236D2800B24
+	for <cluster-devel@redhat.com>; Tue, 12 Oct 2021 17:59:08 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+	[209.85.167.54]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-557-tPjx16PuNpWPjaGchFjNkA-1; Tue, 12 Oct 2021 13:59:06 -0400
+X-MC-Unique: tPjx16PuNpWPjaGchFjNkA-1
+Received: by mail-lf1-f54.google.com with SMTP id c16so537936lfb.3
+	for <cluster-devel@redhat.com>; Tue, 12 Oct 2021 10:59:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=fqSNsVOtXYPiifkp+lepAhAhHgqhsFkG1XDADIpg/Pc=;
+	b=l+XWqC78Zlwg3F/JRPPU9TSQX+q79Ghs3FRW9WIA5rrkzhYzUFOu6zFSv+Mx/cerqb
+	TwKsVk8vZnzBLosV491jrP4CEOYn+8+MzMP1vptY2s9O/lkK3NHze9zj9tYPOMSezDTE
+	zl0V/bGuTqwC2biJUQ/Mf4FR9s6wcPqvGXOddGuoj2RVkPCe1RP68Gr11P1l+HA3vbQf
+	tDhX/eiEFZ9TzFWWU+qxHSCDhZavFJMMnOahGkKIeI1+4F+Xb0hu1BmiVVdsdFCxG2/u
+	lw6N1d24zpZIs1Q/5rESIMx0NquwRedrh2jmFRR3xY/B8Z6hhosJqJIJh3W7fP5ijJLP
+	P7BA==
+X-Gm-Message-State: AOAM532biASHEKENSHzl5U9Vq5csCFN3hwDqU7LR/tuKugglhZphlBkE
+	FWbpRg/GCE6TIoh+iEq8H3iqT84l3SlcLhaL
+X-Google-Smtp-Source: ABdhPJyVcDaEhi0AOz2CXmzQY0afkNFE1MAS42IRpDhPbPlZZdzZn5++7KmoK3aEOeMkYg+6BkIw9g==
+X-Received: by 2002:a2e:a7ca:: with SMTP id x10mr31936018ljp.484.1634061544704;
+	Tue, 12 Oct 2021 10:59:04 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com.
+	[209.85.167.54])
+	by smtp.gmail.com with ESMTPSA id r2sm791183lfi.152.2021.10.12.10.59.02
+	for <cluster-devel@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Tue, 12 Oct 2021 10:59:03 -0700 (PDT)
+Received: by mail-lf1-f54.google.com with SMTP id y26so370159lfa.11
+	for <cluster-devel@redhat.com>; Tue, 12 Oct 2021 10:59:02 -0700 (PDT)
+X-Received: by 2002:a05:6512:10d0:: with SMTP id
+	k16mr2835560lfg.150.1634061542163; 
+	Tue, 12 Oct 2021 10:59:02 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAHk-=wjMyZLH+ta5SohAViSc10iPj-hRnHc-KPDoj1XZCmxdBg@mail.gmail.com>
 	<YSk+9cTMYi2+BFW7@zeniv-ca.linux.org.uk>
 	<YSldx9uhMYhT/G8X@zeniv-ca.linux.org.uk>
@@ -55,8 +79,13 @@ References: <CAHk-=wjMyZLH+ta5SohAViSc10iPj-hRnHc-KPDoj1XZCmxdBg@mail.gmail.com>
 	<CAHk-=wjvQWj7mvdrgTedUW50c2fkdn6Hzxtsk-=ckkMrFoTXjQ@mail.gmail.com>
 	<YWSnvq58jDsDuIik@arm.com>
 	<CAHk-=wiNWOY5QW5ZJukt_9pHTWvrJhE2=DxPpEtFHAWdzOPDTg@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAHk-=wiNWOY5QW5ZJukt_9pHTWvrJhE2=DxPpEtFHAWdzOPDTg@mail.gmail.com>
+	<YWXFagjRVdNanGSy@arm.com>
+In-Reply-To: <YWXFagjRVdNanGSy@arm.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 12 Oct 2021 10:58:46 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wg3prAnhWZetJvwZdugn7A7CpP4ruz1tdewha=8ZY8AJw@mail.gmail.com>
+Message-ID: <CAHk-=wg3prAnhWZetJvwZdugn7A7CpP4ruz1tdewha=8ZY8AJw@mail.gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -65,7 +94,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
 	"Darrick J. Wong" <djwong@kernel.org>,
@@ -90,71 +119,70 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 11, 2021 at 04:59:28PM -0700, Linus Torvalds wrote:
-> On Mon, Oct 11, 2021 at 2:08 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > +#ifdef CONFIG_ARM64_MTE
-> > +#define FAULT_GRANULE_SIZE     (16)
-> > +#define FAULT_GRANULE_MASK     (~(FAULT_GRANULE_SIZE-1))
-> 
-> [...]
-> 
-> > If this looks in the right direction, I'll do some proper patches
-> > tomorrow.
-> 
-> Looks fine to me. It's going to be quite expensive and bad for caches,
-> though.
-> 
-> That said, fault_in_writable() is _supposed_ to all be for the slow
-> path when things go south and the normal path didn't work out, so I
-> think it's fine.
-> 
-> I do wonder how the sub-page granularity works. Is it sufficient to
-> just read from it?
+On Tue, Oct 12, 2021 at 10:27 AM Catalin Marinas
+<catalin.marinas@arm.com> wrote:
+>
+> Apart from fault_in_pages_*(), there's also fault_in_user_writeable()
+> called from the futex code which uses the GUP mechanism as the write
+> would be destructive. It looks like it could potentially trigger the
+> same infinite loop on -EFAULT.
 
-For arm64 MTE and I think SPARC ADI, just reading should be sufficient.
-There is CHERI in the long run, if it takes off, where the user can set
-independent read/write permissions and uaccess would use the capability
-rather than a match-all pointer (hence checked).
+Hmm.
 
-> Because then a _slightly_ better option might be to
-> do one write per page (to catch page table writability) and then one
-> read per "granule" (to catch pointer coloring or cache poisoning
-> issues)?
-> 
-> That said, since this is all preparatory to us wanting to write to it
-> eventually anyway, maybe marking it all dirty in the caches is only
-> good.
+I think the reason we do fault_in_user_writeable() using GUP is that
 
-It depends on how much would be written in the actual copy. For
-significant memcpy on arm CPUs, write streaming usually kicks in and the
-cache dirtying is skipped. This probably matters more for
-copy_page_to_iter_iovec() than the btrfs search ioctl.
+ (a) we can avoid the page fault overhead
 
-Apart from fault_in_pages_*(), there's also fault_in_user_writeable()
-called from the futex code which uses the GUP mechanism as the write
-would be destructive. It looks like it could potentially trigger the
-same infinite loop on -EFAULT. For arm64 MTE, we get away with this by
-disabling the tag checking around the arch futex code (we did it for an
-unrelated issue - we don't have LDXR/STXR that would run with user
-permissions in kernel mode like we do with LDTR/STTR).
+ (b) we don't have any good "atomic_inc_user()" interface or similar
+that could do a write with a zero increment or something like that.
 
-I wonder whether we should actually just disable tag checking around the
-problematic accesses. What these callers seem to have in common is using
-pagefault_disable/enable(). We could abuse this to disable tag checking
-or maybe in_atomic() when handling the exception to lazily disable such
-faults temporarily.
+We do have that "arch_futex_atomic_op_inuser()" thing, of course. It's
+all kinds of crazy, but we *could* do
 
-A more invasive change would be to return a different error for such
-faults like -EACCESS and treat them differently in the caller.
+       arch_futex_atomic_op_inuser(FUTEX_OP_ADD, 0, &dummy, uaddr);
 
--- 
-Catalin
+instead of doing the fault_in_user_writeable().
+
+That might be a good idea anyway. I dunno.
+
+But I agree other options exist:
+
+> I wonder whether we should actually just disable tag checking around the
+> problematic accesses. What these callers seem to have in common is using
+> pagefault_disable/enable(). We could abuse this to disable tag checking
+> or maybe in_atomic() when handling the exception to lazily disable such
+> faults temporarily.
+
+Hmm. That would work for MTE, but possibly be very inconvenient for
+other situations.
+
+> A more invasive change would be to return a different error for such
+> faults like -EACCESS and treat them differently in the caller.
+
+That's _really_ hard for things like "copy_to_user()", that isn't a
+single operation, and is supposed to return the bytes left.
+
+Adding another error return would be nasty.
+
+We've had hacks like "squirrel away the actual error code in the task
+structure", but that tends to be unmaintainable because we have
+interrupts (and NMI's) doing their own possibly nested atomics, so
+even disabling preemption won't actually fix some of the nesting
+issues.
+
+All of these things make me think that the proper fix ends up being to
+make sure that our "fault_in_xyz()" functions simply should always
+handle all faults.
+
+Another option may be to teach the GUP code to actually check
+architecture-specific sub-page ranges.
+
+        Linus
 
