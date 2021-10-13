@@ -1,63 +1,64 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D3A042CD1E
-	for <lists+cluster-devel@lfdr.de>; Wed, 13 Oct 2021 23:50:08 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 587A342CEED
+	for <lists+cluster-devel@lfdr.de>; Thu, 14 Oct 2021 01:03:26 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-97-e21Js99OMhyZVoJ9e2ekYg-1; Wed, 13 Oct 2021 17:50:05 -0400
-X-MC-Unique: e21Js99OMhyZVoJ9e2ekYg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-524-qgbnP3dMP52U0J3ArC_rUw-1; Wed, 13 Oct 2021 19:03:23 -0400
+X-MC-Unique: qgbnP3dMP52U0J3ArC_rUw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9D5A619067E0;
-	Wed, 13 Oct 2021 21:50:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BFD8100238C;
-	Wed, 13 Oct 2021 21:50:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7AB29802C98;
+	Wed, 13 Oct 2021 23:03:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3811F5C1CF;
+	Wed, 13 Oct 2021 23:03:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E71FD4A703;
-	Wed, 13 Oct 2021 21:49:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D1FF71800FE4;
+	Wed, 13 Oct 2021 23:03:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19DLnqST032070 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Oct 2021 17:49:52 -0400
+	id 19DN1uqD004627 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Oct 2021 19:01:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 01CBE114B2E4; Wed, 13 Oct 2021 21:49:52 +0000 (UTC)
+	id 21D0540CFD11; Wed, 13 Oct 2021 23:01:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFEC9114B2E1
-	for <cluster-devel@redhat.com>; Wed, 13 Oct 2021 21:49:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B4A040CFD10
+	for <cluster-devel@redhat.com>; Wed, 13 Oct 2021 23:01:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2F168007B1
-	for <cluster-devel@redhat.com>; Wed, 13 Oct 2021 21:49:48 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-394-H02lI3J6NACxDKsGd0mdXw-1;
-	Wed, 13 Oct 2021 17:49:45 -0400
-X-MC-Unique: H02lI3J6NACxDKsGd0mdXw-1
-X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="313746495"
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE0BA802A5A
+	for <cluster-devel@redhat.com>; Wed, 13 Oct 2021 23:01:55 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-136-vC8RytEZMV2zDomCyYIHHw-1;
+	Wed, 13 Oct 2021 19:01:53 -0400
+X-MC-Unique: vC8RytEZMV2zDomCyYIHHw-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="225008164"
 X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; 
-	d="gz'50?scan'50,208,50";a="313746495"
+	d="gz'50?scan'50,208,50";a="225008164"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	13 Oct 2021 14:48:41 -0700
+	by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	13 Oct 2021 16:01:47 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; 
-	d="gz'50?scan'50,208,50";a="626591191"
+	d="gz'50?scan'50,208,50";a="626608181"
 Received: from lkp-server02.sh.intel.com (HELO 08b2c502c3de) ([10.239.97.151])
-	by fmsmga001.fm.intel.com with ESMTP; 13 Oct 2021 14:48:39 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 13 Oct 2021 16:01:45 -0700
 Received: from kbuild by 08b2c502c3de with local (Exim 4.92)
 	(envelope-from <lkp@intel.com>)
-	id 1mam75-0005Aj-9t; Wed, 13 Oct 2021 21:48:39 +0000
-Date: Thu, 14 Oct 2021 05:48:16 +0800
+	id 1manFo-0005GQ-G3; Wed, 13 Oct 2021 23:01:44 +0000
+Date: Thu, 14 Oct 2021 07:00:49 +0800
 From: kernel test robot <lkp@intel.com>
 To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <202110140509.ibrcGepZ-lkp@intel.com>
+Message-ID: <202110140741.c3dRUOk3-lkp@intel.com>
 MIME-Version: 1.0
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -68,13 +69,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, kbuild-all@lists.01.org,
 	linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [gfs2:for-next 4/38] fs/ntfs3/file.c:990:30: error:
- implicit declaration of function 'iov_iter_fault_in_readable';
- did you mean 'fault_in_readable'?
+Subject: [Cluster-devel] [gfs2:for-next 14/38] fs/erofs/data.c:289:32:
+ error: too few arguments to function 'iomap_dio_rw'
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,296 +88,92 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="+QahgC5+KEYLbs62"
+Content-Type: multipart/mixed; boundary="0F1p//8PRICkK4MW"
 Content-Disposition: inline
 
---+QahgC5+KEYLbs62
+--0F1p//8PRICkK4MW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next
 head:   9d0084204c8a7e01f9b8ebe81402be61e0a67a62
-commit: 4b03be65e2d7c2a3c7a83d28d5f9882e9dcf178d [4/38] iov_iter: Turn iov_iter_fault_in_readable into fault_in_iov_iter_readable
+commit: ec80c70d41f2bb63d9e62204d3a3450c41678f67 [14/38] iomap: Add done_before argument to iomap_dio_rw
 config: nios2-randconfig-r003-20211013 (attached as .config)
 compiler: nios2-linux-gcc (GCC) 11.2.0
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
-        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=4b03be65e2d7c2a3c7a83d28d5f9882e9dcf178d
+        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=ec80c70d41f2bb63d9e62204d3a3450c41678f67
         git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
         git fetch --no-tags gfs2 for-next
-        git checkout 4b03be65e2d7c2a3c7a83d28d5f9882e9dcf178d
+        git checkout ec80c70d41f2bb63d9e62204d3a3450c41678f67
         # save the attached .config to linux build tree
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross ARCH=nios2 
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=nios2 SHELL=/bin/bash block/ fs/erofs/ net/bluetooth/
 
 If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 
 All errors (new ones prefixed by >>):
 
-   In file included from include/linux/kernel.h:11,
-                    from include/linux/backing-dev.h:12,
-                    from fs/ntfs3/file.c:10:
-   fs/ntfs3/file.c: In function 'ntfs_compress_write':
->> fs/ntfs3/file.c:990:30: error: implicit declaration of function 'iov_iter_fault_in_readable'; did you mean 'fault_in_readable'? [-Werror=implicit-function-declaration]
-     990 |                 if (unlikely(iov_iter_fault_in_readable(from, bytes))) {
-         |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler.h:78:45: note: in definition of macro 'unlikely'
-      78 | # define unlikely(x)    __builtin_expect(!!(x), 0)
-         |                                             ^
-   cc1: some warnings being treated as errors
+   fs/erofs/data.c: In function 'erofs_file_read_iter':
+>> fs/erofs/data.c:289:32: error: too few arguments to function 'iomap_dio_rw'
+     289 |                         return iomap_dio_rw(iocb, to, &erofs_iomap_ops,
+         |                                ^~~~~~~~~~~~
+   In file included from fs/erofs/internal.h:19,
+                    from fs/erofs/data.c:7:
+   include/linux/iomap.h:340:9: note: declared here
+     340 | ssize_t iomap_dio_rw(struct kiocb *iocb, struct iov_iter *iter,
+         |         ^~~~~~~~~~~~
 
 
-vim +990 fs/ntfs3/file.c
+vim +/iomap_dio_rw +289 fs/erofs/data.c
 
-4342306f0f0d5f Konstantin Komarov 2021-08-13   863  
-e8b8e97f91b80f Kari Argillander   2021-08-03   864  /*
-e8b8e97f91b80f Kari Argillander   2021-08-03   865   * ntfs_compress_write - Helper for ntfs_file_write_iter() (compressed files).
-e8b8e97f91b80f Kari Argillander   2021-08-03   866   */
-4342306f0f0d5f Konstantin Komarov 2021-08-13   867  static ssize_t ntfs_compress_write(struct kiocb *iocb, struct iov_iter *from)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   868  {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   869  	int err;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   870  	struct file *file = iocb->ki_filp;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   871  	size_t count = iov_iter_count(from);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   872  	loff_t pos = iocb->ki_pos;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   873  	struct inode *inode = file_inode(file);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   874  	loff_t i_size = inode->i_size;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   875  	struct address_space *mapping = inode->i_mapping;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   876  	struct ntfs_inode *ni = ntfs_i(inode);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   877  	u64 valid = ni->i_valid;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   878  	struct ntfs_sb_info *sbi = ni->mi.sbi;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   879  	struct page *page, **pages = NULL;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   880  	size_t written = 0;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   881  	u8 frame_bits = NTFS_LZNT_CUNIT + sbi->cluster_bits;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   882  	u32 frame_size = 1u << frame_bits;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   883  	u32 pages_per_frame = frame_size >> PAGE_SHIFT;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   884  	u32 ip, off;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   885  	CLST frame;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   886  	u64 frame_vbo;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   887  	pgoff_t index;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   888  	bool frame_uptodate;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   889  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   890  	if (frame_size < PAGE_SIZE) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   891  		/*
-4342306f0f0d5f Konstantin Komarov 2021-08-13   892  		 * frame_size == 8K if cluster 512
-4342306f0f0d5f Konstantin Komarov 2021-08-13   893  		 * frame_size == 64K if cluster 4096
-4342306f0f0d5f Konstantin Komarov 2021-08-13   894  		 */
-4342306f0f0d5f Konstantin Komarov 2021-08-13   895  		ntfs_inode_warn(inode, "page size is bigger than frame size");
-4342306f0f0d5f Konstantin Komarov 2021-08-13   896  		return -EOPNOTSUPP;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   897  	}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   898  
-345482bc431f64 Kari Argillander   2021-08-24   899  	pages = kmalloc_array(pages_per_frame, sizeof(struct page *), GFP_NOFS);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   900  	if (!pages)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   901  		return -ENOMEM;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   902  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   903  	current->backing_dev_info = inode_to_bdi(inode);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   904  	err = file_remove_privs(file);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   905  	if (err)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   906  		goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   907  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   908  	err = file_update_time(file);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   909  	if (err)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   910  		goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   911  
-e8b8e97f91b80f Kari Argillander   2021-08-03   912  	/* Zero range [valid : pos). */
-4342306f0f0d5f Konstantin Komarov 2021-08-13   913  	while (valid < pos) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   914  		CLST lcn, clen;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   915  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   916  		frame = valid >> frame_bits;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   917  		frame_vbo = valid & ~(frame_size - 1);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   918  		off = valid & (frame_size - 1);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   919  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   920  		err = attr_data_get_block(ni, frame << NTFS_LZNT_CUNIT, 0, &lcn,
-4342306f0f0d5f Konstantin Komarov 2021-08-13   921  					  &clen, NULL);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   922  		if (err)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   923  			goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   924  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   925  		if (lcn == SPARSE_LCN) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   926  			ni->i_valid = valid =
-4342306f0f0d5f Konstantin Komarov 2021-08-13   927  				frame_vbo + ((u64)clen << sbi->cluster_bits);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   928  			continue;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   929  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   930  
-e8b8e97f91b80f Kari Argillander   2021-08-03   931  		/* Load full frame. */
-4342306f0f0d5f Konstantin Komarov 2021-08-13   932  		err = ntfs_get_frame_pages(mapping, frame_vbo >> PAGE_SHIFT,
-4342306f0f0d5f Konstantin Komarov 2021-08-13   933  					   pages, pages_per_frame,
-4342306f0f0d5f Konstantin Komarov 2021-08-13   934  					   &frame_uptodate);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   935  		if (err)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   936  			goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   937  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   938  		if (!frame_uptodate && off) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   939  			err = ni_read_frame(ni, frame_vbo, pages,
-4342306f0f0d5f Konstantin Komarov 2021-08-13   940  					    pages_per_frame);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   941  			if (err) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   942  				for (ip = 0; ip < pages_per_frame; ip++) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   943  					page = pages[ip];
-4342306f0f0d5f Konstantin Komarov 2021-08-13   944  					unlock_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   945  					put_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   946  				}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   947  				goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   948  			}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   949  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   950  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   951  		ip = off >> PAGE_SHIFT;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   952  		off = offset_in_page(valid);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   953  		for (; ip < pages_per_frame; ip++, off = 0) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   954  			page = pages[ip];
-4342306f0f0d5f Konstantin Komarov 2021-08-13   955  			zero_user_segment(page, off, PAGE_SIZE);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   956  			flush_dcache_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   957  			SetPageUptodate(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   958  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   959  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   960  		ni_lock(ni);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   961  		err = ni_write_frame(ni, pages, pages_per_frame);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   962  		ni_unlock(ni);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   963  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   964  		for (ip = 0; ip < pages_per_frame; ip++) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   965  			page = pages[ip];
-4342306f0f0d5f Konstantin Komarov 2021-08-13   966  			SetPageUptodate(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   967  			unlock_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   968  			put_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   969  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   970  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   971  		if (err)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   972  			goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   973  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   974  		ni->i_valid = valid = frame_vbo + frame_size;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   975  	}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   976  
-e8b8e97f91b80f Kari Argillander   2021-08-03   977  	/* Copy user data [pos : pos + count). */
-4342306f0f0d5f Konstantin Komarov 2021-08-13   978  	while (count) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   979  		size_t copied, bytes;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   980  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   981  		off = pos & (frame_size - 1);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   982  		bytes = frame_size - off;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   983  		if (bytes > count)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   984  			bytes = count;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   985  
-4342306f0f0d5f Konstantin Komarov 2021-08-13   986  		frame = pos >> frame_bits;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   987  		frame_vbo = pos & ~(frame_size - 1);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   988  		index = frame_vbo >> PAGE_SHIFT;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   989  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  @990  		if (unlikely(iov_iter_fault_in_readable(from, bytes))) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13   991  			err = -EFAULT;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   992  			goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13   993  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13   994  
-e8b8e97f91b80f Kari Argillander   2021-08-03   995  		/* Load full frame. */
-4342306f0f0d5f Konstantin Komarov 2021-08-13   996  		err = ntfs_get_frame_pages(mapping, index, pages,
-4342306f0f0d5f Konstantin Komarov 2021-08-13   997  					   pages_per_frame, &frame_uptodate);
-4342306f0f0d5f Konstantin Komarov 2021-08-13   998  		if (err)
-4342306f0f0d5f Konstantin Komarov 2021-08-13   999  			goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1000  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1001  		if (!frame_uptodate) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1002  			loff_t to = pos + bytes;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1003  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1004  			if (off || (to < i_size && (to & (frame_size - 1)))) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1005  				err = ni_read_frame(ni, frame_vbo, pages,
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1006  						    pages_per_frame);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1007  				if (err) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1008  					for (ip = 0; ip < pages_per_frame;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1009  					     ip++) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1010  						page = pages[ip];
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1011  						unlock_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1012  						put_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1013  					}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1014  					goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1015  				}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1016  			}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1017  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1018  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1019  		WARN_ON(!bytes);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1020  		copied = 0;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1021  		ip = off >> PAGE_SHIFT;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1022  		off = offset_in_page(pos);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1023  
-e8b8e97f91b80f Kari Argillander   2021-08-03  1024  		/* Copy user data to pages. */
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1025  		for (;;) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1026  			size_t cp, tail = PAGE_SIZE - off;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1027  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1028  			page = pages[ip];
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1029  			cp = copy_page_from_iter_atomic(page, off,
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1030  							min(tail, bytes), from);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1031  			flush_dcache_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1032  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1033  			copied += cp;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1034  			bytes -= cp;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1035  			if (!bytes || !cp)
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1036  				break;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1037  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1038  			if (cp < tail) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1039  				off += cp;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1040  			} else {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1041  				ip++;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1042  				off = 0;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1043  			}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1044  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1045  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1046  		ni_lock(ni);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1047  		err = ni_write_frame(ni, pages, pages_per_frame);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1048  		ni_unlock(ni);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1049  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1050  		for (ip = 0; ip < pages_per_frame; ip++) {
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1051  			page = pages[ip];
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1052  			ClearPageDirty(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1053  			SetPageUptodate(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1054  			unlock_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1055  			put_page(page);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1056  		}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1057  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1058  		if (err)
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1059  			goto out;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1060  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1061  		/*
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1062  		 * We can loop for a long time in here. Be nice and allow
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1063  		 * us to schedule out to avoid softlocking if preempt
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1064  		 * is disabled.
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1065  		 */
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1066  		cond_resched();
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1067  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1068  		pos += copied;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1069  		written += copied;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1070  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1071  		count = iov_iter_count(from);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1072  	}
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1073  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1074  out:
-195c52bdd5d5ec Kari Argillander   2021-08-24  1075  	kfree(pages);
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1076  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1077  	current->backing_dev_info = NULL;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1078  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1079  	if (err < 0)
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1080  		return err;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1081  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1082  	iocb->ki_pos += written;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1083  	if (iocb->ki_pos > ni->i_valid)
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1084  		ni->i_valid = iocb->ki_pos;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1085  
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1086  	return written;
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1087  }
-4342306f0f0d5f Konstantin Komarov 2021-08-13  1088  
+a08e67a0280215 Huang Jianan 2021-08-05  274  
+a08e67a0280215 Huang Jianan 2021-08-05  275  static ssize_t erofs_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+a08e67a0280215 Huang Jianan 2021-08-05  276  {
+a08e67a0280215 Huang Jianan 2021-08-05  277  	/* no need taking (shared) inode lock since it's a ro filesystem */
+a08e67a0280215 Huang Jianan 2021-08-05  278  	if (!iov_iter_count(to))
+a08e67a0280215 Huang Jianan 2021-08-05  279  		return 0;
+a08e67a0280215 Huang Jianan 2021-08-05  280  
+06252e9ce05b94 Gao Xiang    2021-08-05  281  #ifdef CONFIG_FS_DAX
+06252e9ce05b94 Gao Xiang    2021-08-05  282  	if (IS_DAX(iocb->ki_filp->f_mapping->host))
+06252e9ce05b94 Gao Xiang    2021-08-05  283  		return dax_iomap_rw(iocb, to, &erofs_iomap_ops);
+06252e9ce05b94 Gao Xiang    2021-08-05  284  #endif
+a08e67a0280215 Huang Jianan 2021-08-05  285  	if (iocb->ki_flags & IOCB_DIRECT) {
+a08e67a0280215 Huang Jianan 2021-08-05  286  		int err = erofs_prepare_dio(iocb, to);
+a08e67a0280215 Huang Jianan 2021-08-05  287  
+a08e67a0280215 Huang Jianan 2021-08-05  288  		if (!err)
+a08e67a0280215 Huang Jianan 2021-08-05 @289  			return iomap_dio_rw(iocb, to, &erofs_iomap_ops,
+a08e67a0280215 Huang Jianan 2021-08-05  290  					    NULL, 0);
+a08e67a0280215 Huang Jianan 2021-08-05  291  		if (err < 0)
+a08e67a0280215 Huang Jianan 2021-08-05  292  			return err;
+a08e67a0280215 Huang Jianan 2021-08-05  293  	}
+a08e67a0280215 Huang Jianan 2021-08-05  294  	return filemap_read(iocb, to, 0);
+a08e67a0280215 Huang Jianan 2021-08-05  295  }
+a08e67a0280215 Huang Jianan 2021-08-05  296  
 
-:::::: The code at line 990 was first introduced by commit
-:::::: 4342306f0f0d5ff4315a204d315c1b51b914fca5 fs/ntfs3: Add file operations and implementation
+:::::: The code at line 289 was first introduced by commit
+:::::: a08e67a0280215f74eccf14fda81dd7fed6596ba erofs: iomap support for non-tailpacking DIO
 
-:::::: TO: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-:::::: CC: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+:::::: TO: Huang Jianan <huangjianan@oppo.com>
+:::::: CC: Gao Xiang <hsiangkao@linux.alibaba.com>
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---+QahgC5+KEYLbs62
+--0F1p//8PRICkK4MW
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICGlMZ2EAAy5jb25maWcAlDxbc9s2s+/9FZr0pX1Ia9lN25wzfgBBUERFEjQASrZfOKqjpJ7P
+H4sICKVbZ2EAAy5jb25maWcAlDxbc9s2s+/9FZr0pX1Ia9lN25wzfgBBUERFEjQASrZfOKqjpJ7P
 sTKy3K/992cXvAHkUsnpTCfm7uK2u9gbAH3/3fcL9no6fN6dHh92T0//Lj7tn/fH3Wn/YfHx8Wn/
 v4tYLQplFyKW9icgzh6fX//5+fnx8HK5ePfT8t1PF2+PD+8W6/3xef+04Ifnj4+fXqH94+H5u++/
 46pI5KrmvN4IbaQqaitu7fUb1/7tE/b19tPDw+KHFec/LpbLny5/unjjtZKmBsz1vx1oNfR0vVxe
@@ -940,5 +736,5 @@ cWspPTAUIqp4m9J80CrT87RAsahykjVytLvExDhdk9bj+HZC1RG5qrtEZqhTcRNNNY9NslQxDq0/
 h92QLcJ9Dga5wUrLYpeHgIirHKlQXENlQpLUDYlJGOpnXSBw8yrKY/nUn8ob6tq4s1/r75ki1QjG
 SSYYF1xy3SZ5JGDGhOagvOJggs32mTAnCTUsuALxLGgJqCHmbghaKNzAobXB9RKX0QpYVEuvGCUH
 zVLFOGmjWkfR9f8ktqZythQCAA==
---+QahgC5+KEYLbs62--
+--0F1p//8PRICkK4MW--
 
