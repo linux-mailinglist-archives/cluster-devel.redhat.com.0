@@ -1,81 +1,63 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81ED1432474
-	for <lists+cluster-devel@lfdr.de>; Mon, 18 Oct 2021 19:14:10 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A48284337A7
+	for <lists+cluster-devel@lfdr.de>; Tue, 19 Oct 2021 15:48:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1634651279;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=e5YCJ7OxHs4ifz+JNT7wImXaXURS4TwzFZm/V+zN34I=;
+	b=D78WH0rp4bZI8wifhErjpk+/ACJmTNATsyVbNKjoQG9yAQP6UzpryV4a18po0Hk3WHd0ui
+	a83lmK5Wlrc57B/qGFTxfl9c0/Cl3Nr+SnFFZDld4tib/aAC2JJSEnvIuq2j+G8ss3S5tF
+	vKW4+ppspjzljy4QuLC0I7vQxe1XUgE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-105-yeD4KgLBPgyK5il6t_x6EA-1; Mon, 18 Oct 2021 13:14:06 -0400
-X-MC-Unique: yeD4KgLBPgyK5il6t_x6EA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-374-QKPbWfhFNEG8ksURGk9jtQ-1; Tue, 19 Oct 2021 09:47:57 -0400
+X-MC-Unique: QKPbWfhFNEG8ksURGk9jtQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4B9A3802575;
-	Mon, 18 Oct 2021 17:14:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 189EC806688;
+	Tue, 19 Oct 2021 13:47:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACC349329;
-	Mon, 18 Oct 2021 17:14:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 097D579453;
+	Tue, 19 Oct 2021 13:47:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C7DF71806D03;
-	Mon, 18 Oct 2021 17:13:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BF80E1801241;
+	Tue, 19 Oct 2021 13:47:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IHDog7010448 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 13:13:50 -0400
+	id 19JDgA0H024363 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 19 Oct 2021 09:42:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 28074115D7D9; Mon, 18 Oct 2021 17:13:50 +0000 (UTC)
+	id 3F1FF10190A7; Tue, 19 Oct 2021 13:42:10 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E471110E51DA
-	for <cluster-devel@redhat.com>; Mon, 18 Oct 2021 17:13:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA45A800B29
-	for <cluster-devel@redhat.com>; Mon, 18 Oct 2021 17:13:43 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-315-LX2XrSbkPsWJLluWSxEgGg-1;
-	Mon, 18 Oct 2021 13:13:42 -0400
-X-MC-Unique: LX2XrSbkPsWJLluWSxEgGg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A68E3610C8;
-	Mon, 18 Oct 2021 17:13:38 +0000 (UTC)
-Date: Mon, 18 Oct 2021 18:13:35 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <YW2rPyvwltDb8wdJ@arm.com>
-References: <YSldx9uhMYhT/G8X@zeniv-ca.linux.org.uk>
-	<YSqOUb7yZ7kBoKRY@zeniv-ca.linux.org.uk> <YS40qqmXL7CMFLGq@arm.com>
-	<YS5KudP4DBwlbPEp@zeniv-ca.linux.org.uk> <YWR2cPKeDrc0uHTK@arm.com>
-	<CAHk-=wjvQWj7mvdrgTedUW50c2fkdn6Hzxtsk-=ckkMrFoTXjQ@mail.gmail.com>
-	<YWSnvq58jDsDuIik@arm.com>
-	<CAHk-=wiNWOY5QW5ZJukt_9pHTWvrJhE2=DxPpEtFHAWdzOPDTg@mail.gmail.com>
-	<YWXFagjRVdNanGSy@arm.com>
-	<CAHk-=wg3prAnhWZetJvwZdugn7A7CpP4ruz1tdewha=8ZY8AJw@mail.gmail.com>
+Received: from max.com (unknown [10.40.193.143])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B7C4310016FC;
+	Tue, 19 Oct 2021 13:42:06 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Paul Mackerras <paulus@ozlabs.org>
+Date: Tue, 19 Oct 2021 15:41:47 +0200
+Message-Id: <20211019134204.3382645-1-agruenba@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAHk-=wg3prAnhWZetJvwZdugn7A7CpP4ruz1tdewha=8ZY8AJw@mail.gmail.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>, Josef Bacik <josef@toxicpanda.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Will Deacon <will@kernel.org>,
-	"ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>
-Subject: Re: [Cluster-devel] [RFC][arm64] possible infinite loop in btrfs
-	search_ioctl()
+Cc: kvm-ppc@vger.kernel.org, cluster-devel@redhat.com, Jan Kara <jack@suse.cz>,
+	"Darrick J. Wong" <djwong@kernel.org>, linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	ocfs2-devel@oss.oracle.com
+Subject: [Cluster-devel] [PATCH v8 00/17] gfs2: Fix mmap + page fault
+	deadlocks
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,104 +71,102 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Tue, Oct 12, 2021 at 10:58:46AM -0700, Linus Torvalds wrote:
-> On Tue, Oct 12, 2021 at 10:27 AM Catalin Marinas
-> <catalin.marinas@arm.com> wrote:
-> > Apart from fault_in_pages_*(), there's also fault_in_user_writeable()
-> > called from the futex code which uses the GUP mechanism as the write
-> > would be destructive. It looks like it could potentially trigger the
-> > same infinite loop on -EFAULT.
-> 
-> Hmm.
-> 
-> I think the reason we do fault_in_user_writeable() using GUP is that
-> 
->  (a) we can avoid the page fault overhead
-> 
->  (b) we don't have any good "atomic_inc_user()" interface or similar
-> that could do a write with a zero increment or something like that.
-> 
-> We do have that "arch_futex_atomic_op_inuser()" thing, of course. It's
-> all kinds of crazy, but we *could* do
-> 
->        arch_futex_atomic_op_inuser(FUTEX_OP_ADD, 0, &dummy, uaddr);
-> 
-> instead of doing the fault_in_user_writeable().
-> 
-> That might be a good idea anyway. I dunno.
+Hi Linus and all,
 
-I gave this a quick try for futex (though MTE is not affected at the
-moment):
+here's another update of this patch queue on top of v5.15-rc5.  Changes:
 
-https://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git/log/?h=devel/sub-page-faults
+ * Rebase on top of v5.15-rc5.
 
-However, I still have doubts about fault_in_pages_*() probing every 16
-bytes, especially if one decides to change these routines to be
-GUP-based.
+ * Bump iocb->ki_pos in gfs2_file_buffered_write to make sure
+   partial writes go to the correct file offset.
 
-> > A more invasive change would be to return a different error for such
-> > faults like -EACCESS and treat them differently in the caller.
-> 
-> That's _really_ hard for things like "copy_to_user()", that isn't a
-> single operation, and is supposed to return the bytes left.
-> 
-> Adding another error return would be nasty.
-> 
-> We've had hacks like "squirrel away the actual error code in the task
-> structure", but that tends to be unmaintainable because we have
-> interrupts (and NMI's) doing their own possibly nested atomics, so
-> even disabling preemption won't actually fix some of the nesting
-> issues.
+ * Some comment and commit message improvements.
 
-I think we can do something similar to the __get_user_error() on arm64.
-We can keep the __copy_to_user_inatomic() etc. returning the number of
-bytes left but change the exception handling path in those routines to
-set an error code or boolean to a pointer passed at uaccess routine call
-time. The caller would do something along these lines:
 
-	bool page_fault;
-	left = copy_to_user_inatomic(dst, src, size, &page_fault);
-	if (left && page_fault)
-		goto repeat_fault_in;
+I've pushed this here:
 
-copy_to_user_nofault() could also change its return type from -EFAULT to
-something else based on whether page_fault was set or not.
+  https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/log/?h=for-next.mmap-fault
+  28ea41433945ed1d442d2a131d1bcbfa24646c6f
 
-Most architectures will use a generic copy_to_user_inatomic() wrapper
-where page_fault == true for any fault. Arm64 needs some adjustment to
-the uaccess fault handling to pass the fault code down to the exception
-code. This way, at least for arm64, I don't think an interrupt or NMI
-would be problematic.
 
-> All of these things make me think that the proper fix ends up being to
-> make sure that our "fault_in_xyz()" functions simply should always
-> handle all faults.
-> 
-> Another option may be to teach the GUP code to actually check
-> architecture-specific sub-page ranges.
+>From my point of view, the following questions remain:
 
-Teaching GUP about this is likely to be expensive. A put_user() for
-probing on arm64 uses a STTR instruction that's run with user privileges
-on the user address and the user tag checking mode. The GUP code for
-MTE, OTOH, would need to explicitly read the tag in memory and compare
-it with the user pointer tag (which is normally cleared in the GUP code
-by untagged_addr()).
+ * I hope these patches will be merged for v5.16, but what process
+   should I follow for that?  The patch queue contains mm and iomap
+   changes, so a pull request from the gfs2 tree would be unusual.
 
-To me it makes more sense for the fault_in_*() functions to only deal
-with those permissions the kernel controls, i.e. the pte. Sub-page
-permissions like MTE or CHERI are controlled by the user directly, so
-the kernel cannot fix them up anyway. Rather than overloading
-fault_in_*() with additional checks, I think we should expand the
-in-atomic uaccess API to cover the type of fault.
+ * Will Catalin Marinas's work for supporting arm64 sub-page faults
+   be queued behind these patches?  We have an overlap in
+   fault_in_[pages_]readable fault_in_[pages_]writeable, so one of
+   the two patch queues will need some adjustments.
+
+
+Thanks,
+Andreas
+
+
+Andreas Gruenbacher (16):
+  iov_iter: Fix iov_iter_get_pages{,_alloc} page fault return value
+  powerpc/kvm: Fix kvm_use_magic_page
+  gup: Turn fault_in_pages_{readable,writeable} into
+    fault_in_{readable,writeable}
+  iov_iter: Turn iov_iter_fault_in_readable into
+    fault_in_iov_iter_readable
+  iov_iter: Introduce fault_in_iov_iter_writeable
+  gfs2: Add wrapper for iomap_file_buffered_write
+  gfs2: Clean up function may_grant
+  gfs2: Move the inode glock locking to gfs2_file_buffered_write
+  gfs2: Eliminate ip->i_gh
+  gfs2: Fix mmap + page fault deadlocks for buffered I/O
+  iomap: Fix iomap_dio_rw return value for user copies
+  iomap: Support partial direct I/O on user copy failures
+  iomap: Add done_before argument to iomap_dio_rw
+  gup: Introduce FOLL_NOFAULT flag to disable page faults
+  iov_iter: Introduce nofault flag to disable page faults
+  gfs2: Fix mmap + page fault deadlocks for direct I/O
+
+Bob Peterson (1):
+  gfs2: Introduce flag for glock holder auto-demotion
+
+ arch/powerpc/kernel/kvm.c           |   3 +-
+ arch/powerpc/kernel/signal_32.c     |   4 +-
+ arch/powerpc/kernel/signal_64.c     |   2 +-
+ arch/x86/kernel/fpu/signal.c        |   7 +-
+ drivers/gpu/drm/armada/armada_gem.c |   7 +-
+ fs/btrfs/file.c                     |   7 +-
+ fs/btrfs/ioctl.c                    |   5 +-
+ fs/erofs/data.c                     |   2 +-
+ fs/ext4/file.c                      |   5 +-
+ fs/f2fs/file.c                      |   2 +-
+ fs/fuse/file.c                      |   2 +-
+ fs/gfs2/bmap.c                      |  60 +----
+ fs/gfs2/file.c                      | 256 +++++++++++++++++++--
+ fs/gfs2/glock.c                     | 331 +++++++++++++++++++++-------
+ fs/gfs2/glock.h                     |  20 ++
+ fs/gfs2/incore.h                    |   4 +-
+ fs/iomap/buffered-io.c              |   2 +-
+ fs/iomap/direct-io.c                |  21 +-
+ fs/ntfs/file.c                      |   2 +-
+ fs/ntfs3/file.c                     |   2 +-
+ fs/xfs/xfs_file.c                   |   6 +-
+ fs/zonefs/super.c                   |   4 +-
+ include/linux/iomap.h               |  11 +-
+ include/linux/mm.h                  |   3 +-
+ include/linux/pagemap.h             |  58 +----
+ include/linux/uio.h                 |   4 +-
+ lib/iov_iter.c                      | 103 +++++++--
+ mm/filemap.c                        |   4 +-
+ mm/gup.c                            | 139 +++++++++++-
+ 29 files changed, 790 insertions(+), 286 deletions(-)
 
 -- 
-Catalin
+2.26.3
 
