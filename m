@@ -1,104 +1,105 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54357439EE4
-	for <lists+cluster-devel@lfdr.de>; Mon, 25 Oct 2021 21:02:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 585B843A1DE
+	for <lists+cluster-devel@lfdr.de>; Mon, 25 Oct 2021 21:41:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1635188545;
+	s=mimecast20190719; t=1635190891;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=QkyoC/NexH1Nu0O2R4wJhF/62iz6WrFzKuF9woFeRsA=;
-	b=F17uG1npZxwDMmD1ZCS4v+OuB/5Hyk1zrc45Buy8lmY7iqq9sR6IdZWDyTbAOrqaYBuThM
-	B1XHdUytykLik8sEgO2rlUEQcwMcR4YB/pFbInlTjSA0yjuXXBSayCsAImQqlgt+HSIcLG
-	v80RhHKfUOBledBhNXzzLVnBXT09Apw=
+	 list-subscribe:list-post; bh=9aAky+o+A3o8orvEWSZgWo8dAX6pVohf78faelvH+XE=;
+	b=g55LkzQhA8rkPtedBMvLAoMaxuAC1get8YpYFh5psbJYgRFBwjISLLAmQO22preHZVgSII
+	WOEQtLDOuclfOSV/CyJyPr/CkDQcif/JOWxkE6SiJCid4vvWRdp/RaXmnEFUCSHiCVT6hC
+	WfcvY48rSIA6swbUCN8Is1FgsDwsSyo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-579-XIE4O9NwN2uq0slAb6S4Lg-1; Mon, 25 Oct 2021 15:02:22 -0400
-X-MC-Unique: XIE4O9NwN2uq0slAb6S4Lg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-458-yAgQGe-xMJqa_1UQyY9kgw-1; Mon, 25 Oct 2021 15:41:30 -0400
+X-MC-Unique: yAgQGe-xMJqa_1UQyY9kgw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF8D3801B01;
-	Mon, 25 Oct 2021 19:02:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F37F210A8E04;
+	Mon, 25 Oct 2021 19:41:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B881A61093;
-	Mon, 25 Oct 2021 19:02:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBFD2100238C;
+	Mon, 25 Oct 2021 19:41:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0765F1801241;
-	Mon, 25 Oct 2021 19:01:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 653221801241;
+	Mon, 25 Oct 2021 19:41:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19PJ11CV032230 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 25 Oct 2021 15:01:01 -0400
+	id 19PJba8S004228 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 25 Oct 2021 15:37:36 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 934C851DD; Mon, 25 Oct 2021 19:01:01 +0000 (UTC)
+	id 7D24C40C1242; Mon, 25 Oct 2021 19:37:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CCB051DC
-	for <cluster-devel@redhat.com>; Mon, 25 Oct 2021 19:00:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79C13400F3EC
+	for <cluster-devel@redhat.com>; Mon, 25 Oct 2021 19:37:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A335C899ECD
-	for <cluster-devel@redhat.com>; Mon, 25 Oct 2021 19:00:58 +0000 (UTC)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
-	[209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-603-XL9rYNVlNz2ema8HlQM-Tg-1; Mon, 25 Oct 2021 15:00:57 -0400
-X-MC-Unique: XL9rYNVlNz2ema8HlQM-Tg-1
-Received: by mail-wm1-f70.google.com with SMTP id
-	v18-20020a7bcb52000000b00322fea1d5b7so352962wmj.9
-	for <cluster-devel@redhat.com>; Mon, 25 Oct 2021 12:00:57 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61D3F811E76
+	for <cluster-devel@redhat.com>; Mon, 25 Oct 2021 19:37:36 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+	[209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-374-wxgdWws5PQmY752wTrzRAw-1; Mon, 25 Oct 2021 15:37:35 -0400
+X-MC-Unique: wxgdWws5PQmY752wTrzRAw-1
+Received: by mail-wm1-f72.google.com with SMTP id
+	a18-20020a1cf012000000b0032ca3eb2ac3so412032wmb.0
+	for <cluster-devel@redhat.com>; Mon, 25 Oct 2021 12:37:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=QkyoC/NexH1Nu0O2R4wJhF/62iz6WrFzKuF9woFeRsA=;
-	b=spo/hGmm8/0toKluAKnSvTlbyx5MK1CjRNam2DvAUT6eK6qgDoBM/IItO4pwqGy8Ed
-	u5tL81mpA8vwr6BOIk4i5RIMhs01NI6+1LwP35ftXoxQd7tQOTEyms02RbJiIEEzSDTy
-	Qi3V35XYO4P7fdhJVpOFwUGkK5QNar0JB+Y0Ma0Q4UBTPj7zhzWsQKm11yzP7i0kOhuv
-	rFVx16cS7ld92WpwkvvCYy0AjDwGrfrTywsncfpfSG9JH121J4onMboeO98Y0OSgifRw
-	55BtCRTC6ZwbX4U9J9ST2QaiMNrRSev5WHeV/jJzSJ/SVem9C6R1f+cTNXprTFkIVg53
-	qAwQ==
-X-Gm-Message-State: AOAM532+RW/3GRyq2x2as1wvS5vwW3HQCO+MuK1gyJeWPHOWz4eWDeHZ
-	W53KFbTcm7OVaMsjPpRZ2ZqEjfZGvOr3+hppu0J7QE0I7ssEnAIwDc/YM8Bwcw5y50RVkYjpJQh
-	d6s9AAI5/7GYhF5+fcwHMzabLnkkvrGEpT5Ogtg==
-X-Received: by 2002:a7b:c74f:: with SMTP id w15mr21890321wmk.186.1635188455455;
-	Mon, 25 Oct 2021 12:00:55 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxzXLWqbHTas2L+Ep0jJ8Ym3FrcHaKtpcTPgh7nV35XP5aJDxyjNlJ4UaNmG9hWfJd1eun8dCJKnnE+XiZ6mmk=
-X-Received: by 2002:a7b:c74f:: with SMTP id w15mr21890297wmk.186.1635188455236;
-	Mon, 25 Oct 2021 12:00:55 -0700 (PDT)
+	bh=9aAky+o+A3o8orvEWSZgWo8dAX6pVohf78faelvH+XE=;
+	b=nwl4JreZN44KErgYrgeyXnmZGVMQB+nrHJMprWlFX3W1GP48JAFSW9U/pLqjPn8lQQ
+	1cn1SEwGmtlQxyjf3/f4luZ2CEf8j/tnOhziD/z0LpL8X7g/AgDplduXZo34+0ah/4ly
+	Sm1v2UUjpR3AwOBbwphHWT23fZCYHLXJ0m/HM6tURxuHLyBA3Pn9bVBqSh1VOVNx+owP
+	9AiV9n042N3T0mpbGOSQ+PvdUyBVlrCujT6Qu5P2m+luW+cRu02MgPEmw4ubI/R7EOVE
+	dih0fiTp7zm+udAlO3MsT5Fry9aN8wRWikyA1RRCbwGLVmSdLVayhplkPsc71vx9vWaW
+	FnTw==
+X-Gm-Message-State: AOAM530guxVamQdl3pkE0y+BWwMIM3q0p3d9+vSAFeqwEdME91nmFRoz
+	yNvpZOhM2bS58XyY0doPsAEqwgOJ/zgEXwdKDJ3YczenSDuYnJ7lBsuAmfOow+cinDeab3UQ2kZ
+	U3qa7hW/XkODxPN6WgybFtv1gik7fQ1b4P8Rcpw==
+X-Received: by 2002:adf:e411:: with SMTP id g17mr24943045wrm.228.1635190653766;
+	Mon, 25 Oct 2021 12:37:33 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy4ZUW3Mo472pPGFPqydjyYBJNjFGoCJJfUViSULsVvl27H2hHnmzQ8wgBE36rQvAagQBtIOpD1/zpOLrWd37Q=
+X-Received: by 2002:adf:e411:: with SMTP id g17mr24943016wrm.228.1635190653583;
+	Mon, 25 Oct 2021 12:37:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20211019134204.3382645-1-agruenba@redhat.com>
-	<CAHk-=wh0_3y5s7-G74U0Pcjm7Y_yHB608NYrQSvgogVNBxsWSQ@mail.gmail.com>
-	<YXBFqD9WVuU8awIv@arm.com>
-	<CAHk-=wgv=KPZBJGnx_O5-7hhST8CL9BN4wJwtVuycjhv_1MmvQ@mail.gmail.com>
-	<YXCbv5gdfEEtAYo8@arm.com>
-	<CAHk-=wgP058PNY8eoWW=5uRMox-PuesDMrLsrCWPS+xXhzbQxQ@mail.gmail.com>
-	<YXL9tRher7QVmq6N@arm.com>
-	<CAHk-=wg4t2t1AaBDyMfOVhCCOiLLjCB5TFVgZcV4Pr8X2qptJw@mail.gmail.com>
-In-Reply-To: <CAHk-=wg4t2t1AaBDyMfOVhCCOiLLjCB5TFVgZcV4Pr8X2qptJw@mail.gmail.com>
+References: <YS5KudP4DBwlbPEp@zeniv-ca.linux.org.uk> <YWR2cPKeDrc0uHTK@arm.com>
+	<CAHk-=wjvQWj7mvdrgTedUW50c2fkdn6Hzxtsk-=ckkMrFoTXjQ@mail.gmail.com>
+	<YWSnvq58jDsDuIik@arm.com>
+	<CAHk-=wiNWOY5QW5ZJukt_9pHTWvrJhE2=DxPpEtFHAWdzOPDTg@mail.gmail.com>
+	<CAHc6FU7bpjAxP+4dfE-C0pzzQJN1p=C2j3vyXwUwf7fF9JF72w@mail.gmail.com>
+	<YXE7fhDkqJbfDk6e@arm.com>
+	<CAHc6FU5xTMOxuiEDyc9VO_V98=bvoDc-0OFi4jsGPgWJWjRJWQ@mail.gmail.com>
+	<YXGexrdprC+NTslm@arm.com>
+	<CAHc6FU7im8UzxWCzqUFMKOwyg9zoQ8OZ_M+rRC_E20yE5RNu9g@mail.gmail.com>
+	<YXMFw34ZpW+CwlmI@arm.com>
+In-Reply-To: <YXMFw34ZpW+CwlmI@arm.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 25 Oct 2021 21:00:43 +0200
-Message-ID: <CAHc6FU7BEfBJCpm8wC3P+8GTBcXxzDWcp6wAcgzQtuaJLHrqZA@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Date: Mon, 25 Oct 2021 21:37:22 +0200
+Message-ID: <CAHc6FU43-n3tk+vvhXKCX+oyUu4x23-vh8pg18wRgYsB0rt+rA@mail.gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: cluster-devel@redhat.com
-Cc: kvm-ppc@vger.kernel.org, cluster-devel <cluster-devel@redhat.com>,
-	Jan Kara <jack@suse.cz>, Catalin Marinas <catalin.marinas@arm.com>,
+Cc: cluster-devel <cluster-devel@redhat.com>, Jan Kara <jack@suse.cz>,
+	Will Deacon <will@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>, Paul Mackerras <paulus@ozlabs.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Darrick J. Wong" <djwong@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>, Josef Bacik <josef@toxicpanda.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	linux-btrfs <linux-btrfs@vger.kernel.org>, ocfs2-devel@oss.oracle.com
-Subject: Re: [Cluster-devel] [PATCH v8 00/17] gfs2: Fix mmap + page fault
-	deadlocks
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	"ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>
+Subject: Re: [Cluster-devel] [RFC][arm64] possible infinite loop in btrfs
+	search_ioctl()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -112,34 +113,44 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 22, 2021 at 9:23 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Fri, Oct 22, 2021 at 8:06 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > Probing only the first byte(s) in fault_in() would be ideal, no need to
-> > go through all filesystems and try to change the uaccess/probing order.
+On Fri, Oct 22, 2021 at 8:41 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> On Thu, Oct 21, 2021 at 08:00:50PM +0200, Andreas Gruenbacher wrote:
+> > On Thu, Oct 21, 2021 at 7:09 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> > > This discussion started with the btrfs search_ioctl() where, even if
+> > > some bytes were written in copy_to_sk(), it always restarts from an
+> > > earlier position, reattempting to write the same bytes. Since
+> > > copy_to_sk() doesn't guarantee forward progress even if some bytes are
+> > > writable, Linus' suggestion was for fault_in_writable() to probe the
+> > > whole range. I consider this overkill since btrfs is the only one that
+> > > needs probing every 16 bytes. The other cases like the new
+> > > fault_in_safe_writeable() can be fixed by probing the first byte only
+> > > followed by gup.
+> >
+> > Hmm. Direct I/O request sizes are multiples of the underlying device
+> > block size, so we'll also get stuck there if fault-in won't give us a
+> > full block. This is getting pretty ugly. So scratch that idea; let's
+> > stick with probing the whole range.
 >
-> Let's try that. Or rather: probing just the first page - since there
-> are users like that btrfs ioctl, and the direct-io path.
+> Ah, I wasn't aware of this. I got lost in the call trees but I noticed
+> __iomap_dio_rw() does an iov_iter_revert() only if direction is READ. Is
+> this the case for writes as well?
 
-For direct I/O, we actually only want to trigger page fault-in so that
-we can grab page references with bio_iov_iter_get_pages. Probing for
-sub-page error domains will only slow things down. If we hit -EFAULT
-during the actual copy-in or copy-out, we know that the error can't be
-page fault related. Similarly, in the buffered I/O case, we only
-really care about the next byte, so any probing beyond that is
-unnecessary.
+It's the EOF case, so it only applies to reads:
 
-So maybe we should split the sub-page error domain probing off from
-the fault-in functions. Or at least add an argument to the fault-in
-functions that specifies the amount of memory to probe.
+        /*
+         * We only report that we've read data up to i_size.
+         * Revert iter to a state corresponding to that as some callers (such
+         * as the splice code) rely on it.
+         */
+        if (iov_iter_rw(iter) == READ && iomi.pos >= dio->i_size)
+                iov_iter_revert(iter, iomi.pos - dio->i_size);
 
-Thanks,
 Andreas
 
