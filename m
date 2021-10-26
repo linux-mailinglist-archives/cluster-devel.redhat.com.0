@@ -1,73 +1,74 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8029843B9FA
-	for <lists+cluster-devel@lfdr.de>; Tue, 26 Oct 2021 20:50:42 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 82A1A43BA94
+	for <lists+cluster-devel@lfdr.de>; Tue, 26 Oct 2021 21:18:54 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-477-DvDunGaMNGmD7Xw--yiArA-1; Tue, 26 Oct 2021 14:50:38 -0400
-X-MC-Unique: DvDunGaMNGmD7Xw--yiArA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-358-hW6jLibVPV2vue5GsG7OgQ-1; Tue, 26 Oct 2021 15:18:50 -0400
+X-MC-Unique: hW6jLibVPV2vue5GsG7OgQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 808391891024;
-	Tue, 26 Oct 2021 18:50:35 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B43D6A904;
-	Tue, 26 Oct 2021 18:50:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B5A51923761;
+	Tue, 26 Oct 2021 19:18:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFA4F5DF35;
+	Tue, 26 Oct 2021 19:18:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 904681809C81;
-	Tue, 26 Oct 2021 18:50:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 202BA4A703;
+	Tue, 26 Oct 2021 19:18:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19QIoU6Q021890 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 26 Oct 2021 14:50:30 -0400
+	id 19QJIhGd023771 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 26 Oct 2021 15:18:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F0AF451E3; Tue, 26 Oct 2021 18:50:29 +0000 (UTC)
+	id 2BB782026DE8; Tue, 26 Oct 2021 19:18:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E94B751E1
-	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 18:50:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D5E688007B1
-	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 18:50:25 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
-	[209.85.167.42]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-441-20DPS-1WM3WJUBYlAwRYMQ-1; Tue, 26 Oct 2021 14:50:24 -0400
-X-MC-Unique: 20DPS-1WM3WJUBYlAwRYMQ-1
-Received: by mail-lf1-f42.google.com with SMTP id bp15so861609lfb.4
-	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 11:50:23 -0700 (PDT)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 254032026D2D
+	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 19:18:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E90A805C21
+	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 19:18:36 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+	[209.85.167.43]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-318-D986JkZSP4Wm5zGw_oUbNQ-1; Tue, 26 Oct 2021 15:18:34 -0400
+X-MC-Unique: D986JkZSP4Wm5zGw_oUbNQ-1
+Received: by mail-lf1-f43.google.com with SMTP id x27so1006691lfu.5
+	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 12:18:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=r5Cx2RnmHPH+SxoKka0sJEz3NkssP3YCqbiSsqzadkQ=;
-	b=I1ixqouiiQwHJ2+SFlM7SJ+biKDcNXBN17ZSc9+Dsv6wQmHXno3pBKX7bsT50RtBd+
-	0IPFC7yTunLSGvZhkw8ppfLe7xqXPUKTMhUaTh1mZd4JfekpvKZxC6oGbgAhWGAV8rPC
-	prL6MmK+p8E8RTBsobU/xo8LS/RHVJDuAFzK72MbrJxIdBBNx6MS0bURSzq9XpYc9+V+
-	sJgNL+2iK3xazOOpEI1S/mLPXJlCRW1mD6bmojpUQ3hChMjH9QF0sz5xu5jVnOS4pg6k
-	uaZn1TcyfzPxHGUupojl42E05FaF6x6ZdiWAOWyzZErWsYjDI++S6gLRGd/zNTvB8zYU
-	+Sew==
-X-Gm-Message-State: AOAM531Ns2DfbiURqN8ha0/6ZhJ02qGEJcnUrkmyQow2eQXNEr0XH97D
-	p4v/K5ykPC7H/+NsN0C3nCGbflmVBOXnsAgi
-X-Google-Smtp-Source: ABdhPJwP1d8M4FiKhEbBACo2aOI+qOOhbdDnXb27emc0yTFc7Y04kvFmcTlDJ0GItM9OgiMsbKN8eQ==
-X-Received: by 2002:a05:6512:21a9:: with SMTP id
-	c9mr630183lft.565.1635274222250; 
-	Tue, 26 Oct 2021 11:50:22 -0700 (PDT)
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com.
-	[209.85.208.180]) by smtp.gmail.com with ESMTPSA id
-	z23sm206580lfu.119.2021.10.26.11.50.21 for <cluster-devel@redhat.com>
+	bh=VZmINpwcYY7kcvI7sKLaSgNG7WCxmd5BZ4iNpf7lS1s=;
+	b=bCpt3Rwjld+CYjJtBGhM4DENafddEY8ZOWH96uPFt+t6x9jiTujLFqTbqHgxUGNsS9
+	XJvXpkmpm+hUmdkCDhReSXtNhQj6f+mWzXNWe5AuWoAzvns3fP3kgIRogILs+cDIcKJh
+	88Uazl5QR7U+v1vp7Viw++aSnn6MG3vl+pHc7/hBN+6V1NjZKgPf5eH9TyUeIZpDjWBB
+	3mPINsdpjuPDRh7mJjCOWqxewaL9swFoPNTPhS1/m5CONYZZ7VC4GmxlaXm9b/CxrIHg
+	+qdk4lHQ776WrF7IgSV+SI3G7eHNXaXxkBKDM7iWPEvdhOLkbrRcArl+GWgj75EDWHYn
+	nEng==
+X-Gm-Message-State: AOAM533Tlgp3EWd6Uj7Z1A3JwqzlptgedAE1eTMP9SrRLvwinTCg6WsV
+	Z/HNfnWTLNhRODLu4dxj/FKHJ/+ne7lwmVRQ
+X-Google-Smtp-Source: ABdhPJzG77fytUBvaeswA1UYWQ/5CmoFdysx0OySQTyOHkbaUH4zXzTps1N8fX3J7GoDcXYWp2WdNg==
+X-Received: by 2002:a05:6512:3da9:: with SMTP id
+	k41mr10680861lfv.114.1635275911765; 
+	Tue, 26 Oct 2021 12:18:31 -0700 (PDT)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com.
+	[209.85.208.177])
+	by smtp.gmail.com with ESMTPSA id br24sm592182lfb.0.2021.10.26.12.18.30
+	for <cluster-devel@redhat.com>
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 26 Oct 2021 11:50:21 -0700 (PDT)
-Received: by mail-lj1-f180.google.com with SMTP id o26so506531ljj.2
-	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 11:50:21 -0700 (PDT)
-X-Received: by 2002:a2e:9e13:: with SMTP id e19mr4519488ljk.494.1635274221013; 
-	Tue, 26 Oct 2021 11:50:21 -0700 (PDT)
+	Tue, 26 Oct 2021 12:18:31 -0700 (PDT)
+Received: by mail-lj1-f177.google.com with SMTP id u5so570444ljo.8
+	for <cluster-devel@redhat.com>; Tue, 26 Oct 2021 12:18:30 -0700 (PDT)
+X-Received: by 2002:a2e:bc24:: with SMTP id b36mr28005819ljf.95.1635275910507; 
+	Tue, 26 Oct 2021 12:18:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20211019134204.3382645-1-agruenba@redhat.com>
 	<CAHk-=wh0_3y5s7-G74U0Pcjm7Y_yHB608NYrQSvgogVNBxsWSQ@mail.gmail.com>
@@ -79,12 +80,16 @@ References: <20211019134204.3382645-1-agruenba@redhat.com>
 	<CAHk-=wg4t2t1AaBDyMfOVhCCOiLLjCB5TFVgZcV4Pr8X2qptJw@mail.gmail.com>
 	<CAHc6FU7BEfBJCpm8wC3P+8GTBcXxzDWcp6wAcgzQtuaJLHrqZA@mail.gmail.com>
 	<YXhH0sBSyTyz5Eh2@arm.com>
-In-Reply-To: <YXhH0sBSyTyz5Eh2@arm.com>
+	<CAHk-=wjWDsB-dDj+x4yr8h8f_VSkyB7MbgGqBzDRMNz125sZxw@mail.gmail.com>
+In-Reply-To: <CAHk-=wjWDsB-dDj+x4yr8h8f_VSkyB7MbgGqBzDRMNz125sZxw@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 26 Oct 2021 11:50:04 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjWDsB-dDj+x4yr8h8f_VSkyB7MbgGqBzDRMNz125sZxw@mail.gmail.com>
-Message-ID: <CAHk-=wjWDsB-dDj+x4yr8h8f_VSkyB7MbgGqBzDRMNz125sZxw@mail.gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
+Date: Tue, 26 Oct 2021 12:18:14 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjm9XwkeqWRy4+OvmdmDojghNSYbu81PxYMoPDJKS_j3A@mail.gmail.com>
+Message-ID: <CAHk-=wjm9XwkeqWRy4+OvmdmDojghNSYbu81PxYMoPDJKS_j3A@mail.gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -93,7 +98,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: kvm-ppc@vger.kernel.org, cluster-devel <cluster-devel@redhat.com>,
 	Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
@@ -117,57 +122,58 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 26, 2021 at 11:24 AM Catalin Marinas
-<catalin.marinas@arm.com> wrote:
+On Tue, Oct 26, 2021 at 11:50 AM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> While more intrusive, I'd rather change copy_page_from_iter_atomic()
-> etc. to take a pointer where to write back an error code.
+> Because for _most_ cases of "copy_to/from_user()" and friends by far,
+> the only thing we look for is "zero for success".
 
-I absolutely hate this model.
+Gaah. Looking around, I almost immediately found some really odd
+exceptions to this.
 
-The thing is, going down that rat-hole, you'll find that you'll need
-to add it to *all* the "copy_to/from_user()" cases, which isn't
-acceptable. So then you start doing some duplicate versions with
-different calling conventions, just because of things like this.
+Like parse_write_buffer_into_params() in amdgpu_dm_debugfs.c, which does
 
-So no, I really don't want a "pass down a reference to an extra error
-code" kind of horror.
+        r = copy_from_user(wr_buf_ptr, buf, wr_buf_size);
 
-That said, the fact that these sub-page faults are always
-non-recoverable might be a hint to a solution to the problem: maybe we
-could extend the existing return code with actual negative error
-numbers.
+                /* r is bytes not be copied */
+        if (r >= wr_buf_size) {
+                DRM_DEBUG_DRIVER("user data not be read\n");
+                return -EINVAL;
+        }
 
-Because for _most_ cases of "copy_to/from_user()" and friends by far,
-the only thing we look for is "zero for success".
+and allows a partial copy to justy silently succeed, because all the
+callers have pre-cleared the wr_buf_ptr buffer.
 
-We could extend the "number of bytes _not_ copied" semantics to say
-"negative means fatal", and because there are fairly few places that
-actually look at non-zero values, we could have a coccinelle script
-that actually marks those places.
+I have no idea why the code does that - it seems to imply that user
+space could give an invalid 'size' parameter and mean to write only
+the part that didn't succeed.
 
-End result: no change in calling conventions, no change to most users,
-and the (relatively few) cases where we look at the "what about
-partial results", we just add a
+Adding AMD GPU driver people just to point out that this code not only
+has odd whitespace, but that the pattern for "couldn't copy from user
+space" should basically always be
 
-         .. existing code ..
-         ret = copy_from_user(..);
-+        if (ret < 0)
-+                break;  // or whatever "fatal error" situation
-         .. existing  code ..
+        if (copy_from_user(wr_buf_ptr, buf, wr_buf_size))
+                return -EFAULT;
 
-kind of thing that just stops the re-try.
+because if user-space passes in a partially invalid buffer, you
+generally really shouldn't say "ok, I got part of it and will use that
+part"
 
-(The coccinelle script couldn't actually do that, but it could add
-some comment marker or something so that it's easy to find and then
-manually fix up the places it finds).
+There _are_ exceptions. We've had situations where user-space only
+passes in the pointer to the buffer, but not the size. Bad interface,
+but it historically happens for the 'mount()' system call 'data'
+pointer. So then we'll copy "up to a page size".
 
-             Linus
+Anyway, there are clearly some crazy users, and converting them all to
+also check for negative error returns might be more painful than I
+thought it would be.
+
+                 Linus
 
