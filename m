@@ -1,60 +1,60 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE14943CDA8
-	for <lists+cluster-devel@lfdr.de>; Wed, 27 Oct 2021 17:34:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8497E43CDAD
+	for <lists+cluster-devel@lfdr.de>; Wed, 27 Oct 2021 17:35:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1635348867;
+	s=mimecast20190719; t=1635348908;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=auQip92r/w3qZEvyZT4geAGXS3/Y59qF0BXDPagQlTY=;
-	b=IZjhDAFAAEP395AAQbTJE/vunqQbb/z8rY75jn8AvqhUHQGOSYUtUH1r1FUFkZ/Zy5wgHj
-	/GwM6WPZUF9fkJtx7pi8HcDeAyIJgIugt3vqU4fXXLgwCNpLeSbg7gN3sHpRmjnSvNmAOY
-	rrbptch0lnzxbuXv0ob/gJ2R9j8L/rU=
+	bh=dcTaFY/Uvwt4iGsid9yq46XobJd6+jsf7Fd+Z4665e0=;
+	b=XO0oy6ZQ2nhsh9a4WXyW15pzyQdgpW8NKUrYEvjTWAzZy0x4XPMaOkAgrM2pc8oOOMDj1b
+	m5BUni0ErxAL0TPW4tCTNtB7hR2WCu1NJnu1J8ytzvH6XvUAvq1BBce/9zZdYhtYHbi7RQ
+	MHAuWQS+Ov+ESe1X1TpWT2kLZQD/Rlw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-518-tddec1IiOAGCyyjGzHYVew-1; Wed, 27 Oct 2021 11:34:24 -0400
-X-MC-Unique: tddec1IiOAGCyyjGzHYVew-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-272-YuqUja0wOo6xs-xsEFlUkg-1; Wed, 27 Oct 2021 11:34:26 -0400
+X-MC-Unique: YuqUja0wOo6xs-xsEFlUkg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A2A25100CCC0;
-	Wed, 27 Oct 2021 15:34:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9352E6A904;
-	Wed, 27 Oct 2021 15:34:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 34C05802B52;
+	Wed, 27 Oct 2021 15:34:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 273ED69203;
+	Wed, 27 Oct 2021 15:34:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D06364EA79;
-	Wed, 27 Oct 2021 15:34:21 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DC97F181A1D0;
+	Wed, 27 Oct 2021 15:34:22 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19RFNpwC009191 for <cluster-devel@listman.util.phx.redhat.com>;
+	id 19RFNp0m009198 for <cluster-devel@listman.util.phx.redhat.com>;
 	Wed, 27 Oct 2021 11:23:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 219501042AEC; Wed, 27 Oct 2021 15:23:51 +0000 (UTC)
+	id 8D95C1042AEA; Wed, 27 Oct 2021 15:23:51 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
 	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C5C3710429D2;
-	Wed, 27 Oct 2021 15:23:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3DB391042AEC;
+	Wed, 27 Oct 2021 15:23:51 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Wed, 27 Oct 2021 11:23:18 -0400
-Message-Id: <20211027152322.3236492-5-aahringo@redhat.com>
+Date: Wed, 27 Oct 2021 11:23:19 -0400
+Message-Id: <20211027152322.3236492-6-aahringo@redhat.com>
 In-Reply-To: <20211027152322.3236492-1-aahringo@redhat.com>
 References: <20211027152322.3236492-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm/next 4/8] fs: dlm: add debugfs rawmsg
-	send functionality
+Subject: [Cluster-devel] [PATCH dlm/next 5/8] fs: dlm: allow create lkb with
+	specific id range
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,7 +68,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -76,153 +76,48 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch adds a dlm functionality to send a raw dlm message to a
-specific cluster node. This raw message can be build by user space and
-send out by writing the message to "rawmsg" dlm debugfs file.
-
-There is a in progress scapy dlm module which provides a easy build of
-DLM messages in user space. For example:
-
-DLM(h_cmd=3, o_nextcmd=1, h_nodeid=1, h_lockspace=0xe4f48a18, ...)
-
-The goal is to provide an easy reproducable state to crash DLM or to
-fuzz the DLM kernel stack if there are possible ways to crash it.
-
-Note: that if the sequence number is zero and dlm version is not set to
-3.1 the kernel will automatic will set a right sequence number, otherwise
-DLM stack testing is not possible.
+This patch adds functionality to add a lkb with a specific id range.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/debug_fs.c | 37 ++++++++++++++++++++++++++++++++++++
- fs/dlm/midcomms.c | 48 +++++++++++++++++++++++++++++++++++++++++++++++
- fs/dlm/midcomms.h |  2 ++
- 3 files changed, 87 insertions(+)
+ fs/dlm/lock.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/fs/dlm/debug_fs.c b/fs/dlm/debug_fs.c
-index 47e9d57e4cae..555904eeea8e 100644
---- a/fs/dlm/debug_fs.c
-+++ b/fs/dlm/debug_fs.c
-@@ -768,6 +768,42 @@ static int dlm_version_show(struct seq_file *file, void *offset)
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index c502c065d007..5f3c2c6bca8c 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -1178,7 +1178,8 @@ static void detach_lkb(struct dlm_lkb *lkb)
+ 	}
  }
- DEFINE_SHOW_ATTRIBUTE(dlm_version);
  
-+static ssize_t dlm_rawmsg_write(struct file *fp, const char __user *user_buf,
-+				size_t count, loff_t *ppos)
-+{
-+	void *buf;
-+	int ret;
-+
-+	if (count > PAGE_SIZE || count < sizeof(struct dlm_header))
-+		return -EINVAL;
-+
-+	buf = kmalloc(PAGE_SIZE, GFP_NOFS);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	if (copy_from_user(buf, user_buf, count)) {
-+		ret = -EFAULT;
-+		goto out;
-+	}
-+
-+	ret = dlm_midcomms_rawmsg_send(fp->private_data, buf, count);
-+	if (ret)
-+		goto out;
-+
-+	kfree(buf);
-+	return count;
-+
-+out:
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static const struct file_operations dlm_rawmsg_fops = {
-+	.open	= simple_open,
-+	.write	= dlm_rawmsg_write,
-+	.llseek	= no_llseek,
-+};
-+
- void *dlm_create_debug_comms_file(int nodeid, void *data)
+-static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
++static int _create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret,
++		       int start, int end)
  {
- 	struct dentry *d_node;
-@@ -782,6 +818,7 @@ void *dlm_create_debug_comms_file(int nodeid, void *data)
- 	debugfs_create_file("send_queue_count", 0444, d_node, data,
- 			    &dlm_send_queue_cnt_fops);
- 	debugfs_create_file("version", 0444, d_node, data, &dlm_version_fops);
-+	debugfs_create_file("rawmsg", 0200, d_node, data, &dlm_rawmsg_fops);
+ 	struct dlm_lkb *lkb;
+ 	int rv;
+@@ -1199,7 +1200,7 @@ static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
  
- 	return d_node;
+ 	idr_preload(GFP_NOFS);
+ 	spin_lock(&ls->ls_lkbidr_spin);
+-	rv = idr_alloc(&ls->ls_lkbidr, lkb, 1, 0, GFP_NOWAIT);
++	rv = idr_alloc(&ls->ls_lkbidr, lkb, start, end, GFP_NOWAIT);
+ 	if (rv >= 0)
+ 		lkb->lkb_id = rv;
+ 	spin_unlock(&ls->ls_lkbidr_spin);
+@@ -1215,6 +1216,11 @@ static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
+ 	return 0;
  }
-diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index a8af5688ee89..41ed799b7344 100644
---- a/fs/dlm/midcomms.c
-+++ b/fs/dlm/midcomms.c
-@@ -1387,3 +1387,51 @@ int dlm_midcomms_close(int nodeid)
  
- 	return ret;
- }
-+
-+/* debug functionality to send raw dlm msg from user space */
-+struct dlm_rawmsg_data {
-+	struct midcomms_node *node;
-+	void *buf;
-+};
-+
-+static void midcomms_new_rawmsg_cb(void *data)
++static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
 +{
-+	struct dlm_rawmsg_data *rd = data;
-+	struct dlm_header *h = rd->buf;
-+
-+	switch (h->h_version) {
-+	case cpu_to_le32(DLM_VERSION_3_1):
-+		break;
-+	default:
-+		switch (h->h_cmd) {
-+		case DLM_OPTS:
-+			if (!h->u.h_seq)
-+				h->u.h_seq = rd->node->seq_send++;
-+			break;
-+		default:
-+			break;
-+		}
-+		break;
-+	}
++	return _create_lkb(ls, lkb_ret, 1, 0);
 +}
 +
-+int dlm_midcomms_rawmsg_send(struct midcomms_node *node, void *buf,
-+			     int buflen)
-+{
-+	struct dlm_rawmsg_data rd;
-+	struct dlm_msg *msg;
-+	char *msgbuf;
-+
-+	rd.node = node;
-+	rd.buf = buf;
-+
-+	msg = dlm_lowcomms_new_msg(node->nodeid, buflen, GFP_NOFS,
-+				   &msgbuf, midcomms_new_rawmsg_cb, &rd);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	memcpy(msgbuf, buf, buflen);
-+	dlm_lowcomms_commit_msg(msg);
-+	return 0;
-+}
-+
-diff --git a/fs/dlm/midcomms.h b/fs/dlm/midcomms.h
-index 579abc6929be..bc63cf73aa87 100644
---- a/fs/dlm/midcomms.h
-+++ b/fs/dlm/midcomms.h
-@@ -28,6 +28,8 @@ const char *dlm_midcomms_state(struct midcomms_node *node);
- unsigned long dlm_midcomms_flags(struct midcomms_node *node);
- int dlm_midcomms_send_queue_cnt(struct midcomms_node *node);
- uint32_t dlm_midcomms_version(struct midcomms_node *node);
-+int dlm_midcomms_rawmsg_send(struct midcomms_node *node, void *buf,
-+			     int buflen);
- 
- #endif				/* __MIDCOMMS_DOT_H__ */
- 
+ static int find_lkb(struct dlm_ls *ls, uint32_t lkid, struct dlm_lkb **lkb_ret)
+ {
+ 	struct dlm_lkb *lkb;
 -- 
 2.27.0
 
