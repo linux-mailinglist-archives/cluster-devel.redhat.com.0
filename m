@@ -1,52 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A2E5440191
-	for <lists+cluster-devel@lfdr.de>; Fri, 29 Oct 2021 19:56:45 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB09B440298
+	for <lists+cluster-devel@lfdr.de>; Fri, 29 Oct 2021 20:54:18 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-494-NU-F1OxEPoa-4JJguVlMdQ-1; Fri, 29 Oct 2021 13:56:43 -0400
-X-MC-Unique: NU-F1OxEPoa-4JJguVlMdQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-473-KgRQNR_UMSyuiQnnBdbsEQ-1; Fri, 29 Oct 2021 14:54:16 -0400
+X-MC-Unique: KgRQNR_UMSyuiQnnBdbsEQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1339319057A0;
-	Fri, 29 Oct 2021 17:56:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 93EA28018AC;
+	Fri, 29 Oct 2021 18:54:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 261805F4E1;
-	Fri, 29 Oct 2021 17:56:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 536934180;
+	Fri, 29 Oct 2021 18:54:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AD4974A702;
-	Fri, 29 Oct 2021 17:56:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3EAF24A702;
+	Fri, 29 Oct 2021 18:54:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19THonDI001444 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 29 Oct 2021 13:50:49 -0400
+	id 19TIs4Xh006092 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 29 Oct 2021 14:54:04 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3822F2026D48; Fri, 29 Oct 2021 17:50:49 +0000 (UTC)
+	id AF6D540CFD11; Fri, 29 Oct 2021 18:54:04 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 343BA2026D65
-	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 17:50:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA2A640CFD10
+	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 18:54:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5CCD018A01AB
-	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 17:50:46 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-433-fgM6r8gYMjSaQsrXvzL2Fg-1;
-	Fri, 29 Oct 2021 13:50:42 -0400
-X-MC-Unique: fgM6r8gYMjSaQsrXvzL2Fg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C7CA9610C7;
-	Fri, 29 Oct 2021 17:50:38 +0000 (UTC)
-Date: Fri, 29 Oct 2021 18:50:35 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <YXw0a9n+/PLAcObB@arm.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90C83811E7F
+	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 18:54:04 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+	[209.85.208.43]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-350-mugO85C-PFeF5Ya-h07a5Q-1; Fri, 29 Oct 2021 14:54:02 -0400
+X-MC-Unique: mugO85C-PFeF5Ya-h07a5Q-1
+Received: by mail-ed1-f43.google.com with SMTP id w15so41902335edc.9
+	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 11:54:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=uGPiPKSphOUEs2fEDAQ1oyHUSr8W7H4wPzT5A6mID2k=;
+	b=rFWsE+UVcpLN++hkNwsDh85Jj63VviANgoTRBzbufheaq5PcfIbpZCfspLDJf40ZS3
+	2NtksSUxXnubCu34GhEJQzt/EiHmKJAURCVyWfAEgP0ORcY8EiC5V7GZb4JeBSd1T10c
+	XqPl2ptIAQKfbc6yjHrdaVMQbn/4671dzplh8tpNePVQqcgSqRGY4aN9wNHU5yatpnzW
+	40M65ApDGtj6thXedoddU1WR29fZ5qpuXtFZR8xrB4bVbb+OSw9e1yQERvDascvk6XyM
+	8DKz0b1c/YpUNrrL9bq5Y4r3D6tcVry3Ymcn9/TP7UOPvhffh5XGrCOVTWeXq1pAsdtu
+	9SMw==
+X-Gm-Message-State: AOAM530i7m5pCzUIDG8lVfJf9OepgurggdsGX1CxnPgGy0ApJwArS7hx
+	XHEnAELb/AYiMxHOMGcsUKaXPGsOu2HMN139qg0=
+X-Google-Smtp-Source: ABdhPJzIfTaVlSp+pCKIX7k6L2sZbvkJD7wDXcMSO23imZ84NY+HHi2O/LwNzQcmaZstBgceTlO5Wg==
+X-Received: by 2002:a05:6402:120b:: with SMTP id
+	c11mr17078769edw.397.1635533640837; 
+	Fri, 29 Oct 2021 11:54:00 -0700 (PDT)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com.
+	[209.85.208.46])
+	by smtp.gmail.com with ESMTPSA id k9sm4006299edo.87.2021.10.29.11.54.00
+	for <cluster-devel@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Fri, 29 Oct 2021 11:54:00 -0700 (PDT)
+Received: by mail-ed1-f46.google.com with SMTP id f8so20167986edy.4
+	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 11:54:00 -0700 (PDT)
+X-Received: by 2002:a05:651c:17a6:: with SMTP id
+	bn38mr13088470ljb.56.1635533269069; 
+	Fri, 29 Oct 2021 11:47:49 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAHk-=wgP058PNY8eoWW=5uRMox-PuesDMrLsrCWPS+xXhzbQxQ@mail.gmail.com>
 	<YXL9tRher7QVmq6N@arm.com>
 	<CAHk-=wg4t2t1AaBDyMfOVhCCOiLLjCB5TFVgZcV4Pr8X2qptJw@mail.gmail.com>
@@ -57,8 +81,13 @@ References: <CAHk-=wgP058PNY8eoWW=5uRMox-PuesDMrLsrCWPS+xXhzbQxQ@mail.gmail.com>
 	<CAHk-=wjQqi9cw1Guz6a8oBB0xiQNF_jtFzs3gW0k7+fKN-mB1g@mail.gmail.com>
 	<YXsUNMWFpmT1eQcX@arm.com>
 	<CAHk-=wgzEKEYKRoR_abQRDO=R8xJX_FK+XC3gNhKfu=KLdxt3g@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAHk-=wgzEKEYKRoR_abQRDO=R8xJX_FK+XC3gNhKfu=KLdxt3g@mail.gmail.com>
+	<YXw0a9n+/PLAcObB@arm.com>
+In-Reply-To: <YXw0a9n+/PLAcObB@arm.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 29 Oct 2021 11:47:33 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgNV5Ka0yTssic0JbZEcO3wvoTC65budK88k4D-34v0xA@mail.gmail.com>
+Message-ID: <CAHk-=wgNV5Ka0yTssic0JbZEcO3wvoTC65budK88k4D-34v0xA@mail.gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -67,7 +96,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: cluster-devel@redhat.com
 Cc: kvm-ppc@vger.kernel.org, cluster-devel <cluster-devel@redhat.com>,
 	Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
@@ -92,90 +121,81 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 28, 2021 at 03:32:23PM -0700, Linus Torvalds wrote:
-> The pointer color fault (or whatever some other architecture may do to
-> generate sub-page faults) is not only not recoverable in the sense
-> that we can't fix it up, it also ends up being a forced SIGSEGV (ie it
-> can't be blocked - it has to either be caught or cause the process to
-> be killed).
-> 
-> And the thing is, I think we could just make the rule be that kernel
-> code that has this kind of retry loop with fault_in_pages() would
-> force an EFAULT on a pending SIGSEGV.
-> 
-> IOW, the pending SIGSEGV could effectively be exactly that "thread flag".
-> 
-> And that means that fault_in_xyz() wouldn't need to worry about this
-> situation at all: the regular copy_from_user() (or whatever flavor it
-> is - to/from/iter/whatever) would take the fault. And if it's a
-> regular page fault,. it would act exactly like it does now, so no
-> changes.
-> 
-> If it's a sub-page fault, we'd just make the rule be that we send a
-> SIGSEGV even if the instruction in question has a user exception
-> fixup.
-> 
-> Then we just need to add the logic somewhere that does "if active
-> pending SIGSEGV, return -EFAULT".
-> 
-> Of course, that logic might be in fault_in_xyz(), but it migth also be
-> a separate function entirely.
-> 
-> So this does effectively end up being a thread flag, but it's also
-> slightly more than that - it's that a sub-page fault from kernel mode
-> has semantics that a regular page fault does not.
-> 
-> The whole "kernel access doesn't cause SIGSEGV, but returns -EFAULT
-> instead" has always been an odd and somewhat wrong-headed thing. Of
-> course it should cause a SIGSEGV, but that's not how Unix traditionall
-> worked. We would just say "color faults always raise a signal, even if
-> the color fault was triggered in a system call".
+On Fri, Oct 29, 2021 at 10:50 AM Catalin Marinas
+<catalin.marinas@arm.com> wrote:
+>
+> First of all, a uaccess in interrupt should not force such signal as it
+> had nothing to do with the interrupted context. I guess we can do an
+> in_task() check in the fault handler.
 
-It's doable and, at least for MTE, people have asked for a signal even
-when the fault was caused by a kernel uaccess. But there are some
-potentially confusing aspects to sort out:
+Yeah. It ends up being similar to the thread flag in that you still
+end up having to protect against NMI and other users of asynchronous
+page faults.
 
-First of all, a uaccess in interrupt should not force such signal as it
-had nothing to do with the interrupted context. I guess we can do an
-in_task() check in the fault handler.
+So the suggestion was more of a "mindset" difference and modified
+version of the task flag rather than anything fundamentally different.
 
-Second, is there a chance that we enter the fault-in loop with a SIGSEGV
-already pending? Maybe it's not a problem, we just bail out of the loop
-early and deliver the signal, though unrelated to the actual uaccess in
-the loop.
+> Second, is there a chance that we enter the fault-in loop with a SIGSEGV
+> already pending? Maybe it's not a problem, we just bail out of the loop
+> early and deliver the signal, though unrelated to the actual uaccess in
+> the loop.
 
-Third is the sigcontext.pc presented to the signal handler. Normally for
-SIGSEGV it points to the address of a load/store instruction and a
-handler could disable MTE and restart from that point. With a syscall we
-don't want it to point to the syscall place as it shouldn't be restarted
-in case it copied something. Pointing it to the next instruction after
-syscall is backwards-compatible but it may confuse the handler (if it
-does some reporting). I think we need add a new si_code that describes a
-fault in kernel mode to differentiate from the genuine user access.
+If we ever run in user space with a pending per-thread SIGSEGV, that
+would already be a fairly bad bug. The intent of "force_sig()" is not
+only to make sure you can't block the signal, but also that it targets
+the particular thread that caused the problem: unlike other random
+"send signal to process", a SIGSEGV caused by a bad memory access is
+really local to that _thread_, not the signal thread group.
 
-There was a discussion back in August on infinite loops with hwpoison
-and Tony said that Andy convinced him that the kernel should not send a
-SIGBUS for uaccess:
+So somebody else sending a SIGSEGV asynchronsly is actually very
+different - it goes to the thread group (although you can specify
+individual threads too - but once you do that you're already outside
+of POSIX).
 
-https://lore.kernel.org/linux-edac/20210823152437.GA1637466@agluck-desk2.amr.corp.intel.com/
+That said, the more I look at it, the more I think I was wrong. I
+think the "we have a SIGSEGV pending" could act as the per-thread
+flag, but the complexity of the signal handling is probably an
+argument against it.
 
-I personally like the approach of a SIG{SEGV,BUS} on uaccess and I don't
-think the ABI change is significant but ideally we should have a unified
-approach that's not just for MTE.
+Not because a SIGSEGV could already be pending, but because so many
+other situations could be pending.
 
-Adding Andy and Tony (the background is potentially infinite loops with
-faults at sub-page granularity: arm64 MTE, hwpoison, sparc ADI).
+In particular, the signal code won't send new signals to a thread if
+that thread group is already exiting. So another thread may have
+already started the exit and core dump sequence, and is in the process
+of killing the shared signal threads, and if one of those threads is
+now in the kernel and goes through the copy_from_user() dance, that
+whole "thread group is exiting" will mean that the signal code won't
+add a new SIGSEGV to the queue.
 
-Thanks.
+So the signal could conceptually be used as the flag to stop looping,
+but it ends up being such a complicated flag that I think it's
+probably not worth it after all. Even if it semantically would be
+fairly nice to use pre-existing machinery.
 
--- 
-Catalin
+Could it be worked around? Sure. That kernel loop probably has to
+check for fatal_signal_pending() anyway, so it would all work even in
+the presense of the above kinds of issues. But just the fact that I
+went and looked at just how exciting the signal code is made me think
+"ok, conceptually nice, but we take a lot of locks and we do a lot of
+special things even in the 'simple' force_sig() case".
+
+> Third is the sigcontext.pc presented to the signal handler. Normally for
+> SIGSEGV it points to the address of a load/store instruction and a
+> handler could disable MTE and restart from that point. With a syscall we
+> don't want it to point to the syscall place as it shouldn't be restarted
+> in case it copied something.
+
+I think this is actually independent of the whole "how to return
+errors". We'll still need to return an error from the system call,
+even if we also have a signal pending.
+
+                  Linus
 
