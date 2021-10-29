@@ -1,78 +1,53 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA9D43F2E0
-	for <lists+cluster-devel@lfdr.de>; Fri, 29 Oct 2021 00:37:11 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6454B43FCB9
+	for <lists+cluster-devel@lfdr.de>; Fri, 29 Oct 2021 14:54:17 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-234-W3PyU9RcMKOF2YkDO_h6Xw-1; Thu, 28 Oct 2021 18:37:07 -0400
-X-MC-Unique: W3PyU9RcMKOF2YkDO_h6Xw-1
+ us-mta-157-CFOVffMZPkSbhBNc-88zOg-1; Fri, 29 Oct 2021 08:54:13 -0400
+X-MC-Unique: CFOVffMZPkSbhBNc-88zOg-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A5FA8066F5;
-	Thu, 28 Oct 2021 22:37:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC7366788C;
-	Thu, 28 Oct 2021 22:37:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 519418018AC;
+	Fri, 29 Oct 2021 12:54:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1031A5F707;
+	Fri, 29 Oct 2021 12:54:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E2BAE4E58E;
-	Thu, 28 Oct 2021 22:37:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 13990180BAD2;
+	Fri, 29 Oct 2021 12:54:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19SMWnCN001715 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Oct 2021 18:32:49 -0400
+	id 19TCoI2S006988 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 29 Oct 2021 08:50:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 05D832166B46; Thu, 28 Oct 2021 22:32:49 +0000 (UTC)
+	id 721CA2026D64; Fri, 29 Oct 2021 12:50:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 000E72166B3F
-	for <cluster-devel@redhat.com>; Thu, 28 Oct 2021 22:32:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E19AF1066566
-	for <cluster-devel@redhat.com>; Thu, 28 Oct 2021 22:32:45 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
-	[209.85.167.53]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-15-0IV4eAnuOEe6sGk_DdzUzA-1; Thu, 28 Oct 2021 18:32:44 -0400
-X-MC-Unique: 0IV4eAnuOEe6sGk_DdzUzA-1
-Received: by mail-lf1-f53.google.com with SMTP id x27so16752548lfu.5
-	for <cluster-devel@redhat.com>; Thu, 28 Oct 2021 15:32:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=P2oA0jP1wTViA9d0b6XSu2m2Y7tBKqkUPBuDKDK703M=;
-	b=Hd0zIPf9BFUFq6jKxafieV43uyZAZzz7L22KAR2zEJ3+B3asQRnJK11UVy6FeMlvjV
-	uWUAbC/01s8VEaXg2zc4vCIMX2lkVOV0lmvNBZXkoKyPOxcLGM4tPoPAP2tO4cHepG6P
-	NCnmOn9wbfyjwUCZz0UHXb59sjP4H0TkLXk7wodz4b45G3ZIMhwiAeotWnP0LEHcKzIU
-	RNIcrbMqimaI8qzqnY2I+SzYCTOUVvGA1Ln92jN1syIkRt9ChQb99s84nf4EM59Bd7Ga
-	JRqRaihG7K39KdbAkgR/+qdZKs0nKB20JqO7UP3kGyjrn2UAkBh+WxTBZqhCsA45lGOp
-	4SAQ==
-X-Gm-Message-State: AOAM533zvlnI7BisDCBr085LHoeNqEIYI/Ai7bwU29p9Mglnn8hKWq+f
-	D8kyj3oss5Pa5CkctIDC7mGR5nkGov8Vi7yn
-X-Google-Smtp-Source: ABdhPJzb+Cp7nFQGeWpSvlubMXX1i/YmhE/h12yJN+F3e2JFKDuu5aMaQYbwvipES8AS8GPkQR4X4g==
-X-Received: by 2002:a05:6512:16a7:: with SMTP id
-	bu39mr6982536lfb.578.1635460362430; 
-	Thu, 28 Oct 2021 15:32:42 -0700 (PDT)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com.
-	[209.85.208.177])
-	by smtp.gmail.com with ESMTPSA id o21sm404501ljg.93.2021.10.28.15.32.39
-	for <cluster-devel@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 28 Oct 2021 15:32:40 -0700 (PDT)
-Received: by mail-lj1-f177.google.com with SMTP id 188so13321015ljj.4
-	for <cluster-devel@redhat.com>; Thu, 28 Oct 2021 15:32:39 -0700 (PDT)
-X-Received: by 2002:a2e:89d4:: with SMTP id c20mr7772843ljk.191.1635460359642; 
-	Thu, 28 Oct 2021 15:32:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAHk-=wgv=KPZBJGnx_O5-7hhST8CL9BN4wJwtVuycjhv_1MmvQ@mail.gmail.com>
-	<YXCbv5gdfEEtAYo8@arm.com>
-	<CAHk-=wgP058PNY8eoWW=5uRMox-PuesDMrLsrCWPS+xXhzbQxQ@mail.gmail.com>
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D2742026D65
+	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 12:50:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F1E3802A5E
+	for <cluster-devel@redhat.com>; Fri, 29 Oct 2021 12:50:15 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-109-qxP1QAbtPxGo0nZuhEiAuQ-3;
+	Fri, 29 Oct 2021 08:50:13 -0400
+X-MC-Unique: qxP1QAbtPxGo0nZuhEiAuQ-3
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EAE10611CC;
+	Fri, 29 Oct 2021 12:50:09 +0000 (UTC)
+Date: Fri, 29 Oct 2021 13:50:06 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Andreas =?iso-8859-1?Q?Gr=FCnbacher?= <andreas.gruenbacher@gmail.com>
+Message-ID: <YXvt/mNABVv6a5nO@arm.com>
+References: <CAHk-=wgP058PNY8eoWW=5uRMox-PuesDMrLsrCWPS+xXhzbQxQ@mail.gmail.com>
 	<YXL9tRher7QVmq6N@arm.com>
 	<CAHk-=wg4t2t1AaBDyMfOVhCCOiLLjCB5TFVgZcV4Pr8X2qptJw@mail.gmail.com>
 	<CAHc6FU7BEfBJCpm8wC3P+8GTBcXxzDWcp6wAcgzQtuaJLHrqZA@mail.gmail.com>
@@ -81,12 +56,9 @@ References: <CAHk-=wgv=KPZBJGnx_O5-7hhST8CL9BN4wJwtVuycjhv_1MmvQ@mail.gmail.com>
 	<YXmkvfL9B+4mQAIo@arm.com>
 	<CAHk-=wjQqi9cw1Guz6a8oBB0xiQNF_jtFzs3gW0k7+fKN-mB1g@mail.gmail.com>
 	<YXsUNMWFpmT1eQcX@arm.com>
-In-Reply-To: <YXsUNMWFpmT1eQcX@arm.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 28 Oct 2021 15:32:23 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wgzEKEYKRoR_abQRDO=R8xJX_FK+XC3gNhKfu=KLdxt3g@mail.gmail.com>
-Message-ID: <CAHk-=wgzEKEYKRoR_abQRDO=R8xJX_FK+XC3gNhKfu=KLdxt3g@mail.gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
+	<CAHpGcMLeiXSjCJGY6SCJJ=bdNOspHLHofmTE8aC_sZtfHRG5ZA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHpGcMLeiXSjCJGY6SCJJ=bdNOspHLHofmTE8aC_sZtfHRG5ZA@mail.gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -95,7 +67,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
 Cc: kvm-ppc@vger.kernel.org, cluster-devel <cluster-devel@redhat.com>,
 	Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
@@ -103,7 +75,8 @@ Cc: kvm-ppc@vger.kernel.org, cluster-devel <cluster-devel@redhat.com>,
 	Matthew Wilcox <willy@infradead.org>, Paul Mackerras <paulus@ozlabs.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	linux-btrfs <linux-btrfs@vger.kernel.org>, ocfs2-devel@oss.oracle.com
+	linux-btrfs <linux-btrfs@vger.kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>, ocfs2-devel@oss.oracle.com
 Subject: Re: [Cluster-devel] [PATCH v8 00/17] gfs2: Fix mmap + page fault
 	deadlocks
 X-BeenThere: cluster-devel@redhat.com
@@ -124,58 +97,90 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 28, 2021 at 2:21 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
->
-> They do look fairly similar but we should have the information in the
-> fault handler to distinguish: not a page fault (pte permission or p*d
-> translation), in_task(), user address, fixup handler. But I agree the
-> logic looks fragile.
+On Fri, Oct 29, 2021 at 12:15:55AM +0200, Andreas Grünbacher wrote:
+> Am Do., 28. Okt. 2021 um 23:21 Uhr schrieb Catalin Marinas
+> <catalin.marinas@arm.com>:
+> > I think for nested contexts we can save the uaccess fault state on
+> > exception entry, restore it on return. Or (needs some thinking on
+> > atomicity) save it in a local variable. The high-level API would look
+> > something like:
+> >
+> >         unsigned long uaccess_flags;    /* we could use TIF_ flags */
+> >
+> >         uaccess_flags = begin_retriable_uaccess();
+> >         copied = copy_page_from_iter_atomic(...);
+> >         retry = end_retriable_uaccess(uaccess_flags);
+> >         ...
+> >
+> >         if (!retry)
+> >                 break;
+> >
+> > I think we'd need a TIF flag to mark the retriable region and another to
+> > track whether a non-recoverable fault occurred. It needs prototyping.
+> >
+> > Anyway, if you don't like this approach, I'll look at error codes being
+> > returned but rather than changing all copy_from_user() etc., introduce a
+> > new API that returns different error codes depending on the fault
+> > (e.g -EFAULT vs -EACCES). We already have copy_from_user_nofault(), we'd
+> > need something for the iov_iter stuff to use in the fs code.
+> 
+> We won't need any of that on the filesystem read and write paths. The
+> two cases there are buffered and direct I/O:
 
-So thinking about this a bit more, I think I have a possible
-suggestion for how to handle this..
+Thanks for the clarification, very useful.
 
-The pointer color fault (or whatever some other architecture may do to
-generate sub-page faults) is not only not recoverable in the sense
-that we can't fix it up, it also ends up being a forced SIGSEGV (ie it
-can't be blocked - it has to either be caught or cause the process to
-be killed).
+> * In the buffered I/O case, the copying happens with page faults
+> disabled, at a byte granularity. If that returns a short result, we
+> need to enable page faults, check if the exact address that failed
+> still fails (in which case we have a sub-page fault),  fault in the
+> pages, disable page faults again, and repeat. No probing for sub-page
+> faults beyond the first byte of the fault-in address is needed.
+> Functions fault_in_{readable,writeable} implicitly have this behavior;
+> for fault_in_safe_writeable() the choice we have is to either add
+> probing of the first byte for sub-page faults to this function or
+> force callers to do that probing separately. At this point, I'd vote
+> for the former.
 
-And the thing is, I think we could just make the rule be that kernel
-code that has this kind of retry loop with fault_in_pages() would
-force an EFAULT on a pending SIGSEGV.
+This sounds fine to me (and I have some draft patches already on top of
+your series).
 
-IOW, the pending SIGSEGV could effectively be exactly that "thread flag".
+> * In the direct I/O case, the copying happens while we're holding page
+> references, so the only page faults that can occur during copying are
+> sub-page faults.
 
-And that means that fault_in_xyz() wouldn't need to worry about this
-situation at all: the regular copy_from_user() (or whatever flavor it
-is - to/from/iter/whatever) would take the fault. And if it's a
-regular page fault,. it would act exactly like it does now, so no
-changes.
+Does holding a page reference guarantee that the user pte pointing to
+such page won't change, for example a pte_mkold()? I assume for direct
+I/O, the PG_locked is not held. But see below, it may not be relevant.
 
-If it's a sub-page fault, we'd just make the rule be that we send a
-SIGSEGV even if the instruction in question has a user exception
-fixup.
+> When iomap_dio_rw or its legacy counterpart is called
+> with page faults disabled, we need to make sure that the caller can
+> distinguish between page faults triggered during
+> bio_iov_iter_get_pages() and during the copying, but that's a separate
+> problem. (At the moment, when iomap_dio_rw fails with -EFAULT, the
+> caller *cannot* distinguish between a bio_iov_iter_get_pages failure
+> and a failure during synchronous copying, but that could be fixed by
+> returning unique error codes from iomap_dio_rw.)
 
-Then we just need to add the logic somewhere that does "if active
-pending SIGSEGV, return -EFAULT".
+Since the direct I/O pins the pages in memory, does it even need to do a
+uaccess? It could copy the data via the kernel mapping (kmap). For arm64
+MTE, all such accesses are not checked (they use a match-all pointer
+tag) since the kernel is not set up to handle such sub-page faults (no
+copy_from/to_user but a direct access).
 
-Of course, that logic might be in fault_in_xyz(), but it migth also be
-a separate function entirely.
+> So as far as I can see, the only problematic case we're left with is
+> copying bigger than byte-size chunks with page faults disabled when we
+> don't know whether the underlying pages are resident or not. My guess
+> would be that in this case, if the copying fails, it would be
+> perfectly acceptable to explicitly probe the entire chunk for sub-page
+> faults.
 
-So this does effectively end up being a thread flag, but it's also
-slightly more than that - it's that a sub-page fault from kernel mode
-has semantics that a regular page fault does not.
+Yeah, if there are only a couple of places left, we can add the explicit
+probing (via some probe_user_writable function).
 
-The whole "kernel access doesn't cause SIGSEGV, but returns -EFAULT
-instead" has always been an odd and somewhat wrong-headed thing. Of
-course it should cause a SIGSEGV, but that's not how Unix traditionall
-worked. We would just say "color faults always raise a signal, even if
-the color fault was triggered in a system call".
-
-(And I didn't check: I say "SIGSEGV" above, but maybe the pointer
-color faults are actually SIGBUS? Doesn't change the end result).
-
-                 Linus
+-- 
+Catalin
 
