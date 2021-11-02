@@ -1,60 +1,60 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6344F44365B
-	for <lists+cluster-devel@lfdr.de>; Tue,  2 Nov 2021 20:18:10 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4DD443660
+	for <lists+cluster-devel@lfdr.de>; Tue,  2 Nov 2021 20:18:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1635880689;
+	s=mimecast20190719; t=1635880690;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=z0PJXrBlyjcdeGW1BIrEkRuPMXRU1pm/ZOaEnTL56gg=;
-	b=YUd9tK3BBd0nO1fOmeVSQu35wLUwXLh4U/5UCW3TYdw+ShmA834hYqCxB3cHIiMg7wn0zK
-	4iGCmwTHb43b0Z4FiGM3zEOPOVNYyH/EcKmRUr30pnrU9mVOmcskH0FnByjy/X4ZHZ51qU
-	0KoY2IaBPuWMP8sVAmzKN+2Anq8kPd0=
+	bh=GfK5CKdNX2dEgyea7lcA+kLhvoblnHCkNpZUavUTL1M=;
+	b=CM1rbCxqQIx9s6PUyFUMmXcAENp6A0yGP63F2GIy4UYWhbusOHSwzVgP90nz28N3uN0A2R
+	ThQo8qhmQG3wrGVY9Yjz5GcDCcuktd4JKfiBETtIm/iOE42pgU/YkR2f+JOU+6bb53HttU
+	Xo5Ly0l6r+D5KqLfX8ApL3/qAbIHqq4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-495-CnBNagkiMVy1EcoKBMY81A-1; Tue, 02 Nov 2021 15:18:08 -0400
-X-MC-Unique: CnBNagkiMVy1EcoKBMY81A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-540-AXuwdDEWPPC4SRGSSKHmew-1; Tue, 02 Nov 2021 15:18:09 -0400
+X-MC-Unique: AXuwdDEWPPC4SRGSSKHmew-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 34FB0FC26;
-	Tue,  2 Nov 2021 19:18:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 041F6100D68E;
+	Tue,  2 Nov 2021 19:18:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 285F960657;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D433519C79;
 	Tue,  2 Nov 2021 19:18:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75E904EA37;
-	Tue,  2 Nov 2021 19:18:05 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6BC074EA38;
+	Tue,  2 Nov 2021 19:18:06 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A2JHwaQ020785 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Nov 2021 15:17:58 -0400
+	id 1A2JHxH3020792 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Nov 2021 15:17:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B442260657; Tue,  2 Nov 2021 19:17:58 +0000 (UTC)
+	id 2AC4160657; Tue,  2 Nov 2021 19:17:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
 	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 657EF652AC;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CFD3467840;
 	Tue,  2 Nov 2021 19:17:58 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Tue,  2 Nov 2021 15:17:18 -0400
-Message-Id: <20211102191724.210095-13-aahringo@redhat.com>
+Date: Tue,  2 Nov 2021 15:17:19 -0400
+Message-Id: <20211102191724.210095-14-aahringo@redhat.com>
 In-Reply-To: <20211102191724.210095-1-aahringo@redhat.com>
 References: <20211102191724.210095-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH RESEND v5.15-rc7 12/18] fs: dlm: ls_count
-	busy wait to event based wait
+Subject: [Cluster-devel] [PATCH RESEND v5.15-rc7 13/18] fs: dlm: let handle
+	callback data as void
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,7 +68,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -76,125 +76,120 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch changes the ls_count busy wait to use atomic counter values
-and wait_event() to wait until ls_count reach zero. It will slightly
-reduce the number of holding lslist_lock. At remove lockspace we need to
-retry the wait because it a lockspace get could interefere between
-wait_event() and holding the lock which deletes the lockspace list entry.
+This patch changes the dlm_lowcomms_new_msg() function pointer private data
+from "struct mhandle *" to "void *" to provide different structures than
+just "struct mhandle".
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/dlm_internal.h |  3 ++-
- fs/dlm/lockspace.c    | 33 +++++++++++++++++----------------
- fs/dlm/requestqueue.c |  2 +-
- 3 files changed, 20 insertions(+), 18 deletions(-)
+ fs/dlm/lowcomms.c | 19 +++++++++----------
+ fs/dlm/lowcomms.h |  4 ++--
+ fs/dlm/midcomms.c |  4 +++-
+ 3 files changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index fd1c7a8c4485..019931804af9 100644
---- a/fs/dlm/dlm_internal.h
-+++ b/fs/dlm/dlm_internal.h
-@@ -548,8 +548,9 @@ struct dlm_ls {
- 	uint32_t		ls_generation;
- 	uint32_t		ls_exflags;
- 	int			ls_lvblen;
--	int			ls_count;	/* refcount of processes in
-+	atomic_t		ls_count;	/* refcount of processes in
- 						   the dlm using this ls */
-+	wait_queue_head_t	ls_count_wait;
- 	int			ls_create_count; /* create/release refcount */
- 	unsigned long		ls_flags;	/* LSFL_ */
- 	unsigned long		ls_scan_time;
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index 4e4181304ca1..2e51bd2bdacc 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -314,7 +314,7 @@ struct dlm_ls *dlm_find_lockspace_global(uint32_t id)
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 6d6dcf0d5ba9..3f8b015ba799 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -1205,8 +1205,7 @@ static struct writequeue_entry *new_writequeue_entry(struct connection *con,
  
- 	list_for_each_entry(ls, &lslist, ls_list) {
- 		if (ls->ls_global_id == id) {
--			ls->ls_count++;
-+			atomic_inc(&ls->ls_count);
- 			goto out;
- 		}
- 	}
-@@ -331,7 +331,7 @@ struct dlm_ls *dlm_find_lockspace_local(dlm_lockspace_t *lockspace)
- 	spin_lock(&lslist_lock);
- 	list_for_each_entry(ls, &lslist, ls_list) {
- 		if (ls->ls_local_handle == lockspace) {
--			ls->ls_count++;
-+			atomic_inc(&ls->ls_count);
- 			goto out;
- 		}
- 	}
-@@ -348,7 +348,7 @@ struct dlm_ls *dlm_find_lockspace_device(int minor)
- 	spin_lock(&lslist_lock);
- 	list_for_each_entry(ls, &lslist, ls_list) {
- 		if (ls->ls_device.minor == minor) {
--			ls->ls_count++;
-+			atomic_inc(&ls->ls_count);
- 			goto out;
- 		}
- 	}
-@@ -360,24 +360,24 @@ struct dlm_ls *dlm_find_lockspace_device(int minor)
- 
- void dlm_put_lockspace(struct dlm_ls *ls)
+ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
+ 					     gfp_t allocation, char **ppc,
+-					     void (*cb)(struct dlm_mhandle *mh),
+-					     struct dlm_mhandle *mh)
++					     void (*cb)(void *data), void *data)
  {
--	spin_lock(&lslist_lock);
--	ls->ls_count--;
--	spin_unlock(&lslist_lock);
-+	if (atomic_dec_and_test(&ls->ls_count))
-+		wake_up(&ls->ls_count_wait);
+ 	struct writequeue_entry *e;
+ 
+@@ -1218,7 +1217,7 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
+ 
+ 			*ppc = page_address(e->page) + e->end;
+ 			if (cb)
+-				cb(mh);
++				cb(data);
+ 
+ 			e->end += len;
+ 			e->users++;
+@@ -1240,7 +1239,7 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
+ 
+ 	spin_lock(&con->writequeue_lock);
+ 	if (cb)
+-		cb(mh);
++		cb(data);
+ 
+ 	list_add_tail(&e->list, &con->writequeue);
+ 	spin_unlock(&con->writequeue_lock);
+@@ -1250,8 +1249,8 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
+ 
+ static struct dlm_msg *dlm_lowcomms_new_msg_con(struct connection *con, int len,
+ 						gfp_t allocation, char **ppc,
+-						void (*cb)(struct dlm_mhandle *mh),
+-						struct dlm_mhandle *mh)
++						void (*cb)(void *data),
++						void *data)
+ {
+ 	struct writequeue_entry *e;
+ 	struct dlm_msg *msg;
+@@ -1274,7 +1273,7 @@ static struct dlm_msg *dlm_lowcomms_new_msg_con(struct connection *con, int len,
+ 
+ 	kref_init(&msg->ref);
+ 
+-	e = new_wq_entry(con, len, allocation, ppc, cb, mh);
++	e = new_wq_entry(con, len, allocation, ppc, cb, data);
+ 	if (!e) {
+ 		if (sleepable)
+ 			mutex_unlock(&con->wq_alloc);
+@@ -1294,8 +1293,8 @@ static struct dlm_msg *dlm_lowcomms_new_msg_con(struct connection *con, int len,
  }
  
- static void remove_lockspace(struct dlm_ls *ls)
+ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+-				     char **ppc, void (*cb)(struct dlm_mhandle *mh),
+-				     struct dlm_mhandle *mh)
++				     char **ppc, void (*cb)(void *data),
++				     void *data)
  {
--	for (;;) {
--		spin_lock(&lslist_lock);
--		if (ls->ls_count == 0) {
--			WARN_ON(ls->ls_create_count != 0);
--			list_del(&ls->ls_list);
--			spin_unlock(&lslist_lock);
--			return;
--		}
-+retry:
-+	wait_event(ls->ls_count_wait, atomic_read(&ls->ls_count) == 0);
-+
-+	spin_lock(&lslist_lock);
-+	if (atomic_read(&ls->ls_count) != 0) {
- 		spin_unlock(&lslist_lock);
--		ssleep(1);
-+		goto retry;
+ 	struct connection *con;
+ 	struct dlm_msg *msg;
+@@ -1316,7 +1315,7 @@ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+ 		return NULL;
  	}
-+
-+	WARN_ON(ls->ls_create_count != 0);
-+	list_del(&ls->ls_list);
-+	spin_unlock(&lslist_lock);
+ 
+-	msg = dlm_lowcomms_new_msg_con(con, len, allocation, ppc, cb, mh);
++	msg = dlm_lowcomms_new_msg_con(con, len, allocation, ppc, cb, data);
+ 	if (!msg) {
+ 		srcu_read_unlock(&connections_srcu, idx);
+ 		return NULL;
+diff --git a/fs/dlm/lowcomms.h b/fs/dlm/lowcomms.h
+index 4ccae07cf005..8108ea24ec30 100644
+--- a/fs/dlm/lowcomms.h
++++ b/fs/dlm/lowcomms.h
+@@ -38,8 +38,8 @@ void dlm_lowcomms_stop(void);
+ void dlm_lowcomms_exit(void);
+ int dlm_lowcomms_close(int nodeid);
+ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+-				     char **ppc, void (*cb)(struct dlm_mhandle *mh),
+-				     struct dlm_mhandle *mh);
++				     char **ppc, void (*cb)(void *data),
++				     void *data);
+ void dlm_lowcomms_commit_msg(struct dlm_msg *msg);
+ void dlm_lowcomms_put_msg(struct dlm_msg *msg);
+ int dlm_lowcomms_resend_msg(struct dlm_msg *msg);
+diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
+index 76bdc3a9dc61..95a5643a950e 100644
+--- a/fs/dlm/midcomms.c
++++ b/fs/dlm/midcomms.c
+@@ -1020,8 +1020,10 @@ static void dlm_fill_opts_header(struct dlm_opts *opts, uint16_t inner_len,
+ 	header_out(&opts->o_header);
  }
  
- static int threads_start(void)
-@@ -481,7 +481,8 @@ static int new_lockspace(const char *name, const char *cluster,
- 	memcpy(ls->ls_name, name, namelen);
- 	ls->ls_namelen = namelen;
- 	ls->ls_lvblen = lvblen;
--	ls->ls_count = 0;
-+	atomic_set(&ls->ls_count, 0);
-+	init_waitqueue_head(&ls->ls_count_wait);
- 	ls->ls_flags = 0;
- 	ls->ls_scan_time = jiffies;
+-static void midcomms_new_msg_cb(struct dlm_mhandle *mh)
++static void midcomms_new_msg_cb(void *data)
+ {
++	struct dlm_mhandle *mh = data;
++
+ 	atomic_inc(&mh->node->send_queue_cnt);
  
-diff --git a/fs/dlm/requestqueue.c b/fs/dlm/requestqueue.c
-index d0cf68570dcf..ccb5307c21e9 100644
---- a/fs/dlm/requestqueue.c
-+++ b/fs/dlm/requestqueue.c
-@@ -127,7 +127,7 @@ static int purge_request(struct dlm_ls *ls, struct dlm_message *ms, int nodeid)
- 	uint32_t type = ms->m_type;
- 
- 	/* the ls is being cleaned up and freed by release_lockspace */
--	if (!ls->ls_count)
-+	if (!atomic_read(&ls->ls_count))
- 		return 1;
- 
- 	if (dlm_is_removed(ls, nodeid))
+ 	spin_lock(&mh->node->send_queue_lock);
 -- 
 2.27.0
 
