@@ -1,51 +1,51 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43AF0442E3B
-	for <lists+cluster-devel@lfdr.de>; Tue,  2 Nov 2021 13:33:16 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42235442E28
+	for <lists+cluster-devel@lfdr.de>; Tue,  2 Nov 2021 13:32:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1635856395;
+	s=mimecast20190719; t=1635856336;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=YU9rEXEndLCwBxiEdTyNgcsUGIjKGRnQTEaZLBH6B0o=;
-	b=OBbDzn/9Pnzt0rzCHJpBbo1kmyFdFDCLxf05zr9nLXiLJrjy5t+8BcMXPHNJl4A6poQcij
-	pykW4Z2W/Bt9PtJL84452Ak5G04QZjzBueuPmDXxE4PpgDCc5mMVOvjIg9NS74dhmLFIhV
-	0xVVs9IQWY+NqesRO22YBUuGiGYWQJQ=
+	bh=ZjN3lChtCcEbLC9QGT8s0Abm9Y5VnVWxFjhw74bJ5jY=;
+	b=Z1o4qqbema+9vJwChqhVmUrNaVxefN7HKu36t1Xu85FkcDkvq/swzjsBNH90globOBI8Tu
+	AUadgojnN9tKB2Z0CO44f6Th5Q3HQbt0dNRZFa3HODaX3BiW8F60ax1JDUnu9BcAPXPNgW
+	VC7LPjGWntg17vK8JED9kpGTMJOXefc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-376-kZQMf3V1OnKt1lNuou5U3A-1; Tue, 02 Nov 2021 08:33:12 -0400
-X-MC-Unique: kZQMf3V1OnKt1lNuou5U3A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-3-GZKsgayENeqwXKWcyGCFlw-1; Tue, 02 Nov 2021 08:32:13 -0400
+X-MC-Unique: GZKsgayENeqwXKWcyGCFlw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A12AC1882FB0;
-	Tue,  2 Nov 2021 12:33:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91FAD1E6;
-	Tue,  2 Nov 2021 12:33:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4BE0211B4C00;
+	Tue,  2 Nov 2021 12:32:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C16960C45;
+	Tue,  2 Nov 2021 12:32:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D6ED1809C81;
-	Tue,  2 Nov 2021 12:33:09 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C97E54A702;
+	Tue,  2 Nov 2021 12:32:09 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A2CVUFN009803 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Nov 2021 08:31:30 -0400
+	id 1A2CW8P0009927 for <cluster-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Nov 2021 08:32:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C4F4E6784A; Tue,  2 Nov 2021 12:31:30 +0000 (UTC)
+	id 5A8DD67849; Tue,  2 Nov 2021 12:32:08 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.localdomain (unknown [10.40.195.95])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 97D36652AC;
-	Tue,  2 Nov 2021 12:31:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7FD8A67853;
+	Tue,  2 Nov 2021 12:31:30 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Tue,  2 Nov 2021 13:29:43 +0100
-Message-Id: <20211102122945.117744-16-agruenba@redhat.com>
+Date: Tue,  2 Nov 2021 13:29:44 +0100
+Message-Id: <20211102122945.117744-17-agruenba@redhat.com>
 In-Reply-To: <20211102122945.117744-1-agruenba@redhat.com>
 References: <20211102122945.117744-1-agruenba@redhat.com>
 MIME-Version: 1.0
@@ -58,7 +58,7 @@ Cc: kvm-ppc@vger.kernel.org, Paul Mackerras <paulus@ozlabs.org>,
 	"Darrick J. Wong" <djwong@kernel.org>,
 	linux-fsdevel@vger.kernel.org, linux-btrfs@vger.kernel.org,
 	Linus Torvalds <torvalds@linux-foundation.org>, ocfs2-devel@oss.oracle.com
-Subject: [Cluster-devel] [PATCH v9 15/17] gup: Introduce FOLL_NOFAULT flag
+Subject: [Cluster-devel] [PATCH v9 16/17] iov_iter: Introduce nofault flag
 	to disable page faults
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -73,7 +73,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -81,53 +81,88 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Introduce a new FOLL_NOFAULT flag that causes get_user_pages to return
--EFAULT when it would otherwise trigger a page fault.  This is roughly
-similar to FOLL_FAST_ONLY but available on all architectures, and less
-fragile.
+Introduce a new nofault flag to indicate to iov_iter_get_pages not to
+fault in user pages.
+
+This is implemented by passing the FOLL_NOFAULT flag to get_user_pages,
+which causes get_user_pages to fail when it would otherwise fault in a
+page. We'll use the ->nofault flag to prevent iomap_dio_rw from faulting
+in pages when page faults are not allowed.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- include/linux/mm.h | 3 ++-
- mm/gup.c           | 4 +++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ include/linux/uio.h |  1 +
+ lib/iov_iter.c      | 20 +++++++++++++++-----
+ 2 files changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 73a52aba448f..2f0e6b9f8f3b 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2851,7 +2851,8 @@ struct page *follow_page(struct vm_area_struct *vma, unsigned long address,
- #define FOLL_FORCE	0x10	/* get_user_pages read/write w/o permission */
- #define FOLL_NOWAIT	0x20	/* if a disk transfer is needed, start the IO
- 				 * and return without waiting upon it */
--#define FOLL_POPULATE	0x40	/* fault in page */
-+#define FOLL_POPULATE	0x40	/* fault in pages (with FOLL_MLOCK) */
-+#define FOLL_NOFAULT	0x80	/* do not fault in pages */
- #define FOLL_HWPOISON	0x100	/* check page is hwpoisoned */
- #define FOLL_NUMA	0x200	/* force NUMA hinting page fault */
- #define FOLL_MIGRATION	0x400	/* wait for page to replace migration entry */
-diff --git a/mm/gup.c b/mm/gup.c
-index 795f15c410cc..e1c7e4bde11f 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -918,6 +918,8 @@ static int faultin_page(struct vm_area_struct *vma,
- 	/* mlock all present pages, but do not fault in new pages */
- 	if ((*flags & (FOLL_POPULATE | FOLL_MLOCK)) == FOLL_MLOCK)
- 		return -ENOENT;
-+	if (*flags & FOLL_NOFAULT)
-+		return -EFAULT;
- 	if (*flags & FOLL_WRITE)
- 		fault_flags |= FAULT_FLAG_WRITE;
- 	if (*flags & FOLL_REMOTE)
-@@ -2843,7 +2845,7 @@ static int internal_get_user_pages_fast(unsigned long start,
+diff --git a/include/linux/uio.h b/include/linux/uio.h
+index 25d1c24fd829..6350354f97e9 100644
+--- a/include/linux/uio.h
++++ b/include/linux/uio.h
+@@ -35,6 +35,7 @@ struct iov_iter_state {
  
- 	if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM |
- 				       FOLL_FORCE | FOLL_PIN | FOLL_GET |
--				       FOLL_FAST_ONLY)))
-+				       FOLL_FAST_ONLY | FOLL_NOFAULT)))
- 		return -EINVAL;
+ struct iov_iter {
+ 	u8 iter_type;
++	bool nofault;
+ 	bool data_source;
+ 	size_t iov_offset;
+ 	size_t count;
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index ac9a87e727a3..66a740e6e153 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -513,6 +513,7 @@ void iov_iter_init(struct iov_iter *i, unsigned int direction,
+ 	WARN_ON(direction & ~(READ | WRITE));
+ 	*i = (struct iov_iter) {
+ 		.iter_type = ITER_IOVEC,
++		.nofault = false,
+ 		.data_source = direction,
+ 		.iov = iov,
+ 		.nr_segs = nr_segs,
+@@ -1527,13 +1528,17 @@ ssize_t iov_iter_get_pages(struct iov_iter *i,
+ 		return 0;
  
- 	if (gup_flags & FOLL_PIN)
+ 	if (likely(iter_is_iovec(i))) {
++		unsigned int gup_flags = 0;
+ 		unsigned long addr;
+ 
++		if (iov_iter_rw(i) != WRITE)
++			gup_flags |= FOLL_WRITE;
++		if (i->nofault)
++			gup_flags |= FOLL_NOFAULT;
++
+ 		addr = first_iovec_segment(i, &len, start, maxsize, maxpages);
+ 		n = DIV_ROUND_UP(len, PAGE_SIZE);
+-		res = get_user_pages_fast(addr, n,
+-				iov_iter_rw(i) != WRITE ?  FOLL_WRITE : 0,
+-				pages);
++		res = get_user_pages_fast(addr, n, gup_flags, pages);
+ 		if (unlikely(res <= 0))
+ 			return res;
+ 		return (res == n ? len : res * PAGE_SIZE) - *start;
+@@ -1649,15 +1654,20 @@ ssize_t iov_iter_get_pages_alloc(struct iov_iter *i,
+ 		return 0;
+ 
+ 	if (likely(iter_is_iovec(i))) {
++		unsigned int gup_flags = 0;
+ 		unsigned long addr;
+ 
++		if (iov_iter_rw(i) != WRITE)
++			gup_flags |= FOLL_WRITE;
++		if (i->nofault)
++			gup_flags |= FOLL_NOFAULT;
++
+ 		addr = first_iovec_segment(i, &len, start, maxsize, ~0U);
+ 		n = DIV_ROUND_UP(len, PAGE_SIZE);
+ 		p = get_pages_array(n);
+ 		if (!p)
+ 			return -ENOMEM;
+-		res = get_user_pages_fast(addr, n,
+-				iov_iter_rw(i) != WRITE ?  FOLL_WRITE : 0, p);
++		res = get_user_pages_fast(addr, n, gup_flags, p);
+ 		if (unlikely(res <= 0)) {
+ 			kvfree(p);
+ 			*pages = NULL;
 -- 
 2.31.1
 
