@@ -1,92 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25E9044C466
-	for <lists+cluster-devel@lfdr.de>; Wed, 10 Nov 2021 16:29:30 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3581A44C6AF
+	for <lists+cluster-devel@lfdr.de>; Wed, 10 Nov 2021 19:15:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1636558169;
+	s=mimecast20190719; t=1636568152;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=JGaRarhvw23xm4PTZjUPJaQyjQW9oMGbXcgdEZdlsWo=;
-	b=g1jVZ/BDTkyVK5BhHha7UkAYh/RNnU4Gso76NikUoANgEhR6p3r8svuoy1/W3/aBIaS7eA
-	R3Vw3RidiU/QSmSjdLnMMlKLQoTCYc5UwEvFF07ebP0kw3L/17zXG+QIh+nf3QMy1tK2Za
-	23AvYVZgMfNAMIE4DYk6mWYraT8sYtY=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=so+sBHeqgvGbAB6xWn0/t+WSQWf4kEYIfTA/NVWhLec=;
+	b=XxeE+768TgswWBTazHZmU19+voLkAzEJsN3bd5hSeXsbClYpFDnE43dOfPgZwK59RRP1lq
+	XPe6pPVEmtp4dDt2XZOwiXvsPTXTnYNXMQbnFl8/b3J3mbwFPrViO49ojNzbWVNPx0XC/a
+	IpQwcqcjbZ9DWtuQmxoj931/Rcb9arA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-bcrQ6JYCNE2Ikqhav3LwUA-1; Wed, 10 Nov 2021 10:29:26 -0500
-X-MC-Unique: bcrQ6JYCNE2Ikqhav3LwUA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-60-IE9fhJprMy-rWNZrU312GA-1; Wed, 10 Nov 2021 13:15:48 -0500
+X-MC-Unique: IE9fhJprMy-rWNZrU312GA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8DB221DDF0;
-	Wed, 10 Nov 2021 15:29:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D75B51922961;
+	Wed, 10 Nov 2021 18:15:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADBB860C05;
-	Wed, 10 Nov 2021 15:29:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C08019D9D;
+	Wed, 10 Nov 2021 18:15:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 087391818480;
-	Wed, 10 Nov 2021 15:29:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1873318199EE;
+	Wed, 10 Nov 2021 18:15:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AAEqF6i028262 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 10 Nov 2021 09:52:16 -0500
+	id 1AAHjI2f031415 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 10 Nov 2021 12:45:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CBE7340CFD11; Wed, 10 Nov 2021 14:52:15 +0000 (UTC)
+	id 06EAC67859; Wed, 10 Nov 2021 17:45:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C667240CFD0B
-	for <cluster-devel@redhat.com>; Wed, 10 Nov 2021 14:52:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6C04811E78
-	for <cluster-devel@redhat.com>; Wed, 10 Nov 2021 14:52:15 +0000 (UTC)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
-	[209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-523-xTLDRgEvNUG7AGiRCQFt3g-1; Wed, 10 Nov 2021 09:52:14 -0500
-X-MC-Unique: xTLDRgEvNUG7AGiRCQFt3g-1
-Received: by mail-wm1-f70.google.com with SMTP id
-	y9-20020a1c7d09000000b003316e18949bso1227145wmc.5
-	for <cluster-devel@redhat.com>; Wed, 10 Nov 2021 06:52:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=JGaRarhvw23xm4PTZjUPJaQyjQW9oMGbXcgdEZdlsWo=;
-	b=URrI1Nl4XhiZRN+AixEk+Q++u+RHVQpA4cXu98WBiY/r6zTqvXyivkYnK50n6aI05q
-	Dgb0FMZgGCii2DwpqUvRAqXJLzVD4XZoDdupeM6Wy7D3tM6h1Lbs3aIVZVqOpa1Guenq
-	UvOgyFbvPBpWonk0qLzrpRd36ZdKyPSNYSeLbzhFr7x90y4l3asLGaoqKJUs69X5O3zw
-	PHHvUaZHJq93NDdHW8OnOWj4MsuWBhdBJLw8O1P4/rjIredL2ytLw2Z1LRsBC8+bIET7
-	tLaKBfQi2TXfFVbYICoERKp6vCkU6MK7/z+fyCZfQX2wYe2TTKSf3fKVxB1O080eLyAY
-	1D5g==
-X-Gm-Message-State: AOAM531tydvz6Ddu0C3kc9aAFSAuDjRirudgm++IEHQ9cdR92KQm03Nl
-	Jv79sd3AWugNATnCEvvmiVVR+ElbMu3+/V3coSqTNT4RVZDOlxwxWxZ5VI+RHnsipmg8GNRkyoB
-	AY7wLMkRh4Fx2gVMwLPgblf5yI5TD60Mej7+hnQ==
-X-Received: by 2002:a5d:43c5:: with SMTP id v5mr356457wrr.11.1636555932914;
-	Wed, 10 Nov 2021 06:52:12 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx6l6A0hw8OFbT4CeKMWuzjHe409Rc88qj5MEQ+MgMfrW4P0aNPr9xBjEscvoB2kMqOlJr33ybNzTxG6gtHVog=
-X-Received: by 2002:a5d:43c5:: with SMTP id v5mr356435wrr.11.1636555932767;
-	Wed, 10 Nov 2021 06:52:12 -0800 (PST)
-MIME-Version: 1.0
-References: <20211110113842.517426-1-agruenba@redhat.com>
-	<20211110125527.GA25465@lst.de>
-In-Reply-To: <20211110125527.GA25465@lst.de>
+Received: from max.localdomain (unknown [10.40.195.95])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7173367854;
+	Wed, 10 Nov 2021 17:44:58 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Wed, 10 Nov 2021 15:52:01 +0100
-Message-ID: <CAHc6FU49TnYvrL-FU5oz9th6STuQ=eYokjsD+0QpbkdHedRd9w@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 10 Nov 2021 18:44:57 +0100
+Message-Id: <20211110174457.533866-1-agruenba@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: linux-xfs@vger.kernel.org, "Darrick J . Wong" <djwong@kernel.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	stable <stable@vger.kernel.org>, cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [5.15 REGRESSION] iomap: Fix inline extent
-	handling in iomap_readpage
+Cc: linux-fsdevel@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
+	cluster-devel@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>
+Subject: [Cluster-devel] [RFC] gfs2: Prevent endless loops in
+	gfs2_file_buffered_write
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,39 +65,77 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Wed, Nov 10, 2021 at 1:55 PM Christoph Hellwig <hch@lst.de> wrote:
-> On Wed, Nov 10, 2021 at 12:38:42PM +0100, Andreas Gruenbacher wrote:
-> > +     if (iomap->type == IOMAP_INLINE) {
-> > +             /*
-> > +              * The filesystem sets iomap->length to the size of the inline
-> > +              * data.  We're at the end of the file, so we know that the
-> > +              * rest of the page needs to be zeroed out.
-> > +              */
-> > +             iomap->length = iomap_read_inline_data(iter, page);
-> > +             return iomap->length;
->
-> You can't just change iomap->length here.  Fix the file system to
-> return the right length, please.
+Hi Linus,
 
-Hmm, that doesn't make sense to me: the filesystem doesn't know that
-iomap_readpage will pad to page boundaries. This happens at the iomap
-layer, so the iomap layer should also deal with the consequences.
-We're using different alignment rules here and for direct I/O, so that
-makes fake-aligning the extent size in iomap_begin even more
-questionable.
+in commit 00bfe02f4796 ("gfs2: Fix mmap + page fault deadlocks for
+buffered I/O"), I've managed to introduce a hang in gfs2 due to the
+following check in iomap_write_iter:
 
-"Fixing" the extent size the filesystem returns would also break
-direct I/O. We could add some additional padding code to
-iomap_dio_inline_iter to deal with that, but currently, there's no
-need for that.
+  if (unlikely(fault_in_iov_iter_readable(i, bytes))) {
+
+which fails if any of the iov iterator cannot be faulted in for reading.
+At the filesystem level, we're retrying the rest of the write if any of
+the iov iterator can be faulted in, so we can end up in a loop without
+ever making progress.  The fix in iomap_write_iter would be as follows:
+
+  if (unlikely(fault_in_iov_iter_readable(i, bytes) == bytes)) {
+
+The same bug exists in generic_perform_write, but I'm not aware of any
+callers of generic_perform_write that have page faults turned off.
+
+Is this fix still appropriate for 5.16, or should we work around it in
+the filesystem as below for now?
+
+A related post-5.16 option would be to turn the pre-faulting in
+iomap_write_iter and generic_perform_write into post-faulting, but at
+the very least, that still needs a bit of performance analysis:
+
+  https://lore.kernel.org/linux-fsdevel/20211026094430.3669156-1-agruenba@redhat.com/
+  https://lore.kernel.org/linux-fsdevel/20211027212138.3722977-1-agruenba@redhat.com/
 
 Thanks,
 Andreas
+
+---
+ fs/gfs2/file.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+index c486b702e00f..3e718cfc19a7 100644
+--- a/fs/gfs2/file.c
++++ b/fs/gfs2/file.c
+@@ -1013,6 +1013,7 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
+ 	struct gfs2_sbd *sdp = GFS2_SB(inode);
+ 	struct gfs2_holder *statfs_gh = NULL;
+ 	size_t prev_count = 0, window_size = 0;
++	size_t orig_count = iov_iter_count(from);
+ 	size_t read = 0;
+ 	ssize_t ret;
+ 
+@@ -1057,6 +1058,7 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
+ 	if (inode == sdp->sd_rindex)
+ 		gfs2_glock_dq_uninit(statfs_gh);
+ 
++	from->count = orig_count - read;
+ 	if (should_fault_in_pages(ret, from, &prev_count, &window_size)) {
+ 		size_t leftover;
+ 
+@@ -1064,6 +1066,7 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
+ 		leftover = fault_in_iov_iter_readable(from, window_size);
+ 		gfs2_holder_disallow_demote(gh);
+ 		if (leftover != window_size) {
++			from->count = min(from->count, window_size - leftover);
+ 			if (!gfs2_holder_queued(gh)) {
+ 				if (read)
+ 					goto out_uninit;
+-- 
+2.31.1
 
