@@ -2,74 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF7B044D26F
-	for <lists+cluster-devel@lfdr.de>; Thu, 11 Nov 2021 08:25:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D2BA44D7D7
+	for <lists+cluster-devel@lfdr.de>; Thu, 11 Nov 2021 15:08:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1636639713;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=bs6l8BRCwMtsoM2Wdbgw5at/O+nPht7nUCbKrMdH2m8=;
+	b=FjUZdhiHxmSTxQyfhVaL8XRQYrdnB0/Y1llzid80Q8tVCAUm/a82fF/P8jeJaoN5o5oy9e
+	impgU7HOojVNtm+B/d4ENOfMf3NSxLDWA3kQeVmd9mWGnDBBX3ZDU+wA1YcPzwQ6S5MEGt
+	AJJtU3AxDlJpe4eCYspaSw+lpBOOKYU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-3-1-PGCiMhMoeKeVjulLRKbA-1; Thu, 11 Nov 2021 02:25:29 -0500
-X-MC-Unique: 1-PGCiMhMoeKeVjulLRKbA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-149-T5WGtL2VOKKIawxNeU9yVQ-1; Thu, 11 Nov 2021 09:08:30 -0500
+X-MC-Unique: T5WGtL2VOKKIawxNeU9yVQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 54877E757;
-	Thu, 11 Nov 2021 07:25:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57734100CCC0;
+	Thu, 11 Nov 2021 14:08:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D32CB6784F;
-	Thu, 11 Nov 2021 07:25:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DACDC19C59;
+	Thu, 11 Nov 2021 14:08:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C4D918199EE;
-	Thu, 11 Nov 2021 07:25:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DE8AA1800FDD;
+	Thu, 11 Nov 2021 14:08:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AB7PDFK015891 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 11 Nov 2021 02:25:13 -0500
+	id 1ABE8Gs2026571 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 11 Nov 2021 09:08:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 16080404727C; Thu, 11 Nov 2021 07:25:13 +0000 (UTC)
+	id AF3D356A90; Thu, 11 Nov 2021 14:08:16 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11CBD4047279
-	for <cluster-devel@redhat.com>; Thu, 11 Nov 2021 07:25:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E035A1066559
-	for <cluster-devel@redhat.com>; Thu, 11 Nov 2021 07:25:12 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-37-uiH8sDJkMTa95Dagu0ckXw-1;
-	Thu, 11 Nov 2021 02:25:09 -0500
-X-MC-Unique: uiH8sDJkMTa95Dagu0ckXw-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 9298167373; Thu, 11 Nov 2021 08:25:06 +0100 (CET)
-Date: Thu, 11 Nov 2021 08:25:06 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <20211111072506.GB30478@lst.de>
-References: <20211110113842.517426-1-agruenba@redhat.com>
-	<20211110125527.GA25465@lst.de>
-	<CAHc6FU49TnYvrL-FU5oz9th6STuQ=eYokjsD+0QpbkdHedRd9w@mail.gmail.com>
+Received: from max.localdomain (unknown [10.40.195.95])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4A2815D6B1;
+	Thu, 11 Nov 2021 14:08:02 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Christoph Hellwig <hch@lst.de>, "Darrick J . Wong" <djwong@kernel.org>
+Date: Thu, 11 Nov 2021 15:08:02 +0100
+Message-Id: <20211111140802.577144-1-agruenba@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAHc6FU49TnYvrL-FU5oz9th6STuQ=eYokjsD+0QpbkdHedRd9w@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	stable <stable@vger.kernel.org>, linux-xfs@vger.kernel.org,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Christoph Hellwig <hch@lst.de>
-Subject: Re: [Cluster-devel] [5.15 REGRESSION] iomap: Fix inline extent
- handling in iomap_readpage
+Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH] iomap: Fix iomap_readahead_iter error
+	handling
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,27 +65,34 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On Wed, Nov 10, 2021 at 03:52:01PM +0100, Andreas Gruenbacher wrote:
-> Hmm, that doesn't make sense to me: the filesystem doesn't know that
-> iomap_readpage will pad to page boundaries. This happens at the iomap
-> layer, so the iomap layer should also deal with the consequences.
-> We're using different alignment rules here and for direct I/O, so that
-> makes fake-aligning the extent size in iomap_begin even more
-> questionable.
-> 
-> "Fixing" the extent size the filesystem returns would also break
-> direct I/O. We could add some additional padding code to
-> iomap_dio_inline_iter to deal with that, but currently, there's no
-> need for that.
+In iomap_readahead_iter, deal with potential iomap_readpage_iter errors.
 
-The iomap mapping sizes are read-only to iomap for a good reason.  You
-can't just break that design.
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+---
+ fs/iomap/buffered-io.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 1753c26c8e76..9f1e329e8b2c 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -370,6 +370,8 @@ static loff_t iomap_readahead_iter(const struct iomap_iter *iter,
+ 			ctx->cur_page_in_bio = false;
+ 		}
+ 		ret = iomap_readpage_iter(iter, ctx, done);
++		if (ret < 0)
++			return ret;
+ 	}
+ 
+ 	return done;
+-- 
+2.31.1
 
