@@ -2,59 +2,90 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53BBE44EF01
-	for <lists+cluster-devel@lfdr.de>; Fri, 12 Nov 2021 23:03:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07C6B44F02E
+	for <lists+cluster-devel@lfdr.de>; Sat, 13 Nov 2021 01:08:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1636754602;
+	s=mimecast20190719; t=1636762125;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=BVUhH0fXvU7cleaOisM0gpt/br/ZxWF+yMej2m2eBbY=;
-	b=d5TyroQP1I3vhKHPYk3WosK5MiSdsZELG/kABVIWD/8LPE254Cid3Ay0Dh/FrdAsFrG4GP
-	I3Hy6bH4ImTzPSbYrOHBUEpwhLWXt4MzlYHMyzGqlu9NIbZah+LIPKOxJOc9csdovImtEQ
-	yOYDNqpMin08hKj1e8op3vY6Rqrf4M8=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=eXiLFu/hrnsJ38NrvPQMk767kJTQH5PjHJ/nzJYWid0=;
+	b=chxc6ucjoCA/SZb+0jAkw5kYbw3OuFhiRNtSOW9V9enilg2emGai3lyZOGd0nyO36PExgU
+	NbZNxv3gEzvjTvfBhMOQlVynEupYsPkvFFz91X5/nn2q9ON7nope83MrFTpSsLFn1ImJ0o
+	AyP5LqiHfjJb/prZXbRXAR/+yP5+qJY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-284-Qsd6AIUvOYWF0SbhA3qbRA-1; Fri, 12 Nov 2021 17:03:19 -0500
-X-MC-Unique: Qsd6AIUvOYWF0SbhA3qbRA-1
+ us-mta-228-bD4NMf0QOwGmApNij0lHLQ-1; Fri, 12 Nov 2021 19:08:42 -0500
+X-MC-Unique: bD4NMf0QOwGmApNij0lHLQ-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2B6AD1030C21;
-	Fri, 12 Nov 2021 22:03:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 35ED05C3DF;
-	Fri, 12 Nov 2021 22:03:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9ECFC824F8D;
+	Sat, 13 Nov 2021 00:08:39 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70CF15C1B4;
+	Sat, 13 Nov 2021 00:08:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09F7B4E58E;
-	Fri, 12 Nov 2021 22:03:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DB475181A1CF;
+	Sat, 13 Nov 2021 00:08:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ACM36ua020541 for <cluster-devel@listman.util.phx.redhat.com>;
-	Fri, 12 Nov 2021 17:03:06 -0500
+	id 1AD08TjZ030767 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 12 Nov 2021 19:08:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B231A60C82; Fri, 12 Nov 2021 22:03:06 +0000 (UTC)
+	id 72AA3404727D; Sat, 13 Nov 2021 00:08:29 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
-	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6320660C17;
-	Fri, 12 Nov 2021 22:03:06 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Fri, 12 Nov 2021 17:02:40 -0500
-Message-Id: <20211112220240.1695712-2-aahringo@redhat.com>
-In-Reply-To: <20211112220240.1695712-1-aahringo@redhat.com>
-References: <20211112220240.1695712-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6ED92404727C
+	for <cluster-devel@redhat.com>; Sat, 13 Nov 2021 00:08:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53DB11066559
+	for <cluster-devel@redhat.com>; Sat, 13 Nov 2021 00:08:29 +0000 (UTC)
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+	[209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-384-mWi3on3DOrqFABQVsLXAOA-1; Fri, 12 Nov 2021 19:08:28 -0500
+X-MC-Unique: mWi3on3DOrqFABQVsLXAOA-1
+Received: by mail-qv1-f69.google.com with SMTP id
+	g12-20020a0562141ccc00b003c0322ea7b6so4056732qvd.19
+	for <cluster-devel@redhat.com>; Fri, 12 Nov 2021 16:08:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=eXiLFu/hrnsJ38NrvPQMk767kJTQH5PjHJ/nzJYWid0=;
+	b=X0YALglPd4DkUA989OXX+d12pvzmshMfgU9xIyaTUxTeqAInoeOKhIebMiAlG0zrMR
+	chhGZu+vm6B8HxCCM23Cv1nurdA1MWcdnw5yM2M+LPEUtvBUUYYuXx20p+njEuyzTAgD
+	ayGMpp2BxpehPMgV+k+3gpC2Bn8j8Hu2hIepwBrzxyqCWBrKhXcXWcpXCTexDh/9Ckno
+	sX2f35qHvE4JjPzWPE9ImeADyQAfK6COmvjW3UzHnRSUOWvLQzA2Ubh9zJUyxgW2Ue48
+	48V4bqN9Wmkk/+ShP9yuvmm7LnfUU4K1Z9Hjk0rOaYXh53ykUEMncGMw01W4cqDVnQD9
+	0ZuQ==
+X-Gm-Message-State: AOAM532BpoUDWxOr/Y+Ouy59Ae0ZaOliW4NSQFK2KXo8sz1OVbDsRpCT
+	Gq2jmAjOkmz0lzdzgRmCJBnLUiJ5m6bJoweOnA7CULkJOKr/zUPfKYqcKoqjDxn2aHEBnBi9oNd
+	spKtsJzh+oeZ1mUXPkaGMb4K+0EWZITB78HsVtA==
+X-Received: by 2002:a05:620a:2403:: with SMTP id
+	d3mr15529314qkn.281.1636762107638; 
+	Fri, 12 Nov 2021 16:08:27 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJx0UN8EruVR6Z63nfe/beqkWWDy0CSiPF6Mezx4s5pyOaxekEHPoPQOA1Kmi+39ELlprfdbRvd35oy/Dfa94zo=
+X-Received: by 2002:a05:620a:2403:: with SMTP id
+	d3mr15529295qkn.281.1636762107493; 
+	Fri, 12 Nov 2021 16:08:27 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+References: <20211112220240.1695712-1-aahringo@redhat.com>
+In-Reply-To: <20211112220240.1695712-1-aahringo@redhat.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Fri, 12 Nov 2021 19:08:16 -0500
+Message-ID: <CAK-6q+gShwv7ViStALYySnprsdgrQHCJ1FyoTEkWpwAP7CXECQ@mail.gmail.com>
+To: David Teigland <teigland@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm-next 2/2] fs: dlm: replace use of socket
-	sk_callback_lock with sock_lock
+Subject: Re: [Cluster-devel] [PATCH dlm-next 1/2] fs: dlm: don't call
+	kernel_getpeername() in error_report()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,142 +104,20 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="UTF-8"
 
-This patch will replace the use of socket sk_callback_lock lock and uses
-socket lock instead. Some users like sunrpc, see commit ea9afca88bbe
-("SUNRPC: Replace use of socket sk_callback_lock with sock_lock") moving
-from sk_callback_lock to sock_lock which seems to be held when the socket
-callbacks are called.
+Hi,
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/lowcomms.c | 27 ++++++++++-----------------
- 1 file changed, 10 insertions(+), 17 deletions(-)
+On Fri, Nov 12, 2021 at 5:03 PM Alexander Aring <aahringo@redhat.com> wrote:
+...
+>
+> It is and was always forbidden to call kernel_getpeername() in context
+> of error_report(). To get rid of the problem we save the peer address in
+> the connection struct and access it in error_report() without using
+> kernel_getpeername() in this context.
+>
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index e319309066b3..df94cba699ea 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -489,11 +489,9 @@ static void lowcomms_data_ready(struct sock *sk)
- {
- 	struct connection *con;
- 
--	read_lock_bh(&sk->sk_callback_lock);
- 	con = sock2con(sk);
- 	if (con && !test_and_set_bit(CF_READ_PENDING, &con->flags))
- 		queue_work(recv_workqueue, &con->rwork);
--	read_unlock_bh(&sk->sk_callback_lock);
- }
- 
- static void lowcomms_listen_data_ready(struct sock *sk)
-@@ -508,15 +506,14 @@ static void lowcomms_write_space(struct sock *sk)
- {
- 	struct connection *con;
- 
--	read_lock_bh(&sk->sk_callback_lock);
- 	con = sock2con(sk);
- 	if (!con)
--		goto out;
-+		return;
- 
- 	if (!test_and_set_bit(CF_CONNECTED, &con->flags)) {
- 		log_print("successful connected to node %d", con->nodeid);
- 		queue_work(send_workqueue, &con->swork);
--		goto out;
-+		return;
- 	}
- 
- 	clear_bit(SOCK_NOSPACE, &con->sock->flags);
-@@ -527,8 +524,6 @@ static void lowcomms_write_space(struct sock *sk)
- 	}
- 
- 	queue_work(send_workqueue, &con->swork);
--out:
--	read_unlock_bh(&sk->sk_callback_lock);
- }
- 
- static inline void lowcomms_connect_sock(struct connection *con)
-@@ -597,7 +592,6 @@ static void lowcomms_error_report(struct sock *sk)
- 	struct connection *con;
- 	void (*orig_report)(struct sock *) = NULL;
- 
--	read_lock_bh(&sk->sk_callback_lock);
- 	con = sock2con(sk);
- 	if (con == NULL)
- 		goto out;
-@@ -642,7 +636,6 @@ static void lowcomms_error_report(struct sock *sk)
- 		queue_work(send_workqueue, &con->swork);
- 
- out:
--	read_unlock_bh(&sk->sk_callback_lock);
- 	if (orig_report)
- 		orig_report(sk);
- }
-@@ -662,20 +655,20 @@ static void restore_callbacks(struct socket *sock)
- {
- 	struct sock *sk = sock->sk;
- 
--	write_lock_bh(&sk->sk_callback_lock);
-+	lock_sock(sk);
- 	sk->sk_user_data = NULL;
- 	sk->sk_data_ready = listen_sock.sk_data_ready;
- 	sk->sk_state_change = listen_sock.sk_state_change;
- 	sk->sk_write_space = listen_sock.sk_write_space;
- 	sk->sk_error_report = listen_sock.sk_error_report;
--	write_unlock_bh(&sk->sk_callback_lock);
-+	release_sock(sk);
- }
- 
- static void add_listen_sock(struct socket *sock, struct listen_connection *con)
- {
- 	struct sock *sk = sock->sk;
- 
--	write_lock_bh(&sk->sk_callback_lock);
-+	lock_sock(sk);
- 	save_listen_callbacks(sock);
- 	con->sock = sock;
- 
-@@ -683,7 +676,7 @@ static void add_listen_sock(struct socket *sock, struct listen_connection *con)
- 	sk->sk_allocation = GFP_NOFS;
- 	/* Install a data_ready callback */
- 	sk->sk_data_ready = lowcomms_listen_data_ready;
--	write_unlock_bh(&sk->sk_callback_lock);
-+	release_sock(sk);
- }
- 
- /* Make a socket active */
-@@ -691,7 +684,7 @@ static void add_sock(struct socket *sock, struct connection *con)
- {
- 	struct sock *sk = sock->sk;
- 
--	write_lock_bh(&sk->sk_callback_lock);
-+	lock_sock(sk);
- 	con->sock = sock;
- 
- 	sk->sk_user_data = con;
-@@ -701,7 +694,7 @@ static void add_sock(struct socket *sock, struct connection *con)
- 	sk->sk_state_change = lowcomms_state_change;
- 	sk->sk_allocation = GFP_NOFS;
- 	sk->sk_error_report = lowcomms_error_report;
--	write_unlock_bh(&sk->sk_callback_lock);
-+	release_sock(sk);
- }
- 
- /* Add the port number to an IPv6 or 4 sockaddr and return the address
-@@ -1679,9 +1672,9 @@ static void _stop_conn(struct connection *con, bool and_other)
- 	set_bit(CF_READ_PENDING, &con->flags);
- 	set_bit(CF_WRITE_PENDING, &con->flags);
- 	if (con->sock && con->sock->sk) {
--		write_lock_bh(&con->sock->sk->sk_callback_lock);
-+		lock_sock(con->sock->sk);
- 		con->sock->sk->sk_user_data = NULL;
--		write_unlock_bh(&con->sock->sk->sk_callback_lock);
-+		release_sock(con->sock->sk);
- 	}
- 	if (con->othercon && and_other)
- 		_stop_conn(con->othercon, false);
--- 
-2.27.0
+I will send a v2, this can be improved by using inet_sk().
+
+- Alex
 
