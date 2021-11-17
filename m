@@ -1,60 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 894DE450623
-	for <lists+cluster-devel@lfdr.de>; Mon, 15 Nov 2021 14:58:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1636984706;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=qlyU7j22eZYHMV1MWS4X4lbalnEz+9SShn0odiIwsUs=;
-	b=JgmJaNJSXYjuiy3M4TwFpBYoI3ta+vV2meWq4hx4IebT9kgT3AsVZ1BndS50vltorS2XMd
-	InzjqwsbVehiL9sGM3wXa9ApyoD5J4PRENbn/Q3JbWf24lLn7L7KhOSuk4lgeYYGScypOK
-	gI0hDiHO/4iq8Tw+0Lh0XSsDPZp37EE=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DCF645403D
+	for <lists+cluster-devel@lfdr.de>; Wed, 17 Nov 2021 06:34:01 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-581-23ttydp-PhaShbBSytzCvA-1; Mon, 15 Nov 2021 08:58:23 -0500
-X-MC-Unique: 23ttydp-PhaShbBSytzCvA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-185-usBK4_yTOF-VHMcQNDOiiA-1; Wed, 17 Nov 2021 00:33:56 -0500
+X-MC-Unique: usBK4_yTOF-VHMcQNDOiiA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C22F118125CA;
-	Mon, 15 Nov 2021 13:58:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B4D2F2AF6D;
-	Mon, 15 Nov 2021 13:58:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D598515720;
+	Wed, 17 Nov 2021 05:33:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 17DF05C1BB;
+	Wed, 17 Nov 2021 05:33:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 704141819AC1;
-	Mon, 15 Nov 2021 13:58:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A08E84A703;
+	Wed, 17 Nov 2021 05:33:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AFDvxYC007995 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 15 Nov 2021 08:57:59 -0500
+	id 1AH5XduB014931 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Nov 2021 00:33:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AECEF56AA2; Mon, 15 Nov 2021 13:57:59 +0000 (UTC)
+	id 34DED2026D46; Wed, 17 Nov 2021 05:33:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
-	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A7CC556ABC;
-	Mon, 15 Nov 2021 13:57:37 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Mon, 15 Nov 2021 08:57:06 -0500
-Message-Id: <20211115135706.2004320-2-aahringo@redhat.com>
-In-Reply-To: <20211115135706.2004320-1-aahringo@redhat.com>
-References: <20211115135706.2004320-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F92C2026D48
+	for <cluster-devel@redhat.com>; Wed, 17 Nov 2021 05:33:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5EB298007B1
+	for <cluster-devel@redhat.com>; Wed, 17 Nov 2021 05:33:36 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-410-Fy4fh-aeOVmPhr29HuFXyQ-1;
+	Wed, 17 Nov 2021 00:33:32 -0500
+X-MC-Unique: Fy4fh-aeOVmPhr29HuFXyQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 56D4061BD4;
+	Wed, 17 Nov 2021 05:33:31 +0000 (UTC)
+Date: Tue, 16 Nov 2021 21:33:30 -0800
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <20211117053330.GU24307@magnolia>
+References: <20211111161714.584718-1-agruenba@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20211111161714.584718-1-agruenba@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCHv2 dlm-next 2/2] fs: dlm: replace use of
-	socket sk_callback_lock with sock_lock
+Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	cluster-devel@redhat.com, Christoph Hellwig <hch@lst.de>,
+	stable@vger.kernel.org
+Subject: Re: [Cluster-devel] [5.15 REGRESSION v2] iomap: Fix inline extent
+ handling in iomap_readpage
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,147 +77,89 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch will replace the use of socket sk_callback_lock lock and uses
-socket lock instead. Some users like sunrpc, see commit ea9afca88bbe
-("SUNRPC: Replace use of socket sk_callback_lock with sock_lock") moving
-from sk_callback_lock to sock_lock which seems to be held when the socket
-callbacks are called.
+On Thu, Nov 11, 2021 at 05:17:14PM +0100, Andreas Gruenbacher wrote:
+> Before commit 740499c78408 ("iomap: fix the iomap_readpage_actor return
+> value for inline data"), when hitting an IOMAP_INLINE extent,
+> iomap_readpage_actor would report having read the entire page.  Since
+> then, it only reports having read the inline data (iomap->length).
+> 
+> This will force iomap_readpage into another iteration, and the
+> filesystem will report an unaligned hole after the IOMAP_INLINE extent.
+> But iomap_readpage_actor (now iomap_readpage_iter) isn't prepared to
+> deal with unaligned extents, it will get things wrong on filesystems
+> with a block size smaller than the page size, and we'll eventually run
+> into the following warning in iomap_iter_advance:
+> 
+>   WARN_ON_ONCE(iter->processed > iomap_length(iter));
+> 
+> Fix that by changing iomap_readpage_iter to return 0 when hitting an
+> inline extent; this will cause iomap_iter to stop immediately.
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/lowcomms.c | 27 ++++++++++-----------------
- 1 file changed, 10 insertions(+), 17 deletions(-)
+I guess this means that we also only support having inline data that
+ends at EOF?  IIRC this is true for the three(?) filesystems that have
+expressed any interest in inline data: yours, ext4, and erofs?
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index c7750849c495..203470189011 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -488,11 +488,9 @@ static void lowcomms_data_ready(struct sock *sk)
- {
- 	struct connection *con;
- 
--	read_lock_bh(&sk->sk_callback_lock);
- 	con = sock2con(sk);
- 	if (con && !test_and_set_bit(CF_READ_PENDING, &con->flags))
- 		queue_work(recv_workqueue, &con->rwork);
--	read_unlock_bh(&sk->sk_callback_lock);
- }
- 
- static void lowcomms_listen_data_ready(struct sock *sk)
-@@ -507,15 +505,14 @@ static void lowcomms_write_space(struct sock *sk)
- {
- 	struct connection *con;
- 
--	read_lock_bh(&sk->sk_callback_lock);
- 	con = sock2con(sk);
- 	if (!con)
--		goto out;
-+		return;
- 
- 	if (!test_and_set_bit(CF_CONNECTED, &con->flags)) {
- 		log_print("successful connected to node %d", con->nodeid);
- 		queue_work(send_workqueue, &con->swork);
--		goto out;
-+		return;
- 	}
- 
- 	clear_bit(SOCK_NOSPACE, &con->sock->flags);
-@@ -526,8 +523,6 @@ static void lowcomms_write_space(struct sock *sk)
- 	}
- 
- 	queue_work(send_workqueue, &con->swork);
--out:
--	read_unlock_bh(&sk->sk_callback_lock);
- }
- 
- static inline void lowcomms_connect_sock(struct connection *con)
-@@ -597,7 +592,6 @@ static void lowcomms_error_report(struct sock *sk)
- 	void (*orig_report)(struct sock *) = NULL;
- 	struct inet_sock *inet;
- 
--	read_lock_bh(&sk->sk_callback_lock);
- 	con = sock2con(sk);
- 	if (con == NULL)
- 		goto out;
-@@ -646,7 +640,6 @@ static void lowcomms_error_report(struct sock *sk)
- 		queue_work(send_workqueue, &con->swork);
- 
- out:
--	read_unlock_bh(&sk->sk_callback_lock);
- 	if (orig_report)
- 		orig_report(sk);
- }
-@@ -666,20 +659,20 @@ static void restore_callbacks(struct socket *sock)
- {
- 	struct sock *sk = sock->sk;
- 
--	write_lock_bh(&sk->sk_callback_lock);
-+	lock_sock(sk);
- 	sk->sk_user_data = NULL;
- 	sk->sk_data_ready = listen_sock.sk_data_ready;
- 	sk->sk_state_change = listen_sock.sk_state_change;
- 	sk->sk_write_space = listen_sock.sk_write_space;
- 	sk->sk_error_report = listen_sock.sk_error_report;
--	write_unlock_bh(&sk->sk_callback_lock);
-+	release_sock(sk);
- }
- 
- static void add_listen_sock(struct socket *sock, struct listen_connection *con)
- {
- 	struct sock *sk = sock->sk;
- 
--	write_lock_bh(&sk->sk_callback_lock);
-+	lock_sock(sk);
- 	save_listen_callbacks(sock);
- 	con->sock = sock;
- 
-@@ -687,7 +680,7 @@ static void add_listen_sock(struct socket *sock, struct listen_connection *con)
- 	sk->sk_allocation = GFP_NOFS;
- 	/* Install a data_ready callback */
- 	sk->sk_data_ready = lowcomms_listen_data_ready;
--	write_unlock_bh(&sk->sk_callback_lock);
-+	release_sock(sk);
- }
- 
- /* Make a socket active */
-@@ -695,7 +688,7 @@ static void add_sock(struct socket *sock, struct connection *con)
- {
- 	struct sock *sk = sock->sk;
- 
--	write_lock_bh(&sk->sk_callback_lock);
-+	lock_sock(sk);
- 	con->sock = sock;
- 
- 	sk->sk_user_data = con;
-@@ -705,7 +698,7 @@ static void add_sock(struct socket *sock, struct connection *con)
- 	sk->sk_state_change = lowcomms_state_change;
- 	sk->sk_allocation = GFP_NOFS;
- 	sk->sk_error_report = lowcomms_error_report;
--	write_unlock_bh(&sk->sk_callback_lock);
-+	release_sock(sk);
- }
- 
- /* Add the port number to an IPv6 or 4 sockaddr and return the address
-@@ -1680,9 +1673,9 @@ static void _stop_conn(struct connection *con, bool and_other)
- 	set_bit(CF_READ_PENDING, &con->flags);
- 	set_bit(CF_WRITE_PENDING, &con->flags);
- 	if (con->sock && con->sock->sk) {
--		write_lock_bh(&con->sock->sk->sk_callback_lock);
-+		lock_sock(con->sock->sk);
- 		con->sock->sk->sk_user_data = NULL;
--		write_unlock_bh(&con->sock->sk->sk_callback_lock);
-+		release_sock(con->sock->sk);
- 	}
- 	if (con->othercon && and_other)
- 		_stop_conn(con->othercon, false);
--- 
-2.27.0
+> To fix readahead as well, change iomap_readahead_iter to pass on
+> iomap_readpage_iter return values less than or equal to zero.
+> 
+> Fixes: 740499c78408 ("iomap: fix the iomap_readpage_actor return value for inline data")
+> Cc: stable@vger.kernel.org # v5.15+
+> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+> ---
+>  fs/iomap/buffered-io.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index 1753c26c8e76..fe10d8a30f6b 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -256,8 +256,13 @@ static loff_t iomap_readpage_iter(const struct iomap_iter *iter,
+>  	unsigned poff, plen;
+>  	sector_t sector;
+>  
+> -	if (iomap->type == IOMAP_INLINE)
+> -		return min(iomap_read_inline_data(iter, page), length);
+> +	if (iomap->type == IOMAP_INLINE) {
+> +		loff_t ret = iomap_read_inline_data(iter, page);
+
+Ew, iomap_read_inline_data returns loff_t.  I think I'll slip in a
+change of return type to ssize_t, if you don't mind?
+
+> +
+> +		if (ret < 0)
+> +			return ret;
+
+...and a comment here explaining that we only support inline data that
+ends at EOF?
+
+If the answers to all /four/ questions are 'yes', then consider this:
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+
+--D
+
+> +		return 0;
+> +	}
+>  
+>  	/* zero post-eof blocks as the page may be mapped */
+>  	iop = iomap_page_create(iter->inode, page);
+> @@ -370,6 +375,8 @@ static loff_t iomap_readahead_iter(const struct iomap_iter *iter,
+>  			ctx->cur_page_in_bio = false;
+>  		}
+>  		ret = iomap_readpage_iter(iter, ctx, done);
+> +		if (ret <= 0)
+> +			return ret;
+>  	}
+>  
+>  	return done;
+> -- 
+> 2.31.1
+> 
 
