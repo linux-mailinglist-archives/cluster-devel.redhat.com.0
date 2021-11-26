@@ -1,54 +1,55 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 807D145E4BF
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D43145E4BE
 	for <lists+cluster-devel@lfdr.de>; Fri, 26 Nov 2021 03:34:16 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-80-lnv-lCdmNSKEbdOF1-Lj5A-1; Thu, 25 Nov 2021 21:34:11 -0500
-X-MC-Unique: lnv-lCdmNSKEbdOF1-Lj5A-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-209-8B4DsiRUM2KlN2uY6Pu91Q-1; Thu, 25 Nov 2021 21:34:11 -0500
+X-MC-Unique: 8B4DsiRUM2KlN2uY6Pu91Q-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B2ACE18C8C01;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A6DC381CCB5;
 	Fri, 26 Nov 2021 02:34:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C4DE65D9C0;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A4DC1001F50;
 	Fri, 26 Nov 2021 02:34:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2BA7E1809C89;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2BAD31809CB7;
 	Fri, 26 Nov 2021 02:34:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AQ2XsCB029058 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 25 Nov 2021 21:33:54 -0500
+	id 1AQ2Xq0l029047 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 25 Nov 2021 21:33:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 21FDF1121318; Fri, 26 Nov 2021 02:33:54 +0000 (UTC)
+	id C953D4047272; Fri, 26 Nov 2021 02:33:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DB351121315
-	for <cluster-devel@redhat.com>; Fri, 26 Nov 2021 02:33:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C4D37404727A
+	for <cluster-devel@redhat.com>; Fri, 26 Nov 2021 02:33:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5060E811E76
-	for <cluster-devel@redhat.com>; Fri, 26 Nov 2021 02:33:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FC6C85A5AA
+	for <cluster-devel@redhat.com>; Fri, 26 Nov 2021 02:33:52 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-356-8aCzqHzkM4-XRgwN18tbQg-1; Thu, 25 Nov 2021 21:33:47 -0500
-X-MC-Unique: 8aCzqHzkM4-XRgwN18tbQg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3C25A6120E;
-	Fri, 26 Nov 2021 02:33:45 +0000 (UTC)
+	us-mta-506-LcjYGQZ1PW24R4ErwHHT6Q-1; Thu, 25 Nov 2021 21:33:48 -0500
+X-MC-Unique: LcjYGQZ1PW24R4ErwHHT6Q-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 464F661213;
+	Fri, 26 Nov 2021 02:33:46 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 25 Nov 2021 21:33:16 -0500
-Message-Id: <20211126023343.442045-1-sashal@kernel.org>
+Date: Thu, 25 Nov 2021 21:33:17 -0500
+Message-Id: <20211126023343.442045-2-sashal@kernel.org>
+In-Reply-To: <20211126023343.442045-1-sashal@kernel.org>
+References: <20211126023343.442045-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -60,11 +61,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.10 01/28] gfs2: release iopen
-	glock early in evict
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.10 02/28] gfs2: Fix length of
+	holes reported at end-of-file
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,7 +79,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,60 +87,38 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-From: Bob Peterson <rpeterso@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
 
-[ Upstream commit 49462e2be119d38c5eb5759d0d1b712df3a41239 ]
+[ Upstream commit f3506eee81d1f700d9ee2d2f4a88fddb669ec032 ]
 
-Before this patch, evict would clear the iopen glock's gl_object after
-releasing the inode glock.  In the meantime, another process could reuse
-the same block and thus glocks for a new inode.  It would lock the inode
-glock (exclusively), and then the iopen glock (shared).  The shared
-locking mode doesn't provide any ordering against the evict, so by the
-time the iopen glock is reused, evict may not have gotten to setting
-gl_object to NULL.
+Fix the length of holes reported at the end of a file: the length is
+relative to the beginning of the extent, not the seek position which is
+rounded down to the filesystem block size.
 
-Fix that by releasing the iopen glock before the inode glock in
-gfs2_evict_inode.
+This bug went unnoticed for some time, but is now caught by the
+following assertion in iomap_iter_done():
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>gl_object
+  WARN_ON_ONCE(iter->iomap.offset + iter->iomap.length <= iter->pos)
+
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/super.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ fs/gfs2/bmap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 6a355e1347d7f..d2b7ecbd1b150 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -1438,13 +1438,6 @@ static void gfs2_evict_inode(struct inode *inode)
- 	gfs2_ordered_del_inode(ip);
- 	clear_inode(inode);
- 	gfs2_dir_hash_inval(ip);
--	if (ip->i_gl) {
--		glock_clear_object(ip->i_gl, ip);
--		wait_on_bit_io(&ip->i_flags, GIF_GLOP_PENDING, TASK_UNINTERRUPTIBLE);
--		gfs2_glock_add_to_lru(ip->i_gl);
--		gfs2_glock_put_eventually(ip->i_gl);
--		ip->i_gl = NULL;
--	}
- 	if (gfs2_holder_initialized(&ip->i_iopen_gh)) {
- 		struct gfs2_glock *gl = ip->i_iopen_gh.gh_gl;
+diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
+index a1f9dde33058f..b34c02985d9d2 100644
+--- a/fs/gfs2/bmap.c
++++ b/fs/gfs2/bmap.c
+@@ -940,7 +940,7 @@ static int gfs2_iomap_get(struct inode *inode, loff_t pos, loff_t length,
+ 		else if (height == ip->i_height)
+ 			ret = gfs2_hole_size(inode, lblock, len, mp, iomap);
+ 		else
+-			iomap->length = size - pos;
++			iomap->length = size - iomap->offset;
+ 	} else if (flags & IOMAP_WRITE) {
+ 		u64 alloc_size;
  
-@@ -1457,6 +1450,13 @@ static void gfs2_evict_inode(struct inode *inode)
- 		gfs2_holder_uninit(&ip->i_iopen_gh);
- 		gfs2_glock_put_eventually(gl);
- 	}
-+	if (ip->i_gl) {
-+		glock_clear_object(ip->i_gl, ip);
-+		wait_on_bit_io(&ip->i_flags, GIF_GLOP_PENDING, TASK_UNINTERRUPTIBLE);
-+		gfs2_glock_add_to_lru(ip->i_gl);
-+		gfs2_glock_put_eventually(ip->i_gl);
-+		ip->i_gl = NULL;
-+	}
- }
- 
- static struct inode *gfs2_alloc_inode(struct super_block *sb)
 -- 
 2.33.0
 
