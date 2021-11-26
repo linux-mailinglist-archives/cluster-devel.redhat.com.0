@@ -2,91 +2,69 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CADE645964F
-	for <lists+cluster-devel@lfdr.de>; Mon, 22 Nov 2021 21:54:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1637614469;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=wnBLYAtYOoRoyT+Nzh2WWtd9MEDDJarOajIy2LBECyI=;
-	b=fxbrO8086kNBpmBQryDh/9Db+EtCjVD2fT8ciqiVsn/eR0W+8kLyUV+hwXtZsU/9k7deml
-	+d3nI0C2sNMwlp92zZH6oUY+JfcWW3WPurZCmpS3nmE8/dsaoZwMSRJm619hNpIOcbMTUg
-	NSJJBmBWMC56LBvWHRmTncCXqVoHy4Y=
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F3A45E57E
+	for <lists+cluster-devel@lfdr.de>; Fri, 26 Nov 2021 03:44:37 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-177-XNHNzVu7MImR1GtkZrA6CQ-1; Mon, 22 Nov 2021 15:54:26 -0500
-X-MC-Unique: XNHNzVu7MImR1GtkZrA6CQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-249-CyoNdKKwPCChND3Eyy3d-g-1; Thu, 25 Nov 2021 21:44:34 -0500
+X-MC-Unique: CyoNdKKwPCChND3Eyy3d-g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 071CF1023F53;
-	Mon, 22 Nov 2021 20:54:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8162C2E69;
+	Fri, 26 Nov 2021 02:44:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E3F85DF5E;
-	Mon, 22 Nov 2021 20:54:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A8CD10001AF;
+	Fri, 26 Nov 2021 02:44:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB0141832E7F;
-	Mon, 22 Nov 2021 20:54:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B89A41809C87;
+	Fri, 26 Nov 2021 02:44:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AMKsC8j015091 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 22 Nov 2021 15:54:12 -0500
+	id 1AQ2hhml030870 for <cluster-devel@listman.util.phx.redhat.com>;
+	Thu, 25 Nov 2021 21:43:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 88C0F4010FFC; Mon, 22 Nov 2021 20:54:12 +0000 (UTC)
+	id E1DA3404727D; Fri, 26 Nov 2021 02:43:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 840F940CFD0B
-	for <cluster-devel@redhat.com>; Mon, 22 Nov 2021 20:54:12 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DDBB14047272
+	for <cluster-devel@redhat.com>; Fri, 26 Nov 2021 02:43:42 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AA4885A5B5
-	for <cluster-devel@redhat.com>; Mon, 22 Nov 2021 20:54:12 +0000 (UTC)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
-	[209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-464-oVguC2--N7WLbzCnYfeziw-1; Mon, 22 Nov 2021 15:54:09 -0500
-X-MC-Unique: oVguC2--N7WLbzCnYfeziw-1
-Received: by mail-wm1-f69.google.com with SMTP id
-	r6-20020a1c4406000000b0033119c22fdbso7341050wma.4
-	for <cluster-devel@redhat.com>; Mon, 22 Nov 2021 12:54:08 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=wnBLYAtYOoRoyT+Nzh2WWtd9MEDDJarOajIy2LBECyI=;
-	b=muMe+OAOKkBOahCV59aa8KF5QPQ9ZCxd0ns+wSsL5Sg5pfGo3i1UzjqNLO1GOZ9Scj
-	rg7M3qQ2zEMnohbU1gSa7ym5U/x2bqQLEXeaQ9s0to9p97P9VY3fUIfftwQttPYgoemW
-	BsFHEqx1SDzvwa8U/cX6Hup2X9wvZnzeH5Iud4uRy5b6m1dC7Vq5I7HkVP2XyxbmiduG
-	wgpp1H+q3uLyWVdkscZL3a/Hcu4J0GS+Cpzvd9otvI7wirFTARzDaJ+Wibb0Bk9Dh9zG
-	vACH92BWSLjk/vt6TuDf5cc9L9hhCb2vbmrZNZ+pg5cKobjSORGMBK0EwULiP8lvI6Gg
-	jX5g==
-X-Gm-Message-State: AOAM531oZoDI/stSVlFiOTO1T5I+qPfEkEWrsAfrSrkukYR14E0QAqZ9
-	y1T3z92BH6Imb03O2/OUtmghnVrx/qypD4nPZXHGtMkxbqzsGh3WjPL0oa0NYLma/dQtfha54kz
-	WVGvV2BOv0AZiC7wJoQ8Stf4UVNMSk611Z9mTMg==
-X-Received: by 2002:a1c:f005:: with SMTP id a5mr34716204wmb.19.1637614447738; 
-	Mon, 22 Nov 2021 12:54:07 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwv+3Mg/ra8/58iBRaK53knaHB9ER4yThZJzb8zgPE8orKnr8O96JJP7H9pqOqsH7kMt5oAZrceogwMY0oPPMI=
-X-Received: by 2002:a1c:f005:: with SMTP id a5mr34716181wmb.19.1637614447556; 
-	Mon, 22 Nov 2021 12:54:07 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0DAA823F8D
+	for <cluster-devel@redhat.com>; Fri, 26 Nov 2021 02:43:42 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-319-L2h0wTL8PP2gjVpNdnHbTw-1; Thu, 25 Nov 2021 21:43:40 -0500
+X-MC-Unique: L2h0wTL8PP2gjVpNdnHbTw-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A217261177;
+	Fri, 26 Nov 2021 02:31:57 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 25 Nov 2021 21:31:18 -0500
+Message-Id: <20211126023156.441292-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20211112195312.240650-1-rpeterso@redhat.com>
-In-Reply-To: <20211112195312.240650-1-rpeterso@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 22 Nov 2021 21:53:56 +0100
-Message-ID: <CAHc6FU6mtPATLbTp77CG94AB-xD65k7MxfYchOLwQ9WkScX==Q@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel <cluster-devel@redhat.com>
-Subject: Re: [Cluster-devel] [PATCH] gfs2: zero out all rgrp lvbs after
-	recovery
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.15 01/39] gfs2: release iopen
+	glock early in evict
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,63 +78,68 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-Bob,
+From: Bob Peterson <rpeterso@redhat.com>
 
-On Fri, Nov 12, 2021 at 8:53 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> When journals are replayed they start from the last stable point in
-> the journal. But an rgrp's glock lvb can be updated before the rgrp is
-> stable in the journal, so another node can see newer lvb values that
-> reflect changes made after the stable point in the journal.
->
-> This patch changes function thaw_glock, which is called after journal
-> recovery is complete, on every node, regardless of whether or not the
-> node replayed the journal (and therefore the rgrps). There's no good
-> way for any given node to determine if its rgrp glocks had been replayed
-> by a different node from a another node's journal, so it has no way to know
-> if its lvbs are still valid. So as soon as it knows recovery is complete
-> and the journals have been properly replayed, it zeroes out the lvbs
-> for all rgrp glocks. This forces it to re-read the lvb the next time
-> the glock is held.
+[ Upstream commit 49462e2be119d38c5eb5759d0d1b712df3a41239 ]
 
-this doesn't make sense to me. When looking at the journal, what
-matters is where the journal ends (in other words, the point of the
-last journal flush), not where it starts. We really must make sure
-that the journal has been flushed to include all the resource group
-changes before giving up the resource group glock. That's when the
-local LVB changes become visible to the other nodes. We should never
-have to go back in history, which is what this patch essentially
-allows. If we always go forward, the resource group LVBs will never
-"go invalid" in the first place.
+Before this patch, evict would clear the iopen glock's gl_object after
+releasing the inode glock.  In the meantime, another process could reuse
+the same block and thus glocks for a new inode.  It would lock the inode
+glock (exclusively), and then the iopen glock (shared).  The shared
+locking mode doesn't provide any ordering against the evict, so by the
+time the iopen glock is reused, evict may not have gotten to setting
+gl_object to NULL.
 
-Thanks,
-Andreas
+Fix that by releasing the iopen glock before the inode glock in
+gfs2_evict_inode.
 
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> ---
->  fs/gfs2/glock.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-> index 8dbd6fe66420..24c101287b70 100644
-> --- a/fs/gfs2/glock.c
-> +++ b/fs/gfs2/glock.c
-> @@ -2161,6 +2161,8 @@ void gfs2_flush_delete_work(struct gfs2_sbd *sdp)
->
->  static void thaw_glock(struct gfs2_glock *gl)
->  {
-> +       if (gl->gl_name.ln_type == LM_TYPE_RGRP)
-> +               memset(gl->gl_lksb.sb_lvbptr, 0, sizeof(struct gfs2_rgrp_lvb));
->         if (!test_and_clear_bit(GLF_FROZEN, &gl->gl_flags))
->                 return;
->         if (!lockref_get_not_dead(&gl->gl_lockref))
-> --
-> 2.33.1
->
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>gl_object
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/gfs2/super.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index 6e00d15ef0a82..cc51b5f5f52d8 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -1402,13 +1402,6 @@ static void gfs2_evict_inode(struct inode *inode)
+ 	gfs2_ordered_del_inode(ip);
+ 	clear_inode(inode);
+ 	gfs2_dir_hash_inval(ip);
+-	if (ip->i_gl) {
+-		glock_clear_object(ip->i_gl, ip);
+-		wait_on_bit_io(&ip->i_flags, GIF_GLOP_PENDING, TASK_UNINTERRUPTIBLE);
+-		gfs2_glock_add_to_lru(ip->i_gl);
+-		gfs2_glock_put_eventually(ip->i_gl);
+-		ip->i_gl = NULL;
+-	}
+ 	if (gfs2_holder_initialized(&ip->i_iopen_gh)) {
+ 		struct gfs2_glock *gl = ip->i_iopen_gh.gh_gl;
+ 
+@@ -1421,6 +1414,13 @@ static void gfs2_evict_inode(struct inode *inode)
+ 		gfs2_holder_uninit(&ip->i_iopen_gh);
+ 		gfs2_glock_put_eventually(gl);
+ 	}
++	if (ip->i_gl) {
++		glock_clear_object(ip->i_gl, ip);
++		wait_on_bit_io(&ip->i_flags, GIF_GLOP_PENDING, TASK_UNINTERRUPTIBLE);
++		gfs2_glock_add_to_lru(ip->i_gl);
++		gfs2_glock_put_eventually(ip->i_gl);
++		ip->i_gl = NULL;
++	}
+ }
+ 
+ static struct inode *gfs2_alloc_inode(struct super_block *sb)
+-- 
+2.33.0
 
