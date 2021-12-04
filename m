@@ -2,7 +2,7 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A6C1468409
+	by mail.lfdr.de (Postfix) with ESMTPS id 62981468408
 	for <lists+cluster-devel@lfdr.de>; Sat,  4 Dec 2021 11:27:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1638613661;
@@ -12,47 +12,47 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8KFLsR7fjs5Q8ZrwXS52oqCNJz4Ij54wLG2MMFREKJY=;
-	b=XOnaPJzype3LtAjEkrKhqyTDQZWFD2w71ArULQ5732jl92ie56RaBwB/dnIRcM28mLGPid
-	EF+HoUCfFM688jPP+cRQx811CDdBclHXFLWPjLbJO24GJW1TbbzGYxiFl2fsP4rHFaTaYZ
-	H3BSmrv7mv3VQaN6w94FrCWtOiTB0qs=
+	bh=2W6geHtTaOIkbgE3IbdzZ5OOBXFOZ+pAs2rIAMFzb6s=;
+	b=DsX0cksV0v9Y6iFKaIOW5uorjzE9cE1/FeI3K41ByoxhA7XF6VFSxoWZFwxdgDAaFzkN1k
+	CLy6/GL499FufTWSLWC+XYiw8GvnpSPYdp3r4KTS5NUSKjRlpuDEDdwd+MziNBtML40iUR
+	c2b1jZLQVUuftQHmE27qZ/kZM7TH7YI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-465-m76mzuNhNcaE8OSILHwtxA-1; Sat, 04 Dec 2021 05:27:38 -0500
-X-MC-Unique: m76mzuNhNcaE8OSILHwtxA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-465-TqAM0di8MbiWDtdasJ_y4A-1; Sat, 04 Dec 2021 05:27:38 -0500
+X-MC-Unique: TqAM0di8MbiWDtdasJ_y4A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 515E41966320;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5454A802924;
 	Sat,  4 Dec 2021 10:27:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45E256060F;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 46D825D9D5;
 	Sat,  4 Dec 2021 10:27:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6A1844A7C9;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8AB691809CB8;
 	Sat,  4 Dec 2021 10:27:35 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
 	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B4ARXqY017312 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 4 Dec 2021 05:27:33 -0500
+	id 1B4ARYGB017317 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 4 Dec 2021 05:27:34 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 158845C642; Sat,  4 Dec 2021 10:27:33 +0000 (UTC)
+	id 32B435C643; Sat,  4 Dec 2021 10:27:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.localdomain (unknown [10.40.192.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5186B5C640;
-	Sat,  4 Dec 2021 10:27:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6EFE65C640;
+	Sat,  4 Dec 2021 10:27:33 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Sat,  4 Dec 2021 11:27:17 +0100
-Message-Id: <20211204102718.19482-3-agruenba@redhat.com>
+Date: Sat,  4 Dec 2021 11:27:18 +0100
+Message-Id: <20211204102718.19482-4-agruenba@redhat.com>
 In-Reply-To: <20211204102718.19482-1-agruenba@redhat.com>
 References: <20211204102718.19482-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 3/4] gfs2: gfs2_inode_lookup rework
+Subject: [Cluster-devel] [PATCH 4/4] gfs2: gfs2_create_inode rework
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +66,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,183 +74,103 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Rework gfs2_inode_lookup() to only set up the new inode's glocks after
-verifying that the new inode is valid.
+When gfs2_lookup_by_inum() calls gfs2_inode_lookup() for an uncached
+inode, gfs2_inode_lookup() will place a new tentative inode into the
+inode cache before verifying that there is a valid inode at the given
+address.  This can race with gfs2_create_inode() which doesn't check for
+duplicates inodes.  gfs2_create_inode() will try to assign the new inode
+to the corresponding inode glock, and glock_set_object() will complain
+that the glock is still in use by gfs2_inode_lookup's tentative inode.
 
-There is no need for flushing the inode glock work queue anymore now,
-so remove that as well.
+We noticed this bug after adding commit 486408d690e1 ("gfs2: Cancel
+remote delete work asynchronously") which allowed delete_work_func() to
+race with gfs2_create_inode(), but the same race exists for
+open-by-handle.
 
-While at it, get rid of the useless wrapper around iget5_locked() and
-its unnecessary is_bad_inode() check.
+Fix that by switching from insert_inode_hash() to
+insert_inode_locked4(), which does check for duplicate inodes.  We know
+we've just managed to to allocate the new inode, so an inode tentatively
+created by gfs2_inode_lookup() will eventually go away and
+insert_inode_locked4() will always succeed.
+
+In addition, don't flush the inode glock work anymore (this can now only
+make things worse) and clean up glock_{set,clear}_object for the inode
+glock somewhat.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/inode.c | 84 +++++++++++++++++++------------------------------
- 1 file changed, 33 insertions(+), 51 deletions(-)
+ fs/gfs2/inode.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
 diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index 806357f0c7ee..d73b2933fdb8 100644
+index d73b2933fdb8..89905f4f29bb 100644
 --- a/fs/gfs2/inode.c
 +++ b/fs/gfs2/inode.c
-@@ -40,37 +40,6 @@ static const struct inode_operations gfs2_file_iops;
- static const struct inode_operations gfs2_dir_iops;
- static const struct inode_operations gfs2_symlink_iops;
+@@ -707,18 +707,19 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	error = gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_inode_glops, CREATE, &ip->i_gl);
+ 	if (error)
+ 		goto fail_free_inode;
+-	flush_delayed_work(&ip->i_gl->gl_work);
  
--static int iget_test(struct inode *inode, void *opaque)
--{
--	u64 no_addr = *(u64 *)opaque;
--
--	return GFS2_I(inode)->i_no_addr == no_addr;
--}
--
--static int iget_set(struct inode *inode, void *opaque)
--{
--	u64 no_addr = *(u64 *)opaque;
--
--	GFS2_I(inode)->i_no_addr = no_addr;
--	inode->i_ino = no_addr;
--	return 0;
--}
--
--static struct inode *gfs2_iget(struct super_block *sb, u64 no_addr)
--{
--	struct inode *inode;
--
--repeat:
--	inode = iget5_locked(sb, no_addr, iget_test, iget_set, &no_addr);
--	if (!inode)
--		return inode;
--	if (is_bad_inode(inode)) {
--		iput(inode);
--		goto repeat;
--	}
--	return inode;
--}
--
- /**
-  * gfs2_set_iop - Sets inode operations
-  * @inode: The inode with correct i_mode filled in
-@@ -104,6 +73,22 @@ static void gfs2_set_iop(struct inode *inode)
+ 	error = gfs2_glock_get(sdp, ip->i_no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
+ 	if (error)
+ 		goto fail_free_inode;
+ 	gfs2_cancel_delete_work(io_gl);
+ 
++	error = insert_inode_locked4(inode, ip->i_no_addr, iget_test, &ip->i_no_addr);
++	BUG_ON(error);
++
+ 	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_SKIP, ghs + 1);
+ 	if (error)
+ 		goto fail_gunlock2;
+ 
+-	glock_set_object(ip->i_gl, ip);
+ 	error = gfs2_trans_begin(sdp, blocks, 0);
+ 	if (error)
+ 		goto fail_gunlock2;
+@@ -734,9 +735,9 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	if (error)
+ 		goto fail_gunlock2;
+ 
++	glock_set_object(ip->i_gl, ip);
+ 	glock_set_object(io_gl, ip);
+ 	gfs2_set_iop(inode);
+-	insert_inode_hash(inode);
+ 
+ 	free_vfs_inode = 0; /* After this point, the inode is no longer
+ 			       considered free. Any failures need to undo
+@@ -778,17 +779,17 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	gfs2_glock_dq_uninit(ghs + 1);
+ 	gfs2_glock_put(io_gl);
+ 	gfs2_qa_put(dip);
++	unlock_new_inode(inode);
+ 	return error;
+ 
+ fail_gunlock3:
++	glock_clear_object(ip->i_gl, ip);
+ 	glock_clear_object(io_gl, ip);
+ 	gfs2_glock_dq_uninit(&ip->i_iopen_gh);
+ fail_gunlock2:
+-	glock_clear_object(io_gl, ip);
+ 	gfs2_glock_put(io_gl);
+ fail_free_inode:
+ 	if (ip->i_gl) {
+-		glock_clear_object(ip->i_gl, ip);
+ 		if (free_vfs_inode) /* else evict will do the put for us */
+ 			gfs2_glock_put(ip->i_gl);
  	}
- }
- 
-+static int iget_test(struct inode *inode, void *opaque)
-+{
-+	u64 no_addr = *(u64 *)opaque;
-+
-+	return GFS2_I(inode)->i_no_addr == no_addr;
-+}
-+
-+static int iget_set(struct inode *inode, void *opaque)
-+{
-+	u64 no_addr = *(u64 *)opaque;
-+
-+	GFS2_I(inode)->i_no_addr = no_addr;
-+	inode->i_ino = no_addr;
-+	return 0;
-+}
-+
- /**
-  * gfs2_inode_lookup - Lookup an inode
-  * @sb: The super block
-@@ -132,12 +117,11 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- {
- 	struct inode *inode;
- 	struct gfs2_inode *ip;
--	struct gfs2_glock *io_gl = NULL;
- 	struct gfs2_holder i_gh;
- 	int error;
- 
- 	gfs2_holder_mark_uninitialized(&i_gh);
--	inode = gfs2_iget(sb, no_addr);
-+	inode = iget5_locked(sb, no_addr, iget_test, iget_set, &no_addr);
- 	if (!inode)
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -145,22 +129,16 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 
- 	if (inode->i_state & I_NEW) {
- 		struct gfs2_sbd *sdp = GFS2_SB(inode);
-+		struct gfs2_glock *io_gl;
- 
- 		error = gfs2_glock_get(sdp, no_addr, &gfs2_inode_glops, CREATE, &ip->i_gl);
- 		if (unlikely(error))
- 			goto fail;
--		flush_delayed_work(&ip->i_gl->gl_work);
--
--		error = gfs2_glock_get(sdp, no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
--		if (unlikely(error))
--			goto fail;
--		if (blktype != GFS2_BLKST_UNLINKED)
--			gfs2_cancel_delete_work(io_gl);
- 
- 		if (type == DT_UNKNOWN || blktype != GFS2_BLKST_FREE) {
- 			/*
- 			 * The GL_SKIP flag indicates to skip reading the inode
--			 * block.  We read the inode with gfs2_inode_refresh
-+			 * block.  We read the inode when instantiating it
- 			 * after possibly checking the block type.
- 			 */
- 			error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE,
-@@ -181,24 +159,31 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 			}
- 		}
- 
--		glock_set_object(ip->i_gl, ip);
- 		set_bit(GLF_INSTANTIATE_NEEDED, &ip->i_gl->gl_flags);
--		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
-+
-+		error = gfs2_glock_get(sdp, no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
- 		if (unlikely(error))
- 			goto fail;
--		glock_set_object(ip->i_iopen_gh.gh_gl, ip);
-+		if (blktype != GFS2_BLKST_UNLINKED)
-+			gfs2_cancel_delete_work(io_gl);
-+		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
- 		gfs2_glock_put(io_gl);
--		io_gl = NULL;
-+		if (unlikely(error))
-+			goto fail;
- 
- 		/* Lowest possible timestamp; will be overwritten in gfs2_dinode_in. */
- 		inode->i_atime.tv_sec = 1LL << (8 * sizeof(inode->i_atime.tv_sec) - 1);
- 		inode->i_atime.tv_nsec = 0;
- 
-+		glock_set_object(ip->i_gl, ip);
-+
- 		if (type == DT_UNKNOWN) {
- 			/* Inode glock must be locked already */
- 			error = gfs2_instantiate(&i_gh);
--			if (error)
-+			if (error) {
-+				glock_clear_object(ip->i_gl, ip);
- 				goto fail;
-+			}
- 		} else {
- 			ip->i_no_formal_ino = no_formal_ino;
- 			inode->i_mode = DT2IF(type);
-@@ -206,6 +191,7 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 
- 		if (gfs2_holder_initialized(&i_gh))
- 			gfs2_glock_dq_uninit(&i_gh);
-+		glock_set_object(ip->i_iopen_gh.gh_gl, ip);
- 
- 		gfs2_set_iop(inode);
- 		unlock_new_inode(inode);
-@@ -220,12 +206,8 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 	return inode;
- 
- fail:
--	if (gfs2_holder_initialized(&ip->i_iopen_gh)) {
--		glock_clear_object(ip->i_iopen_gh.gh_gl, ip);
-+	if (gfs2_holder_initialized(&ip->i_iopen_gh))
- 		gfs2_glock_dq_uninit(&ip->i_iopen_gh);
--	}
--	if (io_gl)
--		gfs2_glock_put(io_gl);
- 	if (gfs2_holder_initialized(&i_gh))
- 		gfs2_glock_dq_uninit(&i_gh);
- 	iget_failed(inode);
+@@ -806,7 +807,10 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 			mark_inode_dirty(inode);
+ 		set_bit(free_vfs_inode ? GIF_FREE_VFS_INODE : GIF_ALLOC_FAILED,
+ 			&GFS2_I(inode)->i_flags);
+-		iput(inode);
++		if (inode->i_state & I_NEW)
++			iget_failed(inode);
++		else
++			iput(inode);
+ 	}
+ 	if (gfs2_holder_initialized(ghs + 1))
+ 		gfs2_glock_dq_uninit(ghs + 1);
 -- 
 2.33.1
 
