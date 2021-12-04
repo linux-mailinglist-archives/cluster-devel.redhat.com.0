@@ -1,56 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEFBE4683FE
-	for <lists+cluster-devel@lfdr.de>; Sat,  4 Dec 2021 11:25:14 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E7B70468407
+	for <lists+cluster-devel@lfdr.de>; Sat,  4 Dec 2021 11:27:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1638613513;
+	s=mimecast20190719; t=1638613661;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ihpAmDy0ClSxFAbH5aDgEnZl10gfqE91dXR3hMgHpnQ=;
-	b=ZbHVuwGzqWPioeEJKtjjttpWVMvePqvke8NwDOCkj4F++7hIrtnr/i3LON2JZ2K3+53neT
-	T14n+UskQSlVt6603j7L7PZpGsTijgU/y4vQgOC15QanrQAwrY0I6PR/Pk0E+IyK26eK9u
-	hQG96ksln0xBQ29leKehKIDEJpXE0Ok=
+	bh=PVGnxbtl+XH8Jqr9BfpfRhiDoWtgF20PpYEPX1D8k1I=;
+	b=Z7EX1V3BJMeLQ2q5oN33RiLvq3I/veQhbonTsHZU5Kc9cywds3jVZK8g3Uq+iVyijgNNSI
+	81tm66YM7g02jBTOIVT05RUSHQpeDFqgR5v3bPNNYaV5uvSYmbtM8K+JaVzgOUgfErInjJ
+	S9o5vBT6DFs7n32JYobIy6BNHKonRkc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-563-Q_47VSCtP5qRRaiyWyqIsA-1; Sat, 04 Dec 2021 05:25:10 -0500
-X-MC-Unique: Q_47VSCtP5qRRaiyWyqIsA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-216-XTD-1s5DNiKdmlteaEvPBw-1; Sat, 04 Dec 2021 05:27:37 -0500
+X-MC-Unique: XTD-1s5DNiKdmlteaEvPBw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 10198801B0E;
-	Sat,  4 Dec 2021 10:25:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E4C4C10168C7;
+	Sat,  4 Dec 2021 10:27:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BF6B5C640;
-	Sat,  4 Dec 2021 10:25:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 054C860BE5;
+	Sat,  4 Dec 2021 10:27:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4A82F4BB7C;
-	Sat,  4 Dec 2021 10:24:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B79C14BB7C;
+	Sat,  4 Dec 2021 10:27:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B4AOpw0017100 for <cluster-devel@listman.util.phx.redhat.com>;
-	Sat, 4 Dec 2021 05:24:51 -0500
+	id 1B4ARU7Z017286 for <cluster-devel@listman.util.phx.redhat.com>;
+	Sat, 4 Dec 2021 05:27:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C99C618032; Sat,  4 Dec 2021 10:24:51 +0000 (UTC)
+	id CEBE85C642; Sat,  4 Dec 2021 10:27:30 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.localdomain (unknown [10.40.192.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BBC855C25D;
-	Sat,  4 Dec 2021 10:24:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 67DFF5C640;
+	Sat,  4 Dec 2021 10:27:19 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat,  4 Dec 2021 11:24:46 +0100
-Message-Id: <20211204102446.19275-1-agruenba@redhat.com>
+To: cluster-devel@redhat.com
+Date: Sat,  4 Dec 2021 11:27:15 +0100
+Message-Id: <20211204102718.19482-1-agruenba@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Cluster-devel] [GIT PULL] gfs2 fixes for v5.16-rc4
+Subject: [Cluster-devel] [PATCH 1/4] gfs2: Fix remote demote of weak glock
+	holders
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -64,7 +64,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -72,41 +72,46 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Hi Linus,
+When we mock up a temporary holder in gfs2_glock_cb to demote weak holders in
+response to a remote locking conflict, we don't set the HIF_HOLDER flag.  This
+causes function may_grant to BUG.  Fix by setting the missing HIF_HOLDER flag
+in the mock glock holder.
 
-please consider pulling the following gfs2 fixes for 5.16-rc4.
+In addition, define the mock glock holder where it is used.
 
-Thanks,
-Andreas
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+---
+ fs/gfs2/glock.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-The following changes since commit 42eb8fdac2fc5d62392dcfcf0253753e821a97b0:
-
-  Merge tag 'gfs2-v5.16-rc2-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2 (2021-11-17 15:55:07 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.16-rc4-fixes
-
-for you to fetch changes up to 3d36e57ff768dbb919c06ffedec4bfe4587c6254:
-
-  gfs2: gfs2_create_inode rework (2021-12-02 12:41:10 +0100)
-
-----------------------------------------------------------------
-Fixes in gfs2:
-* Since commit 486408d690e1 ("gfs2: Cancel remote delete work
-  asynchronously"), inode create and lookup-by-number can overlap more
-  easily and we can end up with temporary duplicate inodes.  Fix the
-  code to prevent that.
-* Fix a BUG demoting weak glock holders from a remote node.
-
-----------------------------------------------------------------
-Andreas Gruenbacher (4):
-      gfs2: Fix remote demote of weak glock holders
-      gfs2: gfs2_inode_lookup cleanup
-      gfs2: gfs2_inode_lookup rework
-      gfs2: gfs2_create_inode rework
-
- fs/gfs2/glock.c |  10 ++++--
- fs/gfs2/inode.c | 109 +++++++++++++++++++++++---------------------------------
- 2 files changed, 52 insertions(+), 67 deletions(-)
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index 8dbd6fe66420..44a7a4288956 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -1857,7 +1857,6 @@ void gfs2_glock_dq_m(unsigned int num_gh, struct gfs2_holder *ghs)
+ 
+ void gfs2_glock_cb(struct gfs2_glock *gl, unsigned int state)
+ {
+-	struct gfs2_holder mock_gh = { .gh_gl = gl, .gh_state = state, };
+ 	unsigned long delay = 0;
+ 	unsigned long holdtime;
+ 	unsigned long now = jiffies;
+@@ -1890,8 +1889,13 @@ void gfs2_glock_cb(struct gfs2_glock *gl, unsigned int state)
+ 	 * keep the glock until the last strong holder is done with it.
+ 	 */
+ 	if (!find_first_strong_holder(gl)) {
+-		if (state == LM_ST_UNLOCKED)
+-			mock_gh.gh_state = LM_ST_EXCLUSIVE;
++		struct gfs2_holder mock_gh = {
++			.gh_gl = gl,
++			.gh_state = (state == LM_ST_UNLOCKED) ?
++				    LM_ST_EXCLUSIVE : state,
++			.gh_iflags = BIT(HIF_HOLDER)
++		};
++
+ 		demote_incompat_holders(gl, &mock_gh);
+ 	}
+ 	handle_callback(gl, state, delay, true);
+-- 
+2.33.1
 
