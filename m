@@ -2,100 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36B864851F0
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 Jan 2022 12:38:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC39D487AA4
+	for <lists+cluster-devel@lfdr.de>; Fri,  7 Jan 2022 17:44:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1641382728;
+	s=mimecast20190719; t=1641573857;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+vHwDT/aKRFFDaAf2/JamosH2QZL5R3IzT+xHO4O5Jg=;
-	b=NNwND+tR4R2AaR4rnIWBSDeCrIxVQvgBzDXgQUSbZ8tpDGWRqEx/+VWzitGKf/KEDUCmeq
-	1DWP4fWuOMKJW3398kE/kSJrzc9wgTanRQb4VokLH65XucQoKGzWBR2mS31FMotmO1NTiZ
-	kl0SzZJDgWnuqyV0lR4vyYK8o0ThMnc=
+	bh=27WEx6pE8oFXrFWCodcIVggXR/rPq2ep7EoltEcpjx0=;
+	b=SJbLe3R2wORL4AGd1GYv/sfNlSAj0EnU1T2OsRm5MJje3Bw7ZlYYRxDDcgV3lT15KxN4+y
+	jjl5Zchm+4V3VozDlhRnN0o/MaMaK8uK9CY2zsiDfYzKwDhhBrZ2yPA9dECMshgOH2ZA5a
+	8+HQzw54amtnc6ten4Klh7kFuspvarA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-502-0axatIA6Ptu7CzbRM6b1PA-1; Wed, 05 Jan 2022 06:38:45 -0500
-X-MC-Unique: 0axatIA6Ptu7CzbRM6b1PA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-136-KjEg1EdOO6mhhrXWpqtBIA-1; Fri, 07 Jan 2022 11:44:14 -0500
+X-MC-Unique: KjEg1EdOO6mhhrXWpqtBIA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 222AE10168C7;
-	Wed,  5 Jan 2022 11:38:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8638E1006AA6;
+	Fri,  7 Jan 2022 16:44:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADFF11079F21;
-	Wed,  5 Jan 2022 11:38:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13E182ED64;
+	Fri,  7 Jan 2022 16:44:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1577A1809CB8;
-	Wed,  5 Jan 2022 11:38:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CED231809CB8;
+	Fri,  7 Jan 2022 16:44:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 205BcYUh012587 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 5 Jan 2022 06:38:34 -0500
+	id 207GhvEW009689 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 7 Jan 2022 11:43:57 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5938653C9; Wed,  5 Jan 2022 11:38:34 +0000 (UTC)
+	id 8D0D679A0F; Fri,  7 Jan 2022 16:43:57 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 53FB753C6
-	for <cluster-devel@redhat.com>; Wed,  5 Jan 2022 11:38:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C65E3C01DAF
-	for <cluster-devel@redhat.com>; Wed,  5 Jan 2022 11:38:31 +0000 (UTC)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
-	[209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-422-grYiXolcObahll36gQIA6Q-1; Wed, 05 Jan 2022 06:38:30 -0500
-X-MC-Unique: grYiXolcObahll36gQIA6Q-1
-Received: by mail-wr1-f69.google.com with SMTP id
-	j26-20020adfb31a000000b001a2356afd4fso12466799wrd.21
-	for <cluster-devel@redhat.com>; Wed, 05 Jan 2022 03:38:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-	:content-language:from:to:references:in-reply-to
-	:content-transfer-encoding;
-	bh=+vHwDT/aKRFFDaAf2/JamosH2QZL5R3IzT+xHO4O5Jg=;
-	b=GYnRWPHERLgxwAfrBH8HEND9M6WeBGtZdzhLhKP/fr+VNlYOR4BNYRhuSxYK65T/8K
-	yJy4ymFvq5JXIRr+fRo2593jCOjkdBJgAmIwXDEbirqog8Of1qsKYFkRPab8s8aPpw8r
-	MvbqczHgEMQCrNJJxlymiTMI+XBEAO5OXgu6otL2Cz4L7ZGaE5PU0SwO+hHMycqf9ud/
-	QgTsGgO8tp7lKjop7MAuENQIii8TfKwA4OYulCyeSNztwvGUdU34o4FvHiPlvLcbNJVG
-	TWVCGYJI5XAaBqAsLaAFt5w00nqeV1XCCeE+dYhYjj+p4XUJTBbnLZmy8C9Y6t3nHnMj
-	ldtQ==
-X-Gm-Message-State: AOAM530BEB3g2xdIQE65RoI17FB+hielhVnv04i5HwUBuBIt8N62Jdq/
-	XJHm7Nr/3MUmoqjdrW3/kiRsGmxqpR9e3s8Ef7cbikylEesWFMeguBjWCIUGsz73d+KNsY6gXqO
-	cS58zstGwxohh8WHuLHpmapi6Fm1T43QiNXz6Qx5chV+Y3beccg9Joq1mGhXm0Wve+38qWJt2
-X-Received: by 2002:adf:9bdb:: with SMTP id e27mr46564009wrc.417.1641382708802;
-	Wed, 05 Jan 2022 03:38:28 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxes8pzzPihUlgW0bFhzY3A/qSk0hwlNNDipI7RmeXV6wR0ZsVSpx6ceqiHiZH0OzcjN3X2QQ==
-X-Received: by 2002:adf:9bdb:: with SMTP id e27mr46563993wrc.417.1641382708557;
-	Wed, 05 Jan 2022 03:38:28 -0800 (PST)
-Received: from [192.168.1.145]
-	(cpc76484-cwma10-2-0-cust967.7-3.cable.virginm.net. [82.31.203.200])
-	by smtp.gmail.com with ESMTPSA id
-	o15sm35609128wri.106.2022.01.05.03.38.28
-	for <cluster-devel@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Wed, 05 Jan 2022 03:38:28 -0800 (PST)
-Message-ID: <ee27de6f-d41b-7acd-03ed-fbe525c80a97@redhat.com>
-Date: Wed, 5 Jan 2022 11:38:27 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
-	Thunderbird/91.4.0
-From: Andrew Price <anprice@redhat.com>
+Received: from vishnu.redhat.com (unknown [10.2.16.43])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4289878AB4
+	for <cluster-devel@redhat.com>; Fri,  7 Jan 2022 16:43:57 +0000 (UTC)
+From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-References: <e9a2e359-685c-2497-d2bf-e36e2c474c7b@redhat.com>
-In-Reply-To: <e9a2e359-685c-2497-d2bf-e36e2c474c7b@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Date: Fri,  7 Jan 2022 11:43:56 -0500
+Message-Id: <20220107164356.547051-1-rpeterso@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
-Subject: Re: [Cluster-devel] Upcoming change to the gfs2-utils.git repository
+Subject: [Cluster-devel] [PATCH] gfs2: tell dlm to cancel timed out iopen
+	locks
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,41 +64,110 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-On 04/01/2022 15:35, Andrew Price wrote:
-> Happy new year, all!
-> 
-> Just a heads-up that the main branch in gfs2-utils.git will be renamed 
-> from master to main tomorrow (January 5). I will follow the procedure here:
-> 
->    https://wiki.clusterlabs.org/wiki/How_to_rename_git_default_branch
-> 
-> The wiki page also has a section on how to update your local clone to 
-> use the new upstream branch name. Thanks to Ken for writing that up!
-> 
-> This change affects https://pagure.io/gfs2-utils.git
-> 
-> I will post a follow-up once the change has been completed.
+Function gfs2_upgrade_iopen_glock tries to upgrade the iopen glock
+first with a "try" lock and then with an ASYNC request with timeout.
 
-This change is now complete. To update your gfs2-utils git branch 
-references locally, use:
+Before this patch, if a timeout occurred, gfs2 dequeued the glock and
+went on its way. However, if the dlm lock request is never canceled, it
+could get stuck on dlm's "Convert" queue forever trying to convert the
+lock to EX. In some cases this led to complete cluster deadlock because
+the lock could not be granted in EX until demoted, and it couldn't be
+demoted because other nodes have the glock held in SH (until eviction).
+Dlm never took it off its conversion queue because the lock request was
+never canceled by gfs2, which let it run its course.
 
-   $ git branch --set-upstream-to origin/main <branch>
+This patch makes gfs2 cancel dlm requests for iopen glocks if they time
+out. That allows dlm to remove it from its Conversion queue and grant
+the glock to other compatible SH requesters.
 
-for <branch>es that currently have origin/master as the remote ref.
+The dlm responds to the cancel request by sending gfs2 an AST callback
+when the lock request is properly canceled. If another request is made
+for the dlm lock, dlm returns -EBUSY until the AST is sent. Therefore,
+this patch changes it from glock_dq to glock_dq_wait after the timeout,
+thereby waiting for the glock state machine to progress after receiving
+the AST from dlm.
 
-To rename your local master branch to main:
+The purpose of the "try" lock and glock timeout was to prevent blocking
+on the lock during evict, since the order of the iopen and inode glocks
+cannot be guaranteed. However, waiting for dlm to return the cancel AST
+should be relatively quick and guaranteed, so should never result in
+deadlock.
 
-   $ git branch -m master main
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+---
+ fs/gfs2/glock.c  |  5 +++++
+ fs/gfs2/incore.h |  1 +
+ fs/gfs2/super.c  | 14 +++++++++++++-
+ 3 files changed, 19 insertions(+), 1 deletion(-)
 
-Cheers,
-Andy
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index b7ab8430333c..0874e821ab29 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -672,6 +672,9 @@ static void finish_xmote(struct gfs2_glock *gl, unsigned int ret)
+ 
+ 	/* Check for state != intended state */
+ 	if (unlikely(state != gl->gl_target)) {
++		if ((ret & LM_OUT_CANCELED) &&
++		    test_bit(GLF_CANCELING, &gl->gl_flags))
++			goto out;
+ 		if (gh && !test_bit(GLF_DEMOTE_IN_PROGRESS, &gl->gl_flags)) {
+ 			/* move to back of queue and try next entry */
+ 			if (ret & LM_OUT_CANCELED) {
+@@ -2365,6 +2368,8 @@ static const char *gflags2str(char *buf, const struct gfs2_glock *gl)
+ 		*p++ = 'n';
+ 	if (test_bit(GLF_INSTANTIATE_IN_PROG, gflags))
+ 		*p++ = 'N';
++	if (test_bit(GLF_CANCELING, gflags))
++		*p++ = 'c';
+ 	*p = 0;
+ 	return buf;
+ }
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index 8c00fb389ae5..3572b4a2a831 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -329,6 +329,7 @@ enum {
+ 	GLF_LRU				= 13,
+ 	GLF_OBJECT			= 14, /* Used only for tracing */
+ 	GLF_BLOCKING			= 15,
++	GLF_CANCELING			= 16, /* Now canceling lock request */
+ 	GLF_PENDING_DELETE		= 17,
+ 	GLF_FREEING			= 18, /* Wait for glock to be freed */
+ };
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index 143a47359d1b..e23bc7de5248 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -1193,7 +1193,19 @@ static bool gfs2_upgrade_iopen_glock(struct inode *inode)
+ 		test_bit(GLF_DEMOTE, &ip->i_gl->gl_flags),
+ 		timeout);
+ 	if (!test_bit(HIF_HOLDER, &gh->gh_iflags)) {
+-		gfs2_glock_dq(gh);
++		if (sdp->sd_lockstruct.ls_ops->lm_cancel) {
++			set_bit(GLF_CANCELING,  &gh->gh_gl->gl_flags);
++			sdp->sd_lockstruct.ls_ops->lm_cancel(gh->gh_gl);
++		}
++		/*
++		 * We canceled the dlm lock, so we must wait for dlm to send
++		 * us the AST callback, otherwise we will get -EBUSY if anyone
++		 * tries to lock the glock again while the dlm lock is still
++		 * on the dlm conversion queue.
++		 */
++		gfs2_glock_dq_wait(gh);
++		clear_bit(GLF_CANCELING,  &gh->gh_gl->gl_flags);
++		smp_mb__after_atomic();
+ 		return false;
+ 	}
+ 	return true;
+-- 
+2.33.1
 
