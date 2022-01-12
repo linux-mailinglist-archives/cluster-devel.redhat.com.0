@@ -2,86 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC6648BBCD
-	for <lists+cluster-devel@lfdr.de>; Wed, 12 Jan 2022 01:25:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC30E48CBE3
+	for <lists+cluster-devel@lfdr.de>; Wed, 12 Jan 2022 20:27:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1642015636;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=YAXI3BDUZEf+bCP81cEXuxiCL3iBaj5t7qnXBg9HOSo=;
+	b=UoKXMVoNrrisvCCgh7M+n0GMxUFwvPLNvzAP8pB5WQSBu8Yr+P92C33ERNU6QXKT8mHfl/
+	Hbb6wDOmRBsBmpp/8t6aiYW2UY4v41fcGc29e7EJGOmXyqTfBK7uIpCkiVmLzZ75uwoIp2
+	yhRImDS7NnDLQQxSky3d9vviUJWVywQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-627-N2P_wPu-Ob2JaRUOjnkaJA-1; Tue, 11 Jan 2022 19:25:31 -0500
-X-MC-Unique: N2P_wPu-Ob2JaRUOjnkaJA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-541-9MAlJDsbNKS6_Ix_nvNjDw-1; Wed, 12 Jan 2022 14:27:13 -0500
+X-MC-Unique: 9MAlJDsbNKS6_Ix_nvNjDw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9124C1083F65;
-	Wed, 12 Jan 2022 00:25:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E2D45F902;
-	Wed, 12 Jan 2022 00:25:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C7F0783DD23;
+	Wed, 12 Jan 2022 19:27:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B85DE5D6B1;
+	Wed, 12 Jan 2022 19:27:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D8C51809CB8;
-	Wed, 12 Jan 2022 00:25:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB25D4BB7C;
+	Wed, 12 Jan 2022 19:27:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20C0NaB5012928 for <cluster-devel@listman.util.phx.redhat.com>;
-	Tue, 11 Jan 2022 19:23:36 -0500
+	id 20CJQw5l009248 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Jan 2022 14:26:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 838742026614; Wed, 12 Jan 2022 00:23:36 +0000 (UTC)
+	id C605245D6D; Wed, 12 Jan 2022 19:26:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EF07202660C
-	for <cluster-devel@redhat.com>; Wed, 12 Jan 2022 00:23:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7EF54805B25
-	for <cluster-devel@redhat.com>; Wed, 12 Jan 2022 00:23:33 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
-	[139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-489-fAmte6EONBC_hPQoBcezww-1; Tue, 11 Jan 2022 19:23:30 -0500
-X-MC-Unique: fAmte6EONBC_hPQoBcezww-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4B9C261648;
-	Wed, 12 Jan 2022 00:13:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C9793C36AF7;
-	Wed, 12 Jan 2022 00:13:46 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
-	(localhost.localdomain [127.0.0.1])
-	by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP
-	id B6C89F60793; Wed, 12 Jan 2022 00:13:46 +0000 (UTC)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20220111172215.1149791-1-agruenba@redhat.com>
-References: <20220111172215.1149791-1-agruenba@redhat.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20220111172215.1149791-1-agruenba@redhat.com>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-	tags/gfs2-v5.16-rc3-fixes
-X-PR-Tracked-Commit-Id: 74382e277ae97b4bcfac6f8b61df7a500d392500
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 8481c323e4ea0a65f0578107a3e668c1c69cf474
-Message-Id: <164194642674.21161.15806950616568910059.pr-tracker-bot@kernel.org>
-Date: Wed, 12 Jan 2022 00:13:46 +0000
-To: Andreas Gruenbacher <agruenba@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Received: from cicero.cable.virginm.net (unknown [10.33.37.32])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6C8345D67
+	for <cluster-devel@redhat.com>; Wed, 12 Jan 2022 19:26:52 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Wed, 12 Jan 2022 19:26:32 +0000
+Message-Id: <20220112192650.1426415-1-anprice@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [Cluster-devel] [GIT PULL] Various minor gfs2 cleanups and
-	fixes for 5.17
+Subject: [Cluster-devel] [PATCH 00/18] gfs2-utils: Don't require an external
+	print_it() in libgfs2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,23 +64,82 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 2
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-The pull request you sent on Tue, 11 Jan 2022 18:22:15 +0100:
+This patch set fixes a long-standing issue in libgfs2 where it requires apps linking to it to provide a print_it function, which it uses in lgfs2_(struct)_print() functions defined in libgfs2/ondisk.c. This was the main blocker to it becoming a library in a more meaningful sense.
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.16-rc3-fixes
+The approach taken is to remove the responsibility of printing gfs2 structures from libgfs2 altogether. So the first challenge is to remove debugging output from libgfs2 and push it down into the utils, which in turn required returning more context from some libgfs2 functions, mainly the build_* functions in structures.c.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/8481c323e4ea0a65f0578107a3e668c1c69cf474
+The overall result is more flexibility and control over the way the utils print on-disk structures and improved error/debug messages. Test code is also tidied up as we no longer have to define a print_it() in each of the tests.
 
-Thank you!
+
+Andrew Price (18):
+  libgfs2: Move debugging printf out of build_master()
+  libgfs2: Rework lgfs2_build_jindex()
+  libgfs2: Move build_jindex() into fsck.gfs2
+  libgfs2: Push down build_per_node() into the utils
+  libgfs2: Return the inode from build_inum_range()
+  libgfs2: Return the inode from build_statfs_change()
+  libgfs2: Return the inode from build_quota_change()
+  libgfs2: Return the inode from build_inum()
+  libgfs2: Return the inode from build_statfs()
+  libgfs2: Return the inode from build_rindex()
+  libgfs2: Return the inode from build_quota()
+  libgfs2: Move debugging printf out of build_root()
+  libgfs2: Remove debugging printf from do_init_statfs()
+  libgfs2: Move debugging output out of do_init_inum()
+  libgfs2: Remove debugging printfs from fix_device_geometry()
+  libgfs2: Remove config.[ch]
+  libgfs2: Move struct printing functions out of libgfs2
+  libgfs2: Remove print_it extern requirement
+
+ gfs2/convert/gfs2_convert.c    |  80 +++++---
+ gfs2/edit/Makefile.am          |   2 +
+ gfs2/edit/extended.c           |  18 +-
+ gfs2/edit/gfs2hex.c            | 156 +-------------
+ gfs2/edit/hexedit.c            |  36 +---
+ gfs2/edit/hexedit.h            |   4 +-
+ gfs2/edit/struct_print.c       | 364 +++++++++++++++++++++++++++++++++
+ gfs2/edit/struct_print.h       |  23 +++
+ gfs2/fsck/fs_recovery.c        |  21 ++
+ gfs2/fsck/fs_recovery.h        |   1 +
+ gfs2/fsck/fsck.h               |   1 +
+ gfs2/fsck/initialize.c         |  75 +++----
+ gfs2/fsck/main.c               |  13 +-
+ gfs2/fsck/pass1.c              |  86 +++++++-
+ gfs2/fsck/pass2.c              |  37 +++-
+ gfs2/glocktop/glocktop.c       |   3 +-
+ gfs2/libgfs2/Makefile.am       |   2 -
+ gfs2/libgfs2/check_libgfs2.c   |   3 -
+ gfs2/libgfs2/checks.am         |   1 -
+ gfs2/libgfs2/config.c          |   9 -
+ gfs2/libgfs2/config.h          |   6 -
+ gfs2/libgfs2/device_geometry.c |   7 -
+ gfs2/libgfs2/gfs2l.c           |   3 -
+ gfs2/libgfs2/libgfs2.h         |  40 +---
+ gfs2/libgfs2/ondisk.c          | 199 ------------------
+ gfs2/libgfs2/structures.c      | 226 ++++----------------
+ gfs2/mkfs/Makefile.am          |   2 +
+ gfs2/mkfs/gfs2_mkfs.h          |  11 -
+ gfs2/mkfs/main_jadd.c          |   1 -
+ gfs2/mkfs/main_mkfs.c          | 152 +++++++++++---
+ gfs2/mkfs/struct_print.c       | 218 ++++++++++++++++++++
+ gfs2/mkfs/struct_print.h       |  19 ++
+ tests/nukerg.c                 |   3 -
+ 33 files changed, 1067 insertions(+), 755 deletions(-)
+ create mode 100644 gfs2/edit/struct_print.c
+ create mode 100644 gfs2/edit/struct_print.h
+ delete mode 100644 gfs2/libgfs2/config.c
+ delete mode 100644 gfs2/libgfs2/config.h
+ create mode 100644 gfs2/mkfs/struct_print.c
+ create mode 100644 gfs2/mkfs/struct_print.h
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.34.1
 
