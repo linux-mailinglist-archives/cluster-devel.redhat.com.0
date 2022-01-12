@@ -1,56 +1,59 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC30E48CBE3
-	for <lists+cluster-devel@lfdr.de>; Wed, 12 Jan 2022 20:27:17 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A8648CBE1
+	for <lists+cluster-devel@lfdr.de>; Wed, 12 Jan 2022 20:27:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1642015636;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=YAXI3BDUZEf+bCP81cEXuxiCL3iBaj5t7qnXBg9HOSo=;
-	b=UoKXMVoNrrisvCCgh7M+n0GMxUFwvPLNvzAP8pB5WQSBu8Yr+P92C33ERNU6QXKT8mHfl/
-	Hbb6wDOmRBsBmpp/8t6aiYW2UY4v41fcGc29e7EJGOmXyqTfBK7uIpCkiVmLzZ75uwoIp2
-	yhRImDS7NnDLQQxSky3d9vviUJWVywQ=
+	bh=zMMyY/rflppg1glvl7cAywCtmVh9jEC57CLrrkqIKp4=;
+	b=SwBOqN9Ef/9+H6tIDJ3iNcu58BQNcdIocwZa7os6sDymO+dVJCejwkmQG5wJN3+CQYA6+q
+	sVKa5JsSYF6JIXPxktP5YGuop94xr5P/wu5dsSi34ehJ4LORtK7zm+PlE6gjxcJ8BH+5xv
+	TVrSDUeZlEimJiFCoDD26tzwFUcg9Uo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-541-9MAlJDsbNKS6_Ix_nvNjDw-1; Wed, 12 Jan 2022 14:27:13 -0500
-X-MC-Unique: 9MAlJDsbNKS6_Ix_nvNjDw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-616-dk_MnUL2PqC9zGRMAbzNKg-1; Wed, 12 Jan 2022 14:27:12 -0500
+X-MC-Unique: dk_MnUL2PqC9zGRMAbzNKg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C7F0783DD23;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C8726190B2A2;
 	Wed, 12 Jan 2022 19:27:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B85DE5D6B1;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B723C19711;
 	Wed, 12 Jan 2022 19:27:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB25D4BB7C;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D4A561809CB8;
 	Wed, 12 Jan 2022 19:27:05 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20CJQw5l009248 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Jan 2022 14:26:58 -0500
+	id 20CJR0Vv009253 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Jan 2022 14:27:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C605245D6D; Wed, 12 Jan 2022 19:26:58 +0000 (UTC)
+	id F233845D67; Wed, 12 Jan 2022 19:26:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from cicero.cable.virginm.net (unknown [10.33.37.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6C8345D67
-	for <cluster-devel@redhat.com>; Wed, 12 Jan 2022 19:26:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B81160657
+	for <cluster-devel@redhat.com>; Wed, 12 Jan 2022 19:26:58 +0000 (UTC)
 From: Andrew Price <anprice@redhat.com>
 To: cluster-devel@redhat.com
-Date: Wed, 12 Jan 2022 19:26:32 +0000
-Message-Id: <20220112192650.1426415-1-anprice@redhat.com>
+Date: Wed, 12 Jan 2022 19:26:33 +0000
+Message-Id: <20220112192650.1426415-2-anprice@redhat.com>
+In-Reply-To: <20220112192650.1426415-1-anprice@redhat.com>
+References: <20220112192650.1426415-1-anprice@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH 00/18] gfs2-utils: Don't require an external
-	print_it() in libgfs2
+Subject: [Cluster-devel] [PATCH 01/18] libgfs2: Move debugging printf out of
+	build_master()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -64,7 +67,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -72,74 +75,45 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch set fixes a long-standing issue in libgfs2 where it requires apps linking to it to provide a print_it function, which it uses in lgfs2_(struct)_print() functions defined in libgfs2/ondisk.c. This was the main blocker to it becoming a library in a more meaningful sense.
+mkfs.gfs2 is the only place it could ever get printed so move it there
+instead.
 
-The approach taken is to remove the responsibility of printing gfs2 structures from libgfs2 altogether. So the first challenge is to remove debugging output from libgfs2 and push it down into the utils, which in turn required returning more context from some libgfs2 functions, mainly the build_* functions in structures.c.
+Signed-off-by: Andrew Price <anprice@redhat.com>
+---
+ gfs2/libgfs2/structures.c | 4 ----
+ gfs2/mkfs/main_mkfs.c     | 4 ++++
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-The overall result is more flexibility and control over the way the utils print on-disk structures and improved error/debug messages. Test code is also tidied up as we no longer have to define a print_it() in each of the tests.
-
-
-Andrew Price (18):
-  libgfs2: Move debugging printf out of build_master()
-  libgfs2: Rework lgfs2_build_jindex()
-  libgfs2: Move build_jindex() into fsck.gfs2
-  libgfs2: Push down build_per_node() into the utils
-  libgfs2: Return the inode from build_inum_range()
-  libgfs2: Return the inode from build_statfs_change()
-  libgfs2: Return the inode from build_quota_change()
-  libgfs2: Return the inode from build_inum()
-  libgfs2: Return the inode from build_statfs()
-  libgfs2: Return the inode from build_rindex()
-  libgfs2: Return the inode from build_quota()
-  libgfs2: Move debugging printf out of build_root()
-  libgfs2: Remove debugging printf from do_init_statfs()
-  libgfs2: Move debugging output out of do_init_inum()
-  libgfs2: Remove debugging printfs from fix_device_geometry()
-  libgfs2: Remove config.[ch]
-  libgfs2: Move struct printing functions out of libgfs2
-  libgfs2: Remove print_it extern requirement
-
- gfs2/convert/gfs2_convert.c    |  80 +++++---
- gfs2/edit/Makefile.am          |   2 +
- gfs2/edit/extended.c           |  18 +-
- gfs2/edit/gfs2hex.c            | 156 +-------------
- gfs2/edit/hexedit.c            |  36 +---
- gfs2/edit/hexedit.h            |   4 +-
- gfs2/edit/struct_print.c       | 364 +++++++++++++++++++++++++++++++++
- gfs2/edit/struct_print.h       |  23 +++
- gfs2/fsck/fs_recovery.c        |  21 ++
- gfs2/fsck/fs_recovery.h        |   1 +
- gfs2/fsck/fsck.h               |   1 +
- gfs2/fsck/initialize.c         |  75 +++----
- gfs2/fsck/main.c               |  13 +-
- gfs2/fsck/pass1.c              |  86 +++++++-
- gfs2/fsck/pass2.c              |  37 +++-
- gfs2/glocktop/glocktop.c       |   3 +-
- gfs2/libgfs2/Makefile.am       |   2 -
- gfs2/libgfs2/check_libgfs2.c   |   3 -
- gfs2/libgfs2/checks.am         |   1 -
- gfs2/libgfs2/config.c          |   9 -
- gfs2/libgfs2/config.h          |   6 -
- gfs2/libgfs2/device_geometry.c |   7 -
- gfs2/libgfs2/gfs2l.c           |   3 -
- gfs2/libgfs2/libgfs2.h         |  40 +---
- gfs2/libgfs2/ondisk.c          | 199 ------------------
- gfs2/libgfs2/structures.c      | 226 ++++----------------
- gfs2/mkfs/Makefile.am          |   2 +
- gfs2/mkfs/gfs2_mkfs.h          |  11 -
- gfs2/mkfs/main_jadd.c          |   1 -
- gfs2/mkfs/main_mkfs.c          | 152 +++++++++++---
- gfs2/mkfs/struct_print.c       | 218 ++++++++++++++++++++
- gfs2/mkfs/struct_print.h       |  19 ++
- tests/nukerg.c                 |   3 -
- 33 files changed, 1067 insertions(+), 755 deletions(-)
- create mode 100644 gfs2/edit/struct_print.c
- create mode 100644 gfs2/edit/struct_print.h
- delete mode 100644 gfs2/libgfs2/config.c
- delete mode 100644 gfs2/libgfs2/config.h
- create mode 100644 gfs2/mkfs/struct_print.c
- create mode 100644 gfs2/mkfs/struct_print.h
-
+diff --git a/gfs2/libgfs2/structures.c b/gfs2/libgfs2/structures.c
+index a562dc50..95ad3ac9 100644
+--- a/gfs2/libgfs2/structures.c
++++ b/gfs2/libgfs2/structures.c
+@@ -38,10 +38,6 @@ int build_master(struct gfs2_sbd *sdp)
+ 	if (sdp->master_dir == NULL)
+ 		return -1;
+ 
+-	if (cfg_debug) {
+-		printf("\nMaster dir:\n");
+-		lgfs2_dinode_print(bh->b_data);
+-	}
+ 	sdp->master_dir->bh_owned = 1;
+ 	return 0;
+ }
+diff --git a/gfs2/mkfs/main_mkfs.c b/gfs2/mkfs/main_mkfs.c
+index 6f30b2d3..dbee5cab 100644
+--- a/gfs2/mkfs/main_mkfs.c
++++ b/gfs2/mkfs/main_mkfs.c
+@@ -1205,6 +1205,10 @@ int main(int argc, char *argv[])
+ 		fprintf(stderr, _("Error building '%s': %s\n"), "master", strerror(errno));
+ 		exit(EXIT_FAILURE);
+ 	}
++	if (opts.debug) {
++		printf("Metafs inode:\n");
++		lgfs2_dinode_print(sbd.master_dir->i_bh->b_data);
++	}
+ 	sbd.sd_meta_dir = sbd.master_dir->i_num;
+ 
+ 	error = lgfs2_build_jindex(sbd.master_dir, mkfs_journals, opts.journals);
 -- 
 2.34.1
 
