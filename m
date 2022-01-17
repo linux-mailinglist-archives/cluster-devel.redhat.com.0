@@ -1,58 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12E9F490B8D
-	for <lists+cluster-devel@lfdr.de>; Mon, 17 Jan 2022 16:39:31 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B67D5490BBB
+	for <lists+cluster-devel@lfdr.de>; Mon, 17 Jan 2022 16:49:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1642433971;
+	s=mimecast20190719; t=1642434548;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DAdH4EOQ/AE/OVtTRiSy0pkij6an5n7STjziVUZ/9Io=;
-	b=VfKprvJNVP1zqHGtziXc7YJAW5zuTXOpSn0rxKX7clEVN/EHE1iWEexJLek9DmcBagwddW
-	zD1ZmI6ORJ9eoPMTLfxWmmOvJzgsU3IQhc0Xdkd3xbRr8/zFz7BYitDFTnFgUKrDbX/meX
-	l1RzWNHY/9KyphvST/iOToP/bncoKpk=
+	bh=ZCt7qf+vzAYbWb7b8inys0wKXTFXUHWkwKhUx32Ar7s=;
+	b=h8Qkb/eG8cDTbYZgaLzrbKRgvjA5NHuPENXr8kn4u2i62vVNeeIFEQQXR52T5ECgzf4PC9
+	6IPJ7+brpYWer0XdviseXhSy9X3QgCxxduPqrt0lAe6xtBmG346I2jv1EVs4fGdU3Kpb8f
+	IqxjIyZdQmImGzrIH8g8U7lNN0mLEmc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-675-UhRoQmcgOpKWMuX6ONuyfg-1; Mon, 17 Jan 2022 10:39:21 -0500
-X-MC-Unique: UhRoQmcgOpKWMuX6ONuyfg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-534-dSaTsCORPmaYERw_f7WOuQ-1; Mon, 17 Jan 2022 10:49:05 -0500
+X-MC-Unique: dSaTsCORPmaYERw_f7WOuQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53F0B106BB25;
-	Mon, 17 Jan 2022 15:39:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB2EF5B931;
-	Mon, 17 Jan 2022 15:39:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E4280100C629;
+	Mon, 17 Jan 2022 15:49:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD86277453;
+	Mon, 17 Jan 2022 15:49:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9F9E94BB7C;
-	Mon, 17 Jan 2022 15:38:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 39A631806D03;
+	Mon, 17 Jan 2022 15:49:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20HFcmje000406 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Jan 2022 10:38:48 -0500
+	id 20HFn0e3002160 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Jan 2022 10:49:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6579D10A48AC; Mon, 17 Jan 2022 15:38:48 +0000 (UTC)
+	id F320F7BB66; Mon, 17 Jan 2022 15:48:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
-	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 459D910A48A8;
-	Mon, 17 Jan 2022 15:38:45 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Mon, 17 Jan 2022 10:38:39 -0500
-Message-Id: <20220117153839.2654806-1-aahringo@redhat.com>
+Received: from vishnu.redhat.com (unknown [10.2.16.141])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AA7857BB6A
+	for <cluster-devel@redhat.com>; Mon, 17 Jan 2022 15:48:55 +0000 (UTC)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Date: Mon, 17 Jan 2022 10:48:55 -0500
+Message-Id: <20220117154855.217892-1-rpeterso@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH dlm/next] fs: dlm: add lkb attach resource
-	trace
+Subject: [Cluster-devel] [PATCH] gfs2: assign rgrp glock before
+	compute_bitstructs
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,7 +64,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -74,76 +72,59 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch adds a tracpoint for dlm_attach() which indicates the local
-lkb is attached to a global resource. This becomes useful to make a
-connection between a local ls_id and lkb_id (from e.g. dlm_lock_start
-tracepoint) to a global lock reference which is the same cluster-wide.
+Before this patch, function read_rindex_entry called compute_bitstructs
+before it allocated a glock for the rgrp. But if compute_bitstructs found
+a problem with the rgrp, it called gfs2_consist_rgrpd, and that called
+gfs2_dump_glock for rgd->rd_gl which had not yet been assigned.
 
-The trace printk will look like the following output:
+read_rindex_entry
+   compute_bitstructs
+      gfs2_consist_rgrpd
+         gfs2_dump_glock <---------rgd->rd_gl was not set.
 
-ls_id=3841231384, lkb_id=23, res_name=202020202020203520202020202020202020343531356462, res_length=24
+This patch changes read_rindex_entry so it assigns an rgrp glock before
+calling compute_bitstructs so gfs2_dump_glock does not reference an
+unassigned pointer. If an error is discovered, the glock must also be
+put, so a new goto and label were added.
 
-Most time the resource name using ASCII codec which allows us to print it
-out. However this is not required. The printout used here will represent
-the resource name as a bytewise hexademical string.
-
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Reported-by: syzbot+c6fd14145e2f62ca0784@syzkaller.appspotmail.com
 ---
- fs/dlm/lock.c              |  1 +
- include/trace/events/dlm.h | 28 ++++++++++++++++++++++++++++
- 2 files changed, 29 insertions(+)
+ fs/gfs2/rgrp.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index bdb51d209ba2..f6ad96de4f3b 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -1169,6 +1169,7 @@ static void kill_rsb(struct kref *kref)
- static void attach_lkb(struct dlm_rsb *r, struct dlm_lkb *lkb)
- {
- 	hold_rsb(r);
-+	trace_dlm_attach_lkb(lkb, r);
- 	lkb->lkb_resource = r;
- }
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index 0fb3c01bc557..9b04a570c582 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -922,15 +922,15 @@ static int read_rindex_entry(struct gfs2_inode *ip)
+ 	spin_lock_init(&rgd->rd_rsspin);
+ 	mutex_init(&rgd->rd_mutex);
  
-diff --git a/include/trace/events/dlm.h b/include/trace/events/dlm.h
-index 32088c603244..53b81faa5877 100644
---- a/include/trace/events/dlm.h
-+++ b/include/trace/events/dlm.h
-@@ -214,6 +214,34 @@ TRACE_EVENT(dlm_unlock_end,
+-	error = compute_bitstructs(rgd);
+-	if (error)
+-		goto fail;
+-
+ 	error = gfs2_glock_get(sdp, rgd->rd_addr,
+ 			       &gfs2_rgrp_glops, CREATE, &rgd->rd_gl);
+ 	if (error)
+ 		goto fail;
  
- );
++	error = compute_bitstructs(rgd);
++	if (error)
++		goto fail_glock;
++
+ 	rgd->rd_rgl = (struct gfs2_rgrp_lvb *)rgd->rd_gl->gl_lksb.sb_lvbptr;
+ 	rgd->rd_flags &= ~GFS2_RDF_PREFERRED;
+ 	if (rgd->rd_data > sdp->sd_max_rg_data)
+@@ -944,6 +944,7 @@ static int read_rindex_entry(struct gfs2_inode *ip)
+ 	}
  
-+TRACE_EVENT(dlm_attach_lkb,
-+
-+	TP_PROTO(const struct dlm_lkb *lkb, const struct dlm_rsb *r),
-+
-+	TP_ARGS(lkb, r),
-+
-+	TP_STRUCT__entry(
-+		__field(__u32, ls_id)
-+		__field(__u32, lkb_id)
-+		__field(int, res_length)
-+		__dynamic_array(unsigned char, res_name, r->res_length)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->ls_id = r->res_ls->ls_global_id;
-+		__entry->lkb_id = lkb->lkb_id;
-+		__entry->res_length = r->res_length;
-+		memcpy(__get_dynamic_array(res_name), r->res_name,
-+		       __get_dynamic_array_len(res_name));
-+	),
-+
-+	TP_printk("ls_id=%u, lkb_id=%x, res_name=%s, res_length=%d",
-+		  __entry->ls_id, __entry->lkb_id,
-+		  __print_hex_str(__get_dynamic_array(res_name),
-+				  __get_dynamic_array_len(res_name)),
-+		  __entry->res_length)
-+);
-+
- TRACE_EVENT(dlm_send,
+ 	error = 0; /* someone else read in the rgrp; free it and ignore it */
++fail_glock:
+ 	gfs2_glock_put(rgd->rd_gl);
  
- 	TP_PROTO(int nodeid, int ret),
+ fail:
 -- 
-2.31.1
+2.34.1
 
