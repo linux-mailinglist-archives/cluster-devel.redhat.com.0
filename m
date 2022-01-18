@@ -2,59 +2,60 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0D5491825
-	for <lists+cluster-devel@lfdr.de>; Tue, 18 Jan 2022 03:44:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DE0549187B
+	for <lists+cluster-devel@lfdr.de>; Tue, 18 Jan 2022 03:47:22 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-154-oybcSyhYNsS66UpoX-O4oA-1; Mon, 17 Jan 2022 21:44:51 -0500
-X-MC-Unique: oybcSyhYNsS66UpoX-O4oA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-86-xUHmnwhpOI6Es_Vxf-eN5g-1; Mon, 17 Jan 2022 21:47:13 -0500
+X-MC-Unique: xUHmnwhpOI6Es_Vxf-eN5g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 437175F9C5;
-	Tue, 18 Jan 2022 02:44:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 33DF061096;
-	Tue, 18 Jan 2022 02:44:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 072CD83DD23;
+	Tue, 18 Jan 2022 02:47:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E76D54D724;
+	Tue, 18 Jan 2022 02:47:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 204C61809CB9;
-	Tue, 18 Jan 2022 02:44:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D29534BB7B;
+	Tue, 18 Jan 2022 02:47:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20I2iklp026552 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Jan 2022 21:44:46 -0500
+	id 20I2l9gV027069 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Jan 2022 21:47:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3D2E453C6; Tue, 18 Jan 2022 02:44:46 +0000 (UTC)
+	id 344A11410DD6; Tue, 18 Jan 2022 02:47:09 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 374DB76C5
-	for <cluster-devel@redhat.com>; Tue, 18 Jan 2022 02:44:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F85F8011A5
-	for <cluster-devel@redhat.com>; Tue, 18 Jan 2022 02:44:42 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F99F1400E74
+	for <cluster-devel@redhat.com>; Tue, 18 Jan 2022 02:47:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1607D1044562
+	for <cluster-devel@redhat.com>; Tue, 18 Jan 2022 02:47:09 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	[139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-613-Lay8TXmVNum1f5fJjIWWnQ-1; Mon, 17 Jan 2022 21:44:38 -0500
-X-MC-Unique: Lay8TXmVNum1f5fJjIWWnQ-1
+	us-mta-124-_pRk2FSgMoiVh2YZCOi0Zw-1; Mon, 17 Jan 2022 21:47:07 -0500
+X-MC-Unique: _pRk2FSgMoiVh2YZCOi0Zw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 924B26130D;
-	Tue, 18 Jan 2022 02:44:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351B6C36AF2;
-	Tue, 18 Jan 2022 02:44:36 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 52FFA6135F;
+	Tue, 18 Jan 2022 02:47:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89237C36AF4;
+	Tue, 18 Jan 2022 02:47:04 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 17 Jan 2022 21:43:21 -0500
-Message-Id: <20220118024432.1952028-2-sashal@kernel.org>
-In-Reply-To: <20220118024432.1952028-1-sashal@kernel.org>
-References: <20220118024432.1952028-1-sashal@kernel.org>
+Date: Mon, 17 Jan 2022 21:46:03 -0500
+Message-Id: <20220118024701.1952911-2-sashal@kernel.org>
+In-Reply-To: <20220118024701.1952911-1-sashal@kernel.org>
+References: <20220118024701.1952911-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -66,12 +67,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 20I2iklp026552
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 20I2l9gV027069
 X-loop: cluster-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.4 02/73] fs: dlm: filter user dlm
+Subject: [Cluster-devel] [PATCH AUTOSEL 4.19 02/59] fs: dlm: filter user dlm
 	messages for kernel locks
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -86,7 +87,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -178,10 +179,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 9 insertions(+)
 
 diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index 18d81599522f3..53500b555bfa8 100644
+index a928ba008d7d7..26a4847efccca 100644
 --- a/fs/dlm/lock.c
 +++ b/fs/dlm/lock.c
-@@ -3975,6 +3975,14 @@ static int validate_message(struct dlm_lkb *lkb, struct dlm_message *ms)
+@@ -3977,6 +3977,14 @@ static int validate_message(struct dlm_lkb *lkb, struct dlm_message *ms)
  	int from = ms->m_header.h_nodeid;
  	int error = 0;
  
@@ -196,7 +197,7 @@ index 18d81599522f3..53500b555bfa8 100644
  	switch (ms->m_type) {
  	case DLM_MSG_CONVERT:
  	case DLM_MSG_UNLOCK:
-@@ -4003,6 +4011,7 @@ static int validate_message(struct dlm_lkb *lkb, struct dlm_message *ms)
+@@ -4005,6 +4013,7 @@ static int validate_message(struct dlm_lkb *lkb, struct dlm_message *ms)
  		error = -EINVAL;
  	}
  
