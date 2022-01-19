@@ -2,78 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31AE8491C40
-	for <lists+cluster-devel@lfdr.de>; Tue, 18 Jan 2022 04:14:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B76AD4938BB
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Jan 2022 11:43:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1642589026;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=f4rpDvX1G5edZSJeoP2jHZKEdUQPwbL0MQZsaXX0LAU=;
+	b=Qi7Pt7J2EolvGobuKmbTK5DavGQBXCbsPnlrNGJnFboGqbV8aJocQ9Et1EnvBMVC446w52
+	gZr/QkutM0kjcLOTzAr8fpjxCY+w7cADuy0UNeWnpKILtGdnaQFETkX+Jz3w+3XwDF0dSx
+	M05mwgXiod+ze2irWpexnIDuW3j4ukM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-186-Ae5l_xhRNNutIcsRFgHrlw-1; Mon, 17 Jan 2022 22:14:48 -0500
-X-MC-Unique: Ae5l_xhRNNutIcsRFgHrlw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-210-0a6YAmANPUmsx1ADHl2suA-1; Wed, 19 Jan 2022 05:43:43 -0500
+X-MC-Unique: 0a6YAmANPUmsx1ADHl2suA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9EFD0814249;
-	Tue, 18 Jan 2022 03:14:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 66CCF192D786;
+	Wed, 19 Jan 2022 10:43:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E46F5DF3F;
-	Tue, 18 Jan 2022 03:14:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 40E426F125;
+	Wed, 19 Jan 2022 10:43:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C220B4BB7B;
-	Tue, 18 Jan 2022 03:14:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ACDCD4BB7C;
+	Wed, 19 Jan 2022 10:43:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20I38VPc028040 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Jan 2022 22:08:31 -0500
+	id 20JAhT22024153 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 19 Jan 2022 05:43:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8134C401E3C; Tue, 18 Jan 2022 03:08:31 +0000 (UTC)
+	id D04E17A225; Wed, 19 Jan 2022 10:43:29 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D45B401E37
-	for <cluster-devel@redhat.com>; Tue, 18 Jan 2022 03:08:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6304C800B36
-	for <cluster-devel@redhat.com>; Tue, 18 Jan 2022 03:08:31 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-439-wbmdkOgfP76hYETCg6ro0w-1; Mon, 17 Jan 2022 22:08:29 -0500
-X-MC-Unique: wbmdkOgfP76hYETCg6ro0w-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id D76F4B81230;
-	Tue, 18 Jan 2022 03:08:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13F7C36AF3;
-	Tue, 18 Jan 2022 03:08:26 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 17 Jan 2022 22:07:55 -0500
-Message-Id: <20220118030822.1955469-2-sashal@kernel.org>
-In-Reply-To: <20220118030822.1955469-1-sashal@kernel.org>
-References: <20220118030822.1955469-1-sashal@kernel.org>
+Received: from cicero.cable.virginm.net (unknown [10.33.37.32])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 076F1795B7
+	for <cluster-devel@redhat.com>; Wed, 19 Jan 2022 10:43:18 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Wed, 19 Jan 2022 10:42:55 +0000
+Message-Id: <20220119104316.2489995-1-anprice@redhat.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 20I38VPc028040
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: cluster-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
-Subject: [Cluster-devel] [PATCH AUTOSEL 4.4 02/29] fs: dlm: filter user dlm
-	messages for kernel locks
+Subject: [Cluster-devel] [PATCH 00/21] libgfs2: Namespace improvements
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,125 +63,108 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-From: Alexander Aring <aahringo@redhat.com>
+In libgfs2 we have a mix of function names prefixed with gfs2_, lgfs2_ or nothing at all that denotes where they are defined. This patch set addresses that problem by more strictly enforcing a prefix namespace scheme on the symbols exposed by libgfs2. So now we (mostly) have these prefix conventions:
 
-[ Upstream commit 6c2e3bf68f3e5e5a647aa52be246d5f552d7496d ]
+GFS2_/gfs2_   - kernel code
+LGFS2_/lgfs2_ - libgfs2 interfaces
+No prefix     - application/internal code
 
-This patch fixes the following crash by receiving a invalid message:
+This means we can tell at a glance where names are defined, which makes the code easier to work with.
 
-[  160.672220] ==================================================================
-[  160.676206] BUG: KASAN: user-memory-access in dlm_user_add_ast+0xc3/0x370
-[  160.679659] Read of size 8 at addr 00000000deadbeef by task kworker/u32:13/319
-[  160.681447]
-[  160.681824] CPU: 10 PID: 319 Comm: kworker/u32:13 Not tainted 5.14.0-rc2+ #399
-[  160.683472] Hardware name: Red Hat KVM/RHEL-AV, BIOS 1.14.0-1.module+el8.6.0+12648+6ede71a5 04/01/2014
-[  160.685574] Workqueue: dlm_recv process_recv_sockets
-[  160.686721] Call Trace:
-[  160.687310]  dump_stack_lvl+0x56/0x6f
-[  160.688169]  ? dlm_user_add_ast+0xc3/0x370
-[  160.689116]  kasan_report.cold.14+0x116/0x11b
-[  160.690138]  ? dlm_user_add_ast+0xc3/0x370
-[  160.690832]  dlm_user_add_ast+0xc3/0x370
-[  160.691502]  _receive_unlock_reply+0x103/0x170
-[  160.692241]  _receive_message+0x11df/0x1ec0
-[  160.692926]  ? rcu_read_lock_sched_held+0xa1/0xd0
-[  160.693700]  ? rcu_read_lock_bh_held+0xb0/0xb0
-[  160.694427]  ? lock_acquire+0x175/0x400
-[  160.695058]  ? do_purge.isra.51+0x200/0x200
-[  160.695744]  ? lock_acquired+0x360/0x5d0
-[  160.696400]  ? lock_contended+0x6a0/0x6a0
-[  160.697055]  ? lock_release+0x21d/0x5e0
-[  160.697686]  ? lock_is_held_type+0xe0/0x110
-[  160.698352]  ? lock_is_held_type+0xe0/0x110
-[  160.699026]  ? ___might_sleep+0x1cc/0x1e0
-[  160.699698]  ? dlm_wait_requestqueue+0x94/0x140
-[  160.700451]  ? dlm_process_requestqueue+0x240/0x240
-[  160.701249]  ? down_write_killable+0x2b0/0x2b0
-[  160.701988]  ? do_raw_spin_unlock+0xa2/0x130
-[  160.702690]  dlm_receive_buffer+0x1a5/0x210
-[  160.703385]  dlm_process_incoming_buffer+0x726/0x9f0
-[  160.704210]  receive_from_sock+0x1c0/0x3b0
-[  160.704886]  ? dlm_tcp_shutdown+0x30/0x30
-[  160.705561]  ? lock_acquire+0x175/0x400
-[  160.706197]  ? rcu_read_lock_sched_held+0xa1/0xd0
-[  160.706941]  ? rcu_read_lock_bh_held+0xb0/0xb0
-[  160.707681]  process_recv_sockets+0x32/0x40
-[  160.708366]  process_one_work+0x55e/0xad0
-[  160.709045]  ? pwq_dec_nr_in_flight+0x110/0x110
-[  160.709820]  worker_thread+0x65/0x5e0
-[  160.710423]  ? process_one_work+0xad0/0xad0
-[  160.711087]  kthread+0x1ed/0x220
-[  160.711628]  ? set_kthread_struct+0x80/0x80
-[  160.712314]  ret_from_fork+0x22/0x30
+Some changes that were not made in this set are:
 
-The issue is that we received a DLM message for a user lock but the
-destination lock is a kernel lock. Note that the address which is trying
-to derefence is 00000000deadbeef, which is in a kernel lock
-lkb->lkb_astparam, this field should never be derefenced by the DLM
-kernel stack. In case of a user lock lkb->lkb_astparam is lkb->lkb_ua
-(memory is shared by a union field). The struct lkb_ua will be handled
-by the DLM kernel stack but on a kernel lock it will contain invalid
-data and ends in most likely crashing the kernel.
+- gfs(1) on-disk structures defined in libgfs2.h for compatibility were not renamed as they're essentially kernel-defined.
+- The endianness conversion macros (be64_to_cpu(), etc.) were not renamed but they will likely be renamed once a concise naming scheme has been decided upon.
 
-It can be reproduced with two cluster nodes.
+This is obviously a large amount of churn but it pays off a lot of technical debt and I think it's worth getting it out of the way in one go. Many of the changes were scripted but each patch was reviewed by eye and tested with 'make check'.
 
-node 2:
-dlm_tool join test
-echo "862 fooobaar 1 2 1" > /sys/kernel/debug/dlm/test_locks
-echo "862 3 1" > /sys/kernel/debug/dlm/test_waiters
+Andrew Price (21):
+  libgfs2: Namespace improvements - structures.c
+  libgfs2: Namespace improvements - buf.c
+  libgfs2: Namespace improvements - fs_ops.c
+  libgfs2: Namespace improvements - fs_bits.c
+  libgfs2: Namespace improvements - gfs1.c
+  libgfs2: Namespace improvements - misc.c
+  libgfs2: Namespace improvements - rgrp.c
+  libgfs2: Namespace improvements - super.c
+  libgfs2: Namespace improvements - gfs2_disk_hash.c
+  libgfs2: Remove revoke function declarations from libgfs2.h
+  libgfs2: Namespace improvements - recovery.c
+  libgfs2: Namespace improvements - device_geometry.c
+  libgfs2: Namespace improvements - struct gfs2_inode
+  libgfs2: Namespace improvements - struct gfs2_buffer_head
+  libgfs2: Namespace improvements - struct gfs2_sbd
+  libgfs2: Namespace improvements - struct metapath
+  libgfs2: Namespace improvements - struct master_dir
+  libgfs2: Namespace improvements - struct device
+  libgfs2: Namespace improvements - struct gfs2_bitmap
+  libgfs2: Namespace improvements - constants
+  libgfs2: Namespace improvements - struct rgrp_tree
 
-node 1:
-dlm_tool join test
+ gfs2/convert/gfs2_convert.c    | 398 +++++++++++------------
+ gfs2/edit/extended.c           |  72 ++---
+ gfs2/edit/gfs2hex.c            |   8 +-
+ gfs2/edit/hexedit.c            | 198 ++++++------
+ gfs2/edit/hexedit.h            |   6 +-
+ gfs2/edit/journal.c            |  84 ++---
+ gfs2/edit/savemeta.c           |  32 +-
+ gfs2/fsck/afterpass1_common.c  |  54 ++--
+ gfs2/fsck/afterpass1_common.h  |  26 +-
+ gfs2/fsck/fs_recovery.c        | 206 ++++++------
+ gfs2/fsck/fs_recovery.h        |  10 +-
+ gfs2/fsck/fsck.h               |  46 +--
+ gfs2/fsck/initialize.c         | 278 ++++++++--------
+ gfs2/fsck/link.c               |   6 +-
+ gfs2/fsck/link.h               |   4 +-
+ gfs2/fsck/lost_n_found.c       |  34 +-
+ gfs2/fsck/lost_n_found.h       |   4 +-
+ gfs2/fsck/main.c               |  38 +--
+ gfs2/fsck/metawalk.c           | 178 +++++------
+ gfs2/fsck/metawalk.h           |  70 ++---
+ gfs2/fsck/pass1.c              | 356 ++++++++++-----------
+ gfs2/fsck/pass1b.c             | 118 +++----
+ gfs2/fsck/pass2.c              | 278 ++++++++--------
+ gfs2/fsck/pass3.c              |  14 +-
+ gfs2/fsck/pass4.c              |  24 +-
+ gfs2/fsck/pass5.c              |  28 +-
+ gfs2/fsck/rgrepair.c           | 222 ++++++-------
+ gfs2/fsck/util.c               |  18 +-
+ gfs2/fsck/util.h               |  26 +-
+ gfs2/glocktop/glocktop.c       |  18 +-
+ gfs2/libgfs2/buf.c             |  28 +-
+ gfs2/libgfs2/check_ondisk.c    |   6 +-
+ gfs2/libgfs2/check_rgrp.c      |   8 +-
+ gfs2/libgfs2/device_geometry.c |   4 +-
+ gfs2/libgfs2/fs_bits.c         |  32 +-
+ gfs2/libgfs2/fs_ops.c          | 557 ++++++++++++++++-----------------
+ gfs2/libgfs2/gfs1.c            |  82 ++---
+ gfs2/libgfs2/gfs2_disk_hash.c  |   5 +-
+ gfs2/libgfs2/gfs2l.c           |  20 +-
+ gfs2/libgfs2/lang.c            |  40 +--
+ gfs2/libgfs2/lang.h            |   2 +-
+ gfs2/libgfs2/libgfs2.h         | 319 +++++++++----------
+ gfs2/libgfs2/misc.c            |   8 +-
+ gfs2/libgfs2/ondisk.c          |   8 +-
+ gfs2/libgfs2/recovery.c        |  38 +--
+ gfs2/libgfs2/rgrp.c            |  88 +++---
+ gfs2/libgfs2/rgrp.h            |   4 +-
+ gfs2/libgfs2/structures.c      | 168 +++++-----
+ gfs2/libgfs2/super.c           |  48 +--
+ gfs2/mkfs/main_grow.c          |  32 +-
+ gfs2/mkfs/main_jadd.c          |  24 +-
+ gfs2/mkfs/main_mkfs.c          | 104 +++---
+ gfs2/tune/super.c              |   6 +-
+ tests/nukerg.c                 |  22 +-
+ 54 files changed, 2243 insertions(+), 2264 deletions(-)
 
-python:
-foo = DLM(h_cmd=3, o_nextcmd=1, h_nodeid=1, h_lockspace=0x77222027, \
-          m_type=7, m_flags=0x1, m_remid=0x862, m_result=0xFFFEFFFE)
-newFile = open("/sys/kernel/debug/dlm/comms/2/rawmsg", "wb")
-newFile.write(bytes(foo))
-
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
-Signed-off-by: David Teigland <teigland@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/dlm/lock.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index 3a7f401e943c1..ffab7dc881574 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -3975,6 +3975,14 @@ static int validate_message(struct dlm_lkb *lkb, struct dlm_message *ms)
- 	int from = ms->m_header.h_nodeid;
- 	int error = 0;
- 
-+	/* currently mixing of user/kernel locks are not supported */
-+	if (ms->m_flags & DLM_IFL_USER && ~lkb->lkb_flags & DLM_IFL_USER) {
-+		log_error(lkb->lkb_resource->res_ls,
-+			  "got user dlm message for a kernel lock");
-+		error = -EINVAL;
-+		goto out;
-+	}
-+
- 	switch (ms->m_type) {
- 	case DLM_MSG_CONVERT:
- 	case DLM_MSG_UNLOCK:
-@@ -4003,6 +4011,7 @@ static int validate_message(struct dlm_lkb *lkb, struct dlm_message *ms)
- 		error = -EINVAL;
- 	}
- 
-+out:
- 	if (error)
- 		log_error(lkb->lkb_resource->res_ls,
- 			  "ignore invalid message %d from %d %x %x %x %d",
 -- 
 2.34.1
-
 
