@@ -2,7 +2,7 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C22004986BE
+	by mail.lfdr.de (Postfix) with ESMTPS id C05D74986BD
 	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jan 2022 18:28:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1643045302;
@@ -12,48 +12,48 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zaceiPR7/8S3Z5MP4YypLGr8wg1lmLbuDMCugFUeWjc=;
-	b=Jtn6qum04C8QGsV87u5c4poutNm1Q7zd6qEnbnksxbGUgb4KWWtkgIqcMNE7A665Okw1N/
-	kXBt0zIPXDWeOfk/PYNNd02RORCcmeMl6eFd/CJrix5kjHP1I6n+BL3mZAygpeoAT8JTw0
-	gtDg/hsBnMEpavkiAZ0or/AWtl3eoFA=
+	bh=FfyHBA7TBvOqZ4ya4+yQO3vwde7O5VCVEVm9JXL/Pyk=;
+	b=g9sJk15+yHkLJt7lKu++FYh5vRIAgHSaFMBe7MJJQZ3jrUlcPGRDijlKxP1p3Kt4rNE8WS
+	HpLgqDK6Jg8dFL4DNVzfjTOrzOKoeka/bT0IP1OY2NEXv1vQ5qUKGe7/1yBIHWyVTwSGkA
+	c0pdtkLt0mz2TrGUL2bTzTcdEkfBBNg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-664-0hbs_eHEOe-XV__66FtUcQ-1; Mon, 24 Jan 2022 12:28:19 -0500
-X-MC-Unique: 0hbs_eHEOe-XV__66FtUcQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-16-cNJYS2eGO_uUhDpZFpbEcA-1; Mon, 24 Jan 2022 12:28:19 -0500
+X-MC-Unique: cNJYS2eGO_uUhDpZFpbEcA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AD479193F561;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F22D7100CCC1;
 	Mon, 24 Jan 2022 17:28:16 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1AD177451;
-	Mon, 24 Jan 2022 17:28:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6EAB62D64;
+	Mon, 24 Jan 2022 17:28:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C01E180BADA;
-	Mon, 24 Jan 2022 17:28:14 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E53831806D1C;
+	Mon, 24 Jan 2022 17:28:15 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
 	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20OHO2HD030460 for <cluster-devel@listman.util.phx.redhat.com>;
-	Mon, 24 Jan 2022 12:24:02 -0500
+	id 20OHO3he030466 for <cluster-devel@listman.util.phx.redhat.com>;
+	Mon, 24 Jan 2022 12:24:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BCD8977451; Mon, 24 Jan 2022 17:24:02 +0000 (UTC)
+	id 3D1FF77451; Mon, 24 Jan 2022 17:24:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from vishnu.redhat.com (unknown [10.2.16.12])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7555C7744E
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EA0957744E
 	for <cluster-devel@redhat.com>; Mon, 24 Jan 2022 17:24:02 +0000 (UTC)
 From: Bob Peterson <rpeterso@redhat.com>
 To: cluster-devel <cluster-devel@redhat.com>
-Date: Mon, 24 Jan 2022 12:23:56 -0500
-Message-Id: <20220124172357.554689-3-rpeterso@redhat.com>
+Date: Mon, 24 Jan 2022 12:23:57 -0500
+Message-Id: <20220124172357.554689-4-rpeterso@redhat.com>
 In-Reply-To: <20220124172357.554689-1-rpeterso@redhat.com>
 References: <20220124172357.554689-1-rpeterso@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: cluster-devel@redhat.com
-Subject: [Cluster-devel] [GFS2 PATCH 2/3] gfs2: Retry on dlm -EBUSY (stop
-	gap)
+Subject: [Cluster-devel] [GFS2 PATCH 3/3] gfs2: Switch lock order of inode
+	and iopen glock
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +67,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,71 +75,137 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Sometimes when gfs2 cancels a glock request, dlm needs time to take the
-request off its Conversion queue. During that time, we get -EBUSY from
-dlm, which confuses the glock state machine. Ideally we want dlm to
-not return -EBUSY but wait until the operation has completed. This is
-a stop-gap measure until dlm has a solution in place.
+From: Andreas Gruenbacher <agruenba@redhat.com>
 
+This patch tries to fix the continual ABBA deadlocks we keep having
+between the iopen and inode glocks. This switches the lock order in
+gfs2_inode_lookup and gfs2_create_inode so the iopen glock is always
+locked first.
+
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/lock_dlm.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+ fs/gfs2/inode.c | 49 +++++++++++++++++++++++++++----------------------
+ 1 file changed, 27 insertions(+), 22 deletions(-)
 
-diff --git a/fs/gfs2/lock_dlm.c b/fs/gfs2/lock_dlm.c
-index 50578f881e6d..bf03c77b6757 100644
---- a/fs/gfs2/lock_dlm.c
-+++ b/fs/gfs2/lock_dlm.c
-@@ -258,7 +258,7 @@ static int gdlm_lock(struct gfs2_glock *gl, unsigned int req_state,
- 		     unsigned int flags)
- {
- 	struct lm_lockstruct *ls = &gl->gl_name.ln_sbd->sd_lockstruct;
--	int req;
-+	int req, ret;
- 	u32 lkf;
- 	char strname[GDLM_STRNAME_BYTES] = "";
+diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+index 89905f4f29bb..b30ff50d17f3 100644
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@ -131,7 +131,21 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
+ 		struct gfs2_sbd *sdp = GFS2_SB(inode);
+ 		struct gfs2_glock *io_gl;
  
-@@ -278,9 +278,12 @@ static int gdlm_lock(struct gfs2_glock *gl, unsigned int req_state,
- 	/*
- 	 * Submit the actual lock request.
- 	 */
--
--	return dlm_lock(ls->ls_dlm, req, &gl->gl_lksb, lkf, strname,
--			GDLM_STRNAME_BYTES - 1, 0, gdlm_ast, gl, gdlm_bast);
-+	do {
-+		ret = dlm_lock(ls->ls_dlm, req, &gl->gl_lksb, lkf, strname,
-+			       GDLM_STRNAME_BYTES - 1, 0, gdlm_ast, gl,
-+			       gdlm_bast);
-+	} while (ret == -EBUSY);
-+	return ret;
- }
- 
- static void gdlm_put_lock(struct gfs2_glock *gl)
-@@ -312,8 +315,11 @@ static void gdlm_put_lock(struct gfs2_glock *gl)
- 		return;
- 	}
- 
--	error = dlm_unlock(ls->ls_dlm, gl->gl_lksb.sb_lkid, DLM_LKF_VALBLK,
--			   NULL, gl);
-+	do {
-+		error = dlm_unlock(ls->ls_dlm, gl->gl_lksb.sb_lkid,
-+				   DLM_LKF_VALBLK, NULL, gl);
-+	} while (error == -EBUSY);
+-		error = gfs2_glock_get(sdp, no_addr, &gfs2_inode_glops, CREATE, &ip->i_gl);
++		error = gfs2_glock_get(sdp, no_addr, &gfs2_inode_glops, CREATE,
++				       &ip->i_gl);
++		if (unlikely(error))
++			goto fail;
 +
- 	if (error) {
- 		fs_err(sdp, "gdlm_unlock %x,%llx err=%d\n",
- 		       gl->gl_name.ln_type,
-@@ -506,7 +512,9 @@ static int sync_unlock(struct gfs2_sbd *sdp, struct dlm_lksb *lksb, char *name)
- 	struct lm_lockstruct *ls = &sdp->sd_lockstruct;
- 	int error;
++		error = gfs2_glock_get(sdp, no_addr, &gfs2_iopen_glops, CREATE,
++				       &io_gl);
++		if (unlikely(error))
++			goto fail;
++
++		if (blktype != GFS2_BLKST_UNLINKED)
++			gfs2_cancel_delete_work(io_gl);
++		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT,
++					   &ip->i_iopen_gh);
++		gfs2_glock_put(io_gl);
+ 		if (unlikely(error))
+ 			goto fail;
  
--	error = dlm_unlock(ls->ls_dlm, lksb->sb_lkid, 0, lksb, ls);
-+	do {
-+		error = dlm_unlock(ls->ls_dlm, lksb->sb_lkid, 0, lksb, ls);
-+	} while (error == -EBUSY);
- 	if (error) {
- 		fs_err(sdp, "%s lkid %x error %d\n",
- 		       name, lksb->sb_lkid, error);
+@@ -161,16 +175,6 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
+ 
+ 		set_bit(GLF_INSTANTIATE_NEEDED, &ip->i_gl->gl_flags);
+ 
+-		error = gfs2_glock_get(sdp, no_addr, &gfs2_iopen_glops, CREATE, &io_gl);
+-		if (unlikely(error))
+-			goto fail;
+-		if (blktype != GFS2_BLKST_UNLINKED)
+-			gfs2_cancel_delete_work(io_gl);
+-		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
+-		gfs2_glock_put(io_gl);
+-		if (unlikely(error))
+-			goto fail;
+-
+ 		/* Lowest possible timestamp; will be overwritten in gfs2_dinode_in. */
+ 		inode->i_atime.tv_sec = 1LL << (8 * sizeof(inode->i_atime.tv_sec) - 1);
+ 		inode->i_atime.tv_nsec = 0;
+@@ -716,13 +720,17 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	error = insert_inode_locked4(inode, ip->i_no_addr, iget_test, &ip->i_no_addr);
+ 	BUG_ON(error);
+ 
+-	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_SKIP, ghs + 1);
++	error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
+ 	if (error)
+ 		goto fail_gunlock2;
+ 
++	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_SKIP, ghs + 1);
++	if (error)
++		goto fail_gunlock3;
++
+ 	error = gfs2_trans_begin(sdp, blocks, 0);
+ 	if (error)
+-		goto fail_gunlock2;
++		goto fail_gunlock3;
+ 
+ 	if (blocks > 1) {
+ 		ip->i_eattr = ip->i_no_addr + 1;
+@@ -731,10 +739,6 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	init_dinode(dip, ip, symname);
+ 	gfs2_trans_end(sdp);
+ 
+-	error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
+-	if (error)
+-		goto fail_gunlock2;
+-
+ 	glock_set_object(ip->i_gl, ip);
+ 	glock_set_object(io_gl, ip);
+ 	gfs2_set_iop(inode);
+@@ -745,14 +749,14 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	if (default_acl) {
+ 		error = __gfs2_set_acl(inode, default_acl, ACL_TYPE_DEFAULT);
+ 		if (error)
+-			goto fail_gunlock3;
++			goto fail_gunlock4;
+ 		posix_acl_release(default_acl);
+ 		default_acl = NULL;
+ 	}
+ 	if (acl) {
+ 		error = __gfs2_set_acl(inode, acl, ACL_TYPE_ACCESS);
+ 		if (error)
+-			goto fail_gunlock3;
++			goto fail_gunlock4;
+ 		posix_acl_release(acl);
+ 		acl = NULL;
+ 	}
+@@ -760,11 +764,11 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	error = security_inode_init_security(&ip->i_inode, &dip->i_inode, name,
+ 					     &gfs2_initxattrs, NULL);
+ 	if (error)
+-		goto fail_gunlock3;
++		goto fail_gunlock4;
+ 
+ 	error = link_dinode(dip, name, ip, &da);
+ 	if (error)
+-		goto fail_gunlock3;
++		goto fail_gunlock4;
+ 
+ 	mark_inode_dirty(inode);
+ 	d_instantiate(dentry, inode);
+@@ -782,9 +786,10 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
+ 	unlock_new_inode(inode);
+ 	return error;
+ 
+-fail_gunlock3:
++fail_gunlock4:
+ 	glock_clear_object(ip->i_gl, ip);
+ 	glock_clear_object(io_gl, ip);
++fail_gunlock3:
+ 	gfs2_glock_dq_uninit(&ip->i_iopen_gh);
+ fail_gunlock2:
+ 	gfs2_glock_put(io_gl);
 -- 
 2.34.1
 
