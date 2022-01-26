@@ -2,58 +2,57 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E385549CD44
-	for <lists+cluster-devel@lfdr.de>; Wed, 26 Jan 2022 16:04:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3415849CFE3
+	for <lists+cluster-devel@lfdr.de>; Wed, 26 Jan 2022 17:41:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1643209479;
+	s=mimecast20190719; t=1643215275;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=PwDpPFsxTrq2rRtwOqI7ZJIt9eR/2qLQnt7AqyYtFWc=;
-	b=Hb1Eijy0glYCTcgXI5T0iRlz6+IE2YNZ0Gnnd6UIuYelGdgGKtuA280yDstvA+ReoGXnbn
-	q6m4bdIm6ruhmMRv2TnUKLZHDJXeY9Otv81MKr2CvGPtOZAt/r2gaU9d+XhoDnexqDuf9v
-	q+/OSWbwD5ahWeWYhzbwhWPHWdcHnf8=
+	bh=tKG9yvCFCtuyotX48K4rTxyaI0mf/wEw1Ks0hodWnUA=;
+	b=iD9wHTgGtaQB0v/S5Ke4zvn5djLI4ic8JyBMJ6/7YQhsBuAUIPhyfk0t5EO7lh8YwoZ1dp
+	6EI8WW0Hwji6X+sHhBugyBvdupmw+1QDZP+XAj+Q63CZlVrb3//h0L0pYCDgLPt9e4DFSj
+	RhAUcG7G3yJ54CbJ5Q9u3zUc4jgdyDk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-528-mVCBH5IANxGsgessfxCQQw-1; Wed, 26 Jan 2022 10:04:35 -0500
-X-MC-Unique: mVCBH5IANxGsgessfxCQQw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-674-DZN20ZDLMXqQm2WYcw9o1g-1; Wed, 26 Jan 2022 11:41:12 -0500
+X-MC-Unique: DZN20ZDLMXqQm2WYcw9o1g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D93888143EF;
-	Wed, 26 Jan 2022 15:04:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F63D1091EE9;
-	Wed, 26 Jan 2022 15:04:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7A3F679EFF;
+	Wed, 26 Jan 2022 16:41:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 912B85CC6A;
+	Wed, 26 Jan 2022 16:41:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 014974CA93;
-	Wed, 26 Jan 2022 15:04:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 634D41809CB8;
+	Wed, 26 Jan 2022 16:41:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20QF4SnY016283 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 26 Jan 2022 10:04:29 -0500
+	id 20QGf23T024735 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 26 Jan 2022 11:41:02 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EDD5A70D38; Wed, 26 Jan 2022 15:04:28 +0000 (UTC)
+	id 596EB79A2C; Wed, 26 Jan 2022 16:41:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
 	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D92A570D30;
-	Wed, 26 Jan 2022 15:04:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A8DF79A29;
+	Wed, 26 Jan 2022 16:41:01 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
-To: jiangshanlai@gmail.com
-Date: Wed, 26 Jan 2022 10:03:54 -0500
-Message-Id: <20220126150354.3644838-1-aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Wed, 26 Jan 2022 11:40:59 -0500
+Message-Id: <20220126164059.3846926-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, paulmck@kernel.org, josh@joshtriplett.org,
-	rostedt@goodmis.org, rcu@vger.kernel.org, mathieu.desnoyers@efficios.com
-Subject: [Cluster-devel] [PATCH] srcutree: use export for srcu_struct
-	defined by DEFINE_STATIC_SRCU()
+Cc: cluster-devel@redhat.com
+Subject: [Cluster-devel] [PATCH dlm/next] fs: dlm: fix false positives for
+	checkers
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,7 +66,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,37 +74,103 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-This patch fixes a sparse issue if DEFINE_STATIC_SRCU() of srcutree is
-used by a module. Sparse will show:
-
-sparse: symbol '__srcu_struct_nodes_srcu' was not declared. Should it be static?
-
-The problem is here that the DEFINE_STATIC_SRCU() of srcutree uses
-__DEFINE_SRCU() and define a non-static srcu_struct. This srcu_struct
-will be exported by inserting it in a special module section
-'__section("___srcu_struct_ptrs")'. During load/unloading srcutree runs
-their init/cleanup functionality. It seems sparse does not understand
-this connection. To avoid the sparse warning we make a prototype of the
-exported srcu_struct with an export keyword. This way we tell the
-that the srcu_struct might be used outside of the module.
+This patch will adds #ifndef __CHECKER__ for false positives warnings
+about a missing lock/unlock srcu handling. Which are shown by running
+sparse checks. Using __CHECKER__ will tell sparse to ignore these
+sections.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- include/linux/srcutree.h | 1 +
- 1 file changed, 1 insertion(+)
+There are still endianess warnings running sparse, I will let them
+there. They are false-postives but there exists a better way to avoid
+those warnings by using __le types in DLM.
 
-diff --git a/include/linux/srcutree.h b/include/linux/srcutree.h
-index cb1f4351e8ba..f81be0749484 100644
---- a/include/linux/srcutree.h
-+++ b/include/linux/srcutree.h
-@@ -121,6 +121,7 @@ struct srcu_struct {
- #ifdef MODULE
- # define __DEFINE_SRCU(name, is_static)					\
- 	is_static struct srcu_struct name;				\
-+	extern struct srcu_struct * const __srcu_struct_##name;		\
- 	struct srcu_struct * const __srcu_struct_##name			\
- 		__section("___srcu_struct_ptrs") = &name
- #else
+ fs/dlm/lowcomms.c | 10 ++++++++++
+ fs/dlm/midcomms.c | 10 ++++++++++
+ 2 files changed, 20 insertions(+)
+
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index e284d696c1fd..a7f3791ea44b 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -1303,6 +1303,10 @@ static struct dlm_msg *dlm_lowcomms_new_msg_con(struct connection *con, int len,
+ 	return msg;
+ }
+ 
++/* avoid false positive for nodes_srcu, unlock happens in
++ * dlm_midcomms_get_mhandle which is a must call if success
++ */
++#ifndef __CHECKER__
+ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+ 				     char **ppc, void (*cb)(void *data),
+ 				     void *data)
+@@ -1336,6 +1340,7 @@ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+ 	msg->idx = idx;
+ 	return msg;
+ }
++#endif
+ 
+ static void _dlm_lowcomms_commit_msg(struct dlm_msg *msg)
+ {
+@@ -1362,11 +1367,16 @@ static void _dlm_lowcomms_commit_msg(struct dlm_msg *msg)
+ 	return;
+ }
+ 
++/* avoid false positive for nodes_srcu, lock was happen in
++ * dlm_lowcomms_new_msg
++ */
++#ifndef __CHECKER__
+ void dlm_lowcomms_commit_msg(struct dlm_msg *msg)
+ {
+ 	_dlm_lowcomms_commit_msg(msg);
+ 	srcu_read_unlock(&connections_srcu, msg->idx);
+ }
++#endif
+ 
+ void dlm_lowcomms_put_msg(struct dlm_msg *msg)
+ {
+diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
+index 3635e42b0669..f95f6f40c404 100644
+--- a/fs/dlm/midcomms.c
++++ b/fs/dlm/midcomms.c
+@@ -1062,6 +1062,10 @@ static struct dlm_msg *dlm_midcomms_get_msg_3_2(struct dlm_mhandle *mh, int node
+ 	return msg;
+ }
+ 
++/* avoid false positive for nodes_srcu, unlock happens in
++ * dlm_midcomms_commit_mhandle which is a must call if success
++ */
++#ifndef __CHECKER__
+ struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
+ 					     gfp_t allocation, char **ppc)
+ {
+@@ -1127,6 +1131,7 @@ struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
+ 	srcu_read_unlock(&nodes_srcu, idx);
+ 	return NULL;
+ }
++#endif
+ 
+ static void dlm_midcomms_commit_msg_3_2(struct dlm_mhandle *mh)
+ {
+@@ -1136,6 +1141,10 @@ static void dlm_midcomms_commit_msg_3_2(struct dlm_mhandle *mh)
+ 	dlm_lowcomms_commit_msg(mh->msg);
+ }
+ 
++/* avoid false positive for nodes_srcu, lock was happen in
++ * dlm_midcomms_get_mhandle
++ */
++#ifndef __CHECKER__
+ void dlm_midcomms_commit_mhandle(struct dlm_mhandle *mh)
+ {
+ 	switch (mh->node->version) {
+@@ -1157,6 +1166,7 @@ void dlm_midcomms_commit_mhandle(struct dlm_mhandle *mh)
+ 		break;
+ 	}
+ }
++#endif
+ 
+ int dlm_midcomms_start(void)
+ {
 -- 
 2.31.1
 
