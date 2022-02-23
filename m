@@ -1,61 +1,85 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E4A04C1999
-	for <lists+cluster-devel@lfdr.de>; Wed, 23 Feb 2022 18:11:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1645636308;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=fcIyY9H2oU+GjdmONdTT6yr2BKzqlZgIhwnbL+9AbpE=;
-	b=e9RUBew2UWcxJDdYdro6GtcbcrpLdu6mPL2eJjC1qDiaq5jQgFzf9pLyy22FY5hmMuKLaK
-	xl+C1G4jkEujVFCOfsNx+pUEO+TLD4oUSvGO/3LiSNZegPY8tx3yfN7zgy/zVJXwQ/YO9n
-	2kyV4lKSOHTnY36opDR/avnFCgJb3dc=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0F44C1FB6
+	for <lists+cluster-devel@lfdr.de>; Thu, 24 Feb 2022 00:32:22 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-108-LlFCUFU1M5687PEXJUhytA-1; Wed, 23 Feb 2022 12:11:37 -0500
-X-MC-Unique: LlFCUFU1M5687PEXJUhytA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-647-LiBbsa0ZMvOg-FF3RWishQ-1; Wed, 23 Feb 2022 18:32:18 -0500
+X-MC-Unique: LiBbsa0ZMvOg-FF3RWishQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 60F6880DDEF;
-	Wed, 23 Feb 2022 17:11:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22FAF801AAD;
+	Wed, 23 Feb 2022 23:32:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F70B7DE5B;
-	Wed, 23 Feb 2022 17:11:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8B245DBA3;
+	Wed, 23 Feb 2022 23:32:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 387A31809C98;
-	Wed, 23 Feb 2022 17:11:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 791451809C98;
+	Wed, 23 Feb 2022 23:32:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21NH8t9G009300 for <cluster-devel@listman.util.phx.redhat.com>;
-	Wed, 23 Feb 2022 12:08:55 -0500
+	id 21NNW2RT007232 for <cluster-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Feb 2022 18:32:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0859D838EA; Wed, 23 Feb 2022 17:08:55 +0000 (UTC)
+	id A423976EE; Wed, 23 Feb 2022 23:32:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
-	(fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9EF25838E6;
-	Wed, 23 Feb 2022 17:08:54 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Wed, 23 Feb 2022 12:08:29 -0500
-Message-Id: <20220223170829.830864-10-aahringo@redhat.com>
-In-Reply-To: <20220223170829.830864-1-aahringo@redhat.com>
-References: <20220223170829.830864-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F4BD79DC
+	for <cluster-devel@redhat.com>; Wed, 23 Feb 2022 23:31:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5851A85A5A8
+	for <cluster-devel@redhat.com>; Wed, 23 Feb 2022 23:31:57 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-339-k3PFcp4QOOKyvYA_n1MHwA-1; Wed, 23 Feb 2022 18:31:53 -0500
+X-MC-Unique: k3PFcp4QOOKyvYA_n1MHwA-1
+Received: from cwcc.thunk.org (pool-108-7-220-252.bstnma.fios.verizon.net
+	[108.7.220.252]) (authenticated bits=0)
+	(User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 21NNVXAJ022888
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Wed, 23 Feb 2022 18:31:34 -0500
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+	id 7F40815C0036; Wed, 23 Feb 2022 18:31:33 -0500 (EST)
+Date: Wed, 23 Feb 2022 18:31:33 -0500
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: John Hubbard <jhubbard@nvidia.com>
+Message-ID: <YhbD1T7qhgnz4myM@mit.edu>
+References: <Yg0m6IjcNmfaSokM@google.com>
+	<82d0f4e4-c911-a245-4701-4712453592d9@nvidia.com>
+	<Yg8bxiz02WBGf6qO@mit.edu>
+	<7bd88058-2a9a-92a6-2280-43c805b516c3@nvidia.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+In-Reply-To: <7bd88058-2a9a-92a6-2280-43c805b516c3@nvidia.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: cluster-devel@redhat.com
-Cc: cluster-devel@redhat.com, viro@zeniv.linux.org.uk
-Subject: [Cluster-devel] [PATCH/RFC dlm/next 9/9] fs: dlm: cleanup lock
-	handling in dlm_master_lookup
+Cc: cluster-devel@redhat.com, Damien Le Moal <damien.lemoal@wdc.com>,
+	Johannes Thumshirn <jth@kernel.org>,
+	"Darrick J . Wong" <darrick.wong@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, Ritesh Harjani <riteshh@linux.ibm.com>,
+	linux-ext4@vger.kernel.org, Lee Jones <lee.jones@linaro.org>,
+	Christoph Hellwig <hch@lst.de>, Goldwyn Rodrigues <rgoldwyn@suse.com>
+Subject: Re: [Cluster-devel] [REPORT] kernel BUG at fs/ext4/inode.c:2620 -
+	page_buffers()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,275 +93,90 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch will remove the following warning by sparse:
+On Thu, Feb 17, 2022 at 10:33:34PM -0800, John Hubbard wrote:
+> 
+> Just a small thing I'll say once, to get it out of my system. No action
+> required here, I just want it understood:
+> 
+> Before commit 803e4572d7c5 ("mm/process_vm_access: set FOLL_PIN via
+> pin_user_pages_remote()"), you would have written that like this:
+> 
+> "process_vm_writev() is dirtying pages without properly warning the file
+> system in advance..."
+> 
+> Because, there were many callers that were doing this:
+> 
+>     get_user_pages*()
+>     ...use the pages...
+> 
+>     for_each_page() {
+>             set_page_dirty*()
+>             put_page()
+>     }
 
-fs/dlm/lock.c:1049:9: warning: context imbalance in 'dlm_master_lookup' - different lock contexts for basic block
+Sure, but that's not sufficient when modifying file-backed pages.
+Previously, there was only two ways of modifying file-backed pages in
+the page cache --- either using the write(2) system call, or when a
+mmaped page is modified by the userspace.
 
-I tried to find any issues with the current handling and I did not find
-any. However it is hard to follow the lock handling in this area of
-dlm_master_lookup() and I suppose that sparse cannot realize that there
-are no issues. The variable "toss_list" makes it really hard to follow
-the lock handling because if it's set the rsb lock/refcount isn't held
-but the ls->ls_rsbtbl[b].lock is held and this is one reason why the rsb
-lock/refcount does not need to be held. If it's not set the
-ls->ls_rsbtbl[b].lock is not held but the rsb lock/refcount is held. The
-indicator of toss_list will be used to store the actual lock state.
-Another possibility is that a retry can happen and then it's hard to
-follow the specific code part. I did not find any issues but sparse
-cannot realize that there are no issues.
+In the case of write(2), the file system gets notified before the page
+cache is modified by a call to the address operation's write_begin()
+call, and after the page cache is modified, the address operation's
+write_end() call lets the file system know that the modification is
+done.  After the write is done, the 30 second writeback timer is
+triggered, and in the case of ext4's data=journalling mode, we close
+the ext4 micro-transation (and therefore the time between write_begin
+and write_end calls needs to be minimal); otherwise this can block
+ext4 transactions.
 
-To make it more easier to understand for developers and sparse as well,
-we remove the toss_list variable which indicates a specific lock state
-and move handling in between of this lock state in a separate function.
-This function can be called now in case when the initial lock states are
-taken which was previously signalled if toss_list was set or not. The
-advantage here is that we can release all locks/refcounts in mostly the
-same code block as it was taken.
+In the case of a user page fault, the address operation's
+page_mkwrite() is called, and at that point we will allocate any
+blocks needed to back memory if necessary (in the case of delayed
+allocation, file system space has to get reserved).  The problem here
+for remote access is that page_mkwrite() can block, and it can
+potentially fail (e.g., with ENOSPC or ENOMEM).  This is also why we
+can't just add the page buffers and do the file system allocation in
+set_page_dirty(), since set_page_dirty() isn't allowed to block.
 
-Afterwards sparse had no issues to figure out that there are no problems
-with the current lock behaviour.
+One approach might be to make all of the pages writeable when
+pin_user_pages_remote() is called.  That that would mean that in the
+case of remote access via process_vm_writev or RDMA, all of the blocks
+will be allocated early.  But that's probably better since at that
+point the userspace code is in a position to receive the error when
+setting up the RDMA memory, and we don't want to be asking the file
+system to do block allocation when incoming data is coming in from
+Infiniband or iWARP.
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/lock.c | 189 +++++++++++++++++++++++++++-----------------------
- 1 file changed, 102 insertions(+), 87 deletions(-)
+> I see that ext4_warning_inode() has rate limiting, but it doesn't look
+> like it's really intended for a per-page rate. It looks like it is
+> per-superblock (yes?), so I suspect one instance of this problem, with
+> many pages involved, could hit the limit.
+> 
+> Often, WARN_ON_ONCE() is used with per-page assertions. That's not great
+> either, but it might be better here. OTOH, I have minimal experience
+> with ext4_warning_inode() and maybe it really is just fine with per-page
+> failure rates.
 
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index 013d46cc58e0..96ad11221065 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -880,6 +880,88 @@ static int validate_master_nodeid(struct dlm_ls *ls, struct dlm_rsb *r,
- 	}
- }
- 
-+static void __dlm_master_lookup(struct dlm_ls *ls, struct dlm_rsb *r, int our_nodeid,
-+				int from_nodeid, bool toss_list, unsigned int flags,
-+				int *r_nodeid, int *result)
-+{
-+	int fix_master = (flags & DLM_LU_RECOVER_MASTER);
-+	int from_master = (flags & DLM_LU_RECOVER_DIR);
-+
-+	if (r->res_dir_nodeid != our_nodeid) {
-+		/* should not happen, but may as well fix it and carry on */
-+		log_error(ls, "%s res_dir %d our %d %s", __func__,
-+			  r->res_dir_nodeid, our_nodeid, r->res_name);
-+		r->res_dir_nodeid = our_nodeid;
-+	}
-+
-+	if (fix_master && dlm_is_removed(ls, r->res_master_nodeid)) {
-+		/* Recovery uses this function to set a new master when
-+		 * the previous master failed.  Setting NEW_MASTER will
-+		 * force dlm_recover_masters to call recover_master on this
-+		 * rsb even though the res_nodeid is no longer removed.
-+		 */
-+
-+		r->res_master_nodeid = from_nodeid;
-+		r->res_nodeid = from_nodeid;
-+		rsb_set_flag(r, RSB_NEW_MASTER);
-+
-+		if (toss_list) {
-+			/* I don't think we should ever find it on toss list. */
-+			log_error(ls, "%s fix_master on toss", __func__);
-+			dlm_dump_rsb(r);
-+		}
-+	}
-+
-+	if (from_master && (r->res_master_nodeid != from_nodeid)) {
-+		/* this will happen if from_nodeid became master during
-+		 * a previous recovery cycle, and we aborted the previous
-+		 * cycle before recovering this master value
-+		 */
-+
-+		log_limit(ls, "%s from_master %d master_nodeid %d res_nodeid %d first %x %s",
-+			  __func__, from_nodeid, r->res_master_nodeid,
-+			  r->res_nodeid, r->res_first_lkid, r->res_name);
-+
-+		if (r->res_master_nodeid == our_nodeid) {
-+			log_error(ls, "from_master %d our_master", from_nodeid);
-+			dlm_dump_rsb(r);
-+			goto ret_assign;
-+		}
-+
-+		r->res_master_nodeid = from_nodeid;
-+		r->res_nodeid = from_nodeid;
-+		rsb_set_flag(r, RSB_NEW_MASTER);
-+	}
-+
-+	if (!r->res_master_nodeid) {
-+		/* this will happen if recovery happens while we're looking
-+		 * up the master for this rsb
-+		 */
-+
-+		log_debug(ls, "%s master 0 to %d first %x %s", __func__,
-+			  from_nodeid, r->res_first_lkid, r->res_name);
-+		r->res_master_nodeid = from_nodeid;
-+		r->res_nodeid = from_nodeid;
-+	}
-+
-+	if (!from_master && !fix_master &&
-+	    (r->res_master_nodeid == from_nodeid)) {
-+		/* this can happen when the master sends remove, the dir node
-+		 * finds the rsb on the keep list and ignores the remove,
-+		 * and the former master sends a lookup
-+		 */
-+
-+		log_limit(ls, "%s from master %d flags %x first %x %s",
-+			  __func__, from_nodeid, flags, r->res_first_lkid,
-+			  r->res_name);
-+	}
-+
-+ ret_assign:
-+	*r_nodeid = r->res_master_nodeid;
-+	if (result)
-+		*result = DLM_LU_MATCH;
-+}
-+
- /*
-  * We're the dir node for this res and another node wants to know the
-  * master nodeid.  During normal operation (non recovery) this is only
-@@ -914,10 +996,8 @@ int dlm_master_lookup(struct dlm_ls *ls, int from_nodeid, char *name, int len,
- {
- 	struct dlm_rsb *r = NULL;
- 	uint32_t hash, b;
--	int from_master = (flags & DLM_LU_RECOVER_DIR);
--	int fix_master = (flags & DLM_LU_RECOVER_MASTER);
- 	int our_nodeid = dlm_our_nodeid();
--	int dir_nodeid, error, toss_list = 0;
-+	int dir_nodeid, error;
- 
- 	if (len > DLM_RESNAME_MAXLEN)
- 		return -EINVAL;
-@@ -949,103 +1029,38 @@ int dlm_master_lookup(struct dlm_ls *ls, int from_nodeid, char *name, int len,
- 	error = dlm_search_rsb_tree(&ls->ls_rsbtbl[b].keep, name, len, &r);
- 	if (!error) {
- 		/* because the rsb is active, we need to lock_rsb before
--		   checking/changing re_master_nodeid */
-+		 * checking/changing re_master_nodeid
-+		 */
- 
- 		hold_rsb(r);
- 		spin_unlock(&ls->ls_rsbtbl[b].lock);
- 		lock_rsb(r);
--	} else {
--		error = dlm_search_rsb_tree(&ls->ls_rsbtbl[b].toss, name, len, &r);
--		if (error)
--			goto not_found;
--
--		/* because the rsb is inactive (on toss list), it's not refcounted
--		 * and lock_rsb is not used, but is protected by the rsbtbl lock
--		 */
--
--		toss_list = 1;
--	}
--
--	if (r->res_dir_nodeid != our_nodeid) {
--		/* should not happen, but may as well fix it and carry on */
--		log_error(ls, "dlm_master_lookup res_dir %d our %d %s",
--			  r->res_dir_nodeid, our_nodeid, r->res_name);
--		r->res_dir_nodeid = our_nodeid;
--	}
--
--	if (fix_master && dlm_is_removed(ls, r->res_master_nodeid)) {
--		/* Recovery uses this function to set a new master when
--		   the previous master failed.  Setting NEW_MASTER will
--		   force dlm_recover_masters to call recover_master on this
--		   rsb even though the res_nodeid is no longer removed. */
--
--		r->res_master_nodeid = from_nodeid;
--		r->res_nodeid = from_nodeid;
--		rsb_set_flag(r, RSB_NEW_MASTER);
--
--		if (toss_list) {
--			/* I don't think we should ever find it on toss list. */
--			log_error(ls, "dlm_master_lookup fix_master on toss");
--			dlm_dump_rsb(r);
--		}
--	}
- 
--	if (from_master && (r->res_master_nodeid != from_nodeid)) {
--		/* this will happen if from_nodeid became master during
--		   a previous recovery cycle, and we aborted the previous
--		   cycle before recovering this master value */
-+		__dlm_master_lookup(ls, r, our_nodeid, from_nodeid, false,
-+				    flags, r_nodeid, result);
- 
--		log_limit(ls, "dlm_master_lookup from_master %d "
--			  "master_nodeid %d res_nodeid %d first %x %s",
--			  from_nodeid, r->res_master_nodeid, r->res_nodeid,
--			  r->res_first_lkid, r->res_name);
--
--		if (r->res_master_nodeid == our_nodeid) {
--			log_error(ls, "from_master %d our_master", from_nodeid);
--			dlm_dump_rsb(r);
--			goto out_found;
--		}
-+		/* the rsb was active */
-+		unlock_rsb(r);
-+		put_rsb(r);
- 
--		r->res_master_nodeid = from_nodeid;
--		r->res_nodeid = from_nodeid;
--		rsb_set_flag(r, RSB_NEW_MASTER);
-+		return 0;
- 	}
- 
--	if (!r->res_master_nodeid) {
--		/* this will happen if recovery happens while we're looking
--		   up the master for this rsb */
--
--		log_debug(ls, "dlm_master_lookup master 0 to %d first %x %s",
--			  from_nodeid, r->res_first_lkid, r->res_name);
--		r->res_master_nodeid = from_nodeid;
--		r->res_nodeid = from_nodeid;
--	}
-+	error = dlm_search_rsb_tree(&ls->ls_rsbtbl[b].toss, name, len, &r);
-+	if (error)
-+		goto not_found;
- 
--	if (!from_master && !fix_master &&
--	    (r->res_master_nodeid == from_nodeid)) {
--		/* this can happen when the master sends remove, the dir node
--		   finds the rsb on the keep list and ignores the remove,
--		   and the former master sends a lookup */
-+	/* because the rsb is inactive (on toss list), it's not refcounted
-+	 * and lock_rsb is not used, but is protected by the rsbtbl lock
-+	 */
- 
--		log_limit(ls, "dlm_master_lookup from master %d flags %x "
--			  "first %x %s", from_nodeid, flags,
--			  r->res_first_lkid, r->res_name);
--	}
-+	__dlm_master_lookup(ls, r, our_nodeid, from_nodeid, true, flags,
-+			    r_nodeid, result);
- 
-- out_found:
--	*r_nodeid = r->res_master_nodeid;
--	if (result)
--		*result = DLM_LU_MATCH;
-+	r->res_toss_time = jiffies;
-+	/* the rsb was inactive (on toss list) */
-+	spin_unlock(&ls->ls_rsbtbl[b].lock);
- 
--	if (toss_list) {
--		r->res_toss_time = jiffies;
--		/* the rsb was inactive (on toss list) */
--		spin_unlock(&ls->ls_rsbtbl[b].lock);
--	} else {
--		/* the rsb was active */
--		unlock_rsb(r);
--		put_rsb(r);
--	}
- 	return 0;
- 
-  not_found:
--- 
-2.31.1
+With the syzbot reproducer, we're not actually triggering the rate
+limiter, since the ext4 warning is only getting hit a bit more than
+once every 4 seconds.  And I'm guessing that in the real world, people
+aren't actually trying to do remote direct access to file-backed
+memory, at least not using ext4, since that's an invitation to a
+kernel crash, and we would have gotten user complaints.  If some user
+actually tries to use process_vm_writev for realsies, as opposed to a
+random fuzzer or from a malicious program , we do want to warn them
+about the potential data loss, so I'd prefer to warn once for each
+inode --- but I'm not convinced that it's worth the effort.
+
+Cheers,
+
+						- Ted
 
