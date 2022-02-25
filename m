@@ -1,71 +1,62 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1A94C2964
-	for <lists+cluster-devel@lfdr.de>; Thu, 24 Feb 2022 11:30:32 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AA9D4C4EB1
+	for <lists+cluster-devel@lfdr.de>; Fri, 25 Feb 2022 20:25:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-BvFtA7eoPKSo87GIQ9QIoA-1; Thu, 24 Feb 2022 05:30:27 -0500
-X-MC-Unique: BvFtA7eoPKSo87GIQ9QIoA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-584-MoIo4H4HMRChJ3KW_4opyg-1; Fri, 25 Feb 2022 14:25:19 -0500
+X-MC-Unique: MoIo4H4HMRChJ3KW_4opyg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 28549804312;
-	Thu, 24 Feb 2022 10:30:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E266723093;
-	Thu, 24 Feb 2022 10:30:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA1AF1091DA0;
+	Fri, 25 Feb 2022 19:25:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E36D825E3;
+	Fri, 25 Feb 2022 19:25:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A9FFC1809C98;
-	Thu, 24 Feb 2022 10:30:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5EE064ED66;
+	Fri, 25 Feb 2022 19:25:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21OAT9rb019577 for <cluster-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Feb 2022 05:29:10 -0500
+	id 21PJP0CG009265 for <cluster-devel@listman.util.phx.redhat.com>;
+	Fri, 25 Feb 2022 14:25:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D434A492D55; Thu, 24 Feb 2022 10:29:09 +0000 (UTC)
+	id 13A841454543; Fri, 25 Feb 2022 19:25:00 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D02AF492D59
-	for <cluster-devel@redhat.com>; Thu, 24 Feb 2022 10:29:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F82A1454542
+	for <cluster-devel@redhat.com>; Fri, 25 Feb 2022 19:25:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6D0C106655A
-	for <cluster-devel@redhat.com>; Thu, 24 Feb 2022 10:29:09 +0000 (UTC)
-Received: from mail105.syd.optusnet.com.au (mail105.syd.optusnet.com.au
-	[211.29.132.249]) by relay.mimecast.com with ESMTP id
-	us-mta-390-7m77CC0PPMmCydTUSJNPgw-1; Thu, 24 Feb 2022 05:29:05 -0500
-X-MC-Unique: 7m77CC0PPMmCydTUSJNPgw-1
-Received: from dread.disaster.area (pa49-186-17-0.pa.vic.optusnet.com.au
-	[49.186.17.0])
-	by mail105.syd.optusnet.com.au (Postfix) with ESMTPS id 377EB10E3F4B;
-	Thu, 24 Feb 2022 21:29:01 +1100 (AEDT)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
-	(envelope-from <david@fromorbit.com>)
-	id 1nNBMr-00FpGo-82; Thu, 24 Feb 2022 21:29:01 +1100
-Date: Thu, 24 Feb 2022 21:29:01 +1100
-From: Dave Chinner <david@fromorbit.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Message-ID: <20220224102901.GN59715@dread.disaster.area>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA0FF800960
+	for <cluster-devel@redhat.com>; Fri, 25 Feb 2022 19:24:59 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-222-AqO5aWMSNDCcoOML7URzew-1; Fri, 25 Feb 2022 14:24:56 -0500
+X-MC-Unique: AqO5aWMSNDCcoOML7URzew-1
+Received: from cwcc.thunk.org (pool-108-7-220-252.bstnma.fios.verizon.net
+	[108.7.220.252]) (authenticated bits=0)
+	(User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 21PJOZlb031119
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Fri, 25 Feb 2022 14:24:36 -0500
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+	id 5FD3515C0036; Fri, 25 Feb 2022 14:24:35 -0500 (EST)
+Date: Fri, 25 Feb 2022 14:24:35 -0500
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Lee Jones <lee.jones@linaro.org>
+Message-ID: <Yhks88tO3Em/G370@mit.edu>
 References: <Yg0m6IjcNmfaSokM@google.com>
-	<82d0f4e4-c911-a245-4701-4712453592d9@nvidia.com>
-	<Yg8bxiz02WBGf6qO@mit.edu> <Yg9QGm2Rygrv+lMj@kroah.com>
-	<YhbE2nocBMtLc27C@mit.edu>
-	<20220224014842.GM59715@dread.disaster.area>
-	<YhcAcfY1pZTl3sId@mit.edu>
 MIME-Version: 1.0
-In-Reply-To: <YhcAcfY1pZTl3sId@mit.edu>
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.4 cv=deDjYVbe c=1 sm=1 tr=0 ts=62175def
-	a=+dVDrTVfsjPpH/ci3UuFng==:117 a=+dVDrTVfsjPpH/ci3UuFng==:17
-	a=kj9zAlcOel0A:10 a=oGFeUVbbRNcA:10 a=7-415B0cAAAA:8
-	a=nNeadVlkB5BEUYMxFkMA:9 a=CjuIK1q_8ugA:10 a=biEYGPWJfzWAr4FL6Ov7:22
+In-Reply-To: <Yg0m6IjcNmfaSokM@google.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,18 +65,20 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: cluster-devel@redhat.com
 Cc: cluster-devel@redhat.com, Damien Le Moal <damien.lemoal@wdc.com>,
-	Johannes Thumshirn <jth@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+	Johannes Thumshirn <jth@kernel.org>,
 	"Darrick J . Wong" <darrick.wong@oracle.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, Ritesh Harjani <riteshh@linux.ibm.com>,
-	linux-ext4@vger.kernel.org, Lee Jones <lee.jones@linaro.org>,
-	Christoph Hellwig <hch@lst.de>, Goldwyn Rodrigues <rgoldwyn@suse.com>
-Subject: Re: [Cluster-devel] [REPORT] kernel BUG at fs/ext4/inode.c:2620 -
-	page_buffers()
+	linux-ext4@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	Goldwyn Rodrigues <rgoldwyn@suse.com>
+Subject: [Cluster-devel] [PATCH -v2] ext4: don't BUG if kernel subsystems
+ dirty pages without asking ext4 first
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 	<mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Sender: cluster-devel-bounces@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,72 +100,88 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Feb 23, 2022 at 10:50:09PM -0500, Theodore Ts'o wrote:
-> On Thu, Feb 24, 2022 at 12:48:42PM +1100, Dave Chinner wrote:
-> > > Fair enough; on the other hand, we could also view this as making ext4
-> > > more robust against buggy code in other subsystems, and while other
-> > > file systems may be losing user data if they are actually trying to do
-> > > remote memory access to file-backed memory, apparently other file
-> > > systems aren't noticing and so they're not crashing.
-> > 
-> > Oh, we've noticed them, no question about that.  We've got bug
-> > reports going back years for systems being crashed, triggering BUGs
-> > and/or corrupting data on both XFS and ext4 filesystems due to users
-> > trying to run RDMA applications with file backed pages.
-> 
-> Is this issue causing XFS to crash?  I didn't know that.
+[un]pin_user_pages_remote is dirtying pages without properly warning
+the file system in advance (or faulting in the file data if the page
+is not yet in the page cache).  This was noted by Jan Kara in 2018[1]
+and more recently has resulted in bug reports by Syzbot in various
+Android kernels[2].
 
-I have no idea if crashes nowdays -  go back a few years before and
-search for XFS BUGging out in ->invalidate_page (or was it
-->release_page?) because of unexpected dirty pages. I think it could
-also trigger BUGs in writeback when ->writepages tripped over a
-dirty page without a delayed allocation mapping over the hole...
+This is technically a bug in the mm/gup.c codepath, but arguably ext4
+is fragile in that a buggy get_user_pages() implementation causes ext4
+to crash, where as other file systems are not crashing (although in
+some cases the user data will be lost since gup code is not properly
+informing the file system to potentially allocate blocks or reserve
+space when writing into a sparse portion of file).  I suspect in real
+life it is rare that people are using RDMA into file-backed memory,
+which is why no one has complained to ext4 developers except fuzzing
+programs.
 
-We were pretty aggressive about telling people reporting such issues
-that they get to keep all the borken bits to themselves and to stop
-wasting our time with unsolvable problems caused by their
-broken-by-design RDMA applications. Hence people have largely
-stopped bothering us with random filesystem crashes on systems using
-RDMA on file-backed pages...
+So instead of crashing with a BUG, issue a warning (since there may be
+potential data loss) and just mark the page as clean to avoid
+unprivileged denial of service attacks until the problem can be
+properly fixed.  More discussion and background can be found in the
+thread starting at [2].
 
-> I tried the Syzbot reproducer with XFS mounted, and it didn't trigger
-> any crashes.  I'm sure data was getting corrupted, but I figured I
-> should bring ext4 to the XFS level of "at least we're not reliably
-> killing the kernel".
+[1] https://www.spinics.net/lists/linux-mm/msg142700.html
+[2] https://lore.kernel.org/r/Yg0m6IjcNmfaSokM@google.com
 
-Oh, well, good to know XFS didn't die a horrible death immediately.
-Thanks for checking, Ted.
+Reported-by: syzbot+d59332e2db681cf18f0318a06e994ebbb529a8db@syzkaller.appspotmail.com
+Reported-by: Lee Jones <lee.jones@linaro.org>
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+---
+ fs/ext4/inode.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
 
-> On ext4, an unprivileged process can use process_vm_writev(2) to crash
-> the system.  I don't know how quickly we can get a fix into mm/gup.c,
-> but if some other kernel path tries calling set_page_dirty() on a
-> file-backed page without first asking permission from the file system,
-> it seems to be nice if the file system doesn't BUG() --- as near as I
-> can tell, xfs isn't crashing in this case, but ext4 is.
-
-iomap is probably refusing to map holes for writepage - we've
-cleaned up most of the weird edge cases to return errors, so I'm
-guessing iomap is just ignoring such pages these days.
-
-Yeah, see iomap_writepage_map():
-
-                error = wpc->ops->map_blocks(wpc, inode, pos);
-                if (error)
-                        break;
-                if (WARN_ON_ONCE(wpc->iomap.type == IOMAP_INLINE))
-                        continue;
-                if (wpc->iomap.type == IOMAP_HOLE)
-                        continue;
-
-Yeah, so if writeback maps a hole rather than converts a delalloc
-region to IOMAP_MAPPED, it'll just skip over the block/page.  IIRC,
-they essentially become uncleanable pages, and I think eventually
-inode reclaim will just toss them out of memory.
-
-Cheers,
-
-Dave.
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 01c9e4f743ba..f8fefbf67306 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -1993,6 +1993,15 @@ static int ext4_writepage(struct page *page,
+ 	else
+ 		len = PAGE_SIZE;
+ 
++	/* Should never happen but for buggy gup code */
++	if (!page_has_buffers(page)) {
++		ext4_warning_inode(inode,
++		   "page %lu does not have buffers attached", page->index);
++		ClearPageDirty(page);
++		unlock_page(page);
++		return 0;
++	}
++
+ 	page_bufs = page_buffers(page);
+ 	/*
+ 	 * We cannot do block allocation or other extent handling in this
+@@ -2588,12 +2597,28 @@ static int mpage_prepare_extent_to_map(struct mpage_da_data *mpd)
+ 			     (mpd->wbc->sync_mode == WB_SYNC_NONE)) ||
+ 			    unlikely(page->mapping != mapping)) {
+ 				unlock_page(page);
+-				continue;
++				goto out;
+ 			}
+ 
+ 			wait_on_page_writeback(page);
+ 			BUG_ON(PageWriteback(page));
+ 
++			/*
++			 * Should never happen but for buggy code in
++			 * other subsystemsa that call
++			 * set_page_dirty() without properly warning
++			 * the file system first.  See [1] for more
++			 * information.
++			 *
++			 * [1] https://www.spinics.net/lists/linux-mm/msg142700.html
++			 */
++			if (!page_has_buffers(page)) {
++				ext4_warning_inode(mpd->inode, "page %lu does not have buffers attached", page->index);
++				ClearPageDirty(page);
++				unlock_page(page);
++				continue;
++			}
++
+ 			if (mpd->map.m_len == 0)
+ 				mpd->first_page = page->index;
+ 			mpd->next_page = page->index + 1;
 -- 
-Dave Chinner
-david@fromorbit.com
+2.31.0
 
