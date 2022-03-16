@@ -1,57 +1,79 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5BB54DB329
-	for <lists+cluster-devel@lfdr.de>; Wed, 16 Mar 2022 15:25:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1647440709;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=1+D0swD5FsQ0nAtMkuyG86DvD95/IH5zD5Op7SXFQSs=;
-	b=M2LjY0Bwkr/GUK9mSxQKiDVpfnlKld8rcIZJzONEGn3hv92th3W/4s7MZm34TAB+INv7aB
-	GGCJ87nXLiXHigeoV4npAyx4TX11aeif26QfcN0KSpomGuHFxfjzsOwiVSAnuhIAo6/CLx
-	DHoD5Wv2E+HvNiUzBnC0gV5ROJberkY=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D66C64DBA7D
+	for <lists+cluster-devel@lfdr.de>; Wed, 16 Mar 2022 23:04:03 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-139-FSOSEaoEPNiWu6G4ea0kXw-1; Wed, 16 Mar 2022 10:25:07 -0400
-X-MC-Unique: FSOSEaoEPNiWu6G4ea0kXw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-612-wlsvP-N2ObqAyLEsgbJ6-A-1; Wed, 16 Mar 2022 18:03:59 -0400
+X-MC-Unique: wlsvP-N2ObqAyLEsgbJ6-A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7407A858F14;
-	Wed, 16 Mar 2022 14:25:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9518380088A;
+	Wed, 16 Mar 2022 22:03:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 77C1A1400E70;
-	Wed, 16 Mar 2022 14:25:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3DE74409B419;
+	Wed, 16 Mar 2022 22:03:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D0630193F6EB;
-	Wed, 16 Mar 2022 14:25:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DCB73194035E;
+	Wed, 16 Mar 2022 22:03:55 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EE09E1949761 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 16 Mar 2022 14:24:58 +0000 (UTC)
+ ESMTP id 32A391949761 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 16 Mar 2022 22:03:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DF0864B8D43; Wed, 16 Mar 2022 14:24:58 +0000 (UTC)
+ id 1C503401E79; Wed, 16 Mar 2022 22:03:55 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.com (unknown [10.40.192.17])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4EB8E401E78;
- Wed, 16 Mar 2022 14:24:58 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: cluster-devel@redhat.com
-Date: Wed, 16 Mar 2022 15:24:57 +0100
-Message-Id: <20220316142457.1858333-1-agruenba@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 188AE401E7A
+ for <cluster-devel@redhat.com>; Wed, 16 Mar 2022 22:03:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F419F3C1852F
+ for <cluster-devel@redhat.com>; Wed, 16 Mar 2022 22:03:54 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-518-7DlIEgzoNbao_vUYvwsBTQ-1; Wed, 16 Mar 2022 18:03:53 -0400
+X-MC-Unique: 7DlIEgzoNbao_vUYvwsBTQ-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10288"; a="255552943"
+X-IronPort-AV: E=Sophos;i="5.90,187,1643702400"; d="scan'208";a="255552943"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2022 15:02:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,187,1643702400"; d="scan'208";a="516514827"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by orsmga006.jf.intel.com with ESMTP; 16 Mar 2022 15:02:47 -0700
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nUbjC-000Czj-Ff; Wed, 16 Mar 2022 22:02:46 +0000
+Date: Thu, 17 Mar 2022 06:02:27 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <202203170509.i1rWdOA0-lkp@intel.com>
 MIME-Version: 1.0
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH] gfs2: Disable page faults during lockless
- buffered reads
+Subject: [Cluster-devel] [gfs2:for-next 11/11] fs/gfs2/file.c:796:10:
+ warning: comparison of distinct pointer types ('typeof (size) *' (aka
+ 'unsigned int *') and 'typeof (nr_dirtied * ((1UL) << 12)) *' (aka
+ 'unsigned long *'))
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,53 +85,93 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel@redhat.com, llvm@lists.linux.dev, kbuild-all@lists.01.org,
+ linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-During lockless buffered reads, filemap_read() holds page cache page
-references while trying to copy data to the user-space buffer.  The
-calling process isn't holding the inode glock, but the page references
-it holds prevent those pages from being removed from the page cache, and
-that prevents the underlying inode glock from being moved to another
-node.  Thus, we can end up in the same kinds of distributed deadlock
-situations as with normal (non-lockless) buffered reads.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next
+head:   a20050c14edf19add5a9588cb196bb00aa410650
+commit: a20050c14edf19add5a9588cb196bb00aa410650 [11/11] gfs2: Add read/write page 'fault_stats'
+config: i386-randconfig-a011 (https://download.01.org/0day-ci/archive/20220317/202203170509.i1rWdOA0-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project a6ec1e3d798f8eab43fb3a91028c6ab04e115fcb)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=a20050c14edf19add5a9588cb196bb00aa410650
+        git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+        git fetch --no-tags gfs2 for-next
+        git checkout a20050c14edf19add5a9588cb196bb00aa410650
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash fs/gfs2/
 
-Fix that by disabling page faults during lockless reads as well.
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+All warnings (new ones prefixed by >>):
+
+>> fs/gfs2/file.c:796:10: warning: comparison of distinct pointer types ('typeof (size) *' (aka 'unsigned int *') and 'typeof (nr_dirtied * ((1UL) << 12)) *' (aka 'unsigned long *')) [-Wcompare-distinct-pointer-types]
+                   size = min(size, nr_dirtied * PAGE_SIZE);
+                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/minmax.h:45:19: note: expanded from macro 'min'
+   #define min(x, y)       __careful_cmp(x, y, <)
+                           ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/minmax.h:36:24: note: expanded from macro '__careful_cmp'
+           __builtin_choose_expr(__safe_cmp(x, y), \
+                                 ^~~~~~~~~~~~~~~~
+   include/linux/minmax.h:26:4: note: expanded from macro '__safe_cmp'
+                   (__typecheck(x, y) && __no_side_effects(x, y))
+                    ^~~~~~~~~~~~~~~~~
+   include/linux/minmax.h:20:28: note: expanded from macro '__typecheck'
+           (!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
+                      ~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~
+   1 warning generated.
+
+
+vim +796 fs/gfs2/file.c
+
+   772	
+   773	static inline bool should_fault_in_pages(ssize_t ret, struct iov_iter *i,
+   774						 size_t *prev_count,
+   775						 size_t *window_size)
+   776	{
+   777		size_t count = iov_iter_count(i);
+   778		size_t size, offs;
+   779	
+   780		if (likely(!count))
+   781			return false;
+   782		if (ret <= 0 && ret != -EFAULT)
+   783			return false;
+   784		if (!iter_is_iovec(i))
+   785			return false;
+   786	
+   787		size = PAGE_SIZE;
+   788		offs = offset_in_page(i->iov[0].iov_base + i->iov_offset);
+   789		if (*prev_count != count || !*window_size) {
+   790			int nr_dirtied;
+   791	
+   792			size = ALIGN(offs + count, PAGE_SIZE);
+   793			size = min_t(size_t, size, SZ_1M);
+   794			nr_dirtied = max(current->nr_dirtied_pause -
+   795					 current->nr_dirtied, 8);
+ > 796			size = min(size, nr_dirtied * PAGE_SIZE);
+   797		}
+   798	
+   799		*prev_count = count;
+   800		*window_size = size - offs;
+   801		return true;
+   802	}
+   803	
+
 ---
- fs/gfs2/file.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-index ac0665a70d46..9b9638beacd1 100644
---- a/fs/gfs2/file.c
-+++ b/fs/gfs2/file.c
-@@ -957,14 +957,16 @@ static ssize_t gfs2_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 			return ret;
- 		iocb->ki_flags &= ~IOCB_DIRECT;
- 	}
-+	pagefault_disable();
- 	iocb->ki_flags |= IOCB_NOIO;
- 	ret = generic_file_read_iter(iocb, to);
- 	iocb->ki_flags &= ~IOCB_NOIO;
-+	pagefault_enable();
- 	if (ret >= 0) {
- 		if (!iov_iter_count(to))
- 			return ret;
- 		written = ret;
--	} else {
-+	} else if (ret != -EFAULT) {
- 		if (ret != -EAGAIN)
- 			return ret;
- 		if (iocb->ki_flags & IOCB_NOWAIT)
--- 
-2.33.1
+0-DAY CI Kernel Test Service
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
