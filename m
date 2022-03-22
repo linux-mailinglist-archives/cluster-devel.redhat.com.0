@@ -2,56 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B604E4E278A
-	for <lists+cluster-devel@lfdr.de>; Mon, 21 Mar 2022 14:33:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F6D64E4672
+	for <lists+cluster-devel@lfdr.de>; Tue, 22 Mar 2022 20:06:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1647869590;
+	s=mimecast20190719; t=1647975962;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=iySWMzU1XlpKHE4XEgQ+InnJLncuMozjeoUgRnxmEk4=;
-	b=HLX0isCaQHutJ2zfn63Lk3otGHYLfnbwWLEfwlXFRzBjIF2UHQ2mH7tUU1oq6x7wy4W9x/
-	FUVaDrDeeJ0O/Ifnk/6oBV4rZOmHBz+b9qn3DugMwBhM6i9xyQTDnUKRWW1bUfmfnMSmTj
-	/peAZUAqMLwb67ng56zMXQ3Hs/CEdZc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=VNSXCyf7Hfqviae1lpZzEwTOnix0tsYSoHA7daqYDoI=;
+	b=KUKTXnQMQNDPA+6fK4bYodXrfFhDIdvic4VBBJBZe/syOno5VLYAmAi2ZewVrmeCDru7cs
+	tJXW2dnp4eNHeBH7wDy9kBWrVUCzW0ips+wBCG1fkb2zJd/Rr+ZzaXHp02DcZk+ZV+NNso
+	ZbOUBVL+HrewtGNMtTXU0L5XzG6Zh64=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-297-JK0E36ZvO0i7mhjyZkqKzg-1; Mon, 21 Mar 2022 09:33:07 -0400
-X-MC-Unique: JK0E36ZvO0i7mhjyZkqKzg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-343-l_vuhQUwMDW0SvdE5ayL_Q-1; Tue, 22 Mar 2022 15:05:59 -0400
+X-MC-Unique: l_vuhQUwMDW0SvdE5ayL_Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6B8A3C1984A;
-	Mon, 21 Mar 2022 13:33:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C03B80159B;
+	Tue, 22 Mar 2022 19:05:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 99EF54428F2;
-	Mon, 21 Mar 2022 13:33:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 34CC62166B46;
+	Tue, 22 Mar 2022 19:05:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1F44D1947BBF;
-	Mon, 21 Mar 2022 13:33:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E48D21940347;
+	Tue, 22 Mar 2022 19:05:55 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9140119451F1 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 21 Mar 2022 13:33:01 +0000 (UTC)
+ ESMTP id 5CF7F1949762 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 22 Mar 2022 19:05:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 80BA74428FF; Mon, 21 Mar 2022 13:33:01 +0000 (UTC)
+ id 1234C1400E70; Tue, 22 Mar 2022 19:05:54 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.com (unknown [10.40.192.17])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E59894428F2;
- Mon, 21 Mar 2022 13:33:00 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
+Received: from cicero.cable.virginm.net (unknown [10.33.37.28])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BDB01400C2F
+ for <cluster-devel@redhat.com>; Tue, 22 Mar 2022 19:05:53 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
 To: cluster-devel@redhat.com
-Date: Mon, 21 Mar 2022 14:32:59 +0100
-Message-Id: <20220321133259.2059728-1-agruenba@redhat.com>
+Date: Tue, 22 Mar 2022 19:05:51 +0000
+Message-Id: <20220322190551.357960-1-anprice@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [Cluster-devel] [PATCH] gfs2: Fix gfs2_file_buffered_write endless
- loop workaround
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [Cluster-devel] [PATCH] gfs2: Make sure FITRIM minlen is rounded up
+ to fs block size
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,7 +65,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -73,28 +73,39 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
 
-Since commit 554c577cee95b, gfs2_file_buffered_write() can accidentally
-return a truncated iov_iter, which will break generic_write_sync() in
-gfs2_file_write_iter().  Fix that.
+Per fstrim(8) we must round up the minlen argument to the fs block size.
+The current calculation doesn't take into account devices that have a
+discard granularity and requested minlen less than 1 fs block, so the
+value can get shifted away to zero in the translation to fs blocks.
 
-Fixes: 554c577cee95b ("gfs2: Prevent endless loops in gfs2_file_buffered_write")
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+The zero minlen passed to gfs2_rgrp_send_discards() then allows
+sb_issue_discard() to be called with nr_sects == 0 which returns -EINVAL
+and results in gfs2_rgrp_send_discards() returning -EIO.
+
+Make sure minlen is never < 1 fs block by taking the max of the
+requested minlen and the fs block size before comparing to the device's
+discard granularity and shifting to fs blocks.
+
+Fixes: 076f0faa764ab ("GFS2: Fix FITRIM argument handling")
+Signed-off-by: Andrew Price <anprice@redhat.com>
 ---
- fs/gfs2/file.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/gfs2/rgrp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-index 44bb886eefce..19a038bc33bc 100644
---- a/fs/gfs2/file.c
-+++ b/fs/gfs2/file.c
-@@ -1084,6 +1084,7 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
- 	gfs2_holder_uninit(gh);
- 	if (statfs_gh)
- 		kfree(statfs_gh);
-+	from->count = orig_count - read;
- 	return read ? read : ret;
- }
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index 0fb3c01bc557..a34945cbf32a 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -1415,7 +1415,8 @@ int gfs2_fitrim(struct file *filp, void __user *argp)
  
+ 	start = r.start >> bs_shift;
+ 	end = start + (r.len >> bs_shift);
+-	minlen = max_t(u64, r.minlen,
++	minlen = max_t(u64, r.minlen, sdp->sd_sb.sb_bsize);
++	minlen = max_t(u64, minlen,
+ 		       q->limits.discard_granularity) >> bs_shift;
+ 
+ 	if (end <= start || minlen > sdp->sd_max_rg_data)
 -- 
-2.33.1
+2.35.1
 
