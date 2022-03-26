@@ -2,67 +2,73 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E6C94E7E76
-	for <lists+cluster-devel@lfdr.de>; Sat, 26 Mar 2022 02:52:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A79D64E8430
+	for <lists+cluster-devel@lfdr.de>; Sat, 26 Mar 2022 21:27:21 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-257-42erj_bMNdmkz0kG7DeB2w-1; Fri, 25 Mar 2022 21:52:01 -0400
-X-MC-Unique: 42erj_bMNdmkz0kG7DeB2w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-659-CQqIqzI8NiSQOtBg02CChQ-1; Sat, 26 Mar 2022 16:27:17 -0400
+X-MC-Unique: CQqIqzI8NiSQOtBg02CChQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3311886C60;
-	Sat, 26 Mar 2022 01:51:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E732E85A5A8;
+	Sat, 26 Mar 2022 20:27:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 709BD141DED5;
-	Sat, 26 Mar 2022 01:51:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DC16563BB5D;
+	Sat, 26 Mar 2022 20:27:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 05BA21940352;
-	Sat, 26 Mar 2022 01:51:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E7BC19451F3;
+	Sat, 26 Mar 2022 20:27:12 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 61A55194034E for <cluster-devel@listman.corp.redhat.com>;
- Sat, 26 Mar 2022 01:51:57 +0000 (UTC)
+ ESMTP id 0902819451ED for <cluster-devel@listman.corp.redhat.com>;
+ Sat, 26 Mar 2022 20:27:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3AC8742D3B0; Sat, 26 Mar 2022 01:51:57 +0000 (UTC)
+ id 9B98A426328; Sat, 26 Mar 2022 20:27:10 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3675542D3AD
- for <cluster-devel@redhat.com>; Sat, 26 Mar 2022 01:51:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 97DDF63BB5D
+ for <cluster-devel@redhat.com>; Sat, 26 Mar 2022 20:27:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1CCAC85A5A8
- for <cluster-devel@redhat.com>; Sat, 26 Mar 2022 01:51:57 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-4Lwk0z9JO7u3vVwS43t3qg-1; Fri, 25 Mar 2022 21:51:53 -0400
-X-MC-Unique: 4Lwk0z9JO7u3vVwS43t3qg-1
-X-IronPort-AV: E=McAfee;i="6200,9189,10297"; a="319453111"
-X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="319453111"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2022 18:51:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="584646340"
-Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
- by orsmga001.jf.intel.com with ESMTP; 25 Mar 2022 18:51:49 -0700
-Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1nXvan-000MrG-34; Sat, 26 Mar 2022 01:51:49 +0000
-Date: Sat, 26 Mar 2022 09:50:47 +0800
-From: kernel test robot <lkp@intel.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B2EA85A5A8
+ for <cluster-devel@redhat.com>; Sat, 26 Mar 2022 20:27:10 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-612-01ursK5_MimV47VTO-T9kQ-1; Sat, 26 Mar 2022 16:27:09 -0400
+X-MC-Unique: 01ursK5_MimV47VTO-T9kQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2BA7B60BC5;
+ Sat, 26 Mar 2022 20:18:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F272AC340E8;
+ Sat, 26 Mar 2022 20:18:05 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ DFB28E6D44B; Sat, 26 Mar 2022 20:18:05 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20220325143701.144731-1-agruenba@redhat.com>
+References: <20220325143701.144731-1-agruenba@redhat.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20220325143701.144731-1-agruenba@redhat.com>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+ tags/write-page-prefaulting
+X-PR-Tracked-Commit-Id: 631f871f071746789e9242e514ab0f49067fa97a
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: a060c9409e25d573c23fccb8e02f098aa33f812e
+Message-Id: <164832588591.7233.8578715497331096134.pr-tracker-bot@kernel.org>
+Date: Sat, 26 Mar 2022 20:18:05 +0000
 To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <202203260944.DMj6xxB2-lkp@intel.com>
-MIME-Version: 1.0
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -71,10 +77,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [Cluster-devel] [gfs2:for-next 16/17] fs/gfs2/file.c:1073:14:
- warning: comparison of distinct pointer types ('typeof ((1UL << 18) -
- ((unsigned long)(iocb->ki_pos) & ~(~((1 << 18) - 1)))) *' (aka 'unsigned
- long *') and 'typeof (iov_iter_count(from)) *' (aka 'unsigned int *'))
+Subject: Re: [Cluster-devel] [GIT PULL] fs/iomap: Fix buffered write page
+ prefaulting
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,155 +90,28 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, llvm@lists.linux.dev, kbuild-all@lists.01.org,
- linux-kernel@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, linux-kernel@vger.kernel.org,
+ cluster-devel@redhat.com, linux-fsdevel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, Christoph Hellwig <hch@lst.de>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 2
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next
-head:   3d7b481b8a996e68339268487c0d3c8e54a2c274
-commit: 32c8d6969d43c1bce394f75e9bcf32697146a773 [16/17] gfs2: Don't get stuck on partial buffered writes
-config: hexagon-randconfig-r022-20220325 (https://download.01.org/0day-ci/archive/20220326/202203260944.DMj6xxB2-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 0f6d9501cf49ce02937099350d08f20c4af86f3d)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=32c8d6969d43c1bce394f75e9bcf32697146a773
-        git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-        git fetch --no-tags gfs2 for-next
-        git checkout 32c8d6969d43c1bce394f75e9bcf32697146a773
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash fs/gfs2/
+The pull request you sent on Fri, 25 Mar 2022 15:37:01 +0100:
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+> https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/write-page-prefaulting
 
-All warnings (new ones prefixed by >>):
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/a060c9409e25d573c23fccb8e02f098aa33f812e
 
->> fs/gfs2/file.c:1073:14: warning: comparison of distinct pointer types ('typeof ((1UL << 18) - ((unsigned long)(iocb->ki_pos) & ~(~((1 << 18) - 1)))) *' (aka 'unsigned long *') and 'typeof (iov_iter_count(from)) *' (aka 'unsigned int *')) [-Wcompare-distinct-pointer-types]
-                   min_size = min(PAGE_SIZE - offset_in_page(iocb->ki_pos),
-                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/minmax.h:45:19: note: expanded from macro 'min'
-   #define min(x, y)       __careful_cmp(x, y, <)
-                           ^~~~~~~~~~~~~~~~~~~~~~
-   include/linux/minmax.h:36:24: note: expanded from macro '__careful_cmp'
-           __builtin_choose_expr(__safe_cmp(x, y), \
-                                 ^~~~~~~~~~~~~~~~
-   include/linux/minmax.h:26:4: note: expanded from macro '__safe_cmp'
-                   (__typecheck(x, y) && __no_side_effects(x, y))
-                    ^~~~~~~~~~~~~~~~~
-   include/linux/minmax.h:20:28: note: expanded from macro '__typecheck'
-           (!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
-                      ~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~
-   1 warning generated.
-
-
-vim +1073 fs/gfs2/file.c
-
-  1005	
-  1006	static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
-  1007						struct iov_iter *from,
-  1008						struct gfs2_holder *gh)
-  1009	{
-  1010		struct file *file = iocb->ki_filp;
-  1011		struct inode *inode = file_inode(file);
-  1012		struct gfs2_inode *ip = GFS2_I(inode);
-  1013		struct gfs2_sbd *sdp = GFS2_SB(inode);
-  1014		struct gfs2_holder *statfs_gh = NULL;
-  1015		size_t prev_count = 0, window_size = 0;
-  1016		size_t read = 0;
-  1017		ssize_t ret;
-  1018	
-  1019		/*
-  1020		 * In this function, we disable page faults when we're holding the
-  1021		 * inode glock while doing I/O.  If a page fault occurs, we indicate
-  1022		 * that the inode glock may be dropped, fault in the pages manually,
-  1023		 * and retry.
-  1024		 */
-  1025	
-  1026		if (inode == sdp->sd_rindex) {
-  1027			statfs_gh = kmalloc(sizeof(*statfs_gh), GFP_NOFS);
-  1028			if (!statfs_gh)
-  1029				return -ENOMEM;
-  1030		}
-  1031	
-  1032		gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, gh);
-  1033	retry:
-  1034		ret = gfs2_glock_nq(gh);
-  1035		if (ret)
-  1036			goto out_uninit;
-  1037	retry_under_glock:
-  1038		if (inode == sdp->sd_rindex) {
-  1039			struct gfs2_inode *m_ip = GFS2_I(sdp->sd_statfs_inode);
-  1040	
-  1041			ret = gfs2_glock_nq_init(m_ip->i_gl, LM_ST_EXCLUSIVE,
-  1042						 GL_NOCACHE, statfs_gh);
-  1043			if (ret)
-  1044				goto out_unlock;
-  1045		}
-  1046	
-  1047		current->backing_dev_info = inode_to_bdi(inode);
-  1048		pagefault_disable();
-  1049		ret = iomap_file_buffered_write(iocb, from, &gfs2_iomap_ops);
-  1050		pagefault_enable();
-  1051		current->backing_dev_info = NULL;
-  1052		if (ret > 0) {
-  1053			iocb->ki_pos += ret;
-  1054			read += ret;
-  1055		}
-  1056	
-  1057		if (inode == sdp->sd_rindex)
-  1058			gfs2_glock_dq_uninit(statfs_gh);
-  1059	
-  1060		if (should_fault_in_pages(ret, from, &prev_count, &window_size)) {
-  1061			size_t min_size, leftover;
-  1062	
-  1063			/*
-  1064			 * Make sure to fault in enough memory to fill at least one
-  1065			 * page cache page.  Otherwise, we could end up with a partial
-  1066			 * write that __iomap_write_end() treats as a zero-length
-  1067			 * write, and we would get stuck.
-  1068			 *
-  1069			 * Note that we assume that after fault_in_iov_iter_readable(),
-  1070			 * at least min_size bytes of memory will be readable.  This
-  1071			 * could change with sub-page pointer color probing.
-  1072			 */
-> 1073			min_size = min(PAGE_SIZE - offset_in_page(iocb->ki_pos),
-  1074				       iov_iter_count(from));
-  1075			if (window_size < min_size)
-  1076				window_size = min_size;
-  1077	
-  1078			gfs2_holder_allow_demote(gh);
-  1079			leftover = fault_in_iov_iter_readable(from, window_size);
-  1080			gfs2_holder_disallow_demote(gh);
-  1081			if (window_size - leftover >= min_size) {
-  1082				if (gfs2_holder_queued(gh))
-  1083					goto retry_under_glock;
-  1084				if (read && !(iocb->ki_flags & IOCB_DIRECT))
-  1085					goto out_uninit;
-  1086				goto retry;
-  1087			}
-  1088		}
-  1089	out_unlock:
-  1090		if (gfs2_holder_queued(gh))
-  1091			gfs2_glock_dq(gh);
-  1092	out_uninit:
-  1093		gfs2_holder_uninit(gh);
-  1094		if (statfs_gh)
-  1095			kfree(statfs_gh);
-  1096		return read ? read : ret;
-  1097	}
-  1098	
+Thank you!
 
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
