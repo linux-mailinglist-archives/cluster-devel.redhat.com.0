@@ -1,70 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B1A04EC969
-	for <lists+cluster-devel@lfdr.de>; Wed, 30 Mar 2022 18:14:24 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A5B44EE268
+	for <lists+cluster-devel@lfdr.de>; Thu, 31 Mar 2022 22:12:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1648757542;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=jBPSjnhwpWFALN0L6yWTQywPWw7srfjFAJx0tzMpuE8=;
+	b=JxJ3olnBo7MnsdcK8vSyM13qREV/tshwNUeDsvXoaOSVrTnum8EP5ysoq4QGzb1xwrWna7
+	qtJ5lxH8WqQL/Q2IwB25SRMk3+dd/xFLIXvJ+nYpWytoDJ7CKSqzQNj77zq9ksQnQFCyXc
+	wFMdqe0HvdMXO6vIsyZBpNaYtKGHecU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-218-YPlzwHVnPkKvSN2-k-f4Og-1; Wed, 30 Mar 2022 12:14:19 -0400
-X-MC-Unique: YPlzwHVnPkKvSN2-k-f4Og-1
+ us-mta-475-fTBQYTlGPEypq-zRJ5uVow-1; Thu, 31 Mar 2022 16:12:19 -0400
+X-MC-Unique: fTBQYTlGPEypq-zRJ5uVow-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DE6F5185A7BA;
-	Wed, 30 Mar 2022 16:14:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E9CF2800161;
+	Thu, 31 Mar 2022 20:12:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8F71F40CF8E4;
-	Wed, 30 Mar 2022 16:14:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1331540CF8EB;
+	Thu, 31 Mar 2022 20:11:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4BE8C1947BBD;
-	Wed, 30 Mar 2022 16:14:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C7D511947BBE;
+	Thu, 31 Mar 2022 20:11:57 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5EE9519451F3 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 30 Mar 2022 16:14:16 +0000 (UTC)
+ ESMTP id 956F419451F3 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 31 Mar 2022 20:11:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 04086C08F23; Wed, 30 Mar 2022 16:14:16 +0000 (UTC)
+ id A8D77401E67; Thu, 31 Mar 2022 20:11:55 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 00996C08F11
- for <cluster-devel@redhat.com>; Wed, 30 Mar 2022 16:14:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E0586185A7B2
- for <cluster-devel@redhat.com>; Wed, 30 Mar 2022 16:14:15 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-592-haaUQxK9MZyKWtUPb99PlA-1; Wed, 30 Mar 2022 12:14:13 -0400
-X-MC-Unique: haaUQxK9MZyKWtUPb99PlA-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nZagb-00GhUG-Ad; Wed, 30 Mar 2022 15:56:41 +0000
-Date: Wed, 30 Mar 2022 08:56:41 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Message-ID: <YkR9uT3/eRHqGtbe@infradead.org>
-References: <20220311083616.2213689-1-jiasheng@iscas.ac.cn>
+Received: from max.com (unknown [10.40.195.36])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 3216C401DAD;
+ Thu, 31 Mar 2022 20:11:52 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 31 Mar 2022 22:11:49 +0200
+Message-Id: <20220331201149.566786-1-agruenba@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20220311083616.2213689-1-jiasheng@iscas.ac.cn>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: Re: [Cluster-devel] [PATCH] gfs2: Add check for mempool_alloc
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [Cluster-devel] [GIT PULL] gfs fixes for 5.18-rc1
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,18 +70,69 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Fri, Mar 11, 2022 at 04:36:16PM +0800, Jiasheng Jiang wrote:
-> As the potential failure of mempool_alloc(),
-> it could return NULL pointer.
-> Therefore, it should be better to check it
-> in order to avoid the dereference of the NULL
-> pointer.
-> 
-> Fixes: e8c92ed76900 ("GFS2: Clean up log write code path")
-> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Hi Linus,
 
-Please explain how it could fail to start with.
+please consider pulling the following gfs2 fixes for 5.18-rc1.
+
+Thanks,
+Andreas
+
+The following changes since commit 754e0b0e35608ed5206d6a67a791563c631cec07:
+
+  Linux 5.17-rc4 (2022-02-13 12:13:30 -0800)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.17-rc4-fixes
+
+for you to fetch changes up to 27ca8273fda398638ca994a207323a85b6d81190:
+
+  gfs2: Make sure FITRIM minlen is rounded up to fs block size (2022-03-31 20:35:38 +0200)
+
+----------------------------------------------------------------
+gfs2 fixes
+
+* To avoid deadlocks, actively cancel dlm locking requests when we give
+  up on them.  Further dlm operations on the same lock will return
+  -EBUSY until the cancel has been completed, so in that case, wait and
+  repeat.  (This is rare.)
+* Lock inversion fixes in gfs2_inode_lookup() and gfs2_create_inode().
+* Some more fallout from the gfs2 mmap + page fault deadlock fixes
+  (merge c03098d4b9ad7).
+* Various other minor bug fixes and cleanups.
+
+----------------------------------------------------------------
+Andreas Gruenbacher (12):
+      gfs2: gfs2_setattr_size error path fix
+      gfs2: Expect -EBUSY after canceling dlm locking requests
+      gfs2: cancel timed-out glock requests
+      gfs2: Switch lock order of inode and iopen glock
+      gfs2: Make use of list_is_first
+      gfs2: Initialize gh_error in gfs2_glock_nq
+      gfs2: Fix should_fault_in_pages() logic
+      gfs2: Disable page faults during lockless buffered reads
+      gfs2: Minor retry logic cleanup
+      gfs2: Fix gfs2_file_buffered_write endless loop workaround
+      gfs2: Remove dead code in gfs2_file_read_iter
+      gfs2: Make sure not to return short direct writes
+
+Andrew Price (1):
+      gfs2: Make sure FITRIM minlen is rounded up to fs block size
+
+Bob Peterson (2):
+      gfs2: assign rgrp glock before compute_bitstructs
+      gfs2: Remove return value for gfs2_indirect_init
+
+ fs/gfs2/bmap.c     |  9 ++++----
+ fs/gfs2/file.c     | 68 ++++++++++++++++++++++++++----------------------------
+ fs/gfs2/glock.c    | 14 +++++++++--
+ fs/gfs2/inode.c    | 51 ++++++++++++++++++++++------------------
+ fs/gfs2/lock_dlm.c | 15 +++++++++++-
+ fs/gfs2/rgrp.c     | 19 ++++++++-------
+ fs/gfs2/rgrp.h     |  2 +-
+ fs/gfs2/super.c    |  2 +-
+ 8 files changed, 104 insertions(+), 76 deletions(-)
 
