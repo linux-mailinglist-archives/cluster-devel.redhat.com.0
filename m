@@ -1,56 +1,83 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A5B44EE268
-	for <lists+cluster-devel@lfdr.de>; Thu, 31 Mar 2022 22:12:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1648757542;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=jBPSjnhwpWFALN0L6yWTQywPWw7srfjFAJx0tzMpuE8=;
-	b=JxJ3olnBo7MnsdcK8vSyM13qREV/tshwNUeDsvXoaOSVrTnum8EP5ysoq4QGzb1xwrWna7
-	qtJ5lxH8WqQL/Q2IwB25SRMk3+dd/xFLIXvJ+nYpWytoDJ7CKSqzQNj77zq9ksQnQFCyXc
-	wFMdqe0HvdMXO6vIsyZBpNaYtKGHecU=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D20824EE4D2
+	for <lists+cluster-devel@lfdr.de>; Fri,  1 Apr 2022 01:33:05 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-475-fTBQYTlGPEypq-zRJ5uVow-1; Thu, 31 Mar 2022 16:12:19 -0400
-X-MC-Unique: fTBQYTlGPEypq-zRJ5uVow-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-412-hvBtVFhyOXGmoZbZD3d4ZQ-1; Thu, 31 Mar 2022 19:33:01 -0400
+X-MC-Unique: hvBtVFhyOXGmoZbZD3d4ZQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E9CF2800161;
-	Thu, 31 Mar 2022 20:12:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2C728041B8;
+	Thu, 31 Mar 2022 23:32:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1331540CF8EB;
-	Thu, 31 Mar 2022 20:11:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6F0D840D1B9B;
+	Thu, 31 Mar 2022 23:32:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C7D511947BBE;
-	Thu, 31 Mar 2022 20:11:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 10BDA1947BBF;
+	Thu, 31 Mar 2022 23:32:50 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 956F419451F3 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 31 Mar 2022 20:11:56 +0000 (UTC)
+ ESMTP id 4E59219451F3 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 31 Mar 2022 23:32:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A8D77401E67; Thu, 31 Mar 2022 20:11:55 +0000 (UTC)
+ id 2489C76C4; Thu, 31 Mar 2022 23:32:48 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.com (unknown [10.40.195.36])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 3216C401DAD;
- Thu, 31 Mar 2022 20:11:52 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 31 Mar 2022 22:11:49 +0200
-Message-Id: <20220331201149.566786-1-agruenba@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [Cluster-devel] [GIT PULL] gfs fixes for 5.18-rc1
+Received: from mimecast-mx02.redhat.com
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F63176C2
+ for <cluster-devel@redhat.com>; Thu, 31 Mar 2022 23:32:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B01331C05AC6
+ for <cluster-devel@redhat.com>; Thu, 31 Mar 2022 23:32:43 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-607-MsnXKdmMNrmHAr7qbjbCFg-1; Thu, 31 Mar 2022 19:32:35 -0400
+X-MC-Unique: MsnXKdmMNrmHAr7qbjbCFg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9B3ECB82298;
+ Thu, 31 Mar 2022 23:22:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A227C340F2;
+ Thu, 31 Mar 2022 23:22:56 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 380CCEAC09B; Thu, 31 Mar 2022 23:22:56 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20220331201149.566786-1-agruenba@redhat.com>
+References: <20220331201149.566786-1-agruenba@redhat.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20220331201149.566786-1-agruenba@redhat.com>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+ tags/gfs2-v5.17-rc4-fixes
+X-PR-Tracked-Commit-Id: 27ca8273fda398638ca994a207323a85b6d81190
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 3d198e42ce25cb1d58ff7052c036407271ebfb51
+Message-Id: <164876897622.28012.1848928690831938514.pr-tracker-bot@kernel.org>
+Date: Thu, 31 Mar 2022 23:22:56 +0000
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: Re: [Cluster-devel] [GIT PULL] gfs fixes for 5.18-rc1
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,77 +89,27 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
+Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 2
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Hi Linus,
+The pull request you sent on Thu, 31 Mar 2022 22:11:49 +0200:
 
-please consider pulling the following gfs2 fixes for 5.18-rc1.
+> https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.17-rc4-fixes
 
-Thanks,
-Andreas
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/3d198e42ce25cb1d58ff7052c036407271ebfb51
 
-The following changes since commit 754e0b0e35608ed5206d6a67a791563c631cec07:
+Thank you!
 
-  Linux 5.17-rc4 (2022-02-13 12:13:30 -0800)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.17-rc4-fixes
-
-for you to fetch changes up to 27ca8273fda398638ca994a207323a85b6d81190:
-
-  gfs2: Make sure FITRIM minlen is rounded up to fs block size (2022-03-31 20:35:38 +0200)
-
-----------------------------------------------------------------
-gfs2 fixes
-
-* To avoid deadlocks, actively cancel dlm locking requests when we give
-  up on them.  Further dlm operations on the same lock will return
-  -EBUSY until the cancel has been completed, so in that case, wait and
-  repeat.  (This is rare.)
-* Lock inversion fixes in gfs2_inode_lookup() and gfs2_create_inode().
-* Some more fallout from the gfs2 mmap + page fault deadlock fixes
-  (merge c03098d4b9ad7).
-* Various other minor bug fixes and cleanups.
-
-----------------------------------------------------------------
-Andreas Gruenbacher (12):
-      gfs2: gfs2_setattr_size error path fix
-      gfs2: Expect -EBUSY after canceling dlm locking requests
-      gfs2: cancel timed-out glock requests
-      gfs2: Switch lock order of inode and iopen glock
-      gfs2: Make use of list_is_first
-      gfs2: Initialize gh_error in gfs2_glock_nq
-      gfs2: Fix should_fault_in_pages() logic
-      gfs2: Disable page faults during lockless buffered reads
-      gfs2: Minor retry logic cleanup
-      gfs2: Fix gfs2_file_buffered_write endless loop workaround
-      gfs2: Remove dead code in gfs2_file_read_iter
-      gfs2: Make sure not to return short direct writes
-
-Andrew Price (1):
-      gfs2: Make sure FITRIM minlen is rounded up to fs block size
-
-Bob Peterson (2):
-      gfs2: assign rgrp glock before compute_bitstructs
-      gfs2: Remove return value for gfs2_indirect_init
-
- fs/gfs2/bmap.c     |  9 ++++----
- fs/gfs2/file.c     | 68 ++++++++++++++++++++++++++----------------------------
- fs/gfs2/glock.c    | 14 +++++++++--
- fs/gfs2/inode.c    | 51 ++++++++++++++++++++++------------------
- fs/gfs2/lock_dlm.c | 15 +++++++++++-
- fs/gfs2/rgrp.c     | 19 ++++++++-------
- fs/gfs2/rgrp.h     |  2 +-
- fs/gfs2/super.c    |  2 +-
- 8 files changed, 104 insertions(+), 76 deletions(-)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
