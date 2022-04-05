@@ -1,61 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59ACD4F1A15
-	for <lists+cluster-devel@lfdr.de>; Mon,  4 Apr 2022 22:07:27 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 879BF4F2F35
+	for <lists+cluster-devel@lfdr.de>; Tue,  5 Apr 2022 14:09:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649102846;
+	s=mimecast20190719; t=1649160540;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7h3YGOrUhQqhwu31tVeczQpYj1/qrqqHAFNJKyJXRLw=;
-	b=S9K42fWMEQjvIyEBvojprJCDzC6WNhFvO8i47g5NyNSKdJpw/Mu8/+wHctgUUwth0HMAYN
-	8zNFbPpAD2n160kZlbu9JXbVN20er/GZ+yhOjXmoOKsHZ1d/CfoTFRz0dKb8sAYZDgbNNd
-	CebQ4tmByMWCxwEr3fCb09x1sNx9A28=
+	bh=IoQV32cR5+NZ8W9slfyzzJ4oamM7Z1MxQI8XGpqsWJU=;
+	b=eZovo+0bgljeEb/DdL4Jacbkqn0cD99k088fbexgayOq9BNuF7+6wBnydcDHF08KarRut4
+	IT/vKTnI9LGyR8uBt/izJLoN+Ej2ouqUFi/ptAIqu7sHf5qOfDFBJ2DY3yuEZf/3FB9r8Z
+	57lD/j5kKPMXiniyvQOcANFHKaBJBwg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-600-LuYEYKsrOBugQopRA7-4pQ-1; Mon, 04 Apr 2022 16:07:21 -0400
-X-MC-Unique: LuYEYKsrOBugQopRA7-4pQ-1
+ us-mta-17-_R_iL-DJNGSzpijR9S8RDw-1; Tue, 05 Apr 2022 08:08:56 -0400
+X-MC-Unique: _R_iL-DJNGSzpijR9S8RDw-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ABA7B100BAD0;
-	Mon,  4 Apr 2022 20:07:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 856E5185A79C;
+	Tue,  5 Apr 2022 12:08:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E351428F0B;
-	Mon,  4 Apr 2022 20:07:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 20B0A401E0A;
+	Tue,  5 Apr 2022 12:08:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 45B62194EB8B;
-	Mon,  4 Apr 2022 20:06:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C92A91940369;
+	Tue,  5 Apr 2022 12:08:50 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BD76B193F517 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  4 Apr 2022 20:06:55 +0000 (UTC)
+ ESMTP id 0F09219466DF for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  5 Apr 2022 12:08:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B1E387C28; Mon,  4 Apr 2022 20:06:55 +0000 (UTC)
+ id E09D840D2962; Tue,  5 Apr 2022 12:08:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 94EA67C2A;
- Mon,  4 Apr 2022 20:06:55 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Mon,  4 Apr 2022 16:06:46 -0400
-Message-Id: <20220404200646.3170301-20-aahringo@redhat.com>
-In-Reply-To: <20220404200646.3170301-1-aahringo@redhat.com>
-References: <20220404200646.3170301-1-aahringo@redhat.com>
+Received: from cicero.cable.virginm.net (unknown [10.33.37.28])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6422A40D282A
+ for <cluster-devel@redhat.com>; Tue,  5 Apr 2022 12:08:49 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Tue,  5 Apr 2022 13:08:47 +0100
+Message-Id: <20220405120847.583327-1-anprice@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: [Cluster-devel] [PATCH RESEND v5.18-rc1 19/19] fs: dlm: check
- required context while close
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH RESEND] gfs2: Return more useful errors from
+ gfs2_rgrp_send_discards()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,7 +63,6 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
@@ -78,75 +73,54 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch adds a WARN_ON() check to validate the right context while
-dlm_midcomms_close() is called. Even before commit 489d8e559c65
-("fs: dlm: add reliable connection if reconnect") in this context
-dlm_lowcomms_close() flushes all ongoing transmission triggered by dlm
-application stack. If we do that, it's required that no new message will
-be triggered by the dlm application stack. The function
-dlm_midcomms_close() is not called often so we can check if all
-lockspaces are in such context.
+The bug that 27ca8273f ("gfs2: Make sure FITRIM minlen is rounded up to
+fs block size") fixes was a little confusing as the user saw
+"Input/output error" which masked the -EINVAL that sb_issue_discard()
+returned.
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
+sb_issue_discard() can fail for various reasons, so we should return its
+return value from gfs2_rgrp_send_discards() to avoid all errors being
+reported as IO errors.
+
+This improves error reporting for FITRIM and makes no difference to the
+-o discard code path because the return value from
+gfs2_rgrp_send_discards() gets thrown away in that case (and the option
+switches off). Presumably that's why it was ok to just return -EIO in
+the past, before FITRIM was implemented.
+
+Tested with xfstests.
+
+Signed-off-by: Andrew Price <anprice@redhat.com>
 ---
- fs/dlm/lockspace.c | 12 ++++++++++++
- fs/dlm/lockspace.h |  1 +
- fs/dlm/midcomms.c  |  3 +++
- 3 files changed, 16 insertions(+)
 
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index 0d3833a124a3..19ed41a5da93 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -922,3 +922,15 @@ void dlm_stop_lockspaces(void)
- 		log_print("dlm user daemon left %d lockspaces", count);
+I don't see this in for-next yet so I've updated the commit log to include more
+details.
+
+ fs/gfs2/rgrp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
+index 801ad9f4f2be..886343cc05ab 100644
+--- a/fs/gfs2/rgrp.c
++++ b/fs/gfs2/rgrp.c
+@@ -1315,7 +1315,7 @@ int gfs2_rgrp_send_discards(struct gfs2_sbd *sdp, u64 offset,
+ 	u64 blk;
+ 	sector_t start = 0;
+ 	sector_t nr_blks = 0;
+-	int rv;
++	int rv = -EIO;
+ 	unsigned int x;
+ 	u32 trimmed = 0;
+ 	u8 diff;
+@@ -1371,7 +1371,7 @@ int gfs2_rgrp_send_discards(struct gfs2_sbd *sdp, u64 offset,
+ 	if (sdp->sd_args.ar_discard)
+ 		fs_warn(sdp, "error %d on discard request, turning discards off for this filesystem\n", rv);
+ 	sdp->sd_args.ar_discard = 0;
+-	return -EIO;
++	return rv;
  }
  
-+void dlm_stop_lockspaces_check(void)
-+{
-+	struct dlm_ls *ls;
-+
-+	spin_lock(&lslist_lock);
-+	list_for_each_entry(ls, &lslist, ls_list) {
-+		if (WARN_ON(!rwsem_is_locked(&ls->ls_in_recovery) ||
-+			    !dlm_locking_stopped(ls)))
-+			break;
-+	}
-+	spin_unlock(&lslist_lock);
-+}
-diff --git a/fs/dlm/lockspace.h b/fs/dlm/lockspace.h
-index a78d853b9342..306fc4f4ea15 100644
---- a/fs/dlm/lockspace.h
-+++ b/fs/dlm/lockspace.h
-@@ -19,6 +19,7 @@ struct dlm_ls *dlm_find_lockspace_local(void *id);
- struct dlm_ls *dlm_find_lockspace_device(int minor);
- void dlm_put_lockspace(struct dlm_ls *ls);
- void dlm_stop_lockspaces(void);
-+void dlm_stop_lockspaces_check(void);
- 
- #endif				/* __LOCKSPACE_DOT_H__ */
- 
-diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index 649efe120eee..6489bc22ad61 100644
---- a/fs/dlm/midcomms.c
-+++ b/fs/dlm/midcomms.c
-@@ -135,6 +135,7 @@
- #include <net/tcp.h>
- 
- #include "dlm_internal.h"
-+#include "lockspace.h"
- #include "lowcomms.h"
- #include "config.h"
- #include "memory.h"
-@@ -1412,6 +1413,8 @@ int dlm_midcomms_close(int nodeid)
- 	if (nodeid == dlm_our_nodeid())
- 		return 0;
- 
-+	dlm_stop_lockspaces_check();
-+
- 	idx = srcu_read_lock(&nodes_srcu);
- 	/* Abort pending close/remove operation */
- 	node = nodeid2node(nodeid, 0);
+ /**
 -- 
-2.31.1
+2.35.1
 
