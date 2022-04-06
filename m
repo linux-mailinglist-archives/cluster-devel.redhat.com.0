@@ -1,58 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 283A84F55EA
-	for <lists+cluster-devel@lfdr.de>; Wed,  6 Apr 2022 08:18:05 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A82EA4F56A7
+	for <lists+cluster-devel@lfdr.de>; Wed,  6 Apr 2022 08:59:04 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-55-0WIJ5LY1OJerXLaFmIyTdA-1; Wed, 06 Apr 2022 02:18:01 -0400
-X-MC-Unique: 0WIJ5LY1OJerXLaFmIyTdA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-562-rn3Y-ynUM8G_CK9OUMEhkw-1; Wed, 06 Apr 2022 02:58:58 -0400
+X-MC-Unique: rn3Y-ynUM8G_CK9OUMEhkw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6613B3802AC7;
-	Wed,  6 Apr 2022 06:18:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF470101A52C;
+	Wed,  6 Apr 2022 06:58:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 25E6440470D0;
-	Wed,  6 Apr 2022 06:18:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C9A4EC44CC3;
+	Wed,  6 Apr 2022 06:58:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 803B6194036C;
-	Wed,  6 Apr 2022 06:17:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9E42B1940369;
+	Wed,  6 Apr 2022 06:58:57 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E182C19451F3 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  6 Apr 2022 06:17:57 +0000 (UTC)
+ ESMTP id 9E04019451F3 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  6 Apr 2022 06:58:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CEE9F40D1B9E; Wed,  6 Apr 2022 06:17:57 +0000 (UTC)
+ id 7ECF340C1241; Wed,  6 Apr 2022 06:58:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CAADC40D1B9D
- for <cluster-devel@redhat.com>; Wed,  6 Apr 2022 06:17:57 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7AEF9403D188
+ for <cluster-devel@redhat.com>; Wed,  6 Apr 2022 06:58:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0602811E83
- for <cluster-devel@redhat.com>; Wed,  6 Apr 2022 06:17:57 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6108C811E83
+ for <cluster-devel@redhat.com>; Wed,  6 Apr 2022 06:58:56 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-524-i89zlhfeMAaoEk-ZrRnP0Q-1; Wed, 06 Apr 2022 02:17:56 -0400
-X-MC-Unique: i89zlhfeMAaoEk-ZrRnP0Q-1
+ us-mta-97-rNfDCaqaPdGSRF9F9nNDQg-1; Wed, 06 Apr 2022 02:58:54 -0400
+X-MC-Unique: rNfDCaqaPdGSRF9F9nNDQg-1
 Received: from 213-225-3-188.nat.highway.a1.net ([213.225.3.188]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nbyne-003v04-Nu; Wed, 06 Apr 2022 06:05:51 +0000
+ id 1nbyni-003v3I-Ik; Wed, 06 Apr 2022 06:05:55 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  6 Apr 2022 08:04:57 +0200
-Message-Id: <20220406060516.409838-9-hch@lst.de>
+Date: Wed,  6 Apr 2022 08:04:58 +0200
+Message-Id: <20220406060516.409838-10-hch@lst.de>
 In-Reply-To: <20220406060516.409838-1-hch@lst.de>
 References: <20220406060516.409838-1-hch@lst.de>
 MIME-Version: 1.0
@@ -66,8 +66,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: [Cluster-devel] [PATCH 08/27] ntfs3: use bdev_logical_block_size
- instead of open coding it
+Subject: [Cluster-devel] [PATCH 09/27] mm: use bdev_is_zoned in
+ claim_swapfile
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,7 +95,7 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,24 +103,26 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
+Use the bdev based helper instead of poking into the queue.
+
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/ntfs3/super.c | 2 +-
+ mm/swapfile.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index 278dcf5024102..cd30e81abbce0 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -920,7 +920,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	}
- 
- 	/* Parse boot. */
--	err = ntfs_init_from_boot(sb, rq ? queue_logical_block_size(rq) : 512,
-+	err = ntfs_init_from_boot(sb, bdev_logical_block_size(bdev),
- 				  bdev_nr_bytes(bdev));
- 	if (err)
- 		goto out;
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 63c61f8b26118..4c7537162af5e 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2761,7 +2761,7 @@ static int claim_swapfile(struct swap_info_struct *p, struct inode *inode)
+ 		 * write only restriction.  Hence zoned block devices are not
+ 		 * suitable for swapping.  Disallow them here.
+ 		 */
+-		if (blk_queue_is_zoned(p->bdev->bd_disk->queue))
++		if (bdev_is_zoned(p->bdev))
+ 			return -EINVAL;
+ 		p->flags |= SWP_BLKDEV;
+ 	} else if (S_ISREG(inode->i_mode)) {
 -- 
 2.30.2
 
