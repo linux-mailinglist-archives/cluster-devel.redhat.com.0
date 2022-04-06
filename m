@@ -2,56 +2,57 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C67694F5C0B
-	for <lists+cluster-devel@lfdr.de>; Wed,  6 Apr 2022 13:16:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D79D4F6700
+	for <lists+cluster-devel@lfdr.de>; Wed,  6 Apr 2022 19:34:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649243814;
+	s=mimecast20190719; t=1649266478;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=AP2aaCxu3PXXl+qVROwtApyiSH+aaRtobjz45Tvf+n0=;
-	b=aQCIhxc/bdl97vLWhVeBXt01XUx6Nmxm1yZYgeW8p7WgiqhI52HKRxQOrk2C5ZwdUwDM9b
-	ovwjQo86G3YXyfYOb/0EA+FS3X9Z0yXr/u5bFIOnUND/BjogmlIKOM9qE6N8xQDPDJ2yPJ
-	tMjDbhS4KCnlVAAc0QlB5ZbVffdCxt4=
+	bh=IyvFf+DCL2hc/t3WsFdKzZll3I/o2aU4yKX6j4s525g=;
+	b=AkSJJAkR4uwJVtfvh1TmzCUXGN6FtDQov3oY8umdpo//7sMi12jdbtuBWrGdolpj8GgKmm
+	YwYrzl+l6r3yC+/5ouXUPjWJ/qNBJDV6Ni3+ar59HBc7VmEolnN6CP620jSiC4MvQzxAgg
+	UcaGrjwpp6rWP5xYAV72lKk8Duw4UaU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-606-PNPNWjyIMZSQOunmiD0wpg-1; Wed, 06 Apr 2022 07:16:49 -0400
-X-MC-Unique: PNPNWjyIMZSQOunmiD0wpg-1
+ us-mta-504-sNA5j_JPP2qiCk-XFOJYsg-1; Wed, 06 Apr 2022 13:34:33 -0400
+X-MC-Unique: sNA5j_JPP2qiCk-XFOJYsg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DAEE918A6587;
-	Wed,  6 Apr 2022 11:16:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66C4018F0274;
+	Wed,  6 Apr 2022 17:34:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CF3E01415101;
-	Wed,  6 Apr 2022 11:16:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D0B58145BA43;
+	Wed,  6 Apr 2022 17:34:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 70897194036C;
-	Wed,  6 Apr 2022 11:16:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D2B21194036B;
+	Wed,  6 Apr 2022 17:34:18 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 15DE61949762 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  6 Apr 2022 11:16:47 +0000 (UTC)
+ ESMTP id 5320A194034B for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  6 Apr 2022 17:34:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DA9C540CF915; Wed,  6 Apr 2022 11:16:46 +0000 (UTC)
+ id 2448340D2823; Wed,  6 Apr 2022 17:34:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from max.com (unknown [10.40.195.36])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 48C8940CF910;
- Wed,  6 Apr 2022 11:16:46 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: cluster-devel@redhat.com
-Date: Wed,  6 Apr 2022 13:16:45 +0200
-Message-Id: <20220406111645.973013-1-agruenba@redhat.com>
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+ (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7905640D2825;
+ Wed,  6 Apr 2022 17:34:17 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Wed,  6 Apr 2022 13:34:15 -0400
+Message-Id: <20220406173416.3882304-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [Cluster-devel] [PATCH] gfs2: Mark the remaining
- process-independent glock holders as GL_NOPID
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH dlm/next 1/2] fs: dlm: fix wake_up() calls
+ for pending remove
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,6 +64,7 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel@redhat.com, stable@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
@@ -73,139 +75,59 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Add the GL_NOPID flag for the remaining glock holders which are not
-associated with the current process.
+This patch move the wake_up() call at the point when a remove message
+completed. Before it was only when a remove message was going to be
+sent. The possible waiter in wait_pending_remove() waits until a remove
+is done if the resource name matches with the per ls variable
+ls->ls_remove_name. If this is the case we must wait until a pending
+remove is done which is indicated if DLM_WAIT_PENDING_COND() returns
+false which will always be the case when ls_remove_len and
+ls_remove_name are unset to indicate that a remove is not going on
+anymore.
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Fixes: 21d9ac1a5376 ("fs: dlm: use event based wait for pending remove")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/gfs2/inode.c      |  7 +++++--
- fs/gfs2/ops_fstype.c | 14 ++++++++------
- fs/gfs2/super.c      |  3 ++-
- fs/gfs2/util.c       |  5 +++--
- 4 files changed, 18 insertions(+), 11 deletions(-)
+ fs/dlm/lock.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index c8ec876f33ea..469f7590de44 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -143,7 +143,8 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index 29e80039e7ca..137cf09b51e5 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -1810,7 +1810,6 @@ static void shrink_bucket(struct dlm_ls *ls, int b)
+ 		memcpy(ls->ls_remove_name, name, DLM_RESNAME_MAXLEN);
+ 		spin_unlock(&ls->ls_remove_spin);
+ 		spin_unlock(&ls->ls_rsbtbl[b].lock);
+-		wake_up(&ls->ls_remove_wait);
  
- 		if (blktype != GFS2_BLKST_UNLINKED)
- 			gfs2_cancel_delete_work(io_gl);
--		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT,
-+		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED,
-+					   GL_EXACT | GL_NOPID,
- 					   &ip->i_iopen_gh);
- 		gfs2_glock_put(io_gl);
- 		if (unlikely(error))
-@@ -720,7 +721,9 @@ static int gfs2_create_inode(struct inode *dir, struct dentry *dentry,
- 	error = insert_inode_locked4(inode, ip->i_no_addr, iget_test, &ip->i_no_addr);
- 	BUG_ON(error);
+ 		send_remove(r);
  
--	error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT, &ip->i_iopen_gh);
-+	error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED,
-+				   GL_EXACT | GL_NOPID,
-+				   &ip->i_iopen_gh);
- 	if (error)
- 		goto fail_gunlock2;
+@@ -1819,6 +1818,7 @@ static void shrink_bucket(struct dlm_ls *ls, int b)
+ 		ls->ls_remove_len = 0;
+ 		memset(ls->ls_remove_name, 0, DLM_RESNAME_MAXLEN);
+ 		spin_unlock(&ls->ls_remove_spin);
++		wake_up(&ls->ls_remove_wait);
  
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index c9b423c874a3..904a2d47c4b3 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -403,7 +403,8 @@ static int init_locking(struct gfs2_sbd *sdp, struct gfs2_holder *mount_gh,
- 
- 	error = gfs2_glock_nq_num(sdp,
- 				  GFS2_MOUNT_LOCK, &gfs2_nondisk_glops,
--				  LM_ST_EXCLUSIVE, LM_FLAG_NOEXP | GL_NOCACHE,
-+				  LM_ST_EXCLUSIVE,
-+				  LM_FLAG_NOEXP | GL_NOCACHE | GL_NOPID,
- 				  mount_gh);
- 	if (error) {
- 		fs_err(sdp, "can't acquire mount glock: %d\n", error);
-@@ -413,7 +414,7 @@ static int init_locking(struct gfs2_sbd *sdp, struct gfs2_holder *mount_gh,
- 	error = gfs2_glock_nq_num(sdp,
- 				  GFS2_LIVE_LOCK, &gfs2_nondisk_glops,
- 				  LM_ST_SHARED,
--				  LM_FLAG_NOEXP | GL_EXACT,
-+				  LM_FLAG_NOEXP | GL_EXACT | GL_NOPID,
- 				  &sdp->sd_live_gh);
- 	if (error) {
- 		fs_err(sdp, "can't acquire live glock: %d\n", error);
-@@ -689,7 +690,7 @@ static int init_statfs(struct gfs2_sbd *sdp)
- 	iput(pn);
- 	pn = NULL;
- 	ip = GFS2_I(sdp->sd_sc_inode);
--	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, 0,
-+	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_NOPID,
- 				   &sdp->sd_sc_gh);
- 	if (error) {
- 		fs_err(sdp, "can't lock local \"sc\" file: %d\n", error);
-@@ -778,7 +779,7 @@ static int init_journal(struct gfs2_sbd *sdp, int undo)
- 		error = gfs2_glock_nq_num(sdp, sdp->sd_lockstruct.ls_jid,
- 					  &gfs2_journal_glops,
- 					  LM_ST_EXCLUSIVE,
--					  LM_FLAG_NOEXP | GL_NOCACHE,
-+					  LM_FLAG_NOEXP | GL_NOCACHE | GL_NOPID,
- 					  &sdp->sd_journal_gh);
- 		if (error) {
- 			fs_err(sdp, "can't acquire journal glock: %d\n", error);
-@@ -788,7 +789,8 @@ static int init_journal(struct gfs2_sbd *sdp, int undo)
- 		ip = GFS2_I(sdp->sd_jdesc->jd_inode);
- 		sdp->sd_jinode_gl = ip->i_gl;
- 		error = gfs2_glock_nq_init(ip->i_gl, LM_ST_SHARED,
--					   LM_FLAG_NOEXP | GL_EXACT | GL_NOCACHE,
-+					   LM_FLAG_NOEXP | GL_EXACT |
-+					   GL_NOCACHE | GL_NOPID,
- 					   &sdp->sd_jinode_gh);
- 		if (error) {
- 			fs_err(sdp, "can't acquire journal inode glock: %d\n",
-@@ -959,7 +961,7 @@ static int init_per_node(struct gfs2_sbd *sdp, int undo)
- 	pn = NULL;
- 
- 	ip = GFS2_I(sdp->sd_qc_inode);
--	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, 0,
-+	error = gfs2_glock_nq_init(ip->i_gl, LM_ST_EXCLUSIVE, GL_NOPID,
- 				   &sdp->sd_qc_gh);
- 	if (error) {
- 		fs_err(sdp, "can't lock local \"qc\" file: %d\n", error);
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index bdb773e5c88f..90db4a289269 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -346,7 +346,8 @@ static int gfs2_lock_fs_check_clean(struct gfs2_sbd *sdp)
+ 		dlm_free_rsb(r);
  	}
+@@ -4096,7 +4096,6 @@ static void send_repeat_remove(struct dlm_ls *ls, char *ms_name, int len)
+ 	memcpy(ls->ls_remove_name, name, DLM_RESNAME_MAXLEN);
+ 	spin_unlock(&ls->ls_remove_spin);
+ 	spin_unlock(&ls->ls_rsbtbl[b].lock);
+-	wake_up(&ls->ls_remove_wait);
  
- 	error = gfs2_glock_nq_init(sdp->sd_freeze_gl, LM_ST_EXCLUSIVE,
--				   LM_FLAG_NOEXP, &sdp->sd_freeze_gh);
-+				   LM_FLAG_NOEXP | GL_NOPID,
-+				   &sdp->sd_freeze_gh);
- 	if (error)
- 		goto out;
+ 	rv = _create_message(ls, sizeof(struct dlm_message) + len,
+ 			     dir_nodeid, DLM_MSG_REMOVE, &ms, &mh);
+@@ -4112,6 +4111,7 @@ static void send_repeat_remove(struct dlm_ls *ls, char *ms_name, int len)
+ 	ls->ls_remove_len = 0;
+ 	memset(ls->ls_remove_name, 0, DLM_RESNAME_MAXLEN);
+ 	spin_unlock(&ls->ls_remove_spin);
++	wake_up(&ls->ls_remove_wait);
+ }
  
-diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
-index 8241029a2a5d..eda734fdd0b2 100644
---- a/fs/gfs2/util.c
-+++ b/fs/gfs2/util.c
-@@ -226,7 +226,8 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
- 	 */
- 	fs_warn(sdp, "Requesting recovery of jid %d.\n",
- 		sdp->sd_lockstruct.ls_jid);
--	gfs2_holder_reinit(LM_ST_EXCLUSIVE, LM_FLAG_TRY_1CB | LM_FLAG_NOEXP,
-+	gfs2_holder_reinit(LM_ST_EXCLUSIVE,
-+			   LM_FLAG_TRY_1CB | LM_FLAG_NOEXP | GL_NOPID,
- 			   &sdp->sd_live_gh);
- 	msleep(GL_GLOCK_MAX_HOLD);
- 	/*
-@@ -251,7 +252,7 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
- 			fs_warn(sdp, "Unable to recover our journal jid %d.\n",
- 				sdp->sd_lockstruct.ls_jid);
- 		gfs2_glock_dq_wait(&sdp->sd_live_gh);
--		gfs2_holder_reinit(LM_ST_SHARED, LM_FLAG_NOEXP | GL_EXACT,
-+		gfs2_holder_reinit(LM_ST_SHARED, LM_FLAG_NOEXP | GL_EXACT | GL_NOPID,
- 				   &sdp->sd_live_gh);
- 		gfs2_glock_nq(&sdp->sd_live_gh);
- 	}
+ static int receive_request(struct dlm_ls *ls, struct dlm_message *ms)
 -- 
-2.35.1
+2.31.1
 
