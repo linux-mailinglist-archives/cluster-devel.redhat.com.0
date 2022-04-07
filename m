@@ -2,74 +2,73 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8434F75B2
-	for <lists+cluster-devel@lfdr.de>; Thu,  7 Apr 2022 08:10:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A59724F78C5
+	for <lists+cluster-devel@lfdr.de>; Thu,  7 Apr 2022 10:03:27 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-90-eRnu2H4HMjeKxxa21BBeug-1; Thu, 07 Apr 2022 02:10:06 -0400
-X-MC-Unique: eRnu2H4HMjeKxxa21BBeug-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-208-l5FGeVCcMN-Tfd2qQrHsMQ-1; Thu, 07 Apr 2022 04:03:25 -0400
+X-MC-Unique: l5FGeVCcMN-Tfd2qQrHsMQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37AFD802819;
-	Thu,  7 Apr 2022 06:10:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B11CE8039D7;
+	Thu,  7 Apr 2022 08:03:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9A62A42B953;
-	Thu,  7 Apr 2022 06:10:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0E4FA40D2822;
+	Thu,  7 Apr 2022 08:03:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 60381194034E;
-	Thu,  7 Apr 2022 06:10:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C41E4194034E;
+	Thu,  7 Apr 2022 08:03:22 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D83961949763 for <cluster-devel@listman.corp.redhat.com>;
- Thu,  7 Apr 2022 06:10:02 +0000 (UTC)
+ ESMTP id 203721949763 for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  7 Apr 2022 08:03:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B9EFC2024CC5; Thu,  7 Apr 2022 06:10:02 +0000 (UTC)
+ id 0B917145BEE2; Thu,  7 Apr 2022 08:03:22 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B59B32024CBC
- for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 06:09:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 071F4145BEE6
+ for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 08:03:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3E2A833974
- for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 06:09:42 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E2B068117B0
+ for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 08:03:21 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-639-e0cDlKmTOXijgKwFnsc8YQ-1; Thu, 07 Apr 2022 02:09:39 -0400
-X-MC-Unique: e0cDlKmTOXijgKwFnsc8YQ-1
+ us-mta-142-q9FMfr96NKqYC32OpjoEVw-1; Thu, 07 Apr 2022 04:03:18 -0400
+X-MC-Unique: q9FMfr96NKqYC32OpjoEVw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A29E1210E4;
- Thu,  7 Apr 2022 06:09:37 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BA7481F859;
+ Thu,  7 Apr 2022 08:03:16 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4017213485;
- Thu,  7 Apr 2022 06:09:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4CF8613485;
+ Thu,  7 Apr 2022 08:03:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kE04BRyATmI2UQAAMHmgww
- (envelope-from <colyli@suse.de>); Thu, 07 Apr 2022 06:09:32 +0000
-Message-ID: <ac88801d-c1f9-e8a4-e0cf-e5f7cbdfbfc3@suse.de>
-Date: Thu, 7 Apr 2022 14:09:30 +0800
+ by imap2.suse-dmz.suse.de with ESMTPSA id F2mtCL+aTmKlAgAAMHmgww
+ (envelope-from <colyli@suse.de>); Thu, 07 Apr 2022 08:03:11 +0000
+Message-ID: <9f91936a-7dd7-2ee6-3293-f199ada85210@suse.de>
+Date: Thu, 7 Apr 2022 16:03:09 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.7.0
 To: Christoph Hellwig <hch@lst.de>
 References: <20220406060516.409838-1-hch@lst.de>
- <20220406060516.409838-27-hch@lst.de>
+ <20220406060516.409838-23-hch@lst.de>
 From: Coly Li <colyli@suse.de>
-In-Reply-To: <20220406060516.409838-27-hch@lst.de>
+In-Reply-To: <20220406060516.409838-23-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -77,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [Cluster-devel] [PATCH 26/27] block: uncouple
- REQ_OP_SECURE_ERASE from REQ_OP_DISCARD
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: Re: [Cluster-devel] [PATCH 22/27] block: refactor discard bio size
+ limiting
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +106,7 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
  ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -117,72 +116,133 @@ Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 4/6/22 2:05 PM, Christoph Hellwig wrote:
-> Secure erase is a very different operation from discard in that it is
-> a data integrity operation vs hint.  Fully split the limits and helper
-> infrastructure to make the separation more clear.
+> Move all the logic to limit the discard bio size into a common helper
+> so that it is better documented.
 >
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
-
-For the bcache part,
 
 Acked-by: Coly Li <colyli@suse.de>
 
 
-Thanks.
+Thanks for the change.
 
 Coly Li
 
 
 > ---
->   block/blk-core.c                    |  2 +-
->   block/blk-lib.c                     | 64 ++++++++++++++++++++---------
->   block/blk-mq-debugfs.c              |  1 -
->   block/blk-settings.c                | 16 +++++++-
->   block/fops.c                        |  2 +-
->   block/ioctl.c                       | 43 +++++++++++++++----
->   drivers/block/drbd/drbd_receiver.c  |  5 ++-
->   drivers/block/rnbd/rnbd-clt.c       |  4 +-
->   drivers/block/rnbd/rnbd-srv-dev.h   |  2 +-
->   drivers/block/xen-blkback/blkback.c | 15 +++----
->   drivers/block/xen-blkback/xenbus.c  |  5 +--
->   drivers/block/xen-blkfront.c        |  5 ++-
->   drivers/md/bcache/alloc.c           |  2 +-
->   drivers/md/dm-table.c               |  8 ++--
->   drivers/md/dm-thin.c                |  4 +-
->   drivers/md/md.c                     |  2 +-
->   drivers/md/raid5-cache.c            |  6 +--
->   drivers/mmc/core/queue.c            |  2 +-
->   drivers/nvme/target/io-cmd-bdev.c   |  2 +-
->   drivers/target/target_core_file.c   |  2 +-
->   drivers/target/target_core_iblock.c |  2 +-
->   fs/btrfs/extent-tree.c              |  4 +-
->   fs/ext4/mballoc.c                   |  2 +-
->   fs/f2fs/file.c                      | 16 ++++----
->   fs/f2fs/segment.c                   |  2 +-
->   fs/jbd2/journal.c                   |  2 +-
->   fs/nilfs2/sufile.c                  |  4 +-
->   fs/nilfs2/the_nilfs.c               |  4 +-
->   fs/ntfs3/super.c                    |  2 +-
->   fs/xfs/xfs_discard.c                |  2 +-
->   fs/xfs/xfs_log_cil.c                |  2 +-
->   include/linux/blkdev.h              | 27 +++++++-----
->   mm/swapfile.c                       |  6 +--
->   33 files changed, 168 insertions(+), 99 deletions(-)
-[snipped]
-> diff --git a/drivers/md/bcache/alloc.c b/drivers/md/bcache/alloc.c
-> index 097577ae3c471..ce13c272c3872 100644
-> --- a/drivers/md/bcache/alloc.c
-> +++ b/drivers/md/bcache/alloc.c
-> @@ -336,7 +336,7 @@ static int bch_allocator_thread(void *arg)
->   				mutex_unlock(&ca->set->bucket_lock);
->   				blkdev_issue_discard(ca->bdev,
->   					bucket_to_sector(ca->set, bucket),
-> -					ca->sb.bucket_size, GFP_KERNEL, 0);
-> +					ca->sb.bucket_size, GFP_KERNEL);
->   				mutex_lock(&ca->set->bucket_lock);
->   			}
+>   block/blk-lib.c | 59 ++++++++++++++++++++++++-------------------------
+>   block/blk.h     | 14 ------------
+>   2 files changed, 29 insertions(+), 44 deletions(-)
+>
+> diff --git a/block/blk-lib.c b/block/blk-lib.c
+> index 237d60d8b5857..2ae32a722851c 100644
+> --- a/block/blk-lib.c
+> +++ b/block/blk-lib.c
+> @@ -10,6 +10,32 @@
 >   
+>   #include "blk.h"
+>   
+> +static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
+> +{
+> +	unsigned int discard_granularity =
+> +		bdev_get_queue(bdev)->limits.discard_granularity;
+> +	sector_t granularity_aligned_sector;
+> +
+> +	if (bdev_is_partition(bdev))
+> +		sector += bdev->bd_start_sect;
+> +
+> +	granularity_aligned_sector =
+> +		round_up(sector, discard_granularity >> SECTOR_SHIFT);
+> +
+> +	/*
+> +	 * Make sure subsequent bios start aligned to the discard granularity if
+> +	 * it needs to be split.
+> +	 */
+> +	if (granularity_aligned_sector != sector)
+> +		return granularity_aligned_sector - sector;
+> +
+> +	/*
+> +	 * Align the bio size to the discard granularity to make splitting the bio
+> +	 * at discard granularity boundaries easier in the driver if needed.
+> +	 */
+> +	return round_down(UINT_MAX, discard_granularity) >> SECTOR_SHIFT;
+> +}
+> +
+>   int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+>   		sector_t nr_sects, gfp_t gfp_mask, int flags,
+>   		struct bio **biop)
+> @@ -17,7 +43,7 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+>   	struct request_queue *q = bdev_get_queue(bdev);
+>   	struct bio *bio = *biop;
+>   	unsigned int op;
+> -	sector_t bs_mask, part_offset = 0;
+> +	sector_t bs_mask;
+>   
+>   	if (bdev_read_only(bdev))
+>   		return -EPERM;
+> @@ -48,36 +74,9 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+>   	if (!nr_sects)
+>   		return -EINVAL;
+>   
+> -	/* In case the discard request is in a partition */
+> -	if (bdev_is_partition(bdev))
+> -		part_offset = bdev->bd_start_sect;
+> -
+>   	while (nr_sects) {
+> -		sector_t granularity_aligned_lba, req_sects;
+> -		sector_t sector_mapped = sector + part_offset;
+> -
+> -		granularity_aligned_lba = round_up(sector_mapped,
+> -				q->limits.discard_granularity >> SECTOR_SHIFT);
+> -
+> -		/*
+> -		 * Check whether the discard bio starts at a discard_granularity
+> -		 * aligned LBA,
+> -		 * - If no: set (granularity_aligned_lba - sector_mapped) to
+> -		 *   bi_size of the first split bio, then the second bio will
+> -		 *   start at a discard_granularity aligned LBA on the device.
+> -		 * - If yes: use bio_aligned_discard_max_sectors() as the max
+> -		 *   possible bi_size of the first split bio. Then when this bio
+> -		 *   is split in device drive, the split ones are very probably
+> -		 *   to be aligned to discard_granularity of the device's queue.
+> -		 */
+> -		if (granularity_aligned_lba == sector_mapped)
+> -			req_sects = min_t(sector_t, nr_sects,
+> -					  bio_aligned_discard_max_sectors(q));
+> -		else
+> -			req_sects = min_t(sector_t, nr_sects,
+> -					  granularity_aligned_lba - sector_mapped);
+> -
+> -		WARN_ON_ONCE((req_sects << 9) > UINT_MAX);
+> +		sector_t req_sects =
+> +			min(nr_sects, bio_discard_limit(bdev, sector));
+>   
+>   		bio = blk_next_bio(bio, bdev, 0, op, gfp_mask);
+>   		bio->bi_iter.bi_sector = sector;
+> diff --git a/block/blk.h b/block/blk.h
+> index 8ccbc6e076369..1fdc1d28e6d60 100644
+> --- a/block/blk.h
+> +++ b/block/blk.h
+> @@ -346,20 +346,6 @@ static inline unsigned int bio_allowed_max_sectors(struct request_queue *q)
+>   	return round_down(UINT_MAX, queue_logical_block_size(q)) >> 9;
+>   }
+>   
+> -/*
+> - * The max bio size which is aligned to q->limits.discard_granularity. This
+> - * is a hint to split large discard bio in generic block layer, then if device
+> - * driver needs to split the discard bio into smaller ones, their bi_size can
+> - * be very probably and easily aligned to discard_granularity of the device's
+> - * queue.
+> - */
+> -static inline unsigned int bio_aligned_discard_max_sectors(
+> -					struct request_queue *q)
+> -{
+> -	return round_down(UINT_MAX, q->limits.discard_granularity) >>
+> -			SECTOR_SHIFT;
+> -}
+> -
+>   /*
+>    * Internal io_context interface
+>    */
 
-
-[snipped]
 
