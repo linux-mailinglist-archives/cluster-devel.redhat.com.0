@@ -1,61 +1,64 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 944984F7021
-	for <lists+cluster-devel@lfdr.de>; Thu,  7 Apr 2022 03:17:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 086404F7022
+	for <lists+cluster-devel@lfdr.de>; Thu,  7 Apr 2022 03:18:07 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-427-pwqnu14ZOZiojssbYrDxZg-1; Wed, 06 Apr 2022 21:17:27 -0400
-X-MC-Unique: pwqnu14ZOZiojssbYrDxZg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-364-kanbKdunM3yGRHojGhZ2FQ-1; Wed, 06 Apr 2022 21:18:03 -0400
+X-MC-Unique: kanbKdunM3yGRHojGhZ2FQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E2F7B803524;
-	Thu,  7 Apr 2022 01:17:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F7B818812C8;
+	Thu,  7 Apr 2022 01:18:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D7C30145B96C;
-	Thu,  7 Apr 2022 01:17:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 635A540CF910;
+	Thu,  7 Apr 2022 01:17:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 55E62194034E;
-	Thu,  7 Apr 2022 01:17:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7014C194036C;
+	Thu,  7 Apr 2022 01:17:55 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BCD3C1949763 for <cluster-devel@listman.corp.redhat.com>;
- Thu,  7 Apr 2022 01:17:25 +0000 (UTC)
+ ESMTP id 937801949763 for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  7 Apr 2022 01:17:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A141B401E97; Thu,  7 Apr 2022 01:17:25 +0000 (UTC)
+ id 651562166B4F; Thu,  7 Apr 2022 01:17:53 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DE8C40336E
- for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 01:17:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 846093803931
- for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 01:17:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-401-gkoywK4KNp-3eyi5_FTjPw-1; Wed, 06 Apr 2022 21:17:24 -0400
-X-MC-Unique: gkoywK4KNp-3eyi5_FTjPw-1
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6018F2166B1A
+ for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 01:17:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EC4233C11C88
+ for <cluster-devel@redhat.com>; Thu,  7 Apr 2022 01:17:43 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-618-Ue39d_q-PCWctOHTNxRBzw-1; Wed, 06 Apr 2022 21:17:39 -0400
+X-MC-Unique: Ue39d_q-PCWctOHTNxRBzw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CB36B61DA4;
+ by ams.source.kernel.org (Postfix) with ESMTPS id B6B8AB82689;
+ Thu,  7 Apr 2022 01:10:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E85C385A7;
  Thu,  7 Apr 2022 01:10:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F1C5C385A3;
- Thu,  7 Apr 2022 01:10:31 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed,  6 Apr 2022 21:09:59 -0400
-Message-Id: <20220407011029.113321-1-sashal@kernel.org>
+Date: Wed,  6 Apr 2022 21:10:00 -0400
+Message-Id: <20220407011029.113321-2-sashal@kernel.org>
+In-Reply-To: <20220407011029.113321-1-sashal@kernel.org>
+References: <20220407011029.113321-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -66,9 +69,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH AUTOSEL 5.17 01/31] gfs2: assign rgrp glock
- before compute_bitstructs
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.17 02/31] gfs2: cancel timed-out
+ glock requests
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,11 +83,10 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
- syzbot+c6fd14145e2f62ca0784@syzkaller.appspotmail.com
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,65 +94,51 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: application/octet-stream; x-default=true
 
-From: Bob Peterson <rpeterso@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
 
-[ Upstream commit 428f651cb80b227af47fc302e4931791f2fb4741 ]
+[ Upstream commit 1fc05c8d8426d4085a219c23f8855c4aaf9e3ffb ]
 
-Before this patch, function read_rindex_entry called compute_bitstructs
-before it allocated a glock for the rgrp. But if compute_bitstructs found
-a problem with the rgrp, it called gfs2_consist_rgrpd, and that called
-gfs2_dump_glock for rgd->rd_gl which had not yet been assigned.
+The gfs2 evict code tries to upgrade the iopen glock from SH to EX. If
+the attempt to upgrade times out, gfs2 needs to tell dlm to cancel the
+lock request or it can deadlock. We also need to wake up the process
+waiting for the lock when dlm sends its AST back to gfs2.
 
-read_rindex_entry
-   compute_bitstructs
-      gfs2_consist_rgrpd
-         gfs2_dump_glock <---------rgd->rd_gl was not set.
-
-This patch changes read_rindex_entry so it assigns an rgrp glock before
-calling compute_bitstructs so gfs2_dump_glock does not reference an
-unassigned pointer. If an error is discovered, the glock must also be
-put, so a new goto and label were added.
-
-Reported-by: syzbot+c6fd14145e2f62ca0784@syzkaller.appspotmail.com
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/rgrp.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ fs/gfs2/glock.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 0fb3c01bc557..9b04a570c582 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -922,15 +922,15 @@ static int read_rindex_entry(struct gfs2_inode *ip)
- =09spin_lock_init(&rgd->rd_rsspin);
- =09mutex_init(&rgd->rd_mutex);
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index 6b23399eaee0..d368d9a2e8f0 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -669,6 +669,8 @@ static void finish_xmote(struct gfs2_glock *gl, unsigne=
+d int ret)
 =20
--=09error =3D compute_bitstructs(rgd);
--=09if (error)
--=09=09goto fail;
--
- =09error =3D gfs2_glock_get(sdp, rgd->rd_addr,
- =09=09=09       &gfs2_rgrp_glops, CREATE, &rgd->rd_gl);
- =09if (error)
- =09=09goto fail;
+ =09/* Check for state !=3D intended state */
+ =09if (unlikely(state !=3D gl->gl_target)) {
++=09=09if (gh && (ret & LM_OUT_CANCELED))
++=09=09=09gfs2_holder_wake(gh);
+ =09=09if (gh && !test_bit(GLF_DEMOTE_IN_PROGRESS, &gl->gl_flags)) {
+ =09=09=09/* move to back of queue and try next entry */
+ =09=09=09if (ret & LM_OUT_CANCELED) {
+@@ -1691,6 +1693,14 @@ void gfs2_glock_dq(struct gfs2_holder *gh)
+ =09struct gfs2_glock *gl =3D gh->gh_gl;
 =20
-+=09error =3D compute_bitstructs(rgd);
-+=09if (error)
-+=09=09goto fail_glock;
+ =09spin_lock(&gl->gl_lockref.lock);
++=09if (list_is_first(&gh->gh_list, &gl->gl_holders) &&
++=09    !test_bit(HIF_HOLDER, &gh->gh_iflags)) {
++=09=09spin_unlock(&gl->gl_lockref.lock);
++=09=09gl->gl_name.ln_sbd->sd_lockstruct.ls_ops->lm_cancel(gl);
++=09=09wait_on_bit(&gh->gh_iflags, HIF_WAIT, TASK_UNINTERRUPTIBLE);
++=09=09spin_lock(&gl->gl_lockref.lock);
++=09}
 +
- =09rgd->rd_rgl =3D (struct gfs2_rgrp_lvb *)rgd->rd_gl->gl_lksb.sb_lvbptr;
- =09rgd->rd_flags &=3D ~GFS2_RDF_PREFERRED;
- =09if (rgd->rd_data > sdp->sd_max_rg_data)
-@@ -944,6 +944,7 @@ static int read_rindex_entry(struct gfs2_inode *ip)
- =09}
-=20
- =09error =3D 0; /* someone else read in the rgrp; free it and ignore it */
-+fail_glock:
- =09gfs2_glock_put(rgd->rd_gl);
-=20
- fail:
+ =09__gfs2_glock_dq(gh);
+ =09spin_unlock(&gl->gl_lockref.lock);
+ }
 --=20
 2.35.1
 
