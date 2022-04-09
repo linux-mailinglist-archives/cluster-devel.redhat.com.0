@@ -2,56 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B41B04FA4B6
-	for <lists+cluster-devel@lfdr.de>; Sat,  9 Apr 2022 07:03:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D81604FA482
+	for <lists+cluster-devel@lfdr.de>; Sat,  9 Apr 2022 06:55:42 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-473-Ma0zboYFOTCqaloTd3XIEg-1; Sat, 09 Apr 2022 01:03:08 -0400
-X-MC-Unique: Ma0zboYFOTCqaloTd3XIEg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-449-cO70KJmUNy2-RAA_rZQr_w-1; Sat, 09 Apr 2022 00:55:37 -0400
+X-MC-Unique: cO70KJmUNy2-RAA_rZQr_w-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE6353C1395A;
-	Sat,  9 Apr 2022 05:03:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49D433803534;
+	Sat,  9 Apr 2022 04:55:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B15DE145B97F;
-	Sat,  9 Apr 2022 05:03:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3ED3C401DBE;
+	Sat,  9 Apr 2022 04:55:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 042421940358;
-	Sat,  9 Apr 2022 05:03:07 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C3EF0194034B;
+	Sat,  9 Apr 2022 04:55:34 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1FAD51940341 for <cluster-devel@listman.corp.redhat.com>;
- Sat,  9 Apr 2022 05:03:06 +0000 (UTC)
+ ESMTP id 664291940341 for <cluster-devel@listman.corp.redhat.com>;
+ Sat,  9 Apr 2022 04:55:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EDE36404778A; Sat,  9 Apr 2022 05:03:05 +0000 (UTC)
+ id 53B562166BDB; Sat,  9 Apr 2022 04:55:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E9FD940D296C
- for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 05:03:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0BEA800B28
- for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 05:03:05 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F39E2166BB1
+ for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 04:55:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A6A5101A52C
+ for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 04:55:27 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-423-1rxyPAQoNym7HlZkSi_6vg-1; Sat, 09 Apr 2022 01:03:04 -0400
-X-MC-Unique: 1rxyPAQoNym7HlZkSi_6vg-1
+ us-mta-16-it5F40HGN9e0MNsxS5ABTg-1; Sat, 09 Apr 2022 00:55:25 -0400
+X-MC-Unique: it5F40HGN9e0MNsxS5ABTg-1
 Received: from 213-147-167-116.nat.highway.webapn.at ([213.147.167.116]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nd33s-0020WM-ET; Sat, 09 Apr 2022 04:51:01 +0000
+ id 1nd33w-0020Yw-4P; Sat, 09 Apr 2022 04:51:04 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sat,  9 Apr 2022 06:50:20 +0200
-Message-Id: <20220409045043.23593-5-hch@lst.de>
+Date: Sat,  9 Apr 2022 06:50:21 +0200
+Message-Id: <20220409045043.23593-6-hch@lst.de>
 In-Reply-To: <20220409045043.23593-1-hch@lst.de>
 References: <20220409045043.23593-1-hch@lst.de>
 MIME-Version: 1.0
@@ -64,9 +64,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: [Cluster-devel] [PATCH 04/27] drbd: remove assign_p_sizes_qlim
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [Cluster-devel] [PATCH 05/27] drbd: use bdev based limit helpers in
+ drbd_send_sizes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,97 +89,61 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
  linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
  ceph-devel@vger.kernel.org, linux-raid@vger.kernel.org,
  linux-mmc@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
- linux-fsdevel@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-btrfs@vger.kernel.org
+ linux-xfs@vger.kernel.org,
+ =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
+ ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Fold each branch into its only caller.
+Use the bdev based limits helpers where they exist.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com>
 ---
- drivers/block/drbd/drbd_main.c | 47 +++++++++++++++-------------------
- 1 file changed, 20 insertions(+), 27 deletions(-)
+ drivers/block/drbd/drbd_main.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
-index 9676a1d214bc5..1262fe1c33618 100644
+index 1262fe1c33618..aa2c21aeb747c 100644
 --- a/drivers/block/drbd/drbd_main.c
 +++ b/drivers/block/drbd/drbd_main.c
-@@ -903,31 +903,6 @@ void drbd_gen_and_send_sync_uuid(struct drbd_peer_device *peer_device)
- 	}
- }
+@@ -924,7 +924,9 @@ int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enu
  
--/* communicated if (agreed_features & DRBD_FF_WSAME) */
--static void
--assign_p_sizes_qlim(struct drbd_device *device, struct p_sizes *p,
--					struct request_queue *q)
--{
--	if (q) {
--		p->qlim->physical_block_size = cpu_to_be32(queue_physical_block_size(q));
--		p->qlim->logical_block_size = cpu_to_be32(queue_logical_block_size(q));
--		p->qlim->alignment_offset = cpu_to_be32(queue_alignment_offset(q));
--		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
--		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
--		p->qlim->discard_enabled = blk_queue_discard(q);
--		p->qlim->write_same_capable = 0;
--	} else {
--		q = device->rq_queue;
--		p->qlim->physical_block_size = cpu_to_be32(queue_physical_block_size(q));
--		p->qlim->logical_block_size = cpu_to_be32(queue_logical_block_size(q));
--		p->qlim->alignment_offset = 0;
--		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
--		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
--		p->qlim->discard_enabled = 0;
--		p->qlim->write_same_capable = 0;
--	}
--}
--
- int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enum dds_flags flags)
- {
- 	struct drbd_device *device = peer_device->device;
-@@ -957,14 +932,32 @@ int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enu
- 		q_order_type = drbd_queue_order_type(device);
+ 	memset(p, 0, packet_size);
+ 	if (get_ldev_if_state(device, D_NEGOTIATING)) {
+-		struct request_queue *q = bdev_get_queue(device->ldev->backing_bdev);
++		struct block_device *bdev = device->ldev->backing_bdev;
++		struct request_queue *q = bdev_get_queue(bdev);
++
+ 		d_size = drbd_get_max_capacity(device->ldev);
+ 		rcu_read_lock();
+ 		u_size = rcu_dereference(device->ldev->disk_conf)->disk_size;
+@@ -933,13 +935,13 @@ int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enu
  		max_bio_size = queue_max_hw_sectors(q) << 9;
  		max_bio_size = min(max_bio_size, DRBD_MAX_BIO_SIZE);
--		assign_p_sizes_qlim(device, p, q);
-+		p->qlim->physical_block_size =
-+			cpu_to_be32(queue_physical_block_size(q));
-+		p->qlim->logical_block_size =
-+			cpu_to_be32(queue_logical_block_size(q));
-+		p->qlim->alignment_offset =
-+			cpu_to_be32(queue_alignment_offset(q));
-+		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-+		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-+		p->qlim->discard_enabled = blk_queue_discard(q);
+ 		p->qlim->physical_block_size =
+-			cpu_to_be32(queue_physical_block_size(q));
++			cpu_to_be32(bdev_physical_block_size(bdev));
+ 		p->qlim->logical_block_size =
+-			cpu_to_be32(queue_logical_block_size(q));
++			cpu_to_be32(bdev_logical_block_size(bdev));
+ 		p->qlim->alignment_offset =
+ 			cpu_to_be32(queue_alignment_offset(q));
+-		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
+-		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
++		p->qlim->io_min = cpu_to_be32(bdev_io_min(bdev));
++		p->qlim->io_opt = cpu_to_be32(bdev_io_opt(bdev));
+ 		p->qlim->discard_enabled = blk_queue_discard(q);
  		put_ldev(device);
  	} else {
-+		struct request_queue *q = device->rq_queue;
-+
-+		p->qlim->physical_block_size =
-+			cpu_to_be32(queue_physical_block_size(q));
-+		p->qlim->logical_block_size =
-+			cpu_to_be32(queue_logical_block_size(q));
-+		p->qlim->alignment_offset = 0;
-+		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-+		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-+		p->qlim->discard_enabled = 0;
-+
- 		d_size = 0;
- 		u_size = 0;
- 		q_order_type = QUEUE_ORDERED_NONE;
- 		max_bio_size = DRBD_MAX_BIO_SIZE; /* ... multiple BIOs per peer_request */
--		assign_p_sizes_qlim(device, p, NULL);
- 	}
- 
- 	if (peer_device->connection->agreed_pro_version <= 94)
 -- 
 2.30.2
 
