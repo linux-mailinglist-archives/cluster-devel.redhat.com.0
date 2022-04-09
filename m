@@ -1,58 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB464FA38F
-	for <lists+cluster-devel@lfdr.de>; Sat,  9 Apr 2022 06:52:40 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E688C4FA3A3
+	for <lists+cluster-devel@lfdr.de>; Sat,  9 Apr 2022 06:52:45 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-464-_zBADucQNda2x4l_HE5qvw-1; Sat, 09 Apr 2022 00:52:34 -0400
-X-MC-Unique: _zBADucQNda2x4l_HE5qvw-1
+ us-mta-413-tJK2TFuRMg6Twqqny-e9XA-1; Sat, 09 Apr 2022 00:52:38 -0400
+X-MC-Unique: tJK2TFuRMg6Twqqny-e9XA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93408185A7B2;
-	Sat,  9 Apr 2022 04:52:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02160101AA52;
+	Sat,  9 Apr 2022 04:52:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 886341415130;
-	Sat,  9 Apr 2022 04:52:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E9116141512C;
+	Sat,  9 Apr 2022 04:52:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 42807194034C;
-	Sat,  9 Apr 2022 04:52:33 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8B3A5194034C;
+	Sat,  9 Apr 2022 04:52:37 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 349C71940349 for <cluster-devel@listman.corp.redhat.com>;
- Sat,  9 Apr 2022 04:52:32 +0000 (UTC)
+ ESMTP id 4AA081940341 for <cluster-devel@listman.corp.redhat.com>;
+ Sat,  9 Apr 2022 04:52:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 22AB1111E3EB; Sat,  9 Apr 2022 04:52:32 +0000 (UTC)
+ id 2A89D40CFD0A; Sat,  9 Apr 2022 04:52:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E953111E3E8
- for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 04:52:20 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 266B440CF8E8
+ for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 04:52:36 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A92DF85A5A8
- for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 04:52:20 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E80229AB450
+ for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 04:52:36 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-135-z9xpMdRBOjKwvmOY4_BH7A-1; Sat, 09 Apr 2022 00:52:18 -0400
-X-MC-Unique: z9xpMdRBOjKwvmOY4_BH7A-1
+ us-mta-88-dKH9A56QOOKAVil2wymQYA-1; Sat, 09 Apr 2022 00:52:33 -0400
+X-MC-Unique: dKH9A56QOOKAVil2wymQYA-1
 Received: from 213-147-167-116.nat.highway.webapn.at ([213.147.167.116]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nd34y-0021Vo-16; Sat, 09 Apr 2022 04:52:08 +0000
+ id 1nd351-0021Yb-Ag; Sat, 09 Apr 2022 04:52:11 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sat,  9 Apr 2022 06:50:38 +0200
-Message-Id: <20220409045043.23593-23-hch@lst.de>
+Date: Sat,  9 Apr 2022 06:50:39 +0200
+Message-Id: <20220409045043.23593-24-hch@lst.de>
 In-Reply-To: <20220409045043.23593-1-hch@lst.de>
 References: <20220409045043.23593-1-hch@lst.de>
 MIME-Version: 1.0
@@ -65,9 +65,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH 22/27] block: refactor discard bio size
- limiting
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [Cluster-devel] [PATCH 23/27] block: add a bdev_max_discard_sectors
+ helper
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,12 +88,13 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
  xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
  linux-um@lists.infradead.org, nbd@other.debian.org,
  linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- ceph-devel@vger.kernel.org, Coly Li <colyli@suse.de>,
- linux-raid@vger.kernel.org, "Martin K . Petersen" <martin.petersen@oracle.com>,
- linux-mmc@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
- linux-fsdevel@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-btrfs@vger.kernel.org
+ David Sterba <dsterba@suse.com>, ceph-devel@vger.kernel.org,
+ Coly Li <colyli@suse.de>, linux-raid@vger.kernel.org,
+ "Martin K . Petersen" <martin.petersen@oracle.com>, linux-mmc@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
+ ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
@@ -101,130 +102,169 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Move all the logic to limit the discard bio size into a common helper
-so that it is better documented.
+Add a helper to query the number of sectors support per each discard bio
+based on the block device and use this helper to stop various places from
+poking into the request_queue to see if discard is supported and if so how
+much.  This mirrors what is done e.g. for write zeroes as well.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-Acked-by: Coly Li <colyli@suse.de>
+Acked-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com> [drbd]
+Acked-by: Coly Li <colyli@suse.de> [bcache]
+Acked-by: David Sterba <dsterba@suse.com> [btrfs]
 ---
- block/blk-lib.c | 59 ++++++++++++++++++++++++-------------------------
- block/blk.h     | 14 ------------
- 2 files changed, 29 insertions(+), 44 deletions(-)
+ drivers/block/drbd/drbd_nl.c        | 8 +++++---
+ drivers/block/drbd/drbd_receiver.c  | 2 +-
+ drivers/block/rnbd/rnbd-srv-dev.h   | 3 +--
+ drivers/md/dm-io.c                  | 2 +-
+ drivers/target/target_core_device.c | 7 +++----
+ fs/f2fs/segment.c                   | 6 ++----
+ include/linux/blkdev.h              | 5 +++++
+ 7 files changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/block/blk-lib.c b/block/blk-lib.c
-index 237d60d8b5857..2ae32a722851c 100644
---- a/block/blk-lib.c
-+++ b/block/blk-lib.c
-@@ -10,6 +10,32 @@
+diff --git a/drivers/block/drbd/drbd_nl.c b/drivers/block/drbd/drbd_nl.c
+index 40bb0b356a6d6..d4dacc329ac2e 100644
+--- a/drivers/block/drbd/drbd_nl.c
++++ b/drivers/block/drbd/drbd_nl.c
+@@ -1439,7 +1439,8 @@ static bool write_ordering_changed(struct disk_conf *a, struct disk_conf *b)
+ static void sanitize_disk_conf(struct drbd_device *device, struct disk_conf *disk_conf,
+ 			       struct drbd_backing_dev *nbc)
+ {
+-	struct request_queue * const q = nbc->backing_bdev->bd_disk->queue;
++	struct block_device *bdev = nbc->backing_bdev;
++	struct request_queue *q = bdev->bd_disk->queue;
  
- #include "blk.h"
+ 	if (disk_conf->al_extents < DRBD_AL_EXTENTS_MIN)
+ 		disk_conf->al_extents = DRBD_AL_EXTENTS_MIN;
+@@ -1455,6 +1456,7 @@ static void sanitize_disk_conf(struct drbd_device *device, struct disk_conf *dis
  
-+static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
-+{
-+	unsigned int discard_granularity =
-+		bdev_get_queue(bdev)->limits.discard_granularity;
-+	sector_t granularity_aligned_sector;
-+
-+	if (bdev_is_partition(bdev))
-+		sector += bdev->bd_start_sect;
-+
-+	granularity_aligned_sector =
-+		round_up(sector, discard_granularity >> SECTOR_SHIFT);
-+
-+	/*
-+	 * Make sure subsequent bios start aligned to the discard granularity if
-+	 * it needs to be split.
-+	 */
-+	if (granularity_aligned_sector != sector)
-+		return granularity_aligned_sector - sector;
-+
-+	/*
-+	 * Align the bio size to the discard granularity to make splitting the bio
-+	 * at discard granularity boundaries easier in the driver if needed.
-+	 */
-+	return round_down(UINT_MAX, discard_granularity) >> SECTOR_SHIFT;
-+}
-+
- int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
- 		sector_t nr_sects, gfp_t gfp_mask, int flags,
- 		struct bio **biop)
-@@ -17,7 +43,7 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
- 	struct request_queue *q = bdev_get_queue(bdev);
- 	struct bio *bio = *biop;
- 	unsigned int op;
--	sector_t bs_mask, part_offset = 0;
-+	sector_t bs_mask;
+ 	if (disk_conf->rs_discard_granularity) {
+ 		int orig_value = disk_conf->rs_discard_granularity;
++		sector_t discard_size = bdev_max_discard_sectors(bdev) << 9;
+ 		int remainder;
  
- 	if (bdev_read_only(bdev))
- 		return -EPERM;
-@@ -48,36 +74,9 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
- 	if (!nr_sects)
- 		return -EINVAL;
+ 		if (q->limits.discard_granularity > disk_conf->rs_discard_granularity)
+@@ -1463,8 +1465,8 @@ static void sanitize_disk_conf(struct drbd_device *device, struct disk_conf *dis
+ 		remainder = disk_conf->rs_discard_granularity % q->limits.discard_granularity;
+ 		disk_conf->rs_discard_granularity += remainder;
  
--	/* In case the discard request is in a partition */
--	if (bdev_is_partition(bdev))
--		part_offset = bdev->bd_start_sect;
--
- 	while (nr_sects) {
--		sector_t granularity_aligned_lba, req_sects;
--		sector_t sector_mapped = sector + part_offset;
--
--		granularity_aligned_lba = round_up(sector_mapped,
--				q->limits.discard_granularity >> SECTOR_SHIFT);
--
--		/*
--		 * Check whether the discard bio starts at a discard_granularity
--		 * aligned LBA,
--		 * - If no: set (granularity_aligned_lba - sector_mapped) to
--		 *   bi_size of the first split bio, then the second bio will
--		 *   start at a discard_granularity aligned LBA on the device.
--		 * - If yes: use bio_aligned_discard_max_sectors() as the max
--		 *   possible bi_size of the first split bio. Then when this bio
--		 *   is split in device drive, the split ones are very probably
--		 *   to be aligned to discard_granularity of the device's queue.
--		 */
--		if (granularity_aligned_lba == sector_mapped)
--			req_sects = min_t(sector_t, nr_sects,
--					  bio_aligned_discard_max_sectors(q));
--		else
--			req_sects = min_t(sector_t, nr_sects,
--					  granularity_aligned_lba - sector_mapped);
--
--		WARN_ON_ONCE((req_sects << 9) > UINT_MAX);
-+		sector_t req_sects =
-+			min(nr_sects, bio_discard_limit(bdev, sector));
+-		if (disk_conf->rs_discard_granularity > q->limits.max_discard_sectors << 9)
+-			disk_conf->rs_discard_granularity = q->limits.max_discard_sectors << 9;
++		if (disk_conf->rs_discard_granularity > discard_size)
++			disk_conf->rs_discard_granularity = discard_size;
  
- 		bio = blk_next_bio(bio, bdev, 0, op, gfp_mask);
- 		bio->bi_iter.bi_sector = sector;
-diff --git a/block/blk.h b/block/blk.h
-index 8ccbc6e076369..1fdc1d28e6d60 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -346,20 +346,6 @@ static inline unsigned int bio_allowed_max_sectors(struct request_queue *q)
- 	return round_down(UINT_MAX, queue_logical_block_size(q)) >> 9;
+ 		if (disk_conf->rs_discard_granularity != orig_value)
+ 			drbd_info(device, "rs_discard_granularity changed to %d\n",
+diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
+index 08da922f81d1d..0b4c7de463989 100644
+--- a/drivers/block/drbd/drbd_receiver.c
++++ b/drivers/block/drbd/drbd_receiver.c
+@@ -1524,7 +1524,7 @@ int drbd_issue_discard_or_zero_out(struct drbd_device *device, sector_t start, u
+ 	granularity = max(q->limits.discard_granularity >> 9, 1U);
+ 	alignment = (bdev_discard_alignment(bdev) >> 9) % granularity;
+ 
+-	max_discard_sectors = min(q->limits.max_discard_sectors, (1U << 22));
++	max_discard_sectors = min(bdev_max_discard_sectors(bdev), (1U << 22));
+ 	max_discard_sectors -= max_discard_sectors % granularity;
+ 	if (unlikely(!max_discard_sectors))
+ 		goto zero_out;
+diff --git a/drivers/block/rnbd/rnbd-srv-dev.h b/drivers/block/rnbd/rnbd-srv-dev.h
+index 2c3df02b5e8ec..f82fbb4bbda8e 100644
+--- a/drivers/block/rnbd/rnbd-srv-dev.h
++++ b/drivers/block/rnbd/rnbd-srv-dev.h
+@@ -52,8 +52,7 @@ static inline int rnbd_dev_get_max_discard_sects(const struct rnbd_dev *dev)
+ 	if (!blk_queue_discard(bdev_get_queue(dev->bdev)))
+ 		return 0;
+ 
+-	return blk_queue_get_max_sectors(bdev_get_queue(dev->bdev),
+-					 REQ_OP_DISCARD);
++	return bdev_max_discard_sectors(dev->bdev);
  }
  
--/*
-- * The max bio size which is aligned to q->limits.discard_granularity. This
-- * is a hint to split large discard bio in generic block layer, then if device
-- * driver needs to split the discard bio into smaller ones, their bi_size can
-- * be very probably and easily aligned to discard_granularity of the device's
-- * queue.
-- */
--static inline unsigned int bio_aligned_discard_max_sectors(
--					struct request_queue *q)
--{
--	return round_down(UINT_MAX, q->limits.discard_granularity) >>
--			SECTOR_SHIFT;
--}
--
+ static inline int rnbd_dev_get_discard_granularity(const struct rnbd_dev *dev)
+diff --git a/drivers/md/dm-io.c b/drivers/md/dm-io.c
+index 5762366333a27..e4b95eaeec8c7 100644
+--- a/drivers/md/dm-io.c
++++ b/drivers/md/dm-io.c
+@@ -311,7 +311,7 @@ static void do_region(int op, int op_flags, unsigned region,
+ 	 * Reject unsupported discard and write same requests.
+ 	 */
+ 	if (op == REQ_OP_DISCARD)
+-		special_cmd_max_sectors = q->limits.max_discard_sectors;
++		special_cmd_max_sectors = bdev_max_discard_sectors(where->bdev);
+ 	else if (op == REQ_OP_WRITE_ZEROES)
+ 		special_cmd_max_sectors = q->limits.max_write_zeroes_sectors;
+ 	if ((op == REQ_OP_DISCARD || op == REQ_OP_WRITE_ZEROES) &&
+diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
+index 16e775bcf4a7c..c3e25bac90d59 100644
+--- a/drivers/target/target_core_device.c
++++ b/drivers/target/target_core_device.c
+@@ -829,9 +829,8 @@ struct se_device *target_alloc_device(struct se_hba *hba, const char *name)
+ }
+ 
  /*
-  * Internal io_context interface
+- * Check if the underlying struct block_device request_queue supports
+- * the QUEUE_FLAG_DISCARD bit for UNMAP/WRITE_SAME in SCSI + TRIM
+- * in ATA and we need to set TPE=1
++ * Check if the underlying struct block_device supports discard and if yes
++ * configure the UNMAP parameters.
   */
+ bool target_configure_unmap_from_queue(struct se_dev_attrib *attrib,
+ 				       struct block_device *bdev)
+@@ -843,7 +842,7 @@ bool target_configure_unmap_from_queue(struct se_dev_attrib *attrib,
+ 		return false;
+ 
+ 	attrib->max_unmap_lba_count =
+-		q->limits.max_discard_sectors >> (ilog2(block_size) - 9);
++		bdev_max_discard_sectors(bdev) >> (ilog2(block_size) - 9);
+ 	/*
+ 	 * Currently hardcoded to 1 in Linux/SCSI code..
+ 	 */
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 22dfeb9915290..71f09adbcba86 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -1196,9 +1196,8 @@ static int __submit_discard_cmd(struct f2fs_sb_info *sbi,
+ 						unsigned int *issued)
+ {
+ 	struct block_device *bdev = dc->bdev;
+-	struct request_queue *q = bdev_get_queue(bdev);
+ 	unsigned int max_discard_blocks =
+-			SECTOR_TO_BLOCK(q->limits.max_discard_sectors);
++			SECTOR_TO_BLOCK(bdev_max_discard_sectors(bdev));
+ 	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
+ 	struct list_head *wait_list = (dpolicy->type == DPOLICY_FSTRIM) ?
+ 					&(dcc->fstrim_list) : &(dcc->wait_list);
+@@ -1375,9 +1374,8 @@ static void __update_discard_tree_range(struct f2fs_sb_info *sbi,
+ 	struct discard_cmd *dc;
+ 	struct discard_info di = {0};
+ 	struct rb_node **insert_p = NULL, *insert_parent = NULL;
+-	struct request_queue *q = bdev_get_queue(bdev);
+ 	unsigned int max_discard_blocks =
+-			SECTOR_TO_BLOCK(q->limits.max_discard_sectors);
++			SECTOR_TO_BLOCK(bdev_max_discard_sectors(bdev));
+ 	block_t end = lstart + len;
+ 
+ 	dc = (struct discard_cmd *)f2fs_lookup_rb_tree_ret(&dcc->root,
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index 34b1cfd067421..ce16247d3afab 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -1254,6 +1254,11 @@ bdev_zone_write_granularity(struct block_device *bdev)
+ int bdev_alignment_offset(struct block_device *bdev);
+ unsigned int bdev_discard_alignment(struct block_device *bdev);
+ 
++static inline unsigned int bdev_max_discard_sectors(struct block_device *bdev)
++{
++	return bdev_get_queue(bdev)->limits.max_discard_sectors;
++}
++
+ static inline unsigned int bdev_write_zeroes_sectors(struct block_device *bdev)
+ {
+ 	struct request_queue *q = bdev_get_queue(bdev);
 -- 
 2.30.2
 
