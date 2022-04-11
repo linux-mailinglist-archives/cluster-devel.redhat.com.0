@@ -1,84 +1,111 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 994C54FB689
-	for <lists+cluster-devel@lfdr.de>; Mon, 11 Apr 2022 10:56:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F33684FBC62
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 Apr 2022 14:47:06 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-396-Hhtce-qvOhiQKmf-kJL9mA-1; Mon, 11 Apr 2022 04:56:26 -0400
-X-MC-Unique: Hhtce-qvOhiQKmf-kJL9mA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-647-ELtify96OlmnrE0aNO-iyQ-1; Mon, 11 Apr 2022 08:47:01 -0400
+X-MC-Unique: ELtify96OlmnrE0aNO-iyQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2D0B80005D;
-	Mon, 11 Apr 2022 08:56:25 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 040CD18019E5;
+	Mon, 11 Apr 2022 12:47:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EBEAC40CF8E4;
-	Mon, 11 Apr 2022 08:56:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DBB71145B993;
+	Mon, 11 Apr 2022 12:46:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 87A001940364;
-	Mon, 11 Apr 2022 08:56:24 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8D0DA1947BBB;
+	Mon, 11 Apr 2022 12:46:58 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AE6201940341 for <cluster-devel@listman.corp.redhat.com>;
- Sat,  9 Apr 2022 08:17:18 +0000 (UTC)
+ ESMTP id 19FF819451F2 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 11 Apr 2022 12:04:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8D5C0111E3E9; Sat,  9 Apr 2022 08:17:18 +0000 (UTC)
+ id EF4C0145B98E; Mon, 11 Apr 2022 12:04:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 89096111E3E8
- for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 08:17:07 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EADC8141DED5
+ for <cluster-devel@redhat.com>; Mon, 11 Apr 2022 12:04:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79439101A52C
- for <cluster-devel@redhat.com>; Sat,  9 Apr 2022 08:17:06 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D14DD2A5956C
+ for <cluster-devel@redhat.com>; Mon, 11 Apr 2022 12:04:01 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-622-8eLH7P74P_WPSmJ3V98T5w-1; Sat, 09 Apr 2022 04:17:02 -0400
-X-MC-Unique: 8eLH7P74P_WPSmJ3V98T5w-1
-Received: by mail-wr1-f45.google.com with SMTP id z1so16047878wrg.4
- for <cluster-devel@redhat.com>; Sat, 09 Apr 2022 01:17:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Ga61vN/TMGQoWv5pdVva9yHEVEk7JvDu8SvkqTkiHOU=;
- b=ICk6AeTVuiEZ6oxvasErsUDlplTgiw7kzj4v4lxJOkLENOrKXDuUFkBua+biUH5a08
- 764En+T73p9w0yy/aDiaMSRmIYBuAeataLB6TNvSs3y+814pMNAQTOP6kt9XYurJvOoZ
- SqCsvYfu+BTGJrIYrOqXb6HgQ6K1kz25LLlYTMvBlPMzLDy39PLBFxYwkCA2Le5kkFdK
- M9VizTsvxfqSb4Ef0QoEyyJma48G+wKVlX54SDxZW0UYyMUVAFqBWcWtFVkpsOOwad+L
- SljQ5LgZxyAd4hcYunbniXwP22fzZw7ea5w6KAYrevFBMUwO7RudKhMrvkv1yFtPFLuD
- yv/A==
-X-Gm-Message-State: AOAM530EmB+UNmWXsE1NP11MZywbEssYEgBGoKnBUQdR9zhDlQJv8XE2
- RFSDPa5XRazuGhwJ7emlNOfZDQ==
-X-Google-Smtp-Source: ABdhPJyMl7hUdRWB67QUv24ZWK8mJRwBaxhnGq09ejE28bU5zjvkHivlidIC/JIf/EdWqVvIZNI6nA==
-X-Received: by 2002:adf:9581:0:b0:1ed:c341:4ed1 with SMTP id
- p1-20020adf9581000000b001edc3414ed1mr16998132wrp.299.1649492221449; 
- Sat, 09 Apr 2022 01:17:01 -0700 (PDT)
-Received: from [192.168.169.127] (178.115.52.210.wireless.dyn.drei.com.
- [178.115.52.210]) by smtp.gmail.com with ESMTPSA id
- r14-20020a05600c35ce00b0038c9f469979sm12169802wmq.40.2022.04.09.01.16.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 09 Apr 2022 01:17:01 -0700 (PDT)
-Message-ID: <5a26cdb1-b63b-8d35-640b-bc0e0f78a181@linbit.com>
-Date: Sat, 9 Apr 2022 10:16:58 +0200
+ us-mta-380-r3aOU3ToOxGrE1xuhSE8wA-1; Mon, 11 Apr 2022 08:04:00 -0400
+X-MC-Unique: r3aOU3ToOxGrE1xuhSE8wA-1
+Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23B9NnvT025178; 
+ Mon, 11 Apr 2022 12:03:58 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fchnqtx4q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Apr 2022 12:03:58 +0000
+Received: from m0187473.ppops.net (m0187473.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 23BAmtcL013717;
+ Mon, 11 Apr 2022 12:03:58 GMT
+Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.99])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fchnqtx39-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Apr 2022 12:03:58 +0000
+Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
+ by ppma04ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23BC3gZm003276;
+ Mon, 11 Apr 2022 12:03:54 GMT
+Received: from b06avi18878370.portsmouth.uk.ibm.com
+ (b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
+ by ppma04ams.nl.ibm.com with ESMTP id 3fb1s8u242-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Apr 2022 12:03:54 +0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
+ id 23BC40Q146596476
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 11 Apr 2022 12:04:01 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1327BA4065;
+ Mon, 11 Apr 2022 12:03:52 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C9DE7A404D;
+ Mon, 11 Apr 2022 12:03:50 +0000 (GMT)
+Received: from [9.145.81.78] (unknown [9.145.81.78])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Mon, 11 Apr 2022 12:03:50 +0000 (GMT)
+Message-ID: <e971095e-1015-c348-3c24-114193ee5ff0@linux.ibm.com>
+Date: Mon, 11 Apr 2022 14:03:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-To: Christoph Hellwig <hch@lst.de>
+ Thunderbird/91.5.0
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20220409045043.23593-1-hch@lst.de>
- <20220409045043.23593-5-hch@lst.de>
-From: =?UTF-8?Q?Christoph_B=c3=b6hmwalder?= <christoph.boehmwalder@linbit.com>
-In-Reply-To: <20220409045043.23593-5-hch@lst.de>
+ <20220409045043.23593-25-hch@lst.de>
+From: =?UTF-8?Q?Jan_H=c3=b6ppner?= <hoeppner@linux.ibm.com>
+In-Reply-To: <20220409045043.23593-25-hch@lst.de>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: WIMhdfum114Bd5I8tZm1dZ3P7aW7r0mH
+X-Proofpoint-ORIG-GUID: D9QlKI8GujOSuLx30db3fYGBx6ksQFZ5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-04-11_04,2022-04-11_01,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0
+ adultscore=0 clxscore=1011 mlxlogscore=999 suspectscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
+ definitions=main-2204110067
+X-MIME-Autoconverted: from 8bit to quoted-printable by
+ mx0a-001b2d01.pphosted.com id 23B9NnvT025178
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -86,10 +113,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-Mailman-Approved-At: Mon, 11 Apr 2022 08:56:23 +0000
-Subject: Re: [Cluster-devel] [Drbd-dev] [PATCH 04/27] drbd: remove
- assign_p_sizes_qlim
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Mailman-Approved-At: Mon, 11 Apr 2022 12:46:57 +0000
+Subject: Re: [Cluster-devel] [PATCH 24/27] block: remove QUEUE_FLAG_DISCARD
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,105 +134,44 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
  linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
  linux-scsi@vger.kernel.org, cluster-devel@redhat.com,
  xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- linux-um@lists.infradead.org, nbd@other.debian.org, linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org, ceph-devel@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ linux-um@lists.infradead.org, nbd@other.debian.org,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ ceph-devel@vger.kernel.org, Coly Li <colyli@suse.de>,
+ linux-raid@vger.kernel.org, "Martin K . Petersen" <martin.petersen@oracle.com>,
  linux-mmc@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, ntfs3@lists.linux.dev,
- ocfs2-devel@oss.oracle.com
+ linux-xfs@vger.kernel.org,
+ =?UTF-8?Q?Christoph_B=c3=b6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
+ ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 09.04.22 06:50, Christoph Hellwig wrote:
-> Fold each branch into its only caller.
-> 
+On 09/04/2022 06:50, Christoph Hellwig wrote:
+> Just use a non-zero max_discard_sectors as an indicator for discard
+> support, similar to what is done for write zeroes.
+>=20
+> The only places where needs special attention is the RAID5 driver,
+> which must clear discard support for security reasons by default,
+> even if the default stacking rules would allow for it.
+>=20
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+> Acked-by: Christoph B=C3=B6hmwalder <christoph.boehmwalder@linbit.com> [b=
+trfs]
+> Acked-by: Coly Li <colyli@suse.de> [bcache]
 > ---
->   drivers/block/drbd/drbd_main.c | 47 +++++++++++++++-------------------
->   1 file changed, 20 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
-> index 9676a1d214bc5..1262fe1c33618 100644
-> --- a/drivers/block/drbd/drbd_main.c
-> +++ b/drivers/block/drbd/drbd_main.c
-> @@ -903,31 +903,6 @@ void drbd_gen_and_send_sync_uuid(struct drbd_peer_device *peer_device)
->   	}
->   }
->   
-> -/* communicated if (agreed_features & DRBD_FF_WSAME) */
-> -static void
-> -assign_p_sizes_qlim(struct drbd_device *device, struct p_sizes *p,
-> -					struct request_queue *q)
-> -{
-> -	if (q) {
-> -		p->qlim->physical_block_size = cpu_to_be32(queue_physical_block_size(q));
-> -		p->qlim->logical_block_size = cpu_to_be32(queue_logical_block_size(q));
-> -		p->qlim->alignment_offset = cpu_to_be32(queue_alignment_offset(q));
-> -		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> -		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> -		p->qlim->discard_enabled = blk_queue_discard(q);
-> -		p->qlim->write_same_capable = 0;
-> -	} else {
-> -		q = device->rq_queue;
-> -		p->qlim->physical_block_size = cpu_to_be32(queue_physical_block_size(q));
-> -		p->qlim->logical_block_size = cpu_to_be32(queue_logical_block_size(q));
-> -		p->qlim->alignment_offset = 0;
-> -		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> -		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> -		p->qlim->discard_enabled = 0;
-> -		p->qlim->write_same_capable = 0;
-> -	}
-> -}
-> -
->   int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enum dds_flags flags)
->   {
->   	struct drbd_device *device = peer_device->device;
-> @@ -957,14 +932,32 @@ int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enu
->   		q_order_type = drbd_queue_order_type(device);
->   		max_bio_size = queue_max_hw_sectors(q) << 9;
->   		max_bio_size = min(max_bio_size, DRBD_MAX_BIO_SIZE);
-> -		assign_p_sizes_qlim(device, p, q);
-> +		p->qlim->physical_block_size =
-> +			cpu_to_be32(queue_physical_block_size(q));
-> +		p->qlim->logical_block_size =
-> +			cpu_to_be32(queue_logical_block_size(q));
-> +		p->qlim->alignment_offset =
-> +			cpu_to_be32(queue_alignment_offset(q));
-> +		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> +		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> +		p->qlim->discard_enabled = blk_queue_discard(q);
->   		put_ldev(device);
->   	} else {
-> +		struct request_queue *q = device->rq_queue;
-> +
-> +		p->qlim->physical_block_size =
-> +			cpu_to_be32(queue_physical_block_size(q));
-> +		p->qlim->logical_block_size =
-> +			cpu_to_be32(queue_logical_block_size(q));
-> +		p->qlim->alignment_offset = 0;
-> +		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> +		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> +		p->qlim->discard_enabled = 0;
-> +
->   		d_size = 0;
->   		u_size = 0;
->   		q_order_type = QUEUE_ORDERED_NONE;
->   		max_bio_size = DRBD_MAX_BIO_SIZE; /* ... multiple BIOs per peer_request */
-> -		assign_p_sizes_qlim(device, p, NULL);
->   	}
->   
->   	if (peer_device->connection->agreed_pro_version <= 94)
 
-LGTM now, thanks.
+For=20
 
-Acked-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com>
+>  drivers/s390/block/dasd_fba.c       |  1 -
+
+Acked-by: Jan H=C3=B6ppner <hoeppner@linux.ibm.com>
 
