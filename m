@@ -2,56 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B9FC502550
-	for <lists+cluster-devel@lfdr.de>; Fri, 15 Apr 2022 08:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7521502543
+	for <lists+cluster-devel@lfdr.de>; Fri, 15 Apr 2022 08:03:15 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-437-f79YhCpZOMuDvhMewmQgzQ-1; Fri, 15 Apr 2022 02:07:54 -0400
-X-MC-Unique: f79YhCpZOMuDvhMewmQgzQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-421-gIPvsCmqNtGDWgLmNUC3NA-1; Fri, 15 Apr 2022 02:03:11 -0400
+X-MC-Unique: gIPvsCmqNtGDWgLmNUC3NA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5CECA86B8A0;
-	Fri, 15 Apr 2022 06:07:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7A74811E83;
+	Fri, 15 Apr 2022 06:03:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4DE2658046C;
-	Fri, 15 Apr 2022 06:07:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CBC0FC44CDE;
+	Fri, 15 Apr 2022 06:03:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1A2C2194034C;
-	Fri, 15 Apr 2022 06:07:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A9B30194034C;
+	Fri, 15 Apr 2022 06:03:10 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DF0CA19451EC for <cluster-devel@listman.corp.redhat.com>;
- Fri, 15 Apr 2022 06:07:51 +0000 (UTC)
+ ESMTP id 821F919451EC for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 15 Apr 2022 06:03:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C9424C28109; Fri, 15 Apr 2022 06:07:51 +0000 (UTC)
+ id 5F2CBC44CD9; Fri, 15 Apr 2022 06:03:09 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C57A7C44CD5
- for <cluster-devel@redhat.com>; Fri, 15 Apr 2022 06:07:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB92080159B
- for <cluster-devel@redhat.com>; Fri, 15 Apr 2022 06:07:51 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B61DC44CD5
+ for <cluster-devel@redhat.com>; Fri, 15 Apr 2022 06:03:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37E2C811E76
+ for <cluster-devel@redhat.com>; Fri, 15 Apr 2022 06:03:09 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-341-BAukvTv1MXC0jgarT4P9QA-1; Fri, 15 Apr 2022 02:07:50 -0400
-X-MC-Unique: BAukvTv1MXC0jgarT4P9QA-1
+ us-mta-251-3q_p7jyfNhqUdF4j6tJSLg-1; Fri, 15 Apr 2022 02:03:06 -0400
+X-MC-Unique: 3q_p7jyfNhqUdF4j6tJSLg-1
 Received: from [2a02:1205:504b:4280:f5dd:42a4:896c:d877] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nfDxZ-008OtX-AH; Fri, 15 Apr 2022 04:53:29 +0000
+ id 1nfDxb-008OvZ-Ly; Fri, 15 Apr 2022 04:53:32 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri, 15 Apr 2022 06:52:37 +0200
-Message-Id: <20220415045258.199825-7-hch@lst.de>
+Date: Fri, 15 Apr 2022 06:52:38 +0200
+Message-Id: <20220415045258.199825-8-hch@lst.de>
 In-Reply-To: <20220415045258.199825-1-hch@lst.de>
 References: <20220415045258.199825-1-hch@lst.de>
 MIME-Version: 1.0
@@ -65,8 +64,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Cluster-devel] [PATCH 06/27] drbd: use bdev_alignment_offset
- instead of queue_alignment_offset
+Subject: [Cluster-devel] [PATCH 07/27] drbd: cleanup
+ decide_on_discard_support
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,7 +94,7 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
  ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,28 +102,117 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The bdev version does the right thing for partitions, so use that.
+Sanitize the calling conventions and use a goto label to cleanup the
+code flow.
 
-Fixes: 9104d31a759f ("drbd: introduce WRITE_SAME support")
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Acked-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com>
 ---
- drivers/block/drbd/drbd_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/block/drbd/drbd_nl.c | 68 +++++++++++++++++++-----------------
+ 1 file changed, 35 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
-index c39b04bda261f..7b501c8d59928 100644
---- a/drivers/block/drbd/drbd_main.c
-+++ b/drivers/block/drbd/drbd_main.c
-@@ -939,7 +939,7 @@ int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enu
- 		p->qlim->logical_block_size =
- 			cpu_to_be32(bdev_logical_block_size(bdev));
- 		p->qlim->alignment_offset =
--			cpu_to_be32(queue_alignment_offset(q));
-+			cpu_to_be32(bdev_alignment_offset(bdev));
- 		p->qlim->io_min = cpu_to_be32(bdev_io_min(bdev));
- 		p->qlim->io_opt = cpu_to_be32(bdev_io_opt(bdev));
- 		p->qlim->discard_enabled = blk_queue_discard(q);
+diff --git a/drivers/block/drbd/drbd_nl.c b/drivers/block/drbd/drbd_nl.c
+index b7216c186ba4d..4d00986d6f588 100644
+--- a/drivers/block/drbd/drbd_nl.c
++++ b/drivers/block/drbd/drbd_nl.c
+@@ -1204,38 +1204,42 @@ static unsigned int drbd_max_discard_sectors(struct drbd_connection *connection)
+ }
+ 
+ static void decide_on_discard_support(struct drbd_device *device,
+-			struct request_queue *q,
+-			struct request_queue *b,
+-			bool discard_zeroes_if_aligned)
++		struct drbd_backing_dev *bdev)
+ {
+-	/* q = drbd device queue (device->rq_queue)
+-	 * b = backing device queue (device->ldev->backing_bdev->bd_disk->queue),
+-	 *     or NULL if diskless
+-	 */
+-	struct drbd_connection *connection = first_peer_device(device)->connection;
+-	bool can_do = b ? blk_queue_discard(b) : true;
+-
+-	if (can_do && connection->cstate >= C_CONNECTED && !(connection->agreed_features & DRBD_FF_TRIM)) {
+-		can_do = false;
+-		drbd_info(connection, "peer DRBD too old, does not support TRIM: disabling discards\n");
+-	}
+-	if (can_do) {
+-		/* We don't care for the granularity, really.
+-		 * Stacking limits below should fix it for the local
+-		 * device.  Whether or not it is a suitable granularity
+-		 * on the remote device is not our problem, really. If
+-		 * you care, you need to use devices with similar
+-		 * topology on all peers. */
+-		blk_queue_discard_granularity(q, 512);
+-		q->limits.max_discard_sectors = drbd_max_discard_sectors(connection);
+-		blk_queue_flag_set(QUEUE_FLAG_DISCARD, q);
+-		q->limits.max_write_zeroes_sectors = drbd_max_discard_sectors(connection);
+-	} else {
+-		blk_queue_flag_clear(QUEUE_FLAG_DISCARD, q);
+-		blk_queue_discard_granularity(q, 0);
+-		q->limits.max_discard_sectors = 0;
+-		q->limits.max_write_zeroes_sectors = 0;
++	struct drbd_connection *connection =
++		first_peer_device(device)->connection;
++	struct request_queue *q = device->rq_queue;
++
++	if (bdev && !blk_queue_discard(bdev->backing_bdev->bd_disk->queue))
++		goto not_supported;
++
++	if (connection->cstate >= C_CONNECTED &&
++	    !(connection->agreed_features & DRBD_FF_TRIM)) {
++		drbd_info(connection,
++			"peer DRBD too old, does not support TRIM: disabling discards\n");
++		goto not_supported;
+ 	}
++
++	/*
++	 * We don't care for the granularity, really.
++	 *
++	 * Stacking limits below should fix it for the local device.  Whether or
++	 * not it is a suitable granularity on the remote device is not our
++	 * problem, really. If you care, you need to use devices with similar
++	 * topology on all peers.
++	 */
++	blk_queue_discard_granularity(q, 512);
++	q->limits.max_discard_sectors = drbd_max_discard_sectors(connection);
++	blk_queue_flag_set(QUEUE_FLAG_DISCARD, q);
++	q->limits.max_write_zeroes_sectors =
++		drbd_max_discard_sectors(connection);
++	return;
++
++not_supported:
++	blk_queue_flag_clear(QUEUE_FLAG_DISCARD, q);
++	blk_queue_discard_granularity(q, 0);
++	q->limits.max_discard_sectors = 0;
++	q->limits.max_write_zeroes_sectors = 0;
+ }
+ 
+ static void fixup_discard_if_not_supported(struct request_queue *q)
+@@ -1273,7 +1277,6 @@ static void drbd_setup_queue_param(struct drbd_device *device, struct drbd_backi
+ 	unsigned int max_segments = 0;
+ 	struct request_queue *b = NULL;
+ 	struct disk_conf *dc;
+-	bool discard_zeroes_if_aligned = true;
+ 
+ 	if (bdev) {
+ 		b = bdev->backing_bdev->bd_disk->queue;
+@@ -1282,7 +1285,6 @@ static void drbd_setup_queue_param(struct drbd_device *device, struct drbd_backi
+ 		rcu_read_lock();
+ 		dc = rcu_dereference(device->ldev->disk_conf);
+ 		max_segments = dc->max_bio_bvecs;
+-		discard_zeroes_if_aligned = dc->discard_zeroes_if_aligned;
+ 		rcu_read_unlock();
+ 
+ 		blk_set_stacking_limits(&q->limits);
+@@ -1292,7 +1294,7 @@ static void drbd_setup_queue_param(struct drbd_device *device, struct drbd_backi
+ 	/* This is the workaround for "bio would need to, but cannot, be split" */
+ 	blk_queue_max_segments(q, max_segments ? max_segments : BLK_MAX_SEGMENTS);
+ 	blk_queue_segment_boundary(q, PAGE_SIZE-1);
+-	decide_on_discard_support(device, q, b, discard_zeroes_if_aligned);
++	decide_on_discard_support(device, bdev);
+ 
+ 	if (b) {
+ 		blk_stack_limits(&q->limits, &b->limits, 0);
 -- 
 2.30.2
 
