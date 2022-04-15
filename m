@@ -1,80 +1,139 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E98D505312
-	for <lists+cluster-devel@lfdr.de>; Mon, 18 Apr 2022 14:53:04 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BE00506957
+	for <lists+cluster-devel@lfdr.de>; Tue, 19 Apr 2022 13:02:38 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-569-KGN9WrfdOxuQuur43otWnw-1; Mon, 18 Apr 2022 08:53:00 -0400
-X-MC-Unique: KGN9WrfdOxuQuur43otWnw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-332-rbxVCRlvMK6npw_psub4GQ-1; Tue, 19 Apr 2022 07:02:32 -0400
+X-MC-Unique: rbxVCRlvMK6npw_psub4GQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6F701C05EA9;
-	Mon, 18 Apr 2022 12:52:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 97A0B19705B2;
+	Tue, 19 Apr 2022 11:02:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0FFC5C202CB;
-	Mon, 18 Apr 2022 12:52:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 890F4492C14;
+	Tue, 19 Apr 2022 11:02:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 911C31947BBE;
-	Mon, 18 Apr 2022 12:52:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 41CB11949762;
+	Tue, 19 Apr 2022 11:02:30 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 70A9F1947BBB for <cluster-devel@listman.corp.redhat.com>;
- Mon, 18 Apr 2022 12:52:55 +0000 (UTC)
+ ESMTP id 0615319451EC for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 15 Apr 2022 05:36:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3EBBC416362; Mon, 18 Apr 2022 12:52:55 +0000 (UTC)
+ id D60BAC44CD9; Fri, 15 Apr 2022 05:36:17 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 39FEF403375
- for <cluster-devel@redhat.com>; Mon, 18 Apr 2022 12:52:55 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D0EBCC28109
+ for <cluster-devel@redhat.com>; Fri, 15 Apr 2022 05:36:17 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 011BD38149A3
- for <cluster-devel@redhat.com>; Mon, 18 Apr 2022 12:52:55 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-511-kBJ0XPKKP1CKbEU45Jf9fA-1; Mon, 18 Apr 2022 08:52:53 -0400
-X-MC-Unique: kBJ0XPKKP1CKbEU45Jf9fA-1
-Received: by mail-pl1-f170.google.com with SMTP id b7so2609696plh.2
- for <cluster-devel@redhat.com>; Mon, 18 Apr 2022 05:52:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject
- :message-id:date:mime-version:content-transfer-encoding;
- bh=F9FMycteyYrs8wEiBExwTDtAcc/2JBQ5GQqodkswvTM=;
- b=Yx/mQRux8j5Q7RwrmoMpIHBliJoowdiT80ZdF7jFoT1EmgavClc511gCTtxcLcoMGs
- fz3POcp6a0eOjISP1B8h31rtOTMJ50n0Log7q4xHoHJwckucdyq9gBlFLKALCbnhovy6
- mnIi1DYH/VRp/DkR96XmD/GusjOeHm8AER5UPdrGqu1icljZslsF/G6NzaI04ybOe2B6
- CZL1mXBtbStk7EOJupTjsMZWc4DScQ+uPS+dq+iH8GzRm49TidkJ9ZUvNMxgU164emNX
- 2XdZ0OXBd71gRnqqu2OObo5Hd6HRzaC4F3IpxwcFEAZnc/guAFqLc9a90pzOMY0TrGxR
- zPMw==
-X-Gm-Message-State: AOAM531y33tTzkAVbjgY+2XNjN4h2Aqw9BXHuwBLCDaYydT5ShV0+m+q
- hmfApdaSwrajMyqUV6wVLitu4g==
-X-Google-Smtp-Source: ABdhPJyPDIaLEewZhdBb/81ulQRxH4lnSCW72QYENTWzgjKzLqW/EIFRVhnHg8tc4oCKtNOZ6kDuRg==
-X-Received: by 2002:a17:902:6b44:b0:154:4bee:c434 with SMTP id
- g4-20020a1709026b4400b001544beec434mr10858040plt.43.1650286372060; 
- Mon, 18 Apr 2022 05:52:52 -0700 (PDT)
-Received: from [127.0.1.1] ([198.8.77.157]) by smtp.gmail.com with ESMTPSA id
- s24-20020a17090a441800b001ca9b5724a6sm12663301pjg.36.2022.04.18.05.52.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Apr 2022 05:52:51 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Christoph Hellwig <hch@lst.de>
-In-Reply-To: <20220415045258.199825-1-hch@lst.de>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43873802809
+ for <cluster-devel@redhat.com>; Fri, 15 Apr 2022 05:36:17 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-638-UFpgIQbvOESe_3ZQMNVoXA-1; Fri, 15 Apr 2022 01:36:15 -0400
+X-MC-Unique: UFpgIQbvOESe_3ZQMNVoXA-1
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
+ by CY4PR12MB1815.namprd12.prod.outlook.com (2603:10b6:903:122::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Fri, 15 Apr
+ 2022 05:36:12 +0000
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::a90b:9df2:370c:e76b]) by MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::a90b:9df2:370c:e76b%3]) with mapi id 15.20.5144.030; Fri, 15 Apr 2022
+ 05:36:12 +0000
+From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+Thread-Topic: [PATCH 01/27] target: remove an incorrect unmap zeroes data
+ deduction
+Thread-Index: AQHYUITCWfO5Vbexo02RhnP7B3Qt7KzwdGUA
+Date: Fri, 15 Apr 2022 05:36:12 +0000
+Message-ID: <673afa25-cf3f-616c-6bcd-16de35b307b2@nvidia.com>
 References: <20220415045258.199825-1-hch@lst.de>
-Message-Id: <165028636949.14872.7589996414521818725.b4-ty@kernel.dk>
-Date: Mon, 18 Apr 2022 06:52:49 -0600
+ <20220415045258.199825-2-hch@lst.de>
+In-Reply-To: <20220415045258.199825-2-hch@lst.de>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0c41c8b1-f98c-4a0c-d430-08da1ea1da48
+x-ms-traffictypediagnostic: CY4PR12MB1815:EE_
+x-microsoft-antispam-prvs: <CY4PR12MB1815025F04E67817416EF431A3EE9@CY4PR12MB1815.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: FFcKzlLusYcihPuQmtr3t8KbNF6ZULdsUk3VDGoPU5Bzoim7x014V7OQAcQDACuimx2k4yREtr5B6uvJ2a8+1Uhd2xpAsmFn/qLBWU+QmZXIapLZyFQRTQOeeiEfFoms7bv0O8TA2h1Sa8MwWLeGYXuS1/E3RvLIoTNRVuO9UzRcZWyZWSQFxTMOL12Qns3v9NVdUfPovTVZiFDfTwJgyfqWPItknrB6PQlFJeMVHgxGslTmq350gxs5qs+xG+OVxS/DQedOy3ltIFpHUiPwk72NY7m7PE0ZlBBrkJb3u2+zh2ymtgCOaG+bowFhrlWJOiQ1OwDOMlmF5ns3rKS8XvTN/YJYaWqL8TEOp2RpLN5OL+mrCAx8hNrBZ0paAaO92k0nRjvEM6m4d0Euaf1ZzgMt2pH+HMEHp2QtyXP9V5w9mNVIo/cpWEyM9aGG7CEQ6NufsCVtLrmceiZK+BBSOVVx6Kuriw3HemolNu69pRP3r+/ON7gJqNR9OqkQgD2pVbeubVClHb9mztUeZpd652FKmn3k9GUpqg5Fe9lm5bEDvx0Aoq1f8yqjfX3ghiHmqp6YVLYwCamze5SKJVglv1TzAO9lFIT8BZ8sXV5+npwVYd84V645TVbI7wxZVK4gtOuLWMNwXfLbt49QpuuJyb/uGDLz+jrZrlKAeP6Fj4tVN/dOdqRK/YGL4BDamm/r2o2eVfWnzC0AYh4B4aDJjdm8z4b0LqHcyk5IYJaMM56QV7Z2E1G1LDpAAKpMl5MZM530+NFxKIwbYkKX2GXdiQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW2PR12MB4667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(71200400001)(76116006)(6486002)(54906003)(110136005)(66476007)(36756003)(66946007)(38100700002)(31696002)(316002)(64756008)(66446008)(122000001)(8676002)(83380400001)(4326008)(66556008)(86362001)(7416002)(91956017)(7406005)(5660300002)(8936002)(2906002)(53546011)(6506007)(186003)(31686004)(2616005)(38070700005)(508600001)(4744005)(6512007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VW9NMHpPcWJ5Mm9hcGpGT1lSZXc4SlQ0Y1FhTUpRNUYrZjArajhyN1lGNUk3?=
+ =?utf-8?B?SHM3OU5IZVNYNktNNHdzUzBGNnJjb3RVRnhzR3czakQrdWxtYlAwNTNOcUk2?=
+ =?utf-8?B?c3Q1YVpZK1FoUjZ5andsZnpRbmFZUUNhb2gwek1MQkFWNld1ZFloQWRldzRw?=
+ =?utf-8?B?T082RjhBTVluRDNORENwQW5lTHFOUmlNNHFhbm1QWXJySi8ydER1dFZYS0FT?=
+ =?utf-8?B?YzJla20zODFTQzh0cytmNGU2eEpLTVp1YXlTYzZKUzFjSjFuYjErYWRMTHJD?=
+ =?utf-8?B?cUpRa2tWaG9zYkN2QUI0dWppcnlXS29mWDd2ZUVPNjlLdmUwM0V6cUxlK2x1?=
+ =?utf-8?B?ajZwRlJEWi9QQ0YvQXR6MUtRTXVoRzFMK3grcmdLSTk4WWZFVXZDbEdYZkZH?=
+ =?utf-8?B?YmZuTHpuNEdCeXczMjlza1ZHS1NveU1tSVR5MkhwUUREbTRRMXdVT0FWWlFv?=
+ =?utf-8?B?V29DSDdlUXZRdGZObHNMOVk1d2puWkhOWFFpY0FBUHVZTzJkNU5Wd01xL05o?=
+ =?utf-8?B?SlN3a2pURnV4ZnZWRVRmVUcvU2hrK3h5ZnE2aFN2V3lRMnBJODlLaTFzWGh1?=
+ =?utf-8?B?cUNCWGppN2hUWVRKTy9ManRxOGdtSFRxclFPSFh6aVh6ZnVKRURJQm9VVm9l?=
+ =?utf-8?B?VnJtRWYrYkFUOTBoTmZEWXFGSHIzcVdyWk84NEZvVUNxTGdYbEllbEF5Nlpj?=
+ =?utf-8?B?S2pONlQ2RnFIcE4xZDdpQkFtZmt0dUdEaWhKUWVvKzY5YmRYOXlrb3B5ZGhJ?=
+ =?utf-8?B?VVpJSkZ2bWd3OXdubDdYZ0I3K25sVU4yOWQwMXFYS0ZzMjJONWtCaFpGYmRV?=
+ =?utf-8?B?MThGc0Z1NVI3U2FvakFEcHplWVRqK3R4cXFLbyttR3ZtQW5zQk5wZndsc3FY?=
+ =?utf-8?B?WE9PdUpwL0w4WjdMSURBNExMV1U5NUY4SjRUS0dwTXQ5TlBOT3RIUUVrTm1l?=
+ =?utf-8?B?eC94djVmVHRIc1hBRTcvcUoreGlQMFpHNUVTbkR4UVRCTDQ4OFZ0Nm80L2Yy?=
+ =?utf-8?B?WnRYREczdnpzRkJiK1hnQmg0cTFXUzk0L2o4dFppY0gyMElscDVtL2dNZTdu?=
+ =?utf-8?B?QkUwSFNuU1VBMXhLNXNTTW82WVF0dmtZcm1BYm1iSjc4TFl2OU1sRkxTN3VM?=
+ =?utf-8?B?alVrL1ZZOUF0Mm05alNiNjhKYVNZZW15T1hwTkVKWXZVcTJSUDllcFFaY29T?=
+ =?utf-8?B?YkppVUFRU09lWTZWeTV4RUVDelJRbnpLbzBzbWl3NzVsenJNNGVSeDZVbE1m?=
+ =?utf-8?B?N2o2MGdpNTlQOWNEazFWajFNQTVvUjlZaS9BbUZoMFJWL2JCR0pIbzJFandM?=
+ =?utf-8?B?eG1WdkdKamY1ZlJwZlp2aFplbm9DeGpsY3dudWE3OUhXSm1rQ2pUcy9YcmV0?=
+ =?utf-8?B?dzVUVlZNYkp3d2FtanhWcmZocHlLRW5BZ1BTMU1yTDVaWVFPb0pCL3Z6T2JD?=
+ =?utf-8?B?eEx5ZE5nNVNpQ016TGI2TkYvV3VPNlBNMFFndmJ1OXI5REQ3ZE9DNVN0T1R5?=
+ =?utf-8?B?cDl5WjdJNWpyaXV4cEFyUVpNTkZ5RU9hZC8rNnNVQWsyeWkvaU8vSkhOSTlQ?=
+ =?utf-8?B?ajlnZDd5NHhlbUFWbm9WZ01lUGxDTDY3dTFLc3hob2locXpxWVBLYVpNNEhB?=
+ =?utf-8?B?MExOaXBCU2xOeGxRMkdnU2s1ZU5vVlFQREpaRHJKVHh6M3dCdGozTUR5WTFB?=
+ =?utf-8?B?UUxoSTlNM2tneVkwODlVSWNQVGpOMmpURStJVmVxYmxTUTloSjVaWUZydTlW?=
+ =?utf-8?B?L0lsYS9TeVJHVExDdXpMa2tHOG5HZzJmNmxVYXMvZzlVakd1eTYveVdraC9N?=
+ =?utf-8?B?UU9rSTl4VzI0OEJMUDRQS3VrY0VUSGNlbk1wcnA2VVNoc3RxNmkwSCt6WWk0?=
+ =?utf-8?B?dEwrbUhnTzUvaG12YVp6bzRrMmJQWStmQ3oyTzNUYmlqbjU3dkdPZnlDWEh4?=
+ =?utf-8?B?Z05maEErSG1uSzBLNTM1dEZCTmVUVVJNVUVxalVhRFFtTEdGUUdyS3ZvcXI4?=
+ =?utf-8?B?OEs1VXNtWTRTd01uTzVVYXpLaU1JcU5ETTB4ZXpnZitEMDkzVTRqOXdPVjlm?=
+ =?utf-8?B?YVZlTS9pWHVJV0ZzR1ZONzVrMFVlWHhOa1hvc21YSGFCZDRxSVcxeWVXSmdB?=
+ =?utf-8?B?YkRyNHpEMEREdUhXWkh2Vk5pUmFoaXMrSXpqVGlYVzljMWcvZHRObnpDRjJo?=
+ =?utf-8?B?cDd3YVdKMWZlNWtGYWVleFBGOW8xME9QTTJ2VzBzWGNCT013enJHOUh2dE83?=
+ =?utf-8?B?WDBWWjlaUjRXU2h6TExEL1djWDdFVW1kSm14UmhLQ0VwNW1mWWNlNmd2Y0h0?=
+ =?utf-8?B?d1lPQ1k5Z09rYkZ2QjNBMC9TSk0zaUExcTE2TExpdGM3Wm4vSE1oUXM5Z1dn?=
+ =?utf-8?Q?3cEYgCOzwmgBAk9I=3D?=
 MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c41c8b1-f98c-4a0c-d430-08da1ea1da48
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Apr 2022 05:36:12.6026 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: y2FweSrSmTAGEteeg0PCeGV7la14HH5hz8rms25Vojja8JCsoAbp7ZNFYuPk0ZPEHv+6sDcSZkAYz2to/Dl6Vg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1815
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -82,9 +141,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: Re: [Cluster-devel] use block_device based APIs in block layer
- consumers v3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Mailman-Approved-At: Tue, 19 Apr 2022 11:02:26 +0000
+Subject: Re: [Cluster-devel] [PATCH 01/27] target: remove an incorrect unmap
+ zeroes data deduction
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,99 +156,59 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- dm-devel@redhat.com, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, cluster-devel@redhat.com,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- linux-um@lists.infradead.org, nbd@other.debian.org, linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org, ceph-devel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
- ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
+Cc: "jfs-discussion@lists.sourceforge.net"
+ <jfs-discussion@lists.sourceforge.net>,
+ "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "dm-devel@redhat.com" <dm-devel@redhat.com>,
+ "target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+ "drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ "linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "cluster-devel@redhat.com" <cluster-devel@redhat.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "nbd@other.debian.org" <nbd@other.debian.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>,
+ "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+ "linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ "linux-f2fs-devel@lists.sourceforge.net"
+ <linux-f2fs-devel@lists.sourceforge.net>,
+ "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+ "ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>,
+ "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-ID: <E802A778DDA3DB47923030D024586109@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
-On Fri, 15 Apr 2022 06:52:31 +0200, Christoph Hellwig wrote:
-> this series cleanups up the block layer API so that APIs consumed
-> by file systems are (almost) only struct block_devic based, so that
-> file systems don't have to poke into block layer internals like the
-> request_queue.
-> 
-> I also found a bunch of existing bugs related to partition offsets
-> and discard so these are fixed while going along.
-> 
-> [...]
-
-Applied, thanks!
-
-[01/27] target: remove an incorrect unmap zeroes data deduction
-        commit: 179d8609d8424529e95021df939ed7b0b82b37f1
-[02/27] target: pass a block_device to target_configure_unmap_from_queue
-        commit: 817e8b51eb3d927ce6d56ecf9f48bc3c5b26168b
-[03/27] target: fix discard alignment on partitions
-        commit: 968786b9ef56e75e0109158a4936ffffea962c1e
-[04/27] drbd: remove assign_p_sizes_qlim
-        commit: 40349d0e16cedd0de561f59752c3249780fb749b
-[05/27] drbd: use bdev based limit helpers in drbd_send_sizes
-        commit: 7a38acce229685968b770d1d9e64e01396b93643
-[06/27] drbd: use bdev_alignment_offset instead of queue_alignment_offset
-        commit: c6f23b1a05441a26f765e59dd95e8ba7354f9388
-[07/27] drbd: cleanup decide_on_discard_support
-        commit: 998e9cbcd615e5e6a7baa69e673ee845f812744e
-[08/27] btrfs: use bdev_max_active_zones instead of open coding it
-        commit: c1e7b24416400ef13ff92a1c60c336c9a2834d7b
-[09/27] ntfs3: use bdev_logical_block_size instead of open coding it
-        commit: f09dac9afb8e3ce4b6485dbc091a9b9c742db023
-[10/27] mm: use bdev_is_zoned in claim_swapfile
-        commit: 9964e674559b02619fee2012a56839624143d02e
-[11/27] block: add a bdev_nonrot helper
-        commit: 10f0d2a517796b8f6dc04fb0cc3e49003ae6b0bc
-[12/27] block: add a bdev_write_cache helper
-        commit: 08e688fdb8f7e862092ae64cee20bc8b463d1046
-[13/27] block: add a bdev_fua helper
-        commit: a557e82e5a01826f902bd94fc925c03f253cb712
-[14/27] block: add a bdev_stable_writes helper
-        commit: 36d254893aa6a6e204075c3cce94bb572ac32c04
-[15/27] block: add a bdev_max_zone_append_sectors helper
-        commit: 2aba0d19f4d8c8929b4b3b94a9cfde2aa20e6ee2
-[16/27] block: use bdev_alignment_offset in part_alignment_offset_show
-        commit: 64dcc7c2717395b7c83ffb10f040d3be795d03c1
-[17/27] block: use bdev_alignment_offset in disk_alignment_offset_show
-        commit: 640f2a23911b8388989547f89d055afbb910b88e
-[18/27] block: move bdev_alignment_offset and queue_limit_alignment_offset out of line
-        commit: 89098b075cb74a80083bc4ed6b71d0ee18b6898f
-[19/27] block: remove queue_discard_alignment
-        commit: 4e1462ffe8998749884d61f91be251a7a8719677
-[20/27] block: use bdev_discard_alignment in part_discard_alignment_show
-        commit: f0f975a4dde890bfe25ce17bf07a6495453988a4
-[21/27] block: move {bdev,queue_limit}_discard_alignment out of line
-        commit: 5c4b4a5c6f11c869a57c6bd977143430bc9dc43d
-[22/27] block: refactor discard bio size limiting
-        commit: e3cc28ea28b5f8794db2aed24f8a0282ad2e85a2
-[23/27] block: add a bdev_max_discard_sectors helper
-        commit: cf0fbf894bb543f472f682c486be48298eccf199
-[24/27] block: remove QUEUE_FLAG_DISCARD
-        commit: 70200574cc229f6ba038259e8142af2aa09e6976
-[25/27] block: add a bdev_discard_granularity helper
-        commit: 7b47ef52d0a2025fd1408a8a0990933b8e1e510f
-[26/27] block: decouple REQ_OP_SECURE_ERASE from REQ_OP_DISCARD
-        commit: 44abff2c0b970ae3d310b97617525dc01f248d7c
-[27/27] direct-io: remove random prefetches
-        commit: c22198e78d523c8fa079bbb70b2523bb6aa51849
-
-Best regards,
--- 
-Jens Axboe
-
+T24gNC8xNC8yMiAyMTo1MiwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6DQo+IEZvciBibG9jayBk
+ZXZpY2VzLCB0aGUgU0NTSSB0YXJnZXQgZHJpdmVycyBpbXBsZW1lbnRzIFVOTUFQIGFzIGNhbGxz
+IHRvDQo+IGJsa2Rldl9pc3N1ZV9kaXNjYXJkLCB3aGljaCBkb2VzIG5vdCBndWFyYW50ZWUgemVy
+b2luZyBqdXN0IGJlY2F1c2UNCj4gV3JpdGUgWmVyb2VzIGlzIHN1cHBvcnRlZC4NCj4gDQo+IE5v
+dGUgdGhhdCB0aGlzIGRvZXMgbm90IGFmZmVjdCB0aGUgZmlsZSBiYWNrZWQgcGF0aCB3aGljaCB1
+c2VzDQo+IGZhbGxvY2F0ZSB0byBwdW5jaCBob2xlcy4NCj4gDQo+IEZpeGVzOiAyMjM3NDk4ZjBi
+NWMgKCJ0YXJnZXQvaWJsb2NrOiBDb252ZXJ0IFdSSVRFX1NBTUUgdG8gYmxrZGV2X2lzc3VlX3pl
+cm9vdXQiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4N
+Cj4gUmV2aWV3ZWQtYnk6IE1hcnRpbiBLLiBQZXRlcnNlbiA8bWFydGluLnBldGVyc2VuQG9yYWNs
+ZS5jb20+DQoNCk5vdCBhIGdvb2QgYXNzdW1wdGlvbiB0byBoYXZlIGZvciBzdXJlLg0KDQpMb29r
+cyBnb29kLg0KDQpSZXZpZXdlZC1ieTogQ2hhaXRhbnlhIEt1bGthcm5pIDxrY2hAbnZpZGlhLmNv
+bT4NCg0KLWNrDQoNCg0K
 
