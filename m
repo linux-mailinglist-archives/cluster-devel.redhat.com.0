@@ -2,97 +2,93 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D5F510CB5
-	for <lists+cluster-devel@lfdr.de>; Wed, 27 Apr 2022 01:33:38 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FBC45116D0
+	for <lists+cluster-devel@lfdr.de>; Wed, 27 Apr 2022 14:36:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1651062996;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=Q3NajTnxfaXiUWEWzwoSS9j+6RIZ90UuUICFGJF5sxU=;
+	b=Bw88/G5NKqLHjm2QAkTAe4ZrkSFS9jydrYQ+R+iv1ItCsLBBtRX0fHEp76jCNHo5PWhF26
+	qifFED5WzbxkLlF1WCTiNxp8BHnqvhNIJubamwRtZW6gI3nCIyt3MxVcTVsGxkz7lN8j3I
+	6GyVfn13nA+IOe0ceZx+bW8RGNMIUI0=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-588-0c22N28MPLKMYpPbmXyeLg-1; Tue, 26 Apr 2022 19:33:34 -0400
-X-MC-Unique: 0c22N28MPLKMYpPbmXyeLg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-408-dkoEzHd2MHOLVZdca5RelA-1; Wed, 27 Apr 2022 08:36:33 -0400
+X-MC-Unique: dkoEzHd2MHOLVZdca5RelA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89C2580005D;
-	Tue, 26 Apr 2022 23:33:33 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C377566A39;
-	Tue, 26 Apr 2022 23:33:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7C2F3838C84;
+	Wed, 27 Apr 2022 12:36:32 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C515A40CF8FD;
+	Wed, 27 Apr 2022 12:36:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 349811949761;
-	Tue, 26 Apr 2022 23:33:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 12AE41947046;
+	Wed, 27 Apr 2022 12:36:30 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B897619451F0 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 26 Apr 2022 23:33:30 +0000 (UTC)
+ ESMTP id 9D7361947041 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 27 Apr 2022 12:29:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8C4C5200C0DD; Tue, 26 Apr 2022 23:33:30 +0000 (UTC)
+ id 7858B9D54; Wed, 27 Apr 2022 12:29:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8831F20111F1
- for <cluster-devel@redhat.com>; Tue, 26 Apr 2022 23:33:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 744C517586
+ for <cluster-devel@redhat.com>; Wed, 27 Apr 2022 12:29:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BA9985A5A8
- for <cluster-devel@redhat.com>; Tue, 26 Apr 2022 23:33:24 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 181281C06905
+ for <cluster-devel@redhat.com>; Wed, 27 Apr 2022 12:29:33 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-196-wDWZO50qNQG4Qy7tccncmg-1; Tue, 26 Apr 2022 19:33:22 -0400
-X-MC-Unique: wDWZO50qNQG4Qy7tccncmg-1
-Received: by mail-lf1-f44.google.com with SMTP id x33so309448lfu.1
- for <cluster-devel@redhat.com>; Tue, 26 Apr 2022 16:33:22 -0700 (PDT)
+ us-mta-170-TrvXC_4FOmmDc08vWoZ-rg-1; Wed, 27 Apr 2022 08:29:32 -0400
+X-MC-Unique: TrvXC_4FOmmDc08vWoZ-rg-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ n17-20020adfc611000000b0020a7e397ccaso681162wrg.23
+ for <cluster-devel@redhat.com>; Wed, 27 Apr 2022 05:29:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=YVvIQh6F4l539Ju82FbPOXOwgPIjKwZXSPtA68ehILI=;
- b=3WTNu8RTo/eq1C/BEX5ip9nPuZvYphsdealyswEULKUgsKXE2PLa0T2W5Kbzzxy1Un
- VKDol0chTguxING6k5y3aeSQemMV+yQ7rrbPiH/QQhgstNMvmfV/wz2YoLO42B4wOspZ
- tonCHaIl5Qs83Oh3Qem34r0bfIhtnhiE1rPb9da8hNE3YD4Q5ozxbzneeJPptyRvakZa
- 16q5NWconbMSE1BumDUVHZtjogAW3zlweCUiJZXfuTLYe2AJ8Pwm95v1d07Um+Mp3QDd
- fTh4CIEaLLowRz6RMdCQnc8Brpprf9pzMPs7s188cZPayUq6/4DD9o6H64GKU8mpHxlh
- gRCA==
-X-Gm-Message-State: AOAM533UTZgzo3yocRSCjJDMCO2bGSiwIOQk2STybEQcWlGvKGjVT+ek
- eUbKJgcjjBI7Kb3kaaMHINxUMN3588phaoR7
-X-Google-Smtp-Source: ABdhPJxGuFG2bjJEMPm7UQcuK6JmBSRL1AWQaGzZmoo270jncf7ndZGl+50b6K4GNFHpv6DlfSMUbg==
-X-Received: by 2002:ac2:5b0f:0:b0:472:82f:2537 with SMTP id
- v15-20020ac25b0f000000b00472082f2537mr8452968lfn.0.1651016000631; 
- Tue, 26 Apr 2022 16:33:20 -0700 (PDT)
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com.
- [209.85.208.170]) by smtp.gmail.com with ESMTPSA id
- t17-20020a2e7811000000b0024f11e202fdsm771674ljc.114.2022.04.26.16.33.19
- for <cluster-devel@redhat.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Apr 2022 16:33:19 -0700 (PDT)
-Received: by mail-lj1-f170.google.com with SMTP id q14so443674ljc.12
- for <cluster-devel@redhat.com>; Tue, 26 Apr 2022 16:33:19 -0700 (PDT)
-X-Received: by 2002:a2e:8789:0:b0:24f:124c:864a with SMTP id
- n9-20020a2e8789000000b0024f124c864amr7581754lji.164.1651015999161; Tue, 26
- Apr 2022 16:33:19 -0700 (PDT)
+ bh=Q3NajTnxfaXiUWEWzwoSS9j+6RIZ90UuUICFGJF5sxU=;
+ b=qf5JFSF/mJFgh8hrgtjqFw17xIAaVaAmvx7GJf1jtmTSvHoY1NI1K++gnGjXIujL81
+ wXxhy0k5f5riaT0yYFwVeqBE5M1GglPV2m9WeFllUTRsob/QhbV3p2RFNxHhH5V5LFv1
+ AF/O+VpWcV7N5zAtd2Yb5eHyXXexmcw8BKOV7I7yX/GJijfUGxOWMKITpNkVmk77ihvR
+ jewHoxeHjHnsdp7nauFrp6KnSueTQOmkCO8VxUE8NuOtOsqRP7faDqCdifPCvtjOdSan
+ 6e5xhc2FNBCPb0uKcRXSqnCgQzA1LLCpbWz+hFKEiR0hZY04+XQz7a2vFK+ygnmSHKN6
+ 6VMw==
+X-Gm-Message-State: AOAM532JP0AZ1VKr+YKwUKBvbbR+j9x+q/cd89H20rgmfZsKdaMWFHVE
+ JER3endvcvjDuBHexrPbuQSCVi0FCu6O6lgsz0qFPIUkT2saGVOc4m/ZNrmctvdZFWTYOnDu6U0
+ fKY+xsqlpDrbpNQ1waKCChBaqdkPMxmL7JJ0noQ==
+X-Received: by 2002:a05:6000:712:b0:20a:e5ee:2310 with SMTP id
+ bs18-20020a056000071200b0020ae5ee2310mr6763128wrb.349.1651062570342; 
+ Wed, 27 Apr 2022 05:29:30 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx2NwbomRB7oo5qB43mxERhmhA3DTKd91/iW0YBKGD5MzZODgFS2GGN77/iu24+f+xVUoV7Vyi36xCRLTKBGqU=
+X-Received: by 2002:a05:6000:712:b0:20a:e5ee:2310 with SMTP id
+ bs18-20020a056000071200b0020ae5ee2310mr6763112wrb.349.1651062570075; Wed, 27
+ Apr 2022 05:29:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220426145445.2282274-1-agruenba@redhat.com>
  <CAHk-=wi7o+fHYBTuCQQdHD112YHQtO21Y3+wxNYypjdo8feKFg@mail.gmail.com>
  <CAHc6FU48681X8aUK+g7UUN7q5b6rkVBzTP7h_zbE4XqZYAiw3g@mail.gmail.com>
-In-Reply-To: <CAHc6FU48681X8aUK+g7UUN7q5b6rkVBzTP7h_zbE4XqZYAiw3g@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 26 Apr 2022 16:33:02 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjMB1-xCOCBtsSMmQuFV9G+vNyCY1O_LsoqOd=0QS4yYg@mail.gmail.com>
-Message-ID: <CAHk-=wjMB1-xCOCBtsSMmQuFV9G+vNyCY1O_LsoqOd=0QS4yYg@mail.gmail.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+ <CAHk-=wjMB1-xCOCBtsSMmQuFV9G+vNyCY1O_LsoqOd=0QS4yYg@mail.gmail.com>
+In-Reply-To: <CAHk-=wjMB1-xCOCBtsSMmQuFV9G+vNyCY1O_LsoqOd=0QS4yYg@mail.gmail.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 27 Apr 2022 14:29:18 +0200
+Message-ID: <CAHc6FU5Bag5W2t79+WzUq=NibtEF+7z6=jyNCkLMMp9Yqvpmqw@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Subject: Re: [Cluster-devel] [GIT PULL] gfs2 fix
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -109,134 +105,162 @@ Cc: cluster-devel <cluster-devel@redhat.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Apr 26, 2022 at 2:28 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
+On Wed, Apr 27, 2022 at 1:33 AM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+> On Tue, Apr 26, 2022 at 2:28 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
+> >
+> > Btrfs has a comment in that place that reads:
+> >
+> >     /* No increment (+=) because iomap returns a cumulative value. */
 >
-> Btrfs has a comment in that place that reads:
+> What a truly horrid interface. But you are triggering repressed
+> childhood memories:
 >
->     /* No increment (+=) because iomap returns a cumulative value. */
-
-What a truly horrid interface. But you are triggering repressed
-childhood memories:
-
-> That's so that we can complete the tail of an asynchronous write
-> asynchronously after a failed page fault and subsequent fault-in.
-
-yeah, that makes me go "I remember something like that".
-
-> That would be great, but applications don't seem to be able to cope
-> with short direct writes, so we must turn partial failure into total
-> failure here. There's at least one xfstest that checks for that as
-> well.
-
-What a complete crock. You're telling me that you did some writes, but
-then you can't tell user space that writes happened because that would
-confuse things.
-
-Direct-IO is some truly hot disgusting garbage.
-
-Happily it's only used for things like databases that nobody sane
-would care about anyway.
-
-Anyway, none of that makes any sense, since you do this:
-
-                ret = gfs2_file_direct_write(iocb, from, &gh);
-                if (ret < 0 || !iov_iter_count(from))
-                        goto out_unlock;
-
-                iocb->ki_flags |= IOCB_DSYNC;
-                buffered = gfs2_file_buffered_write(iocb, from, &gh);
-
-so you're saying that the direct write will never partially succeed,
-but then in gfs2_file_write_iter() it very much looks like it's
-falling back to buffered writes for that case.
-
-Hmm. Very odd.
-
-I assume this is all due to that
-
-        /* Silently fall back to buffered I/O when writing beyond EOF */
-        if (iocb->ki_pos + iov_iter_count(from) > i_size_read(&ip->i_inode))
-
-thing, so this all makes some perverse kind of sense, but it still
-looks like this code just needs some serious serious commentary.
-
-So you *can* have a partial write if you hit the end of the file, and
-then you'll continue that partial write with the buffered code.
-
-But an actual _failure_ will not do that, and instead return an error
-even if the write was partially done.
-
-But then *some* failures aren't failures at all, and without any
-comments do this
-
-        if (ret == -ENOTBLK)
-                ret = 0;
-
-
-And remind me again - this all is meant for applications that
-supposedly care about consistency on disk?
-
-And the xfs tests actually have a *test* for that case, to make sure
-that nobody can sanely *really* know how much of the write succeeded
-if it was a DIO write?
-
-Gotcha.
-
-> > The reason I think I'm full of sh*t is that you say that the problem
-> > occurs in gfs2_file_buffered_write(), not in that
-> > gfs2_file_direct_write() case.
+> > That's so that we can complete the tail of an asynchronous write
+> > asynchronously after a failed page fault and subsequent fault-in.
 >
-> Right, we're having that issue with buffered writes.
+> yeah, that makes me go "I remember something like that".
+>
+> > That would be great, but applications don't seem to be able to cope
+> > with short direct writes, so we must turn partial failure into total
+> > failure here. There's at least one xfstest that checks for that as
+> > well.
+>
+> What a complete crock. You're telling me that you did some writes, but
+> then you can't tell user space that writes happened because that would
+> confuse things.
+>
+> Direct-IO is some truly hot disgusting garbage.
+>
+> Happily it's only used for things like databases that nobody sane
+> would care about anyway.
+>
+> Anyway, none of that makes any sense, since you do this:
+>
+>                 ret = gfs2_file_direct_write(iocb, from, &gh);
+>                 if (ret < 0 || !iov_iter_count(from))
+>                         goto out_unlock;
+>
+>                 iocb->ki_flags |= IOCB_DSYNC;
+>                 buffered = gfs2_file_buffered_write(iocb, from, &gh);
+>
+> so you're saying that the direct write will never partially succeed,
+> but then in gfs2_file_write_iter() it very much looks like it's
+> falling back to buffered writes for that case.
+>
+> Hmm. Very odd.
+>
+> I assume this is all due to that
+>
+>         /* Silently fall back to buffered I/O when writing beyond EOF */
+>         if (iocb->ki_pos + iov_iter_count(from) > i_size_read(&ip->i_inode))
+>
+> thing, so this all makes some perverse kind of sense, but it still
+> looks like this code just needs some serious serious commentary.
 
-I have to say, compared to all the crazy things I see in the DIO path,
-the buffered write path actually looks almost entirely sane.
+Yes, that, as well as writing into holes.
 
-Of course, gfs2_file_read_iter() counts how many bytes it has read in
-a variable called 'written', and gfs2_file_buffered_write() counts the
-bytes it has written in a variable called 'read', so "entirely sane"
-is all very very relative.
+During direct writes, gfs2 is holding the inode glock in a special
+"shared writable" mode which works like the usual "shared readable"
+mode as far as metadata goes, but can be held by multiple "shared
+writers" at the same time. This allows multiple nodes to write to the
+storage device concurrently as long as the file is preallocated (i.e.,
+databases). When it comes to allocations, it falls back to "exclusive"
+locking and buffered writes.
 
-I'm sure there's some good reason (job security?) for all this insanity.
+> So you *can* have a partial write if you hit the end of the file, and
+> then you'll continue that partial write with the buffered code.
+>
+> But an actual _failure_ will not do that, and instead return an error
+> even if the write was partially done.
+>
+> But then *some* failures aren't failures at all, and without any
+> comments do this
+>
+>         if (ret == -ENOTBLK)
+>                 ret = 0;
+>
+>
+> And remind me again - this all is meant for applications that
+> supposedly care about consistency on disk?
+>
+> And the xfs tests actually have a *test* for that case, to make sure
+> that nobody can sanely *really* know how much of the write succeeded
+> if it was a DIO write?
+>
+> Gotcha.
 
-But I now have to go dig my eyes out with a rusty spoon.
+I agree that it's pretty sad.
 
-But before I do that, I have one more question (I'm going to regret
-this, aren't I?):
+> > > The reason I think I'm full of sh*t is that you say that the problem
+> > > occurs in gfs2_file_buffered_write(), not in that
+> > > gfs2_file_direct_write() case.
+> >
+> > Right, we're having that issue with buffered writes.
+>
+> I have to say, compared to all the crazy things I see in the DIO path,
+> the buffered write path actually looks almost entirely sane.
+>
+> Of course, gfs2_file_read_iter() counts how many bytes it has read in
+> a variable called 'written', and gfs2_file_buffered_write() counts the
+> bytes it has written in a variable called 'read', so "entirely sane"
+> is all very very relative.
+>
+> I'm sure there's some good reason (job security?) for all this insanity.
 
-In gfs2_file_buffered_write(), when it has done that
-fault_in_iov_iter_readable(), and it decides that that succeeded, it
-does
+Point taken; I'll fix this up.
 
-                        if (gfs2_holder_queued(gh))
-                                goto retry_under_glock;
-                        if (read && !(iocb->ki_flags & IOCB_DIRECT))
-                                goto out_uninit;
-                        goto retry;
+> But I now have to go dig my eyes out with a rusty spoon.
+>
+> But before I do that, I have one more question (I'm going to regret
+> this, aren't I?):
+>
+> In gfs2_file_buffered_write(), when it has done that
+> fault_in_iov_iter_readable(), and it decides that that succeeded, it
+> does
+>
+>                         if (gfs2_holder_queued(gh))
+>                                 goto retry_under_glock;
+>                         if (read && !(iocb->ki_flags & IOCB_DIRECT))
+>                                 goto out_uninit;
+>                         goto retry;
+>
+> so if it still has that lock (if I understand correctly), it will always retry.
+>
+> But if it *lost* the lock, it will retry only if was a direct write,
+> and return a partial success for a regular write() rather than
+> continue the write.
+>
+> Whaa? I'm assuming that this is more of that "direct writes have to
+> succeed fully or not at all", but according to POSIX *regular* writes
+> should also succeed fully, unless some error happens.
+>
+> Losing the lock doesn't sound like an error to me.
 
-so if it still has that lock (if I understand correctly), it will always retry.
+Regular (buffered) reads and writes are expected to be atomic with
+respect to each other. That atomicity comes from holding the lock.
+When we lose the lock, we can observe atomicity and return a short
+result, ignore atomicity and return the full result, or retry the
+entire operation. Which of those three options would you prefer?
 
-But if it *lost* the lock, it will retry only if was a direct write,
-and return a partial success for a regular write() rather than
-continue the write.
+For what it's worth, none of this matters as long as there's no lock
+contention across the cluster.
 
-Whaa? I'm assuming that this is more of that "direct writes have to
-succeed fully or not at all", but according to POSIX *regular* writes
-should also succeed fully, unless some error happens.
+> And there are a lot of applications that do assume "write to a regular
+> file didn't complete fully means that the disk is full" etc. Because
+> that's the traditional meaning.
+>
+> This doesn't seem to be related to any data corruption issue, but it does smell.
+>
+>              Linus
 
-Losing the lock doesn't sound like an error to me.
-
-And there are a lot of applications that do assume "write to a regular
-file didn't complete fully means that the disk is full" etc. Because
-that's the traditional meaning.
-
-This doesn't seem to be related to any data corruption issue, but it does smell.
-
-             Linus
+Thanks,
+Andreas
 
