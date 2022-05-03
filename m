@@ -1,83 +1,83 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3230F517811
-	for <lists+cluster-devel@lfdr.de>; Mon,  2 May 2022 22:24:58 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 46BF4518043
+	for <lists+cluster-devel@lfdr.de>; Tue,  3 May 2022 10:56:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1651523097;
+	s=mimecast20190719; t=1651568205;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=UdZt71erzInkdQWP9nE3aPOYbCeSzdBMVJZpOjnab6U=;
-	b=T3M73+WRgx70IlvKVL3MIWAyxMddLPrFMpRKJiXZXNzKHv48+QxS7ZOMWbIHcAJYrSDfE9
-	jFylKZSG1+v29ldePDTOP/I1EtiOBRhPp/+i8EmvGD4h+I8/k5G8CmDfTq7NYwdK5iovKr
-	RzLP92TcSpMPXRjHs4pDe7gBSqbNU3E=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=hsMPfZ7YVBXiceEKvCyPHJHbSrWBVzhicBQJ3xEfcUM=;
+	b=TLVe3Dry0YIQd6jiB9T0uRNTGPo8iw1XE3ZvKMEcQLoqFFDBNaj+p87lElII4uOQHSNA6l
+	niRNr5hSVVT2zbGrgyCnHA9b3WytOXMLXZvwcLEBEzfPoqTLxxU5O+SM5qsWQzn67U7F6B
+	i+GxmiLtV8tnhlej9+7v8c3U//hehDo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-247-5xwClOFVPb-JG70tl5DMDg-1; Mon, 02 May 2022 16:24:56 -0400
-X-MC-Unique: 5xwClOFVPb-JG70tl5DMDg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-468-xpxME_WcMB-ajQHKLG0F6w-1; Tue, 03 May 2022 04:56:42 -0400
+X-MC-Unique: xpxME_WcMB-ajQHKLG0F6w-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EAF241C151AD;
-	Mon,  2 May 2022 20:24:54 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id ED5C140CFD08;
-	Mon,  2 May 2022 20:24:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CE17811E78;
+	Tue,  3 May 2022 08:56:41 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4033D401E77;
+	Tue,  3 May 2022 08:56:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 53492194704C;
-	Mon,  2 May 2022 20:24:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B7AE31947049;
+	Tue,  3 May 2022 08:56:38 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 834F41947042 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  2 May 2022 20:24:52 +0000 (UTC)
+ ESMTP id A9C701947041 for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  3 May 2022 08:56:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 718CB150DE1E; Mon,  2 May 2022 20:24:52 +0000 (UTC)
+ id 98439568CD4; Tue,  3 May 2022 08:56:37 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6DF3E150DE1C
- for <cluster-devel@redhat.com>; Mon,  2 May 2022 20:24:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 564801C151AF
- for <cluster-devel@redhat.com>; Mon,  2 May 2022 20:24:52 +0000 (UTC)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 94359568CD2
+ for <cluster-devel@redhat.com>; Tue,  3 May 2022 08:56:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7ADF71014A60
+ for <cluster-devel@redhat.com>; Tue,  3 May 2022 08:56:37 +0000 (UTC)
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-350-hBnGt1XbOzSjcgz3RAtApw-1; Mon, 02 May 2022 16:24:43 -0400
-X-MC-Unique: hBnGt1XbOzSjcgz3RAtApw-1
-Received: by mail-wm1-f72.google.com with SMTP id
- g14-20020a1c4e0e000000b0039425ef54d6so134779wmh.9
- for <cluster-devel@redhat.com>; Mon, 02 May 2022 13:24:43 -0700 (PDT)
+ us-mta-397-fFKHrP8IOB292wFmFQUzhw-1; Tue, 03 May 2022 04:56:33 -0400
+X-MC-Unique: fFKHrP8IOB292wFmFQUzhw-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ t2-20020a7bc3c2000000b003528fe59cb9so499160wmj.5
+ for <cluster-devel@redhat.com>; Tue, 03 May 2022 01:56:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=UdZt71erzInkdQWP9nE3aPOYbCeSzdBMVJZpOjnab6U=;
- b=oKv1qUAt7U8Kj0rrsedvbWGodpxraTV1OzkH9+qtD6fKU4/85mJfVasC+aO/xwS8h4
- gVWgC/N8ZekZmJdU/9oqDgTTjBljFxMh1HYheUuKCTj8qLrvSiTS4MoH5HttT58mxDJK
- Tjm237s5ok7V7em0YUNY/GQgEIt9rWFfyH2MfhlLhlnbbUttBOCOV8mTzoQV3ivQJqSN
- 0lyB0AYgxhk3aJrDAUiptOr6XepCPijqm6FTTE+BzUpHLpa6IuERlmk3EQCBC42jMlV2
- 9QSQMkVooQb/78f1xGj7Br3gGMOVEws84mi4vvFxArLixD58/E+GXTjNx5WekaIPHgQk
- 1SYw==
-X-Gm-Message-State: AOAM531hubXGP8Zrfo3088UfYn1hVyQDSwO6nyaCykSStY/3ShdW2PIo
- v7+0nkSzY2LC33TU6oW2F6vh2SssHew9DcLkCHMOClj+30IrBqC535qiHejoUY8PNwuWPFSWnO9
- B2WT3TqWCRQC5AgimDHBx04pgHo4YReN77l6H0Q==
-X-Received: by 2002:a1c:2942:0:b0:392:3aff:4fcd with SMTP id
- p63-20020a1c2942000000b003923aff4fcdmr620244wmp.0.1651523082222; 
- Mon, 02 May 2022 13:24:42 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwcEsBewr8W5eVg62nkR1Wb4KVlY1M0XsuVK3vz1ojcr4Vc7wcJuVZJYI+tEdl0Qe0q+ayeeD8mjC8Nl1rx4+U=
-X-Received: by 2002:a1c:2942:0:b0:392:3aff:4fcd with SMTP id
- p63-20020a1c2942000000b003923aff4fcdmr620231wmp.0.1651523081803; Mon, 02 May
- 2022 13:24:41 -0700 (PDT)
+ bh=hsMPfZ7YVBXiceEKvCyPHJHbSrWBVzhicBQJ3xEfcUM=;
+ b=jQhtLntlJF3ZJpa0w7UnX7TqNxqfdIx02Da3gGK8LA2kfpWwVlAh6nUbcUh9MvTH5r
+ KKzFHAoWcXAyLCnDYtdlHqedF0xHcDphMZMvD58JCJgBzG7M58q3XIE+mP6B/y115fS0
+ ckZQmugPoW8Mj6Qaa7CvqUfQJ9afy2F7EySS8Qs87yi0xFRkBOmY38OPbpQjK/BkwLM2
+ DyzMy3z7U+oOzHNRWqNtgVphjUqJSLyL435o/jXBnVQxh4f4VwXvreebulgb+Qq+pSvu
+ N+V31jva7UolLjj6TOwCo7n9Q568kVyOdABK5YD8RDgjTa17bRIu1YeZs1DDcubqdf2c
+ nhOg==
+X-Gm-Message-State: AOAM532oCh26ptY0MQd/SJnueCECMociYdwYTjnk06x4La18wKNMIAEc
+ kGeBv79kL1gGyssnxFO0WZM86m6/F3U4MjTjFBQOJSwmIKXXKysLTh+NpPUze9At2vVtPMdWt7E
+ RB+pMy6iF9mVPhjQBmHrHG07/dYxSoaxPE9GY0w==
+X-Received: by 2002:a05:600c:9:b0:393:ea67:1c68 with SMTP id
+ g9-20020a05600c000900b00393ea671c68mr2482283wmc.92.1651568192650; 
+ Tue, 03 May 2022 01:56:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzYtLR8VvhbzJcDjhUtSyg5TLLMizsYb225WJMv+RYxsAzrnZVWzwvB4t0FHDEztk89AxGCkD5/dkHUmR0hilI=
+X-Received: by 2002:a05:600c:9:b0:393:ea67:1c68 with SMTP id
+ g9-20020a05600c000900b00393ea671c68mr2482267wmc.92.1651568192413; Tue, 03 May
+ 2022 01:56:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220426145445.2282274-1-agruenba@redhat.com>
  <CAHk-=wi7o+fHYBTuCQQdHD112YHQtO21Y3+wxNYypjdo8feKFg@mail.gmail.com>
@@ -94,13 +94,12 @@ References: <20220426145445.2282274-1-agruenba@redhat.com>
  <CAHk-=wg4ypnZUA5BOHAF1miKvOhW2yQSruuBKNXMDR=dTmp+ww@mail.gmail.com>
  <CAHc6FU6VgQDO7HT5f4S_4f=9hczKGRDQ6SbQ5kNHMi4i-6rxVA@mail.gmail.com>
  <CAHk-=whL74iP6v2P+OafGO0H72ag4wt42k+Kc_01boLP8aqUNQ@mail.gmail.com>
- <CAHk-=whrt9ofcyonPEbgPOaCG+15mDdz+O9bb0RKrJVTt7vR4w@mail.gmail.com>
-In-Reply-To: <CAHk-=whrt9ofcyonPEbgPOaCG+15mDdz+O9bb0RKrJVTt7vR4w@mail.gmail.com>
+In-Reply-To: <CAHk-=whL74iP6v2P+OafGO0H72ag4wt42k+Kc_01boLP8aqUNQ@mail.gmail.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 2 May 2022 22:24:30 +0200
-Message-ID: <CAHc6FU7TRD_2H6H4ucoqQ-8Q1d0xtoT68uopbZGQPwO9Z1k0kw@mail.gmail.com>
+Date: Tue, 3 May 2022 10:56:20 +0200
+Message-ID: <CAHc6FU77KGn76B4ieu9Tn895deK-1yV4y=8ou4gTfUf=7C-4XQ@mail.gmail.com>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Subject: Re: [Cluster-devel] [GIT PULL] gfs2 fix
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -118,76 +117,138 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, May 2, 2022 at 8:58 PM Linus Torvalds
+On Mon, May 2, 2022 at 8:32 PM Linus Torvalds
 <torvalds@linux-foundation.org> wrote:
-> On Mon, May 2, 2022 at 11:31 AM Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> On Thu, Apr 28, 2022 at 10:39 AM Andreas Gruenbacher <agruenba@redhat.com> wrote:
 > >
-> > NOTE! This patch is entirely untested. I also didn't actually yet go
-> > look at what gfs2 does when 'bytes' and 'copied' are different.
+> > Yes, but note that it's gfs2_file_buffered_write() that fails. When
+> > the pagefault_disable/enable() around iomap_file_buffered_write() is
+> > removed, the corruption goes away.
 >
-> Oh, it's a lot of generic iomap_write_end() code, so I guess it's just
-> as well that I brought in the iomap people.
+> I looked some more at this on and off, and ended up even more confused.
 >
-> And the iomap code has many different cases. Some of them do
+> For some reason, I'd mostly looked at the read case, because I had
+> mis-read some of your emails and thought it was the buffered reads
+> that caused problems.
 >
->         if (unlikely(copied < len && !folio_test_uptodate(folio)))
->                 return 0;
+> Then I went back more carefully, and realized you had always said
+> gfs2_file_buffered_write() was where the issues happened, and looked
+> at that path more, and that confused me even *MORE*.
 >
-> to force the whole IO to be re-done (looks sane - that's the "the
-> underlying folio wasn't uptodate, because we expected the write to
-> make it so").
+> Because that case has always done the copy from user space with page
+> faults disabled, because of the traditional deadlock with reading from
+> user space while holding the page lock on the target page cache page.
 >
-> And that might not have happened before, but it looks like gfs2 does
-> actually try to deal with that case.
+> So that is not really about the new deadlock with filesystem locks,
+> that was fixed by 00bfe02f4796 ("gfs2: Fix mmap + page fault deadlocks
+> for buffered I/O").
 >
-> But since Andreas said originally that the IO wasn't aligned, I don't
-> think that "not uptodate" case is what is going on, and it's more
-> about some "partial write in the middle of a buffer succeeded"
+> So now that I'm looking at the right function (maybe) I'm going "huh",
+> because it's none of the complex cases that would seem to fail, it's
+> literally just the fault_in_iov_iter_readable() that we've always done
+> in iomap_write_iter() that presumably starts failing.
 >
-> And the code also has things like
+> But *that* old code seems bogus too. It's doing
 >
->         if (ret < len)
->                 iomap_write_failed(iter->inode, pos, len);
+>                 if (unlikely(fault_in_iov_iter_readable(i, bytes) == bytes)) {
+>                         status = -EFAULT;
+>                         break;
+>                 }
 >
-> which looks very wrong - it's not that the write failed, it's just
-> incomplete because it was done with page faults disabled. It seems to
-> try to do some page cache truncation based on the original 'len', but
-> not taking the successful part into account. Which all sounds
-> horrifically wrong.
+> which on the face of it is sane: it's saying "if we can't fault in any
+> bytes, then stop trying".
 >
-> But I don't know the code well enough to really judge. It just makes
-> me uncomfortable, and I do suspect this code may be quite buggy if the
-> copy of the full 'len' doesn't succeed.
+> And it's good, and correct, but it does leave one case open.
+>
+> Because what if the result is "we can fault things in _partially_"?
+>
+> The code blithely goes on and tries to do the whole 'bytes' range _anyway_.
+>
+> Now, with a bug-free filesystem, this really shouldn't matter, since
+> the later copy_page_from_iter_atomic() thing should then DTRT anyway,
+> but this does mean that one fundamental thing that that commit
+> 00bfe02f4796 changed is that it basically disabled that
+> fault_in_iov_iter_readable() that *used* to fault in the whole range,
+> and now potentially only faults in a small area.
+>
+> That, in turn, means that in practice it *used* to do "write_end()"
+> with a fully successful range, ie when it did that
+>
+>                 status = a_ops->write_end(file, mapping, pos, bytes, copied,
+>                                                 page, fsdata);
+>
+> then "bytes" and "copied" were the same.
+>
+> But now that commit 00bfe02f4796 added the "disable_pagefault()"
+> around the whole thing, fault_in_iov_iter_readable() will easily fail
+> half-way instead of bringing the next page in, and then that
+> ->write_begin() to ->write_end() sequence will see the copy in the
+> middle failing half-way too, and you'll have that write_end()
+> condition with the write _partially_ succeeding.
+>
+> Which is the complex case for write_end() that you practically
+> speaking never saw before (it *could* happen with a race with swap-out
+> or similar, but it was not really something you could trigger in real
+> life.
+>
+> And I suspect this is what bites you with gfs2
+>
+> To *test* that hypothesis, how about you try this attached patch? The
+> generic_perform_write() function in mm/filemap.c has the same exact
+> pattern, but as mentioned, a filesystem really needs to be able to
+> handle the partial write_end() case, so it's not a *bug* in that code,
+> but it migth be triggering a bug in gfs2.
+>
+> And gfs2 only uses the iomap_write_iter() case, I think. So that's the
+> only case this attached patch changes.
+>
+> Again - I think the unpatched iomap_write_iter() code is fine, but I
+> think it may be what then triggers the real bug in gfs2. So this patch
+> is not wrong per se, but this patch is basically a "hide the problem"
+> patch, and it would be very interesting to hear if it does indeed fix
+> your test-case.
 
-This has thrown me off in the past as well; it should be changed to
-iomap_write_failed(iter->inode, pos + ret, len - ret) for legibility.
-However, iomap_write_failed() only truncates past EOF and is preceded
-by i_size_write(iter->inode, pos + ret) here, so it's not strictly a
-bug.
+We still get data corruption with the patch applied. The
+WARN_ON_ONCE(!bytes) doesn't trigger.
 
-> Again, the patch I sent only _hides_ any issues and makes them
-> practically impossible to see. It doesn't really _fix_ anything, since
-> - as mentioned - regardless of fault_in_iov_iter_readable()
-> succeeding, racing with page-out could then cause the later
-> copy_page_from_iter_atomic() to have a partial copy anyway.
+As an additional experiment, I've added code to check the iterator
+position that iomap_file_buffered_write() returns, and it's all
+looking good as well: an iov_iter_advance(orig_from, written) from the
+original position always gets us to the same iterator.
 
-Indeed. Let's see what we'll get with it.
+This points at gfs2 getting things wrong after a short write, for
+example, marking a page / folio uptodate that isn't. But the uptodate
+handling happens at the iomap layer, so this doesn't leave me with an
+immediate suspect.
 
-In the meantime, we've reproduced with 5.18-rc4 + commit 296abc0d91d8
-("gfs2: No short reads or writes upon glock contention"), and it still
-has the data corruption.
+We're on filesystems with block size == page size, so none of the
+struct iomap_page uptodata handling should be involved, either.
 
-> And hey, maybe there's something entirely different going on, and my
-> "Heureka! It might be explained by that partial write_end that
-> generally didn't happen before" is only my shouting at windmills.
+> Because that would pinpoint exactly what the bug is.
 >
->              Linus
+> I'm adding Christoph and Darrick as iomap maintainers here to the
+> participants (and Dave Chinner in case he's also the temporary
+> maintainer because Darrick is doing reviews) not because they
+> necessarily care, but just because this test-patch obviously involves
+> the iomap code.
 >
+> NOTE! This patch is entirely untested. I also didn't actually yet go
+> look at what gfs2 does when 'bytes' and 'copied' are different. But
+> since I finally think I figured out what might be going on, I decided
+> I'd send this out sooner rather than later.
+>
+> Because this is the first thing that makes me go "Aaahh.. This might
+> explain it".
+>
+>                    Linus
+
+Thanks,
+Andreas
 
