@@ -2,109 +2,103 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B6251ABB6
-	for <lists+cluster-devel@lfdr.de>; Wed,  4 May 2022 19:52:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1651686774;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=yf7BR3WltEqwAzcMwH0wKy6tL9PI+XUug92MYo/xJjM=;
-	b=KXDD/7BADMnm+qBlAyt8e1TXzjKfv8zFnahDdEi09ApauUy9Lemslt8af8oXV4LnJEbtUr
-	wHMlMJwL+HExI19zamB1/jjsa4c4BSKjTLBeTohEZT+09/B/NqoaJqvSU3QkIJvIgAll3y
-	pEBSTm0SB36ZREFiBvN6Yaj7WRxQBjU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E63151ECCF
+	for <lists+cluster-devel@lfdr.de>; Sun,  8 May 2022 12:06:50 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-504-v8GfquXDPF-Eyl4x2XPv5g-1; Wed, 04 May 2022 13:52:49 -0400
-X-MC-Unique: v8GfquXDPF-Eyl4x2XPv5g-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-588-jTFpFELoPUWd8tkkSYs6vw-1; Sun, 08 May 2022 06:06:46 -0400
+X-MC-Unique: jTFpFELoPUWd8tkkSYs6vw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B43EB801E80;
-	Wed,  4 May 2022 17:52:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10D171C05EAA;
+	Sun,  8 May 2022 10:06:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CEB7D176C3;
-	Wed,  4 May 2022 17:52:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7D0CD2024CB7;
+	Sun,  8 May 2022 10:06:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E312B1947048;
-	Wed,  4 May 2022 17:52:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E0504194705D;
+	Sun,  8 May 2022 10:06:39 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4EBC11947043 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  4 May 2022 17:52:45 +0000 (UTC)
+ ESMTP id 1C6D41947042 for <cluster-devel@listman.corp.redhat.com>;
+ Sun,  8 May 2022 10:06:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2A57640D1B9F; Wed,  4 May 2022 17:52:45 +0000 (UTC)
+ id ACFD6C27E83; Sun,  8 May 2022 10:06:37 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 262F84010E24
- for <cluster-devel@redhat.com>; Wed,  4 May 2022 17:52:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0BA04395AFEF
- for <cluster-devel@redhat.com>; Wed,  4 May 2022 17:52:45 +0000 (UTC)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A8F1EC27DB8
+ for <cluster-devel@redhat.com>; Sun,  8 May 2022 10:06:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8ED5F101AA45
+ for <cluster-devel@redhat.com>; Sun,  8 May 2022 10:06:37 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-207-Nj3aCwleMl-al8Pp4EUOUQ-1; Wed, 04 May 2022 13:52:41 -0400
-X-MC-Unique: Nj3aCwleMl-al8Pp4EUOUQ-1
-Received: by mail-wr1-f69.google.com with SMTP id
- y13-20020adfc7cd000000b0020ac7c7bf2eso612591wrg.9
- for <cluster-devel@redhat.com>; Wed, 04 May 2022 10:52:41 -0700 (PDT)
+ us-mta-115-1-tKhNOLN--e3uJ-AVsJPg-1; Sun, 08 May 2022 06:06:35 -0400
+X-MC-Unique: 1-tKhNOLN--e3uJ-AVsJPg-1
+Received: by mail-pj1-f53.google.com with SMTP id
+ w5-20020a17090aaf8500b001d74c754128so14641918pjq.0
+ for <cluster-devel@redhat.com>; Sun, 08 May 2022 03:06:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yf7BR3WltEqwAzcMwH0wKy6tL9PI+XUug92MYo/xJjM=;
- b=gyB0nWQVVB/Zq3hNdJLmnCebyaey2vkH0rwCyI+uk7i7RmvJ0RTtiQ1hI6/AU/FC3z
- I+uFsXVCvExVsp6o+1LWN3ToFknCruWHjBvjGUOxmf1mLv4hTNjwliRoxcRJhyHRQ01D
- ankvjXaH8g7d+XsCBQrda8itPn+heB9hfEtGyyxVKOOAe0p+0NsPOlTqg+40oBjVpJa5
- tiyp+zimtanECAF5ZBPH6aSNzKm07yHoOqlZhp1D8b62DHm8FbI90+JbklTaMudQRpOn
- lwb6hQ3WV0dZohdY0pXymR9jmX/amX/UMCtO1URGyn15dp8mJT10CRT4fC1U/OwERHpw
- XqVw==
-X-Gm-Message-State: AOAM531giyqpdaD8+33P8PY0FXJnqVnMkRX+97jO1O6pdjBSl2RFndie
- UgrmEAOlESZUBKAMfEAj57Vd0cE46hs0PpjTuLf2LIlnulw3r8QNXXJH82GFSmQ61EA0QJQlgDx
- 8GkBAy2WUIgmx3eS0s3lH/YfsSIEA82gak9Erlw==
-X-Received: by 2002:adf:f30a:0:b0:20a:e193:6836 with SMTP id
- i10-20020adff30a000000b0020ae1936836mr17475071wro.654.1651686760685; 
- Wed, 04 May 2022 10:52:40 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzUqdtlq6DRnJ4Zi/osRG+d5cliZmFt2ncO+uls6odhjFDHMm5eVQLCV2/rPOY0uYNiWgHK/0VQSsjVzjh+e/E=
-X-Received: by 2002:adf:f30a:0:b0:20a:e193:6836 with SMTP id
- i10-20020adff30a000000b0020ae1936836mr17475050wro.654.1651686760467; Wed, 04
- May 2022 10:52:40 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lkaLJePYyPZfYRnE3vYCNwqas5gjiv8Fw2OTZAyZSTU=;
+ b=EhO6sjtArbW644TJTlH5hKzZb/1KS0wf1P9V5tpj7xX1hn4JLP3prGhiY/3O8Dm5pj
+ sdAJFGErOlk1PcrJPNHvs6wkHdGeDylP8+jN6Hfmtd1br9dEC0M9p1f5Dn1jydZvnGxm
+ s3b1qBd0TiANh/gGB4rpqY7DuGBfsh3MhE785kxYkTNdqDqqMDON3lelgP5GwV4ze2Nl
+ Ndyych2h5KX7qgchWU/7+UbOtaMUmcbVxU6l58hROHoPxintb8BwLueA2qHVFfkL8q8e
+ 7duHHBaqjs1DYJNdsqi9nSUcPKr5phMkKKydxhHFSx3EzFfRxRWrntuvUAEqZpY7FELV
+ 8g9Q==
+X-Gm-Message-State: AOAM533qQL4+SfTPwGA3C6od/N0Xi5JybFjtx1yhvwiwuvWuTo4T5okB
+ P/XzyqbF7gIWYcKj8eIQk+AWqg==
+X-Google-Smtp-Source: ABdhPJyVC/VMs0K9YmHuiLbSJVevGigliNxeL4wfFf6BuBdcmtu/fPeGr/6rs+1qLq23kmj0WhKSsg==
+X-Received: by 2002:a17:90b:11d1:b0:1db:d99f:62cc with SMTP id
+ gv17-20020a17090b11d100b001dbd99f62ccmr12962161pjb.200.1652004394407; 
+ Sun, 08 May 2022 03:06:34 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id
+ 67-20020a621946000000b0050dc7628190sm6473067pfz.106.2022.05.08.03.06.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 08 May 2022 03:06:34 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: Bob Peterson <rpeterso@redhat.com>
+Date: Sun,  8 May 2022 03:06:30 -0700
+Message-Id: <20220508100630.2642320-1-keescook@chromium.org>
 MIME-Version: 1.0
-References: <20220426145445.2282274-1-agruenba@redhat.com>
- <CAHk-=wi7o+fHYBTuCQQdHD112YHQtO21Y3+wxNYypjdo8feKFg@mail.gmail.com>
- <CAHc6FU48681X8aUK+g7UUN7q5b6rkVBzTP7h_zbE4XqZYAiw3g@mail.gmail.com>
- <CAHk-=wjMB1-xCOCBtsSMmQuFV9G+vNyCY1O_LsoqOd=0QS4yYg@mail.gmail.com>
- <CAHc6FU5Bag5W2t79+WzUq=NibtEF+7z6=jyNCkLMMp9Yqvpmqw@mail.gmail.com>
- <CAHk-=whaz-g_nOOoo8RRiWNjnv2R+h6_xk2F1J4TuSRxk1MtLw@mail.gmail.com>
- <CAHc6FU5654k7QBU97g_Ubj8cJEWuA_bXPuXOPpBBYoXVPMJG=g@mail.gmail.com>
- <CAHk-=wgSYSNc5sF2EVxhjbSc+c4LTs90aYaK2wavNd_m2bUkGg@mail.gmail.com>
- <CAHc6FU69E4ke4Xg3zQ2MqjLbfM65D9ZajdY5MRDLN0azZOGmVQ@mail.gmail.com>
- <CAHk-=whQxvMvty8SjiGMh+gM4VmCYvqn6EAwmrDXJaHT2Aa+UA@mail.gmail.com>
- <CAHk-=wicJdoCjPLu7FhaErr6Z3UaW820U2b+F-8P4qwSFUZ0mg@mail.gmail.com>
- <CAHc6FU7GkXLkns5PONLvsSi6HB+rjaNSyFeQFS034tKL-JueMw@mail.gmail.com>
- <CAHk-=wg4ypnZUA5BOHAF1miKvOhW2yQSruuBKNXMDR=dTmp+ww@mail.gmail.com>
- <CAHk-=whL74iP6v2P+OafGO0H72ag4wt42k+Kc_01boLP8aqUNQ@mail.gmail.com>
- <CAHc6FU77KGn76B4ieu9Tn895deK-1yV4y=8ou4gTfUf=7C-4XQ@mail.gmail.com>
- <CAHc6FU7i4GJaSodNX+o44VgWyo1LTPdYkBnypYS3GYa1atYAZA@mail.gmail.com>
- <20220503213524.3273690-1-agruenba@redhat.com>
- <CAHk-=wjQwqW+FJ_dsq8M58=5joQdV+8Q51bmyjvrBV6Z68VF0Q@mail.gmail.com>
-In-Reply-To: <CAHk-=wjQwqW+FJ_dsq8M58=5joQdV+8Q51bmyjvrBV6Z68VF0Q@mail.gmail.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Wed, 4 May 2022 19:52:29 +0200
-Message-ID: <CAHc6FU4RBTOmKe5LJmQJfszg3r_giFM7zv9mYJmMjH8_UvmpYA@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: Re: [Cluster-devel] [GIT PULL] gfs2 fix
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3735; h=from:subject;
+ bh=FOaCbdpPkuASD3dMupI7kZh1ObuZvCfUVlaQempQE5I=;
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBid5YmhjmmxY4dlNl3Yg00NpZgETPyQkRbBwdZZYsZ
+ P/YqH4GJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYneWJgAKCRCJcvTf3G3AJnvUD/
+ 0QrCOlhMPuCLn6t5gkSWTHClT8iEbrktkDASTiiV9NsCddMjoYH7HzpwhZS1cTgRUJaJyffjkcT8kU
+ ziPsb6jJXrbAGDqoW3ugGOeX8cbpOhxXBRzg1mHvuMS7+bOQBCNYry34jICEZca/3snx0fQ65kwZxl
+ PQnUxShhB2TdYgdQhK1Zn4jwQ4yeR0FIVjR3ms9B4l39dOtWi1DUt2xXReRs0/H9Ith/1QQ8+2qojU
+ 7WE/58EjmKoCh0V6/cNFvouoquNbHEPhf0LCjwv32LZZrRSfKrf6xPUxzwxN8OKOIJx3FAKEzPtn0i
+ I3M1o9eKi5E/Di5xUvtA8fkAOrCmORx24xW/ZAWCdPDwPdWnItsqYDR3Kl6fkaN920ayI4zjdnTI/Z
+ iJ16yYT2S/2+WtcJI6oRa1w2DlMMaJijb/QYwVAY2KNDTG21AqtBECuFYBB5AHQBa5MHGCwgQqmU8m
+ 2ckadWoQmueMRVYCO8D2qHX0hzd70qNzBEeczpzF+x1iDJg26KEXeTyy4E+Q+PxlpgidQmBuXJVxeI
+ Q7lnrSpF/n+BdGb2znvvZ9JArWh2YMC+31Gb+e+sVts9B8BYC+I+oEaQeLytqjNmH+iOAswRro6inj
+ 7wAnH6a95h57dIG+qx7dii0hb6Uf38DdRebsVdKBYCGqhPrPj3f3qUqSsyNw==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: [Cluster-devel] [PATCH] gfs2: Use container_of() for
+ gfs2_glock(aspace)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,63 +110,118 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
- cluster-devel <cluster-devel@redhat.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Tom Rix <trix@redhat.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ cluster-devel@redhat.com, kernel test robot <lkp@intel.com>,
+ Bill Wendling <morbo@google.com>, Kees Cook <keescook@chromium.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Wed, May 4, 2022 at 12:42 AM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Tue, May 3, 2022 at 2:35 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> >
-> > More testing still ongoing, but the following patch seems to fix the
-> > data corruption.
->
-> Fingers crossed.
+Clang's structure layout randomization feature gets upset when it sees
+struct address_space (which is randomized) cast to struct gfs2_glock.
+This is due to seeing the mapping pointer as being treated as an array
+of gfs2_glock, rather than "something else, before struct address_space":
 
-It turns out that crossing fingers wasn't enough and we still get
-corruption, but less frequently than before. We're going in the right
-direction.
+In file included from fs/gfs2/acl.c:23:
+fs/gfs2/meta_io.h:44:12: error: casting from randomized structure pointer type 'struct address_space *' to 'struct gfs2_glock *'
+	return (((struct gfs2_glock *)mapping) - 1)->gl_name.ln_sbd;
+		^
 
-My working theory is that this is due to a subtle bug in the hole
-punching done by gfs2_iomap_end() to get rid of unused blocks. With
-the test case that fails, gfs2_iomap_end() is punching holes way more
-often than I was expecting, and way more often than it should.
-Remember that the test case is doing 32-MiB writes of a user buffer
-that usually isn't entirely in memory. The first
-iomap_file_buffered_write() allocates filesystem blocks for the entire
-buffer, and when it finds that it could only do a partial write, it
-frees a large part of those blocks. It will then call
-fault_in_iov_iter_readable() for the next chunk, and the next call to
-iomap_file_buffered_write() will then usually be able to write that
-chunk entirely.
+Replace the instances of open-coded pointer math with container_of()
+usage, and update the allocator to match.
 
-So it seems that we should always call fault_in_iov_iter_readable()
-before calling into iomap_file_buffered_write(). This will probably
-hide whatever is going wrong in punch_hole(), but we'll get to that
-later ...
+Reported-by: kernel test robot <lkp@intel.com>
+Link: https://lore.kernel.org/lkml/202205041550.naKxwCBj-lkp@intel.com
+Cc: Bob Peterson <rpeterso@redhat.com>
+Cc: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: Bill Wendling <morbo@google.com>
+Cc: cluster-devel@redhat.com
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+This another fix uncovered by the Clang randstruct series[1], so it'd
+probably make more sense to land via my tree. Do you have a preference?
+[1] https://lore.kernel.org/all/20220503205503.3054173-1-keescook@chromium.org/
+---
+ fs/gfs2/glock.h   |  8 +++++++-
+ fs/gfs2/main.c    | 10 ++++------
+ fs/gfs2/meta_io.h |  2 +-
+ 3 files changed, 12 insertions(+), 8 deletions(-)
 
-(Side note: the chunk size should be aligned to the page cache, not to
-the iov_iter as in the current code.)
-
-> > +               truncate_pagecache_range(inode, hstart, hend - 1);
-> > +               if (hstart < hend)
-> > +                       punch_hole(ip, hstart, hend - hstart);
->
-> Why doesn't that "hstart < hend" condition cover both the truncate and
-> the hole punch?
-
-That was a leftover from a previous experiment in which I did the
-truncate_pagecache_range() on the unaligned boundaries. Which turned
-out to be pointless. I'll clean that up.
-
-Thanks,
-Andreas
+diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
+index 4f8642301801..2607c7d26640 100644
+--- a/fs/gfs2/glock.h
++++ b/fs/gfs2/glock.h
+@@ -138,6 +138,12 @@ struct lm_lockops {
+ 	const match_table_t *lm_tokens;
+ };
+ 
++/* gfs2_glock_get(), "glock" must be first. */
++struct glock_aspace {
++	struct gfs2_glock	glock;
++	struct address_space	mapping;
++};
++
+ extern struct workqueue_struct *gfs2_delete_workqueue;
+ static inline struct gfs2_holder *gfs2_glock_is_locked_by_me(struct gfs2_glock *gl)
+ {
+@@ -180,7 +186,7 @@ static inline int gfs2_glock_is_held_shrd(struct gfs2_glock *gl)
+ static inline struct address_space *gfs2_glock2aspace(struct gfs2_glock *gl)
+ {
+ 	if (gl->gl_ops->go_flags & GLOF_ASPACE)
+-		return (struct address_space *)(gl + 1);
++		return &(container_of(gl, struct glock_aspace, glock)->mapping);
+ 	return NULL;
+ }
+ 
+diff --git a/fs/gfs2/main.c b/fs/gfs2/main.c
+index 28d0eb23e18e..984bd60d01db 100644
+--- a/fs/gfs2/main.c
++++ b/fs/gfs2/main.c
+@@ -62,11 +62,10 @@ static void gfs2_init_glock_once(void *foo)
+ 
+ static void gfs2_init_gl_aspace_once(void *foo)
+ {
+-	struct gfs2_glock *gl = foo;
+-	struct address_space *mapping = (struct address_space *)(gl + 1);
++	struct glock_aspace *gl_aspace = foo;
+ 
+-	gfs2_init_glock_once(gl);
+-	address_space_init_once(mapping);
++	gfs2_init_glock_once(&gl_aspace->glock);
++	address_space_init_once(&gl_aspace->mapping);
+ }
+ 
+ /**
+@@ -104,8 +103,7 @@ static int __init init_gfs2_fs(void)
+ 		goto fail_cachep1;
+ 
+ 	gfs2_glock_aspace_cachep = kmem_cache_create("gfs2_glock(aspace)",
+-					sizeof(struct gfs2_glock) +
+-					sizeof(struct address_space),
++					sizeof(struct glock_aspace),
+ 					0, 0, gfs2_init_gl_aspace_once);
+ 
+ 	if (!gfs2_glock_aspace_cachep)
+diff --git a/fs/gfs2/meta_io.h b/fs/gfs2/meta_io.h
+index 21880d72081a..2e2f88cfb7ad 100644
+--- a/fs/gfs2/meta_io.h
++++ b/fs/gfs2/meta_io.h
+@@ -41,7 +41,7 @@ static inline struct gfs2_sbd *gfs2_mapping2sbd(struct address_space *mapping)
+ {
+ 	struct inode *inode = mapping->host;
+ 	if (mapping->a_ops == &gfs2_meta_aops)
+-		return (((struct gfs2_glock *)mapping) - 1)->gl_name.ln_sbd;
++		return container_of(mapping, struct glock_aspace, mapping)->glock.gl_name.ln_sbd;
+ 	else if (mapping->a_ops == &gfs2_rgrp_aops)
+ 		return container_of(mapping, struct gfs2_sbd, sd_aspace);
+ 	else
+-- 
+2.32.0
 
