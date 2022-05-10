@@ -1,68 +1,92 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A49B520E5E
-	for <lists+cluster-devel@lfdr.de>; Tue, 10 May 2022 09:30:08 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED20521358
+	for <lists+cluster-devel@lfdr.de>; Tue, 10 May 2022 13:13:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1652181236;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=D5QpDLvjaL/3sbIJjxhXvjRruga3nx8tizHPxU55AHk=;
+	b=arF0v9ezlPbEdo7DJdE3JjonekhIdB3f8DCS8TYRmIT9Nrx1mm8JJUDdq2X/5vfXBByIbF
+	YhEN/qk8LNj6vVcZY8/AVzP5TLb2+74jTixU8hrtv2a6iBpRG4qEbI/1sbihui6ay2Qe2Z
+	dOxECi33mGpFqweSGg+7+fRVI2AGA2k=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-612-74m5oGgGMVaWJ1e06rNtbg-1; Tue, 10 May 2022 03:30:06 -0400
-X-MC-Unique: 74m5oGgGMVaWJ1e06rNtbg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-367-13hBQ3SwMheLBgG-aBO5XA-1; Tue, 10 May 2022 07:13:52 -0400
+X-MC-Unique: 13hBQ3SwMheLBgG-aBO5XA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C826811E80;
-	Tue, 10 May 2022 07:30:05 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9ED4F2166B2F;
-	Tue, 10 May 2022 07:30:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E0463101AA44;
+	Tue, 10 May 2022 11:13:51 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4E3A1438BF5;
+	Tue, 10 May 2022 11:13:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 657711947059;
-	Tue, 10 May 2022 07:30:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DC68B194705D;
+	Tue, 10 May 2022 11:13:49 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5A6AD194704C for <cluster-devel@listman.corp.redhat.com>;
- Tue, 10 May 2022 07:30:02 +0000 (UTC)
+ ESMTP id 149D11947052 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 10 May 2022 11:13:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 27D931460E2D; Tue, 10 May 2022 07:30:02 +0000 (UTC)
+ id E5ABF414A7E9; Tue, 10 May 2022 11:13:47 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 231791460E29
- for <cluster-devel@redhat.com>; Tue, 10 May 2022 07:30:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB5593C11A03
- for <cluster-devel@redhat.com>; Tue, 10 May 2022 07:30:01 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E1B20414A7E7
+ for <cluster-devel@redhat.com>; Tue, 10 May 2022 11:13:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C99F8185A7A4
+ for <cluster-devel@redhat.com>; Tue, 10 May 2022 11:13:47 +0000 (UTC)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-657-RutGQ9czObuhuOdl9sa7Wg-1; Tue, 10 May 2022 03:29:50 -0400
-X-MC-Unique: RutGQ9czObuhuOdl9sa7Wg-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1noK3m-000JAw-Cf; Tue, 10 May 2022 07:13:30 +0000
-Date: Tue, 10 May 2022 00:13:30 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <YnoQmuPgK9c5V8ZC@infradead.org>
-References: <20220508100630.2642320-1-keescook@chromium.org>
+ us-mta-494-Si4P-6VIPru7XwHDjzM1Kg-1; Tue, 10 May 2022 07:13:44 -0400
+X-MC-Unique: Si4P-6VIPru7XwHDjzM1Kg-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ r186-20020a1c44c3000000b00393f52ed5ceso1120715wma.7
+ for <cluster-devel@redhat.com>; Tue, 10 May 2022 04:13:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=D5QpDLvjaL/3sbIJjxhXvjRruga3nx8tizHPxU55AHk=;
+ b=rfTcHti+ar53nLPqB/ujcnT1LQM3DMpkP7BP08NMo7IWw33aZGwdepH0LShTIFSddR
+ 7fWErX0dyL8aEaKMK/4mKTOB9DS1EgoYFBTO2XeLdz35+0WwKx6jn7F2s08D9j29EGli
+ jrRKyap1AjsRTv8SbICnxXQt23vXGhRIdYqLAv2do6LW7yB6epy3GfO3FOlGfiAoxzx0
+ 9wJdgBtP2C8/H/mzreT09AbeV3oVMnOH2in1ZXjnsipbRVONColOSJukYfx7QZLVJFvl
+ qNgY3pb3xDYb2olsOXR2Z6SvKDd+62UlL8D+TCuqdGjE8ynk7AsuoHWy+GtIZnjEWzRS
+ du0Q==
+X-Gm-Message-State: AOAM530vY6lFX5C2VhndfV270wN/GvrqZfDSpjb75fOmg6GSRoOm6waK
+ DL7ApfBXaTGSOo1+goKXrgabA6uHhmxPIrG1bxVgNc3K6K5rxbTPtwXcaEj/vwWfwnWLGG+2Fan
+ spG676U3Xt8MZEEAMQQ0VsYWZn3Ybh/oBlRFTCQ==
+X-Received: by 2002:a05:600c:501e:b0:394:8b0a:3ec9 with SMTP id
+ n30-20020a05600c501e00b003948b0a3ec9mr11945147wmr.0.1652181223537; 
+ Tue, 10 May 2022 04:13:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx0gjbA7+3TrCagIYxdCI9NkRd7LcHVggdp1NZufK6Cnw8DV0cCzDb63Ne9hqLyNNa1u57MLcInZtEPF2ZahDw=
+X-Received: by 2002:a05:600c:501e:b0:394:8b0a:3ec9 with SMTP id
+ n30-20020a05600c501e00b003948b0a3ec9mr11945136wmr.0.1652181223377; Tue, 10
+ May 2022 04:13:43 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20220508100630.2642320-1-keescook@chromium.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+References: <20220508100630.2642320-1-keescook@chromium.org>
+ <YnoQmuPgK9c5V8ZC@infradead.org>
+In-Reply-To: <YnoQmuPgK9c5V8ZC@infradead.org>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Tue, 10 May 2022 13:13:31 +0200
+Message-ID: <CAHc6FU5VfS9yNe0yH_sfOt04rvii6T_NMq7kp+32HZa5XQDtEA@mail.gmail.com>
+To: Kees Cook <keescook@chromium.org>, Christoph Hellwig <hch@infradead.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Subject: Re: [Cluster-devel] [PATCH] gfs2: Use container_of() for
  gfs2_glock(aspace)
 X-BeenThere: cluster-devel@redhat.com
@@ -78,45 +102,59 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: Nathan Chancellor <nathan@kernel.org>, kernel test robot <lkp@intel.com>,
  Tom Rix <trix@redhat.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, cluster-devel@redhat.com,
+ LKML <linux-kernel@vger.kernel.org>, cluster-devel <cluster-devel@redhat.com>,
  Bill Wendling <morbo@google.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-> +/* gfs2_glock_get(), "glock" must be first. */
-> +struct glock_aspace {
-> +	struct gfs2_glock	glock;
-> +	struct address_space	mapping;
-> +};
+Kees and Christoph,
 
-Why does glock need to be first?  The whole point of using container_of
-is that we don't have to make that assumption.
+thanks for the patch and review.
 
->  static inline struct address_space *gfs2_glock2aspace(struct gfs2_glock *gl)
->  {
->  	if (gl->gl_ops->go_flags & GLOF_ASPACE)
-> -		return (struct address_space *)(gl + 1);
-> +		return &(container_of(gl, struct glock_aspace, glock)->mapping);
+On Tue, May 10, 2022 at 9:29 AM Christoph Hellwig <hch@infradead.org> wrote:
+> > +/* gfs2_glock_get(), "glock" must be first. */
+> > +struct glock_aspace {
+> > +     struct gfs2_glock       glock;
+> > +     struct address_space    mapping;
+> > +};
+>
+> Why does glock need to be first?  The whole point of using container_of
+> is that we don't have to make that assumption.
 
-Do we even need the braces here?
+Just needs to be cleaned up in gfs2_glock_get() and
+gfs2_glock_dealloc() as well. I'll do that when applying the patch.
 
->  	struct inode *inode = mapping->host;
->  	if (mapping->a_ops == &gfs2_meta_aops)
-> -		return (((struct gfs2_glock *)mapping) - 1)->gl_name.ln_sbd;
-> +		return container_of(mapping, struct glock_aspace, mapping)->glock.gl_name.ln_sbd;
+> >  static inline struct address_space *gfs2_glock2aspace(struct gfs2_glock *gl)
+> >  {
+> >       if (gl->gl_ops->go_flags & GLOF_ASPACE)
+> > -             return (struct address_space *)(gl + 1);
+> > +             return &(container_of(gl, struct glock_aspace, glock)->mapping);
+>
+> Do we even need the braces here?
 
-A local variable would be really nice for the reader here to decompose
-this a bit:
+Will use a local variable here, as suggested below.
 
-		struct glock_aspace *a =
-			container_of(mapping, struct glock_aspace, mapping);
+> >       struct inode *inode = mapping->host;
+> >       if (mapping->a_ops == &gfs2_meta_aops)
+> > -             return (((struct gfs2_glock *)mapping) - 1)->gl_name.ln_sbd;
+> > +             return container_of(mapping, struct glock_aspace, mapping)->glock.gl_name.ln_sbd;
+>
+> A local variable would be really nice for the reader here to decompose
+> this a bit:
+>
+>                 struct glock_aspace *a =
+>                         container_of(mapping, struct glock_aspace, mapping);
+>
+>                 return a->glock.gl_name.ln_sbd;
 
-		return a->glock.gl_name.ln_sbd;
+Yes.
+
+Thanks,
+Andreas
 
