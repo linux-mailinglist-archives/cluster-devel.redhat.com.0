@@ -1,97 +1,93 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAF6D52A06B
-	for <lists+cluster-devel@lfdr.de>; Tue, 17 May 2022 13:31:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CEC552A0D4
+	for <lists+cluster-devel@lfdr.de>; Tue, 17 May 2022 13:56:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1652787060;
+	s=mimecast20190719; t=1652788561;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=+CIm7p5THgEh18knbYXJiwJfzA2wa4p4rpK4WIeS0kg=;
-	b=cLTRtCbvWXMUm/I3pStAtUF9+Abg4Rr5Hx3BuOqIcTIGkxuQz1GyFA+vXiwBRtJQzauSF3
-	qBtjpQNOc8+LZTABps6Z20RNLK/kdLIKWKkBnGcqNjCTE8xkcEXdOKFB0MRoNuURsN0Qn7
-	dXcbxn1iAJsp6UtBu0bRYXw7BrU9cOs=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=0Cy9u77u01gfNknz2ymY2X8KK8oTDulyhE2qB2fs1Ls=;
+	b=FrieDjmOjcwiZsTgDFxsCz8bG0w96OPB3EEmWxCvVEeVabXKnOrzZvssEC0aYtXEmgzX8m
+	XAo3eF20e+pz726/SpMtDiJznKNJ8deb3JWnpq5MNhEQSiPJsJ1+yhcxx35hiB3z/c7l6D
+	5N0z8gwWrXpohtlycesa7m5xqmyQMmI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-592-UiJdMDK1OTi1_Yv30QlY_g-1; Tue, 17 May 2022 07:30:58 -0400
-X-MC-Unique: UiJdMDK1OTi1_Yv30QlY_g-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-41-_z4EKcXJNlu17Y-U-uCfZQ-1; Tue, 17 May 2022 07:56:00 -0400
+X-MC-Unique: _z4EKcXJNlu17Y-U-uCfZQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D19FD866DF5;
-	Tue, 17 May 2022 11:30:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6DCE3C01D96;
+	Tue, 17 May 2022 11:55:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 56C73C15D40;
-	Tue, 17 May 2022 11:30:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DB83B4021D9;
+	Tue, 17 May 2022 11:55:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E35751947063;
-	Tue, 17 May 2022 11:30:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 80E031947063;
+	Tue, 17 May 2022 11:55:59 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8EE411947056 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 17 May 2022 11:30:48 +0000 (UTC)
+ ESMTP id 7934D194705F for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 17 May 2022 11:55:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7EE232026D2D; Tue, 17 May 2022 11:30:48 +0000 (UTC)
+ id 5CBE3C44CC8; Tue, 17 May 2022 11:55:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7AECE2026D6A
- for <cluster-devel@redhat.com>; Tue, 17 May 2022 11:30:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5949FC44CC5
+ for <cluster-devel@redhat.com>; Tue, 17 May 2022 11:55:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F5442949BA8
- for <cluster-devel@redhat.com>; Tue, 17 May 2022 11:30:44 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 383B51C08963
+ for <cluster-devel@redhat.com>; Tue, 17 May 2022 11:55:58 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-392-Qcyz7dZmNLqywEVCrHhdJQ-1; Tue, 17 May 2022 07:30:43 -0400
-X-MC-Unique: Qcyz7dZmNLqywEVCrHhdJQ-1
-Received: by mail-wr1-f71.google.com with SMTP id
- e6-20020adfef06000000b0020d08e465e2so1135984wro.3
- for <cluster-devel@redhat.com>; Tue, 17 May 2022 04:30:42 -0700 (PDT)
+ us-mta-640-vZMsgDaZOce-EXcKZjVPBg-1; Tue, 17 May 2022 07:55:57 -0400
+X-MC-Unique: vZMsgDaZOce-EXcKZjVPBg-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ m124-20020a1c2682000000b00393fcd2722dso852374wmm.4
+ for <cluster-devel@redhat.com>; Tue, 17 May 2022 04:55:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=+CIm7p5THgEh18knbYXJiwJfzA2wa4p4rpK4WIeS0kg=;
- b=Q0nu5Sn/awRy2xKllN/CnAiwfYNhJxwjDn5cHU1NpNDKepwWJByA967a6ZSJ+0dIfL
- 5xrlSJJWjCPf7ZKdYP56kAWGGX6w14SM/ZeaugH2Fqnjf2e46PJE3j3sC7xGixDY/oB3
- tBFRIbMfHIKoDm+eT3hGCpK+l+J77fWh23zf+ROsTzztwVXpGebipsr3XTUnaroT/3IP
- AX9bFGnD3JBAZZExw/59jPNE3NfgrKeAIltr4SlDKGGyCw2L7dCyVpmRZH+hiUgtDKwP
- MDHMA0Zi6SXH9i52N7DdYjXLW7FziWyL+KRAYmchu6x+7rBjjGCDaa/rhZsammtoDXOb
- l5vQ==
-X-Gm-Message-State: AOAM532Bbij/g2iFs3V0RqE3wMQ163EcrqqzoFcBtoiK/83zYJsfVx3G
- KAmNdB5QXMaS6ychvqXdZ4WuX1UP2OTImiR4jfM9XtTF7Z2iES/X00jHAqflGdPAcIQmm2+2NK5
- q4FVpn9eoW/LKl0YfidTV2MR7comAATLpHzGi6g==
-X-Received: by 2002:a5d:47ac:0:b0:20d:3ceb:3b53 with SMTP id
- 12-20020a5d47ac000000b0020d3ceb3b53mr3655889wrb.493.1652787041659; 
- Tue, 17 May 2022 04:30:41 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJydul+K4lgVlMZhE1+mLHP6N/ngTeRrtlb2/3EwnWB4la711foXuOpQV3gbU6uwK2G+YlvAILgNP7aZqPL0diY=
-X-Received: by 2002:a5d:47ac:0:b0:20d:3ceb:3b53 with SMTP id
- 12-20020a5d47ac000000b0020d3ceb3b53mr3655875wrb.493.1652787041434; Tue, 17
- May 2022 04:30:41 -0700 (PDT)
+ bh=0Cy9u77u01gfNknz2ymY2X8KK8oTDulyhE2qB2fs1Ls=;
+ b=x0HXE5A5nU9LoyYjl3YYtnAuvFCwK9dehqoDeHN1OPICp10CKiNXIOZ1jizy2KiwG9
+ qP1TV0K/LrJQigd+QL7wZTrT9n01cizIihsYq6DcHiS8iCKzZ5qwi55kuFtO2hE7Hn+z
+ hlK5YUwzsdiE49ws80zl3lpzet4uDbtY5KbMnHZzSKiWxStstnesr2GeMAFBkyooLTIX
+ oYOErTFsPoT9QC68A/S66pRWI5okqu24hg/2uUqVBDOMT/+N8laKOuZ80TPxF41MTIbM
+ JXkI2Pf8d/QeHdMJvlvJW0NIPyCnkK9KB7RmHksV86TwkXbx67OVcl5o7eHe6O49dIRV
+ Y8+Q==
+X-Gm-Message-State: AOAM530WoFDLu9I/jUpvHWEuJDRX5089aq+QlYiqTkEeqnAKT0TwNhUg
+ eczp2vf69koTAHJDrHU7KHORexFodbmI/l2luXeeZPLG8wiZRouc/kzvbKcvjN1yI1JCNhMp0R+
+ eFL6AO3evnmPbXXWEViDuEzHMPmx6aTrap0YWmQ==
+X-Received: by 2002:adf:e749:0:b0:20d:526:cbfa with SMTP id
+ c9-20020adfe749000000b0020d0526cbfamr10129248wrn.349.1652788555491; 
+ Tue, 17 May 2022 04:55:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzYds7eoib1r6lFjeK18WcTvwXGPKhyKCgvkeY8dkGEAP8FJh+EH6zUFbrSCYxEKnRgHQQ+KO+iQ1YNZIBE8A0=
+X-Received: by 2002:adf:e749:0:b0:20d:526:cbfa with SMTP id
+ c9-20020adfe749000000b0020d0526cbfamr10129229wrn.349.1652788555268; Tue, 17
+ May 2022 04:55:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220405120847.583327-1-anprice@redhat.com>
- <b5fcfcbd-104f-ea1a-f808-769c7bd8b91f@redhat.com>
- <4f808327-b831-f546-8d3f-5dfdf849bdef@redhat.com>
- <5488b93e-96c8-9007-9ee4-667247fa8c30@redhat.com>
-In-Reply-To: <5488b93e-96c8-9007-9ee4-667247fa8c30@redhat.com>
+References: <20220211155036.108314-1-rpeterso@redhat.com>
+In-Reply-To: <20220211155036.108314-1-rpeterso@redhat.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 17 May 2022 13:30:30 +0200
-Message-ID: <CAHc6FU5MgeJJfqvfkRau3ccEpfT0iLE3FGk9Md4dhrA2nZH5Gw@mail.gmail.com>
-To: Andrew Price <anprice@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [Cluster-devel] [PATCH RESEND] gfs2: Return more useful errors
- from gfs2_rgrp_send_discards()
+Date: Tue, 17 May 2022 13:55:44 +0200
+Message-ID: <CAHc6FU5Hr1c7v5Rk2NK-xv_n4QDv2dR9T9epEP6eEe5L4TDxJA@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH] gfs2: Convert function bh_get to use
+ iomap
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,51 +102,67 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel <cluster-devel@redhat.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, May 9, 2022 at 12:41 PM Andrew Price <anprice@redhat.com> wrote:
-> On 29/04/2022 15:08, Andrew Price wrote:
-> > On 19/04/2022 16:49, Andrew Price wrote:
-> >> On 05/04/2022 13:08, Andrew Price wrote:
-> >>> The bug that 27ca8273f ("gfs2: Make sure FITRIM minlen is rounded up to
-> >>> fs block size") fixes was a little confusing as the user saw
-> >>> "Input/output error" which masked the -EINVAL that sb_issue_discard()
-> >>> returned.
-> >>>
-> >>> sb_issue_discard() can fail for various reasons, so we should return its
-> >>> return value from gfs2_rgrp_send_discards() to avoid all errors being
-> >>> reported as IO errors.
-> >>>
-> >>> This improves error reporting for FITRIM and makes no difference to the
-> >>> -o discard code path because the return value from
-> >>> gfs2_rgrp_send_discards() gets thrown away in that case (and the option
-> >>> switches off). Presumably that's why it was ok to just return -EIO in
-> >>> the past, before FITRIM was implemented.
-> >>>
-> >>> Tested with xfstests.
-> >>
-> >> Can I get a thumbs-up or thumbs-down for this patch? It's pretty
-> >> straightforward. I just don't want it to get forgotten about.
-> >>
-> >> Cheers,
-> >> Andy
-> >
-> > Please could you take this patch?
-> >
-> > Cheers,
-> > Andy
->
-> For convenience, I've pushed this patch to gitlab:
->
->    git fetch https://gitlab.com/andyprice/linux.git discard_errors
->    git show FETCH_HEAD
+On Fri, Feb 11, 2022 at 4:51 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> Before this patch, function bh_get used block_map to figure out the
+> block it needed to read in from the quota_change file. This patch
+> changes it to use iomap directly to make it more efficient.
 
-Pulled, thanks.
+Thanks, I've applied this with minor cleanups.
+
+There are still a few other users of gfs2_block_map around that should
+be converted as well.
 
 Andreas
+
+> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+> ---
+>  fs/gfs2/quota.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+>
+> diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+> index dc77080a82bb..91bc3affe460 100644
+> --- a/fs/gfs2/quota.c
+> +++ b/fs/gfs2/quota.c
+> @@ -368,8 +368,8 @@ static int bh_get(struct gfs2_quota_data *qd)
+>         struct gfs2_inode *ip = GFS2_I(sdp->sd_qc_inode);
+>         unsigned int block, offset;
+>         struct buffer_head *bh;
+> +       struct iomap iomap = { };
+>         int error;
+> -       struct buffer_head bh_map = { .b_state = 0, .b_blocknr = 0 };
+>
+>         mutex_lock(&sdp->sd_quota_mutex);
+>
+> @@ -381,11 +381,18 @@ static int bh_get(struct gfs2_quota_data *qd)
+>         block = qd->qd_slot / sdp->sd_qc_per_block;
+>         offset = qd->qd_slot % sdp->sd_qc_per_block;
+>
+> -       bh_map.b_size = BIT(ip->i_inode.i_blkbits);
+> -       error = gfs2_block_map(&ip->i_inode, block, &bh_map, 0);
+> +       error = gfs2_iomap_get(sdp->sd_qc_inode,
+> +                              (loff_t)block << sdp->sd_qc_inode->i_blkbits,
+> +                              sdp->sd_sb.sb_bsize, &iomap);
+>         if (error)
+>                 goto fail;
+> -       error = gfs2_meta_read(ip->i_gl, bh_map.b_blocknr, DIO_WAIT, 0, &bh);
+> +       if (iomap.addr == IOMAP_NULL_ADDR) {
+> +               error = -ENOENT;
+> +               goto fail;
+> +       }
+> +
+> +       error = gfs2_meta_read(ip->i_gl, iomap.addr >> sdp->sd_qc_inode->i_blkbits,
+> +                              DIO_WAIT, 0, &bh);
+>         if (error)
+>                 goto fail;
+>         error = -EIO;
+> --
+> 2.34.1
+>
 
