@@ -1,61 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AEA2535450
-	for <lists+cluster-devel@lfdr.de>; Thu, 26 May 2022 22:16:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1653596160;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=96tvGBSzk5QVfkC/+ZU9Yjmte+olira1SYlYvOMd1Nc=;
-	b=V41pyGM19k6SUWzDqe3EyaAvs4c9x0ZKVO4ImeE3M7PycgDcyH11PtYthnA/aH1GsynGi0
-	rVGtAysOFsynm9XDssD5d2lITPbCDxZ7yKI+5ccGO4X5FinF1Z3zIiB+8mqDTmGbs2GM+6
-	j8ViSuFNLKjFwl2rLlL5cR/ylgf6nP0=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D00CF537CB7
+	for <lists+cluster-devel@lfdr.de>; Mon, 30 May 2022 15:38:38 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-494-Qo9dOJlkPI21CfQRXDbCzA-1; Thu, 26 May 2022 16:15:57 -0400
-X-MC-Unique: Qo9dOJlkPI21CfQRXDbCzA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-491-GyBXDmzbP6-RCwvRJEPfag-1; Mon, 30 May 2022 09:38:33 -0400
+X-MC-Unique: GyBXDmzbP6-RCwvRJEPfag-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 863968041A0;
-	Thu, 26 May 2022 20:15:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CEB768027EE;
+	Mon, 30 May 2022 13:38:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6A2611415101;
-	Thu, 26 May 2022 20:15:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C35BB1121314;
+	Mon, 30 May 2022 13:38:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E99D7192B8D8;
-	Thu, 26 May 2022 20:15:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 859D41947042;
+	Mon, 30 May 2022 13:38:32 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 49BD21932129 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 26 May 2022 20:15:54 +0000 (UTC)
+ ESMTP id B541F19466DF for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 30 May 2022 13:38:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3EB30416379; Thu, 26 May 2022 20:15:54 +0000 (UTC)
+ id 887F92026D2D; Mon, 30 May 2022 13:38:30 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 21E49401E23;
- Thu, 26 May 2022 20:15:54 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Thu, 26 May 2022 16:15:32 -0400
-Message-Id: <20220526201532.463135-6-aahringo@redhat.com>
-In-Reply-To: <20220526201532.463135-1-aahringo@redhat.com>
-References: <20220526201532.463135-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 841732026D07
+ for <cluster-devel@redhat.com>; Mon, 30 May 2022 13:38:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68DD3802814
+ for <cluster-devel@redhat.com>; Mon, 30 May 2022 13:38:30 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-173-cZi4Da1nO9aDBki3d67sUA-1; Mon, 30 May 2022 09:38:29 -0400
+X-MC-Unique: cZi4Da1nO9aDBki3d67sUA-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F00C660F32;
+ Mon, 30 May 2022 13:31:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78DBC341C4;
+ Mon, 30 May 2022 13:31:27 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Mon, 30 May 2022 09:24:23 -0400
+Message-Id: <20220530132425.1929512-158-sashal@kernel.org>
+In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
+References: <20220530132425.1929512-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH dlm/next 6/6] fs: dlm: change posix lock
- sigint handling
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.18 158/159] gfs2: use i_lock
+ spin_lock for inode qadata
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,111 +82,97 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch will change the handling if a plock operation was interrupted
-while waiting for a user space reply (probably dlm_controld). This is
-not while the posix lock waits in lock blocking state which is done by
-locks_lock_file_wait(). However the lock operation should be always
-interruptible, doesn't matter which wait is currently blocking the
-process.
+From: Bob Peterson <rpeterso@redhat.com>
 
-If an interruption due waiting on a user space reply occurs the current
-behaviour is that we remove the already transmitted operation request to
-the user space from an list which is used to make a lookup if a reply
-comes back. This has as side effect that we see some:
+[ Upstream commit 5fcff61eea9efd1f4b60e89d2d686b5feaea100f ]
 
-dev_write no op...
+Before this patch, functions gfs2_qa_get and _put used the i_rw_mutex to
+prevent simultaneous access to its i_qadata. But i_rw_mutex is now used
+for many other things, including iomap_begin and end, which causes a
+conflict according to lockdep. We cannot just remove the lock since
+simultaneous opens (gfs2_open -> gfs2_open_common -> gfs2_qa_get) can
+then stomp on each others values for i_qadata.
 
-in the kernel log because the lookup failed. This is easily reproducible
-by running:
+This patch solves the conflict by using the i_lock spin_lock in the inode
+to prevent simultaneous access.
 
-stress-ng --fcntl 100
-
-and hitting strg-c afterwards.
-
-Instead of removing the op from the lookup list, we wait until the
-operation is completed. When the operation was completed we check if the
-wait was interrupted, if so we don't handle the request anymore and
-cleanup the original lock request. When there are still "dev_write no op"
-messages around it signals an issue that we removed an op while is hasn't
-been completed yet. This situation should never happen.
-
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dlm/plock.c | 29 ++++++++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 3 deletions(-)
+ fs/gfs2/quota.c | 32 ++++++++++++++++++++------------
+ 1 file changed, 20 insertions(+), 12 deletions(-)
 
-diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
-index cf7bba461bfd..737f185aad8d 100644
---- a/fs/dlm/plock.c
-+++ b/fs/dlm/plock.c
-@@ -29,6 +29,8 @@ struct plock_async_data {
- struct plock_op {
- 	struct list_head list;
- 	int done;
-+	/* if lock op got interrupted while waiting dlm_controld reply */
-+	bool sigint;
- 	struct dlm_plock_info info;
- 	/* if set indicates async handling */
- 	struct plock_async_data *data;
-@@ -157,16 +159,24 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
- 	rv = wait_event_interruptible(recv_wq, (op->done != 0));
- 	if (rv == -ERESTARTSYS) {
- 		spin_lock(&ops_lock);
--		list_del(&op->list);
-+		/* recheck under ops_lock if we got a done != 0,
-+		 * if so this interrupt case should be ignored
-+		 */
-+		if (op->done != 0) {
-+			spin_unlock(&ops_lock);
-+			goto do_lock_wait;
-+		}
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index be0997e24d60..dc77080a82bb 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -531,34 +531,42 @@ static void qdsb_put(struct gfs2_quota_data *qd)
+  */
+ int gfs2_qa_get(struct gfs2_inode *ip)
+ {
+-=09int error =3D 0;
+ =09struct gfs2_sbd *sdp =3D GFS2_SB(&ip->i_inode);
++=09struct inode *inode =3D &ip->i_inode;
+=20
+ =09if (sdp->sd_args.ar_quota =3D=3D GFS2_QUOTA_OFF)
+ =09=09return 0;
+=20
+-=09down_write(&ip->i_rw_mutex);
++=09spin_lock(&inode->i_lock);
+ =09if (ip->i_qadata =3D=3D NULL) {
+-=09=09ip->i_qadata =3D kmem_cache_zalloc(gfs2_qadata_cachep, GFP_NOFS);
+-=09=09if (!ip->i_qadata) {
+-=09=09=09error =3D -ENOMEM;
+-=09=09=09goto out;
+-=09=09}
++=09=09struct gfs2_qadata *tmp;
 +
-+		op->sigint = true;
- 		spin_unlock(&ops_lock);
- 		log_debug(ls, "%s: wait interrupted %x %llx pid %d",
- 			  __func__, ls->ls_global_id,
- 			  (unsigned long long)number, op->info.pid);
--		dlm_release_plock_op(op);
--		do_unlock_close(&op->info);
- 		goto out;
- 	}
- 
-+do_lock_wait:
++=09=09spin_unlock(&inode->i_lock);
++=09=09tmp =3D kmem_cache_zalloc(gfs2_qadata_cachep, GFP_NOFS);
++=09=09if (!tmp)
++=09=09=09return -ENOMEM;
 +
- 	WARN_ON(!list_empty(&op->list));
- 
- 	rv = op->info.rv;
-@@ -421,6 +431,19 @@ static ssize_t dev_write(struct file *file, const char __user *u, size_t count,
- 		if (iter->info.fsid == info.fsid &&
- 		    iter->info.number == info.number &&
- 		    iter->info.owner == info.owner) {
-+			if (iter->sigint) {
-+				list_del(&iter->list);
-+				spin_unlock(&ops_lock);
++=09=09spin_lock(&inode->i_lock);
++=09=09if (ip->i_qadata =3D=3D NULL)
++=09=09=09ip->i_qadata =3D tmp;
++=09=09else
++=09=09=09kmem_cache_free(gfs2_qadata_cachep, tmp);
+ =09}
+ =09ip->i_qadata->qa_ref++;
+-out:
+-=09up_write(&ip->i_rw_mutex);
+-=09return error;
++=09spin_unlock(&inode->i_lock);
++=09return 0;
+ }
+=20
+ void gfs2_qa_put(struct gfs2_inode *ip)
+ {
+-=09down_write(&ip->i_rw_mutex);
++=09struct inode *inode =3D &ip->i_inode;
 +
-+				pr_debug("%s: sigint cleanup %x %llx pid %d",
-+					  __func__, iter->info.fsid,
-+					  (unsigned long long)iter->info.number,
-+					  iter->info.pid);
-+				do_unlock_close(&iter->info);
-+				memcpy(&iter->info, &info, sizeof(info));
-+				dlm_release_plock_op(iter);
-+				return count;
-+			}
- 			list_del_init(&iter->list);
- 			memcpy(&iter->info, &info, sizeof(info));
- 			if (iter->data)
--- 
-2.31.1
++=09spin_lock(&inode->i_lock);
+ =09if (ip->i_qadata && --ip->i_qadata->qa_ref =3D=3D 0) {
+ =09=09kmem_cache_free(gfs2_qadata_cachep, ip->i_qadata);
+ =09=09ip->i_qadata =3D NULL;
+ =09}
+-=09up_write(&ip->i_rw_mutex);
++=09spin_unlock(&inode->i_lock);
+ }
+=20
+ int gfs2_quota_hold(struct gfs2_inode *ip, kuid_t uid, kgid_t gid)
+--=20
+2.35.1
 
