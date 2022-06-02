@@ -2,89 +2,93 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31A153B441
-	for <lists+cluster-devel@lfdr.de>; Thu,  2 Jun 2022 09:19:58 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 9865B53B4A6
+	for <lists+cluster-devel@lfdr.de>; Thu,  2 Jun 2022 09:57:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1654156672;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=1HOMdIfsoKxBYgZZnfljgLJ5NTDgYDEwfsVjpojtcs0=;
+	b=aEG4y1wu4spTL2QfjePXtZPHjPxqHeXnH7Fl7wzcA5wJGOlfB57x3KURikFsPI3msnFXtM
+	WHT7FCweXN6XAKurREzfqqMcBIpZOZT/7XGmjQi+H0hlzPsIUWRpmaRPR5izNSEJHDaDHq
+	WRADthahLYvACxuz7RF3lPGp6LVZKro=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-173-0y5B_e2dPvaoTDA8GL7fCA-1; Thu, 02 Jun 2022 03:19:54 -0400
-X-MC-Unique: 0y5B_e2dPvaoTDA8GL7fCA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-359-GZtKg_JQMoOUqwsgewDWWA-1; Thu, 02 Jun 2022 03:57:49 -0400
+X-MC-Unique: GZtKg_JQMoOUqwsgewDWWA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DAE4C802804;
-	Thu,  2 Jun 2022 07:19:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BC7A3C0D86A;
+	Thu,  2 Jun 2022 07:57:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6A897C15E71;
-	Thu,  2 Jun 2022 07:19:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EE6E640EC002;
+	Thu,  2 Jun 2022 07:57:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 15C341949759;
-	Thu,  2 Jun 2022 07:19:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A47661949759;
+	Thu,  2 Jun 2022 07:57:47 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E71541947B83 for <cluster-devel@listman.corp.redhat.com>;
- Thu,  2 Jun 2022 07:19:50 +0000 (UTC)
+ ESMTP id 6CBEB1947B83 for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  2 Jun 2022 07:57:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CA3611121315; Thu,  2 Jun 2022 07:19:50 +0000 (UTC)
+ id 501D9C27E9D; Thu,  2 Jun 2022 07:57:46 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C63501121314
- for <cluster-devel@redhat.com>; Thu,  2 Jun 2022 07:19:50 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CA51C27E8F
+ for <cluster-devel@redhat.com>; Thu,  2 Jun 2022 07:57:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC29E1066542
- for <cluster-devel@redhat.com>; Thu,  2 Jun 2022 07:19:50 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35A5D29ABA02
+ for <cluster-devel@redhat.com>; Thu,  2 Jun 2022 07:57:46 +0000 (UTC)
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-96-6udmTx6yOXGFj8pmH8EvIw-1; Thu, 02 Jun 2022 03:19:45 -0400
-X-MC-Unique: 6udmTx6yOXGFj8pmH8EvIw-1
-Received: by mail-pj1-f45.google.com with SMTP id n10so4140881pjh.5;
- Thu, 02 Jun 2022 00:19:44 -0700 (PDT)
+ us-mta-608-rHDFGIs_PDqWoe2wqOBIXw-1; Thu, 02 Jun 2022 03:57:45 -0400
+X-MC-Unique: rHDFGIs_PDqWoe2wqOBIXw-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ o3-20020a05600c510300b0039743540ac7so2047679wms.5
+ for <cluster-devel@redhat.com>; Thu, 02 Jun 2022 00:57:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=i016zQuKMb81+Y+xJdKA11NT4Jd4+/bBSHrF2+dgzts=;
- b=lwPxYRUJ+kj0c4WpPUa/Zr/OcJJ7zD+/vettJsXfEhcUptNwKxI5Vh98M70XvioJEU
- C6YtgKtbhWEhZC8gnYQbgVSyBqdhD7q0eumG2k4zi1IZ0E9MqYfQ9lKanrcuy7hDTRno
- qZraU+Dxd1R3hK6tuoaVJ3CEufdgTHpGH0yNgw3VsGQ9cWAchGX6yuW57Vvai1nWxxst
- ijn20Z0zzhuGtNkeuR4T05zL/wa1RVdqJH5kfBb/wsrHy6XgQzE0DL3LCX/ni7GozyhI
- vDQFI209Dg7L4xX4W58a+B8fmWAn10BVu5uufKtWeTew9Sd1qfiR/2QYIZFMQIhGv9KW
- WdAA==
-X-Gm-Message-State: AOAM5306MccOgon7UUyYO3yfgoQtdWptTmNcsduKoouJP2rOlCdxIL+S
- 9OeCiDWU7pmlqoBzYoUkDDdaBx6cZ3Q=
-X-Google-Smtp-Source: ABdhPJwvbtpttKvPPVIECKgAyPlw86lt/qMJJOYUmGPl/yvP7coxrd3KUek52ouDEvS5mDD6i7CqYA==
-X-Received: by 2002:a17:90a:2807:b0:1e6:7eef:8e9d with SMTP id
- e7-20020a17090a280700b001e67eef8e9dmr3455288pjd.109.1654154383633; 
- Thu, 02 Jun 2022 00:19:43 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- s8-20020a056a001c4800b005183cf12184sm2647547pfw.133.2022.06.02.00.19.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jun 2022 00:19:43 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: rpeterso@redhat.com
-Date: Thu,  2 Jun 2022 07:19:39 +0000
-Message-Id: <20220602071939.278344-1-chi.minghao@zte.com.cn>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1HOMdIfsoKxBYgZZnfljgLJ5NTDgYDEwfsVjpojtcs0=;
+ b=sJT0OzSO1a75HNuzdNeU27YoRVbyzItohP+uGAt+zsd7nqfwAVzcMWnQi1gMTzVxHV
+ StxTrCccAULUGEj6dAwIxewoe4yzHXCwO8cWkNthQ3AxqB2sys2bi7WsiqHG+YRyN9nZ
+ XArE6MtXRcfUg7PPA9vmIVcB1c+uQbleHjY1lDL0E7RTABkeg7/2hLD8/r9pk1iXMKCX
+ 4V7M1XjRxXnPDxCCVjqurgv8nivvHVFXe/yR6ipOr4QezP4zFWHW1iVBP4d4fqDbjXJG
+ F4cNpg/xCOLyzxdSHUOP/qz2UVk4oy/lkKT0djdwoQaipxKR15nvoL6tONO4Rmh1F+3i
+ yS2g==
+X-Gm-Message-State: AOAM533QF6IRyPALJUdwP7ErZ4+6xgVRp8A3qQKVDBzpu7cuoVnA61w5
+ 0vz8MBtzeXy4YW164mWS9ljpozkFLJ7iT0uzzf0qV1q1/I3IVRW1IlRp62qm6IxdomJYfJl4MUZ
+ gRmwF2eL2DpmGTmR0ARqFxS4MknZERH1YnQhFRQ==
+X-Received: by 2002:a5d:538f:0:b0:211:8016:dda3 with SMTP id
+ d15-20020a5d538f000000b002118016dda3mr2612073wrv.349.1654156663978; 
+ Thu, 02 Jun 2022 00:57:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJztroxVQ+L+TlYB55/pnJ/TTAcbLv8DLnq1jYqDDGg+CrtPlFNEcuy5UAtjra0hyH73xuPS6h57MzlFJbqrNpg=
+X-Received: by 2002:a5d:538f:0:b0:211:8016:dda3 with SMTP id
+ d15-20020a5d538f000000b002118016dda3mr2612059wrv.349.1654156663817; Thu, 02
+ Jun 2022 00:57:43 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH] gfs2: Remove redundant NULL check before
- kfree
+References: <20220602071939.278344-1-chi.minghao@zte.com.cn>
+In-Reply-To: <20220602071939.278344-1-chi.minghao@zte.com.cn>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Thu, 2 Jun 2022 09:57:32 +0200
+Message-ID: <CAHc6FU6hiOHS-b7Ft0AwL+aOZwwgE6WjiJuN1ZRi2k2aH6Si8Q@mail.gmail.com>
+To: cgel.zte@gmail.com
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH] gfs2: Remove redundant NULL check
+ before kfree
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,43 +100,47 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, Zeal Robot <zealci@zte.com.cn>,
- Minghao Chi <chi.minghao@zte.com.cn>, linux-kernel@vger.kernel.org
+Cc: cluster-devel <cluster-devel@redhat.com>, Zeal Robot <zealci@zte.com.cn>,
+ LKML <linux-kernel@vger.kernel.org>, Minghao Chi <chi.minghao@zte.com.cn>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="UTF-8"
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+On Thu, Jun 2, 2022 at 9:19 AM <cgel.zte@gmail.com> wrote:
+> From: Minghao Chi <chi.minghao@zte.com.cn>
+>
+> kfree on NULL pointer is a no-op.
+>
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+> ---
+>  fs/gfs2/file.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+> index 2cceb193dcd8..d8f1239344c1 100644
+> --- a/fs/gfs2/file.c
+> +++ b/fs/gfs2/file.c
+> @@ -1066,8 +1066,7 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
+>                 gfs2_glock_dq(gh);
+>  out_uninit:
+>         gfs2_holder_uninit(gh);
+> -       if (statfs_gh)
+> -               kfree(statfs_gh);
+> +       kfree(statfs_gh);
+>         from->count = orig_count - written;
+>         return written ? written : ret;
+>  }
+> --
+> 2.25.1
+>
 
-kfree on NULL pointer is a no-op.
+Added to for-next, thanks.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
----
- fs/gfs2/file.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-index 2cceb193dcd8..d8f1239344c1 100644
---- a/fs/gfs2/file.c
-+++ b/fs/gfs2/file.c
-@@ -1066,8 +1066,7 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
- 		gfs2_glock_dq(gh);
- out_uninit:
- 	gfs2_holder_uninit(gh);
--	if (statfs_gh)
--		kfree(statfs_gh);
-+	kfree(statfs_gh);
- 	from->count = orig_count - written;
- 	return written ? written : ret;
- }
--- 
-2.25.1
-
+Andreas
 
