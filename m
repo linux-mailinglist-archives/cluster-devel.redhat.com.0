@@ -2,54 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABCF553F010
-	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:13 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id CE43853F014
+	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:15 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-448-I4WsVjefN3muWoXCd_gAAQ-1; Mon, 06 Jun 2022 16:41:09 -0400
-X-MC-Unique: I4WsVjefN3muWoXCd_gAAQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-2-zv_1WrPnOn2bLle1O0M9LQ-1; Mon, 06 Jun 2022 16:41:11 -0400
+X-MC-Unique: zv_1WrPnOn2bLle1O0M9LQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5878485A5B9;
-	Mon,  6 Jun 2022 20:41:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E4DF1C0896B;
+	Mon,  6 Jun 2022 20:41:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 21B311415100;
-	Mon,  6 Jun 2022 20:41:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 01002C27E8F;
+	Mon,  6 Jun 2022 20:41:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A961A194707C;
-	Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BB2A8194707E;
+	Mon,  6 Jun 2022 20:41:09 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3AF2319451EF for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 92F6F19452D2 for <cluster-devel@listman.corp.redhat.com>;
  Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EF69FC27E8F; Mon,  6 Jun 2022 20:41:06 +0000 (UTC)
+ id 79825C23DBF; Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EBBD2C15E71
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:06 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 75F8DC27E8F
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6049858EED
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:06 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FB0E3C0F725
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-356--qzTRwwqNqOJRtFLMxLXsQ-1; Mon, 06 Jun 2022 16:41:05 -0400
-X-MC-Unique: -qzTRwwqNqOJRtFLMxLXsQ-1
+ us-mta-604-Azb5qPD3NqC6bN3huPZjgA-1; Mon, 06 Jun 2022 16:41:05 -0400
+X-MC-Unique: Azb5qPD3NqC6bN3huPZjgA-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nyJWx-00B19g-HE; Mon, 06 Jun 2022 20:40:55 +0000
+ Hat Linux)) id 1nyJWx-00B19i-Jy; Mon, 06 Jun 2022 20:40:55 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Mon,  6 Jun 2022 21:40:42 +0100
-Message-Id: <20220606204050.2625949-13-willy@infradead.org>
+Date: Mon,  6 Jun 2022 21:40:43 +0100
+Message-Id: <20220606204050.2625949-14-willy@infradead.org>
 In-Reply-To: <20220606204050.2625949-1-willy@infradead.org>
 References: <20220606204050.2625949-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -61,8 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Cluster-devel] [PATCH 12/20] f2fs: Convert to
- filemap_migrate_folio()
+Subject: [Cluster-devel] [PATCH 13/20] aio: Convert to migrate_folio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,7 +82,7 @@ Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
  linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,125 +90,97 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-filemap_migrate_folio() fits f2fs's needs perfectly.
+Use a folio throughout this function.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- fs/f2fs/checkpoint.c |  4 +---
- fs/f2fs/data.c       | 40 +---------------------------------------
- fs/f2fs/f2fs.h       |  4 ----
- fs/f2fs/node.c       |  4 +---
- 4 files changed, 3 insertions(+), 49 deletions(-)
+ fs/aio.c | 36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 6d8b2bf14de0..8259e0fa97e1 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -463,9 +463,7 @@ const struct address_space_operations f2fs_meta_aops = {
- 	.dirty_folio	= f2fs_dirty_meta_folio,
- 	.invalidate_folio = f2fs_invalidate_folio,
- 	.release_folio	= f2fs_release_folio,
--#ifdef CONFIG_MIGRATION
--	.migratepage    = f2fs_migrate_page,
--#endif
-+	.migrate_folio	= filemap_migrate_folio,
+diff --git a/fs/aio.c b/fs/aio.c
+index 3c249b938632..a1911e86859c 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -400,8 +400,8 @@ static const struct file_operations aio_ring_fops = {
  };
  
- static void __add_ino_entry(struct f2fs_sb_info *sbi, nid_t ino,
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 7fcbcf979737..318a3f91ad74 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -3751,42 +3751,6 @@ static sector_t f2fs_bmap(struct address_space *mapping, sector_t block)
- 	return blknr;
+ #if IS_ENABLED(CONFIG_MIGRATION)
+-static int aio_migratepage(struct address_space *mapping, struct page *new,
+-			struct page *old, enum migrate_mode mode)
++static int aio_migrate_folio(struct address_space *mapping, struct folio *dst,
++			struct folio *src, enum migrate_mode mode)
+ {
+ 	struct kioctx *ctx;
+ 	unsigned long flags;
+@@ -435,10 +435,10 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
+ 		goto out;
+ 	}
+ 
+-	idx = old->index;
++	idx = src->index;
+ 	if (idx < (pgoff_t)ctx->nr_pages) {
+-		/* Make sure the old page hasn't already been changed */
+-		if (ctx->ring_pages[idx] != old)
++		/* Make sure the old folio hasn't already been changed */
++		if (ctx->ring_pages[idx] != &src->page)
+ 			rc = -EAGAIN;
+ 	} else
+ 		rc = -EINVAL;
+@@ -447,27 +447,27 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
+ 		goto out_unlock;
+ 
+ 	/* Writeback must be complete */
+-	BUG_ON(PageWriteback(old));
+-	get_page(new);
++	BUG_ON(folio_test_writeback(src));
++	folio_get(dst);
+ 
+-	rc = migrate_page_move_mapping(mapping, new, old, 1);
++	rc = folio_migrate_mapping(mapping, dst, src, 1);
+ 	if (rc != MIGRATEPAGE_SUCCESS) {
+-		put_page(new);
++		folio_put(dst);
+ 		goto out_unlock;
+ 	}
+ 
+ 	/* Take completion_lock to prevent other writes to the ring buffer
+-	 * while the old page is copied to the new.  This prevents new
++	 * while the old folio is copied to the new.  This prevents new
+ 	 * events from being lost.
+ 	 */
+ 	spin_lock_irqsave(&ctx->completion_lock, flags);
+-	migrate_page_copy(new, old);
+-	BUG_ON(ctx->ring_pages[idx] != old);
+-	ctx->ring_pages[idx] = new;
++	folio_migrate_copy(dst, src);
++	BUG_ON(ctx->ring_pages[idx] != &src->page);
++	ctx->ring_pages[idx] = &dst->page;
+ 	spin_unlock_irqrestore(&ctx->completion_lock, flags);
+ 
+-	/* The old page is no longer accessible. */
+-	put_page(old);
++	/* The old folio is no longer accessible. */
++	folio_put(src);
+ 
+ out_unlock:
+ 	mutex_unlock(&ctx->ring_lock);
+@@ -475,13 +475,13 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
+ 	spin_unlock(&mapping->private_lock);
+ 	return rc;
  }
++#else
++#define aio_migrate_folio NULL
+ #endif
  
--#ifdef CONFIG_MIGRATION
--#include <linux/migrate.h>
--
--int f2fs_migrate_page(struct address_space *mapping,
--		struct page *newpage, struct page *page, enum migrate_mode mode)
--{
--	int rc, extra_count = 0;
--
--	BUG_ON(PageWriteback(page));
--
--	rc = migrate_page_move_mapping(mapping, newpage,
--				page, extra_count);
--	if (rc != MIGRATEPAGE_SUCCESS)
--		return rc;
--
--	/* guarantee to start from no stale private field */
--	set_page_private(newpage, 0);
--	if (PagePrivate(page)) {
--		set_page_private(newpage, page_private(page));
--		SetPagePrivate(newpage);
--		get_page(newpage);
--
--		set_page_private(page, 0);
--		ClearPagePrivate(page);
--		put_page(page);
--	}
--
--	if (mode != MIGRATE_SYNC_NO_COPY)
--		migrate_page_copy(newpage, page);
--	else
--		migrate_page_states(newpage, page);
--
--	return MIGRATEPAGE_SUCCESS;
--}
+ static const struct address_space_operations aio_ctx_aops = {
+ 	.dirty_folio	= noop_dirty_folio,
+-#if IS_ENABLED(CONFIG_MIGRATION)
+-	.migratepage	= aio_migratepage,
 -#endif
--
- #ifdef CONFIG_SWAP
- static int f2fs_migrate_blocks(struct inode *inode, block_t start_blk,
- 							unsigned int blkcnt)
-@@ -4018,15 +3982,13 @@ const struct address_space_operations f2fs_dblock_aops = {
- 	.write_begin	= f2fs_write_begin,
- 	.write_end	= f2fs_write_end,
- 	.dirty_folio	= f2fs_dirty_data_folio,
-+	.migrate_folio	= filemap_migrate_folio,
- 	.invalidate_folio = f2fs_invalidate_folio,
- 	.release_folio	= f2fs_release_folio,
- 	.direct_IO	= noop_direct_IO,
- 	.bmap		= f2fs_bmap,
- 	.swap_activate  = f2fs_swap_activate,
- 	.swap_deactivate = f2fs_swap_deactivate,
--#ifdef CONFIG_MIGRATION
--	.migratepage    = f2fs_migrate_page,
--#endif
++	.migrate_folio	= aio_migrate_folio,
  };
  
- void f2fs_clear_page_cache_dirty_tag(struct page *page)
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index d9bbecd008d2..f258a1b6faed 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -3764,10 +3764,6 @@ int f2fs_write_single_data_page(struct page *page, int *submitted,
- void f2fs_write_failed(struct inode *inode, loff_t to);
- void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
- bool f2fs_release_folio(struct folio *folio, gfp_t wait);
--#ifdef CONFIG_MIGRATION
--int f2fs_migrate_page(struct address_space *mapping, struct page *newpage,
--			struct page *page, enum migrate_mode mode);
--#endif
- bool f2fs_overwrite_io(struct inode *inode, loff_t pos, size_t len);
- void f2fs_clear_page_cache_dirty_tag(struct page *page);
- int f2fs_init_post_read_processing(void);
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 836c79a20afc..ed1cbfb0345f 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2163,9 +2163,7 @@ const struct address_space_operations f2fs_node_aops = {
- 	.dirty_folio	= f2fs_dirty_node_folio,
- 	.invalidate_folio = f2fs_invalidate_folio,
- 	.release_folio	= f2fs_release_folio,
--#ifdef CONFIG_MIGRATION
--	.migratepage	= f2fs_migrate_page,
--#endif
-+	.migrate_folio	= filemap_migrate_folio,
- };
- 
- static struct free_nid *__lookup_free_nid_list(struct f2fs_nm_info *nm_i,
+ static int aio_setup_ring(struct kioctx *ctx, unsigned int nr_events)
 -- 
 2.35.1
 
