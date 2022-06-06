@@ -1,55 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE43853F014
-	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:15 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6213A53F049
+	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:42 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-2-zv_1WrPnOn2bLle1O0M9LQ-1; Mon, 06 Jun 2022 16:41:11 -0400
-X-MC-Unique: zv_1WrPnOn2bLle1O0M9LQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-91-4UmohxQ9PLuJZlWDb1wWiw-1; Mon, 06 Jun 2022 16:41:37 -0400
+X-MC-Unique: 4UmohxQ9PLuJZlWDb1wWiw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E4DF1C0896B;
-	Mon,  6 Jun 2022 20:41:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 733BF80B90D;
+	Mon,  6 Jun 2022 20:41:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 01002C27E8F;
-	Mon,  6 Jun 2022 20:41:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 681D3492C3B;
+	Mon,  6 Jun 2022 20:41:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BB2A8194707E;
-	Mon,  6 Jun 2022 20:41:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 187C71947B8D;
+	Mon,  6 Jun 2022 20:41:35 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 92F6F19452D2 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
+ ESMTP id 785C5194707A for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 79825C23DBF; Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
+ id 571DB40EC003; Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 75F8DC27E8F
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 531BD40EC002
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FB0E3C0F725
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:07 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B1DD3C0F722
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-604-Azb5qPD3NqC6bN3huPZjgA-1; Mon, 06 Jun 2022 16:41:05 -0400
-X-MC-Unique: Azb5qPD3NqC6bN3huPZjgA-1
+ us-mta-310-qLMp5XPbNJSmSZTWs8BXOw-1; Mon, 06 Jun 2022 16:41:32 -0400
+X-MC-Unique: qLMp5XPbNJSmSZTWs8BXOw-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nyJWx-00B19i-Jy; Mon, 06 Jun 2022 20:40:55 +0000
+ Hat Linux)) id 1nyJWx-00B19k-M6; Mon, 06 Jun 2022 20:40:55 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Mon,  6 Jun 2022 21:40:43 +0100
-Message-Id: <20220606204050.2625949-14-willy@infradead.org>
+Date: Mon,  6 Jun 2022 21:40:44 +0100
+Message-Id: <20220606204050.2625949-15-willy@infradead.org>
 In-Reply-To: <20220606204050.2625949-1-willy@infradead.org>
 References: <20220606204050.2625949-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -60,8 +61,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Cluster-devel] [PATCH 13/20] aio: Convert to migrate_folio
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH 14/20] hugetlb: Convert to migrate_folio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,7 +83,7 @@ Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
  linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,97 +91,128 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Use a folio throughout this function.
+This involves converting migrate_huge_page_move_mapping().  We also need a
+folio variant of hugetlb_set_page_subpool(), but that's for a later patch.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- fs/aio.c | 36 ++++++++++++++++++------------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ fs/hugetlbfs/inode.c    | 19 ++++++++++---------
+ include/linux/migrate.h |  6 +++---
+ mm/migrate.c            | 18 +++++++++---------
+ 3 files changed, 22 insertions(+), 21 deletions(-)
 
-diff --git a/fs/aio.c b/fs/aio.c
-index 3c249b938632..a1911e86859c 100644
---- a/fs/aio.c
-+++ b/fs/aio.c
-@@ -400,8 +400,8 @@ static const struct file_operations aio_ring_fops = {
- };
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 14d33f725e05..583ca3f52c04 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -954,25 +954,26 @@ static int hugetlbfs_symlink(struct user_namespace *mnt_userns,
+ 	return error;
+ }
  
- #if IS_ENABLED(CONFIG_MIGRATION)
--static int aio_migratepage(struct address_space *mapping, struct page *new,
--			struct page *old, enum migrate_mode mode)
-+static int aio_migrate_folio(struct address_space *mapping, struct folio *dst,
-+			struct folio *src, enum migrate_mode mode)
+-static int hugetlbfs_migrate_page(struct address_space *mapping,
+-				struct page *newpage, struct page *page,
++static int hugetlbfs_migrate_folio(struct address_space *mapping,
++				struct folio *dst, struct folio *src,
+ 				enum migrate_mode mode)
  {
- 	struct kioctx *ctx;
- 	unsigned long flags;
-@@ -435,10 +435,10 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
- 		goto out;
+ 	int rc;
+ 
+-	rc = migrate_huge_page_move_mapping(mapping, newpage, page);
++	rc = migrate_huge_page_move_mapping(mapping, dst, src);
+ 	if (rc != MIGRATEPAGE_SUCCESS)
+ 		return rc;
+ 
+-	if (hugetlb_page_subpool(page)) {
+-		hugetlb_set_page_subpool(newpage, hugetlb_page_subpool(page));
+-		hugetlb_set_page_subpool(page, NULL);
++	if (hugetlb_page_subpool(&src->page)) {
++		hugetlb_set_page_subpool(&dst->page,
++					hugetlb_page_subpool(&src->page));
++		hugetlb_set_page_subpool(&src->page, NULL);
  	}
  
--	idx = old->index;
-+	idx = src->index;
- 	if (idx < (pgoff_t)ctx->nr_pages) {
--		/* Make sure the old page hasn't already been changed */
--		if (ctx->ring_pages[idx] != old)
-+		/* Make sure the old folio hasn't already been changed */
-+		if (ctx->ring_pages[idx] != &src->page)
- 			rc = -EAGAIN;
- 	} else
- 		rc = -EINVAL;
-@@ -447,27 +447,27 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
- 		goto out_unlock;
+ 	if (mode != MIGRATE_SYNC_NO_COPY)
+-		migrate_page_copy(newpage, page);
++		folio_migrate_copy(dst, src);
+ 	else
+-		migrate_page_states(newpage, page);
++		folio_migrate_flags(dst, src);
  
- 	/* Writeback must be complete */
--	BUG_ON(PageWriteback(old));
--	get_page(new);
-+	BUG_ON(folio_test_writeback(src));
+ 	return MIGRATEPAGE_SUCCESS;
+ }
+@@ -1142,7 +1143,7 @@ static const struct address_space_operations hugetlbfs_aops = {
+ 	.write_begin	= hugetlbfs_write_begin,
+ 	.write_end	= hugetlbfs_write_end,
+ 	.dirty_folio	= noop_dirty_folio,
+-	.migratepage    = hugetlbfs_migrate_page,
++	.migrate_folio  = hugetlbfs_migrate_folio,
+ 	.error_remove_page	= hugetlbfs_error_remove_page,
+ };
+ 
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 4ef22806cd8e..088749471485 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -35,8 +35,8 @@ extern int isolate_movable_page(struct page *page, isolate_mode_t mode);
+ 
+ extern void migrate_page_states(struct page *newpage, struct page *page);
+ extern void migrate_page_copy(struct page *newpage, struct page *page);
+-extern int migrate_huge_page_move_mapping(struct address_space *mapping,
+-				  struct page *newpage, struct page *page);
++int migrate_huge_page_move_mapping(struct address_space *mapping,
++		struct folio *dst, struct folio *src);
+ extern int migrate_page_move_mapping(struct address_space *mapping,
+ 		struct page *newpage, struct page *page, int extra_count);
+ void migration_entry_wait_on_locked(swp_entry_t entry, pte_t *ptep,
+@@ -67,7 +67,7 @@ static inline void migrate_page_copy(struct page *newpage,
+ 				     struct page *page) {}
+ 
+ static inline int migrate_huge_page_move_mapping(struct address_space *mapping,
+-				  struct page *newpage, struct page *page)
++				  struct folio *dst, struct folio *src)
+ {
+ 	return -ENOSYS;
+ }
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 148dd0463dec..a8edd226c72d 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -475,26 +475,26 @@ EXPORT_SYMBOL(folio_migrate_mapping);
+  * of folio_migrate_mapping().
+  */
+ int migrate_huge_page_move_mapping(struct address_space *mapping,
+-				   struct page *newpage, struct page *page)
++				   struct folio *dst, struct folio *src)
+ {
+-	XA_STATE(xas, &mapping->i_pages, page_index(page));
++	XA_STATE(xas, &mapping->i_pages, folio_index(src));
+ 	int expected_count;
+ 
+ 	xas_lock_irq(&xas);
+-	expected_count = 2 + page_has_private(page);
+-	if (!page_ref_freeze(page, expected_count)) {
++	expected_count = 2 + folio_has_private(src);
++	if (!folio_ref_freeze(src, expected_count)) {
+ 		xas_unlock_irq(&xas);
+ 		return -EAGAIN;
+ 	}
+ 
+-	newpage->index = page->index;
+-	newpage->mapping = page->mapping;
++	dst->index = src->index;
++	dst->mapping = src->mapping;
+ 
+-	get_page(newpage);
 +	folio_get(dst);
  
--	rc = migrate_page_move_mapping(mapping, new, old, 1);
-+	rc = folio_migrate_mapping(mapping, dst, src, 1);
- 	if (rc != MIGRATEPAGE_SUCCESS) {
--		put_page(new);
-+		folio_put(dst);
- 		goto out_unlock;
- 	}
+-	xas_store(&xas, newpage);
++	xas_store(&xas, dst);
  
- 	/* Take completion_lock to prevent other writes to the ring buffer
--	 * while the old page is copied to the new.  This prevents new
-+	 * while the old folio is copied to the new.  This prevents new
- 	 * events from being lost.
- 	 */
- 	spin_lock_irqsave(&ctx->completion_lock, flags);
--	migrate_page_copy(new, old);
--	BUG_ON(ctx->ring_pages[idx] != old);
--	ctx->ring_pages[idx] = new;
-+	folio_migrate_copy(dst, src);
-+	BUG_ON(ctx->ring_pages[idx] != &src->page);
-+	ctx->ring_pages[idx] = &dst->page;
- 	spin_unlock_irqrestore(&ctx->completion_lock, flags);
+-	page_ref_unfreeze(page, expected_count - 1);
++	folio_ref_unfreeze(src, expected_count - 1);
  
--	/* The old page is no longer accessible. */
--	put_page(old);
-+	/* The old folio is no longer accessible. */
-+	folio_put(src);
+ 	xas_unlock_irq(&xas);
  
- out_unlock:
- 	mutex_unlock(&ctx->ring_lock);
-@@ -475,13 +475,13 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
- 	spin_unlock(&mapping->private_lock);
- 	return rc;
- }
-+#else
-+#define aio_migrate_folio NULL
- #endif
- 
- static const struct address_space_operations aio_ctx_aops = {
- 	.dirty_folio	= noop_dirty_folio,
--#if IS_ENABLED(CONFIG_MIGRATION)
--	.migratepage	= aio_migratepage,
--#endif
-+	.migrate_folio	= aio_migrate_folio,
- };
- 
- static int aio_setup_ring(struct kioctx *ctx, unsigned int nr_events)
 -- 
 2.35.1
 
