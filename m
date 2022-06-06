@@ -2,54 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E558553F046
-	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:41 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E94253F030
+	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:28 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-423-Cflh-p38Ot2TBJC8LyFuFA-1; Mon, 06 Jun 2022 16:41:38 -0400
-X-MC-Unique: Cflh-p38Ot2TBJC8LyFuFA-1
+ us-mta-263-IpAFe644P_6EgU5ma4dMsg-1; Mon, 06 Jun 2022 16:41:24 -0400
+X-MC-Unique: IpAFe644P_6EgU5ma4dMsg-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20DE5811E81;
-	Mon,  6 Jun 2022 20:41:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 355D3299E753;
+	Mon,  6 Jun 2022 20:41:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 161D9C23DBF;
-	Mon,  6 Jun 2022 20:41:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 28CE6C27E8F;
+	Mon,  6 Jun 2022 20:41:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC69D194707C;
-	Mon,  6 Jun 2022 20:41:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0628519451EF;
+	Mon,  6 Jun 2022 20:41:23 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B8973194706E for <cluster-devel@listman.corp.redhat.com>;
- Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
+ ESMTP id AEBC5194706E for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  6 Jun 2022 20:41:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 93CF640EC003; Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
+ id 7E88A1410F39; Mon,  6 Jun 2022 20:41:22 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F4D840EC002
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A03B1410DDB
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78457299E754
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 622FB8115B1
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:22 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-333-5oilK431MOuKYD-FLmzRSg-1; Mon, 06 Jun 2022 16:41:32 -0400
-X-MC-Unique: 5oilK431MOuKYD-FLmzRSg-1
+ us-mta-537-FQ3bE2-HOh2f631QN1mDvA-1; Mon, 06 Jun 2022 16:41:20 -0400
+X-MC-Unique: FQ3bE2-HOh2f631QN1mDvA-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nyJWw-00B19S-UW; Mon, 06 Jun 2022 20:40:54 +0000
+ Hat Linux)) id 1nyJWx-00B19U-0Q; Mon, 06 Jun 2022 20:40:55 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Mon,  6 Jun 2022 21:40:35 +0100
-Message-Id: <20220606204050.2625949-6-willy@infradead.org>
+Date: Mon,  6 Jun 2022 21:40:36 +0100
+Message-Id: <20220606204050.2625949-7-willy@infradead.org>
 In-Reply-To: <20220606204050.2625949-1-willy@infradead.org>
 References: <20220606204050.2625949-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -60,9 +60,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: [Cluster-devel] [PATCH 05/20] mm/migrate: Convert
- expected_page_refs() to folio_expected_refs()
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [Cluster-devel] [PATCH 06/20] btrfs: Convert btree_migratepage to
+ migrate_folio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,60 +91,68 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Now that both callers have a folio, convert this function to
-take a folio & rename it.
+Use a folio throughout this function.  migrate_page() will be converted
+later.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- mm/migrate.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ fs/btrfs/disk-io.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 77b8c662c9ca..e0a593e5b5f9 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -337,13 +337,18 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
+diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
+index 12b11e645c14..9ceb73f683af 100644
+--- a/fs/btrfs/disk-io.c
++++ b/fs/btrfs/disk-io.c
+@@ -952,28 +952,28 @@ void btrfs_submit_metadata_bio(struct inode *inode, struct bio *bio, int mirror_
  }
+ 
+ #ifdef CONFIG_MIGRATION
+-static int btree_migratepage(struct address_space *mapping,
+-			struct page *newpage, struct page *page,
+-			enum migrate_mode mode)
++static int btree_migrate_folio(struct address_space *mapping,
++		struct folio *dst, struct folio *src, enum migrate_mode mode)
+ {
+ 	/*
+ 	 * we can't safely write a btree page from here,
+ 	 * we haven't done the locking hook
+ 	 */
+-	if (PageDirty(page))
++	if (folio_test_dirty(src))
+ 		return -EAGAIN;
+ 	/*
+ 	 * Buffers may be managed in a filesystem specific way.
+ 	 * We must have no buffers or drop them.
+ 	 */
+-	if (page_has_private(page) &&
+-	    !try_to_release_page(page, GFP_KERNEL))
++	if (folio_get_private(src) &&
++	    !filemap_release_folio(src, GFP_KERNEL))
+ 		return -EAGAIN;
+-	return migrate_page(mapping, newpage, page, mode);
++	return migrate_page(mapping, &dst->page, &src->page, mode);
+ }
++#else
++#define btree_migrate_folio NULL
  #endif
  
--static int expected_page_refs(struct address_space *mapping, struct page *page)
-+static int folio_expected_refs(struct address_space *mapping,
-+		struct folio *folio)
+-
+ static int btree_writepages(struct address_space *mapping,
+ 			    struct writeback_control *wbc)
  {
--	int expected_count = 1;
-+	int refs = 1;
-+	if (!mapping)
-+		return refs;
+@@ -1073,10 +1073,8 @@ static const struct address_space_operations btree_aops = {
+ 	.writepages	= btree_writepages,
+ 	.release_folio	= btree_release_folio,
+ 	.invalidate_folio = btree_invalidate_folio,
+-#ifdef CONFIG_MIGRATION
+-	.migratepage	= btree_migratepage,
+-#endif
+-	.dirty_folio = btree_dirty_folio,
++	.migrate_folio	= btree_migrate_folio,
++	.dirty_folio	= btree_dirty_folio,
+ };
  
--	if (mapping)
--		expected_count += compound_nr(page) + page_has_private(page);
--	return expected_count;
-+	refs += folio_nr_pages(folio);
-+	if (folio_get_private(folio))
-+		refs++;
-+
-+	return refs;;
- }
- 
- /*
-@@ -360,7 +365,7 @@ int folio_migrate_mapping(struct address_space *mapping,
- 	XA_STATE(xas, &mapping->i_pages, folio_index(folio));
- 	struct zone *oldzone, *newzone;
- 	int dirty;
--	int expected_count = expected_page_refs(mapping, &folio->page) + extra_count;
-+	int expected_count = folio_expected_refs(mapping, folio) + extra_count;
- 	long nr = folio_nr_pages(folio);
- 
- 	if (!mapping) {
-@@ -670,7 +675,7 @@ static int __buffer_migrate_folio(struct address_space *mapping,
- 		return migrate_page(mapping, &dst->page, &src->page, mode);
- 
- 	/* Check whether page does not have extra refs before we do more work */
--	expected_count = expected_page_refs(mapping, &src->page);
-+	expected_count = folio_expected_refs(mapping, src);
- 	if (folio_ref_count(src) != expected_count)
- 		return -EAGAIN;
- 
+ struct extent_buffer *btrfs_find_create_tree_block(
 -- 
 2.35.1
 
