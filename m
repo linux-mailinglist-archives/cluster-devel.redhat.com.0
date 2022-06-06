@@ -2,55 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BFFA53F043
-	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A868753F018
+	for <lists+cluster-devel@lfdr.de>; Mon,  6 Jun 2022 22:41:17 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-351-n9J46F_lM5Cgd4Owep6Mcg-1; Mon, 06 Jun 2022 16:41:33 -0400
-X-MC-Unique: n9J46F_lM5Cgd4Owep6Mcg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-465-B9uOpY-LNpK6Ee3Dli55xw-1; Mon, 06 Jun 2022 16:41:12 -0400
+X-MC-Unique: B9uOpY-LNpK6Ee3Dli55xw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36DA71C08963;
-	Mon,  6 Jun 2022 20:41:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6883E299E754;
+	Mon,  6 Jun 2022 20:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2BBFC40EC002;
-	Mon,  6 Jun 2022 20:41:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5D4B92166B26;
+	Mon,  6 Jun 2022 20:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AD2BA194707E;
-	Mon,  6 Jun 2022 20:41:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2763C194707C;
+	Mon,  6 Jun 2022 20:41:11 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D80CA194707C for <cluster-devel@listman.corp.redhat.com>;
- Mon,  6 Jun 2022 20:41:30 +0000 (UTC)
+ ESMTP id 76C741947079 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  6 Jun 2022 20:41:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id ADAEF40CFD0A; Mon,  6 Jun 2022 20:41:30 +0000 (UTC)
+ id 4951D492CA3; Mon,  6 Jun 2022 20:41:09 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A8C2C40CF8EA
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:30 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 45561492C3B
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:09 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91547299E755
- for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:30 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 140FE857A87
+ for <cluster-devel@redhat.com>; Mon,  6 Jun 2022 20:41:09 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-319-Krd_iXw8NTuyuC_xZgO8cw-1; Mon, 06 Jun 2022 16:41:29 -0400
-X-MC-Unique: Krd_iXw8NTuyuC_xZgO8cw-1
+ us-mta-634-rWgFxQzjN5Gd0qYK-xwJuA-1; Mon, 06 Jun 2022 16:41:06 -0400
+X-MC-Unique: rWgFxQzjN5Gd0qYK-xwJuA-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nyJWx-00B19o-Ro; Mon, 06 Jun 2022 20:40:55 +0000
+ Hat Linux)) id 1nyJWx-00B19q-Uf; Mon, 06 Jun 2022 20:40:55 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Mon,  6 Jun 2022 21:40:46 +0100
-Message-Id: <20220606204050.2625949-17-willy@infradead.org>
+Date: Mon,  6 Jun 2022 21:40:47 +0100
+Message-Id: <20220606204050.2625949-18-willy@infradead.org>
 In-Reply-To: <20220606204050.2625949-1-willy@infradead.org>
 References: <20220606204050.2625949-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -61,8 +61,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [Cluster-devel] [PATCH 16/20] secretmem: Convert to migrate_folio
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [Cluster-devel] [PATCH 17/20] z3fold: Convert to migrate_folio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,7 +83,7 @@ Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
  linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,36 +91,40 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This is little more than changing the types over; there's no real work
-being done in this function.
+z3fold doesn't really use folios, but it needs to be called like this
+in order to migrate an individual page.  Convert from a folio back to
+a page until we decide how to handle migration better for z3fold.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- mm/secretmem.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ mm/z3fold.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/mm/secretmem.c b/mm/secretmem.c
-index 206ed6b40c1d..9c7f6e3bf3e1 100644
---- a/mm/secretmem.c
-+++ b/mm/secretmem.c
-@@ -138,8 +138,8 @@ static bool secretmem_isolate_page(struct page *page, isolate_mode_t mode)
+diff --git a/mm/z3fold.c b/mm/z3fold.c
+index f41f8b0d9e9a..5d091c41fb35 100644
+--- a/mm/z3fold.c
++++ b/mm/z3fold.c
+@@ -1554,9 +1554,11 @@ static bool z3fold_page_isolate(struct page *page, isolate_mode_t mode)
  	return false;
  }
  
--static int secretmem_migratepage(struct address_space *mapping,
--				 struct page *newpage, struct page *page,
-+static int secretmem_migrate_folio(struct address_space *mapping,
-+				 struct folio *dst, struct folio *src,
- 				 enum migrate_mode mode)
+-static int z3fold_page_migrate(struct address_space *mapping, struct page *newpage,
+-			       struct page *page, enum migrate_mode mode)
++static int z3fold_migrate_folio(struct address_space *mapping,
++		struct folio *dst, struct folio *src, enum migrate_mode mode)
  {
- 	return -EBUSY;
-@@ -154,7 +154,7 @@ static void secretmem_free_folio(struct folio *folio)
- const struct address_space_operations secretmem_aops = {
- 	.dirty_folio	= noop_dirty_folio,
- 	.free_folio	= secretmem_free_folio,
--	.migratepage	= secretmem_migratepage,
-+	.migrate_folio	= secretmem_migrate_folio,
- 	.isolate_page	= secretmem_isolate_page,
++	struct page *newpage = &dst->page;
++	struct page *page = &src->page;
+ 	struct z3fold_header *zhdr, *new_zhdr;
+ 	struct z3fold_pool *pool;
+ 	struct address_space *new_mapping;
+@@ -1644,7 +1646,7 @@ static void z3fold_page_putback(struct page *page)
+ 
+ static const struct address_space_operations z3fold_aops = {
+ 	.isolate_page = z3fold_page_isolate,
+-	.migratepage = z3fold_page_migrate,
++	.migrate_folio = z3fold_migrate_folio,
+ 	.putback_page = z3fold_page_putback,
  };
  
 -- 
