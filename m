@@ -2,69 +2,69 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CA9953F4A7
-	for <lists+cluster-devel@lfdr.de>; Tue,  7 Jun 2022 05:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1114753F5F1
+	for <lists+cluster-devel@lfdr.de>; Tue,  7 Jun 2022 08:14:01 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-327-vswm79InNraah-7TkelONw-1; Mon, 06 Jun 2022 23:39:55 -0400
-X-MC-Unique: vswm79InNraah-7TkelONw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-369-COmoXLKlN8iXYg8N62fDqA-1; Tue, 07 Jun 2022 02:13:57 -0400
+X-MC-Unique: COmoXLKlN8iXYg8N62fDqA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E2B618A64EA;
-	Tue,  7 Jun 2022 03:39:54 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8956185AD0B;
+	Tue,  7 Jun 2022 06:13:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8DF8F2166B26;
-	Tue,  7 Jun 2022 03:39:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C164510725;
+	Tue,  7 Jun 2022 06:13:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 43EFD19452D8;
-	Tue,  7 Jun 2022 03:39:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4BDC819451EF;
+	Tue,  7 Jun 2022 06:13:53 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 25EE9194707B for <cluster-devel@listman.corp.redhat.com>;
- Tue,  7 Jun 2022 03:39:51 +0000 (UTC)
+ ESMTP id BD02D194707C for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  7 Jun 2022 06:13:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 08CC42166B29; Tue,  7 Jun 2022 03:39:51 +0000 (UTC)
+ id 9E6772026D07; Tue,  7 Jun 2022 06:13:51 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 046842166B26
- for <cluster-devel@redhat.com>; Tue,  7 Jun 2022 03:39:50 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 991F12026D64
+ for <cluster-devel@redhat.com>; Tue,  7 Jun 2022 06:13:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCC3A1011637
- for <cluster-devel@redhat.com>; Tue,  7 Jun 2022 03:39:50 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E18F811E75
+ for <cluster-devel@redhat.com>; Tue,  7 Jun 2022 06:13:51 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-407-RT3f2s3QP76PHrWA8fP3wQ-1; Mon, 06 Jun 2022 23:39:49 -0400
-X-MC-Unique: RT3f2s3QP76PHrWA8fP3wQ-1
-X-IronPort-AV: E=McAfee;i="6400,9594,10370"; a="275480644"
-X-IronPort-AV: E=Sophos;i="5.91,282,1647327600"; d="scan'208";a="275480644"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2022 20:38:44 -0700
+ us-mta-628-c1QYdbLEPxmihCJ0Ae_F0A-1; Tue, 07 Jun 2022 02:13:49 -0400
+X-MC-Unique: c1QYdbLEPxmihCJ0Ae_F0A-1
+X-IronPort-AV: E=McAfee;i="6400,9594,10370"; a="302070042"
+X-IronPort-AV: E=Sophos;i="5.91,282,1647327600"; d="scan'208";a="302070042"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2022 23:13:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,282,1647327600"; d="scan'208";a="579430786"
+X-IronPort-AV: E=Sophos;i="5.91,282,1647327600"; d="scan'208";a="614746862"
 Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
- by orsmga007.jf.intel.com with ESMTP; 06 Jun 2022 20:38:40 -0700
+ by orsmga001.jf.intel.com with ESMTP; 06 Jun 2022 23:13:44 -0700
 Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nyQ3D-000DJf-KE;
- Tue, 07 Jun 2022 03:38:39 +0000
-Date: Tue, 7 Jun 2022 11:37:45 +0800
+ (envelope-from <lkp@intel.com>) id 1nySTI-000DQ5-17;
+ Tue, 07 Jun 2022 06:13:44 +0000
+Date: Tue, 7 Jun 2022 14:13:26 +0800
 From: kernel test robot <lkp@intel.com>
 To: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
  linux-fsdevel@vger.kernel.org
-Message-ID: <202206071139.aWSx4GHH-lkp@intel.com>
-References: <20220606204050.2625949-5-willy@infradead.org>
+Message-ID: <202206071414.41wGG8fp-lkp@intel.com>
+References: <20220606204050.2625949-15-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20220606204050.2625949-5-willy@infradead.org>
+In-Reply-To: <20220606204050.2625949-15-willy@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -72,9 +72,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: Re: [Cluster-devel] [PATCH 04/20] mm/migrate: Convert
- buffer_migrate_page() to buffer_migrate_folio()
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH 14/20] hugetlb: Convert to migrate_folio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,7 +95,7 @@ Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
  linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,10 +105,10 @@ Content-Disposition: inline
 
 Hi "Matthew,
 
-I love your patch! Perhaps something to improve:
+I love your patch! Yet something to improve:
 
-[auto build test WARNING on linus/master]
-[also build test WARNING on v5.19-rc1 next-20220606]
+[auto build test ERROR on linus/master]
+[also build test ERROR on v5.19-rc1 next-20220607]
 [cannot apply to jaegeuk-f2fs/dev-test trondmy-nfs/linux-next kdave/for-next xfs-linux/for-next]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
@@ -117,49 +116,62 @@ https://git-scm.com/docs/git-format-patch]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Wilcox-Oracle/Convert-aops-migratepage-to-aops-migrate_folio/20220607-044509
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f2906aa863381afb0015a9eb7fefad885d4e5a56
-config: i386-defconfig (https://download.01.org/0day-ci/archive/20220607/202206071139.aWSx4GHH-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-1) 11.3.0
+config: ia64-randconfig-r015-20220605 (https://download.01.org/0day-ci/archive/20220607/202206071414.41wGG8fp-lkp@intel.com/config)
+compiler: ia64-linux-gcc (GCC) 11.3.0
 reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/96e64ba8b1be545885d89f44b1d8b968b22bdb4d
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/b038962c9c8c2ab77c71dfba24356ce24bd7a242
         git remote add linux-review https://github.com/intel-lab-lkp/linux
         git fetch --no-tags linux-review Matthew-Wilcox-Oracle/Convert-aops-migratepage-to-aops-migrate_folio/20220607-044509
-        git checkout 96e64ba8b1be545885d89f44b1d8b968b22bdb4d
+        git checkout b038962c9c8c2ab77c71dfba24356ce24bd7a242
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=ia64 SHELL=/bin/bash fs/hugetlbfs/
 
 If you fix the issue, kindly add following tag where applicable
 Reported-by: kernel test robot <lkp@intel.com>
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
->> mm/migrate.c:775: warning: expecting prototype for buffer_migrate_folio_noref(). Prototype was for buffer_migrate_folio_norefs() instead
+   fs/hugetlbfs/inode.c: In function 'hugetlbfs_migrate_folio':
+>> fs/hugetlbfs/inode.c:990:17: error: implicit declaration of function 'folio_migrate_copy' [-Werror=implicit-function-declaration]
+     990 |                 folio_migrate_copy(dst, src);
+         |                 ^~~~~~~~~~~~~~~~~~
+>> fs/hugetlbfs/inode.c:992:17: error: implicit declaration of function 'folio_migrate_flags'; did you mean 'folio_mapping_flags'? [-Werror=implicit-function-declaration]
+     992 |                 folio_migrate_flags(dst, src);
+         |                 ^~~~~~~~~~~~~~~~~~~
+         |                 folio_mapping_flags
+   cc1: some warnings being treated as errors
 
 
-vim +775 mm/migrate.c
+vim +/folio_migrate_copy +990 fs/hugetlbfs/inode.c
 
-89cb0888ca1483a Jan Kara                2018-12-28  758  
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  759) /**
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  760)  * buffer_migrate_folio_noref() - Migration function for folios with buffers.
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  761)  * @mapping: The address space containing @src.
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  762)  * @dst: The folio to migrate to.
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  763)  * @src: The folio to migrate from.
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  764)  * @mode: How to migrate the folio.
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  765)  *
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  766)  * Like buffer_migrate_folio() except that this variant is more careful
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  767)  * and checks that there are also no buffer head references. This function
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  768)  * is the right one for mappings where buffer heads are directly looked
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  769)  * up and referenced (such as block device mappings).
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  770)  *
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  771)  * Return: 0 on success or a negative errno on failure.
-89cb0888ca1483a Jan Kara                2018-12-28  772   */
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  773) int buffer_migrate_folio_norefs(struct address_space *mapping,
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  774) 		struct folio *dst, struct folio *src, enum migrate_mode mode)
-89cb0888ca1483a Jan Kara                2018-12-28 @775  {
-96e64ba8b1be545 Matthew Wilcox (Oracle  2022-06-06  776) 	return __buffer_migrate_folio(mapping, dst, src, mode, true);
-89cb0888ca1483a Jan Kara                2018-12-28  777  }
-9361401eb7619c0 David Howells           2006-09-30  778  #endif
-1d8b85ccf1ed53a Christoph Lameter       2006-06-23  779  
+   972	
+   973	static int hugetlbfs_migrate_folio(struct address_space *mapping,
+   974					struct folio *dst, struct folio *src,
+   975					enum migrate_mode mode)
+   976	{
+   977		int rc;
+   978	
+   979		rc = migrate_huge_page_move_mapping(mapping, dst, src);
+   980		if (rc != MIGRATEPAGE_SUCCESS)
+   981			return rc;
+   982	
+   983		if (hugetlb_page_subpool(&src->page)) {
+   984			hugetlb_set_page_subpool(&dst->page,
+   985						hugetlb_page_subpool(&src->page));
+   986			hugetlb_set_page_subpool(&src->page, NULL);
+   987		}
+   988	
+   989		if (mode != MIGRATE_SYNC_NO_COPY)
+ > 990			folio_migrate_copy(dst, src);
+   991		else
+ > 992			folio_migrate_flags(dst, src);
+   993	
+   994		return MIGRATEPAGE_SUCCESS;
+   995	}
+   996	
 
 -- 
 0-DAY CI Kernel Test Service
