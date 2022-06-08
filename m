@@ -2,58 +2,58 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4946454293C
-	for <lists+cluster-devel@lfdr.de>; Wed,  8 Jun 2022 10:20:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861FA542941
+	for <lists+cluster-devel@lfdr.de>; Wed,  8 Jun 2022 10:22:12 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-281-96VqMQycNnKIZNthLjIS8A-1; Wed, 08 Jun 2022 04:20:27 -0400
-X-MC-Unique: 96VqMQycNnKIZNthLjIS8A-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-219-Xnrh3pE2PDyDfV0oWmgPQg-1; Wed, 08 Jun 2022 04:22:07 -0400
+X-MC-Unique: Xnrh3pE2PDyDfV0oWmgPQg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8660185A583;
-	Wed,  8 Jun 2022 08:20:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7ADEA803B22;
+	Wed,  8 Jun 2022 08:22:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7AB5E492CA3;
-	Wed,  8 Jun 2022 08:20:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 399BD1415100;
+	Wed,  8 Jun 2022 08:22:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2EE531947B93;
-	Wed,  8 Jun 2022 08:20:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 14CF01947042;
+	Wed,  8 Jun 2022 08:22:06 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E98F01947042 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  8 Jun 2022 08:20:24 +0000 (UTC)
+ ESMTP id CEB821947042 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  8 Jun 2022 08:22:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D539B40D282F; Wed,  8 Jun 2022 08:20:24 +0000 (UTC)
+ id A9555456CD9; Wed,  8 Jun 2022 08:22:04 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D194E40D2827
- for <cluster-devel@redhat.com>; Wed,  8 Jun 2022 08:20:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A4C5D492C3B
+ for <cluster-devel@redhat.com>; Wed,  8 Jun 2022 08:22:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE90F85A586
- for <cluster-devel@redhat.com>; Wed,  8 Jun 2022 08:20:24 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 913CB811E75
+ for <cluster-devel@redhat.com>; Wed,  8 Jun 2022 08:22:04 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-48-6vR_IRnGMLal2CYCZt4TFQ-1; Wed, 08 Jun 2022 04:20:23 -0400
-X-MC-Unique: 6vR_IRnGMLal2CYCZt4TFQ-1
+ us-mta-398-fUK18J7TOrmxI_LUrZb6ww-1; Wed, 08 Jun 2022 04:22:03 -0400
+X-MC-Unique: fUK18J7TOrmxI_LUrZb6ww-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nyqvL-00BuLl-NH; Wed, 08 Jun 2022 08:20:19 +0000
-Date: Wed, 8 Jun 2022 01:20:19 -0700
+ Hat Linux)) id 1nyqww-00BvCB-Ee; Wed, 08 Jun 2022 08:21:58 +0000
+Date: Wed, 8 Jun 2022 01:21:58 -0700
 From: Christoph Hellwig <hch@infradead.org>
 To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Message-ID: <YqBbwx5MhNRpqou/@infradead.org>
+Message-ID: <YqBcJooz2AHLC9VK@infradead.org>
 References: <20220606204050.2625949-1-willy@infradead.org>
- <20220606204050.2625949-14-willy@infradead.org>
+ <20220606204050.2625949-20-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20220606204050.2625949-14-willy@infradead.org>
+In-Reply-To: <20220606204050.2625949-20-willy@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -63,8 +63,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: Re: [Cluster-devel] [PATCH 13/20] aio: Convert to migrate_folio
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [Cluster-devel] [PATCH 19/20] fs: Remove aops->migratepage()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,7 +85,7 @@ Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
