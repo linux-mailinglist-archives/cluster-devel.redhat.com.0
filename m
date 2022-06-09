@@ -2,92 +2,106 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B23D554445E
-	for <lists+cluster-devel@lfdr.de>; Thu,  9 Jun 2022 08:58:11 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E9E55448B4
+	for <lists+cluster-devel@lfdr.de>; Thu,  9 Jun 2022 12:24:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1654770255;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=6a5SsgsnTuFo9sIZWQwmUlikCgiuGiGF/De3NllGDd0=;
+	b=UDndUNkTEPW4oeU+9U2rnQBsIkBOD61IQ9E6QvFH0+DrSHKYrbIIGYRefLS9HeHWF4gqDE
+	ahRQUiu6a/3UrmM1Dp7HY2skFg6BeZGDh75asBTaSbeNoc4gEApb7Ybp9/7jPpmDSCs/KF
+	sluvHtS/1vQ9mmqqwvWVtieBNyULE4I=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-252-fZ7kcZrBNnuHCGVWEnT0Ig-1; Thu, 09 Jun 2022 02:58:05 -0400
-X-MC-Unique: fZ7kcZrBNnuHCGVWEnT0Ig-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-518-zdTNJ-sNMAKsaObOB5qArQ-1; Thu, 09 Jun 2022 06:24:09 -0400
+X-MC-Unique: zdTNJ-sNMAKsaObOB5qArQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EDEC63C01D92;
-	Thu,  9 Jun 2022 06:58:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81A8985A582;
+	Thu,  9 Jun 2022 10:24:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1E32D2166B26;
-	Thu,  9 Jun 2022 06:58:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C5BEE40CF8E2;
+	Thu,  9 Jun 2022 10:24:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D80B5194705B;
-	Thu,  9 Jun 2022 06:58:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 76552194705D;
+	Thu,  9 Jun 2022 10:24:06 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 98F4C1947040 for <cluster-devel@listman.corp.redhat.com>;
- Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
+ ESMTP id D63871947040 for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  9 Jun 2022 10:24:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 72E9F492CA3; Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
+ id B2066202699A; Thu,  9 Jun 2022 10:24:04 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6EAD0492C3B
- for <cluster-devel@redhat.com>; Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 555723C0D196
- for <cluster-devel@redhat.com>; Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AE01E2026985
+ for <cluster-devel@redhat.com>; Thu,  9 Jun 2022 10:24:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F2A5185A7B2
+ for <cluster-devel@redhat.com>; Thu,  9 Jun 2022 10:24:04 +0000 (UTC)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-561-e1uzBPACPxKI2ikwG33dTQ-1; Wed, 08 Jun 2022 23:53:06 -0400
-X-MC-Unique: e1uzBPACPxKI2ikwG33dTQ-1
-Received: by mail-pj1-f52.google.com with SMTP id
- q12-20020a17090a304c00b001e2d4fb0eb4so25579933pjl.4
- for <cluster-devel@redhat.com>; Wed, 08 Jun 2022 20:53:06 -0700 (PDT)
+ us-mta-317-QarVh27vPJiY2pC_pO9ZUw-1; Thu, 09 Jun 2022 06:24:03 -0400
+X-MC-Unique: QarVh27vPJiY2pC_pO9ZUw-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ c125-20020a1c3583000000b003978decffedso15789717wma.5
+ for <cluster-devel@redhat.com>; Thu, 09 Jun 2022 03:24:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=2koJarmzmGedHyxAL/i+lFQdd0Q5ZAFYaE5poQNe8+A=;
- b=lClHSKRr42CX9RIJCLWJQ/rbaREzYGpElnL6/RoGAs8HUfTQGwBHXNjKVG9xFOdQeO
- jdfTb8caj3tbMPfhlaJ0jObpvuW/epd1E0lhf4QtkWMBjIAZsq+3WrCmNkeG94MzP3I0
- x8IGtcVGEYMV/g6sw2pPe2xz37e9IHFQriTd06rQL9S2Zu1p0Bq7yr0OfD55AiaNYGhZ
- VN6raA0D98F2ajlgPhJHdwOUeaN3oaNDurh/BuTqxpS1SLBlAMqbKP73f1uIQXNdYK/C
- 5iH8v7IYp2Pyh5dx1rqShbxJN4CSTEbV3cF4QinwfS2XK9oQe/+L1OVn03DNWqZrHu4X
- lpMg==
-X-Gm-Message-State: AOAM533o9o7T/SsuQDnpNUSKgyPEAfgA1TCcKS3l850Ibife4slIbnkV
- +XpaHOsURLoMPpvs5wYrY7lA6A==
-X-Google-Smtp-Source: ABdhPJz3/PMx3RZgt3QHHTiA/K9+ZXI01CeV4NC4DLpNFuQQZTFyqHCu1obpFa9lx3Ct5QRSUsQXvQ==
-X-Received: by 2002:a17:902:e748:b0:164:1b1e:28fe with SMTP id
- p8-20020a170902e74800b001641b1e28femr38251973plf.116.1654746785210; 
- Wed, 08 Jun 2022 20:53:05 -0700 (PDT)
-Received: from localhost ([139.177.225.238]) by smtp.gmail.com with ESMTPSA id
- a20-20020a170902b59400b001664ce47e11sm12584649pls.210.2022.06.08.20.53.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jun 2022 20:53:04 -0700 (PDT)
-Date: Thu, 9 Jun 2022 11:53:00 +0800
-From: Muchun Song <songmuchun@bytedance.com>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Message-ID: <YqFunLBBKbZN9uD9@FVFYT0MHHV2J>
-References: <20220608150249.3033815-1-willy@infradead.org>
- <20220608150249.3033815-17-willy@infradead.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=6a5SsgsnTuFo9sIZWQwmUlikCgiuGiGF/De3NllGDd0=;
+ b=U+3OkdP76Gf0xDy8TMYz3qjQIOFV2A221QvKWEZ/XKGpp0a9ev52xG7M/ftDQdCVAj
+ R3Y1kkNG4V5Xbx12Ww0Uy3180qIWjIlmNtSvtOD5LebUeVhXXm/DdjS0t8/Wq/2S+uH2
+ 2j9eRcWplwjeeShvVMwJrcbnQHNeve7/zLlC7VXYAVaCElAh93A0qe2d1wyTz/iQb+Xc
+ my4obO3HK1gPv6/a5DVBhtck5gSKqP41JZH7nz461jOS9Als8ZVO2JFT2oyzTPVkExWf
+ aYZwKVWNX4kfCiKIIIgf4QfhZZAyRTN4XTMa8PVUcXDBdIzYDiuplcwmALD1EQ1bJ7R+
+ fEBA==
+X-Gm-Message-State: AOAM530kBIW8gjx+7DldO5ZJulZn8cjdoC2z+uNAJwBgJwDCD6gsfabr
+ qbVx6Se6wEfVNGUXgMrY9uLYTJ+zBe68eq1ddHnLLU4Ec5hst7YxTyIljClTOxr/XUpEiWAO5Hk
+ vu7xGSOhW9VPaacaHS3A80Q==
+X-Received: by 2002:a1c:a301:0:b0:392:9bc5:203c with SMTP id
+ m1-20020a1ca301000000b003929bc5203cmr2594382wme.67.1654770241338; 
+ Thu, 09 Jun 2022 03:24:01 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy58rh3fuuccVM2J0IS1QrE1vJ3CH41QyKYHa1IrWm/Rvain2xs2JDw35eE5SOSwtsykjkKLA==
+X-Received: by 2002:a1c:a301:0:b0:392:9bc5:203c with SMTP id
+ m1-20020a1ca301000000b003929bc5203cmr2594345wme.67.1654770240948; 
+ Thu, 09 Jun 2022 03:24:00 -0700 (PDT)
+Received: from ?IPV6:2a09:80c0:192:0:20af:34be:985b:b6c8?
+ ([2a09:80c0:192:0:20af:34be:985b:b6c8])
+ by smtp.gmail.com with ESMTPSA id
+ t10-20020a5d460a000000b0021552eebde6sm17782568wrq.32.2022.06.09.03.23.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Jun 2022 03:23:59 -0700 (PDT)
+Message-ID: <a079ed41-1978-0551-2b5c-6d61aff7ddf2@redhat.com>
+Date: Thu, 9 Jun 2022 12:23:58 +0200
 MIME-Version: 1.0
-In-Reply-To: <20220608150249.3033815-17-willy@infradead.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-X-Mailman-Approved-At: Thu, 09 Jun 2022 06:58:03 +0000
-Subject: Re: [Cluster-devel] [PATCH v2 16/19] hugetlb: Convert to
- migrate_folio
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ linux-fsdevel@vger.kernel.org
+References: <20220608150249.3033815-1-willy@infradead.org>
+ <20220608150249.3033815-3-willy@infradead.org>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <20220608150249.3033815-3-willy@infradead.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH v2 02/19] mm: Convert all PageMovable
+ users to movable_operations
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,26 +117,51 @@ Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
  linux-ntfs-dev@lists.sourceforge.net, linux-kernel@vger.kernel.org,
  linux-f2fs-devel@lists.sourceforge.net, linux-block@vger.kernel.org,
  linux-mm@kvack.org, linux-mtd@lists.infradead.org, ocfs2-devel@oss.oracle.com,
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
- virtualization@lists.linux-foundation.org, linux-xfs@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+ linux-ext4@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 08, 2022 at 04:02:46PM +0100, Matthew Wilcox (Oracle) wrote:
-> This involves converting migrate_huge_page_move_mapping().  We also need a
-> folio variant of hugetlb_set_page_subpool(), but that's for a later patch.
+On 08.06.22 17:02, Matthew Wilcox (Oracle) wrote:
+> These drivers are rather uncomfortably hammered into the
+> address_space_operations hole.  They aren't filesystems and don't behave
+> like filesystems.  They just need their own movable_operations structure,
+> which we can point to directly from page->mapping.
 > 
 > Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> ---
+>  arch/powerpc/platforms/pseries/cmm.c |  60 +---------------
+>  drivers/misc/vmw_balloon.c           |  61 +---------------
+>  drivers/virtio/virtio_balloon.c      |  47 +-----------
+>  include/linux/balloon_compaction.h   |   6 +-
+>  include/linux/fs.h                   |   2 -
+>  include/linux/migrate.h              |  26 +++++--
+>  include/linux/page-flags.h           |   2 +-
+>  include/uapi/linux/magic.h           |   4 --
+>  mm/balloon_compaction.c              |  10 ++-
+>  mm/compaction.c                      |  29 ++++----
+>  mm/migrate.c                         |  24 +++----
+>  mm/util.c                            |   4 +-
+>  mm/z3fold.c                          |  82 +++------------------
+>  mm/zsmalloc.c                        | 102 ++++++---------------------
+>  14 files changed, 94 insertions(+), 365 deletions(-)
 
-Acked-by: Muchun Song <songmuchun@bytedance.com>
+You probably should have cc'ed the relevant maintainers (including me :P ).
 
-Thanks.
+For everything except z3fold.c and zsmalloc.c,
+
+Reviewed-by: David Hildenbrand <david@redhat.com>
+
+-- 
+Thanks,
+
+David / dhildenb
 
