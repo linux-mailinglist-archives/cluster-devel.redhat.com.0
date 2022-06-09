@@ -1,65 +1,82 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C405543790
-	for <lists+cluster-devel@lfdr.de>; Wed,  8 Jun 2022 17:38:02 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B23D554445E
+	for <lists+cluster-devel@lfdr.de>; Thu,  9 Jun 2022 08:58:11 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-611-n0T9UrKmN0-k0RmiqJz1jw-1; Wed, 08 Jun 2022 11:37:59 -0400
-X-MC-Unique: n0T9UrKmN0-k0RmiqJz1jw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-252-fZ7kcZrBNnuHCGVWEnT0Ig-1; Thu, 09 Jun 2022 02:58:05 -0400
+X-MC-Unique: fZ7kcZrBNnuHCGVWEnT0Ig-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01C858026BA;
-	Wed,  8 Jun 2022 15:37:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EDEC63C01D92;
+	Thu,  9 Jun 2022 06:58:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B0C304328C9;
-	Wed,  8 Jun 2022 15:37:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1E32D2166B26;
+	Thu,  9 Jun 2022 06:58:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4625C1947B96;
-	Wed,  8 Jun 2022 15:37:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D80B5194705B;
+	Thu,  9 Jun 2022 06:58:03 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 06A261947040 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  8 Jun 2022 15:31:31 +0000 (UTC)
+ ESMTP id 98F4C1947040 for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C609F4024BDD; Wed,  8 Jun 2022 15:31:31 +0000 (UTC)
+ id 72E9F492CA3; Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C229940CFD0B
- for <cluster-devel@redhat.com>; Wed,  8 Jun 2022 15:31:31 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6EAD0492C3B
+ for <cluster-devel@redhat.com>; Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CB3F29AA3AE
- for <cluster-devel@redhat.com>; Wed,  8 Jun 2022 15:31:31 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-623-9_50QLpUMAmcad7H0UOlRA-1; Wed, 08 Jun 2022 11:31:29 -0400
-X-MC-Unique: 9_50QLpUMAmcad7H0UOlRA-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CCEBAB82615;
- Wed,  8 Jun 2022 15:22:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D62AC34116;
- Wed,  8 Jun 2022 15:22:56 +0000 (UTC)
-Date: Wed, 8 Jun 2022 08:22:56 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 555723C0D196
+ for <cluster-devel@redhat.com>; Thu,  9 Jun 2022 03:53:13 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-561-e1uzBPACPxKI2ikwG33dTQ-1; Wed, 08 Jun 2022 23:53:06 -0400
+X-MC-Unique: e1uzBPACPxKI2ikwG33dTQ-1
+Received: by mail-pj1-f52.google.com with SMTP id
+ q12-20020a17090a304c00b001e2d4fb0eb4so25579933pjl.4
+ for <cluster-devel@redhat.com>; Wed, 08 Jun 2022 20:53:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=2koJarmzmGedHyxAL/i+lFQdd0Q5ZAFYaE5poQNe8+A=;
+ b=lClHSKRr42CX9RIJCLWJQ/rbaREzYGpElnL6/RoGAs8HUfTQGwBHXNjKVG9xFOdQeO
+ jdfTb8caj3tbMPfhlaJ0jObpvuW/epd1E0lhf4QtkWMBjIAZsq+3WrCmNkeG94MzP3I0
+ x8IGtcVGEYMV/g6sw2pPe2xz37e9IHFQriTd06rQL9S2Zu1p0Bq7yr0OfD55AiaNYGhZ
+ VN6raA0D98F2ajlgPhJHdwOUeaN3oaNDurh/BuTqxpS1SLBlAMqbKP73f1uIQXNdYK/C
+ 5iH8v7IYp2Pyh5dx1rqShbxJN4CSTEbV3cF4QinwfS2XK9oQe/+L1OVn03DNWqZrHu4X
+ lpMg==
+X-Gm-Message-State: AOAM533o9o7T/SsuQDnpNUSKgyPEAfgA1TCcKS3l850Ibife4slIbnkV
+ +XpaHOsURLoMPpvs5wYrY7lA6A==
+X-Google-Smtp-Source: ABdhPJz3/PMx3RZgt3QHHTiA/K9+ZXI01CeV4NC4DLpNFuQQZTFyqHCu1obpFa9lx3Ct5QRSUsQXvQ==
+X-Received: by 2002:a17:902:e748:b0:164:1b1e:28fe with SMTP id
+ p8-20020a170902e74800b001641b1e28femr38251973plf.116.1654746785210; 
+ Wed, 08 Jun 2022 20:53:05 -0700 (PDT)
+Received: from localhost ([139.177.225.238]) by smtp.gmail.com with ESMTPSA id
+ a20-20020a170902b59400b001664ce47e11sm12584649pls.210.2022.06.08.20.53.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jun 2022 20:53:04 -0700 (PDT)
+Date: Thu, 9 Jun 2022 11:53:00 +0800
+From: Muchun Song <songmuchun@bytedance.com>
 To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Message-ID: <YqC+0J9/P1siKkBk@magnolia>
+Message-ID: <YqFunLBBKbZN9uD9@FVFYT0MHHV2J>
 References: <20220608150249.3033815-1-willy@infradead.org>
- <20220608150249.3033815-12-willy@infradead.org>
+ <20220608150249.3033815-17-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20220608150249.3033815-12-willy@infradead.org>
+In-Reply-To: <20220608150249.3033815-17-willy@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -67,9 +84,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH v2 11/19] mm/migrate: Add
- filemap_migrate_folio()
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Mailman-Approved-At: Thu, 09 Jun 2022 06:58:03 +0000
+Subject: Re: [Cluster-devel] [PATCH v2 16/19] hugetlb: Convert to
+ migrate_folio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,15 +100,15 @@ List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
- linux-ntfs-dev@lists.sourceforge.net, Christoph Hellwig <hch@lst.de>,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-block@vger.kernel.org, linux-mm@kvack.org, linux-mtd@lists.infradead.org,
- ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
+ linux-ntfs-dev@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-block@vger.kernel.org,
+ linux-mm@kvack.org, linux-mtd@lists.infradead.org, ocfs2-devel@oss.oracle.com,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, linux-xfs@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -98,171 +116,13 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Jun 08, 2022 at 04:02:41PM +0100, Matthew Wilcox (Oracle) wrote:
-> There is nothing iomap-specific about iomap_migratepage(), and it fits
-> a pattern used by several other filesystems, so move it to mm/migrate.c,
-> convert it to be filemap_migrate_folio() and convert the iomap filesystems
-> to use it.
+On Wed, Jun 08, 2022 at 04:02:46PM +0100, Matthew Wilcox (Oracle) wrote:
+> This involves converting migrate_huge_page_move_mapping().  We also need a
+> folio variant of hugetlb_set_page_subpool(), but that's for a later patch.
 > 
 > Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-LGTM
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Acked-by: Muchun Song <songmuchun@bytedance.com>
 
---D
-
-> ---
->  fs/gfs2/aops.c          |  2 +-
->  fs/iomap/buffered-io.c  | 25 -------------------------
->  fs/xfs/xfs_aops.c       |  2 +-
->  fs/zonefs/super.c       |  2 +-
->  include/linux/iomap.h   |  6 ------
->  include/linux/pagemap.h |  6 ++++++
->  mm/migrate.c            | 20 ++++++++++++++++++++
->  7 files changed, 29 insertions(+), 34 deletions(-)
-> 
-> diff --git a/fs/gfs2/aops.c b/fs/gfs2/aops.c
-> index 106e90a36583..57ff883d432c 100644
-> --- a/fs/gfs2/aops.c
-> +++ b/fs/gfs2/aops.c
-> @@ -774,7 +774,7 @@ static const struct address_space_operations gfs2_aops = {
->  	.invalidate_folio = iomap_invalidate_folio,
->  	.bmap = gfs2_bmap,
->  	.direct_IO = noop_direct_IO,
-> -	.migratepage = iomap_migrate_page,
-> +	.migrate_folio = filemap_migrate_folio,
->  	.is_partially_uptodate = iomap_is_partially_uptodate,
->  	.error_remove_page = generic_error_remove_page,
->  };
-> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-> index 66278a14bfa7..5a91aa1db945 100644
-> --- a/fs/iomap/buffered-io.c
-> +++ b/fs/iomap/buffered-io.c
-> @@ -489,31 +489,6 @@ void iomap_invalidate_folio(struct folio *folio, size_t offset, size_t len)
->  }
->  EXPORT_SYMBOL_GPL(iomap_invalidate_folio);
->  
-> -#ifdef CONFIG_MIGRATION
-> -int
-> -iomap_migrate_page(struct address_space *mapping, struct page *newpage,
-> -		struct page *page, enum migrate_mode mode)
-> -{
-> -	struct folio *folio = page_folio(page);
-> -	struct folio *newfolio = page_folio(newpage);
-> -	int ret;
-> -
-> -	ret = folio_migrate_mapping(mapping, newfolio, folio, 0);
-> -	if (ret != MIGRATEPAGE_SUCCESS)
-> -		return ret;
-> -
-> -	if (folio_test_private(folio))
-> -		folio_attach_private(newfolio, folio_detach_private(folio));
-> -
-> -	if (mode != MIGRATE_SYNC_NO_COPY)
-> -		folio_migrate_copy(newfolio, folio);
-> -	else
-> -		folio_migrate_flags(newfolio, folio);
-> -	return MIGRATEPAGE_SUCCESS;
-> -}
-> -EXPORT_SYMBOL_GPL(iomap_migrate_page);
-> -#endif /* CONFIG_MIGRATION */
-> -
->  static void
->  iomap_write_failed(struct inode *inode, loff_t pos, unsigned len)
->  {
-> diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-> index 8ec38b25187b..5d1a995b15f8 100644
-> --- a/fs/xfs/xfs_aops.c
-> +++ b/fs/xfs/xfs_aops.c
-> @@ -570,7 +570,7 @@ const struct address_space_operations xfs_address_space_operations = {
->  	.invalidate_folio	= iomap_invalidate_folio,
->  	.bmap			= xfs_vm_bmap,
->  	.direct_IO		= noop_direct_IO,
-> -	.migratepage		= iomap_migrate_page,
-> +	.migrate_folio		= filemap_migrate_folio,
->  	.is_partially_uptodate  = iomap_is_partially_uptodate,
->  	.error_remove_page	= generic_error_remove_page,
->  	.swap_activate		= xfs_iomap_swapfile_activate,
-> diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
-> index bcb21aea990a..d4c3f28f34ee 100644
-> --- a/fs/zonefs/super.c
-> +++ b/fs/zonefs/super.c
-> @@ -237,7 +237,7 @@ static const struct address_space_operations zonefs_file_aops = {
->  	.dirty_folio		= filemap_dirty_folio,
->  	.release_folio		= iomap_release_folio,
->  	.invalidate_folio	= iomap_invalidate_folio,
-> -	.migratepage		= iomap_migrate_page,
-> +	.migrate_folio		= filemap_migrate_folio,
->  	.is_partially_uptodate	= iomap_is_partially_uptodate,
->  	.error_remove_page	= generic_error_remove_page,
->  	.direct_IO		= noop_direct_IO,
-> diff --git a/include/linux/iomap.h b/include/linux/iomap.h
-> index e552097c67e0..758a1125e72f 100644
-> --- a/include/linux/iomap.h
-> +++ b/include/linux/iomap.h
-> @@ -231,12 +231,6 @@ void iomap_readahead(struct readahead_control *, const struct iomap_ops *ops);
->  bool iomap_is_partially_uptodate(struct folio *, size_t from, size_t count);
->  bool iomap_release_folio(struct folio *folio, gfp_t gfp_flags);
->  void iomap_invalidate_folio(struct folio *folio, size_t offset, size_t len);
-> -#ifdef CONFIG_MIGRATION
-> -int iomap_migrate_page(struct address_space *mapping, struct page *newpage,
-> -		struct page *page, enum migrate_mode mode);
-> -#else
-> -#define iomap_migrate_page NULL
-> -#endif
->  int iomap_file_unshare(struct inode *inode, loff_t pos, loff_t len,
->  		const struct iomap_ops *ops);
->  int iomap_zero_range(struct inode *inode, loff_t pos, loff_t len,
-> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-> index 1caccb9f99aa..2a67c0ad7348 100644
-> --- a/include/linux/pagemap.h
-> +++ b/include/linux/pagemap.h
-> @@ -1078,6 +1078,12 @@ static inline int __must_check write_one_page(struct page *page)
->  int __set_page_dirty_nobuffers(struct page *page);
->  bool noop_dirty_folio(struct address_space *mapping, struct folio *folio);
->  
-> +#ifdef CONFIG_MIGRATION
-> +int filemap_migrate_folio(struct address_space *mapping, struct folio *dst,
-> +		struct folio *src, enum migrate_mode mode);
-> +#else
-> +#define filemap_migrate_folio NULL
-> +#endif
->  void page_endio(struct page *page, bool is_write, int err);
->  
->  void folio_end_private_2(struct folio *folio);
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 785e32d0cf1b..4d8115ca93bb 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -784,6 +784,26 @@ int buffer_migrate_folio_norefs(struct address_space *mapping,
->  }
->  #endif
->  
-> +int filemap_migrate_folio(struct address_space *mapping,
-> +		struct folio *dst, struct folio *src, enum migrate_mode mode)
-> +{
-> +	int ret;
-> +
-> +	ret = folio_migrate_mapping(mapping, dst, src, 0);
-> +	if (ret != MIGRATEPAGE_SUCCESS)
-> +		return ret;
-> +
-> +	if (folio_get_private(src))
-> +		folio_attach_private(dst, folio_detach_private(src));
-> +
-> +	if (mode != MIGRATE_SYNC_NO_COPY)
-> +		folio_migrate_copy(dst, src);
-> +	else
-> +		folio_migrate_flags(dst, src);
-> +	return MIGRATEPAGE_SUCCESS;
-> +}
-> +EXPORT_SYMBOL_GPL(filemap_migrate_folio);
-> +
->  /*
->   * Writeback a folio to clean the dirty state
->   */
-> -- 
-> 2.35.1
-> 
+Thanks.
 
