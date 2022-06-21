@@ -1,92 +1,102 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2D4E55302C
-	for <lists+cluster-devel@lfdr.de>; Tue, 21 Jun 2022 12:53:49 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0383F553097
+	for <lists+cluster-devel@lfdr.de>; Tue, 21 Jun 2022 13:19:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1655808828;
+	s=mimecast20190719; t=1655810354;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=Q5Qbi0ZHDRtCL5EC+yh1qKuUlkjaTp80mTKtOltNF1I=;
-	b=X0PEPWMN874BBsknRM+tSq7xe4b2/OZubJ9+gbrftbl1X1krx3k9BRo3Z5O3frD1M0P+Qk
-	pAPveC7BlmWxRarf93o0DhmqwTswMfgzKV29xaqYHSzL06o8RUcys8T1kqsmcHH95LfHmT
-	F/X3DXeeH36Y3TLscpFFC7KI93H9lI0=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=6XB+nBjplTm9vBeHwUv2s0kqRRPok01ZDIfMV1h7pMQ=;
+	b=HYpdhk1amDvU7IcJBq1bYRnmS3tryOumPF3IxKm3P4ODiatUBgwZA6N1aXIWOSzt2/OD3W
+	IJGbLzfbF5Era5KsMYP7nWIIdKIIIK33utkjX1cU71NOXWi+275H5THBXVb0NitlpRvAa3
+	ao7yLg4QDJOb543mmRCsM1n0Cn/OAS4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-329-BRik8SPWPlK4l76iV23n4w-1; Tue, 21 Jun 2022 06:53:44 -0400
-X-MC-Unique: BRik8SPWPlK4l76iV23n4w-1
+ us-mta-618-vmpBvdMFMmeQg1zXWQxvKg-1; Tue, 21 Jun 2022 07:19:10 -0400
+X-MC-Unique: vmpBvdMFMmeQg1zXWQxvKg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6FAB801756;
-	Tue, 21 Jun 2022 10:53:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DBB2C101AA45;
+	Tue, 21 Jun 2022 11:19:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0D27840C1289;
-	Tue, 21 Jun 2022 10:53:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A3EEB40C141F;
+	Tue, 21 Jun 2022 11:19:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CB9E0194704C;
-	Tue, 21 Jun 2022 10:53:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E577194704C;
+	Tue, 21 Jun 2022 11:19:09 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B59DD1947041 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 21 Jun 2022 10:53:30 +0000 (UTC)
+ ESMTP id 421FC1947041 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 21 Jun 2022 11:19:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1603818EA8; Tue, 21 Jun 2022 10:53:30 +0000 (UTC)
+ id 317FE141510D; Tue, 21 Jun 2022 11:19:08 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 11FB518EA3
- for <cluster-devel@redhat.com>; Tue, 21 Jun 2022 10:53:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C450141510C
+ for <cluster-devel@redhat.com>; Tue, 21 Jun 2022 11:19:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EABF13C01D87
- for <cluster-devel@redhat.com>; Tue, 21 Jun 2022 10:53:29 +0000 (UTC)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14BED3802B8B
+ for <cluster-devel@redhat.com>; Tue, 21 Jun 2022 11:19:08 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-482-iWJ2-gCXOwqfvzm05Qxd-g-1; Tue, 21 Jun 2022 06:53:28 -0400
-X-MC-Unique: iWJ2-gCXOwqfvzm05Qxd-g-1
-Received: by mail-wm1-f70.google.com with SMTP id
- l3-20020a05600c1d0300b0039c7efa2526so6225160wms.3
- for <cluster-devel@redhat.com>; Tue, 21 Jun 2022 03:53:28 -0700 (PDT)
+ us-mta-88-4UtWFxE4MyiHQXfAvuOvaA-1; Tue, 21 Jun 2022 07:19:06 -0400
+X-MC-Unique: 4UtWFxE4MyiHQXfAvuOvaA-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ o2-20020a05600c510200b0039747b0216fso8330888wms.0
+ for <cluster-devel@redhat.com>; Tue, 21 Jun 2022 04:19:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Q5Qbi0ZHDRtCL5EC+yh1qKuUlkjaTp80mTKtOltNF1I=;
- b=FQnCJNys6RAv1ZfpNvpnAIURbDmlS9CrfRVXb9+aSg9nnl0oD8zHhlylCQiSQabMK+
- IAEzRjzmZSPoOuU2gqu+9rgRCxNID96Ye5h0IjDKtkrqN/Ltsv1YVzupaX7kTyimyCwN
- rTEplHXq6zpgbifW4XfWo9S/Wwwf3mW6rmmQsr1u/BwvWzek/KMzFO4wQTU9cCFH1R1b
- OellaUgsqBpUfWaTah9qqnPy7CiXtiWLeRPHUhSSRBnTdIOFvm28NcPD97N72ZnZb+T3
- FeCeCreqCuQR9KSnaWjwqhWfWwWUq+IcfqXntgEU6hP6EkJSDemdSTWg5Mk7fR9u/l0S
- iWYw==
-X-Gm-Message-State: AJIora+bDOvd5n419zqIjJ8LzpdMevqyroN4mBy5jkaP2+osyc6rhhm3
- AtB1WpUuudIRPxAtn18oI6rPs/aM5k1j6Aq6vS9dW4XhoGBIJeGPfFn/4HskZIWFzqjW8ATTRqP
- YcbymfPxZXfVoGqwrZXT7lZKyB6SL5AshC3CAoQ==
-X-Received: by 2002:a05:600c:4982:b0:39c:3c0d:437c with SMTP id
- h2-20020a05600c498200b0039c3c0d437cmr29103765wmp.38.1655808807018; 
- Tue, 21 Jun 2022 03:53:27 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1uuIvCHLfP+HSuhSI03DOYmMXCS6J0e7Gfua0B7S5cJNMDerFoOrC10rmYKDyVX3aj7R1vgSdlOOkLdDOkb1TM=
-X-Received: by 2002:a05:600c:4982:b0:39c:3c0d:437c with SMTP id
- h2-20020a05600c498200b0039c3c0d437cmr29103750wmp.38.1655808806792; Tue, 21
- Jun 2022 03:53:26 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:cc:from:in-reply-to
+ :content-transfer-encoding;
+ bh=6XB+nBjplTm9vBeHwUv2s0kqRRPok01ZDIfMV1h7pMQ=;
+ b=qxoYjcJmuwYHV7o33W2JF6ZHWEMNSjbn0hjjhuEmvhw8M5gkAAxQOxfKETE6ZiaSXW
+ t9DxYMZ/4mgGr8FOLZTUpsqui4S0EQL7SikUNMJ4V1Mqlz19HKq3nD0uVO0nfj+YfcIP
+ nZsWq+T5x6/rTUzyyrmOZYKVK/5z6uyP6akoyCXW7u0MGfIY+8NE0zaKbDyIkr+QgmTP
+ KWCxAnIFo6n27ndRUyDzTD2+tD7eIKGrh0Lx+Qf6P9TFyArFdmd6zHjXXP0SuA71UpOT
+ iDeyhX8T0Tuyg+8XUZ6vgBzrdKjssVnuqMUzlV1PDs/HEODgnbTEAkg9C8Eno8SLUANm
+ fLOA==
+X-Gm-Message-State: AJIora/SmHFdjCdyc+T8HhvY8ZiD+PJhWf1dAcx2RciHr5B4+mmJgRas
+ 4A3bPoR9E632hVkM61lQXtlCdgYQkHERC2CEWvA55wHWT9Wcp1ip6pzjeC6h8jZctOCQ38x/BJl
+ 2wEio1j2wVh+3I5/0haa0Mw==
+X-Received: by 2002:adf:e10c:0:b0:21a:1903:7ed with SMTP id
+ t12-20020adfe10c000000b0021a190307edmr27827856wrz.437.1655810345545; 
+ Tue, 21 Jun 2022 04:19:05 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tTwkV2ozWVs6dRCTDWFoOWE29FxN16Z48AGCCZTAWrYWAw9rZq6zByaNWC6w7ghwZYq599fA==
+X-Received: by 2002:adf:e10c:0:b0:21a:1903:7ed with SMTP id
+ t12-20020adfe10c000000b0021a190307edmr27827832wrz.437.1655810345260; 
+ Tue, 21 Jun 2022 04:19:05 -0700 (PDT)
+Received: from [192.168.1.165]
+ (cpc76484-cwma10-2-0-cust967.7-3.cable.virginm.net. [82.31.203.200])
+ by smtp.gmail.com with ESMTPSA id
+ i30-20020a1c541e000000b0039c15861001sm20843929wmb.21.2022.06.21.04.19.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jun 2022 04:19:04 -0700 (PDT)
+Message-ID: <97a9a768-1915-f532-09a4-99ee78a639ae@redhat.com>
+Date: Tue, 21 Jun 2022 12:19:02 +0100
 MIME-Version: 1.0
-References: <20220621091420.GC3256@lst.de>
-In-Reply-To: <20220621091420.GC3256@lst.de>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 21 Jun 2022 12:53:15 +0200
-Message-ID: <CAHc6FU43bqdDccUF56ngQRPiSahBkd0ti4U0WZA2_0-F9yu44w@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
 To: Christoph Hellwig <hch@lst.de>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+References: <20220621091420.GC3256@lst.de>
+From: Andrew Price <anprice@redhat.com>
+In-Reply-To: <20220621091420.GC3256@lst.de>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Subject: Re: [Cluster-devel] Mounting lock_nolock file systems?
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -99,7 +109,7 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel <cluster-devel@redhat.com>
+Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
@@ -107,21 +117,33 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 21, 2022 at 11:14 AM Christoph Hellwig <hch@lst.de> wrote:
->
+On 21/06/2022 10:14, Christoph Hellwig wrote:
 > I'm felling a little stupid, but in the past after a
->
+> 
 > mkfs.gfs2  -O -p lock_nolock
->
+> 
 > I could just mount the created file system locally.
->
+> 
 > On current mainline that does not seem to work any more, what am I
 > missing?
->
+
+I can't reproduce the problem on current mainline. What version of 
+gfs2-utils is your mkfs.gfs2 from?
+
+Could you send your superblock?
+
+   dd if=/dev/vdb bs=4k skip=16 count=1 status=none | xxd -a
+
+will grab it.
+
+Andy
+
 > Here is the output from the mount attempt:
->
+> 
 > oot@testvm:~# mount /dev/vdb /mnt/
 > [  154.745017] gfs2: fsid=vdb: Trying to join cluster "lock_nolock", "vdb"
 > [  154.745024] gfs2: fsid=vdb: Now mounting FS (format 1801)...
@@ -168,22 +190,6 @@ On Tue, Jun 21, 2022 at 11:14 AM Christoph Hellwig <hch@lst.de> wrote:
 > [  185.895434] R13: 000055669b26b370 R14: 000055669b2724e0 R15: 000055669b26b140
 > [  185.895443]  </TASK>
 > [  185.895461] gfs2: fsid=vdb.0: can't make FS RW: -5
-
-Hmm, that's supposed to work, and it's working here with kernel
-5.19.0-rc3 and multiple versions of mkfs.gfs2. I'm getting slightly
-different output from the kernel, though:
-
-gfs2: fsid=vdc: Trying to join cluster "lock_nolock", "vdc"
-gfs2: fsid=vdc: Now mounting FS (format 1801)...
-gfs2: fsid=vdc.0: journal 0 mapped with 1 extents in 0ms
-gfs2: fsid=vdc.0: jid=0, already locked for use
-gfs2: fsid=vdc.0: jid=0: Looking at journal...
-gfs2: fsid=vdc.0: jid=0: Journal head lookup took 81ms
-gfs2: fsid=vdc.0: jid=0: Done
-gfs2: fsid=vdc.0: first mount done, others may mount
-
-Is the caching behavior of your vdb device configured weirdly?
-
-Thanks,
-Andreas
+> 
+> 
 
