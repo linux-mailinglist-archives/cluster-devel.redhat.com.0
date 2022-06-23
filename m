@@ -1,94 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01729557ED1
-	for <lists+cluster-devel@lfdr.de>; Thu, 23 Jun 2022 17:45:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 74374558320
+	for <lists+cluster-devel@lfdr.de>; Thu, 23 Jun 2022 19:25:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1655999105;
+	s=mimecast20190719; t=1656005138;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=hVsMwhEGikbOz+l9gDUt9fGCFF1D4HFwxBrBZO+o3ng=;
-	b=JblVg1JHfui8LH/wdEWZLBPHZ+SNet3ob/CBECPStBu3eZDeEkRSHyGVz4BOOX+6lZ4o7W
-	zmy9/KWiywDSSqLKuwnQ0Kz+G8/dznoMIxKM4ON6JQ4yWnud0dCp0tjaN+Mkz7YWlTn/EL
-	LYoJLul+zpMxMKE9OOLScgAtwL5p9vY=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=AjpIS2fIUKQUVBqsii9fDmHk9l5JfRHsf5FT4OkeuT4=;
+	b=a5N9Rs0uoacZakRQA/qggfF35GRWaa+lYQh4aZ49kSwPtqJuuEkk3G1aQ6PQzcEP/DuZ3B
+	56+YLOKpLgek4S+evBZOry9aOu1n8t2aZREvLUm5f6IS135MF1qArs0/FlajrhNPF/cNbg
+	lnxyFG0/PpaiprD96Wqaal4COvMtxbU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-363-R5fJ1OzwMj2ZRE-M_SSF2Q-1; Thu, 23 Jun 2022 11:45:00 -0400
-X-MC-Unique: R5fJ1OzwMj2ZRE-M_SSF2Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-346-DKvrBmPkPlKcItKOs4VT3g-1; Thu, 23 Jun 2022 13:25:35 -0400
+X-MC-Unique: DKvrBmPkPlKcItKOs4VT3g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B108811E90;
-	Thu, 23 Jun 2022 15:44:59 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A488C2026D64;
-	Thu, 23 Jun 2022 15:44:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D2358001EA;
+	Thu, 23 Jun 2022 17:25:34 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1D8904050C47;
+	Thu, 23 Jun 2022 17:25:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 39B68194B959;
-	Thu, 23 Jun 2022 15:44:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A3218194B95E;
+	Thu, 23 Jun 2022 17:25:32 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 69133194B950 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 23 Jun 2022 15:44:56 +0000 (UTC)
+ ESMTP id 0261A194B959 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 23 Jun 2022 17:25:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 17F5640C1421; Thu, 23 Jun 2022 15:44:56 +0000 (UTC)
+ id 887E11121315; Thu, 23 Jun 2022 17:25:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1424840C141F
- for <cluster-devel@redhat.com>; Thu, 23 Jun 2022 15:44:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F01FF801756
- for <cluster-devel@redhat.com>; Thu, 23 Jun 2022 15:44:55 +0000 (UTC)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-62-wC2hptyzNkydFykU-eT4gQ-1; Thu, 23 Jun 2022 11:44:53 -0400
-X-MC-Unique: wC2hptyzNkydFykU-eT4gQ-1
-Received: by mail-wm1-f72.google.com with SMTP id
- p6-20020a05600c358600b0039c873184b9so1583303wmq.4
- for <cluster-devel@redhat.com>; Thu, 23 Jun 2022 08:44:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hVsMwhEGikbOz+l9gDUt9fGCFF1D4HFwxBrBZO+o3ng=;
- b=AhUuHBKiAR10Q7MLewJT7Gq2GoH7I00aPG9c+sqlzENICbpNgjJOfWBYRQAPUvin6E
- Vziv8ZSXvxasynhXkFrdBihw+gVdbErdRK1XNyMI/PfhchpWZWBEqeELQARfWDifVsSX
- PQf6fUBbHzM+d/FUJDoLbPIrurOmLNpgkG7rLEXQZaY12chr1jC8vEvul04nRQOZvE83
- 2KgS2qfv1Z7VO6HwsokKc6snzxLKSyn/QzZeCPYgbA5WRZi9LCzwnNMYelHf6CByY9+f
- PqzdK6fS/CbI0FsGQRwOPvcACfIP3kn1mbMAvn8lqIFEZuG1BniycAEqkjJkQN1h/JZt
- klmg==
-X-Gm-Message-State: AJIora8+JcDS1vG5qvlPcf3PII+76T4qlrJ4VTdDvEkdaA55YVZh44f7
- qUSg1/sNpo4fVlEnZpT1x1WlgdOCf3Cp4tHRnyInV8eFZA+VGWfhko7DAyFRqgzN+wcSzaDZLVi
- NtdYBZW1u53NvNMoje8fFfVP+5pl+Ro3lQBgfsw==
-X-Received: by 2002:adf:e60c:0:b0:21b:8bac:70ff with SMTP id
- p12-20020adfe60c000000b0021b8bac70ffmr9185450wrm.467.1655999091112; 
- Thu, 23 Jun 2022 08:44:51 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1sODvhms1eypss0BCx5TJGmHtNzifXX3NTywj7uPODDB1rEHaX8UCZiadnSgWQ7DVaJuuOiKEOZdKjW2FozmDg=
-X-Received: by 2002:adf:e60c:0:b0:21b:8bac:70ff with SMTP id
- p12-20020adfe60c000000b0021b8bac70ffmr9185437wrm.467.1655999090941; Thu, 23
- Jun 2022 08:44:50 -0700 (PDT)
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+ (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 66B211121314;
+ Thu, 23 Jun 2022 17:25:31 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Thu, 23 Jun 2022 13:25:30 -0400
+Message-Id: <20220623172530.2073884-1-aahringo@redhat.com>
 MIME-Version: 1.0
-References: <20220621091420.GC3256@lst.de>
- <97a9a768-1915-f532-09a4-99ee78a639ae@redhat.com>
- <20220621125857.GA6999@lst.de> <20220622143007.GA31207@lst.de>
-In-Reply-To: <20220622143007.GA31207@lst.de>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Thu, 23 Jun 2022 17:44:39 +0200
-Message-ID: <CAHc6FU7JSui4NmHbEtLKO+H4Uh4OqBGbUu=bpuBoF9EvGk41sg@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>, Matthew Wilcox <willy@infradead.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: Re: [Cluster-devel] Mounting lock_nolock file systems?
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Subject: [Cluster-devel] [PATCH dlm-tool] controld: fix memory leak
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,48 +63,45 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel <cluster-devel@redhat.com>
+Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Wed, Jun 22, 2022 at 4:32 PM Christoph Hellwig <hch@lst.de> wrote:
-> On Tue, Jun 21, 2022 at 02:58:57PM +0200, Christoph Hellwig wrote:
-> > Sorry, actually it was the pagecache for-next branch from willy.  Looks
-> > like mainline itself is fine.
-> >
-> > I'll try to get the superblock information from the pagecache branch
-> > once I find a little time, chasing a bunch of other bugs in the meantime.
->
-> I bisected it down to:
->
-> commit 1abe0e8c19c514827408ba7e7e84969b6f2e784f
-> Author: Matthew Wilcox (Oracle) <willy@infradead.org>
-> Date:   Wed May 18 14:41:39 2022 -0400
->
->     gfs: Check PageUptodate instead of PageError
->
->     This is the correct flag to test to know if the read completed
->     successfully.
->
->     Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
->
-> but I don't have any explanation how it caused that breakage yet.
+Compile with -fsanitize=address unveils the following memory leak:
 
-gfs2_find_jhead() uses gfs2_end_log_read() as the end_io function of
-the bios it submits, and gfs2_end_log_read() doesn't set the pages it
-reads uptodate. That should be fixed; it doesn't make much sense.
+==1175==ERROR: LeakSanitizer: detected memory leaks
 
-Willy, can you remove the above patch from the pagecache tree? We can
-put it in the gfs2 tree after that gfs2_end_log_read() fix.
+Direct leak of 216 byte(s) in 3 object(s) allocated from:
+    #0 0x7f0881809b17 in calloc (/lib64/libasan.so.6+0xaeb17)
+    #1 0x55b3f110bc78 in send_protocol /builddir/devel/dlm/dlm_controld/daemon_cpg.c:1872
 
-(Side note: it's gfs2, not gfs.)
+SUMMARY: AddressSanitizer: 216 byte(s) leaked in 3 allocation(s).
 
-Thanks,
-Andreas
+This patch free's the allocated buffer in send_protocol which should be
+copied in a different buffer by _send_message() already.
+---
+ dlm_controld/daemon_cpg.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/dlm_controld/daemon_cpg.c b/dlm_controld/daemon_cpg.c
+index f215edfd..e6a03a28 100644
+--- a/dlm_controld/daemon_cpg.c
++++ b/dlm_controld/daemon_cpg.c
+@@ -1886,6 +1886,7 @@ static void send_protocol(struct protocol *proto)
+ 	protocol_out(pr);
+ 
+ 	_send_message(cpg_handle_daemon, buf, len, DLM_MSG_PROTOCOL);
++	free(buf);
+ }
+ 
+ int set_protocol(void)
+-- 
+2.31.1
 
