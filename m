@@ -1,93 +1,94 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9786655BFA8
-	for <lists+cluster-devel@lfdr.de>; Tue, 28 Jun 2022 10:58:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E01555C0DA
+	for <lists+cluster-devel@lfdr.de>; Tue, 28 Jun 2022 14:07:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1656418023;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=X1kd7GH8+lVH8XJU2bub/L8ZRbbYTkBopp5Wt8QcoRg=;
+	b=InA8/gY3zCOdWnn3bPmuuBJJkxdEHYQ2qb2RvrFYBubr3L7FMIlRMC/aBmXZN5xudKh5vQ
+	otxE//n68nSTqKPMKwvkdcbbpcEPf2GAaHZ/HZK2MbJafSJJPu4T40yf5X5UUURPZHHxY+
+	KLfezuXYDHxbBoET0s/qqjt5HjZZJhc=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-159-KSn1rcUVP8KjXbwg0EPonA-1; Tue, 28 Jun 2022 04:58:31 -0400
-X-MC-Unique: KSn1rcUVP8KjXbwg0EPonA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-118-nwh5n9nrPQmPqDu8yXhtwg-1; Tue, 28 Jun 2022 08:06:58 -0400
+X-MC-Unique: nwh5n9nrPQmPqDu8yXhtwg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E60B53C0CD4D;
-	Tue, 28 Jun 2022 08:58:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1328D2999B59;
+	Tue, 28 Jun 2022 12:06:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 64E181415108;
-	Tue, 28 Jun 2022 08:58:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7E9F8112131B;
+	Tue, 28 Jun 2022 12:06:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 288F419466DF;
-	Tue, 28 Jun 2022 08:58:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E624E19466DF;
+	Tue, 28 Jun 2022 12:06:55 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BE4AE19466DF for <cluster-devel@listman.corp.redhat.com>;
- Tue, 28 Jun 2022 08:58:28 +0000 (UTC)
+ ESMTP id 85C1A19466DF for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 28 Jun 2022 12:06:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 15BF3141510C; Tue, 28 Jun 2022 08:58:28 +0000 (UTC)
+ id 4BB232026D07; Tue, 28 Jun 2022 12:06:55 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 117191415108
- for <cluster-devel@redhat.com>; Tue, 28 Jun 2022 08:58:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EC959185A79C
- for <cluster-devel@redhat.com>; Tue, 28 Jun 2022 08:58:27 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 477222026D64
+ for <cluster-devel@redhat.com>; Tue, 28 Jun 2022 12:06:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2BECB85A582
+ for <cluster-devel@redhat.com>; Tue, 28 Jun 2022 12:06:55 +0000 (UTC)
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-649-8oXMb7HEOXquFy4M6eUExw-1; Tue, 28 Jun 2022 04:58:25 -0400
-X-MC-Unique: 8oXMb7HEOXquFy4M6eUExw-1
-Received: by mail-ej1-f45.google.com with SMTP id q6so24245224eji.13;
- Tue, 28 Jun 2022 01:58:24 -0700 (PDT)
+ us-mta-46-JeFK8UgaNmSRS9QtJiwp0w-1; Tue, 28 Jun 2022 08:06:51 -0400
+X-MC-Unique: JeFK8UgaNmSRS9QtJiwp0w-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ k5-20020a05600c0b4500b003941ca130f9so5032884wmr.0
+ for <cluster-devel@redhat.com>; Tue, 28 Jun 2022 05:06:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=weYByFyTnVPfMPS/NnD/urU6LcJtRq/Ol19ih/S3E4o=;
- b=DOjLBPC7ck8QYd9xQ6wLUHeZ9NiRNsG00XHyNVzU74n9LJJfrnHlTUdiAVBMOdfeba
- CTYixBBoUp5Nt5K3E3Inc/gs/KtVxgapAhzSQGjyjDrJ6hdpSoXT9OJ0TIol45PjTPmQ
- kq7gBZFc6jkCM7u46BpcZBKvezRtTIJLIODpU6suBeZBCndNMK+SyLaBLgDlJYpJ0D7S
- Xq9r5lHCwaVBG5lwCTolGNwZmKn+336gQGjib5PSMiOOBOaDTU4E0D90c00S30uVueow
- QqB4nLZ4nt0eK+bPMfO4lAY6yUhLLSx8nUu9xaaN99vCpKKAfx4XtA0y1yKCwwXXLrZo
- 5/Eg==
-X-Gm-Message-State: AJIora+4hxhO4GwGnblNF/zLotqLJNKxBBClBu8tqMuefN37b8GuxlwI
- zcKKgglM7hCDM5yII+qBI3pGBrDRJ64=
-X-Google-Smtp-Source: AGRyM1vl6DbgnRcb8+XhzVRp1PSCK/CNEG9/yjT7NwV8iD9OSQLF9FY8tvWF6wcizf33P5lwOQf8GQ==
-X-Received: by 2002:a17:907:7206:b0:726:abaf:16f5 with SMTP id
- dr6-20020a170907720600b00726abaf16f5mr7485542ejc.70.1656406703899; 
- Tue, 28 Jun 2022 01:58:23 -0700 (PDT)
-Received: from mail (239.125-180-91.adsl-dyn.isp.belgacom.be. [91.180.125.239])
- by smtp.gmail.com with ESMTPSA id
- p17-20020a056402501100b0043787ad7cfasm4405386eda.22.2022.06.28.01.58.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jun 2022 01:58:23 -0700 (PDT)
-Date: Tue, 28 Jun 2022 10:58:21 +0200
-From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To: Alexander Aring <aahringo@redhat.com>
-Message-ID: <20220628085821.kn3jjrviyprgai4w@mail>
-References: <CAK-6q+hd-L54cqOiFNuufS2_VF5XS0R8cjQL7es8921+2u3uwQ@mail.gmail.com>
- <20220627184232.tjfuzeir57l3h5ll@mail>
- <CAK-6q+haOfQD8_N6pEm80BTrUXwaj07ZBcXP-EBHftpTVEc1XQ@mail.gmail.com>
- <CAK-6q+g795MwPvUGxWXTE+s-TfJnbh2wf=Udb1k7r6ru-4FTMQ@mail.gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=X1kd7GH8+lVH8XJU2bub/L8ZRbbYTkBopp5Wt8QcoRg=;
+ b=Mc5l3UqPnV6sAsTmNROv2Y1ZilQaBfSjqlF18F5ux/R/mtuxI35zzEs3E/+CFze9Ut
+ uOHlPF+IJhsV29A/suojaDh+dsrrc6atZ38yRve++1DVZ/gI+moGvQmj21q0cmHLYNzD
+ Jb0Wcj8543o6wc+1q1+sAoMFNr5yM+FdX05hof9lMaQYIZjnQxgNnqh1MvXdS59cL2Ms
+ TPOMLNvFTj77sxn0Qv+0t35lDB0h85kKI7i8saUnC3PHcFhZbQ3tgyxYMuU70Uea3Wx1
+ tM6Jiy4WV59GcRhcgjUGQd7ZSv2PvOPP4eVhotMynuSdy7va42qWCRvvBjaTMZ4/JBZw
+ Rnfg==
+X-Gm-Message-State: AJIora9WCM8PYR4L2ebDx3kHymvCmXP6mbqpZE+feb1+6rFvfYvX6X7O
+ yT3Ghq0sETDCZWKbIXmhhlxLu6QD1AJ4S1lOZv9egxA+7/ZFPHbx3sxgFYXe+FecAmppW1zz2Xh
+ oAN+dZgTKtjaOShAy2knNujqQ2JIX0zq2IudDYA==
+X-Received: by 2002:a7b:c4ce:0:b0:3a0:2ac4:3233 with SMTP id
+ g14-20020a7bc4ce000000b003a02ac43233mr25474235wmk.92.1656418010520; 
+ Tue, 28 Jun 2022 05:06:50 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1uEXqbE6Sx0oikJPL2taoS9a5Pn8LiRB1rZvvRDicOju3qGxubgDoT47Zm1luHzWqTldwi7wRNsqyLrmcEcJcM=
+X-Received: by 2002:a7b:c4ce:0:b0:3a0:2ac4:3233 with SMTP id
+ g14-20020a7bc4ce000000b003a02ac43233mr25474206wmk.92.1656418010273; Tue, 28
+ Jun 2022 05:06:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAK-6q+g795MwPvUGxWXTE+s-TfJnbh2wf=Udb1k7r6ru-4FTMQ@mail.gmail.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [Cluster-devel] sparse warnings related to kref_put_lock() and
- refcount_dec_and_lock()
+References: <20220628055949.566089-1-dzm91@hust.edu.cn>
+In-Reply-To: <20220628055949.566089-1-dzm91@hust.edu.cn>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Tue, 28 Jun 2022 14:06:38 +0200
+Message-ID: <CAHc6FU4PR9hwBY1NxdyAMAAh4rY+KHvO26PTSsDBXJ=yHK2msQ@mail.gmail.com>
+To: Dongliang Mu <dzm91@hust.edu.cn>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH] gfs2: fix overread in the strlcpy of
+ init_names
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,63 +100,60 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, cluster-devel <cluster-devel@redhat.com>,
- linux-sparse@vger.kernel.org, thunder.leizhen@huawei.com,
- jacob.e.keller@intel.com, akpm@linux-foundation.org
+Cc: Dongliang Mu <mudongliangabcd@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>, cluster-devel <cluster-devel@redhat.com>,
+ Jean Delvare <khali@linux-fr.org>, syzkaller <syzkaller@googlegroups.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jun 27, 2022 at 09:06:43PM -0400, Alexander Aring wrote:
-> >
-> > If we change the refcount code to _never_ calling unlock() for the
-> > specific lock, then all those foo_and_lock_bar() functions can be
-> > annotated with "__acquires()". This should also end in the same code?
-> 
-> sorry, this will not work because of the first condition of "if
-> (refcount_dec_not_one(r))" which will never hold the lock if true...
-> that's what the optimization is all about. However, maybe somebody has
-> another idea...
+Dongliang Mu,
 
-I would certainly not recommend this but ...
-if it's OK to cheat and lie then you can do:
-+	bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __acquires(lock);
-+
-	bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock)
-	{
--		if (refcount_dec_not_one(r))
--			return false;
-+		if (refcount_dec_not_one(r)) {
-+			__acquire(lock);
-+			return false;
-+		}
-	
-		spin_lock(lock);
-		if (!refcount_dec_and_test(r)) {
-			spin_unlock(lock);
-+			__acquire(lock);
-			return false;
-		}
-	
-		return true;
-	}
+On Tue, Jun 28, 2022 at 8:10 AM Dongliang Mu <dzm91@hust.edu.cn> wrote:
+> From: Dongliang Mu <mudongliangabcd@gmail.com>
+>
+> In init_names, strlcpy will overread the src string as the src string is
+> less than GFS2_FSNAME_LEN(256).
+>
+> Fix this by modifying strlcpy back to snprintf, reverting
+> the commit 00377d8e3842.
 
-In other word, pretend that the lock is always taken but ...
-1) it's ugly
-2) it's lying and can be confusing
-3) now all the users of this function will have an imbalance problem
-   (but they probably already have one since refcount_dec_and_lock()
-    is not annotated).
+... if the source string isn't NULL-terminated. But in that case, the
+code will still do the same thing with this patch. In other words,
+this doesn't fix anything. So let's check for NULL termination
+instead.
 
-What is needed is some kind of annotation for conditional locks.
-I've tried a few time and in itself it was working but in most
-cases the usage pattern was so that there was a imbalance anyway.
+Thanks,
+Andreas
 
--- Luc
+> Fixes: 00377d8e3842 ("[GFS2] Prefer strlcpy() over snprintf()")
+> Reported-by: syzkaller <syzkaller@googlegroups.com>
+> Signed-off-by: Dongliang Mu <mudongliangabcd@gmail.com>
+> ---
+>  fs/gfs2/ops_fstype.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+> index c9b423c874a3..ee29b50d39b9 100644
+> --- a/fs/gfs2/ops_fstype.c
+> +++ b/fs/gfs2/ops_fstype.c
+> @@ -383,8 +383,8 @@ static int init_names(struct gfs2_sbd *sdp, int silent)
+>         if (!table[0])
+>                 table = sdp->sd_vfs->s_id;
+>
+> -       strlcpy(sdp->sd_proto_name, proto, GFS2_FSNAME_LEN);
+> -       strlcpy(sdp->sd_table_name, table, GFS2_FSNAME_LEN);
+> +       snprintf(sdp->sd_proto_name, GFS2_FSNAME_LEN, "%s", proto);
+> +       snprintf(sdp->sd_table_name, GFS2_FSNAME_LEN, "%s", table);
+>
+>         table = sdp->sd_table_name;
+>         while ((table = strchr(table, '/')))
+> --
+> 2.35.1
+>
 
