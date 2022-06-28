@@ -1,56 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C47E55ECB9
-	for <lists+cluster-devel@lfdr.de>; Tue, 28 Jun 2022 20:39:22 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E0B755EFBD
+	for <lists+cluster-devel@lfdr.de>; Tue, 28 Jun 2022 22:46:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656441562;
+	s=mimecast20190719; t=1656449180;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sFS4CJCW/LKMmKNJhR2GW63MgTjEXtPvK2Wy9D9NDnE=;
-	b=SUvWisim2qjTnP54YEqYRXgkZBzefyS0OZnWHMjIX5UPmQeu/a/QvKEff0XApWHxcwdQ1F
-	cLO6G/DtPI/Uhr/tom5/X5z9aLz3dxZUvUsdFW47ohrLFmhS8b1wrY/QOqmhziswiHUP2C
-	IVBf0P4ExP66ph4vnv93FIiBwSWPTro=
+	bh=JDvJY4KAHSAg10rH7+lRWHYt9k9YUXyZb7F/uKYKuNk=;
+	b=RSOW7e0HtVaee41WDLgkPrZYZL5YMnhSiK9Yi996OQZaRmTPXB4Sri2tzuy24hRJyxRuAk
+	XAaHAPJA6ceGG5JopMuVk13UEa7blb5shOLXRhnm+nRhU0kVm8yMG0dpfSzdhftEvS0zxb
+	dq88ahOcsv/rutPb3fuG4LB9JJMq7Ws=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-551-e19Ukvi2OoKVBkAHQ_6Pog-1; Tue, 28 Jun 2022 14:39:09 -0400
-X-MC-Unique: e19Ukvi2OoKVBkAHQ_6Pog-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-102-F-1WBYUVMWeG_KjUBK-SUA-1; Tue, 28 Jun 2022 16:46:17 -0400
+X-MC-Unique: F-1WBYUVMWeG_KjUBK-SUA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8442185A7A4;
-	Tue, 28 Jun 2022 18:39:08 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BBD661415108;
-	Tue, 28 Jun 2022 18:39:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2A1BA1019C93;
+	Tue, 28 Jun 2022 20:46:16 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E896040D282F;
+	Tue, 28 Jun 2022 20:46:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 76FC81947062;
-	Tue, 28 Jun 2022 18:39:08 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AD5141947058;
+	Tue, 28 Jun 2022 20:46:14 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CBBCF19466DF for <cluster-devel@listman.corp.redhat.com>;
- Tue, 28 Jun 2022 18:39:06 +0000 (UTC)
+ ESMTP id 75AFF19466DF for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 28 Jun 2022 20:46:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AE9631121314; Tue, 28 Jun 2022 18:39:06 +0000 (UTC)
+ id 4D0A140D2853; Tue, 28 Jun 2022 20:46:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.localdomain (unknown [10.40.193.19])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 27D21112131B;
- Tue, 28 Jun 2022 18:39:06 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4B78840C1289;
+ Tue, 28 Jun 2022 20:46:12 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Tue, 28 Jun 2022 20:39:05 +0200
-Message-Id: <20220628183905.641284-1-agruenba@redhat.com>
+Date: Tue, 28 Jun 2022 22:46:06 +0200
+Message-Id: <20220628204611.651126-1-agruenba@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH] gfs2: Minor gfs2_glock_nq_m cleanup
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH 0/5] gfs2: debugfs PID reporting improvements
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,9 +62,11 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: linux-fsdevel@vger.kernel.org, "Eric W. Biederman" <ebiederm@xmission.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -72,130 +74,68 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Add state and flags arguments to gfs2_rlist_alloc() to make it somewhat more
-obvious which state and flags an rlist uses.  With that, stop knocking off
-flags in gfs2_glock_nq_m() and its nq_m_sync() helper that are never set in the
-first place.
+Currently, all glock holders in the "glocks" dump file are reported as
+being associated with the process that acquired them, even for holders
+that are actually associated with the filesystem itself (like the
+journal glock holder) or with cached inodes (like iopen and flock glock
+holders).  This is confusing when those holders outlive the processes
+that have acquired them, and it trips up utilities that analyze lock
+dependencies.  For example, the following two glocks were acquired by
+pid 10821 during the initial mount, which has since terminated:
 
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
----
- fs/gfs2/dir.c   | 2 +-
- fs/gfs2/glock.c | 6 +-----
- fs/gfs2/rgrp.c  | 9 ++++++---
- fs/gfs2/rgrp.h  | 3 ++-
- fs/gfs2/xattr.c | 2 +-
- 5 files changed, 11 insertions(+), 11 deletions(-)
+  G:  s:EX n:9/0 f:qb t:EX d:EX/0 a:0 v:0 r:3 m:200 p:0
+   H: s:EX f:ecH e:0 p:10821 [(ended)] init_inodes+0x5c2/0xb10 [gfs2]
+  G:  s:EX n:2/805f f:qob t:EX d:EX/0 a:0 v:0 r:4 m:200 p:1
+   H: s:EX f:H e:0 p:10821 [(ended)] gfs2_fill_super+0x92b/0xcc0 [gfs2]
+   I: n:6/32863 t:8 f:0x00 d:0x00000201 s:24 p:0
 
-diff --git a/fs/gfs2/dir.c b/fs/gfs2/dir.c
-index 42b7dfffb5e7..df938b8c8359 100644
---- a/fs/gfs2/dir.c
-+++ b/fs/gfs2/dir.c
-@@ -2017,7 +2017,7 @@ static int leaf_dealloc(struct gfs2_inode *dip, u32 index, u32 len,
- 		l_blocks++;
- 	}
- 
--	gfs2_rlist_alloc(&rlist);
-+	gfs2_rlist_alloc(&rlist, LM_ST_EXCLUSIVE, LM_FLAG_NODE_SCOPE);
- 
- 	for (x = 0; x < rlist.rl_rgrps; x++) {
- 		struct gfs2_rgrpd *rgd = gfs2_glock2rgrp(rlist.rl_ghs[x].gh_gl);
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index b3259c8e6dad..e540d1290099 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -1780,7 +1780,7 @@ static int glock_compare(const void *arg_a, const void *arg_b)
- }
- 
- /**
-- * nq_m_sync - synchonously acquire more than one glock in deadlock free order
-+ * nq_m_sync - synchronously acquire more than one glock in deadlock free order
-  * @num_gh: the number of structures
-  * @ghs: an array of struct gfs2_holder structures
-  * @p: placeholder for the holder structure to pass back
-@@ -1801,8 +1801,6 @@ static int nq_m_sync(unsigned int num_gh, struct gfs2_holder *ghs,
- 	sort(p, num_gh, sizeof(struct gfs2_holder *), glock_compare, NULL);
- 
- 	for (x = 0; x < num_gh; x++) {
--		p[x]->gh_flags &= ~(LM_FLAG_TRY | GL_ASYNC);
--
- 		error = gfs2_glock_nq(p[x]);
- 		if (error) {
- 			while (x--)
-@@ -1819,7 +1817,6 @@ static int nq_m_sync(unsigned int num_gh, struct gfs2_holder *ghs,
-  * @num_gh: the number of structures
-  * @ghs: an array of struct gfs2_holder structures
-  *
-- *
-  * Returns: 0 on success (all glocks acquired),
-  *          errno on failure (no glocks acquired)
-  */
-@@ -1834,7 +1831,6 @@ int gfs2_glock_nq_m(unsigned int num_gh, struct gfs2_holder *ghs)
- 	case 0:
- 		return 0;
- 	case 1:
--		ghs->gh_flags &= ~(LM_FLAG_TRY | GL_ASYNC);
- 		return gfs2_glock_nq(ghs);
- 	default:
- 		if (num_gh <= 4)
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 8a63870eef5a..b9b8faefbe84 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -2720,12 +2720,15 @@ void gfs2_rlist_add(struct gfs2_inode *ip, struct gfs2_rgrp_list *rlist,
-  * gfs2_rlist_alloc - all RGs have been added to the rlist, now allocate
-  *      and initialize an array of glock holders for them
-  * @rlist: the list of resource groups
-+ * @state: the state we're requesting
-+ * @flags: the modifier flags
-  *
-  * FIXME: Don't use NOFAIL
-  *
-  */
- 
--void gfs2_rlist_alloc(struct gfs2_rgrp_list *rlist)
-+void gfs2_rlist_alloc(struct gfs2_rgrp_list *rlist,
-+		      unsigned int state, u16 flags)
- {
- 	unsigned int x;
- 
-@@ -2733,8 +2736,8 @@ void gfs2_rlist_alloc(struct gfs2_rgrp_list *rlist)
- 				      sizeof(struct gfs2_holder),
- 				      GFP_NOFS | __GFP_NOFAIL);
- 	for (x = 0; x < rlist->rl_rgrps; x++)
--		gfs2_holder_init(rlist->rl_rgd[x]->rd_gl, LM_ST_EXCLUSIVE,
--				 LM_FLAG_NODE_SCOPE, &rlist->rl_ghs[x]);
-+		gfs2_holder_init(rlist->rl_rgd[x]->rd_gl, state, flags,
-+				 &rlist->rl_ghs[x]);
- }
- 
- /**
-diff --git a/fs/gfs2/rgrp.h b/fs/gfs2/rgrp.h
-index 46dd94e9e085..fd6ee8bfe18d 100644
---- a/fs/gfs2/rgrp.h
-+++ b/fs/gfs2/rgrp.h
-@@ -64,7 +64,8 @@ struct gfs2_rgrp_list {
- 
- extern void gfs2_rlist_add(struct gfs2_inode *ip, struct gfs2_rgrp_list *rlist,
- 			   u64 block);
--extern void gfs2_rlist_alloc(struct gfs2_rgrp_list *rlist);
-+extern void gfs2_rlist_alloc(struct gfs2_rgrp_list *rlist,
-+			     unsigned int state, u16 flags);
- extern void gfs2_rlist_free(struct gfs2_rgrp_list *rlist);
- extern u64 gfs2_ri_total(struct gfs2_sbd *sdp);
- extern void gfs2_rgrp_dump(struct seq_file *seq, struct gfs2_rgrpd *rgd,
-diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
-index 0c5650fe1fd1..f6a66050380e 100644
---- a/fs/gfs2/xattr.c
-+++ b/fs/gfs2/xattr.c
-@@ -1313,7 +1313,7 @@ static int ea_dealloc_indirect(struct gfs2_inode *ip)
- 	else
- 		goto out;
- 
--	gfs2_rlist_alloc(&rlist);
-+	gfs2_rlist_alloc(&rlist, LM_ST_EXCLUSIVE, LM_FLAG_NODE_SCOPE);
- 
- 	for (x = 0; x < rlist.rl_rgrps; x++) {
- 		rgd = gfs2_glock2rgrp(rlist.rl_ghs[x].gh_gl);
+This patch queue tries to fix this problem in two ways:
+
+ * Glock holders which are not held by the process that acquired them
+   are marked as GL_NOPID.  For those holders, the PID is reported as 0,
+   and the process name is reported as "(none)".
+
+ * With this change alone, we would have a much harder time detecting
+   locking cycles involving iopen or flock glocks: in both cases, a
+   process which has a file descriptor open depends on the iopen and
+   flock glock of the corresponding inode / file.  To keep track of
+   these dependencies, we introduce a new "glockfd" dump file that
+   reports which file descriptors of which processes are holding which
+   glocks.
+
+A utility that checks for locking problems using this additional
+information is forthcoming, but hasn't been completed so far.
+
+
+NEW EXPORTS
+
+This patch queue requires iterating through all file descriptors of all
+processes, which is made easier by exporting find_ge_pid() and
+task_lookup_next_fd_rcu(); copying Eric W. Biederman and the
+linux-kernel and linux-fsdevel lists to make sure that's okay.
+
+
+Thanks,
+Andreas
+
+Andreas Gruenbacher (5):
+  gfs2: Add glockfd debugfs file
+  gfs2: Add flocks to glockfd debugfs file
+  gfs2: Add GL_NOPID flag for process-independent glock holders
+  gfs2: Mark flock glock holders as GL_NOPID
+  gfs2: Mark the remaining process-independent glock holders as GL_NOPID
+
+ fs/file.c            |   1 +
+ fs/gfs2/file.c       |  29 +++++-
+ fs/gfs2/glock.c      | 211 +++++++++++++++++++++++++++++++++++++++++--
+ fs/gfs2/glock.h      |   1 +
+ fs/gfs2/inode.c      |   6 +-
+ fs/gfs2/ops_fstype.c |  14 +--
+ fs/gfs2/super.c      |   3 +-
+ fs/gfs2/util.c       |   6 +-
+ kernel/pid.c         |   1 +
+ 9 files changed, 247 insertions(+), 25 deletions(-)
+
 -- 
 2.35.1
 
