@@ -1,76 +1,86 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A206255F286
-	for <lists+cluster-devel@lfdr.de>; Wed, 29 Jun 2022 02:51:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD1C56163A
+	for <lists+cluster-devel@lfdr.de>; Thu, 30 Jun 2022 11:23:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656463915;
+	s=mimecast20190719; t=1656580998;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=08BlnmthobijJ8dmREPVxYtPLmbFsVvvK4HxSWBuhyM=;
-	b=V6czaDPBYxgoctt/lkSD/joYWLnwQysCiOme96/oIp2WATWUcwoQB++IncpSGA2lBpOcCT
-	YDIdMDmoW8ov7Ert1Xafe0wv+3pdQj6ug0rBvjW3oj1dT4lmMvm/jBgfmE7Ftzfzwa3CFW
-	CRjNjYF8/54+p8fGm56NrkekPJOomKs=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=KIhlFiRLTeYDajDFixtlLrmUsyayl0HijGJY+Ov1teI=;
+	b=IBbgDyP8Eacu0kiRsgvg/vBkaiQW+igce/cAnlbf1/UUNljZpKo+HNVA9u73FRX/jopZYM
+	dn8kgEllGnrzNIA4gQ2annnae4vA3HKdKDLuaZqPWm+1lbLspXb3GYGhGcTuMaE2LvmC4+
+	KEcLVtPvtEgPZ1hLzYh8q7q/p2SrcPA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-672-CphHwovKPIyHZmIaQX1G_g-1; Tue, 28 Jun 2022 20:51:52 -0400
-X-MC-Unique: CphHwovKPIyHZmIaQX1G_g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-411-sKw1_0WjMpOXatc34IIN5Q-1; Thu, 30 Jun 2022 05:23:11 -0400
+X-MC-Unique: sKw1_0WjMpOXatc34IIN5Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B41793C0F383;
-	Wed, 29 Jun 2022 00:51:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1862D2919ECF;
+	Thu, 30 Jun 2022 09:23:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B38BD112131B;
-	Wed, 29 Jun 2022 00:51:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AAF5740466B0;
+	Thu, 30 Jun 2022 09:23:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 813D71947058;
-	Wed, 29 Jun 2022 00:51:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75E171947064;
+	Thu, 30 Jun 2022 09:23:08 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9C09A1947056 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 29 Jun 2022 00:51:48 +0000 (UTC)
+ ESMTP id 223921947056 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 29 Jun 2022 01:34:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8835D2026D07; Wed, 29 Jun 2022 00:51:48 +0000 (UTC)
+ id EED5D1410F3B; Wed, 29 Jun 2022 01:34:27 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 83FC82026D64
- for <cluster-devel@redhat.com>; Wed, 29 Jun 2022 00:51:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EA22E1410DD8
+ for <cluster-devel@redhat.com>; Wed, 29 Jun 2022 01:34:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5985F3C0F37D
- for <cluster-devel@redhat.com>; Wed, 29 Jun 2022 00:51:48 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-658-25Fvq-L3NQGo7b01ue2sXA-1; Tue, 28 Jun 2022 20:51:46 -0400
-X-MC-Unique: 25Fvq-L3NQGo7b01ue2sXA-1
-X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="282980636"
-X-IronPort-AV: E=Sophos;i="5.92,230,1650956400"; d="scan'208";a="282980636"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 17:50:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,230,1650956400"; d="scan'208";a="836903795"
-Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
- by fmsmga006.fm.intel.com with ESMTP; 28 Jun 2022 17:50:41 -0700
-Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o6Lui-000AmI-RD;
- Wed, 29 Jun 2022 00:50:40 +0000
-Date: Wed, 29 Jun 2022 08:50:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <202206290839.9woKp4xX-lkp@intel.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D1553101A586
+ for <cluster-devel@redhat.com>; Wed, 29 Jun 2022 01:34:27 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-302-pypbhmmROX6l4wsTOmmXUw-1; Tue, 28 Jun 2022 21:34:26 -0400
+X-MC-Unique: pypbhmmROX6l4wsTOmmXUw-1
+Received: by mail-ej1-f43.google.com with SMTP id g26so29455115ejb.5;
+ Tue, 28 Jun 2022 18:34:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KIhlFiRLTeYDajDFixtlLrmUsyayl0HijGJY+Ov1teI=;
+ b=MrPa6Nf7j2AvmtPg8aQGnVHs728z1iyuKw8bEvTCtW+LqcRBgb55g1iZzMCRVNN0zq
+ KTpi6qR5iIdktje8DEYNLaU7ju8HWYpd63JwTEWiXGEafOYV4q5EkwnOKLwUbbuYpm9p
+ L2EqmgtykfhNfTFuxBbJYcO3bJlo1JNN3XczdrXWtnwuZVdUjiCd9l4AnmKSEGHLLqqB
+ 17W3+hbspw9TfPu2+3hbhJXtMW/3ADat5e7LHx+DEyFyiYIp5fayvln2iPtwMCWkXzsX
+ UQIFmBlNqqokWEu/cw4EhupdX6AL5Cq1PC+rIVJXa+NwDB9EEVQjJb0Cya7XjhVS2sMD
+ oyoQ==
+X-Gm-Message-State: AJIora9W46eXrw3aixS7zFVHK9HHILMIPaIwBZ3Snkv0rXUV4yZxIk4A
+ MDKrtT+yQrVKtzr6F1DxC4YuuqE7LCjSgl7C1cLq+WXdAQ6DHK0D
+X-Google-Smtp-Source: AGRyM1vVJcyaqr2XFOiRYKIC1my7c8I2SDWqT4BkNkx+WwHN0GJcO5U8wMNfY0dQLa15+dw2e0OBOfRaIEIDTouY7UM=
+X-Received: by 2002:a17:907:6ea8:b0:726:a8bb:5a3e with SMTP id
+ sh40-20020a1709076ea800b00726a8bb5a3emr883622ejc.753.1656466464303; Tue, 28
+ Jun 2022 18:34:24 -0700 (PDT)
 MIME-Version: 1.0
+References: <20220628055949.566089-1-dzm91@hust.edu.cn>
+ <CAHc6FU4PR9hwBY1NxdyAMAAh4rY+KHvO26PTSsDBXJ=yHK2msQ@mail.gmail.com>
+In-Reply-To: <CAHc6FU4PR9hwBY1NxdyAMAAh4rY+KHvO26PTSsDBXJ=yHK2msQ@mail.gmail.com>
+From: Dongliang Mu <mudongliangabcd@gmail.com>
+Date: Wed, 29 Jun 2022 09:33:43 +0800
+Message-ID: <CAD-N9QXikfrnjD-4a8pnLYUFfcm0LdpBaXjO4=CXU5MNS-jvSQ@mail.gmail.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -78,10 +88,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Cluster-devel] [gfs2:nopid 1/5] fs/gfs2/glock.c:2759:36: warning:
- initialization of 'struct pid_namespace *' from 'int' makes pointer from
- integer without a cast
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Mailman-Approved-At: Thu, 30 Jun 2022 09:23:07 +0000
+Subject: Re: [Cluster-devel] [PATCH] gfs2: fix overread in the strlcpy of
+ init_names
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,82 +103,68 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, kbuild-all@lists.01.org,
- linux-kernel@vger.kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ cluster-devel <cluster-devel@redhat.com>, Jean Delvare <khali@linux-fr.org>,
+ Dongliang Mu <dzm91@hust.edu.cn>, syzkaller <syzkaller@googlegroups.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git nopid
-head:   b1d0ed94e881ca5b5aee15e05f13db75445398f2
-commit: 13ba8572506201aa85020970f776597fbcdcda56 [1/5] gfs2: Add glockfd debugfs file
-config: csky-randconfig-r025-20220627 (https://download.01.org/0day-ci/archive/20220629/202206290839.9woKp4xX-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 11.3.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/commit/?id=13ba8572506201aa85020970f776597fbcdcda56
-        git remote add gfs2 https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-        git fetch --no-tags gfs2 nopid
-        git checkout 13ba8572506201aa85020970f776597fbcdcda56
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=csky SHELL=/bin/bash fs/gfs2/
+On Tue, Jun 28, 2022 at 8:06 PM Andreas Gruenbacher <agruenba@redhat.com> wrote:
+>
+> Dongliang Mu,
+>
+> On Tue, Jun 28, 2022 at 8:10 AM Dongliang Mu <dzm91@hust.edu.cn> wrote:
+> > From: Dongliang Mu <mudongliangabcd@gmail.com>
+> >
+> > In init_names, strlcpy will overread the src string as the src string is
+> > less than GFS2_FSNAME_LEN(256).
+> >
+> > Fix this by modifying strlcpy back to snprintf, reverting
+> > the commit 00377d8e3842.
+>
+> ... if the source string isn't NULL-terminated. But in that case, the
+> code will still do the same thing with this patch. In other words,
+> this doesn't fix anything. So let's check for NULL termination
+> instead.
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+Partially yes. Even if the source string is NULL-terminated, strlcpy
+will invoke memcpy to overread the adjacent memory of source string as
+the specified length is longer than source string.
 
-All warnings (new ones prefixed by >>):
-
-   fs/gfs2/glock.c: In function 'gfs2_glockfd_next_task':
-   fs/gfs2/glock.c:2759:36: error: implicit declaration of function 'task_active_pid_ns' [-Werror=implicit-function-declaration]
-    2759 |         struct pid_namespace *ns = task_active_pid_ns(current);
-         |                                    ^~~~~~~~~~~~~~~~~~
->> fs/gfs2/glock.c:2759:36: warning: initialization of 'struct pid_namespace *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-   fs/gfs2/glock.c: In function 'gfs2_glockfd_next_file':
-   fs/gfs2/glock.c:2785:17: error: implicit declaration of function 'fput'; did you mean 'iput'? [-Werror=implicit-function-declaration]
-    2785 |                 fput(i->file);
-         |                 ^~~~
-         |                 iput
-   cc1: some warnings being treated as errors
-
-
-vim +2759 fs/gfs2/glock.c
-
-  2756	
-  2757	static struct task_struct *gfs2_glockfd_next_task(struct gfs2_glockfd_iter *i)
-  2758	{
-> 2759		struct pid_namespace *ns = task_active_pid_ns(current);
-  2760		struct pid *pid;
-  2761	
-  2762		if (i->task)
-  2763			put_task_struct(i->task);
-  2764	
-  2765		rcu_read_lock();
-  2766	retry:
-  2767		i->task = NULL;
-  2768		pid = find_ge_pid(i->tgid, ns);
-  2769		if (pid) {
-  2770			i->tgid = pid_nr_ns(pid, ns);
-  2771			i->task = pid_task(pid, PIDTYPE_TGID);
-  2772			if (!i->task) {
-  2773				i->tgid++;
-  2774				goto retry;
-  2775			}
-  2776			get_task_struct(i->task);
-  2777		}
-  2778		rcu_read_unlock();
-  2779		return i->task;
-  2780	}
-  2781	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+>
+> Thanks,
+> Andreas
+>
+> > Fixes: 00377d8e3842 ("[GFS2] Prefer strlcpy() over snprintf()")
+> > Reported-by: syzkaller <syzkaller@googlegroups.com>
+> > Signed-off-by: Dongliang Mu <mudongliangabcd@gmail.com>
+> > ---
+> >  fs/gfs2/ops_fstype.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+> > index c9b423c874a3..ee29b50d39b9 100644
+> > --- a/fs/gfs2/ops_fstype.c
+> > +++ b/fs/gfs2/ops_fstype.c
+> > @@ -383,8 +383,8 @@ static int init_names(struct gfs2_sbd *sdp, int silent)
+> >         if (!table[0])
+> >                 table = sdp->sd_vfs->s_id;
+> >
+> > -       strlcpy(sdp->sd_proto_name, proto, GFS2_FSNAME_LEN);
+> > -       strlcpy(sdp->sd_table_name, table, GFS2_FSNAME_LEN);
+> > +       snprintf(sdp->sd_proto_name, GFS2_FSNAME_LEN, "%s", proto);
+> > +       snprintf(sdp->sd_table_name, GFS2_FSNAME_LEN, "%s", table);
+> >
+> >         table = sdp->sd_table_name;
+> >         while ((table = strchr(table, '/')))
+> > --
+> > 2.35.1
+> >
+>
 
