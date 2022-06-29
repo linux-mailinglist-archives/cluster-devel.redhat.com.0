@@ -2,58 +2,58 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 867745606F6
-	for <lists+cluster-devel@lfdr.de>; Wed, 29 Jun 2022 19:06:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB87560712
+	for <lists+cluster-devel@lfdr.de>; Wed, 29 Jun 2022 19:11:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656522367;
+	s=mimecast20190719; t=1656522709;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=wE8DzDOiAU9Ke7Y8EDyfaL6xmxw/704sFWAZsK+F3MU=;
-	b=bLekCXi8ozMfRLZBwt0usZDwu06tOD9c8ShgVGpf2ei7zCinyHucQbpGrIptRwPOWHs8R4
-	rC5Uk5wlnaH87SQfWJ+8pRlYWZf2ctqFjrl88T4k0Vb5uhCLWZewbuho9bbZBYiTKXGenz
-	H3QM4ZHHMN+R0+sc/rJh0ntCaX5nm9A=
+	bh=l36nkCdWG7nERgVIxL8gPcrMbmPGc7NbGuFSPAuO0s4=;
+	b=h3aqQemaQNZhJXHs5uqZonw/0uI4synwR9BaHtVy1NM3ZnFuRuqc1CF1ySAePvkIM5qJUo
+	2x9nJoexWsN8fg/bAGyTAM4JvX8D13cEOv4aMS0P+vuhg1LCeORa7jroLbevW771px8SVl
+	DjDA9FIu5dCgtE1nsxkWMrw+6P4qZt4=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-75-44BrHCOWOH-UQ2H19K1REQ-1; Wed, 29 Jun 2022 13:06:04 -0400
-X-MC-Unique: 44BrHCOWOH-UQ2H19K1REQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-675-Ns4SmmikNRa4IMxr48RdsQ-1; Wed, 29 Jun 2022 13:11:45 -0400
+X-MC-Unique: Ns4SmmikNRa4IMxr48RdsQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2EC263C11723;
-	Wed, 29 Jun 2022 17:06:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6225E3C0F389;
+	Wed, 29 Jun 2022 17:11:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 22B951121314;
-	Wed, 29 Jun 2022 17:06:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5753F492C3B;
+	Wed, 29 Jun 2022 17:11:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5A1571947072;
-	Wed, 29 Jun 2022 17:06:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E28C31947060;
+	Wed, 29 Jun 2022 17:11:43 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 312B81947058 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 29 Jun 2022 16:37:17 +0000 (UTC)
+ ESMTP id 0A6011947058 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 29 Jun 2022 16:37:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1CB69492CA4; Wed, 29 Jun 2022 16:37:17 +0000 (UTC)
+ id DFD21492CA3; Wed, 29 Jun 2022 16:37:17 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from max.localdomain (unknown [10.40.193.19])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8EABE492C3B;
- Wed, 29 Jun 2022 16:37:16 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5C6B7492C3B;
+ Wed, 29 Jun 2022 16:37:17 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
 To: cluster-devel@redhat.com
-Date: Wed, 29 Jun 2022 18:37:07 +0200
-Message-Id: <20220629163711.732931-6-agruenba@redhat.com>
+Date: Wed, 29 Jun 2022 18:37:08 +0200
+Message-Id: <20220629163711.732931-7-agruenba@redhat.com>
 In-Reply-To: <20220629163711.732931-1-agruenba@redhat.com>
 References: <20220629163711.732931-1-agruenba@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [Cluster-devel] [PATCH 5/9] gfs2: Make go_instantiate take a glock
+Subject: [Cluster-devel] [PATCH 6/9] gfs2: Use better variable name
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,7 +67,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,87 +75,64 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Make go_instantiate take a glock instead of a glock holder as its argument:
-this handler is supposed to instantiate the object associated with the glock.
+In do_promote() and add_to_queue(), use current_gh as the variable name
+for the first strong holder we could find: this matches the variable
+name is may_grant(), and more clearly indicates that we're interested in
+one (any) of the current strong holders.
 
 Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/glock.c  | 2 +-
- fs/gfs2/glops.c  | 3 +--
- fs/gfs2/incore.h | 2 +-
- fs/gfs2/rgrp.c   | 3 +--
- fs/gfs2/rgrp.h   | 2 +-
- 5 files changed, 5 insertions(+), 7 deletions(-)
+ fs/gfs2/glock.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 6fe088644d7d..832af9a03b15 100644
+index 832af9a03b15..27b519099579 100644
 --- a/fs/gfs2/glock.c
 +++ b/fs/gfs2/glock.c
-@@ -507,7 +507,7 @@ int gfs2_instantiate(struct gfs2_holder *gh)
- 		goto again;
- 	}
+@@ -529,14 +529,14 @@ int gfs2_instantiate(struct gfs2_holder *gh)
  
--	ret = glops->go_instantiate(gh);
-+	ret = glops->go_instantiate(gl);
- 	if (!ret)
- 		clear_bit(GLF_INSTANTIATE_NEEDED, &gl->gl_flags);
- 	clear_and_wake_up_bit(GLF_INSTANTIATE_IN_PROG, &gl->gl_flags);
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 4e0a9909087c..49210a2e7ce7 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -485,9 +485,8 @@ int gfs2_inode_refresh(struct gfs2_inode *ip)
-  * Returns: errno
-  */
- 
--static int inode_go_instantiate(struct gfs2_holder *gh)
-+static int inode_go_instantiate(struct gfs2_glock *gl)
+ static int do_promote(struct gfs2_glock *gl)
  {
--	struct gfs2_glock *gl = gh->gh_gl;
- 	struct gfs2_inode *ip = gl->gl_object;
+-	struct gfs2_holder *gh, *tmp, *first_gh;
++	struct gfs2_holder *gh, *tmp, *current_gh;
+ 	bool incompat_holders_demoted = false;
  
- 	if (!ip) /* no inode to populate - read it in later */
-diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
-index 15e4258a1dad..d09d9892cd05 100644
---- a/fs/gfs2/incore.h
-+++ b/fs/gfs2/incore.h
-@@ -219,7 +219,7 @@ struct gfs2_glock_operations {
- 	int (*go_xmote_bh)(struct gfs2_glock *gl);
- 	void (*go_inval) (struct gfs2_glock *gl, int flags);
- 	int (*go_demote_ok) (const struct gfs2_glock *gl);
--	int (*go_instantiate) (struct gfs2_holder *gh);
-+	int (*go_instantiate) (struct gfs2_glock *gl);
- 	int (*go_held)(struct gfs2_holder *gh);
- 	void (*go_dump)(struct seq_file *seq, struct gfs2_glock *gl,
- 			const char *fs_id_buf);
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 8a63870eef5a..5439bad3083e 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -1196,9 +1196,8 @@ static void rgrp_set_bitmap_flags(struct gfs2_rgrpd *rgd)
-  * Returns: errno
-  */
+-	first_gh = find_first_strong_holder(gl);
++	current_gh = find_first_strong_holder(gl);
+ 	list_for_each_entry_safe(gh, tmp, &gl->gl_holders, gh_list) {
+ 		if (test_bit(HIF_HOLDER, &gh->gh_iflags))
+ 			continue;
+-		if (!may_grant(gl, first_gh, gh)) {
++		if (!may_grant(gl, current_gh, gh)) {
+ 			/*
+ 			 * If we get here, it means we may not grant this holder for
+ 			 * some reason. If this holder is the head of the list, it
+@@ -548,9 +548,9 @@ static int do_promote(struct gfs2_glock *gl)
+ 			break;
+ 		}
+ 		if (!incompat_holders_demoted) {
+-			demote_incompat_holders(gl, first_gh);
++			demote_incompat_holders(gl, current_gh);
+ 			incompat_holders_demoted = true;
+-			first_gh = gh;
++			current_gh = gh;
+ 		}
+ 		set_bit(HIF_HOLDER, &gh->gh_iflags);
+ 		trace_gfs2_promote(gh);
+@@ -1456,10 +1456,10 @@ __acquires(&gl->gl_lockref.lock)
  
--int gfs2_rgrp_go_instantiate(struct gfs2_holder *gh)
-+int gfs2_rgrp_go_instantiate(struct gfs2_glock *gl)
- {
--	struct gfs2_glock *gl = gh->gh_gl;
- 	struct gfs2_rgrpd *rgd = gl->gl_object;
- 	struct gfs2_sbd *sdp = rgd->rd_sbd;
- 	unsigned int length = rgd->rd_length;
-diff --git a/fs/gfs2/rgrp.h b/fs/gfs2/rgrp.h
-index 46dd94e9e085..c75bac45d314 100644
---- a/fs/gfs2/rgrp.h
-+++ b/fs/gfs2/rgrp.h
-@@ -31,7 +31,7 @@ extern struct gfs2_rgrpd *gfs2_rgrpd_get_next(struct gfs2_rgrpd *rgd);
- extern void gfs2_clear_rgrpd(struct gfs2_sbd *sdp);
- extern int gfs2_rindex_update(struct gfs2_sbd *sdp);
- extern void gfs2_free_clones(struct gfs2_rgrpd *rgd);
--extern int gfs2_rgrp_go_instantiate(struct gfs2_holder *gh);
-+extern int gfs2_rgrp_go_instantiate(struct gfs2_glock *gl);
- extern void gfs2_rgrp_brelse(struct gfs2_rgrpd *rgd);
+ 	if (gh->gh_flags & (LM_FLAG_TRY | LM_FLAG_TRY_1CB)) {
+ 		if (test_bit(GLF_LOCK, &gl->gl_flags)) {
+-			struct gfs2_holder *first_gh;
++			struct gfs2_holder *current_gh;
  
- extern struct gfs2_alloc *gfs2_alloc_get(struct gfs2_inode *ip);
+-			first_gh = find_first_strong_holder(gl);
+-			try_futile = !may_grant(gl, first_gh, gh);
++			current_gh = find_first_strong_holder(gl);
++			try_futile = !may_grant(gl, current_gh, gh);
+ 		}
+ 		if (test_bit(GLF_INVALIDATE_IN_PROGRESS, &gl->gl_flags))
+ 			goto fail;
 -- 
 2.35.1
 
