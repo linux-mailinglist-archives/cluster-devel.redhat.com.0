@@ -2,79 +2,90 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 056C4562EC1
-	for <lists+cluster-devel@lfdr.de>; Fri,  1 Jul 2022 10:48:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76F14563324
+	for <lists+cluster-devel@lfdr.de>; Fri,  1 Jul 2022 14:07:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656665321;
+	s=mimecast20190719; t=1656677245;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=mY2YJsRE/yBS43tn1f7s0RHEEaTIk2g/RfTS1WyV6ug=;
-	b=csjDByWIPprT+B8hNDDZGuVsmH+16KXO7jSE8bdOFyYUz7j06JfNKVCkJi2k8RE9+rDsA2
-	ipsrPww3V77gKEkRGYk6CWew0N0gIC0l4VRETvu8Po2Dcz8KQWPXKOO9f/4k1AIYfa/8n6
-	vibg5dKUFagngZPRjlrRwgvgjMBVPKk=
+	 list-subscribe:list-post; bh=zXhzCgqTisWYCfLQ5y3NkLn493B5u6s+MotNFCqarsA=;
+	b=P0yWmVSBUBwpG8A9ZZ6h3DTtpMJMIET33y2TdVc7UefTsMk+o/1z7fnwk56+UfxaeFd+ji
+	LRTmCL0EhtZYx91kaNGkoqZqPI/0CxJbtbcLlBoX3mjYZbPnR7SOPITvDhTyUUafpglO0x
+	dfMYiDBcJAxgxs+FNkFjWT4qmiL0cjA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-586-SIqyBXOFMyyr4Gb9roXUkg-1; Fri, 01 Jul 2022 04:48:36 -0400
-X-MC-Unique: SIqyBXOFMyyr4Gb9roXUkg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-612-IDSuFu_ZM6eRgZMbaCIlXQ-1; Fri, 01 Jul 2022 08:07:20 -0400
+X-MC-Unique: IDSuFu_ZM6eRgZMbaCIlXQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 481F929DD9B8;
-	Fri,  1 Jul 2022 08:48:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8398B280DE0C;
+	Fri,  1 Jul 2022 12:07:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7581A40336E;
-	Fri,  1 Jul 2022 08:48:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 63C902166B26;
+	Fri,  1 Jul 2022 12:07:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E035A1947074;
-	Fri,  1 Jul 2022 08:48:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5AC6C1947B92;
+	Fri,  1 Jul 2022 12:07:16 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AF4DE1947058 for <cluster-devel@listman.corp.redhat.com>;
- Fri,  1 Jul 2022 08:48:31 +0000 (UTC)
+ ESMTP id 630381947070 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  1 Jul 2022 12:07:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9DCF3C08087; Fri,  1 Jul 2022 08:48:31 +0000 (UTC)
+ id 3A7A2C15D5C; Fri,  1 Jul 2022 12:07:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 995DEC28115
- for <cluster-devel@redhat.com>; Fri,  1 Jul 2022 08:48:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 802A7299E768
- for <cluster-devel@redhat.com>; Fri,  1 Jul 2022 08:48:31 +0000 (UTC)
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-597-Wou6tUrDPGGzhbCctjuUXg-1; Fri, 01 Jul 2022 04:48:30 -0400
-X-MC-Unique: Wou6tUrDPGGzhbCctjuUXg-1
-Received: from dhcp-077-249-017-003.chello.nl ([77.249.17.3]
- helo=worktop.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o7CJb-00FdrR-AC; Fri, 01 Jul 2022 08:47:52 +0000
-Received: by worktop.programming.kicks-ass.net (Postfix, from userid 1000)
- id 63D90980017; Fri,  1 Jul 2022 10:47:49 +0200 (CEST)
-Date: Fri, 1 Jul 2022 10:47:49 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <Yr60tWxN4P568x3W@worktop.programming.kicks-ass.net>
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 36B9AC15D58
+ for <cluster-devel@redhat.com>; Fri,  1 Jul 2022 12:07:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1F68F80029D
+ for <cluster-devel@redhat.com>; Fri,  1 Jul 2022 12:07:15 +0000 (UTC)
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-632-xW3z2aRbN8CKXY6sKh8Gaw-1; Fri, 01 Jul 2022 08:07:14 -0400
+X-MC-Unique: xW3z2aRbN8CKXY6sKh8Gaw-1
+Received: by mail-qv1-f72.google.com with SMTP id
+ ls8-20020a0562145f8800b0047078180732so2469976qvb.2
+ for <cluster-devel@redhat.com>; Fri, 01 Jul 2022 05:07:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=zXhzCgqTisWYCfLQ5y3NkLn493B5u6s+MotNFCqarsA=;
+ b=0ouOqDWeGm6Lq76HZewxNxK5CjUh/kSJgQbJOJXtrf4V8SKrIymPpLB8ZUkPUMQ/cg
+ dkf92ht+XmCyyxF1X2ZenwOI9J+NIwDBtqr2P+LQ3f58TDMf/VRo9UX5XZy89iR0hIjR
+ B3lGkbU/2zD+qUBRZsVKBl0tZwTv04WQ/hMMGEF3TwMvL2TRJXjlSjf3sMGNmt+kPQNs
+ cyRjEcceIbDZ/4rdis1ZnJmaF9vTtHk7Piz7XxSPQHVO9zHr3f+B7+mZKH9tql0ejkTl
+ F0L4ZOqsM54fM9JTxA84zVwnXBgObrbY9lpapiBOvfbtRcyrolyfF9f+Y7+g3mf6qy9u
+ n9CA==
+X-Gm-Message-State: AJIora8fLj3H9/8cPsBIcNjMfh9hF6IvB4dYt/sDGR7ok2xzEckILBzm
+ AgH9APnHNZXnxSOvNeJnNiiQRl7HvEjd7n6oIkpfWolXvef0wnm4D5ACKmCeEWD630LDHO5ht9a
+ JZW7FKuJUEibkJLoDOmFAQ0jTqOonohsYjk4h7g==
+X-Received: by 2002:ac8:5749:0:b0:305:1ea5:4a7 with SMTP id
+ 9-20020ac85749000000b003051ea504a7mr12090126qtx.291.1656677233489; 
+ Fri, 01 Jul 2022 05:07:13 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1vPEbyYUewayWbWLRAfTmQdi+voNzbdWmyNv7kpwUkdnn2VbxTjMzi9pHOfGl1Z0MPdfmMBqDhBInC3Hnk8Lhg=
+X-Received: by 2002:ac8:5749:0:b0:305:1ea5:4a7 with SMTP id
+ 9-20020ac85749000000b003051ea504a7mr12090089qtx.291.1656677233207; Fri, 01
+ Jul 2022 05:07:13 -0700 (PDT)
+MIME-Version: 1.0
 References: <20220630135934.1799248-1-aahringo@redhat.com>
  <CAHk-=wjZfO9hGqJ2_hGQG3U_XzSh9_XaXze=HgPdvJbgrvASfA@mail.gmail.com>
-MIME-Version: 1.0
 In-Reply-To: <CAHk-=wjZfO9hGqJ2_hGQG3U_XzSh9_XaXze=HgPdvJbgrvASfA@mail.gmail.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+From: Alexander Aring <aahringo@redhat.com>
+Date: Fri, 1 Jul 2022 08:07:01 -0400
+Message-ID: <CAK-6q+jkNbotWK7cFsNGO+B+ApcdUd7+_4mdcF8=00YsDAATTA@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Subject: Re: [Cluster-devel] [RFC 0/2] refcount: attempt to avoid imbalance
  warnings
@@ -89,7 +100,8 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, Boqun Feng <boqun.feng@gmail.com>,
+Cc: Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>,
+ Boqun Feng <boqun.feng@gmail.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  cluster-devel <cluster-devel@redhat.com>,
  Sparse Mailing-list <linux-sparse@vger.kernel.org>, thunder.leizhen@huawei.com,
@@ -98,60 +110,70 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Boqun Feng <boqun.feng@gmail.com>,
  Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jun 30, 2022 at 09:34:10AM -0700, Linus Torvalds wrote:
+Hi,
 
-Not commenting on sparse, since I'm not much qualified there, however,
+On Thu, Jun 30, 2022 at 12:34 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Thu, Jun 30, 2022 at 6:59 AM Alexander Aring <aahringo@redhat.com> wrote:
+> >
+> > I send this patch series as RFC because it was necessary to do a kref
+> > change after adding __cond_lock() to refcount_dec_and_lock()
+> > functionality.
+>
+> Can you try something like this instead?
+>
+> This is two separate patches - one for sparse, and one for the kernel.
+>
+> This is only *very* lightly tested (ie I tested it on a single kernel
+> file that used refcount_dec_and_lock())
+>
 
->  include/linux/compiler_types.h | 2 ++
->  include/linux/refcount.h       | 6 +++---
->  2 files changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-> index d08dfcb0ac68..4f2a819fd60a 100644
-> --- a/include/linux/compiler_types.h
-> +++ b/include/linux/compiler_types.h
-> @@ -24,6 +24,7 @@ static inline void __chk_io_ptr(const volatile void __iomem *ptr) { }
->  /* context/locking */
->  # define __must_hold(x)	__attribute__((context(x,1,1)))
->  # define __acquires(x)	__attribute__((context(x,0,1)))
-> +# define __cond_acquires(x) __attribute__((context(x,0,-1)))
->  # define __releases(x)	__attribute__((context(x,1,0)))
->  # define __acquire(x)	__context__(x,1)
->  # define __release(x)	__context__(x,-1)
-> @@ -50,6 +51,7 @@ static inline void __chk_io_ptr(const volatile void __iomem *ptr) { }
->  /* context/locking */
->  # define __must_hold(x)
->  # define __acquires(x)
-> +# define __cond_acquires(x)
->  # define __releases(x)
->  # define __acquire(x)	(void)0
->  # define __release(x)	(void)0
-> diff --git a/include/linux/refcount.h b/include/linux/refcount.h
-> index b8a6e387f8f9..a62fcca97486 100644
-> --- a/include/linux/refcount.h
-> +++ b/include/linux/refcount.h
-> @@ -361,9 +361,9 @@ static inline void refcount_dec(refcount_t *r)
->  
->  extern __must_check bool refcount_dec_if_one(refcount_t *r);
->  extern __must_check bool refcount_dec_not_one(refcount_t *r);
-> -extern __must_check bool refcount_dec_and_mutex_lock(refcount_t *r, struct mutex *lock);
-> -extern __must_check bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock);
-> +extern __must_check bool refcount_dec_and_mutex_lock(refcount_t *r, struct mutex *lock) __cond_acquires(lock);
-> +extern __must_check bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __cond_acquires(lock);
->  extern __must_check bool refcount_dec_and_lock_irqsave(refcount_t *r,
->  						       spinlock_t *lock,
-> -						       unsigned long *flags);
-> +						       unsigned long *flags) __cond_acquires(lock);
->  #endif /* _LINUX_REFCOUNT_H */
+yes that avoids the warnings for fs/dlm.c by calling unlock() when the
+kref_put_lock() returns true.
 
+However there exists other users of kref_put_lock() which drops a
+sparse warning now after those patches e.g.  net/sunrpc/svcauth.c.
+I think I can explain why. It is that kref_put_lock() has a release
+callback and it's _optional_ that this release callback calls the
+unlock(). If the release callback calls unlock() then the user of
+kref_put_lock() signals this with a releases() annotation of the
+passed release callback.
 
-YES!, thank you!
+It seems that sparse is not detecting this annotation anymore when
+it's passed as callback and the function pointer parameter declaration
+of kref_put_lock() does not have such annotation. The annotation gets
+"dropped" then.
+
+If I change the parameter order and add a annotation to the release
+callback, like:
+
+__kref_put_lock(struct kref *kref, spinlock_t *lock,
+               void (*release)(struct kref *kref) __releases(lock))
+#define kref_put_lock(kref, release, lock) __kref_put_lock(kref, lock, release)
+
+the problem is gone but forces every user to release the lock in the
+release callback which isn't required and also cuts the API because
+the lock which you want to call unlock() on can be not part of your
+container_of(kref) struct.
+
+Then I did a similar thing before which would solve it for every user
+because there is simply no function pointer passed as parameter and
+the annotation gets never "dropped":
+
+#define kref_put_lock(kref, release, lock) \
+(refcount_dec_and_lock(&(kref)->refcount, lock) ? ({ release(kref); 1; }) : 0)
+
+Maybe a functionality of forwarding function annotation if passed as a
+function pointer (function pointer declared without annotations) as in
+e.g. kref_put_lock() can be added into sparse?
+
+- Alex
 
