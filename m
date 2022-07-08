@@ -1,96 +1,104 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE40563991
-	for <lists+cluster-devel@lfdr.de>; Fri,  1 Jul 2022 21:09:18 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E00F56B0BB
+	for <lists+cluster-devel@lfdr.de>; Fri,  8 Jul 2022 04:50:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656702556;
+	s=mimecast20190719; t=1657248654;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=0fTpQgJi583J8jUAwjwOMbnhXpGFLL7LTfUdXvC5nug=;
-	b=i8F0HAqr29wv2PYu18Cri/7YQsGNKdGP7tEJN39pBIOXGZAOTuOCnT/Rdv3oK9l43UND8U
-	ten2rbSEtlwo8axPeB7ciIX41jI5hZ0ug2w8i23SBkUxPFVtmFUat00UySFJRFt01nYwrc
-	niv/TJ6wR4yGh/CN4mMbbY2dbrWXklo=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=Ad97sT16le5gjY7PgDU6gmeetvBzm9wlE8bQkILVjNc=;
+	b=YIFxRb+BIo2OHbSv8IGvYCPTLX9HdmZZ8fFElZXqU/QPoOxZJrPskKFfiR6sVkSY5fqXfA
+	7w+qAc7+uwwLOnYO8QqGTilNk8LEamBIWVC8h3p6gjH8Fm7dUVQFJKK6pg/nFjOMvN2hdU
+	+yFyCIGTfXqMQ0RqecU2nBoZR7Y2VDw=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-661-eiiJp9XZP3qPBT7dLK7lWw-1; Fri, 01 Jul 2022 15:09:15 -0400
-X-MC-Unique: eiiJp9XZP3qPBT7dLK7lWw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-102-VIml_hMJOLC8_kuMObQ-Rw-1; Thu, 07 Jul 2022 22:50:45 -0400
+X-MC-Unique: VIml_hMJOLC8_kuMObQ-Rw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0763881D9EC;
-	Fri,  1 Jul 2022 19:09:15 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6161DC15D7E;
-	Fri,  1 Jul 2022 19:09:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7464F3C02182;
+	Fri,  8 Jul 2022 02:50:44 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6D2F51121315;
+	Fri,  8 Jul 2022 02:50:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3FB6D194707A;
-	Fri,  1 Jul 2022 19:09:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0683D194706F;
+	Fri,  8 Jul 2022 02:50:42 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ADE4E1947058 for <cluster-devel@listman.corp.redhat.com>;
- Fri,  1 Jul 2022 19:09:13 +0000 (UTC)
+ ESMTP id 5C3AD194706D for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  8 Jul 2022 02:50:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8C1FA1415308; Fri,  1 Jul 2022 19:09:13 +0000 (UTC)
+ id 29B3340315B; Fri,  8 Jul 2022 02:50:41 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 87E171415307
- for <cluster-devel@redhat.com>; Fri,  1 Jul 2022 19:09:13 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 25271492C3B
+ for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 02:50:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E7143C0D876
- for <cluster-devel@redhat.com>; Fri,  1 Jul 2022 19:09:13 +0000 (UTC)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0BCD429AA2ED
+ for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 02:50:41 +0000 (UTC)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-563-8lY9gpMlN6m4qON8OgYPAw-1; Fri, 01 Jul 2022 15:09:12 -0400
-X-MC-Unique: 8lY9gpMlN6m4qON8OgYPAw-1
-Received: by mail-qv1-f72.google.com with SMTP id
- de15-20020ad4584f000000b00472d98d4a88so636461qvb.12
- for <cluster-devel@redhat.com>; Fri, 01 Jul 2022 12:09:12 -0700 (PDT)
+ us-mta-92-NAgE8D7ePA691y3nFVuITQ-1; Thu, 07 Jul 2022 22:50:39 -0400
+X-MC-Unique: NAgE8D7ePA691y3nFVuITQ-1
+Received: by mail-qt1-f178.google.com with SMTP id he28so25555144qtb.13
+ for <cluster-devel@redhat.com>; Thu, 07 Jul 2022 19:50:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0fTpQgJi583J8jUAwjwOMbnhXpGFLL7LTfUdXvC5nug=;
- b=GGFIGtfHkGYbZpKtzqojIQxeS17+g4Wc282LUmUhXtvNJDtZsVzZS9oSKxJxmGph/4
- gvKy7MGhCx+L5Fuh8BxcKGE5E5g8m9EzgKUtpZMtHhgVCRWJrZ3vplJXMDVnx5QQVLgz
- Ka4wV/sk0zuMCI1fpx2tzSJWbg8sxIXFUcbrY78GyuIn9uq3IdreZGUVl3KMeaJ2UQ7H
- eip9OlxtdMI3Wu7mgh6tpTvYfkd8hJ1mIjmtnfwcir/bzsiczyF3NKJTu/72UX7I7XlI
- 126rUDcETy5wi7maDGEttuDY70BO3Jw/drSneYR7EqVLkk/Ix1R5wwawKqroYAjoeUWT
- jIfg==
-X-Gm-Message-State: AJIora/dPI+dLYrkRF8tvPPQBkobYeavjjhL9ya2pAB1DyJ3+YUDkpuT
- E7ftlqoGXD76EqkKz1o3sISjjBLsfXE6KwIAFWGgV2J0kMcavXGb/bB867e+bRu9s33HHZ972ub
- asTzMIZ94ztgUkTELChyzdZITzo/XjYHPMmg6Sg==
-X-Received: by 2002:ac8:4e8b:0:b0:31d:34c6:86a2 with SMTP id
- 11-20020ac84e8b000000b0031d34c686a2mr6376695qtp.526.1656702551834; 
- Fri, 01 Jul 2022 12:09:11 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1vmSaEwZdRV22oe7QtV5IzenWy25OI2oIP1ZZYcQg8tltXD2qNQp+JMu8VFupmj1poaUi8ytsw36XaCQrSfliI=
-X-Received: by 2002:ac8:4e8b:0:b0:31d:34c6:86a2 with SMTP id
- 11-20020ac84e8b000000b0031d34c686a2mr6376668qtp.526.1656702551575; Fri, 01
- Jul 2022 12:09:11 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
+ :references:mime-version;
+ bh=Ad97sT16le5gjY7PgDU6gmeetvBzm9wlE8bQkILVjNc=;
+ b=v609cuhERdnn4dMFcehG27+NaRjKKRDM6a9SnA7GpY/1vqpyM9O8jo4cN1ID2Dodq4
+ NptiwM5Ej1x84Kg29MAdwF/xQiKBhzmKyfkk9rHc2uAGlkKwdRdKoojyTQdLfqqi7HWL
+ NZY12CXeGyqZHl8b9J+Xq43QdQVcK/4gwr3oCbI8Rs4v62EiUZF8TXJfUm0C71dvmwi7
+ Vx6yEzaTmldWgX6jfhOXYh56eWkQg+ydr2qexHm9ABcwa7HI543LtQDGECJTU5GGlpQD
+ zFADZ7NV60jLx+PaiXGukCanG2yVpaqycdXlPbEuYLZ02hNTeQ96lbAOATnL6a0xyQmS
+ lSiA==
+X-Gm-Message-State: AJIora8ZY7A9v+z+OXbVupLoKGiEVl7k4duK2EEXtNTHkTJgfU6774ej
+ Ck483xrG6wP8Ikm3Snlk+pkNMQ==
+X-Google-Smtp-Source: AGRyM1tJqq+vsbrqVwAmw8UZQYXdEmN7Cq4ADeDpayYOUxqHMEno4PbopiKhNsYF91bJVygTm51HMQ==
+X-Received: by 2002:ac8:7d52:0:b0:319:51f0:e418 with SMTP id
+ h18-20020ac87d52000000b0031951f0e418mr1088284qtb.481.1657248632632; 
+ Thu, 07 Jul 2022 19:50:32 -0700 (PDT)
+Received: from ripple.attlocal.net
+ (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+ by smtp.gmail.com with ESMTPSA id
+ s7-20020a05620a254700b006a65c58db99sm35676841qko.64.2022.07.07.19.50.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Jul 2022 19:50:32 -0700 (PDT)
+Date: Thu, 7 Jul 2022 19:50:17 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+X-X-Sender: hugh@ripple.anvils
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+In-Reply-To: <20220608150249.3033815-8-willy@infradead.org>
+Message-ID: <6e7599d1-8a5f-bf16-383c-febd753bd051@google.com>
+References: <20220608150249.3033815-1-willy@infradead.org>
+ <20220608150249.3033815-8-willy@infradead.org>
 MIME-Version: 1.0
-References: <20220630135934.1799248-1-aahringo@redhat.com>
- <CAHk-=wjZfO9hGqJ2_hGQG3U_XzSh9_XaXze=HgPdvJbgrvASfA@mail.gmail.com>
- <CAK-6q+jkNbotWK7cFsNGO+B+ApcdUd7+_4mdcF8=00YsDAATTA@mail.gmail.com>
-In-Reply-To: <CAK-6q+jkNbotWK7cFsNGO+B+ApcdUd7+_4mdcF8=00YsDAATTA@mail.gmail.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Fri, 1 Jul 2022 15:09:00 -0400
-Message-ID: <CAK-6q+i67rNeioq+=MzLyCJ_fh7DvDVWOHA02oOasKocvkhXSw@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [Cluster-devel] [RFC 0/2] refcount: attempt to avoid imbalance
- warnings
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [Cluster-devel] [PATCH v2 07/19] mm/migrate: Convert
+ expected_page_refs() to folio_expected_refs()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,114 +110,163 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>,
- Boqun Feng <boqun.feng@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- cluster-devel <cluster-devel@redhat.com>,
- Sparse Mailing-list <linux-sparse@vger.kernel.org>, thunder.leizhen@huawei.com,
- jacob.e.keller@intel.com, Andrew Morton <akpm@linux-foundation.org>,
- Will Deacon <will@kernel.org>,
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
+ linux-ntfs-dev@lists.sourceforge.net, Christoph Hellwig <hch@lst.de>,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-block@vger.kernel.org, linux-mm@kvack.org, linux-mtd@lists.infradead.org,
+ ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, linux-xfs@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-Hi,
+On Wed, 8 Jun 2022, Matthew Wilcox (Oracle) wrote:
 
-On Fri, Jul 1, 2022 at 8:07 AM Alexander Aring <aahringo@redhat.com> wrote:
->
-> Hi,
->
-> On Thu, Jun 30, 2022 at 12:34 PM Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
-> >
-> > On Thu, Jun 30, 2022 at 6:59 AM Alexander Aring <aahringo@redhat.com> wrote:
-> > >
-> > > I send this patch series as RFC because it was necessary to do a kref
-> > > change after adding __cond_lock() to refcount_dec_and_lock()
-> > > functionality.
-> >
-> > Can you try something like this instead?
-> >
-> > This is two separate patches - one for sparse, and one for the kernel.
-> >
-> > This is only *very* lightly tested (ie I tested it on a single kernel
-> > file that used refcount_dec_and_lock())
-> >
->
-> yes that avoids the warnings for fs/dlm.c by calling unlock() when the
-> kref_put_lock() returns true.
->
-> However there exists other users of kref_put_lock() which drops a
-> sparse warning now after those patches e.g.  net/sunrpc/svcauth.c.
-> I think I can explain why. It is that kref_put_lock() has a release
-> callback and it's _optional_ that this release callback calls the
-> unlock(). If the release callback calls unlock() then the user of
-> kref_put_lock() signals this with a releases() annotation of the
-> passed release callback.
->
-> It seems that sparse is not detecting this annotation anymore when
-> it's passed as callback and the function pointer parameter declaration
-> of kref_put_lock() does not have such annotation. The annotation gets
-> "dropped" then.
->
-> If I change the parameter order and add a annotation to the release
-> callback, like:
->
-> __kref_put_lock(struct kref *kref, spinlock_t *lock,
->                void (*release)(struct kref *kref) __releases(lock))
-> #define kref_put_lock(kref, release, lock) __kref_put_lock(kref, lock, release)
->
-> the problem is gone but forces every user to release the lock in the
-> release callback which isn't required and also cuts the API because
-> the lock which you want to call unlock() on can be not part of your
-> container_of(kref) struct.
->
-> Then I did a similar thing before which would solve it for every user
-> because there is simply no function pointer passed as parameter and
-> the annotation gets never "dropped":
->
-> #define kref_put_lock(kref, release, lock) \
-> (refcount_dec_and_lock(&(kref)->refcount, lock) ? ({ release(kref); 1; }) : 0)
->
-> Maybe a functionality of forwarding function annotation if passed as a
-> function pointer (function pointer declared without annotations) as in
-> e.g. kref_put_lock() can be added into sparse?
+> Now that both callers have a folio, convert this function to
+> take a folio & rename it.
+> 
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  mm/migrate.c | 19 ++++++++++++-------
+>  1 file changed, 12 insertions(+), 7 deletions(-)
+> 
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 2975f0c4d7cf..2e2f41572066 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -336,13 +336,18 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
+>  }
+>  #endif
+>  
+> -static int expected_page_refs(struct address_space *mapping, struct page *page)
+> +static int folio_expected_refs(struct address_space *mapping,
+> +		struct folio *folio)
+>  {
+> -	int expected_count = 1;
+> +	int refs = 1;
+> +	if (!mapping)
+> +		return refs;
+>  
+> -	if (mapping)
+> -		expected_count += compound_nr(page) + page_has_private(page);
+> -	return expected_count;
+> +	refs += folio_nr_pages(folio);
+> +	if (folio_get_private(folio))
+> +		refs++;
+> +
+> +	return refs;
+>  }
+>  
+>  /*
+> @@ -359,7 +364,7 @@ int folio_migrate_mapping(struct address_space *mapping,
+>  	XA_STATE(xas, &mapping->i_pages, folio_index(folio));
+>  	struct zone *oldzone, *newzone;
+>  	int dirty;
+> -	int expected_count = expected_page_refs(mapping, &folio->page) + extra_count;
+> +	int expected_count = folio_expected_refs(mapping, folio) + extra_count;
+>  	long nr = folio_nr_pages(folio);
+>  
+>  	if (!mapping) {
+> @@ -669,7 +674,7 @@ static int __buffer_migrate_folio(struct address_space *mapping,
+>  		return migrate_page(mapping, &dst->page, &src->page, mode);
+>  
+>  	/* Check whether page does not have extra refs before we do more work */
+> -	expected_count = expected_page_refs(mapping, &src->page);
+> +	expected_count = folio_expected_refs(mapping, src);
+>  	if (folio_ref_count(src) != expected_count)
+>  		return -EAGAIN;
+>  
+> -- 
+> 2.35.1
 
-I think the explanation above is not quite right. I am questioning
-myself now why it was working before... and I guess the answer is that
-it was working for kref_put_lock() with the callback __releases()
-handling. It has somehow now an additional acquire() because the
-__cond_acquires() change.
+This commit (742e89c9e352d38df1a5825fe40c4de73a5d5f7a in pagecache.git
+folio/for-next and recent linux-next) is dangerously wrong, at least
+for swapcache, and probably for some others.
 
-Before the patch:
+I say "dangerously" because it tells page migration a swapcache page
+is safe for migration when it certainly is not.
 
-no warnings:
+The fun that typically ensues is kernel BUG at include/linux/mm.h:750!
+put_page_testzero() VM_BUG_ON_PAGE(page_ref_count(page) == 0, page),
+if CONFIG_DEBUG_VM=y (bisecting for that is what brought me to this).
+But I guess you might get silent data corruption too.
 
-void foo_release(struct kref *kref)
-__releases(&foo_lock)
-{
-        ...
-        unlock(foo_lock);
-}
+I assumed at first that you'd changed the rules, and were now expecting
+any subsystem that puts a non-zero value into folio->private to raise
+its refcount - whereas the old convention (originating with buffer heads)
+is that setting PG_private says an extra refcount has been taken, please
+call try_to_release_page() to lower it, and maybe that will use data in
+page->private to do so; but page->private free for the subsystem owning
+the page to use as it wishes, no refcount implication.  But that you
+had missed updating swapcache.
 
-...
-kref_put_lock(&foo->kref, foo_release, &foo_lock);
+So I got working okay with the patch below; but before turning it into
+a proper patch, noticed that there were still plenty of other places
+applying the test for PG_private: so now think that maybe you set out
+with intention as above, realized it wouldn't work, but got distracted
+before cleaning up some places you'd already changed.  And patch below
+now goes in the wrong direction.
 
-shows context imbalance warnings:
+Or maybe you didn't intend any change, but the PG_private test just got
+missed in a few places.  I don't know, hope you remember, but current
+linux-next badly inconsistent.
+Over to you, thanks,
 
-void foo_release(struct kref *kref) { }
+Hugh
 
-if (kref_put_lock(&foo->kref, foo_release, &foo_lock))
-        unlock(foo_lock);
-
-After the patch it's vice versa of showing warnings or not about
-context imbalances.
-
-- Alex
+--- a/mm/migrate.c	2022-07-06 14:24:44.499941975 -0700
++++ b/mm/migrate.c	2022-07-06 15:49:25.000000000 -0700
+@@ -351,6 +351,10 @@ unlock:
+ }
+ #endif
+ 
++static inline bool folio_counted_private(struct folio *folio)
++{
++	return !folio_test_swapcache(folio) && folio_get_private(folio);
++}
+ static int folio_expected_refs(struct address_space *mapping,
+ 		struct folio *folio)
+ {
+@@ -359,7 +363,7 @@ static int folio_expected_refs(struct ad
+ 		return refs;
+ 
+ 	refs += folio_nr_pages(folio);
+-	if (folio_get_private(folio))
++	if (folio_counted_private(folio))
+ 		refs++;
+ 
+ 	return refs;
+--- a/mm/vmscan.c	2022-07-06 14:24:44.531942217 -0700
++++ b/mm/vmscan.c	2022-07-06 15:49:37.000000000 -0700
+@@ -2494,6 +2494,10 @@ shrink_inactive_list(unsigned long nr_to
+  * The downside is that we have to touch folio->_refcount against each folio.
+  * But we had to alter folio->flags anyway.
+  */
++static inline bool folio_counted_private(struct folio *folio)
++{
++	return !folio_test_swapcache(folio) && folio_get_private(folio);
++}
+ static void shrink_active_list(unsigned long nr_to_scan,
+ 			       struct lruvec *lruvec,
+ 			       struct scan_control *sc,
+@@ -2538,8 +2542,9 @@ static void shrink_active_list(unsigned
+ 		}
+ 
+ 		if (unlikely(buffer_heads_over_limit)) {
+-			if (folio_get_private(folio) && folio_trylock(folio)) {
+-				if (folio_get_private(folio))
++			if (folio_counted_private(folio) &&
++			    folio_trylock(folio)) {
++				if (folio_counted_private(folio))
+ 					filemap_release_folio(folio, 0);
+ 				folio_unlock(folio);
+ 			}
 
