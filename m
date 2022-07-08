@@ -1,71 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 251A056B0D4
-	for <lists+cluster-devel@lfdr.de>; Fri,  8 Jul 2022 05:29:42 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C69C156C105
+	for <lists+cluster-devel@lfdr.de>; Fri,  8 Jul 2022 20:40:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657250981;
+	s=mimecast20190719; t=1657305612;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=oM2k/skZQvyu3mUYfkmntJvn7Ev2BYz4NH8zgIp7wHI=;
-	b=hE9Eb7G1xvKLG75vuGnwoJE0Q7GVhExuTGTyIFwcaDRslONyyVjNoGoDdsp60kviv75mcd
-	xXJF84QGRNv0MTqDK1aKySJi6dkwYlctzi5Ew+um8QT7IwZQJzUlZMNtBZT9UMRXVrCWNF
-	MKKl7lEMqB3y+TxOy5he+CRn9xhJxQk=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=5hh5osC6AVGsqRiLiO3asfJH0LnYVH9AB2CSJeAftpM=;
+	b=YEEU9uU8noRTQKIZTZZ9CaAv64+HdIm98udTvlZHGN9BELres8hEeo8xmGna7Zmd9KXEXm
+	BpBREgl9LtUYS2abqr8OawBuy5RpHjOwtssBSBSClpNq4Rh9yEJDwvOuWJ40N+ptCWA4ZN
+	WAdADxHn5RwAPU8YS1N2I9OG4zBaytA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-217-ooqwza84Pv64NDp8VvqsaQ-1; Thu, 07 Jul 2022 23:29:34 -0400
-X-MC-Unique: ooqwza84Pv64NDp8VvqsaQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-100-whe8VAknOtCx-EAGS9Xxcg-1; Fri, 08 Jul 2022 14:40:03 -0400
+X-MC-Unique: whe8VAknOtCx-EAGS9Xxcg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D158801E95;
-	Fri,  8 Jul 2022 03:29:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1254318188A2;
+	Fri,  8 Jul 2022 18:40:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4B0D92166B26;
-	Fri,  8 Jul 2022 03:29:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1CF9C40357BA;
+	Fri,  8 Jul 2022 18:40:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0ABC8194706E;
-	Fri,  8 Jul 2022 03:29:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE37D1947075;
+	Fri,  8 Jul 2022 18:40:00 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ACB01194706B for <cluster-devel@listman.corp.redhat.com>;
- Fri,  8 Jul 2022 03:29:30 +0000 (UTC)
+ ESMTP id 4EFFC194706C for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 862C1400EA84; Fri,  8 Jul 2022 03:29:30 +0000 (UTC)
+ id 1E326400DFA6; Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 81EB9404C6C7
- for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 03:29:30 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A9FB40CF8E4
+ for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6766F101A54E
- for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 03:29:30 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-147-z09_NB-gOyORNTk_lohAug-1; Thu, 07 Jul 2022 23:29:27 -0400
-X-MC-Unique: z09_NB-gOyORNTk_lohAug-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1o9eg6-003A5X-T9; Fri, 08 Jul 2022 03:29:15 +0000
-Date: Fri, 8 Jul 2022 04:29:14 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Hugh Dickins <hughd@google.com>
-Message-ID: <Ysekikp60Hhs5lV0@casper.infradead.org>
-References: <20220608150249.3033815-1-willy@infradead.org>
- <20220608150249.3033815-8-willy@infradead.org>
- <6e7599d1-8a5f-bf16-383c-febd753bd051@google.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02D6385A588
+ for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-530-jPX0nzW6MPyx--6Lw-7OAg-1; Fri, 08 Jul 2022 14:39:55 -0400
+X-MC-Unique: jPX0nzW6MPyx--6Lw-7OAg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E171262569;
+ Fri,  8 Jul 2022 18:30:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03EA7C341C0;
+ Fri,  8 Jul 2022 18:30:32 +0000 (UTC)
+Date: Fri, 8 Jul 2022 14:30:31 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alexander Aring <aahringo@redhat.com>
+Message-ID: <20220708143031.29a271d7@gandalf.local.home>
+In-Reply-To: <20220620204539.926948-1-aahringo@redhat.com>
+References: <20220620204539.926948-1-aahringo@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <6e7599d1-8a5f-bf16-383c-febd753bd051@google.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -74,8 +79,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH v2 07/19] mm/migrate: Convert
- expected_page_refs() to folio_expected_refs()
+Subject: Re: [Cluster-devel] [PATCH/RFC] java: add initial bindings
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,173 +91,91 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
- linux-ntfs-dev@lists.sourceforge.net, Christoph Hellwig <hch@lst.de>,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-block@vger.kernel.org, linux-mm@kvack.org, linux-mtd@lists.infradead.org,
- ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
- virtualization@lists.linux-foundation.org, linux-xfs@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+Cc: cluster-devel@redhat.com, linux-trace-devel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 07, 2022 at 07:50:17PM -0700, Hugh Dickins wrote:
-> On Wed, 8 Jun 2022, Matthew Wilcox (Oracle) wrote:
-> 
-> > Now that both callers have a folio, convert this function to
-> > take a folio & rename it.
-> > 
-> > Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> > Reviewed-by: Christoph Hellwig <hch@lst.de>
-> > ---
-> >  mm/migrate.c | 19 ++++++++++++-------
-> >  1 file changed, 12 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/mm/migrate.c b/mm/migrate.c
-> > index 2975f0c4d7cf..2e2f41572066 100644
-> > --- a/mm/migrate.c
-> > +++ b/mm/migrate.c
-> > @@ -336,13 +336,18 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
-> >  }
-> >  #endif
-> >  
-> > -static int expected_page_refs(struct address_space *mapping, struct page *page)
-> > +static int folio_expected_refs(struct address_space *mapping,
-> > +		struct folio *folio)
-> >  {
-> > -	int expected_count = 1;
-> > +	int refs = 1;
-> > +	if (!mapping)
-> > +		return refs;
-> >  
-> > -	if (mapping)
-> > -		expected_count += compound_nr(page) + page_has_private(page);
-> > -	return expected_count;
-> > +	refs += folio_nr_pages(folio);
-> > +	if (folio_get_private(folio))
-> > +		refs++;
-> > +
-> > +	return refs;
-> >  }
-> >  
-> >  /*
-> > @@ -359,7 +364,7 @@ int folio_migrate_mapping(struct address_space *mapping,
-> >  	XA_STATE(xas, &mapping->i_pages, folio_index(folio));
-> >  	struct zone *oldzone, *newzone;
-> >  	int dirty;
-> > -	int expected_count = expected_page_refs(mapping, &folio->page) + extra_count;
-> > +	int expected_count = folio_expected_refs(mapping, folio) + extra_count;
-> >  	long nr = folio_nr_pages(folio);
-> >  
-> >  	if (!mapping) {
-> > @@ -669,7 +674,7 @@ static int __buffer_migrate_folio(struct address_space *mapping,
-> >  		return migrate_page(mapping, &dst->page, &src->page, mode);
-> >  
-> >  	/* Check whether page does not have extra refs before we do more work */
-> > -	expected_count = expected_page_refs(mapping, &src->page);
-> > +	expected_count = folio_expected_refs(mapping, src);
-> >  	if (folio_ref_count(src) != expected_count)
-> >  		return -EAGAIN;
-> >  
-> > -- 
-> > 2.35.1
-> 
-> This commit (742e89c9e352d38df1a5825fe40c4de73a5d5f7a in pagecache.git
-> folio/for-next and recent linux-next) is dangerously wrong, at least
-> for swapcache, and probably for some others.
-> 
-> I say "dangerously" because it tells page migration a swapcache page
-> is safe for migration when it certainly is not.
-> 
-> The fun that typically ensues is kernel BUG at include/linux/mm.h:750!
-> put_page_testzero() VM_BUG_ON_PAGE(page_ref_count(page) == 0, page),
-> if CONFIG_DEBUG_VM=y (bisecting for that is what brought me to this).
-> But I guess you might get silent data corruption too.
-> 
-> I assumed at first that you'd changed the rules, and were now expecting
-> any subsystem that puts a non-zero value into folio->private to raise
-> its refcount - whereas the old convention (originating with buffer heads)
-> is that setting PG_private says an extra refcount has been taken, please
-> call try_to_release_page() to lower it, and maybe that will use data in
-> page->private to do so; but page->private free for the subsystem owning
-> the page to use as it wishes, no refcount implication.  But that you
-> had missed updating swapcache.
-> 
-> So I got working okay with the patch below; but before turning it into
-> a proper patch, noticed that there were still plenty of other places
-> applying the test for PG_private: so now think that maybe you set out
-> with intention as above, realized it wouldn't work, but got distracted
-> before cleaning up some places you'd already changed.  And patch below
-> now goes in the wrong direction.
-> 
-> Or maybe you didn't intend any change, but the PG_private test just got
-> missed in a few places.  I don't know, hope you remember, but current
-> linux-next badly inconsistent.
-> Over to you, thanks,
+On Mon, 20 Jun 2022 16:45:39 -0400
+Alexander Aring <aahringo@redhat.com> wrote:
 
-Ugh.  The problem I'm trying to solve is that we're short on page flags.
-We _seemed_ to have correlation between "page->private != NULL" and
-"PG_private is set", and so I thought I could make progress towards
-removing PG_private.  But the rule you set out above wasn't written down
-anywhere that I was able to find it.
+Hi Alexander!
 
-I'm about to go to sleep, but I'll think on this some more tomorrow.
 
-> Hugh
+> This patch adds basic java bindings for libtracecmd. It currently
+> supports very basic handling of parsing trace-cmd recorded trace files.
+> There might of course additional improvements regarding swig bindings and
+> the memory handling. E.g. in javas builtin iterator for-each handling
+> everything will keep in memory. The license for the high-level java
+> bindings jar file is LGPL-2.1 and is the same as libtracecmd.
 > 
-> --- a/mm/migrate.c	2022-07-06 14:24:44.499941975 -0700
-> +++ b/mm/migrate.c	2022-07-06 15:49:25.000000000 -0700
-> @@ -351,6 +351,10 @@ unlock:
->  }
->  #endif
->  
-> +static inline bool folio_counted_private(struct folio *folio)
-> +{
-> +	return !folio_test_swapcache(folio) && folio_get_private(folio);
-> +}
->  static int folio_expected_refs(struct address_space *mapping,
->  		struct folio *folio)
->  {
-> @@ -359,7 +363,7 @@ static int folio_expected_refs(struct ad
->  		return refs;
->  
->  	refs += folio_nr_pages(folio);
-> -	if (folio_get_private(folio))
-> +	if (folio_counted_private(folio))
->  		refs++;
->  
->  	return refs;
-> --- a/mm/vmscan.c	2022-07-06 14:24:44.531942217 -0700
-> +++ b/mm/vmscan.c	2022-07-06 15:49:37.000000000 -0700
-> @@ -2494,6 +2494,10 @@ shrink_inactive_list(unsigned long nr_to
->   * The downside is that we have to touch folio->_refcount against each folio.
->   * But we had to alter folio->flags anyway.
->   */
-> +static inline bool folio_counted_private(struct folio *folio)
-> +{
-> +	return !folio_test_swapcache(folio) && folio_get_private(folio);
-> +}
->  static void shrink_active_list(unsigned long nr_to_scan,
->  			       struct lruvec *lruvec,
->  			       struct scan_control *sc,
-> @@ -2538,8 +2542,9 @@ static void shrink_active_list(unsigned
->  		}
->  
->  		if (unlikely(buffer_heads_over_limit)) {
-> -			if (folio_get_private(folio) && folio_trylock(folio)) {
-> -				if (folio_get_private(folio))
-> +			if (folio_counted_private(folio) &&
-> +			    folio_trylock(folio)) {
-> +				if (folio_counted_private(folio))
->  					filemap_release_folio(folio, 0);
->  				folio_unlock(folio);
->  			}
+> The author of this patch created a java application that uses those java
+> bindings to trace locks and represent them in graphical GANTT diagram,
+> see [0].
+> 
+> You need to set the JAVA_HOME environment variable to let the Makefile know
+> that it builds the java bindings. This is somehow standard in the java world
+> as replacement for pkg-config or similar. There should no trace-cmd java
+> dependency, the recommended way should be to provide a kind of trace-cmd-java
+> package from your distribution containing the tracecmd.jar and
+> libctracecmdjava.so. This package would have then a java dependency to
+> e.g. OpenJDK, that I was using to test those bindings for.
+> 
+> The author is not a swig expert but it works as it currently is. Also
+> the author did not hit issues because memory _yet_. Those are beginning
+> experimental bindings and can be changed/improved in future.
+
+
+Are you "the author"?
+
+Could you rephrase this better? 
+
+Like:
+
+"There may be better ways to do this with swig, but this appears to work as
+is, as there were no issues because of memory _yet_."
+
+That is, please try to rewrite the change log without referring to yourself.
+
+> 
+> [0] https://gitlab.com/netcoder/dlm2slog2
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> ---
+>  .gitignore                        |   4 +
+>  Makefile                          |  60 ++++++-
+>  java/Makefile                     |  39 +++++
+>  java/TraceCmd.java                | 236 +++++++++++++++++++++++++
+>  java/TraceCmdEvent.java           | 277 ++++++++++++++++++++++++++++++
+>  java/TraceCmdException.java       |  16 ++
+>  java/TraceCmdField.java           | 104 +++++++++++
+>  java/ctracecmdjava.i              | 180 +++++++++++++++++++
+>  java/example/Makefile             |   7 +
+>  java/example/TraceCmdExample.java |  33 ++++
+>  10 files changed, 953 insertions(+), 3 deletions(-)
+>  create mode 100644 java/Makefile
+>  create mode 100644 java/TraceCmd.java
+>  create mode 100644 java/TraceCmdEvent.java
+>  create mode 100644 java/TraceCmdException.java
+>  create mode 100644 java/TraceCmdField.java
+>  create mode 100644 java/ctracecmdjava.i
+>  create mode 100644 java/example/Makefile
+>  create mode 100644 java/example/TraceCmdExample.java
+> 
+
+I'm not a swig nor Java expert, and will likely not even test this code.
+But I'm happy to include it if it doesn't break anything that I do test.
+But if anyone complains of breakage, I'll simply point them to you ;-)
+
+Are you OK with that?
+
+Hmm, I should add a MAINTAINERS file to add people that support different
+portions of trace-cmd.
+
+-- Steve
 
