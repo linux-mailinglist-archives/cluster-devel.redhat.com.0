@@ -1,76 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69C156C105
-	for <lists+cluster-devel@lfdr.de>; Fri,  8 Jul 2022 20:40:13 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD78356D41B
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 Jul 2022 06:51:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657305612;
+	s=mimecast20190719; t=1657515097;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=5hh5osC6AVGsqRiLiO3asfJH0LnYVH9AB2CSJeAftpM=;
-	b=YEEU9uU8noRTQKIZTZZ9CaAv64+HdIm98udTvlZHGN9BELres8hEeo8xmGna7Zmd9KXEXm
-	BpBREgl9LtUYS2abqr8OawBuy5RpHjOwtssBSBSClpNq4Rh9yEJDwvOuWJ40N+ptCWA4ZN
-	WAdADxHn5RwAPU8YS1N2I9OG4zBaytA=
+	bh=BDOTeFOO/FY7pwwFSR0eN21wouhgtH3k9FnygVND/RY=;
+	b=gwODWjn7Y1Sbs3wlHiYGOFhCEXpQqQ3nz11PQSx+A3wSZJPFuxgk6I1g2uqVTraUAEy+H+
+	CKXuej0vZycVoMivyPQTMXiJdAoETTYbWcfqc+M7kTHvBcq8w5q1MlC6J8J2qrk61/oxTn
+	MarCPOz5TROvEzFimWOJFXwNM8R7Tz0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-100-whe8VAknOtCx-EAGS9Xxcg-1; Fri, 08 Jul 2022 14:40:03 -0400
-X-MC-Unique: whe8VAknOtCx-EAGS9Xxcg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-3-g9xdHehGMb-I2Lkj4Cdanw-1; Mon, 11 Jul 2022 00:51:34 -0400
+X-MC-Unique: g9xdHehGMb-I2Lkj4Cdanw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1254318188A2;
-	Fri,  8 Jul 2022 18:40:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 826CF802D1F;
+	Mon, 11 Jul 2022 04:51:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1CF9C40357BA;
-	Fri,  8 Jul 2022 18:40:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 775D518EB9;
+	Mon, 11 Jul 2022 04:51:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE37D1947075;
-	Fri,  8 Jul 2022 18:40:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3128A1947054;
+	Mon, 11 Jul 2022 04:51:33 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4EFFC194706C for <cluster-devel@listman.corp.redhat.com>;
- Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
+ ESMTP id 59B6B1947040 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 11 Jul 2022 04:51:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1E326400DFA6; Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
+ id 46CD818EB8; Mon, 11 Jul 2022 04:51:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A9FB40CF8E4
- for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4322E18EB9
+ for <cluster-devel@redhat.com>; Mon, 11 Jul 2022 04:51:32 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02D6385A588
- for <cluster-devel@redhat.com>; Fri,  8 Jul 2022 18:39:59 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 28757811E90
+ for <cluster-devel@redhat.com>; Mon, 11 Jul 2022 04:51:32 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-530-jPX0nzW6MPyx--6Lw-7OAg-1; Fri, 08 Jul 2022 14:39:55 -0400
-X-MC-Unique: jPX0nzW6MPyx--6Lw-7OAg-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E171262569;
- Fri,  8 Jul 2022 18:30:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03EA7C341C0;
- Fri,  8 Jul 2022 18:30:32 +0000 (UTC)
-Date: Fri, 8 Jul 2022 14:30:31 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alexander Aring <aahringo@redhat.com>
-Message-ID: <20220708143031.29a271d7@gandalf.local.home>
-In-Reply-To: <20220620204539.926948-1-aahringo@redhat.com>
-References: <20220620204539.926948-1-aahringo@redhat.com>
+ us-mta-554-BnjCZTRRM-6GNwFee6JwMA-1; Mon, 11 Jul 2022 00:51:17 -0400
+X-MC-Unique: BnjCZTRRM-6GNwFee6JwMA-1
+Received: from 089144197153.atnat0006.highway.a1.net ([89.144.197.153]
+ helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1oAkp4-00FpvP-G0; Mon, 11 Jul 2022 04:15:02 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Bob Peterson <rpeterso@redhat.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>,
+ "Darrick J. Wong" <djwong@kernel.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Naohiro Aota <naohiro.aota@wdc.com>
+Date: Mon, 11 Jul 2022 06:14:55 +0200
+Message-Id: <20220711041459.1062583-1-hch@lst.de>
 MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -78,8 +78,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH/RFC] java: add initial bindings
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: [Cluster-devel] remove iomap_writepage
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,91 +91,28 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, linux-trace-devel@vger.kernel.org
+Cc: cluster-devel@redhat.com, linux-xfs@vger.kernel.org,
+ Johannes Thumshirn <jth@kernel.org>, linux-fsdevel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Mon, 20 Jun 2022 16:45:39 -0400
-Alexander Aring <aahringo@redhat.com> wrote:
+Hi all,
 
-Hi Alexander!
+this series removes iomap_writepage and it's callers, following what xfs
+has been doing for a long time.
 
-
-> This patch adds basic java bindings for libtracecmd. It currently
-> supports very basic handling of parsing trace-cmd recorded trace files.
-> There might of course additional improvements regarding swig bindings and
-> the memory handling. E.g. in javas builtin iterator for-each handling
-> everything will keep in memory. The license for the high-level java
-> bindings jar file is LGPL-2.1 and is the same as libtracecmd.
-> 
-> The author of this patch created a java application that uses those java
-> bindings to trace locks and represent them in graphical GANTT diagram,
-> see [0].
-> 
-> You need to set the JAVA_HOME environment variable to let the Makefile know
-> that it builds the java bindings. This is somehow standard in the java world
-> as replacement for pkg-config or similar. There should no trace-cmd java
-> dependency, the recommended way should be to provide a kind of trace-cmd-java
-> package from your distribution containing the tracecmd.jar and
-> libctracecmdjava.so. This package would have then a java dependency to
-> e.g. OpenJDK, that I was using to test those bindings for.
-> 
-> The author is not a swig expert but it works as it currently is. Also
-> the author did not hit issues because memory _yet_. Those are beginning
-> experimental bindings and can be changed/improved in future.
-
-
-Are you "the author"?
-
-Could you rephrase this better? 
-
-Like:
-
-"There may be better ways to do this with swig, but this appears to work as
-is, as there were no issues because of memory _yet_."
-
-That is, please try to rewrite the change log without referring to yourself.
-
-> 
-> [0] https://gitlab.com/netcoder/dlm2slog2
-> Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> ---
->  .gitignore                        |   4 +
->  Makefile                          |  60 ++++++-
->  java/Makefile                     |  39 +++++
->  java/TraceCmd.java                | 236 +++++++++++++++++++++++++
->  java/TraceCmdEvent.java           | 277 ++++++++++++++++++++++++++++++
->  java/TraceCmdException.java       |  16 ++
->  java/TraceCmdField.java           | 104 +++++++++++
->  java/ctracecmdjava.i              | 180 +++++++++++++++++++
->  java/example/Makefile             |   7 +
->  java/example/TraceCmdExample.java |  33 ++++
->  10 files changed, 953 insertions(+), 3 deletions(-)
->  create mode 100644 java/Makefile
->  create mode 100644 java/TraceCmd.java
->  create mode 100644 java/TraceCmdEvent.java
->  create mode 100644 java/TraceCmdException.java
->  create mode 100644 java/TraceCmdField.java
->  create mode 100644 java/ctracecmdjava.i
->  create mode 100644 java/example/Makefile
->  create mode 100644 java/example/TraceCmdExample.java
-> 
-
-I'm not a swig nor Java expert, and will likely not even test this code.
-But I'm happy to include it if it doesn't break anything that I do test.
-But if anyone complains of breakage, I'll simply point them to you ;-)
-
-Are you OK with that?
-
-Hmm, I should add a MAINTAINERS file to add people that support different
-portions of trace-cmd.
-
--- Steve
+Diffstat:
+ fs/gfs2/aops.c         |   26 --------------------------
+ fs/gfs2/log.c          |    2 +-
+ fs/iomap/buffered-io.c |   15 ---------------
+ fs/zonefs/super.c      |    8 --------
+ include/linux/iomap.h  |    3 ---
+ 5 files changed, 1 insertion(+), 53 deletions(-)
 
