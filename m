@@ -1,94 +1,56 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41CBC5737AB
-	for <lists+cluster-devel@lfdr.de>; Wed, 13 Jul 2022 15:40:51 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8D6574D64
+	for <lists+cluster-devel@lfdr.de>; Thu, 14 Jul 2022 14:24:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657719649;
+	s=mimecast20190719; t=1657801462;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=AKJFqVAEYMrSYdd5FQG6UXoFSGFARh5VVh8jAz8BGD4=;
-	b=ehSimsnTEp2/pruRZtLdR+JVwuEhU9noeDh0X4D12duPoPWPJQfGDQnLN0lz4citasOxyT
-	crCe1+21/525r8gNEs7JEyTLWL2bleeu9lq/vyy63hmRj1TN2sAGos8SsWvSKNs6M7taWy
-	Dz8CByjrNjQDnIeYwASmKvROhaOeyOo=
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=YfwjQWcz9tnBhvAWn0DH+LdF918Yd95swwTILOkrvNo=;
+	b=LgLthQpboCef3t15XqY/un4efN6iTssiQwPhYkQnKPkNQD5l9zFLVAmMCEwUZSih3NPO9C
+	SGbK8cmbVxeZ9kKXUElNN44FCSLz/foFMpDj9oz/ekPgvBIFh788z5k2RvHyF5FDFVC1hh
+	Xl/Cpvxc0tBZvEQX2IzP5ud0GDQr1Pg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-623-8igWTsu5MJiSvYg9_5dnzA-1; Wed, 13 Jul 2022 09:40:46 -0400
-X-MC-Unique: 8igWTsu5MJiSvYg9_5dnzA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-214-PN4U29b7N1y0mTEGvZASOw-1; Thu, 14 Jul 2022 08:24:11 -0400
+X-MC-Unique: PN4U29b7N1y0mTEGvZASOw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DCE18032F6;
-	Wed, 13 Jul 2022 13:40:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5039801231;
+	Thu, 14 Jul 2022 12:24:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2B2D4C28118;
-	Wed, 13 Jul 2022 13:40:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4316E1410F3C;
+	Thu, 14 Jul 2022 12:24:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E30CB1947066;
-	Wed, 13 Jul 2022 13:40:42 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 492A91947073;
+	Thu, 14 Jul 2022 12:24:07 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 65C9D194705F for <cluster-devel@listman.corp.redhat.com>;
- Wed, 13 Jul 2022 13:40:41 +0000 (UTC)
+ ESMTP id AA69B194706C for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 14 Jul 2022 12:24:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 47D562026D07; Wed, 13 Jul 2022 13:40:41 +0000 (UTC)
+ id 89DE7492CA2; Thu, 14 Jul 2022 12:24:05 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 435D22026D64
- for <cluster-devel@redhat.com>; Wed, 13 Jul 2022 13:40:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26CE5101A586
- for <cluster-devel@redhat.com>; Wed, 13 Jul 2022 13:40:41 +0000 (UTC)
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-262-5YRa2vBNOHqfMa9htGZDIA-1; Wed, 13 Jul 2022 09:40:40 -0400
-X-MC-Unique: 5YRa2vBNOHqfMa9htGZDIA-1
-Received: by mail-qv1-f71.google.com with SMTP id
- q3-20020ad45743000000b004735457f428so3818903qvx.23
- for <cluster-devel@redhat.com>; Wed, 13 Jul 2022 06:40:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AKJFqVAEYMrSYdd5FQG6UXoFSGFARh5VVh8jAz8BGD4=;
- b=tf37Cdu8jFxWWo8OPvWBJDoUHZ7iwhuBeh/Ip15hai4zoB3HPPPLcAAiSkCjnLRFnx
- /jU6RN+6FqnFl+cMyvnGBpMLjXkRCDWPefaamwvLi8uHesrLAxRuV1Ot8Wtgvy4Tpct8
- H3N5nu+lBfsNLALqZnJXc8K7APbIOfXg4txxAoWwuEELlNDfpltsJGsI69YSLzyoPOKt
- pfVd58H6JJaW8pQAAKONxa4d+wG3m084AYeeKXdARb94jKAvbTTMO9q0B83QrCeXL1xD
- ZYe302WXJS22+N9w+3VTZMEiSthTbsNVr8FH+uNaZ/imSP39cts5+pPlebWifKdleY2G
- 8vmg==
-X-Gm-Message-State: AJIora9mBEKChWw5TERIdcRxoQYGaFHsdDlygCDTqWc+KxWWY8MakM78
- OPdsG/x6xlZPe9F+hqShRs4RdYBl5O2qRd5LbxbsUT+3Jalu8jUEmml1mxcKSnY6f/i6u6FIQcJ
- weFT9zcePac70HJenC6LlCPJj0qrwXyfm4feh1w==
-X-Received: by 2002:a05:620a:468d:b0:6b5:9e91:4b40 with SMTP id
- bq13-20020a05620a468d00b006b59e914b40mr2331739qkb.80.1657719639450; 
- Wed, 13 Jul 2022 06:40:39 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1uCnsh2Bv7xdTn4Gno39lxl0GxulXCeCnYySAGcf7LLtM5dFyAScpi8FOd/bQHhcZpD/DDq0AfPHWXnNfxLrSU=
-X-Received: by 2002:a05:620a:468d:b0:6b5:9e91:4b40 with SMTP id
- bq13-20020a05620a468d00b006b59e914b40mr2331717qkb.80.1657719639134; Wed, 13
- Jul 2022 06:40:39 -0700 (PDT)
+Received: from b.redhat.com (unknown [10.33.36.216])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A7A3492C3B
+ for <cluster-devel@redhat.com>; Thu, 14 Jul 2022 12:24:05 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Thu, 14 Jul 2022 13:24:03 +0100
+Message-Id: <20220714122403.398987-1-anprice@redhat.com>
 MIME-Version: 1.0
-References: <20220620204539.926948-1-aahringo@redhat.com>
- <20220708143031.29a271d7@gandalf.local.home>
-In-Reply-To: <20220708143031.29a271d7@gandalf.local.home>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Wed, 13 Jul 2022 09:40:28 -0400
-Message-ID: <CAK-6q+guYP=X-QKayUeHc_a2r363K9=ES9sakKu9WYB908-0Bg@mail.gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [Cluster-devel] [PATCH/RFC] java: add initial bindings
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [Cluster-devel] [PATCH] mkfs.gfs2: Add -U UUID option
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,112 +62,126 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel <cluster-devel@redhat.com>, linux-trace-devel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Hi,
+Allow the user to specify the filesystem UUID, similar to mkfs.ext4's -U
+option.
 
-On Fri, Jul 8, 2022 at 2:31 PM Steven Rostedt <rostedt@goodmis.org> wrote:
->
-> On Mon, 20 Jun 2022 16:45:39 -0400
-> Alexander Aring <aahringo@redhat.com> wrote:
->
-> Hi Alexander!
->
->
-> > This patch adds basic java bindings for libtracecmd. It currently
-> > supports very basic handling of parsing trace-cmd recorded trace files.
-> > There might of course additional improvements regarding swig bindings and
-> > the memory handling. E.g. in javas builtin iterator for-each handling
-> > everything will keep in memory. The license for the high-level java
-> > bindings jar file is LGPL-2.1 and is the same as libtracecmd.
-> >
-> > The author of this patch created a java application that uses those java
-> > bindings to trace locks and represent them in graphical GANTT diagram,
-> > see [0].
-> >
-> > You need to set the JAVA_HOME environment variable to let the Makefile know
-> > that it builds the java bindings. This is somehow standard in the java world
-> > as replacement for pkg-config or similar. There should no trace-cmd java
-> > dependency, the recommended way should be to provide a kind of trace-cmd-java
-> > package from your distribution containing the tracecmd.jar and
-> > libctracecmdjava.so. This package would have then a java dependency to
-> > e.g. OpenJDK, that I was using to test those bindings for.
-> >
-> > The author is not a swig expert but it works as it currently is. Also
-> > the author did not hit issues because memory _yet_. Those are beginning
-> > experimental bindings and can be changed/improved in future.
->
->
-> Are you "the author"?
->
+Signed-off-by: Andrew Price <anprice@redhat.com>
+---
+ gfs2/man/mkfs.gfs2.8  |  6 ++++++
+ gfs2/mkfs/main_mkfs.c | 19 +++++++++++++++++--
+ tests/mkfs.at         | 10 ++++++++++
+ 3 files changed, 33 insertions(+), 2 deletions(-)
 
-yes.
-
-> Could you rephrase this better?
->
-> Like:
->
-> "There may be better ways to do this with swig, but this appears to work as
-> is, as there were no issues because of memory _yet_."
->
-> That is, please try to rewrite the change log without referring to yourself.
->
-
-okay.
-
-> >
-> > [0] https://gitlab.com/netcoder/dlm2slog2
-> > Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> > ---
-> >  .gitignore                        |   4 +
-> >  Makefile                          |  60 ++++++-
-> >  java/Makefile                     |  39 +++++
-> >  java/TraceCmd.java                | 236 +++++++++++++++++++++++++
-> >  java/TraceCmdEvent.java           | 277 ++++++++++++++++++++++++++++++
-> >  java/TraceCmdException.java       |  16 ++
-> >  java/TraceCmdField.java           | 104 +++++++++++
-> >  java/ctracecmdjava.i              | 180 +++++++++++++++++++
-> >  java/example/Makefile             |   7 +
-> >  java/example/TraceCmdExample.java |  33 ++++
-> >  10 files changed, 953 insertions(+), 3 deletions(-)
-> >  create mode 100644 java/Makefile
-> >  create mode 100644 java/TraceCmd.java
-> >  create mode 100644 java/TraceCmdEvent.java
-> >  create mode 100644 java/TraceCmdException.java
-> >  create mode 100644 java/TraceCmdField.java
-> >  create mode 100644 java/ctracecmdjava.i
-> >  create mode 100644 java/example/Makefile
-> >  create mode 100644 java/example/TraceCmdExample.java
-> >
->
-> I'm not a swig nor Java expert, and will likely not even test this code.
-> But I'm happy to include it if it doesn't break anything that I do test.
-> But if anyone complains of breakage, I'll simply point them to you ;-)
->
-> Are you OK with that?
->
-> Hmm, I should add a MAINTAINERS file to add people that support different
-> portions of trace-cmd.
->
-
-I already created a new project trace-cmd-java [0]. This will static
-link against libtracecmd and their dependencies. At the end it
-produces a binary blob for the java bindings. The advantage here is
-that I have full control over the used version of libtracecmd and
-their dependencies.
-
-I would like to go this way and see how it goes. Meanwhile I can do
-more testing and cleanups. I may come back again to bring it upstream.
-
-- Alex
-
-[0] https://gitlab.com/netcoder/trace-cmd-java
+diff --git a/gfs2/man/mkfs.gfs2.8 b/gfs2/man/mkfs.gfs2.8
+index 58742dea..0ddc074e 100644
+--- a/gfs2/man/mkfs.gfs2.8
++++ b/gfs2/man/mkfs.gfs2.8
+@@ -123,6 +123,12 @@ unique file system name used to distinguish this gfs2 file system.  Valid
+ \fIclustername\fRs and \fIlockspace\fRs may only contain alphanumeric
+ characters, hyphens (-) and underscores (_).
+ .TP
++\fB-U\fP \fIUUID\fR
++Specify the filesystem UUID. The argument must be string of hexadecimal digits
++separated by hyphens, of the form "1b4e28ba-2fa1-11d2-883f-b9a761bde3fb". If
++this option is omitted, the filesystem's UUID is randomly generated. Note that
++no attempt is made to prevent UUID clashes between filesystems on the system.
++.TP
+ \fB-V\fP
+ Print program version information, then exit.
+ .TP
+diff --git a/gfs2/mkfs/main_mkfs.c b/gfs2/mkfs/main_mkfs.c
+index 37ed5d08..f552f934 100644
+--- a/gfs2/mkfs/main_mkfs.c
++++ b/gfs2/mkfs/main_mkfs.c
+@@ -52,6 +52,7 @@ static void print_usage(const char *prog_name)
+ 	    "-q", NULL,          _("Don't print anything"),
+ 	    "-r", _("<size>"),   _("Size of resource groups, in megabytes"),
+ 	    "-t", _("<name>"),   _("Name of the lock table"),
++	    "-U", _("<UUID>"),   _("The UUID of the file system"),
+ 	    "-V", NULL,          _("Display program version information, then exit"),
+ 	    NULL, NULL, NULL /* Must be kept at the end */
+ 	};
+@@ -121,6 +122,7 @@ struct mkfs_opts {
+ 	int journals;
+ 	const char *lockproto;
+ 	const char *locktable;
++	const char *uuid;
+ 	struct mkfs_dev dev;
+ 	unsigned discard:1;
+ 
+@@ -137,6 +139,7 @@ struct mkfs_opts {
+ 	unsigned got_device:1;
+ 	unsigned got_topol:1;
+ 	unsigned got_format:1;
++	unsigned got_uuid:1;
+ 
+ 	unsigned override:1;
+ 	unsigned quiet:1;
+@@ -352,7 +355,7 @@ static int opts_get(int argc, char *argv[], struct mkfs_opts *opts)
+ 	int ret;
+ 	int c;
+ 	while (1) {
+-		c = getopt(argc, argv, "-b:c:DhJ:j:KOo:p:qr:t:V");
++		c = getopt(argc, argv, "-b:c:DhJ:j:KOo:p:qr:t:U:V");
+ 		if (c == -1)
+ 			break;
+ 
+@@ -405,6 +408,10 @@ static int opts_get(int argc, char *argv[], struct mkfs_opts *opts)
+ 			if (ret != 0)
+ 				return ret;
+ 			break;
++		case 'U':
++			opts->uuid = optarg;
++			opts->got_uuid = 1;
++			break;
+ 		case 'V':
+ 			printf("mkfs.gfs2 %s (built %s %s)\n", VERSION,
+ 			       __DATE__, __TIME__);
+@@ -1062,7 +1069,15 @@ static int sbd_init(struct lgfs2_sbd *sdp, struct mkfs_opts *opts, unsigned bsiz
+ 	sdp->sd_multihost_format = GFS2_FORMAT_MULTI;
+ 	sdp->sd_bsize = bsize;
+ 	sdp->sd_bsize_shift = ffs(bsize) - 1;
+-	uuid_generate(sdp->sd_uuid);
++
++	if (opts->got_uuid) {
++		int err = uuid_parse(opts->uuid, sdp->sd_uuid);
++		if (err != 0) {
++			fprintf(stderr, _("Failed to parse UUID option."));
++			return -1;
++		}
++	} else
++		uuid_generate(sdp->sd_uuid);
+ 
+ 	if (lgfs2_compute_constants(sdp)) {
+ 		perror(_("Failed to compute file system constants"));
+diff --git a/tests/mkfs.at b/tests/mkfs.at
+index 09a3ed29..298daf3d 100644
+--- a/tests/mkfs.at
++++ b/tests/mkfs.at
+@@ -188,3 +188,13 @@ GFS_TGT_SIZE(64M)
+ AT_CHECK([$GFS_MKFS -p lock_nolock -j2 $GFS_TGT], 0, [ignore], [ignore])
+ AT_CHECK([fsck.gfs2 -n $GFS_TGT], 0, [ignore], [ignore])
+ AT_CLEANUP
++
++AT_SETUP([UUID option])
++AT_KEYWORDS(mkfs.gfs2 mkfs)
++GFS_TGT_REGEN
++AT_CHECK([$GFS_MKFS -p lock_nolock $GFS_TGT -U], 255, [ignore], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -U 42 $GFS_TGT], 255, [ignore], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -U 1b4e28ba-2fa1-11d2-883f-b9a761bde3fb4 $GFS_TGT], 255, [ignore], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -U 1b4e28ba-2fa1-11d2-883f-b9a761bde3f $GFS_TGT], 255, [ignore], [ignore])
++GFS_FSCK_CHECK([$GFS_MKFS -p lock_nolock -U 1b4e28ba-2fa1-11d2-883f-b9a761bde3fb $GFS_TGT])
++AT_CLEANUP
+-- 
+2.36.1
 
