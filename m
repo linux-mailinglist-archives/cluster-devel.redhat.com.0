@@ -1,58 +1,61 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE2F457ABC2
-	for <lists+cluster-devel@lfdr.de>; Wed, 20 Jul 2022 03:15:34 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B75E57ABC3
+	for <lists+cluster-devel@lfdr.de>; Wed, 20 Jul 2022 03:15:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658279733;
+	s=mimecast20190719; t=1658279736;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NO2u/tQUp/56TJ4O10UOrmSW33pPvzVfPcivyaMV6aU=;
-	b=IxqTlff72Tu/mr9neohk0YATgVZUeLwnA+PY8Lq/sHCK9VYr0bBacALMtjHuC25inxMTQd
-	U7KW3XkAAIHm5zOAEPGq+thYPcA7sKgZ2BuVzu+7zb0PCzSwku714pHfwX0HXzxLi17qDj
-	irmkbjE5Z74hlJC3My64EOJWH+6zm9E=
+	bh=dWt32jxYWA0SETmiargAKf56SIE1uTwQ5VovyA/0aUY=;
+	b=QOtxutHev83mQK/nsrP5BB0hNn5RPO8HDi8H77Pqx+wtCsFGMg+2wObRSdmBd0FQ32JeQR
+	7ceHmwSUiz9BFWUZukQK3PYzxIPlxED9reIOtTnzBRSD0pqMS/Bsv1aP7dLQDbxiXiftJw
+	U3WBM62cWXxlSRzyAve+EXhCxY4JUtA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-608-LHAac2rhPSGztjxDKxF8XA-1; Tue, 19 Jul 2022 21:15:32 -0400
-X-MC-Unique: LHAac2rhPSGztjxDKxF8XA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-53-POdDlHT6OPGr9SIl_MACEw-1; Tue, 19 Jul 2022 21:15:33 -0400
+X-MC-Unique: POdDlHT6OPGr9SIl_MACEw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6C7A3C0D18A;
-	Wed, 20 Jul 2022 01:15:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38E051C05ABE;
+	Wed, 20 Jul 2022 01:15:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AC14A2166B26;
-	Wed, 20 Jul 2022 01:15:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2DE481121314;
+	Wed, 20 Jul 2022 01:15:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 723DB1947074;
-	Wed, 20 Jul 2022 01:15:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0CD8A1947074;
+	Wed, 20 Jul 2022 01:15:32 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9CDAE1945DA7 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id C0A381945DA7 for <cluster-devel@listman.corp.redhat.com>;
  Wed, 20 Jul 2022 01:15:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7E7091121319; Wed, 20 Jul 2022 01:15:30 +0000 (UTC)
+ id A61C2112131E; Wed, 20 Jul 2022 01:15:30 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 5BC391121315;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 874751121314;
  Wed, 20 Jul 2022 01:15:30 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Tue, 19 Jul 2022 21:15:25 -0400
-Message-Id: <20220720011526.2928876-1-aahringo@redhat.com>
+Date: Tue, 19 Jul 2022 21:15:26 -0400
+Message-Id: <20220720011526.2928876-2-aahringo@redhat.com>
+In-Reply-To: <20220720011526.2928876-1-aahringo@redhat.com>
+References: <20220720011526.2928876-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH dlm/next 1/2] fs: dlm: use __func__ for
- function name
+Subject: [Cluster-devel] [PATCH dlm/next 2/2] fs: dlm: handle -EINVAL as
+ log_error()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,7 +70,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -75,39 +78,67 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-There are several times of using hard-coded function names inside the
-format string. When changing code checkpatch will drop a warning about
-this. This patch prepares to not dropping a checkpatch warning when
-introduce the same log message for a different loglevel by using
-__func__ instead of a hard-coded function name.
+If the user generates a -EINVAL it's probably because the user using DLM
+wrong. To give the user notice about that wrong behaviour we should
+always print -EINVAL errors on the proper loglevel. In case of other
+errors like -EBUSY it will be still printed on debug loglevel as the
+current API handles it as "retry again".
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lock.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/dlm/lock.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
 diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index c23413da40f5..d8de4003ec6a 100644
+index d8de4003ec6a..7d5f94867e45 100644
 --- a/fs/dlm/lock.c
 +++ b/fs/dlm/lock.c
-@@ -2901,7 +2901,7 @@ static int validate_lock_args(struct dlm_ls *ls, struct dlm_lkb *lkb,
+@@ -2900,11 +2900,21 @@ static int validate_lock_args(struct dlm_ls *ls, struct dlm_lkb *lkb,
+ #endif
  	rv = 0;
   out:
- 	if (rv)
--		log_debug(ls, "validate_lock_args %d %x %x %x %d %d %s",
-+		log_debug(ls, "%s %d %x %x %x %d %d %s", __func__,
+-	if (rv)
++	switch (rv) {
++	case -EINVAL:
++		log_error(ls, "%s %d %x %x %x %d %d %s", __func__,
++			  rv, lkb->lkb_id, lkb->lkb_flags, args->flags,
++			  lkb->lkb_status, lkb->lkb_wait_type,
++			  lkb->lkb_resource->res_name);
++		break;
++	default:
+ 		log_debug(ls, "%s %d %x %x %x %d %d %s", __func__,
  			  rv, lkb->lkb_id, lkb->lkb_flags, args->flags,
  			  lkb->lkb_status, lkb->lkb_wait_type,
  			  lkb->lkb_resource->res_name);
-@@ -3038,7 +3038,7 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
++		break;
++	}
++
+ 	return rv;
+ }
+ 
+@@ -3037,11 +3047,21 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
+ 	lkb->lkb_astparam = args->astparam;
  	rv = 0;
   out:
- 	if (rv)
--		log_debug(ls, "validate_unlock_args %d %x %x %x %x %d %s", rv,
-+		log_debug(ls, "%s %d %x %x %x %x %d %s", __func__, rv,
+-	if (rv)
++	switch (rv) {
++	case -EINVAL:
++		log_error(ls, "%s %d %x %x %x %x %d %s", __func__, rv,
++			  lkb->lkb_id, lkb->lkb_flags, lkb->lkb_exflags,
++			  args->flags, lkb->lkb_wait_type,
++			  lkb->lkb_resource->res_name);
++		break;
++	default:
+ 		log_debug(ls, "%s %d %x %x %x %x %d %s", __func__, rv,
  			  lkb->lkb_id, lkb->lkb_flags, lkb->lkb_exflags,
  			  args->flags, lkb->lkb_wait_type,
  			  lkb->lkb_resource->res_name);
++		break;
++	}
++
+ 	return rv;
+ }
+ 
 -- 
 2.31.1
 
