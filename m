@@ -1,61 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2547F5804DF
-	for <lists+cluster-devel@lfdr.de>; Mon, 25 Jul 2022 21:53:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BFC45805CA
+	for <lists+cluster-devel@lfdr.de>; Mon, 25 Jul 2022 22:38:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658778814;
+	s=mimecast20190719; t=1658781532;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cUZPffc2iGWAkRDa4SlYxAuEhSJ5M3HLG7UhtiIHZEo=;
-	b=MjsIn74ncoDyaSHnBxxxUxs12FeD8wdrA9ZcysPxjNX0gEn5ID6TYopojrWv83yaKADY+5
-	3/5+T2qS+QHdTE4zkIa7a6ZTEjVe9V1+kSLQ18hY0kOB8LESKZYtJk+sMPodJK9LjkybJp
-	VHs1Ho42UhYR0juis83ZHp2h8jhA4pI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=sogPp70ZC2D8gfw2PwjlEtTgvtGFqDXiU9fOvLqURpk=;
+	b=M1HAl0q/lWrU1NoMmpj28NJL8TZ4z1mbZNrGDpOY5ZUUcNOKH5LmSRET/Cre/KTDOGHqCs
+	GOXnfD/uKJQsaLutcu2+2y6CmRtVmNMi1yjwGcM6sn48utJbu+fXhpNdFfl8G8n2HCt3Ow
+	Y9vAf2Pm7BRJPsaidLUFJSxBvdKW44Q=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-608-m_3BzUfVMdCh4hwau1OP7Q-1; Mon, 25 Jul 2022 15:53:30 -0400
-X-MC-Unique: m_3BzUfVMdCh4hwau1OP7Q-1
+ us-mta-627-8vZa_j82NmujLCDNRCiyNQ-1; Mon, 25 Jul 2022 16:38:48 -0400
+X-MC-Unique: 8vZa_j82NmujLCDNRCiyNQ-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B3EB185A7A4;
-	Mon, 25 Jul 2022 19:53:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF33A380114D;
+	Mon, 25 Jul 2022 20:38:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5F7672166B26;
-	Mon, 25 Jul 2022 19:53:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E3C512166B26;
+	Mon, 25 Jul 2022 20:38:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F07AD1945D89;
-	Mon, 25 Jul 2022 19:53:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4B24E1945D96;
+	Mon, 25 Jul 2022 20:38:46 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C718A1945D83 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 25 Jul 2022 19:53:25 +0000 (UTC)
+ ESMTP id 947CB1945D86 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 25 Jul 2022 20:38:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 961692027EB5; Mon, 25 Jul 2022 19:53:25 +0000 (UTC)
+ id 8093B40C1288; Mon, 25 Jul 2022 20:38:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 73DAF2026614;
- Mon, 25 Jul 2022 19:53:25 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2B73B40C128A;
+ Mon, 25 Jul 2022 20:38:44 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Mon, 25 Jul 2022 15:53:22 -0400
-Message-Id: <20220725195322.857226-3-aahringo@redhat.com>
-In-Reply-To: <20220725195322.857226-1-aahringo@redhat.com>
-References: <20220725195322.857226-1-aahringo@redhat.com>
+Date: Mon, 25 Jul 2022 16:38:30 -0400
+Message-Id: <20220725203835.860277-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Cluster-devel] [PATCHv2 dlm/next 2/2] fs: dlm: fix race between
- test_bit() and queue_work()
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH dlm/next 0/5] fs: dlm: misc cleanups
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,7 +63,9 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, stable@vger.kernel.org
+Cc: linux-raid@vger.kernel.org, joseph.qi@linux.alibaba.com, mark@fasheh.com,
+ cluster-devel@redhat.com, song@kernel.org, jlbec@evilplan.org,
+ ocfs2-devel@oss.oracle.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
@@ -78,51 +76,39 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch will fix a race by surround ls_cb_mutex in set_bit() and the
-test_bit() and it's conditional code blocks for LSFL_CB_DELAY.
+Hi,
 
-The function dlm_callback_stop() has the idea to stop all callbacks and
-flush all currently queued onces. The set_bit() is not enough because
-there can be still queue_work() around after the workqueue was flushed.
-To avoid queue_work() after set_bit() we surround both by ls_cb_mutex
-lock.
+as I am working on some bigger change in the callback handling I
+separated this patch series from a bigger series. This series removes
+unused prototype, change a lock to spinlock because no sleepable
+context, adding traces for user space locks, moving DLM_LSFL_FS out of
+uapi because the user space should never set this flag and move
+LSFL_CB_DELAY to kernel space lockspaces only.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/ast.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+- Alex
 
-diff --git a/fs/dlm/ast.c b/fs/dlm/ast.c
-index 19ef136f9e4f..a44cc42b6317 100644
---- a/fs/dlm/ast.c
-+++ b/fs/dlm/ast.c
-@@ -200,13 +200,13 @@ void dlm_add_cb(struct dlm_lkb *lkb, uint32_t flags, int mode, int status,
- 	if (!prev_seq) {
- 		kref_get(&lkb->lkb_ref);
- 
-+		mutex_lock(&ls->ls_cb_mutex);
- 		if (test_bit(LSFL_CB_DELAY, &ls->ls_flags)) {
--			mutex_lock(&ls->ls_cb_mutex);
- 			list_add(&lkb->lkb_cb_list, &ls->ls_cb_delay);
--			mutex_unlock(&ls->ls_cb_mutex);
- 		} else {
- 			queue_work(ls->ls_callback_wq, &lkb->lkb_cb_work);
- 		}
-+		mutex_unlock(&ls->ls_cb_mutex);
- 	}
-  out:
- 	mutex_unlock(&lkb->lkb_cb_mutex);
-@@ -288,7 +288,9 @@ void dlm_callback_stop(struct dlm_ls *ls)
- 
- void dlm_callback_suspend(struct dlm_ls *ls)
- {
-+	mutex_lock(&ls->ls_cb_mutex);
- 	set_bit(LSFL_CB_DELAY, &ls->ls_flags);
-+	mutex_unlock(&ls->ls_cb_mutex);
- 
- 	if (ls->ls_callback_wq)
- 		flush_workqueue(ls->ls_callback_wq);
+Alexander Aring (5):
+  fs: dlm: remove dlm_del_ast prototype
+  fs: dlm: change ls_clear_proc_locks to spinlock
+  fs: dlm: trace user space callbacks
+  fs: dlm: move DLM_LSFL_FS out of uapi
+  fs: dlm: LSFL_CB_DELAY only for kernel lockspaces
+
+ drivers/md/md-cluster.c    |  4 ++--
+ fs/dlm/ast.c               | 13 +++++++------
+ fs/dlm/ast.h               |  1 -
+ fs/dlm/dlm_internal.h      |  2 +-
+ fs/dlm/lock.c              | 32 ++++++++++++++++++++++++--------
+ fs/dlm/lockspace.c         | 30 +++++++++++++++++++++++++-----
+ fs/dlm/lockspace.h         | 13 +++++++++++++
+ fs/dlm/user.c              | 17 +++++++++++------
+ fs/gfs2/lock_dlm.c         |  2 +-
+ fs/ocfs2/stack_user.c      |  2 +-
+ include/linux/dlm.h        |  3 ---
+ include/trace/events/dlm.h | 23 +++++++++++++----------
+ include/uapi/linux/dlm.h   |  1 -
+ 13 files changed, 98 insertions(+), 45 deletions(-)
+
 -- 
 2.31.1
 
