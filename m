@@ -1,57 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31B6E5819D5
-	for <lists+cluster-devel@lfdr.de>; Tue, 26 Jul 2022 20:38:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6F8F5819DF
+	for <lists+cluster-devel@lfdr.de>; Tue, 26 Jul 2022 20:40:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658860698;
+	s=mimecast20190719; t=1658860853;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xHNfxWL0mIohUoQOpDfaEHJ2sIfsY/PX1t1gLjbeTyA=;
-	b=PW5DrutazOASRykHPDlwm5KlZPPnuN1+w+l9PQKf3Y9+WZbGnbTQsHkG1cVKjwghdeY00X
-	syL3WDfcZaq/pvoZchBMwYUwM/UxdTkLCsuvZhjc8MJ6vXF1MtEUyk1SikEssWSzko3xg/
-	8ZsJM+CXEBas/LAI61teVDMt/ZHE4xI=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=rlzc8RrcbhYo1N1/OHMXbWZGXmGUhQ7FN9VTnFVMgSE=;
+	b=VmHUxh5qXeMydbscYzeML1eLts04GWGG9FhXD6VvwfrZ4XpNNQdQ4BNhLo3v5twAKU0VS9
+	e3ptJ7Ch9/q2n6XI7zzwDaNAxzI5HlOJqNCJIkMtbcOOYoILhouLiCx0nBLzB/1Bc9mxwm
+	T4cqj5BnIplO6UaNvF233cGhWA/jHOU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-203-wg_j0HMkO2OZzbgQAs-elQ-1; Tue, 26 Jul 2022 14:38:14 -0400
-X-MC-Unique: wg_j0HMkO2OZzbgQAs-elQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-550-nsdNnxllNZmCwBv7KM2SHQ-1; Tue, 26 Jul 2022 14:40:46 -0400
+X-MC-Unique: nsdNnxllNZmCwBv7KM2SHQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 039461C1BD24;
-	Tue, 26 Jul 2022 18:38:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E81D18E0043;
+	Tue, 26 Jul 2022 18:40:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D259C492CA2;
-	Tue, 26 Jul 2022 18:38:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 72ACA1415118;
+	Tue, 26 Jul 2022 18:40:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9072E1945D8F;
-	Tue, 26 Jul 2022 18:38:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3FA141945D8F;
+	Tue, 26 Jul 2022 18:40:45 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E34BC1945D86 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 26 Jul 2022 18:38:09 +0000 (UTC)
+ ESMTP id D32CE1945D86 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 26 Jul 2022 18:40:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C78A940CFD0A; Tue, 26 Jul 2022 18:38:09 +0000 (UTC)
+ id B0A1B2026985; Tue, 26 Jul 2022 18:40:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A3842404C324;
- Tue, 26 Jul 2022 18:38:09 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 82A902026D64;
+ Tue, 26 Jul 2022 18:40:43 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: rpeterso@redhat.com
-Date: Tue, 26 Jul 2022 14:38:01 -0400
-Message-Id: <20220726183801.1005291-1-aahringo@redhat.com>
+Date: Tue, 26 Jul 2022 14:40:42 -0400
+Message-Id: <20220726184042.1005918-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [Cluster-devel] [RFC PATCH gfs2/for-next] fs: dlm: do retry
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: [Cluster-devel] [PATCH RFC v2 dlm/next] fs: gfs2: do retry
  workaround on other dlm API calls
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -67,7 +67,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -116,6 +116,10 @@ race happens.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
+
+changes since v2:
+ - fix fs/dlm to fs/gfs2 - sorry about that
+
  fs/gfs2/lock_dlm.c | 18 ++++++++++++++++--
  1 file changed, 16 insertions(+), 2 deletions(-)
 
