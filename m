@@ -2,57 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6F8F5819DF
-	for <lists+cluster-devel@lfdr.de>; Tue, 26 Jul 2022 20:40:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A9E582A8E
+	for <lists+cluster-devel@lfdr.de>; Wed, 27 Jul 2022 18:21:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658860853;
+	s=mimecast20190719; t=1658938881;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rlzc8RrcbhYo1N1/OHMXbWZGXmGUhQ7FN9VTnFVMgSE=;
-	b=VmHUxh5qXeMydbscYzeML1eLts04GWGG9FhXD6VvwfrZ4XpNNQdQ4BNhLo3v5twAKU0VS9
-	e3ptJ7Ch9/q2n6XI7zzwDaNAxzI5HlOJqNCJIkMtbcOOYoILhouLiCx0nBLzB/1Bc9mxwm
-	T4cqj5BnIplO6UaNvF233cGhWA/jHOU=
+	bh=q/oB+7IYfXXab9ExiYj3ka0/IEFJ6onLyCCtS7kIyGw=;
+	b=OL0OQDO7H1VifG48wFiqDXkRC3x+2R/DWLzbKkeys8Qr55bC+ZGev1mFYAe0qj+sSqnLKL
+	XBfa3f6woYgvy1vEsOkv5q1xW8bDpdPCDhrXTzy60zYuNjvvVX54i87djvzqb/uieMQWJU
+	dvQoVQ0R6i5jrDryBVpeM74sjx/yrNc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-550-nsdNnxllNZmCwBv7KM2SHQ-1; Tue, 26 Jul 2022 14:40:46 -0400
-X-MC-Unique: nsdNnxllNZmCwBv7KM2SHQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-556-YOMMOYObNemqtWNbjk1KtQ-1; Wed, 27 Jul 2022 12:21:17 -0400
+X-MC-Unique: YOMMOYObNemqtWNbjk1KtQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E81D18E0043;
-	Tue, 26 Jul 2022 18:40:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5933E185A7BA;
+	Wed, 27 Jul 2022 16:21:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 72ACA1415118;
-	Tue, 26 Jul 2022 18:40:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4E3E840CFD0A;
+	Wed, 27 Jul 2022 16:21:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3FA141945D8F;
-	Tue, 26 Jul 2022 18:40:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 20F141945DA9;
+	Wed, 27 Jul 2022 16:21:16 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D32CE1945D86 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 26 Jul 2022 18:40:43 +0000 (UTC)
+ ESMTP id 08FCA1945DA2 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 27 Jul 2022 16:02:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B0A1B2026985; Tue, 26 Jul 2022 18:40:43 +0000 (UTC)
+ id D0686403D0E0; Wed, 27 Jul 2022 16:02:22 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 82A902026D64;
- Tue, 26 Jul 2022 18:40:43 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: rpeterso@redhat.com
-Date: Tue, 26 Jul 2022 14:40:42 -0400
-Message-Id: <20220726184042.1005918-1-aahringo@redhat.com>
+Received: from vishnu.users.ipa.redhat.com (unknown [10.2.16.106])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A92EB4047D22
+ for <cluster-devel@redhat.com>; Wed, 27 Jul 2022 16:02:22 +0000 (UTC)
+From: Bob Peterson <rpeterso@redhat.com>
+To: cluster-devel <cluster-devel@redhat.com>
+Date: Wed, 27 Jul 2022 11:02:19 -0500
+Message-Id: <20220727160222.227803-1-rpeterso@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Cluster-devel] [PATCH RFC v2 dlm/next] fs: gfs2: do retry
- workaround on other dlm API calls
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH 0/3] Misc withdraw patches
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,105 +62,39 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cluster-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch will do a retry on -EBUSY dlm API return value when it's not a
-dlm_unlock() call with either DLM_LKF_CANCEL or DLM_LKF_FORCEUNLOCK. All
-other API calls can occur a -EBUSY return value and the DLM user needs
-to handle it as a retry again for now.
+This patch set fixes a few bugs in how gfs2 handles file systems after
+withdraw. In an ideal world, after a file system is withdrawn, users
+should be able to unmount the file system without problems. However, we
+discovered three problems that prevented clean unmounts:
 
-The reason why we need a -EBUSY in all other cases is because
-dlm_recover_waiters_post() function in DLM. This function is happening
-when dlm recovery recovers lock states. In some cases it will trigger
-new lock requests as:
+1. A duplicate iput of the journal after attempted recovery caused
+   kernel panics after withdraw.
+2. After withdraw, unmount would hang for its alloted timeout period
+   when glocks had waiters queued that, due to the withdraw, could
+   never be granted.
+3. Unmount would similarly hang when the withdraw prevented an outgoing
+   request to dlm, but so the glock was never unlocked.
 
-if (oc || ou) {
-	...
-} else {
-	switch (mstype) {
-	case DLM_MSG_LOOKUP:
-	case DLM_MSG_REQUEST:
-		_request_lock(r, lkb);
-		if (is_master(r))
-			confirm_master(r, 0);
-		break;
-	case DLM_MSG_CONVERT:
-                _convert_lock(r, lkb);
-                break;
-        default:
-		err = 1;
-        }
-}
+Bob Peterson (3):
+  gfs2: Prevent double iput for journal on error
+  gfs2: Dequeue waiters when withdrawn
+  gfs2: Clear GLF_LOCK when withdraw prevents xmote
 
-The problem begins on what dlm recovery is doing afterwards. Those
-requests are not synchronized and there could be pending messages around.
-There exists a race between handling those messages, dlm unlocks dlm API
-for accepting new dlm requests and the dlm user triggers new requests
-immediate afterwards. If the DLM user triggers new requests it can clash
-with the above requests triggered by DLM internally because the pending
-messages are still around. This behaviour is unpredictable and the user
-has only knowledge about it if new requests returning -EBUSY. For now we
-need to add retry cases everywhere to retry lock requests if the above
-race happens.
+ fs/gfs2/glock.c | 33 ++++++++++++++++++++++++++++++++-
+ fs/gfs2/glock.h |  1 +
+ fs/gfs2/util.c  | 16 ++++++++++++++++
+ 3 files changed, 49 insertions(+), 1 deletion(-)
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
-
-changes since v2:
- - fix fs/dlm to fs/gfs2 - sorry about that
-
- fs/gfs2/lock_dlm.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/fs/gfs2/lock_dlm.c b/fs/gfs2/lock_dlm.c
-index 2559a79cf14b..5c2eba142e9e 100644
---- a/fs/gfs2/lock_dlm.c
-+++ b/fs/gfs2/lock_dlm.c
-@@ -519,8 +519,15 @@ static int sync_unlock(struct gfs2_sbd *sdp, struct dlm_lksb *lksb, char *name)
- 	struct lm_lockstruct *ls = &sdp->sd_lockstruct;
- 	int error;
- 
-+again:
- 	error = dlm_unlock(ls->ls_dlm, lksb->sb_lkid, 0, lksb, ls);
--	if (error) {
-+	switch (error) {
-+	case 0:
-+		break;
-+	case -EBUSY:
-+		msleep(20);
-+		goto again;
-+	default:
- 		fs_err(sdp, "%s lkid %x error %d\n",
- 		       name, lksb->sb_lkid, error);
- 		return error;
-@@ -546,10 +553,17 @@ static int sync_lock(struct gfs2_sbd *sdp, int mode, uint32_t flags,
- 	memset(strname, 0, GDLM_STRNAME_BYTES);
- 	snprintf(strname, GDLM_STRNAME_BYTES, "%8x%16x", LM_TYPE_NONDISK, num);
- 
-+again:
- 	error = dlm_lock(ls->ls_dlm, mode, lksb, flags,
- 			 strname, GDLM_STRNAME_BYTES - 1,
- 			 0, sync_wait_cb, ls, NULL);
--	if (error) {
-+	switch (error) {
-+	case 0:
-+		break;
-+	case -EBUSY:
-+		msleep(20);
-+		goto again;
-+	default:
- 		fs_err(sdp, "%s lkid %x flags %x mode %d error %d\n",
- 		       name, lksb->sb_lkid, flags, mode, error);
- 		return error;
 -- 
-2.31.1
+2.36.1
 
