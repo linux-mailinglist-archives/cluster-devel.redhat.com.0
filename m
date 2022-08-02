@@ -1,94 +1,93 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B1DF587E39
-	for <lists+cluster-devel@lfdr.de>; Tue,  2 Aug 2022 16:37:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 24343587E5B
+	for <lists+cluster-devel@lfdr.de>; Tue,  2 Aug 2022 16:47:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659451069;
+	s=mimecast20190719; t=1659451668;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=cNP5EZ3r/dlLPlMclsuhtYwwk/4kudaU9iW2Y3Cuv+Y=;
-	b=QlCA9jK5NRl5i3V07z98sKrsjMNuXZa3CUZsrw3mWdSo5kdOew6iVxPsOqI3oXl4EGOlXu
-	xJDNnkCkS5PnkruYcLqmq0MwPds9c9xiD0VZCQhZoqrsY0AIAZXOeR9MDAZFw+C9pi2rcg
-	EeBgkcElMhYAg+r4YqH7ntrSIzxk/a8=
+	 list-subscribe:list-post; bh=8913fqrTgN/UIafQ7uUJ+klCcDi1NTu0FfS6Y8Lyg0M=;
+	b=ItpVK/mF6oTeuVLsB2WQeBDX75889mUELr3WM1J43a70fzTJXhaCIYCYfP90Qj2My4Y6Sm
+	UykPLZ6y+K+AhXiftSoAaqwe7DpTcm2p88uTifNWi0Vkjf5dWhX1pHpYfE+zuSrdFqHcXT
+	BGreaHndWAbN2a50VFsgEpkKbVIj7r0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-424-MJmJpeDqNwK5lZ4rzu3f7w-1; Tue, 02 Aug 2022 10:37:43 -0400
-X-MC-Unique: MJmJpeDqNwK5lZ4rzu3f7w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-159-qIdGIgQrNZqEdvCZReIPnA-1; Tue, 02 Aug 2022 10:47:44 -0400
+X-MC-Unique: qIdGIgQrNZqEdvCZReIPnA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB9C318A6585;
-	Tue,  2 Aug 2022 14:37:42 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 483702026D4C;
-	Tue,  2 Aug 2022 14:37:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 85DBE85A5B9;
+	Tue,  2 Aug 2022 14:47:43 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 38DA51121319;
+	Tue,  2 Aug 2022 14:47:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D078E1946A4E;
-	Tue,  2 Aug 2022 14:37:40 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E11DC1946A50;
+	Tue,  2 Aug 2022 14:47:42 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 328291946A4C for <cluster-devel@listman.corp.redhat.com>;
- Tue,  2 Aug 2022 14:37:40 +0000 (UTC)
+ ESMTP id 6AE711946A50 for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  2 Aug 2022 14:47:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 27F26400DEF8; Tue,  2 Aug 2022 14:37:40 +0000 (UTC)
+ id 520E9401E5C; Tue,  2 Aug 2022 14:47:41 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 23FBE400EAB2
- for <cluster-devel@redhat.com>; Tue,  2 Aug 2022 14:37:40 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E8C0492C3B
+ for <cluster-devel@redhat.com>; Tue,  2 Aug 2022 14:47:40 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C4601C1F1E6
- for <cluster-devel@redhat.com>; Tue,  2 Aug 2022 14:37:40 +0000 (UTC)
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C52B3815D32
+ for <cluster-devel@redhat.com>; Tue,  2 Aug 2022 14:47:40 +0000 (UTC)
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-28-d0eHpqL7PaG50NWLIrg1qw-1; Tue, 02 Aug 2022 10:37:39 -0400
-X-MC-Unique: d0eHpqL7PaG50NWLIrg1qw-1
-Received: by mail-pj1-f70.google.com with SMTP id
- k7-20020a17090a62c700b001ef9c16ba10so10272669pjs.1
- for <cluster-devel@redhat.com>; Tue, 02 Aug 2022 07:37:38 -0700 (PDT)
+ us-mta-654-CodF7rL9MqCxAtz2i20HHA-1; Tue, 02 Aug 2022 10:47:39 -0400
+X-MC-Unique: CodF7rL9MqCxAtz2i20HHA-1
+Received: by mail-pj1-f72.google.com with SMTP id
+ o3-20020a17090a0a0300b001f3112a9f1cso6273625pjo.8
+ for <cluster-devel@redhat.com>; Tue, 02 Aug 2022 07:47:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=cNP5EZ3r/dlLPlMclsuhtYwwk/4kudaU9iW2Y3Cuv+Y=;
- b=Neksy00dK2IKiMrWiyjtU8MQab8RqD+EhmvyedJxuNqmt+qc4ZCKYgfphh18ETBEzz
- q0skroSuJUFj3/iibxII4SGb7NyUlg46y3pb0hPe1JSMfQy5R9u0oY0HrRI/gHGQXTGG
- wLFvHH2o38RZTSXs9nb3Iip/RX/jU2nErThiarL+AHCAyzRc9YU+jqkHoB39Nxvdu2FC
- kq6kuOY8fZfMve6/2I6YkpxTsVdLQMiM8QU0CDTCGOveCH49jTqDTADojJ+ioytsuJqJ
- BtISB+a100J4GNUzauTbyXaBWMxk1+U5p67kCspI9VhqKM+Bfh+dbImxAWZ2RMFcumOt
- d8aw==
-X-Gm-Message-State: ACgBeo0bCB2TZ00+CZ8t6XcEuBsgtGjorCQ1TSZ4K8Nss9498pT0iSAJ
- xytn/v0/hb9M24q7TKTHoZnwaEQDQa9U+EWwdGoWIAQsG4ZaLI8MtSuNjb4dydwy+CIalnbhXFf
- dcNEuovwLWyA7SszQZDF+xBr8iyoVm1TpxbFsew==
-X-Received: by 2002:a17:90b:2248:b0:1f2:5de5:29a7 with SMTP id
- hk8-20020a17090b224800b001f25de529a7mr25940958pjb.197.1659451057528; 
- Tue, 02 Aug 2022 07:37:37 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR4XMFVktVsuhLen2f3zCKk/LDdnYXgB6XW3yWHTw5RWd8EQhvEMTrLdRxIL4FJscwH+fEkv5teROvSfkgCpohw=
-X-Received: by 2002:a17:90b:2248:b0:1f2:5de5:29a7 with SMTP id
- hk8-20020a17090b224800b001f25de529a7mr25940932pjb.197.1659451057251; Tue, 02
- Aug 2022 07:37:37 -0700 (PDT)
+ bh=8913fqrTgN/UIafQ7uUJ+klCcDi1NTu0FfS6Y8Lyg0M=;
+ b=pLd2JGtS1Nu2ij0T6aSDr8cVpKddk59PCQH4mIsZOf0H75WEK6vGRC77tQpAnt6qRK
+ yYGZJDNaTwt+R3ebI/5YlF7uenEcQ11WFl8EqnvCcM3u5jv78JfJ0tBqqAoBRNSuLHRi
+ pbSEkm/zBqi/gcFzHW/VvH8V6KHosZd6WnDgWDhVNLydDrtcqgcAmVwJv5sR7MnOIlqP
+ yda35QMO5ZSqu3CufgviDjj/4zrmTNR7gZmPzI+exSLjH2F8Eoh4PgD2wK9ysHIbB5by
+ XgxrRZa4cbWoU07wydT61DqlN9dZ4YUGTUBNhrILxgMThj/CtRFYPXlHcGfyo90XHlVw
+ o8iA==
+X-Gm-Message-State: ACgBeo16EIj9zLumy2TvwrEgJbhxEy81xQ5w9FuFeYypo3d7Wp8vR4Nh
+ Tjj/NaFQu3sm1DzisqnHNzC9L9t39sWLCJHRXVFPG5cQFlptOsU/1QHWh8uRm3fsgofrVxKHw6u
+ roSFhhpuQU6XrIEkg/XHKzNxyntyWMaOaQkLEfw==
+X-Received: by 2002:a17:902:f70c:b0:16d:20ef:7e42 with SMTP id
+ h12-20020a170902f70c00b0016d20ef7e42mr21757756plo.54.1659451658078; 
+ Tue, 02 Aug 2022 07:47:38 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR7KMMd1bsRtXzmWjOV2sDx56p6aP6nEhVKTrKklyahBKGpp6M0d/NuJ5Pfs0yZ+RnEgOakTSdGdGAYmwj7tvhk=
+X-Received: by 2002:a17:902:f70c:b0:16d:20ef:7e42 with SMTP id
+ h12-20020a170902f70c00b0016d20ef7e42mr21757732plo.54.1659451657794; Tue, 02
+ Aug 2022 07:47:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220727160222.227803-1-rpeterso@redhat.com>
- <20220727160222.227803-2-rpeterso@redhat.com>
-In-Reply-To: <20220727160222.227803-2-rpeterso@redhat.com>
+ <20220727160222.227803-3-rpeterso@redhat.com>
+In-Reply-To: <20220727160222.227803-3-rpeterso@redhat.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 2 Aug 2022 16:37:26 +0200
-Message-ID: <CAHc6FU7mn8dyU336ZUhoWtrKMexJS-gr38kf21q9CO0csxhzKA@mail.gmail.com>
+Date: Tue, 2 Aug 2022 16:47:26 +0200
+Message-ID: <CAHc6FU5kk1+v+xKWd8X4eMkX7w7KtFGk+MxCYuTQ3AcoWY87SA@mail.gmail.com>
 To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH 1/3] gfs2: Prevent double iput for
- journal on error
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [Cluster-devel] [PATCH 2/3] gfs2: Dequeue waiters when withdrawn
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,62 +102,82 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel <cluster-devel@redhat.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Jul 27, 2022 at 6:32 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> When a gfs2 file system is withdrawn, it requests recovery from another
-> cluster node. To do that, it evicts its journal from memory, but it
-> keeps the journal entry queued to the journals queue, jindex_list. After
-> recovery it tries to grab a new inode for its (recovered) journal. If it
-> cannot, it skips further recovery but its evicted journal is still on
-> the jindex list, which means unmount will try to iput it a second time
-> after it's been evicted. This second iput causes vfs to complain and BUG
-> out:
->
-> kernel BUG at fs/inode.c:1680!
->
-> To prevent this, this patch takes steps to dequeue the journal
-> descriptor from the list when it cannot get a replacement inode. So
-> unmount won't find it on the list and try to iput it again.
->
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> ---
->  fs/gfs2/util.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-> diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
-> index 8241029a2a5d..78cb12d0fba1 100644
-> --- a/fs/gfs2/util.c
-> +++ b/fs/gfs2/util.c
-> @@ -275,6 +275,17 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
->         if (IS_ERR(inode)) {
->                 fs_warn(sdp, "Reprocessing of jid %d failed with %ld.\n",
->                         sdp->sd_lockstruct.ls_jid, PTR_ERR(inode));
-> +               /*
-> +                * We couldn't get a replacement inode for our journal but we
-> +                * evicted the old one. So dequeue it from the journals queue,
-> +                * jindex_list, so that unmount doesn't do iput on it twice.
-> +                */
-> +               spin_lock(&sdp->sd_jindex_spin);
-> +               list_del(&sdp->sd_jdesc->jd_list);
-> +               sdp->sd_journals--;
-> +               spin_unlock(&sdp->sd_jindex_spin);
-> +               kfree(sdp->sd_jdesc);
-> +               sdp->sd_jdesc = NULL;
+On Wed, Jul 27, 2022 at 6:24 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> When a withdraw occurs, ordinary (not system) glocks may not be granted
+> anymore. This patch takes measures to remove any pending waiters from
+> the glocks that will never be granted.
 
-Wouldn't it make more sense to set sdp->sd_jdesc->jd_inode to NULL
-where we call iput() on that inode? An iput(NULL) is a no-op, so we'd
-not need to change gfs2_jindex_free() to make that work.
+You kind of explain why this patch is useful in the cover letter, but
+not here. Could you please add that description here?
 
 Thanks,
 Andreas
 
->                 goto skip_recovery;
+> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+> ---
+>  fs/gfs2/glock.c | 14 ++++++++++++++
+>  fs/gfs2/glock.h |  1 +
+>  fs/gfs2/util.c  |  5 +++++
+>  3 files changed, 20 insertions(+)
+>
+> diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+> index e540d1290099..0bfecffd71f1 100644
+> --- a/fs/gfs2/glock.c
+> +++ b/fs/gfs2/glock.c
+> @@ -2223,6 +2223,20 @@ static void dump_glock_func(struct gfs2_glock *gl)
+>         dump_glock(NULL, gl, true);
+>  }
+>
+> +static void withdraw_dq(struct gfs2_glock *gl)
+> +{
+> +       spin_lock(&gl->gl_lockref.lock);
+> +       if (!__lockref_is_dead(&gl->gl_lockref) &&
+> +           glock_blocked_by_withdraw(gl))
+> +               do_error(gl, LM_OUT_ERROR); /* remove pending waiters */
+> +       spin_unlock(&gl->gl_lockref.lock);
+> +}
+> +
+> +void gfs2_gl_dq_holders(struct gfs2_sbd *sdp)
+> +{
+> +       glock_hash_walk(withdraw_dq, sdp);
+> +}
+> +
+>  /**
+>   * gfs2_gl_hash_clear - Empty out the glock hash table
+>   * @sdp: the filesystem
+> diff --git a/fs/gfs2/glock.h b/fs/gfs2/glock.h
+> index c0ae9100a0bc..d6fc449aa7ff 100644
+> --- a/fs/gfs2/glock.h
+> +++ b/fs/gfs2/glock.h
+> @@ -273,6 +273,7 @@ extern void gfs2_cancel_delete_work(struct gfs2_glock *gl);
+>  extern bool gfs2_delete_work_queued(const struct gfs2_glock *gl);
+>  extern void gfs2_flush_delete_work(struct gfs2_sbd *sdp);
+>  extern void gfs2_gl_hash_clear(struct gfs2_sbd *sdp);
+> +extern void gfs2_gl_dq_holders(struct gfs2_sbd *sdp);
+>  extern void gfs2_glock_finish_truncate(struct gfs2_inode *ip);
+>  extern void gfs2_glock_thaw(struct gfs2_sbd *sdp);
+>  extern void gfs2_glock_add_to_lru(struct gfs2_glock *gl);
+> diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+> index 78cb12d0fba1..acf94c83b29b 100644
+> --- a/fs/gfs2/util.c
+> +++ b/fs/gfs2/util.c
+> @@ -164,6 +164,11 @@ static void signal_our_withdraw(struct gfs2_sbd *sdp)
+>                 }
+>                 if (!ret)
+>                         gfs2_make_fs_ro(sdp);
+> +               /*
+> +                * Dequeue any pending non-system glock holders that can no
+> +                * longer be granted because the file system is withdrawn.
+> +                */
+> +               gfs2_gl_dq_holders(sdp);
+>                 gfs2_freeze_unlock(&freeze_gh);
 >         }
->         sdp->sd_jdesc->jd_inode = inode;
+>
 > --
 > 2.36.1
 >
