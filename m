@@ -2,83 +2,70 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9F7358B88F
-	for <lists+cluster-devel@lfdr.de>; Sun,  7 Aug 2022 00:16:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 105AC58F39F
+	for <lists+cluster-devel@lfdr.de>; Wed, 10 Aug 2022 22:44:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659824162;
+	s=mimecast20190719; t=1660164272;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=inIiIbaFb0BzSrzZiiMZ5QqgiKxDSg6KzHBrn+CGjXI=;
-	b=F8StX3mjvpX209h38N5p+8+mzPU93Cj//tFA/UhMtQQ9oW1gzILDOXrcZfZu0D7t14wq1H
-	UoQIbjNu5DZI+qsfYVRzsfFcS5uPQFPCWJOOUone6VNWMTlsra83YN8ELgabpVw8Pj+4gw
-	CRls5u9dtWjDeux1h9TUVjCbSYg4HDY=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=2OvXf0xNBrC73fYE6Jm87Hbjynk6ZxeWJjR7VarX35Q=;
+	b=GH4Cwprf7p35wdVYOFN+n/VJs9hbXDFJmMicParwE6vzkYPznDavuUIuuBNsoczxT7XBFp
+	H47L8+Q2vyZlocWc6ahxdag8uIEYxB+NqMV5u7K7IYsKjFUpXdUpFFic4AWbBfLFmwHotC
+	8rPXZbz0IrvrhqyPAjTACs/fTdjPHj4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-41-wFxjFFKKOEyeyxlzIE55Ew-1; Sat, 06 Aug 2022 18:16:01 -0400
-X-MC-Unique: wFxjFFKKOEyeyxlzIE55Ew-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-173-we4R4Fa9McSJSrDR02FeWA-1; Wed, 10 Aug 2022 16:44:26 -0400
+X-MC-Unique: we4R4Fa9McSJSrDR02FeWA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9361D803520;
-	Sat,  6 Aug 2022 22:16:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 029B518E6C41;
+	Wed, 10 Aug 2022 20:44:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C3F0C94571;
-	Sat,  6 Aug 2022 22:15:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 289E72026D64;
+	Wed, 10 Aug 2022 20:44:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2287D194F842;
-	Sat,  6 Aug 2022 22:15:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A19A91946A59;
+	Wed, 10 Aug 2022 20:44:21 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5F8211946A45 for <cluster-devel@listman.corp.redhat.com>;
- Sat,  6 Aug 2022 22:15:57 +0000 (UTC)
+ ESMTP id 655791946A4F for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 10 Aug 2022 20:44:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CEDAC401E5C; Sat,  6 Aug 2022 22:15:56 +0000 (UTC)
+ id 0CC6140D282E; Wed, 10 Aug 2022 20:44:20 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CAC92492C3B
- for <cluster-devel@redhat.com>; Sat,  6 Aug 2022 22:15:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3D183804530
- for <cluster-devel@redhat.com>; Sat,  6 Aug 2022 22:15:56 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-22-kC5JozohPZSNM2Nmz_PaKw-1; Sat, 06 Aug 2022 18:15:55 -0400
-X-MC-Unique: kC5JozohPZSNM2Nmz_PaKw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 81F3E60C62;
- Sat,  6 Aug 2022 22:08:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DED4DC433D6;
- Sat,  6 Aug 2022 22:08:34 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- D0369C43142; Sat,  6 Aug 2022 22:08:34 +0000 (UTC)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20220805201248.123846-1-agruenba@redhat.com>
-References: <20220805201248.123846-1-agruenba@redhat.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20220805201248.123846-1-agruenba@redhat.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
- tags/gfs2-v5.19-rc4-fixes
-X-PR-Tracked-Commit-Id: 446279168e030fd0ed68e2bba336bef8bb3da352
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: c42b729ef6bfc72fed56f81f589a39298b9d12c8
-Message-Id: <165982371484.16627.9098253173243829418.pr-tracker-bot@kernel.org>
-Date: Sat, 06 Aug 2022 22:08:34 +0000
-To: Andreas Gruenbacher <agruenba@redhat.com>
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 08CE440D2827
+ for <cluster-devel@redhat.com>; Wed, 10 Aug 2022 20:44:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E45E118E6C41
+ for <cluster-devel@redhat.com>; Wed, 10 Aug 2022 20:44:19 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-639-rM2KohLgPRChbwfkwLOnbg-1; Wed, 10 Aug 2022 16:44:07 -0400
+X-MC-Unique: rM2KohLgPRChbwfkwLOnbg-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1oLsYY-00HF0P-FL; Wed, 10 Aug 2022 20:43:58 +0000
+Date: Wed, 10 Aug 2022 21:43:58 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Message-ID: <YvQYjpDHH5KckCrw@casper.infradead.org>
+References: <20220719041311.709250-1-hch@lst.de>
+ <20220728111016.uwbaywprzkzne7ib@quack3>
+ <20220729092216.GE3493@suse.de> <20220729141145.GA31605@lst.de>
+ <Yufx5jpyJ+zcSJ4e@cmpxchg.org>
+MIME-Version: 1.0
+In-Reply-To: <Yufx5jpyJ+zcSJ4e@cmpxchg.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -86,8 +73,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: Re: [Cluster-devel] [GIT PULL] gfs2 fixes
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: Re: [Cluster-devel] remove iomap_writepage v2
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,25 +86,35 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
- linux-kernel@vger.kernel.org
+Cc: Naohiro Aota <naohiro.aota@wdc.com>, linux-xfs@vger.kernel.org,
+ Jan Kara <jack@suse.cz>, linux-mm@kvack.org,
+ "Darrick J. Wong" <djwong@kernel.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>, cluster-devel@redhat.com,
+ linux-fsdevel@vger.kernel.org, Mel Gorman <mgorman@suse.de>,
+ Johannes Thumshirn <jth@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Vlastimil Babka <vbabka@suse.cz>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-Mimecast-Spam-Score: 2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The pull request you sent on Fri,  5 Aug 2022 22:12:48 +0200:
+On Mon, Aug 01, 2022 at 11:31:50AM -0400, Johannes Weiner wrote:
+> XFS hasn't had a ->writepage call for a while. After LSF I internally
+> tested dropping btrfs' callback, and the results looked good: no OOM
+> kills with dirty/writeback pages remaining, performance parity. Then I
+> went on vacation and Christoph beat me to the patch :)
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v5.19-rc4-fixes
+To avoid duplicating work with you or Christoph ... it seems like the
+plan is to kill ->writepage entirely soon, so there's no point in me
+doing a sweep of all the filesystems to convert ->writepage to
+->write_folio, correct?
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/c42b729ef6bfc72fed56f81f589a39298b9d12c8
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+I assume the plan for filesystems which have a writepage but don't have
+a ->writepages (9p, adfs, affs, bfs, ecryptfs, gfs2, hostfs, jfs, minix,
+nilfs2, ntfs, ocfs2, reiserfs, sysv, ubifs, udf, ufs, vboxsf) is to give
+them a writepages, modelled on iomap_writepages().  Seems that adding
+a block_writepages() might be a useful thing for me to do?
 
