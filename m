@@ -1,61 +1,98 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 414CD593A84
-	for <lists+cluster-devel@lfdr.de>; Mon, 15 Aug 2022 21:52:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A53F596C1F
+	for <lists+cluster-devel@lfdr.de>; Wed, 17 Aug 2022 11:36:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1660593123;
+	s=mimecast20190719; t=1660728967;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=hKI6q9C9MCuOG3hjk1HbvUZRabssncC2sMgDxkRGKMk=;
-	b=jJFWfXHmHIhhG1NVHrLvj/TUfw5WMRnqSY6IHnq4vjinBwMJwjdBvHetTPBNzREaK/O+vQ
-	fkd6d/rCUf7yzaHNroYy91rKZ1qkGg8JV9yJonsZOYSnMz85g8x2VIuuHPsIzYFNYGI5hw
-	3bhWPfCTsC1F1orVeOV3AYItTvf0CdA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=YzUPbjeAbNgur1Ht6pBiKHByR3ZFjUXrKG6V3HyvA6E=;
+	b=K3knhkgychQu2Jq6QxlWgckHbRlI2v24SUnTO7Jr08bfMJHC7aaCOw5f0AwU2r+tSgnGEN
+	2AipF14GL2TxcWbXy7nL12PHI1Ra+N8+0Tr9DJA4GnIjZ2QwpsFZuymHCKXpkwn2BPXK8B
+	m3z4bNuA1g9jCrb9+IWlyCYTDGmCTLQ=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-225-MRYXyKQvOBGtC5tgGCxkwA-1; Mon, 15 Aug 2022 15:51:59 -0400
-X-MC-Unique: MRYXyKQvOBGtC5tgGCxkwA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-252-5VTJhl6gPZ-55RANYKOZuA-1; Wed, 17 Aug 2022 05:36:04 -0400
+X-MC-Unique: 5VTJhl6gPZ-55RANYKOZuA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EEEA4811E75;
-	Mon, 15 Aug 2022 19:51:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95A963C0E20C;
+	Wed, 17 Aug 2022 09:36:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DDBE2C15BA8;
-	Mon, 15 Aug 2022 19:51:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3BE12154D8A0;
+	Wed, 17 Aug 2022 09:36:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 900C81940351;
-	Mon, 15 Aug 2022 19:51:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F1368193F518;
+	Wed, 17 Aug 2022 09:36:00 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 453091940350 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 15 Aug 2022 19:51:58 +0000 (UTC)
+ ESMTP id 2EC161946A45 for <cluster-devel@listman.corp.redhat.com>;
+ Sat, 13 Aug 2022 20:54:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2661C2026D07; Mon, 15 Aug 2022 19:51:58 +0000 (UTC)
+ id 035DE2166B29; Sat, 13 Aug 2022 20:54:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0E5E52026614;
- Mon, 15 Aug 2022 19:51:58 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Mon, 15 Aug 2022 15:51:48 -0400
-Message-Id: <20220815195148.2209805-4-aahringo@redhat.com>
-In-Reply-To: <20220815195148.2209805-1-aahringo@redhat.com>
-References: <20220815195148.2209805-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F3F572166B26
+ for <cluster-devel@redhat.com>; Sat, 13 Aug 2022 20:54:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6B63803301
+ for <cluster-devel@redhat.com>; Sat, 13 Aug 2022 20:54:30 +0000 (UTC)
+Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
+ [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-433-zcOubfKBPoCyWW7c4gNtVg-1; Sat, 13 Aug 2022 16:54:29 -0400
+X-MC-Unique: zcOubfKBPoCyWW7c4gNtVg-1
+Received: by mail-il1-f197.google.com with SMTP id
+ e2-20020a056e020b2200b002e1a5b67e29so2725333ilu.11
+ for <cluster-devel@redhat.com>; Sat, 13 Aug 2022 13:54:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc;
+ bh=YzUPbjeAbNgur1Ht6pBiKHByR3ZFjUXrKG6V3HyvA6E=;
+ b=0V4Pb2Wq2chjGpgKOLbBxvh4LoXEJ+MVP9ens00ckw3vUq2g+MgmvkfqQkdA9Lh+Xc
+ RgM2rXTcrBzFCAzGyR3K2pVVpaIvfG4ZLzKutUq9TucpoZvru2I4ogKqiDoVxnJp3iB+
+ BApnEF3+5vFk+JKs2WF0UOytGrsTzvXaKjIG8f+onaHrxvEZfFeh6EE1zoBxAbjbMpT9
+ 1k2auDHR/sSqmlRYgJ3g72JqUjYUZnfDU79utih+82GKhD/OBnLfPnE6//karczybECj
+ +zEP4n1KBGkJLFhnGSEdA5vCHAqggPqJi0gGqQOPGQd5QBJ+m+3LNMeWDJmre6cMZnti
+ PavA==
+X-Gm-Message-State: ACgBeo3HEIcekuCLP+GzI7ya3JPUl8cku9nXfU15FSv75PKXub1NIo9F
+ kLqHi8zNEbFCfBTbmDGZHwjATN6cq0QRmjezdJPdA1C5gONP
+X-Google-Smtp-Source: AA6agR6i7PWOd1+KUtybI2x08boV9aewzwY5gOAOB+dtXuQ3US92YUKhdyacV10qfuvyzlYV1yCsACGIuMohu98igVtNcLlv7AQ5
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Cluster-devel] [PATCH dlm-tool 4/4] controld: remove timewarn
- handling
+X-Received: by 2002:a6b:4909:0:b0:66a:e3fc:e7b2 with SMTP id
+ u9-20020a6b4909000000b0066ae3fce7b2mr3829670iob.29.1660424068230; Sat, 13 Aug
+ 2022 13:54:28 -0700 (PDT)
+Date: Sat, 13 Aug 2022 13:54:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000c371f705e6259a38@google.com>
+From: syzbot <syzbot+dcf33a7aae997956fe06@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, cluster-devel@redhat.com, 
+ linux-kernel@vger.kernel.org, rpeterso@redhat.com, 
+ syzkaller-bugs@googlegroups.com
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Mailman-Approved-At: Wed, 17 Aug 2022 09:35:59 +0000
+Subject: [Cluster-devel] [syzbot] UBSAN: shift-out-of-bounds in init_sb (3)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,346 +104,73 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-X-Mimecast-Spam-Score: 0
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Mimecast-Spam-Score: 1
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="UTF-8"
 
-The netlink implementation is actually not build and the timewarn
-setting in controld would only activate some debugging warning if some
-lock requests got stucked without any other notification mechanism e.g.
-netlink. We remove this handling now because the dlm kernel
-implementation deprecates this feature.
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    200e340f2196 Merge tag 'pull-work.dcache' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=150cbda9080000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1b664fba5e66c4bf
+dashboard link: https://syzkaller.appspot.com/bug?extid=dcf33a7aae997956fe06
+compiler:       Debian clang version 13.0.1-++20220126092033+75e33f71c2da-1~exp1~20220126212112.63, GNU ld (GNU Binutils for Debian) 2.35.2
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+dcf33a7aae997956fe06@syzkaller.appspotmail.com
+
+loop1: detected capacity change from 0 to 37440
+gfs2: fsid=syz:syz: Trying to join cluster "lock_nolock", "syz:syz"
+gfs2: fsid=syz:syz: Now mounting FS (format 1801)...
+================================================================================
+UBSAN: shift-out-of-bounds in fs/gfs2/ops_fstype.c:297:19
+shift exponent 50331651 is too large for 64-bit type 'unsigned long'
+CPU: 0 PID: 30381 Comm: syz-executor.1 Not tainted 5.19.0-syzkaller-02972-g200e340f2196 #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/22/2022
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x1e3/0x2cb lib/dump_stack.c:106
+ ubsan_epilogue lib/ubsan.c:151 [inline]
+ __ubsan_handle_shift_out_of_bounds+0x3a6/0x420 lib/ubsan.c:322
+ gfs2_read_sb fs/gfs2/ops_fstype.c:297 [inline]
+ init_sb+0x11d6/0x12c0 fs/gfs2/ops_fstype.c:487
+ gfs2_fill_super+0x1a3c/0x2750 fs/gfs2/ops_fstype.c:1209
+ get_tree_bdev+0x400/0x620 fs/super.c:1292
+ gfs2_get_tree+0x50/0x210 fs/gfs2/ops_fstype.c:1325
+ vfs_get_tree+0x88/0x270 fs/super.c:1497
+ do_new_mount+0x289/0xad0 fs/namespace.c:3040
+ do_mount fs/namespace.c:3383 [inline]
+ __do_sys_mount fs/namespace.c:3591 [inline]
+ __se_sys_mount+0x2e3/0x3d0 fs/namespace.c:3568
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x2b/0x70 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7fc20ac8a7aa
+Code: 48 c7 c2 b8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff eb d2 e8 b8 04 00 00 0f 1f 84 00 00 00 00 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fc20be95f88 EFLAGS: 00000202 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 0000000020000200 RCX: 00007fc20ac8a7aa
+RDX: 0000000020000000 RSI: 0000000020000100 RDI: 00007fc20be95fe0
+RBP: 00007fc20be96020 R08: 00007fc20be96020 R09: 0000000020000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000020000000
+R13: 0000000020000100 R14: 00007fc20be95fe0 R15: 0000000020047a20
+ </TASK>
+================================================================================
+
+
 ---
- dlm_controld/action.c             |   4 -
- dlm_controld/dlm_daemon.h         |   1 -
- dlm_controld/main.c               |   5 -
- dlm_controld/netlink.c            | 232 ------------------------------
- dlm_tool/dlm_tool.8               |   3 +-
- libdlm/man/dlm_create_lockspace.3 |   6 +-
- 6 files changed, 2 insertions(+), 249 deletions(-)
- delete mode 100644 dlm_controld/netlink.c
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/dlm_controld/action.c b/dlm_controld/action.c
-index baddaf81..67aa6896 100644
---- a/dlm_controld/action.c
-+++ b/dlm_controld/action.c
-@@ -882,10 +882,6 @@ int setup_configfs_options(void)
- 	    dlm_options[log_debug_ind].file_set)
- 		set_configfs_cluster("log_debug", NULL, opt(log_debug_ind));
- 
--	if (dlm_options[timewarn_ind].cli_set ||
--	    dlm_options[timewarn_ind].file_set)
--		set_configfs_cluster("timewarn_cs", NULL, opt(timewarn_ind));
--
- 	if (dlm_options[port_ind].cli_set ||
- 	    dlm_options[port_ind].file_set)
- 		set_configfs_cluster("tcp_port", NULL, optu(port_ind));
-diff --git a/dlm_controld/dlm_daemon.h b/dlm_controld/dlm_daemon.h
-index 22e286fc..b829e0de 100644
---- a/dlm_controld/dlm_daemon.h
-+++ b/dlm_controld/dlm_daemon.h
-@@ -102,7 +102,6 @@ enum {
-         daemon_debug_ind = 0,
-         foreground_ind,
-         log_debug_ind,
--        timewarn_ind,
-         protocol_ind,
-         port_ind,
-         debug_logfile_ind,
-diff --git a/dlm_controld/main.c b/dlm_controld/main.c
-index a98dae56..80fe14bd 100644
---- a/dlm_controld/main.c
-+++ b/dlm_controld/main.c
-@@ -1796,11 +1796,6 @@ static void set_opt_defaults(void)
- 			0, NULL, 0, 1,
- 			"enable kernel dlm debugging messages");
- 
--	set_opt_default(timewarn_ind,
--			"timewarn", '\0', req_arg_int,
--			0, NULL, 0, 0,
--			""); /* do not advertise */
--
- 	set_opt_default(protocol_ind,
- 			"protocol", 'r', req_arg_str,
- 			-1, "detect", 0, 0,
-diff --git a/dlm_controld/netlink.c b/dlm_controld/netlink.c
-deleted file mode 100644
-index 5f221dcf..00000000
---- a/dlm_controld/netlink.c
-+++ /dev/null
-@@ -1,232 +0,0 @@
--/*
-- * Copyright 2004-2012 Red Hat, Inc.
-- *
-- * This copyrighted material is made available to anyone wishing to use,
-- * modify, copy, or redistribute it subject to the terms and conditions
-- * of the GNU General Public License v2 or (at your option) any later version.
-- */
--
--#include "dlm_daemon.h"
--#include <linux/dlm.h>
--#include <linux/netlink.h>
--#include <linux/genetlink.h>
--#include <linux/dlm_netlink.h>
--
--#define DEADLOCK_CHECK_SECS		10
--
--/* FIXME: look into using libnl/libnetlink */
--
--#define GENLMSG_DATA(glh)       ((void *)((char *)NLMSG_DATA(glh) + GENL_HDRLEN))
--#define GENLMSG_PAYLOAD(glh)    (NLMSG_PAYLOAD(glh, 0) - GENL_HDRLEN)
--#define NLA_DATA(na)	    	((void *)((char*)(na) + NLA_HDRLEN))
--#define NLA_PAYLOAD(len)	(len - NLA_HDRLEN)
--
--/* Maximum size of response requested or message sent */
--#define MAX_MSG_SIZE    1024
--
--struct msgtemplate {
--	struct nlmsghdr n;
--	struct genlmsghdr g;
--	char buf[MAX_MSG_SIZE];
--};
--
--static int send_genetlink_cmd(int sd, uint16_t nlmsg_type, uint32_t nlmsg_pid,
--			      uint8_t genl_cmd, uint16_t nla_type,
--			      void *nla_data, int nla_len)
--{
--	struct nlattr *na;
--	struct sockaddr_nl nladdr;
--	int r, buflen;
--	char *buf;
--
--	struct msgtemplate msg;
--
--	msg.n.nlmsg_len = NLMSG_LENGTH(GENL_HDRLEN);
--	msg.n.nlmsg_type = nlmsg_type;
--	msg.n.nlmsg_flags = NLM_F_REQUEST;
--	msg.n.nlmsg_seq = 0;
--	msg.n.nlmsg_pid = nlmsg_pid;
--	msg.g.cmd = genl_cmd;
--	msg.g.version = 0x1;
--	na = (struct nlattr *) GENLMSG_DATA(&msg);
--	na->nla_type = nla_type;
--	na->nla_len = nla_len + 1 + NLA_HDRLEN;
--	if (nla_data)
--		memcpy(NLA_DATA(na), nla_data, nla_len);
--	msg.n.nlmsg_len += NLMSG_ALIGN(na->nla_len);
--
--	buf = (char *) &msg;
--	buflen = msg.n.nlmsg_len ;
--	memset(&nladdr, 0, sizeof(nladdr));
--	nladdr.nl_family = AF_NETLINK;
--	while ((r = sendto(sd, buf, buflen, 0, (struct sockaddr *) &nladdr,
--			   sizeof(nladdr))) < buflen) {
--		if (r > 0) {
--			buf += r;
--			buflen -= r;
--		} else if (errno != EAGAIN)
--			return -1;
--	}
--	return 0;
--}
--
--/*
-- * Probe the controller in genetlink to find the family id
-- * for the DLM family
-- */
--static int get_family_id(int sd)
--{
--	char genl_name[100];
--	struct {
--		struct nlmsghdr n;
--		struct genlmsghdr g;
--		char buf[256];
--	} ans;
--
--	int id = 0, rc;
--	struct nlattr *na;
--	int rep_len;
--
--	strcpy(genl_name, DLM_GENL_NAME);
--	rc = send_genetlink_cmd(sd, GENL_ID_CTRL, getpid(), CTRL_CMD_GETFAMILY,
--				CTRL_ATTR_FAMILY_NAME, (void *)genl_name,
--				strlen(DLM_GENL_NAME)+1);
--
--	rep_len = recv(sd, &ans, sizeof(ans), 0);
--	if (ans.n.nlmsg_type == NLMSG_ERROR ||
--	    (rep_len < 0) || !NLMSG_OK((&ans.n), rep_len))
--		return 0;
--
--	na = (struct nlattr *) GENLMSG_DATA(&ans);
--	na = (struct nlattr *) ((char *) na + NLA_ALIGN(na->nla_len));
--	if (na->nla_type == CTRL_ATTR_FAMILY_ID) {
--		id = *(uint16_t *) NLA_DATA(na);
--	}
--	return id;
--}
--
--/* genetlink messages are timewarnings used as part of deadlock detection */
--
--int setup_netlink(void)
--{
--	struct sockaddr_nl snl;
--	int s, rv;
--	uint16_t id;
--
--	s = socket(AF_NETLINK, SOCK_RAW, NETLINK_GENERIC);
--	if (s < 0) {
--		log_error("generic netlink socket");
--		return s;
--	}
--
--	memset(&snl, 0, sizeof(snl));
--	snl.nl_family = AF_NETLINK;
--
--	rv = bind(s, (struct sockaddr *) &snl, sizeof(snl));
--	if (rv < 0) {
--		log_error("gen netlink bind error %d errno %d", rv, errno);
--		close(s);
--		return rv;
--	}
--
--	id = get_family_id(s);
--	if (!id) {
--		log_error("Error getting family id, errno %d", errno);
--		close(s);
--		return -1;
--	}
--
--	rv = send_genetlink_cmd(s, id, getpid(), DLM_CMD_HELLO, 0, NULL, 0);
--	if (rv < 0) {
--		log_error("error sending hello cmd, errno %d", errno);
--		close(s);
--		return -1;
--	}
--
--	return s;
--}
--
--static void process_timewarn(struct dlm_lock_data *data)
--{
--	struct lockspace *ls;
--	struct timeval now;
--	unsigned int sec;
--
--	ls = find_ls_id(data->lockspace_id);
--	if (!ls)
--		return;
--
--	data->resource_name[data->resource_namelen] = '\0';
--
--	log_group(ls, "timewarn: lkid %x pid %d name %s",
--		  data->id, data->ownpid, data->resource_name);
--
--	/* Problem: we don't want to get a timewarn, assume it's resolved
--	   by the current cycle, but in fact it's from a deadlock that
--	   formed after the checkpoints for the current cycle.  Then we'd
--	   have to hope for another warning (that may not come) to trigger
--	   a new cycle to catch the deadlock.  If our last cycle ckpt
--	   was say N (~5?) sec before we receive the timewarn, then we
--	   can be confident that the cycle included the lock in question.
--	   Otherwise, we're not sure if the warning is for a new deadlock
--	   that's formed since our last cycle ckpt (unless it's a long
--	   enough time since the last cycle that we're confident it *is*
--	   a new deadlock).  When there is a deadlock, I suspect it will
--	   be common to receive warnings before, during, and possibly
--	   after the cycle that resolves it.  Wonder if we should record
--	   timewarns and match them with deadlock cycles so we can tell
--	   which timewarns are addressed by a given cycle and which aren't.  */
--
--
--	gettimeofday(&now, NULL);
--
--	/* don't send a new start until at least SECS after the last
--	   we sent, and at least SECS after the last completed cycle */
--
--	sec = now.tv_sec - ls->last_send_cycle_start.tv_sec;
--
--	if (sec < DEADLOCK_CHECK_SECS) {
--		log_group(ls, "skip send: recent send cycle %d sec", sec);
--		return;
--	}
--
--	sec = now.tv_sec - ls->cycle_end_time.tv_sec;
--
--	if (sec < DEADLOCK_CHECK_SECS) {
--		log_group(ls, "skip send: recent cycle end %d sec", sec);
--		return;
--	}
--
--	gettimeofday(&ls->last_send_cycle_start, NULL);
--
--	if (cfgd_enable_deadlk)
--		send_cycle_start(ls);
--}
--
--void process_netlink(int ci)
--{
--	struct msgtemplate msg;
--	struct nlattr *na;
--	int len;
--	int fd;
--
--	fd = client_fd(ci);
--
--	len = recv(fd, &msg, sizeof(msg), 0);
--
--	if (len < 0) {
--		log_error("nonfatal netlink error: errno %d", errno);
--		return;
--	}
--
--	if (msg.n.nlmsg_type == NLMSG_ERROR || !NLMSG_OK((&msg.n), len)) {
--		struct nlmsgerr *err = NLMSG_DATA(&msg);
--		log_error("fatal netlink error: errno %d", err->error);
--		return;
--	}
--
--	na = (struct nlattr *) GENLMSG_DATA(&msg);
--
--	process_timewarn((struct dlm_lock_data *) NLA_DATA(na));
--}
--
-diff --git a/dlm_tool/dlm_tool.8 b/dlm_tool/dlm_tool.8
-index 2a14fe02..7c670ddb 100644
---- a/dlm_tool/dlm_tool.8
-+++ b/dlm_tool/dlm_tool.8
-@@ -198,12 +198,11 @@ $ dlm_tool dump_config | head -n 5
- daemon_debug=1 (set_config)
- foreground=0
- log_debug=1 (dlm.conf)
--timewarn=0
- protocol=detect
- .fi
- 
- In this case, daemon_debug is set by set_config, log_debug is set from
--dlm.conf, foreground, timewarn and protocol are using default values.
-+dlm.conf, foreground and protocol are using default values.
- 
- .SS set_config
- 
-diff --git a/libdlm/man/dlm_create_lockspace.3 b/libdlm/man/dlm_create_lockspace.3
-index 93ffc54e..aa6f5aed 100644
---- a/libdlm/man/dlm_create_lockspace.3
-+++ b/libdlm/man/dlm_create_lockspace.3
-@@ -43,11 +43,7 @@ int dlm_new_lockspace(const char *name, mode_t mode, uint32_t flags)
- .PP
- Performs the same function as 
- .B dlm_create_lockspace()
--above, but passes some creation flags to the call that affect the lockspace being created. Currently supported flags are:
--.nf
--DLM_LSFL_TIMEWARN the dlm should emit warnings over netlink when locks
--                  have been waiting too long; required for deadlock
--                  detection
-+above, but passes some creation flags to the call that affect the lockspace being created.
- .fi
- .SS
- int dlm_release_lockspace(const char *name, dlm_lshandle_t ls, int force)
--- 
-2.31.1
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
