@@ -1,94 +1,96 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A2675A1647
-	for <lists+cluster-devel@lfdr.de>; Thu, 25 Aug 2022 18:01:12 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ECD75A1970
+	for <lists+cluster-devel@lfdr.de>; Thu, 25 Aug 2022 21:22:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661443266;
+	s=mimecast20190719; t=1661455332;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=UVmU0JlobEOhqS/uYFvC6XTJZVXzM+OTi8XG4ENSz88=;
-	b=QmyKR59hTCz9fepTtvcLCCmbPwxdL4pJjhjKmUbgf79diXgGOtgQ0cDJUopJ1x4TLDmsRi
-	JIpQYMXOo8MJhKklGldDjdyBeji+ZECOeQrEmhFWKgVUs8LLuYjL+5GTtyghJyrtSH/VeW
-	2XYL9AMW9YdUClnhhL4uKh/sD52Bb0c=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=j11I9jJbBdP2EsV8zm8vGrZ8to2ALD+DZiEMfyWlhf4=;
+	b=QMEAPWB0IIhdiDmn7T1Ltlcl58ETAUmEBDDUWAuA0e/t5Vx8QzqmygNdmgtye4Vp7iFo9f
+	Ddga9lx9/zOU3Qe0RrpOBAxwwGtO3y7RuTJRQWdG3bQTyjNXLXzAfH5nZII2D8XvyByuQ0
+	1S8scgqwU0iyigJk7u/Re9dowoRoaC4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-623-GMth_D0LMRGEGpYq-K3ZAw-1; Thu, 25 Aug 2022 12:00:12 -0400
-X-MC-Unique: GMth_D0LMRGEGpYq-K3ZAw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-304-W1SptAtUPC-pxSQzvLa8uA-1; Thu, 25 Aug 2022 15:22:10 -0400
+X-MC-Unique: W1SptAtUPC-pxSQzvLa8uA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5379C1C13953;
-	Thu, 25 Aug 2022 16:00:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 305D0811E87;
+	Thu, 25 Aug 2022 19:22:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 47FCF2026D4C;
-	Thu, 25 Aug 2022 16:00:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9106C492C3B;
+	Thu, 25 Aug 2022 19:22:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 13E991946A5E;
-	Thu, 25 Aug 2022 16:00:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 464B61946A5E;
+	Thu, 25 Aug 2022 19:22:07 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 750781946A5A for <cluster-devel@listman.corp.redhat.com>;
- Thu, 25 Aug 2022 16:00:10 +0000 (UTC)
+ ESMTP id D02E41946A43 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 25 Aug 2022 19:22:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6906D4042F01; Thu, 25 Aug 2022 16:00:10 +0000 (UTC)
+ id 895232166B29; Thu, 25 Aug 2022 19:22:05 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 657B740CF8ED
- for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 16:00:10 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 854C42166B26
+ for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 19:22:05 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AA79805AF5
- for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 16:00:10 +0000 (UTC)
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 65A1C85A58A
+ for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 19:22:05 +0000 (UTC)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-649-3ihNPQgaMwuygSN6FTUEtw-1; Thu, 25 Aug 2022 12:00:08 -0400
-X-MC-Unique: 3ihNPQgaMwuygSN6FTUEtw-1
-Received: by mail-pj1-f72.google.com with SMTP id
- na5-20020a17090b4c0500b001fb464b4761so3669246pjb.1
- for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 09:00:08 -0700 (PDT)
+ us-mta-169-ChhWhJIQOxWjHZhag49TxQ-1; Thu, 25 Aug 2022 15:22:03 -0400
+X-MC-Unique: ChhWhJIQOxWjHZhag49TxQ-1
+Received: by mail-oi1-f173.google.com with SMTP id a133so16655166oif.4
+ for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 12:22:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=UVmU0JlobEOhqS/uYFvC6XTJZVXzM+OTi8XG4ENSz88=;
- b=58VmHlsZsVRXrk38LO+MKide2it+oaF3n1R+NZEDVgmi6x3OuSGfG4hAER8PSq725i
- fuVUle4cqu4lopgQOB+HPY+nynuuCqjNVM/9f0O5X9+xTSNz7yfKc1Gcxp0obHQlvWjQ
- bszH5yhf6aIW+BbDLzNP1DYQY1unmMNLydU2efvZg9GV62yEOrCeIzl7PDbk9r1wnrad
- oc65r3at9BfJuVF54YaVfUpHYWwdInOm+tnUb32ttg9uUB2dJgbx0TrSzPJUgR9Cpo+X
- GSCwqma6msrjlk0Sfyuo1M1++TZWjz3968rElJ01NY4ypKER5JAN1Cxk8C3aOKRdE2Xh
- f/OA==
-X-Gm-Message-State: ACgBeo3+uMd9wPBcoY13DHd4Rr0N5VNZN1eJxXSBLZgRfPoYfbB+c27H
- OeI8AUNpnk/bSVCklM53p3Nue60dxtVUadJdn4eDJU+tC4qyRjYTLxixkoEdx3ayUz0P5Dw+iq1
- MwnZkD68UkjjqYdpZ6A3B3caMq3g7fQqPQyF3eQ==
-X-Received: by 2002:a65:6e49:0:b0:429:cae6:aac6 with SMTP id
- be9-20020a656e49000000b00429cae6aac6mr3744254pgb.268.1661443207680; 
- Thu, 25 Aug 2022 09:00:07 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR6TyN6D7iyq+KldydMaWXHAG9Z0It2CMlQHHdXn2Ielj16Bv0Bok+nsyj5qJ27Ltn1ijZY2Vy6sieEQ/TAbAlw=
-X-Received: by 2002:a65:6e49:0:b0:429:cae6:aac6 with SMTP id
- be9-20020a656e49000000b00429cae6aac6mr3744228pgb.268.1661443207349; Thu, 25
- Aug 2022 09:00:07 -0700 (PDT)
+ bh=j11I9jJbBdP2EsV8zm8vGrZ8to2ALD+DZiEMfyWlhf4=;
+ b=msliGjgisFz7c8DUzTFVZSk3FCgZ/LbGB8884V3Vw5mcU0Q1Ys5eKJQPqMk164tRp2
+ CIKghiY0x98oQbiPHJT/Zpm8wcSZHP3qA+PWHEDiDvCMggtP8NJolc6amYiVfrTSbveX
+ HfTisOtKC/CtDc+RO0ssnqwlaBLhALP0bvjAdKI7NHUntAfbM+wxvg0165jzxrGANmX9
+ Hf3reIFBiu8Q/V2HHZVoBOB6MV67rB2pF82puJ1pJC1WhAjNuj9uHvqAC6MCAKru4ua5
+ jmdFNh4BZiGkUpGJ3wdKLgvnCeyk3Da6BRahcZp36OUDcJHME6Z7IUwoE13sqOwvR5iy
+ 54qQ==
+X-Gm-Message-State: ACgBeo16+TiyzOPWEUcQ7eSZ6uDhaERY9k2wvDpeRshnS/FVOnQ/F2Xr
+ YsAyOEZ0VCAeGqay+OVGCLs8VUWKIXIx6yVmOvho
+X-Google-Smtp-Source: AA6agR5+NrNDgFeVEqQOH6xO8KzleveZvD24+0ma4hp6CR5I88pcrQbnickGgaR7sl54W0OczwK1VkCsRh+9Rsqv/HQ=
+X-Received: by 2002:a05:6808:3a9:b0:343:4b14:ccce with SMTP id
+ n9-20020a05680803a900b003434b14cccemr243316oie.41.1661455322788; Thu, 25 Aug
+ 2022 12:22:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220825145348.382382-1-rpeterso@redhat.com>
-In-Reply-To: <20220825145348.382382-1-rpeterso@redhat.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Thu, 25 Aug 2022 17:59:56 +0200
-Message-ID: <CAHc6FU7m__ttofsfY8KC3frEDVsi98JkSa_0rt++kc61LTAo3Q@mail.gmail.com>
-To: Bob Peterson <rpeterso@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH] gfs2: Use TRY lock in gfs2_inode_lookup
- for UNLINKED inodes
+References: <20220825001830.1911524-1-kuba@kernel.org>
+In-Reply-To: <20220825001830.1911524-1-kuba@kernel.org>
+From: Paul Moore <paul@paul-moore.com>
+Date: Thu, 25 Aug 2022 15:21:52 -0400
+Message-ID: <CAHC9VhSxesi0TSSvcQSr1kDhP3Vce4+O3w2diEExGEGnjGpmiw@mail.gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: Re: [Cluster-devel] [PATCH net-next] genetlink: start to validate
+ reserved header bytes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,106 +102,110 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel <cluster-devel@redhat.com>
+Cc: linux-s390@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ edumazet@google.com, target-devel@vger.kernel.org, dev@openvswitch.org,
+ linux-cifs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ cluster-devel@redhat.com, tipc-discussion@lists.sourceforge.net,
+ pabeni@redhat.com, jiri@resnulli.us, linux-pm@vger.kernel.org,
+ osmocom-net-gprs@lists.osmocom.org, linux-block@vger.kernel.org,
+ mptcp@lists.linux.dev, netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-security-module@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ johannes@sipsolutions.net, linux-wpan@vger.kernel.org, davem@davemloft.net,
+ wireguard@lists.zx2c4.com, lvs-devel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 25, 2022 at 4:53 PM Bob Peterson <rpeterso@redhat.com> wrote:
-> Before this patch, delete_work_func() would check for the GLF_DEMOTE
-> flag on the iopen glock and if set, it would perform special processing.
-> However, there was a race whereby the GLF_DEMOTE flag could be set by
-> another process after the check. Then when it called
-> gfs2_lookup_by_inum() which calls gfs2_inode_lookup(), it tried to lock
-> the iopen glock in SH mode, but the GLF_DEMOTE flag prevented the
-> request from being granted. But the iopen glock could never be demoted
-> because that happens when the inode is evicted, and the evict was never
-> completed because of the failed lookup.
+On Wed, Aug 24, 2022 at 8:18 PM Jakub Kicinski <kuba@kernel.org> wrote:
 >
-> To fix that, change function gfs2_inode_lookup() so that when
-> GFS2_BLKST_UNLINKED inodes are searched, it uses the LM_FLAG_TRY flag
-> for the iopen glock.  If the locking request fails, fail
-> gfs2_inode_lookup() with -EAGAIN so that delete_work_func() can retry
-> the operation later.
+> We had historically not checked that genlmsghdr.reserved
+> is 0 on input which prevents us from using those precious
+> bytes in the future.
 >
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+> One use case would be to extend the cmd field, which is
+> currently just 8 bits wide and 256 is not a lot of commands
+> for some core families.
+>
+> To make sure that new families do the right thing by default
+> put the onus of opting out of validation on existing families.
+>
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 > ---
->  fs/gfs2/glock.c |  8 +++++---
->  fs/gfs2/inode.c | 10 ++++++++--
->  2 files changed, 13 insertions(+), 5 deletions(-)
->
-> diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-> index 0b36a16659b6..f1973a442955 100644
-> --- a/fs/gfs2/glock.c
-> +++ b/fs/gfs2/glock.c
-> @@ -1018,16 +1018,18 @@ static void delete_work_func(struct work_struct *work)
->                         if (gfs2_queue_delete_work(gl, 5 * HZ))
->                                 return;
->                 }
-> -               goto out;
->         }
->
->         inode = gfs2_lookup_by_inum(sdp, no_addr, gl->gl_no_formal_ino,
->                                     GFS2_BLKST_UNLINKED);
-> -       if (!IS_ERR_OR_NULL(inode)) {
-> +       if (IS_ERR(inode)) {
-> +               if (PTR_ERR(inode) == -EAGAIN &&
-> +                       (gfs2_queue_delete_work(gl, 5 * HZ)))
-> +                               return;
-> +       } else {
->                 d_prune_aliases(inode);
->                 iput(inode);
->         }
-> -out:
->         gfs2_glock_put(gl);
->  }
->
-> diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-> index c8ec876f33ea..56ded979988c 100644
-> --- a/fs/gfs2/inode.c
-> +++ b/fs/gfs2/inode.c
-> @@ -130,6 +130,7 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
->         if (inode->i_state & I_NEW) {
->                 struct gfs2_sbd *sdp = GFS2_SB(inode);
->                 struct gfs2_glock *io_gl;
-> +               int extra_flags = 0;
->
->                 error = gfs2_glock_get(sdp, no_addr, &gfs2_inode_glops, CREATE,
->                                        &ip->i_gl);
-> @@ -141,9 +142,12 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
->                 if (unlikely(error))
->                         goto fail;
->
-> -               if (blktype != GFS2_BLKST_UNLINKED)
-> +               if (blktype == GFS2_BLKST_UNLINKED)
-> +                       extra_flags |= LM_FLAG_TRY;
-> +               else
->                         gfs2_cancel_delete_work(io_gl);
-> -               error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT,
-> +               error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED,
-> +                                          GL_EXACT | extra_flags,
->                                            &ip->i_iopen_gh);
->                 gfs2_glock_put(io_gl);
->                 if (unlikely(error))
-> @@ -210,6 +214,8 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
->         return inode;
->
->  fail:
-> +       if (error == GLR_TRYFAILED)
-> +               error = -EAGAIN;
->         if (gfs2_holder_initialized(&ip->i_iopen_gh))
->                 gfs2_glock_dq_uninit(&ip->i_iopen_gh);
->         if (gfs2_holder_initialized(&i_gh))
-> --
-> 2.37.2
->
+> CC: jiri@resnulli.us
+> CC: johannes@sipsolutions.net
+> CC: linux-block@vger.kernel.org
+> CC: osmocom-net-gprs@lists.osmocom.org
+> CC: linux-wpan@vger.kernel.org
+> CC: wireguard@lists.zx2c4.com
+> CC: linux-wireless@vger.kernel.org
+> CC: linux-scsi@vger.kernel.org
+> CC: target-devel@vger.kernel.org
+> CC: linux-pm@vger.kernel.org
+> CC: virtualization@lists.linux-foundation.org
+> CC: linux-cifs@vger.kernel.org
+> CC: cluster-devel@redhat.com
+> CC: mptcp@lists.linux.dev
+> CC: lvs-devel@vger.kernel.org
+> CC: netfilter-devel@vger.kernel.org
+> CC: linux-security-module@vger.kernel.org
+> CC: dev@openvswitch.org
+> CC: linux-s390@vger.kernel.org
+> CC: tipc-discussion@lists.sourceforge.net
+> ---
+>  drivers/block/nbd.c                      | 1 +
+>  drivers/net/gtp.c                        | 1 +
+>  drivers/net/ieee802154/mac802154_hwsim.c | 1 +
+>  drivers/net/macsec.c                     | 1 +
+>  drivers/net/team/team.c                  | 1 +
+>  drivers/net/wireguard/netlink.c          | 1 +
+>  drivers/net/wireless/mac80211_hwsim.c    | 1 +
+>  drivers/target/target_core_user.c        | 1 +
+>  drivers/thermal/thermal_netlink.c        | 1 +
+>  drivers/vdpa/vdpa.c                      | 1 +
+>  fs/cifs/netlink.c                        | 1 +
+>  fs/dlm/netlink.c                         | 1 +
+>  fs/ksmbd/transport_ipc.c                 | 1 +
+>  include/linux/genl_magic_func.h          | 1 +
+>  include/net/genetlink.h                  | 3 +++
+>  kernel/taskstats.c                       | 1 +
+>  net/batman-adv/netlink.c                 | 1 +
+>  net/core/devlink.c                       | 1 +
+>  net/core/drop_monitor.c                  | 1 +
+>  net/ethtool/netlink.c                    | 1 +
+>  net/hsr/hsr_netlink.c                    | 1 +
+>  net/ieee802154/netlink.c                 | 1 +
+>  net/ieee802154/nl802154.c                | 1 +
+>  net/ipv4/fou.c                           | 1 +
+>  net/ipv4/tcp_metrics.c                   | 1 +
+>  net/ipv6/ila/ila_main.c                  | 1 +
+>  net/ipv6/ioam6.c                         | 1 +
+>  net/ipv6/seg6.c                          | 1 +
+>  net/l2tp/l2tp_netlink.c                  | 1 +
+>  net/mptcp/pm_netlink.c                   | 1 +
+>  net/ncsi/ncsi-netlink.c                  | 1 +
+>  net/netfilter/ipvs/ip_vs_ctl.c           | 1 +
+>  net/netlabel/netlabel_calipso.c          | 1 +
+>  net/netlabel/netlabel_cipso_v4.c         | 1 +
+>  net/netlabel/netlabel_mgmt.c             | 1 +
+>  net/netlabel/netlabel_unlabeled.c        | 1 +
+>  net/netlink/genetlink.c                  | 4 ++++
+>  net/nfc/netlink.c                        | 1 +
+>  net/openvswitch/conntrack.c              | 1 +
+>  net/openvswitch/datapath.c               | 3 +++
+>  net/openvswitch/meter.c                  | 1 +
+>  net/psample/psample.c                    | 1 +
+>  net/smc/smc_netlink.c                    | 3 ++-
+>  net/smc/smc_pnet.c                       | 3 ++-
+>  net/tipc/netlink.c                       | 1 +
+>  net/tipc/netlink_compat.c                | 1 +
+>  net/wireless/nl80211.c                   | 1 +
+>  47 files changed, 56 insertions(+), 2 deletions(-)
 
-Pushed to for-next.
+Acked-by: Paul Moore <paul@paul-moore.com> (NetLabel)
 
-Thanks,
-Andreas
+-- 
+paul-moore.com
 
