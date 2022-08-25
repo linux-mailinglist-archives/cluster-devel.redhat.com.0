@@ -2,56 +2,93 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BCE35A14E0
-	for <lists+cluster-devel@lfdr.de>; Thu, 25 Aug 2022 16:53:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8A2A5A163C
+	for <lists+cluster-devel@lfdr.de>; Thu, 25 Aug 2022 17:59:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661439237;
+	s=mimecast20190719; t=1661443184;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Sw/tVhWE/ZhlEYJ2Jl0d/3BUG7iE6HReUVx6tJkHu0w=;
-	b=BHgbTFRtU4XWRMxWptogmV7FhED5itJvgvd/IB+dSuzh8zSxNpzxABI1dQWktJtoPcdbWR
-	hIUSw2dUmrfrRpCrfAYWQyepOcOYn2kiRiBtzJ1ewJeBgHWXFr9YMm98SSXHHCKUtT8MDV
-	Bc0QezZal76i1ePmG8O4SGqNZivgUlA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=xEiY+WREuIGyRNs0gG0L8hkAymOW1NRN8id04ZVQ7x8=;
+	b=JYoQOb3Bf7AfoHDMqoAJ7ib1CMQW/KDOZmDBcRmYc1BVK90Ael53t3vE3Ui8j/DYdkgq3i
+	XUHHAsY9sU3co1CxiMZG5ArIrU/To2H5byjRyG8AJhKv8sYHOEGNw7LJEZlJFjmpwROdak
+	kmZTe8y2ZtqImGkf2Pcc66DMaTKRxfw=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-402-8PLq6eHlO2edMYN5wdw8_g-1; Thu, 25 Aug 2022 10:53:52 -0400
-X-MC-Unique: 8PLq6eHlO2edMYN5wdw8_g-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-190-f2obzK3bOrqVELe8jYyUiA-1; Thu, 25 Aug 2022 11:59:40 -0400
+X-MC-Unique: f2obzK3bOrqVELe8jYyUiA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61D9F811E76;
-	Thu, 25 Aug 2022 14:53:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0A6B3833294;
+	Thu, 25 Aug 2022 15:59:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 67CE8C15BB3;
-	Thu, 25 Aug 2022 14:53:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BE26F141513E;
+	Thu, 25 Aug 2022 15:59:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0A99F1946A5E;
-	Thu, 25 Aug 2022 14:53:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 545341946A5E;
+	Thu, 25 Aug 2022 15:59:37 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4BBE21946A43 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 25 Aug 2022 14:53:49 +0000 (UTC)
+ ESMTP id 91BFF1946A43 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 25 Aug 2022 15:59:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2F5482166B29; Thu, 25 Aug 2022 14:53:49 +0000 (UTC)
+ id 8110740C141D; Thu, 25 Aug 2022 15:59:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.users.ipa.redhat.com (unknown [10.2.17.4])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 08DA22166B26
- for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 14:53:48 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu, 25 Aug 2022 09:53:48 -0500
-Message-Id: <20220825145348.382382-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D9B54010FA1
+ for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 15:59:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 650C5185A794
+ for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 15:59:36 +0000 (UTC)
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-623-105ZST_pPUGjV60UQ_7iiw-1; Thu, 25 Aug 2022 11:59:35 -0400
+X-MC-Unique: 105ZST_pPUGjV60UQ_7iiw-1
+Received: by mail-pf1-f200.google.com with SMTP id
+ a19-20020aa780d3000000b0052bccd363f8so9261321pfn.22
+ for <cluster-devel@redhat.com>; Thu, 25 Aug 2022 08:59:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=xEiY+WREuIGyRNs0gG0L8hkAymOW1NRN8id04ZVQ7x8=;
+ b=j5Geodm5i6iASWIf3OgIDbK5m0PZo/5l5ZnO28lVkxS9PcdAtcKiG2IAPTTUsHR6j3
+ zzFsiTh0a9j8EUIDV3NZh5SXiEMBjSjsCciJ5X5Cd10FRxvbG5wvu/IszFe3ZrIAxKOI
+ niVqxa+9+Xzp1P1sq6XFau7TKy2dJl6RNhhIUWwd4hotX571V1cQpXGRr+paeLbRWmND
+ ljmm1ecWxrTrmEzlInPNZOAECNpjJnVVSa06femEcNGfpoVEP/IVLvLBPEDx+Yg3mhJF
+ QB+Hyc8ZXlOS8skBJZM2dxOzTQlh/l9OP4JcebMdDyAMiEVa7eXFsnTFmYBSsMbd2wkb
+ hDEw==
+X-Gm-Message-State: ACgBeo0jIpEUaVrecMnIicO4Kz5OxyL6ACBkONRgW+MmZVKRcPb3qOVk
+ C0MWv1Ul6qc7JFt/nqeOHdwPqNULFOnIMTlTMfY2jPe1iVTjqBojOOr/TgLK1pj96IUCfvDB/IZ
+ zIMAwbNA1yqzTvBAzmGXAtOekE4FNU/e2cKskRw==
+X-Received: by 2002:a63:4d0e:0:b0:412:1877:9820 with SMTP id
+ a14-20020a634d0e000000b0041218779820mr3818758pgb.177.1661443173753; 
+ Thu, 25 Aug 2022 08:59:33 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR5UM0lZHwXtCzPqjz9OTeG9hawS8U4lIAQDjm0VuvpbEuKZaB5yNQSDTa+ZJQYNTPtp79MHRotzPfZOxM/xqwg=
+X-Received: by 2002:a63:4d0e:0:b0:412:1877:9820 with SMTP id
+ a14-20020a634d0e000000b0041218779820mr3818739pgb.177.1661443173532; Thu, 25
+ Aug 2022 08:59:33 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH] gfs2: Use TRY lock in gfs2_inode_lookup for
- UNLINKED inodes
+References: <20220818183238.121677-1-rpeterso@redhat.com>
+In-Reply-To: <20220818183238.121677-1-rpeterso@redhat.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Thu, 25 Aug 2022 17:59:22 +0200
+Message-ID: <CAHc6FU7zAh19pT6j6secT2NsRHNYT3stL2dPeQ5+sZarQLng8A@mail.gmail.com>
+To: Bob Peterson <rpeterso@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: Re: [Cluster-devel] [GFS2 v3 PATCH 0/3] gfs2: Misc withdraw patches
+ (version 3)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,99 +100,46 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel <cluster-devel@redhat.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
 
-Before this patch, delete_work_func() would check for the GLF_DEMOTE
-flag on the iopen glock and if set, it would perform special processing.
-However, there was a race whereby the GLF_DEMOTE flag could be set by
-another process after the check. Then when it called
-gfs2_lookup_by_inum() which calls gfs2_inode_lookup(), it tried to lock
-the iopen glock in SH mode, but the GLF_DEMOTE flag prevented the
-request from being granted. But the iopen glock could never be demoted
-because that happens when the inode is evicted, and the evict was never
-completed because of the failed lookup.
+On Thu, Aug 18, 2022 at 8:32 PM Bob Peterson <rpeterso@redhat.com> wrote:
+> This is version 3 which has further simplification and improvements.
+>
+> This patch set fixes a few bugs in how gfs2 handles file systems after
+> withdraw. In an ideal world, after a file system is withdrawn, users
+> should be able to unmount the file system without problems. However, we
+> discovered three problems that prevented clean unmounts:
+>
+> 1. A duplicate iput of the journal after attempted recovery caused
+>    kernel panics after withdraw.
+> 2. After withdraw, unmount would hang for its alloted timeout period
+>    when glocks had waiters queued that, due to the withdraw, could
+>    never be granted.
+> 3. Unmount would similarly hang when the withdraw prevented an outgoing
+>    request to dlm, but so the glock was never unlocked.
+>
+> Bob Peterson (3):
+>   gfs2: Prevent double iput for journal on error
+>   gfs2: Dequeue waiters when withdrawn
+>   gfs2: Clear flags when withdraw prevents xmote
+>
+>  fs/gfs2/glock.c | 36 ++++++++++++++++++++++++++++++++++--
+>  fs/gfs2/glock.h |  1 +
+>  fs/gfs2/util.c  |  6 ++++++
+>  3 files changed, 41 insertions(+), 2 deletions(-)
+>
+> --
+> 2.37.2
+>
 
-To fix that, change function gfs2_inode_lookup() so that when
-GFS2_BLKST_UNLINKED inodes are searched, it uses the LM_FLAG_TRY flag
-for the iopen glock.  If the locking request fails, fail
-gfs2_inode_lookup() with -EAGAIN so that delete_work_func() can retry
-the operation later.
+Pushed to for-next.
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
----
- fs/gfs2/glock.c |  8 +++++---
- fs/gfs2/inode.c | 10 ++++++++--
- 2 files changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index 0b36a16659b6..f1973a442955 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -1018,16 +1018,18 @@ static void delete_work_func(struct work_struct *work)
- 			if (gfs2_queue_delete_work(gl, 5 * HZ))
- 				return;
- 		}
--		goto out;
- 	}
- 
- 	inode = gfs2_lookup_by_inum(sdp, no_addr, gl->gl_no_formal_ino,
- 				    GFS2_BLKST_UNLINKED);
--	if (!IS_ERR_OR_NULL(inode)) {
-+	if (IS_ERR(inode)) {
-+		if (PTR_ERR(inode) == -EAGAIN &&
-+			(gfs2_queue_delete_work(gl, 5 * HZ)))
-+				return;
-+	} else {
- 		d_prune_aliases(inode);
- 		iput(inode);
- 	}
--out:
- 	gfs2_glock_put(gl);
- }
- 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index c8ec876f33ea..56ded979988c 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -130,6 +130,7 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 	if (inode->i_state & I_NEW) {
- 		struct gfs2_sbd *sdp = GFS2_SB(inode);
- 		struct gfs2_glock *io_gl;
-+		int extra_flags = 0;
- 
- 		error = gfs2_glock_get(sdp, no_addr, &gfs2_inode_glops, CREATE,
- 				       &ip->i_gl);
-@@ -141,9 +142,12 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 		if (unlikely(error))
- 			goto fail;
- 
--		if (blktype != GFS2_BLKST_UNLINKED)
-+		if (blktype == GFS2_BLKST_UNLINKED)
-+			extra_flags |= LM_FLAG_TRY;
-+		else
- 			gfs2_cancel_delete_work(io_gl);
--		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED, GL_EXACT,
-+		error = gfs2_glock_nq_init(io_gl, LM_ST_SHARED,
-+					   GL_EXACT | extra_flags,
- 					   &ip->i_iopen_gh);
- 		gfs2_glock_put(io_gl);
- 		if (unlikely(error))
-@@ -210,6 +214,8 @@ struct inode *gfs2_inode_lookup(struct super_block *sb, unsigned int type,
- 	return inode;
- 
- fail:
-+	if (error == GLR_TRYFAILED)
-+		error = -EAGAIN;
- 	if (gfs2_holder_initialized(&ip->i_iopen_gh))
- 		gfs2_glock_dq_uninit(&ip->i_iopen_gh);
- 	if (gfs2_holder_initialized(&i_gh))
--- 
-2.37.2
+Thanks,
+Andreas
 
