@@ -1,83 +1,84 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93FC05A79C0
-	for <lists+cluster-devel@lfdr.de>; Wed, 31 Aug 2022 11:10:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1816E5A7B7B
+	for <lists+cluster-devel@lfdr.de>; Wed, 31 Aug 2022 12:39:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661937018;
+	s=mimecast20190719; t=1661942364;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=GY0LohtBvo+ya7O6j21PTvSEofSSpZ30UQNtQZdvirY=;
-	b=C9Wu+ETlIL+EhaevBcsACfChEf0e3nfrAQMtNKA7fcQioGd9Y2TIS0Xr3Vx+jhaaMUZvG+
-	3y/a5Vm6ydII1SCoPuK9RuPm0udpX3VklWEvEZGK7CpUUXnkJPyoSh8mnhtp2Kbd5su7th
-	C0aNmUIPNvDeZsYTx4TsQuovWc378HM=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=D/VhxrZABrIw51+gKZ04o+QPEhbTuW7VzunFJgXY7yw=;
+	b=Hh9JJFk9u4NXxIZikqxJ6bxhDfeK4xnQiLDGXLIwOzzocbD5rdPUaRfNYejEu/miRTGfB7
+	NOUd5ajGq0WDKDX61DhYmVdRaPH3n5GOVZLccZ6VbAnJn91ZQSVxujtH8tFbpVsoSTx6g9
+	Utn93Gl2HMYjzh24g2k/b2kl809X0wo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-218-8JbEj1KLPqGXu2Nc4ruiDA-1; Wed, 31 Aug 2022 05:10:15 -0400
-X-MC-Unique: 8JbEj1KLPqGXu2Nc4ruiDA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-437-fIOHDZhFOCKV4MNyLTxIsA-1; Wed, 31 Aug 2022 06:39:21 -0400
+X-MC-Unique: fIOHDZhFOCKV4MNyLTxIsA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D3165823F09;
-	Wed, 31 Aug 2022 09:10:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C3F1185A7A4;
+	Wed, 31 Aug 2022 10:39:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D8AC492CA2;
-	Wed, 31 Aug 2022 09:10:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9F87D1121314;
+	Wed, 31 Aug 2022 10:39:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 373841946A5D;
-	Wed, 31 Aug 2022 09:10:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 63F811946A4B;
+	Wed, 31 Aug 2022 10:39:17 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A7EC41946A40 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 31 Aug 2022 07:29:30 +0000 (UTC)
+ ESMTP id 13D641946A40 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 31 Aug 2022 10:39:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7EE44141511A; Wed, 31 Aug 2022 07:29:30 +0000 (UTC)
+ id C2DE12026D64; Wed, 31 Aug 2022 10:39:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7AD361415117
- for <cluster-devel@redhat.com>; Wed, 31 Aug 2022 07:29:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BE5422026D4C
+ for <cluster-devel@redhat.com>; Wed, 31 Aug 2022 10:39:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A19851C0519D
+ for <cluster-devel@redhat.com>; Wed, 31 Aug 2022 10:39:15 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-373-55sqQ7obMYCxWTiy7KFEEQ-1; Wed,
+ 31 Aug 2022 06:39:13 -0400
+X-MC-Unique: 55sqQ7obMYCxWTiy7KFEEQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C618185A7BA
- for <cluster-devel@redhat.com>; Wed, 31 Aug 2022 07:29:30 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
- [45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-515-qNS6gT_mNV6ScgNBhtRg1g-1; Wed, 31 Aug 2022 03:29:28 -0400
-X-MC-Unique: qNS6gT_mNV6ScgNBhtRg1g-1
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MHZwp4ZXNzlWfP;
- Wed, 31 Aug 2022 15:06:50 +0800 (CST)
-Received: from huawei.com (10.175.127.227) by canpemm500005.china.huawei.com
- (7.192.104.229) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 31 Aug
- 2022 15:10:14 +0800
-From: Zhang Yi <yi.zhang@huawei.com>
-To: <linux-ext4@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <cluster-devel@redhat.com>,
- <ntfs3@lists.linux.dev>, <ocfs2-devel@oss.oracle.com>,
- <reiserfs-devel@vger.kernel.org>
-Date: Wed, 31 Aug 2022 15:21:11 +0800
-Message-ID: <20220831072111.3569680-15-yi.zhang@huawei.com>
-In-Reply-To: <20220831072111.3569680-1-yi.zhang@huawei.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 80EC221A53;
+ Wed, 31 Aug 2022 10:39:12 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6549613A7C;
+ Wed, 31 Aug 2022 10:39:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id aB+rGFA6D2M7aAAAMHmgww
+ (envelope-from <jack@suse.cz>); Wed, 31 Aug 2022 10:39:12 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id E49DCA067B; Wed, 31 Aug 2022 12:39:11 +0200 (CEST)
+Date: Wed, 31 Aug 2022 12:39:11 +0200
+From: Jan Kara <jack@suse.cz>
+To: Zhang Yi <yi.zhang@huawei.com>
+Message-ID: <20220831103911.ubrkxc3yf46bdme3@quack3>
 References: <20220831072111.3569680-1-yi.zhang@huawei.com>
+ <20220831072111.3569680-2-yi.zhang@huawei.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.175.127.227]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- canpemm500005.china.huawei.com (7.192.104.229)
-X-CFilter-Loop: Reflected
+In-Reply-To: <20220831072111.3569680-2-yi.zhang@huawei.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -85,10 +86,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-X-Mailman-Approved-At: Wed, 31 Aug 2022 09:10:11 +0000
-Subject: [Cluster-devel] [PATCH 14/14] fs/buffer: remove bh_submit_read()
- helper
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH 01/14] fs/buffer: remove
+ __breadahead_gfp()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,74 +100,89 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, tytso@mit.edu, yi.zhang@huawei.com,
- chengzhihao1@huawei.com, mark@fasheh.com,
- almaz.alexandrovich@paragon-software.com, viro@zeniv.linux.org.uk,
- yukuai3@huawei.com, jack@suse.cz, akpm@linux-foundation.org, dushistov@mail.ru
+Cc: axboe@kernel.dk, almaz.alexandrovich@paragon-software.com,
+ ntfs3@lists.linux.dev, jack@suse.cz, chengzhihao1@huawei.com, mark@fasheh.com,
+ linux-kernel@vger.kernel.org, reiserfs-devel@vger.kernel.org,
+ cluster-devel@redhat.com, viro@zeniv.linux.org.uk, yukuai3@huawei.com,
+ linux-fsdevel@vger.kernel.org, tytso@mit.edu, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, dushistov@mail.ru, ocfs2-devel@oss.oracle.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-bh_submit_read() has no user anymore, just remove it.
+On Wed 31-08-22 15:20:58, Zhang Yi wrote:
+> No one use __breadahead_gfp() and sb_breadahead_unmovable() any more,
+> remove them.
+> 
+> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
----
- fs/buffer.c                 | 25 -------------------------
- include/linux/buffer_head.h |  1 -
- 2 files changed, 26 deletions(-)
+Looks good. Feel free to add:
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index d1d09e2dacc2..fa7c2dbcef4c 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -3029,31 +3029,6 @@ void __bh_read_batch(struct buffer_head *bhs[],
- }
- EXPORT_SYMBOL(__bh_read_batch);
-=20
--/**
-- * bh_submit_read - Submit a locked buffer for reading
-- * @bh: struct buffer_head
-- *
-- * Returns zero on success and -EIO on error.
-- */
--int bh_submit_read(struct buffer_head *bh)
--{
--=09BUG_ON(!buffer_locked(bh));
--
--=09if (buffer_uptodate(bh)) {
--=09=09unlock_buffer(bh);
--=09=09return 0;
--=09}
--
--=09get_bh(bh);
--=09bh->b_end_io =3D end_buffer_read_sync;
--=09submit_bh(REQ_OP_READ, bh);
--=09wait_on_buffer(bh);
--=09if (buffer_uptodate(bh))
--=09=09return 0;
--=09return -EIO;
--}
--EXPORT_SYMBOL(bh_submit_read);
--
- void __init buffer_init(void)
- {
- =09unsigned long nrpages;
-diff --git a/include/linux/buffer_head.h b/include/linux/buffer_head.h
-index 1c93ff8c8f51..576f3609ac4e 100644
---- a/include/linux/buffer_head.h
-+++ b/include/linux/buffer_head.h
-@@ -230,7 +230,6 @@ int submit_bh(blk_opf_t, struct buffer_head *);
- void write_boundary_block(struct block_device *bdev,
- =09=09=09sector_t bblock, unsigned blocksize);
- int bh_uptodate_or_lock(struct buffer_head *bh);
--int bh_submit_read(struct buffer_head *bh);
- int __bh_read(struct buffer_head *bh, blk_opf_t op_flags, bool wait);
- void __bh_read_batch(struct buffer_head *bhs[],
- =09=09     int nr, blk_opf_t op_flags, bool force_lock);
---=20
-2.31.1
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  fs/buffer.c                 | 11 -----------
+>  include/linux/buffer_head.h |  8 --------
+>  2 files changed, 19 deletions(-)
+> 
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index 55e762a58eb6..a0b70b3239f3 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -1348,17 +1348,6 @@ void __breadahead(struct block_device *bdev, sector_t block, unsigned size)
+>  }
+>  EXPORT_SYMBOL(__breadahead);
+>  
+> -void __breadahead_gfp(struct block_device *bdev, sector_t block, unsigned size,
+> -		      gfp_t gfp)
+> -{
+> -	struct buffer_head *bh = __getblk_gfp(bdev, block, size, gfp);
+> -	if (likely(bh)) {
+> -		ll_rw_block(REQ_OP_READ | REQ_RAHEAD, 1, &bh);
+> -		brelse(bh);
+> -	}
+> -}
+> -EXPORT_SYMBOL(__breadahead_gfp);
+> -
+>  /**
+>   *  __bread_gfp() - reads a specified block and returns the bh
+>   *  @bdev: the block_device to read from
+> diff --git a/include/linux/buffer_head.h b/include/linux/buffer_head.h
+> index 089c9ade4325..c3863c417b00 100644
+> --- a/include/linux/buffer_head.h
+> +++ b/include/linux/buffer_head.h
+> @@ -214,8 +214,6 @@ struct buffer_head *__getblk_gfp(struct block_device *bdev, sector_t block,
+>  void __brelse(struct buffer_head *);
+>  void __bforget(struct buffer_head *);
+>  void __breadahead(struct block_device *, sector_t block, unsigned int size);
+> -void __breadahead_gfp(struct block_device *, sector_t block, unsigned int size,
+> -		  gfp_t gfp);
+>  struct buffer_head *__bread_gfp(struct block_device *,
+>  				sector_t block, unsigned size, gfp_t gfp);
+>  void invalidate_bh_lrus(void);
+> @@ -340,12 +338,6 @@ sb_breadahead(struct super_block *sb, sector_t block)
+>  	__breadahead(sb->s_bdev, block, sb->s_blocksize);
+>  }
+>  
+> -static inline void
+> -sb_breadahead_unmovable(struct super_block *sb, sector_t block)
+> -{
+> -	__breadahead_gfp(sb->s_bdev, block, sb->s_blocksize, 0);
+> -}
+> -
+>  static inline struct buffer_head *
+>  sb_getblk(struct super_block *sb, sector_t block)
+>  {
+> -- 
+> 2.31.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
