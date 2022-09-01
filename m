@@ -1,75 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 902275A9891
-	for <lists+cluster-devel@lfdr.de>; Thu,  1 Sep 2022 15:29:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 735605A9888
+	for <lists+cluster-devel@lfdr.de>; Thu,  1 Sep 2022 15:26:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662038945;
+	s=mimecast20190719; t=1662038788;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GBiazTKWoyi2YtBQ/2xfLUzG7leDUJjX7SIP8SCZ39I=;
-	b=EOQyt1lwfNc/VhesxqjMwmxKpMQsUiXYwqwe/G8b5A2yEiWoVlVMDzuImR6dERY8vQY/DK
-	/JVhJJV/5VmwrQajJ4TpX1TI/9Snbu4tjgvfxi4ZwT0cn1e8gHYOd8DjodZE0R+EdoaVyk
-	2g8nwDH8XijvvVfbIM+DrfItpKFe8k4=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=2aM2aJk2cL5EWeNyvMSPHrghqmP3eb1QFcqNLHxtlX8=;
+	b=LzORNjvr763HCCYliQ3ONVVEArRjOZ7YK+EID6mOVgVb0xKCXNqqIQHxoD3JTybhQAiRa4
+	e4CT3LfdwajQ6Ro8WAqDWj5fFQH5vro/hC14T0a9yQGz0ZhKSxnLlr3Hfy6bVDkniSTrGH
+	Jt6yEJMD1+CZjKJ31SRqPTK229Ip7Xo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-170-jgSdODEPMKOZWJNNlEBxiw-1; Thu, 01 Sep 2022 09:29:03 -0400
-X-MC-Unique: jgSdODEPMKOZWJNNlEBxiw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-593-xiILWO1WOemQuT40hk0wOg-1; Thu, 01 Sep 2022 09:26:26 -0400
+X-MC-Unique: xiILWO1WOemQuT40hk0wOg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56370293249E;
-	Thu,  1 Sep 2022 13:28:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34C358039BC;
+	Thu,  1 Sep 2022 13:26:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4AAFC400EAB6;
-	Thu,  1 Sep 2022 13:28:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 295E4C15BB3;
+	Thu,  1 Sep 2022 13:26:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 269DB1942685;
-	Thu,  1 Sep 2022 13:28:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A3E0194B945;
+	Thu,  1 Sep 2022 13:26:23 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 443C21946A5E for <cluster-devel@listman.corp.redhat.com>;
- Thu,  1 Sep 2022 13:24:10 +0000 (UTC)
+ ESMTP id 8251A1946A5E for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  1 Sep 2022 13:24:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1BEA140B40C7; Thu,  1 Sep 2022 13:24:10 +0000 (UTC)
+ id 5B3181415125; Thu,  1 Sep 2022 13:24:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1852340CF8F2
- for <cluster-devel@redhat.com>; Thu,  1 Sep 2022 13:24:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 576B01410F3C
+ for <cluster-devel@redhat.com>; Thu,  1 Sep 2022 13:24:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0131A293249C
- for <cluster-devel@redhat.com>; Thu,  1 Sep 2022 13:24:10 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 401EA804191
+ for <cluster-devel@redhat.com>; Thu,  1 Sep 2022 13:24:13 +0000 (UTC)
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
  [45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-178-Z1Kk9qBaNdWOM7aqoPGuyg-1; Thu, 01 Sep 2022 09:24:08 -0400
-X-MC-Unique: Z1Kk9qBaNdWOM7aqoPGuyg-1
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.56])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MJM9d6LJkzlWcl;
- Thu,  1 Sep 2022 21:20:37 +0800 (CST)
+ us-mta-323-E6qdHILbO_y0eexemcl1oQ-1; Thu, 01 Sep 2022 09:24:09 -0400
+X-MC-Unique: E6qdHILbO_y0eexemcl1oQ-1
+Received: from canpemm500005.china.huawei.com (unknown [172.30.72.54])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MJM9f64f7zlWh9;
+ Thu,  1 Sep 2022 21:20:38 +0800 (CST)
 Received: from huawei.com (10.175.127.227) by canpemm500005.china.huawei.com
  (7.192.104.229) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 1 Sep
- 2022 21:24:03 +0800
+ 2022 21:24:04 +0800
 From: Zhang Yi <yi.zhang@huawei.com>
 To: <linux-ext4@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <cluster-devel@redhat.com>,
  <ntfs3@lists.linux.dev>, <ocfs2-devel@oss.oracle.com>,
  <reiserfs-devel@vger.kernel.org>, <jack@suse.cz>
-Date: Thu, 1 Sep 2022 21:34:58 +0800
-Message-ID: <20220901133505.2510834-8-yi.zhang@huawei.com>
+Date: Thu, 1 Sep 2022 21:34:59 +0800
+Message-ID: <20220901133505.2510834-9-yi.zhang@huawei.com>
 In-Reply-To: <20220901133505.2510834-1-yi.zhang@huawei.com>
 References: <20220901133505.2510834-1-yi.zhang@huawei.com>
 MIME-Version: 1.0
@@ -84,8 +85,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [Cluster-devel] [PATCH v2 07/14] ntfs3: replace ll_rw_block()
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [Cluster-devel] [PATCH v2 08/14] ocfs2: replace ll_rw_block()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,7 +104,7 @@ Cc: axboe@kernel.dk, tytso@mit.edu, yi.zhang@huawei.com, mark@fasheh.com,
  chengzhihao1@huawei.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
@@ -112,34 +113,43 @@ Content-Transfer-Encoding: quoted-printable
 ll_rw_block() is not safe for the sync read path because it cannot
 guarantee that submitting read IO if the buffer has been locked. We
 could get false positive EIO after wait_on_buffer() if the buffer has
-been locked by others. So stop using ll_rw_block() in
-ntfs_get_block_vbo().
+been locked by others. So stop using ll_rw_block() in ocfs2.
 
 Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 ---
- fs/ntfs3/inode.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ fs/ocfs2/aops.c  | 2 +-
+ fs/ocfs2/super.c | 4 +---
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 51363d4e8636..cadbfa111539 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -630,12 +630,9 @@ static noinline int ntfs_get_block_vbo(struct inode *i=
-node, u64 vbo,
- =09=09=09bh->b_size =3D block_size;
- =09=09=09off =3D vbo & (PAGE_SIZE - 1);
- =09=09=09set_bh_page(bh, page, off);
+diff --git a/fs/ocfs2/aops.c b/fs/ocfs2/aops.c
+index af4157f61927..1d65f6ef00ca 100644
+--- a/fs/ocfs2/aops.c
++++ b/fs/ocfs2/aops.c
+@@ -636,7 +636,7 @@ int ocfs2_map_page_blocks(struct page *page, u64 *p_blk=
+no,
+ =09=09=09   !buffer_new(bh) &&
+ =09=09=09   ocfs2_should_read_blk(inode, page, block_start) &&
+ =09=09=09   (block_start < from || block_end > to)) {
 -=09=09=09ll_rw_block(REQ_OP_READ, 1, &bh);
--=09=09=09wait_on_buffer(bh);
--=09=09=09if (!buffer_uptodate(bh)) {
--=09=09=09=09err =3D -EIO;
-+=09=09=09err =3D bh_read(bh, 0);
-+=09=09=09if (err < 0)
- =09=09=09=09goto out;
--=09=09=09}
- =09=09=09zero_user_segment(page, off + voff, off + block_size);
++=09=09=09bh_read_nowait(bh, 0);
+ =09=09=09*wait_bh++=3Dbh;
  =09=09}
- =09}
+=20
+diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+index e2cc9eec287c..26b4c2bfee49 100644
+--- a/fs/ocfs2/super.c
++++ b/fs/ocfs2/super.c
+@@ -1764,9 +1764,7 @@ static int ocfs2_get_sector(struct super_block *sb,
+ =09if (!buffer_dirty(*bh))
+ =09=09clear_buffer_uptodate(*bh);
+ =09unlock_buffer(*bh);
+-=09ll_rw_block(REQ_OP_READ, 1, bh);
+-=09wait_on_buffer(*bh);
+-=09if (!buffer_uptodate(*bh)) {
++=09if (bh_read(*bh, 0) < 0) {
+ =09=09mlog_errno(-EIO);
+ =09=09brelse(*bh);
+ =09=09*bh =3D NULL;
 --=20
 2.31.1
 
