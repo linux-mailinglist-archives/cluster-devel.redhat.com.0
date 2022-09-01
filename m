@@ -1,94 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135D35A9C68
-	for <lists+cluster-devel@lfdr.de>; Thu,  1 Sep 2022 18:00:10 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E34435A9C83
+	for <lists+cluster-devel@lfdr.de>; Thu,  1 Sep 2022 18:05:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662048005;
+	s=mimecast20190719; t=1662048354;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=ZK4oZT3eX4MCCX8IazaYP0RSu4rfgk2J8j6ZUW7BNNQ=;
-	b=Ej1t3HyPhM8BIyUHxAVjct++D7vwvaDtuj4BwC+sM4FB5ChgzC3jFgWfdvGeEKvfrrcLwS
-	loXspL3vEALRrBF5d5oYG6vq4sUPSdKr5PoK9BPzqX3MNQ4h+fIFHaCAwiQEsvgmq1qdZf
-	zEz/dYe0FUeBS8CJZGfX7sixP/bC2cc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=mpdcGQ0GF+A0yYLLGVffsdC12t7hCV6cWDG/7dolI9U=;
+	b=fpVAVHTrWvEpzj4m2rEjdo904MOTiSFJVxOFXBcONf/q/K9qe4pZwpb3p/RuoS0zIHcVLY
+	6sPiGoTRLqq5d/6b6U8ez9Z55YaTTAZzPQNn26u80BKM3naUd0Ai0RgQoS0RFhsrpxFYWy
+	F26Z0XJB6Z5tP2Xs+vtpSg5b67iy5+Y=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-610-cOJTta87N7OVJzgTI0DATQ-1; Thu, 01 Sep 2022 12:00:04 -0400
-X-MC-Unique: cOJTta87N7OVJzgTI0DATQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-553-mv5nNwBXP3ynQu_nluxn0g-1; Thu, 01 Sep 2022 12:05:49 -0400
+X-MC-Unique: mv5nNwBXP3ynQu_nluxn0g-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 149008032F1;
-	Thu,  1 Sep 2022 16:00:03 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0751C1121314;
-	Thu,  1 Sep 2022 16:00:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 97F6D3C00089;
+	Thu,  1 Sep 2022 16:05:47 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C0472166B26;
+	Thu,  1 Sep 2022 16:05:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9B6A01942685;
-	Thu,  1 Sep 2022 16:00:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4C3F11942685;
+	Thu,  1 Sep 2022 16:05:47 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AD8731946A5E for <cluster-devel@listman.corp.redhat.com>;
- Thu,  1 Sep 2022 16:00:01 +0000 (UTC)
+ ESMTP id D06581946A5E for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  1 Sep 2022 16:05:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 96711492CA2; Thu,  1 Sep 2022 16:00:01 +0000 (UTC)
+ id AEC942166B2A; Thu,  1 Sep 2022 16:05:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 928D7492C3B
- for <cluster-devel@redhat.com>; Thu,  1 Sep 2022 16:00:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 77CEC101A54E
- for <cluster-devel@redhat.com>; Thu,  1 Sep 2022 16:00:01 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-495-nqC6fqBSMRyI6XjUzyEq1w-1; Thu,
- 01 Sep 2022 11:59:57 -0400
-X-MC-Unique: nqC6fqBSMRyI6XjUzyEq1w-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9D29C21D31;
- Thu,  1 Sep 2022 15:59:54 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8C1B213A89;
- Thu,  1 Sep 2022 15:59:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aSA1IvrWEGNDCAAAMHmgww
- (envelope-from <jack@suse.cz>); Thu, 01 Sep 2022 15:59:54 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 23A78A067C; Thu,  1 Sep 2022 17:59:54 +0200 (CEST)
-Date: Thu, 1 Sep 2022 17:59:54 +0200
-From: Jan Kara <jack@suse.cz>
-To: Zhang Yi <yi.zhang@huawei.com>
-Message-ID: <20220901155954.4xwvu25bkhgz4uro@quack3>
-References: <20220901133505.2510834-1-yi.zhang@huawei.com>
- <20220901133505.2510834-14-yi.zhang@huawei.com>
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+ (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 82F652166B26;
+ Thu,  1 Sep 2022 16:05:35 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Thu,  1 Sep 2022 12:05:32 -0400
+Message-Id: <20220901160532.2894491-1-aahringo@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20220901133505.2510834-14-yi.zhang@huawei.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: Re: [Cluster-devel] [PATCH v2 13/14] ext2: replace bh_submit_read()
- helper with bh_read_locked()
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [Cluster-devel] [PATCH] fs: dlm: fix possible use after free if
+ tracing
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,66 +64,85 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, almaz.alexandrovich@paragon-software.com,
- ntfs3@lists.linux.dev, jack@suse.cz, chengzhihao1@huawei.com, mark@fasheh.com,
- linux-kernel@vger.kernel.org, reiserfs-devel@vger.kernel.org,
- cluster-devel@redhat.com, viro@zeniv.linux.org.uk, yukuai3@huawei.com,
- linux-fsdevel@vger.kernel.org, tytso@mit.edu, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, dushistov@mail.ru, ocfs2-devel@oss.oracle.com
+Cc: cluster-devel@redhat.com, stable@vger.kernel.org, dan.carpenter@oracle.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Thu 01-09-22 21:35:04, Zhang Yi wrote:
-> bh_submit_read() and the uptodate check logic in bh_uptodate_or_lock()
-> has been integrated in bh_read() helper, so switch to use it directly.
-> 
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+This patch fixes a possible use after free if tracing for the specific
+event is enabled. To avoid the use after free we introduce a out_put
+label like all other user lock specific requests and safe in a boolean
+to do a put or not which depends on the execution path of
+dlm_user_request().
 
-Looks good to me. Feel free to add:
+Cc: stable@vger.kernel.org
+Fixes: 7a3de7324c2b ("fs: dlm: trace user space callbacks")
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+---
+ fs/dlm/lock.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/ext2/balloc.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/ext2/balloc.c b/fs/ext2/balloc.c
-> index c17ccc19b938..5dc0a31f4a08 100644
-> --- a/fs/ext2/balloc.c
-> +++ b/fs/ext2/balloc.c
-> @@ -126,6 +126,7 @@ read_block_bitmap(struct super_block *sb, unsigned int block_group)
->  	struct ext2_group_desc * desc;
->  	struct buffer_head * bh = NULL;
->  	ext2_fsblk_t bitmap_blk;
-> +	int ret;
->  
->  	desc = ext2_get_group_desc(sb, block_group, NULL);
->  	if (!desc)
-> @@ -139,10 +140,10 @@ read_block_bitmap(struct super_block *sb, unsigned int block_group)
->  			    block_group, le32_to_cpu(desc->bg_block_bitmap));
->  		return NULL;
->  	}
-> -	if (likely(bh_uptodate_or_lock(bh)))
-> +	ret = bh_read(bh, 0);
-> +	if (ret > 0)
->  		return bh;
-> -
-> -	if (bh_submit_read(bh) < 0) {
-> +	if (ret < 0) {
->  		brelse(bh);
->  		ext2_error(sb, __func__,
->  			    "Cannot read block bitmap - "
-> -- 
-> 2.31.1
-> 
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index c830feb26384..94a72ede5764 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -5835,6 +5835,7 @@ int dlm_user_request(struct dlm_ls *ls, struct dlm_user_args *ua,
+ {
+ 	struct dlm_lkb *lkb;
+ 	struct dlm_args args;
++	bool do_put = true;
+ 	int error;
+ 
+ 	dlm_lock_recovery(ls);
+@@ -5851,9 +5852,8 @@ int dlm_user_request(struct dlm_ls *ls, struct dlm_user_args *ua,
+ 		ua->lksb.sb_lvbptr = kzalloc(DLM_USER_LVB_LEN, GFP_NOFS);
+ 		if (!ua->lksb.sb_lvbptr) {
+ 			kfree(ua);
+-			__put_lkb(ls, lkb);
+ 			error = -ENOMEM;
+-			goto out_trace_end;
++			goto out_put;
+ 		}
+ 	}
+ #ifdef CONFIG_DLM_DEPRECATED_API
+@@ -5867,8 +5867,7 @@ int dlm_user_request(struct dlm_ls *ls, struct dlm_user_args *ua,
+ 		kfree(ua->lksb.sb_lvbptr);
+ 		ua->lksb.sb_lvbptr = NULL;
+ 		kfree(ua);
+-		__put_lkb(ls, lkb);
+-		goto out_trace_end;
++		goto out_put;
+ 	}
+ 
+ 	/* After ua is attached to lkb it will be freed by dlm_free_lkb().
+@@ -5887,8 +5886,7 @@ int dlm_user_request(struct dlm_ls *ls, struct dlm_user_args *ua,
+ 		error = 0;
+ 		fallthrough;
+ 	default:
+-		__put_lkb(ls, lkb);
+-		goto out_trace_end;
++		goto out_put;
+ 	}
+ 
+ 	/* add this new lkb to the per-process list of locks */
+@@ -5896,8 +5894,11 @@ int dlm_user_request(struct dlm_ls *ls, struct dlm_user_args *ua,
+ 	hold_lkb(lkb);
+ 	list_add_tail(&lkb->lkb_ownqueue, &ua->proc->locks);
+ 	spin_unlock(&ua->proc->locks_spin);
+- out_trace_end:
++	do_put = false;
++ out_put:
+ 	trace_dlm_lock_end(ls, lkb, name, namelen, mode, flags, error, false);
++	if (do_put)
++		__put_lkb(ls, lkb);
+  out:
+ 	dlm_unlock_recovery(ls);
+ 	return error;
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.31.1
 
