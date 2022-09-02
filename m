@@ -1,76 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390775AB90E
-	for <lists+cluster-devel@lfdr.de>; Fri,  2 Sep 2022 21:59:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D05CC5ABA44
+	for <lists+cluster-devel@lfdr.de>; Fri,  2 Sep 2022 23:40:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662148776;
+	s=mimecast20190719; t=1662154838;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=DTiD0UDAHCowanUgvvoQMaLfSVgWjAaJf25jpBUdDhk=;
-	b=VIDO44/O5LhTwFpGM418/o/hmxMwmDloiLmHcWV0gCFyeNHHoyqXlAckOmAeLdhuVCNttU
-	QElTuIC3XulrQ37ZOQGy80czZxxCSE+Z6xXQwtkdfNnPp0eomqhpFflfuDF/hWNSV7soNK
-	Z488E6JHty3jqx9UKnNUyaUlXV9MpvU=
+	 list-subscribe:list-post; bh=0jCukkhnBlF7Oq6mUDTOX3mm2uqAMe30rizyVw541S4=;
+	b=M7S78Ao9tbvOzpJlWLO0gtspWhG9y+onedosLWnehEZs+Kqpo59AM5xhS4JQ+nnG6ewJAG
+	fLWSZe5Bj0nzWOdbcEobDxXGh0KMYynF54Hzm3hyoCB8BUXEwI0CdczEm8MIrndenWcYj8
+	C2v4ui27F4c5lGJNjOiioarkjJKuFLw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-197-rQ0X5JvmNbi0h4gtXZvXiA-1; Fri, 02 Sep 2022 15:59:33 -0400
-X-MC-Unique: rQ0X5JvmNbi0h4gtXZvXiA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-120-NSDRwbTBMdC8FpxjEnbhjQ-1; Fri, 02 Sep 2022 17:40:35 -0400
+X-MC-Unique: NSDRwbTBMdC8FpxjEnbhjQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B543101A588;
-	Fri,  2 Sep 2022 19:59:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A755D80A0BC;
+	Fri,  2 Sep 2022 21:40:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 974EAC15BBD;
-	Fri,  2 Sep 2022 19:59:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4A6061415137;
+	Fri,  2 Sep 2022 21:40:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5EE82194B97A;
-	Fri,  2 Sep 2022 19:59:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EF1CA194B97A;
+	Fri,  2 Sep 2022 21:40:32 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2C9B01946A42 for <cluster-devel@listman.corp.redhat.com>;
- Fri,  2 Sep 2022 19:59:29 +0000 (UTC)
+ ESMTP id B150D1946A42 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  2 Sep 2022 21:40:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 04808945D0; Fri,  2 Sep 2022 19:59:29 +0000 (UTC)
+ id 9184C2026D64; Fri,  2 Sep 2022 21:40:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 00CD3422E3
- for <cluster-devel@redhat.com>; Fri,  2 Sep 2022 19:59:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB364811E76
- for <cluster-devel@redhat.com>; Fri,  2 Sep 2022 19:59:28 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24]) by
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8DA332026D4C
+ for <cluster-devel@redhat.com>; Fri,  2 Sep 2022 21:40:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 712661C05134
+ for <cluster-devel@redhat.com>; Fri,  2 Sep 2022 21:40:31 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-140-vpMrefqhNPqa8C0BpXuNEA-1; Fri, 02 Sep 2022 15:59:27 -0400
-X-MC-Unique: vpMrefqhNPqa8C0BpXuNEA-1
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="296859519"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="296859519"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2022 12:58:23 -0700
+ us-mta-363-3lKYe1WgN2W4la-jZYSwng-1; Fri, 02 Sep 2022 17:40:29 -0400
+X-MC-Unique: 3lKYe1WgN2W4la-jZYSwng-1
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="279109057"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="279109057"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2022 14:40:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="643037848"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="564106825"
 Received: from lkp-server02.sh.intel.com (HELO 95dfd251caa2) ([10.239.97.151])
- by orsmga008.jf.intel.com with ESMTP; 02 Sep 2022 12:58:20 -0700
+ by orsmga003.jf.intel.com with ESMTP; 02 Sep 2022 14:40:25 -0700
 Received: from kbuild by 95dfd251caa2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oUCnz-0000Yt-2J;
- Fri, 02 Sep 2022 19:58:19 +0000
-Date: Sat, 3 Sep 2022 03:57:42 +0800
+ (envelope-from <lkp@intel.com>) id 1oUEOm-0000dc-2p;
+ Fri, 02 Sep 2022 21:40:24 +0000
+Date: Sat, 3 Sep 2022 05:39:26 +0800
 From: kernel test robot <lkp@intel.com>
 To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
  linux-fsdevel@vger.kernel.org
-Message-ID: <202209030346.t02z8VfY-lkp@intel.com>
+Message-ID: <202209030512.9yAy8edt-lkp@intel.com>
 References: <20220901220138.182896-15-vishal.moola@gmail.com>
 MIME-Version: 1.0
 In-Reply-To: <20220901220138.182896-15-vishal.moola@gmail.com>
@@ -81,7 +81,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Subject: Re: [Cluster-devel] [PATCH 14/23] f2fs: Convert
  f2fs_write_cache_pages() to use filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
@@ -97,13 +97,13 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
  kbuild-all@lists.01.org, "Vishal Moola \(Oracle\)" <vishal.moola@gmail.com>,
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
- linux-mm@kvack.org, ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-mm@kvack.org, ceph-devel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
@@ -122,8 +122,8 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Vishal-Moola-Oracle/Convert-to-filemap_get_folios_tag/20220902-060430
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git dev-test
-config: hexagon-randconfig-r045-20220901 (https://download.01.org/0day-ci/archive/20220903/202209030346.t02z8VfY-lkp@intel.com/config)
-compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project c55b41d5199d2394dd6cdb8f52180d8b81d809d4)
+config: arc-randconfig-r043-20220901 (https://download.01.org/0day-ci/archive/20220903/202209030512.9yAy8edt-lkp@intel.com/config)
+compiler: arc-elf-gcc (GCC) 12.1.0
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
@@ -133,24 +133,22 @@ reproduce (this is a W=1 build):
         git checkout 6c74320953cd3749db95f9f09c1fc7d044933635
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash fs/f2fs/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash fs/
 
 If you fix the issue, kindly add following tag where applicable
 Reported-by: kernel test robot <lkp@intel.com>
 
 All errors (new ones prefixed by >>):
 
->> fs/f2fs/data.c:3016:18: error: use of undeclared identifier 'nr_pages'; did you mean 'dir_pages'?
-                                           &fbatch, i, nr_pages, true))
-                                                       ^~~~~~~~
-                                                       dir_pages
-   include/linux/pagemap.h:1404:29: note: 'dir_pages' declared here
-   static inline unsigned long dir_pages(struct inode *inode)
-                               ^
->> fs/f2fs/data.c:3017:11: error: use of undeclared label 'lock_page'
-                                           goto lock_page;
-                                                ^
-   2 errors generated.
+   fs/f2fs/data.c: In function 'f2fs_write_cache_pages':
+>> fs/f2fs/data.c:3016:53: error: 'nr_pages' undeclared (first use in this function); did you mean 'dir_pages'?
+    3016 |                                         &fbatch, i, nr_pages, true))
+         |                                                     ^~~~~~~~
+         |                                                     dir_pages
+   fs/f2fs/data.c:3016:53: note: each undeclared identifier is reported only once for each function it appears in
+>> fs/f2fs/data.c:3017:41: error: label 'lock_page' used but not defined
+    3017 |                                         goto lock_page;
+         |                                         ^~~~
 
 
 vim +3016 fs/f2fs/data.c
