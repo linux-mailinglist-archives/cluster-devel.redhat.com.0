@@ -1,91 +1,91 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4D9E5B6025
-	for <lists+cluster-devel@lfdr.de>; Mon, 12 Sep 2022 20:25:36 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BCD6B5B6033
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Sep 2022 20:25:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663007135;
+	s=mimecast20190719; t=1663007140;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=67A/dC+jR6XpLGLC4ODkJ9hSQCj7SGuspJu+k6nnCZE=;
-	b=PTshcRLJRPfk/oRtjdhEYI/NTT0ofMZafqBZYMQsR/Qznlu/U+K2jnG0nZ5CUsq5AAV2Q7
-	bvANtqVhHwfTXWmrz2Blho9mdoTFgw4DSLyCJBRRxD3AEKv310yeFdBwDkDX0f/zfU4b7o
-	oir82P1Bbrf6Uzsbzhz+CAUgB8hryso=
+	bh=NOXLTO79qhrJOlYyxIYm/ZYJYsfR2nEvKsGqG4l5Qvs=;
+	b=XRxn9p81+IkaLSd1z8lW05vKFWy6i4+tq7OZ8SglmcB/0Nx63YTq1UVhz/3nFKEuKIASiW
+	H4OGuAMc1EYjePZzuc5PdcIwWW0vNZklXPtoOmhjGAN+Vo94ak828poJZsQJ4dj7KtRZ9X
+	VL9HQOPxVkxno0ORSBOXztDRIKxb8q4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-110-B1pyPwlzM6C2uf2GaxLRpQ-1; Mon, 12 Sep 2022 14:25:32 -0400
-X-MC-Unique: B1pyPwlzM6C2uf2GaxLRpQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-121-D38CouzYPU6_wKNc6MjItw-1; Mon, 12 Sep 2022 14:25:37 -0400
+X-MC-Unique: D38CouzYPU6_wKNc6MjItw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C57E685A585;
-	Mon, 12 Sep 2022 18:25:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFA7F18188A3;
+	Mon, 12 Sep 2022 18:25:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B9B4210EB8;
-	Mon, 12 Sep 2022 18:25:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B4D9740C6EC2;
+	Mon, 12 Sep 2022 18:25:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 908C31946A46;
-	Mon, 12 Sep 2022 18:25:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9DA5E1946A46;
+	Mon, 12 Sep 2022 18:25:35 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6B2F61946A47 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 12 Sep 2022 18:25:30 +0000 (UTC)
+ ESMTP id 2A0B31946A43 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 12 Sep 2022 18:25:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5147A40C2065; Mon, 12 Sep 2022 18:25:30 +0000 (UTC)
+ id 1F70D40C2065; Mon, 12 Sep 2022 18:25:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DA3340C2064
- for <cluster-devel@redhat.com>; Mon, 12 Sep 2022 18:25:30 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BC1B40C2064
+ for <cluster-devel@redhat.com>; Mon, 12 Sep 2022 18:25:34 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3492B299E751
- for <cluster-devel@redhat.com>; Mon, 12 Sep 2022 18:25:30 +0000 (UTC)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02357299E74F
+ for <cluster-devel@redhat.com>; Mon, 12 Sep 2022 18:25:34 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-601-frUwUmcsPJmGZYzM-BEOtg-1; Mon, 12 Sep 2022 14:25:28 -0400
-X-MC-Unique: frUwUmcsPJmGZYzM-BEOtg-1
-Received: by mail-pg1-f176.google.com with SMTP id c24so9036213pgg.11
- for <cluster-devel@redhat.com>; Mon, 12 Sep 2022 11:25:28 -0700 (PDT)
+ us-mta-435-8iv0j95INv2snew8t4sydg-1; Mon, 12 Sep 2022 14:25:30 -0400
+X-MC-Unique: 8iv0j95INv2snew8t4sydg-1
+Received: by mail-pj1-f46.google.com with SMTP id o23so7620749pji.4
+ for <cluster-devel@redhat.com>; Mon, 12 Sep 2022 11:25:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=67A/dC+jR6XpLGLC4ODkJ9hSQCj7SGuspJu+k6nnCZE=;
- b=FR6Co6JigXPYQQ2tOYQ2XazsjYQIO9XZS88FX2gH5ZAT4p//uYxRBQoaxFYVAg13au
- 3U+ZEiOovXDF179IqGUx3x60EqYiJhJu0jfJNIedwXyM/lRE9BrUrknXztA7Zm4Zv8pv
- 3KFyvwcUnav5qK4eKIVRraJKTN/OtkeyoQs351uQ/du97TW14MvddN8YJEBOn60OKUGT
- pW4ndrFzU1/H+yhkVTb4kwbbGnUN5XrwrGawB4x8y1eO0IY2S19YhZRyS0sQ35z3uSr0
- 6TZ6K9U01f8vqiYEDKozIY4lRJ6YT0Pdh0EuvD5rovT/H8avh863Ncgjfto3mmQq9GyZ
- 8Pvw==
-X-Gm-Message-State: ACgBeo0aJpNTjAxLSQjEToowpXXt3nyObJSrebdDVhX9zp5QV9/wACEB
- KAUEnDnVli16dxM5DmVatmc=
-X-Google-Smtp-Source: AA6agR7P7yxn0wh8zMeXofgE5vQGekA0gBR/ttrIDe9iv9XGznJYJpKBOEn0vV26qwuwPAOFYEPPYg==
-X-Received: by 2002:a63:ed58:0:b0:439:b3a:4f01 with SMTP id
- m24-20020a63ed58000000b004390b3a4f01mr4992754pgk.327.1663007127489; 
- Mon, 12 Sep 2022 11:25:27 -0700 (PDT)
+ bh=NOXLTO79qhrJOlYyxIYm/ZYJYsfR2nEvKsGqG4l5Qvs=;
+ b=mbRF+iSnogv7Gm5DIlGUCFu5AlFyYH+oAqN8xxhXqJZm79uLyZIhtZr7ADAKbHPzqm
+ QOPwxew4NDT7/SGzWWDmFkf1MayK70x8omfn19fVUeIfGuJAsA5KVe6HI76QBLoRe5S9
+ 2jGrVGbieFqAW/y2iDoBoS4V4svwnAT1nW16nJQzhMuTQDbwh8tyi/8de5vduwNWJpRr
+ EFmVShDQv9FFJV8FBieTQhZIUQudsboYaljD0ODgsddy5SF4Mr56thu9Qmc55hZ0U+Ss
+ zivncrFdUps1V34Or7kmVi89jihGeLFq69IiCu1Af6T0rUoj/rMKl0+LEFFJzJPzs9sa
+ uRFQ==
+X-Gm-Message-State: ACgBeo0CLXHwoQ14c77/bxN4rU+em7LypofOvRJyu49N09XWpy6kiR0G
+ UuFGkDygoC2vl2y9sEy7qz1rUUIiLTmyQg==
+X-Google-Smtp-Source: AA6agR7oBA84FcFLVwiJlcDGKQJ0PL80mhSv7YLC/veOnvMzQRjCTeiSFvyu0+A81Qv+5ycbauOlgw==
+X-Received: by 2002:a17:902:d2d0:b0:178:329d:a5ed with SMTP id
+ n16-20020a170902d2d000b00178329da5edmr6167935plc.142.1663007129548; 
+ Mon, 12 Sep 2022 11:25:29 -0700 (PDT)
 Received: from vmfolio.. (c-73-189-111-8.hsd1.ca.comcast.net. [73.189.111.8])
  by smtp.googlemail.com with ESMTPSA id
- x127-20020a626385000000b0053b2681b0e0sm5916894pfb.39.2022.09.12.11.25.25
+ x127-20020a626385000000b0053b2681b0e0sm5916894pfb.39.2022.09.12.11.25.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Sep 2022 11:25:27 -0700 (PDT)
+ Mon, 12 Sep 2022 11:25:29 -0700 (PDT)
 From: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
 To: linux-fsdevel@vger.kernel.org
-Date: Mon, 12 Sep 2022 11:22:05 -0700
-Message-Id: <20220912182224.514561-5-vishal.moola@gmail.com>
+Date: Mon, 12 Sep 2022 11:22:06 -0700
+Message-Id: <20220912182224.514561-6-vishal.moola@gmail.com>
 In-Reply-To: <20220912182224.514561-1-vishal.moola@gmail.com>
 References: <20220912182224.514561-1-vishal.moola@gmail.com>
 MIME-Version: 1.0
@@ -97,8 +97,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [Cluster-devel] [PATCH v2 04/23] page-writeback: Convert
- write_cache_pages() to use filemap_get_folios_tag()
+Subject: [Cluster-devel] [PATCH v2 05/23] afs: Convert
+ afs_writepages_region() to use filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,131 +118,168 @@ Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Converted function to use folios throughout. This is in preparation for
-the removal of find_get_pages_range_tag().
+Convert to use folios throughout. This function is in preparation to
+remove find_get_pages_range_tag().
+
+Also modified this function to write the whole batch one at a time,
+rather than calling for a new set every single write.
 
 Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
 ---
- mm/page-writeback.c | 44 +++++++++++++++++++++++---------------------
- 1 file changed, 23 insertions(+), 21 deletions(-)
+ fs/afs/write.c | 114 +++++++++++++++++++++++++------------------------
+ 1 file changed, 59 insertions(+), 55 deletions(-)
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index 032a7bf8d259..087165357a5a 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -2285,15 +2285,15 @@ int write_cache_pages(struct address_space *mapping,
- 	int ret = 0;
- 	int done = 0;
- 	int error;
--	struct pagevec pvec;
--	int nr_pages;
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index 9ebdd36eaf2f..c17dbd82a38c 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -699,82 +699,86 @@ static int afs_writepages_region(struct address_space *mapping,
+ 				 loff_t start, loff_t end, loff_t *_next)
+ {
+ 	struct folio *folio;
+-	struct page *head_page;
 +	struct folio_batch fbatch;
-+	int nr_folios;
- 	pgoff_t index;
- 	pgoff_t end;		/* Inclusive */
- 	pgoff_t done_index;
- 	int range_whole = 0;
- 	xa_mark_t tag;
+ 	ssize_t ret;
++	unsigned int i;
+ 	int n, skips = 0;
  
--	pagevec_init(&pvec);
+ 	_enter("%llx,%llx,", start, end);
 +	folio_batch_init(&fbatch);
- 	if (wbc->range_cyclic) {
- 		index = mapping->writeback_index; /* prev offset */
- 		end = -1;
-@@ -2313,17 +2313,18 @@ int write_cache_pages(struct address_space *mapping,
- 	while (!done && (index <= end)) {
- 		int i;
  
--		nr_pages = pagevec_lookup_range_tag(&pvec, mapping, &index, end,
--				tag);
--		if (nr_pages == 0)
-+		nr_folios = filemap_get_folios_tag(mapping, &index, end,
-+				tag, &fbatch);
+ 	do {
+ 		pgoff_t index = start / PAGE_SIZE;
+ 
+-		n = find_get_pages_range_tag(mapping, &index, end / PAGE_SIZE,
+-					     PAGECACHE_TAG_DIRTY, 1, &head_page);
++		n = filemap_get_folios_tag(mapping, &index, end / PAGE_SIZE,
++					PAGECACHE_TAG_DIRTY, &fbatch);
 +
-+		if (nr_folios == 0)
+ 		if (!n)
  			break;
++		for (i = 0; i < n; i++) {
++			folio = fbatch.folios[i];
++			start = folio_pos(folio); /* May regress with THPs */
  
--		for (i = 0; i < nr_pages; i++) {
--			struct page *page = pvec.pages[i];
-+		for (i = 0; i < nr_folios; i++) {
-+			struct folio *folio = fbatch.folios[i];
+-		folio = page_folio(head_page);
+-		start = folio_pos(folio); /* May regress with THPs */
+-
+-		_debug("wback %lx", folio_index(folio));
++			_debug("wback %lx", folio_index(folio));
  
--			done_index = page->index;
-+			done_index = folio->index;
+-		/* At this point we hold neither the i_pages lock nor the
+-		 * page lock: the page may be truncated or invalidated
+-		 * (changing page->mapping to NULL), or even swizzled
+-		 * back from swapper_space to tmpfs file mapping
+-		 */
+-		if (wbc->sync_mode != WB_SYNC_NONE) {
+-			ret = folio_lock_killable(folio);
+-			if (ret < 0) {
+-				folio_put(folio);
+-				return ret;
+-			}
+-		} else {
+-			if (!folio_trylock(folio)) {
+-				folio_put(folio);
+-				return 0;
++			/* At this point we hold neither the i_pages lock nor the
++			 * page lock: the page may be truncated or invalidated
++			 * (changing page->mapping to NULL), or even swizzled
++			 * back from swapper_space to tmpfs file mapping
++			 */
++			if (wbc->sync_mode != WB_SYNC_NONE) {
++				ret = folio_lock_killable(folio);
++				if (ret < 0) {
++					folio_batch_release(&fbatch);
++					return ret;
++				}
++			} else {
++				if (!folio_trylock(folio))
++					continue;
+ 			}
+-		}
  
--			lock_page(page);
-+			folio_lock(folio);
- 
- 			/*
- 			 * Page truncated or invalidated. We can freely skip it
-@@ -2333,30 +2334,30 @@ int write_cache_pages(struct address_space *mapping,
- 			 * even if there is now a new, dirty page at the same
- 			 * pagecache address.
- 			 */
--			if (unlikely(page->mapping != mapping)) {
-+			if (unlikely(folio->mapping != mapping)) {
- continue_unlock:
--				unlock_page(page);
+-		if (folio_mapping(folio) != mapping ||
+-		    !folio_test_dirty(folio)) {
+-			start += folio_size(folio);
+-			folio_unlock(folio);
+-			folio_put(folio);
+-			continue;
+-		}
++			if (folio->mapping != mapping ||
++			    !folio_test_dirty(folio)) {
++				start += folio_size(folio);
 +				folio_unlock(folio);
- 				continue;
- 			}
++				continue;
++			}
  
--			if (!PageDirty(page)) {
-+			if (!folio_test_dirty(folio)) {
- 				/* someone wrote it for us */
- 				goto continue_unlock;
- 			}
- 
--			if (PageWriteback(page)) {
-+			if (folio_test_writeback(folio)) {
- 				if (wbc->sync_mode != WB_SYNC_NONE)
--					wait_on_page_writeback(page);
+-		if (folio_test_writeback(folio) ||
+-		    folio_test_fscache(folio)) {
+-			folio_unlock(folio);
+-			if (wbc->sync_mode != WB_SYNC_NONE) {
+-				folio_wait_writeback(folio);
++			if (folio_test_writeback(folio) ||
++			    folio_test_fscache(folio)) {
++				folio_unlock(folio);
++				if (wbc->sync_mode != WB_SYNC_NONE) {
 +					folio_wait_writeback(folio);
- 				else
- 					goto continue_unlock;
+ #ifdef CONFIG_AFS_FSCACHE
+-				folio_wait_fscache(folio);
++					folio_wait_fscache(folio);
+ #endif
+-			} else {
+-				start += folio_size(folio);
++				} else {
++					start += folio_size(folio);
++				}
++				if (wbc->sync_mode == WB_SYNC_NONE) {
++					if (skips >= 5 || need_resched()) {
++						*_next = start;
++						_leave(" = 0 [%llx]", *_next);
++						return 0;
++					}
++					skips++;
++				}
++				continue;
  			}
- 
--			BUG_ON(PageWriteback(page));
--			if (!clear_page_dirty_for_io(page))
-+			BUG_ON(folio_test_writeback(folio));
+-			folio_put(folio);
+-			if (wbc->sync_mode == WB_SYNC_NONE) {
+-				if (skips >= 5 || need_resched())
+-					break;
+-				skips++;
++
 +			if (!folio_clear_dirty_for_io(folio))
- 				goto continue_unlock;
- 
- 			trace_wbc_writepage(wbc, inode_to_bdi(mapping->host));
--			error = (*writepage)(page, wbc, data);
-+			error = writepage(&folio->page, wbc, data);
- 			if (unlikely(error)) {
- 				/*
- 				 * Handle errors according to the type of
-@@ -2371,11 +2372,12 @@ int write_cache_pages(struct address_space *mapping,
- 				 * the first error.
- 				 */
- 				if (error == AOP_WRITEPAGE_ACTIVATE) {
--					unlock_page(page);
-+					folio_unlock(folio);
- 					error = 0;
- 				} else if (wbc->sync_mode != WB_SYNC_ALL) {
- 					ret = error;
--					done_index = page->index + 1;
-+					done_index = folio->index +
-+						folio_nr_pages(folio);
- 					done = 1;
- 					break;
- 				}
-@@ -2395,7 +2397,7 @@ int write_cache_pages(struct address_space *mapping,
- 				break;
++				BUG();
++			ret = afs_write_back_from_locked_folio(mapping, wbc,
++					folio, start, end);
++			if (ret < 0) {
++				_leave(" = %zd", ret);
++				folio_batch_release(&fbatch);
++				return ret;
  			}
+-			continue;
+-		}
+ 
+-		if (!folio_clear_dirty_for_io(folio))
+-			BUG();
+-		ret = afs_write_back_from_locked_folio(mapping, wbc, folio, start, end);
+-		folio_put(folio);
+-		if (ret < 0) {
+-			_leave(" = %zd", ret);
+-			return ret;
++			start += ret;
  		}
--		pagevec_release(&pvec);
+-
+-		start += ret;
+-
 +		folio_batch_release(&fbatch);
  		cond_resched();
- 	}
+ 	} while (wbc->nr_to_write > 0);
  
 -- 
 2.36.1
