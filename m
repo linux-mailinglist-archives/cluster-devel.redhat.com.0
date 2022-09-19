@@ -1,91 +1,91 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A2A55BD228
-	for <lists+cluster-devel@lfdr.de>; Mon, 19 Sep 2022 18:26:22 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A836B5BD267
+	for <lists+cluster-devel@lfdr.de>; Mon, 19 Sep 2022 18:47:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663604781;
+	s=mimecast20190719; t=1663606025;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=gB/NmQekN45VJ0MLBuxHbh8Waoh+LIIyWfr6JDqbqqo=;
-	b=YLAkKVaEX7BEQRKSsBUKzFK2Th7WuzTHZ+LSyf/kBwNT4FatKTPY1vu0KosgdOQjgG5Fhk
-	hsyRrcOfj7YzpOuw6Qvvt5tVvU6EGXbkpxdPoMEhqz/Ln6xkJP3I+v0DTkoceSwG1/hf7V
-	CxqpG/JcKvZOsG8zohxAt1NzgGPCUQk=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=J8CwIAvybthWXnGZRRiELmnoxnEMrrwjL8UZ5A8/vuI=;
+	b=fThnrag85EuqkcKFNS10vGpj0SAZabcAW0vDKjOj1jaxhaFGTTb+9E4dgxFyPLZsQzyClj
+	j0NCbuYO80jZVh2k77NxWFA1oFJUuIjRb4kSoSywpnPs9fue7WY90uYrqGyj0rH41TV+1h
+	WxlSIBlosAT6OD70rI17PesjyLPmxbE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-583-glDZHAIyMQS70VBFjEmOaQ-1; Mon, 19 Sep 2022 12:26:16 -0400
-X-MC-Unique: glDZHAIyMQS70VBFjEmOaQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-396-GB5W8QK-PgOdJ3RXY6tFjA-1; Mon, 19 Sep 2022 12:47:01 -0400
+X-MC-Unique: GB5W8QK-PgOdJ3RXY6tFjA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1EACD1C0BDF1;
-	Mon, 19 Sep 2022 16:26:15 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C8EB3492B04;
-	Mon, 19 Sep 2022 16:26:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9D4A862FE4;
+	Mon, 19 Sep 2022 16:47:00 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8576B140EBF3;
+	Mon, 19 Sep 2022 16:47:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 832E119465A4;
-	Mon, 19 Sep 2022 16:26:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DC51719465A4;
+	Mon, 19 Sep 2022 16:46:58 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CA17A19465A0 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 19 Sep 2022 16:26:12 +0000 (UTC)
+ ESMTP id 8A19519465A0 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8FB92140EBF5; Mon, 19 Sep 2022 16:26:12 +0000 (UTC)
+ id 6962B140EBF5; Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 88CC5140EBF3
- for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 16:26:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB7D08027EA
- for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 16:26:10 +0000 (UTC)
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 61839140EBF3
+ for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E8133804069
+ for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-194-Dd4NPZL0Mme2B6iUz17FCg-1; Mon, 19 Sep 2022 12:26:06 -0400
-X-MC-Unique: Dd4NPZL0Mme2B6iUz17FCg-1
-Received: by mail-wr1-f72.google.com with SMTP id
- u27-20020adfa19b000000b0022863c08ac4so6885261wru.11
- for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 09:26:05 -0700 (PDT)
+ us-mta-413-WJuI5Iy7PyOcWCfG4wxRaA-1; Mon, 19 Sep 2022 12:46:55 -0400
+X-MC-Unique: WJuI5Iy7PyOcWCfG4wxRaA-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ c188-20020a1c35c5000000b003b2dee5fb58so15390203wma.5
+ for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 09:46:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=gB/NmQekN45VJ0MLBuxHbh8Waoh+LIIyWfr6JDqbqqo=;
- b=UPM3UatxR2pVQo1ZrZYf+9Rchwzf46+ZbMnFLv3yg6u6vQj1UC+ECawNbWtuj1JWe6
- cdp7/QBP3Zxh21p8ftlbqnle15WTOfgUtZ8n2Hy36aBhp29oBLqRMF9v0nrQ0HuQo9qS
- NVmi63JuK9XHM5k3yhaEBZLSin0KQZTiwCA8K72MadX2vr6SBS9BxHgyTdSHb9jnPaVN
- 2Q/a4LYqtIMSxXSUZWSNgqv8mnqKUPT0lKyO8qhtyYqTmcFuRjpJCKnc/5Ak/Y0NYkKH
- DLomuc59uZv70dnZHt/b3gkShzkG9vmcMH/V+WoBbHRiNvrqZL48SSQSBuSdS7ICbp8M
- U2bg==
-X-Gm-Message-State: ACrzQf3DLBwW8RrrY1/iNhTEmxotXAdE2MGo4geyC15V3OBLEwGXoZw4
- 65FjPxwqNGC6nmqcYjUg3Ql6zFDPPTYBMefV4632XQJQpCZqGNfYaTZ+gjynHWc+kY6JI1AZ/Vw
- ls+UOp3rmYHUt0YLAE8zxR4z2miuAfyoj8bGA4Q==
+ bh=J8CwIAvybthWXnGZRRiELmnoxnEMrrwjL8UZ5A8/vuI=;
+ b=YaJPdUqsrvkWmmZyqaWYKgOi79MMqr2NheprdR2fpW7wbbH761THsEtSpritwuWLgO
+ cOKxYY0+5vq3lBj04y9SV8e+qpLwp8gkPByIvTpaRh4q1z5dPCr8nhFLUwXHQ+q3AiOF
+ qVBK2ArOKJAo6goPt9VKz0wTE9g/IFkjl+GVEKT7ZwH1mezgu6h+MuIgrR8J9il+eiHR
+ Nc8JrcJZjLyIO2eWmsnpLLjXaYKWTqownK3tpg0+qmCql3r/yPtFchr61MkJ+eLTh03b
+ KJfLgiwe9/co/H9ewBASFdgOBjqUz6vs7jYJ9uH8oUY1/CC9g00tng9nxwo4cSh8+Uin
+ iS4w==
+X-Gm-Message-State: ACrzQf2iEzOPhV3Kdm4K67SR5068wiIAI4KLNDN5zncjzozAyY80NTKY
+ Hy6kyzPZqTt3fI914ZAohqHNYbIFgBpjQlyzf3F5PKJkOrDbdk9f0S8SCZLe8Cn5bnZHlrlDKLV
+ sjZ4xdM4v8R1dek15+9N2AG7iAAiNb4jTo5Xyyg==
 X-Received: by 2002:a05:6000:1090:b0:228:a963:3641 with SMTP id
- y16-20020a056000109000b00228a9633641mr11385829wrw.289.1663604764729; 
- Mon, 19 Sep 2022 09:26:04 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM5e24uYnhE8W0q2kSJVGVV+lPA7JJ2H4lHPvTKhNcwVpyWoI73fMfdvIvcIkvhnE5ckO+2eHBt/se2enXS5/Os=
+ y16-20020a056000109000b00228a9633641mr11443705wrw.289.1663606014381; 
+ Mon, 19 Sep 2022 09:46:54 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM7LaslYR5v6hDXs68/7bO8R6ZqKQxlYp5lsfrgODDFJsVisoIEKdjiTw4WlT7T70jqg05ujTY7UOqTxzvgC1vw=
 X-Received: by 2002:a05:6000:1090:b0:228:a963:3641 with SMTP id
- y16-20020a056000109000b00228a9633641mr11385818wrw.289.1663604764573; Mon, 19
- Sep 2022 09:26:04 -0700 (PDT)
+ y16-20020a056000109000b00228a9633641mr11443699wrw.289.1663606014183; Mon, 19
+ Sep 2022 09:46:54 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220916184309.3179451-1-aahringo@redhat.com>
  <20220916184309.3179451-3-aahringo@redhat.com>
-In-Reply-To: <20220916184309.3179451-3-aahringo@redhat.com>
+ <CAK-6q+jgci8m+BGjm2PAXYO7V4KUqzUhkmrMBTpBdTURoZXyUA@mail.gmail.com>
+In-Reply-To: <CAK-6q+jgci8m+BGjm2PAXYO7V4KUqzUhkmrMBTpBdTURoZXyUA@mail.gmail.com>
 From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 19 Sep 2022 12:25:53 -0400
-Message-ID: <CAK-6q+jgci8m+BGjm2PAXYO7V4KUqzUhkmrMBTpBdTURoZXyUA@mail.gmail.com>
+Date: Mon, 19 Sep 2022 12:46:42 -0400
+Message-ID: <CAK-6q+im1eYBzE72_pFWHh0_Pgu7ooJ5rXb7qT6D4W7Qg+uTEQ@mail.gmail.com>
 To: teigland@redhat.com
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 Subject: Re: [Cluster-devel] [PATCH/RFC dlm/next 3/6] fs: dlm: change the ls
@@ -104,51 +104,56 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hi,
 
-On Fri, Sep 16, 2022 at 2:43 PM Alexander Aring <aahringo@redhat.com> wrote:
+On Mon, Sep 19, 2022 at 12:25 PM Alexander Aring <aahringo@redhat.com> wrote:
 >
-> This patch changes the ls_cb_mutex to a rw lock. The hotpath in
-> dlm_add_cb() can be called by different lkbs at the same time. Currently
-> parallel dlm_add_cb() could block because the cb mutex. To change that
-> we using a rw lock and use a readers lock in dlm_add_cb() only. The cb
-> mutex is only needed that dlm_callback_suspend() and
-> dlm_callback_resume() cannot run at the same time as the specific part
-> in dlm_add_cb() those will use a writers lock to stop any callback
-> queueing in dlm_add_cb().
+> Hi,
 >
-> Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> ---
->  fs/dlm/ast.c          | 12 ++++++------
->  fs/dlm/dlm_internal.h |  2 +-
->  fs/dlm/lockspace.c    |  2 +-
->  3 files changed, 8 insertions(+), 8 deletions(-)
+> On Fri, Sep 16, 2022 at 2:43 PM Alexander Aring <aahringo@redhat.com> wrote:
+> >
+> > This patch changes the ls_cb_mutex to a rw lock. The hotpath in
+> > dlm_add_cb() can be called by different lkbs at the same time. Currently
+> > parallel dlm_add_cb() could block because the cb mutex. To change that
+> > we using a rw lock and use a readers lock in dlm_add_cb() only. The cb
+> > mutex is only needed that dlm_callback_suspend() and
+> > dlm_callback_resume() cannot run at the same time as the specific part
+> > in dlm_add_cb() those will use a writers lock to stop any callback
+> > queueing in dlm_add_cb().
+> >
+> > Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> > ---
+> >  fs/dlm/ast.c          | 12 ++++++------
+> >  fs/dlm/dlm_internal.h |  2 +-
+> >  fs/dlm/lockspace.c    |  2 +-
+> >  3 files changed, 8 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/fs/dlm/ast.c b/fs/dlm/ast.c
+> > index 6e07c151ad28..43588c8ab5fc 100644
+> > --- a/fs/dlm/ast.c
+> > +++ b/fs/dlm/ast.c
+> > @@ -200,13 +200,13 @@ void dlm_add_cb(struct dlm_lkb *lkb, uint32_t flags, int mode, int status,
+> >         if (!prev_seq) {
+> >                 kref_get(&lkb->lkb_ref);
+> >
+> > -               mutex_lock(&ls->ls_cb_mutex);
+> > +               read_lock(&ls->ls_cb_lock);
+> >                 if (test_bit(LSFL_CB_DELAY, &ls->ls_flags)) {
+> >                         list_add(&lkb->lkb_cb_list, &ls->ls_cb_delay);
 >
-> diff --git a/fs/dlm/ast.c b/fs/dlm/ast.c
-> index 6e07c151ad28..43588c8ab5fc 100644
-> --- a/fs/dlm/ast.c
-> +++ b/fs/dlm/ast.c
-> @@ -200,13 +200,13 @@ void dlm_add_cb(struct dlm_lkb *lkb, uint32_t flags, int mode, int status,
->         if (!prev_seq) {
->                 kref_get(&lkb->lkb_ref);
+> I drop this patch because the list_add() must be protected against
+> possible parallel list_add() to the per lockspace ls_cb_delay list.
+> However this optimization makes sense because the LSFL_CB_DELAY is a
+> very rare case.
 >
-> -               mutex_lock(&ls->ls_cb_mutex);
-> +               read_lock(&ls->ls_cb_lock);
->                 if (test_bit(LSFL_CB_DELAY, &ls->ls_flags)) {
->                         list_add(&lkb->lkb_cb_list, &ls->ls_cb_delay);
+> I let it be a mutex and look later again into this for a possible
 
-I drop this patch because the list_add() must be protected against
-possible parallel list_add() to the per lockspace ls_cb_delay list.
-However this optimization makes sense because the LSFL_CB_DELAY is a
-very rare case.
-
-I let it be a mutex and look later again into this for a possible
-optimization regarding the LSFL_CB_DELAY case here.
+s/mutex/spinlock/
 
 - Alex
 
