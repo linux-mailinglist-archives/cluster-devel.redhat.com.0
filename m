@@ -2,94 +2,95 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A836B5BD267
-	for <lists+cluster-devel@lfdr.de>; Mon, 19 Sep 2022 18:47:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5C95BD3CE
+	for <lists+cluster-devel@lfdr.de>; Mon, 19 Sep 2022 19:35:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663606025;
+	s=mimecast20190719; t=1663608900;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=J8CwIAvybthWXnGZRRiELmnoxnEMrrwjL8UZ5A8/vuI=;
-	b=fThnrag85EuqkcKFNS10vGpj0SAZabcAW0vDKjOj1jaxhaFGTTb+9E4dgxFyPLZsQzyClj
-	j0NCbuYO80jZVh2k77NxWFA1oFJUuIjRb4kSoSywpnPs9fue7WY90uYrqGyj0rH41TV+1h
-	WxlSIBlosAT6OD70rI17PesjyLPmxbE=
+	 list-subscribe:list-post; bh=kdS9QD9VodJFlDe/hzPt/fIHrfeguLlK063E4oft3xY=;
+	b=UeUoFUunt02tlMAdLABl6jabraMGJi2aEnYrfNuvC2FMLCmrpzbUAEQtoa3SlIgzblTStY
+	QAFzks85D3iOz0eofW6+tLYtF8q6DM99Tgmc2b9cFYXC8f/cwQ9GIoWDnTuTELkXMe6ADk
+	aJ1prJre3+CkyOuTJIEA0VbsoLw51p8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-396-GB5W8QK-PgOdJ3RXY6tFjA-1; Mon, 19 Sep 2022 12:47:01 -0400
-X-MC-Unique: GB5W8QK-PgOdJ3RXY6tFjA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-68-pUsFcNw5NUmSApmeQhisEA-1; Mon, 19 Sep 2022 13:34:57 -0400
+X-MC-Unique: pUsFcNw5NUmSApmeQhisEA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9D4A862FE4;
-	Mon, 19 Sep 2022 16:47:00 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8576B140EBF3;
-	Mon, 19 Sep 2022 16:47:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8AAB1855304;
+	Mon, 19 Sep 2022 17:34:56 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E439940C2064;
+	Mon, 19 Sep 2022 17:34:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DC51719465A4;
-	Mon, 19 Sep 2022 16:46:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AEF9B19465A4;
+	Mon, 19 Sep 2022 17:34:55 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8A19519465A0 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
+ ESMTP id 9BC7819465A0 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 19 Sep 2022 17:34:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6962B140EBF5; Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
+ id 8CDD2492B06; Mon, 19 Sep 2022 17:34:54 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 61839140EBF3
- for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E8133804069
- for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 16:46:57 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 85156492B05
+ for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 17:34:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A4AF29AB45D
+ for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 17:34:54 +0000 (UTC)
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-413-WJuI5Iy7PyOcWCfG4wxRaA-1; Mon, 19 Sep 2022 12:46:55 -0400
-X-MC-Unique: WJuI5Iy7PyOcWCfG4wxRaA-1
-Received: by mail-wm1-f71.google.com with SMTP id
- c188-20020a1c35c5000000b003b2dee5fb58so15390203wma.5
- for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 09:46:55 -0700 (PDT)
+ us-mta-6-hgnacyncMjaRS1d3vPhjfw-1; Mon, 19 Sep 2022 13:34:52 -0400
+X-MC-Unique: hgnacyncMjaRS1d3vPhjfw-1
+Received: by mail-ot1-f42.google.com with SMTP id
+ r22-20020a9d7516000000b00659ef017e34so7452otk.13
+ for <cluster-devel@redhat.com>; Mon, 19 Sep 2022 10:34:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=J8CwIAvybthWXnGZRRiELmnoxnEMrrwjL8UZ5A8/vuI=;
- b=YaJPdUqsrvkWmmZyqaWYKgOi79MMqr2NheprdR2fpW7wbbH761THsEtSpritwuWLgO
- cOKxYY0+5vq3lBj04y9SV8e+qpLwp8gkPByIvTpaRh4q1z5dPCr8nhFLUwXHQ+q3AiOF
- qVBK2ArOKJAo6goPt9VKz0wTE9g/IFkjl+GVEKT7ZwH1mezgu6h+MuIgrR8J9il+eiHR
- Nc8JrcJZjLyIO2eWmsnpLLjXaYKWTqownK3tpg0+qmCql3r/yPtFchr61MkJ+eLTh03b
- KJfLgiwe9/co/H9ewBASFdgOBjqUz6vs7jYJ9uH8oUY1/CC9g00tng9nxwo4cSh8+Uin
- iS4w==
-X-Gm-Message-State: ACrzQf2iEzOPhV3Kdm4K67SR5068wiIAI4KLNDN5zncjzozAyY80NTKY
- Hy6kyzPZqTt3fI914ZAohqHNYbIFgBpjQlyzf3F5PKJkOrDbdk9f0S8SCZLe8Cn5bnZHlrlDKLV
- sjZ4xdM4v8R1dek15+9N2AG7iAAiNb4jTo5Xyyg==
-X-Received: by 2002:a05:6000:1090:b0:228:a963:3641 with SMTP id
- y16-20020a056000109000b00228a9633641mr11443705wrw.289.1663606014381; 
- Mon, 19 Sep 2022 09:46:54 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7LaslYR5v6hDXs68/7bO8R6ZqKQxlYp5lsfrgODDFJsVisoIEKdjiTw4WlT7T70jqg05ujTY7UOqTxzvgC1vw=
-X-Received: by 2002:a05:6000:1090:b0:228:a963:3641 with SMTP id
- y16-20020a056000109000b00228a9633641mr11443699wrw.289.1663606014183; Mon, 19
- Sep 2022 09:46:54 -0700 (PDT)
+ bh=kdS9QD9VodJFlDe/hzPt/fIHrfeguLlK063E4oft3xY=;
+ b=DNJII79ED2YX3ThXaaS85FY3AE9rRNynuREMMuCmZ2awKU+UOm1Ek/pdXEUAo08+Zh
+ IgAcoC0inmwhBMZgE1SrmxKqVNLbuTh/P0B7chD8BV/KxQQXZJ3ZiEufAIKTVpueRtpE
+ V3OA+MF+MpZ9MjFbLgqS8p1+lmZ0kpNTH8IC1F5WA2MD19OSWzpbjMmPjDLkasMMsuov
+ 0rXce08Z3YgrSQMoGeL4S+LP0nzi1FgFECckEy3kMWc/Bf1b1oUZnj1HIWqUcrYgPAJb
+ 1kYOiEMP5ItDaEjr9oKMqP5lFNjX420f/GDuq72Td0ZcpEHEZL7YtUNFAxY/5kgxyOVq
+ 5KtQ==
+X-Gm-Message-State: ACrzQf3pHMWwX2HyAomVRYIxvBjOO9wq0m5QMGoZbwN2XMm4aGbf00yo
+ skfsIJzCnI30c5p690KrvKm1jMBfTeTLQ3n1/wE=
+X-Google-Smtp-Source: AMsMyM5sQYgUol/jmTSw3stKiJsYQ02a9vmJcS7x25EvIWll4MwqWjrE0KfujNT4rW/qZrnmuFrh2hzLLcoYzG7yGfA=
+X-Received: by 2002:a05:6830:d8c:b0:639:6034:b3d7 with SMTP id
+ bv12-20020a0568300d8c00b006396034b3d7mr8692869otb.125.1663608892048; Mon, 19
+ Sep 2022 10:34:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220916184309.3179451-1-aahringo@redhat.com>
- <20220916184309.3179451-3-aahringo@redhat.com>
- <CAK-6q+jgci8m+BGjm2PAXYO7V4KUqzUhkmrMBTpBdTURoZXyUA@mail.gmail.com>
-In-Reply-To: <CAK-6q+jgci8m+BGjm2PAXYO7V4KUqzUhkmrMBTpBdTURoZXyUA@mail.gmail.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 19 Sep 2022 12:46:42 -0400
-Message-ID: <CAK-6q+im1eYBzE72_pFWHh0_Pgu7ooJ5rXb7qT6D4W7Qg+uTEQ@mail.gmail.com>
-To: teigland@redhat.com
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [Cluster-devel] [PATCH/RFC dlm/next 3/6] fs: dlm: change the ls
- cb mutex to rw lock
+References: <20220912182224.514561-1-vishal.moola@gmail.com>
+In-Reply-To: <20220912182224.514561-1-vishal.moola@gmail.com>
+From: Vishal Moola <vishal.moola@gmail.com>
+Date: Mon, 19 Sep 2022 10:34:40 -0700
+Message-ID: <CAOzc2pznw0qp3xVm98-TdU=JBVxintYN1Q4Ci9qTQkBYRxi9QQ@mail.gmail.com>
+To: linux-fsdevel@vger.kernel.org
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [Cluster-devel] [PATCH v2 00/23] Convert to
+ filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,59 +102,107 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
+Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-mm@kvack.org, ceph-devel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Mon, Sep 12, 2022 at 11:25 AM Vishal Moola (Oracle)
+<vishal.moola@gmail.com> wrote:
+>
+> This patch series replaces find_get_pages_range_tag() with
+> filemap_get_folios_tag(). This also allows the removal of multiple
+> calls to compound_head() throughout.
+> It also makes a good chunk of the straightforward conversions to folios,
+> and takes the opportunity to introduce a function that grabs a folio
+> from the pagecache.
+>
+> F2fs and Ceph have quite alot of work to be done regarding folios, so
+> for now those patches only have the changes necessary for the removal of
+> find_get_pages_range_tag(), and only support folios of size 1 (which is
+> all they use right now anyways).
+>
+> I've run xfstests on btrfs, ext4, f2fs, and nilfs2, but more testing may be
+> beneficial. The page-writeback and filemap changes implicitly work. Testing
+> and review of the other changes (afs, ceph, cifs, gfs2) would be appreciated.
+> ---
+> v2:
+>   Got Acked-By tags for nilfs and btrfs changes
+>   Fixed an error arising in f2fs
+>   - Reported-by: kernel test robot <lkp@intel.com>
+>
+> Vishal Moola (Oracle) (23):
+>   pagemap: Add filemap_grab_folio()
+>   filemap: Added filemap_get_folios_tag()
+>   filemap: Convert __filemap_fdatawait_range() to use
+>     filemap_get_folios_tag()
+>   page-writeback: Convert write_cache_pages() to use
+>     filemap_get_folios_tag()
+>   afs: Convert afs_writepages_region() to use filemap_get_folios_tag()
+>   btrfs: Convert btree_write_cache_pages() to use
+>     filemap_get_folio_tag()
+>   btrfs: Convert extent_write_cache_pages() to use
+>     filemap_get_folios_tag()
+>   ceph: Convert ceph_writepages_start() to use filemap_get_folios_tag()
+>   cifs: Convert wdata_alloc_and_fillpages() to use
+>     filemap_get_folios_tag()
+>   ext4: Convert mpage_prepare_extent_to_map() to use
+>     filemap_get_folios_tag()
+>   f2fs: Convert f2fs_fsync_node_pages() to use filemap_get_folios_tag()
+>   f2fs: Convert f2fs_flush_inline_data() to use filemap_get_folios_tag()
+>   f2fs: Convert f2fs_sync_node_pages() to use filemap_get_folios_tag()
+>   f2fs: Convert f2fs_write_cache_pages() to use filemap_get_folios_tag()
+>   f2fs: Convert last_fsync_dnode() to use filemap_get_folios_tag()
+>   f2fs: Convert f2fs_sync_meta_pages() to use filemap_get_folios_tag()
+>   gfs2: Convert gfs2_write_cache_jdata() to use filemap_get_folios_tag()
+>   nilfs2: Convert nilfs_lookup_dirty_data_buffers() to use
+>     filemap_get_folios_tag()
+>   nilfs2: Convert nilfs_lookup_dirty_node_buffers() to use
+>     filemap_get_folios_tag()
+>   nilfs2: Convert nilfs_btree_lookup_dirty_buffers() to use
+>     filemap_get_folios_tag()
+>   nilfs2: Convert nilfs_copy_dirty_pages() to use
+>     filemap_get_folios_tag()
+>   nilfs2: Convert nilfs_clear_dirty_pages() to use
+>     filemap_get_folios_tag()
+>   filemap: Remove find_get_pages_range_tag()
+>
+>  fs/afs/write.c          | 114 +++++++++++++++++----------------
+>  fs/btrfs/extent_io.c    |  57 +++++++++--------
+>  fs/ceph/addr.c          | 138 ++++++++++++++++++++--------------------
+>  fs/cifs/file.c          |  33 +++++++++-
+>  fs/ext4/inode.c         |  55 ++++++++--------
+>  fs/f2fs/checkpoint.c    |  49 +++++++-------
+>  fs/f2fs/compress.c      |  13 ++--
+>  fs/f2fs/data.c          |  69 ++++++++++----------
+>  fs/f2fs/f2fs.h          |   5 +-
+>  fs/f2fs/node.c          |  72 +++++++++++----------
+>  fs/gfs2/aops.c          |  64 ++++++++++---------
+>  fs/nilfs2/btree.c       |  14 ++--
+>  fs/nilfs2/page.c        |  59 ++++++++---------
+>  fs/nilfs2/segment.c     |  44 +++++++------
+>  include/linux/pagemap.h |  32 +++++++---
+>  include/linux/pagevec.h |   8 ---
+>  mm/filemap.c            |  87 ++++++++++++-------------
+>  mm/page-writeback.c     |  44 +++++++------
+>  mm/swap.c               |  10 ---
+>  19 files changed, 507 insertions(+), 460 deletions(-)
+>
+> --
+> 2.36.1
+>
 
-On Mon, Sep 19, 2022 at 12:25 PM Alexander Aring <aahringo@redhat.com> wrote:
->
-> Hi,
->
-> On Fri, Sep 16, 2022 at 2:43 PM Alexander Aring <aahringo@redhat.com> wrote:
-> >
-> > This patch changes the ls_cb_mutex to a rw lock. The hotpath in
-> > dlm_add_cb() can be called by different lkbs at the same time. Currently
-> > parallel dlm_add_cb() could block because the cb mutex. To change that
-> > we using a rw lock and use a readers lock in dlm_add_cb() only. The cb
-> > mutex is only needed that dlm_callback_suspend() and
-> > dlm_callback_resume() cannot run at the same time as the specific part
-> > in dlm_add_cb() those will use a writers lock to stop any callback
-> > queueing in dlm_add_cb().
-> >
-> > Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> > ---
-> >  fs/dlm/ast.c          | 12 ++++++------
-> >  fs/dlm/dlm_internal.h |  2 +-
-> >  fs/dlm/lockspace.c    |  2 +-
-> >  3 files changed, 8 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/fs/dlm/ast.c b/fs/dlm/ast.c
-> > index 6e07c151ad28..43588c8ab5fc 100644
-> > --- a/fs/dlm/ast.c
-> > +++ b/fs/dlm/ast.c
-> > @@ -200,13 +200,13 @@ void dlm_add_cb(struct dlm_lkb *lkb, uint32_t flags, int mode, int status,
-> >         if (!prev_seq) {
-> >                 kref_get(&lkb->lkb_ref);
-> >
-> > -               mutex_lock(&ls->ls_cb_mutex);
-> > +               read_lock(&ls->ls_cb_lock);
-> >                 if (test_bit(LSFL_CB_DELAY, &ls->ls_flags)) {
-> >                         list_add(&lkb->lkb_cb_list, &ls->ls_cb_delay);
->
-> I drop this patch because the list_add() must be protected against
-> possible parallel list_add() to the per lockspace ls_cb_delay list.
-> However this optimization makes sense because the LSFL_CB_DELAY is a
-> very rare case.
->
-> I let it be a mutex and look later again into this for a possible
+Just following up on these patches. Many of the changes still need review.
+If anyone has time this week to look over any of the affected areas (pagecache,
+afs, ceph, ciph, ext4, f2fs, or gfs) feedback would be much appreciated.
 
-s/mutex/spinlock/
-
-- Alex
+Also, Thanks to David for looking at btrfs and Ryusuke for looking at
+nilfs already.
 
