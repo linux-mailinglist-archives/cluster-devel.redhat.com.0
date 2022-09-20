@@ -2,57 +2,60 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A89615BED3E
-	for <lists+cluster-devel@lfdr.de>; Tue, 20 Sep 2022 21:00:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62AF15BED3F
+	for <lists+cluster-devel@lfdr.de>; Tue, 20 Sep 2022 21:00:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663700441;
+	s=mimecast20190719; t=1663700442;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=kXegQn61iFJDsiDOVo/m0x9BjfvJGKYlGhBJdsKS5nY=;
-	b=KPnKai67fjQ0LP2eV0932jrjzvN1F8bor0HICn4b6NnCw/PqwzzZ+Pm47jtT3vqXzyO3mC
-	owlYb7+QPuc1Xp8rSm5K8pwbmHAcq8QnbmkXC2FQpTXkM+bhq39klkZNST6ZYrow8firFf
-	Z+ENdmE5zlJSrCbYy2t5hoeSzwv+yYw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=jG+r0LDxPgtJxoaYn5CaDA0rBPCU84nUlgnu6mYfl6w=;
+	b=XTlJgIl3pMe18LZ8vsPc1EzI4spgS/vhiWeIfXbOcstgJOTRMxncIWsePrP0BxI8CQJTiM
+	Fb75+d+SpkIsMn/eENZQHv8Rk4BwGlocNsx7mPhVlS6Fz9PSQXfAr/McFDR47ISPBwJvmj
+	rabQiGOYiD6hy/0XBGKl0WtzOmxghDs=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-215-vhYxkTlDPtWe7dUPAgSvVQ-1; Tue, 20 Sep 2022 15:00:38 -0400
-X-MC-Unique: vhYxkTlDPtWe7dUPAgSvVQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-643-Y08Zc5deOyWbGLA0fx7CLw-1; Tue, 20 Sep 2022 15:00:38 -0400
+X-MC-Unique: Y08Zc5deOyWbGLA0fx7CLw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 428E13C0D846;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42F48185A79C;
 	Tue, 20 Sep 2022 19:00:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E381340C6EC2;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E382C140EBF5;
 	Tue, 20 Sep 2022 19:00:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A43DE194658D;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE6CB19465B5;
 	Tue, 20 Sep 2022 19:00:36 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B4C801946588 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id D1C771946588 for <cluster-devel@listman.corp.redhat.com>;
  Tue, 20 Sep 2022 19:00:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9603D140EBF6; Tue, 20 Sep 2022 19:00:35 +0000 (UTC)
+ id C17711410F36; Tue, 20 Sep 2022 19:00:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6F694140EBF5;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9B9AC140EBF5;
  Tue, 20 Sep 2022 19:00:35 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Tue, 20 Sep 2022 15:00:24 -0400
-Message-Id: <20220920190025.564200-1-aahringo@redhat.com>
+Date: Tue, 20 Sep 2022 15:00:25 -0400
+Message-Id: <20220920190025.564200-2-aahringo@redhat.com>
+In-Reply-To: <20220920190025.564200-1-aahringo@redhat.com>
+References: <20220920190025.564200-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [Cluster-devel] [PATCH dlm/next 1/2] fs: dlm: allow different
- allocation context per _create_message
+Subject: [Cluster-devel] [PATCH dlm/next 2/2] fs: dlm: remove ls_remove_wait
+ waitqueue
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,185 +70,162 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch allows to give the use control about the allocation context
-based on a per message basis. Currently all messages forced to be
-created under GFP_NOFS context.
+This patch removes the ls_remove_wait waitqueue handling. The current
+handling tries to wait before a lookup is send out for a identically
+resource name which is going to be removed. Hereby the remove message
+should be send out before the new lookup message. The reason is that
+after a lookup request and response will actually use the specific
+remote rsb. A followed remove message would delete the rsb on the remote
+side but it's still being used.
+
+To reach a similar behaviour we simple send the remove message out while
+the rsb lookup lock is held and the rsb is removed from the toss list.
+Other find_rsb() calls would never have the change to get a rsb back to
+live while a remove message will be send out (without holding the lock).
+
+This behaviour requires a non-sleepable context which should be provided
+now and might be the reason why it was not implemented so in the first
+place.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lock.c     | 31 +++++++++++++++++++------------
- fs/dlm/memory.c   |  4 ++--
- fs/dlm/memory.h   |  2 +-
- fs/dlm/midcomms.c |  2 +-
- 4 files changed, 23 insertions(+), 16 deletions(-)
+ fs/dlm/dlm_internal.h |  4 ----
+ fs/dlm/lock.c         | 56 ++-----------------------------------------
+ fs/dlm/lockspace.c    |  3 ---
+ 3 files changed, 2 insertions(+), 61 deletions(-)
 
+diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+index 0f32c780ce2c..a2cd4f291fd5 100644
+--- a/fs/dlm/dlm_internal.h
++++ b/fs/dlm/dlm_internal.h
+@@ -592,11 +592,7 @@ struct dlm_ls {
+ 	int			ls_new_rsb_count;
+ 	struct list_head	ls_new_rsb;	/* new rsb structs */
+ 
+-	spinlock_t		ls_remove_spin;
+-	wait_queue_head_t	ls_remove_wait;
+-	char			ls_remove_name[DLM_RESNAME_MAXLEN+1];
+ 	char			*ls_remove_names[DLM_REMOVE_NAMES_MAX];
+-	int			ls_remove_len;
+ 	int			ls_remove_lens[DLM_REMOVE_NAMES_MAX];
+ 
+ 	struct list_head	ls_nodes;	/* current nodes in ls */
 diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index 1ffe4eb09640..52bdaca400f4 100644
+index 52bdaca400f4..3454fe3971a2 100644
 --- a/fs/dlm/lock.c
 +++ b/fs/dlm/lock.c
-@@ -3555,7 +3555,8 @@ int dlm_unlock(dlm_lockspace_t *lockspace,
- static int _create_message(struct dlm_ls *ls, int mb_len,
- 			   int to_nodeid, int mstype,
- 			   struct dlm_message **ms_ret,
--			   struct dlm_mhandle **mh_ret)
-+			   struct dlm_mhandle **mh_ret,
-+			   gfp_t allocation)
+@@ -1590,37 +1590,6 @@ static int remove_from_waiters_ms(struct dlm_lkb *lkb, struct dlm_message *ms)
+ 	return error;
+ }
+ 
+-/* If there's an rsb for the same resource being removed, ensure
+- * that the remove message is sent before the new lookup message.
+- */
+-
+-#define DLM_WAIT_PENDING_COND(ls, r)		\
+-	(ls->ls_remove_len &&			\
+-	 !rsb_cmp(r, ls->ls_remove_name,	\
+-		  ls->ls_remove_len))
+-
+-static void wait_pending_remove(struct dlm_rsb *r)
+-{
+-	struct dlm_ls *ls = r->res_ls;
+- restart:
+-	spin_lock(&ls->ls_remove_spin);
+-	if (DLM_WAIT_PENDING_COND(ls, r)) {
+-		log_debug(ls, "delay lookup for remove dir %d %s",
+-			  r->res_dir_nodeid, r->res_name);
+-		spin_unlock(&ls->ls_remove_spin);
+-		wait_event(ls->ls_remove_wait, !DLM_WAIT_PENDING_COND(ls, r));
+-		goto restart;
+-	}
+-	spin_unlock(&ls->ls_remove_spin);
+-}
+-
+-/*
+- * ls_remove_spin protects ls_remove_name and ls_remove_len which are
+- * read by other threads in wait_pending_remove.  ls_remove_names
+- * and ls_remove_lens are only used by the scan thread, so they do
+- * not need protection.
+- */
+-
+ static void shrink_bucket(struct dlm_ls *ls, int b)
  {
- 	struct dlm_message *ms;
- 	struct dlm_mhandle *mh;
-@@ -3565,7 +3566,7 @@ static int _create_message(struct dlm_ls *ls, int mb_len,
- 	   pass into midcomms_commit and a message buffer (mb) that we
- 	   write our data into */
+ 	struct rb_node *n, *next;
+@@ -1702,11 +1671,6 @@ static void shrink_bucket(struct dlm_ls *ls, int b)
+ 	 * list and sending the removal.  Keeping this gap small is
+ 	 * important to keep us (the master node) from being out of sync
+ 	 * with the remote dir node for very long.
+-	 *
+-	 * From the time the rsb is removed from toss until just after
+-	 * send_remove, the rsb name is saved in ls_remove_name.  A new
+-	 * lookup checks this to ensure that a new lookup message for the
+-	 * same resource name is not sent just before the remove message.
+ 	 */
  
--	mh = dlm_midcomms_get_mhandle(to_nodeid, mb_len, GFP_NOFS, &mb);
-+	mh = dlm_midcomms_get_mhandle(to_nodeid, mb_len, allocation, &mb);
- 	if (!mh)
- 		return -ENOBUFS;
+ 	for (i = 0; i < remote_count; i++) {
+@@ -1753,22 +1717,8 @@ static void shrink_bucket(struct dlm_ls *ls, int b)
+ 		}
  
-@@ -3587,7 +3588,8 @@ static int _create_message(struct dlm_ls *ls, int mb_len,
- static int create_message(struct dlm_rsb *r, struct dlm_lkb *lkb,
- 			  int to_nodeid, int mstype,
- 			  struct dlm_message **ms_ret,
--			  struct dlm_mhandle **mh_ret)
-+			  struct dlm_mhandle **mh_ret,
-+			  gfp_t allocation)
- {
- 	int mb_len = sizeof(struct dlm_message);
+ 		rb_erase(&r->res_hashnode, &ls->ls_rsbtbl[b].toss);
+-
+-		/* block lookup of same name until we've sent remove */
+-		spin_lock(&ls->ls_remove_spin);
+-		ls->ls_remove_len = len;
+-		memcpy(ls->ls_remove_name, name, DLM_RESNAME_MAXLEN);
+-		spin_unlock(&ls->ls_remove_spin);
+-		spin_unlock(&ls->ls_rsbtbl[b].lock);
+-
+ 		send_remove(r);
+-
+-		/* allow lookup of name again */
+-		spin_lock(&ls->ls_remove_spin);
+-		ls->ls_remove_len = 0;
+-		memset(ls->ls_remove_name, 0, DLM_RESNAME_MAXLEN);
+-		spin_unlock(&ls->ls_remove_spin);
+-		wake_up(&ls->ls_remove_wait);
++		spin_unlock(&ls->ls_rsbtbl[b].lock);
  
-@@ -3608,7 +3610,7 @@ static int create_message(struct dlm_rsb *r, struct dlm_lkb *lkb,
+ 		dlm_free_rsb(r);
+ 	}
+@@ -2719,8 +2669,6 @@ static int set_master(struct dlm_rsb *r, struct dlm_lkb *lkb)
+ 		return 0;
  	}
  
- 	return _create_message(r->res_ls, mb_len, to_nodeid, mstype,
--			       ms_ret, mh_ret);
-+			       ms_ret, mh_ret, allocation);
- }
- 
- /* further lowcomms enhancements or alternate implementations may make
-@@ -3677,7 +3679,7 @@ static int send_common(struct dlm_rsb *r, struct dlm_lkb *lkb, int mstype)
- 	if (error)
- 		return error;
- 
--	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh);
-+	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh, GFP_NOFS);
- 	if (error)
- 		goto fail;
- 
-@@ -3738,7 +3740,8 @@ static int send_grant(struct dlm_rsb *r, struct dlm_lkb *lkb)
- 
- 	to_nodeid = lkb->lkb_nodeid;
- 
--	error = create_message(r, lkb, to_nodeid, DLM_MSG_GRANT, &ms, &mh);
-+	error = create_message(r, lkb, to_nodeid, DLM_MSG_GRANT, &ms, &mh,
-+			       GFP_NOFS);
- 	if (error)
- 		goto out;
- 
-@@ -3759,7 +3762,8 @@ static int send_bast(struct dlm_rsb *r, struct dlm_lkb *lkb, int mode)
- 
- 	to_nodeid = lkb->lkb_nodeid;
- 
--	error = create_message(r, NULL, to_nodeid, DLM_MSG_BAST, &ms, &mh);
-+	error = create_message(r, NULL, to_nodeid, DLM_MSG_BAST, &ms, &mh,
-+			       GFP_NOFS);
- 	if (error)
- 		goto out;
- 
-@@ -3784,7 +3788,8 @@ static int send_lookup(struct dlm_rsb *r, struct dlm_lkb *lkb)
- 	if (error)
- 		return error;
- 
--	error = create_message(r, NULL, to_nodeid, DLM_MSG_LOOKUP, &ms, &mh);
-+	error = create_message(r, NULL, to_nodeid, DLM_MSG_LOOKUP, &ms, &mh,
-+			       GFP_NOFS);
- 	if (error)
- 		goto fail;
- 
-@@ -3808,7 +3813,8 @@ static int send_remove(struct dlm_rsb *r)
- 
+-	wait_pending_remove(r);
+-
+ 	r->res_first_lkid = lkb->lkb_id;
+ 	send_lookup(r, lkb);
+ 	return 1;
+@@ -3814,7 +3762,7 @@ static int send_remove(struct dlm_rsb *r)
  	to_nodeid = dlm_dir_nodeid(r);
  
--	error = create_message(r, NULL, to_nodeid, DLM_MSG_REMOVE, &ms, &mh);
-+	error = create_message(r, NULL, to_nodeid, DLM_MSG_REMOVE, &ms, &mh,
-+			       GFP_NOFS);
+ 	error = create_message(r, NULL, to_nodeid, DLM_MSG_REMOVE, &ms, &mh,
+-			       GFP_NOFS);
++			       GFP_ATOMIC);
  	if (error)
  		goto out;
  
-@@ -3829,7 +3835,7 @@ static int send_common_reply(struct dlm_rsb *r, struct dlm_lkb *lkb,
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index 72fa8a9d7a40..c438b909f221 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -524,9 +524,6 @@ static int new_lockspace(const char *name, const char *cluster,
+ 		spin_lock_init(&ls->ls_rsbtbl[i].lock);
+ 	}
  
- 	to_nodeid = lkb->lkb_nodeid;
- 
--	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh);
-+	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh, GFP_NOFS);
- 	if (error)
- 		goto out;
- 
-@@ -3870,7 +3876,8 @@ static int send_lookup_reply(struct dlm_ls *ls, struct dlm_message *ms_in,
- 	struct dlm_mhandle *mh;
- 	int error, nodeid = le32_to_cpu(ms_in->m_header.h_nodeid);
- 
--	error = create_message(r, NULL, nodeid, DLM_MSG_LOOKUP_REPLY, &ms, &mh);
-+	error = create_message(r, NULL, nodeid, DLM_MSG_LOOKUP_REPLY, &ms, &mh,
-+			       GFP_NOFS);
- 	if (error)
- 		goto out;
- 
-@@ -6295,7 +6302,7 @@ static int send_purge(struct dlm_ls *ls, int nodeid, int pid)
- 	int error;
- 
- 	error = _create_message(ls, sizeof(struct dlm_message), nodeid,
--				DLM_MSG_PURGE, &ms, &mh);
-+				DLM_MSG_PURGE, &ms, &mh, GFP_NOFS);
- 	if (error)
- 		return error;
- 	ms->m_nodeid = cpu_to_le32(nodeid);
-diff --git a/fs/dlm/memory.c b/fs/dlm/memory.c
-index 61fe0d1f5646..eb7a08641fcf 100644
---- a/fs/dlm/memory.c
-+++ b/fs/dlm/memory.c
-@@ -134,9 +134,9 @@ void dlm_free_lkb(struct dlm_lkb *lkb)
- 	kmem_cache_free(lkb_cache, lkb);
- }
- 
--struct dlm_mhandle *dlm_allocate_mhandle(void)
-+struct dlm_mhandle *dlm_allocate_mhandle(gfp_t allocation)
- {
--	return kmem_cache_alloc(mhandle_cache, GFP_NOFS);
-+	return kmem_cache_alloc(mhandle_cache, allocation);
- }
- 
- void dlm_free_mhandle(struct dlm_mhandle *mhandle)
-diff --git a/fs/dlm/memory.h b/fs/dlm/memory.h
-index c1583ec8b2cf..6b29563d24f7 100644
---- a/fs/dlm/memory.h
-+++ b/fs/dlm/memory.h
-@@ -20,7 +20,7 @@ struct dlm_lkb *dlm_allocate_lkb(struct dlm_ls *ls);
- void dlm_free_lkb(struct dlm_lkb *l);
- char *dlm_allocate_lvb(struct dlm_ls *ls);
- void dlm_free_lvb(char *l);
--struct dlm_mhandle *dlm_allocate_mhandle(void);
-+struct dlm_mhandle *dlm_allocate_mhandle(gfp_t allocation);
- void dlm_free_mhandle(struct dlm_mhandle *mhandle);
- struct writequeue_entry *dlm_allocate_writequeue(void);
- void dlm_free_writequeue(struct writequeue_entry *writequeue);
-diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index e10a6e97df44..3a4e20d6cd2d 100644
---- a/fs/dlm/midcomms.c
-+++ b/fs/dlm/midcomms.c
-@@ -1097,7 +1097,7 @@ struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
- 	/* this is a bug, however we going on and hope it will be resolved */
- 	WARN_ON(test_bit(DLM_NODE_FLAG_STOP_TX, &node->flags));
- 
--	mh = dlm_allocate_mhandle();
-+	mh = dlm_allocate_mhandle(allocation);
- 	if (!mh)
- 		goto err;
- 
+-	spin_lock_init(&ls->ls_remove_spin);
+-	init_waitqueue_head(&ls->ls_remove_wait);
+-
+ 	for (i = 0; i < DLM_REMOVE_NAMES_MAX; i++) {
+ 		ls->ls_remove_names[i] = kzalloc(DLM_RESNAME_MAXLEN+1,
+ 						 GFP_KERNEL);
 -- 
 2.31.1
 
