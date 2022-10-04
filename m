@@ -1,55 +1,93 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75B185F3598
-	for <lists+cluster-devel@lfdr.de>; Mon,  3 Oct 2022 20:26:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4515F3BE2
+	for <lists+cluster-devel@lfdr.de>; Tue,  4 Oct 2022 05:52:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1664821598;
+	s=mimecast20190719; t=1664855546;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=SUAwHqNFIaOPUYLVsPm7VMv/dvKWOFoch7fT0q85EK8=;
-	b=RHgvWmMzu/lmxORxd/Hn6+19ZrLU56YwuCaKS0ztRkZFM9OZKFfGetJmsiYpJtzv7p/Aqz
-	t6L3aq+vgB18AjH1RV1d+QxJ1fQ9RYaEg0pYfNGbNy4s84uAdAdnrMm7Xc9XmCSkYm1Qhi
-	q9Vzrihqjj3F1RjdqyOd4YGt3DOxatg=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 message-id:message-id:to:to:cc:cc:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=b8jnZj8qExLXHxHXOYq72Tum9qj2oTliTca2QXJ6Mco=;
+	b=DkLNLE0QD2xkpP9ai6ZOmKTsemL41IIZGnRUJ+yIFwz9mKoeun+d7gknGjjDSgB5KDU/5b
+	lufbN+Go5JbhxuComdsX9KUY7mg8pklZQeO0gQxjlpF52z+4s4oWsyhGifw8Q27zNT14UO
+	FRxP+2eN0/4wdIburczgGQ9eS19Jk3Y=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-424-gQCV6N69M6yRCMd7t6fwFw-1; Mon, 03 Oct 2022 14:26:35 -0400
-X-MC-Unique: gQCV6N69M6yRCMd7t6fwFw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-177-3r6KaySUMfqcQlvBwkjNbg-1; Mon, 03 Oct 2022 23:52:22 -0400
+X-MC-Unique: 3r6KaySUMfqcQlvBwkjNbg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E5571C07595;
-	Mon,  3 Oct 2022 18:26:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3C14833948;
+	Tue,  4 Oct 2022 03:52:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 038682027061;
-	Mon,  3 Oct 2022 18:26:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D8BE40C6EC3;
+	Tue,  4 Oct 2022 03:52:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8E3821946597;
-	Mon,  3 Oct 2022 18:25:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 49D7719465A8;
+	Tue,  4 Oct 2022 03:52:18 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 54E101946588 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  3 Oct 2022 18:25:54 +0000 (UTC)
+ ESMTP id 116191946588 for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  4 Oct 2022 03:52:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0F9CB2166B29; Mon,  3 Oct 2022 18:25:54 +0000 (UTC)
+ id 9B6C92027062; Tue,  4 Oct 2022 03:52:16 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from redhat.com (null.msp.redhat.com [10.15.80.136])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C5FCE2166B26;
- Mon,  3 Oct 2022 18:25:53 +0000 (UTC)
-Date: Mon, 3 Oct 2022 13:25:52 -0500
-From: David Teigland <teigland@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20221003182552.GA7517@redhat.com>
-MIME-Version: 1.0
-User-Agent: Mutt/1.8.3 (2017-05-23)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [GIT PULL] dlm updates for 6.1
+Received: from mimecast-mx02.redhat.com
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 93B352027061
+ for <cluster-devel@redhat.com>; Tue,  4 Oct 2022 03:52:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 757A1101A52A
+ for <cluster-devel@redhat.com>; Tue,  4 Oct 2022 03:52:16 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-626-gLEgpHoTP_WnPYPUgQ6_Eg-1; Mon, 03 Oct 2022 23:52:13 -0400
+X-MC-Unique: gLEgpHoTP_WnPYPUgQ6_Eg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2A60F6125A;
+ Tue,  4 Oct 2022 03:45:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8BEC1C433C1;
+ Tue,  4 Oct 2022 03:45:02 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 77A9EE49FA3; Tue,  4 Oct 2022 03:45:02 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20221003182552.GA7517@redhat.com>
+References: <20221003182552.GA7517@redhat.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20221003182552.GA7517@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm.git dlm-6.1
+X-PR-Tracked-Commit-Id: 3b7610302a75fc1032a6c9462862bec6948f85c9
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: f4309528f3dec3ead08cd4bd09e0e5fe081ab9f9
+Message-Id: <166485510248.18435.12968218712513171398.pr-tracker-bot@kernel.org>
+Date: Tue, 04 Oct 2022 03:45:02 +0000
+To: David Teigland <teigland@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [Cluster-devel] [GIT PULL] dlm updates for 6.1
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,63 +99,25 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
+Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mimecast-Spam-Score: 0
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Mimecast-Spam-Score: 2
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Hi Linus,
+The pull request you sent on Mon, 3 Oct 2022 13:25:52 -0500:
 
-Please pull dlm updates from tag:
+> git://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm.git dlm-6.1
 
-git://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm.git dlm-6.1
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/f4309528f3dec3ead08cd4bd09e0e5fe081ab9f9
 
-This set of commits includes:
-. Fix a couple races found with a new torture test.
-. Improve errors when api functions are used incorrectly.
-. Improve tracing for lock requests from user space.
-. Fix use after free in recently added tracing code.
-. Small internal code cleanups.
+Thank you!
 
-Thanks,
-Dave
-
-Alexander Aring (16):
-      fs: dlm: fix race in lowcomms
-      fs: dlm: fix race between test_bit() and queue_work()
-      fs: dlm: handle -EBUSY first in lock arg validation
-      fs: dlm: handle -EBUSY first in unlock validation
-      fs: dlm: use __func__ for function name
-      fs: dlm: handle -EINVAL as log_error()
-      fs: dlm: fix invalid derefence of sb_lvbptr
-      fs: dlm: allow lockspaces have zero lvblen
-      fs: dlm: handle rcom in else if branch
-      fs: dlm: remove dlm_del_ast prototype
-      fs: dlm: change ls_clear_proc_locks to spinlock
-      fs: dlm: trace user space callbacks
-      fs: dlm: remove DLM_LSFL_FS from uapi
-      fs: dlm: LSFL_CB_DELAY only for kernel lockspaces
-      fs: dlm: const void resource name parameter
-      fs: dlm: fix possible use after free if tracing
-
- drivers/md/md-cluster.c    |   4 +-
- fs/dlm/ast.c               |  15 ++--
- fs/dlm/ast.h               |   1 -
- fs/dlm/dlm_internal.h      |   2 +-
- fs/dlm/lock.c              | 167 +++++++++++++++++++++++++++++----------------
- fs/dlm/lock.h              |   2 +-
- fs/dlm/lockspace.c         |  32 +++++++--
- fs/dlm/lockspace.h         |  13 ++++
- fs/dlm/lowcomms.c          |   4 ++
- fs/dlm/user.c              |  17 +++--
- fs/gfs2/lock_dlm.c         |   2 +-
- fs/ocfs2/stack_user.c      |   2 +-
- include/linux/dlm.h        |   5 +-
- include/trace/events/dlm.h |  26 +++----
- include/uapi/linux/dlm.h   |   1 -
- 15 files changed, 193 insertions(+), 100 deletions(-)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
