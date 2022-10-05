@@ -1,61 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EEB75F5A18
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 Oct 2022 20:48:41 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 685275F5A90
+	for <lists+cluster-devel@lfdr.de>; Wed,  5 Oct 2022 21:23:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1664995720;
+	s=mimecast20190719; t=1664997798;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ujgW04bXt42uOjsB49REX4xtRjllH1en0y8dhdAXx3o=;
-	b=fpFvdVyZ8cSiL4yqCOmoLPQ4H4GHyzT2TCxicuS3S4vuqYoYdEWJ6z4NI+buhW3oQrjAfF
-	j1CISRUm7/cRTBFTNztUTOjRrZau29AL0lbXvbLJJbQYbVll4po2qO3FPCFLKUMa0gQw8F
-	qeEDv+FF+eMFTw3MEVggAZ1JVZoSpUA=
+	bh=NJkorq+n4opCP7rAPYXmw7eakRH7RqLw5IG8hYV03Do=;
+	b=UaApDr5VyZ7IWXuTU9enxyIpJoPzdIAvBk1TSaR5tmjcWHBkgCEr8kYpdcPGrr5ODooYHy
+	Hsxya1U0QvCv7Ngmce8XU+c6FoxfggT7UZnfA9L+/lrdhOQDcch3INStDWHfbtV91lkdQ+
+	JtBkpTIJKlfJm8nB9N3pzQnbP6owORc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-423-a4sXyAyGOLm0DBnBkwdmdA-1; Wed, 05 Oct 2022 14:48:39 -0400
-X-MC-Unique: a4sXyAyGOLm0DBnBkwdmdA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-177-iXrRSS1COR6WpF69E6voow-1; Wed, 05 Oct 2022 15:23:16 -0400
+X-MC-Unique: iXrRSS1COR6WpF69E6voow-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0DDDC800B30;
-	Wed,  5 Oct 2022 18:48:38 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9E2312166B2D;
-	Wed,  5 Oct 2022 18:48:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78F348630D1;
+	Wed,  5 Oct 2022 19:23:15 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6DA21492B05;
+	Wed,  5 Oct 2022 19:23:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 57B751947BAC;
-	Wed,  5 Oct 2022 18:48:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3A88F1946A6B;
+	Wed,  5 Oct 2022 19:23:15 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6D4E31946A4E for <cluster-devel@listman.corp.redhat.com>;
- Wed,  5 Oct 2022 18:48:34 +0000 (UTC)
+ ESMTP id 705341946A4E for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  5 Oct 2022 19:23:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4B1D3492B09; Wed,  5 Oct 2022 18:48:34 +0000 (UTC)
+ id 51E3D2166B2E; Wed,  5 Oct 2022 19:23:14 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 270CA492B06;
- Wed,  5 Oct 2022 18:48:34 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 24A322166B26;
+ Wed,  5 Oct 2022 19:23:14 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Wed,  5 Oct 2022 14:48:20 -0400
-Message-Id: <20221005184820.4129480-2-aahringo@redhat.com>
-In-Reply-To: <20221005184820.4129480-1-aahringo@redhat.com>
-References: <20221005184820.4129480-1-aahringo@redhat.com>
+Date: Wed,  5 Oct 2022 15:23:11 -0400
+Message-Id: <20221005192312.4130838-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH dlm-tool 2/2] dlm_controld: fix rare off by
- one
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [Cluster-devel] [PATCHv2 dlm-tool 1/2] dlm_controld: be sure we
+ close logging at last
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,47 +67,70 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-While debugging I came across a rare off by one when the snprintf()
-filled string _exactly_ matched the size (with '\0') and we return the
-bytes written without \0. We will then write a "\n\0" pattern at the
-end but when the string exactly matched there is missing byte in the
-calculation of the "\n\0" pattern because the return value only reduced
-the size by one. To fix that we substract -1 from the return value of
-snprintf() to have at the end two bytes for the "\n\0" pattern. We just
-need to be careful we do that in cases where snprintf() doesn't return
-zero to not hit a negative offset calculation.
+I currently try to debug the following:
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
+(gdb) bt
+0  _int_malloc (av=av@entry=0x7fd353ac2bc0 <main_arena>, bytes=bytes@entry=8192) at malloc.c:3755
+1  0x00007fd3537a04a6 in __libc_calloc (n=n@entry=1, elem_size=elem_size@entry=8192) at malloc.c:3445
+2  0x00007fd353792bd7 in __GI___open_memstream (bufloc=bufloc@entry=0x7ffc4edd2ea0, sizeloc=sizeloc@entry=0x7ffc4edd2ea8) at memstream.c:83
+3  0x00007fd35382cba4 in __GI___vsyslog_chk (pri=163, flag=1, fmt=0x5560190522da "%s", ap=0x7ffc4edd2f90) at ../misc/syslog.c:167
+4  0x00007fd35382d1e3 in __syslog_chk (pri=pri@entry=3, flag=flag@entry=1, fmt=fmt@entry=0x5560190522da "%s") at ../misc/syslog.c:129
+5  0x000055601904e114 in syslog (__fmt=0x5560190522da "%s", __pri=3) at /usr/include/bits/syslog.h:31
+6  log_level (name_in=<optimized out>, level_in=<optimized out>, fmt=0x55601905243e "abandoned lockspace %s") at logging.c:166
+7  0x000055601903a91e in loop () at main.c:1597
+8  main (argc=<optimized out>, argv=<optimized out>) at main.c:2161
+
+We see that the last thing in dlm_controld was log_level() then it
+crashed internal handling of libc and syslog().
+
+(gdb) f 6
+6  log_level (name_in=<optimized out>, level_in=<optimized out>, fmt=0x55601905243e "abandoned lockspace %s") at logging.c:166
+166                     syslog(level, "%s", log_str);
+
+We see that log_level() was called with a format string of "abandoned
+lockspace %s" and we only do that after leaving the main loop,
+dlm_controld was going to shutdown and crashed.
+
+The reason is that at this time the syslog logging was already closed by
+closelog() and we still tried to call syslog() and libc doesn't like it.
+We should be sure closing the log functionality is the last thing to do
+when exiting dlm_controld. This patch is doing that so that dlm_controld
+should not crash anymore.
+
+Reported-by: Barry Marson <bmarson@redhat.com>
 ---
- dlm_controld/logging.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+v2:
+ - remove sob.
 
-diff --git a/dlm_controld/logging.c b/dlm_controld/logging.c
-index 2c57138c..42712d8b 100644
---- a/dlm_controld/logging.c
-+++ b/dlm_controld/logging.c
-@@ -181,10 +181,12 @@ void log_level(char *name_in, uint32_t level_in, const char *fmt, ...)
- 	ret = vsnprintf(log_str + pos, len - pos, fmt, ap);
- 	va_end(ap);
+ dlm_controld/main.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/dlm_controld/main.c b/dlm_controld/main.c
+index 80fe14bd..7cf6348e 100644
+--- a/dlm_controld/main.c
++++ b/dlm_controld/main.c
+@@ -1604,12 +1604,14 @@ static int loop(void)
+ 	close_plocks();
+ 	close_cpg_daemon();
+ 	clear_configfs();
+-	close_logging();
+ 	close_cluster();
+ 	close_cluster_cfg();
  
--	if (ret >= len - pos)
-+	if (ret >= len - pos) {
- 		pos = len - 1;
--	else
--		pos += ret;
-+	} else {
-+		if (ret != 0)
-+			pos += ret - 1;
-+	}
+ 	list_for_each_entry(ls, &lockspaces, list)
+ 		log_error("abandoned lockspace %s", ls->name);
++
++	/* must be end */
++	close_logging();
+ 	return rv;
+ }
  
- 	log_str[pos++] = '\n';
- 	log_str[pos++] = '\0';
 -- 
 2.31.1
 
