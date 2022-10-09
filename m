@@ -2,71 +2,71 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B661C5F8E9E
-	for <lists+cluster-devel@lfdr.de>; Sun,  9 Oct 2022 23:01:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE9805F8EAE
+	for <lists+cluster-devel@lfdr.de>; Sun,  9 Oct 2022 23:02:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665349270;
+	s=mimecast20190719; t=1665349352;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=eJTRNxw9EgdgsHWhBeBqCWW5p9AqjlcgwNPPdA4hVdI=;
-	b=XmMWeWzOS2mCNNBBHjE2upxakcHNCgQ4775qLhqfG2ixfeTKnAp8OoAO4n8qaUEpTv7I+s
-	cxRrHYs3GGq0UYsai87dTFFvvHwomOGg7Ng/za2+0dWwN069neiOBKGHGJk1BBfOHY1SH+
-	5I5NcEeDvpN5dWrFa4p2b9/hoEKRrH0=
+	bh=xaVLQEgDOvAYQ9oN0drT9ncZnr055WcGyfcNTWNElvk=;
+	b=DPtBFlLRA0s4F+0a4+feEYRZUOh4Dkw733chHiTuXblartEtoi0wKNjtJP7FIZayyF6GZ4
+	gOSq350QjIsv2A06940BSFABE21+Ag2NIV9/EFrmUbLF6KZtfhr8qoVpAYmJbxiEAh/sk1
+	Q0siIHyMrKayo17i0c20zO1Rb013ClE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-177-5boIXvT8PnilX5SxziJf1g-1; Sun, 09 Oct 2022 17:01:06 -0400
-X-MC-Unique: 5boIXvT8PnilX5SxziJf1g-1
+ us-mta-159-EEkB0LiSM7uL5YuHtSUzPA-1; Sun, 09 Oct 2022 17:02:27 -0400
+X-MC-Unique: EEkB0LiSM7uL5YuHtSUzPA-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D94C185A794;
-	Sun,  9 Oct 2022 21:01:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C263385A583;
+	Sun,  9 Oct 2022 21:02:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2F9FC535D28;
-	Sun,  9 Oct 2022 21:01:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B6F6F535D28;
+	Sun,  9 Oct 2022 21:02:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D67E11946597;
-	Sun,  9 Oct 2022 21:01:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 753621946597;
+	Sun,  9 Oct 2022 21:02:26 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8152D194658C for <cluster-devel@listman.corp.redhat.com>;
- Sun,  9 Oct 2022 21:01:01 +0000 (UTC)
+ ESMTP id 5719A194658C for <cluster-devel@listman.corp.redhat.com>;
+ Sun,  9 Oct 2022 21:02:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 37F69200BBD2; Sun,  9 Oct 2022 21:01:01 +0000 (UTC)
+ id 11ED4200BBD2; Sun,  9 Oct 2022 21:02:25 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 30C5F200BA99
- for <cluster-devel@redhat.com>; Sun,  9 Oct 2022 21:01:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10A618027FE
- for <cluster-devel@redhat.com>; Sun,  9 Oct 2022 21:01:01 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-435-f-OuLmgSMXGNQRH36zaYdA-1; Sun, 09 Oct 2022 17:00:57 -0400
-X-MC-Unique: f-OuLmgSMXGNQRH36zaYdA-1
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A2DB200BA7E
+ for <cluster-devel@redhat.com>; Sun,  9 Oct 2022 21:02:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E08D33C01DE5
+ for <cluster-devel@redhat.com>; Sun,  9 Oct 2022 21:02:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-52-ATyVmHVGMEGSgKvLEtFn0Q-1; Sun, 09 Oct 2022 17:02:21 -0400
+X-MC-Unique: ATyVmHVGMEGSgKvLEtFn0Q-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2D323B80D39;
- Sun,  9 Oct 2022 20:51:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22813C433C1;
- Sun,  9 Oct 2022 20:51:38 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2DD5C60CA3;
+ Sun,  9 Oct 2022 20:52:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C0D4C43470;
+ Sun,  9 Oct 2022 20:52:28 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun,  9 Oct 2022 16:51:18 -0400
-Message-Id: <20221009205136.1201774-1-sashal@kernel.org>
+Date: Sun,  9 Oct 2022 16:52:10 -0400
+Message-Id: <20221009205226.1202133-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -78,7 +78,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [Cluster-devel] [PATCH AUTOSEL 6.0 01/18] fs: dlm: fix race in
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.19 01/16] fs: dlm: fix race in
  lowcomms
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -190,7 +190,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index a4e84e8d94c8..59f64c596233 100644
+index 19e82f08c0e0..c80ee6a95d17 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
 @@ -1336,6 +1336,8 @@ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int =
