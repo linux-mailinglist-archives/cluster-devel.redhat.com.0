@@ -2,89 +2,84 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EE135FDCC8
-	for <lists+cluster-devel@lfdr.de>; Thu, 13 Oct 2022 17:02:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2BC65FE9C8
+	for <lists+cluster-devel@lfdr.de>; Fri, 14 Oct 2022 09:44:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665673337;
+	s=mimecast20190719; t=1665733492;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:list-id:list-help:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=61lrL0z1ygxGVikDSISn8ZJPFTRdiiY1NbOxA+fanWc=;
-	b=LQ7OEPjpjaFI3FJMPmJOt3tyjKOHdOviPwFSptBAneh/Paya+Npy3hD1dZ9zhYHMI/fOJo
-	PfsK/NKcnDuT+B44ni2Is60BW1DUc9SJ7HaEfBYXNrsbDNQe2upPIW91yhnNnjt986SjQb
-	Teslk9/BtAGfR1jgLspHsP5b/HoSovQ=
+	bh=IjAKlOIc9+kUV/2uFXOWSjipZ0QlJBcD+i3sVbc0+lY=;
+	b=GAUoko+Bsul9jDECVCOq6kJLfIIocy8PaPqcYyMxmUQ8hEWU90vs+IbYCTHhjE7nXRPQ3m
+	FpDY2ikUNzXvN6Fomz2dLJScsIALPuv+7wlaQ4uXuVC0cUFU43OdHBDKfBTQ0HOhZWjZFl
+	GLzBYjQDZB41yQDQ3bFMThA9lfRzKBU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-335-4-r5gQjrNUWMpVXOfGWJNg-1; Thu, 13 Oct 2022 11:02:14 -0400
-X-MC-Unique: 4-r5gQjrNUWMpVXOfGWJNg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-573-tq7Yvye-N-2NxDm3VUAUiA-1; Fri, 14 Oct 2022 03:44:49 -0400
+X-MC-Unique: tq7Yvye-N-2NxDm3VUAUiA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13D5785A5B6;
-	Thu, 13 Oct 2022 15:02:13 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1766D40C2089;
-	Thu, 13 Oct 2022 15:02:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7CB40185A792;
+	Fri, 14 Oct 2022 07:44:48 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9CD2A101B542;
+	Fri, 14 Oct 2022 07:44:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A005319465A0;
-	Thu, 13 Oct 2022 15:02:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D584B194658F;
+	Fri, 14 Oct 2022 07:44:42 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C383F1946587 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 13 Oct 2022 14:58:46 +0000 (UTC)
+ ESMTP id 871CD1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 14 Oct 2022 07:44:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A6BA340C83C5; Thu, 13 Oct 2022 14:58:46 +0000 (UTC)
+ id 327E44EA52; Fri, 14 Oct 2022 07:44:41 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F89440C83AD
- for <cluster-devel@redhat.com>; Thu, 13 Oct 2022 14:58:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A9624EA4A
+ for <cluster-devel@redhat.com>; Fri, 14 Oct 2022 07:44:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A80F8027EB
+ for <cluster-devel@redhat.com>; Fri, 14 Oct 2022 07:44:41 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-323-g_URH-lrNq-uaQYH1LFYIg-1; Fri,
+ 14 Oct 2022 03:44:36 -0400
+X-MC-Unique: g_URH-lrNq-uaQYH1LFYIg-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8045B857FAC
- for <cluster-devel@redhat.com>; Thu, 13 Oct 2022 14:58:46 +0000 (UTC)
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-381-ANWMV_KwNqawWJZFkMKTwA-1; Thu, 13 Oct 2022 10:58:44 -0400
-X-MC-Unique: ANWMV_KwNqawWJZFkMKTwA-1
-Received: by mail-il1-f199.google.com with SMTP id
- n14-20020a056e02100e00b002f9e283e850so1657855ilj.9
- for <cluster-devel@redhat.com>; Thu, 13 Oct 2022 07:58:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=61lrL0z1ygxGVikDSISn8ZJPFTRdiiY1NbOxA+fanWc=;
- b=nHnJtLJQmDX5viE1QR5lij+T6Y0i356KMqd4D6GODiYd36v3/6zRGGuE1z7gVbQ6AW
- yQlJCg9qF+2XDTJ9gLnZa9UaS82oaImb7dN2169fRBvI8MqyFrkEV05jhAk+cuS5FeSD
- ol1BfRAGF2jVs6fhbjMJYvgHXkcab6nYbytR56vDKVuca6FuJ4ZZz676c+v2+TmMBf45
- 5Kl/L8I38vHApqu2b+QT/WZNPX6oCITIrZoaHzXrZN6B3pwfUvPgcuxODVdavd2Vvzqk
- SIzlW/os2hOM3j28M50GUCUx4IShwO4039h54K24shYeqEcfzNl4kFulPA8YM0/TX1mN
- /CTA==
-X-Gm-Message-State: ACrzQf2MvDqmMhpFsTd5+ym5uTOpr9koy1JmV2Klgmj+zmjOtHOlouxC
- VwfMZNE3yjbzLhL4C7/NcqcnIoTFtFLF1tpAHStqigFf2uKJ
-X-Google-Smtp-Source: AMsMyM5ETVAavyu10jJ+JwfKiYNU4c0y6MwdJoBF4+3vH5ThQX6NgQkAUf3QevsoIHGqpy/s3JmEKZ+AKONqNbOI2xmtmK5i0VsP
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3B4BB1F74A;
+ Fri, 14 Oct 2022 07:35:17 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 13A1A13A4A;
+ Fri, 14 Oct 2022 07:35:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3jMPBDURSWPXXQAAMHmgww
+ (envelope-from <vbabka@suse.cz>); Fri, 14 Oct 2022 07:35:17 +0000
+Message-ID: <931c87d8-5856-e393-7108-66275ee4099a@suse.cz>
+Date: Fri, 14 Oct 2022 09:35:16 +0200
 MIME-Version: 1.0
-X-Received: by 2002:a05:6602:134f:b0:6a4:cd04:7842 with SMTP id
- i15-20020a056602134f00b006a4cd047842mr140695iov.172.1665673123563; Thu, 13
- Oct 2022 07:58:43 -0700 (PDT)
-Date: Thu, 13 Oct 2022 07:58:43 -0700
-In-Reply-To: <000000000000b409e205eaea8714@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000d790e505eaebbe23@google.com>
-From: syzbot <syzbot+87a187973530ac822e3c@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, anprice@redhat.com, cluster-devel@redhat.com, 
- linux-kernel@vger.kernel.org, rpeterso@redhat.com, 
- syzkaller-bugs@googlegroups.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+To: Alexander Aring <aahringo@redhat.com>, cl@linux.com
+References: <20221011145413.8025-1-aahringo@redhat.com>
+From: Vlastimil Babka <vbabka@suse.cz>
+In-Reply-To: <20221011145413.8025-1-aahringo@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -92,10 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mailman-Approved-At: Thu, 13 Oct 2022 15:02:08 +0000
-Subject: Re: [Cluster-devel] [syzbot] UBSAN: shift-out-of-bounds in
- gfs2_getbuf
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [Cluster-devel] [PATCHv2] mm: slab: comment __GFP_ZERO case for
+ kmem_cache_alloc
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,78 +101,67 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel@redhat.com, roman.gushchin@linux.dev,
+ linux-kernel@vger.kernel.org, penberg@kernel.org, linux-mm@kvack.org,
+ rientjes@google.com, 42.hyeyoo@gmail.com, iamjoonsoo.kim@lge.com,
+ akpm@linux-foundation.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mimecast-Spam-Score: 1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-syzbot has found a reproducer for the following issue on:
+On 10/11/22 16:54, Alexander Aring wrote:
+> This patch will add a comment for the __GFP_ZERO flag case for
+> kmem_cache_alloc(). As the current comment mentioned that the flags only
+> matters if the cache has no available objects it's different for the
+> __GFP_ZERO flag which will ensure that the returned object is always
+> zeroed in any case.
+> 
+> I have the feeling I run into this question already two times if the
+> user need to zero the object or not, but the user does not need to zero
+> the object afterwards. However another use of __GFP_ZERO and only zero
+> the object if the cache has no available objects would also make no
+> sense.
 
-HEAD commit:    55be6084c8e0 Merge tag 'timers-core-2022-10-05' of git://g..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=176500c2880000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c29b6436e994d72e
-dashboard link: https://syzkaller.appspot.com/bug?extid=87a187973530ac822e3c
-compiler:       Debian clang version 13.0.1-++20220126092033+75e33f71c2da-1~exp1~20220126212112.63, GNU ld (GNU Binutils for Debian) 2.35.2
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=174eb6aa880000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1118d5a4880000
+Hmm, but even with the update, the comment is still rather misleading, no?
+- can the caller know if the cache has available objects and thus the flags
+are irrelevant, in order to pass flags that are potentially wrong (if there
+were no objects)? Not really.
+- even if cache has available objects, we'll always end up in
+slab_pre_alloc_hook doing might_alloc(flags) which will trigger warnings
+(given CONFIG_DEBUG_ATOMIC_SLEEP etc.) if the flags are inappropriate for
+given context. So they are still "relevant"
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c8f5131ab57d/disk-55be6084.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/77167f226f35/vmlinux-55be6084.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/930c28d03062/mount_0.gz
+So maybe just delete the whole comment? slub.c doesn't have it, and if any
+such comment should exist for kmem_cache_alloc() and contain anything useful
+and not misleading, it should be probably in include/linux/slab.h anyway?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+87a187973530ac822e3c@syzkaller.appspotmail.com
-
-loop0: detected capacity change from 0 to 264192
-gfs2: fsid=loop0: Trying to join cluster "lock_nolock", "loop0"
-gfs2: fsid=loop0: Now mounting FS (format 1801)...
-================================================================================
-UBSAN: shift-out-of-bounds in fs/gfs2/meta_io.c:128:16
-shift exponent 4294967293 is too large for 64-bit type 'u64' (aka 'unsigned long long')
-CPU: 1 PID: 3612 Comm: syz-executor373 Not tainted 6.0.0-syzkaller-09589-g55be6084c8e0 #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/22/2022
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0x1e3/0x2cb lib/dump_stack.c:106
- ubsan_epilogue lib/ubsan.c:151 [inline]
- __ubsan_handle_shift_out_of_bounds+0x3a6/0x420 lib/ubsan.c:322
- gfs2_getbuf+0x759/0x7d0 fs/gfs2/meta_io.c:128
- gfs2_meta_read+0x16a/0x910 fs/gfs2/meta_io.c:265
- gfs2_meta_buffer+0x195/0x400 fs/gfs2/meta_io.c:491
- gfs2_meta_inode_buffer fs/gfs2/meta_io.h:72 [inline]
- gfs2_inode_refresh+0xd6/0xdc0 fs/gfs2/glops.c:472
- gfs2_instantiate+0x15e/0x220 fs/gfs2/glock.c:515
- gfs2_glock_holder_ready fs/gfs2/glock.c:1303 [inline]
- gfs2_glock_wait+0x1d9/0x2a0 fs/gfs2/glock.c:1323
- gfs2_glock_nq_init fs/gfs2/glock.h:263 [inline]
- gfs2_lookupi+0x411/0x5f0 fs/gfs2/inode.c:306
- gfs2_lookup_simple+0xec/0x170 fs/gfs2/inode.c:258
- init_journal+0x1c3/0x2310 fs/gfs2/ops_fstype.c:739
- init_inodes+0xdc/0x340 fs/gfs2/ops_fstype.c:882
- gfs2_fill_super+0x1be3/0x2710 fs/gfs2/ops_fstype.c:1240
- get_tree_bdev+0x400/0x620 fs/super.c:1323
- gfs2_get_tree+0x50/0x210 fs/gfs2/ops_fstype.c:1323
- vfs_get_tree+0x88/0x270 fs/super.c:1530
- do_new_mount+0x289/0xad0 fs/namespace.c:3040
- do_mount fs/namespace.c:3383 [inline]
- __do_sys_mount fs/namespace.c:3591 [inline]
- __se_sys_mount+0x2e3/0x3d0 fs/namespace.c:3568
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x2b/0x70 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f7caad9342a
-Code: 83 c4 08 5b 5d c3 66 2e 0f 1f 84 00 00 00 00 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 c0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc97eb3c68 EFLAGS: 00000282 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f7caad9342a
-RDX: 0000000020000000 RSI: 0000000020000100 RDI: 00007ffc97eb3c80
-RBP: 00007ffc97eb3c80 R08: 00007ffc97eb3cc0 R09: 0000555556b512c0
-R10: 0000000000000008 R11: 0000000000000282 R12: 0000000000000004
-R13: 00007ffc97eb3cc0 R14: 0000000000000001 R15: 0000000020000218
- </TASK>
-================================================================================
+> Acked-by: Hyeonggon Yoo <42.hyeyoo@gmail.com>
+> Acked-by: David Rientjes <rientjes@google.com>
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> ---
+> changes since v2:
+>  - don't make a separate sentence for except
+> 
+>  mm/slab.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/slab.c b/mm/slab.c
+> index 10e96137b44f..a86879f42f2e 100644
+> --- a/mm/slab.c
+> +++ b/mm/slab.c
+> @@ -3482,7 +3482,8 @@ void *__kmem_cache_alloc_lru(struct kmem_cache *cachep, struct list_lru *lru,
+>   * @flags: See kmalloc().
+>   *
+>   * Allocate an object from this cache.  The flags are only relevant
+> - * if the cache has no available objects.
+> + * if the cache has no available objects, except flag __GFP_ZERO which
+> + * will zero the returned object.
+>   *
+>   * Return: pointer to the new object or %NULL in case of error
+>   */
 
