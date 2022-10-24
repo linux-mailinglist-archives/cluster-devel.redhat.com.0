@@ -1,69 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3214260B942
-	for <lists+cluster-devel@lfdr.de>; Mon, 24 Oct 2022 22:07:20 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E99660B972
+	for <lists+cluster-devel@lfdr.de>; Mon, 24 Oct 2022 22:12:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1666642039;
+	s=mimecast20190719; t=1666642347;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=7MsR0R1NbSyB2Djzw/hFUhA/+5S6z5HyXDOZO3eVnQg=;
-	b=fh/EV2FCMeZxzU6Yn898U9siNOhq341BBS9QkUblSm2TxlG4L481FDaf7y/2YXZi8bgSUY
-	c7bg3iXseqq8DyvcAoAIoef43ZYbM+G2o1AS6o11loTNxhwGnuxcUDLzIAPMhPfcncdbWx
-	mDRGdYi3ggAWfuBzwO+q5zbdO8C799Q=
+	 list-subscribe:list-post; bh=zfO+51g+SbzjZHZNrypaeeN+vqvnYBv2zA15JUzr234=;
+	b=a36B6ntkfy8dwBXi2rmMDG1UMhspSYEKUUM+FRpnLHZRY9CQ9auoHr7F2fC+h5B2L6A5kJ
+	2DrxkiYw80FMbnt8VWoqMT/KWI6cXYTQ112Zo8BoIuUVczq1kpxV5jnOVsJchmJAb9w6a3
+	qOiJ1PbwaqOIUkuzzPYgW2GeCLZfTTQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-526-6Qt-zwh7M7ypByBJwD-p1A-1; Mon, 24 Oct 2022 16:07:14 -0400
-X-MC-Unique: 6Qt-zwh7M7ypByBJwD-p1A-1
+ us-mta-643-UFG3ABibP9m8JO-K7C6bZw-1; Mon, 24 Oct 2022 16:12:22 -0400
+X-MC-Unique: UFG3ABibP9m8JO-K7C6bZw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39F1F803D48;
-	Mon, 24 Oct 2022 20:07:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6414B18E524F;
+	Mon, 24 Oct 2022 20:12:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 590C71415114;
-	Mon, 24 Oct 2022 20:07:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 52AE31415114;
+	Mon, 24 Oct 2022 20:12:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2C7601946A40;
-	Mon, 24 Oct 2022 20:07:12 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3263E1946A40;
+	Mon, 24 Oct 2022 20:12:21 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 403A71946597 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 24 Oct 2022 20:07:10 +0000 (UTC)
+ ESMTP id 544BD1946597 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 24 Oct 2022 20:12:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id ED2A840C2088; Mon, 24 Oct 2022 20:07:09 +0000 (UTC)
+ id 4349A4C3701; Mon, 24 Oct 2022 20:12:20 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E697C40C2064
- for <cluster-devel@redhat.com>; Mon, 24 Oct 2022 20:07:09 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BB894C3700
+ for <cluster-devel@redhat.com>; Mon, 24 Oct 2022 20:12:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C76341C0513D
- for <cluster-devel@redhat.com>; Mon, 24 Oct 2022 20:07:09 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A0BB884342
+ for <cluster-devel@redhat.com>; Mon, 24 Oct 2022 20:12:20 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-303-E0CIAjufNjCAFchOrSAxqg-1; Mon,
- 24 Oct 2022 16:07:08 -0400
-X-MC-Unique: E0CIAjufNjCAFchOrSAxqg-1
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-397-fvtlaS4HOPiMPYBfC7EukA-1; Mon,
+ 24 Oct 2022 16:12:12 -0400
+X-MC-Unique: fvtlaS4HOPiMPYBfC7EukA-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1on3ir-00FiEx-R3; Mon, 24 Oct 2022 20:06:57 +0000
-Date: Mon, 24 Oct 2022 21:06:57 +0100
+ Hat Linux)) id 1on3nm-00FibA-CJ; Mon, 24 Oct 2022 20:12:02 +0000
+Date: Mon, 24 Oct 2022 21:12:02 +0100
 From: Matthew Wilcox <willy@infradead.org>
 To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
-Message-ID: <Y1bwYd7tz76/fb5n@casper.infradead.org>
+Message-ID: <Y1bxktICFzdSl09W@casper.infradead.org>
 References: <20221017202451.4951-1-vishal.moola@gmail.com>
- <20221017202451.4951-4-vishal.moola@gmail.com>
+ <20221017202451.4951-5-vishal.moola@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20221017202451.4951-4-vishal.moola@gmail.com>
+In-Reply-To: <20221017202451.4951-5-vishal.moola@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -71,9 +71,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH v3 03/23] filemap: Convert
- __filemap_fdatawait_range() to use filemap_get_folios_tag()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [Cluster-devel] [PATCH v3 04/23] page-writeback: Convert
+ write_cache_pages() to use filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,23 +98,12 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Oct 17, 2022 at 01:24:31PM -0700, Vishal Moola (Oracle) wrote:
-> Converted function to use folios. This is in preparation for the removal
-> of find_get_pages_range_tag().
+On Mon, Oct 17, 2022 at 01:24:32PM -0700, Vishal Moola (Oracle) wrote:
+> Converted function to use folios throughout. This is in preparation for
+> the removal of find_get_pages_range_tag().
 
-Yes, it is, but this patch also has some nice advantages of its own:
-
- - Removes a call to wait_on_page_writeback(), which removes a call
-   to compound_head()
- - Removes a call to ClearPageError(), which removes another call
-   to compound_head()
- - Removes a call to pagevec_release(), which will eventually
-   remove a third call to compound_head() (it doesn't today, but
-   one day ...)
-
-So you can definitely say that it removes 50 bytes of text and two
-calls to compound_head().  And that way, this patch justifies its
-existance by itself ;-)
+And removes eight calls to compound_head(), saving 296 bytes of kernel
+text (!)  It also adds support for large folios to this function.
 
 > Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
 
