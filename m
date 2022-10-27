@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E76E761031A
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BA64610319
 	for <lists+cluster-devel@lfdr.de>; Thu, 27 Oct 2022 22:46:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1666903568;
@@ -12,50 +12,50 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oVu7nXM5I6bNyMI/c81KCRUX3aifjKAl0vmDWxVMWWw=;
-	b=aXEH2pvp60gTnLUILmEClW11X7GrgGVg3LyQdQ6H5O2Z8cNDroTr9A8OLxAULj3bSH2oBv
-	l1vcudjNMRt31hfUlPF7DlhTj2Drn6QAGr5JFIO2oezAPiJJwgQf/47J6Eov7OsIHcabuK
-	2OnjXgDvvbzX9MSvwxpZBvA92m/pEks=
+	bh=/qUokaA1dGl5loROVgYp8HkDwwOEAbjlIaTP36/jBwU=;
+	b=NSYovQfA8t5es1aOe34DaJaRe5EdhnprZXxti67+anjAubUg1uQa9HdCoV+Eyq0wu+VBFo
+	jErk95or0jmbfMwgPrzmXJgPrXGB4c1/qFOzbbA50VDPIcdfRS1ZWQWFIkRuH59XhWQ2CK
+	U4bkWmgGzKlAVDoavVde/IfEuR/mXT0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-79-a-bui28bMciI64HuVHC7Rg-1; Thu, 27 Oct 2022 16:46:06 -0400
-X-MC-Unique: a-bui28bMciI64HuVHC7Rg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-30-8WajVEHsPbWZTWHP3FlNSQ-1; Thu, 27 Oct 2022 16:46:03 -0400
+X-MC-Unique: 8WajVEHsPbWZTWHP3FlNSQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C428F801CF7;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6FE8118E0049;
 	Thu, 27 Oct 2022 20:45:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B54ED2022AA5;
-	Thu, 27 Oct 2022 20:45:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 24D2F112132D;
+	Thu, 27 Oct 2022 20:45:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5DD551946A7F;
-	Thu, 27 Oct 2022 20:45:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E04DD1947055;
+	Thu, 27 Oct 2022 20:45:47 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 326CB1946597 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 32F0F19466DF for <cluster-devel@listman.corp.redhat.com>;
  Thu, 27 Oct 2022 20:45:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C2D07112C082; Thu, 27 Oct 2022 20:45:36 +0000 (UTC)
+ id EC09F112C085; Thu, 27 Oct 2022 20:45:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9E6221121325;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C7E521121325;
  Thu, 27 Oct 2022 20:45:36 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Thu, 27 Oct 2022 16:45:18 -0400
-Message-Id: <20221027204528.1119036-8-aahringo@redhat.com>
+Date: Thu, 27 Oct 2022 16:45:19 -0400
+Message-Id: <20221027204528.1119036-9-aahringo@redhat.com>
 In-Reply-To: <20221027204528.1119036-1-aahringo@redhat.com>
 References: <20221027204528.1119036-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH v6.1-rc1 08/18] fs: dlm: convert ls_cb_mutex
- mutex to spinlock
+Subject: [Cluster-devel] [PATCH v6.1-rc1 09/18] fs: dlm: use spin lock
+ instead of mutex
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,98 +70,89 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch converts the ls_cb_mutex mutex to a spinlock, there is no
-sleepable context when this lock is held.
+There is no need to use a mutex in those hot path sections. We change it
+to spin lock to serve callbacks more faster by not allowing schedule.
+The locked sections will not be locked for a long time.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/ast.c          | 12 ++++++------
- fs/dlm/dlm_internal.h |  2 +-
- fs/dlm/lockspace.c    |  2 +-
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ fs/dlm/ast.c          | 8 ++++----
+ fs/dlm/dlm_internal.h | 2 +-
+ fs/dlm/lock.c         | 2 +-
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/fs/dlm/ast.c b/fs/dlm/ast.c
-index 6e07c151ad28..daaa0dff6ef4 100644
+index daaa0dff6ef4..3e76ec75bc55 100644
 --- a/fs/dlm/ast.c
 +++ b/fs/dlm/ast.c
-@@ -200,13 +200,13 @@ void dlm_add_cb(struct dlm_lkb *lkb, uint32_t flags, int mode, int status,
- 	if (!prev_seq) {
- 		kref_get(&lkb->lkb_ref);
+@@ -190,7 +190,7 @@ void dlm_add_cb(struct dlm_lkb *lkb, uint32_t flags, int mode, int status,
+ 		return;
+ 	}
  
--		mutex_lock(&ls->ls_cb_mutex);
-+		spin_lock(&ls->ls_cb_lock);
- 		if (test_bit(LSFL_CB_DELAY, &ls->ls_flags)) {
- 			list_add(&lkb->lkb_cb_list, &ls->ls_cb_delay);
- 		} else {
- 			queue_work(ls->ls_callback_wq, &lkb->lkb_cb_work);
- 		}
--		mutex_unlock(&ls->ls_cb_mutex);
-+		spin_unlock(&ls->ls_cb_lock);
+-	mutex_lock(&lkb->lkb_cb_mutex);
++	spin_lock(&lkb->lkb_cb_lock);
+ 	prev_seq = lkb->lkb_callbacks[0].seq;
+ 
+ 	rv = dlm_add_lkb_callback(lkb, flags, mode, status, sbflags, new_seq);
+@@ -209,7 +209,7 @@ void dlm_add_cb(struct dlm_lkb *lkb, uint32_t flags, int mode, int status,
+ 		spin_unlock(&ls->ls_cb_lock);
  	}
   out:
- 	mutex_unlock(&lkb->lkb_cb_mutex);
-@@ -289,9 +289,9 @@ void dlm_callback_stop(struct dlm_ls *ls)
- void dlm_callback_suspend(struct dlm_ls *ls)
- {
- 	if (ls->ls_callback_wq) {
--		mutex_lock(&ls->ls_cb_mutex);
-+		spin_lock(&ls->ls_cb_lock);
- 		set_bit(LSFL_CB_DELAY, &ls->ls_flags);
--		mutex_unlock(&ls->ls_cb_mutex);
-+		spin_unlock(&ls->ls_cb_lock);
+-	mutex_unlock(&lkb->lkb_cb_mutex);
++	spin_unlock(&lkb->lkb_cb_lock);
+ }
  
- 		flush_workqueue(ls->ls_callback_wq);
+ void dlm_callback_work(struct work_struct *work)
+@@ -223,7 +223,7 @@ void dlm_callback_work(struct work_struct *work)
+ 
+ 	memset(&callbacks, 0, sizeof(callbacks));
+ 
+-	mutex_lock(&lkb->lkb_cb_mutex);
++	spin_lock(&lkb->lkb_cb_lock);
+ 	if (!lkb->lkb_callbacks[0].seq) {
+ 		/* no callback work exists, shouldn't happen */
+ 		log_error(ls, "dlm_callback_work %x no work", lkb->lkb_id);
+@@ -244,7 +244,7 @@ void dlm_callback_work(struct work_struct *work)
+ 		dlm_print_lkb(lkb);
+ 		dlm_dump_lkb_callbacks(lkb);
  	}
-@@ -309,7 +309,7 @@ void dlm_callback_resume(struct dlm_ls *ls)
- 		return;
+-	mutex_unlock(&lkb->lkb_cb_mutex);
++	spin_unlock(&lkb->lkb_cb_lock);
  
- more:
--	mutex_lock(&ls->ls_cb_mutex);
-+	spin_lock(&ls->ls_cb_lock);
- 	list_for_each_entry_safe(lkb, safe, &ls->ls_cb_delay, lkb_cb_list) {
- 		list_del_init(&lkb->lkb_cb_list);
- 		queue_work(ls->ls_callback_wq, &lkb->lkb_cb_work);
-@@ -320,7 +320,7 @@ void dlm_callback_resume(struct dlm_ls *ls)
- 	empty = list_empty(&ls->ls_cb_delay);
- 	if (empty)
- 		clear_bit(LSFL_CB_DELAY, &ls->ls_flags);
--	mutex_unlock(&ls->ls_cb_mutex);
-+	spin_unlock(&ls->ls_cb_lock);
- 
- 	sum += count;
- 	if (!empty) {
+ 	castfn = lkb->lkb_astfn;
+ 	bastfn = lkb->lkb_bastfn;
 diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index e34c3d2639a5..647a6a61531c 100644
+index 647a6a61531c..11f3a5c67bdd 100644
 --- a/fs/dlm/dlm_internal.h
 +++ b/fs/dlm/dlm_internal.h
-@@ -631,7 +631,7 @@ struct dlm_ls {
+@@ -268,7 +268,7 @@ struct dlm_lkb {
+ 	unsigned long		lkb_timeout_cs;
+ #endif
  
- 	/* recovery related */
+-	struct mutex		lkb_cb_mutex;
++	spinlock_t		lkb_cb_lock;
+ 	struct work_struct	lkb_cb_work;
+ 	struct list_head	lkb_cb_list; /* for ls_cb_delay or proc->asts */
+ 	struct dlm_callback	lkb_callbacks[DLM_CALLBACKS_SIZE];
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index 0b1bc24536ce..40e4e4a1c582 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -1218,7 +1218,7 @@ static int _create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret,
+ 	INIT_LIST_HEAD(&lkb->lkb_time_list);
+ #endif
+ 	INIT_LIST_HEAD(&lkb->lkb_cb_list);
+-	mutex_init(&lkb->lkb_cb_mutex);
++	spin_lock_init(&lkb->lkb_cb_lock);
+ 	INIT_WORK(&lkb->lkb_cb_work, dlm_callback_work);
  
--	struct mutex		ls_cb_mutex;
-+	spinlock_t		ls_cb_lock;
- 	struct list_head	ls_cb_delay; /* save for queue_work later */
- 	struct timer_list	ls_timer;
- 	struct task_struct	*ls_recoverd_task;
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index bae050df7abf..72fa8a9d7a40 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -567,7 +567,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 	init_completion(&ls->ls_recovery_done);
- 	ls->ls_recovery_result = -1;
- 
--	mutex_init(&ls->ls_cb_mutex);
-+	spin_lock_init(&ls->ls_cb_lock);
- 	INIT_LIST_HEAD(&ls->ls_cb_delay);
- 
- 	ls->ls_recoverd_task = NULL;
+ 	idr_preload(GFP_NOFS);
 -- 
 2.31.1
 
