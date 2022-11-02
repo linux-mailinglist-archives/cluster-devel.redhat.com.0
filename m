@@ -2,90 +2,90 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA2D1616744
-	for <lists+cluster-devel@lfdr.de>; Wed,  2 Nov 2022 17:11:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23F39616743
+	for <lists+cluster-devel@lfdr.de>; Wed,  2 Nov 2022 17:11:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667405481;
+	s=mimecast20190719; t=1667405478;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ViGofEkX7yEcmkcXNm3flvqY1FjypmnwIzQ3h5+k6EI=;
-	b=NssoNSf9yyItqyk2oTHMRVDGPo1j2OGjAYfYI6+3G06I37pU8Xp1ElhdhaawM93F+LEJ1k
-	bcAXs6klq3+yyWUcDjm37S/yJYe3WDd89FQJ5eDQdubD2INss2n0s5h/1m6FsVnO+jWQ4t
-	MNJjOtTwLCRfUHpU59XHqSXQoD+/loY=
+	bh=D7ILOV7uCBW9G56cPuCyE+xwJ/LPVQUTk1i899caTl0=;
+	b=ELuPO1VLmc20ailTpQNkyztxlw50Pi0H8LCC1mW9XXPgXi4e9TGNdtp1LoDoCuyzQUaM0a
+	fE8ZHyWUeB9j1VzBnDJj8MoyY1XDyT+7UUPC4l/93WNGiKzyRVNisjuM5qlmbWBVmVwYYf
+	IlboMg5J9zTQm7SrTAbAEkh1F3kjXhk=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-349-iDuJQQnqMj6DT5uIBR9K6w-1; Wed, 02 Nov 2022 12:11:17 -0400
-X-MC-Unique: iDuJQQnqMj6DT5uIBR9K6w-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-643-5D_pXZlfP2e9laz7Ksk_gw-1; Wed, 02 Nov 2022 12:11:17 -0400
+X-MC-Unique: 5D_pXZlfP2e9laz7Ksk_gw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8B13858282;
-	Wed,  2 Nov 2022 16:11:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8D7B185A7AE;
+	Wed,  2 Nov 2022 16:11:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9C5CFC15BA4;
-	Wed,  2 Nov 2022 16:11:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AD2D81121314;
+	Wed,  2 Nov 2022 16:11:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 883E119465B2;
-	Wed,  2 Nov 2022 16:11:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8DF9719465B2;
+	Wed,  2 Nov 2022 16:11:16 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1D8561946594 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  2 Nov 2022 16:11:13 +0000 (UTC)
+ ESMTP id 016981946594 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  2 Nov 2022 16:11:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 134C42166B2D; Wed,  2 Nov 2022 16:11:13 +0000 (UTC)
+ id E895C1121331; Wed,  2 Nov 2022 16:11:14 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0BA432166B2B
- for <cluster-devel@redhat.com>; Wed,  2 Nov 2022 16:11:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E055D1121320
+ for <cluster-devel@redhat.com>; Wed,  2 Nov 2022 16:11:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E18E585A59D
- for <cluster-devel@redhat.com>; Wed,  2 Nov 2022 16:11:12 +0000 (UTC)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C07232A59553
+ for <cluster-devel@redhat.com>; Wed,  2 Nov 2022 16:11:14 +0000 (UTC)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-298-DKkQ9tJhNnKTVvpL-wA2zg-1; Wed, 02 Nov 2022 12:11:11 -0400
-X-MC-Unique: DKkQ9tJhNnKTVvpL-wA2zg-1
-Received: by mail-pj1-f51.google.com with SMTP id
- l22-20020a17090a3f1600b00212fbbcfb78so2538304pjc.3
- for <cluster-devel@redhat.com>; Wed, 02 Nov 2022 09:11:11 -0700 (PDT)
+ us-mta-177-YW7ESia6MKu9UIqHULBZKA-1; Wed, 02 Nov 2022 12:11:12 -0400
+X-MC-Unique: YW7ESia6MKu9UIqHULBZKA-1
+Received: by mail-pf1-f171.google.com with SMTP id y203so2687551pfb.4
+ for <cluster-devel@redhat.com>; Wed, 02 Nov 2022 09:11:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ViGofEkX7yEcmkcXNm3flvqY1FjypmnwIzQ3h5+k6EI=;
- b=AJw1+r3MCfoZr31T2jyst2ALrPvWx/wsC2NUDY2GuN4nu/C7GysQUCHZ0U4Gd1qV1R
- zLJ+xJdGwDSvScALZ7A+y+xHXuCh9XVODvvwumuIrb7bIm5WUTC5G6QhMmBqiKfoxRh3
- anqCGVaTJqQz/mmHRDeY9o+n6HKuw/Dgvgzb/LENujQZEkDzQKPDEAM20RZLPHKUwkw3
- UfHMGrZqcRkK2j9z/xULRo7FSz6ZXqfeBZCVIuhNs2gKtGGmyj0DVotj5kyAbjWlloiC
- rybrXDIMaSQe3JCRehwe1PuXzvo2GwHhuUnPtymPIcEHtT5M7wMStZTIDs1E3UfJlHkP
- sbeg==
-X-Gm-Message-State: ACrzQf1c3TqXGA71Pw0AbBz939lUFAidsRq7bA1No5oC400eayXK2ONq
- vBhLskI2Y9qS3accQd2uT2s=
-X-Google-Smtp-Source: AMsMyM50Il1duVwG4WCRXyqqx6zo9JX2k0qIMVQGpTqxyyUEKMma/iNuAz7sS7Uhi64hLkOOMPexZA==
-X-Received: by 2002:a17:90b:2248:b0:210:10dc:a314 with SMTP id
- hk8-20020a17090b224800b0021010dca314mr42536562pjb.15.1667405470077; 
- Wed, 02 Nov 2022 09:11:10 -0700 (PDT)
+ bh=D7ILOV7uCBW9G56cPuCyE+xwJ/LPVQUTk1i899caTl0=;
+ b=bI8DaQlrPwYgcqZ/OMZACXENOBzeH1Yhd72MLCY9nUpqYCV69LMe2/0crhcSi2mqRe
+ GiUVt5WTKngktJ7NwmUf21DD4ew7PbPkHDEVr9tQeNzWAktCE/7p+kg7D7wvGskjd+o5
+ srCtKFunhlNSCn855ZqlDiqTAgQzWkBR4Wkbb6//anxGgNRZPedeD6jeIlszeYPdTDi+
+ e6te+LEcdAeyVxboQcrGl1sVaeeRlKB/PvnGYpvZ79JwKgKbyHWOV0NzxNVTclSxd8GY
+ cZgK1uWN92ULNCUN1ZVjrRCOkWmPRi7Hg8s28iCIG9NwIk0PLkBuo9mN9cnXLTsa5WSw
+ G3IA==
+X-Gm-Message-State: ACrzQf0znIGYj0naJFQkWME/VjMnyKh/nXNWDvaMQh8LXuu9mHiqYp6A
+ pUy7CJH+uI9hf+OhRanDGhY=
+X-Google-Smtp-Source: AMsMyM5yBalx5fts0VaFDBkG5q5k8ESrx5LXqDS/i9qmdUWGQhi6efEZneqsEsoguUnslwFAGGHvTA==
+X-Received: by 2002:a05:6a00:1a10:b0:56d:5266:56aa with SMTP id
+ g16-20020a056a001a1000b0056d526656aamr19077451pfv.61.1667405471611; 
+ Wed, 02 Nov 2022 09:11:11 -0700 (PDT)
 Received: from fedora.hsd1.ca.comcast.net ([2601:644:8002:1c20::8080])
  by smtp.googlemail.com with ESMTPSA id
- ms4-20020a17090b234400b00210c84b8ae5sm1632101pjb.35.2022.11.02.09.11.08
+ ms4-20020a17090b234400b00210c84b8ae5sm1632101pjb.35.2022.11.02.09.11.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Nov 2022 09:11:09 -0700 (PDT)
+ Wed, 02 Nov 2022 09:11:11 -0700 (PDT)
 From: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
 To: linux-fsdevel@vger.kernel.org
-Date: Wed,  2 Nov 2022 09:10:10 -0700
-Message-Id: <20221102161031.5820-3-vishal.moola@gmail.com>
+Date: Wed,  2 Nov 2022 09:10:11 -0700
+Message-Id: <20221102161031.5820-4-vishal.moola@gmail.com>
 In-Reply-To: <20221102161031.5820-1-vishal.moola@gmail.com>
 References: <20221102161031.5820-1-vishal.moola@gmail.com>
 MIME-Version: 1.0
@@ -96,9 +96,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH v4 02/23] filemap: Added
- filemap_get_folios_tag()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [Cluster-devel] [PATCH v4 03/23] filemap: Convert
+ __filemap_fdatawait_range() to use filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,107 +118,68 @@ Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
  linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This is the equivalent of find_get_pages_range_tag(), except for folios
-instead of pages.
-
-One noteable difference is filemap_get_folios_tag() does not take in a
-maximum pages argument. It instead tries to fill a folio batch and stops
-either once full (15 folios) or reaching the end of the search range.
-
-The new function supports large folios, the initial function did not
-since all callers don't use large folios.
+Converted function to use folios. This is in preparation for the removal
+of find_get_pages_range_tag(). This change removes 2 calls to
+compound_head().
 
 Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
 Reviewed-by: Matthew Wilcow (Oracle) <willy@infradead.org>
 ---
- include/linux/pagemap.h |  2 ++
- mm/filemap.c            | 54 +++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 56 insertions(+)
+ mm/filemap.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 74d87e37a142..28275eecb949 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -740,6 +740,8 @@ unsigned filemap_get_folios(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch);
- unsigned filemap_get_folios_contig(struct address_space *mapping,
- 		pgoff_t *start, pgoff_t end, struct folio_batch *fbatch);
-+unsigned filemap_get_folios_tag(struct address_space *mapping, pgoff_t *start,
-+		pgoff_t end, xa_mark_t tag, struct folio_batch *fbatch);
- unsigned find_get_pages_range_tag(struct address_space *mapping, pgoff_t *index,
- 			pgoff_t end, xa_mark_t tag, unsigned int nr_pages,
- 			struct page **pages);
 diff --git a/mm/filemap.c b/mm/filemap.c
-index 08341616ae7a..9be22672ce1a 100644
+index 9be22672ce1a..cc4be51eae5b 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -2262,6 +2262,60 @@ unsigned filemap_get_folios_contig(struct address_space *mapping,
- }
- EXPORT_SYMBOL(filemap_get_folios_contig);
+@@ -503,28 +503,30 @@ static void __filemap_fdatawait_range(struct address_space *mapping,
+ {
+ 	pgoff_t index = start_byte >> PAGE_SHIFT;
+ 	pgoff_t end = end_byte >> PAGE_SHIFT;
+-	struct pagevec pvec;
+-	int nr_pages;
++	struct folio_batch fbatch;
++	unsigned nr_folios;
  
-+/**
-+ * filemap_get_folios_tag - Get a batch of folios matching @tag
-+ * @mapping:    The address_space to search
-+ * @start:      The starting page index
-+ * @end:        The final page index (inclusive)
-+ * @tag:        The tag index
-+ * @fbatch:     The batch to fill
-+ *
-+ * Same as filemap_get_folios(), but only returning folios tagged with @tag.
-+ *
-+ * Return: The number of folios found.
-+ * Also update @start to index the next folio for traversal.
-+ */
-+unsigned filemap_get_folios_tag(struct address_space *mapping, pgoff_t *start,
-+			pgoff_t end, xa_mark_t tag, struct folio_batch *fbatch)
-+{
-+	XA_STATE(xas, &mapping->i_pages, *start);
-+	struct folio *folio;
+ 	if (end_byte < start_byte)
+ 		return;
+ 
+-	pagevec_init(&pvec);
++	folio_batch_init(&fbatch);
 +
-+	rcu_read_lock();
-+	while ((folio = find_get_entry(&xas, end, tag)) != NULL) {
-+		/*
-+		 * Shadow entries should never be tagged, but this iteration
-+		 * is lockless so there is a window for page reclaim to evict
-+		 * a page we saw tagged. Skip over it.
-+		 */
-+		if (xa_is_value(folio))
-+			continue;
-+		if (!folio_batch_add(fbatch, folio)) {
-+			unsigned long nr = folio_nr_pages(folio);
+ 	while (index <= end) {
+ 		unsigned i;
+ 
+-		nr_pages = pagevec_lookup_range_tag(&pvec, mapping, &index,
+-				end, PAGECACHE_TAG_WRITEBACK);
+-		if (!nr_pages)
++		nr_folios = filemap_get_folios_tag(mapping, &index, end,
++				PAGECACHE_TAG_WRITEBACK, &fbatch);
 +
-+			if (folio_test_hugetlb(folio))
-+				nr = 1;
-+			*start = folio->index + nr;
-+			goto out;
-+		}
-+	}
-+	/*
-+	 * We come here when there is no page beyond @end. We take care to not
-+	 * overflow the index @start as it confuses some of the callers. This
-+	 * breaks the iteration when there is a page at index -1 but that is
-+	 * already broke anyway.
-+	 */
-+	if (end == (pgoff_t)-1)
-+		*start = (pgoff_t)-1;
-+	else
-+		*start = end + 1;
-+out:
-+	rcu_read_unlock();
-+
-+	return folio_batch_count(fbatch);
-+}
-+EXPORT_SYMBOL(filemap_get_folios_tag);
-+
- /**
-  * find_get_pages_range_tag - Find and return head pages matching @tag.
-  * @mapping:	the address_space to search
++		if (!nr_folios)
+ 			break;
+ 
+-		for (i = 0; i < nr_pages; i++) {
+-			struct page *page = pvec.pages[i];
++		for (i = 0; i < nr_folios; i++) {
++			struct folio *folio = fbatch.folios[i];
+ 
+-			wait_on_page_writeback(page);
+-			ClearPageError(page);
++			folio_wait_writeback(folio);
++			folio_clear_error(folio);
+ 		}
+-		pagevec_release(&pvec);
++		folio_batch_release(&fbatch);
+ 		cond_resched();
+ 	}
+ }
 -- 
 2.38.1
 
