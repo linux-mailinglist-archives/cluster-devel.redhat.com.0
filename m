@@ -1,77 +1,70 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42DA961960C
-	for <lists+cluster-devel@lfdr.de>; Fri,  4 Nov 2022 13:19:37 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB1A1619B92
+	for <lists+cluster-devel@lfdr.de>; Fri,  4 Nov 2022 16:27:35 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667564375;
+	s=mimecast20190719; t=1667575654;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=8z+hsGeikacXHc5LhGOtwJ77yGNVO08msXbVr47GtDw=;
-	b=BxSHRWf4ItwrJM2U+qEiA4Ub8DDdGwonqUKf1/q+h8lHYJMUTZTcbIELTTnDnZgoD30cit
-	HSyZwczus93N2OIwaWIMlQSQDCcvGz6Yxu5bZQ0vlrkOSPfRqfDYaZd0HXyUrS56lOLDkr
-	rdoHj+4rvL7Ed63PayyRUQfmyhSq7kU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=NRigLoVbg9iNMuo2V8dujDupHLGv4656kHqtcy7GZD8=;
+	b=JS+IzaflfK27WpUUbt4hSEfQARJPoy2hJjLrufUYIRMqpCQ0qZvbCzmTTsJCPO29Etw+ed
+	14asLAUJMJNVq5xiji3QQk615jIRrzIDFuGvDSAlEAzMZdCoSLeHABcqC4FqjiqKX1vzMQ
+	1yM3sI/vvi5y0gltoiihmbzK34TWZns=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-633-4rGlR9ssMuW40KZQKAqheQ-1; Fri, 04 Nov 2022 08:19:25 -0400
-X-MC-Unique: 4rGlR9ssMuW40KZQKAqheQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-20-138nybJ3PKmkdCyiXbUC3g-1; Fri, 04 Nov 2022 11:27:29 -0400
+X-MC-Unique: 138nybJ3PKmkdCyiXbUC3g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3BA1B800B23;
-	Fri,  4 Nov 2022 12:19:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 479F5381A72E;
+	Fri,  4 Nov 2022 15:27:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3979FC1908B;
-	Fri,  4 Nov 2022 12:19:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 848EF140EBF5;
+	Fri,  4 Nov 2022 15:27:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D6A591946594;
-	Fri,  4 Nov 2022 12:19:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 548871946594;
+	Fri,  4 Nov 2022 15:27:26 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 01C2D1946586 for <cluster-devel@listman.corp.redhat.com>;
- Fri,  4 Nov 2022 12:00:23 +0000 (UTC)
+ ESMTP id 1760F1946586 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  4 Nov 2022 15:27:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E5272C2C8D9; Fri,  4 Nov 2022 12:00:23 +0000 (UTC)
+ id EF3274A9257; Fri,  4 Nov 2022 15:27:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DE4C5C2C8C5
- for <cluster-devel@redhat.com>; Fri,  4 Nov 2022 12:00:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFD73811E67
- for <cluster-devel@redhat.com>; Fri,  4 Nov 2022 12:00:23 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
- [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-541-86KUETjvMEuCHfP6cMM68Q-1; Fri, 04 Nov 2022 08:00:21 -0400
-X-MC-Unique: 86KUETjvMEuCHfP6cMM68Q-1
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4N3dtp0W38zpW70;
- Fri,  4 Nov 2022 19:38:58 +0800 (CST)
-Received: from huawei.com (10.67.175.21) by kwepemi500012.china.huawei.com
- (7.221.188.12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 4 Nov
- 2022 19:42:32 +0800
-From: Li Zetao <lizetao1@huawei.com>
-To: <rpeterso@redhat.com>, <agruenba@redhat.com>, <teigland@redhat.com>,
- <swhiteho@redhat.com>
-Date: Fri, 4 Nov 2022 20:31:04 +0800
-Message-ID: <20221104123104.628576-1-lizetao1@huawei.com>
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E7C864A9254
+ for <cluster-devel@redhat.com>; Fri,  4 Nov 2022 15:27:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD9C3800159
+ for <cluster-devel@redhat.com>; Fri,  4 Nov 2022 15:27:24 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-362-al-VtslSPaOBvIhXS0W_kA-1; Fri,
+ 04 Nov 2022 11:27:17 -0400
+X-MC-Unique: al-VtslSPaOBvIhXS0W_kA-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1oqybA-007SeM-OG; Fri, 04 Nov 2022 15:27:12 +0000
+Date: Fri, 4 Nov 2022 15:27:12 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Dave Chinner <david@fromorbit.com>
+Message-ID: <Y2UvUOn6hmnqbrA7@casper.infradead.org>
+References: <20220901220138.182896-1-vishal.moola@gmail.com>
+ <20220901220138.182896-5-vishal.moola@gmail.com>
+ <20221018210152.GH2703033@dread.disaster.area>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.175.21]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- kwepemi500012.china.huawei.com (7.221.188.12)
-X-CFilter-Loop: Reflected
+In-Reply-To: <20221018210152.GH2703033@dread.disaster.area>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,9 +72,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-X-Mailman-Approved-At: Fri, 04 Nov 2022 12:19:22 +0000
-Subject: [Cluster-devel] [PATCH] gfs2: Fix memory leak in init_journal()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [Cluster-devel] [PATCH 04/23] page-writeback: Convert
+ write_cache_pages() to use filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,65 +86,54 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, zhangxiaoxu5@huawei.com, lizetao1@huawei.com,
- linux-kernel@vger.kernel.org, yi.zhang@huawei.com
+Cc: linux-cifs@vger.kernel.org, cluster-devel@redhat.com,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ "Vishal Moola \(Oracle\)" <vishal.moola@gmail.com>, linux-mm@kvack.org,
+ linux-nilfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-There is a memory leak report by kmemleak:
+On Wed, Oct 19, 2022 at 08:01:52AM +1100, Dave Chinner wrote:
+> On Thu, Sep 01, 2022 at 03:01:19PM -0700, Vishal Moola (Oracle) wrote:
+> > @@ -2313,17 +2313,18 @@ int write_cache_pages(struct address_space *mapping,
+> >  	while (!done && (index <= end)) {
+> >  		int i;
+> >  
+> > -		nr_pages = pagevec_lookup_range_tag(&pvec, mapping, &index, end,
+> > -				tag);
+> > -		if (nr_pages == 0)
+> > +		nr_folios = filemap_get_folios_tag(mapping, &index, end,
+> > +				tag, &fbatch);
+> 
+> This can find and return dirty multi-page folios if the filesystem
+> enables them in the mapping at instantiation time, right?
 
-  unreferenced object 0xffff8881786ff9a0 (size 192):
-    comm "mount", pid 8881, jiffies 4301165942 (age 892.453s)
-    hex dump (first 32 bytes):
-      e0 ef 6f 78 81 88 ff ff 70 95 2a 04 81 88 ff ff  ..ox....p.*.....
-      b0 f9 6f 78 81 88 ff ff b0 f9 6f 78 81 88 ff ff  ..ox......ox....
-    backtrace:
-      [<ffffffff8170ea67>] kmalloc_trace+0x27/0xa0
-      [<ffffffffa0a15465>] init_inodes+0x495/0x2010 [gfs2]
-      [<ffffffffa0a1bc27>] gfs2_fill_super+0x18c7/0x25b0 [gfs2]
-      [<ffffffff818e1626>] get_tree_bdev+0x3e6/0x6e0
-      [<ffffffffa0a13a34>] gfs2_get_tree+0x44/0x220 [gfs2]
-      [<ffffffff818de91d>] vfs_get_tree+0x7d/0x230
-      [<ffffffff81958073>] path_mount+0xd63/0x1760
-      [<ffffffff81958b3a>] do_mount+0xca/0xe0
-      [<ffffffff81958e1c>] __x64_sys_mount+0x12c/0x1a0
-      [<ffffffff82f2e485>] do_syscall_64+0x35/0x80
-      [<ffffffff8300006a>] entry_SYSCALL_64_after_hwframe+0x46/0xb0
+Correct.  Just like before the patch.  pagevec_lookup_range_tag() has
+only ever returned head pages, never tail pages.  This is probably
+because shmem (which was our only fs that supported compound pages)
+never supported writeback, so never looked up pages by tag.
 
-The root cause was traced to an error handling path in init_journal()
-when gfs2_jindex_hold() fails. The GFS2 superblock will hold a list
-of "gfs2_jdesc", and some of them are not freed in error handling path
-"fail" when gfs2_jindex_hold() fails.
+> >  			trace_wbc_writepage(wbc, inode_to_bdi(mapping->host));
+> > -			error = (*writepage)(page, wbc, data);
+> > +			error = writepage(&folio->page, wbc, data);
+> 
+> Yet, IIUC, this treats all folios as if they are single page folios.
+> i.e. it passes the head page of a multi-page folio to a callback
+> that will treat it as a single PAGE_SIZE page, because that's all
+> the writepage callbacks are currently expected to be passed...
+> 
+> So won't this break writeback of dirty multipage folios?
 
-Fix it by freeing the memory of "gfs2_jdesc" allocated in the loop in
-gfs2_jindex_hold() when an error occurs.
-
-Fixes: b3b94faa5fe5 ("[GFS2] The core of GFS2")
-Signed-off-by: Li Zetao <lizetao1@huawei.com>
----
- fs/gfs2/ops_fstype.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index c0cf1d2d0ef5..b55bee96619e 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -625,6 +625,9 @@ static int gfs2_jindex_hold(struct gfs2_sbd *sdp, struc=
-t gfs2_holder *ji_gh)
- =09=09spin_unlock(&sdp->sd_jindex_spin);
- =09}
-=20
-+=09if (error)
-+=09=09gfs2_jindex_free(sdp);
-+
- =09mutex_unlock(&sdp->sd_jindex_mutex);
-=20
- =09return error;
---=20
-2.25.1
+No.  A filesystem only sets the flag to create multipage folios once its
+writeback callback handles multipage folios correctly (amongst many other
+things that have to be fixed and tested).  I haven't written down all
+the things that a filesystem maintainer needs to check at least partly
+because I don't know how representative XFS/iomap are of all filesystems.
 
