@@ -1,99 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AF406249F8
-	for <lists+cluster-devel@lfdr.de>; Thu, 10 Nov 2022 19:52:27 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 87DE862E7E9
+	for <lists+cluster-devel@lfdr.de>; Thu, 17 Nov 2022 23:12:19 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668106345;
+	s=mimecast20190719; t=1668723138;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=ahiLR+0HYqx9Hj3q85kkyLXkS2RfP6cywR4r1/bj6Ic=;
-	b=ULUr8pplZaoEVuQVxCFP8hhxW0ipZnvZKUxbaqhu95PnbpVyKn88pw8iwtq+mVlaHKDKC7
-	slmT3lmYOvdbqn0OqTPV1h6KsJNg+GP9AO0BZ3PC89KwQSHbF1RR7v675AvzTEGyfbi8dS
-	BF/pBGVjJ26f1wltYewypYxMvyl9ViY=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=w4Afjvx+MbxlfFf8F1WckOPnGEClucvI+w9MEVzRfcg=;
+	b=IYnfxNIOnozvfZopxyLAeS/otSVGQNGTd08LvcD+cI3wolm0f4D9ns9rGh9oCJeHRFud8j
+	zESkVFSIpMv1HI6UmkEXvVJDZsqmNj9nKmAxLRqFLtGiU+hRR5kMzCdfffHkngXkzxBZxs
+	hv8f4rQW9XMDG8FvSgTfK27Qz5vvPwU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-641-PBqwO_v5O4KlWvCRkbdvKA-1; Thu, 10 Nov 2022 13:52:19 -0500
-X-MC-Unique: PBqwO_v5O4KlWvCRkbdvKA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-56-YT4wthVcPW6r1x1N1Etljg-1; Thu, 17 Nov 2022 17:12:14 -0500
+X-MC-Unique: YT4wthVcPW6r1x1N1Etljg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB1488041B5;
-	Thu, 10 Nov 2022 18:52:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30B7E833AF7;
+	Thu, 17 Nov 2022 22:12:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1ABB640C6F73;
-	Thu, 10 Nov 2022 18:52:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 75E2A2166B29;
+	Thu, 17 Nov 2022 22:12:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E49AE194658D;
-	Thu, 10 Nov 2022 18:52:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7906719465A8;
+	Thu, 17 Nov 2022 22:12:09 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D8E221946587 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 10 Nov 2022 18:52:10 +0000 (UTC)
+ ESMTP id 29D4A1946595 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 17 Nov 2022 22:12:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BFE88492B1B; Thu, 10 Nov 2022 18:52:10 +0000 (UTC)
+ id C7AF02166B44; Thu, 17 Nov 2022 22:12:07 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B86A6492B0F
- for <cluster-devel@redhat.com>; Thu, 10 Nov 2022 18:52:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 387471C1691B
- for <cluster-devel@redhat.com>; Thu, 10 Nov 2022 18:52:06 +0000 (UTC)
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-20-H20QS0FqP22PnhjlHm1L0Q-1; Thu, 10 Nov 2022 13:52:03 -0500
-X-MC-Unique: H20QS0FqP22PnhjlHm1L0Q-1
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-333a4a5d495so23757057b3.10
- for <cluster-devel@redhat.com>; Thu, 10 Nov 2022 10:52:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ahiLR+0HYqx9Hj3q85kkyLXkS2RfP6cywR4r1/bj6Ic=;
- b=lJwEW8baYgiiu/6ezMN1WXmtStlAbNJK1npG+s8mE0vDq6crb4EKVhv2AMYwL4fvsj
- lbTi2mb6XWH2pZImHyr/l8Wy8bEc3sxv3OCTp/ZaAnkmWfVZyrtF3MC+NZygRY2zwdBI
- 1x8YCvGX/ywpX4yxUOYGX+dgyPjC3jzsTPdTq7bu2knaGMNOyDtBjVRX2/R/RuWQ90CX
- 93s7LqpBVp6Dm+ckjMH2kVkwoulFniwCwAcMSFXv0/VSw/6fLPxIJwApJo7Ydlzwo5Xc
- BtyBt47hRLsyOYgM3jfOFAhQ1QDxRkuzCeEs4hhSB//g5g2W8Sp1qqIx8felswSmCOc6
- sVUg==
-X-Gm-Message-State: ACrzQf2NAcvGwQMkUhwbdVwpDBP3egJ9e9lj+H2nxkTXZJVdrWFdys7n
- 6rSAYz6sSOH6qmObxoVPQKLKWgYer1ZbH1q8QDY=
-X-Google-Smtp-Source: AMsMyM6qbhoDq4EuNlT/sFztZuNh18/AZoQGojI1IWj/9MWKt4lI+zofGQOcHJnd2iNJiiAFP0Po3i1fYNOJTKFQ5/8=
-X-Received: by 2002:a81:63c6:0:b0:349:37f7:73dd with SMTP id
- x189-20020a8163c6000000b0034937f773ddmr62868232ywb.368.1668106321899; Thu, 10
- Nov 2022 10:52:01 -0800 (PST)
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+ (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9F7EF2166B29;
+ Thu, 17 Nov 2022 22:12:07 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Thu, 17 Nov 2022 17:11:40 -0500
+Message-Id: <20221117221157.2396743-1-aahringo@redhat.com>
 MIME-Version: 1.0
-References: <20221017202451.4951-1-vishal.moola@gmail.com>
- <20221017202451.4951-12-vishal.moola@gmail.com>
- <CAOzc2pwKoyy4i4zBKhvoKmN8cezUxjDhjYZnK9GLcJniQVPoGA@mail.gmail.com>
-In-Reply-To: <CAOzc2pwKoyy4i4zBKhvoKmN8cezUxjDhjYZnK9GLcJniQVPoGA@mail.gmail.com>
-From: Vishal Moola <vishal.moola@gmail.com>
-Date: Thu, 10 Nov 2022 10:51:50 -0800
-Message-ID: <CAOzc2pwuUZRK-qMFBhPEENUid-NBSfa9YyJ_FCcFHgwFf4mOuQ@mail.gmail.com>
-To: linux-fsdevel@vger.kernel.org
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Cluster-devel] [PATCH v3 11/23] f2fs: Convert
- f2fs_fsync_node_pages() to use filemap_get_folios_tag()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [Cluster-devel] [PATCH dlm/next 01/18] fs: dlm: avoid
+ false-positive checker warning
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,95 +64,84 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org, chao@kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- cluster-devel@redhat.com, linux-mm@kvack.org, jaegeuk@kernel.org,
- ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
+Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Mon, Oct 24, 2022 at 12:31 PM Vishal Moola <vishal.moola@gmail.com> wrote:
->
-> On Mon, Oct 17, 2022 at 1:25 PM Vishal Moola (Oracle)
-> <vishal.moola@gmail.com> wrote:
-> >
-> > Convert function to use a folio_batch instead of pagevec. This is in
-> > preparation for the removal of find_get_pages_range_tag().
-> >
-> > Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
-> > ---
-> >  fs/f2fs/node.c | 19 ++++++++++---------
-> >  1 file changed, 10 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-> > index 983572f23896..e8b72336c096 100644
-> > --- a/fs/f2fs/node.c
-> > +++ b/fs/f2fs/node.c
-> > @@ -1728,12 +1728,12 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
-> >                         unsigned int *seq_id)
-> >  {
-> >         pgoff_t index;
-> > -       struct pagevec pvec;
-> > +       struct folio_batch fbatch;
-> >         int ret = 0;
-> >         struct page *last_page = NULL;
-> >         bool marked = false;
-> >         nid_t ino = inode->i_ino;
-> > -       int nr_pages;
-> > +       int nr_folios;
-> >         int nwritten = 0;
-> >
-> >         if (atomic) {
-> > @@ -1742,20 +1742,21 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
-> >                         return PTR_ERR_OR_ZERO(last_page);
-> >         }
-> >  retry:
-> > -       pagevec_init(&pvec);
-> > +       folio_batch_init(&fbatch);
-> >         index = 0;
-> >
-> > -       while ((nr_pages = pagevec_lookup_tag(&pvec, NODE_MAPPING(sbi), &index,
-> > -                               PAGECACHE_TAG_DIRTY))) {
-> > +       while ((nr_folios = filemap_get_folios_tag(NODE_MAPPING(sbi), &index,
-> > +                                       (pgoff_t)-1, PAGECACHE_TAG_DIRTY,
-> > +                                       &fbatch))) {
-> >                 int i;
-> >
-> > -               for (i = 0; i < nr_pages; i++) {
-> > -                       struct page *page = pvec.pages[i];
-> > +               for (i = 0; i < nr_folios; i++) {
-> > +                       struct page *page = &fbatch.folios[i]->page;
-> >                         bool submitted = false;
-> >
-> >                         if (unlikely(f2fs_cp_error(sbi))) {
-> >                                 f2fs_put_page(last_page, 0);
-> > -                               pagevec_release(&pvec);
-> > +                               folio_batch_release(&fbatch);
-> >                                 ret = -EIO;
-> >                                 goto out;
-> >                         }
-> > @@ -1821,7 +1822,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
-> >                                 break;
-> >                         }
-> >                 }
-> > -               pagevec_release(&pvec);
-> > +               folio_batch_release(&fbatch);
-> >                 cond_resched();
-> >
-> >                 if (ret || marked)
-> > --
-> > 2.36.1
-> >
->
-> Following up on these f2fs patches (11/23, 12/23, 13/23, 14/23, 15/23,
-> 16/23). Does anyone have time to review them this week?
+This patch avoid the false-positive checker warning about writing 112
+bytes into a 88 bytes field "e->request", see:
 
-Chao, thank you for taking a look at some of these patches!
-If you have time to look over the remaining patches (14, 15, 16)
-feedback on those would be appreciated as well.
+[   54.891560] dlm: csmb1: dlm_recover_directory 23 out 2 messages
+[   54.990542] ------------[ cut here ]------------
+[   54.991012] memcpy: detected field-spanning write (size 112) of single field "&e->request" at fs/dlm/requestqueue.c:47 (size 88)
+[   54.992150] WARNING: CPU: 0 PID: 297 at fs/dlm/requestqueue.c:47 dlm_add_requestqueue+0x177/0x180
+[   54.993002] CPU: 0 PID: 297 Comm: kworker/u4:3 Not tainted 6.1.0-rc5-00008-ge01d50cbd6ee #248
+[   54.993878] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.0-1.fc36 04/01/2014
+[   54.994718] Workqueue: dlm_recv process_recv_sockets
+[   54.995230] RIP: 0010:dlm_add_requestqueue+0x177/0x180
+[   54.995731] Code: e7 01 0f 85 3b ff ff ff b9 58 00 00 00 48 c7 c2 c0 41 74 82 4c 89 ee 48 c7 c7 20 42 74 82 c6 05 8b 8d 30 02 01 e8 51 07 be 00 <0f> 0b e9 12 ff ff ff 66 90 0f 1f 44 00 00 41 57 48 8d 87 10 08 00
+[   54.997483] RSP: 0018:ffffc90000b1fbe8 EFLAGS: 00010282
+[   54.997990] RAX: 0000000000000000 RBX: ffff888024fc3d00 RCX: 0000000000000000
+[   54.998667] RDX: 0000000000000001 RSI: ffffffff81155014 RDI: fffff52000163f73
+[   54.999342] RBP: ffff88800dbac000 R08: 0000000000000001 R09: ffffc90000b1fa5f
+[   54.999997] R10: fffff52000163f4b R11: 203a7970636d656d R12: ffff88800cfb0018
+[   55.000673] R13: 0000000000000070 R14: ffff888024fc3d18 R15: 0000000000000000
+[   55.001344] FS:  0000000000000000(0000) GS:ffff88806d600000(0000) knlGS:0000000000000000
+[   55.002078] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   55.002603] CR2: 00007f35d4f0b9a0 CR3: 0000000025495002 CR4: 0000000000770ef0
+[   55.003258] PKRU: 55555554
+[   55.003514] Call Trace:
+[   55.003756]  <TASK>
+[   55.003953]  dlm_receive_buffer+0x1c0/0x200
+[   55.004348]  dlm_process_incoming_buffer+0x46d/0x780
+[   55.004786]  ? kernel_recvmsg+0x8b/0xc0
+[   55.005150]  receive_from_sock.isra.0+0x168/0x420
+[   55.005582]  ? process_listen_recv_socket+0x10/0x10
+[   55.006018]  ? finish_task_switch.isra.0+0xe0/0x400
+[   55.006469]  ? __switch_to+0x2fe/0x6a0
+[   55.006808]  ? read_word_at_a_time+0xe/0x20
+[   55.007197]  ? strscpy+0x146/0x190
+[   55.007505]  process_one_work+0x3d0/0x6b0
+[   55.007863]  worker_thread+0x8d/0x620
+[   55.008209]  ? __kthread_parkme+0xd8/0xf0
+[   55.008565]  ? process_one_work+0x6b0/0x6b0
+[   55.008937]  kthread+0x171/0x1a0
+[   55.009251]  ? kthread_exit+0x60/0x60
+[   55.009582]  ret_from_fork+0x1f/0x30
+[   55.009903]  </TASK>
+[   55.010120] ---[ end trace 0000000000000000 ]---
+[   55.025783] dlm: csmb1: dlm_recover 5 generation 3 done: 201 ms
+[   55.026466] gfs2: fsid=smbcluster:csmb1.0: recover generation 3 done
+
+It seems the checker is unable to detect the additional length bytes
+which was allocated additionally for the flexible array in struct
+dlm_message. To solve it we split the memcpy() into copy for the 88 bytes
+struct and another memcpy() for the flexible array m_extra field.
+
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+---
+ fs/dlm/requestqueue.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/dlm/requestqueue.c b/fs/dlm/requestqueue.c
+index 036a9a0078f6..8be2893ad15b 100644
+--- a/fs/dlm/requestqueue.c
++++ b/fs/dlm/requestqueue.c
+@@ -44,7 +44,8 @@ void dlm_add_requestqueue(struct dlm_ls *ls, int nodeid, struct dlm_message *ms)
+ 
+ 	e->recover_seq = ls->ls_recover_seq & 0xFFFFFFFF;
+ 	e->nodeid = nodeid;
+-	memcpy(&e->request, ms, le16_to_cpu(ms->m_header.h_length));
++	memcpy(&e->request, ms, sizeof(*ms));
++	memcpy(&e->request.m_extra, ms->m_extra, length);
+ 
+ 	atomic_inc(&ls->ls_requestqueue_cnt);
+ 	mutex_lock(&ls->ls_requestqueue_mutex);
+-- 
+2.31.1
 
