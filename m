@@ -1,85 +1,62 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C788D63215E
-	for <lists+cluster-devel@lfdr.de>; Mon, 21 Nov 2022 12:53:42 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B47466323CC
+	for <lists+cluster-devel@lfdr.de>; Mon, 21 Nov 2022 14:35:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669031621;
+	s=mimecast20190719; t=1669037745;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=OGkxOou+BFCxzhmgYIR3dXgS0X+5SRauyNMovfNuRSA=;
-	b=h1w9slOwrimv3h9+NbgEp62KJtpMFazPU2AD2Q9ECT9eM4au3K1xeu/Ie92czkfkg0hBIX
-	jmTwuPH7ruN/gOnjUrEfVmJX+u+4hmEzpe7O4a9r6uNBO2CzEReclckZffkkYcqhvyYkw3
-	grK+29T6L/+GjDtlo+LeL26Qkn056Ek=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=0PNVVbxIqYIMNHfObHOmGwpKRDt3WRR+KlB649CkZdU=;
+	b=GmdWVQ57AfEbH/nvPKpQjwwrYtORRxRn5Ry0vUTUntx98bv/F7NAnAy2JQLaL9NGgArCA3
+	Zix4CYN2if6IsuwxvbWqKHVHM5nzCI3+JbNJFILEDTo4GFv9UVAkvsZSuqRrObTOHfZcvP
+	qcua85ngUhzdfcM51XB7ueW4BWqlac4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-307-G2E2ln8oNd-ihwpcAku_bQ-1; Mon, 21 Nov 2022 06:53:36 -0500
-X-MC-Unique: G2E2ln8oNd-ihwpcAku_bQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-338-IFJX-MAtMp-gOh7Y6B92mg-1; Mon, 21 Nov 2022 08:35:39 -0500
+X-MC-Unique: IFJX-MAtMp-gOh7Y6B92mg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E5AF862FEF;
-	Mon, 21 Nov 2022 11:53:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7642A803520;
+	Mon, 21 Nov 2022 13:35:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 80587492B06;
-	Mon, 21 Nov 2022 11:53:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A6A5640C6E13;
+	Mon, 21 Nov 2022 13:35:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0D82B19465A0;
-	Mon, 21 Nov 2022 11:53:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D12D194658C;
+	Mon, 21 Nov 2022 13:35:37 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 161481946587 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 21 Nov 2022 09:27:07 +0000 (UTC)
+ ESMTP id 730BD1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 21 Nov 2022 13:35:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EE16C49BB64; Mon, 21 Nov 2022 09:27:06 +0000 (UTC)
+ id 5E7B649BB65; Mon, 21 Nov 2022 13:35:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E63BA49BB60
- for <cluster-devel@redhat.com>; Mon, 21 Nov 2022 09:27:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C87DF185A7A8
- for <cluster-devel@redhat.com>; Mon, 21 Nov 2022 09:27:06 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-156-4ek-25HROJSR8LcpMAE13g-1; Mon, 21 Nov 2022 04:26:57 -0500
-X-MC-Unique: 4ek-25HROJSR8LcpMAE13g-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 499A9B80AB2;
- Mon, 21 Nov 2022 09:20:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F592C433C1;
- Mon, 21 Nov 2022 09:20:03 +0000 (UTC)
-Date: Mon, 21 Nov 2022 10:19:59 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20221121091959.nzcunop3byncxa77@wittgenstein>
-References: <20221120210004.381842-1-jlayton@kernel.org>
+Received: from bcodding.csb (unknown [10.22.50.7])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 791E2492CA2;
+ Mon, 21 Nov 2022 13:35:35 +0000 (UTC)
+Received: by bcodding.csb (Postfix, from userid 24008)
+ id 19AFF10C30E3; Mon, 21 Nov 2022 08:35:35 -0500 (EST)
+From: Benjamin Coddington <bcodding@redhat.com>
+To: netdev@vger.kernel.org
+Date: Mon, 21 Nov 2022 08:35:18 -0500
+Message-Id: <c2ec184226acd21a191ccc1aa46a1d7e43ca7104.1669036433.git.bcodding@redhat.com>
+In-Reply-To: <cover.1669036433.git.bcodding@redhat.com>
+References: <cover.1669036433.git.bcodding@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20221120210004.381842-1-jlayton@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Mon, 21 Nov 2022 11:53:27 +0000
-Subject: Re: [Cluster-devel] [PATCH] filelock: move file locking definitions
- to separate header file
+Subject: [Cluster-devel] [PATCH v1 2/3] Treewide: Stop corrupting socket's
+ task_frag
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,50 +68,302 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Latchesar Ionkov <lucho@ionkov.net>,
- Martin Brandenburg <martin@omnibond.com>,
- "Darrick J. Wong" <djwong@kernel.org>,
+Cc: Latchesar Ionkov <lucho@ionkov.net>, samba-technical@lists.samba.org,
  Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
+ Valentina Manea <valentina.manea.m@gmail.com>, linux-nvme@lists.infradead.org,
+ Philipp Reisner <philipp.reisner@linbit.com>,
  David Howells <dhowells@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Marc Dionne <marc.dionne@auristor.com>, linux-xfs@vger.kernel.org, hch@lst.de,
- Mike Marshall <hubcap@omnibond.com>, linux-cifs@vger.kernel.org,
- Miklos Szeredi <miklos@szeredi.hu>, Mark Fasheh <mark@fasheh.com>,
- linux-afs@lists.infradead.org, cluster-devel@redhat.com,
- v9fs-developer@lists.sourceforge.net, Ilya Dryomov <idryomov@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>, devel@lists.orangefs.org,
- Shyam Prasad N <sprasad@microsoft.com>, Eric Van Hensbergen <ericvh@gmail.com>,
- Tom Talpey <tom@talpey.com>, linux-fsdevel@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, ceph-devel@vger.kernel.org,
- Xiubo Li <xiubli@redhat.com>,
- Trond Myklebust <trond.myklebust@hammerspace.com>, linux-nfs@vger.kernel.org,
- Paulo Alcantara <pc@cjr.nz>, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>,
+ Eric Dumazet <edumazet@google.com>, linux-nfs@vger.kernel.org,
+ Marc Dionne <marc.dionne@auristor.com>, Shuah Khan <shuah@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Mike Christie <michael.christie@oracle.com>,
+ drbd-dev@lists.linbit.com, linux-cifs@vger.kernel.org,
+ Sagi Grimberg <sagi@grimberg.me>, linux-scsi@vger.kernel.org,
+ Mark Fasheh <mark@fasheh.com>, linux-afs@lists.infradead.org,
+ cluster-devel@redhat.com, Jakub Kicinski <kuba@kernel.org>,
+ Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Anna Schumaker <anna@kernel.org>, Eric Van Hensbergen <ericvh@gmail.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
+ linux-block@vger.kernel.org, Joel Becker <jlbec@evilplan.org>,
+ v9fs-developer@lists.sourceforge.net, Keith Busch <kbusch@kernel.org>,
+ ceph-devel@vger.kernel.org, Xiubo Li <xiubli@redhat.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Jens Axboe <axboe@kernel.dk>, Chris Leech <cleech@redhat.com>,
+ open-iscsi@googlegroups.com, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
  Steve French <sfrench@samba.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Chuck Lever <chuck.lever@oracle.com>, Anna Schumaker <anna@kernel.org>,
- ocfs2-devel@oss.oracle.com, Joel Becker <jlbec@evilplan.org>
+ =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Chuck Lever <chuck.lever@oracle.com>, Lee Duncan <lduncan@suse.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ "David S. Miller" <davem@davemloft.net>, ocfs2-devel@oss.oracle.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 20, 2022 at 03:59:57PM -0500, Jeff Layton wrote:
-> The file locking definitions have lived in fs.h since the dawn of time,
-> but they are only used by a small subset of the source files that
-> include it.
-> 
-> Move the file locking definitions to a new header file, and add the
-> appropriate #include directives to the source files that need them. By
-> doing this we trim down fs.h a bit and limit the amount of rebuilding
-> that has to be done when we make changes to the file locking APIs.
-> 
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
+Since moving to memalloc_nofs_save/restore, SUNRPC has stopped setting the
+GFP_NOIO flag on sk_allocation which the networking system uses to decide
+when it is safe to use current->task_frag.  The results of this are
+unexpected corruption in task_frag when SUNRPC is involved in memory
+reclaim.
 
-Looks good to me,
-Reviewed-by: Christian Brauner (Microsoft) <brauner@kernel.org>
+The corruption can be seen in crashes, but the root cause is often
+difficult to ascertain as a crashing machine's stack trace will have no
+evidence of being near NFS or SUNRPC code.  I believe this problem to
+be much more pervasive than reports to the community may indicate.
+
+Fix this by having kernel users of sockets that may corrupt task_frag due
+to reclaim set sk_use_task_frag = false.  Preemptively correcting this
+situation for users that still set sk_allocation allows them to convert to
+memalloc_nofs_save/restore without the same unexpected corruptions that are
+sure to follow, unlikely to show up in testing, and difficult to bisect.
+
+CC: Philipp Reisner <philipp.reisner@linbit.com>
+CC: Lars Ellenberg <lars.ellenberg@linbit.com>
+CC: "Christoph Böhmwalder" <christoph.boehmwalder@linbit.com>
+CC: Jens Axboe <axboe@kernel.dk>
+CC: Josef Bacik <josef@toxicpanda.com>
+CC: Keith Busch <kbusch@kernel.org>
+CC: Christoph Hellwig <hch@lst.de>
+CC: Sagi Grimberg <sagi@grimberg.me>
+CC: Lee Duncan <lduncan@suse.com>
+CC: Chris Leech <cleech@redhat.com>
+CC: Mike Christie <michael.christie@oracle.com>
+CC: "James E.J. Bottomley" <jejb@linux.ibm.com>
+CC: "Martin K. Petersen" <martin.petersen@oracle.com>
+CC: Valentina Manea <valentina.manea.m@gmail.com>
+CC: Shuah Khan <shuah@kernel.org>
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: David Howells <dhowells@redhat.com>
+CC: Marc Dionne <marc.dionne@auristor.com>
+CC: Steve French <sfrench@samba.org>
+CC: Christine Caulfield <ccaulfie@redhat.com>
+CC: David Teigland <teigland@redhat.com>
+CC: Mark Fasheh <mark@fasheh.com>
+CC: Joel Becker <jlbec@evilplan.org>
+CC: Joseph Qi <joseph.qi@linux.alibaba.com>
+CC: Eric Van Hensbergen <ericvh@gmail.com>
+CC: Latchesar Ionkov <lucho@ionkov.net>
+CC: Dominique Martinet <asmadeus@codewreck.org>
+CC: "David S. Miller" <davem@davemloft.net>
+CC: Eric Dumazet <edumazet@google.com>
+CC: Jakub Kicinski <kuba@kernel.org>
+CC: Paolo Abeni <pabeni@redhat.com>
+CC: Ilya Dryomov <idryomov@gmail.com>
+CC: Xiubo Li <xiubli@redhat.com>
+CC: Chuck Lever <chuck.lever@oracle.com>
+CC: Jeff Layton <jlayton@kernel.org>
+CC: Trond Myklebust <trond.myklebust@hammerspace.com>
+CC: Anna Schumaker <anna@kernel.org>
+CC: drbd-dev@lists.linbit.com
+CC: linux-block@vger.kernel.org
+CC: linux-kernel@vger.kernel.org
+CC: nbd@other.debian.org
+CC: linux-nvme@lists.infradead.org
+CC: open-iscsi@googlegroups.com
+CC: linux-scsi@vger.kernel.org
+CC: linux-usb@vger.kernel.org
+CC: linux-afs@lists.infradead.org
+CC: linux-cifs@vger.kernel.org
+CC: samba-technical@lists.samba.org
+CC: cluster-devel@redhat.com
+CC: ocfs2-devel@oss.oracle.com
+CC: v9fs-developer@lists.sourceforge.net
+CC: netdev@vger.kernel.org
+CC: ceph-devel@vger.kernel.org
+CC: linux-nfs@vger.kernel.org
+
+Suggested-by: Guillaume Nault <gnault@redhat.com>
+Signed-off-by: Benjamin Coddington <bcodding@redhat.com>
+---
+ drivers/block/drbd/drbd_receiver.c | 3 +++
+ drivers/block/nbd.c                | 1 +
+ drivers/nvme/host/tcp.c            | 1 +
+ drivers/scsi/iscsi_tcp.c           | 1 +
+ drivers/usb/usbip/usbip_common.c   | 1 +
+ fs/afs/rxrpc.c                     | 1 +
+ fs/cifs/connect.c                  | 1 +
+ fs/dlm/lowcomms.c                  | 2 ++
+ fs/ocfs2/cluster/tcp.c             | 1 +
+ net/9p/trans_fd.c                  | 1 +
+ net/ceph/messenger.c               | 1 +
+ net/sunrpc/xprtsock.c              | 3 +++
+ 12 files changed, 17 insertions(+)
+
+diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
+index af4c7d65490b..09ad8d82c200 100644
+--- a/drivers/block/drbd/drbd_receiver.c
++++ b/drivers/block/drbd/drbd_receiver.c
+@@ -1030,6 +1030,9 @@ static int conn_connect(struct drbd_connection *connection)
+ 	sock.socket->sk->sk_allocation = GFP_NOIO;
+ 	msock.socket->sk->sk_allocation = GFP_NOIO;
+ 
++	sock.socket->sk->sk_use_task_frag = false;
++	msock.socket->sk->sk_use_task_frag = false;
++
+ 	sock.socket->sk->sk_priority = TC_PRIO_INTERACTIVE_BULK;
+ 	msock.socket->sk->sk_priority = TC_PRIO_INTERACTIVE;
+ 
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index 2a709daefbc4..815ee631ed30 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -514,6 +514,7 @@ static int sock_xmit(struct nbd_device *nbd, int index, int send,
+ 	noreclaim_flag = memalloc_noreclaim_save();
+ 	do {
+ 		sock->sk->sk_allocation = GFP_NOIO | __GFP_MEMALLOC;
++		sock->sk->sk_use_task_frag = false;
+ 		msg.msg_name = NULL;
+ 		msg.msg_namelen = 0;
+ 		msg.msg_control = NULL;
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index d5871fd6f769..e01d78858cb4 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -1531,6 +1531,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl,
+ 	queue->sock->sk->sk_rcvtimeo = 10 * HZ;
+ 
+ 	queue->sock->sk->sk_allocation = GFP_ATOMIC;
++	queue->sock->sk->sk_use_task_frag = false;
+ 	nvme_tcp_set_queue_io_cpu(queue);
+ 	queue->request = NULL;
+ 	queue->data_remaining = 0;
+diff --git a/drivers/scsi/iscsi_tcp.c b/drivers/scsi/iscsi_tcp.c
+index 29b1bd755afe..733e540d0abf 100644
+--- a/drivers/scsi/iscsi_tcp.c
++++ b/drivers/scsi/iscsi_tcp.c
+@@ -733,6 +733,7 @@ iscsi_sw_tcp_conn_bind(struct iscsi_cls_session *cls_session,
+ 	sk->sk_reuse = SK_CAN_REUSE;
+ 	sk->sk_sndtimeo = 15 * HZ; /* FIXME: make it configurable */
+ 	sk->sk_allocation = GFP_ATOMIC;
++	sk->sk_use_task_frag = false;
+ 	sk_set_memalloc(sk);
+ 	sock_no_linger(sk);
+ 
+diff --git a/drivers/usb/usbip/usbip_common.c b/drivers/usb/usbip/usbip_common.c
+index 2ab99244bc31..76bfc6e43881 100644
+--- a/drivers/usb/usbip/usbip_common.c
++++ b/drivers/usb/usbip/usbip_common.c
+@@ -315,6 +315,7 @@ int usbip_recv(struct socket *sock, void *buf, int size)
+ 
+ 	do {
+ 		sock->sk->sk_allocation = GFP_NOIO;
++		sock->sk->sk_use_task_frag = false;
+ 
+ 		result = sock_recvmsg(sock, &msg, MSG_WAITALL);
+ 		if (result <= 0)
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index eccc3cd0cb70..ac75ad18db83 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -46,6 +46,7 @@ int afs_open_socket(struct afs_net *net)
+ 		goto error_1;
+ 
+ 	socket->sk->sk_allocation = GFP_NOFS;
++	socket->sk->sk_use_task_frag = false;
+ 
+ 	/* bind the callback manager's address to make this a server socket */
+ 	memset(&srx, 0, sizeof(srx));
+diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
+index 7ae6f2c08153..c2b0d6f59f79 100644
+--- a/fs/cifs/connect.c
++++ b/fs/cifs/connect.c
+@@ -2935,6 +2935,7 @@ generic_ip_connect(struct TCP_Server_Info *server)
+ 		cifs_dbg(FYI, "Socket created\n");
+ 		server->ssocket = socket;
+ 		socket->sk->sk_allocation = GFP_NOFS;
++		socket->sk->sk_use_task_frag = false;
+ 		if (sfamily == AF_INET6)
+ 			cifs_reclassify_socket6(socket);
+ 		else
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index a4e84e8d94c8..4cf29ac3c428 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -699,6 +699,7 @@ static void add_listen_sock(struct socket *sock, struct listen_connection *con)
+ 
+ 	sk->sk_user_data = con;
+ 	sk->sk_allocation = GFP_NOFS;
++	sk->sk_use_task_frag = false;
+ 	/* Install a data_ready callback */
+ 	sk->sk_data_ready = lowcomms_listen_data_ready;
+ 	release_sock(sk);
+@@ -718,6 +719,7 @@ static void add_sock(struct socket *sock, struct connection *con)
+ 	sk->sk_write_space = lowcomms_write_space;
+ 	sk->sk_state_change = lowcomms_state_change;
+ 	sk->sk_allocation = GFP_NOFS;
++	sk->sk_use_task_frag = false;
+ 	sk->sk_error_report = lowcomms_error_report;
+ 	release_sock(sk);
+ }
+diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
+index f660c0dbdb63..3eaafa5e5ec4 100644
+--- a/fs/ocfs2/cluster/tcp.c
++++ b/fs/ocfs2/cluster/tcp.c
+@@ -1604,6 +1604,7 @@ static void o2net_start_connect(struct work_struct *work)
+ 	sc->sc_sock = sock; /* freed by sc_kref_release */
+ 
+ 	sock->sk->sk_allocation = GFP_ATOMIC;
++	sock->sk->sk_use_task_frag = false;
+ 
+ 	myaddr.sin_family = AF_INET;
+ 	myaddr.sin_addr.s_addr = mynode->nd_ipv4_address;
+diff --git a/net/9p/trans_fd.c b/net/9p/trans_fd.c
+index e758978b44be..96f803499323 100644
+--- a/net/9p/trans_fd.c
++++ b/net/9p/trans_fd.c
+@@ -851,6 +851,7 @@ static int p9_socket_open(struct p9_client *client, struct socket *csocket)
+ 		return -ENOMEM;
+ 
+ 	csocket->sk->sk_allocation = GFP_NOIO;
++	csocket->sk->sk_use_task_frag = false;
+ 	file = sock_alloc_file(csocket, 0, NULL);
+ 	if (IS_ERR(file)) {
+ 		pr_err("%s (%d): failed to map fd\n",
+diff --git a/net/ceph/messenger.c b/net/ceph/messenger.c
+index d3bb656308b4..cad8e0ca8432 100644
+--- a/net/ceph/messenger.c
++++ b/net/ceph/messenger.c
+@@ -446,6 +446,7 @@ int ceph_tcp_connect(struct ceph_connection *con)
+ 	if (ret)
+ 		return ret;
+ 	sock->sk->sk_allocation = GFP_NOFS;
++	sock->sk->sk_use_task_frag = false;
+ 
+ #ifdef CONFIG_LOCKDEP
+ 	lockdep_set_class(&sock->sk->sk_lock, &socket_class);
+diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
+index e976007f4fd0..d3170b753dfc 100644
+--- a/net/sunrpc/xprtsock.c
++++ b/net/sunrpc/xprtsock.c
+@@ -1882,6 +1882,7 @@ static int xs_local_finish_connecting(struct rpc_xprt *xprt,
+ 		sk->sk_write_space = xs_udp_write_space;
+ 		sk->sk_state_change = xs_local_state_change;
+ 		sk->sk_error_report = xs_error_report;
++		sk->sk_use_task_frag = false;
+ 
+ 		xprt_clear_connected(xprt);
+ 
+@@ -2083,6 +2084,7 @@ static void xs_udp_finish_connecting(struct rpc_xprt *xprt, struct socket *sock)
+ 		sk->sk_user_data = xprt;
+ 		sk->sk_data_ready = xs_data_ready;
+ 		sk->sk_write_space = xs_udp_write_space;
++		sk->sk_use_task_frag = false;
+ 
+ 		xprt_set_connected(xprt);
+ 
+@@ -2250,6 +2252,7 @@ static int xs_tcp_finish_connecting(struct rpc_xprt *xprt, struct socket *sock)
+ 		sk->sk_state_change = xs_tcp_state_change;
+ 		sk->sk_write_space = xs_tcp_write_space;
+ 		sk->sk_error_report = xs_error_report;
++		sk->sk_use_task_frag = false;
+ 
+ 		/* socket options */
+ 		sock_reset_flag(sk, SOCK_LINGER);
+-- 
+2.31.1
 
