@@ -2,74 +2,75 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14073633AF1
-	for <lists+cluster-devel@lfdr.de>; Tue, 22 Nov 2022 12:14:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A8F6633C4D
+	for <lists+cluster-devel@lfdr.de>; Tue, 22 Nov 2022 13:20:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669115652;
+	s=mimecast20190719; t=1669119649;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VJ37eqNonDYTyLBnlc+kIaqf58fZyty6KgoEsUwiH2o=;
-	b=fI8q9JKIK/LMNyCGHjBXZTQ7m1IeLq7Ac4+HsOa1zYL+tiAMEQVa4lZqU2FXQ4EfNwh0SN
-	xdsMF6PhhpTqkxZCZ9B6XWmt7bV4N3oJlImLIEDV6yxYNteSLJLFsG2TDodI7YjaM/Vip1
-	qp13o8ZxZwAPiEvGIB6LQfUmCbWAgG0=
+	bh=mgrL4mJi7VcpsANC7VNQEWo8u9v/kRd0GOsqrrE+Oi0=;
+	b=VT+lS0WUpbYKJn5owP7W5FnLDHymhpeqNyWWUktYJiXGQ48vJPXrPUi9+47wqPCtBEGoHw
+	0TplJB2DhwSQpgjcpYzDypdChdXnUb1MHE991cC7E5/zgbaNVmshuwjAp6x2oXLEyuHN64
+	7IzJLQwa05WapCSDGQYuG7l0WyKZCpY=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-657-YaNtQ7cxNxa30HQYtanajQ-1; Tue, 22 Nov 2022 06:14:07 -0500
-X-MC-Unique: YaNtQ7cxNxa30HQYtanajQ-1
+ us-mta-303-PIpgbv-GMpi7emJ8oWrOyA-1; Tue, 22 Nov 2022 07:20:46 -0500
+X-MC-Unique: PIpgbv-GMpi7emJ8oWrOyA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7CBC3C0CD3F;
-	Tue, 22 Nov 2022 11:14:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2EC11C09B67;
+	Tue, 22 Nov 2022 12:20:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8C68C140EBF3;
-	Tue, 22 Nov 2022 11:14:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BE2CC1415102;
+	Tue, 22 Nov 2022 12:20:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6F00C194658D;
-	Tue, 22 Nov 2022 11:14:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7B59A194658D;
+	Tue, 22 Nov 2022 12:20:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A1A401946587 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 22 Nov 2022 11:14:05 +0000 (UTC)
+ ESMTP id D49751946587 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 22 Nov 2022 12:20:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 94E694EA4A; Tue, 22 Nov 2022 11:14:05 +0000 (UTC)
+ id B9888492B2A; Tue, 22 Nov 2022 12:20:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D44F1731B
- for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 11:14:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6534781F30D
- for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 11:14:05 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-378-Y9kHeW8eMuOFqc-cCWUO1w-1; Tue, 22 Nov 2022 06:14:01 -0500
-X-MC-Unique: Y9kHeW8eMuOFqc-cCWUO1w-1
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B1E51492B17
+ for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 12:20:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9726F101A528
+ for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 12:20:42 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-639-aTBowGqUOK6ifKabFgqQmg-1; Tue, 22 Nov 2022 07:20:40 -0500
+X-MC-Unique: aTBowGqUOK6ifKabFgqQmg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A6EDD6164C;
- Tue, 22 Nov 2022 11:13:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99661C433C1;
- Tue, 22 Nov 2022 11:13:55 +0000 (UTC)
-Message-ID: <fcc7161712a2c8ff84420477b12b9114195e6624.camel@kernel.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 81960B81A4A;
+ Tue, 22 Nov 2022 12:20:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7BB3C433C1;
+ Tue, 22 Nov 2022 12:20:36 +0000 (UTC)
+Message-ID: <a731e688122d1a6fdb2f7bdbd71d403fa110e9f2.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Date: Tue, 22 Nov 2022 06:13:54 -0500
-In-Reply-To: <Y3xHQwM3UiD/SK0K@casper.infradead.org>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>, Mark Fasheh <mark@fasheh.com>, 
+ Joel Becker <jlbec@evilplan.org>
+Date: Tue, 22 Nov 2022 07:20:35 -0500
+In-Reply-To: <0c6a44ff-409e-99b2-eaa9-fd6e87a9e104@linux.alibaba.com>
 References: <20221120210004.381842-1-jlayton@kernel.org>
- <Y3xHQwM3UiD/SK0K@casper.infradead.org>
+ <0c6a44ff-409e-99b2-eaa9-fd6e87a9e104@linux.alibaba.com>
 User-Agent: Evolution 3.46.1 (3.46.1-1.fc37)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -79,7 +80,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 Subject: Re: [Cluster-devel] [PATCH] filelock: move file locking definitions
  to separate header file
 X-BeenThere: cluster-devel@redhat.com
@@ -93,29 +94,12 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Latchesar Ionkov <lucho@ionkov.net>,
- Martin Brandenburg <martin@omnibond.com>,
- "Darrick J. Wong" <djwong@kernel.org>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Howells <dhowells@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Marc Dionne <marc.dionne@auristor.com>, linux-xfs@vger.kernel.org, hch@lst.de,
- Mike Marshall <hubcap@omnibond.com>, linux-cifs@vger.kernel.org,
- Miklos Szeredi <miklos@szeredi.hu>, Mark Fasheh <mark@fasheh.com>,
- linux-afs@lists.infradead.org, cluster-devel@redhat.com,
- v9fs-developer@lists.sourceforge.net, Ilya Dryomov <idryomov@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>, devel@lists.orangefs.org,
- Shyam Prasad N <sprasad@microsoft.com>, Eric Van Hensbergen <ericvh@gmail.com>,
- Tom Talpey <tom@talpey.com>, linux-fsdevel@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, ceph-devel@vger.kernel.org,
- Xiubo Li <xiubli@redhat.com>,
- Trond Myklebust <trond.myklebust@hammerspace.com>, linux-nfs@vger.kernel.org,
- Paulo Alcantara <pc@cjr.nz>, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>,
- Steve French <sfrench@samba.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Chuck Lever <chuck.lever@oracle.com>, Anna Schumaker <anna@kernel.org>,
- ocfs2-devel@oss.oracle.com, Joel Becker <jlbec@evilplan.org>
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, hch@lst.de,
+ cluster-devel@redhat.com, devel@lists.orangefs.org,
+ linux-fsdevel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
+ ceph-devel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-afs@lists.infradead.org, ocfs2-devel@oss.oracle.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
@@ -124,34 +108,57 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="ISO-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2022-11-22 at 03:51 +0000, Matthew Wilcox wrote:
-> On Sun, Nov 20, 2022 at 03:59:57PM -0500, Jeff Layton wrote:
+On Tue, 2022-11-22 at 09:51 +0800, Joseph Qi wrote:
+> Hi,
+>=20
+> On 11/21/22 4:59 AM, Jeff Layton wrote:
+> > The file locking definitions have lived in fs.h since the dawn of time,
+> > but they are only used by a small subset of the source files that
+> > include it.
+> >=20
 > > Move the file locking definitions to a new header file, and add the
 > > appropriate #include directives to the source files that need them. By
 > > doing this we trim down fs.h a bit and limit the amount of rebuilding
 > > that has to be done when we make changes to the file locking APIs.
+> >=20
+> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > ---
+> >  fs/9p/vfs_file.c          |   1 +
+> >  fs/afs/internal.h         |   1 +
+> >  fs/attr.c                 |   1 +
+> >  fs/ceph/locks.c           |   1 +
+> >  fs/cifs/cifsfs.c          |   1 +
+> >  fs/cifs/cifsglob.h        |   1 +
+> >  fs/cifs/cifssmb.c         |   1 +
+> >  fs/cifs/file.c            |   1 +
+> >  fs/cifs/smb2file.c        |   1 +
+> >  fs/dlm/plock.c            |   1 +
+> >  fs/fcntl.c                |   1 +
+> >  fs/file_table.c           |   1 +
+> >  fs/fuse/file.c            |   1 +
+> >  fs/gfs2/file.c            |   1 +
+> >  fs/inode.c                |   1 +
+> >  fs/ksmbd/smb2pdu.c        |   1 +
+> >  fs/ksmbd/vfs.c            |   1 +
+> >  fs/ksmbd/vfs_cache.c      |   1 +
+> >  fs/lockd/clntproc.c       |   1 +
+> >  fs/lockd/netns.h          |   1 +
+> >  fs/locks.c                |   1 +
+> >  fs/namei.c                |   1 +
+> >  fs/nfs/nfs4_fs.h          |   1 +
+> >  fs/nfs_common/grace.c     |   1 +
+> >  fs/nfsd/netns.h           |   1 +
+> >  fs/ocfs2/locks.c          |   1 +
+> >  fs/ocfs2/stack_user.c     |   1 +
 >=20
-> I'm in favour of this in general, but I think there's a few implicit
-> includes.  Can you create a test.c that only #include
-> <linnux/filelock.h> and see if there's anything missing?
->=20
-> > +=09wait_queue_head_t fl_wait;
-> > +=09struct file *fl_file;
->=20
-> These two seem undefined at this point.
->=20
-> > +=09struct fasync_struct *=09fl_fasync; /* for lease break notification=
-s */
->=20
-> Likewise.
+> Seems it misses the related changes in:
+> fs/ocfs2/stackglue.c
 >=20
 
-Yeah, there is quite a bit missing. I think I'll have to add this at the
-head of filelock.h:
+I was able to build ocfs2.ko just fine without any changes to
+stackglue.c. What problem do you see here?
 
-#include <linux/fs.h>
-
-...as we need several definitions from fs.h for this header.
+Thanks,
 --=20
 Jeff Layton <jlayton@kernel.org>
 
