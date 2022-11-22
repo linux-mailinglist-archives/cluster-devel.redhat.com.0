@@ -2,64 +2,87 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45D54632F7A
-	for <lists+cluster-devel@lfdr.de>; Mon, 21 Nov 2022 23:02:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC6F633278
+	for <lists+cluster-devel@lfdr.de>; Tue, 22 Nov 2022 02:57:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669068133;
+	s=mimecast20190719; t=1669082219;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ojXNPpVvUDB/BOQx9KU4rgmwVGBisWvcMhgXpyJQry4=;
-	b=bNLpV0X40w0Z/UGwwaumqEPyfvsSqHhF/RgQKGuMw9pJRroJREFrXZVjOrGepqZPe3+dPo
-	qKDyKe104c2XyJOwW7erKwM/Dqskl5QaTAI/kQu7SwNY7XWTZz0s7TeZMxyTNuunyutAyf
-	FyDn34fnZCFyZhjHZydGsX7t8doqXKk=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=3w+kq2K/7OTXrUJ9MJct9wsI415NHl2R1cWgGgDpxfk=;
+	b=hxir2xhnoZQcrRiYtz/AfNj4RJy67JKAN5YRtKWq6BqOveNf+flveFMds5I1wJNLqZlS+n
+	ep0ZTiLPYB/i3qHy4ImBVxmooKvysnhGWtU8MMnSClP0CZSyuVdKcrzwv+ziZyCTEkKpr1
+	b6Q7WzK4AoQqVSS2HMA7rePXPnnlWMI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-1-XsiEk2sWM_ui9rFnINO-sg-1; Mon, 21 Nov 2022 17:02:10 -0500
-X-MC-Unique: XsiEk2sWM_ui9rFnINO-sg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-425-v9_G7QhJO9WSTqNGVZlHJA-1; Mon, 21 Nov 2022 20:56:56 -0500
+X-MC-Unique: v9_G7QhJO9WSTqNGVZlHJA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC768811E87;
-	Mon, 21 Nov 2022 22:02:09 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CBB4217585;
-	Mon, 21 Nov 2022 22:02:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C03131C05ABB;
+	Tue, 22 Nov 2022 01:56:55 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A7EDA492CA4;
+	Tue, 22 Nov 2022 01:56:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 65642194658F;
-	Mon, 21 Nov 2022 22:02:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 64E6D194658F;
+	Tue, 22 Nov 2022 01:56:54 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E0E401946588 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 21 Nov 2022 22:02:03 +0000 (UTC)
+ ESMTP id C782C1946588 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 22 Nov 2022 01:56:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B85714EA54; Mon, 21 Nov 2022 22:02:03 +0000 (UTC)
+ id 968BDC15BB9; Tue, 22 Nov 2022 01:56:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from [172.16.176.1] (unknown [10.22.50.7])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B2304EA47;
- Mon, 21 Nov 2022 22:01:46 +0000 (UTC)
-From: Benjamin Coddington <bcodding@redhat.com>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Date: Mon, 21 Nov 2022 17:01:42 -0500
-Message-ID: <A860595D-5BAB-461B-B449-8975C0424311@redhat.com>
-In-Reply-To: <26d98c8f-372b-b9c8-c29f-096cddaff149@linuxfoundation.org>
-References: <c2ec184226acd21a191ccc1aa46a1d7e43ca7104.1669036433.git.bcodding@redhat.com>
- <cover.1669036433.git.bcodding@redhat.com>
- <382872.1669039019@warthog.procyon.org.uk>
- <51B5418D-34FB-4E87-B87A-6C3FCDF8B21C@redhat.com>
- <4585e331-03ad-959f-e715-29af15f63712@linuxfoundation.org>
- <26d98c8f-372b-b9c8-c29f-096cddaff149@linuxfoundation.org>
+Received: from mimecast-mx02.redhat.com
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D755C15BB3
+ for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 01:56:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E01EF1C05AA4
+ for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 01:56:51 +0000 (UTC)
+Received: from out30-45.freemail.mail.aliyun.com
+ (out30-45.freemail.mail.aliyun.com [115.124.30.45]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256)
+ id us-mta-546-IdYSv7YKOr6sAoOpNXptRQ-1; Mon, 21 Nov 2022 20:56:44 -0500
+X-MC-Unique: IdYSv7YKOr6sAoOpNXptRQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R211e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045192;
+ MF=joseph.qi@linux.alibaba.com; NM=1; PH=DS; RN=16; SR=0;
+ TI=SMTPD_---0VVPgoyJ_1669081895
+Received: from 30.222.0.245(mailfrom:joseph.qi@linux.alibaba.com
+ fp:SMTPD_---0VVPgoyJ_1669081895) by smtp.aliyun-inc.com;
+ Tue, 22 Nov 2022 09:51:37 +0800
+Message-ID: <0c6a44ff-409e-99b2-eaa9-fd6e87a9e104@linux.alibaba.com>
+Date: Tue, 22 Nov 2022 09:51:35 +0800
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [Cluster-devel] [PATCH v1 2/3] Treewide: Stop corrupting
- socket's task_frag
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.2
+To: Jeff Layton <jlayton@kernel.org>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>
+References: <20221120210004.381842-1-jlayton@kernel.org>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20221120210004.381842-1-jlayton@kernel.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH] filelock: move file locking definitions
+ to separate header file
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,79 +94,85 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Latchesar Ionkov <lucho@ionkov.net>, samba-technical@lists.samba.org,
- Dominique Martinet <asmadeus@codewreck.org>,
- Valentina Manea <valentina.manea.m@gmail.com>, linux-nvme@lists.infradead.org,
- Philipp Reisner <philipp.reisner@linbit.com>,
- David Howells <dhowells@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Eric Dumazet <edumazet@google.com>, linux-nfs@vger.kernel.org,
- Marc Dionne <marc.dionne@auristor.com>, Shuah Khan <shuah@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Mike Christie <michael.christie@oracle.com>,
- drbd-dev@lists.linbit.com, linux-cifs@vger.kernel.org,
- Sagi Grimberg <sagi@grimberg.me>, linux-scsi@vger.kernel.org,
- Mark Fasheh <mark@fasheh.com>, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, Jakub Kicinski <kuba@kernel.org>,
- Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Anna Schumaker <anna@kernel.org>, Eric Van Hensbergen <ericvh@gmail.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>,
- Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
- linux-block@vger.kernel.org, Joel Becker <jlbec@evilplan.org>,
- v9fs-developer@lists.sourceforge.net, Keith Busch <kbusch@kernel.org>,
- ceph-devel@vger.kernel.org, Xiubo Li <xiubli@redhat.com>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Jens Axboe <axboe@kernel.dk>, Chris Leech <cleech@redhat.com>,
- open-iscsi@googlegroups.com, "Martin K. Petersen" <martin.petersen@oracle.com>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
- Steve French <sfrench@samba.org>,
- =?utf-8?q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Chuck Lever <chuck.lever@oracle.com>, Lee Duncan <lduncan@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- "David S. Miller" <davem@davemloft.net>, ocfs2-devel@oss.oracle.com
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, hch@lst.de,
+ cluster-devel@redhat.com, devel@lists.orangefs.org,
+ linux-fsdevel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
+ ceph-devel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-afs@lists.infradead.org, ocfs2-devel@oss.oracle.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 21 Nov 2022, at 16:43, Shuah Khan wrote:
+Hi,
 
-> On 11/21/22 14:40, Shuah Khan wrote:
->> On 11/21/22 07:34, Benjamin Coddington wrote:
->>> On 21 Nov 2022, at 8:56, David Howells wrote:
->>>
->>>> Benjamin Coddington <bcodding@redhat.com> wrote:
->>>>
->>>>> Since moving to memalloc_nofs_save/restore, SUNRPC has stopped settin=
-g the
->>>>> GFP_NOIO flag on sk_allocation which the networking system uses to de=
-cide
->>>>> when it is safe to use current->task_frag.
->>>>
->>>> Um, what's task_frag?
->>>
->>> Its a per-task page_frag used to coalesce small writes for networking -=
-- see:
->>>
->>> 5640f7685831 net: use a per task frag allocator
->>>
->>> Ben
->>>
->>>
->>
->> I am not seeing this in the mainline. Where can find this commit?
->>
->
-> Okay. I see this commit in the mainline. However, I don't see the
-> sk_use_task_frag in mainline.
+On 11/21/22 4:59 AM, Jeff Layton wrote:
+> The file locking definitions have lived in fs.h since the dawn of time,
+> but they are only used by a small subset of the source files that
+> include it.
+> 
+> Move the file locking definitions to a new header file, and add the
+> appropriate #include directives to the source files that need them. By
+> doing this we trim down fs.h a bit and limit the amount of rebuilding
+> that has to be done when we make changes to the file locking APIs.
+> 
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> ---
+>  fs/9p/vfs_file.c          |   1 +
+>  fs/afs/internal.h         |   1 +
+>  fs/attr.c                 |   1 +
+>  fs/ceph/locks.c           |   1 +
+>  fs/cifs/cifsfs.c          |   1 +
+>  fs/cifs/cifsglob.h        |   1 +
+>  fs/cifs/cifssmb.c         |   1 +
+>  fs/cifs/file.c            |   1 +
+>  fs/cifs/smb2file.c        |   1 +
+>  fs/dlm/plock.c            |   1 +
+>  fs/fcntl.c                |   1 +
+>  fs/file_table.c           |   1 +
+>  fs/fuse/file.c            |   1 +
+>  fs/gfs2/file.c            |   1 +
+>  fs/inode.c                |   1 +
+>  fs/ksmbd/smb2pdu.c        |   1 +
+>  fs/ksmbd/vfs.c            |   1 +
+>  fs/ksmbd/vfs_cache.c      |   1 +
+>  fs/lockd/clntproc.c       |   1 +
+>  fs/lockd/netns.h          |   1 +
+>  fs/locks.c                |   1 +
+>  fs/namei.c                |   1 +
+>  fs/nfs/nfs4_fs.h          |   1 +
+>  fs/nfs_common/grace.c     |   1 +
+>  fs/nfsd/netns.h           |   1 +
+>  fs/ocfs2/locks.c          |   1 +
+>  fs/ocfs2/stack_user.c     |   1 +
 
-sk_use_task_frag is in patch 1/3 in this posting.
+Seems it misses the related changes in:
+fs/ocfs2/stackglue.c
 
-https://lore.kernel.org/netdev/26d98c8f-372b-b9c8-c29f-096cddaff149@linuxfo=
-undation.org/T/#m3271959c4cf8dcff1c0c6ba023b2b3821d9e7e99
+Thanks,
+Joseph
 
-Ben
+>  fs/open.c                 |   1 +
+>  fs/orangefs/file.c        |   1 +
+>  fs/proc/fd.c              |   1 +
+>  fs/utimes.c               |   1 +
+>  fs/xattr.c                |   1 +
+>  fs/xfs/xfs_buf.h          |   1 +
+>  fs/xfs/xfs_file.c         |   1 +
+>  fs/xfs/xfs_inode.c        |   1 +
+>  include/linux/filelock.h  | 428 ++++++++++++++++++++++++++++++++++++++
+>  include/linux/fs.h        | 421 -------------------------------------
+>  include/linux/lockd/xdr.h |   1 +
+>  38 files changed, 464 insertions(+), 421 deletions(-)
+>  create mode 100644 include/linux/filelock.h
+> 
+> Unless anyone has objections, I'll plan to merge this in via the file
+> locking tree for v6.3. I'd appreciate Acked-bys or Reviewed-bys from
+> maintainers, however.
+> 
 
