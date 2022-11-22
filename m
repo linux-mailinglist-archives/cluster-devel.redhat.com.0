@@ -2,89 +2,78 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CE0E6340B9
-	for <lists+cluster-devel@lfdr.de>; Tue, 22 Nov 2022 17:02:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0681B63485F
+	for <lists+cluster-devel@lfdr.de>; Tue, 22 Nov 2022 21:38:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669132923;
+	s=mimecast20190719; t=1669149528;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:list-id:list-help:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=FyFmpCbDj8SY6mbbs6IR7GSkVbHICa/WwOJS5wT0u4M=;
-	b=hUzYG1GMXcWLzWbNvtPCwRvq6MsQ6vLMuP4JkhynbQPnUX89UiJgedtqcvITU8yb39R5qj
-	HAHUhdu66Uk69kvli1HGljLII55UT7yCrD/EUQMDe0zG5whhVxn4Fv1gW/I2RTibPpZtDa
-	5BHkU0tpgBaVbqhYKj4wJiVUXOgv+GA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Q8GaL7PyAqxg3X3981LsBHvl2rWaG2kqvL/QwIn/TDw=;
+	b=HL+9f94llfOpDCKjU+p6PxcTZhS9n3zD7ID22VC8YuCmCFDzvIXH0UtxPVFRe1HpTgC13j
+	NFx5IOkcUzJ1ZpobzGcvSlB3QMSQBdUDXoHyUW4b3v98Lv1JiiDI8si1jG8c2Mx+Lu4pIY
+	TsDkHXT8bjpjxbgE/MIMke4WdmmTIvI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-99-qvXqUA-kMWin6rGF2wvn6w-1; Tue, 22 Nov 2022 11:02:00 -0500
-X-MC-Unique: qvXqUA-kMWin6rGF2wvn6w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-475-Xf87xT4JNh-Q4agWR-lFEw-1; Tue, 22 Nov 2022 15:38:47 -0500
+X-MC-Unique: Xf87xT4JNh-Q4agWR-lFEw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8802986EB32;
-	Tue, 22 Nov 2022 16:01:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D4AB29AA389;
+	Tue, 22 Nov 2022 20:38:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B89562166B2E;
-	Tue, 22 Nov 2022 16:01:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A01134A9254;
+	Tue, 22 Nov 2022 20:38:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 073FA194658D;
-	Tue, 22 Nov 2022 16:01:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1EBC2194658D;
+	Tue, 22 Nov 2022 20:38:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ACC761946587 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 22 Nov 2022 15:52:47 +0000 (UTC)
+ ESMTP id 9AB521946587 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 22 Nov 2022 20:38:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8C0B540C83D9; Tue, 22 Nov 2022 15:52:47 +0000 (UTC)
+ id 764B640C83DF; Tue, 22 Nov 2022 20:38:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 846CF40C83AD
- for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 15:52:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6944229AA2F3
- for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 15:52:47 +0000 (UTC)
-Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
- [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-435-78AplJOBMfOWmCDM7WzkJA-1; Tue, 22 Nov 2022 10:52:41 -0500
-X-MC-Unique: 78AplJOBMfOWmCDM7WzkJA-1
-Received: by mail-il1-f197.google.com with SMTP id
- x10-20020a056e021bca00b00302b6c0a683so6728541ilv.23
- for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 07:52:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FyFmpCbDj8SY6mbbs6IR7GSkVbHICa/WwOJS5wT0u4M=;
- b=UsbFJjyPOfd4U23E0megNFpr5RpdjXdESj/mFob6WFoTOTdovIB9hCKjOpC/z0Pmkt
- eS8wZJkul45uQWd/w1Rtj/fbCOG0m44MYzZgIltfOJiwOmykqmUPFcyBYKAdfD70ZYsu
- w7vCZRqOdg55s43j6zW8KJ22R2lds78+3jxOw3O8rPWbWM2IfQGD9WN9tE/B/MMTUluA
- B4YD9ZvLRQUILmUNLDGsf2DjohJ6AvBT6JV9m5sym78pNOZDY390G/YD/ebhzrRc5Tz9
- qt9WEp8nMajH0aJKVlrQebqzknO+kw27sYz9S5tE/KJM9is3GR3nvDmCugLlnFe2AR4j
- onCw==
-X-Gm-Message-State: ANoB5pl6pfR9KJ5e0JAiqPWMyvkKVTrobY5WSOBM3IM6Iewy8B8XNsyb
- HHQaJYWQi+xrTmeibRRuiP2ZvDg4uYBT1PePFxaPoD+ZShta
-X-Google-Smtp-Source: AA0mqf7oHqwWD89saT3KJILzQ2ZJzy10H/9z6Df7FDbqUCDtjgyJuUD2sPpZn434D1GrYx9RIMUoNb3kAV60M3wyThvHa/2ylmSF
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 710A840C835A
+ for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 20:38:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47BC5101E14F
+ for <cluster-devel@redhat.com>; Tue, 22 Nov 2022 20:38:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-281-Qre_KwqBOy-wrhVNYbw7fQ-1; Tue, 22 Nov 2022 15:38:39 -0500
+X-MC-Unique: Qre_KwqBOy-wrhVNYbw7fQ-1
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="340784158"
+X-IronPort-AV: E=Sophos;i="5.96,185,1665471600"; d="scan'208";a="340784158"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2022 12:37:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="766463310"
+X-IronPort-AV: E=Sophos;i="5.96,185,1665471600"; d="scan'208";a="766463310"
+Received: from lkp-server01.sh.intel.com (HELO 64a2d449c951) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 22 Nov 2022 12:37:31 -0800
+Received: from kbuild by 64a2d449c951 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oxa1L-0001pX-0I;
+ Tue, 22 Nov 2022 20:37:31 +0000
+Date: Wed, 23 Nov 2022 04:37:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <637d32fc.J7JDZVofmP9NLBs4%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-Received: by 2002:a02:6d54:0:b0:376:24f6:d0f4 with SMTP id
- e20-20020a026d54000000b0037624f6d0f4mr3496277jaf.206.1669132358411; Tue, 22
- Nov 2022 07:52:38 -0800 (PST)
-Date: Tue, 22 Nov 2022 07:52:38 -0800
-In-Reply-To: <000000000000824da605e9521001@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000004e6dba05ee112956@google.com>
-From: syzbot <syzbot+70f4e455dee59ab40c80@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, cluster-devel@redhat.com, 
- linux-kernel@vger.kernel.org, rpeterso@redhat.com, 
- syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -93,8 +82,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mailman-Approved-At: Tue, 22 Nov 2022 16:01:48 +0000
-Subject: Re: [Cluster-devel] [syzbot] kernel BUG in gfs2_glock_nq (2)
+Subject: [Cluster-devel] [linux-next:master] BUILD REGRESSION
+ 771a207d1ee9f38da8c0cee1412228f18b900bac
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,101 +95,263 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, netdev@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-X-Mimecast-Spam-Score: 1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-syzbot has found a reproducer for the following issue on:
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 771a207d1ee9f38da8c0cee1412228f18b900bac  Add linux-next specific files for 20221122
 
-HEAD commit:    eb7081409f94 Linux 6.1-rc6
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=15d40efd880000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8cdf448d3b35234
-dashboard link: https://syzkaller.appspot.com/bug?extid=70f4e455dee59ab40c80
-compiler:       Debian clang version 13.0.1-++20220126092033+75e33f71c2da-1~exp1~20220126212112.63, GNU ld (GNU Binutils for Debian) 2.35.2
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=156d55fd880000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14946075880000
+Error/Warning reports:
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/4a019f55c517/disk-eb708140.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/eb36e890aa8b/vmlinux-eb708140.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/feee2c23ec64/bzImage-eb708140.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/595931ddaae3/mount_0.gz
+https://lore.kernel.org/oe-kbuild-all/202211130053.Np70VIdn-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211211917.yLICUnMb-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211221848.N0WN2GK3-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211221932.A1a12yLH-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211222131.H2kT55xh-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211222348.riEBQcJQ-lkp@intel.com
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+70f4e455dee59ab40c80@syzkaller.appspotmail.com
+Error/Warning: (recently discovered and may have been fixed)
 
-gfs2: fsid=syz:syz.0: new: gfs2_quota_sync+0x3da/0x8b0 fs/gfs2/quota.c:1318
-gfs2: fsid=syz:syz.0: pid: 3642
-gfs2: fsid=syz:syz.0: lock type: 8 req lock state : 1
-gfs2: fsid=syz:syz.0: G:  s:EX n:8/1 f:qb t:EX d:EX/0 a:0 v:0 r:5 m:20 p:0
-gfs2: fsid=syz:syz.0:  H: s:EX f:cH e:0 p:3642 [syz-executor297] gfs2_quota_sync+0x3da/0x8b0 fs/gfs2/quota.c:1318
-------------[ cut here ]------------
-kernel BUG at fs/gfs2/glock.c:1560!
-invalid opcode: 0000 [#1] PREEMPT SMP KASAN
-CPU: 0 PID: 3642 Comm: syz-executor297 Not tainted 6.1.0-rc6-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
-RIP: 0010:add_to_queue fs/gfs2/glock.c:1560 [inline]
-RIP: 0010:gfs2_glock_nq+0x1661/0x1890 fs/gfs2/glock.c:1585
-Code: 0f b7 4d 00 48 c7 c7 00 42 3e 8b 48 8b 74 24 20 89 da 31 c0 e8 9c bf da 06 31 ff 48 8b 74 24 28 ba 01 00 00 00 e8 6f 7b ff ff <0f> 0b 89 d9 80 e1 07 fe c1 38 c1 0f 8c 94 ee ff ff 48 89 df e8 06
-RSP: 0018:ffffc90003baf898 EFLAGS: 00010246
-RAX: 366be81aeeac0c00 RBX: 0000000000000008 RCX: ffff88807253d7c0
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: ffff888027cb365a R08: ffffffff83b90f42 R09: fffffbfff1d2f2de
-R10: fffffbfff1d2f2de R11: 1ffffffff1d2f2dd R12: ffff888027cb3638
-R13: ffff888073045340 R14: ffff888027cb3630 R15: 1ffff11004f966c3
-FS:  0000000000000000(0000) GS:ffff8880b9800000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000562ec3072000 CR3: 00000000714f0000 CR4: 00000000003506f0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- gfs2_glock_nq_init fs/gfs2/glock.h:264 [inline]
- do_sync+0x3b1/0xc80 fs/gfs2/quota.c:910
- gfs2_quota_sync+0x3da/0x8b0 fs/gfs2/quota.c:1318
- gfs2_sync_fs+0x49/0xb0 fs/gfs2/super.c:643
- sync_filesystem+0xe8/0x220 fs/sync.c:56
- generic_shutdown_super+0x6b/0x310 fs/super.c:474
- kill_block_super+0x79/0xd0 fs/super.c:1428
- deactivate_locked_super+0xa7/0xf0 fs/super.c:332
- cleanup_mnt+0x494/0x520 fs/namespace.c:1186
- task_work_run+0x243/0x300 kernel/task_work.c:179
- exit_task_work include/linux/task_work.h:38 [inline]
- do_exit+0x664/0x2070 kernel/exit.c:820
- do_group_exit+0x1fd/0x2b0 kernel/exit.c:950
- __do_sys_exit_group kernel/exit.c:961 [inline]
- __se_sys_exit_group kernel/exit.c:959 [inline]
- __x64_sys_exit_group+0x3b/0x40 kernel/exit.c:959
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x3d/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f9613abc989
-Code: Unable to access opcode bytes at 0x7f9613abc95f.
-RSP: 002b:00007ffe22a048c8 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 00007f9613b6d330 RCX: 00007f9613abc989
-RDX: 000000000000003c RSI: 00000000000000e7 RDI: 0000000000000001
-RBP: 0000000000000001 R08: ffffffffffffffc0 R09: 000000000003b2d3
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f9613b6d330
-R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000001
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:add_to_queue fs/gfs2/glock.c:1560 [inline]
-RIP: 0010:gfs2_glock_nq+0x1661/0x1890 fs/gfs2/glock.c:1585
-Code: 0f b7 4d 00 48 c7 c7 00 42 3e 8b 48 8b 74 24 20 89 da 31 c0 e8 9c bf da 06 31 ff 48 8b 74 24 28 ba 01 00 00 00 e8 6f 7b ff ff <0f> 0b 89 d9 80 e1 07 fe c1 38 c1 0f 8c 94 ee ff ff 48 89 df e8 06
-RSP: 0018:ffffc90003baf898 EFLAGS: 00010246
-RAX: 366be81aeeac0c00 RBX: 0000000000000008 RCX: ffff88807253d7c0
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: ffff888027cb365a R08: ffffffff83b90f42 R09: fffffbfff1d2f2de
-R10: fffffbfff1d2f2de R11: 1ffffffff1d2f2dd R12: ffff888027cb3638
-R13: ffff888073045340 R14: ffff888027cb3630 R15: 1ffff11004f966c3
-FS:  0000000000000000(0000) GS:ffff8880b9800000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000562ec3072000 CR3: 00000000714f0000 CR4: 00000000003506f0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+ERROR: modpost: "__ld_r13_to_r22" [lib/zstd/zstd_decompress.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
+ERROR: modpost: "lockdep_is_held" [fs/dlm/dlm.ko] undefined!
+arch/arm/mach-s3c/devs.c:32:10: fatal error: linux/platform_data/dma-s3c24xx.h: No such file or directory
+drivers/clk/clk.c:1022:5: error: redefinition of 'clk_prepare'
+drivers/clk/clk.c:1268:6: error: redefinition of 'clk_is_enabled_when_prepared'
+drivers/clk/clk.c:941:6: error: redefinition of 'clk_unprepare'
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4968: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5075:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:139:43: warning: unused variable 'dmub_outbox_irq_info_funcs' [-Wunused-const-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for function 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for function 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for function 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for 'tu102_gr_load' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for function 'tu102_gr_load' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for 'wpr_generic_header_dump' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for function 'wpr_generic_header_dump' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c:221:21: warning: variable 'loc' set but not used [-Wunused-but-set-variable]
+fs/dlm/lowcomms.c:623: undefined reference to `lockdep_is_held'
+include/net/sock.h:1713: undefined reference to `lockdep_is_held'
+ld.lld: error: undefined symbol: devm_drm_of_get_bridge
+ld.lld: error: undefined symbol: drm_atomic_get_new_connector_for_encoder
+ld.lld: error: undefined symbol: drm_atomic_helper_bridge_destroy_state
+ld.lld: error: undefined symbol: drm_atomic_helper_bridge_duplicate_state
+ld.lld: error: undefined symbol: drm_atomic_helper_bridge_reset
+ld.lld: error: undefined symbol: drm_bridge_add
+ld.lld: error: undefined symbol: drm_bridge_attach
+ld.lld: error: undefined symbol: drm_bridge_remove
+ld.lld: error: undefined symbol: drm_of_get_data_lanes_count_ep
+ld.lld: error: undefined symbol: lockdep_is_held
+microblaze-linux-ld: (.text+0x158): undefined reference to `drm_bridge_add'
+microblaze-linux-ld: drivers/gpu/drm/rcar-du/rzg2l_mipi_dsi.o:(.rodata+0x3b4): undefined reference to `drm_atomic_helper_bridge_duplicate_state'
+microblaze-linux-ld: drivers/gpu/drm/rcar-du/rzg2l_mipi_dsi.o:(.rodata+0x3b8): undefined reference to `drm_atomic_helper_bridge_destroy_state'
+microblaze-linux-ld: drivers/gpu/drm/rcar-du/rzg2l_mipi_dsi.o:(.rodata+0x3c8): undefined reference to `drm_atomic_helper_bridge_reset'
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/gpu/drm/nouveau/nvkm/falcon/base.c:47:23: warning: use of uninitialized value '<unknown>' [CWE-457] [-Wanalyzer-use-of-uninitialized-value]
+lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
+lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
+s390x-linux-ld: hidma.c:(.text+0x7e): undefined reference to `devm_ioremap_resource'
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|-- alpha-randconfig-m041-20221121
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|-- arc-randconfig-c003-20221120
+|   `-- ERROR:__ld_r13_to_r22-lib-zstd-zstd_decompress.ko-undefined
+|-- arm-allyesconfig
+|   |-- arch-arm-mach-s3c-devs.c:fatal-error:linux-platform_data-dma-s3c24xx.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|-- arm-defconfig
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|-- arm-randconfig-c002-20221115
+|   `-- drivers-gpu-drm-nouveau-nvkm-falcon-base.c:warning:use-of-uninitialized-value-unknown-CWE
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+clang_recent_errors
+|-- arm-randconfig-r016-20221121
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
+|   `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
+|-- arm64-randconfig-r026-20221122
+|   |-- ld.lld:error:undefined-symbol:devm_drm_of_get_bridge
+|   |-- ld.lld:error:undefined-symbol:drm_atomic_get_new_connector_for_encoder
+|   |-- ld.lld:error:undefined-symbol:drm_atomic_helper_bridge_destroy_state
+|   |-- ld.lld:error:undefined-symbol:drm_atomic_helper_bridge_duplicate_state
+|   |-- ld.lld:error:undefined-symbol:drm_atomic_helper_bridge_reset
+|   |-- ld.lld:error:undefined-symbol:drm_bridge_add
+|   |-- ld.lld:error:undefined-symbol:drm_bridge_attach
+|   |-- ld.lld:error:undefined-symbol:drm_bridge_remove
+|   `-- ld.lld:error:undefined-symbol:drm_of_get_data_lanes_count_ep
+|-- hexagon-randconfig-r045-20221121
+|   `-- ld.lld:error:undefined-symbol:lockdep_is_held
+|-- powerpc-randconfig-r016-20221120
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
+|   `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
+|-- riscv-randconfig-r042-20221120
+|   `-- ld.lld:error:too-many-errors-emitted-stopping-now-(use-error-limit-to-see-all-errors)
+|-- s390-randconfig-r026-20221120
+|   `-- ERROR:devm_ioremap_resource-drivers-dma-qcom-hdma.ko-undefined
+|-- s390-randconfig-r031-20221121
+|   `-- s39-linux-ld:hidma.c:(.text):undefined-reference-to-devm_ioremap_resource
+|-- s390-randconfig-r033-20221121
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-function-to_dal_irq_source_dcn201
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:unused-variable-dmub_outbox_irq_info_funcs
+|-- s390-randconfig-r044-20221120
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-function-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:unused-variable-dmub_outbox_irq_info_funcs
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
+|   `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
+`-- x86_64-rhel-8.3-rust
+    `-- ERROR:lockdep_is_held-fs-dlm-dlm.ko-undefined
+
+elapsed time: 736m
+
+configs tested: 77
+configs skipped: 4
+
+gcc tested configs:
+arc                                 defconfig
+alpha                               defconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+x86_64                              defconfig
+i386                 randconfig-a011-20221121
+i386                 randconfig-a013-20221121
+x86_64                               rhel-8.3
+i386                 randconfig-a012-20221121
+i386                 randconfig-a014-20221121
+i386                 randconfig-a015-20221121
+x86_64               randconfig-a012-20221121
+i386                 randconfig-a016-20221121
+x86_64               randconfig-a011-20221121
+x86_64               randconfig-a013-20221121
+x86_64               randconfig-a016-20221121
+x86_64               randconfig-a014-20221121
+m68k                             allmodconfig
+x86_64                           allyesconfig
+x86_64               randconfig-a015-20221121
+m68k                             allyesconfig
+ia64                             allmodconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+m68k                       m5249evb_defconfig
+powerpc                      ep88xc_defconfig
+sparc                       sparc32_defconfig
+mips                           jazz_defconfig
+arm                           sama5_defconfig
+sh                  sh7785lcr_32bit_defconfig
+arm                            xcep_defconfig
+sh                        edosk7705_defconfig
+parisc64                         alldefconfig
+arc                  randconfig-r043-20221120
+riscv                randconfig-r042-20221121
+arc                  randconfig-r043-20221121
+s390                 randconfig-r044-20221121
+i386                                defconfig
+arm                                 defconfig
+x86_64                          rhel-8.3-func
+s390                                defconfig
+x86_64                           rhel-8.3-kvm
+s390                             allmodconfig
+x86_64                           rhel-8.3-syz
+x86_64                    rhel-8.3-kselftests
+x86_64                         rhel-8.3-kunit
+s390                             allyesconfig
+powerpc                           allnoconfig
+mips                             allyesconfig
+arm                              allyesconfig
+powerpc                          allmodconfig
+arm64                            allyesconfig
+sh                               allmodconfig
+i386                             allyesconfig
+
+clang tested configs:
+arm                        neponset_defconfig
+x86_64               randconfig-a004-20221121
+powerpc                 xes_mpc85xx_defconfig
+x86_64               randconfig-a001-20221121
+i386                 randconfig-a004-20221121
+i386                 randconfig-a001-20221121
+x86_64               randconfig-a003-20221121
+i386                 randconfig-a003-20221121
+x86_64               randconfig-a002-20221121
+i386                 randconfig-a005-20221121
+i386                 randconfig-a002-20221121
+x86_64               randconfig-a005-20221121
+arm                         lpc32xx_defconfig
+x86_64               randconfig-a006-20221121
+i386                 randconfig-a006-20221121
+arm                         bcm2835_defconfig
+powerpc                    mvme5100_defconfig
+hexagon              randconfig-r041-20221120
+hexagon              randconfig-r041-20221121
+hexagon              randconfig-r045-20221120
+hexagon              randconfig-r045-20221121
+riscv                randconfig-r042-20221120
+s390                 randconfig-r044-20221120
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
 
