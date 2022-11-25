@@ -2,68 +2,67 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5696B6382E7
-	for <lists+cluster-devel@lfdr.de>; Fri, 25 Nov 2022 04:57:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5E06382D7
+	for <lists+cluster-devel@lfdr.de>; Fri, 25 Nov 2022 04:49:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669348627;
+	s=mimecast20190719; t=1669348156;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=f8/x32fER3aRdejEpsCx+wOLDBv/ItD+V8F3NbSrtbc=;
-	b=OiM4cJ5DrS/uYTAQzra0Ktw4F8+zdCQBdS4S+596Ffkx2HvLWmTqVEGJvv0nuJVXzx/N3E
-	zxm9m6X4firgKwr3rnQguU8FTfTwCejrKy0OTAYNflKb1mYoBAJIu2eg4246lpoVgBL1NP
-	tPd3pqU+Zp65w3flnu9gSj/WqlME7Kk=
+	 list-subscribe:list-post; bh=I2TD8YnyUVRKaNNBGvfs3pUWZDwIFw5kNMaApqkurhc=;
+	b=SdVhF9hdjlRmwtn1okfbwKRhtqXUx611SLfSssoyTm0EfHWIBPiktO2zrrh8IqxivY4dtN
+	xH7iXBfotsQobJq95OQCCS8M+H4WqV8lEhz+0XAn091TkIF1/c+8q5GFDb8b1M22/hYaFw
+	0MiA7G7Q8wbxAE3Uqllf2a+uDi2mVsc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-427-a1NVM7CTPJiPWfvqZvF_gg-1; Thu, 24 Nov 2022 22:57:02 -0500
-X-MC-Unique: a1NVM7CTPJiPWfvqZvF_gg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-249-VEcQHLOqOWKHqkvSBH0SMw-1; Thu, 24 Nov 2022 22:49:12 -0500
+X-MC-Unique: VEcQHLOqOWKHqkvSBH0SMw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AB0285A588;
-	Fri, 25 Nov 2022 03:57:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40CC5811E87;
+	Fri, 25 Nov 2022 03:49:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A21B492B04;
-	Fri, 25 Nov 2022 03:57:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 70D4D2024CBE;
+	Fri, 25 Nov 2022 03:49:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DD376194658F;
-	Fri, 25 Nov 2022 03:57:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 03F76194658F;
+	Fri, 25 Nov 2022 03:49:04 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6CA5D1946587 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 25 Nov 2022 03:56:58 +0000 (UTC)
+ ESMTP id 2A63F1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 25 Nov 2022 03:48:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 23953200B664; Fri, 25 Nov 2022 03:56:58 +0000 (UTC)
+ id 09A1B2027064; Fri, 25 Nov 2022 03:48:58 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C5912027064
- for <cluster-devel@redhat.com>; Fri, 25 Nov 2022 03:56:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 01D9E2028E94
+ for <cluster-devel@redhat.com>; Fri, 25 Nov 2022 03:48:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F22C885A59D
- for <cluster-devel@redhat.com>; Fri, 25 Nov 2022 03:56:57 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D57248BD4CB
+ for <cluster-devel@redhat.com>; Fri, 25 Nov 2022 03:48:49 +0000 (UTC)
 Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-527-eH2owgoyMiiKihz0JjdJIg-1; Thu,
- 24 Nov 2022 22:56:54 -0500
-X-MC-Unique: eH2owgoyMiiKihz0JjdJIg-1
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-645-NtBDRI4HOZKGE5xs3MCQCA-1; Thu,
+ 24 Nov 2022 22:48:46 -0500
+X-MC-Unique: NtBDRI4HOZKGE5xs3MCQCA-1
 Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1oyPTi-006a41-0t; Fri, 25 Nov 2022 03:34:14 +0000
-Date: Fri, 25 Nov 2022 03:34:14 +0000
+ Linux)) id 1oyPhG-006aFN-28; Fri, 25 Nov 2022 03:48:14 +0000
+Date: Fri, 25 Nov 2022 03:48:14 +0000
 From: Al Viro <viro@zeniv.linux.org.uk>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <Y4A3tmISFIR7ERfE@ZenIV>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <Y4A6/ozhUncxbimi@ZenIV>
 References: <20221120210004.381842-1-jlayton@kernel.org>
- <Y3xHQwM3UiD/SK0K@casper.infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <Y3xHQwM3UiD/SK0K@casper.infradead.org>
+In-Reply-To: <20221120210004.381842-1-jlayton@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -91,18 +90,18 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Dominique Martinet <asmadeus@codewreck.org>,
  Christian Schoenebeck <linux_oss@crudebyte.com>,
  David Howells <dhowells@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Marc Dionne <marc.dionne@auristor.com>, samba-technical@lists.samba.org,
- linux-xfs@vger.kernel.org, hch@lst.de, Mike Marshall <hubcap@omnibond.com>,
- linux-cifs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>,
- Mark Fasheh <mark@fasheh.com>, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, v9fs-developer@lists.sourceforge.net,
- Ilya Dryomov <idryomov@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>,
- devel@lists.orangefs.org, Shyam Prasad N <sprasad@microsoft.com>,
- Eric Van Hensbergen <ericvh@gmail.com>, Tom Talpey <tom@talpey.com>,
- linux-fsdevel@vger.kernel.org, Joel Becker <jlbec@evilplan.org>,
- ceph-devel@vger.kernel.org, Xiubo Li <xiubli@redhat.com>,
+ Marc Dionne <marc.dionne@auristor.com>, linux-xfs@vger.kernel.org, hch@lst.de,
+ Mike Marshall <hubcap@omnibond.com>, linux-cifs@vger.kernel.org,
+ Miklos Szeredi <miklos@szeredi.hu>, Mark Fasheh <mark@fasheh.com>,
+ linux-afs@lists.infradead.org, cluster-devel@redhat.com,
+ v9fs-developer@lists.sourceforge.net, Ilya Dryomov <idryomov@gmail.com>,
+ Namjae Jeon <linkinjeon@kernel.org>, devel@lists.orangefs.org,
+ Shyam Prasad N <sprasad@microsoft.com>, Eric Van Hensbergen <ericvh@gmail.com>,
+ Tom Talpey <tom@talpey.com>, linux-fsdevel@vger.kernel.org,
+ Joel Becker <jlbec@evilplan.org>, ceph-devel@vger.kernel.org,
+ Xiubo Li <xiubli@redhat.com>,
  Trond Myklebust <trond.myklebust@hammerspace.com>, linux-nfs@vger.kernel.org,
- Paulo Alcantara <pc@cjr.nz>, Jeff Layton <jlayton@kernel.org>,
+ Paulo Alcantara <pc@cjr.nz>, samba-technical@lists.samba.org,
  linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>,
  Steve French <sfrench@samba.org>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
@@ -110,35 +109,42 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  ocfs2-devel@oss.oracle.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Nov 22, 2022 at 03:51:31AM +0000, Matthew Wilcox wrote:
-> On Sun, Nov 20, 2022 at 03:59:57PM -0500, Jeff Layton wrote:
-> > Move the file locking definitions to a new header file, and add the
-> > appropriate #include directives to the source files that need them. By
-> > doing this we trim down fs.h a bit and limit the amount of rebuilding
-> > that has to be done when we make changes to the file locking APIs.
-> 
-> I'm in favour of this in general, but I think there's a few implicit
-> includes.  Can you create a test.c that only #include
-> <linnux/filelock.h> and see if there's anything missing?
-> 
-> > +	wait_queue_head_t fl_wait;
-> > +	struct file *fl_file;
-> 
-> These two seem undefined at this point.
-> 
-> > +	struct fasync_struct *	fl_fasync; /* for lease break notifications */
-> 
-> Likewise.
+On Sun, Nov 20, 2022 at 03:59:57PM -0500, Jeff Layton wrote:
 
-#include <linux/wait.h>
+> --- /dev/null
+> +++ b/include/linux/filelock.h
+> @@ -0,0 +1,428 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _LINUX_FILELOCK_H
+> +#define _LINUX_FILELOCK_H
+> +
+> +#include <linux/list.h>
+> +#include <linux/nfs_fs_i.h>
 
-struct file;
-struct fasync_struct;
+Umm... I'd add a comment along the lines of "struct file_lock has
+a BS union by fs type; NFS side of things needs nfs_fs_i.h"
 
+> +struct lock_manager_operations {
+> +	void *lm_mod_owner;
+> +	fl_owner_t (*lm_get_owner)(fl_owner_t);
+
+Probably take fl_owner_t to some more neutral header...
+
+> +#define locks_inode(f) file_inode(f)
+
+Why do we still have that one, anyway?  Separate patch, obviously,
+but I would take Occam's Razor to that entity...
+
+> +struct files_struct;
+> +extern void show_fd_locks(struct seq_file *f,
+> +			 struct file *filp, struct files_struct *files);
+
+If anything, that would be better off as fl_owner_t...  Again, a separate
+patch.
 
