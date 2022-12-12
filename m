@@ -1,91 +1,87 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE6D864B9D9
-	for <lists+cluster-devel@lfdr.de>; Tue, 13 Dec 2022 17:34:22 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FF1864B9D4
+	for <lists+cluster-devel@lfdr.de>; Tue, 13 Dec 2022 17:33:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1670949260;
+	s=mimecast20190719; t=1670949186;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=f5qgcerx3Vj6Wa6NeDWtuCgq/K/ALlOEmy7+WWRKZ4M=;
-	b=Gi8B7Op+bIJZrU3zynRZrg0tzGZmGOJtety1lYNZBJBKEM1GAy7Lwu3Q3f4NGj6MERl/dv
-	Znxr0hLvCv9XVeqifz0hDz6bF72opWLNkq9/sZOXmrNBDrmSoXN+hcWKh+NUGBqGrgYN8+
-	ETrjxrbYqLQx7PSz8IvPb6W5mmqEZWg=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=AFnkrqn569e2OndyNQxNbTLfH9dPwRk1pHBzW5nmI/w=;
+	b=A1nThGBenI7/yYVLcv5OUQstxAbX4TqpApUC2uc8DrZ1+rDSdbyxrynwspshRT3y6OpwQn
+	qCzBMRpQz2Iyodh3g+EyNDpFK1PSUT5ccBFtMS6BUTekjUwVKVopns+gcmu0poUhLY3RI6
+	puWJP4Ct/T3Sz+beSCN/lxpgPeT+dNM=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-198-CsSmcRJEMlOK8WdOizH0OQ-1; Tue, 13 Dec 2022 11:33:04 -0500
-X-MC-Unique: CsSmcRJEMlOK8WdOizH0OQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-505-KdAH3TqbMVSSPt260iwijQ-1; Tue, 13 Dec 2022 11:33:03 -0500
+X-MC-Unique: KdAH3TqbMVSSPt260iwijQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3826D29324B0;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3882218E538C;
 	Tue, 13 Dec 2022 16:33:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E33CB4039F6B;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 763BB14152F6;
 	Tue, 13 Dec 2022 16:33:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7777819465A8;
-	Tue, 13 Dec 2022 16:32:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5D4D4194658D;
+	Tue, 13 Dec 2022 16:32:53 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D0F9A1947060 for <cluster-devel@listman.corp.redhat.com>;
- Sun, 11 Dec 2022 08:45:37 +0000 (UTC)
+ ESMTP id 258051946586 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 12 Dec 2022 07:03:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9055C40C6EC3; Sun, 11 Dec 2022 08:45:37 +0000 (UTC)
+ id EA69C79A1; Mon, 12 Dec 2022 07:03:05 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8863940C6EC2
- for <cluster-devel@redhat.com>; Sun, 11 Dec 2022 08:45:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D18A101A54E
- for <cluster-devel@redhat.com>; Sun, 11 Dec 2022 08:45:37 +0000 (UTC)
-Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
- [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E295B53A4
+ for <cluster-devel@redhat.com>; Mon, 12 Dec 2022 07:03:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0EEC1C05EB7
+ for <cluster-devel@redhat.com>; Mon, 12 Dec 2022 07:03:05 +0000 (UTC)
+Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
+ [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-215-7RoNcY67O5yMyReEOb2w1w-1; Sun, 11 Dec 2022 03:45:35 -0500
-X-MC-Unique: 7RoNcY67O5yMyReEOb2w1w-1
-Received: by mail-il1-f197.google.com with SMTP id
- k6-20020a92c246000000b003035797fa8cso3091601ilo.8
- for <cluster-devel@redhat.com>; Sun, 11 Dec 2022 00:45:35 -0800 (PST)
+ us-mta-499-ov1UZl6hP3K67Vy302VcNg-1; Mon, 12 Dec 2022 02:03:03 -0500
+X-MC-Unique: ov1UZl6hP3K67Vy302VcNg-1
+Received: by mail-il1-f199.google.com with SMTP id
+ i21-20020a056e021d1500b003041b04e3ebso4521968ila.7
+ for <cluster-devel@redhat.com>; Sun, 11 Dec 2022 23:03:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=f5qgcerx3Vj6Wa6NeDWtuCgq/K/ALlOEmy7+WWRKZ4M=;
- b=B9u8uKg29CYN5rZnVmJmidPfOBY+NyV41FnSEpuFNIA6mcfHSgVUP8qsDU7wUmndRx
- GHyYI7jITiBQKGou4k/QkWogLgdcTNEnhlBBLD0KCUbVnbv8LzVLtfHd7tJj6tcA3SKY
- Ecx+TRrLXhLrivOqRLVwYf21ehISxBxn+F4cmhaCrRvDPT3V2olsvw0xiA/V9dWM0P5e
- syUNesIi+zl4XO/3fkiAeDZFBU/yoWzUAgJRdKIuFlJfmWKsyAznqJObw+Dh4uUCgxQW
- +wxBTfLXo2qzglLPOl+jfRze/CBuz3n91n+xBjajZeqgHx2/AJ/XHwYYoOkK0yBHyDMD
- paBQ==
-X-Gm-Message-State: ANoB5plwY9UCz/2hamTZZxotQi9GCujjXqj9+RJlioZ0nDmOOE8Se+7z
- 6N+7tYvlnBisQ0Ya8C8Fz0XdTxvvWkxrL0DluJnOidMho2oB
-X-Google-Smtp-Source: AA0mqf6JuYcddMUyQ/erCSxEFnAPqYSVM3gYrUn9lylBQ32nF5BTKgcXAY0RBeKgVSYyy88U6/6hh4uld36/nSxDTNTVSZgvQWlZ
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=AFnkrqn569e2OndyNQxNbTLfH9dPwRk1pHBzW5nmI/w=;
+ b=qy70TlVTsFN+KBjGBZfBBU1JptM98mk+Xzapma8s1nBegb0mV/RyeS3OlhDGTYKEH2
+ BVcyzDUsmAqtB8Q6Dv2Odbn/ljy9Q2LtskPwnRnL33SRD8nHqc1BWt1GjV63ugFlhxAY
+ iNlfZo4vVdDOamuSrAUaMj1gBgaj9g9JY8r4pLTZ/493VmBzFj/fAJuT3o5g/Ms7tYQg
+ koHldY5UrUnA5jcghhC6i5RVNZ7BkHbKp/Zi16d1bqss+3mtpwMFB2SYbvztgdftznh0
+ VO929xf7JgAw+JxGjvaPUe+TbLwQXiJQ52tSi0WV6XBdGwJLyK+rxT4MxUBHhKPo3lut
+ UZsA==
+X-Gm-Message-State: ANoB5pkkMK659HF/4uqw2LkCZgXKHz4Cv+5WpA1jUHmR09GErPnLuws0
+ u36csv6YEvJVBt4rLeTm1vL3oBDb2rxGGB17AbDFweUg6XMe
+X-Google-Smtp-Source: AA0mqf5PdzrCNSZRXvVmes7BxseB0VSlSEGeGI6WU2qojswJ4gAjCDSiz5q9kfodgNuWlGqn9XzMUwAE4gR45S72AHYT7j8P9UH2
 MIME-Version: 1.0
-X-Received: by 2002:a92:d0f:0:b0:300:c3d4:e9f5 with SMTP id
- 15-20020a920d0f000000b00300c3d4e9f5mr36073009iln.317.1670748334581; Sun, 11
- Dec 2022 00:45:34 -0800 (PST)
-Date: Sun, 11 Dec 2022 00:45:34 -0800
-In-Reply-To: <0000000000007e22cb05dd7cbada@google.com>
+X-Received: by 2002:a92:d18e:0:b0:302:ca31:62a1 with SMTP id
+ z14-20020a92d18e000000b00302ca3162a1mr35293800ilz.42.1670828582871; Sun, 11
+ Dec 2022 23:03:02 -0800 (PST)
+Date: Sun, 11 Dec 2022 23:03:02 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000fdf1b505ef896889@google.com>
-From: syzbot <syzbot+2845b2dfa28dec36e215@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, boqun.feng@gmail.com, cluster-devel@redhat.com, 
- linux-kernel@vger.kernel.org, longman@redhat.com, mingo@redhat.com, 
- peterz@infradead.org, rpeterso@redhat.com, syzkaller-bugs@googlegroups.com, 
- will@kernel.org
+Message-ID: <00000000000029b00c05ef9c1802@google.com>
+From: syzbot <syzbot+092b28923eb79e0f3c41@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, cluster-devel@redhat.com, 
+ linux-kernel@vger.kernel.org, rpeterso@redhat.com, 
+ syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -93,10 +89,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mailman-Approved-At: Tue, 13 Dec 2022 16:32:52 +0000
-Subject: Re: [Cluster-devel] [syzbot] BUG: sleeping function called from
- invalid context in do_page_fault (3)
+Subject: [Cluster-devel] [syzbot] WARNING in gfs2_check_blk_type
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,94 +105,85 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 1
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 
-syzbot has found a reproducer for the following issue on:
+Hello,
 
-HEAD commit:    a5541c0811a0 Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=127e776d880000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=cbd4e584773e9397
-dashboard link: https://syzkaller.appspot.com/bug?extid=2845b2dfa28dec36e215
+syzbot found the following issue on:
+
+HEAD commit:    4cee37b3a4e6 Merge tag 'mm-hotfixes-stable-2022-12-10-1' o..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=14da950b880000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d58e7fe7f9cf5e24
+dashboard link: https://syzkaller.appspot.com/bug?extid=092b28923eb79e0f3c41
 compiler:       Debian clang version 13.0.1-++20220126092033+75e33f71c2da-1~exp1~20220126212112.63, GNU ld (GNU Binutils for Debian) 2.35.2
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1578ffdf880000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14f12ddb880000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10ebee1f880000
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/4b7702208fb9/disk-a5541c08.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/9ec0153ec051/vmlinux-a5541c08.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6f8725ad290a/Image-a5541c08.gz.xz
-mounted in repro #1: https://storage.googleapis.com/syzbot-assets/59313e0459cb/mount_0.gz
-mounted in repro #2: https://storage.googleapis.com/syzbot-assets/1afee1432fbe/mount_4.gz
+disk image: https://storage.googleapis.com/syzbot-assets/051fc9a10d4a/disk-4cee37b3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c40b15750245/vmlinux-4cee37b3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/a25e4bc102fa/bzImage-4cee37b3.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/f10d144677a2/mount_0.gz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2845b2dfa28dec36e215@syzkaller.appspotmail.com
+Reported-by: syzbot+092b28923eb79e0f3c41@syzkaller.appspotmail.com
 
-gfs2: fsid=syz:syz.0:  H: s:?? f:pn e:-32768 p:0 [(none)] preempt_count+0x10/0x24 arch/arm64/include/asm/preempt.h:12
-BUG: sleeping function called from invalid context at arch/arm64/mm/fault.c:599
-in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 3596, name: syz-executor.0
-preempt_count: 0, expected: 0
-RCU nest depth: 1, expected: 0
-3 locks held by syz-executor.0/3596:
- #0: ffff0000d0712d10 (&type->i_mutex_dir_key#8){.+.+}-{3:3}, at: inode_lock_shared include/linux/fs.h:766 [inline]
- #0: ffff0000d0712d10 (&type->i_mutex_dir_key#8){.+.+}-{3:3}, at: open_last_lookups fs/namei.c:3480 [inline]
- #0: ffff0000d0712d10 (&type->i_mutex_dir_key#8){.+.+}-{3:3}, at: path_openat+0x2e4/0x11c4 fs/namei.c:3711
- #1: ffff80000d4a4640 (rcu_read_lock){....}-{1:2}, at: rcu_lock_acquire+0x10/0x4c include/linux/rcupdate.h:303
- #2: ffff0000d51feb48 (&mm->mmap_lock){++++}-{3:3}, at: mmap_read_trylock include/linux/mmap_lock.h:136 [inline]
- #2: ffff0000d51feb48 (&mm->mmap_lock){++++}-{3:3}, at: do_page_fault+0x1ec/0x79c arch/arm64/mm/fault.c:589
-CPU: 1 PID: 3596 Comm: syz-executor.0 Not tainted 6.1.0-rc8-syzkaller-33330-ga5541c0811a0 #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/30/2022
-Call trace:
- dump_backtrace+0x1c4/0x1f0 arch/arm64/kernel/stacktrace.c:156
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:163
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0x104/0x16c lib/dump_stack.c:106
- dump_stack+0x1c/0x58 lib/dump_stack.c:113
- __might_resched+0x208/0x218 kernel/sched/core.c:9908
- __might_sleep+0x48/0x78 kernel/sched/core.c:9837
- do_page_fault+0x214/0x79c arch/arm64/mm/fault.c:599
- do_translation_fault+0x78/0x194 arch/arm64/mm/fault.c:691
- do_mem_abort+0x54/0x130 arch/arm64/mm/fault.c:827
- el1_abort+0x3c/0x5c arch/arm64/kernel/entry-common.c:367
- el1h_64_sync_handler+0x60/0xac arch/arm64/kernel/entry-common.c:427
- el1h_64_sync+0x64/0x68 arch/arm64/kernel/entry.S:579
- pid_nr include/linux/pid.h:185 [inline]
- dump_holder fs/gfs2/glock.c:2337 [inline]
- gfs2_dump_glock+0x518/0x904 fs/gfs2/glock.c:2447
- gfs2_consist_inode_i+0x68/0x88 fs/gfs2/util.c:465
- gfs2_dirent_scan+0x2dc/0x3b4 fs/gfs2/dir.c:602
- gfs2_dirent_search+0x134/0x494 fs/gfs2/dir.c:850
- gfs2_dir_search+0x58/0x130 fs/gfs2/dir.c:1650
- gfs2_lookupi+0x23c/0x354 fs/gfs2/inode.c:323
- __gfs2_lookup+0x5c/0x1dc fs/gfs2/inode.c:870
- gfs2_atomic_open+0x74/0x148 fs/gfs2/inode.c:1274
- atomic_open fs/namei.c:3276 [inline]
- lookup_open fs/namei.c:3384 [inline]
- open_last_lookups fs/namei.c:3481 [inline]
- path_openat+0x67c/0x11c4 fs/namei.c:3711
- do_filp_open+0xdc/0x1b8 fs/namei.c:3741
- do_sys_openat2+0xb8/0x22c fs/open.c:1310
- do_sys_open fs/open.c:1326 [inline]
- __do_sys_openat fs/open.c:1342 [inline]
- __se_sys_openat fs/open.c:1337 [inline]
- __arm64_sys_openat+0xb0/0xe0 fs/open.c:1337
- __invoke_syscall arch/arm64/kernel/syscall.c:38 [inline]
- invoke_syscall arch/arm64/kernel/syscall.c:52 [inline]
- el0_svc_common+0x138/0x220 arch/arm64/kernel/syscall.c:142
- do_el0_svc+0x48/0x140 arch/arm64/kernel/syscall.c:197
- el0_svc+0x58/0x150 arch/arm64/kernel/entry-common.c:637
- el0t_64_sync_handler+0x84/0xf0 arch/arm64/kernel/entry-common.c:655
- el0t_64_sync+0x190/0x194 arch/arm64/kernel/entry.S:584
-Unable to handle kernel paging request at virtual address 000003fda9bf7ccd
-Mem abort info:
-  ESR = 0x0000000096000004
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x04: level 0 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000004
+gfs2: fsid=syz:syz.0: first mount done, others may mount
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 3635 at fs/gfs2/rgrp.c:2628 gfs2_rbm_from_block fs/gfs2/rgrp.c:279 [inline]
+WARNING: CPU: 0 PID: 3635 at fs/gfs2/rgrp.c:2628 gfs2_check_blk_type+0x43d/0x660 fs/gfs2/rgrp.c:2627
+Modules linked in:
+CPU: 0 PID: 3635 Comm: syz-executor328 Not tainted 6.1.0-rc8-syzkaller-00164-g4cee37b3a4e6 #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
+RIP: 0010:gfs2_check_blk_type+0x43d/0x660 fs/gfs2/rgrp.c:2628
+Code: 85 c6 01 00 00 8b 1b 89 df 44 89 f6 e8 1c ae cd fd 4c 89 74 24 10 44 39 f3 76 21 e8 6d ac cd fd 45 31 ed eb 6d e8 63 ac cd fd <0f> 0b 41 bf f9 ff ff ff 48 8b 5c 24 18 e9 41 01 00 00 e8 4c ac cd
+RSP: 0018:ffffc90003c0f8c0 EFLAGS: 00010293
+RAX: ffffffff83bcf389 RBX: 0000000000000012 RCX: ffff88802243ba80
+RDX: 0000000000000000 RSI: 0000000000000012 RDI: 0000000000000013
+RBP: ffffc90003c0f9d0 R08: ffffffff83bcf37f R09: ffffed100e7a15dd
+R10: ffffed100e7a15dd R11: 1ffff1100e7a15dc R12: 1ffff1100ea34806
+R13: ffff8880751a4000 R14: 1ffff1100ea34805 R15: 0000000000000013
+FS:  0000555556210300(0000) GS:ffff8880b9800000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055bda9265e90 CR3: 000000001d27a000 CR4: 00000000003506f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ gfs2_inode_lookup+0xb66/0xd90 fs/gfs2/inode.c:173
+ gfs2_lookup_by_inum+0x4d/0xe0 fs/gfs2/inode.c:241
+ gfs2_get_dentry fs/gfs2/export.c:139 [inline]
+ gfs2_fh_to_dentry+0x12d/0x1f0 fs/gfs2/export.c:162
+ exportfs_decode_fh_raw+0x115/0x600 fs/exportfs/expfs.c:435
+ exportfs_decode_fh+0x38/0x70 fs/exportfs/expfs.c:575
+ do_handle_to_path fs/fhandle.c:152 [inline]
+ handle_to_path fs/fhandle.c:207 [inline]
+ do_handle_open+0x485/0x950 fs/fhandle.c:223
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x3d/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7f27f5ae1799
+Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 51 14 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 c0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd97d6fbf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000130
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f27f5ae1799
+RDX: 0000000000000000 RSI: 0000000020000100 RDI: 0000000000000004
+RBP: 00007f27f5aa1030 R08: 0000000000000000 R09: 0000000000000000
+R10: 00000000000124d6 R11: 0000000000000246 R12: 00007f27f5aa10c0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this issue, for details see:
+https://goo.gl/tpsmEJ#testing-patches
 
