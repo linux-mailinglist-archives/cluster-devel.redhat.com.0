@@ -1,83 +1,95 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C435E65F7DA
-	for <lists+cluster-devel@lfdr.de>; Fri,  6 Jan 2023 00:48:11 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F21265FC53
+	for <lists+cluster-devel@lfdr.de>; Fri,  6 Jan 2023 08:57:48 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1672962490;
+	s=mimecast20190719; t=1672991867;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=1QZM2MGj9Uo70Mz6Fqdak06Lko37eeV2ut0FXDChOXg=;
-	b=OgQqdfQ8BDC1xadCXsAy3c5vokyWy7zV/QAQuBd8gxGNmHxKWIW6BzvNA7575TV+ZhCtI8
-	Fw+o5a9B+VWYu36jt2O2Yq465a6muSUpPHUaWqRyLdXBrD4e617rugfiKY2Jab7NMJ7TfN
-	2brSjeuNbyuopJ+6oI/JuhVM68sSEWQ=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=xmb3IcLHCLsi/xOiQHUkWYlXfS8doiaC8cJwdmVUFK4=;
+	b=Ncf4hWNpNt3BM/b/32zY8h/+dwn1N6x8x8m80pCEGmKrALRHvTms5UNFVrbRmiGGkiJWwf
+	XhBM+UPBiRRX/OepRrOGXjAZmzmRLm5xuJTZPmECCNg0XJeHexjQcdBaVIUB1xCZ2sKXAN
+	GOkVTZ26NkDt+xMDcY3DFEbiA0KoQMU=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-186-o9OGgMgYNSyRnyOa0TNh5w-1; Thu, 05 Jan 2023 18:48:07 -0500
-X-MC-Unique: o9OGgMgYNSyRnyOa0TNh5w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-249-D5ATZiq0NwC8n1lxJPsXXA-1; Fri, 06 Jan 2023 02:57:42 -0500
+X-MC-Unique: D5ATZiq0NwC8n1lxJPsXXA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D56E71C08986;
-	Thu,  5 Jan 2023 23:48:06 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D3872026D4B;
-	Thu,  5 Jan 2023 23:48:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 127473C0F421;
+	Fri,  6 Jan 2023 07:57:41 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B4B0240C1141;
+	Fri,  6 Jan 2023 07:57:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4C6C9194658D;
-	Thu,  5 Jan 2023 23:48:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3CAF6194658D;
+	Fri,  6 Jan 2023 07:57:38 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 83FBA1946586 for <cluster-devel@listman.corp.redhat.com>;
- Thu,  5 Jan 2023 23:48:02 +0000 (UTC)
+ ESMTP id D96171946586 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  6 Jan 2023 07:57:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 74ED31121315; Thu,  5 Jan 2023 23:48:02 +0000 (UTC)
+ id 7D791492B07; Fri,  6 Jan 2023 07:57:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CCCA1121314
- for <cluster-devel@redhat.com>; Thu,  5 Jan 2023 23:48:02 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 761F0492B06
+ for <cluster-devel@redhat.com>; Fri,  6 Jan 2023 07:57:36 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3F974101A52E
- for <cluster-devel@redhat.com>; Thu,  5 Jan 2023 23:48:02 +0000 (UTC)
-Received: from r3-21.sinamail.sina.com.cn (r3-21.sinamail.sina.com.cn
- [202.108.3.21]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-620-ObVErpIBMZqSKrdU6WR9-A-1; Thu, 05 Jan 2023 18:48:00 -0500
-X-MC-Unique: ObVErpIBMZqSKrdU6WR9-A-1
-Received: from unknown (HELO localhost.localdomain)([114.249.57.238])
- by sina.com (172.16.97.32) with ESMTP
- id 63B760460000F7F0; Thu, 6 Jan 2023 07:42:00 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-X-SMAIL-MID: 169982629405
-From: Hillf Danton <hdanton@sina.com>
-To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Date: Fri,  6 Jan 2023 07:45:22 +0800
-Message-Id: <20230105234522.4386-1-hdanton@sina.com>
-In-Reply-To: <75f056d3-fa52-e399-29cc-4388cae069ff@I-love.SAKURA.ne.jp>
-References: <000000000000c921b105ef617f05@google.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 561F83813F22
+ for <cluster-devel@redhat.com>; Fri,  6 Jan 2023 07:57:36 +0000 (UTC)
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-166-dZ7dCbRPNcmsFcO-cg6qUg-1; Fri, 06 Jan 2023 02:57:32 -0500
+X-MC-Unique: dZ7dCbRPNcmsFcO-cg6qUg-1
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-4c1456d608cso10524357b3.15
+ for <cluster-devel@redhat.com>; Thu, 05 Jan 2023 23:57:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xmb3IcLHCLsi/xOiQHUkWYlXfS8doiaC8cJwdmVUFK4=;
+ b=5A1pBJPOkPiT9scbCrFodpAdWCmpLZCwMFA99AceQldrXL+VKIl/DpohlhOgytayQ1
+ bVSYIx61WadXs1Ej23AU+1Ie3Hh7tSJaRnqt/+VS1dA0NEfo5hByyxx8MqjRN1U354el
+ ZDH8K+OHKmpASlLoUDDaSg+8cThKdbOHB6pdqe85s6MCNdhqYQI7Ws5WYyvdiUyeXmSg
+ ib1JKSRa++lxUnqBAdeJFaJyYGPjqQ6efj0Z7uD2EbZjs8z7X3VKr0vyxW8O17FklGJ/
+ NfR4/NC2uLOEOSttfYsd/PevIuYCg0ys+KvRE8y4zYL1FkNmtgLbF47GOdJUPmOaU4d4
+ +gow==
+X-Gm-Message-State: AFqh2kosRxiaxaQCGTGPqiB1nKIAksbggLs3ccFsbZLwulOHZNOiTEg9
+ RrVo0jnWQ5sqMrxz09eMeGwccwp3F4vEVvtRrbgN/Bk2Gw2prIiaGu3w6dhGR4tCmZq0iRv7lEG
+ f+ltK2A3soRTbULInB1cghDFA0GpAwcuBr9VkXQ==
+X-Received: by 2002:a05:690c:87:b0:46f:36b1:a27 with SMTP id
+ be7-20020a05690c008700b0046f36b10a27mr4200655ywb.147.1672991851846; 
+ Thu, 05 Jan 2023 23:57:31 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXuC/bbIcMr4bQ8ok16zXLqM2NrU98mA2WJd0uc+HAfHs8BnKxPTLzGpg1jIsSESD/q9eqv3v1Jyw7xgl7+RWvk=
+X-Received: by 2002:a05:690c:87:b0:46f:36b1:a27 with SMTP id
+ be7-20020a05690c008700b0046f36b10a27mr4200651ywb.147.1672991851590; Thu, 05
+ Jan 2023 23:57:31 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Cluster-devel] [syzbot] INFO: task hung in freeze_super (3)
+References: <20230104211448.4804-1-vishal.moola@gmail.com>
+ <20230104211448.4804-18-vishal.moola@gmail.com>
+In-Reply-To: <20230104211448.4804-18-vishal.moola@gmail.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Fri, 6 Jan 2023 08:57:20 +0100
+Message-ID: <CAHc6FU55EfV0qvtpPUWAvHm72kPd7Rzb8=-GX0oFgfJonXt7Pg@mail.gmail.com>
+To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [Cluster-devel] [PATCH v5 17/23] gfs2: Convert
+ gfs2_write_cache_jdata() to use filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,316 +101,189 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Hillf Danton <hdanton@sina.com>, syzkaller-bugs@googlegroups.com,
- LKML <linux-kernel@vger.kernel.org>,
- syzbot <syzbot+f51cb4b9afbd87ec06f2@syzkaller.appspotmail.com>,
- cluster-devel@redhat.com, Linux-MM <linux-mm@kvack.org>,
- Waiman Long <longman@redhat.com>
+Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
 
-With LKML Cced
+On Wed, Jan 4, 2023 at 10:15 PM Vishal Moola (Oracle)
+<vishal.moola@gmail.com> wrote:
+> Converted function to use folios throughout. This is in preparation for
+> the removal of find_get_pgaes_range_tag(). This change removes 8 calls
+> to compound_head().
+>
+> Also had to modify and rename gfs2_write_jdata_pagevec() to take in
+> and utilize folio_batch rather than pagevec and use folios rather
+> than pages. gfs2_write_jdata_batch() now supports large folios.
+>
+> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+> ---
+>  fs/gfs2/aops.c | 64 +++++++++++++++++++++++++++-----------------------
+>  1 file changed, 35 insertions(+), 29 deletions(-)
+>
+> diff --git a/fs/gfs2/aops.c b/fs/gfs2/aops.c
+> index e782b4f1d104..0a47068f9acc 100644
+> --- a/fs/gfs2/aops.c
+> +++ b/fs/gfs2/aops.c
+> @@ -195,67 +195,71 @@ static int gfs2_writepages(struct address_space *mapping,
+>  }
+>
+>  /**
+> - * gfs2_write_jdata_pagevec - Write back a pagevec's worth of pages
+> + * gfs2_write_jdata_batch - Write back a folio batch's worth of folios
+>   * @mapping: The mapping
+>   * @wbc: The writeback control
+> - * @pvec: The vector of pages
+> - * @nr_pages: The number of pages to write
+> + * @fbatch: The batch of folios
+>   * @done_index: Page index
+>   *
+>   * Returns: non-zero if loop should terminate, zero otherwise
+>   */
+>
+> -static int gfs2_write_jdata_pagevec(struct address_space *mapping,
+> +static int gfs2_write_jdata_batch(struct address_space *mapping,
+>                                     struct writeback_control *wbc,
+> -                                   struct pagevec *pvec,
+> -                                   int nr_pages,
+> +                                   struct folio_batch *fbatch,
+>                                     pgoff_t *done_index)
+>  {
+>         struct inode *inode = mapping->host;
+>         struct gfs2_sbd *sdp = GFS2_SB(inode);
+> -       unsigned nrblocks = nr_pages * (PAGE_SIZE >> inode->i_blkbits);
+> +       unsigned nrblocks;
+>         int i;
+>         int ret;
+> +       int nr_pages = 0;
+> +       int nr_folios = folio_batch_count(fbatch);
+> +
+> +       for (i = 0; i < nr_folios; i++)
+> +               nr_pages += folio_nr_pages(fbatch->folios[i]);
+> +       nrblocks = nr_pages * (PAGE_SIZE >> inode->i_blkbits);
+>
+>         ret = gfs2_trans_begin(sdp, nrblocks, nrblocks);
+>         if (ret < 0)
+>                 return ret;
+>
+> -       for(i = 0; i < nr_pages; i++) {
+> -               struct page *page = pvec->pages[i];
+> +       for (i = 0; i < nr_folios; i++) {
+> +               struct folio *folio = fbatch->folios[i];
+>
+> -               *done_index = page->index;
+> +               *done_index = folio->index;
+>
+> -               lock_page(page);
+> +               folio_lock(folio);
+>
+> -               if (unlikely(page->mapping != mapping)) {
+> +               if (unlikely(folio->mapping != mapping)) {
+>  continue_unlock:
+> -                       unlock_page(page);
+> +                       folio_unlock(folio);
+>                         continue;
+>                 }
+>
+> -               if (!PageDirty(page)) {
+> +               if (!folio_test_dirty(folio)) {
+>                         /* someone wrote it for us */
+>                         goto continue_unlock;
+>                 }
+>
+> -               if (PageWriteback(page)) {
+> +               if (folio_test_writeback(folio)) {
+>                         if (wbc->sync_mode != WB_SYNC_NONE)
+> -                               wait_on_page_writeback(page);
+> +                               folio_wait_writeback(folio);
+>                         else
+>                                 goto continue_unlock;
+>                 }
+>
+> -               BUG_ON(PageWriteback(page));
+> -               if (!clear_page_dirty_for_io(page))
+> +               BUG_ON(folio_test_writeback(folio));
+> +               if (!folio_clear_dirty_for_io(folio))
+>                         goto continue_unlock;
+>
+>                 trace_wbc_writepage(wbc, inode_to_bdi(inode));
+>
+> -               ret = __gfs2_jdata_writepage(page, wbc);
+> +               ret = __gfs2_jdata_writepage(&folio->page, wbc);
+>                 if (unlikely(ret)) {
+>                         if (ret == AOP_WRITEPAGE_ACTIVATE) {
+> -                               unlock_page(page);
+> +                               folio_unlock(folio);
+>                                 ret = 0;
+>                         } else {
+>
+> @@ -268,7 +272,8 @@ static int gfs2_write_jdata_pagevec(struct address_space *mapping,
+>                                  * not be suitable for data integrity
+>                                  * writeout).
+>                                  */
+> -                               *done_index = page->index + 1;
+> +                               *done_index = folio->index +
+> +                                       folio_nr_pages(folio);
+>                                 ret = 1;
+>                                 break;
+>                         }
+> @@ -305,8 +310,8 @@ static int gfs2_write_cache_jdata(struct address_space *mapping,
+>  {
+>         int ret = 0;
+>         int done = 0;
+> -       struct pagevec pvec;
+> -       int nr_pages;
+> +       struct folio_batch fbatch;
+> +       int nr_folios;
+>         pgoff_t writeback_index;
+>         pgoff_t index;
+>         pgoff_t end;
+> @@ -315,7 +320,7 @@ static int gfs2_write_cache_jdata(struct address_space *mapping,
+>         int range_whole = 0;
+>         xa_mark_t tag;
+>
+> -       pagevec_init(&pvec);
+> +       folio_batch_init(&fbatch);
+>         if (wbc->range_cyclic) {
+>                 writeback_index = mapping->writeback_index; /* prev offset */
+>                 index = writeback_index;
+> @@ -341,17 +346,18 @@ static int gfs2_write_cache_jdata(struct address_space *mapping,
+>                 tag_pages_for_writeback(mapping, index, end);
+>         done_index = index;
+>         while (!done && (index <= end)) {
+> -               nr_pages = pagevec_lookup_range_tag(&pvec, mapping, &index, end,
+> -                               tag);
+> -               if (nr_pages == 0)
+> +               nr_folios = filemap_get_folios_tag(mapping, &index, end,
+> +                               tag, &fbatch);
+> +               if (nr_folios == 0)
+>                         break;
+>
+> -               ret = gfs2_write_jdata_pagevec(mapping, wbc, &pvec, nr_pages, &done_index);
+> +               ret = gfs2_write_jdata_batch(mapping, wbc, &fbatch,
+> +                               &done_index);
+>                 if (ret)
+>                         done = 1;
+>                 if (ret > 0)
+>                         ret = 0;
+> -               pagevec_release(&pvec);
+> +               folio_batch_release(&fbatch);
+>                 cond_resched();
+>         }
+>
+> --
+> 2.38.1
+>
 
-On 4 Jan 2023 22:47:16 +0900 Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-> syzbot is reporting hung task at freeze_super() after emitting
-> "gfs2: fsid=loop0.0: can't make FS RW: -5" message due to gfs2_find_jhead()
->  from gfs2_make_fs_rw() from gfs2_fill_super() failing with -EIO.
-> 
-> When hung task message is printed, I can observe that glock_workqueue is
-> trying to hold type->s_umount_key from glock_workqueue work function
-> whereas the reproducer is trying to flush glock_workqueue workqueue with
-> type->s_umount_key held; leading to silent deadlock.
+Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
 
-The bonus of the task hung reported is that deadlock report could be missed
-easily, and change should be added to workqueue to catch it reliably.
-
-Hillf
-> 
-> [  259.867348] task:kworker/3:1H    state:D stack:13736 pid:2497  ppid:2      flags:0x00004000
-> [  259.870666] Workqueue: glock_workqueue glock_work_func
-> [  259.872886] Call Trace:
-> [  259.874279]  <TASK>
-> [  259.875452]  __schedule+0x498/0x590
-> [  259.877255]  schedule+0x55/0x90
-> [  259.878932]  rwsem_down_write_slowpath+0x385/0x760
-> [  259.881206]  freeze_super+0x29/0x1f0
-> [  259.883022]  freeze_go_sync+0xa6/0x1f0
-> [  259.884905]  do_xmote+0x1ae/0xa60
-> [  259.886625]  glock_work_func+0x19a/0x220
-> [  259.888559]  process_one_work+0x306/0x530
-> [  259.890548]  worker_thread+0x357/0x630
-> [  259.892443]  kthread+0x133/0x170
-> [  259.894430]  ? rcu_lock_release+0x30/0x30
-> [  259.896408]  ? kthread_blkcg+0x60/0x60
-> [  259.898289]  ret_from_fork+0x1f/0x30
-> [  259.900114]  </TASK>
-> [  259.901407] 3 locks held by kworker/3:1H/2497:
-> [  259.903534]  #0: ffff88810653c338 ((wq_completion)glock_workqueue){+.+.}-{0:0}, at: process_one_work+0x2a7/0x530
-> [  259.907874]  #1: ffffc900013dbe58 ((work_completion)(&(&gl->gl_work)->work)){+.+.}-{0:0}, at: process_one_work+0x2d1/0x530
-> [  259.912529]  #2: ffff88812be0d0e0 (&type->s_umount_key#51){+.+.}-{3:3}, at: freeze_super+0x29/0x1f0
-> 
-> [  259.975640] task:a.out           state:D stack:12664 pid:4579  ppid:3638   flags:0x00004006
-> [  259.979256] Call Trace:
-> [  259.980634]  <TASK>
-> [  259.981886]  __schedule+0x498/0x590
-> [  259.983653]  schedule+0x55/0x90
-> [  259.985291]  schedule_timeout+0x9e/0x1d0
-> [  259.987219]  do_wait_for_common+0xff/0x180
-> [  259.989212]  ? console_conditional_schedule+0x40/0x40
-> [  259.991585]  wait_for_completion+0x4a/0x60
-> [  259.993573]  __flush_workqueue+0x360/0x820
-> [  259.995584]  gfs2_gl_hash_clear+0x58/0x1b0
-> [  259.997579]  ? _raw_spin_unlock_irqrestore+0x43/0xb0
-> [  259.999883]  ? lockdep_hardirqs_on+0x99/0x140
-> [  260.001970]  gfs2_fill_super+0xe24/0x1110
-> [  260.003934]  ? gfs2_reconfigure+0x4d0/0x4d0
-> [  260.005955]  get_tree_bdev+0x228/0x2f0
-> [  260.007821]  gfs2_get_tree+0x2b/0xe0
-> [  260.009620]  vfs_get_tree+0x30/0xe0
-> [  260.011570]  do_new_mount+0x1d7/0x540
-> [  260.013408]  path_mount+0x3c5/0xb50
-> [  260.015176]  __se_sys_mount+0x298/0x2f0
-> [  260.017073]  do_syscall_64+0x41/0x90
-> [  260.018870]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
-> [  260.021262] RIP: 0033:0x7fc273f26eae
-> [  260.023077] RSP: 002b:00007ffffebc6f38 EFLAGS: 00000282 ORIG_RAX: 00000000000000a5
-> [  260.026419] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fc273f26eae
-> [  260.029573] RDX: 00000000200124c0 RSI: 0000000020012500 RDI: 00007ffffebc6fb0
-> [  260.032728] RBP: 00007ffffebc7100 R08: 00007ffffebc6ff0 R09: 0000000000000000
-> [  260.035903] R10: 0000000000000000 R11: 0000000000000282 R12: 00007ffffebc7278
-> [  260.039063] R13: 0000559922083246 R14: 0000559922097cb8 R15: 00007fc27413b040
-> [  260.042241]  </TASK>
-> [  260.043522] 1 lock held by a.out/4579:
-> [  260.045379]  #0: ffff88812be0d0e0 (&type->s_umount_key#50/1){+.+.}-{3:3}, at: alloc_super+0x102/0x450
-> 
-> It is difficult to reproduce lockdep warning because this is timing dependent.
-> So far I was able to reproduce lockdep warning only once.
-> 
-> [  111.928183] [ T4537] gfs2: fsid=loop0.0: can't make FS RW: -5
-> [  111.931578] [   T88]
-> [  111.937591] [   T88] ======================================================
-> [  111.940620] [   T88] WARNING: possible circular locking dependency detected
-> [  111.943553] [   T88] 6.2.0-rc1-next-20221226-00002-gc99a3711d8e3-dirty #28 Not tainted
-> [  111.946879] [   T88] ------------------------------------------------------
-> [  111.949832] [   T88] kworker/2:1H/88 is trying to acquire lock:
-> [  111.952383] [   T88] ffff888128ff50e0 (&type->s_umount_key#51){+.+.}-{3:3}, at: freeze_super+0x29/0x1f0
-> [  111.956324] [   T88]
-> [  111.956324] [   T88] but task is already holding lock:
-> [  111.959406] [   T88] ffffc90000bfbe58 ((work_completion)(&(&gl->gl_work)->work)){+.+.}-{0:0}, at: process_one_work+0x2d1/0x530
-> [  111.964081] [   T88]
-> [  111.964081] [   T88] which lock already depends on the new lock.
-> [  111.964081] [   T88]
-> [  111.968219] [   T88]
-> [  111.968219] [   T88] the existing dependency chain (in reverse order) is:
-> [  111.971959] [   T88]
-> [  111.971959] [   T88] -> #2 ((work_completion)(&(&gl->gl_work)->work)){+.+.}-{0:0}:
-> [  111.976006] [   T88]        process_one_work+0x2f3/0x530
-> [  111.978307] [   T88]        worker_thread+0x357/0x630
-> [  111.980510] [   T88]        kthread+0x133/0x170
-> [  111.982518] [   T88]        ret_from_fork+0x1f/0x30
-> [  111.984621] [   T88]
-> [  111.984621] [   T88] -> #1 ((wq_completion)glock_workqueue){+.+.}-{0:0}:
-> [  111.987992] [   T88]        __flush_workqueue+0x107/0x820
-> [  111.990137] [   T88]        gfs2_gl_hash_clear+0x3d/0x1b0
-> [  111.992431] [   T88]        gfs2_put_super+0x3a2/0x3f0
-> [  111.994399] [   T88]        generic_shutdown_super+0x9a/0x1c0
-> [  111.996554] [   T88]        kill_block_super+0x2d/0x70
-> [  111.999015] [   T88]        deactivate_locked_super+0x5e/0xb0
-> [  112.001467] [   T88]        cleanup_mnt+0x1c9/0x220
-> [  112.003591] [   T88]        task_work_run+0xe4/0x130
-> [  112.005749] [   T88]        exit_to_user_mode_loop+0x123/0x150
-> [  112.008224] [   T88]        exit_to_user_mode_prepare+0xaa/0x130
-> [  112.010765] [   T88]        syscall_exit_to_user_mode+0x32/0x70
-> [  112.013457] [   T88]        do_syscall_64+0x4d/0x90
-> [  112.015811] [   T88]        entry_SYSCALL_64_after_hwframe+0x46/0xb0
-> [  112.018497] [   T88]
-> [  112.018497] [   T88] -> #0 (&type->s_umount_key#51){+.+.}-{3:3}:
-> [  112.021921] [   T88]        __lock_acquire+0x1712/0x33b0
-> [  112.024223] [   T88]        lock_acquire+0xd3/0x200
-> [  112.026342] [   T88]        down_write+0x3b/0xd0
-> [  112.028384] [   T88]        freeze_super+0x29/0x1f0
-> [  112.030503] [   T88]        freeze_go_sync+0xa6/0x1f0
-> [  112.032651] [   T88]        do_xmote+0x1ae/0xa60
-> [  112.034420] [   T88]        glock_work_func+0x19a/0x220
-> [  112.036411] [   T88]        process_one_work+0x306/0x530
-> [  112.038635] [   T88]        worker_thread+0x357/0x630
-> [  112.040702] [   T88]        kthread+0x133/0x170
-> [  112.042509] [   T88]        ret_from_fork+0x1f/0x30
-> [  112.044388] [   T88]
-> [  112.044388] [   T88] other info that might help us debug this:
-> [  112.044388] [   T88]
-> [  112.048102] [   T88] Chain exists of:
-> [  112.048102] [   T88]   &type->s_umount_key#51 --> (wq_completion)glock_workqueue --> (work_completion)(&(&gl->gl_work)->work)
-> [  112.048102] [   T88]
-> [  112.054316] [   T88]  Possible unsafe locking scenario:
-> [  112.054316] [   T88]
-> [  112.057425] [   T88]        CPU0                    CPU1
-> [  112.059722] [   T88]        ----                    ----
-> [  112.062002] [   T88]   lock((work_completion)(&(&gl->gl_work)->work));
-> [  112.064732] [   T88]                                lock((wq_completion)glock_workqueue);
-> [  112.068131] [   T88]                                lock((work_completion)(&(&gl->gl_work)->work));
-> [  112.071852] [   T88]   lock(&type->s_umount_key#51);
-> [  112.074014] [   T88]
-> [  112.074014] [   T88]  *** DEADLOCK ***
-> [  112.074014] [   T88]
-> [  112.077358] [   T88] 2 locks held by kworker/2:1H/88:
-> [  112.079541] [   T88]  #0: ffff88812530f538 ((wq_completion)glock_workqueue){+.+.}-{0:0}, at: process_one_work+0x2a7/0x530
-> [  112.083975] [   T88]  #1: ffffc90000bfbe58 ((work_completion)(&(&gl->gl_work)->work)){+.+.}-{0:0}, at: process_one_work+0x2d1/0x530
-> [  112.088673] [   T88]
-> [  112.088673] [   T88] stack backtrace:
-> [  112.091159] [   T88] CPU: 2 PID: 88 Comm: kworker/2:1H Not tainted 6.2.0-rc1-next-20221226-00002-gc99a3711d8e3-dirty #28
-> [  112.095547] [   T88] Hardware name: innotek GmbH VirtualBox/VirtualBox, BIOS VirtualBox 12/01/2006
-> [  112.099240] [   T88] Workqueue: glock_workqueue glock_work_func
-> [  112.101745] [   T88] Call Trace:
-> [  112.103257] [   T88]  <TASK>
-> [  112.104640] [   T88]  dump_stack_lvl+0xfe/0x190
-> [  112.106676] [   T88]  check_noncircular+0x12e/0x140
-> [  112.112220] [   T88]  __lock_acquire+0x1712/0x33b0
-> [  112.114390] [   T88]  ? __lock_acquire+0x65f/0x33b0
-> [  112.116857] [   T88]  lock_acquire+0xd3/0x200
-> [  112.118861] [   T88]  ? freeze_super+0x29/0x1f0
-> [  112.124130] [   T88]  down_write+0x3b/0xd0
-> [  112.127778] [   T88]  ? freeze_super+0x29/0x1f0
-> [  112.129819] [   T88]  freeze_super+0x29/0x1f0
-> [  112.134526] [   T88]  freeze_go_sync+0xa6/0x1f0
-> [  112.136585] [   T88]  do_xmote+0x1ae/0xa60
-> [  112.138651] [   T88]  glock_work_func+0x19a/0x220
-> [  112.140970] [   T88]  process_one_work+0x306/0x530
-> [  112.143112] [   T88]  worker_thread+0x357/0x630
-> [  112.145129] [   T88]  kthread+0x133/0x170
-> [  112.146954] [   T88]  ? rcu_lock_release+0x30/0x30
-> [  112.149534] [   T88]  ? kthread_blkcg+0x60/0x60
-> [  112.151495] [   T88]  ret_from_fork+0x1f/0x30
-> [  112.153850] [   T88]  </TASK>
-> [  256.043767] [   T59] INFO: task kworker/2:1H:88 blocked for more than 141 seconds.
-> [  256.049591] [   T59]       Not tainted 6.2.0-rc1-next-20221226-00002-gc99a3711d8e3-dirty #28
-> [  256.053325] [   T59] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-> [  256.056783] [   T59] task:kworker/2:1H    state:D stack:12792 pid:88    ppid:2      flags:0x00004000
-> [  256.060412] [   T59] Workqueue: glock_workqueue glock_work_func
-> [  256.062783] [   T59] Call Trace:
-> [  256.064008] [   T59]  <TASK>
-> [  256.065150] [   T59]  __schedule+0x498/0x590
-> [  256.066916] [   T59]  schedule+0x55/0x90
-> [  256.068647] [   T59]  rwsem_down_write_slowpath+0x385/0x760
-> [  256.072030] [   T59]  freeze_super+0x29/0x1f0
-> [  256.073874] [   T59]  freeze_go_sync+0xa6/0x1f0
-> [  256.075760] [   T59]  do_xmote+0x1ae/0xa60
-> [  256.077500] [   T59]  glock_work_func+0x19a/0x220
-> [  256.079462] [   T59]  process_one_work+0x306/0x530
-> [  256.081727] [   T59]  worker_thread+0x357/0x630
-> [  256.083619] [   T59]  kthread+0x133/0x170
-> [  256.085371] [   T59]  ? rcu_lock_release+0x30/0x30
-> [  256.087391] [   T59]  ? kthread_blkcg+0x60/0x60
-> [  256.089277] [   T59]  ret_from_fork+0x1f/0x30
-> [  256.093784] [   T59]  </TASK>
-> [  256.095131] [   T59] INFO: task a.out:4537 blocked for more than 141 seconds.
-> [  256.098069] [   T59]       Not tainted 6.2.0-rc1-next-20221226-00002-gc99a3711d8e3-dirty #28
-> [  256.101464] [   T59] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-> [  256.104916] [   T59] task:a.out           state:D stack:12664 pid:4537  ppid:4531   flags:0x00004006
-> [  256.108532] [   T59] Call Trace:
-> [  256.109916] [   T59]  <TASK>
-> [  256.111161] [   T59]  __schedule+0x498/0x590
-> [  256.112959] [   T59]  schedule+0x55/0x90
-> [  256.114589] [   T59]  schedule_timeout+0x9e/0x1d0
-> [  256.116519] [   T59]  do_wait_for_common+0xff/0x180
-> [  256.118515] [   T59]  ? console_conditional_schedule+0x40/0x40
-> [  256.120860] [   T59]  wait_for_completion+0x4a/0x60
-> [  256.122860] [   T59]  __flush_workqueue+0x360/0x820
-> [  256.124855] [   T59]  gfs2_gl_hash_clear+0x58/0x1b0
-> [  256.126868] [   T59]  ? _raw_spin_unlock_irqrestore+0x43/0xb0
-> [  256.129180] [   T59]  ? lockdep_hardirqs_on+0x99/0x140
-> [  256.131264] [   T59]  gfs2_fill_super+0xe24/0x1110
-> [  256.133222] [   T59]  ? gfs2_reconfigure+0x4d0/0x4d0
-> [  256.135239] [   T59]  get_tree_bdev+0x228/0x2f0
-> [  256.137296] [   T59]  gfs2_get_tree+0x2b/0xe0
-> [  256.139122] [   T59]  vfs_get_tree+0x30/0xe0
-> [  256.140879] [   T59]  do_new_mount+0x1d7/0x540
-> [  256.142707] [   T59]  path_mount+0x3c5/0xb50
-> [  256.144461] [   T59]  __se_sys_mount+0x298/0x2f0
-> [  256.146345] [   T59]  do_syscall_64+0x41/0x90
-> [  256.148148] [   T59]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
-> [  256.150484] [   T59] RIP: 0033:0x7faf87b26eae
-> [  256.152285] [   T59] RSP: 002b:00007ffdb0d40f68 EFLAGS: 00000282 ORIG_RAX: 00000000000000a5
-> [  256.155594] [   T59] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007faf87b26eae
-> [  256.160847] [   T59] RDX: 00000000200124c0 RSI: 0000000020012500 RDI: 00007ffdb0d40fe0
-> [  256.164184] [   T59] RBP: 00007ffdb0d41130 R08: 00007ffdb0d41020 R09: 0000000000000000
-> [  256.167404] [   T59] R10: 0000000000000000 R11: 0000000000000282 R12: 00007ffdb0d412a8
-> [  256.170913] [   T59] R13: 00005574b9254246 R14: 00005574b9268cb8 R15: 00007faf87da3040
-> [  256.174771] [   T59]  </TASK>
-> [  256.176029] [   T59] INFO: lockdep is turned off.
-> [  256.178522] [   T59] NMI backtrace for cpu 7
-> [  256.180317] [   T59] CPU: 7 PID: 59 Comm: khungtaskd Not tainted 6.2.0-rc1-next-20221226-00002-gc99a3711d8e3-dirty #28
-> [  256.184614] [   T59] Hardware name: innotek GmbH VirtualBox/VirtualBox, BIOS VirtualBox 12/01/2006
-> [  256.188220] [   T59] Call Trace:
-> [  256.189626] [   T59]  <TASK>
-> [  256.190893] [   T59]  dump_stack_lvl+0xfe/0x190
-> [  256.194767] [   T59]  nmi_cpu_backtrace+0x25d/0x2c0
-> [  256.196804] [   T59]  ? arch_trigger_cpumask_backtrace+0x10/0x10
-> [  256.199337] [   T59]  nmi_trigger_cpumask_backtrace+0x11f/0x250
-> [  256.202150] [   T59]  watchdog+0x8a5/0x8e0
-> [  256.203918] [   T59]  kthread+0x133/0x170
-> [  256.205681] [   T59]  ? hungtask_pm_notify+0x90/0x90
-> [  256.207783] [   T59]  ? kthread_blkcg+0x60/0x60
-> [  256.209689] [   T59]  ret_from_fork+0x1f/0x30
-> [  256.211690] [   T59]  </TASK>
-> [  256.213052] [   T59] Sending NMI from CPU 7 to CPUs 0-6:
-> [  256.215232] [    C4] NMI backtrace for cpu 4 skipped: idling at default_idle+0x13/0x20
-> [  256.218391] [    C6] NMI backtrace for cpu 6 skipped: idling at default_idle+0x13/0x20
-> [  256.218378] [    C4] INFO: NMI handler (nmi_cpu_backtrace_handler) took too long to run: 3.145 msecs
-> [  256.218378] [    C2] NMI backtrace for cpu 2 skipped: idling at default_idle+0x13/0x20
-> [  256.218766] [    C0] NMI backtrace for cpu 0 skipped: idling at default_idle+0x13/0x20
-> [  256.218889] [    C1] NMI backtrace for cpu 1 skipped: idling at default_idle+0x13/0x20
-> [  256.219085] [    C5] NMI backtrace for cpu 5 skipped: idling at default_idle+0x13/0x20
-> [  256.219230] [    C3] NMI backtrace for cpu 3 skipped: idling at default_idle+0x13/0x20
-> 
-> I suspect that cleanup is not done appropriately when gfs2_find_jhead() failed.
-> Looking into gfs2_make_fs_rw(), I see there are two worrisome things.
-> 
-> One is that gfs2_make_fs_rw() returns an error without calling gfs2_consist(sdp) when
-> gfs2_find_jhead() returned an error whereas gfs2_make_fs_rw() returns -EIO after calling
-> gfs2_consist(sdp) when head.lh_flags does not contain GFS2_LOG_HEAD_UNMOUNT flag.
-> 
-> Since head.lh_flags is assigned by gfs2_find_jhead(), we might want to call gfs2_consist(sdp)
-> when gfs2_find_jhead() returned an error. And actually
-> 
-> --- a/fs/gfs2/super.c
-> +++ b/fs/gfs2/super.c
-> @@ -138,7 +138,11 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
->                 return -EIO;
-> 
->         error = gfs2_find_jhead(sdp->sd_jdesc, &head, false);
-> -       if (error || gfs2_withdrawn(sdp))
-> +       if (error) {
-> +               gfs2_consist(sdp);
-> +               return error;
-> +       }
-> +       if (gfs2_withdrawn(sdp))
->                 return error;
-> 
->         if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT)) {
-> 
-> avoids this deadlock. But I don't know when/how to use gfs2_withdraw().
-> Please check if this change is appropriate.
-> 
-> The other worrisome thing is that gfs2_make_fs_rw() is returning 0 (and
-> mount operation will continue) when gfs2_withdrawn() == true. Can the caller
-> of gfs2_make_fs_rw() survive when callgfs2_make_fs_rw() returned 0 without
-> processing
-> 
->         /*  Initialize some head of the log stuff  */
->         sdp->sd_log_sequence = head.lh_sequence + 1;
->         gfs2_log_pointers_init(sdp, head.lh_blkno);
-> 
-> lines? Shouldn't the caller of gfs2_make_fs_rw() observe an error when
-> gfs2_make_fs_rw() did not execute the
-> 
-> 	set_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
-> 
-> line due to gfs2_withdrawn() == true?
-> 
+Thanks,
+Andreas
 
