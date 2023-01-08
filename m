@@ -2,95 +2,62 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78A2066189B
-	for <lists+cluster-devel@lfdr.de>; Sun,  8 Jan 2023 20:40:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC2F566189E
+	for <lists+cluster-devel@lfdr.de>; Sun,  8 Jan 2023 20:41:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673206850;
+	s=mimecast20190719; t=1673206860;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=33qTT0r6wAZ1WTwwlWCp7SkxG6n6RS0yiwUpFiSj+fQ=;
-	b=Vc0PjwtgYK8BWGI0pyJC/YJ47yCsBpKFwPikW7P62qcgPE5m4Q3VlPd2PB/rUlyBwHzZfa
-	ExLx9lN1xHzMgrgcJvJ0X4uGAYmKrgZwfVl7zeugxAcgfzNKPjKyDnvo32G+aRtcrOk6kT
-	+T2MND2hEMsak5H2j5zCAnhNXfU8u78=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=BqMvh0Gi+M6F9VlbFl9SjHjThwMLqrjKqYzFu/lMZTs=;
+	b=fcQLxefF9B2qLCRefkCbNa7eBW75nIsf4K72b4GBrcF0RIFRavLa1YAbwH2FUXItYY8Lh7
+	FpIcET66XNiYhCqCPLShPMjzUijCvpjTnlTFyOxImoyaajRJQ/hDwSPSr3ekxt0/mZQ9g8
+	wZxVhpuUX2iJGVJQvEjpelHH2eHBMb8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-424-ozk_zK20NbWsbZuarAARdQ-1; Sun, 08 Jan 2023 14:40:46 -0500
-X-MC-Unique: ozk_zK20NbWsbZuarAARdQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-224-pRTHYDtIO7mvqLN2tZefmw-1; Sun, 08 Jan 2023 14:40:56 -0500
+X-MC-Unique: pRTHYDtIO7mvqLN2tZefmw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8DFC1875042;
-	Sun,  8 Jan 2023 19:40:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA7598533DA;
+	Sun,  8 Jan 2023 19:40:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AC03542222;
-	Sun,  8 Jan 2023 19:40:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BD2F74085720;
+	Sun,  8 Jan 2023 19:40:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7E4651947062;
-	Sun,  8 Jan 2023 19:40:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9273B1947062;
+	Sun,  8 Jan 2023 19:40:54 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 586AA1946586 for <cluster-devel@listman.corp.redhat.com>;
- Sun,  8 Jan 2023 19:40:44 +0000 (UTC)
+ ESMTP id C70181946586 for <cluster-devel@listman.corp.redhat.com>;
+ Sun,  8 Jan 2023 19:40:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3EB5F40C2004; Sun,  8 Jan 2023 19:40:44 +0000 (UTC)
+ id BAE3D492B07; Sun,  8 Jan 2023 19:40:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 36F3440C2064
- for <cluster-devel@redhat.com>; Sun,  8 Jan 2023 19:40:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18DD4811E6E
- for <cluster-devel@redhat.com>; Sun,  8 Jan 2023 19:40:44 +0000 (UTC)
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-367-QevZDDsqMSK6qAry6ko2iQ-1; Sun, 08 Jan 2023 14:40:42 -0500
-X-MC-Unique: QevZDDsqMSK6qAry6ko2iQ-1
-Received: by mail-pg1-f200.google.com with SMTP id
- r22-20020a63ce56000000b00478f1cfb0fbso2980034pgi.0
- for <cluster-devel@redhat.com>; Sun, 08 Jan 2023 11:40:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=33qTT0r6wAZ1WTwwlWCp7SkxG6n6RS0yiwUpFiSj+fQ=;
- b=HezZFQd0dosV7rBLZe5+bYpiaafsfMNN/ITbV7BEC2JKdm903N4xWQfCNY5neCgsac
- nImkpNV8b+FaidA3jPOzdNa6XVY5M8NShF3bEKPp/UiI+3F2D4AYIwa1BIZCaGcuQnlP
- mGqS/vqFuq53HskTpfhn52xzaHug6MgbPBCRle4+OSHgsGHCNQ1bCHreQfMC8Sx3gvD3
- J23UjlnFpEpV/zpnfLCV+WO/MzMcBmovVuSgyir9VFiIIJKyQZFQJ8/Fh19E795ZmOmJ
- gF20GtYlijh2xYBrgsPo+Ow9b8frg9/lOOlN9BbD/um5YAgMGmr3OIMdWeZmmlgEgzgW
- e39w==
-X-Gm-Message-State: AFqh2kq9cHSHYgr2D82JWja2NPDuXnoxZpwAY13XJNXShiZdB4yjSdcN
- BEnx8hES9gl3b4dlkWdZ/wH/qwd3S8BZYK8dWdwDpRZGEAoYzBXx5O/Lrkvs5rwBHEcexZR1NWx
- 0bvBU1g5H9bR9TZieDVzu1wZslGeZyLLfQaHAIg==
-X-Received: by 2002:a63:5d1b:0:b0:495:fb5f:439d with SMTP id
- r27-20020a635d1b000000b00495fb5f439dmr3366898pgb.68.1673206841645; 
- Sun, 08 Jan 2023 11:40:41 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXu1lJQZfWW6xV/PSksmTNaQzyZoMTAsvtqnDEI+7F2q3BfsEW4wdkPdTNM+CpyXNcR3EqzkjBqi270j/f370sU=
-X-Received: by 2002:a63:5d1b:0:b0:495:fb5f:439d with SMTP id
- r27-20020a635d1b000000b00495fb5f439dmr3366894pgb.68.1673206841425; Sun, 08
- Jan 2023 11:40:41 -0800 (PST)
-MIME-Version: 1.0
-References: <20221231150919.659533-1-agruenba@redhat.com>
- <20221231150919.659533-6-agruenba@redhat.com>
- <Y7r9gnn2q3PnQ030@infradead.org>
-In-Reply-To: <Y7r9gnn2q3PnQ030@infradead.org>
+Received: from pasta.redhat.com (ovpn-192-3.brq.redhat.com [10.40.192.3])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4372A492B06;
+ Sun,  8 Jan 2023 19:40:50 +0000 (UTC)
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Sun, 8 Jan 2023 20:40:29 +0100
-Message-ID: <CAHc6FU6UF3CZWqdDoDieFgKZk6_PiJfmBi5jWFTRoNgk9D8-5Q@mail.gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH v5 5/9] iomap/gfs2: Get page in
- page_prepare handler
+To: Christoph Hellwig <hch@infradead.org>,
+ "Darrick J . Wong" <djwong@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Matthew Wilcox <willy@infradead.org>
+Date: Sun,  8 Jan 2023 20:40:29 +0100
+Message-Id: <20230108194034.1444764-6-agruenba@redhat.com>
+In-Reply-To: <20230108194034.1444764-1-agruenba@redhat.com>
+References: <20230108194034.1444764-1-agruenba@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [Cluster-devel] [RFC v6 05/10] iomap/gfs2: Get page in page_prepare
+ handler
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,35 +69,146 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, "Darrick J . Wong" <djwong@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, linux-xfs@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org
+Cc: cluster-devel@redhat.com, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Sun, Jan 8, 2023 at 6:29 PM Christoph Hellwig <hch@infradead.org> wrote:
-> > +     if (page_ops && page_ops->page_prepare)
-> > +             folio = page_ops->page_prepare(iter, pos, len);
-> > +     else
-> > +             folio = iomap_get_folio(iter, pos);
-> > +     if (IS_ERR(folio))
-> >               return PTR_ERR(folio);
->
-> I'd love to have a iomap_get_folio helper for this sequence so that
-> we match iomap_put_folio.  That would require renaming the current
-> iomap_get_folio to __iomap_get_folio.
+Change the iomap ->page_prepare() handler to get and return a locked
+folio instead of doing that in iomap_write_begin().  This allows to
+recover from out-of-memory situations in ->page_prepare(), which
+eliminates the corresponding error handling code in iomap_write_begin().
+The ->put_folio() handler now also isn't called with NULL as the folio
+value anymore.
 
-That's the wrong way around though. iomap_get_folio() is exported to
-filesystems, so if at all, we should rename iomap_put_folio() which is
-a static function only used in the iomap code.
+Filesystems are expected to use the iomap_get_folio() helper for getting
+locked folios in their ->page_prepare() handlers.
 
-I'll post an update.
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/gfs2/bmap.c         | 21 +++++++++++++--------
+ fs/iomap/buffered-io.c | 17 ++++++-----------
+ include/linux/iomap.h  |  9 +++++----
+ 3 files changed, 24 insertions(+), 23 deletions(-)
 
-Thanks,
-Andreas
+diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
+index 0c041459677b..41349e09558b 100644
+--- a/fs/gfs2/bmap.c
++++ b/fs/gfs2/bmap.c
+@@ -956,15 +956,25 @@ static int __gfs2_iomap_get(struct inode *inode, loff_t pos, loff_t length,
+ 	goto out;
+ }
+ 
+-static int gfs2_iomap_page_prepare(struct inode *inode, loff_t pos,
+-				   unsigned len)
++static struct folio *
++gfs2_iomap_page_prepare(struct iomap_iter *iter, loff_t pos, unsigned len)
+ {
++	struct inode *inode = iter->inode;
+ 	unsigned int blockmask = i_blocksize(inode) - 1;
+ 	struct gfs2_sbd *sdp = GFS2_SB(inode);
+ 	unsigned int blocks;
++	struct folio *folio;
++	int status;
+ 
+ 	blocks = ((pos & blockmask) + len + blockmask) >> inode->i_blkbits;
+-	return gfs2_trans_begin(sdp, RES_DINODE + blocks, 0);
++	status = gfs2_trans_begin(sdp, RES_DINODE + blocks, 0);
++	if (status)
++		return ERR_PTR(status);
++
++	folio = iomap_get_folio(iter, pos);
++	if (IS_ERR(folio))
++		gfs2_trans_end(sdp);
++	return folio;
+ }
+ 
+ static void gfs2_iomap_put_folio(struct inode *inode, loff_t pos,
+@@ -974,11 +984,6 @@ static void gfs2_iomap_put_folio(struct inode *inode, loff_t pos,
+ 	struct gfs2_inode *ip = GFS2_I(inode);
+ 	struct gfs2_sbd *sdp = GFS2_SB(inode);
+ 
+-	if (!folio) {
+-		gfs2_trans_end(sdp);
+-		return;
+-	}
+-
+ 	if (!gfs2_is_stuffed(ip))
+ 		gfs2_page_add_databufs(ip, &folio->page, offset_in_page(pos),
+ 				       copied);
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index de4a8e5f721a..418519dea2ce 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -609,7 +609,7 @@ static void __iomap_put_folio(struct iomap_iter *iter, loff_t pos, size_t ret,
+ 
+ 	if (page_ops && page_ops->put_folio) {
+ 		page_ops->put_folio(iter->inode, pos, ret, folio);
+-	} else if (folio) {
++	} else {
+ 		folio_unlock(folio);
+ 		folio_put(folio);
+ 	}
+@@ -642,17 +642,12 @@ static int iomap_write_begin(struct iomap_iter *iter, loff_t pos,
+ 	if (!mapping_large_folio_support(iter->inode->i_mapping))
+ 		len = min_t(size_t, len, PAGE_SIZE - offset_in_page(pos));
+ 
+-	if (page_ops && page_ops->page_prepare) {
+-		status = page_ops->page_prepare(iter->inode, pos, len);
+-		if (status)
+-			return status;
+-	}
+-
+-	folio = iomap_get_folio(iter, pos);
+-	if (IS_ERR(folio)) {
+-		__iomap_put_folio(iter, pos, 0, NULL);
++	if (page_ops && page_ops->page_prepare)
++		folio = page_ops->page_prepare(iter, pos, len);
++	else
++		folio = iomap_get_folio(iter, pos);
++	if (IS_ERR(folio))
+ 		return PTR_ERR(folio);
+-	}
+ 
+ 	/*
+ 	 * Now we have a locked folio, before we do anything with it we need to
+diff --git a/include/linux/iomap.h b/include/linux/iomap.h
+index 188d14e786a4..d50501781856 100644
+--- a/include/linux/iomap.h
++++ b/include/linux/iomap.h
+@@ -13,6 +13,7 @@
+ struct address_space;
+ struct fiemap_extent_info;
+ struct inode;
++struct iomap_iter;
+ struct iomap_dio;
+ struct iomap_writepage_ctx;
+ struct iov_iter;
+@@ -131,12 +132,12 @@ static inline bool iomap_inline_data_valid(const struct iomap *iomap)
+  * associated with them.
+  *
+  * When page_prepare succeeds, put_folio will always be called to do any
+- * cleanup work necessary.  In that put_folio call, @folio will be NULL if the
+- * associated folio could not be obtained.  When folio is not NULL, put_folio
+- * is responsible for unlocking and putting the folio.
++ * cleanup work necessary.  put_folio is responsible for unlocking and putting
++ * @folio.
+  */
+ struct iomap_page_ops {
+-	int (*page_prepare)(struct inode *inode, loff_t pos, unsigned len);
++	struct folio *(*page_prepare)(struct iomap_iter *iter, loff_t pos,
++			unsigned len);
+ 	void (*put_folio)(struct inode *inode, loff_t pos, unsigned copied,
+ 			struct folio *folio);
+ 
+-- 
+2.38.1
 
