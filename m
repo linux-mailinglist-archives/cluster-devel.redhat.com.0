@@ -1,75 +1,77 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51EFE664489
-	for <lists+cluster-devel@lfdr.de>; Tue, 10 Jan 2023 16:24:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 432B3664E5E
+	for <lists+cluster-devel@lfdr.de>; Tue, 10 Jan 2023 22:57:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673364280;
+	s=mimecast20190719; t=1673387820;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=oNTdMR+VSzbfWekKWcdjtSu/K0LW9KTEw3USctOnxiU=;
-	b=SuCWM6/MhtckOs2s+Gd90Wad0yZDOGqdDdNQ7Q4j+yrlkxNC+MW3sBk2bivrq7WqwZoEoH
-	DbrxTdYKJXO8bPcUnT1IvehRbObu6tbY4a5gQHw4lgg3Xzc5/zDl9Bi3nOPuatJ2PZIj+7
-	0X6VJiDGagdHisQidBb5DCPgi1dPhZg=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=12ShYM7ppRE60WBKHQJNWT09XNzIxMym8fpTgxr2Dq0=;
+	b=ZfEuc1Ke0G4v24RVj2sYVhZ2R7cFhj3xhJ7p0T6FIrj8jqwwVm+SRk7DkeYt5kmwlJiWWJ
+	67exwFP6omwuDAtSOY/HXrATu0RWgkZvgm5CRBjCuWseB8nOe1uwkgWRp/lMkte1swG9F5
+	yAR8HTJlB28OWH+RyNpxAqlMNjkaChk=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-ZgI80bW2MlS0ZA1Ys7SJsw-1; Tue, 10 Jan 2023 10:24:39 -0500
-X-MC-Unique: ZgI80bW2MlS0ZA1Ys7SJsw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-25-ndUiAaRzPLG0F8wHOnxECg-1; Tue, 10 Jan 2023 16:56:55 -0500
+X-MC-Unique: ndUiAaRzPLG0F8wHOnxECg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 730073C025C0;
-	Tue, 10 Jan 2023 15:24:38 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 19B59140EBF6;
-	Tue, 10 Jan 2023 15:24:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01BD0811E9C;
+	Tue, 10 Jan 2023 21:56:55 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2D1E3C16031;
+	Tue, 10 Jan 2023 21:56:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D6831194E117;
-	Tue, 10 Jan 2023 15:24:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8DD7E1947051;
+	Tue, 10 Jan 2023 21:56:50 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D7CF31946587 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 10 Jan 2023 15:24:34 +0000 (UTC)
+ ESMTP id E741D1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 10 Jan 2023 21:56:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A55CB492C18; Tue, 10 Jan 2023 15:24:34 +0000 (UTC)
+ id AAAE74085721; Tue, 10 Jan 2023 21:56:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DA99492C14
- for <cluster-devel@redhat.com>; Tue, 10 Jan 2023 15:24:34 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A32634085720
+ for <cluster-devel@redhat.com>; Tue, 10 Jan 2023 21:56:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 816D0101A55E
- for <cluster-devel@redhat.com>; Tue, 10 Jan 2023 15:24:34 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-635-xQ5M8C3ZMCWUMWfLsGerhA-1; Tue, 10 Jan 2023 10:24:30 -0500
-X-MC-Unique: xQ5M8C3ZMCWUMWfLsGerhA-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pFGUF-007Yt2-4o; Tue, 10 Jan 2023 15:24:27 +0000
-Date: Tue, 10 Jan 2023 07:24:27 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <Y72DK9XuaJfN+ecj@infradead.org>
-References: <20230108213305.GO1971568@dread.disaster.area>
- <20230108194034.1444764-1-agruenba@redhat.com>
- <20230108194034.1444764-5-agruenba@redhat.com>
- <20230109124642.1663842-1-agruenba@redhat.com>
- <Y70l9ZZXpERjPqFT@infradead.org>
- <Y71pWJ0JHwGrJ/iv@casper.infradead.org>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87B7285A588
+ for <cluster-devel@redhat.com>; Tue, 10 Jan 2023 21:56:49 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-507-pKTGH3ebOtGr3QPkFFo59A-1; Tue, 10 Jan 2023 16:56:46 -0500
+X-MC-Unique: pKTGH3ebOtGr3QPkFFo59A-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2441D618F9;
+ Tue, 10 Jan 2023 21:56:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B15CC433D2;
+ Tue, 10 Jan 2023 21:56:44 +0000 (UTC)
+Date: Tue, 10 Jan 2023 13:56:44 -0800
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <Y73fHN4aDfbo6e1z@magnolia>
+References: <20221231150919.659533-1-agruenba@redhat.com>
+ <20221231150919.659533-8-agruenba@redhat.com>
+ <Y7W9Dfub1WeTvG8G@magnolia> <Y7XOoZNxZCpjCJLH@casper.infradead.org>
+ <Y7r+NkbfDqat9uHA@infradead.org>
+ <CAHc6FU40OYCpRjnitmKn6s9LOZCy4O=4XobHdcUeFc=k=x5cGg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <Y71pWJ0JHwGrJ/iv@casper.infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <CAHc6FU40OYCpRjnitmKn6s9LOZCy4O=4XobHdcUeFc=k=x5cGg@mail.gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -77,8 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: Re: [Cluster-devel] [RFC v6 04/10] iomap: Add iomap_get_folio helper
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [Cluster-devel] [PATCH v5 7/9] iomap/xfs: Eliminate the
+ iomap_valid handler
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,36 +94,91 @@ List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: linux-xfs@vger.kernel.org, cluster-devel@redhat.com,
- "Darrick J . Wong" <djwong@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+ Matthew Wilcox <willy@infradead.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Jan 10, 2023 at 01:34:16PM +0000, Matthew Wilcox wrote:
-> > Exactly.  And as I already pointed out in reply to Dave's original
-> > patch what we really should be doing is returning an ERR_PTR from
-> > __filemap_get_folio instead of reverse-engineering the expected
-> > error code.
+On Sun, Jan 08, 2023 at 07:50:01PM +0100, Andreas Gruenbacher wrote:
+> On Sun, Jan 8, 2023 at 6:32 PM Christoph Hellwig <hch@infradead.org> wrote:
+> > On Wed, Jan 04, 2023 at 07:08:17PM +0000, Matthew Wilcox wrote:
+> > > On Wed, Jan 04, 2023 at 09:53:17AM -0800, Darrick J. Wong wrote:
+> > > > I wonder if this should be reworked a bit to reduce indenting:
+> > > >
+> > > >     if (PTR_ERR(folio) == -ESTALE) {
+> > >
+> > > FYI this is a bad habit to be in.  The compiler can optimise
+> > >
+> > >       if (folio == ERR_PTR(-ESTALE))
+> > >
+> > > better than it can optimise the other way around.
+> >
+> > Yes.  I think doing the recording that Darrick suggested combined
+> > with this style would be best:
+> >
+> >         if (folio == ERR_PTR(-ESTALE)) {
+> >                 iter->iomap.flags |= IOMAP_F_STALE;
+> >                 return 0;
+> >         }
+> >         if (IS_ERR(folio))
+> >                 return PTR_ERR(folio);
 > 
-> Ouch, we have a nasty problem.
+> Again, I've implemented this as a nested if because the -ESTALE case
+> should be pretty rare, and if we unnest, we end up with an additional
+> check on the main code path. To be specific, the "before" code here on
+> my current system is this:
 > 
-> If somebody passes FGP_ENTRY, we can return a shadow entry.  And the
-> encodings for shadow entries overlap with the encodings for ERR_PTR,
-> meaning that some shadow entries will look like errors.  The way I
-> solved this in the XArray code is by shifting the error values by
-> two bits and encoding errors as XA_ERROR(-ENOMEM) (for example).
+> ------------------------------------
+>         if (IS_ERR(folio)) {
+>     22ad:       48 81 fd 00 f0 ff ff    cmp    $0xfffffffffffff000,%rbp
+>     22b4:       0f 87 bf 03 00 00       ja     2679 <iomap_write_begin+0x499>
+>                         return 0;
+>                 }
+>                 return PTR_ERR(folio);
+>         }
+> [...]
+>     2679:       89 e8                   mov    %ebp,%eax
+>                 if (folio == ERR_PTR(-ESTALE)) {
+>     267b:       48 83 fd 8c             cmp    $0xffffffffffffff8c,%rbp
+>     267f:       0f 85 b7 fc ff ff       jne    233c <iomap_write_begin+0x15c>
+>                         iter->iomap.flags |= IOMAP_F_STALE;
+>     2685:       66 81 4b 42 00 02       orw    $0x200,0x42(%rbx)
+>                         return 0;
+>     268b:       e9 aa fc ff ff          jmp    233a <iomap_write_begin+0x15a>
+> ------------------------------------
 > 
-> I don't _object_ to introducing XA_ERROR() / xa_err() into the VFS,
-> but so far we haven't, and I'd like to make that decision intentionally.
+> While the "after" code is this:
+> 
+> ------------------------------------
+>         if (folio == ERR_PTR(-ESTALE)) {
+>     22ad:       48 83 fd 8c             cmp    $0xffffffffffffff8c,%rbp
+>     22b1:       0f 84 bc 00 00 00       je     2373 <iomap_write_begin+0x193>
+>                 iter->iomap.flags |= IOMAP_F_STALE;
+>                 return 0;
+>         }
+>         if (IS_ERR(folio))
+>                 return PTR_ERR(folio);
+>     22b7:       89 e8                   mov    %ebp,%eax
+>         if (IS_ERR(folio))
+>     22b9:       48 81 fd 00 f0 ff ff    cmp    $0xfffffffffffff000,%rbp
+>     22c0:       0f 87 82 00 00 00       ja     2348 <iomap_write_begin+0x168>
+> ------------------------------------
+> 
+> The compiler isn't smart enough to re-nest the ifs by recognizing that
+> folio == ERR_PTR(-ESTALE) is a subset of IS_ERR(folio).
+> 
+> So do you still insist on that un-nesting even though it produces worse code?
 
-So what would be an alternative way to tell the callers why no folio
-was found instead of trying to reverse engineer that?  Return an errno
-and the folio by reference?  The would work, but the calling conventions
-would be awful.
+Me?  Not anymore. :)
+
+--D
+
+> Thanks,
+> Andreas
+> 
 
