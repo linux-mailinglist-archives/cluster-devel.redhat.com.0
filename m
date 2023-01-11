@@ -1,66 +1,91 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360046663CB
-	for <lists+cluster-devel@lfdr.de>; Wed, 11 Jan 2023 20:36:28 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07DE5666517
+	for <lists+cluster-devel@lfdr.de>; Wed, 11 Jan 2023 21:53:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673465786;
+	s=mimecast20190719; t=1673470380;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=4DMvLtDPlSliteCx6qFn8oz8SfGuJcvsaDoB1yob6PA=;
-	b=T5FlQWJLID6gbbcZJ/0+xYveHAozBNViDsr31lwm7QLGoEj4iCBHCQYA/kHQDLXTNPhtGd
-	IH5g552vhN3JqMBZWot9MPP8DdadFR/QRlxdl7t8kcQHykWJyjaY5XAM62r7zHIRFG12oA
-	EMBMvrBhbOaw0Qw9VVZ1IOTbwz9y2NY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=EkqhoeCZuwa+2bEMUhxCOdyrJETsu5EtKMG81jKmyM4=;
+	b=N0wPAh2C6s3pYvWpLz2o18OosIeENEShKoF6rWnlvsp7cmducjPFYUreVBfQpvdMW31skb
+	RkdqZukKgkH8mELRqmePSGHgXCNYORH/CFanc8v85JaQdzg+mMjkmhHuVIaHOnuOm7guT2
+	vYu6m2w7WKMbswQQdCXUJ1F9WwJRFPs=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-486-V7rc3_ncPMi6sZYr6YDGCA-1; Wed, 11 Jan 2023 14:36:21 -0500
-X-MC-Unique: V7rc3_ncPMi6sZYr6YDGCA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-563-wBJN1Sj4Nv2wVWPwaLkBwA-1; Wed, 11 Jan 2023 15:52:54 -0500
+X-MC-Unique: wBJN1Sj4Nv2wVWPwaLkBwA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 071713806707;
-	Wed, 11 Jan 2023 19:36:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BEBA48030D5;
+	Wed, 11 Jan 2023 20:52:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E307C2026D68;
-	Wed, 11 Jan 2023 19:36:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3AA6B492C18;
+	Wed, 11 Jan 2023 20:52:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE1561946A45;
-	Wed, 11 Jan 2023 19:36:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E7D031946A45;
+	Wed, 11 Jan 2023 20:52:51 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0747419465A3 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 11 Jan 2023 19:36:17 +0000 (UTC)
+ ESMTP id A6CAB19465A3 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 11 Jan 2023 20:52:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BD627C158BB; Wed, 11 Jan 2023 19:36:17 +0000 (UTC)
+ id 02E071121318; Wed, 11 Jan 2023 20:52:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B6A0BC15BA0
- for <cluster-devel@redhat.com>; Wed, 11 Jan 2023 19:36:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8FC011C0897E
- for <cluster-devel@redhat.com>; Wed, 11 Jan 2023 19:36:17 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-160-VC_SDauROguPHtPy-P3bXg-1; Wed,
- 11 Jan 2023 14:36:15 -0500
-X-MC-Unique: VC_SDauROguPHtPy-P3bXg-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pFgte-004Pul-4L; Wed, 11 Jan 2023 19:36:26 +0000
-Date: Wed, 11 Jan 2023 19:36:26 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <Y78PunroeYbv2qgH@casper.infradead.org>
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EE90C1121314
+ for <cluster-devel@redhat.com>; Wed, 11 Jan 2023 20:52:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA6E03806704
+ for <cluster-devel@redhat.com>; Wed, 11 Jan 2023 20:52:48 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-13-QP2M_D8bMG6p3RuXgdK7Lw-1; Wed, 11 Jan 2023 15:52:46 -0500
+X-MC-Unique: QP2M_D8bMG6p3RuXgdK7Lw-1
+Received: by mail-pj1-f49.google.com with SMTP id n12so17076515pjp.1
+ for <cluster-devel@redhat.com>; Wed, 11 Jan 2023 12:52:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EkqhoeCZuwa+2bEMUhxCOdyrJETsu5EtKMG81jKmyM4=;
+ b=63fxBXu6PhCS+VtCEjcbutY870khwMlSw8lGnk8yYSqkM8SSFcYb114U0LGx87LP0f
+ vK4MPK+A/Q1S1jcKqr/fpsVhEfKAGUCbaaIYra2ueEJNeuhGit/V5WfROg2u4w7MAZw4
+ q49rXMWDZ5M1+gneSMSmpSkzkigjhQiLp8CZjH3hYyXPOn270gurT/fR9K1Wnqa1Jc54
+ X7orTAyRpnUW7ioBaswRJjO98VyJTwtJ9+So8KeQiKrSsb5/3wZSYbTPOPXc2HtATxip
+ /Bp1ZJn+jL9eJTZQPEr6sa+yp1XDoEKTxSFjz2X7Lf2t5WrQCWRFb/m+sTW1g3shvw1o
+ 2nOg==
+X-Gm-Message-State: AFqh2kqPsw9XKhQ9HtFhVqJJw6DTkNEgtEJq6yjzbYfRixy4XOp70NqG
+ o2GaltNYcv7DKdDBudq84oWLan8QoD29jNJO
+X-Google-Smtp-Source: AMrXdXvgN3R619MlFxvZvgNlbNpdfvMY7I+Ko6fk0fK9VdXQkV2T920mtD/TBJG8wFVTjldQGALEWg==
+X-Received: by 2002:a17:902:ce02:b0:18f:a5b6:54f9 with SMTP id
+ k2-20020a170902ce0200b0018fa5b654f9mr80454345plg.11.1673470365866; 
+ Wed, 11 Jan 2023 12:52:45 -0800 (PST)
+Received: from dread.disaster.area (pa49-186-146-207.pa.vic.optusnet.com.au.
+ [49.186.146.207]) by smtp.gmail.com with ESMTPSA id
+ t2-20020a1709027fc200b00192f9991e51sm10459441plb.251.2023.01.11.12.52.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Jan 2023 12:52:45 -0800 (PST)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+ (envelope-from <david@fromorbit.com>)
+ id 1pFi5R-001vGU-0W; Thu, 12 Jan 2023 07:52:41 +1100
+Date: Thu, 12 Jan 2023 07:52:41 +1100
+From: Dave Chinner <david@fromorbit.com>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <20230111205241.GA360264@dread.disaster.area>
 References: <20230108213305.GO1971568@dread.disaster.area>
  <20230108194034.1444764-1-agruenba@redhat.com>
  <20230108194034.1444764-5-agruenba@redhat.com>
@@ -68,8 +93,9 @@ References: <20230108213305.GO1971568@dread.disaster.area>
  <Y70l9ZZXpERjPqFT@infradead.org>
  <Y71pWJ0JHwGrJ/iv@casper.infradead.org>
  <Y72DK9XuaJfN+ecj@infradead.org>
+ <Y78PunroeYbv2qgH@casper.infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <Y72DK9XuaJfN+ecj@infradead.org>
+In-Reply-To: <Y78PunroeYbv2qgH@casper.infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -77,7 +103,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 Subject: Re: [Cluster-devel] [RFC v6 04/10] iomap: Add iomap_get_folio helper
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -90,201 +116,66 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, "Darrick J . Wong" <djwong@kernel.org>,
- linux-xfs@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>
+Cc: linux-xfs@vger.kernel.org, cluster-devel@redhat.com,
+ "Darrick J . Wong" <djwong@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Christoph Hellwig <hch@lst.de>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Jan 10, 2023 at 07:24:27AM -0800, Christoph Hellwig wrote:
-> On Tue, Jan 10, 2023 at 01:34:16PM +0000, Matthew Wilcox wrote:
-> > > Exactly.  And as I already pointed out in reply to Dave's original
-> > > patch what we really should be doing is returning an ERR_PTR from
-> > > __filemap_get_folio instead of reverse-engineering the expected
-> > > error code.
+On Wed, Jan 11, 2023 at 07:36:26PM +0000, Matthew Wilcox wrote:
+> On Tue, Jan 10, 2023 at 07:24:27AM -0800, Christoph Hellwig wrote:
+> > On Tue, Jan 10, 2023 at 01:34:16PM +0000, Matthew Wilcox wrote:
+> > > > Exactly.  And as I already pointed out in reply to Dave's original
+> > > > patch what we really should be doing is returning an ERR_PTR from
+> > > > __filemap_get_folio instead of reverse-engineering the expected
+> > > > error code.
+> > > 
+> > > Ouch, we have a nasty problem.
+> > > 
+> > > If somebody passes FGP_ENTRY, we can return a shadow entry.  And the
+> > > encodings for shadow entries overlap with the encodings for ERR_PTR,
+> > > meaning that some shadow entries will look like errors.  The way I
+> > > solved this in the XArray code is by shifting the error values by
+> > > two bits and encoding errors as XA_ERROR(-ENOMEM) (for example).
+> > > 
+> > > I don't _object_ to introducing XA_ERROR() / xa_err() into the VFS,
+> > > but so far we haven't, and I'd like to make that decision intentionally.
 > > 
-> > Ouch, we have a nasty problem.
-> > 
-> > If somebody passes FGP_ENTRY, we can return a shadow entry.  And the
-> > encodings for shadow entries overlap with the encodings for ERR_PTR,
-> > meaning that some shadow entries will look like errors.  The way I
-> > solved this in the XArray code is by shifting the error values by
-> > two bits and encoding errors as XA_ERROR(-ENOMEM) (for example).
-> > 
-> > I don't _object_ to introducing XA_ERROR() / xa_err() into the VFS,
-> > but so far we haven't, and I'd like to make that decision intentionally.
+> > So what would be an alternative way to tell the callers why no folio
+> > was found instead of trying to reverse engineer that?  Return an errno
+> > and the folio by reference?  The would work, but the calling conventions
+> > would be awful.
 > 
-> So what would be an alternative way to tell the callers why no folio
-> was found instead of trying to reverse engineer that?  Return an errno
-> and the folio by reference?  The would work, but the calling conventions
-> would be awful.
+> Agreed.  How about an xa_filemap_get_folio()?
+> 
+> (there are a number of things to fix here; haven't decided if XA_ERROR
+> should return void *, or whether i should use a separate 'entry' and
+> 'folio' until I know the entry is actually a folio ...)
 
-Agreed.  How about an xa_filemap_get_folio()?
+That's awful. Exposing internal implementation details in the API
+that is supposed to abstract away the internal implementation
+details from users doesn't seem like a great idea to me.
 
-(there are a number of things to fix here; haven't decided if XA_ERROR
-should return void *, or whether i should use a separate 'entry' and
-'folio' until I know the entry is actually a folio ...)
+Exactly what are we trying to fix here?  Do we really need to punch
+a hole through the abstraction layers like this just to remove half
+a dozen lines of -slow path- context specific error handling from a
+single caller?
 
-Usage would seem pretty straightforward:
+If there's half a dozen cases that need this sort of handling, then
+maybe it's the right thing to do. But for a single calling context
+that only needs to add a null return check in one specific case?
+There's absolutely no need to make generic infrastructure violate
+layering abstractions to handle that...
 
-	folio = xa_filemap_get_folio(iter->inode->i_mapping, pos >> PAGE_SHIFT,
-			fgp, mapping_gfp_mask(iter->inode->i_mapping));
-	status = xa_err(folio);
-	if (status)
-		goto out_no_page;
+-Dave.
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 7bf8442bcfaa..7d489f96c690 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -1800,40 +1800,25 @@ static void *mapping_get_entry(struct address_space *mapping, pgoff_t index)
- }
- 
- /**
-- * __filemap_get_folio - Find and get a reference to a folio.
-+ * xa_filemap_get_folio - Find and get a reference to a folio.
-  * @mapping: The address_space to search.
-  * @index: The page index.
-  * @fgp_flags: %FGP flags modify how the folio is returned.
-  * @gfp: Memory allocation flags to use if %FGP_CREAT is specified.
-  *
-- * Looks up the page cache entry at @mapping & @index.
-- *
-- * @fgp_flags can be zero or more of these flags:
-- *
-- * * %FGP_ACCESSED - The folio will be marked accessed.
-- * * %FGP_LOCK - The folio is returned locked.
-- * * %FGP_ENTRY - If there is a shadow / swap / DAX entry, return it
-- *   instead of allocating a new folio to replace it.
-- * * %FGP_CREAT - If no page is present then a new page is allocated using
-- *   @gfp and added to the page cache and the VM's LRU list.
-- *   The page is returned locked and with an increased refcount.
-- * * %FGP_FOR_MMAP - The caller wants to do its own locking dance if the
-- *   page is already in cache.  If the page was allocated, unlock it before
-- *   returning so the caller can do the same dance.
-- * * %FGP_WRITE - The page will be written to by the caller.
-- * * %FGP_NOFS - __GFP_FS will get cleared in gfp.
-- * * %FGP_NOWAIT - Don't get blocked by page lock.
-- * * %FGP_STABLE - Wait for the folio to be stable (finished writeback)
-- *
-- * If %FGP_LOCK or %FGP_CREAT are specified then the function may sleep even
-- * if the %GFP flags specified for %FGP_CREAT are atomic.
-+ * Looks up the page cache entry at @mapping & @index.  See
-+ * __filemap_get_folio() for a detailed description.
-  *
-- * If there is a page cache page, it is returned with an increased refcount.
-+ * This differs from __filemap_get_folio() in that it will return an
-+ * XArray error instead of NULL if something goes wrong, allowing the
-+ * advanced user to distinguish why the failure happened.  We can't use an
-+ * ERR_PTR() because its encodings overlap with shadow/swap/dax entries.
-  *
-- * Return: The found folio or %NULL otherwise.
-+ * Return: The entry in the page cache or an xa_err() if there is no entry
-+ * or it could not be appropiately locked.
-  */
--struct folio *__filemap_get_folio(struct address_space *mapping, pgoff_t index,
--		int fgp_flags, gfp_t gfp)
-+struct folio *xa_filemap_get_folio(struct address_space *mapping,
-+		pgoff_t index, int fgp_flags, gfp_t gfp)
- {
- 	struct folio *folio;
- 
-@@ -1851,7 +1836,7 @@ struct folio *__filemap_get_folio(struct address_space *mapping, pgoff_t index,
- 		if (fgp_flags & FGP_NOWAIT) {
- 			if (!folio_trylock(folio)) {
- 				folio_put(folio);
--				return NULL;
-+				return (struct folio *)XA_ERROR(-EAGAIN);
- 			}
- 		} else {
- 			folio_lock(folio);
-@@ -1890,7 +1875,7 @@ struct folio *__filemap_get_folio(struct address_space *mapping, pgoff_t index,
- 
- 		folio = filemap_alloc_folio(gfp, 0);
- 		if (!folio)
--			return NULL;
-+			return (struct folio *)XA_ERROR(-ENOMEM);
- 
- 		if (WARN_ON_ONCE(!(fgp_flags & (FGP_LOCK | FGP_FOR_MMAP))))
- 			fgp_flags |= FGP_LOCK;
-@@ -1902,19 +1887,65 @@ struct folio *__filemap_get_folio(struct address_space *mapping, pgoff_t index,
- 		err = filemap_add_folio(mapping, folio, index, gfp);
- 		if (unlikely(err)) {
- 			folio_put(folio);
--			folio = NULL;
- 			if (err == -EEXIST)
- 				goto repeat;
-+			folio = (struct folio *)XA_ERROR(err);
-+		} else {
-+			/*
-+			 * filemap_add_folio locks the page, and for mmap
-+			 * we expect an unlocked page.
-+			 */
-+			if (fgp_flags & FGP_FOR_MMAP)
-+				folio_unlock(folio);
- 		}
--
--		/*
--		 * filemap_add_folio locks the page, and for mmap
--		 * we expect an unlocked page.
--		 */
--		if (folio && (fgp_flags & FGP_FOR_MMAP))
--			folio_unlock(folio);
- 	}
- 
-+	if (!folio)
-+		folio = (struct folio *)XA_ERROR(-ENODATA);
-+	return folio;
-+}
-+EXPORT_SYMBOL_GPL(xa_filemap_get_folio);
-+
-+/**
-+ * __filemap_get_folio - Find and get a reference to a folio.
-+ * @mapping: The address_space to search.
-+ * @index: The page index.
-+ * @fgp: %FGP flags modify how the folio is returned.
-+ * @gfp: Memory allocation flags to use if %FGP_CREAT is specified.
-+ *
-+ * Looks up the page cache entry at @mapping & @index.
-+ *
-+ * @fgp_flags can be zero or more of these flags:
-+ *
-+ * * %FGP_ACCESSED - The folio will be marked accessed.
-+ * * %FGP_LOCK - The folio is returned locked.
-+ * * %FGP_ENTRY - If there is a shadow / swap / DAX entry, return it
-+ *   instead of allocating a new folio to replace it.
-+ * * %FGP_CREAT - If no page is present then a new page is allocated using
-+ *   @gfp and added to the page cache and the VM's LRU list.
-+ *   The page is returned locked and with an increased refcount.
-+ * * %FGP_FOR_MMAP - The caller wants to do its own locking dance if the
-+ *   page is already in cache.  If the page was allocated, unlock it before
-+ *   returning so the caller can do the same dance.
-+ * * %FGP_WRITE - The page will be written to by the caller.
-+ * * %FGP_NOFS - __GFP_FS will get cleared in gfp.
-+ * * %FGP_NOWAIT - Don't get blocked by page lock.
-+ * * %FGP_STABLE - Wait for the folio to be stable (finished writeback)
-+ *
-+ * If %FGP_LOCK or %FGP_CREAT are specified then the function may sleep even
-+ * if the %GFP flags specified for %FGP_CREAT are atomic.
-+ *
-+ * If there is a page cache page, it is returned with an increased refcount.
-+ *
-+ * Return: The found folio or %NULL otherwise.
-+ */
-+struct folio *__filemap_get_folio(struct address_space *mapping, pgoff_t index,
-+		int fgp, gfp_t gfp)
-+{
-+	struct folio *folio = xa_filemap_get_folio(mapping, index, fgp, gfp);
-+
-+	if (xa_is_err(folio))
-+		return NULL;
- 	return folio;
- }
- EXPORT_SYMBOL(__filemap_get_folio);
+-- 
+Dave Chinner
+david@fromorbit.com
 
