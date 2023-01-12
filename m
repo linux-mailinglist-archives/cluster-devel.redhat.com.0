@@ -1,78 +1,79 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87FDD666DE5
-	for <lists+cluster-devel@lfdr.de>; Thu, 12 Jan 2023 10:16:46 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 387AA666F61
+	for <lists+cluster-devel@lfdr.de>; Thu, 12 Jan 2023 11:18:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673515005;
+	s=mimecast20190719; t=1673518691;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=HhzoXJd8QLSlSJS1DqxUvN7zM6XlenXjXRqQOg3se84=;
-	b=GJMkoOATPVW6LjlvDEzKNOBNp6ETtdgn3ZKhnkEjhOR+Sv8fUYJ7CDrJW+EOEqQVVwNz8M
-	Ci3XdvtRzmViwBpigLUBrpLXNvvHEojsuA0Lk54pTrYOLJlM3SebmqK33HYbJ/T6mm4A3x
-	jaa6DMLixSDeAiXrNLZjh5/g4Gw5cVY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=WIWPZIKq2KjEJ51tFDiaRs+SDZBMmPeDICQjCFzQKiU=;
+	b=i8r24cMEkNZ8cp519ioUNOnv8PLDfI2JApA6vm8c37Gtadoq0eLL8/0oe+BSLEINhEAd44
+	aVGG152+kP6TWzFbIft8bZRHzHbc/nAc4b/opIuO/L0CNhWKBD1Xmch/TVnrgFpbc21NbN
+	ciUYVKmVCWmR3dSM33ygATDqcJb7SFM=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-391-Yex7zaHkMDmZVUaLP-R0uQ-1; Thu, 12 Jan 2023 04:16:41 -0500
-X-MC-Unique: Yex7zaHkMDmZVUaLP-R0uQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-152-gqdqfDmyOLuZL-P1sMhUrQ-1; Thu, 12 Jan 2023 05:18:05 -0500
+X-MC-Unique: gqdqfDmyOLuZL-P1sMhUrQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E87A38060FE;
-	Thu, 12 Jan 2023 09:16:40 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5686F80D643;
+	Thu, 12 Jan 2023 10:18:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 04D7039DB3;
-	Thu, 12 Jan 2023 09:16:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2CD97492C1B;
+	Thu, 12 Jan 2023 10:18:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 950941947047;
-	Thu, 12 Jan 2023 09:16:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F271C1947049;
+	Thu, 12 Jan 2023 10:18:02 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A24CE1946A78 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 12 Jan 2023 09:16:36 +0000 (UTC)
+ ESMTP id 770511946A78 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 12 Jan 2023 10:18:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6B0B7492B01; Thu, 12 Jan 2023 09:16:36 +0000 (UTC)
+ id 223314078904; Thu, 12 Jan 2023 10:18:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 63745492B02
- for <cluster-devel@redhat.com>; Thu, 12 Jan 2023 09:16:36 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A9C94078903
+ for <cluster-devel@redhat.com>; Thu, 12 Jan 2023 10:18:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49C3E877CA0
- for <cluster-devel@redhat.com>; Thu, 12 Jan 2023 09:16:36 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-214-flPpjYvnPR2wQSav3ipyqw-1; Thu, 12 Jan 2023 04:16:32 -0500
-X-MC-Unique: flPpjYvnPR2wQSav3ipyqw-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pFt9B-00EALM-Ff; Thu, 12 Jan 2023 08:41:17 +0000
-Date: Thu, 12 Jan 2023 00:41:17 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Dave Chinner <david@fromorbit.com>
-Message-ID: <Y7/HrZCARD9zRvEe@infradead.org>
-References: <20230108213305.GO1971568@dread.disaster.area>
- <20230108194034.1444764-1-agruenba@redhat.com>
- <20230108194034.1444764-5-agruenba@redhat.com>
- <20230109124642.1663842-1-agruenba@redhat.com>
- <Y70l9ZZXpERjPqFT@infradead.org>
- <Y71pWJ0JHwGrJ/iv@casper.infradead.org>
- <Y72DK9XuaJfN+ecj@infradead.org>
- <Y78PunroeYbv2qgH@casper.infradead.org>
- <20230111205241.GA360264@dread.disaster.area>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F153B3C02B78
+ for <cluster-devel@redhat.com>; Thu, 12 Jan 2023 10:18:00 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-110-55TquDkHNN6Bp0mU_ROyOQ-1; Thu, 12 Jan 2023 05:17:59 -0500
+X-MC-Unique: 55TquDkHNN6Bp0mU_ROyOQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B20C061FC6;
+ Thu, 12 Jan 2023 10:17:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB3CC433F0;
+ Thu, 12 Jan 2023 10:17:55 +0000 (UTC)
+Message-ID: <9481a114-04d3-7276-bc82-ee18c685b5a6@kernel.org>
+Date: Thu, 12 Jan 2023 18:17:54 +0800
 MIME-Version: 1.0
-In-Reply-To: <20230111205241.GA360264@dread.disaster.area>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+ linux-fsdevel@vger.kernel.org
+References: <20230104211448.4804-1-vishal.moola@gmail.com>
+ <20230104211448.4804-15-vishal.moola@gmail.com>
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20230104211448.4804-15-vishal.moola@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -80,8 +81,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Cluster-devel] [RFC v6 04/10] iomap: Add iomap_get_folio helper
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [Cluster-devel] [f2fs-dev] [PATCH v5 14/23] f2fs: Convert
+ f2fs_write_cache_pages() to use filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,39 +95,37 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-xfs@vger.kernel.org, cluster-devel@redhat.com,
- "Darrick J . Wong" <djwong@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-mm@kvack.org, ceph-devel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 12, 2023 at 07:52:41AM +1100, Dave Chinner wrote:
-> Exposing internal implementation details in the API
-> that is supposed to abstract away the internal implementation
-> details from users doesn't seem like a great idea to me.
+On 2023/1/5 5:14, Vishal Moola (Oracle) wrote:
+> Converted the function to use a folio_batch instead of pagevec. This is in
+> preparation for the removal of find_get_pages_range_tag().
+> 
+> Also modified f2fs_all_cluster_page_ready to take in a folio_batch instead
+> of pagevec. This does NOT support large folios. The function currently
+> only utilizes folios of size 1 so this shouldn't cause any issues right
+> now.
+> 
+> This version of the patch limits the number of pages fetched to
+> F2FS_ONSTACK_PAGES. If that ever happens, update the start index here
+> since filemap_get_folios_tag() updates the index to be after the last
+> found folio, not necessarily the last used page.
+> 
+> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
 
-While I somewhat agree with the concern of leaking the xarray
-internals, at least they are clearly documented and easy to find..
+Acked-by: Chao Yu <chao@kernel.org>
 
-> Exactly what are we trying to fix here?  Do we really need to punch
-> a hole through the abstraction layers like this just to remove half
-> a dozen lines of -slow path- context specific error handling from a
-> single caller?
-
-While the current code (which is getting worse with your fix) leaks
-completely undocumented and internal decision making.  So what this
-fixes is a real leak of internatal logic inside of __filemap_get_folio
-into the callers.
-
-So as far as I'm concerned we really do need the helper, and anyone
-using !GFP_CREATE or FGP_NOWAIT should be using it.  The only question
-to me is if exposing the xarray internals is worth it vs the
-less optimal calling conventions of needing an extra argument for
-the error code.
+Thanks,
 
