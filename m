@@ -1,85 +1,86 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38E3166DBA7
-	for <lists+cluster-devel@lfdr.de>; Tue, 17 Jan 2023 11:56:32 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E777566DBA6
+	for <lists+cluster-devel@lfdr.de>; Tue, 17 Jan 2023 11:56:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673952991;
+	s=mimecast20190719; t=1673952990;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=06T1vl54lAZuVMBbzUV7FY6XKJgLq5iaKZfvALwZhcA=;
-	b=R9TTLKkm0tbwR43ZkPCI1AzFF8BRQnwZNBT0C0gjJ91t5F4S1KiPqHnhk0xZB9Fu7KSTWD
-	Z7+9eHOfbqX7Ye8c/GP2j/5Jv1I5005tQZqiY50Vy42GUinG4NlfCmP6v7ia6Hh9u86sUV
-	m9K+U7v6QdSCuAPkAJwVOG3GcM5Lfv8=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=KJYBrcqUwdRqgvgHo+3fqcuaRSbYa+PJ6bUTeyvavX0=;
+	b=SaFUycM3nIP1E4OtuyiJaKMaCKpGOvgYwdMDoVcBFO8SaVrYb9r+hbpNgr4V76PnpvEc1n
+	D1sgi19Q9OMxUL4q/iYziwzehfszR6/ZbJgwDRDzqedQxRIJV1wCb/NBtq1BV/Ox4HLDdy
+	m0M0u6bfCvosprFLulxbhCy+EsVw6ws=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-217-Zt-OqHqbOtOcj6ea91yM-g-1; Tue, 17 Jan 2023 05:56:27 -0500
-X-MC-Unique: Zt-OqHqbOtOcj6ea91yM-g-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-496-NbSdSrsvO26mWr-VBFtOiA-1; Tue, 17 Jan 2023 05:56:27 -0500
+X-MC-Unique: NbSdSrsvO26mWr-VBFtOiA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE5C829ABA18;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5E3718ABF92;
 	Tue, 17 Jan 2023 10:56:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 24B3C492B01;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 87393492B11;
 	Tue, 17 Jan 2023 10:56:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D7B1D19465B5;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E5FA019465BA;
 	Tue, 17 Jan 2023 10:56:24 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6D0E819465A3 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 17 Jan 2023 10:26:54 +0000 (UTC)
+ ESMTP id 480A919465A3 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 17 Jan 2023 10:38:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 26BD3C15BAE; Tue, 17 Jan 2023 10:26:54 +0000 (UTC)
+ id 0E30DC15BAD; Tue, 17 Jan 2023 10:38:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F0A8C15BA0
- for <cluster-devel@redhat.com>; Tue, 17 Jan 2023 10:26:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0726FC15BA0
+ for <cluster-devel@redhat.com>; Tue, 17 Jan 2023 10:38:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F35C53C11A01
- for <cluster-devel@redhat.com>; Tue, 17 Jan 2023 10:26:53 +0000 (UTC)
-Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
- [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6ADD38149AB
+ for <cluster-devel@redhat.com>; Tue, 17 Jan 2023 10:38:41 +0000 (UTC)
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-20-volVOwJOPB-7LeesD-uNDg-1; Tue, 17 Jan 2023 05:26:52 -0500
-X-MC-Unique: volVOwJOPB-7LeesD-uNDg-1
-Received: by mail-il1-f197.google.com with SMTP id
- r6-20020a92cd86000000b00304b2d1c2d7so22556653ilb.11
- for <cluster-devel@redhat.com>; Tue, 17 Jan 2023 02:26:52 -0800 (PST)
+ us-mta-116-FL2vWjqRPk6tKn9KtCspgw-1; Tue, 17 Jan 2023 05:38:40 -0500
+X-MC-Unique: FL2vWjqRPk6tKn9KtCspgw-1
+Received: by mail-il1-f200.google.com with SMTP id
+ z19-20020a921a53000000b0030b90211df1so22319284ill.2
+ for <cluster-devel@redhat.com>; Tue, 17 Jan 2023 02:38:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=to:from:subject:message-id:date:mime-version:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=06T1vl54lAZuVMBbzUV7FY6XKJgLq5iaKZfvALwZhcA=;
- b=p5JY+nEW/KHni0OQf8u+2YMsmEgRUdXzL4V2r2cCylJQGZ9+i0qYD8DRXslC1miJY2
- tHsSI+H3p2UMwdKvN1TxkGPMEHzA+OxZTgs13Bl2yFPSbGD5hrZUKJn3wXu9cp8KIMcv
- QwIkwyOlTNZqiS9+DfTgnYvw2xEDLg9SGhYhAN4tJ2JhtN4ACv8H0qN5/IKi0fnUg1dA
- AEcU/wrPIkhiBuuTAtUZbdW4KBFdRtp0g7XeI/C/MkK7QhTovqHM+EGmCRMfpdLxYlsH
- qynYue4+729eUmuqHkLySk907ZWSBA0sQ7rSOx0SMvGqu6ir++TiVN9124cn5aMHb90h
- S4yg==
-X-Gm-Message-State: AFqh2kpKwOVVszvVVXreLqo2eTo8VY4mNV1HiumQ6fL9AYKD7ymznHuH
- JWB9To2a/0NRecMjM1f+1N9AVw0VXPooTxpC/79boLIORm59
-X-Google-Smtp-Source: AMrXdXuuOnACt3l10ysPKVDqo4fzE8RfeLoAH0AYVjk4cDk4L+byfMPKQ5N3dFZhBVdLvlxXCUuR9N31TTe4jcz5CMDkg//zqabJ
+ bh=KJYBrcqUwdRqgvgHo+3fqcuaRSbYa+PJ6bUTeyvavX0=;
+ b=6Xj7NjMubvAwhuAfFcK9Gqh/RtTQEp/67+aEuQPQcA7u0wNBeXEJxXsFuuwZCPtjva
+ p50CdydvjQAPVnjNmLIPB0uPvjmXq3plrKqCG45p5ajtyiayj4uXaSq1wh+O0hn97mGQ
+ FfnkL2wgyF/VFfcxL3QxLDWaoEBTrJN5kN1Kw2oi1WSY7RVM8cVYNXMIDaAIcJGop+dO
+ ueiEeN8T4k0xfKXYn1mUABglAokLYTtyIb0Jt94FJzNtPaIJCE33YZifnYWiVujSWfOa
+ pmkZZ+4fnRlu5ClIP5yQUxLjsFPGkGufV4S69QmpK9w/AhOS0qnMMPlxDMD98MtRWUNF
+ r+YQ==
+X-Gm-Message-State: AFqh2kq9sYHBt3HiYqBOsEKsGvpibppWNuqewrPzTPsR3b9UE00zT1MX
+ F0dJsZvT2gWqOnZ0BBazwj/76Jiw5MimmwMlayT+rAmUU2om
+X-Google-Smtp-Source: AMrXdXtuDg/cf/b17BDJQqrV0DKh0G9mu7eoPQM5tkFdidkp3/cP27/pflxHXRPKAQEImzm4sjUx0YI2mv7roi97eeT2ZsBXII7/
 MIME-Version: 1.0
-X-Received: by 2002:a92:c98f:0:b0:30f:b7f:1aee with SMTP id
- y15-20020a92c98f000000b0030f0b7f1aeemr257311iln.221.1673951211619; Tue, 17
- Jan 2023 02:26:51 -0800 (PST)
-Date: Tue, 17 Jan 2023 02:26:51 -0800
+X-Received: by 2002:a05:6638:3e09:b0:3a5:e79b:c8eb with SMTP id
+ co9-20020a0566383e0900b003a5e79bc8ebmr201335jab.198.1673951919671; Tue, 17
+ Jan 2023 02:38:39 -0800 (PST)
+Date: Tue, 17 Jan 2023 02:38:39 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000570e0305f273235d@google.com>
-From: syzbot <syzbot+cdb448c6e82c20d7960c@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, cluster-devel@redhat.com, 
+Message-ID: <0000000000008b105805f2734d55@google.com>
+From: syzbot <syzbot+79333ce1ae874ab7ffbb@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, cluster-devel@redhat.com, glider@google.com, 
  linux-kernel@vger.kernel.org, rpeterso@redhat.com, 
  syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -91,8 +92,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 17 Jan 2023 10:56:24 +0000
-Subject: [Cluster-devel] [syzbot] [gfs2?] BUG: sleeping function called from
- invalid context in gfs2_glock_wait
+Subject: [Cluster-devel] [syzbot] [gfs2?] KMSAN: uninit-value in
+ inode_go_dump
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,7 +107,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 1
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
@@ -115,158 +116,96 @@ Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    d532dd102151 Merge tag 'for-6.2-rc4-tag' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16c88b2c480000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c3574635786f74ca
-dashboard link: https://syzkaller.appspot.com/bug?extid=cdb448c6e82c20d7960c
-compiler:       Debian clang version 13.0.1-++20220126092033+75e33f71c2da-1~exp1~20220126212112.63, GNU ld (GNU Binutils for Debian) 2.35.2
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a30e7e480000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=164a8ab1480000
+HEAD commit:    e919e2b1bc1c Revert "kmsan: disallow CONFIG_KMSAN with CON..
+git tree:       https://github.com/google/kmsan.git master
+console output: https://syzkaller.appspot.com/x/log.txt?x=11530191480000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b63e082c4fda2e77
+dashboard link: https://syzkaller.appspot.com/bug?extid=79333ce1ae874ab7ffbb
+compiler:       clang version 15.0.0 (https://github.com/llvm/llvm-project.git 610139d2d9ce6746b3c617fb3e2f7886272d26ff), GNU ld (GNU Binutils for Debian) 2.35.2
+userspace arch: i386
+
+Unfortunately, I don't have any reproducer for this issue yet.
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/a644dc38be2c/disk-d532dd10.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/30e89b0598f8/vmlinux-d532dd10.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5bb4bab3f67d/bzImage-d532dd10.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/89f4e64444ce/mount_0.gz
+disk image: https://storage.googleapis.com/syzbot-assets/5676c9771994/disk-e919e2b1.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/7f53a1472ca4/vmlinux-e919e2b1.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/eb021c0a44de/bzImage-e919e2b1.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+cdb448c6e82c20d7960c@syzkaller.appspotmail.com
+Reported-by: syzbot+79333ce1ae874ab7ffbb@syzkaller.appspotmail.com
 
-gfs2: fsid=syz:syz.0: found 1 quota changes
-syz-executor390: attempt to access beyond end of device
-loop0: rw=1, sector=131324, nr_sectors = 4 limit=32768
-gfs2: fsid=syz:syz.0: Error 10 writing to journal, jid=0
-gfs2: fsid=syz:syz.0: fatal: I/O error(s)
-gfs2: fsid=syz:syz.0: about to withdraw this file system
-BUG: sleeping function called from invalid context at fs/gfs2/glock.c:1316
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 5053, name: syz-executor390
-preempt_count: 1, expected: 0
-RCU nest depth: 0, expected: 0
-4 locks held by syz-executor390/5053:
- #0: ffff88807a14c0e0 (&type->s_umount_key#47){+.+.}-{3:3}, at: deactivate_super+0x96/0xd0 fs/super.c:362
- #1: ffff888023a48b70 (&sdp->sd_quota_sync_mutex){+.+.}-{3:3}, at: gfs2_quota_sync+0x9b/0x8b0 fs/gfs2/quota.c:1302
- #2: ffff888023a49058 (&sdp->sd_log_flush_lock){++++}-{3:3}, at: gfs2_log_flush+0xe7/0x26a0 fs/gfs2/log.c:1034
- #3: ffff888023a48e80 (&sdp->sd_log_lock){+.+.}-{2:2}, at: spin_lock include/linux/spinlock.h:350 [inline]
- #3: ffff888023a48e80 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_log_lock fs/gfs2/log.h:32 [inline]
- #3: ffff888023a48e80 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_flush_revokes+0x4e/0x80 fs/gfs2/log.c:805
-Preemption disabled at:
-[<0000000000000000>] 0x0
-CPU: 0 PID: 5053 Comm: syz-executor390 Not tainted 6.2.0-rc4-syzkaller-00009-gd532dd102151 #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0x1e3/0x2d0 lib/dump_stack.c:106
- __might_resched+0x538/0x6a0 kernel/sched/core.c:10036
- gfs2_glock_wait+0x52/0x2a0 fs/gfs2/glock.c:1316
+gfs2: fsid=syz:syz.0: G:  s:SH n:2/13 f:qobnN t:SH d:EX/0 a:0 v:0 r:3 m:20 p:1
+gfs2: fsid=syz:syz.0:  H: s:SH f:eEcH e:0 p:0 [(none)] init_inodes+0x125/0x510 fs/gfs2/ops_fstype.c:889
+=====================================================
+BUG: KMSAN: uninit-value in inode_go_dump+0x499/0x4d0 fs/gfs2/glops.c:544
+ inode_go_dump+0x499/0x4d0 fs/gfs2/glops.c:544
+ gfs2_dump_glock+0x21d1/0x2300 fs/gfs2/glock.c:2379
+ gfs2_consist_inode_i+0x19b/0x220 fs/gfs2/util.c:465
+ gfs2_dinode_in fs/gfs2/glops.c:460 [inline]
+ gfs2_inode_refresh+0x10d9/0x14e0 fs/gfs2/glops.c:480
+ inode_go_instantiate+0x6a/0xc0 fs/gfs2/glops.c:499
+ gfs2_instantiate+0x253/0x490 fs/gfs2/glock.c:456
+ gfs2_glock_holder_ready fs/gfs2/glock.c:1299 [inline]
+ gfs2_glock_wait+0x28a/0x3d0 fs/gfs2/glock.c:1319
+ gfs2_glock_nq+0x8ce/0xbe0 fs/gfs2/glock.c:1567
  gfs2_glock_nq_init fs/gfs2/glock.h:262 [inline]
- gfs2_freeze_lock+0x5f/0xc0 fs/gfs2/util.c:107
- signal_our_withdraw fs/gfs2/util.c:160 [inline]
- gfs2_withdraw+0x5ab/0x14e0 fs/gfs2/util.c:351
- gfs2_ail1_empty+0x8c9/0x950 fs/gfs2/log.c:368
- gfs2_flush_revokes+0x59/0x80 fs/gfs2/log.c:806
- revoke_lo_before_commit+0x2b/0xcf0 fs/gfs2/lops.c:869
- lops_before_commit fs/gfs2/lops.h:40 [inline]
- gfs2_log_flush+0xc8e/0x26a0 fs/gfs2/log.c:1093
- do_sync+0xa4c/0xc90 fs/gfs2/quota.c:975
- gfs2_quota_sync+0x3da/0x8b0 fs/gfs2/quota.c:1318
- gfs2_sync_fs+0x49/0xb0 fs/gfs2/super.c:650
- sync_filesystem+0xe8/0x220 fs/sync.c:56
- generic_shutdown_super+0x6b/0x310 fs/super.c:474
- kill_block_super+0x79/0xd0 fs/super.c:1386
- deactivate_locked_super+0xa7/0xf0 fs/super.c:332
- cleanup_mnt+0x494/0x520 fs/namespace.c:1291
- task_work_run+0x243/0x300 kernel/task_work.c:179
- exit_task_work include/linux/task_work.h:38 [inline]
- do_exit+0x644/0x2150 kernel/exit.c:867
- do_group_exit+0x1fd/0x2b0 kernel/exit.c:1012
- __do_sys_exit_group kernel/exit.c:1023 [inline]
- __se_sys_exit_group kernel/exit.c:1021 [inline]
- __x64_sys_exit_group+0x3b/0x40 kernel/exit.c:1021
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x2b/0x70 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f8d53bb09c9
-Code: Unable to access opcode bytes at 0x7f8d53bb099f.
-RSP: 002b:00007ffda1438d78 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 00007f8d53c45330 RCX: 00007f8d53bb09c9
-RDX: 000000000000003c RSI: 00000000000000e7 RDI: 0000000000000001
-RBP: 0000000000000001 R08: ffffffffffffffc0 R09: 000000000001f6db
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f8d53c45330
-R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000001
- </TASK>
+ init_journal+0x11f2/0x38e0 fs/gfs2/ops_fstype.c:794
+ init_inodes+0x125/0x510 fs/gfs2/ops_fstype.c:889
+ gfs2_fill_super+0x3b2d/0x43a0 fs/gfs2/ops_fstype.c:1247
+ get_tree_bdev+0x8a3/0xd30 fs/super.c:1282
+ gfs2_get_tree+0x58/0x340 fs/gfs2/ops_fstype.c:1330
+ vfs_get_tree+0xa1/0x500 fs/super.c:1489
+ do_new_mount+0x694/0x1580 fs/namespace.c:3145
+ path_mount+0x71a/0x1eb0 fs/namespace.c:3475
+ do_mount fs/namespace.c:3488 [inline]
+ __do_sys_mount fs/namespace.c:3697 [inline]
+ __se_sys_mount+0x734/0x840 fs/namespace.c:3674
+ __ia32_sys_mount+0xdf/0x140 fs/namespace.c:3674
+ do_syscall_32_irqs_on arch/x86/entry/common.c:112 [inline]
+ __do_fast_syscall_32+0xa2/0x100 arch/x86/entry/common.c:178
+ do_fast_syscall_32+0x33/0x70 arch/x86/entry/common.c:203
+ do_SYSENTER_32+0x1b/0x20 arch/x86/entry/common.c:246
+ entry_SYSENTER_compat_after_hwframe+0x70/0x82
 
-=============================
-[ BUG: Invalid wait context ]
-6.2.0-rc4-syzkaller-00009-gd532dd102151 #0 Tainted: G        W         
------------------------------
-syz-executor390/5053 is trying to lock:
-ffff888019021c88 (&wq->mutex){+.+.}-{3:3}, at: __flush_workqueue+0x1b7/0x16a0 kernel/workqueue.c:2812
-other info that might help us debug this:
-context-{4:4}
-4 locks held by syz-executor390/5053:
- #0: ffff88807a14c0e0 (&type->s_umount_key#47){+.+.}-{3:3}, at: deactivate_super+0x96/0xd0 fs/super.c:362
- #1: ffff888023a48b70 (&sdp->sd_quota_sync_mutex){+.+.}-{3:3}, at: gfs2_quota_sync+0x9b/0x8b0 fs/gfs2/quota.c:1302
- #2: ffff888023a49058 (&sdp->sd_log_flush_lock){++++}-{3:3}, at: gfs2_log_flush+0xe7/0x26a0 fs/gfs2/log.c:1034
- #3: ffff888023a48e80 (&sdp->sd_log_lock){+.+.}-{2:2}, at: spin_lock include/linux/spinlock.h:350 [inline]
- #3: ffff888023a48e80 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_log_lock fs/gfs2/log.h:32 [inline]
- #3: ffff888023a48e80 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_flush_revokes+0x4e/0x80 fs/gfs2/log.c:805
-stack backtrace:
-CPU: 0 PID: 5053 Comm: syz-executor390 Tainted: G        W          6.2.0-rc4-syzkaller-00009-gd532dd102151 #0
+Uninit was created at:
+ __alloc_pages+0x9f1/0xe80 mm/page_alloc.c:5572
+ alloc_pages+0xaae/0xd80 mm/mempolicy.c:2286
+ alloc_slab_page mm/slub.c:1851 [inline]
+ allocate_slab+0x235/0x1200 mm/slub.c:1998
+ new_slab mm/slub.c:2051 [inline]
+ ___slab_alloc+0x10c3/0x2d60 mm/slub.c:3193
+ __slab_alloc mm/slub.c:3292 [inline]
+ __slab_alloc_node mm/slub.c:3345 [inline]
+ slab_alloc_node mm/slub.c:3442 [inline]
+ slab_alloc mm/slub.c:3460 [inline]
+ __kmem_cache_alloc_lru mm/slub.c:3467 [inline]
+ kmem_cache_alloc_lru+0x713/0xb60 mm/slub.c:3483
+ alloc_inode_sb include/linux/fs.h:3119 [inline]
+ gfs2_alloc_inode+0x62/0x210 fs/gfs2/super.c:1440
+ alloc_inode+0x83/0x440 fs/inode.c:259
+ iget5_locked+0xa5/0x200 fs/inode.c:1241
+ gfs2_inode_lookup+0xc7/0x14b0 fs/gfs2/inode.c:124
+ gfs2_lookup_root fs/gfs2/ops_fstype.c:462 [inline]
+ init_sb+0xf27/0x19d0 fs/gfs2/ops_fstype.c:529
+ gfs2_fill_super+0x315b/0x43a0 fs/gfs2/ops_fstype.c:1214
+ get_tree_bdev+0x8a3/0xd30 fs/super.c:1282
+ gfs2_get_tree+0x58/0x340 fs/gfs2/ops_fstype.c:1330
+ vfs_get_tree+0xa1/0x500 fs/super.c:1489
+ do_new_mount+0x694/0x1580 fs/namespace.c:3145
+ path_mount+0x71a/0x1eb0 fs/namespace.c:3475
+ do_mount fs/namespace.c:3488 [inline]
+ __do_sys_mount fs/namespace.c:3697 [inline]
+ __se_sys_mount+0x734/0x840 fs/namespace.c:3674
+ __ia32_sys_mount+0xdf/0x140 fs/namespace.c:3674
+ do_syscall_32_irqs_on arch/x86/entry/common.c:112 [inline]
+ __do_fast_syscall_32+0xa2/0x100 arch/x86/entry/common.c:178
+ do_fast_syscall_32+0x33/0x70 arch/x86/entry/common.c:203
+ do_SYSENTER_32+0x1b/0x20 arch/x86/entry/common.c:246
+ entry_SYSENTER_compat_after_hwframe+0x70/0x82
+
+CPU: 0 PID: 5906 Comm: syz-executor.3 Not tainted 6.2.0-rc3-syzkaller-79343-ge919e2b1bc1c #0
 Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0x1e3/0x2d0 lib/dump_stack.c:106
- print_lock_invalid_wait_context kernel/locking/lockdep.c:4707 [inline]
- check_wait_context kernel/locking/lockdep.c:4768 [inline]
- __lock_acquire+0x14f2/0x1f60 kernel/locking/lockdep.c:5005
- lock_acquire+0x1a7/0x400 kernel/locking/lockdep.c:5668
- __mutex_lock_common+0x1de/0x26c0 kernel/locking/mutex.c:603
- __mutex_lock kernel/locking/mutex.c:747 [inline]
- mutex_lock_nested+0x17/0x20 kernel/locking/mutex.c:799
- __flush_workqueue+0x1b7/0x16a0 kernel/workqueue.c:2812
- gfs2_make_fs_ro+0xd1/0x630 fs/gfs2/super.c:532
- signal_our_withdraw fs/gfs2/util.c:166 [inline]
- gfs2_withdraw+0x5e8/0x14e0 fs/gfs2/util.c:351
- gfs2_ail1_empty+0x8c9/0x950 fs/gfs2/log.c:368
- gfs2_flush_revokes+0x59/0x80 fs/gfs2/log.c:806
- revoke_lo_before_commit+0x2b/0xcf0 fs/gfs2/lops.c:869
- lops_before_commit fs/gfs2/lops.h:40 [inline]
- gfs2_log_flush+0xc8e/0x26a0 fs/gfs2/log.c:1093
- do_sync+0xa4c/0xc90 fs/gfs2/quota.c:975
- gfs2_quota_sync+0x3da/0x8b0 fs/gfs2/quota.c:1318
- gfs2_sync_fs+0x49/0xb0 fs/gfs2/super.c:650
- sync_filesystem+0xe8/0x220 fs/sync.c:56
- generic_shutdown_super+0x6b/0x310 fs/super.c:474
- kill_block_super+0x79/0xd0 fs/super.c:1386
- deactivate_locked_super+0xa7/0xf0 fs/super.c:332
- cleanup_mnt+0x494/0x520 fs/namespace.c:1291
- task_work_run+0x243/0x300 kernel/task_work.c:179
- exit_task_work include/linux/task_work.h:38 [inline]
- do_exit+0x644/0x2150 kernel/exit.c:867
- do_group_exit+0x1fd/0x2b0 kernel/exit.c:1012
- __do_sys_exit_group kernel/exit.c:1023 [inline]
- __se_sys_exit_group kernel/exit.c:1021 [inline]
- __x64_sys_exit_group+0x3b/0x40 kernel/exit.c:1021
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x2b/0x70 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f8d53bb09c9
-Code: Unable to access opcode bytes at 0x7f8d53bb099f.
-RSP: 002b:00007ffda1438d78 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 00007f8d53c45330 RCX: 00007f8d53bb09c9
-RDX: 000000000000003c RSI: 00000000000000e7 RDI: 0000000000000001
-RBP: 0000000000000001 R08: ffffffffffffffc0 R09: 000000000001f6db
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f8d53c45330
-R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000001
- </TASK>
-BUG: scheduling while atomic: syz-executor390/5053/0x00000002
-INFO: lockdep is turned off.
-Modules linked in:
-Preemption disabled at:
-[<0000000000000000>] 0x0
+=====================================================
 
 
 ---
@@ -276,6 +215,4 @@ syzbot engineers can be reached at syzkaller@googlegroups.com.
 
 syzbot will keep track of this issue. See:
 https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-syzbot can test patches for this issue, for details see:
-https://goo.gl/tpsmEJ#testing-patches
 
