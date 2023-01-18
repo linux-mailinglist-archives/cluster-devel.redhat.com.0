@@ -1,88 +1,85 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A50B671C62
-	for <lists+cluster-devel@lfdr.de>; Wed, 18 Jan 2023 13:43:47 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB38D671D89
+	for <lists+cluster-devel@lfdr.de>; Wed, 18 Jan 2023 14:20:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674045826;
+	s=mimecast20190719; t=1674048032;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=DJFKWs0jtm8hl4SVQnbbNh8Row9y5eHKj6s/8aaU3Dc=;
-	b=YXNlbHDoW/8tZmVzYP3CKYjiKiwzGLMKE0WmxD+9lLcUjapMqd72RlvQ3jF9lReGq/bXvf
-	7xN2t9sEdMdrQ1LghcbBgLletsH7xsL0Q1S5zO3ZFXTwE+kPN82/KL/w4zEv88MgnqbW9L
-	zTN0sFPmv5YPae6rIzJ5endneMb3Eb4=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Xhhtq1O/3nhYZ/YKMOOCemA0c1SW8oSQ7QA8AzdOczY=;
+	b=S/E9bd/m8KFG07ZwLw3nq5Hm40kC+ZaaQBhPGrT6TAnCsFfn4W2pJvkPdsaIYTxM1mGQYa
+	ZhnKtEEj9VoqGHJkjLmhHt4HHn+OpN+9r6mLLNi8bA45Io5t0xXNGM6DZCGygdGPf/8ZC0
+	sMXkjADkCfnTBgJvAxqR8cV9p2kzi5g=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-381-Fj4ly5xLMSy0Sg3TED6yjQ-1; Wed, 18 Jan 2023 07:43:42 -0500
-X-MC-Unique: Fj4ly5xLMSy0Sg3TED6yjQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-292-VrqQxw5uPgqEAQvsJbDW8A-1; Wed, 18 Jan 2023 08:20:30 -0500
+X-MC-Unique: VrqQxw5uPgqEAQvsJbDW8A-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DE0E801779;
-	Wed, 18 Jan 2023 12:43:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D9201C29D44;
+	Wed, 18 Jan 2023 13:20:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0F7742026D4B;
-	Wed, 18 Jan 2023 12:43:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B76042166B26;
+	Wed, 18 Jan 2023 13:20:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E4BF51946A6D;
-	Wed, 18 Jan 2023 12:43:15 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 85DDF1946A6D;
+	Wed, 18 Jan 2023 13:20:28 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0E2AD19465B7 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 18 Jan 2023 12:39:29 +0000 (UTC)
+ ESMTP id 4AFAD19465B7 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 18 Jan 2023 13:10:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E60EC2026D68; Wed, 18 Jan 2023 12:39:28 +0000 (UTC)
+ id 25F501121318; Wed, 18 Jan 2023 13:10:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DEDD22026D4B
- for <cluster-devel@redhat.com>; Wed, 18 Jan 2023 12:39:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E0A61121315
+ for <cluster-devel@redhat.com>; Wed, 18 Jan 2023 13:10:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B950C858F0E
- for <cluster-devel@redhat.com>; Wed, 18 Jan 2023 12:39:28 +0000 (UTC)
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com
- [209.85.222.43]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-610-VGTI7ZiKOsK_6nhITvt5tA-1; Wed, 18 Jan 2023 07:39:26 -0500
-X-MC-Unique: VGTI7ZiKOsK_6nhITvt5tA-1
-Received: by mail-ua1-f43.google.com with SMTP id m17so2604903uap.7
- for <cluster-devel@redhat.com>; Wed, 18 Jan 2023 04:39:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DJFKWs0jtm8hl4SVQnbbNh8Row9y5eHKj6s/8aaU3Dc=;
- b=mQA/gAmECOufCwmS0dGeuOmuMX4S5m54OH2XHXEux9DcSSJu1hx+OUSI74CDEDHNGi
- XrN1B7m3gT1yQO1qLF0bq7bvrGsRSo/qWAQMmkN/F+o7xDh4suIsNiVf+mM+nsIBAWws
- Oa4tpgSPfUjnOOKbDhkrP4UP77qXYDRPn7Srt1t3c6QYvu3XrMGluHw51pPbivuVGTXq
- /CeW/uuTLcdZrKyVso60f47T12SMc5iMBGTkAi8d3BsJ5F/vjP6ohH7APZQEF1o0P/n7
- VQufp5Gp7S+eVJG+K3fziasq7RN5e5ImljMt80TuDoqM3LGovr7iG9ZDf3dgteAsovpo
- l7Og==
-X-Gm-Message-State: AFqh2ko+1+KW6ce6qLhY/fZj7FfjF4DUq6928FLPhTNuEQditoh/xHYM
- LAueDIhgFPbLJe032yNYASL3l63MvyGG1Hb8MQM=
-X-Google-Smtp-Source: AMrXdXuYI0XqwMDQVyPl+VYMuyHTTEt0gz5eK89H6wdmtU2BkYDhCb6M0sSqHefS5y6aUxLq2IwbOZgPl/R9bgjDaww=
-X-Received: by 2002:ab0:278a:0:b0:5f4:34e9:f5a4 with SMTP id
- t10-20020ab0278a000000b005f434e9f5a4mr745938uap.51.1674045565693; Wed, 18 Jan
- 2023 04:39:25 -0800 (PST)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F386C3815F64
+ for <cluster-devel@redhat.com>; Wed, 18 Jan 2023 13:10:01 +0000 (UTC)
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-246-O1sKpvSbP5-EVxxGVByKRQ-1; Wed, 18 Jan 2023 08:09:55 -0500
+X-MC-Unique: O1sKpvSbP5-EVxxGVByKRQ-1
+Received: from fsav117.sakura.ne.jp (fsav117.sakura.ne.jp [27.133.134.244])
+ by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 30ID9p3k072870;
+ Wed, 18 Jan 2023 22:09:51 +0900 (JST)
+ (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from www262.sakura.ne.jp (202.181.97.72)
+ by fsav117.sakura.ne.jp (F-Secure/fsigk_smtp/550/fsav117.sakura.ne.jp);
+ Wed, 18 Jan 2023 22:09:51 +0900 (JST)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/550/fsav117.sakura.ne.jp)
+Received: from [192.168.1.20] (M106072142033.v4.enabler.ne.jp [106.72.142.33])
+ (authenticated bits=0)
+ by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 30ID9pN7072866
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+ Wed, 18 Jan 2023 22:09:51 +0900 (JST)
+ (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <ecfea97d-7e0a-c7c7-bbd5-fb33eef574b1@I-love.SAKURA.ne.jp>
+Date: Wed, 18 Jan 2023 22:09:51 +0900
 MIME-Version: 1.0
-References: <20230118094329.9553-1-hch@lst.de>
- <20230118094329.9553-10-hch@lst.de>
-In-Reply-To: <20230118094329.9553-10-hch@lst.de>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Wed, 18 Jan 2023 21:39:08 +0900
-Message-ID: <CAKFNMomcjvUSh-nS1MqptYdiT-1frRsmHgx2mHBBm_588kprrQ@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: agruenba@redhat.com, rpeterso@redhat.com
+References: <000000000000c921b105ef617f05@google.com>
+ <75f056d3-fa52-e399-29cc-4388cae069ff@I-love.SAKURA.ne.jp>
+In-Reply-To: <75f056d3-fa52-e399-29cc-4388cae069ff@I-love.SAKURA.ne.jp>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -90,9 +87,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [Cluster-devel] [PATCH 9/9] mm: return an ERR_PTR from
- __filemap_get_folio
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [Cluster-devel] [syzbot] INFO: task hung in freeze_super (3)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,37 +100,62 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-xfs@vger.kernel.org, linux-nilfs@vger.kernel.org,
- Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>,
- cluster-devel@redhat.com, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
+Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jan 18, 2023 at 7:41 PM Christoph Hellwig wrote:
->
-> Instead of returning NULL for all errors, distinguish between:
->
->  - no entry found and not asked to allocated (-ENOENT)
->  - failed to allocate memory (-ENOMEM)
->  - would block (-EAGAIN)
->
-> so that callers don't have to guess the error based on the passed
-> in flags.
->
-> Also pass through the error through the direct callers:
+Ping?
 
-> filemap_get_folio, filemap_lock_folio filemap_grab_folio
-> and filemap_get_incore_folio.
-
-As for the comments describing the return values of these callers,
-isn't it necessary to rewrite the value from NULL in case of errors ?
-
-Regards,
-Ryusuke Konishi
+On 2023/01/04 22:47, Tetsuo Handa wrote:
+> I suspect that cleanup is not done appropriately when gfs2_find_jhead() failed.
+> Looking into gfs2_make_fs_rw(), I see there are two worrisome things.
+> 
+> One is that gfs2_make_fs_rw() returns an error without calling gfs2_consist(sdp) when
+> gfs2_find_jhead() returned an error whereas gfs2_make_fs_rw() returns -EIO after calling
+> gfs2_consist(sdp) when head.lh_flags does not contain GFS2_LOG_HEAD_UNMOUNT flag.
+> 
+> Since head.lh_flags is assigned by gfs2_find_jhead(), we might want to call gfs2_consist(sdp)
+> when gfs2_find_jhead() returned an error. And actually
+> 
+> --- a/fs/gfs2/super.c
+> +++ b/fs/gfs2/super.c
+> @@ -138,7 +138,11 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
+>                 return -EIO;
+> 
+>         error = gfs2_find_jhead(sdp->sd_jdesc, &head, false);
+> -       if (error || gfs2_withdrawn(sdp))
+> +       if (error) {
+> +               gfs2_consist(sdp);
+> +               return error;
+> +       }
+> +       if (gfs2_withdrawn(sdp))
+>                 return error;
+> 
+>         if (!(head.lh_flags & GFS2_LOG_HEAD_UNMOUNT)) {
+> 
+> avoids this deadlock. But I don't know when/how to use gfs2_withdraw().
+> Please check if this change is appropriate.
+> 
+> The other worrisome thing is that gfs2_make_fs_rw() is returning 0 (and
+> mount operation will continue) when gfs2_withdrawn() == true. Can the caller
+> of gfs2_make_fs_rw() survive when callgfs2_make_fs_rw() returned 0 without
+> processing
+> 
+>         /*  Initialize some head of the log stuff  */
+>         sdp->sd_log_sequence = head.lh_sequence + 1;
+>         gfs2_log_pointers_init(sdp, head.lh_blkno);
+> 
+> lines? Shouldn't the caller of gfs2_make_fs_rw() observe an error when
+> gfs2_make_fs_rw() did not execute the
+> 
+> 	set_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+> 
+> line due to gfs2_withdrawn() == true?
+> 
 
