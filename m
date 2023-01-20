@@ -2,81 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F052D6731B8
-	for <lists+cluster-devel@lfdr.de>; Thu, 19 Jan 2023 07:22:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6523675656
+	for <lists+cluster-devel@lfdr.de>; Fri, 20 Jan 2023 15:08:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674109355;
+	s=mimecast20190719; t=1674223689;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=JaCFZzx/CkDBMhMozrNgNFMv5me/9lPZbZomefEjvWM=;
-	b=aKdBcM02gxBgqdhKgVwAaumcCQ1RMHqwDP7cQYCMOAro5eZKa/KwkbIfCsr6L/XBi94BYH
-	0ZQas3FWDRQ2KjnNGc1yYPueX8sBHHFmA/ggy23SfPr8H76N9rCOz2Q36z3gEVvaPWgsYe
-	JX6T3Ikwkj54d/Vxwt+9HYY6wtIaNY8=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=0WmQPaBTKIkZhLmotwBGjh1SdCvjYqkEkNdY2Fchh2k=;
+	b=SXMYDcWDvu657uFRddpCgnz2QFK+oMQl8wnApzZtRfF7wFUBBdreXY+8VMF6TTG15kGJ2q
+	ttd/6z5Sja1Ued/rhka8sy++gj9wtSZY2iWd5TeTRbtobaBxtQ5pxYJTz2ANuYZQJgpdON
+	56TA1A8LhbC8lwTFaMpjrifnsGFfxKE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-557-WXC5SjCxOouL1n_FYW5xPQ-1; Thu, 19 Jan 2023 01:22:25 -0500
-X-MC-Unique: WXC5SjCxOouL1n_FYW5xPQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-433-XaajlWgHP7ebKJWAc4Bvbw-1; Fri, 20 Jan 2023 09:08:05 -0500
+X-MC-Unique: XaajlWgHP7ebKJWAc4Bvbw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 499C33811F50;
-	Thu, 19 Jan 2023 06:22:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CEAA5185A794;
+	Fri, 20 Jan 2023 14:08:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 25E522026D76;
-	Thu, 19 Jan 2023 06:22:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7CEC8C15BAD;
+	Fri, 20 Jan 2023 14:08:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DB96A1946A76;
-	Thu, 19 Jan 2023 06:22:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0E0BC1946A6E;
+	Fri, 20 Jan 2023 14:07:51 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B70EE1946A6D for <cluster-devel@listman.corp.redhat.com>;
- Thu, 19 Jan 2023 06:22:21 +0000 (UTC)
+ ESMTP id 692A51946588 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 20 Jan 2023 14:07:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7CDF62166B2A; Thu, 19 Jan 2023 06:22:21 +0000 (UTC)
+ id 3FF461415113; Fri, 20 Jan 2023 14:07:45 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 766A02166B29
- for <cluster-devel@redhat.com>; Thu, 19 Jan 2023 06:22:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 55F42857D0D
- for <cluster-devel@redhat.com>; Thu, 19 Jan 2023 06:22:21 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-656-nRAvkSgQPxOi9UdeshkLFg-1; Thu, 19 Jan 2023 01:22:17 -0500
-X-MC-Unique: nRAvkSgQPxOi9UdeshkLFg-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 6466367373; Thu, 19 Jan 2023 07:22:13 +0100 (CET)
-Date: Thu, 19 Jan 2023 07:22:13 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <20230119062213.GA17855@lst.de>
-References: <20220719041311.709250-1-hch@lst.de>
- <20220719041311.709250-2-hch@lst.de>
- <CAHc6FU5A71L0r2k5z7QoBZe3pO+5G1nMNvKfGmJzprQWFyDCog@mail.gmail.com>
+Received: from b.redhat.com (unknown [10.33.36.210])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B63131415108
+ for <cluster-devel@redhat.com>; Fri, 20 Jan 2023 14:07:44 +0000 (UTC)
+From: Andrew Price <anprice@redhat.com>
+To: cluster-devel@redhat.com
+Date: Fri, 20 Jan 2023 14:07:42 +0000
+Message-Id: <20230120140742.273446-1-anprice@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAHc6FU5A71L0r2k5z7QoBZe3pO+5G1nMNvKfGmJzprQWFyDCog@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Cluster-devel] [PATCH 1/4] gfs2: stop using generic_writepages
- in gfs2_ail1_start_one
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [Cluster-devel] [PATCH] mkfs.gfs2: Add a root_inherit_jdata
+ extended option
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,44 +63,108 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Naohiro Aota <naohiro.aota@wdc.com>, linux-xfs@vger.kernel.org,
- "Darrick J. Wong" <djwong@kernel.org>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>, cluster-devel@redhat.com,
- linux-fsdevel@vger.kernel.org, Johannes Thumshirn <jth@kernel.org>,
- Christoph Hellwig <hch@lst.de>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Wed, Jan 18, 2023 at 10:22:20PM +0100, Andreas Gruenbacher wrote:
-> The above change means that instead of calling generic_writepages(),
-> we end up calling filemap_fdatawrite_wbc() -> do_writepages() ->
-> mapping->a_ops->writepages(). But that's something completely
-> different; the writepages address space operation operates is outward
-> facing, while we really only want to write out the dirty buffers /
-> pages in the underlying address space. In case of journaled data
-> inodes, gfs2_jdata_writepages() actually ends up trying to create a
-> filesystem transaction, which immediately hangs because we're in the
-> middle of a log flush.
-> 
-> So I'm tempted to revert the following two of your commits; luckily
-> that's independent from the iomap_writepage() removal:
-> 
->   d3d71901b1ea ("gfs2: remove ->writepage")
->   b2b0a5e97855 ("gfs2: stop using generic_writepages in gfs2_ail1_start_one")
+Add an extended option to allow the GFS2_DIF_INHERIT_JDATA flag to be
+set on the root dinode at mkfs time.
 
-generic_writepages is gone in linux-next, and I'd really like to keep
-it that way.  So if you have to do this, please open code it
-using write_cache_pages and a direct call to the writepage method of
-choice.
+This option is only to be used for testing so it is not documented.
 
-> I think we could go through iomap_writepages() instead of
-> generic_writepages() here as well,  but that's for another day.
+Signed-off-by: Andrew Price <anprice@redhat.com>
+---
+ gfs2/mkfs/main_mkfs.c | 27 +++++++++++++++++++++++++++
+ tests/mkfs.at         | 16 ++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
-Well, that would obviously be much better, and actually help with the
-goal of removing ->writepage.
+diff --git a/gfs2/mkfs/main_mkfs.c b/gfs2/mkfs/main_mkfs.c
+index 7d5b8c25..c9c7a1fb 100644
+--- a/gfs2/mkfs/main_mkfs.c
++++ b/gfs2/mkfs/main_mkfs.c
+@@ -128,6 +128,7 @@ struct mkfs_opts {
+ 	const char *uuid;
+ 	struct mkfs_dev dev;
+ 	unsigned discard:1;
++	unsigned root_inherit_jd:1;
+ 
+ 	unsigned got_bsize:1;
+ 	unsigned got_qcsize:1;
+@@ -312,6 +313,25 @@ static int parse_format(struct mkfs_opts *opts, char *str)
+ 	return 0;
+ }
+ 
++static int parse_root_inherit_jd(struct mkfs_opts *opts, const char *str)
++{
++	unsigned long n = 0;
++
++	if (str == NULL) { /* -o root_inherit_jdata */
++		opts->root_inherit_jd = 1;
++		return 0;
++	}
++	/* -o root_inherit_jdata=N */
++	if (parse_ulong(opts, "root_inherit_jdata", str, &n) != 0)
++		return -1;
++	if (n > 1) {
++		fprintf(stderr, _("Invalid root_inherit_jdata argument '%s'. Must be 0 or 1\n"), str);
++		return -1;
++	}
++	opts->root_inherit_jd = (unsigned)n;
++	return 0;
++}
++
+ static int opt_parse_extended(char *str, struct mkfs_opts *opts)
+ {
+ 	char *opt;
+@@ -341,6 +361,9 @@ static int opt_parse_extended(char *str, struct mkfs_opts *opts)
+ 		} else if (strcmp("format", key) == 0) {
+ 			if (parse_format(opts, val) != 0)
+ 				return -1;
++		} else if (strcmp("root_inherit_jdata", key) == 0) {
++			if (parse_root_inherit_jd(opts, val) != 0)
++				return -1;
+ 		} else if (strcmp("help", key) == 0) {
+ 			print_ext_opts();
+ 			return 1;
+@@ -1364,6 +1387,10 @@ int main(int argc, char *argv[])
+ 		printf("%s", _("Done\n"));
+ 
+ 	lgfs2_build_root(&sbd);
++	if (opts.root_inherit_jd) {
++		sbd.md.rooti->i_flags |= GFS2_DIF_INHERIT_JDATA;
++		lgfs2_dinode_out(sbd.md.rooti, sbd.md.rooti->i_bh->b_data);
++	}
+ 	if (opts.debug) {
+ 		printf("\nRoot directory:\n");
+ 		dinode_print(sbd.md.rooti->i_bh->b_data);
+diff --git a/tests/mkfs.at b/tests/mkfs.at
+index 298daf3d..7064a9e2 100644
+--- a/tests/mkfs.at
++++ b/tests/mkfs.at
+@@ -198,3 +198,19 @@ AT_CHECK([$GFS_MKFS -p lock_nolock -U 1b4e28ba-2fa1-11d2-883f-b9a761bde3fb4 $GFS
+ AT_CHECK([$GFS_MKFS -p lock_nolock -U 1b4e28ba-2fa1-11d2-883f-b9a761bde3f $GFS_TGT], 255, [ignore], [ignore])
+ GFS_FSCK_CHECK([$GFS_MKFS -p lock_nolock -U 1b4e28ba-2fa1-11d2-883f-b9a761bde3fb $GFS_TGT])
+ AT_CLEANUP
++
++AT_SETUP([Root jdata inheritance])
++AT_KEYWORDS(mkfs.gfs2 mkfs)
++GFS_TGT_REGEN
++AT_CHECK([$GFS_MKFS -p lock_nolock -o root_inherit_jdata= $GFS_TGT], 255, [ignore], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -o root_inherit_jdata=42 $GFS_TGT], 255, [ignore], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -o root_inherit_jdata=X $GFS_TGT], 255, [ignore], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -o root_inherit_jdata $GFS_TGT], 0, [ignore], [ignore])
++AT_CHECK([gfs2_edit -x -p root field di_flags $GFS_TGT | tr -d '\n'], 0, [80000001], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -o root_inherit_jdata=1 $GFS_TGT], 0, [ignore], [ignore])
++AT_CHECK([gfs2_edit -x -p root field di_flags $GFS_TGT | tr -d '\n'], 0, [80000001], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock -o root_inherit_jdata=0 $GFS_TGT], 0, [ignore], [ignore])
++AT_CHECK([gfs2_edit -x -p root field di_flags $GFS_TGT | tr -d '\n'], 0, [1], [ignore])
++AT_CHECK([$GFS_MKFS -p lock_nolock $GFS_TGT], 0, [ignore], [ignore])
++AT_CHECK([gfs2_edit -x -p root field di_flags $GFS_TGT | tr -d '\n'], 0, [1], [ignore])
++AT_CLEANUP
+-- 
+2.39.0
 
