@@ -2,102 +2,83 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26979677235
-	for <lists+cluster-devel@lfdr.de>; Sun, 22 Jan 2023 21:06:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CD5A677253
+	for <lists+cluster-devel@lfdr.de>; Sun, 22 Jan 2023 21:28:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674417996;
+	s=mimecast20190719; t=1674419318;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=M3P+Sxuip0JpXG7+ldpgmEp2EenukjcoZIDETYOhkzk=;
-	b=VxJ9skZNxRmUs/Gib5a3eqJW5RdUZ47lMmpUL7+ytjzzTnyYJf+3T86yO/f674udtdB3/L
-	kPVz5Q54NQ0wk0RpvhuxJq6FTPJxh4YiGTcvl20yWSKJ7i46J/K66CbBL18/68Yedvw4iK
-	FImS3gHrczn4nZ6vcX/MiSNrwD7idrE=
+	 message-id:message-id:to:to:cc:cc:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=U0+4Zy3aIVJKvluenCkiai1eW6Tj6iJ4aRwUGLNbewY=;
+	b=cqHVgkKby9AtN1hVl0NWrXcBKwDSeAdPLIt/bs/kYG+ir1fSPs5hkc04KlyNTDLTBlSDwS
+	bhtHaT9Viw2EfUtUGtjqkeNuJGxytoOSYX1MEJMwemqPZuyZ2iOlJvbrNNmQrYwQfdFpU9
+	Nxz5CPAU1RiQdXb9D499Mi77sAsEghA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-562-eOd-rtF9MhSQTF8nYgZzrA-1; Sun, 22 Jan 2023 15:06:33 -0500
-X-MC-Unique: eOd-rtF9MhSQTF8nYgZzrA-1
+ us-mta-608-UC8uy4xGPmSCVVb1eqrSPw-1; Sun, 22 Jan 2023 15:28:35 -0500
+X-MC-Unique: UC8uy4xGPmSCVVb1eqrSPw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C4C085A588;
-	Sun, 22 Jan 2023 20:06:32 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 35DB62166B32;
-	Sun, 22 Jan 2023 20:06:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0186B1871CD6;
+	Sun, 22 Jan 2023 20:28:35 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AF82B2166B32;
+	Sun, 22 Jan 2023 20:28:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E1B641946589;
-	Sun, 22 Jan 2023 20:06:16 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 698AF1946589;
+	Sun, 22 Jan 2023 20:28:33 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 45A331946586 for <cluster-devel@listman.corp.redhat.com>;
- Sun, 22 Jan 2023 20:06:13 +0000 (UTC)
+ ESMTP id D3D921946586 for <cluster-devel@listman.corp.redhat.com>;
+ Sun, 22 Jan 2023 20:28:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B6F2C492B03; Sun, 22 Jan 2023 20:06:13 +0000 (UTC)
+ id A7DDC400D795; Sun, 22 Jan 2023 20:28:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AF873492B02
- for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 20:06:13 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F48C40C1141
+ for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 20:28:31 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 94F47802BF3
- for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 20:06:13 +0000 (UTC)
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-489-zhsK76q9NkWzw5x2Zc8Mxg-1; Sun, 22 Jan 2023 15:06:11 -0500
-X-MC-Unique: zhsK76q9NkWzw5x2Zc8Mxg-1
-Received: by mail-qt1-f176.google.com with SMTP id e8so8293067qts.1
- for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 12:06:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=M3P+Sxuip0JpXG7+ldpgmEp2EenukjcoZIDETYOhkzk=;
- b=OysoIvtFQizLiZCLA8BY8xatonPPByFGAhYuVhkhhRgS+UXJx27WGB8mMmVvYdrYWx
- bgJPl5Kt+KaINBha/rs6ZnbVQKGXSzcof64uHE9a7RdZisYzIJdVg0jDYLklGmhwa73h
- Ki+z1zd04EA/Pk2Iym7Lb/KkpuDR7oGOMtbfgAMj6OFnhh9R7QI4Vny2v6DVZtFcT0Zg
- wCMSfv7OjXsPRt8BgZTsFaIZXFTKJ1BKF88XybI+5+A1G89AL3ybhtOWO6j2PTwsjitW
- z35+kLt2vb7IaMp8nt6yivmMOgXt9MUBpVcST/7/6YxmM2rSpeW8OLq/jcsjEh2cjxEQ
- b1Cg==
-X-Gm-Message-State: AFqh2kpB63gF/gTzm5R76nXP/Rxo8ayytutxGafTRDlzHP9Hr8JPEGft
- sUmnhe4NlfVlpuYYQhZP9ddr0NNIMjNDFFun
-X-Google-Smtp-Source: AMrXdXuyOJm9OuKEIGDgiwKYQ4RNwKv5ngJc3BgC/fEfVBV8MBJ5qXE6lCYlT31pWk7A8H3dYJ/Xvw==
-X-Received: by 2002:ac8:5513:0:b0:3a9:8c90:dcec with SMTP id
- j19-20020ac85513000000b003a98c90dcecmr30815820qtq.68.1674417970762; 
- Sun, 22 Jan 2023 12:06:10 -0800 (PST)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com.
- [209.85.222.179]) by smtp.gmail.com with ESMTPSA id
- t2-20020a37ea02000000b006fb9bbb071fsm30106227qkj.29.2023.01.22.12.06.10
- for <cluster-devel@redhat.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Jan 2023 12:06:10 -0800 (PST)
-Received: by mail-qk1-f179.google.com with SMTP id p22so5439668qkm.0
- for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 12:06:10 -0800 (PST)
-X-Received: by 2002:a05:620a:99d:b0:705:efa8:524c with SMTP id
- x29-20020a05620a099d00b00705efa8524cmr1089614qkx.594.1674417969782; Sun, 22
- Jan 2023 12:06:09 -0800 (PST)
-MIME-Version: 1.0
-References: <20230122090115.1563753-1-agruenba@redhat.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81ED23C0252F
+ for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 20:28:31 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-595-m0EsO-n1Pxm2N04oKNtGqw-1; Sun, 22 Jan 2023 15:28:28 -0500
+X-MC-Unique: m0EsO-n1Pxm2N04oKNtGqw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C4E3AB80B64;
+ Sun, 22 Jan 2023 20:20:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 79FF8C4339B;
+ Sun, 22 Jan 2023 20:20:38 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 67C34C04E34; Sun, 22 Jan 2023 20:20:38 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
 In-Reply-To: <20230122090115.1563753-1-agruenba@redhat.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 22 Jan 2023 12:05:53 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wgjMNbNG0FMatHtmzEZPj0ZmQpNRsnRvH47igJoC9TBww@mail.gmail.com>
-Message-ID: <CAHk-=wgjMNbNG0FMatHtmzEZPj0ZmQpNRsnRvH47igJoC9TBww@mail.gmail.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>,
- David Howells <dhowells@redhat.com>, 
- Steve French <smfrench@gmail.com>, "Theodore Ts'o" <tytso@mit.edu>,
- Jan Kara <jack@suse.cz>, 
- Trond Myklebust <trondmy@hammerspace.com>, Christoph Hellwig <hch@lst.de>, 
- "Darrick J. Wong" <djwong@kernel.org>
+References: <20230122090115.1563753-1-agruenba@redhat.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20230122090115.1563753-1-agruenba@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+ tags/gfs2-v6.2-rc4-fix
+X-PR-Tracked-Commit-Id: 95ecbd0f162fc06ef4c4045a66f653f47b62a2d3
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 3c006ad74d68be45ee36ca68fd9c053974fb6b0f
+Message-Id: <167441883842.2461.17616475217090729818.pr-tracker-bot@kernel.org>
+Date: Sun, 22 Jan 2023 20:20:38 +0000
+To: Andreas Gruenbacher <agruenba@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -105,7 +86,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 Subject: Re: [Cluster-devel] [GIT PULL] gfs2 writepage fix
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -118,33 +99,25 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
  linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 2
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Sun, Jan 22, 2023 at 1:01 AM Andreas Gruenbacher <agruenba@redhat.com> wrote:
->
-> gfs2 writepage fix
->
-> - Fix a regression introduced by commit "gfs2: stop using
->   generic_writepages in gfs2_ail1_start_one".
+The pull request you sent on Sun, 22 Jan 2023 10:01:15 +0100:
 
-Hmm. I'm adding a few more people and linux-fsdevel to the reply,
-because we had a number of filesystems remove writepages use lately,
-including some that did it as a fix after the merge window.
+> git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v6.2-rc4-fix
 
-Everybody involved seemed to claim it was just a no-brainer
-switch-over, and I just took that on faith. Now it looks like that
-wasn't true at least for gfs2 due to different semantics.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/3c006ad74d68be45ee36ca68fd9c053974fb6b0f
 
-Maybe the gfs2 issue is purely because of how gfs2 did the conversion
-(generic_writepages -> filemap_fdatawrite_wbc), but let's make people
-look at their own cases.
+Thank you!
 
-                 Linus
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
