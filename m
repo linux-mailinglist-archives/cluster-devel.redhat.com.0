@@ -2,75 +2,70 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BCBC676A88
-	for <lists+cluster-devel@lfdr.de>; Sun, 22 Jan 2023 02:12:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 471CF676B72
+	for <lists+cluster-devel@lfdr.de>; Sun, 22 Jan 2023 08:20:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674349963;
+	s=mimecast20190719; t=1674372019;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Yglf5/d++AlplV9cjceQFPFA0SEgKUVwP/drqJ91jzg=;
-	b=OfyccetRBUYnHTovRf1Z0Bf1EGnlzlxw4xfqZKf4669sbZBNr5Tg7F/RxbyLu87bWywYRQ
-	0LSB1Fl9Cq9MNSdObdFUn3UToC4Ss/KgjuJ+sy3ydWGN9Z50c33rZ+vrjPWOPfkU/aasu8
-	29hJAO2UGEZA2TVk3zpJiMCJFyO2lyU=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=L5zkehT6GHQVL87ryG334R/4F6xs6NwsEnJcMlq7Mq8=;
+	b=bchhbPXqStHHnETjHnf2JQUuj0F1JyrBTZgg4/sAtwYuFKatFWqa+9FSIQHGNZHUUM7cjB
+	YjdGBb0lFVAqarmuE8WwsldbnV087f7wWAnWUgLvkHx9/i/dVQkMHTnWrSwao85J8M+y+y
+	xHfYFb2cpUTtC9iEdCmtBrAv1LiH1g4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-220-ux5vqww8OlqhD2sgnw6mUg-1; Sat, 21 Jan 2023 20:12:38 -0500
-X-MC-Unique: ux5vqww8OlqhD2sgnw6mUg-1
+ us-mta-108-iWMvY2XZMTqfxYnbKdmP2w-1; Sun, 22 Jan 2023 02:20:17 -0500
+X-MC-Unique: iWMvY2XZMTqfxYnbKdmP2w-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 363A0101A521;
-	Sun, 22 Jan 2023 01:12:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5B6C85C06A;
+	Sun, 22 Jan 2023 07:20:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A814F40C2005;
-	Sun, 22 Jan 2023 01:12:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A985B40C2004;
+	Sun, 22 Jan 2023 07:20:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 57BA11946589;
-	Sun, 22 Jan 2023 01:12:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1D37B1946589;
+	Sun, 22 Jan 2023 07:20:15 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2C3DE1946586 for <cluster-devel@listman.corp.redhat.com>;
- Sun, 22 Jan 2023 01:12:34 +0000 (UTC)
+ ESMTP id CAD0D1946586 for <cluster-devel@listman.corp.redhat.com>;
+ Sun, 22 Jan 2023 07:20:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E20944078904; Sun, 22 Jan 2023 01:12:33 +0000 (UTC)
+ id 66670400D795; Sun, 22 Jan 2023 07:20:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DAAF840C6EC4
- for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 01:12:33 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E7DD4085720
+ for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 07:20:13 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 167C6101A521
- for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 01:12:33 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47CFE85A588
+ for <cluster-devel@redhat.com>; Sun, 22 Jan 2023 07:20:13 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-127-aqNcyI5HOxWqpm2THXWqfw-1; Sat, 21 Jan 2023 20:12:31 -0500
-X-MC-Unique: aqNcyI5HOxWqpm2THXWqfw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 32E58CE0AF0;
- Sun, 22 Jan 2023 01:06:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F310CC433D2;
- Sun, 22 Jan 2023 01:06:41 +0000 (UTC)
-Date: Sat, 21 Jan 2023 17:06:41 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-Id: <20230121170641.121f4224a0e8304765bb4738@linux-foundation.org>
-In-Reply-To: <20230121065755.1140136-1-hch@lst.de>
+ us-mta-674-XGCn14IZO2Cji1guyMIoXA-1; Sun, 22 Jan 2023 02:20:11 -0500
+X-MC-Unique: XGCn14IZO2Cji1guyMIoXA-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id D803A68AA6; Sun, 22 Jan 2023 08:20:06 +0100 (CET)
+Date: Sun, 22 Jan 2023 08:20:06 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <20230122072006.GA3654@lst.de>
 References: <20230121065755.1140136-1-hch@lst.de>
-Mime-Version: 1.0
+ <20230121170641.121f4224a0e8304765bb4738@linux-foundation.org>
+MIME-Version: 1.0
+In-Reply-To: <20230121170641.121f4224a0e8304765bb4738@linux-foundation.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -93,51 +88,21 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: linux-xfs@vger.kernel.org, linux-nilfs@vger.kernel.org,
  Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>,
- cluster-devel@redhat.com, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org,
- linux-btrfs@vger.kernel.org
+ linux-afs@lists.infradead.org, cluster-devel@redhat.com, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, 21 Jan 2023 07:57:48 +0100 Christoph Hellwig <hch@lst.de> wrote:
+On Sat, Jan 21, 2023 at 05:06:41PM -0800, Andrew Morton wrote:
+> This patchset doesn't apply to fs/btrfs/ because linux-next contains
+> this 6+ month-old commit:
 
-> Hi all,
-> 
-> __filemap_get_folio and its wrappers can return NULL for three different
-> conditions, which in some cases requires the caller to reverse engineer
-> the decision making.  This is fixed by returning an ERR_PTR instead of
-> NULL and thus transporting the reason for the failure.  But to make
-> that work we first need to ensure that no xa_value special case is
-> returned and thus return the FGP_ENTRY flag.  It turns out that flag
-> is barely used and can usually be deal with in a better way.
-> 
-> Note that the shmem patches in here are non-trivial and need some
-> careful review and testing.
-
-I'll hide for a while, awaiting that review.  Plus...
-
-> Changes since v1:
->  - drop the patches to check for errors in btrfs and gfs2
->  - document the new calling conventions for the wrappers around
->    __filemap_get_folio
->  - rebased against the iomap changes in latest linux-next
-
-This patchset doesn't apply to fs/btrfs/ because linux-next contains
-this 6+ month-old commit:
-
-commit 964688b32d9ada55a7fce2e650d85ef24188f73f                
-Author:     Matthew Wilcox (Oracle) <willy@infradead.org>
-AuthorDate: Tue May 17 18:03:27 2022 -0400
-Commit:     Matthew Wilcox (Oracle) <willy@infradead.org>
-CommitDate: Wed Jun 29 08:51:07 2022 -0400
-
-    btrfs: Use a folio in wait_dev_supers()
-
-
-Matthew, what's the story here?
+Hmm.  It was literally written against linux-next as of last morning,
+which does not have that commit.
 
