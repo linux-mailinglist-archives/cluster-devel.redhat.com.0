@@ -1,60 +1,61 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4879E681A65
-	for <lists+cluster-devel@lfdr.de>; Mon, 30 Jan 2023 20:25:54 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 57FB0681A4D
+	for <lists+cluster-devel@lfdr.de>; Mon, 30 Jan 2023 20:24:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675106753;
+	s=mimecast20190719; t=1675106693;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=x0KddrhylWnp6w9bqi9o6eVWHuxERanQ4pFUWAiTM8A=;
-	b=Mebq78grji/oZP8z4dGiUcJ10QD0CzV0Kx8AGzY1rd5T6RsV7wN2zL7xqPJLUJwsEnrtTc
-	ZdD+CgjN9K1bNSUeAR7bZhEhZMTAu3LaBFrq37U3Q303VOtGs4y0ukV3MjmnSQxJsseThL
-	OOdoJ5LnagF9wYg0Ay+lBKRz/nAZHXU=
+	bh=tFhdpCU1mY4WzckDe90R/knDt2mBRl/a26ltktlLcc8=;
+	b=AOEztIqqV+sF6+jG1t8Tm3vMXaEuCnr5hQgRvhJUzeT9W6SwKQn4A48IquaIrBtjBXD96U
+	ShwZwrh9F9DjUhRV8zWVoHGQ33vJcWbIYqZjvZ+izUrJLfpw5vBtiR5qu3r1OPhKh0047z
+	5GzTw6o0PBLxRsw2+0zrFN2xgDL5jRQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-536-8O1Cg-g-PEu4gvbCQ6uoVQ-1; Mon, 30 Jan 2023 14:25:49 -0500
-X-MC-Unique: 8O1Cg-g-PEu4gvbCQ6uoVQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-465-TLtpVxDNNoamUgaIQDzZbA-1; Mon, 30 Jan 2023 14:24:48 -0500
+X-MC-Unique: TLtpVxDNNoamUgaIQDzZbA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A377830F81;
-	Mon, 30 Jan 2023 19:25:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A4BA1818E4B;
+	Mon, 30 Jan 2023 19:24:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 21BAA1121315;
-	Mon, 30 Jan 2023 19:25:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 26227400EAD6;
+	Mon, 30 Jan 2023 19:24:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E331E19465A2;
-	Mon, 30 Jan 2023 19:25:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C15CF19465A2;
+	Mon, 30 Jan 2023 19:24:45 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 976781946587 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id C2E451946587 for <cluster-devel@listman.corp.redhat.com>;
  Mon, 30 Jan 2023 19:24:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8A451422F2; Mon, 30 Jan 2023 19:24:44 +0000 (UTC)
+ id B32AF422AE; Mon, 30 Jan 2023 19:24:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 63AC1175AD;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8EAD0175AD;
  Mon, 30 Jan 2023 19:24:44 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Mon, 30 Jan 2023 14:24:32 -0500
-Message-Id: <20230130192437.3330300-3-aahringo@redhat.com>
+Date: Mon, 30 Jan 2023 14:24:33 -0500
+Message-Id: <20230130192437.3330300-4-aahringo@redhat.com>
 In-Reply-To: <20230130192437.3330300-1-aahringo@redhat.com>
 References: <20230130192437.3330300-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Cluster-devel] [PATCH dlm-tool 3/8] dlm_controld: add plock logfile
+Subject: [Cluster-devel] [PATCH dlm-tool 4/8] dlm_controld: move processing
+ of saved messages to plock level
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,167 +70,41 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-The current plock logging is limited due a in-memory log buffer which
-can be dumped via dlm_contol log_plock functionality. To trace plock
-performance issues it's necessary to log plock activity in a bigger log
-buffer such as a file. This patch will add functionality that plock
-logging information will be appended into a log file.
-
-WARNING: depending on plock activity the resulting log file can be
-resulting in enormous file size. This option should be used for
-debugging purpose only.
+Ad the loglevel is for save plock messages during corosync resource
+membership upate. This patch will put the processing of saved messages
+on the same loglevel.
 ---
- dlm_controld/dlm_daemon.h |  4 ++++
- dlm_controld/logging.c    | 39 +++++++++++++++++++++++++++++++--------
- dlm_controld/main.c       |  5 +++++
- 3 files changed, 40 insertions(+), 8 deletions(-)
+ dlm_controld/plock.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/dlm_controld/dlm_daemon.h b/dlm_controld/dlm_daemon.h
-index f0bad90f..c74f684a 100644
---- a/dlm_controld/dlm_daemon.h
-+++ b/dlm_controld/dlm_daemon.h
-@@ -76,10 +76,12 @@
+diff --git a/dlm_controld/plock.c b/dlm_controld/plock.c
+index 692787e2..c2c80360 100644
+--- a/dlm_controld/plock.c
++++ b/dlm_controld/plock.c
+@@ -1612,7 +1612,7 @@ void process_saved_plocks(struct lockspace *ls)
+ 	struct dlm_header *hd;
+ 	int count = 0;
  
- #define RUN_FILE_NAME            "dlm_controld.pid"
- #define LOG_FILE_NAME            "dlm_controld.log"
-+#define PLOCK_LOG_FILE_NAME      "plock.log"
- #define CONF_FILE_NAME           "dlm.conf"
+-	log_dlock(ls, "process_saved_plocks begin");
++	log_plock(ls, "process_saved_plocks begin");
  
- #define RUN_FILE_PATH            RUNDIR "/" RUN_FILE_NAME
- #define LOG_FILE_PATH            LOGDIR "/" LOG_FILE_NAME
-+#define PLOCK_LOG_FILE_PATH      LOGDIR "/" PLOCK_LOG_FILE_NAME
- #define CONF_FILE_PATH           CONFDIR "/" CONF_FILE_NAME
- 
- #define DEFAULT_LOG_MODE         LOG_MODE_OUTPUT_FILE | LOG_MODE_OUTPUT_SYSLOG
-@@ -87,6 +89,7 @@
- #define DEFAULT_SYSLOG_PRIORITY  LOG_INFO
- #define DEFAULT_LOGFILE_PRIORITY LOG_INFO
- #define DEFAULT_LOGFILE          LOG_FILE_PATH
-+#define DEFAULT_PLOCK_LOGFILE	 PLOCK_LOG_FILE_PATH
- 
- #define DEFAULT_NETLINK_RCVBUF	(2 * 1024 * 1024)
- 
-@@ -110,6 +113,7 @@ enum {
-         enable_fscontrol_ind,
-         enable_plock_ind,
-         plock_debug_ind,
-+        plock_debug_logfile_ind,
-         plock_rate_limit_ind,
-         plock_ownership_ind,
-         drop_resources_time_ind,
-diff --git a/dlm_controld/logging.c b/dlm_controld/logging.c
-index 3298ef99..83de2da4 100644
---- a/dlm_controld/logging.c
-+++ b/dlm_controld/logging.c
-@@ -12,7 +12,9 @@ static int syslog_facility;
- static int syslog_priority;
- static int logfile_priority;
- static char logfile[PATH_MAX];
-+static char plock_logfile[PATH_MAX];
- static FILE *logfile_fp;
-+static FILE *plock_logfile_fp;
- 
- /* logfile_priority is the only one of these options that
-    can be controlled from command line, environment variable
-@@ -35,6 +37,7 @@ void init_logging(void)
- 	syslog_priority = DEFAULT_SYSLOG_PRIORITY;
- 	logfile_priority = DEFAULT_LOGFILE_PRIORITY;
- 	strcpy(logfile, DEFAULT_LOGFILE);
-+	strcpy(plock_logfile, DEFAULT_PLOCK_LOGFILE);
- 
- 	set_logfile_priority();
- 
-@@ -66,6 +69,15 @@ void init_logging(void)
- 		}
+ 	if (list_empty(&ls->saved_messages))
+ 		goto out;
+@@ -1643,7 +1643,7 @@ void process_saved_plocks(struct lockspace *ls)
+ 		count++;
  	}
- 
-+	if (dlm_options[plock_debug_logfile_ind].use_int &&
-+	    plock_logfile[0]) {
-+		plock_logfile_fp = fopen(plock_logfile, "a+");
-+		if (plock_logfile_fp != NULL) {
-+			int fd = fileno(plock_logfile_fp);
-+			fcntl(fd, F_SETFD, fcntl(fd, F_GETFD, 0) | FD_CLOEXEC);
-+		}
-+	}
-+
- skip_logfile:
- 	openlog(DAEMON_NAME, LOG_CONS | LOG_PID, syslog_facility);
- }
-@@ -75,6 +87,8 @@ void close_logging(void)
- 	closelog();
- 	if (logfile_fp)
- 		fclose(logfile_fp);
-+	if (plock_logfile_fp)
-+		fclose(plock_logfile_fp);
+  out:
+-	log_dlock(ls, "process_saved_plocks %d done", count);
++	log_plock(ls, "process_saved_plocks %d done", count);
  }
  
- #define NAME_ID_SIZE 32
-@@ -151,6 +165,16 @@ static void log_save_str(int len, char *log_buf, unsigned int *point,
- 	*wrap = w;
- }
- 
-+static void log_str_to_file(FILE *fp)
-+{
-+	time_t logtime = time(NULL);
-+	char tbuf[64];
-+
-+	strftime(tbuf, sizeof(tbuf), "%b %d %T", localtime(&logtime));
-+	fprintf(fp, "%s %s", tbuf, log_str);
-+	fflush(fp);
-+}
-+
- void log_level(char *name_in, uint32_t level_in, const char *fmt, ...)
- {
- 	va_list ap;
-@@ -191,19 +215,18 @@ void log_level(char *name_in, uint32_t level_in, const char *fmt, ...)
- 
- 	if (level < LOG_NONE)
- 		log_save_str(pos - 1, log_dump, &log_point, &log_wrap);
--	if (plock)
-+	if (plock) {
- 		log_save_str(pos - 1, log_dump_plock, &log_point_plock, &log_wrap_plock);
- 
-+		if (plock_logfile_fp)
-+			log_str_to_file(plock_logfile_fp);
-+	}
-+
- 	if (level <= syslog_priority)
- 		syslog(level, "%s", log_str);
- 
--	if (level <= logfile_priority && logfile_fp) {
--		time_t logtime = time(NULL);
--		char tbuf[64];
--		strftime(tbuf, sizeof(tbuf), "%b %d %T", localtime(&logtime));
--		fprintf(logfile_fp, "%s %s", tbuf, log_str);
--		fflush(logfile_fp);
--	}
-+	if (level <= logfile_priority && logfile_fp)
-+		log_str_to_file(logfile_fp);
- 
- 	if (!dlm_options[daemon_debug_ind].use_int)
- 		return;
-diff --git a/dlm_controld/main.c b/dlm_controld/main.c
-index c9d1c5f1..8e8d4038 100644
---- a/dlm_controld/main.c
-+++ b/dlm_controld/main.c
-@@ -1854,6 +1854,11 @@ static void set_opt_defaults(void)
- 			0, NULL, 0, 1,
- 			"enable plock debugging");
- 
-+	set_opt_default(plock_debug_logfile_ind,
-+			"plock_debug_logfile", 'O', req_arg_bool,
-+			0, NULL, 0, 1,
-+			"write plock debugging to log file. Note: resulting log file can take enormous space.");
-+
- 	set_opt_default(plock_rate_limit_ind,
- 			"plock_rate_limit", 'l', req_arg_int,
- 			0, NULL, 0, 1,
+ /* locks still marked SYNCING should not go into the ckpt; the new node
 -- 
 2.31.1
 
