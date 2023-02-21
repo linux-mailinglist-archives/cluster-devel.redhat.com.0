@@ -1,61 +1,61 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F75E69E99F
-	for <lists+cluster-devel@lfdr.de>; Tue, 21 Feb 2023 22:40:44 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0F8769E9A4
+	for <lists+cluster-devel@lfdr.de>; Tue, 21 Feb 2023 22:40:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677015643;
+	s=mimecast20190719; t=1677015644;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=XkRDvrmV2930auZhIC3+yIo92g825h7U6RQeqSxsQz0=;
-	b=EDdajRH1Dy+dgyYlclspjeblcU/irF//o/NDJ1cdLnMWM96o1kkjoUz+9fDmVW78ysdar1
-	Sb7kB3sfNFuPiesEwxVd8gb+faK8I+WSGVFoCvfeRZCi/GJNIGbIeLT2Vdp/CbUHV2Khyr
-	z5g85RbgYjpZ4yHte5HWbdxodtK2syU=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=FSz6Q5UMv6YGZiWBgrNCqUX8IElWDi1pPz+vAamZeWg=;
+	b=fRO9AzICsHIuJB/+5ZESk5S2Kxb/z5TkNJZRm2epV19Sag/hLlL8DR5tmGUinZlIN4IMR+
+	MOSeEI4WHFpeUKd/NNhPrE8z3xzDsa2w1Bf2csKThnhZ/cjvWXGBdysAejcHsr6+iNvGWp
+	f11/DzXkVGLcQXu/PPSU1MCuy/05lGA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-81-UFgvnNIrO2Wwvb_NLiLcsQ-1; Tue, 21 Feb 2023 16:40:40 -0500
-X-MC-Unique: UFgvnNIrO2Wwvb_NLiLcsQ-1
+ us-mta-402-reB269ogM1Gs5Kpo7fBJGQ-1; Tue, 21 Feb 2023 16:40:40 -0500
+X-MC-Unique: reB269ogM1Gs5Kpo7fBJGQ-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 140D02823805;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2EF73101471A;
 	Tue, 21 Feb 2023 21:40:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 064904024CA1;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 23B51400DB36;
 	Tue, 21 Feb 2023 21:40:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E568E19465B2;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F32F11946587;
 	Tue, 21 Feb 2023 21:40:38 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0D5A11946587 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 25ED41946587 for <cluster-devel@listman.corp.redhat.com>;
  Tue, 21 Feb 2023 21:40:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E6E35440DF; Tue, 21 Feb 2023 21:40:35 +0000 (UTC)
+ id 1C510440DE; Tue, 21 Feb 2023 21:40:36 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C0B93440D9;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EB7D0440D9;
  Tue, 21 Feb 2023 21:40:35 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Tue, 21 Feb 2023 16:40:12 -0500
-Message-Id: <20230221214014.871804-5-aahringo@redhat.com>
+Date: Tue, 21 Feb 2023 16:40:13 -0500
+Message-Id: <20230221214014.871804-6-aahringo@redhat.com>
 In-Reply-To: <20230221214014.871804-1-aahringo@redhat.com>
 References: <20230221214014.871804-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Cluster-devel] [PATCH dlm/next 4/6] fs: dlm: move internal non
- shared flags to bitops
+Subject: [Cluster-devel] [PATCH dlm/next 5/6] fs: dlm: remove
+ DLM_IFL_STUB_MS flag
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,540 +76,320 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch moves all upper bits of lkb->lkb_flags to lkb->lkb_insflags,
-except DLM_IFL_STUB_MS which needs a special handling. Those upper bits
-are non shared internal flags which should be separated from
-lkb->lkb_flags because they get read, masked and assigned again in
-a non atomic way e.g. in receive_flags(). Due concurrent possible flag
-like dlm_lock()/unlock() or user device handling changes could be
-reverted. When moving to lkb->lkb_insflags we converted all bit
-operations to atomic set/test/clear bit operation functions.
+The DLM_IFL_STUB_MS flag is an internal non shared flag but used in
+m_flags of dlm messages. It is not shared because it is only used for
+local messaging. Instead using DLM_IFL_STUB_MS in dlm messages we pass a
+parameter around to signal local messaging or not. This patch is adding
+the stub parameter to signal local messaging. Finally this patch removes
+the read/mask/write operation to lkb->lkb_flags which is not only used
+for shared internal flags like DLM_IFL_USER and DLM_IFL_ORPHAN.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/dlm_internal.h      |  32 +++++------
- fs/dlm/lock.c              | 114 ++++++++++++++++++-------------------
- fs/dlm/lockspace.c         |   2 +-
- fs/dlm/recover.c           |   2 +-
- fs/dlm/user.c              |  10 ++--
- include/trace/events/dlm.h |   7 ---
- 6 files changed, 79 insertions(+), 88 deletions(-)
+ fs/dlm/dlm_internal.h      | 13 ++-----
+ fs/dlm/lock.c              | 71 +++++++++++++++++++-------------------
+ include/trace/events/dlm.h |  1 -
+ 3 files changed, 37 insertions(+), 48 deletions(-)
 
 diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index b967b4d7d55d..ce0a15858ae3 100644
+index ce0a15858ae3..86b253aa9a09 100644
 --- a/fs/dlm/dlm_internal.h
 +++ b/fs/dlm/dlm_internal.h
-@@ -197,26 +197,25 @@ struct dlm_args {
- #define DLM_LKSTS_GRANTED	2
- #define DLM_LKSTS_CONVERT	3
+@@ -213,19 +213,10 @@ struct dlm_args {
+ #define DLM_IFLNS_DEADLOCK_CANCEL 9
  
--/* lkb_flags */
--
--#define DLM_IFL_MSTCPY		0x00010000
--#define DLM_IFL_RESEND		0x00020000
--#define DLM_IFL_DEAD		0x00040000
--#define DLM_IFL_OVERLAP_UNLOCK  0x00080000
--#define DLM_IFL_OVERLAP_CANCEL  0x00100000
--#define DLM_IFL_ENDOFLIFE	0x00200000
--#ifdef CONFIG_DLM_DEPRECATED_API
--#define DLM_IFL_WATCH_TIMEWARN	0x00400000
--#define DLM_IFL_TIMEOUT_CANCEL	0x00800000
--#endif
--#define DLM_IFL_DEADLOCK_CANCEL	0x01000000
--#define DLM_IFL_STUB_MS		0x02000000 /* magic number for m_flags */
--
- /* lkb_insflags */
  
- #define DLM_IFLNS_CB_PENDING	0
-+#define DLM_IFLNS_MSTCPY	1
-+#define DLM_IFLNS_RESEND	2
-+#define DLM_IFLNS_DEAD		3
-+#define DLM_IFLNS_OVERLAP_UNLOCK 4
-+#define DLM_IFLNS_OVERLAP_CANCEL 5
-+#define DLM_IFLNS_ENDOFLIFE	6
-+#ifdef CONFIG_DLM_DEPRECATED_API
-+#define DLM_IFLNS_WATCH_TIMEWARN 7
-+#define DLM_IFLNS_TIMEOUT_CANCEL 8
-+#endif
-+#define DLM_IFLNS_DEADLOCK_CANCEL 9
+-/* lkb_flags
+- *
+- * least significant 2 bytes are message changed, they are full transmitted
+- * but at receive side only the 2 bytes LSB will be set.
+- *
+- * Even wireshark dlm dissector does only evaluate the lower bytes and note
+- * that they may not be used on transceiver side, we assume the higher bytes
+- * are for internal use or reserved so long they are not parsed on receiver
+- * side.
+- */
++/* lkb_flags */
 +
- 
--/* least significant 2 bytes are message changed, they are full transmitted
-+/* lkb_flags
-+ *
-+ * least significant 2 bytes are message changed, they are full transmitted
-  * but at receive side only the 2 bytes LSB will be set.
-  *
-  * Even wireshark dlm dissector does only evaluate the lower bytes and note
-@@ -226,6 +225,7 @@ struct dlm_args {
-  */
  #define DLM_IFL_USER		0x00000001
  #define DLM_IFL_ORPHAN		0x00000002
-+#define DLM_IFL_STUB_MS		0x00010000
+-#define DLM_IFL_STUB_MS		0x00010000
  
  #define DLM_CB_CAST		0x00000001
  #define DLM_CB_BAST		0x00000002
 diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index e1adfa5aed05..49d68cf4cd96 100644
+index 49d68cf4cd96..e4df2579048b 100644
 --- a/fs/dlm/lock.c
 +++ b/fs/dlm/lock.c
-@@ -250,12 +250,12 @@ static inline int is_remote(struct dlm_rsb *r)
+@@ -86,7 +86,7 @@ static int send_remove(struct dlm_rsb *r);
+ static int _request_lock(struct dlm_rsb *r, struct dlm_lkb *lkb);
+ static int _cancel_lock(struct dlm_rsb *r, struct dlm_lkb *lkb);
+ static void __receive_convert_reply(struct dlm_rsb *r, struct dlm_lkb *lkb,
+-				    struct dlm_message *ms);
++				    struct dlm_message *ms, bool stub);
+ static int receive_extralen(struct dlm_message *ms);
+ static void do_purge(struct dlm_ls *ls, int nodeid, int pid);
+ static void del_timeout(struct dlm_lkb *lkb);
+@@ -1572,15 +1572,16 @@ static int remove_from_waiters(struct dlm_lkb *lkb, int mstype)
+ /* Handles situations where we might be processing a "fake" or "stub" reply in
+    which we can't try to take waiters_mutex again. */
  
- static inline int is_process_copy(struct dlm_lkb *lkb)
+-static int remove_from_waiters_ms(struct dlm_lkb *lkb, struct dlm_message *ms)
++static int remove_from_waiters_ms(struct dlm_lkb *lkb, struct dlm_message *ms,
++				  bool stub)
  {
--	return (lkb->lkb_nodeid && !(lkb->lkb_flags & DLM_IFL_MSTCPY));
-+	return lkb->lkb_nodeid && !test_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags);
- }
- 
- static inline int is_master_copy(struct dlm_lkb *lkb)
- {
--	return (lkb->lkb_flags & DLM_IFL_MSTCPY) ? 1 : 0;
-+	return test_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags);
- }
- 
- static inline int middle_conversion(struct dlm_lkb *lkb)
-@@ -273,18 +273,18 @@ static inline int down_conversion(struct dlm_lkb *lkb)
- 
- static inline int is_overlap_unlock(struct dlm_lkb *lkb)
- {
--	return lkb->lkb_flags & DLM_IFL_OVERLAP_UNLOCK;
-+	return test_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags);
- }
- 
- static inline int is_overlap_cancel(struct dlm_lkb *lkb)
- {
--	return lkb->lkb_flags & DLM_IFL_OVERLAP_CANCEL;
-+	return test_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags);
- }
- 
- static inline int is_overlap(struct dlm_lkb *lkb)
- {
--	return (lkb->lkb_flags & (DLM_IFL_OVERLAP_UNLOCK |
--				  DLM_IFL_OVERLAP_CANCEL));
-+	return test_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags) ||
-+	       test_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags);
- }
- 
- static void queue_cast(struct dlm_rsb *r, struct dlm_lkb *lkb, int rv)
-@@ -299,16 +299,12 @@ static void queue_cast(struct dlm_rsb *r, struct dlm_lkb *lkb, int rv)
- #ifdef CONFIG_DLM_DEPRECATED_API
- 	/* if the operation was a cancel, then return -DLM_ECANCEL, if a
- 	   timeout caused the cancel then return -ETIMEDOUT */
--	if (rv == -DLM_ECANCEL && (lkb->lkb_flags & DLM_IFL_TIMEOUT_CANCEL)) {
--		lkb->lkb_flags &= ~DLM_IFL_TIMEOUT_CANCEL;
-+	if (rv == -DLM_ECANCEL && test_and_clear_bit(DLM_IFLNS_TIMEOUT_CANCEL, &lkb->lkb_insflags))
- 		rv = -ETIMEDOUT;
--	}
- #endif
- 
--	if (rv == -DLM_ECANCEL && (lkb->lkb_flags & DLM_IFL_DEADLOCK_CANCEL)) {
--		lkb->lkb_flags &= ~DLM_IFL_DEADLOCK_CANCEL;
-+	if (rv == -DLM_ECANCEL && test_and_clear_bit(DLM_IFLNS_DEADLOCK_CANCEL, &lkb->lkb_insflags))
- 		rv = -EDEADLK;
--	}
- 
- 	dlm_add_cb(lkb, DLM_CB_CAST, lkb->lkb_grmode, rv, lkb->lkb_sbflags);
- }
-@@ -1434,10 +1430,10 @@ static int add_to_waiters(struct dlm_lkb *lkb, int mstype, int to_nodeid)
- 	if (lkb->lkb_wait_type || is_overlap_cancel(lkb)) {
- 		switch (mstype) {
- 		case DLM_MSG_UNLOCK:
--			lkb->lkb_flags |= DLM_IFL_OVERLAP_UNLOCK;
-+			set_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags);
- 			break;
- 		case DLM_MSG_CANCEL:
--			lkb->lkb_flags |= DLM_IFL_OVERLAP_CANCEL;
-+			set_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags);
- 			break;
- 		default:
- 			error = -EBUSY;
-@@ -1481,16 +1477,16 @@ static int _remove_from_waiters(struct dlm_lkb *lkb, int mstype,
  	struct dlm_ls *ls = lkb->lkb_resource->res_ls;
- 	int overlap_done = 0;
+ 	int error;
  
--	if (is_overlap_unlock(lkb) && (mstype == DLM_MSG_UNLOCK_REPLY)) {
-+	if (mstype == DLM_MSG_UNLOCK_REPLY &&
-+	    test_and_clear_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags)) {
- 		log_debug(ls, "remwait %x unlock_reply overlap", lkb->lkb_id);
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_UNLOCK;
- 		overlap_done = 1;
- 		goto out_del;
+-	if (ms->m_flags != cpu_to_le32(DLM_IFL_STUB_MS))
++	if (!stub)
+ 		mutex_lock(&ls->ls_waiters_mutex);
+ 	error = _remove_from_waiters(lkb, le32_to_cpu(ms->m_type), ms);
+-	if (ms->m_flags != cpu_to_le32(DLM_IFL_STUB_MS))
++	if (!stub)
+ 		mutex_unlock(&ls->ls_waiters_mutex);
+ 	return error;
+ }
+@@ -3652,10 +3653,9 @@ static int send_convert(struct dlm_rsb *r, struct dlm_lkb *lkb)
+ 	/* down conversions go without a reply from the master */
+ 	if (!error && down_conversion(lkb)) {
+ 		remove_from_waiters(lkb, DLM_MSG_CONVERT_REPLY);
+-		r->res_ls->ls_stub_ms.m_flags = cpu_to_le32(DLM_IFL_STUB_MS);
+ 		r->res_ls->ls_stub_ms.m_type = cpu_to_le32(DLM_MSG_CONVERT_REPLY);
+ 		r->res_ls->ls_stub_ms.m_result = 0;
+-		__receive_convert_reply(r, lkb, &r->res_ls->ls_stub_ms);
++		__receive_convert_reply(r, lkb, &r->res_ls->ls_stub_ms, true);
  	}
  
--	if (is_overlap_cancel(lkb) && (mstype == DLM_MSG_CANCEL_REPLY)) {
-+	if (mstype == DLM_MSG_CANCEL_REPLY &&
-+	    test_and_clear_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags)) {
- 		log_debug(ls, "remwait %x cancel_reply overlap", lkb->lkb_id);
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
- 		overlap_done = 1;
- 		goto out_del;
- 	}
-@@ -1515,11 +1511,11 @@ static int _remove_from_waiters(struct dlm_lkb *lkb, int mstype,
- 
- 	if ((mstype == DLM_MSG_CONVERT_REPLY) &&
- 	    (lkb->lkb_wait_type == DLM_MSG_CONVERT) &&
--	    is_overlap_cancel(lkb) && ms && !ms->m_result) {
-+	    ms && !ms->m_result && test_and_clear_bit(DLM_IFLNS_OVERLAP_CANCEL,
-+						      &lkb->lkb_insflags)) {
- 		log_debug(ls, "remwait %x convert_reply zap overlap_cancel",
- 			  lkb->lkb_id);
- 		lkb->lkb_wait_type = 0;
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
- 		lkb->lkb_wait_count--;
- 		unhold_lkb(lkb);
- 		goto out_del;
-@@ -1554,7 +1550,7 @@ static int _remove_from_waiters(struct dlm_lkb *lkb, int mstype,
- 
- 	DLM_ASSERT(lkb->lkb_wait_count, dlm_print_lkb(lkb););
- 
--	lkb->lkb_flags &= ~DLM_IFL_RESEND;
-+	clear_bit(DLM_IFLNS_RESEND, &lkb->lkb_insflags);
- 	lkb->lkb_wait_count--;
- 	if (!lkb->lkb_wait_count)
- 		list_del_init(&lkb->lkb_wait_reply);
-@@ -1745,7 +1741,7 @@ static void add_timeout(struct dlm_lkb *lkb)
- 
- 	if (test_bit(LSFL_TIMEWARN, &ls->ls_flags) &&
- 	    !(lkb->lkb_exflags & DLM_LKF_NODLCKWT)) {
--		lkb->lkb_flags |= DLM_IFL_WATCH_TIMEWARN;
-+		set_bit(DLM_IFLNS_WATCH_TIMEWARN, &lkb->lkb_insflags);
- 		goto add_it;
- 	}
- 	if (lkb->lkb_exflags & DLM_LKF_TIMEOUT)
-@@ -1801,7 +1797,7 @@ void dlm_scan_timeout(struct dlm_ls *ls)
- 			    wait_us >= (iter->lkb_timeout_cs * 10000))
- 				do_cancel = 1;
- 
--			if ((iter->lkb_flags & DLM_IFL_WATCH_TIMEWARN) &&
-+			if (test_bit(DLM_IFLNS_WATCH_TIMEWARN, &iter->lkb_insflags) &&
- 			    wait_us >= dlm_config.ci_timewarn_cs * 10000)
- 				do_warn = 1;
- 
-@@ -1822,7 +1818,7 @@ void dlm_scan_timeout(struct dlm_ls *ls)
- 
- 		if (do_warn) {
- 			/* clear flag so we only warn once */
--			lkb->lkb_flags &= ~DLM_IFL_WATCH_TIMEWARN;
-+			clear_bit(DLM_IFLNS_WATCH_TIMEWARN, &lkb->lkb_insflags);
- 			if (!(lkb->lkb_exflags & DLM_LKF_TIMEOUT))
- 				del_timeout(lkb);
- 			dlm_timeout_warn(lkb);
-@@ -1831,8 +1827,8 @@ void dlm_scan_timeout(struct dlm_ls *ls)
- 		if (do_cancel) {
- 			log_debug(ls, "timeout cancel %x node %d %s",
- 				  lkb->lkb_id, lkb->lkb_nodeid, r->res_name);
--			lkb->lkb_flags &= ~DLM_IFL_WATCH_TIMEWARN;
--			lkb->lkb_flags |= DLM_IFL_TIMEOUT_CANCEL;
-+			clear_bit(DLM_IFLNS_WATCH_TIMEWARN, &lkb->lkb_insflags);
-+			set_bit(DLM_IFLNS_TIMEOUT_CANCEL, &lkb->lkb_insflags);
- 			del_timeout(lkb);
- 			_cancel_lock(r, lkb);
- 		}
-@@ -2830,7 +2826,7 @@ static int validate_lock_args(struct dlm_ls *ls, struct dlm_lkb *lkb,
- 			goto out;
- 
- 		rv = -EINVAL;
--		if (lkb->lkb_flags & DLM_IFL_MSTCPY)
-+		if (test_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags))
- 			goto out;
- 
- 		if (args->flags & DLM_LKF_QUECVT &&
-@@ -2908,7 +2904,7 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
- 	}
- 
- 	rv = -EINVAL;
--	if (lkb->lkb_flags & DLM_IFL_MSTCPY) {
-+	if (test_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags)) {
- 		log_error(ls, "unlock on MSTCPY %x", lkb->lkb_id);
- 		dlm_print_lkb(lkb);
- 		goto out;
-@@ -2919,7 +2915,7 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
- 	 * locks; return same error as if the lkid had not been found at all
- 	 */
- 
--	if (lkb->lkb_flags & DLM_IFL_ENDOFLIFE) {
-+	if (test_bit(DLM_IFLNS_ENDOFLIFE, &lkb->lkb_insflags)) {
- 		log_debug(ls, "unlock on ENDOFLIFE %x", lkb->lkb_id);
- 		rv = -ENOENT;
- 		goto out;
-@@ -2937,8 +2933,8 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
- 		/* don't let scand try to do a cancel */
- 		del_timeout(lkb);
- 
--		if (lkb->lkb_flags & DLM_IFL_RESEND) {
--			lkb->lkb_flags |= DLM_IFL_OVERLAP_CANCEL;
-+		if (test_bit(DLM_IFLNS_RESEND, &lkb->lkb_insflags)) {
-+			set_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags);
- 			rv = -EBUSY;
- 			goto out;
- 		}
-@@ -2953,7 +2949,7 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
- 		switch (lkb->lkb_wait_type) {
- 		case DLM_MSG_LOOKUP:
- 		case DLM_MSG_REQUEST:
--			lkb->lkb_flags |= DLM_IFL_OVERLAP_CANCEL;
-+			set_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags);
- 			rv = -EBUSY;
- 			goto out;
- 		case DLM_MSG_UNLOCK:
-@@ -2978,8 +2974,8 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
- 		/* don't let scand try to do a cancel */
- 		del_timeout(lkb);
- 
--		if (lkb->lkb_flags & DLM_IFL_RESEND) {
--			lkb->lkb_flags |= DLM_IFL_OVERLAP_UNLOCK;
-+		if (test_bit(DLM_IFLNS_RESEND, &lkb->lkb_insflags)) {
-+			set_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags);
- 			rv = -EBUSY;
- 			goto out;
- 		}
-@@ -2987,7 +2983,7 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
- 		switch (lkb->lkb_wait_type) {
- 		case DLM_MSG_LOOKUP:
- 		case DLM_MSG_REQUEST:
--			lkb->lkb_flags |= DLM_IFL_OVERLAP_UNLOCK;
-+			set_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags);
- 			rv = -EBUSY;
- 			goto out;
- 		case DLM_MSG_UNLOCK:
-@@ -4016,7 +4012,7 @@ static int receive_request(struct dlm_ls *ls, struct dlm_message *ms)
- 		goto fail;
- 
- 	receive_flags(lkb, ms);
--	lkb->lkb_flags |= DLM_IFL_MSTCPY;
-+	set_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags);
- 	error = receive_request_args(ls, lkb, ms);
- 	if (error) {
- 		__put_lkb(ls, lkb);
-@@ -4496,20 +4492,20 @@ static int receive_request_reply(struct dlm_ls *ls, struct dlm_message *ms)
- 			  lkb->lkb_id, result);
- 	}
- 
--	if (is_overlap_unlock(lkb) && (result == 0 || result == -EINPROGRESS)) {
-+	if ((result == 0 || result == -EINPROGRESS) &&
-+	    test_and_clear_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags)) {
- 		log_debug(ls, "receive_request_reply %x result %d unlock",
- 			  lkb->lkb_id, result);
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_UNLOCK;
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
-+		clear_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags);
- 		send_unlock(r, lkb);
--	} else if (is_overlap_cancel(lkb) && (result == -EINPROGRESS)) {
-+	} else if ((result == -EINPROGRESS) &&
-+		   test_and_clear_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags)) {
- 		log_debug(ls, "receive_request_reply %x cancel", lkb->lkb_id);
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_UNLOCK;
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
-+		clear_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags);
- 		send_cancel(r, lkb);
- 	} else {
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_UNLOCK;
-+		clear_bit(DLM_IFLNS_OVERLAP_CANCEL, &lkb->lkb_insflags);
-+		clear_bit(DLM_IFLNS_OVERLAP_UNLOCK, &lkb->lkb_insflags);
- 	}
-  out:
- 	unlock_rsb(r);
-@@ -5023,7 +5019,7 @@ static void recover_convert_waiter(struct dlm_ls *ls, struct dlm_lkb *lkb,
- 		unhold_lkb(lkb);
- 
- 	} else if (lkb->lkb_rqmode >= lkb->lkb_grmode) {
--		lkb->lkb_flags |= DLM_IFL_RESEND;
-+		set_bit(DLM_IFLNS_RESEND, &lkb->lkb_insflags);
- 	}
- 
- 	/* lkb->lkb_rqmode < lkb->lkb_grmode shouldn't happen since down
-@@ -5087,7 +5083,7 @@ void dlm_recover_waiters_pre(struct dlm_ls *ls)
- 		   resent after recovery is done */
- 
- 		if (lkb->lkb_wait_type == DLM_MSG_LOOKUP) {
--			lkb->lkb_flags |= DLM_IFL_RESEND;
-+			set_bit(DLM_IFLNS_RESEND, &lkb->lkb_insflags);
- 			continue;
- 		}
- 
-@@ -5123,7 +5119,7 @@ void dlm_recover_waiters_pre(struct dlm_ls *ls)
- 		switch (wait_type) {
- 
- 		case DLM_MSG_REQUEST:
--			lkb->lkb_flags |= DLM_IFL_RESEND;
-+			set_bit(DLM_IFLNS_RESEND, &lkb->lkb_insflags);
- 			break;
- 
- 		case DLM_MSG_CONVERT:
-@@ -5168,7 +5164,7 @@ static struct dlm_lkb *find_resend_waiter(struct dlm_ls *ls)
- 
- 	mutex_lock(&ls->ls_waiters_mutex);
- 	list_for_each_entry(iter, &ls->ls_waiters, lkb_wait_reply) {
--		if (iter->lkb_flags & DLM_IFL_RESEND) {
-+		if (test_bit(DLM_IFLNS_RESEND, &iter->lkb_insflags)) {
- 			hold_lkb(iter);
- 			lkb = iter;
- 			break;
-@@ -5217,8 +5213,10 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
- 		lock_rsb(r);
- 
- 		mstype = lkb->lkb_wait_type;
--		oc = is_overlap_cancel(lkb);
--		ou = is_overlap_unlock(lkb);
-+		oc = test_and_clear_bit(DLM_IFLNS_OVERLAP_CANCEL,
-+					&lkb->lkb_insflags);
-+		ou = test_and_clear_bit(DLM_IFLNS_OVERLAP_UNLOCK,
-+					&lkb->lkb_insflags);
- 		err = 0;
- 
- 		log_debug(ls, "waiter %x remote %x msg %d r_nodeid %d "
-@@ -5231,9 +5229,7 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
- 		   previous op or overlap op on this lock.  First, do a big
- 		   remove_from_waiters() for all previous ops. */
- 
--		lkb->lkb_flags &= ~DLM_IFL_RESEND;
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_UNLOCK;
--		lkb->lkb_flags &= ~DLM_IFL_OVERLAP_CANCEL;
-+		clear_bit(DLM_IFLNS_RESEND, &lkb->lkb_insflags);
- 		lkb->lkb_wait_type = 0;
- 		/* drop all wait_count references we still
- 		 * hold a reference for this iteration.
-@@ -5519,7 +5515,7 @@ static int receive_rcom_lock_args(struct dlm_ls *ls, struct dlm_lkb *lkb,
- 	lkb->lkb_remid = le32_to_cpu(rl->rl_lkid);
- 	lkb->lkb_exflags = le32_to_cpu(rl->rl_exflags);
- 	lkb->lkb_flags = le32_to_cpu(rl->rl_flags) & 0x0000FFFF;
--	lkb->lkb_flags |= DLM_IFL_MSTCPY;
-+	set_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags);
- 	lkb->lkb_lvbseq = le32_to_cpu(rl->rl_lvbseq);
- 	lkb->lkb_rqmode = rl->rl_rqmode;
- 	lkb->lkb_grmode = rl->rl_grmode;
-@@ -6050,7 +6046,7 @@ int dlm_user_deadlock(struct dlm_ls *ls, uint32_t flags, uint32_t lkid)
- 	error = validate_unlock_args(lkb, &args);
- 	if (error)
- 		goto out_r;
--	lkb->lkb_flags |= DLM_IFL_DEADLOCK_CANCEL;
-+	set_bit(DLM_IFLNS_DEADLOCK_CANCEL, &lkb->lkb_insflags);
- 
- 	error = _cancel_lock(r, lkb);
-  out_r:
-@@ -6129,7 +6125,7 @@ static struct dlm_lkb *del_proc_lock(struct dlm_ls *ls,
- 	if (lkb->lkb_exflags & DLM_LKF_PERSISTENT)
- 		lkb->lkb_flags |= DLM_IFL_ORPHAN;
- 	else
--		lkb->lkb_flags |= DLM_IFL_DEAD;
-+		set_bit(DLM_IFLNS_DEAD, &lkb->lkb_insflags);
-  out:
- 	spin_unlock(&ls->ls_clear_proc_locks);
- 	return lkb;
-@@ -6173,7 +6169,7 @@ void dlm_clear_proc_locks(struct dlm_ls *ls, struct dlm_user_proc *proc)
- 	/* in-progress unlocks */
- 	list_for_each_entry_safe(lkb, safe, &proc->unlocking, lkb_ownqueue) {
- 		list_del_init(&lkb->lkb_ownqueue);
--		lkb->lkb_flags |= DLM_IFL_DEAD;
-+		set_bit(DLM_IFLNS_DEAD, &lkb->lkb_insflags);
- 		dlm_put_lkb(lkb);
- 	}
- 
-@@ -6204,7 +6200,7 @@ static void purge_proc_locks(struct dlm_ls *ls, struct dlm_user_proc *proc)
- 		if (!lkb)
- 			break;
- 
--		lkb->lkb_flags |= DLM_IFL_DEAD;
-+		set_bit(DLM_IFLNS_DEAD, &lkb->lkb_insflags);
- 		unlock_proc_lock(ls, lkb);
- 		dlm_put_lkb(lkb); /* ref from proc->locks list */
- 	}
-@@ -6212,7 +6208,7 @@ static void purge_proc_locks(struct dlm_ls *ls, struct dlm_user_proc *proc)
- 	spin_lock(&proc->locks_spin);
- 	list_for_each_entry_safe(lkb, safe, &proc->unlocking, lkb_ownqueue) {
- 		list_del_init(&lkb->lkb_ownqueue);
--		lkb->lkb_flags |= DLM_IFL_DEAD;
-+		set_bit(DLM_IFLNS_DEAD, &lkb->lkb_insflags);
- 		dlm_put_lkb(lkb);
- 	}
- 	spin_unlock(&proc->locks_spin);
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index 9f344d76afa3..c879549aca40 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -764,7 +764,7 @@ static int lkb_idr_free(int id, void *p, void *data)
+ 	return error;
+@@ -3841,18 +3841,17 @@ static void receive_flags(struct dlm_lkb *lkb, struct dlm_message *ms)
  {
- 	struct dlm_lkb *lkb = p;
+ 	lkb->lkb_exflags = le32_to_cpu(ms->m_exflags);
+ 	lkb->lkb_sbflags = le32_to_cpu(ms->m_sbflags);
+-	lkb->lkb_flags = (lkb->lkb_flags & 0xFFFF0000) |
+-			  (le32_to_cpu(ms->m_flags) & 0x0000FFFF);
++	lkb->lkb_flags = le32_to_cpu(ms->m_flags);
+ }
  
--	if (lkb->lkb_lvbptr && lkb->lkb_flags & DLM_IFL_MSTCPY)
-+	if (lkb->lkb_lvbptr && test_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags))
- 		dlm_free_lvb(lkb->lkb_lvbptr);
- 
- 	dlm_free_lkb(lkb);
-diff --git a/fs/dlm/recover.c b/fs/dlm/recover.c
-index ccff1791803f..00cb2b3b85a3 100644
---- a/fs/dlm/recover.c
-+++ b/fs/dlm/recover.c
-@@ -403,7 +403,7 @@ static void set_lock_master(struct list_head *queue, int nodeid)
- 	struct dlm_lkb *lkb;
- 
- 	list_for_each_entry(lkb, queue, lkb_statequeue) {
--		if (!(lkb->lkb_flags & DLM_IFL_MSTCPY)) {
-+		if (!test_bit(DLM_IFLNS_MSTCPY, &lkb->lkb_insflags)) {
- 			lkb->lkb_nodeid = nodeid;
- 			lkb->lkb_remid = 0;
- 		}
-diff --git a/fs/dlm/user.c b/fs/dlm/user.c
-index 98488a1b702d..15715dd18c67 100644
---- a/fs/dlm/user.c
-+++ b/fs/dlm/user.c
-@@ -183,7 +183,8 @@ void dlm_user_add_ast(struct dlm_lkb *lkb, uint32_t flags, int mode,
- 	struct dlm_user_proc *proc;
- 	int rv;
- 
--	if (lkb->lkb_flags & (DLM_IFL_ORPHAN | DLM_IFL_DEAD))
-+	if ((lkb->lkb_flags & DLM_IFL_ORPHAN) ||
-+	    test_bit(DLM_IFLNS_DEAD, &lkb->lkb_insflags))
+-static void receive_flags_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
++static void receive_flags_reply(struct dlm_lkb *lkb, struct dlm_message *ms,
++				bool stub)
+ {
+-	if (ms->m_flags == cpu_to_le32(DLM_IFL_STUB_MS))
++	if (stub)
  		return;
  
- 	ls = lkb->lkb_resource->res_ls;
-@@ -195,7 +196,8 @@ void dlm_user_add_ast(struct dlm_lkb *lkb, uint32_t flags, int mode,
- 	   for cases where a completion ast is received for an operation that
- 	   began before clear_proc_locks did its cancel/unlock. */
+ 	lkb->lkb_sbflags = le32_to_cpu(ms->m_sbflags);
+-	lkb->lkb_flags = (lkb->lkb_flags & 0xFFFF0000) |
+-			 (le32_to_cpu(ms->m_flags) & 0x0000FFFF);
++	lkb->lkb_flags = le32_to_cpu(ms->m_flags);
+ }
  
--	if (lkb->lkb_flags & (DLM_IFL_ORPHAN | DLM_IFL_DEAD))
-+	if ((lkb->lkb_flags & DLM_IFL_ORPHAN) ||
-+	    test_bit(DLM_IFLNS_DEAD, &lkb->lkb_insflags))
+ static int receive_extralen(struct dlm_message *ms)
+@@ -4240,7 +4239,7 @@ static int receive_grant(struct dlm_ls *ls, struct dlm_message *ms)
+ 	if (error)
  		goto out;
  
- 	DLM_ASSERT(lkb->lkb_ua, dlm_print_lkb(lkb););
-@@ -206,7 +208,7 @@ void dlm_user_add_ast(struct dlm_lkb *lkb, uint32_t flags, int mode,
- 		goto out;
+-	receive_flags_reply(lkb, ms);
++	receive_flags_reply(lkb, ms, false);
+ 	if (is_altmode(lkb))
+ 		munge_altmode(lkb, ms);
+ 	grant_lock_pc(r, lkb, ms);
+@@ -4444,7 +4443,7 @@ static int receive_request_reply(struct dlm_ls *ls, struct dlm_message *ms)
+ 	case -EINPROGRESS:
+ 	case 0:
+ 		/* request was queued or granted on remote master */
+-		receive_flags_reply(lkb, ms);
++		receive_flags_reply(lkb, ms, false);
+ 		lkb->lkb_remid = le32_to_cpu(ms->m_lkid);
+ 		if (is_altmode(lkb))
+ 			munge_altmode(lkb, ms);
+@@ -4515,7 +4514,7 @@ static int receive_request_reply(struct dlm_ls *ls, struct dlm_message *ms)
+ }
  
- 	if ((flags & DLM_CB_CAST) && lkb_is_endoflife(mode, status))
--		lkb->lkb_flags |= DLM_IFL_ENDOFLIFE;
-+		set_bit(DLM_IFLNS_ENDOFLIFE, &lkb->lkb_insflags);
+ static void __receive_convert_reply(struct dlm_rsb *r, struct dlm_lkb *lkb,
+-				    struct dlm_message *ms)
++				    struct dlm_message *ms, bool stub)
+ {
+ 	/* this is the value returned from do_convert() on the master */
+ 	switch (from_dlm_errno(le32_to_cpu(ms->m_result))) {
+@@ -4525,14 +4524,14 @@ static void __receive_convert_reply(struct dlm_rsb *r, struct dlm_lkb *lkb,
+ 		break;
  
- 	spin_lock(&proc->asts_spin);
+ 	case -EDEADLK:
+-		receive_flags_reply(lkb, ms);
++		receive_flags_reply(lkb, ms, stub);
+ 		revert_lock_pc(r, lkb);
+ 		queue_cast(r, lkb, -EDEADLK);
+ 		break;
  
-@@ -229,7 +231,7 @@ void dlm_user_add_ast(struct dlm_lkb *lkb, uint32_t flags, int mode,
+ 	case -EINPROGRESS:
+ 		/* convert was queued on remote master */
+-		receive_flags_reply(lkb, ms);
++		receive_flags_reply(lkb, ms, stub);
+ 		if (is_demoted(lkb))
+ 			munge_demoted(lkb);
+ 		del_lkb(r, lkb);
+@@ -4542,7 +4541,7 @@ static void __receive_convert_reply(struct dlm_rsb *r, struct dlm_lkb *lkb,
+ 
+ 	case 0:
+ 		/* convert was granted on remote master */
+-		receive_flags_reply(lkb, ms);
++		receive_flags_reply(lkb, ms, stub);
+ 		if (is_demoted(lkb))
+ 			munge_demoted(lkb);
+ 		grant_lock_pc(r, lkb, ms);
+@@ -4559,7 +4558,8 @@ static void __receive_convert_reply(struct dlm_rsb *r, struct dlm_lkb *lkb,
  	}
- 	spin_unlock(&proc->asts_spin);
+ }
  
--	if (lkb->lkb_flags & DLM_IFL_ENDOFLIFE) {
-+	if (test_bit(DLM_IFLNS_ENDOFLIFE, &lkb->lkb_insflags)) {
- 		/* N.B. spin_lock locks_spin, not asts_spin */
- 		spin_lock(&proc->locks_spin);
- 		if (!list_empty(&lkb->lkb_ownqueue)) {
+-static void _receive_convert_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
++static void _receive_convert_reply(struct dlm_lkb *lkb, struct dlm_message *ms,
++				   bool stub)
+ {
+ 	struct dlm_rsb *r = lkb->lkb_resource;
+ 	int error;
+@@ -4572,11 +4572,11 @@ static void _receive_convert_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
+ 		goto out;
+ 
+ 	/* stub reply can happen with waiters_mutex held */
+-	error = remove_from_waiters_ms(lkb, ms);
++	error = remove_from_waiters_ms(lkb, ms, stub);
+ 	if (error)
+ 		goto out;
+ 
+-	__receive_convert_reply(r, lkb, ms);
++	__receive_convert_reply(r, lkb, ms, stub);
+  out:
+ 	unlock_rsb(r);
+ 	put_rsb(r);
+@@ -4591,12 +4591,13 @@ static int receive_convert_reply(struct dlm_ls *ls, struct dlm_message *ms)
+ 	if (error)
+ 		return error;
+ 
+-	_receive_convert_reply(lkb, ms);
++	_receive_convert_reply(lkb, ms, false);
+ 	dlm_put_lkb(lkb);
+ 	return 0;
+ }
+ 
+-static void _receive_unlock_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
++static void _receive_unlock_reply(struct dlm_lkb *lkb, struct dlm_message *ms,
++				  bool stub)
+ {
+ 	struct dlm_rsb *r = lkb->lkb_resource;
+ 	int error;
+@@ -4609,7 +4610,7 @@ static void _receive_unlock_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
+ 		goto out;
+ 
+ 	/* stub reply can happen with waiters_mutex held */
+-	error = remove_from_waiters_ms(lkb, ms);
++	error = remove_from_waiters_ms(lkb, ms, stub);
+ 	if (error)
+ 		goto out;
+ 
+@@ -4617,7 +4618,7 @@ static void _receive_unlock_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
+ 
+ 	switch (from_dlm_errno(le32_to_cpu(ms->m_result))) {
+ 	case -DLM_EUNLOCK:
+-		receive_flags_reply(lkb, ms);
++		receive_flags_reply(lkb, ms, stub);
+ 		remove_lock_pc(r, lkb);
+ 		queue_cast(r, lkb, -DLM_EUNLOCK);
+ 		break;
+@@ -4641,12 +4642,13 @@ static int receive_unlock_reply(struct dlm_ls *ls, struct dlm_message *ms)
+ 	if (error)
+ 		return error;
+ 
+-	_receive_unlock_reply(lkb, ms);
++	_receive_unlock_reply(lkb, ms, false);
+ 	dlm_put_lkb(lkb);
+ 	return 0;
+ }
+ 
+-static void _receive_cancel_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
++static void _receive_cancel_reply(struct dlm_lkb *lkb, struct dlm_message *ms,
++				  bool stub)
+ {
+ 	struct dlm_rsb *r = lkb->lkb_resource;
+ 	int error;
+@@ -4659,7 +4661,7 @@ static void _receive_cancel_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
+ 		goto out;
+ 
+ 	/* stub reply can happen with waiters_mutex held */
+-	error = remove_from_waiters_ms(lkb, ms);
++	error = remove_from_waiters_ms(lkb, ms, stub);
+ 	if (error)
+ 		goto out;
+ 
+@@ -4667,7 +4669,7 @@ static void _receive_cancel_reply(struct dlm_lkb *lkb, struct dlm_message *ms)
+ 
+ 	switch (from_dlm_errno(le32_to_cpu(ms->m_result))) {
+ 	case -DLM_ECANCEL:
+-		receive_flags_reply(lkb, ms);
++		receive_flags_reply(lkb, ms, stub);
+ 		revert_lock_pc(r, lkb);
+ 		queue_cast(r, lkb, -DLM_ECANCEL);
+ 		break;
+@@ -4692,7 +4694,7 @@ static int receive_cancel_reply(struct dlm_ls *ls, struct dlm_message *ms)
+ 	if (error)
+ 		return error;
+ 
+-	_receive_cancel_reply(lkb, ms);
++	_receive_cancel_reply(lkb, ms, false);
+ 	dlm_put_lkb(lkb);
+ 	return 0;
+ }
+@@ -5007,11 +5009,10 @@ static void recover_convert_waiter(struct dlm_ls *ls, struct dlm_lkb *lkb,
+ 	if (middle_conversion(lkb)) {
+ 		hold_lkb(lkb);
+ 		memset(ms_stub, 0, sizeof(struct dlm_message));
+-		ms_stub->m_flags = cpu_to_le32(DLM_IFL_STUB_MS);
+ 		ms_stub->m_type = cpu_to_le32(DLM_MSG_CONVERT_REPLY);
+ 		ms_stub->m_result = cpu_to_le32(to_dlm_errno(-EINPROGRESS));
+ 		ms_stub->m_header.h_nodeid = cpu_to_le32(lkb->lkb_nodeid);
+-		_receive_convert_reply(lkb, ms_stub);
++		_receive_convert_reply(lkb, ms_stub, true);
+ 
+ 		/* Same special case as in receive_rcom_lock_args() */
+ 		lkb->lkb_grmode = DLM_LOCK_IV;
+@@ -5129,22 +5130,20 @@ void dlm_recover_waiters_pre(struct dlm_ls *ls)
+ 		case DLM_MSG_UNLOCK:
+ 			hold_lkb(lkb);
+ 			memset(ms_stub, 0, sizeof(struct dlm_message));
+-			ms_stub->m_flags = cpu_to_le32(DLM_IFL_STUB_MS);
+ 			ms_stub->m_type = cpu_to_le32(DLM_MSG_UNLOCK_REPLY);
+ 			ms_stub->m_result = cpu_to_le32(to_dlm_errno(stub_unlock_result));
+ 			ms_stub->m_header.h_nodeid = cpu_to_le32(lkb->lkb_nodeid);
+-			_receive_unlock_reply(lkb, ms_stub);
++			_receive_unlock_reply(lkb, ms_stub, true);
+ 			dlm_put_lkb(lkb);
+ 			break;
+ 
+ 		case DLM_MSG_CANCEL:
+ 			hold_lkb(lkb);
+ 			memset(ms_stub, 0, sizeof(struct dlm_message));
+-			ms_stub->m_flags = cpu_to_le32(DLM_IFL_STUB_MS);
+ 			ms_stub->m_type = cpu_to_le32(DLM_MSG_CANCEL_REPLY);
+ 			ms_stub->m_result = cpu_to_le32(to_dlm_errno(stub_cancel_result));
+ 			ms_stub->m_header.h_nodeid = cpu_to_le32(lkb->lkb_nodeid);
+-			_receive_cancel_reply(lkb, ms_stub);
++			_receive_cancel_reply(lkb, ms_stub, true);
+ 			dlm_put_lkb(lkb);
+ 			break;
+ 
 diff --git a/include/trace/events/dlm.h b/include/trace/events/dlm.h
-index 37eb79e29b28..a34cd2e62691 100644
+index a34cd2e62691..612d93e35e04 100644
 --- a/include/trace/events/dlm.h
 +++ b/include/trace/events/dlm.h
-@@ -47,13 +47,6 @@
+@@ -47,7 +47,6 @@
  	{ DLM_SBF_ALTMODE,	"ALTMODE" })
  
  #define show_lkb_flags(flags) __print_flags(flags, "|",		\
--	{ DLM_IFL_MSTCPY,	"MSTCPY" },			\
--	{ DLM_IFL_RESEND,	"RESEND" },			\
--	{ DLM_IFL_DEAD,		"DEAD" },			\
--	{ DLM_IFL_OVERLAP_UNLOCK, "OVERLAP_UNLOCK" },		\
--	{ DLM_IFL_OVERLAP_CANCEL, "OVERLAP_CANCEL" },		\
--	{ DLM_IFL_ENDOFLIFE,	"ENDOFLIFE" },			\
--	{ DLM_IFL_DEADLOCK_CANCEL, "DEADLOCK_CANCEL" },		\
- 	{ DLM_IFL_STUB_MS,	"STUB_MS" },			\
+-	{ DLM_IFL_STUB_MS,	"STUB_MS" },			\
  	{ DLM_IFL_USER,		"USER" },			\
  	{ DLM_IFL_ORPHAN,	"ORPHAN" })
+ 
 -- 
 2.31.1
 
