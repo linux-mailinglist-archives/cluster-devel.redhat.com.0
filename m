@@ -2,96 +2,90 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D39636A4437
-	for <lists+cluster-devel@lfdr.de>; Mon, 27 Feb 2023 15:21:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2F46A56D4
+	for <lists+cluster-devel@lfdr.de>; Tue, 28 Feb 2023 11:33:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677507682;
+	s=mimecast20190719; t=1677580433;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vjb2dwtbVE3rk4u4J5ONSAlsQDeQ1QrKpm+ORZ2V9Qk=;
-	b=hI/0jlyxFv/Tl8ez2BNF7hM1XwmFzOv8egD6XNq8dwynprWI4esJdMUc9ch8/bUwrHaklg
-	LNasMyeT59v1sTovh5SABCsou+d0NQVXCwhbWJsd5InLcJQpwV4wBlVfOCmqMpnvnZ3HZR
-	FvsORcLCzecrqylLfbxjbukRkpZ0CEo=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=5ifL5SZ/I3Sdxd72VYXzJVOeEQi3WhgwyTlSi8fWm0I=;
+	b=LyVoJmwZy4gkeu3JkTqGTmQ/hU8Lfvch9zZJhsiwuabMWdXwdhskYeo15ptTY1+OqDQH6W
+	8D+4GlG1ppdKqdWE06uWEVaijbMUPw2mU39dB6FO0o0H48rrlLt4FI9Rbnyt0x6KdwVvPL
+	2IXwFTYKdTMXbXurRF7rZ7Vef+a3p/o=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-122-9dg5KHjBMKq2wMtrQTG_ZQ-1; Mon, 27 Feb 2023 09:21:18 -0500
-X-MC-Unique: 9dg5KHjBMKq2wMtrQTG_ZQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-418-kKj70bJDPxOkxuVkiAi2tg-1; Tue, 28 Feb 2023 05:33:50 -0500
+X-MC-Unique: kKj70bJDPxOkxuVkiAi2tg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9446185A7A4;
-	Mon, 27 Feb 2023 14:21:17 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EB553C11A0F;
+	Tue, 28 Feb 2023 10:33:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 48862492B0E;
-	Mon, 27 Feb 2023 14:21:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 64B152166B26;
+	Tue, 28 Feb 2023 10:33:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E6A591946597;
-	Mon, 27 Feb 2023 14:21:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 21ECC194658F;
+	Tue, 28 Feb 2023 10:33:47 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 993DB1946586 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 27 Feb 2023 14:20:54 +0000 (UTC)
+ ESMTP id 1053C1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 28 Feb 2023 01:08:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 637F4492B13; Mon, 27 Feb 2023 14:20:44 +0000 (UTC)
+ id E5574140EBF6; Tue, 28 Feb 2023 01:08:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CC53492B12
- for <cluster-devel@redhat.com>; Mon, 27 Feb 2023 14:20:44 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DD28A140EBF4
+ for <cluster-devel@redhat.com>; Tue, 28 Feb 2023 01:08:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41B13800B23
- for <cluster-devel@redhat.com>; Mon, 27 Feb 2023 14:20:44 +0000 (UTC)
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-401-K8BGnlt6MyGoITZoMKS9Lg-1; Mon, 27 Feb 2023 09:20:39 -0500
-X-MC-Unique: K8BGnlt6MyGoITZoMKS9Lg-1
-Received: by mail-ed1-f71.google.com with SMTP id
- cz22-20020a0564021cb600b004a245f58006so8901081edb.12
- for <cluster-devel@redhat.com>; Mon, 27 Feb 2023 06:20:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vjb2dwtbVE3rk4u4J5ONSAlsQDeQ1QrKpm+ORZ2V9Qk=;
- b=L4ZNOVi551KHGzqPvdTfHLzFxcmZpbnluEUmqTDIjWq6TVvRLA5P+WPFTCpS8Hoe+W
- dpkJ+O8OEUAASf8oJNgsPAHlpJVAjoFMMfWuS0S6XI1N9ddmjTxUHkrTjmLA0ixS3noL
- qhFJjO8UvTsvkuPruJx5SscG4XyV5in9vH2sfvo+Pcj4BKTJMr9Ir9f6BUEQOkF4xbro
- Ie5A2bsHizC+1wdX26O8SjpDGGA63ohbfKzBE1UXf0OdlO5QvnNN5Dc2MUwfpHdC/1Um
- SaIbo7fbV4v6hY/LjJ8oT98XhLC8zwPHQb5qaU4Las0S0xEvAIpzvWLdvfhOIwojxig1
- mfSQ==
-X-Gm-Message-State: AO0yUKV/FljO+OHn5m7d74q1rC2fLXw7B56s2g855bpjnz4R0ssAG5dj
- dym1noyxnSY7nLyz52h0O2YeIG4dnpMeDxO9hBq3yOXthSJOo9SnpPbXUO1XPw7rL717zT2DPil
- 5OV5Bp7I34xRiGrQxUY/6fQJAmJ0tg2HkwDf7Sp2pW/GtMA==
-X-Received: by 2002:a50:c301:0:b0:4af:5aa1:6f4e with SMTP id
- a1-20020a50c301000000b004af5aa16f4emr9588831edb.6.1677507638241; 
- Mon, 27 Feb 2023 06:20:38 -0800 (PST)
-X-Google-Smtp-Source: AK7set9Uzu6Eiq21m7Z1m0q+5/vKfkGGmmJ2IswqiA0P1wXEgKMzSO9GibOPaVGB26Y59cLfF1WCz+g4wx08S0o6kic=
-X-Received: by 2002:a50:c301:0:b0:4af:5aa1:6f4e with SMTP id
- a1-20020a50c301000000b004af5aa16f4emr9588821edb.6.1677507637953; Mon, 27 Feb
- 2023 06:20:37 -0800 (PST)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C146D1C05ABC
+ for <cluster-devel@redhat.com>; Tue, 28 Feb 2023 01:08:39 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-494-QwToXXyUOAqh1pvqNOq-Qw-1; Mon, 27 Feb 2023 20:08:38 -0500
+X-MC-Unique: QwToXXyUOAqh1pvqNOq-Qw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C5743B80DD6;
+ Tue, 28 Feb 2023 01:01:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A490C4339B;
+ Tue, 28 Feb 2023 01:01:55 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ ED819C41676; Tue, 28 Feb 2023 01:01:54 +0000 (UTC)
 MIME-Version: 1.0
-References: <20230221214014.871804-1-aahringo@redhat.com>
-In-Reply-To: <20230221214014.871804-1-aahringo@redhat.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 27 Feb 2023 09:20:26 -0500
-Message-ID: <CAK-6q+hx=k0F2g_85zvmwcYYvfwq9TaGc5gi63jRo+kfgRizJQ@mail.gmail.com>
-To: teigland@redhat.com
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Cluster-devel] [PATCH dlm/next 0/6] fs: dlm: pending dlm
- patches
+From: patchwork-bot+f2fs@kernel.org
+Message-Id: <167754611496.27916.17463541946406622753.git-patchwork-notify@kernel.org>
+Date: Tue, 28 Feb 2023 01:01:54 +0000
+References: <20230104211448.4804-1-vishal.moola@gmail.com>
+In-Reply-To: <20230104211448.4804-1-vishal.moola@gmail.com>
+To: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mailman-Approved-At: Tue, 28 Feb 2023 10:33:46 +0000
+Subject: Re: [Cluster-devel] [f2fs-dev] [PATCH v5 00/23] Convert to
+ filemap_get_folios_tag()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,46 +97,105 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
+Cc: linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hello:
 
-On Tue, Feb 21, 2023 at 4:40=E2=80=AFPM Alexander Aring <aahringo@redhat.co=
-m> wrote:
->
-> Hi,
->
-> this patch-series contains all pending patches and should be able to
-> apply on the next -rc1 release. I added a patch to this series to remove
-> the deprecated API code parts. Also I changed a little bit the commit
-> message from "Edwin T=C3=B6r=C3=B6k" to remove some "|" and white space a=
-t the end
-> of the line.
->
-> - Alex
->
->
-> Alexander Aring (5):
->   fs: dlm: add unbound flag to dlm_io workqueue
->   fs: dlm: fix DLM_IFL_CB_PENDING gets overwritten
->   fs: dlm: move internal non shared flags to bitops
->   fs: dlm: remove DLM_IFL_STUB_MS flag
+This series was applied to jaegeuk/f2fs.git (dev)
+by Andrew Morton <akpm@linux-foundation.org>:
 
-I am working on a better approach here to mostly leave all internal
-flags (except ORPHAN/USER) inside the lkb->flags (or iflags how it
-will be named now) so debugfs will still report the most values at the
-same bit numbers. I said "mostly" because ORPHAN/USER are special here
-and will be moved to a new value "sflags" meaning "shared flags" which
-are used in m_flags dlm message. Some time later we can reuse all
-lkb->iflags positions to give them a new meaning, this should somehow
-prepare for a better transition state.
+On Wed,  4 Jan 2023 13:14:25 -0800 you wrote:
+> This patch series replaces find_get_pages_range_tag() with
+> filemap_get_folios_tag(). This also allows the removal of multiple
+> calls to compound_head() throughout.
+> It also makes a good chunk of the straightforward conversions to folios,
+> and takes the opportunity to introduce a function that grabs a folio
+> from the pagecache.
+>=20
+> [...]
 
-- Alex
+Here is the summary with links:
+  - [f2fs-dev,v5,01/23] pagemap: Add filemap_grab_folio()
+    https://git.kernel.org/jaegeuk/f2fs/c/ee7a5906ff08
+  - [f2fs-dev,v5,02/23] filemap: Added filemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/247f9e1feef4
+  - [f2fs-dev,v5,03/23] filemap: Convert __filemap_fdatawait_range() to use=
+ filemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/6817ef514e1a
+  - [f2fs-dev,v5,04/23] page-writeback: Convert write_cache_pages() to use =
+filemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/0fff435f060c
+  - [f2fs-dev,v5,05/23] afs: Convert afs_writepages_region() to use filemap=
+_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/acc8d8588cb7
+  - [f2fs-dev,v5,06/23] btrfs: Convert btree_write_cache_pages() to use fil=
+emap_get_folio_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/51c5cd3bafe5
+  - [f2fs-dev,v5,07/23] btrfs: Convert extent_write_cache_pages() to use fi=
+lemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/9f50fd2e92e3
+  - [f2fs-dev,v5,08/23] ceph: Convert ceph_writepages_start() to use filema=
+p_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/590a2b5f0a9b
+  - [f2fs-dev,v5,09/23] cifs: Convert wdata_alloc_and_fillpages() to use fi=
+lemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/4cda80f3a7a5
+  - [f2fs-dev,v5,10/23] ext4: Convert mpage_prepare_extent_to_map() to use =
+filemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/50ead2537441
+  - [f2fs-dev,v5,11/23] f2fs: Convert f2fs_fsync_node_pages() to use filema=
+p_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/e6e46e1eb7ce
+  - [f2fs-dev,v5,12/23] f2fs: Convert f2fs_flush_inline_data() to use filem=
+ap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/a40a4ad1186a
+  - [f2fs-dev,v5,13/23] f2fs: Convert f2fs_sync_node_pages() to use filemap=
+_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/7525486affa5
+  - [f2fs-dev,v5,14/23] f2fs: Convert f2fs_write_cache_pages() to use filem=
+ap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/1cd98ee747cf
+  - [f2fs-dev,v5,15/23] f2fs: Convert last_fsync_dnode() to use filemap_get=
+_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/4f4a4f0febe6
+  - [f2fs-dev,v5,16/23] f2fs: Convert f2fs_sync_meta_pages() to use filemap=
+_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/580e7a492608
+  - [f2fs-dev,v5,17/23] gfs2: Convert gfs2_write_cache_jdata() to use filem=
+ap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/87ed37e66dfd
+  - [f2fs-dev,v5,18/23] nilfs2: Convert nilfs_lookup_dirty_data_buffers() t=
+o use filemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/5ee4b25cb730
+  - [f2fs-dev,v5,19/23] nilfs2: Convert nilfs_lookup_dirty_node_buffers() t=
+o use filemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/a24586583169
+  - [f2fs-dev,v5,20/23] nilfs2: Convert nilfs_btree_lookup_dirty_buffers() =
+to use filemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/41f3f3b5373e
+  - [f2fs-dev,v5,21/23] nilfs2: Convert nilfs_copy_dirty_pages() to use fil=
+emap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/d4a16d31334e
+  - [f2fs-dev,v5,22/23] nilfs2: Convert nilfs_clear_dirty_pages() to use fi=
+lemap_get_folios_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/243c5ea4f783
+  - [f2fs-dev,v5,23/23] filemap: Remove find_get_pages_range_tag()
+    https://git.kernel.org/jaegeuk/f2fs/c/c5792d938411
+
+You are awesome, thank you!
+--=20
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
