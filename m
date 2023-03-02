@@ -2,60 +2,60 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C7816A87A3
-	for <lists+cluster-devel@lfdr.de>; Thu,  2 Mar 2023 18:15:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B764D6A87AF
+	for <lists+cluster-devel@lfdr.de>; Thu,  2 Mar 2023 18:15:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677777317;
+	s=mimecast20190719; t=1677777321;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=N536NGW51PFM6xEFxepXWZr/bGax9xwl0UVRKbE4BAY=;
-	b=KbuiOYa6RWKEYn33qYb3BUsSE5AGcIs8XxR8efZNXEjgMjzzST6qFxs3HVRjtTaWenc/+d
-	/cj7GluQWsofiZnEc59mmmK45aTU0fHpd1UhD0DdOwQ6+IBJ0N3o04/A5edszTHoZ6PeYc
-	phmbon+OFN/yPTDo00W1fnMZFXoKHjc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=hRSP8k9FzRRDSRexlf8upO3nRh5oyeI3HYr4vRwia+s=;
+	b=RQ3AsuzuDcHnD0hwmmnUN/FunWyZo/aYPOAX1jTlBm9lRUrj70q2PJ3H86z0VNlsVAywiv
+	y3esrtBaa9K8PpFyY+w8ZDWH2FG9ptdvlcy0o6d+I4xOlKvQdf6kiy5ftb0vNjxt+l2P9t
+	WsLRjKwH00ALaZgxOB/fRWn/jXeIIUs=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-282-Td_KXUCfP4uomIVzeS1Duw-1; Thu, 02 Mar 2023 12:15:15 -0500
-X-MC-Unique: Td_KXUCfP4uomIVzeS1Duw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-314-ANOfIc5CNk2A1Npwdhg3bQ-1; Thu, 02 Mar 2023 12:15:15 -0500
+X-MC-Unique: ANOfIc5CNk2A1Npwdhg3bQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D25EF87A9E0;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 958D63804533;
 	Thu,  2 Mar 2023 17:15:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C67D640C6EC4;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8A378492C1B;
 	Thu,  2 Mar 2023 17:15:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7BF161943BCA;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 917E31949749;
 	Thu,  2 Mar 2023 17:15:10 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1E74C19452CE for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 1F3BB1948654 for <cluster-devel@listman.corp.redhat.com>;
  Thu,  2 Mar 2023 17:15:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 10D50492B12; Thu,  2 Mar 2023 17:14:56 +0000 (UTC)
+ id 3A6C1492B14; Thu,  2 Mar 2023 17:14:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E057C492B00;
- Thu,  2 Mar 2023 17:14:55 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1640A492B00;
+ Thu,  2 Mar 2023 17:14:56 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Thu,  2 Mar 2023 12:14:35 -0500
-Message-Id: <20230302171441.1509914-8-aahringo@redhat.com>
+Date: Thu,  2 Mar 2023 12:14:36 -0500
+Message-Id: <20230302171441.1509914-9-aahringo@redhat.com>
 In-Reply-To: <20230302171441.1509914-1-aahringo@redhat.com>
 References: <20230302171441.1509914-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH dlm-tool 08/14] dlm_controld: enable nanosec
- logging
+Subject: [Cluster-devel] [PATCH dlm-tool 09/14] dlm_controld: use
+ write_result()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,37 +70,34 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Current scope of logging are the seconds since dlm_controld started.
-This patch adds nanosecond scope which are requested from the os anyway.
----
- dlm_controld/main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+This patch will use write_result() instead of code the same code again
+what write_result() is doing.
 
-diff --git a/dlm_controld/main.c b/dlm_controld/main.c
-index 8e8d4038..fdfebd1f 100644
---- a/dlm_controld/main.c
-+++ b/dlm_controld/main.c
-@@ -128,11 +128,13 @@ int do_write(int fd, void *buf, size_t count)
- 	return 0;
+Reported-by: Andreas Gruenbacher <agruenba@redhat.com>
+---
+ dlm_controld/plock.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/dlm_controld/plock.c b/dlm_controld/plock.c
+index 2f0392c3..24ad777a 100644
+--- a/dlm_controld/plock.c
++++ b/dlm_controld/plock.c
+@@ -1600,8 +1600,7 @@ void process_plocks(int ci)
+ #else
+ 	if (!(info.flags & DLM_PLOCK_FL_CLOSE)) {
+ #endif
+-		info.rv = rv;
+-		rv = write(plock_device_fd, &info, sizeof(info));
++		write_result(&info, rv);
+ 	}
  }
  
-+enum { NS_PER_SECOND = 1000000000 };
-+
- uint64_t monotime(void)
- {
- 	struct timespec ts;
- 	clock_gettime(CLOCK_MONOTONIC, &ts);
--	return ts.tv_sec;
-+	return (ts.tv_sec * NS_PER_SECOND)  + ts.tv_nsec;
- }
- 
- static void client_alloc(void)
 -- 
 2.31.1
 
