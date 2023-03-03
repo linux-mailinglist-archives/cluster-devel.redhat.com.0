@@ -2,57 +2,94 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65DF56A98B1
-	for <lists+cluster-devel@lfdr.de>; Fri,  3 Mar 2023 14:38:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 743036A99A8
+	for <lists+cluster-devel@lfdr.de>; Fri,  3 Mar 2023 15:38:58 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677850736;
+	s=mimecast20190719; t=1677854337;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0aw359Uxw0il1ClSMyNRsW6OZwGUAa8jOT0S6C57Wb4=;
-	b=QAIM2xnPU4sJbL9Fi8XvGi3HXCYSqJIITCKfews1yGxWZ8ZLqH8awIIzzPllPf/tnJhTiv
-	Ywen+8Bt7zEcyUqWe4RcWDQs9cIOEv6pEGL2cUuVshZylYYPte9qJlsZs9buBk/ay0nvzK
-	bfrr2EdCE9I9HkfCL+zALLuRUZRxfIA=
+	bh=i4ZUypLqM7/7AG6CZZ6YdmXbfJM6G5stqmomo60rDyQ=;
+	b=J35oh+RfF5KCZbiGs4dLCdjnIAOr4mh7cFjYC51r+7YhD1vUl6P884nI5G2Q4S1g7Kyx8g
+	u9HXUqV93SLZNK4GKXxcP4V/XAWPmQaW/e80wydPwcAVyedsTwDPX2y8FFopaQToBb1qdG
+	HLaUAnwsEIOxC3V8ogLU11K1W3e2eIs=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-1-5a-sx2MwPEePmJT2Y_3bew-1; Fri, 03 Mar 2023 08:38:52 -0500
-X-MC-Unique: 5a-sx2MwPEePmJT2Y_3bew-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-455-V_KLJ3fDMZOJWXH3NUoNTw-1; Fri, 03 Mar 2023 09:37:32 -0500
+X-MC-Unique: V_KLJ3fDMZOJWXH3NUoNTw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5108185A7A4;
-	Fri,  3 Mar 2023 13:38:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB7EA101A52E;
+	Fri,  3 Mar 2023 14:35:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1C6F540C6EC4;
-	Fri,  3 Mar 2023 13:38:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CEAE2492C14;
+	Fri,  3 Mar 2023 14:35:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9C62F19452D0;
-	Fri,  3 Mar 2023 13:38:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A89C19452D0;
+	Fri,  3 Mar 2023 14:35:27 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0CDF519465A0 for <cluster-devel@listman.corp.redhat.com>;
- Fri,  3 Mar 2023 13:38:47 +0000 (UTC)
+ ESMTP id CCC2219452D8 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  3 Mar 2023 14:35:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B5EE52166B2B; Fri,  3 Mar 2023 13:38:47 +0000 (UTC)
+ id A7914492B00; Fri,  3 Mar 2023 14:35:18 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from pasta.redhat.com (unknown [10.45.225.233])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 911A82166B26;
- Fri,  3 Mar 2023 13:38:46 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: Alexander Aring <aahringo@redhat.com>
-Date: Fri,  3 Mar 2023 14:38:45 +0100
-Message-Id: <20230303133845.801743-1-agruenba@redhat.com>
-In-Reply-To: <20230302171441.1509914-13-aahringo@redhat.com>
-References: <20230302171441.1509914-13-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A045F492C3E
+ for <cluster-devel@redhat.com>; Fri,  3 Mar 2023 14:35:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 834D929ABA04
+ for <cluster-devel@redhat.com>; Fri,  3 Mar 2023 14:35:18 +0000 (UTC)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-3-Z9cM8TU6P-yf8-j5PYlU1w-1; Fri, 03 Mar 2023 09:35:17 -0500
+X-MC-Unique: Z9cM8TU6P-yf8-j5PYlU1w-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ q13-20020a5085cd000000b004af50de0bcfso4302165edh.15
+ for <cluster-devel@redhat.com>; Fri, 03 Mar 2023 06:35:17 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1677854115;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=i4ZUypLqM7/7AG6CZZ6YdmXbfJM6G5stqmomo60rDyQ=;
+ b=EUH4qFz+0uDOmkT+1GQZfH3HYfrUtzclW1pKnj3VH346hs9lwgEhsiUOB0jja3JOU+
+ 62UiDAcE18yof/4CsaqKgL9yUAUgaaqnFGNJmOduyrC9dEkBanM2pIjb5lE1pjYKgoS/
+ uAO/XkpHJ5C331IhXHDZJjAKXCDSfa6m+3Ga2+RihJLsLSrH5Oxn0giVw+buM21sMf0y
+ kEP5R0K50K9h/AnBGBKNlbePeit/MQCTIdZPfj1/wcOZPEOQaQdulns5WCItMv31S1+J
+ B6af5UBaWhLi2jyJ3YxAhTcDfehYmhunTtrGNY5nvvbrFFFQWrnl2Q5G/oh9zaQabIma
+ BG6g==
+X-Gm-Message-State: AO0yUKVTuAibNhFE8HOvlwijQmh4lLWGiccvqXBXuQ4YjxXMjcsKBXcH
+ 9JJGs04L1l4Pd0mkwLlTlgbVh7snkkfmtjduqrKnaTheoeksj2YFrtpWo0k7O0ujJ0pL0th0EBQ
+ wHHphXLvsDyarMvEPdVuMqWBgQA+mVT15m3X09mUceBCWZJMa
+X-Received: by 2002:a50:9f26:0:b0:4c0:1cfa:bfe1 with SMTP id
+ b35-20020a509f26000000b004c01cfabfe1mr1209798edf.6.1677854115745; 
+ Fri, 03 Mar 2023 06:35:15 -0800 (PST)
+X-Google-Smtp-Source: AK7set/zEe6BL3lyEPj0YKq9BmaqJFNcfBl/k1aW1JNaSjBce0c3KxAUoPRQovRCPMrKxt9VlzcEJjQB3zUScRxWEF8=
+X-Received: by 2002:a50:9f26:0:b0:4c0:1cfa:bfe1 with SMTP id
+ b35-20020a509f26000000b004c01cfabfe1mr1209793edf.6.1677854115509; Fri, 03 Mar
+ 2023 06:35:15 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+References: <20230302171441.1509914-13-aahringo@redhat.com>
+ <20230303133845.801743-1-agruenba@redhat.com>
+In-Reply-To: <20230303133845.801743-1-agruenba@redhat.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Fri, 3 Mar 2023 09:35:04 -0500
+Message-ID: <CAK-6q+gmTae=5xj5Noomy=aVRfwAQgD1C2WJ1=TYEjPWA76cMw@mail.gmail.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 Subject: Re: [Cluster-devel] [PATCH dlm-tool 13/14] dlm_controld: plock log
  lock state
 X-BeenThere: cluster-devel@redhat.com
@@ -69,143 +106,32 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Alexx,
+Hi,
 
-can you please prefix this patch with the following to make this easier
-to read?
+On Fri, Mar 3, 2023 at 8:38=E2=80=AFAM Andreas Gruenbacher <agruenba@redhat=
+.com> wrote:
+>
+> Alexx,
+>
+> can you please prefix this patch with the following to make this easier
+> to read?
+>
 
-Thanks,
-Andreas
+okay.
 
---
+btw: I think we could make a struct lockspace pointer in struct
+resource which is all the way passed down.
+I think a struct resource instance is ordered under a per "lockspace
+-> inode -> resource" hierarchy.
 
-dlm_controld: pass lockspace and lock number to add_lock()
+I am still not 100% sure if this is the case, but could be done later
+as cleanup as well.
 
-The next patch will make use of the additional arguments.
----
- dlm_controld/plock.c | 41 ++++++++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 19 deletions(-)
-
-diff --git a/dlm_controld/plock.c b/dlm_controld/plock.c
-index b93863f7..6709d205 100644
---- a/dlm_controld/plock.c
-+++ b/dlm_controld/plock.c
-@@ -466,8 +466,9 @@ static int is_conflict(struct resource *r, struct dlm_plock_info *in, int get)
- 	return 0;
- }
- 
--static int add_lock(struct resource *r, uint32_t nodeid, uint64_t owner,
--		    uint32_t pid, int ex, uint64_t start, uint64_t end)
-+static int add_lock(const struct lockspace *ls, struct resource *r,
-+		    uint32_t nodeid, uint64_t owner, uint32_t pid,
-+		    int ex, uint64_t start, uint64_t end, uint64_t number)
- {
- 	struct posix_lock *po;
- 
-@@ -491,8 +492,8 @@ static int add_lock(struct resource *r, uint32_t nodeid, uint64_t owner,
-    1. add new lock for non-overlap area of RE, orig mode
-    2. convert RE to RN range and mode */
- 
--static int lock_case1(struct posix_lock *po, struct resource *r,
--		      struct dlm_plock_info *in)
-+static int lock_case1(const struct lockspace *ls, struct posix_lock *po,
-+		      struct resource *r, struct dlm_plock_info *in)
- {
- 	uint64_t start2, end2;
- 	int rv;
-@@ -508,7 +509,8 @@ static int lock_case1(struct posix_lock *po, struct resource *r,
- 	po->end = in->end;
- 	po->ex = in->ex;
- 
--	rv = add_lock(r, in->nodeid, in->owner, in->pid, !in->ex, start2, end2);
-+	rv = add_lock(ls, r, in->nodeid, in->owner, in->pid, !in->ex, start2,
-+		      end2, in->number);
-  out:
- 	return rv;
- }
-@@ -518,19 +520,20 @@ static int lock_case1(struct posix_lock *po, struct resource *r,
-    2. add new lock for back fragment, orig mode
-    3. convert RE to RN range and mode */
- 			 
--static int lock_case2(struct posix_lock *po, struct resource *r,
--		      struct dlm_plock_info *in)
-+static int lock_case2(const struct lockspace *ls, struct posix_lock *po,
-+		      struct resource *r, struct dlm_plock_info *in)
- 
- {
- 	int rv;
- 
--	rv = add_lock(r, in->nodeid, in->owner, in->pid,
--		      !in->ex, po->start, in->start - 1);
-+	rv = add_lock(ls, r, in->nodeid, in->owner, in->pid,
-+		      !in->ex, po->start, in->start - 1,
-+		      in->number);
- 	if (rv)
- 		goto out;
- 
--	rv = add_lock(r, in->nodeid, in->owner, in->pid,
--		      !in->ex, in->end + 1, po->end);
-+	rv = add_lock(ls, r, in->nodeid, in->owner, in->pid,
-+		      !in->ex, in->end + 1, po->end, in->number);
- 	if (rv)
- 		goto out;
- 
-@@ -569,14 +572,14 @@ static int lock_internal(struct lockspace *ls, struct resource *r,
- 			if (po->ex == in->ex)
- 				goto out;
- 
--			rv = lock_case1(po, r, in);
-+			rv = lock_case1(ls, po, r, in);
- 			goto out;
- 
- 		case 2:
- 			if (po->ex == in->ex)
- 				goto out;
- 
--			rv = lock_case2(po, r, in);
-+			rv = lock_case2(ls, po, r, in);
- 			goto out;
- 
- 		case 3:
-@@ -597,8 +600,8 @@ static int lock_internal(struct lockspace *ls, struct resource *r,
- 		}
- 	}
- 
--	rv = add_lock(r, in->nodeid, in->owner, in->pid,
--		      in->ex, in->start, in->end);
-+	rv = add_lock(ls, r, in->nodeid, in->owner, in->pid,
-+		      in->ex, in->start, in->end, in->number);
-  out:
- 	return rv;
- 
-@@ -638,8 +641,8 @@ static int unlock_internal(struct lockspace *ls, struct resource *r,
- 			/* RN within RE - shrink and update RE to be front
- 			 * fragment, and add a new lock for back fragment */
- 
--			rv = add_lock(r, in->nodeid, in->owner, in->pid,
--				      po->ex, in->end + 1, po->end);
-+			rv = add_lock(ls, r, in->nodeid, in->owner, in->pid,
-+				      po->ex, in->end + 1, po->end, in->number);
- 			po->end = in->start - 1;
- 			goto out;
- 
-@@ -1346,8 +1349,8 @@ static void _receive_sync(struct lockspace *ls, struct dlm_header *hd, int len)
- 	}
- 
- 	if (hd->type == DLM_MSG_PLOCK_SYNC_LOCK)
--		add_lock(r, info.nodeid, info.owner, info.pid, info.ex, 
--			 info.start, info.end);
-+		add_lock(ls, r, info.nodeid, info.owner, info.pid, info.ex,
-+			 info.start, info.end, info.number);
- 	else if (hd->type == DLM_MSG_PLOCK_SYNC_WAITER)
- 		add_waiter(ls, r, &info);
- }
--- 
-2.39.0
+- Alex
 
