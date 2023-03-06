@@ -2,60 +2,60 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42FE36ACF77
-	for <lists+cluster-devel@lfdr.de>; Mon,  6 Mar 2023 21:48:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA75A6ACF75
+	for <lists+cluster-devel@lfdr.de>; Mon,  6 Mar 2023 21:48:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678135713;
+	s=mimecast20190719; t=1678135712;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=OFQ0ZcJLlxMkCTL/+GuCsBuKWi61MkXXjtuFQa0YHB8=;
-	b=YQ10AUVz+ELTDtFpVU1vKBoMhT7We9doDEsvEzsebwdkjzg/GEJWaq1UbqcY9Gz6R4ryg9
-	Lxyctv4NrcQVTNyoO6Y79932Bv32ENDXlzRYC3KJNQgUqYVvRGjbvOVavQ6XlxlAzY4+ht
-	Bvzt6yIhqbiUlBsQcErvzdNgoFpkums=
+	bh=Zd4PXN7Ky6u68MU5AUBIwd0Kay7pof3jSKjaVcbWMl0=;
+	b=YgqpfCxfNu6KoXuDs1odhVWDEkocTUShN4kLOscE2rta8tJxFI5FNO5q1lxGEycKRdcXnU
+	qzZHWLD/OeB1/wzNrVpW6eiCqR4rOXHpj/IFJu67vt6aUxknJI+lSbXiC4vqWtuwCZryoc
+	l6Dat/8e+CAenLuT3+FNUAipnTDgbY4=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-586-Umv2tcVYOliNEYsTJGz1Mg-1; Mon, 06 Mar 2023 15:48:28 -0500
-X-MC-Unique: Umv2tcVYOliNEYsTJGz1Mg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-590-xraZSymBNKq1H9N1enOkMA-1; Mon, 06 Mar 2023 15:48:28 -0500
+X-MC-Unique: xraZSymBNKq1H9N1enOkMA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51DC33C1022D;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9ED39299E75A;
 	Mon,  6 Mar 2023 20:48:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 42671492C3E;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 91493401B290;
 	Mon,  6 Mar 2023 20:48:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EA1A81946594;
-	Mon,  6 Mar 2023 20:48:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 038E519465B6;
+	Mon,  6 Mar 2023 20:48:27 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 38B8C1946589 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 60BA21946589 for <cluster-devel@listman.corp.redhat.com>;
  Mon,  6 Mar 2023 20:48:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2CC0C175AD; Mon,  6 Mar 2023 20:48:26 +0000 (UTC)
+ id 559E1440DF; Mon,  6 Mar 2023 20:48:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 09CDF51FF;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 31DF551FF;
  Mon,  6 Mar 2023 20:48:26 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Mon,  6 Mar 2023 15:48:09 -0500
-Message-Id: <20230306204819.2747646-3-aahringo@redhat.com>
+Date: Mon,  6 Mar 2023 15:48:10 -0500
+Message-Id: <20230306204819.2747646-4-aahringo@redhat.com>
 In-Reply-To: <20230306204819.2747646-1-aahringo@redhat.com>
 References: <20230306204819.2747646-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Cluster-devel] [PATCH v6.3-rc1 02/12] fs: dlm: add unbound flag to
- dlm_io workqueue
+Subject: [Cluster-devel] [PATCH v6.3-rc1 03/12] DLM: increase socket backlog
+ to avoid hangs with 16 nodes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,61 +70,68 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch will add the WQ_UNBOUND flag to the lowcomms dlm_io workqueue
-which handles socket io handling to send and receive dlm messages.
-The amount of sockets will be 2 for a 3 node cluster. Each socket has
-two different workers for doing send and receive work by calling socket
-API functionality. Each worker will do their task in order to send dlm
-messages in a ordered stream based socket communication. On receive
-side the receive buffer will be queued up for an ordered dlm_process
-workqueue to parse received dlm messages. The parsing need to be done
-currently in an ordered synchronized way because the dlm message processing
-is not being made to parse parallel.
+From: Edwin Török <edvin.torok@citrix.com>
 
-After explaining all those workqueue behaviours in lowcomms, the dlm_io
-workqueue is only being used for socket handling. Each socket handling
-has 2 workers (send and receive). In a 3 cluster node we will end up
-with 4 workers. Without the WQ_UNBOUND flag the workers are tight to a
-CPU and can never switch, this could be an advantage because local CPU
-execution. However with dlm_locktorture testcase I expierenced not all
-workers are always in use and my assumption is that some workers are
-bound to the same CPU. We should always send or receive when we are
-ready to do so, one reason why we disable nigel algorithm on sockets.
-We should be safe to do the socket io handling on any CPU which can be
-switched during runtime. There is no assumption that the worker stays on
-the same CPU. There is no need to respect any workqueue concurrency
-model that each worker can only run on one CPU. Lowcomms queue_work()
-mechanism has an higher level flag to be sure that it can't schedule
-work if the previous worker did not signal it to keep ordered socket
-handling. Therefore this patch sets the WQ_UNBOUND flag to allow workers
-being executed by any available CPU.
+On a 16 node virtual cluster with e1000 NICs joining the 12th node prints
+SYN flood warnings for the DLM port:
+Dec 21 01:46:41 localhost kernel: [ 2146.516664] TCP: request_sock_TCP: Possible SYN flooding on port 21064. Sending cookies.  Check SNMP counters.
 
+And then joining a DLM lockspace hangs:
+```
+Dec 21 01:49:00 localhost kernel: [ 2285.780913] INFO: task xapi-clusterd:17638 blocked for more than 120 seconds.
+Dec 21 01:49:00 localhost kernel: [ 2285.786476]       Not tainted 4.4.0+10 #1
+Dec 21 01:49:00 localhost kernel: [ 2285.789043] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+Dec 21 01:49:00 localhost kernel: [ 2285.794611] xapi-clusterd   D ffff88001930bc58     0 17638      1 0x00000000
+Dec 21 01:49:00 localhost kernel: [ 2285.794615]  ffff88001930bc58 ffff880025593800 ffff880022433800 ffff88001930c000
+Dec 21 01:49:00 localhost kernel: [ 2285.794617]  ffff88000ef4a660 ffff88000ef4a658 ffff880022433800 ffff88000ef4a000
+Dec 21 01:49:00 localhost kernel: [ 2285.794619]  ffff88001930bc70 ffffffff8159f6b4 7fffffffffffffff ffff88001930bd10
+Dec 21 01:49:00 localhost kernel: [ 2285.794644]  [<ffffffff811570fe>] ? printk+0x4d/0x4f
+Dec 21 01:49:00 localhost kernel: [ 2285.794647]  [<ffffffff810b1741>] ? __raw_callee_save___pv_queued_spin_unlock+0x11/0x20
+Dec 21 01:49:00 localhost kernel: [ 2285.794649]  [<ffffffff815a085d>] wait_for_completion+0x9d/0x110
+Dec 21 01:49:00 localhost kernel: [ 2285.794653]  [<ffffffff810979e0>] ? wake_up_q+0x80/0x80
+Dec 21 01:49:00 localhost kernel: [ 2285.794661]  [<ffffffffa03fa4b8>] dlm_new_lockspace+0x908/0xac0 [dlm]
+Dec 21 01:49:00 localhost kernel: [ 2285.794665]  [<ffffffff810aaa60>] ? prepare_to_wait_event+0x100/0x100
+Dec 21 01:49:00 localhost kernel: [ 2285.794670]  [<ffffffffa0402e37>] device_write+0x497/0x6b0 [dlm]
+Dec 21 01:49:00 localhost kernel: [ 2285.794673]  [<ffffffff811834f0>] ? handle_mm_fault+0x7f0/0x13b0
+Dec 21 01:49:00 localhost kernel: [ 2285.794677]  [<ffffffff811b4438>] __vfs_write+0x28/0xd0
+Dec 21 01:49:00 localhost kernel: [ 2285.794679]  [<ffffffff811b4b7f>] ? rw_verify_area+0x6f/0xd0
+Dec 21 01:49:00 localhost kernel: [ 2285.794681]  [<ffffffff811b4dc1>] vfs_write+0xb1/0x190
+Dec 21 01:49:00 localhost kernel: [ 2285.794686]  [<ffffffff8105ffc2>] ? __do_page_fault+0x302/0x420
+Dec 21 01:49:00 localhost kernel: [ 2285.794688]  [<ffffffff811b5986>] SyS_write+0x46/0xa0
+Dec 21 01:49:00 localhost kernel: [ 2285.794690]  [<ffffffff815a31ae>] entry_SYSCALL_64_fastpath+0x12/0x71
+```
+
+The previous limit of 5 seems like an arbitrary number, that doesn't match any
+known DLM cluster size upper bound limit.
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Cc: Christine Caulfield <ccaulfie@redhat.com>
+Cc: David Teigland <teigland@redhat.com>
+Cc: cluster-devel@redhat.com
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/lowcomms.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/dlm/lowcomms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index a9b14f81d655..c06dd1988259 100644
+index c06dd1988259..d56155063dee 100644
 --- a/fs/dlm/lowcomms.c
 +++ b/fs/dlm/lowcomms.c
-@@ -1717,8 +1717,8 @@ static void work_stop(void)
+@@ -1814,7 +1814,7 @@ static int dlm_listen_for_all(void)
+ 	sock->sk->sk_data_ready = lowcomms_listen_data_ready;
+ 	release_sock(sock->sk);
  
- static int work_start(void)
- {
--	io_workqueue = alloc_workqueue("dlm_io", WQ_HIGHPRI | WQ_MEM_RECLAIM,
--				       0);
-+	io_workqueue = alloc_workqueue("dlm_io", WQ_HIGHPRI | WQ_MEM_RECLAIM |
-+				       WQ_UNBOUND, 0);
- 	if (!io_workqueue) {
- 		log_print("can't start dlm_io");
- 		return -ENOMEM;
+-	result = sock->ops->listen(sock, 5);
++	result = sock->ops->listen(sock, 128);
+ 	if (result < 0) {
+ 		dlm_close_sock(&listen_con.sock);
+ 		return result;
 -- 
 2.31.1
 
