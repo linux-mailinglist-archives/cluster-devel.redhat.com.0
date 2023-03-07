@@ -1,69 +1,70 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 350906AE42E
-	for <lists+cluster-devel@lfdr.de>; Tue,  7 Mar 2023 16:13:21 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A72A96AE436
+	for <lists+cluster-devel@lfdr.de>; Tue,  7 Mar 2023 16:14:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678201999;
+	s=mimecast20190719; t=1678202064;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=J8Wv/S8hZkGarl/vdU2yd/Mb7/z5z/afVPXh/Kxsm98=;
-	b=Y9puXLLrCitiAhBCN0Mk084Alx9ZhNTJjuzBu99W9ot1msH4TI7h5vsOz4MFLm3FT5SpjP
-	H6q9iaWB+7r/UYVaODXRcmR8fk0n1EFIrNUXZ6C2y9G4pqZkqqBDA3AO/G1WXSTJr8KAwa
-	P0CdsmgglVSrDi0YVo0jniDB1VFvQ7g=
+	bh=yN9ixkV3NznsRlBy0kp+q6qHDsT4J/oNljnLwxgZrSs=;
+	b=OBjb59gGCHogCH9Gx2SCAa72PMlS0B6TidxUtdaAF2C0pmxFHT8tsSS82kfCT7YLq7erlM
+	7B3vISrRlMf9+mTbhT4RMdmLWAW97vajfcDZWMcN7llC3q4wwjeGzAxv3OhvrZhfhZzm78
+	0fW7mgHCbE/r8mHCrK5rUEqXh22pmEY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-614-4QQq1mRrOqO1ZJnmTcOXNA-1; Tue, 07 Mar 2023 10:12:37 -0500
-X-MC-Unique: 4QQq1mRrOqO1ZJnmTcOXNA-1
+ us-mta-639-Ssg0pTwbM0iOoTTawVHRTA-1; Tue, 07 Mar 2023 10:13:57 -0500
+X-MC-Unique: Ssg0pTwbM0iOoTTawVHRTA-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56BE9101471A;
-	Tue,  7 Mar 2023 15:10:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 65B031019CBC;
+	Tue,  7 Mar 2023 15:12:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3D8FA112132D;
-	Tue,  7 Mar 2023 15:10:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 59CE91121314;
+	Tue,  7 Mar 2023 15:12:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D0AC319465A8;
-	Tue,  7 Mar 2023 15:10:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4364219465A8;
+	Tue,  7 Mar 2023 15:12:17 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0CF841946594 for <cluster-devel@listman.corp.redhat.com>;
- Tue,  7 Mar 2023 15:10:18 +0000 (UTC)
+ ESMTP id 254181946594 for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  7 Mar 2023 15:12:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EE96C2166B2A; Tue,  7 Mar 2023 15:10:17 +0000 (UTC)
+ id D9CD435454; Tue,  7 Mar 2023 15:12:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E79492166B26
- for <cluster-devel@redhat.com>; Tue,  7 Mar 2023 15:10:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6DF6887404
- for <cluster-devel@redhat.com>; Tue,  7 Mar 2023 15:10:17 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D235018EC6
+ for <cluster-devel@redhat.com>; Tue,  7 Mar 2023 15:12:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3CC280D1A2
+ for <cluster-devel@redhat.com>; Tue,  7 Mar 2023 15:12:15 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-255-yePsL6kqOKSrVj9GKYvYww-1; Tue, 07 Mar 2023 10:09:36 -0500
-X-MC-Unique: yePsL6kqOKSrVj9GKYvYww-1
+ us-mta-541-qiR7qlSRMTu6nkF7ggBiqg-1; Tue, 07 Mar 2023 10:12:01 -0500
+X-MC-Unique: qiR7qlSRMTu6nkF7ggBiqg-1
 Received: from [46.183.103.17] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pZYOc-000qBh-D3; Tue, 07 Mar 2023 14:34:31 +0000
+ id 1pZYOg-000qDw-55; Tue, 07 Mar 2023 14:34:34 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
  Matthew Wilcox <willy@infradead.org>, Hugh Dickins <hughd@google.com>
-Date: Tue,  7 Mar 2023 15:34:08 +0100
-Message-Id: <20230307143410.28031-6-hch@lst.de>
+Date: Tue,  7 Mar 2023 15:34:09 +0100
+Message-Id: <20230307143410.28031-7-hch@lst.de>
 In-Reply-To: <20230307143410.28031-1-hch@lst.de>
 References: <20230307143410.28031-1-hch@lst.de>
 MIME-Version: 1.0
@@ -77,9 +78,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH 5/7] shmem: open code the page cache lookup
- in shmem_get_folio_gfp
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [Cluster-devel] [PATCH 6/7] mm: remove FGP_ENTRY
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,54 +103,70 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Use the very low level filemap_get_entry helper to look up the
-entry in the xarray, and then:
-
- - don't bother locking the folio if only doing a userfault notification
- - open code locking the page and checking for truncation in a related
-   code block
-
-This will allow to eventually remove the FGP_ENTRY flag.
+FGP_ENTRY is unused now, so remove it.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- mm/shmem.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ include/linux/pagemap.h | 3 +--
+ mm/filemap.c            | 7 +------
+ mm/folio-compat.c       | 4 ++--
+ 3 files changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 3705437c5757ba..714ff3fb02a938 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1856,12 +1856,10 @@ static int shmem_get_folio_gfp(struct inode *inode, pgoff_t index,
- 	sbinfo = SHMEM_SB(inode->i_sb);
- 	charge_mm = vma ? vma->vm_mm : NULL;
+diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+index 5d9b51d3854220..bb60e0209b7e3b 100644
+--- a/include/linux/pagemap.h
++++ b/include/linux/pagemap.h
+@@ -504,8 +504,7 @@ pgoff_t page_cache_prev_miss(struct address_space *mapping,
+ #define FGP_NOFS		0x00000010
+ #define FGP_NOWAIT		0x00000020
+ #define FGP_FOR_MMAP		0x00000040
+-#define FGP_ENTRY		0x00000080
+-#define FGP_STABLE		0x00000100
++#define FGP_STABLE		0x00000080
  
--	folio = __filemap_get_folio(mapping, index, FGP_ENTRY | FGP_LOCK, 0);
-+	folio = filemap_get_entry(mapping, index);
- 	if (folio && vma && userfaultfd_minor(vma)) {
--		if (!xa_is_value(folio)) {
--			folio_unlock(folio);
-+		if (!xa_is_value(folio))
- 			folio_put(folio);
--		}
- 		*fault_type = handle_userfault(vmf, VM_UFFD_MINOR);
- 		return 0;
- 	}
-@@ -1877,6 +1875,14 @@ static int shmem_get_folio_gfp(struct inode *inode, pgoff_t index,
- 	}
+ void *filemap_get_entry(struct address_space *mapping, pgoff_t index);
+ struct folio *__filemap_get_folio(struct address_space *mapping, pgoff_t index,
+diff --git a/mm/filemap.c b/mm/filemap.c
+index a674108a4d524b..ac161b50f5bc17 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1891,8 +1891,6 @@ void *filemap_get_entry(struct address_space *mapping, pgoff_t index)
+  *
+  * * %FGP_ACCESSED - The folio will be marked accessed.
+  * * %FGP_LOCK - The folio is returned locked.
+- * * %FGP_ENTRY - If there is a shadow / swap / DAX entry, return it
+- *   instead of allocating a new folio to replace it.
+  * * %FGP_CREAT - If no page is present then a new page is allocated using
+  *   @gfp and added to the page cache and the VM's LRU list.
+  *   The page is returned locked and with an increased refcount.
+@@ -1918,11 +1916,8 @@ struct folio *__filemap_get_folio(struct address_space *mapping, pgoff_t index,
  
- 	if (folio) {
-+		folio_lock(folio);
-+
-+		/* Has the page been truncated? */
-+		if (unlikely(folio->mapping != mapping)) {
-+			folio_unlock(folio);
-+			folio_put(folio);
-+			goto repeat;
-+		}
- 		if (sgp == SGP_WRITE)
- 			folio_mark_accessed(folio);
- 		if (folio_test_uptodate(folio))
+ repeat:
+ 	folio = filemap_get_entry(mapping, index);
+-	if (xa_is_value(folio)) {
+-		if (fgp_flags & FGP_ENTRY)
+-			return folio;
++	if (xa_is_value(folio))
+ 		folio = NULL;
+-	}
+ 	if (!folio)
+ 		goto no_page;
+ 
+diff --git a/mm/folio-compat.c b/mm/folio-compat.c
+index cabcd1de9ecbb2..1754daa85d35c2 100644
+--- a/mm/folio-compat.c
++++ b/mm/folio-compat.c
+@@ -97,8 +97,8 @@ struct page *pagecache_get_page(struct address_space *mapping, pgoff_t index,
+ 	struct folio *folio;
+ 
+ 	folio = __filemap_get_folio(mapping, index, fgp_flags, gfp);
+-	if (!folio || xa_is_value(folio))
+-		return &folio->page;
++	if (!folio)
++		return NULL;
+ 	return folio_file_page(folio, index);
+ }
+ EXPORT_SYMBOL(pagecache_get_page);
 -- 
 2.39.1
 
