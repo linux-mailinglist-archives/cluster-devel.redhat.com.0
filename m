@@ -2,60 +2,97 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 226116ACF7A
-	for <lists+cluster-devel@lfdr.de>; Mon,  6 Mar 2023 21:48:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2627C6ADC16
+	for <lists+cluster-devel@lfdr.de>; Tue,  7 Mar 2023 11:37:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678135713;
+	s=mimecast20190719; t=1678185441;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/k50SxpSBV21901h/QUTbnpIOa3StdohyYJDs81EUyg=;
-	b=GbRuivIZN9fcuKn3F1eiwMYSUqKoGkoqzI46Ww7Hxj3EKGKILhr2bBHqm60UMH0TUdk63W
-	AVvOmofSC6sEE8R1UDiI34JdhbsFlmYgYmyiXas03/68jVEKs5k6uXVLpsK6g/cpbmW+cN
-	77tTRH6cC4YwFowWfAWCeKfrnpXK1ms=
+	bh=N/C3Y5pzRvo7wBoP0uW3mPJBJ+iAoy4QrLO7EEgHu8Y=;
+	b=SZWFQ9Gg8uYZxKsTZGdWs1yzg8Ie+N88TkSoZReBwiRsyGnsqPDOy6gE0I9RiWdevSbT06
+	6H6G+tdR4XIh41zAQNCsDH1WeGEzZjDTL24H829uYsGcGLgHOxLj7gEuvJoKNxKJIowt7+
+	T9581bC+9fYktjMA5s4MSPeX3W1Rsqg=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-10-bsuuJkf1Psuq4PkoO2jHUw-1; Mon, 06 Mar 2023 15:48:30 -0500
-X-MC-Unique: bsuuJkf1Psuq4PkoO2jHUw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-134-Tf8_ox6KPuqJVele0msgCw-1; Tue, 07 Mar 2023 05:37:16 -0500
+X-MC-Unique: Tf8_ox6KPuqJVele0msgCw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E8A93C10239;
-	Mon,  6 Mar 2023 20:48:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 648C13C14844;
+	Tue,  7 Mar 2023 10:37:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 82FA7492C3E;
-	Mon,  6 Mar 2023 20:48:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1F4CC112132D;
+	Tue,  7 Mar 2023 10:37:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3139B19465B9;
-	Mon,  6 Mar 2023 20:48:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F98B19465A8;
+	Tue,  7 Mar 2023 10:37:13 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 299631946589 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  6 Mar 2023 20:48:28 +0000 (UTC)
+ ESMTP id C21CB1946589 for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  7 Mar 2023 00:58:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1F93D440DF; Mon,  6 Mar 2023 20:48:28 +0000 (UTC)
+ id 6C10D492C3E; Tue,  7 Mar 2023 00:58:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id EF16451FF;
- Mon,  6 Mar 2023 20:48:27 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Mon,  6 Mar 2023 15:48:19 -0500
-Message-Id: <20230306204819.2747646-13-aahringo@redhat.com>
-In-Reply-To: <20230306204819.2747646-1-aahringo@redhat.com>
-References: <20230306204819.2747646-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 650B9492B00
+ for <cluster-devel@redhat.com>; Tue,  7 Mar 2023 00:58:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4A7A685A5A3
+ for <cluster-devel@redhat.com>; Tue,  7 Mar 2023 00:58:01 +0000 (UTC)
+Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
+ [207.171.184.29]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-213-xB9urR3IPNau8sHvKS5KRw-1; Mon, 06 Mar 2023 19:57:59 -0500
+X-MC-Unique: xB9urR3IPNau8sHvKS5KRw-1
+X-IronPort-AV: E=Sophos;i="5.98,238,1673913600"; d="scan'208";a="315492567"
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ email-inbound-relay-iad-1e-m6i4x-9694bb9e.us-east-1.amazon.com)
+ ([10.25.36.210]) by smtp-border-fw-9102.sea19.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Mar 2023 00:56:50 +0000
+Received: from EX13MTAUWB002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+ by email-inbound-relay-iad-1e-m6i4x-9694bb9e.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 208C580F41; Tue,  7 Mar 2023 00:56:49 +0000 (UTC)
+Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
+ EX13MTAUWB002.ant.amazon.com (10.43.161.202) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.45; Tue, 7 Mar 2023 00:56:48 +0000
+Received: from 88665a182662.ant.amazon.com (10.187.170.29) by
+ EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.24; Tue, 7 Mar 2023 00:56:46 +0000
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
+To: <aahringo@redhat.com>
+Date: Mon, 6 Mar 2023 16:56:38 -0800
+Message-ID: <20230307005638.76597-1-kuniyu@amazon.com>
+In-Reply-To: <CAK-6q+hVu8xST=zreEdH3ne+kUY-zGriRwHAR9OpCxTwPFwOSw@mail.gmail.com>
+References: <CAK-6q+hVu8xST=zreEdH3ne+kUY-zGriRwHAR9OpCxTwPFwOSw@mail.gmail.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Cluster-devel] [PATCH v6.3-rc1 12/12] fs: dlm: switch ls_exflags
- to atomic ops
+X-Originating-IP: [10.187.170.29]
+X-ClientProxiedBy: EX19D038UWC002.ant.amazon.com (10.13.139.238) To
+ EX19D004ANA001.ant.amazon.com (10.37.240.138)
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Mailman-Approved-At: Tue, 07 Mar 2023 10:37:12 +0000
+Subject: Re: [Cluster-devel] introduce function wrapper for sk_data_ready()
+ call?
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,120 +104,45 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
+Cc: cong.wang@bytedance.com, netdev@vger.kernel.org, cluster-devel@redhat.com,
+ kuniyu@amazon.com, peilin.ye@bytedance.com, davem@davemloft.net
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain
 
-As other flag handling in dlm we switch ls_exflags to use atomic
-operation to manipulate flags. This should prepare for a possible
-manipulating of lkb_exflags flags at the same time by concurrent
-execution.
+From:   Alexander Aring <aahringo@redhat.com>
+Date:   Mon, 6 Mar 2023 07:47:02 -0500
+> 
+> Hi,
+> 
+> I saw that in 6.3-rc1 the following patch introduced something in dlm
+> socket application handling 40e0b0908142 ("net/sock: Introduce
+> trace_sk_data_ready()"). I am asking myself if we could instead
+> introduce a wrapper in net/ protocol family implementations and they
+> do such trace event calls there inside the socket implementation
+> instead of letting the application layer do it. It looks pretty
+> generic for me and it does not trace any application specific
+> information.
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/dlm_internal.h | 23 ++++++++++++++++++++++-
- fs/dlm/lockspace.c    |  2 +-
- fs/dlm/rcom.c         |  6 +++---
- 3 files changed, 26 insertions(+), 5 deletions(-)
+I think you cannot apply the same logic to some functions which call
+trace_sk_data_ready() twice, e.g. subflow_data_ready, tls_data_ready().
 
-diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index 986a9d7b1f33..48e9152555a8 100644
---- a/fs/dlm/dlm_internal.h
-+++ b/fs/dlm/dlm_internal.h
-@@ -548,7 +548,7 @@ struct dlm_ls {
- 	dlm_lockspace_t		*ls_local_handle;
- 	uint32_t		ls_global_id;	/* global unique lockspace ID */
- 	uint32_t		ls_generation;
--	uint32_t		ls_exflags;
-+	unsigned long		ls_exflags;
- 	int			ls_lvblen;
- 	atomic_t		ls_count;	/* refcount of processes in
- 						   the dlm using this ls */
-@@ -771,6 +771,11 @@ static inline uint32_t dlm_dflags_val(const struct dlm_lkb *lkb)
- #define DLM_SBF_ALTMODE_BIT	2
- #define __DLM_SBF_MAX_BIT	DLM_SBF_ALTMODE_BIT
- 
-+#define DLM_LSFL_TIMEWARN_BIT	1
-+#define __DLM_LSFL_MIN_BIT	DLM_LSFL_TIMEWARN_BIT
-+#define DLM_LSFL_NEWEXCL_BIT	3
-+#define __DLM_LSFL_MAX_BIT	DLM_LSFL_NEWEXCL_BIT
-+
- static inline uint32_t dlm_sbflags_val(const struct dlm_lkb *lkb)
- {
- 	/* be sure the next person updates this */
-@@ -780,6 +785,16 @@ static inline uint32_t dlm_sbflags_val(const struct dlm_lkb *lkb)
- 			     __DLM_SBF_MAX_BIT);
- }
- 
-+static inline uint32_t dlm_ls_exflags_val(const struct dlm_ls *ls)
-+{
-+	/* be sure the next person updates this */
-+	BUILD_BUG_ON(BIT(__DLM_LSFL_MIN_BIT) != DLM_LSFL_TIMEWARN ||
-+		     BIT(__DLM_LSFL_MAX_BIT) != DLM_LSFL_NEWEXCL);
-+
-+	return dlm_flags_val(&ls->ls_exflags, __DLM_LSFL_MIN_BIT,
-+			     __DLM_LSFL_MAX_BIT);
-+}
-+
- static inline void dlm_set_flags_val(unsigned long *addr, uint32_t val,
- 				     uint32_t min, uint32_t max)
- {
-@@ -805,6 +820,12 @@ static inline void dlm_set_sbflags_val(struct dlm_lkb *lkb, uint32_t val)
- 			  __DLM_SBF_MAX_BIT);
- }
- 
-+static inline void dlm_set_ls_exflags(struct dlm_ls *ls, uint32_t val)
-+{
-+	dlm_set_flags_val(&ls->ls_exflags, val, __DLM_LSFL_MIN_BIT,
-+			  __DLM_LSFL_MAX_BIT);
-+}
-+
- int dlm_plock_init(void);
- void dlm_plock_exit(void);
- 
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index 67261b7b1f0e..c47fcb292870 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -490,7 +490,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 	/* ls_exflags are forced to match among nodes, and we don't
- 	 * need to require all nodes to have some flags set
- 	 */
--	ls->ls_exflags = (flags & ~(DLM_LSFL_FS | DLM_LSFL_NEWEXCL));
-+	dlm_set_ls_exflags(ls, flags & ~(DLM_LSFL_FS | DLM_LSFL_NEWEXCL));
- 
- 	size = READ_ONCE(dlm_config.ci_rsbtbl_size);
- 	ls->ls_rsbtbl_size = size;
-diff --git a/fs/dlm/rcom.c b/fs/dlm/rcom.c
-index f4afdf892f78..5f0d7fe34b35 100644
---- a/fs/dlm/rcom.c
-+++ b/fs/dlm/rcom.c
-@@ -114,7 +114,7 @@ static void set_rcom_config(struct dlm_ls *ls, struct rcom_config *rf,
- 			    uint32_t num_slots)
- {
- 	rf->rf_lvblen = cpu_to_le32(ls->ls_lvblen);
--	rf->rf_lsflags = cpu_to_le32(ls->ls_exflags);
-+	rf->rf_lsflags = cpu_to_le32(dlm_ls_exflags_val(ls));
- 
- 	rf->rf_our_slot = cpu_to_le16(ls->ls_slot);
- 	rf->rf_num_slots = cpu_to_le16(num_slots);
-@@ -133,9 +133,9 @@ static int check_rcom_config(struct dlm_ls *ls, struct dlm_rcom *rc, int nodeid)
- 	}
- 
- 	if (le32_to_cpu(rf->rf_lvblen) != ls->ls_lvblen ||
--	    le32_to_cpu(rf->rf_lsflags) != ls->ls_exflags) {
-+	    le32_to_cpu(rf->rf_lsflags) != dlm_ls_exflags_val(ls)) {
- 		log_error(ls, "config mismatch: %d,%x nodeid %d: %d,%x",
--			  ls->ls_lvblen, ls->ls_exflags, nodeid,
-+			  ls->ls_lvblen, dlm_ls_exflags_val(ls), nodeid,
- 			  le32_to_cpu(rf->rf_lvblen),
- 			  le32_to_cpu(rf->rf_lsflags));
- 		return -EPROTO;
--- 
-2.31.1
+Then, only such functions need an additional trace_sk_data_ready(),
+which is not clean, I think.
+
+Thanks,
+Kuniyuki
+
+
+> 
+> I did something similar for sk_error_report(), see e3ae2365efc1 ("net:
+> sock: introduce sk_error_report").
+> 
+> Thanks.
+> 
+> - Alex
 
