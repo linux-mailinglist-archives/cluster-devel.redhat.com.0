@@ -2,91 +2,90 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 202D26C0A07
-	for <lists+cluster-devel@lfdr.de>; Mon, 20 Mar 2023 06:23:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B23B6C10FE
+	for <lists+cluster-devel@lfdr.de>; Mon, 20 Mar 2023 12:39:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679289828;
+	s=mimecast20190719; t=1679312381;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=AAg/di4awCbENQSDHCw3uwPaVCnYn/JqQu0b5lYNlhA=;
-	b=b98qYoSM82Pr643aMwbENBKG+NRnDIMAC34cuWoGPyIfa1L8Ire39eksQHjOgCwtm9r3Zc
-	7mF9hhV6Ac/n2sf2lxwBi+0dP7+QiZ6yxhEOifTEhLrhUoyXlVFQX7/5UtLd8uhIkwrVyx
-	+kzl6vWBLixHb+7rAy1Z0bywA2cWehc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=mviUQ27/iHZGfwlahjqCZ5wZtdsMAGwoSzooIkgDF+w=;
+	b=cIbCgacPJKiwam8zsr4lva4OyyUAsXrwTD2M/DEg+NqW8xrMswn0Q7+wOJZc7AX6tfOgPB
+	W4rP0VTZbdrWE1I2pKF96hwuFxDZTYPPsljjakFHoMOAsg93efNo46g+frMSttoL22LNxs
+	An4SGHun5FztF8v80zZ9p7YSmU8yEvM=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-446-ouo1jZehPHqaHlrQPYKLwQ-1; Mon, 20 Mar 2023 01:23:44 -0400
-X-MC-Unique: ouo1jZehPHqaHlrQPYKLwQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-458-CB9uxsInP0WwzvqNDdm87A-1; Mon, 20 Mar 2023 07:39:38 -0400
+X-MC-Unique: CB9uxsInP0WwzvqNDdm87A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9438396DC82;
-	Mon, 20 Mar 2023 05:23:43 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 834F785768;
-	Mon, 20 Mar 2023 05:23:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 74CAE1C05AC0;
+	Mon, 20 Mar 2023 11:39:37 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8AB362027047;
+	Mon, 20 Mar 2023 11:39:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3946B1946A52;
-	Mon, 20 Mar 2023 05:23:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3A25919465B1;
+	Mon, 20 Mar 2023 11:39:35 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6C818194658F for <cluster-devel@listman.corp.redhat.com>;
- Mon, 20 Mar 2023 05:23:42 +0000 (UTC)
+ ESMTP id 9ACB919465A3 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 15 Mar 2023 09:06:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3D6391410F1E; Mon, 20 Mar 2023 05:23:42 +0000 (UTC)
+ id A3270C164E8; Wed, 15 Mar 2023 09:06:30 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 34D4A1410F1C
- for <cluster-devel@redhat.com>; Mon, 20 Mar 2023 05:23:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A1641C05199
- for <cluster-devel@redhat.com>; Mon, 20 Mar 2023 05:23:42 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BF06C164E7
+ for <cluster-devel@redhat.com>; Wed, 15 Mar 2023 09:06:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F3FB29A9CAD
+ for <cluster-devel@redhat.com>; Wed, 15 Mar 2023 09:06:30 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-29-0N8Xw6tiNHWkTxJoqP0cEA-1; Mon, 20 Mar 2023 01:23:40 -0400
-X-MC-Unique: 0N8Xw6tiNHWkTxJoqP0cEA-1
-Received: by mail-qt1-f181.google.com with SMTP id c19so11839495qtn.13
- for <cluster-devel@redhat.com>; Sun, 19 Mar 2023 22:23:40 -0700 (PDT)
+ us-mta-621-ctYwmEv0MuKsc8psbcDBtw-1; Wed, 15 Mar 2023 05:06:26 -0400
+X-MC-Unique: ctYwmEv0MuKsc8psbcDBtw-1
+Received: by mail-ed1-f54.google.com with SMTP id x13so25278718edd.1;
+ Wed, 15 Mar 2023 02:06:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679289819;
- h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AAg/di4awCbENQSDHCw3uwPaVCnYn/JqQu0b5lYNlhA=;
- b=h7eW1BKDzHZe02UNczWFeUMK7qAQPFjwJWm9M//Cz3/9Qp0POHShPf6vOsIFt+cdKt
- 9e6lTC6cMfMNZxMDn1HWr8fk9Mz1KygqRRXphTOpmZzfvqm+aQx9A2TBgzGDA+l4tskO
- q71JjDHsVtflusgOJQ5X2XNLUCaI4W3Weot3s2oeX8NQDLUv0haEOXV66P7nscSpfaFX
- 9rc6mhfUdrwJ5/v+cxmFppbFkXmaWtY00XTbWLQVuca7UazgM2iygiNlnULKus53vKqC
- oMjXsgb+hOzbf5deRG1IS9uMAzbbHWwhsMxQOpZAz19N3H9H3gEJkcSzqRhuO5BRCxTd
- E9Kw==
-X-Gm-Message-State: AO0yUKWF6g5gLN88zKqf7owJbdNdklaw+3SrOBCN2Lt2fjZJNQD012z8
- jYzLQ5Nvesxq7y0OqUcPEJIK+g==
-X-Google-Smtp-Source: AK7set+IHAVwOVPGzgDiA1M/gc/Y2e4sY27FJ8NVOQKNJGtuM2ssre+J8mfq1AKrGS8jlMrrQZHYtw==
-X-Received: by 2002:ac8:7dc2:0:b0:3b8:4076:1de0 with SMTP id
- c2-20020ac87dc2000000b003b840761de0mr25174802qte.30.1679289819622; 
- Sun, 19 Mar 2023 22:23:39 -0700 (PDT)
-Received: from ripple.attlocal.net
- (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+ d=1e100.net; s=20210112; t=1678871185; x=1681463185;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mviUQ27/iHZGfwlahjqCZ5wZtdsMAGwoSzooIkgDF+w=;
+ b=7AfEB6iOLeQQH+m4A78CaAeS7AC+j6FmMlEWrIOwM4IruNf0vGiuMPeVF5y91oV3uQ
+ hJinbMwb36S0Aog8AYd1BToIzu1MfHsgfZ7ACQmqrzR6Pj5o28a826vJTdfqe2ksx/5k
+ 6ybN9y1iyTUmUa9ekqJybfsLcIw+uBnhdSxlb9jGrIA5/gbldvCHJwVqatv3xPT2NXR3
+ el5eJ6xswrcT1xmUVQ9KBFclO0q//CQ4SBhb3dMXp5S46maGBstIzmk6Ltg9DYoEAywB
+ 0nvaBaigcFFMDTGEh87BQSmXweF5m1okaZl0CPaldGw5+FqMPYdcPabPgkiG8KOsGCTn
+ 4kAA==
+X-Gm-Message-State: AO0yUKV1+HUpmvVPnJgB+xvnl7/NOxLJhSYxWwfvu9YmlCEArbBUK1hO
+ M2RWsn5jLzZ8J1AY7QgPxr2AmswC0GIhcg==
+X-Google-Smtp-Source: AK7set/AvPhKa1Udt5DUEvQlOz5vMHUkIaNtdHxKhdF6BLIGq1ynPteZ9cLjl9xXqUBm0xGnIJANuQ==
+X-Received: by 2002:a17:906:4c:b0:92e:f520:7779 with SMTP id
+ 12-20020a170906004c00b0092ef5207779mr1162424ejg.0.1678871184900; 
+ Wed, 15 Mar 2023 02:06:24 -0700 (PDT)
+Received: from ivan-HLYL-WXX9.. ([37.252.81.68])
  by smtp.gmail.com with ESMTPSA id
- r19-20020ac85213000000b003b643951117sm6038919qtn.38.2023.03.19.22.23.37
+ ss10-20020a170907038a00b008e36f9b2308sm2264411ejb.43.2023.03.15.02.06.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Mar 2023 22:23:39 -0700 (PDT)
-Date: Sun, 19 Mar 2023 22:23:36 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-X-X-Sender: hugh@ripple.attlocal.net
-To: Christoph Hellwig <hch@lst.de>
-In-Reply-To: <20230307143410.28031-6-hch@lst.de>
-Message-ID: <af178ebb-1076-a38c-1dc1-2a37ccce4a3@google.com>
-References: <20230307143410.28031-1-hch@lst.de>
- <20230307143410.28031-6-hch@lst.de>
+ Wed, 15 Mar 2023 02:06:24 -0700 (PDT)
+From: Ivan Orlov <ivan.orlov0322@gmail.com>
+To: rpeterso@redhat.com,
+	agruenba@redhat.com
+Date: Wed, 15 Mar 2023 13:06:20 +0400
+Message-Id: <20230315090620.7294-1-ivan.orlov0322@gmail.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -95,9 +94,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [Cluster-devel] [PATCH 5/7] shmem: open code the page cache
- lookup in shmem_get_folio_gfp
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Mailman-Approved-At: Mon, 20 Mar 2023 11:39:34 +0000
+Subject: [Cluster-devel] [PATCH] gfs2 FS: Fix UBSAN
+ array-index-out-of-bounds in __gfs2_iomap_get
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,54 +109,102 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-xfs@vger.kernel.org, linux-nilfs@vger.kernel.org,
- Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>,
- cluster-devel@redhat.com, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-btrfs@vger.kernel.org
+Cc: Ivan Orlov <ivan.orlov0322@gmail.com>, linux-kernel@vger.kernel.org,
+ syzbot+45d4691b1ed3c48eba05@syzkaller.appspotmail.com,
+ cluster-devel@redhat.com, skhan@linuxfoundation.org,
+ linux-kernel-mentees@lists.linuxfoundation.org, himadrispandya@gmail.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Tue, 7 Mar 2023, Christoph Hellwig wrote:
+Syzkaller reported the following issue:
 
-> Use the very low level filemap_get_entry helper to look up the
-> entry in the xarray, and then:
-> 
->  - don't bother locking the folio if only doing a userfault notification
->  - open code locking the page and checking for truncation in a related
->    code block
-> 
-> This will allow to eventually remove the FGP_ENTRY flag.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+UBSAN: array-index-out-of-bounds in fs/gfs2/bmap.c:901:46
+index 11 is out of range for type 'u64 [11]'
+CPU: 0 PID: 5067 Comm: syz-executor164 Not tainted 6.1.0-syzkaller-13031-g77856d911a8c #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x1b1/0x290 lib/dump_stack.c:106
+ ubsan_epilogue lib/ubsan.c:151 [inline]
+ __ubsan_handle_out_of_bounds+0xe0/0x110 lib/ubsan.c:282
+ __gfs2_iomap_get+0x4a4/0x16e0 fs/gfs2/bmap.c:901
+ gfs2_iomap_get fs/gfs2/bmap.c:1399 [inline]
+ gfs2_block_map+0x28f/0x7f0 fs/gfs2/bmap.c:1214
+ gfs2_write_alloc_required+0x441/0x6e0 fs/gfs2/bmap.c:2322
+ gfs2_jdesc_check+0x1b9/0x290 fs/gfs2/super.c:114
+ init_journal+0x5a4/0x22c0 fs/gfs2/ops_fstype.c:804
+ init_inodes+0xdc/0x340 fs/gfs2/ops_fstype.c:889
+ gfs2_fill_super+0x1bb2/0x2700 fs/gfs2/ops_fstype.c:1247
+ get_tree_bdev+0x400/0x620 fs/super.c:1282
+ gfs2_get_tree+0x50/0x210 fs/gfs2/ops_fstype.c:1330
+ vfs_get_tree+0x88/0x270 fs/super.c:1489
+ do_new_mount+0x289/0xad0 fs/namespace.c:3145
+ do_mount fs/namespace.c:3488 [inline]
+ __do_sys_mount fs/namespace.c:3697 [inline]
+ __se_sys_mount+0x2d3/0x3c0 fs/namespace.c:3674
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x3d/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7f2c63567aca
+Code: 83 c4 08 5b 5d c3 66 2e 0f 1f 84 00 00 00 00 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 c0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd0e3a28d8 EFLAGS: 00000282 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f2c63567aca
+RDX: 0000000020037f40 RSI: 0000000020037f80 RDI: 00007ffd0e3a28e0
+RBP: 00007ffd0e3a28e0 R08: 00007ffd0e3a2920 R09: 0000000000043350
+R10: 0000000002000011 R11: 0000000000000282 R12: 0000000000000004
+R13: 00005555567192c0 R14: 00007ffd0e3a2920 R15: 0000000000000000
+ </TASK>
 
-Acked-by: Hugh Dickins <hughd@google.com>
+This issue is caused by the 'while' loop in the '__gfs2_iomap_get' function,
+which increments 'height' var until it matches the condition. If height is
+larger or equal to 'sdp->sd_heightsize' array size (which is GFS2_MAX_META_HEIGHT
++ 1), the array-index-out-of-bounds issue occurs. Therefore we need to add extra
+condition to the while loop, which will prevent this issue.
 
-but Andrew, please fold in this small improvement to its comment:
+Additionally, if 'height' var after the while ending is equal to GFS2_MAX_META_HEIGHT,
+the 'find_metapath' call right after the loop will break (because it assumes that
+'height' parameter will not be larger than the size of metapath's mp_list array length,
+which is GFS2_MAX_META_HEIGHT). So, we need to check the 'height' after the loop ending,
+and if its value is too big we need to break the execution of the function, and return
+a proper error if it is too big.
 
-[PATCH] shmem: open code the page cache lookup in shmem_get_folio_gfp fix
+Tested via syzbot.
 
-Adjust the new comment line: shmem folio may have been swapped out.
-
-Signed-off-by: Hugh Dickins <hughd@google.com>
+Reported-by: syzbot+45d4691b1ed3c48eba05@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?id=42296ea544c870f4dde3b25efa4cc1b89515d38e
+Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
 ---
+ fs/gfs2/bmap.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
- mm/shmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1905,7 +1905,7 @@ static int shmem_get_folio_gfp(struct inode *inode, pgoff_t index,
- 	if (folio) {
- 		folio_lock(folio);
+diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
+index eedf6926c652..9b7358165f96 100644
+--- a/fs/gfs2/bmap.c
++++ b/fs/gfs2/bmap.c
+@@ -895,8 +895,16 @@ static int __gfs2_iomap_get(struct inode *inode, loff_t pos, loff_t length,
+ 	iomap->length = len << inode->i_blkbits;
  
--		/* Has the page been truncated? */
-+		/* Has the folio been truncated or swapped out? */
- 		if (unlikely(folio->mapping != mapping)) {
- 			folio_unlock(folio);
- 			folio_put(folio);
+ 	height = ip->i_height;
+-	while ((lblock + 1) * sdp->sd_sb.sb_bsize > sdp->sd_heightsize[height])
++
++	while (height <= GFS2_MAX_META_HEIGHT
++		&& (lblock + 1) * sdp->sd_sb.sb_bsize > sdp->sd_heightsize[height])
+ 		height++;
++
++	if (height > GFS2_MAX_META_HEIGHT) {
++		ret = -ERANGE;
++		goto unlock;
++	}
++
+ 	find_metapath(sdp, lblock, mp, height);
+ 	if (height > ip->i_height || gfs2_is_stuffed(ip))
+ 		goto do_alloc;
+-- 
+2.34.1
 
