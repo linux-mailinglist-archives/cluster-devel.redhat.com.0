@@ -2,59 +2,62 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 758F56B95DB
-	for <lists+cluster-devel@lfdr.de>; Tue, 14 Mar 2023 14:18:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E45CE6BEBBB
+	for <lists+cluster-devel@lfdr.de>; Fri, 17 Mar 2023 15:51:50 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678799923;
+	s=mimecast20190719; t=1679064709;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qBzPWQgALLgaob1q/5E3QwF7/XBR1kXHpxnvUXspng8=;
-	b=Yz1cuNal4gICnb7ajXiekzwjc9oasJ3ZYSxU3PpzSEouo7k4TrWA5Cy6lgdDJ7mITbHIFZ
-	Rb+gr/WEJZE8ZjJi7wNM4BEiliRaGEnd2m9uK8tADICHvo6brK1c0WYXb9z+g0Z4owQAXQ
-	uiP7bAQ3Zn1BYMECrEjDyqIyH6R16DU=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=6d/Oxl1Cdu8ybDL5tOgPD1gv3cW2fyMj4HBClKMadWo=;
+	b=TLr9+6j+BMmHOtQSMeuD9ogQn7pb6absL1q/v3voQDvSb01ybsS2mfkF7Ip6Y6wyzMkkSA
+	FAsXTX38OJs6eaLpftl9tbh3knCC78TxgoTaFCBTN+jp/Eh+/nTKmj1nFt2clDs+VgsGOY
+	T82fBbYIjhJuyKVJ4QirhYf9WGE37RE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-211-DdMpj2awOm-dxN7-JQwWtA-1; Tue, 14 Mar 2023 09:18:37 -0400
-X-MC-Unique: DdMpj2awOm-dxN7-JQwWtA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-435-KErhEEd1MKy99R542SF6Mw-1; Fri, 17 Mar 2023 10:51:46 -0400
+X-MC-Unique: KErhEEd1MKy99R542SF6Mw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D15A23C10236;
-	Tue, 14 Mar 2023 13:18:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20D0F857FB2;
+	Fri, 17 Mar 2023 14:51:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C5E38140E95F;
-	Tue, 14 Mar 2023 13:18:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3C959C15BA0;
+	Fri, 17 Mar 2023 14:51:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AA8DE19465B2;
-	Tue, 14 Mar 2023 13:18:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C4DA91946A4C;
+	Fri, 17 Mar 2023 14:51:38 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D89831946594 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 14 Mar 2023 13:18:35 +0000 (UTC)
+ ESMTP id 5C18C1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 16 Mar 2023 15:27:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BAA6B401042; Tue, 14 Mar 2023 13:18:35 +0000 (UTC)
+ id 121CF2166B2D; Thu, 16 Mar 2023 15:27:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from b.redhat.com (unknown [10.33.36.225])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 245A3400F4F;
- Tue, 14 Mar 2023 13:18:35 +0000 (UTC)
-From: Andrew Price <anprice@redhat.com>
-To: agruenba@redhat.com,
-	rpeterso@redhat.com
-Date: Tue, 14 Mar 2023 13:18:29 +0000
-Message-Id: <20230314131829.18515-4-anprice@redhat.com>
-In-Reply-To: <20230314131829.18515-1-anprice@redhat.com>
-References: <20230314131829.18515-1-anprice@redhat.com>
+Received: from warthog.procyon.org.uk (unknown [10.33.36.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DC5562166B26;
+ Thu, 16 Mar 2023 15:27:29 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Matthew Wilcox <willy@infradead.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Date: Thu, 16 Mar 2023 15:26:16 +0000
+Message-Id: <20230316152618.711970-27-dhowells@redhat.com>
+In-Reply-To: <20230316152618.711970-1-dhowells@redhat.com>
+References: <20230316152618.711970-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH 3/3] gfs2: Remove ghs[] from gfs2_unlink
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [Cluster-devel] [RFC PATCH 26/28] dlm: Use
+ sendmsg(MSG_SPLICE_PAGES) rather than sendpage
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,94 +69,67 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
+Cc: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ cluster-devel@redhat.com, netdev@vger.kernel.org,
+ Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+ David Howells <dhowells@redhat.com>, linux-mm@kvack.org,
+ Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Replace the 3-item array with three variables for readability.
+When transmitting data, call down a layer using a single sendmsg with
+MSG_SPLICE_PAGES to indicate that content should be spliced rather using
+sendpage.  This allows ->sendpage() to be replaced by something that can
+handle multiple multipage folios in a single transaction.
 
-Signed-off-by: Andrew Price <anprice@redhat.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Christine Caulfield <ccaulfie@redhat.com>
+cc: David Teigland <teigland@redhat.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Eric Dumazet <edumazet@google.com>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Jens Axboe <axboe@kernel.dk>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: cluster-devel@redhat.com
+cc: netdev@vger.kernel.org
 ---
- fs/gfs2/inode.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ fs/dlm/lowcomms.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index 9850267b9951..17c994a0c0d0 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -1143,7 +1143,7 @@ static int gfs2_unlink(struct inode *dir, struct dentry *dentry)
- 	struct gfs2_sbd *sdp = GFS2_SB(dir);
- 	struct inode *inode = d_inode(dentry);
- 	struct gfs2_inode *ip = GFS2_I(inode);
--	struct gfs2_holder ghs[3];
-+	struct gfs2_holder d_gh, r_gh, gh;
- 	struct gfs2_rgrpd *rgd;
- 	int error;
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index a9b14f81d655..9c0c691b6106 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -1394,8 +1394,11 @@ int dlm_lowcomms_resend_msg(struct dlm_msg *msg)
+ /* Send a message */
+ static int send_to_sock(struct connection *con)
+ {
+-	const int msg_flags = MSG_DONTWAIT | MSG_NOSIGNAL;
+ 	struct writequeue_entry *e;
++	struct bio_vec bvec;
++	struct msghdr msg = {
++		.msg_flags = MSG_SPLICE_PAGES | MSG_DONTWAIT | MSG_NOSIGNAL,
++	};
+ 	int len, offset, ret;
  
-@@ -1153,21 +1153,21 @@ static int gfs2_unlink(struct inode *dir, struct dentry *dentry)
+ 	spin_lock_bh(&con->writequeue_lock);
+@@ -1411,8 +1414,9 @@ static int send_to_sock(struct connection *con)
+ 	WARN_ON_ONCE(len == 0 && e->users == 0);
+ 	spin_unlock_bh(&con->writequeue_lock);
  
- 	error = -EROFS;
- 
--	gfs2_holder_init(dip->i_gl, LM_ST_EXCLUSIVE, 0, ghs);
--	gfs2_holder_init(ip->i_gl,  LM_ST_EXCLUSIVE, 0, ghs + 1);
-+	gfs2_holder_init(dip->i_gl, LM_ST_EXCLUSIVE, 0, &d_gh);
-+	gfs2_holder_init(ip->i_gl,  LM_ST_EXCLUSIVE, 0, &gh);
- 
- 	rgd = gfs2_blk2rgrpd(sdp, ip->i_no_addr, 1);
- 	if (!rgd)
- 		goto out_inodes;
- 
--	gfs2_holder_init(rgd->rd_gl, LM_ST_EXCLUSIVE, LM_FLAG_NODE_SCOPE, ghs + 2);
-+	gfs2_holder_init(rgd->rd_gl, LM_ST_EXCLUSIVE, LM_FLAG_NODE_SCOPE, &r_gh);
- 
- 
--	error = gfs2_glock_nq(ghs); /* parent */
-+	error = gfs2_glock_nq(&d_gh);
- 	if (error)
- 		goto out_parent;
- 
--	error = gfs2_glock_nq(ghs + 1); /* child */
-+	error = gfs2_glock_nq(&gh);
- 	if (error)
- 		goto out_child;
- 
-@@ -1181,7 +1181,7 @@ static int gfs2_unlink(struct inode *dir, struct dentry *dentry)
- 			goto out_rgrp;
- 	}
- 
--	error = gfs2_glock_nq(ghs + 2); /* rgrp */
-+	error = gfs2_glock_nq(&r_gh); /* rgrp */
- 	if (error)
- 		goto out_rgrp;
- 
-@@ -1197,16 +1197,16 @@ static int gfs2_unlink(struct inode *dir, struct dentry *dentry)
- 	gfs2_trans_end(sdp);
- 
- out_gunlock:
--	gfs2_glock_dq(ghs + 2);
-+	gfs2_glock_dq(&r_gh);
- out_rgrp:
--	gfs2_glock_dq(ghs + 1);
-+	gfs2_glock_dq(&gh);
- out_child:
--	gfs2_glock_dq(ghs);
-+	gfs2_glock_dq(&d_gh);
- out_parent:
--	gfs2_holder_uninit(ghs + 2);
-+	gfs2_holder_uninit(&r_gh);
- out_inodes:
--	gfs2_holder_uninit(ghs + 1);
--	gfs2_holder_uninit(ghs);
-+	gfs2_holder_uninit(&gh);
-+	gfs2_holder_uninit(&d_gh);
- 	return error;
- }
- 
--- 
-2.39.2
+-	ret = kernel_sendpage(con->sock, e->page, offset, len,
+-			      msg_flags);
++	bvec_set_page(&bvec, e->page, len, offset);
++	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, len);
++	ret = sock_sendmsg(con->sock, &msg);
+ 	trace_dlm_send(con->nodeid, ret);
+ 	if (ret == -EAGAIN || ret == 0) {
+ 		lock_sock(con->sock->sk);
 
