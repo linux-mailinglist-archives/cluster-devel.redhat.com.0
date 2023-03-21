@@ -1,81 +1,57 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1806C1429
-	for <lists+cluster-devel@lfdr.de>; Mon, 20 Mar 2023 14:58:54 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1676C32CC
+	for <lists+cluster-devel@lfdr.de>; Tue, 21 Mar 2023 14:24:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679320733;
+	s=mimecast20190719; t=1679405067;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=9JxuoOXrvBv5R9PUz9wzS/XDpwFhofIR6FWa7Esn6zM=;
-	b=JRnkbRn9LzUEXAJO9BaFtU0tcY25YoXRFOumJitlItYPMVnW8veBTUyat5yx+vv51as4pM
-	ay05FCdCJ2ShPBkS0lH76edG2P3iECQe5YQiqtjMvoEbLkT1LiAzVrRSN2Xy/b1NJCeO0a
-	J9CGlQV90/65RM97IpmLnFLqJX0YetQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=AAqCzgjsR1FhraoEWuGMXqiqTjn3/e337zHR7kNkKAM=;
+	b=jKA8QI4la3TyS/Tf5t916t7d1YRLm17objjraIgsAitww3KoB3VqoAce1MT+Id6d07AKTW
+	xa21A0nUR390ccW/0FIR2O+RRfPHg1ZBe4DO6rJmnOe8iu92P0UUDY9vebuxPfSCQafKOu
+	GmrgRMAzTAygE1dPp2CV7FPGs8eY1bQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-83-kFAMu1lPPk-DfK3AZIxcpw-1; Mon, 20 Mar 2023 09:58:50 -0400
-X-MC-Unique: kFAMu1lPPk-DfK3AZIxcpw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-128-VyeZmQfrMBulbDsiyKVMLA-1; Tue, 21 Mar 2023 09:19:54 -0400
+X-MC-Unique: VyeZmQfrMBulbDsiyKVMLA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 756821C05AAF;
-	Mon, 20 Mar 2023 13:58:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F2F1088562C;
+	Tue, 21 Mar 2023 13:17:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8B9944021B1;
-	Mon, 20 Mar 2023 13:58:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 127E01121314;
+	Tue, 21 Mar 2023 13:17:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4B44119465B1;
-	Mon, 20 Mar 2023 13:58:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A499119465B3;
+	Tue, 21 Mar 2023 13:17:40 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AE9901946594 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 20 Mar 2023 13:58:46 +0000 (UTC)
+ ESMTP id 8F2DF19465B2 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 21 Mar 2023 13:17:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8B5D0C15BAD; Mon, 20 Mar 2023 13:58:46 +0000 (UTC)
+ id 40EF12166B2E; Tue, 21 Mar 2023 13:17:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8402BC15BA0
- for <cluster-devel@redhat.com>; Mon, 20 Mar 2023 13:58:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 499D62A5956E
- for <cluster-devel@redhat.com>; Mon, 20 Mar 2023 13:58:46 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-573-3wcg5PoMOhqsXIueuqzvWg-1; Mon, 20 Mar 2023 09:58:44 -0400
-X-MC-Unique: 3wcg5PoMOhqsXIueuqzvWg-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id DC1B868AFE; Mon, 20 Mar 2023 14:58:38 +0100 (CET)
-Date: Mon, 20 Mar 2023 14:58:38 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Hugh Dickins <hughd@google.com>
-Message-ID: <20230320135838.GA16060@lst.de>
-References: <20230307143410.28031-1-hch@lst.de>
- <20230307143410.28031-5-hch@lst.de>
- <9d1aaa4-1337-fb81-6f37-74ebc96f9ef@google.com>
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+ (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 185CA2166B2B;
+ Tue, 21 Mar 2023 13:17:35 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Tue, 21 Mar 2023 09:17:34 -0400
+Message-Id: <20230321131734.2113556-1-aahringo@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <9d1aaa4-1337-fb81-6f37-74ebc96f9ef@google.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [Cluster-devel] [PATCH 4/7] shmem: remove
- shmem_get_partial_folio
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [Cluster-devel] [PATCH] dlm_controld: set posix_lock flags to zero
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,49 +63,33 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-xfs@vger.kernel.org, linux-nilfs@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org
+Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Sun, Mar 19, 2023 at 10:19:21PM -0700, Hugh Dickins wrote:
-> I thought this was fine at first, and of course it's good for all the
-> usual cases; but not for shmem_get_partial_folio()'s awkward cases.
-> 
-> Two issues with it.
-> 
-> One, as you highlight above, the possibility of reading more swap
-> unnecessarily.  I do not mind if partial truncation entails reading
-> a little unnecessary swap; but I don't like the common case of
-> truncation to 0 to entail that; even less eviction; even less
-> unmounting, when eviction of all risks reading lots of swap.
-> The old code behaved well at i_size 0, the new code not so much.
+This patch sets another flags variable to zero which is a leftover of
+commit 0834ed4b ("dlm_controld: initialize waiter->flags").
+---
+ dlm_controld/plock.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-True.  We could restore that by doing the i_size check for SGP_FIND,
-though.
-
-> Replacing shmem_get_partial_folio() by SGP_FIND was a good direction
-> to try, but it hasn't worked out.  I tried to get SGPs to work right
-> for it before, when shmem_get_partial_page() was introduced; but I
-> did not manage to do so.  I think we have to go back to how this was.
-
-Hmm, would be sad to lose this entirely.  One thing I though about
-but didn't manage to do, is to rework how the SGP_* flags works.
-Right now they are used as en enum, and we actually do numerical
-comparisms on them, which is highly confusing.  To be it seems like
-having actual flags that can be combined and have useful names
-would seem much better.  But I did run out patience for finding good
-names and figuring out what would be granular enough behavior
-for such flags.
-
-e.g. one would be for limiting to i_size, one for allocating new
-folios if none was found, etc.
+diff --git a/dlm_controld/plock.c b/dlm_controld/plock.c
+index ad9b0f27..7f632888 100644
+--- a/dlm_controld/plock.c
++++ b/dlm_controld/plock.c
+@@ -1956,6 +1956,7 @@ void receive_plocks_data(struct lockspace *ls, struct dlm_header *hd, int len)
+ 			po->pid		= le32_to_cpu(pp->pid);
+ 			po->nodeid	= le32_to_cpu(pp->nodeid);
+ 			po->ex		= pp->ex;
++			po->flags	= 0;
+ 			list_add_tail(&po->list, &r->locks);
+ 		} else {
+ 			w = malloc(sizeof(struct lock_waiter));
+-- 
+2.31.1
 
