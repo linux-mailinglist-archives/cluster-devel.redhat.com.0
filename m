@@ -2,56 +2,55 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D766C6D66
-	for <lists+cluster-devel@lfdr.de>; Thu, 23 Mar 2023 17:26:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A33F86C7073
+	for <lists+cluster-devel@lfdr.de>; Thu, 23 Mar 2023 19:45:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679588775;
+	s=mimecast20190719; t=1679597148;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GiMOg19yFneGt5gmYZ5LcipPJGOLRZPu4pgOBH/w/84=;
-	b=QDTk5cMXYLPAV+dTH4S5mvYNkKrqmjqm6O2q1i2dft76vnjt3BZZl+2+W+Rb656APweyWj
-	H28evYKys4SrL3exur4lHSj/UtvXvRAE8PVk8G0UHuerHkXOMUMN3dQmmSnRevHlWtAd7g
-	plFAvn9NWXDm+UrB7+qXf2+C9JlQ0gY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=zkEo5KV5pWtY0chRAyhZO0yxLe6DPrfJex1y5U7s5pA=;
+	b=E1TWEqFRNCLp7k7xGEijtaDf+EII5F5HcqNsRrKuN/xO0u+guONgH/Etr9jRMZpEZitI92
+	r7+HYlmFxTt6q6+P1JJN+K2jpitero/mKO/zD0VtQro3Ph6cuOmsAteGF2K5HxRoep6sqr
+	AXoed8lhNTqfwYXzOxwBZ7g5bAbK5gU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-361-Hq2j0uX8NECeeTX5eFMqMQ-1; Thu, 23 Mar 2023 12:26:11 -0400
-X-MC-Unique: Hq2j0uX8NECeeTX5eFMqMQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-141-WZwdODqiM-i7Gq0bZXRtxg-1; Thu, 23 Mar 2023 14:45:45 -0400
+X-MC-Unique: WZwdODqiM-i7Gq0bZXRtxg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 150671C0950C;
-	Thu, 23 Mar 2023 16:26:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7F7E8028B2;
+	Thu, 23 Mar 2023 18:45:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BE85AC15BAD;
-	Thu, 23 Mar 2023 16:26:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 45437140E94F;
+	Thu, 23 Mar 2023 18:45:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 390BA19465BD;
-	Thu, 23 Mar 2023 16:26:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B08F519465BB;
+	Thu, 23 Mar 2023 18:45:40 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3DF511946587 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 23 Mar 2023 16:26:05 +0000 (UTC)
+ ESMTP id 5FD081946587 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 23 Mar 2023 18:45:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2213E463E03; Thu, 23 Mar 2023 16:26:05 +0000 (UTC)
+ id 4099240CF8F2; Thu, 23 Mar 2023 18:45:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.users.net (unknown [10.2.16.66])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CD54B463E09
- for <cluster-devel@redhat.com>; Thu, 23 Mar 2023 16:26:04 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu, 23 Mar 2023 12:26:02 -0400
-Message-Id: <20230323162602.1984912-1-rpeterso@redhat.com>
+Received: from pasta.redhat.com (unknown [10.45.224.12])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 50520400D796;
+ Thu, 23 Mar 2023 18:45:38 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 23 Mar 2023 19:45:37 +0100
+Message-Id: <20230323184537.749868-1-agruenba@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH] Revert "Revert "GFS2: free disk inode which
- is deleted by remote node -V2""
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Cluster-devel] [GIT PULL] gfs2 fix for v6.3-rc4
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,57 +62,47 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-It turns out that reverting 970343cd4904 causes a regression related to
-evicting inodes that were unlinked on a different cluster node.
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-We could also have simply added a call to d_mark_dontcache to function
-gfs2_try_evict but the original pre-revert code is better tested and
-proven.
+Hi Linus,
 
-This reverts commit 445cb1277e10d7e19b631ef8a64aa3f055df377d.
----
+please consider pulling the following fix.
+
+Thanks,
+Andreas
+
+The following changes since commit e8d018dd0257f744ca50a729e3d042cf2ec9da65:
+
+  Linux 6.3-rc3 (2023-03-19 13:27:55 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git gfs2-v6.3-rc3-fix
+
+for you to fetch changes up to 260595b439776c473cc248f0de63fe78d964d849:
+
+  Reinstate "GFS2: free disk inode which is deleted by remote node -V2" (2023-03-23 19:37:56 +0100)
+
+----------------------------------------------------------------
+gfs2 fix
+
+- Reinstate commit 970343cd4904 ("GFS2: free disk inode which is deleted
+  by remote node -V2") as reverting that commit could cause
+  gfs2_put_super() to hang.
+
+----------------------------------------------------------------
+Bob Peterson (1):
+      Reinstate "GFS2: free disk inode which is deleted by remote node -V2"
+
  fs/gfs2/dentry.c | 18 ++++++++++++++++++
  1 file changed, 18 insertions(+)
-
-diff --git a/fs/gfs2/dentry.c b/fs/gfs2/dentry.c
-index 6fe9ca253b70..2e215e8c3c88 100644
---- a/fs/gfs2/dentry.c
-+++ b/fs/gfs2/dentry.c
-@@ -83,8 +83,26 @@ static int gfs2_dhash(const struct dentry *dentry, struct qstr *str)
- 	return 0;
- }
- 
-+static int gfs2_dentry_delete(const struct dentry *dentry)
-+{
-+	struct gfs2_inode *ginode;
-+
-+	if (d_really_is_negative(dentry))
-+		return 0;
-+
-+	ginode = GFS2_I(d_inode(dentry));
-+	if (!gfs2_holder_initialized(&ginode->i_iopen_gh))
-+		return 0;
-+
-+	if (test_bit(GLF_DEMOTE, &ginode->i_iopen_gh.gh_gl->gl_flags))
-+		return 1;
-+
-+	return 0;
-+}
-+
- const struct dentry_operations gfs2_dops = {
- 	.d_revalidate = gfs2_drevalidate,
- 	.d_hash = gfs2_dhash,
-+	.d_delete = gfs2_dentry_delete,
- };
- 
--- 
-2.39.2
 
