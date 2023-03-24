@@ -2,68 +2,72 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5BA6C9CE2
-	for <lists+cluster-devel@lfdr.de>; Mon, 27 Mar 2023 09:55:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 928576C9CE5
+	for <lists+cluster-devel@lfdr.de>; Mon, 27 Mar 2023 09:55:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679903726;
+	s=mimecast20190719; t=1679903728;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zj2rSWb1TY4pRH2CJrKhLgINCPnlbpAhrLKT1TLUAhQ=;
-	b=WvQz93u9x8o+AdVsJwV0+uWLJ5z9ATZnkEUKudrfOODClUWqV2nZZDHroIYZDxvWDScJip
-	HzPwtdtpnfrJrOKdTBW2Jv90ucfV7a247P3eN9g5jZyjBtcSLNtDaQsagUp6WR0SC9zUBJ
-	C1pGaTsNaWYcT89ajLTND896ZXoxB1M=
+	bh=uckg/9C/V4t2IIAcI8xTVhBycQn8Ma4ZnYK+mHb+Rok=;
+	b=iVssp3VqUl0fKfs+541+Tz/Jdp7N8bY/xJHpBfHmuvBuRKxHqetfyakvNrI9gl2lfktY29
+	UVf2iTCnymm5wmsiwaZGxlUfBOif8np7ksRXmvLTkExEShSmWV5Q2bEJ0e5NiFTHx8SD/i
+	R+77BK9Jl9mzSCdNRgzSRE5Cx7g43Cg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-449-xCxnlfaFOJWTs-6oFIMG3Q-1; Mon, 27 Mar 2023 03:55:25 -0400
-X-MC-Unique: xCxnlfaFOJWTs-6oFIMG3Q-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-451-dc0m_YsxMnO5-ZP4uBwdkQ-1; Mon, 27 Mar 2023 03:55:25 -0400
+X-MC-Unique: dc0m_YsxMnO5-ZP4uBwdkQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2A99B85C06D;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5CAD7185A794;
 	Mon, 27 Mar 2023 07:55:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1FF7B2166B29;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 515B6140E949;
 	Mon, 27 Mar 2023 07:55:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B7B5C19465B3;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C025B1946A50;
 	Mon, 27 Mar 2023 07:55:22 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3CA701946A5A for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 6CA441946A5A for <cluster-devel@listman.corp.redhat.com>;
  Fri, 24 Mar 2023 20:27:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1F784492B00; Fri, 24 Mar 2023 20:27:08 +0000 (UTC)
+ id 4DE661121315; Fri, 24 Mar 2023 20:27:08 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 18E8D492C3E
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4689B1121314
  for <cluster-devel@redhat.com>; Fri, 24 Mar 2023 20:27:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0188485A5B1
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E587855304
  for <cluster-devel@redhat.com>; Fri, 24 Mar 2023 20:27:08 +0000 (UTC)
 Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-228-UYwTtJRkM_211nRQOXeZbQ-1; Fri, 24 Mar 2023 16:27:06 -0400
-X-MC-Unique: UYwTtJRkM_211nRQOXeZbQ-1
+ us-mta-591-7hJGwEEXOk-qI00ToKko5Q-1; Fri, 24 Mar 2023 16:27:06 -0400
+X-MC-Unique: 7hJGwEEXOk-qI00ToKko5Q-1
 Received: from fpc.intra.ispras.ru (unknown [10.10.165.3])
- by mail.ispras.ru (Postfix) with ESMTPSA id 911D3406BB55;
- Fri, 24 Mar 2023 20:19:48 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 911D3406BB55
+ by mail.ispras.ru (Postfix) with ESMTPSA id 19C2940737A8;
+ Fri, 24 Mar 2023 20:19:53 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 19C2940737A8
 From: Fedor Pchelkin <pchelkin@ispras.ru>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	stable@vger.kernel.org
-Date: Fri, 24 Mar 2023 23:19:32 +0300
-Message-Id: <20230324201933.329885-1-pchelkin@ispras.ru>
+Date: Fri, 24 Mar 2023 23:19:33 +0300
+Message-Id: <20230324201933.329885-2-pchelkin@ispras.ru>
+In-Reply-To: <20230324201933.329885-1-pchelkin@ispras.ru>
+References: <20230324201933.329885-1-pchelkin@ispras.ru>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -72,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Mon, 27 Mar 2023 07:55:21 +0000
-Subject: [Cluster-devel] [PATCH 4.19/5.4/5.10 0/1] gfs2: Always check inode
+Subject: [Cluster-devel] [PATCH 4.19/5.4/5.10 1/1] gfs2: Always check inode
  size of inline inodes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -89,21 +93,83 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: lvc-project@linuxtesting.org, linux-kernel@vger.kernel.org,
  Fedor Pchelkin <pchelkin@ispras.ru>, cluster-devel@redhat.com,
+ syzbot+7bb81dfa9cda07d9cd9d@syzkaller.appspotmail.com,
  Alexey Khoroshilov <khoroshilov@ispras.ru>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: ispras.ru
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Kernel bug in iomap_read_inline_data() fixed by the following patch is hit
-on older stables 4.19/5.4/5.10.
+commit 70376c7ff31221f1d21db5611d8209e677781d3a upstream.
 
-The patch failed to be initially backported into stable branches older
-than 5.15 due to the upstream commit 7db354444ad8 ("gfs2: Cosmetic
-gfs2_dinode_{in,out} cleanup").
+Check if the inode size of stuffed (inline) inodes is within the allowed
+range when reading inodes from disk (gfs2_dinode_in()).  This prevents
+us from on-disk corruption.
 
-Now it can be cleanly applied to the 4.19/5.4/5.10 stable branches.
+The two checks in stuffed_readpage() and gfs2_unstuffer_page() that just
+truncate inline data to the maximum allowed size don't actually make
+sense, and they can be removed now as well.
+
+Reported-by: syzbot+7bb81dfa9cda07d9cd9d@syzkaller.appspotmail.com
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+[pchelkin@ispras.ru: adjust the inode variable inside gfs2_dinode_in with
+the format used before upstream commit 7db354444ad8 ("gfs2: Cosmetic
+gfs2_dinode_{in,out} cleanup")]
+Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+---
+ fs/gfs2/aops.c  | 2 --
+ fs/gfs2/bmap.c  | 3 ---
+ fs/gfs2/glops.c | 3 +++
+ 3 files changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/fs/gfs2/aops.c b/fs/gfs2/aops.c
+index 530659554870..a0430da033b3 100644
+--- a/fs/gfs2/aops.c
++++ b/fs/gfs2/aops.c
+@@ -451,8 +451,6 @@ static int stuffed_readpage(struct gfs2_inode *ip, stru=
+ct page *page)
+ =09=09return error;
+=20
+ =09kaddr =3D kmap_atomic(page);
+-=09if (dsize > gfs2_max_stuffed_size(ip))
+-=09=09dsize =3D gfs2_max_stuffed_size(ip);
+ =09memcpy(kaddr, dibh->b_data + sizeof(struct gfs2_dinode), dsize);
+ =09memset(kaddr + dsize, 0, PAGE_SIZE - dsize);
+ =09kunmap_atomic(kaddr);
+diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
+index b4fde3a8eeb4..eaee95d2ad14 100644
+--- a/fs/gfs2/bmap.c
++++ b/fs/gfs2/bmap.c
+@@ -69,9 +69,6 @@ static int gfs2_unstuffer_page(struct gfs2_inode *ip, str=
+uct buffer_head *dibh,
+ =09=09void *kaddr =3D kmap(page);
+ =09=09u64 dsize =3D i_size_read(inode);
+ =20
+-=09=09if (dsize > gfs2_max_stuffed_size(ip))
+-=09=09=09dsize =3D gfs2_max_stuffed_size(ip);
+-
+ =09=09memcpy(kaddr, dibh->b_data + sizeof(struct gfs2_dinode), dsize);
+ =09=09memset(kaddr + dsize, 0, PAGE_SIZE - dsize);
+ =09=09kunmap(page);
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index bf539eab92c6..db28c240dae3 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -454,6 +454,9 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const =
+void *buf)
+ =09ip->i_depth =3D (u8)depth;
+ =09ip->i_entries =3D be32_to_cpu(str->di_entries);
+=20
++=09if (gfs2_is_stuffed(ip) && ip->i_inode.i_size > gfs2_max_stuffed_size(i=
+p))
++=09=09goto corrupt;
++
+ =09if (S_ISREG(ip->i_inode.i_mode))
+ =09=09gfs2_set_aops(&ip->i_inode);
+=20
+--=20
+2.34.1
 
