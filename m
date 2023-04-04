@@ -2,70 +2,73 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2263A6D678D
-	for <lists+cluster-devel@lfdr.de>; Tue,  4 Apr 2023 17:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7CB6D6897
+	for <lists+cluster-devel@lfdr.de>; Tue,  4 Apr 2023 18:17:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680622636;
+	s=mimecast20190719; t=1680625069;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=RdOI5GFBXvz2+CG+FGj78+ixvujqTitirHZIon4ASxI=;
-	b=NYpSwr+i3EvZgQpHwMzcLsaTHYfEQOokzlMfihvq9fM1+GPT/WMdx2vbv6lNaXz2r3z6YS
-	qegPkUnBn5V5surGjCPlzwvmQzcpcMozxsra+nq4933+a6wYezlOo/R9aDMYpPSOWHQmVo
-	LlqNPVMg9AIjEra5cPR08nlnY5/QCq8=
+	 list-subscribe:list-post; bh=XLWINjfscug+jep0oynm/sYycFPlCFuYdV91L0dpTvE=;
+	b=bjXY49kk0mKaxX93sAdGqsOqZK9E5F5WncSO9h3AwhHrqmX9zh2RIkbzDs5PypL4wlmHDJ
+	0uRET8nsSV0ykfLFAjQvfx/yqRypNuYq3iU6VzTuSWOV5Ap+jUcgiBNUmz5oCZgWASsL4W
+	pv+02VGka4wdlTreoKxsYtBZGji3eFc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-209-eAhYOed6NoeyFhES0FyxtA-1; Tue, 04 Apr 2023 11:37:10 -0400
-X-MC-Unique: eAhYOed6NoeyFhES0FyxtA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-225-oN74I8fYMJGKd8qxZcfxFA-1; Tue, 04 Apr 2023 12:17:48 -0400
+X-MC-Unique: oN74I8fYMJGKd8qxZcfxFA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67B18857FB2;
-	Tue,  4 Apr 2023 15:37:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A913F857FBA;
+	Tue,  4 Apr 2023 16:17:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5ADEA1121314;
-	Tue,  4 Apr 2023 15:37:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8241740C20FA;
+	Tue,  4 Apr 2023 16:17:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2DB411946595;
-	Tue,  4 Apr 2023 15:37:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 452E91946A4C;
+	Tue,  4 Apr 2023 16:17:47 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DE22D1946595 for <cluster-devel@listman.corp.redhat.com>;
- Tue,  4 Apr 2023 15:37:07 +0000 (UTC)
+ ESMTP id 4E65F1946A42 for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  4 Apr 2023 16:17:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CDA80440D6; Tue,  4 Apr 2023 15:37:07 +0000 (UTC)
+ id EC60E440BC; Tue,  4 Apr 2023 16:17:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C6F14FD6E
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 15:37:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E4FD7440D9
+ for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 16:17:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C13AA1C02CB1
+ for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 16:17:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-63-qhsVf_e8P8-F_m3Ywg2uwA-1; Tue, 04 Apr 2023 12:17:32 -0400
+X-MC-Unique: qhsVf_e8P8-F_m3Ywg2uwA-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 932703814595
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 15:37:07 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-226-4DV4o5rJP2uCmTMk2tCZFw-1; Tue, 04 Apr 2023 11:37:05 -0400
-X-MC-Unique: 4DV4o5rJP2uCmTMk2tCZFw-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1pjiiU-0021sG-0G; Tue, 04 Apr 2023 15:37:02 +0000
-Date: Tue, 4 Apr 2023 08:37:02 -0700
-From: Christoph Hellwig <hch@infradead.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4C2CA636A6;
+ Tue,  4 Apr 2023 16:10:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4C9C433EF;
+ Tue,  4 Apr 2023 16:10:47 +0000 (UTC)
+Date: Tue, 4 Apr 2023 09:10:47 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
 To: Andrey Albershteyn <aalbersh@redhat.com>
-Message-ID: <ZCxEHkWayQyGqnxL@infradead.org>
+Message-ID: <20230404161047.GA109974@frogsfrogsfrogs>
 References: <20230404145319.2057051-1-aalbersh@redhat.com>
- <20230404145319.2057051-10-aalbersh@redhat.com>
+ <20230404145319.2057051-20-aalbersh@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20230404145319.2057051-10-aalbersh@redhat.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20230404145319.2057051-20-aalbersh@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -74,8 +77,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [Cluster-devel] [PATCH v2 09/23] iomap: allow filesystem to
- implement read path verification
+Subject: Re: [Cluster-devel] [PATCH v2 19/23] xfs: disable direct read path
+ for fs-verity sealed files
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,63 +90,70 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
- linux-ext4@vger.kernel.org, djwong@kernel.org,
+Cc: fsverity@lists.linux.dev, linux-ext4@vger.kernel.org,
  damien.lemoal@opensource.wdc.com, chao@kernel.org,
  linux-f2fs-devel@lists.sourceforge.net, ebiggers@kernel.org,
  cluster-devel@redhat.com, xiang@kernel.org, jth@kernel.org,
- linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+ linux-erofs@lists.ozlabs.org, linux-xfs@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: infradead.org
+X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
->  	if (iomap_block_needs_zeroing(iter, pos)) {
->  		folio_zero_range(folio, poff, plen);
-> +		if (iomap->flags & IOMAP_F_READ_VERITY) {
+On Tue, Apr 04, 2023 at 04:53:15PM +0200, Andrey Albershteyn wrote:
+> The direct path is not supported on verity files. Attempts to use direct
+> I/O path on such files should fall back to buffered I/O path.
+> 
+> Signed-off-by: Andrey Albershteyn <aalbersh@redhat.com>
+> ---
+>  fs/xfs/xfs_file.c | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+> index 947b5c436172..9e072e82f6c1 100644
+> --- a/fs/xfs/xfs_file.c
+> +++ b/fs/xfs/xfs_file.c
+> @@ -244,7 +244,8 @@ xfs_file_dax_read(
+>  	struct kiocb		*iocb,
+>  	struct iov_iter		*to)
+>  {
+> -	struct xfs_inode	*ip = XFS_I(iocb->ki_filp->f_mapping->host);
+> +	struct inode		*inode = iocb->ki_filp->f_mapping->host;
+> +	struct xfs_inode	*ip = XFS_I(inode);
+>  	ssize_t			ret = 0;
+>  
+>  	trace_xfs_file_dax_read(iocb, to);
+> @@ -297,10 +298,17 @@ xfs_file_read_iter(
+>  
+>  	if (IS_DAX(inode))
+>  		ret = xfs_file_dax_read(iocb, to);
+> -	else if (iocb->ki_flags & IOCB_DIRECT)
+> +	else if (iocb->ki_flags & IOCB_DIRECT && !fsverity_active(inode))
+>  		ret = xfs_file_dio_read(iocb, to);
+> -	else
+> +	else {
+> +		/*
+> +		 * In case fs-verity is enabled, we also fallback to the
+> +		 * buffered read from the direct read path. Therefore,
+> +		 * IOCB_DIRECT is set and need to be cleared
+> +		 */
+> +		iocb->ki_flags &= ~IOCB_DIRECT;
+>  		ret = xfs_file_buffered_read(iocb, to);
 
-Wju do we need the new flag vs just testing that folio_ops and
-folio_ops->verify_folio is non-NULL?
+XFS doesn't usually allow directio fallback to the pagecache.  Why would
+fsverity be any different?
 
-> -		ctx->bio = bio_alloc(iomap->bdev, bio_max_segs(nr_vecs),
-> -				     REQ_OP_READ, gfp);
-> +		ctx->bio = bio_alloc_bioset(iomap->bdev, bio_max_segs(nr_vecs),
-> +				REQ_OP_READ, GFP_NOFS, &iomap_read_ioend_bioset);
+--D
 
-All other callers don't really need the larger bioset, so I'd avoid
-the unconditional allocation here, but more on that later.
-
-> +		ioend = container_of(ctx->bio, struct iomap_read_ioend,
-> +				read_inline_bio);
-> +		ioend->io_inode = iter->inode;
-> +		if (ctx->ops && ctx->ops->prepare_ioend)
-> +			ctx->ops->prepare_ioend(ioend);
-> +
-
-So what we're doing in writeback and direct I/O, is to:
-
- a) have a submit_bio hook
- b) allow the file system to then hook the bi_end_io caller
- c) (only in direct O/O for now) allow the file system to provide
-    a bio_set to allocate from
-
-I wonder if that also makes sense and keep all the deferral in the
-file system.  We'll need that for the btrfs iomap conversion anyway,
-and it seems more flexible.  The ioend processing would then move into
-XFS.
-
-> @@ -156,6 +160,11 @@ struct iomap_folio_ops {
->  	 * locked by the iomap code.
->  	 */
->  	bool (*iomap_valid)(struct inode *inode, const struct iomap *iomap);
-> +
-> +	/*
-> +	 * Verify folio when successfully read
-> +	 */
-> +	bool (*verify_folio)(struct folio *folio, loff_t pos, unsigned int len);
-
-Why isn't this in iomap_readpage_ops?
+> +	}
+>  
+>  	if (ret > 0)
+>  		XFS_STATS_ADD(mp, xs_read_bytes, ret);
+> -- 
+> 2.38.4
+> 
 
