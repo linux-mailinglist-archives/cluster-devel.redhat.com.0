@@ -2,102 +2,103 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 215816D6832
-	for <lists+cluster-devel@lfdr.de>; Tue,  4 Apr 2023 18:03:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0646D6846
+	for <lists+cluster-devel@lfdr.de>; Tue,  4 Apr 2023 18:04:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680624230;
+	s=mimecast20190719; t=1680624286;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Mu/TYgURhfr8hK7U6stIfBangv6J3wSWfzsQZ+cJkGQ=;
-	b=O9GEjMU9Rz0OwkL0dG+YjYBcG4hoOvOrY6zYF1rUKNvV9e/n9vQjshcduxZcPY69JYobAJ
-	5PYTn0/G5pM+7WrOyeZ7MztVfizeO5TEIvhATYaPS7CtXAXeOyq3eTlLQofWZ+dT+Gl9a2
-	SgeGn5hlclKcsaZxBht/4gvlt0KXQL4=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=EljYz9VZ7nVcMno61oSjo4fgwJueEqLgTdTvZAW6Ojc=;
+	b=Pr1AemqQ3eCpW5Umn9CvNHNYjYh0Xt1TBrySUVQN8kP81rPqz1MTNjDMALdnSwioDkYVaM
+	uURJ9LH0ZTAdusdg4OlNKB8Tv5AmXPWZCc8s1nPj3/YmjY3AKsR6NWBjDcq14qlD1NGiXi
+	m2BkKYECLzuQ3xQiDQ57d0rFTK55zKg=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-94-zqVtj58KMAqA9s9Gd0SssA-1; Tue, 04 Apr 2023 12:03:39 -0400
-X-MC-Unique: zqVtj58KMAqA9s9Gd0SssA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-36-4qM7TqIQMBCtsRVfYiKuHQ-1; Tue, 04 Apr 2023 12:04:24 -0400
+X-MC-Unique: 4qM7TqIQMBCtsRVfYiKuHQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC4918D1390;
-	Tue,  4 Apr 2023 16:02:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7A7729ABA22;
+	Tue,  4 Apr 2023 16:02:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AEE4B1121314;
-	Tue,  4 Apr 2023 16:02:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CBDD040C6EC4;
+	Tue,  4 Apr 2023 16:02:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 849791946A7E;
-	Tue,  4 Apr 2023 16:02:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D2E71946A70;
+	Tue,  4 Apr 2023 16:02:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5D14A194658C for <cluster-devel@listman.corp.redhat.com>;
- Tue,  4 Apr 2023 14:54:46 +0000 (UTC)
+ ESMTP id B78B7194658C for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  4 Apr 2023 14:56:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 419E3FD6E; Tue,  4 Apr 2023 14:54:46 +0000 (UTC)
+ id 83F722166B26; Tue,  4 Apr 2023 14:56:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 39F03440D6
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:54:46 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D5272166B29
+ for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:56:03 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18BA5885621
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:54:46 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5ECDE858F0E
+ for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:55:58 +0000 (UTC)
 Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
  [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-465-uwKSCQEJOguTq3L0NNNqmA-1; Tue, 04 Apr 2023 10:54:44 -0400
-X-MC-Unique: uwKSCQEJOguTq3L0NNNqmA-1
+ us-mta-621-WCSNXHpBNmqAp5DhnqTo5w-1; Tue, 04 Apr 2023 10:54:52 -0400
+X-MC-Unique: WCSNXHpBNmqAp5DhnqTo5w-1
 Received: by mail-qk1-f199.google.com with SMTP id
- 203-20020a370ad4000000b00746981f8f4bso14907073qkk.13
- for <cluster-devel@redhat.com>; Tue, 04 Apr 2023 07:54:44 -0700 (PDT)
+ r197-20020a37a8ce000000b0074a59c12b10so877194qke.5
+ for <cluster-devel@redhat.com>; Tue, 04 Apr 2023 07:54:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680620084;
+ d=1e100.net; s=20210112; t=1680620088;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Mu/TYgURhfr8hK7U6stIfBangv6J3wSWfzsQZ+cJkGQ=;
- b=xyeTCCXPMUnoTQ+GiRVqMQRCTF+/5sMlBxbXmoqZYC/gxTlxf6dDD7YVzdnIXN7e9g
- UuRVOmbpH4WNfZ5/m1reJeCTz1pjXw1C0XJPKTsd3VHYaPAAU91w3fNRXv/hEztmxgyg
- 5VbSyMGSTU0+zCCiSbU/dDXIYeGGuGbcW3WZV4R9eXsAntkr5kCU4F/vvpckwkIAMMYO
- EUIhHK+qSxeO1hU/TgKDXOKtfR7LOCyWjv1c7vai5fPDH/R/4tc5l0CBCKe9VnD7QQir
- mkrH1NnwDMXWhyi0BK7Cu9BuutLzuTbypzdOLapw2WgvOocynHv4F3d/xQzoFbAnG7qF
- 0kzg==
-X-Gm-Message-State: AAQBX9fj6o1ogeuOeiuTG8KkubI+qK4Y0GxBEXILMEJoJuYqQpepby3Z
- rV1M9QwvWxch+/Gt1Ii41Lrbaq5PyN6TQjRR2oh1e5y5Tl0t7j4pwft6lydSw9O74afN4SymymS
- +UDZt5yd1kdia93pqOO6y
-X-Received: by 2002:ac8:5a13:0:b0:3e3:937b:2a64 with SMTP id
- n19-20020ac85a13000000b003e3937b2a64mr3737005qta.18.1680620083964; 
- Tue, 04 Apr 2023 07:54:43 -0700 (PDT)
-X-Google-Smtp-Source: AKy350YwX4bLGTdahm+NMX4R0qo4ogg8AwvBHQg1l9KHd+r+1n6TF6bmdPhAhTEI8OKPbhpGvFPy7w==
-X-Received: by 2002:ac8:5a13:0:b0:3e3:937b:2a64 with SMTP id
- n19-20020ac85a13000000b003e3937b2a64mr3736946qta.18.1680620083477; 
- Tue, 04 Apr 2023 07:54:43 -0700 (PDT)
+ bh=EljYz9VZ7nVcMno61oSjo4fgwJueEqLgTdTvZAW6Ojc=;
+ b=qdJWu8LGWljaSAuXYqdVwYQWcvHdkQB8xHYWDh3NO8elH62sOLf+5oQhB86R7WqGp+
+ jdClmR/87+idwZ7d/Q+vOB3K5xFJHwODD9jesUa85Vn+Ih5uqA+mv3aGm02X5unQ9ZnS
+ RNEOKmK8Mi88+wzeNmVvbzOB58hsqB3+baK63KtF6L9T7jb9+v40wFuLzAZokkblEf9o
+ 7pfLA2FUGTKrttaG0NfiX5+hHjZz76LT2pgBE0bp3BrBS9QutxI01kd6lIjhtt3onpJF
+ cdm+49d0B/smLh2roALHvO6SzuNQRZn6CVU8930Xa7+kwz5Q1d9BIzA5fLg7hpyKMnCF
+ LDuw==
+X-Gm-Message-State: AAQBX9eT4cHiN1O11wmlUAoIrurLEX7dqVKL3j0HYzcbAged/isjEs14
+ Ivx53Coa7GpyJWeyEE024ykuHT8fxpyVu6meFBMw4Pv0xPsxrtkqGYnjyhpUmBh7j5Hh2DJEa2X
+ +Eyf4SRmFzi8fN2v7YDtt
+X-Received: by 2002:ad4:5be5:0:b0:5df:4d41:954d with SMTP id
+ k5-20020ad45be5000000b005df4d41954dmr4197897qvc.3.1680620087795; 
+ Tue, 04 Apr 2023 07:54:47 -0700 (PDT)
+X-Google-Smtp-Source: AKy350awxiwQj29WkT4ggcZAS6daFPDjxiKszMVMUv7HrI39sj994HHwSVJ4OpAB2k+VsVfNFDI7fw==
+X-Received: by 2002:ad4:5be5:0:b0:5df:4d41:954d with SMTP id
+ k5-20020ad45be5000000b005df4d41954dmr4197864qvc.3.1680620087448; 
+ Tue, 04 Apr 2023 07:54:47 -0700 (PDT)
 Received: from aalbersh.remote.csb ([109.183.6.197])
  by smtp.gmail.com with ESMTPSA id
- j4-20020ac86644000000b003e6387431dcsm3296539qtp.7.2023.04.04.07.54.40
+ j4-20020ac86644000000b003e6387431dcsm3296539qtp.7.2023.04.04.07.54.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 07:54:43 -0700 (PDT)
+ Tue, 04 Apr 2023 07:54:47 -0700 (PDT)
 From: Andrey Albershteyn <aalbersh@redhat.com>
 To: djwong@kernel.org, dchinner@redhat.com, ebiggers@kernel.org,
  hch@infradead.org, linux-xfs@vger.kernel.org, fsverity@lists.linux.dev
-Date: Tue,  4 Apr 2023 16:52:57 +0200
-Message-Id: <20230404145319.2057051-2-aalbersh@redhat.com>
+Date: Tue,  4 Apr 2023 16:52:58 +0200
+Message-Id: <20230404145319.2057051-3-aalbersh@redhat.com>
 In-Reply-To: <20230404145319.2057051-1-aalbersh@redhat.com>
 References: <20230404145319.2057051-1-aalbersh@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Tue, 04 Apr 2023 16:02:32 +0000
-Subject: [Cluster-devel] [PATCH v2 01/23] xfs: Add new name to attri/d
+Subject: [Cluster-devel] [PATCH v2 02/23] xfs: add parent pointer support to
+ attribute code
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,10 +114,10 @@ Cc: linux-ext4@vger.kernel.org, damien.lemoal@opensource.wdc.com,
  chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
  cluster-devel@redhat.com, Allison Henderson <allison.henderson@oracle.com>,
  xiang@kernel.org, jth@kernel.org, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
+ linux-btrfs@vger.kernel.org, Mark Tinguely <tinguely@sgi.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
@@ -124,411 +125,85 @@ Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
 From: Allison Henderson <allison.henderson@oracle.com>
 
-This patch adds two new fields to the atti/d.  They are nname and
-nnamelen.  This will be used for parent pointer updates since a
-rename operation may cause the parent pointer to update both the
-name and value.  So we need to carry both the new name as well as
-the target name in the attri/d.
+Add the new parent attribute type. XFS_ATTR_PARENT is used only for parent pointer
+entries; it uses reserved blocks like XFS_ATTR_ROOT.
 
+Signed-off-by: Mark Tinguely <tinguely@sgi.com>
+Signed-off-by: Dave Chinner <dchinner@redhat.com>
 Signed-off-by: Allison Henderson <allison.henderson@oracle.com>
 Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 ---
- fs/xfs/libxfs/xfs_attr.c       |  12 ++-
- fs/xfs/libxfs/xfs_attr.h       |   4 +-
- fs/xfs/libxfs/xfs_da_btree.h   |   2 +
- fs/xfs/libxfs/xfs_log_format.h |   6 +-
- fs/xfs/xfs_attr_item.c         | 135 +++++++++++++++++++++++++++------
- fs/xfs/xfs_attr_item.h         |   1 +
- 6 files changed, 133 insertions(+), 27 deletions(-)
+ fs/xfs/libxfs/xfs_attr.c       | 4 +++-
+ fs/xfs/libxfs/xfs_da_format.h  | 5 ++++-
+ fs/xfs/libxfs/xfs_log_format.h | 1 +
+ fs/xfs/scrub/attr.c            | 2 +-
+ 4 files changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/fs/xfs/libxfs/xfs_attr.c b/fs/xfs/libxfs/xfs_attr.c
-index e28d93d232de..b1dbed7655e8 100644
+index b1dbed7655e8..101823772bf9 100644
 --- a/fs/xfs/libxfs/xfs_attr.c
 +++ b/fs/xfs/libxfs/xfs_attr.c
-@@ -423,6 +423,12 @@ xfs_attr_complete_op(
- 	args->op_flags &= ~XFS_DA_OP_REPLACE;
- 	if (do_replace) {
- 		args->attr_filter &= ~XFS_ATTR_INCOMPLETE;
-+		if (args->new_namelen > 0) {
-+			args->name = args->new_name;
-+			args->namelen = args->new_namelen;
-+			args->hashval = xfs_da_hashname(args->name,
-+							args->namelen);
-+		}
- 		return replace_state;
- 	}
- 	return XFS_DAS_DONE;
-@@ -922,9 +928,13 @@ xfs_attr_defer_replace(
- 	struct xfs_da_args	*args)
- {
- 	struct xfs_attr_intent	*new;
-+	int			op_flag;
- 	int			error = 0;
+@@ -976,11 +976,13 @@ xfs_attr_set(
+ 	struct xfs_inode	*dp = args->dp;
+ 	struct xfs_mount	*mp = dp->i_mount;
+ 	struct xfs_trans_res	tres;
+-	bool			rsvd = (args->attr_filter & XFS_ATTR_ROOT);
++	bool			rsvd;
+ 	int			error, local;
+ 	int			rmt_blks = 0;
+ 	unsigned int		total;
  
--	error = xfs_attr_intent_init(args, XFS_ATTRI_OP_FLAGS_REPLACE, &new);
-+	op_flag = args->new_namelen == 0 ? XFS_ATTRI_OP_FLAGS_REPLACE :
-+		  XFS_ATTRI_OP_FLAGS_NVREPLACE;
++	rsvd = (args->attr_filter & (XFS_ATTR_ROOT | XFS_ATTR_PARENT)) != 0;
 +
-+	error = xfs_attr_intent_init(args, op_flag, &new);
- 	if (error)
- 		return error;
+ 	if (xfs_is_shutdown(dp->i_mount))
+ 		return -EIO;
  
-diff --git a/fs/xfs/libxfs/xfs_attr.h b/fs/xfs/libxfs/xfs_attr.h
-index 81be9b3e4004..3e81f3f48560 100644
---- a/fs/xfs/libxfs/xfs_attr.h
-+++ b/fs/xfs/libxfs/xfs_attr.h
-@@ -510,8 +510,8 @@ struct xfs_attr_intent {
- 	struct xfs_da_args		*xattri_da_args;
+diff --git a/fs/xfs/libxfs/xfs_da_format.h b/fs/xfs/libxfs/xfs_da_format.h
+index 25e2841084e1..3dc03968bba6 100644
+--- a/fs/xfs/libxfs/xfs_da_format.h
++++ b/fs/xfs/libxfs/xfs_da_format.h
+@@ -688,12 +688,15 @@ struct xfs_attr3_leafblock {
+ #define	XFS_ATTR_LOCAL_BIT	0	/* attr is stored locally */
+ #define	XFS_ATTR_ROOT_BIT	1	/* limit access to trusted attrs */
+ #define	XFS_ATTR_SECURE_BIT	2	/* limit access to secure attrs */
++#define	XFS_ATTR_PARENT_BIT	3	/* parent pointer attrs */
+ #define	XFS_ATTR_INCOMPLETE_BIT	7	/* attr in middle of create/delete */
+ #define XFS_ATTR_LOCAL		(1u << XFS_ATTR_LOCAL_BIT)
+ #define XFS_ATTR_ROOT		(1u << XFS_ATTR_ROOT_BIT)
+ #define XFS_ATTR_SECURE		(1u << XFS_ATTR_SECURE_BIT)
++#define XFS_ATTR_PARENT		(1u << XFS_ATTR_PARENT_BIT)
+ #define XFS_ATTR_INCOMPLETE	(1u << XFS_ATTR_INCOMPLETE_BIT)
+-#define XFS_ATTR_NSP_ONDISK_MASK	(XFS_ATTR_ROOT | XFS_ATTR_SECURE)
++#define XFS_ATTR_NSP_ONDISK_MASK \
++			(XFS_ATTR_ROOT | XFS_ATTR_SECURE | XFS_ATTR_PARENT)
  
- 	/*
--	 * Shared buffer containing the attr name and value so that the logging
--	 * code can share large memory buffers between log items.
-+	 * Shared buffer containing the attr name, new name, and value so that
-+	 * the logging code can share large memory buffers between log items.
- 	 */
- 	struct xfs_attri_log_nameval	*xattri_nameval;
- 
-diff --git a/fs/xfs/libxfs/xfs_da_btree.h b/fs/xfs/libxfs/xfs_da_btree.h
-index ffa3df5b2893..a4b29827603f 100644
---- a/fs/xfs/libxfs/xfs_da_btree.h
-+++ b/fs/xfs/libxfs/xfs_da_btree.h
-@@ -55,7 +55,9 @@ enum xfs_dacmp {
- typedef struct xfs_da_args {
- 	struct xfs_da_geometry *geo;	/* da block geometry */
- 	const uint8_t		*name;		/* string (maybe not NULL terminated) */
-+	const uint8_t	*new_name;	/* new attr name */
- 	int		namelen;	/* length of string (maybe no NULL) */
-+	int		new_namelen;	/* new attr name len */
- 	uint8_t		filetype;	/* filetype of inode for directories */
- 	void		*value;		/* set of bytes (maybe contain NULLs) */
- 	int		valuelen;	/* length of value */
+ /*
+  * Alignment for namelist and valuelist entries (since they are mixed
 diff --git a/fs/xfs/libxfs/xfs_log_format.h b/fs/xfs/libxfs/xfs_log_format.h
-index f13e0809dc63..ae9c99762a24 100644
+index ae9c99762a24..727b5a858028 100644
 --- a/fs/xfs/libxfs/xfs_log_format.h
 +++ b/fs/xfs/libxfs/xfs_log_format.h
-@@ -117,7 +117,8 @@ struct xfs_unmount_log_format {
- #define XLOG_REG_TYPE_ATTRD_FORMAT	28
- #define XLOG_REG_TYPE_ATTR_NAME	29
- #define XLOG_REG_TYPE_ATTR_VALUE	30
--#define XLOG_REG_TYPE_MAX		30
-+#define XLOG_REG_TYPE_ATTR_NNAME	31
-+#define XLOG_REG_TYPE_MAX		31
- 
+@@ -967,6 +967,7 @@ struct xfs_icreate_log {
+  */
+ #define XFS_ATTRI_FILTER_MASK		(XFS_ATTR_ROOT | \
+ 					 XFS_ATTR_SECURE | \
++					 XFS_ATTR_PARENT | \
+ 					 XFS_ATTR_INCOMPLETE)
  
  /*
-@@ -957,6 +958,7 @@ struct xfs_icreate_log {
- #define XFS_ATTRI_OP_FLAGS_SET		1	/* Set the attribute */
- #define XFS_ATTRI_OP_FLAGS_REMOVE	2	/* Remove the attribute */
- #define XFS_ATTRI_OP_FLAGS_REPLACE	3	/* Replace the attribute */
-+#define XFS_ATTRI_OP_FLAGS_NVREPLACE	4	/* Replace attr name and val */
- #define XFS_ATTRI_OP_FLAGS_TYPE_MASK	0xFF	/* Flags type mask */
- 
- /*
-@@ -974,7 +976,7 @@ struct xfs_icreate_log {
- struct xfs_attri_log_format {
- 	uint16_t	alfi_type;	/* attri log item type */
- 	uint16_t	alfi_size;	/* size of this item */
--	uint32_t	__pad;		/* pad to 64 bit aligned */
-+	uint32_t	alfi_nname_len;	/* attr new name length */
- 	uint64_t	alfi_id;	/* attri identifier */
- 	uint64_t	alfi_ino;	/* the inode for this attr operation */
- 	uint32_t	alfi_op_flags;	/* marks the op as a set or remove */
-diff --git a/fs/xfs/xfs_attr_item.c b/fs/xfs/xfs_attr_item.c
-index 2788a6f2edcd..95e9ecbb4a67 100644
---- a/fs/xfs/xfs_attr_item.c
-+++ b/fs/xfs/xfs_attr_item.c
-@@ -75,6 +75,8 @@ static inline struct xfs_attri_log_nameval *
- xfs_attri_log_nameval_alloc(
- 	const void			*name,
- 	unsigned int			name_len,
-+	const void			*nname,
-+	unsigned int			nname_len,
- 	const void			*value,
- 	unsigned int			value_len)
- {
-@@ -85,15 +87,25 @@ xfs_attri_log_nameval_alloc(
- 	 * this. But kvmalloc() utterly sucks, so we use our own version.
- 	 */
- 	nv = xlog_kvmalloc(sizeof(struct xfs_attri_log_nameval) +
--					name_len + value_len);
-+					name_len + nname_len + value_len);
- 
- 	nv->name.i_addr = nv + 1;
- 	nv->name.i_len = name_len;
- 	nv->name.i_type = XLOG_REG_TYPE_ATTR_NAME;
- 	memcpy(nv->name.i_addr, name, name_len);
- 
-+	if (nname_len) {
-+		nv->nname.i_addr = nv->name.i_addr + name_len;
-+		nv->nname.i_len = nname_len;
-+		memcpy(nv->nname.i_addr, nname, nname_len);
-+	} else {
-+		nv->nname.i_addr = NULL;
-+		nv->nname.i_len = 0;
-+	}
-+	nv->nname.i_type = XLOG_REG_TYPE_ATTR_NNAME;
-+
- 	if (value_len) {
--		nv->value.i_addr = nv->name.i_addr + name_len;
-+		nv->value.i_addr = nv->name.i_addr + nname_len + name_len;
- 		nv->value.i_len = value_len;
- 		memcpy(nv->value.i_addr, value, value_len);
- 	} else {
-@@ -147,11 +159,15 @@ xfs_attri_item_size(
- 	*nbytes += sizeof(struct xfs_attri_log_format) +
- 			xlog_calc_iovec_len(nv->name.i_len);
- 
--	if (!nv->value.i_len)
--		return;
-+	if (nv->nname.i_len) {
-+		*nvecs += 1;
-+		*nbytes += xlog_calc_iovec_len(nv->nname.i_len);
-+	}
- 
--	*nvecs += 1;
--	*nbytes += xlog_calc_iovec_len(nv->value.i_len);
-+	if (nv->value.i_len) {
-+		*nvecs += 1;
-+		*nbytes += xlog_calc_iovec_len(nv->value.i_len);
-+	}
- }
- 
- /*
-@@ -181,6 +197,9 @@ xfs_attri_item_format(
- 	ASSERT(nv->name.i_len > 0);
- 	attrip->attri_format.alfi_size++;
- 
-+	if (nv->nname.i_len > 0)
-+		attrip->attri_format.alfi_size++;
-+
- 	if (nv->value.i_len > 0)
- 		attrip->attri_format.alfi_size++;
- 
-@@ -188,6 +207,10 @@ xfs_attri_item_format(
- 			&attrip->attri_format,
- 			sizeof(struct xfs_attri_log_format));
- 	xlog_copy_from_iovec(lv, &vecp, &nv->name);
-+
-+	if (nv->nname.i_len > 0)
-+		xlog_copy_from_iovec(lv, &vecp, &nv->nname);
-+
- 	if (nv->value.i_len > 0)
- 		xlog_copy_from_iovec(lv, &vecp, &nv->value);
- }
-@@ -374,6 +397,7 @@ xfs_attr_log_item(
- 	attrp->alfi_op_flags = attr->xattri_op_flags;
- 	attrp->alfi_value_len = attr->xattri_nameval->value.i_len;
- 	attrp->alfi_name_len = attr->xattri_nameval->name.i_len;
-+	attrp->alfi_nname_len = attr->xattri_nameval->nname.i_len;
- 	ASSERT(!(attr->xattri_da_args->attr_filter & ~XFS_ATTRI_FILTER_MASK));
- 	attrp->alfi_attr_filter = attr->xattri_da_args->attr_filter;
- }
-@@ -415,7 +439,8 @@ xfs_attr_create_intent(
- 		 * deferred work state structure.
- 		 */
- 		attr->xattri_nameval = xfs_attri_log_nameval_alloc(args->name,
--				args->namelen, args->value, args->valuelen);
-+				args->namelen, args->new_name,
-+				args->new_namelen, args->value, args->valuelen);
- 	}
- 
- 	attrip = xfs_attri_init(mp, attr->xattri_nameval);
-@@ -503,7 +528,8 @@ xfs_attri_validate(
- 	unsigned int			op = attrp->alfi_op_flags &
- 					     XFS_ATTRI_OP_FLAGS_TYPE_MASK;
- 
--	if (attrp->__pad != 0)
-+	if (attrp->alfi_op_flags != XFS_ATTRI_OP_FLAGS_NVREPLACE &&
-+	    attrp->alfi_nname_len != 0)
- 		return false;
- 
- 	if (attrp->alfi_op_flags & ~XFS_ATTRI_OP_FLAGS_TYPE_MASK)
-@@ -517,6 +543,7 @@ xfs_attri_validate(
- 	case XFS_ATTRI_OP_FLAGS_SET:
- 	case XFS_ATTRI_OP_FLAGS_REPLACE:
- 	case XFS_ATTRI_OP_FLAGS_REMOVE:
-+	case XFS_ATTRI_OP_FLAGS_NVREPLACE:
- 		break;
- 	default:
- 		return false;
-@@ -526,9 +553,14 @@ xfs_attri_validate(
- 		return false;
- 
- 	if ((attrp->alfi_name_len > XATTR_NAME_MAX) ||
-+	    (attrp->alfi_nname_len > XATTR_NAME_MAX) ||
- 	    (attrp->alfi_name_len == 0))
- 		return false;
- 
-+	if (op == XFS_ATTRI_OP_FLAGS_REMOVE &&
-+	    attrp->alfi_value_len != 0)
-+		return false;
-+
- 	return xfs_verify_ino(mp, attrp->alfi_ino);
- }
- 
-@@ -589,6 +621,8 @@ xfs_attri_item_recover(
- 	args->whichfork = XFS_ATTR_FORK;
- 	args->name = nv->name.i_addr;
- 	args->namelen = nv->name.i_len;
-+	args->new_name = nv->nname.i_addr;
-+	args->new_namelen = nv->nname.i_len;
- 	args->hashval = xfs_da_hashname(args->name, args->namelen);
- 	args->attr_filter = attrp->alfi_attr_filter & XFS_ATTRI_FILTER_MASK;
- 	args->op_flags = XFS_DA_OP_RECOVERY | XFS_DA_OP_OKNOENT |
-@@ -599,6 +633,7 @@ xfs_attri_item_recover(
- 	switch (attr->xattri_op_flags) {
- 	case XFS_ATTRI_OP_FLAGS_SET:
- 	case XFS_ATTRI_OP_FLAGS_REPLACE:
-+	case XFS_ATTRI_OP_FLAGS_NVREPLACE:
- 		args->value = nv->value.i_addr;
- 		args->valuelen = nv->value.i_len;
- 		args->total = xfs_attr_calc_size(args, &local);
-@@ -688,6 +723,7 @@ xfs_attri_item_relog(
- 	new_attrp->alfi_op_flags = old_attrp->alfi_op_flags;
- 	new_attrp->alfi_value_len = old_attrp->alfi_value_len;
- 	new_attrp->alfi_name_len = old_attrp->alfi_name_len;
-+	new_attrp->alfi_nname_len = old_attrp->alfi_nname_len;
- 	new_attrp->alfi_attr_filter = old_attrp->alfi_attr_filter;
- 
- 	xfs_trans_add_item(tp, &new_attrip->attri_item);
-@@ -710,48 +746,102 @@ xlog_recover_attri_commit_pass2(
- 	const void			*attr_value = NULL;
- 	const void			*attr_name;
- 	size_t				len;
--
--	attri_formatp = item->ri_buf[0].i_addr;
--	attr_name = item->ri_buf[1].i_addr;
-+	const void			*attr_nname = NULL;
-+	int				op, i = 0;
- 
- 	/* Validate xfs_attri_log_format before the large memory allocation */
- 	len = sizeof(struct xfs_attri_log_format);
--	if (item->ri_buf[0].i_len != len) {
-+	if (item->ri_buf[i].i_len != len) {
- 		XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
--				item->ri_buf[0].i_addr, item->ri_buf[0].i_len);
-+				item->ri_buf[i].i_addr, item->ri_buf[i].i_len);
- 		return -EFSCORRUPTED;
- 	}
- 
-+	attri_formatp = item->ri_buf[i].i_addr;
- 	if (!xfs_attri_validate(mp, attri_formatp)) {
- 		XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
--				item->ri_buf[0].i_addr, item->ri_buf[0].i_len);
-+				item->ri_buf[i].i_addr, item->ri_buf[i].i_len);
- 		return -EFSCORRUPTED;
- 	}
- 
-+	op = attri_formatp->alfi_op_flags & XFS_ATTRI_OP_FLAGS_TYPE_MASK;
-+	switch (op) {
-+	case XFS_ATTRI_OP_FLAGS_SET:
-+	case XFS_ATTRI_OP_FLAGS_REPLACE:
-+		if (item->ri_total != 3) {
-+			XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
-+					     attri_formatp, len);
-+			return -EFSCORRUPTED;
-+		}
-+		break;
-+	case XFS_ATTRI_OP_FLAGS_REMOVE:
-+		if (item->ri_total != 2) {
-+			XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
-+					     attri_formatp, len);
-+			return -EFSCORRUPTED;
-+		}
-+		break;
-+	case XFS_ATTRI_OP_FLAGS_NVREPLACE:
-+		if (item->ri_total != 4) {
-+			XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
-+					     attri_formatp, len);
-+			return -EFSCORRUPTED;
-+		}
-+		break;
-+	default:
-+		XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
-+				     attri_formatp, len);
-+		return -EFSCORRUPTED;
-+	}
-+
-+	i++;
- 	/* Validate the attr name */
--	if (item->ri_buf[1].i_len !=
-+	if (item->ri_buf[i].i_len !=
- 			xlog_calc_iovec_len(attri_formatp->alfi_name_len)) {
- 		XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
--				item->ri_buf[0].i_addr, item->ri_buf[0].i_len);
-+				attri_formatp, len);
- 		return -EFSCORRUPTED;
- 	}
- 
-+	attr_name = item->ri_buf[i].i_addr;
- 	if (!xfs_attr_namecheck(attr_name, attri_formatp->alfi_name_len)) {
- 		XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
--				item->ri_buf[1].i_addr, item->ri_buf[1].i_len);
-+				item->ri_buf[i].i_addr, item->ri_buf[i].i_len);
- 		return -EFSCORRUPTED;
- 	}
- 
-+	i++;
-+	if (attri_formatp->alfi_nname_len) {
-+		/* Validate the attr nname */
-+		if (item->ri_buf[i].i_len !=
-+		    xlog_calc_iovec_len(attri_formatp->alfi_nname_len)) {
-+			XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
-+					item->ri_buf[i].i_addr,
-+					item->ri_buf[i].i_len);
-+			return -EFSCORRUPTED;
-+		}
-+
-+		attr_nname = item->ri_buf[i].i_addr;
-+		if (!xfs_attr_namecheck(attr_nname,
-+				attri_formatp->alfi_nname_len)) {
-+			XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
-+					item->ri_buf[i].i_addr,
-+					item->ri_buf[i].i_len);
-+			return -EFSCORRUPTED;
-+		}
-+		i++;
-+	}
-+
-+
- 	/* Validate the attr value, if present */
- 	if (attri_formatp->alfi_value_len != 0) {
--		if (item->ri_buf[2].i_len != xlog_calc_iovec_len(attri_formatp->alfi_value_len)) {
-+		if (item->ri_buf[i].i_len != xlog_calc_iovec_len(attri_formatp->alfi_value_len)) {
- 			XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
--					item->ri_buf[0].i_addr,
--					item->ri_buf[0].i_len);
-+					attri_formatp, len);
- 			return -EFSCORRUPTED;
- 		}
- 
--		attr_value = item->ri_buf[2].i_addr;
-+		attr_value = item->ri_buf[i].i_addr;
- 	}
- 
- 	/*
-@@ -760,7 +850,8 @@ xlog_recover_attri_commit_pass2(
- 	 * reference.
- 	 */
- 	nv = xfs_attri_log_nameval_alloc(attr_name,
--			attri_formatp->alfi_name_len, attr_value,
-+			attri_formatp->alfi_name_len, attr_nname,
-+			attri_formatp->alfi_nname_len, attr_value,
- 			attri_formatp->alfi_value_len);
- 
- 	attrip = xfs_attri_init(mp, nv);
-diff --git a/fs/xfs/xfs_attr_item.h b/fs/xfs/xfs_attr_item.h
-index 3280a7930287..24d4968dd6cc 100644
---- a/fs/xfs/xfs_attr_item.h
-+++ b/fs/xfs/xfs_attr_item.h
-@@ -13,6 +13,7 @@ struct kmem_zone;
- 
- struct xfs_attri_log_nameval {
- 	struct xfs_log_iovec	name;
-+	struct xfs_log_iovec	nname;
- 	struct xfs_log_iovec	value;
- 	refcount_t		refcount;
- 
+diff --git a/fs/xfs/scrub/attr.c b/fs/xfs/scrub/attr.c
+index 31529b9bf389..9d2e33743ecd 100644
+--- a/fs/xfs/scrub/attr.c
++++ b/fs/xfs/scrub/attr.c
+@@ -441,7 +441,7 @@ xchk_xattr_rec(
+ 	/* Retrieve the entry and check it. */
+ 	hash = be32_to_cpu(ent->hashval);
+ 	badflags = ~(XFS_ATTR_LOCAL | XFS_ATTR_ROOT | XFS_ATTR_SECURE |
+-			XFS_ATTR_INCOMPLETE);
++			XFS_ATTR_INCOMPLETE | XFS_ATTR_PARENT);
+ 	if ((ent->flags & badflags) != 0)
+ 		xchk_da_set_corrupt(ds, level);
+ 	if (ent->flags & XFS_ATTR_LOCAL) {
 -- 
 2.38.4
 
