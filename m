@@ -2,103 +2,103 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0961D6D6838
-	for <lists+cluster-devel@lfdr.de>; Tue,  4 Apr 2023 18:04:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A69756D684B
+	for <lists+cluster-devel@lfdr.de>; Tue,  4 Apr 2023 18:04:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680624252;
+	s=mimecast20190719; t=1680624295;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yhiCGxChrVJlRUkYdDGuEzFvZQCsRtVvsPA45L+6JnY=;
-	b=gb8WE+pxANgg+FdLuN8pbbFfsbJ3BSiQaWvsD4TGLEyCWD5N+mIftW+WyCtt9oGUONyyc/
-	0V+7OVlavsIRinZ9mEYN1vLlu8PfZSHjee+8Kys7WSWLnW8u4dqimVaoovLMhRJyqt8B3I
-	rEtIX/jbZz6qN16KQD4JhgXWEC+PRF8=
+	bh=FFUi+70wiITyeuozy7B4Yd/jMxRAxWPn5c55TeHG694=;
+	b=VoA43bKf6NDKFX1IbQFggQ4AxNi3P8+D4Bstbnvc/VNkOYxF7zWetMW7C6QHib4wX9L2ZP
+	xpieo5O6NxnW+ogKZJSKgmTMXU/IXo2CbQnmOqFsE1pJDCcOVno7grW+7bBXLbGtJcOxpy
+	M/HZoCNIevunsWD3ZRJ7k4zwm+JDF28=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-581-nzHdS4LeODid0irKZXIVJw-1; Tue, 04 Apr 2023 12:03:38 -0400
-X-MC-Unique: nzHdS4LeODid0irKZXIVJw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-313-hZwMpXVuPCaFpS3vqmurdA-1; Tue, 04 Apr 2023 12:04:25 -0400
+X-MC-Unique: hZwMpXVuPCaFpS3vqmurdA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CBAF3101A531;
-	Tue,  4 Apr 2023 16:02:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EBD728D1396;
+	Tue,  4 Apr 2023 16:02:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C05F22027061;
-	Tue,  4 Apr 2023 16:02:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E12A1C1602A;
+	Tue,  4 Apr 2023 16:02:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 71B7D1946A70;
-	Tue,  4 Apr 2023 16:02:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 416F619472D6;
+	Tue,  4 Apr 2023 16:02:39 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5A461194658C for <cluster-devel@listman.corp.redhat.com>;
- Tue,  4 Apr 2023 14:55:39 +0000 (UTC)
+ ESMTP id 81718194658C for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  4 Apr 2023 14:55:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5011A440D6; Tue,  4 Apr 2023 14:55:39 +0000 (UTC)
+ id 727012166B2A; Tue,  4 Apr 2023 14:55:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 492DB440BC
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:55:39 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B19E2166B26
+ for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:55:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E5593C0ED65
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:55:39 +0000 (UTC)
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AADE8996EB
+ for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 14:55:44 +0000 (UTC)
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-260-xusSZMtUNMCjj9SLBoxPFw-1; Tue, 04 Apr 2023 10:55:37 -0400
-X-MC-Unique: xusSZMtUNMCjj9SLBoxPFw-1
-Received: by mail-qk1-f197.google.com with SMTP id
- s21-20020a05620a0bd500b0074234f33f24so14662166qki.3
- for <cluster-devel@redhat.com>; Tue, 04 Apr 2023 07:55:37 -0700 (PDT)
+ us-mta-501-9JU8HVeWNRSctDpXDgwmKQ-1; Tue, 04 Apr 2023 10:55:42 -0400
+X-MC-Unique: 9JU8HVeWNRSctDpXDgwmKQ-1
+Received: by mail-qt1-f199.google.com with SMTP id
+ t15-20020a05622a180f00b003e37dd114e3so22257003qtc.10
+ for <cluster-devel@redhat.com>; Tue, 04 Apr 2023 07:55:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680620137;
+ d=1e100.net; s=20210112; t=1680620140;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yhiCGxChrVJlRUkYdDGuEzFvZQCsRtVvsPA45L+6JnY=;
- b=fd75X/G3Lz1B7FdFNgzJkAXr6rUPsZLvzN4frIGNvRg8Z0pWyNnlBKQCBIrAKidM0W
- gPuemJUcZU9KJgJzs7/GX3WdWacYhqBCgqFvt7yqDSK6UvIR8punU9BTxVp+dHD8yqRO
- X9nWr1iLgm6rGwIUDBpyrsstlPsrSZT0qT1sf1WmVbj8E1XunjMs5Nxh7jrqJL5SdOVe
- orOzGiaHZLBfa+F2/2enllKMG+xiNCmQta+aLA9jl+lb8T7symNtxJ8KJqnbE5fFpyR3
- Ew6hyi48BVHC3kCe+LSAXVRglsFTXPvczVtiPbxVeXWt/qBGp2FQ9/XVl8haMNfdH1kG
- AqqQ==
-X-Gm-Message-State: AAQBX9ftiOjJKFlDWBXaI7wKne/GuHATa/n74BZUK22vYaN4Ly2F7qWi
- NOwMuZ/VPBycwsXdX9p6LxGkf1AQaiKIAH/9mu/kp1jKTc5roEmKQ6DEfBny5poUfUF26D7rU5e
- d+J96AlNJ1URa3i1YJhqP
-X-Received: by 2002:a05:6214:f05:b0:571:13c:6806 with SMTP id
- gw5-20020a0562140f0500b00571013c6806mr3972707qvb.33.1680620137279; 
- Tue, 04 Apr 2023 07:55:37 -0700 (PDT)
-X-Google-Smtp-Source: AKy350Z8MfugNU6YKVlXuq75L3kQ3utmgGFoqTKtMHqOCvYgrWH2c48gYF9y20EeEoB2IWzu0Fdckw==
-X-Received: by 2002:a05:6214:f05:b0:571:13c:6806 with SMTP id
- gw5-20020a0562140f0500b00571013c6806mr3972665qvb.33.1680620136915; 
- Tue, 04 Apr 2023 07:55:36 -0700 (PDT)
+ bh=FFUi+70wiITyeuozy7B4Yd/jMxRAxWPn5c55TeHG694=;
+ b=5B0JebPe3Ei3iK2dXfDL17QUqCXfOY6C4W9rnLObfO0E3y/2swjqYHRQlqPj3PwSMe
+ JA9OICIIRTcvuHhlpVov6ATjQdAN9DGYDK66P6yBz5m2IQ03bMRXkAIzSj8rYAaiWaOR
+ 7YkJOQsQ+RIs549G/Oj3xzfmQsV8w2S0v9EpbnFIAJWsgBI0Qlw2iSMZfE/UaMqQzS7A
+ awZXHz35ABJzTlivgCMbL3PPbAyGOSlGGRR1ii9dWmQtSohhTGb2jvl2F47IwenMCZj2
+ tMT4gNxwo8XeEh6qPtroEKWTtydEcQixmnl+ej4J2Hm16zqsnrWVICH+0JVG8Ioy0ORf
+ Mpng==
+X-Gm-Message-State: AAQBX9eJx/RRKIEj6S2aS7EtpaMr1s0250Dkwqd5eI7NeMcnInE26aQT
+ KgDyEbdZrVedBTf9LDOeOD3HNcpfAUt8P+5tJzGiYiibJdQon8wwcnpmkve6gIj3NRaErXya88d
+ QQUWcjgRPSW3CKcemuo9J
+X-Received: by 2002:a05:622a:199f:b0:3e3:913c:1ca8 with SMTP id
+ u31-20020a05622a199f00b003e3913c1ca8mr4130762qtc.22.1680620140417; 
+ Tue, 04 Apr 2023 07:55:40 -0700 (PDT)
+X-Google-Smtp-Source: AKy350Zzc10/1v2LcCE0zfPnbg3x+8dh54gKx1zJb5SpW17zpBOCvtCa2VKQbBuo0E40V5nvMeZ6aQ==
+X-Received: by 2002:a05:622a:199f:b0:3e3:913c:1ca8 with SMTP id
+ u31-20020a05622a199f00b003e3913c1ca8mr4130703qtc.22.1680620139945; 
+ Tue, 04 Apr 2023 07:55:39 -0700 (PDT)
 Received: from aalbersh.remote.csb ([109.183.6.197])
  by smtp.gmail.com with ESMTPSA id
- j4-20020ac86644000000b003e6387431dcsm3296539qtp.7.2023.04.04.07.55.33
+ j4-20020ac86644000000b003e6387431dcsm3296539qtp.7.2023.04.04.07.55.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 07:55:36 -0700 (PDT)
+ Tue, 04 Apr 2023 07:55:39 -0700 (PDT)
 From: Andrey Albershteyn <aalbersh@redhat.com>
 To: djwong@kernel.org, dchinner@redhat.com, ebiggers@kernel.org,
  hch@infradead.org, linux-xfs@vger.kernel.org, fsverity@lists.linux.dev
-Date: Tue,  4 Apr 2023 16:53:13 +0200
-Message-Id: <20230404145319.2057051-18-aalbersh@redhat.com>
+Date: Tue,  4 Apr 2023 16:53:14 +0200
+Message-Id: <20230404145319.2057051-19-aalbersh@redhat.com>
 In-Reply-To: <20230404145319.2057051-1-aalbersh@redhat.com>
 References: <20230404145319.2057051-1-aalbersh@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Tue, 04 Apr 2023 16:02:32 +0000
-Subject: [Cluster-devel] [PATCH v2 17/23] xfs: initialize fs-verity on file
- open and cleanup on inode destruction
+Subject: [Cluster-devel] [PATCH v2 18/23] xfs: don't allow to enable DAX on
+ fs-verity sealsed inode
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,70 +117,34 @@ Cc: linux-ext4@vger.kernel.org, damien.lemoal@opensource.wdc.com,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-fs-verity will read and attach metadata (not the tree itself) from
-a disk for those inodes which already have fs-verity enabled.
+fs-verity doesn't support DAX. Forbid filesystem to enable DAX on
+inodes which already have fs-verity enabled. The opposite is checked
+when fs-verity is enabled, it won't be enabled if DAX is.
 
 Signed-off-by: Andrey Albershteyn <aalbersh@redhat.com>
 ---
- fs/xfs/xfs_file.c  | 8 ++++++++
- fs/xfs/xfs_super.c | 2 ++
- 2 files changed, 10 insertions(+)
+ fs/xfs/xfs_iops.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 705250f9f90a..947b5c436172 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -31,6 +31,7 @@
- #include <linux/mman.h>
- #include <linux/fadvise.h>
- #include <linux/mount.h>
-+#include <linux/fsverity.h>
- 
- static const struct vm_operations_struct xfs_file_vm_ops;
- 
-@@ -1169,9 +1170,16 @@ xfs_file_open(
- 	struct inode	*inode,
- 	struct file	*file)
- {
-+	int		error = 0;
-+
- 	if (xfs_is_shutdown(XFS_M(inode->i_sb)))
- 		return -EIO;
- 	file->f_mode |= FMODE_NOWAIT | FMODE_BUF_RASYNC | FMODE_BUF_WASYNC;
-+
-+	error = fsverity_file_open(inode, file);
-+	if (error)
-+		return error;
-+
- 	return generic_file_open(inode, file);
- }
- 
-diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
-index d6f22cb94ee2..d40de32362b1 100644
---- a/fs/xfs/xfs_super.c
-+++ b/fs/xfs/xfs_super.c
-@@ -46,6 +46,7 @@
- #include <linux/magic.h>
- #include <linux/fs_context.h>
- #include <linux/fs_parser.h>
-+#include <linux/fsverity.h>
- 
- static const struct super_operations xfs_super_operations;
- 
-@@ -667,6 +668,7 @@ xfs_fs_destroy_inode(
- 	ASSERT(!rwsem_is_locked(&inode->i_rwsem));
- 	XFS_STATS_INC(ip->i_mount, vn_rele);
- 	XFS_STATS_INC(ip->i_mount, vn_remove);
-+	fsverity_cleanup_inode(inode);
- 	xfs_inode_mark_reclaimable(ip);
- }
- 
+diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
+index 5398be75a76a..e0d7107a9ba1 100644
+--- a/fs/xfs/xfs_iops.c
++++ b/fs/xfs/xfs_iops.c
+@@ -1204,6 +1204,8 @@ xfs_inode_should_enable_dax(
+ 		return false;
+ 	if (!xfs_inode_supports_dax(ip))
+ 		return false;
++	if (ip->i_diflags2 & XFS_DIFLAG2_VERITY)
++		return false;
+ 	if (xfs_has_dax_always(ip->i_mount))
+ 		return true;
+ 	if (ip->i_diflags2 & XFS_DIFLAG2_DAX)
 -- 
 2.38.4
 
