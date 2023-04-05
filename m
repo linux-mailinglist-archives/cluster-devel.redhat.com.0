@@ -2,101 +2,100 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B504B6D79D0
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 Apr 2023 12:37:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9F6F6D79EB
+	for <lists+cluster-devel@lfdr.de>; Wed,  5 Apr 2023 12:39:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680691019;
+	s=mimecast20190719; t=1680691160;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=8hFqrvNZsn86teCYjqs2wVJUMFZmHeavzTexdU+dVHw=;
-	b=Ya/vIIyoP3pGRKnL4MGTYK1MgeInlKyAtvGJV1+PDTSc9bIhTmDwbty0p7ug1wP9WZhW+b
-	SZe2oGvxMVTcgIyqWlqNbWsq8k61cjmR6ZjwN80CMCmGXVfi0jTl3Tq4N0GoL5EU1RiOE9
-	Sv4dP4T7t7UvwKfBl7aDM1JUogMhfcc=
+	 list-subscribe:list-post; bh=sBkFB8fAWBN3smTHXDCk9Sdy8T63XJRLVaCuva4Dlh8=;
+	b=LGSYmZxM4cB4/IKjmlLnTc15cJ8kKwjbRXcA9mHpYrVe7xcwlmCWQ3YyU7oSoESYKk84Gj
+	dQl+cLRDA/r3Viqp5amhNivG0CytDGHsXRzKVDBj5rvUnDhoq53J8Op110CBGk4mw44RiY
+	LIQmsaQOt2jQRhcautyj76P4coGX9x4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-632-LpQgvQNdNe-n-F0m8dq93A-1; Wed, 05 Apr 2023 06:36:54 -0400
-X-MC-Unique: LpQgvQNdNe-n-F0m8dq93A-1
+ us-mta-576-fBo08JtfPhqvsBqk_csTIA-1; Wed, 05 Apr 2023 06:39:16 -0400
+X-MC-Unique: fBo08JtfPhqvsBqk_csTIA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C8D3811E7C;
-	Wed,  5 Apr 2023 10:36:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FF96185A7A2;
+	Wed,  5 Apr 2023 10:39:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 696DA4020C82;
-	Wed,  5 Apr 2023 10:36:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 356B74020C83;
+	Wed,  5 Apr 2023 10:39:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E2AFC1946597;
-	Wed,  5 Apr 2023 10:36:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EA6221946597;
+	Wed,  5 Apr 2023 10:39:14 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4E3A71946587 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
+ ESMTP id AAC4F1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  5 Apr 2023 10:39:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 32DD440104E; Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
+ id 507724020C82; Wed,  5 Apr 2023 10:39:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BF41400F4F
- for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 117F48996E2
- for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 493504020C80
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 10:39:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C0D3101A552
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 10:39:13 +0000 (UTC)
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-504-QA512lsxPMGXsidnr_7t7Q-1; Wed, 05 Apr 2023 06:36:48 -0400
-X-MC-Unique: QA512lsxPMGXsidnr_7t7Q-1
-Received: by mail-qt1-f197.google.com with SMTP id
- a19-20020a05622a02d300b003e4ecb5f613so18590348qtx.21
- for <cluster-devel@redhat.com>; Wed, 05 Apr 2023 03:36:48 -0700 (PDT)
+ us-mta-33-GJonI1_bM9K5ryPR5oILhA-1; Wed, 05 Apr 2023 06:39:12 -0400
+X-MC-Unique: GJonI1_bM9K5ryPR5oILhA-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ c186-20020a379ac3000000b007484744a472so15717193qke.22
+ for <cluster-devel@redhat.com>; Wed, 05 Apr 2023 03:39:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680691008;
+ d=1e100.net; s=20210112; t=1680691151;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8hFqrvNZsn86teCYjqs2wVJUMFZmHeavzTexdU+dVHw=;
- b=26F1imDzmGxqJnMbwRc3kwi2NN7o1rdNCkNaJCPMe0cs5pqLyTqpVjjaUjKdCJDS8K
- 2XzlsneBQDxrx32/sQsY+PNM+tK5i8Qs02mvArJEfetSnST9mK4lMohthHtDX+UclYc2
- I3lAj9+x2RMnyeTP6roleyyQNl5KBgveTI9Gmqe0v3/Y+WWbx5PUmOTDtEA+x9i9gZ6/
- URs7O8MhtfmthVRJBXX9rxk9FU6O7kZ6djHL6UHBp0C95b7CFlXcKCXtJk63fCFTlfED
- fH+uGA+Fz+dOEVnmktBGd3tqoWZB1fxGQ0wXldg2j141QRAxtkX3okPhUKxouDHrz83u
- aiFQ==
-X-Gm-Message-State: AAQBX9dvDxWR1u+/STUSymFIS7M2a4s4KEU/eXAA7NZelXUwBuuoPrkj
- KUTq0XOG6bXngPIrjc54HdIPO+oWcm09Ig3Zqq2MI0gNL6sIiclnmEzl9k0fPPFOhn+24egheE/
- onGhlUZu5Bt1L9AkiXs+9
-X-Received: by 2002:a05:622a:181c:b0:3da:aa9b:105a with SMTP id
- t28-20020a05622a181c00b003daaa9b105amr4016626qtc.17.1680691008081; 
- Wed, 05 Apr 2023 03:36:48 -0700 (PDT)
-X-Google-Smtp-Source: AKy350Yray4mqL/DA63FufP2W8G+Q2vCv/dEYqnAM/OkHjKwnv430c/AiUDk3FXiS3P6h8ilen17Eg==
-X-Received: by 2002:a05:622a:181c:b0:3da:aa9b:105a with SMTP id
- t28-20020a05622a181c00b003daaa9b105amr4016592qtc.17.1680691007736; 
- Wed, 05 Apr 2023 03:36:47 -0700 (PDT)
+ bh=sBkFB8fAWBN3smTHXDCk9Sdy8T63XJRLVaCuva4Dlh8=;
+ b=aYBe24akhwu5Og4iKsyAInoHWQlxwiaVMXEXvDE5O8pyi9kY7AhMppOh91M2/2tmfY
+ 17l1pu+UXao/T3Petl+zNhNGhIY4sZAwu27RcXBpAvJ8p2jfMqvu2CMx2Q5Tbn1yypww
+ XrZK9uou3qoPgq1JHUPtybG5OeCNMK+OFyNdu+BBCcLxyHAodLiOZ7nzw6LLKJfejSUF
+ 1WWqnbI1SWHfiIMU3Fbk/ZrIR45nBOZd3HgfiSYCIevSe3dpceAaG1+8Q2a6LQ3G8fXQ
+ Vk16w61+LhZhX93wY2TZMNDjVsMTUtppEviO6gaqBfWlzVtx9fpUsmFhYb4bdMfRyUT3
+ u5Qw==
+X-Gm-Message-State: AAQBX9e3JsUizv8br8hb6K5kVSGlR4nNHUQL2UGBUKKVAYRPIg5e8F1J
+ Z1Pck/YSJ+AQjME0Cn3QRQTD/NtcKadbhdMKZvWxzmJbeQE5lmdtyZCCh1HqilAvhMyjhhQEteQ
+ zbSsQzwgQRgofOmpHJ+XM
+X-Received: by 2002:ac8:7e96:0:b0:3b6:323d:bcac with SMTP id
+ w22-20020ac87e96000000b003b6323dbcacmr4150871qtj.32.1680691151323; 
+ Wed, 05 Apr 2023 03:39:11 -0700 (PDT)
+X-Google-Smtp-Source: AKy350aYAf0v49WL6o/QofipBP4L4y6flhFYcYqZzNpajsevFC+xcPnxT0A0hb6dINwVq/YpVvvMSw==
+X-Received: by 2002:ac8:7e96:0:b0:3b6:323d:bcac with SMTP id
+ w22-20020ac87e96000000b003b6323dbcacmr4150840qtj.32.1680691150879; 
+ Wed, 05 Apr 2023 03:39:10 -0700 (PDT)
 Received: from aalbersh.remote.csb ([109.183.6.197])
  by smtp.gmail.com with ESMTPSA id
- i2-20020ac84882000000b003d5aae2182dsm3911845qtq.29.2023.04.05.03.36.44
+ r206-20020a3744d7000000b0074a0051fcd4sm4331706qka.88.2023.04.05.03.39.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Apr 2023 03:36:47 -0700 (PDT)
-Date: Wed, 5 Apr 2023 12:36:42 +0200
+ Wed, 05 Apr 2023 03:39:10 -0700 (PDT)
+Date: Wed, 5 Apr 2023 12:39:04 +0200
 From: Andrey Albershteyn <aalbersh@redhat.com>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <20230405103642.ykmgjgb7yi7htphf@aalbersh.remote.csb>
+To: Dave Chinner <david@fromorbit.com>
+Message-ID: <20230405103904.2ugfxqmuuqjd7itz@aalbersh.remote.csb>
 References: <20230404145319.2057051-1-aalbersh@redhat.com>
- <20230404145319.2057051-6-aalbersh@redhat.com>
- <ZCxCnC2lM9N9qtCc@infradead.org>
+ <20230404145319.2057051-7-aalbersh@redhat.com>
+ <20230404234019.GM3223426@dread.disaster.area>
 MIME-Version: 1.0
-In-Reply-To: <ZCxCnC2lM9N9qtCc@infradead.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Cluster-devel] [PATCH v2 05/23] fsverity: make
- fsverity_verify_folio() accept folio's offset and size
+In-Reply-To: <20230404234019.GM3223426@dread.disaster.area>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [Cluster-devel] [PATCH v2 06/23] fsverity: add drop_page()
+ callout
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,19 +121,83 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Hi Christoph,
+Hi Dave,
 
-On Tue, Apr 04, 2023 at 08:30:36AM -0700, Christoph Hellwig wrote:
-> On Tue, Apr 04, 2023 at 04:53:01PM +0200, Andrey Albershteyn wrote:
-> > Not the whole folio always need to be verified by fs-verity (e.g.
-> > with 1k blocks). Use passed folio's offset and size.
+On Wed, Apr 05, 2023 at 09:40:19AM +1000, Dave Chinner wrote:
+> On Tue, Apr 04, 2023 at 04:53:02PM +0200, Andrey Albershteyn wrote:
+> > Allow filesystem to make additional processing on verified pages
+> > instead of just dropping a reference. This will be used by XFS for
+> > internal buffer cache manipulation in further patches. The btrfs,
+> > ext4, and f2fs just drop the reference.
+> > 
+> > Signed-off-by: Andrey Albershteyn <aalbersh@redhat.com>
+> > ---
+> >  fs/btrfs/verity.c         | 12 ++++++++++++
+> >  fs/ext4/verity.c          |  6 ++++++
+> >  fs/f2fs/verity.c          |  6 ++++++
+> >  fs/verity/read_metadata.c |  4 ++--
+> >  fs/verity/verify.c        |  6 +++---
+> >  include/linux/fsverity.h  | 10 ++++++++++
+> >  6 files changed, 39 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
+> > index c5ff16f9e9fa..4c2c09204bb4 100644
+> > --- a/fs/btrfs/verity.c
+> > +++ b/fs/btrfs/verity.c
+> > @@ -804,10 +804,22 @@ static int btrfs_write_merkle_tree_block(struct inode *inode, const void *buf,
+> >  			       pos, buf, size);
+> >  }
+> >  
+> > +/*
+> > + * fsverity op that releases the reference obtained by ->read_merkle_tree_page()
+> > + *
+> > + * @page:  reference to the page which can be released
+> > + *
+> > + */
+> > +static void btrfs_drop_page(struct page *page)
+> > +{
+> > +	put_page(page);
+> > +}
+> > +
+> >  const struct fsverity_operations btrfs_verityops = {
+> >  	.begin_enable_verity     = btrfs_begin_enable_verity,
+> >  	.end_enable_verity       = btrfs_end_enable_verity,
+> >  	.get_verity_descriptor   = btrfs_get_verity_descriptor,
+> >  	.read_merkle_tree_page   = btrfs_read_merkle_tree_page,
+> >  	.write_merkle_tree_block = btrfs_write_merkle_tree_block,
+> > +	.drop_page		 = &btrfs_drop_page,
+> >  };
 > 
-> Why can't those callers just call fsverity_verify_blocks directly?
+> Ok, that's a generic put_page() call.
 > 
+> ....
+> > diff --git a/fs/verity/verify.c b/fs/verity/verify.c
+> > index f50e3b5b52c9..c2fc4c86af34 100644
+> > --- a/fs/verity/verify.c
+> > +++ b/fs/verity/verify.c
+> > @@ -210,7 +210,7 @@ verify_data_block(struct inode *inode, struct fsverity_info *vi,
+> >  		if (is_hash_block_verified(vi, hpage, hblock_idx)) {
+> >  			memcpy_from_page(_want_hash, hpage, hoffset, hsize);
+> >  			want_hash = _want_hash;
+> > -			put_page(hpage);
+> > +			inode->i_sb->s_vop->drop_page(hpage);
+> >  			goto descend;
+> 
+> 			fsverity_drop_page(hpage);
+> 
+> static inline void
+> fsverity_drop_page(struct inode *inode, struct page *page)
+> {
+> 	if (inode->i_sb->s_vop->drop_page)
+> 		inode->i_sb->s_vop->drop_page(page);
+> 	else
+> 		put_page(page);
+> }
+> 
+> And then you don't need to add the functions to each of the
+> filesystems nor make an indirect call just to run put_page().
 
-They can. Calling _verify_folio with explicit offset; size appeared
-more clear to me. But I'm ok with dropping this patch to have full
-folio verify function.
+Sure, this makes more sense, thank you!
 
 -- 
 - Andrey
