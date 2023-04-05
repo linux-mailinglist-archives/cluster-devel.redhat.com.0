@@ -1,78 +1,78 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC6D6D858C
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 Apr 2023 20:03:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F61F6D85CA
+	for <lists+cluster-devel@lfdr.de>; Wed,  5 Apr 2023 20:16:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680717781;
+	s=mimecast20190719; t=1680718578;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=dmAZmojKfIM/z2MtFjBGD6EJ+69KjhZ8tshJmiwlSl0=;
-	b=azdjD9Mpw9MHB791t0CiG0fxolCGdkGPj1BI0tbvePN652oTZWhaIJen7mO71wTNku0Cun
-	USnToVZZB95Nmor1o3jSvihHEm87acDzwO/xZ+8bi/upTTO4FzfUQFj/i6Yp1eLdGRFgcC
-	VfZjwu+9xeMhpquwGkblHpNMGggJ0oQ=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=nMGdYZVz88iNnPqnJrvWnqcw1Ql+5T1kzULIEIbApDk=;
+	b=W9+1xQ0F9McgAPyC0JHOid9d/gTPGMyQ0xK/Ng2DbFgHA16RvWDWVnxedpUhQxv10uytup
+	K4Z91zmgT8ThQ2BBTZ9eQotRMVYeNo7Rb7XbsiKDqEVhVBvrQ8hjlCJN/J0dGBrf08CyBT
+	XGef76lRn42b2vWqwSqrxadh//BmgVA=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-120-TE2fi9NVMzKkKS_qiua-eA-1; Wed, 05 Apr 2023 14:02:57 -0400
-X-MC-Unique: TE2fi9NVMzKkKS_qiua-eA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-169-nA_MnAtXO6yskqkwcKyszg-1; Wed, 05 Apr 2023 14:16:13 -0400
+X-MC-Unique: nA_MnAtXO6yskqkwcKyszg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AF67185A78B;
-	Wed,  5 Apr 2023 18:02:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78B9A3C02549;
+	Wed,  5 Apr 2023 18:16:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 151D3202701F;
-	Wed,  5 Apr 2023 18:02:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 29CE71121315;
+	Wed,  5 Apr 2023 18:16:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E626D1946597;
-	Wed,  5 Apr 2023 18:02:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DF0F91946597;
+	Wed,  5 Apr 2023 18:16:09 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7E8391946587 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  5 Apr 2023 18:02:54 +0000 (UTC)
+ ESMTP id 289591946587 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  5 Apr 2023 18:16:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 44A6E1121315; Wed,  5 Apr 2023 18:02:54 +0000 (UTC)
+ id A70042166B29; Wed,  5 Apr 2023 18:16:08 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D39C1121314
- for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 18:02:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1BCAE85A588
- for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 18:02:54 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F63A2166B26
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 18:16:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F27C3C02530
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 18:16:08 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-169-i77VHrM3PwWnd1YKfdVECQ-1; Wed, 05 Apr 2023 14:02:50 -0400
-X-MC-Unique: i77VHrM3PwWnd1YKfdVECQ-1
+ us-mta-644-xrr4cDJ1NROm-lPH_0ZPow-1; Wed, 05 Apr 2023 14:16:03 -0400
+X-MC-Unique: xrr4cDJ1NROm-lPH_0ZPow-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 163C063D9B;
- Wed,  5 Apr 2023 18:02:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EE1C433D2;
- Wed,  5 Apr 2023 18:02:48 +0000 (UTC)
-Date: Wed, 5 Apr 2023 18:02:47 +0000
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4EC7B63D3A;
+ Wed,  5 Apr 2023 18:16:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710CAC433EF;
+ Wed,  5 Apr 2023 18:16:01 +0000 (UTC)
+Date: Wed, 5 Apr 2023 18:16:00 +0000
 From: Eric Biggers <ebiggers@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <ZC23x22bxItnsANI@gmail.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Message-ID: <ZC264FSkDQidOQ4N@gmail.com>
 References: <20230404145319.2057051-1-aalbersh@redhat.com>
- <20230404145319.2057051-20-aalbersh@redhat.com>
- <20230404161047.GA109974@frogsfrogsfrogs>
- <20230405150142.3jmxzo5i27bbc4c4@aalbersh.remote.csb>
- <20230405150927.GD303486@frogsfrogsfrogs>
- <ZC2YsgYRsvBejGYY@infradead.org>
+ <20230404145319.2057051-22-aalbersh@redhat.com>
+ <20230404163602.GC109974@frogsfrogsfrogs>
+ <20230405160221.he76fb5b45dud6du@aalbersh.remote.csb>
+ <20230405163847.GG303486@frogsfrogsfrogs>
 MIME-Version: 1.0
-In-Reply-To: <ZC2YsgYRsvBejGYY@infradead.org>
+In-Reply-To: <20230405163847.GG303486@frogsfrogsfrogs>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -80,9 +80,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Cluster-devel] [PATCH v2 19/23] xfs: disable direct read path
- for fs-verity sealed files
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [Cluster-devel] [PATCH v2 21/23] xfs: handle merkle tree block
+ size != fs blocksize != PAGE_SIZE
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,48 +94,53 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: fsverity@lists.linux.dev, cluster-devel@redhat.com,
- linux-ext4@vger.kernel.org, "Darrick J. Wong" <djwong@kernel.org>,
- Andrey Albershteyn <aalbersh@redhat.com>, chao@kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- xiang@kernel.org, jth@kernel.org, linux-erofs@lists.ozlabs.org,
- damien.lemoal@opensource.wdc.com, linux-btrfs@vger.kernel.org
+Cc: fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Andrey Albershteyn <aalbersh@redhat.com>,
+ chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, xiang@kernel.org, jth@kernel.org,
+ linux-erofs@lists.ozlabs.org, damien.lemoal@opensource.wdc.com,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Apr 05, 2023 at 08:50:10AM -0700, Christoph Hellwig wrote:
-> On Wed, Apr 05, 2023 at 08:09:27AM -0700, Darrick J. Wong wrote:
-> > Thinking about this a little more -- I suppose we shouldn't just go
-> > breaking directio reads from a verity file if we can help it.  Is there
-> > a way to ask fsverity to perform its validation against some arbitrary
-> > memory buffer that happens to be fs-block aligned?
-
-You could certainly add such a function that wraps around verify_data_block().
-The minimal function prototype needed (without supporting readahead or reusing
-the ahash_request) would be something like the following, I think:
-
-    bool fsverity_verify_blocks_dio(struct inode *inode, u64 pos,
-                                    struct folio *folio,
-                                    size_t len, size_t offset);
-
-And I really hope that you don't want to do DIO to the *Merkle tree*, as that
-would make the problem significantly harder.  I think DIO for the data, but
-handling the Merkle tree in the usual way, would be okay?
-
+On Wed, Apr 05, 2023 at 09:38:47AM -0700, Darrick J. Wong wrote:
+> > The merkle tree pages are dropped after verification. When page is
+> > dropped xfs_buf is marked as verified. If fs-verity wants to
+> > verify again it will get the same verified buffer. If buffer is
+> > evicted it won't have verified state.
+> > 
+> > So, with enough memory pressure buffers will be dropped and need to
+> > be reverified.
 > 
-> That would be my preference as well.  But maybe Eric know a good reason
-> why this hasn't been done yet.
+> Please excuse me if this was discussed and rejected long ago, but
+> perhaps fsverity should try to hang on to the merkle tree pages that
+> this function returns for as long as possible until reclaim comes for
+> them?
 > 
+> With the merkle tree page lifetimes extended, you then don't need to
+> attach the xfs_buf to page->private, nor does xfs have to extend the
+> buffer cache to stash XBF_VERITY_CHECKED.
 
-I believe it would be possible, especially if DIO to the Merkle tree is not in
-scope.  There just hasn't been a reason to the work yet.  And ext4 and f2fs
-already fall back to buffer I/O for other filesystem features, so there was
-precedent for not bothering with DIO, at least in the initial version.
+Well, all the other filesystems that support fsverity (ext4, f2fs, and btrfs)
+just cache the Merkle tree pages in the inode's page cache.  It's an approach
+that I know some people aren't a fan of, but it's efficient and it works.
+
+We could certainly think about moving to a design where fs/verity/ asks the
+filesystem to just *read* a Merkle tree block, without adding it to a cache, and
+then fs/verity/ implements the caching itself.  That would require some large
+changes to each filesystem, though, unless we were to double-cache the Merkle
+tree blocks which would be inefficient.
+
+So it feels like continuing to have the filesystem (not fs/verity/) be
+responsible for the cache is the best way to allow XFS to do things a bit
+differently, without regressing the other filesystems.
+
+I'm interested in hearing any other proposals, though.
 
 - Eric
 
