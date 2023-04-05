@@ -1,99 +1,100 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 081BF6D8A64
-	for <lists+cluster-devel@lfdr.de>; Thu,  6 Apr 2023 00:11:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C2C6F6D8A71
+	for <lists+cluster-devel@lfdr.de>; Thu,  6 Apr 2023 00:15:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680732661;
+	s=mimecast20190719; t=1680732929;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=B//xqY4ihi9FjKHnI/3HItAd5zkVskGSEhbTE9KO+uM=;
-	b=UZXKSuEZz/OWbhaWWJSutiPycY/8xnB9+FhNGqXCPPbv8xg7NDbOf7yddMH50T7uXY/09U
-	5O4O3jaE6clLtj0swQIi4DWqv2IsJxexPyRn2BJi4d1URa8H3E2yRU1V24WwBmeI80DQIx
-	lc9wcgH0aJwpuoO7EIm1OegID8LKNQc=
+	 list-subscribe:list-post; bh=sr4CJdOOx/6apQcfPjVNK8msYC2J6U4ttJpvFiO5hDA=;
+	b=O/m9WWmhJRigTMHR1a+RtAs7v7yCbySsUk13OuwO0NT2XwR4azsGNQ3HMRPEtiJEztEhZw
+	8rbmMUJUQwKYv7OQEdB9wnCKK/i7IMj3GTFTJlscle4+t6loLeSAPj6I5GQK619fKx3yOZ
+	9oztUiKvUlXpfN8wmeGyWYCnjMkGSkw=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-577-KoS1FGAQNkiYVlSF5S4CaA-1; Wed, 05 Apr 2023 18:10:57 -0400
-X-MC-Unique: KoS1FGAQNkiYVlSF5S4CaA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-376-DJ0DHgE0PE6D-5tXLjWavg-1; Wed, 05 Apr 2023 18:15:25 -0400
+X-MC-Unique: DJ0DHgE0PE6D-5tXLjWavg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B662A1C05EC4;
-	Wed,  5 Apr 2023 22:10:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DDD7F3C02527;
+	Wed,  5 Apr 2023 22:15:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7F18D40CE2D4;
-	Wed,  5 Apr 2023 22:10:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D2850400F4F;
+	Wed,  5 Apr 2023 22:15:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E4631946597;
-	Wed,  5 Apr 2023 22:10:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B470A1946597;
+	Wed,  5 Apr 2023 22:15:24 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F34A41946587 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  5 Apr 2023 22:10:46 +0000 (UTC)
+ ESMTP id CF139194658F for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  5 Apr 2023 22:15:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 86120492C14; Wed,  5 Apr 2023 22:10:46 +0000 (UTC)
+ id 993B240BC797; Wed,  5 Apr 2023 22:15:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F16C492C18
- for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 22:10:46 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9269740C6EC4
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 22:15:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6441385A5A3
- for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 22:10:46 +0000 (UTC)
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 781E91C05198
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 22:15:01 +0000 (UTC)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-HGyQNfLCMROElgcEq3cDFA-1; Wed, 05 Apr 2023 18:10:44 -0400
-X-MC-Unique: HGyQNfLCMROElgcEq3cDFA-1
-Received: by mail-pl1-f172.google.com with SMTP id kc4so35726660plb.10
- for <cluster-devel@redhat.com>; Wed, 05 Apr 2023 15:10:44 -0700 (PDT)
+ us-mta-522-HGPJDMIAO8Wy_fvYwmM6tw-1; Wed, 05 Apr 2023 18:14:59 -0400
+X-MC-Unique: HGPJDMIAO8Wy_fvYwmM6tw-1
+Received: by mail-pg1-f170.google.com with SMTP id 185so11502420pgc.10
+ for <cluster-devel@redhat.com>; Wed, 05 Apr 2023 15:14:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680732643;
+ d=1e100.net; s=20210112; t=1680732898;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=B//xqY4ihi9FjKHnI/3HItAd5zkVskGSEhbTE9KO+uM=;
- b=rY/3rgErN7ZLA9Fs59TNSHLLKf5UodTL0BzH8Oo7jES3+PkVt4Fh85mi6Hk5phjpH4
- YUsPHNZevxJREgD0t5RY0EgBTuHmi6xwXWAb8whlaheKmw8C1K1RVzRZHBzfcaFu9hWl
- EWAUPUnQk80j0GTMt7d56D1ZJc2lH0vKpAbG+8lnVCDASFXqSQ/+Y1npVlsLVnC6Jxxt
- DkGcfftp3AMb/zkHszZlftkP5JSASWg2CMhZBx93gfPyLe0qT8ypfSLrc+y3JCPIcNP1
- YA3+GtfG7mb2vAFsDnrrnkl9thD6xYE9yBAQPpxP29DGpKSD50ASGYs0C6n5Eur2fD6y
- tBJQ==
-X-Gm-Message-State: AAQBX9c8Z2GvIGf6kA7vNLPLqTnB0yDj9nqq2iNPVOnusZ4cND4x83VG
- MxOsxz92jzp1TLVtOecsz4rjTA==
-X-Google-Smtp-Source: AKy350bUfWmomBUgOSKakyDoihBlbriDnLkKr+maH+SmOymveI4bbkcZZJHlbNIaaMvcTwEjmj518w==
-X-Received: by 2002:a05:6a20:b213:b0:e1:2d3d:6b11 with SMTP id
- eh19-20020a056a20b21300b000e12d3d6b11mr798344pzb.11.1680732643261; 
- Wed, 05 Apr 2023 15:10:43 -0700 (PDT)
+ bh=sr4CJdOOx/6apQcfPjVNK8msYC2J6U4ttJpvFiO5hDA=;
+ b=TyLk75Dlm3q/dtApgMGcWCSowyjR8cQkcEBe7EqsU3svti2ocFL91rm/Hg+UzsWxN2
+ aRCpcolhczEzTjkijBoZaPrst1+oVu22OWJwrd3Z2U6vsTbGHWMDRGH+ax32tFtJBG3U
+ Rb68a0p+1MaZnfQpu1jkSYKG1T3ReJ9pvvR96qgpV3EGJlhIRMssoyWhtgOk85xLsiVt
+ /GWml287oIaPHAy40IfD/5ksqImw6Q5d5PSEW7JIMxFg/FcxAZhfSsEN6zSVg0JytkqV
+ 8fteG1m6xFKBrgohelY/LWu6aIexRqo65kvLWiX2wZKDpGXmdMpVKbKN/0bgW+hOCq8l
+ L8cQ==
+X-Gm-Message-State: AAQBX9dYQZyLDsCoF0sq+cDxMSOa+V+E9wQ7lrTob0Jr/R9QDfVbth+t
+ nR+g7IMoMty63TvIUzkwRup6VA==
+X-Google-Smtp-Source: AKy350buwNZtgpjQjNrpY+dRBomVST4nFtdRBnQ6Mea8vZue8EC+2ZTK97MNMJLE5y0NZdZDQ14O+g==
+X-Received: by 2002:aa7:9a44:0:b0:626:1c2a:2805 with SMTP id
+ x4-20020aa79a44000000b006261c2a2805mr5960988pfj.25.1680732898541; 
+ Wed, 05 Apr 2023 15:14:58 -0700 (PDT)
 Received: from dread.disaster.area (pa49-181-91-157.pa.nsw.optusnet.com.au.
  [49.181.91.157]) by smtp.gmail.com with ESMTPSA id
- f9-20020a631009000000b004ff6b744248sm9594682pgl.48.2023.04.05.15.10.42
+ t17-20020a62ea11000000b005a9ea5d43ddsm11542560pfh.174.2023.04.05.15.14.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Apr 2023 15:10:42 -0700 (PDT)
+ Wed, 05 Apr 2023 15:14:58 -0700 (PDT)
 Received: from dave by dread.disaster.area with local (Exim 4.92.3)
  (envelope-from <david@fromorbit.com>)
- id 1pkBKx-00HUPP-6E; Thu, 06 Apr 2023 08:10:39 +1000
-Date: Thu, 6 Apr 2023 08:10:39 +1000
+ id 1pkBP4-00HUS4-Uz; Thu, 06 Apr 2023 08:14:54 +1000
+Date: Thu, 6 Apr 2023 08:14:54 +1000
 From: Dave Chinner <david@fromorbit.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Message-ID: <20230405221039.GP3223426@dread.disaster.area>
+To: Eric Biggers <ebiggers@kernel.org>
+Message-ID: <20230405221454.GQ3223426@dread.disaster.area>
 References: <20230404145319.2057051-1-aalbersh@redhat.com>
  <20230404145319.2057051-20-aalbersh@redhat.com>
  <20230404161047.GA109974@frogsfrogsfrogs>
  <20230405150142.3jmxzo5i27bbc4c4@aalbersh.remote.csb>
  <20230405150927.GD303486@frogsfrogsfrogs>
+ <ZC2YsgYRsvBejGYY@infradead.org> <ZC23x22bxItnsANI@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20230405150927.GD303486@frogsfrogsfrogs>
+In-Reply-To: <ZC23x22bxItnsANI@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,7 +102,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 Subject: Re: [Cluster-devel] [PATCH v2 19/23] xfs: disable direct read path
  for fs-verity sealed files
 X-BeenThere: cluster-devel@redhat.com
@@ -115,87 +116,34 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: fsverity@lists.linux.dev, jth@kernel.org, linux-ext4@vger.kernel.org,
+Cc: fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
+ linux-ext4@vger.kernel.org, "Darrick J. Wong" <djwong@kernel.org>,
  Andrey Albershteyn <aalbersh@redhat.com>, chao@kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, ebiggers@kernel.org,
- cluster-devel@redhat.com, xiang@kernel.org, damien.lemoal@opensource.wdc.com,
- linux-erofs@lists.ozlabs.org, linux-xfs@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+ linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+ xiang@kernel.org, jth@kernel.org, linux-erofs@lists.ozlabs.org,
+ damien.lemoal@opensource.wdc.com, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: fromorbit.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Apr 05, 2023 at 08:09:27AM -0700, Darrick J. Wong wrote:
-> On Wed, Apr 05, 2023 at 05:01:42PM +0200, Andrey Albershteyn wrote:
-> > On Tue, Apr 04, 2023 at 09:10:47AM -0700, Darrick J. Wong wrote:
-> > > On Tue, Apr 04, 2023 at 04:53:15PM +0200, Andrey Albershteyn wrote:
-> > > > The direct path is not supported on verity files. Attempts to use direct
-> > > > I/O path on such files should fall back to buffered I/O path.
-> > > > 
-> > > > Signed-off-by: Andrey Albershteyn <aalbersh@redhat.com>
-> > > > ---
-> > > >  fs/xfs/xfs_file.c | 14 +++++++++++---
-> > > >  1 file changed, 11 insertions(+), 3 deletions(-)
-> > > > 
-> > > > diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-> > > > index 947b5c436172..9e072e82f6c1 100644
-> > > > --- a/fs/xfs/xfs_file.c
-> > > > +++ b/fs/xfs/xfs_file.c
-> > > > @@ -244,7 +244,8 @@ xfs_file_dax_read(
-> > > >  	struct kiocb		*iocb,
-> > > >  	struct iov_iter		*to)
-> > > >  {
-> > > > -	struct xfs_inode	*ip = XFS_I(iocb->ki_filp->f_mapping->host);
-> > > > +	struct inode		*inode = iocb->ki_filp->f_mapping->host;
-> > > > +	struct xfs_inode	*ip = XFS_I(inode);
-> > > >  	ssize_t			ret = 0;
-> > > >  
-> > > >  	trace_xfs_file_dax_read(iocb, to);
-> > > > @@ -297,10 +298,17 @@ xfs_file_read_iter(
-> > > >  
-> > > >  	if (IS_DAX(inode))
-> > > >  		ret = xfs_file_dax_read(iocb, to);
-> > > > -	else if (iocb->ki_flags & IOCB_DIRECT)
-> > > > +	else if (iocb->ki_flags & IOCB_DIRECT && !fsverity_active(inode))
-> > > >  		ret = xfs_file_dio_read(iocb, to);
-> > > > -	else
-> > > > +	else {
-> > > > +		/*
-> > > > +		 * In case fs-verity is enabled, we also fallback to the
-> > > > +		 * buffered read from the direct read path. Therefore,
-> > > > +		 * IOCB_DIRECT is set and need to be cleared
-> > > > +		 */
-> > > > +		iocb->ki_flags &= ~IOCB_DIRECT;
-> > > >  		ret = xfs_file_buffered_read(iocb, to);
-> > > 
-> > > XFS doesn't usually allow directio fallback to the pagecache. Why
-> > > would fsverity be any different?
-> > 
-> > Didn't know that, this is what happens on ext4 so I did the same.
-> > Then it probably make sense to just error on DIRECT on verity
-> > sealed file.
-> 
-> Thinking about this a little more -- I suppose we shouldn't just go
-> breaking directio reads from a verity file if we can help it.  Is there
-> a way to ask fsverity to perform its validation against some arbitrary
-> memory buffer that happens to be fs-block aligned?
+On Wed, Apr 05, 2023 at 06:02:47PM +0000, Eric Biggers wrote:
+> And I really hope that you don't want to do DIO to the *Merkle tree*, as that
 
-The memory buffer doesn't even need to be fs-block aligned - it just
-needs to be a pointer to memory the kernel can read...
+Not for XFS - the merkle tree is not held as file data.
 
-We also need fsverity to be able to handle being passed mapped
-kernel memory rather than pages/folios for the merkle tree
-interfaces. That way we can just pass it the mapped buffer memory
-straight from the xfs-buf and we don't have to do the whacky "copy
-from xattr xfs_bufs into pages so fsverity can take temporary
-reference counts on what it thinks are page cache pages" as it walks
-the merkle tree.
+That said, the merkle tree in XFS is not page cache or block aligned
+metadata either, so we really want the same memory buffer based
+interface for the merkle tree reading so that the merkle tree code
+can read directly from the xfs-buf rather than requiring us to copy
+it out of the xfsbuf into temporary pages...
 
--Dave.
+Cheers,
+
+Dave.
 -- 
 Dave Chinner
 david@fromorbit.com
