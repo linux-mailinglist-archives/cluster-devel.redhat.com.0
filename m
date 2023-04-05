@@ -2,105 +2,101 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 166746D70F1
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 Apr 2023 01:56:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B504B6D79D0
+	for <lists+cluster-devel@lfdr.de>; Wed,  5 Apr 2023 12:37:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680652607;
+	s=mimecast20190719; t=1680691019;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=CiwVxtHqh7PtMKcIrbTly4vzLJ3BWefIHUj9tJBpUIs=;
-	b=cHTvyazopO4SSUXn5iskTaVEiRmHi6WhIfsw6vm1ZntcXg1Y3XBvkhZZByjv+WmqNMzZg5
-	ShR5FULC4pZHcpWFDkPPKKaHULyRpm2Wmp7eeh4lPKKGSSZTVNuJ92GlnfsALXR1NiWDPj
-	PEZKmc9FM995lLGUpvJyvAWbrG1/zf0=
+	 list-subscribe:list-post; bh=8hFqrvNZsn86teCYjqs2wVJUMFZmHeavzTexdU+dVHw=;
+	b=Ya/vIIyoP3pGRKnL4MGTYK1MgeInlKyAtvGJV1+PDTSc9bIhTmDwbty0p7ug1wP9WZhW+b
+	SZe2oGvxMVTcgIyqWlqNbWsq8k61cjmR6ZjwN80CMCmGXVfi0jTl3Tq4N0GoL5EU1RiOE9
+	Sv4dP4T7t7UvwKfBl7aDM1JUogMhfcc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-422-N586qp91PIGX0mCFoJ4RnA-1; Tue, 04 Apr 2023 19:56:43 -0400
-X-MC-Unique: N586qp91PIGX0mCFoJ4RnA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-632-LpQgvQNdNe-n-F0m8dq93A-1; Wed, 05 Apr 2023 06:36:54 -0400
+X-MC-Unique: LpQgvQNdNe-n-F0m8dq93A-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB98585C06B;
-	Tue,  4 Apr 2023 23:56:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C8D3811E7C;
+	Wed,  5 Apr 2023 10:36:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 09BBB1121314;
-	Tue,  4 Apr 2023 23:56:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 696DA4020C82;
+	Wed,  5 Apr 2023 10:36:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A82171946A43;
-	Tue,  4 Apr 2023 23:56:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E2AFC1946597;
+	Wed,  5 Apr 2023 10:36:51 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 033891946595 for <cluster-devel@listman.corp.redhat.com>;
- Tue,  4 Apr 2023 23:56:39 +0000 (UTC)
+ ESMTP id 4E3A71946587 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9CF4D2166B29; Tue,  4 Apr 2023 23:56:39 +0000 (UTC)
+ id 32DD440104E; Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 951CC2166B26
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 23:56:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BF41400F4F
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7353D3C0E443
- for <cluster-devel@redhat.com>; Tue,  4 Apr 2023 23:56:39 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 117F48996E2
+ for <cluster-devel@redhat.com>; Wed,  5 Apr 2023 10:36:50 +0000 (UTC)
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-646-vqiCtYcQNt-vMWMBndBprg-1; Tue, 04 Apr 2023 19:56:37 -0400
-X-MC-Unique: vqiCtYcQNt-vMWMBndBprg-1
-Received: by mail-pf1-f178.google.com with SMTP id u38so22542460pfg.10
- for <cluster-devel@redhat.com>; Tue, 04 Apr 2023 16:56:37 -0700 (PDT)
+ us-mta-504-QA512lsxPMGXsidnr_7t7Q-1; Wed, 05 Apr 2023 06:36:48 -0400
+X-MC-Unique: QA512lsxPMGXsidnr_7t7Q-1
+Received: by mail-qt1-f197.google.com with SMTP id
+ a19-20020a05622a02d300b003e4ecb5f613so18590348qtx.21
+ for <cluster-devel@redhat.com>; Wed, 05 Apr 2023 03:36:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680652597;
+ d=1e100.net; s=20210112; t=1680691008;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CiwVxtHqh7PtMKcIrbTly4vzLJ3BWefIHUj9tJBpUIs=;
- b=oiWM5PU+10fasmX3npOwMP+qge8WUNxJjMvp27q7olKDwttLcGaUJPGgNFhGz4Qbkv
- gEddxKE4Gu9VnNcKaauxa45P8gwyJnlg/i6S+LurHwIOI/Cqy4Iy77WYYNqw6raovoyU
- 1qemUUlsqMOnV6MC7dyLLeuOFNOeDth14ctX25+4F4lhdT9XEkrje/xmtv3SBnxXqZGG
- XXb07Fgzocd9DkRQ5w+Pqg5DW6dQ368AdWGqHCMfiHekV46CqFkYTKZINcD1JoSUYuay
- +dShFvjU/tpoCCdhLrqRiGTDnk3RfErNLTdsrVy7gfnImITVAs1b9zH+R8oSwgZKWP7q
- ly0w==
-X-Gm-Message-State: AAQBX9fSsQiZIRGiBMYi49crxZcPgmxKDx+0ylHOW+o5/s+ZLeb6XMDU
- fvUzKidvZXrBh/GCPnaKejXapQ==
-X-Google-Smtp-Source: AKy350boc1NJttMEXbPWdN9rfQR7KWvZb/0IvD3DuAJJ+io4CZz0OVS7AP+iey99+szOCn0Wgij/bQ==
-X-Received: by 2002:a62:6454:0:b0:626:7c43:7cb8 with SMTP id
- y81-20020a626454000000b006267c437cb8mr3631280pfb.20.1680652596758; 
- Tue, 04 Apr 2023 16:56:36 -0700 (PDT)
-Received: from dread.disaster.area (pa49-181-91-157.pa.nsw.optusnet.com.au.
- [49.181.91.157]) by smtp.gmail.com with ESMTPSA id
- a18-20020a656412000000b005136b93f8e9sm8146027pgv.14.2023.04.04.16.56.35
+ bh=8hFqrvNZsn86teCYjqs2wVJUMFZmHeavzTexdU+dVHw=;
+ b=26F1imDzmGxqJnMbwRc3kwi2NN7o1rdNCkNaJCPMe0cs5pqLyTqpVjjaUjKdCJDS8K
+ 2XzlsneBQDxrx32/sQsY+PNM+tK5i8Qs02mvArJEfetSnST9mK4lMohthHtDX+UclYc2
+ I3lAj9+x2RMnyeTP6roleyyQNl5KBgveTI9Gmqe0v3/Y+WWbx5PUmOTDtEA+x9i9gZ6/
+ URs7O8MhtfmthVRJBXX9rxk9FU6O7kZ6djHL6UHBp0C95b7CFlXcKCXtJk63fCFTlfED
+ fH+uGA+Fz+dOEVnmktBGd3tqoWZB1fxGQ0wXldg2j141QRAxtkX3okPhUKxouDHrz83u
+ aiFQ==
+X-Gm-Message-State: AAQBX9dvDxWR1u+/STUSymFIS7M2a4s4KEU/eXAA7NZelXUwBuuoPrkj
+ KUTq0XOG6bXngPIrjc54HdIPO+oWcm09Ig3Zqq2MI0gNL6sIiclnmEzl9k0fPPFOhn+24egheE/
+ onGhlUZu5Bt1L9AkiXs+9
+X-Received: by 2002:a05:622a:181c:b0:3da:aa9b:105a with SMTP id
+ t28-20020a05622a181c00b003daaa9b105amr4016626qtc.17.1680691008081; 
+ Wed, 05 Apr 2023 03:36:48 -0700 (PDT)
+X-Google-Smtp-Source: AKy350Yray4mqL/DA63FufP2W8G+Q2vCv/dEYqnAM/OkHjKwnv430c/AiUDk3FXiS3P6h8ilen17Eg==
+X-Received: by 2002:a05:622a:181c:b0:3da:aa9b:105a with SMTP id
+ t28-20020a05622a181c00b003daaa9b105amr4016592qtc.17.1680691007736; 
+ Wed, 05 Apr 2023 03:36:47 -0700 (PDT)
+Received: from aalbersh.remote.csb ([109.183.6.197])
+ by smtp.gmail.com with ESMTPSA id
+ i2-20020ac84882000000b003d5aae2182dsm3911845qtq.29.2023.04.05.03.36.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 16:56:36 -0700 (PDT)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
- (envelope-from <david@fromorbit.com>)
- id 1pjqVt-00H7ij-6l; Wed, 05 Apr 2023 09:56:33 +1000
-Date: Wed, 5 Apr 2023 09:56:33 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <20230404235633.GN3223426@dread.disaster.area>
+ Wed, 05 Apr 2023 03:36:47 -0700 (PDT)
+Date: Wed, 5 Apr 2023 12:36:42 +0200
+From: Andrey Albershteyn <aalbersh@redhat.com>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <20230405103642.ykmgjgb7yi7htphf@aalbersh.remote.csb>
 References: <20230404145319.2057051-1-aalbersh@redhat.com>
- <20230404145319.2057051-17-aalbersh@redhat.com>
- <20230404224123.GD1893@sol.localdomain>
+ <20230404145319.2057051-6-aalbersh@redhat.com>
+ <ZCxCnC2lM9N9qtCc@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20230404224123.GD1893@sol.localdomain>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Cluster-devel] [PATCH v2 16/23] xfs: add inode on-disk VERITY
- flag
+In-Reply-To: <ZCxCnC2lM9N9qtCc@infradead.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [Cluster-devel] [PATCH v2 05/23] fsverity: make
+ fsverity_verify_folio() accept folio's offset and size
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,67 +110,32 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
  linux-ext4@vger.kernel.org, djwong@kernel.org,
- Andrey Albershteyn <aalbersh@redhat.com>, chao@kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
- xiang@kernel.org, jth@kernel.org, linux-erofs@lists.ozlabs.org,
- damien.lemoal@opensource.wdc.com, linux-btrfs@vger.kernel.org
+ damien.lemoal@opensource.wdc.com, chao@kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, ebiggers@kernel.org,
+ cluster-devel@redhat.com, xiang@kernel.org, jth@kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: fromorbit.com
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Apr 04, 2023 at 03:41:23PM -0700, Eric Biggers wrote:
-> Hi Andrey,
+Hi Christoph,
+
+On Tue, Apr 04, 2023 at 08:30:36AM -0700, Christoph Hellwig wrote:
+> On Tue, Apr 04, 2023 at 04:53:01PM +0200, Andrey Albershteyn wrote:
+> > Not the whole folio always need to be verified by fs-verity (e.g.
+> > with 1k blocks). Use passed folio's offset and size.
 > 
-> On Tue, Apr 04, 2023 at 04:53:12PM +0200, Andrey Albershteyn wrote:
-> > Add flag to mark inodes which have fs-verity enabled on them (i.e.
-> > descriptor exist and tree is built).
-> > 
-> > Signed-off-by: Andrey Albershteyn <aalbersh@redhat.com>
-> > ---
-> >  fs/ioctl.c                 | 4 ++++
-> >  fs/xfs/libxfs/xfs_format.h | 4 +++-
-> >  fs/xfs/xfs_inode.c         | 2 ++
-> >  fs/xfs/xfs_iops.c          | 2 ++
-> >  include/uapi/linux/fs.h    | 1 +
-> >  5 files changed, 12 insertions(+), 1 deletion(-)
-> [...]
-> > diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
-> > index b7b56871029c..5172a2eb902c 100644
-> > --- a/include/uapi/linux/fs.h
-> > +++ b/include/uapi/linux/fs.h
-> > @@ -140,6 +140,7 @@ struct fsxattr {
-> >  #define FS_XFLAG_FILESTREAM	0x00004000	/* use filestream allocator */
-> >  #define FS_XFLAG_DAX		0x00008000	/* use DAX for IO */
-> >  #define FS_XFLAG_COWEXTSIZE	0x00010000	/* CoW extent size allocator hint */
-> > +#define FS_XFLAG_VERITY		0x00020000	/* fs-verity sealed inode */
-> >  #define FS_XFLAG_HASATTR	0x80000000	/* no DIFLAG for this	*/
-> >  
+> Why can't those callers just call fsverity_verify_blocks directly?
 > 
-> I don't think "xfs: add inode on-disk VERITY flag" is an accurate description of
-> a patch that involves adding something to the UAPI.
 
-Well it does that, but it also adds the UAPI for querying the
-on-disk flag via the FS_IOC_FSGETXATTR interface as well.  It
-probably should be split up into two patches.
+They can. Calling _verify_folio with explicit offset; size appeared
+more clear to me. But I'm ok with dropping this patch to have full
+folio verify function.
 
-> Should the other filesystems support this new flag too?
-
-I think they should get it automatically now that it has been
-defined for FS_IOC_FSGETXATTR and added to the generic fileattr flag
-fill functions in fs/ioctl.c.
-
-> I'd also like all ways of getting the verity flag to continue to be mentioned in
-> Documentation/filesystems/fsverity.rst.  The existing methods (FS_IOC_GETFLAGS
-> and statx) are already mentioned there.
-
-*nod*
-
--Dave.
 -- 
-Dave Chinner
-david@fromorbit.com
+- Andrey
 
