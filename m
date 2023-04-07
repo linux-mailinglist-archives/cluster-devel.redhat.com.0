@@ -2,86 +2,88 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5B5D6DB1F9
-	for <lists+cluster-devel@lfdr.de>; Fri,  7 Apr 2023 19:44:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 354636DB280
+	for <lists+cluster-devel@lfdr.de>; Fri,  7 Apr 2023 20:09:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680889495;
+	s=mimecast20190719; t=1680890940;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=eeevj2IXfQ5qKWd9tc/WTPMDjydGded23Wx96ttD0lI=;
-	b=Zrt3yHHSiSZG/i1XlxsBb/N5dBVr3UdsyRaQqtjbyo3AlHKa3PVCKnkzBUgvh5xE/mvj25
-	7u40owDR4olCwtKFiQKN/JsF0CToAby9YysIARqsHNKYOwy/fVbPjg860S/SQLgMrUvptH
-	ozpx9msMSry25Wyk7XBNwGzvGuS03/M=
+	bh=Ij7uDQEt7OoC3gzgZ3tZqjFkRTxGVdbzCD/wwJBh2J8=;
+	b=UdykRB2EPw6yG95/psZXupAmnJ0HFIXhd70g257KkSQC+D2Y53ntfMm3vuAn9WEDRmNyxs
+	0MH6kiFycodECuX4qoF5ibfAl2uMNNF9G54bccTpgqtV43z7cmIMxRzieHahxWSTxYxcOc
+	gGQw5yjXl/qRaTvZrJRqBlFpomNc314=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-270-5OZJ4P5NO7KK7362IyYZUg-1; Fri, 07 Apr 2023 13:44:52 -0400
-X-MC-Unique: 5OZJ4P5NO7KK7362IyYZUg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-662-DyD1r6TBNzSHKLCtxGXQlw-1; Fri, 07 Apr 2023 14:08:56 -0400
+X-MC-Unique: DyD1r6TBNzSHKLCtxGXQlw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 448D629ABA1B;
-	Fri,  7 Apr 2023 17:44:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7FA923802B8A;
+	Fri,  7 Apr 2023 18:08:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5356D492C14;
-	Fri,  7 Apr 2023 17:44:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 313DD40C6EC4;
+	Fri,  7 Apr 2023 18:08:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EDFB21946A40;
-	Fri,  7 Apr 2023 17:44:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D79451946A40;
+	Fri,  7 Apr 2023 18:08:54 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 763C719465BB for <cluster-devel@listman.corp.redhat.com>;
- Fri,  7 Apr 2023 17:44:47 +0000 (UTC)
+ ESMTP id C8E0419465BB for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  7 Apr 2023 18:08:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 677ED40BC797; Fri,  7 Apr 2023 17:44:47 +0000 (UTC)
+ id 12BB12027063; Fri,  7 Apr 2023 18:08:47 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 60A2040C6EC4
- for <cluster-devel@redhat.com>; Fri,  7 Apr 2023 17:44:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B2292027062
+ for <cluster-devel@redhat.com>; Fri,  7 Apr 2023 18:08:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E052101A531
- for <cluster-devel@redhat.com>; Fri,  7 Apr 2023 17:44:47 +0000 (UTC)
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7C5E29AA3B0
+ for <cluster-devel@redhat.com>; Fri,  7 Apr 2023 18:08:46 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-572-9QNXtVthNXmWjuYA915mRw-1; Fri, 07 Apr 2023 13:44:45 -0400
-X-MC-Unique: 9QNXtVthNXmWjuYA915mRw-1
-Received: by mail-pf1-f176.google.com with SMTP id cv11so14222657pfb.8
- for <cluster-devel@redhat.com>; Fri, 07 Apr 2023 10:44:45 -0700 (PDT)
+ us-mta-481-gOu7bM4FPyCiZS9X9T0qXQ-1; Fri, 07 Apr 2023 14:08:37 -0400
+X-MC-Unique: gOu7bM4FPyCiZS9X9T0qXQ-1
+Received: by mail-pj1-f46.google.com with SMTP id
+ d22-20020a17090a111600b0023d1b009f52so1989276pja.2
+ for <cluster-devel@redhat.com>; Fri, 07 Apr 2023 11:08:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680889484; x=1683481484;
+ d=1e100.net; s=20210112; t=1680890916; x=1683482916;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=eeevj2IXfQ5qKWd9tc/WTPMDjydGded23Wx96ttD0lI=;
- b=6gd9DgsuCzzJt/m+MJOXYYVVbdhi2ulJhpmFNJnJD2Rossd7LME664fDm0+4NAUGl1
- qHjD3mHAIH4aFH1Ezd2IBCt6VloZa5ZRkcHQZq7341GUx0FgXmAg8rxNQQteBKK6prNL
- ve8xDy95rom8BtPniajUkG582bFZdSw3LlBeVtclnbaSLkucVyhgGblZHhAhd26N225A
- FpOq2GBDFDWUptl6joSxdObCuAnWSDSFdRMW5e7H/Vn6jRnOmqvMzM8Y12SN5s/v2+fE
- NAioncKbBbMJw/4c4+Pwu+gFLD6Pk+QnEb5XfAkyKCXwSGgAQGKIWh2FVYUxOCPJB2gK
- cElg==
-X-Gm-Message-State: AAQBX9fdMe9rMReumli6bSwBe3pImXWBLGNQ3OO+tfF9WvNU658W0xP3
- JYQT5OM1QbI/+8eN8YkpbM8r/dn1iBIWEcMhC19x4A==
-X-Google-Smtp-Source: AKy350bdMJ3LG9Gi/HkfohQwKo0s3+e/a281cskd8iLsjDWZHESfhkK9S3fdtxt2CrSKiJZP1lRF2TsMUY8mo8Nq91I=
-X-Received: by 2002:a65:578e:0:b0:513:a488:f05f with SMTP id
- b14-20020a65578e000000b00513a488f05fmr625705pgr.1.1680889484187; Fri, 07 Apr
- 2023 10:44:44 -0700 (PDT)
+ bh=Ij7uDQEt7OoC3gzgZ3tZqjFkRTxGVdbzCD/wwJBh2J8=;
+ b=lsx0gcR+WHWNcRpaTnTF+U8ah/qkjxJx9UKV6GBoy1y+ZMyvL8KzgkgBdP8l3Vp1h/
+ sklq68TP9f1GbSU9gLfLK87Eh0em6gVFDlfV36vHAPLEWTDIs9JwYgjDTKmlQDorDuOL
+ jTUpetzV851+dY5HP5Sz9KSAW37hzT1DkJuB+FLXFg/IhQLPwAPWWb6v5YCgtSgsBhd5
+ oLkB7U/8dVMFjyreX2jNlZGCcP02dlcVIvX+dVXBSj7V8KVCN3FiQp7pyuobr7nSf9HA
+ X0BC68uQ/YKUMMZpduGlKqVkkToR/dWfy3uZARZAXTdSQeOhhBudX5IntcF3XrxY+cnt
+ JcaQ==
+X-Gm-Message-State: AAQBX9fPyRuk9koznh7Lyw/9ykukr/SnMpTAxg2C9yffQDeEC3cIv3lJ
+ KO6bi4gFHIs0inNMPtHZNsKofBw9TVGkME7hRX+iNA==
+X-Google-Smtp-Source: AKy350ZEWjuFoz+sL7oAnHomo0iHyqQI1Sm5L+Ii9IqLyzhBmLJPQvFAtHbFOlXt/tvMV1txjQqW/7K5sxOi9yfnuT0=
+X-Received: by 2002:a17:90a:5997:b0:244:9b8f:c3bf with SMTP id
+ l23-20020a17090a599700b002449b8fc3bfmr807289pji.7.1680890915820; Fri, 07 Apr
+ 2023 11:08:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230324175942.2653272-1-trix@redhat.com>
-In-Reply-To: <20230324175942.2653272-1-trix@redhat.com>
+References: <20230330132114.1826399-1-trix@redhat.com>
+In-Reply-To: <20230330132114.1826399-1-trix@redhat.com>
 From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Fri, 7 Apr 2023 10:44:33 -0700
-Message-ID: <CAKwvOdkFK3f6zdkw4Xpa9WpTx6159GWF8J2rtMHoChStu9svVg@mail.gmail.com>
+Date: Fri, 7 Apr 2023 11:08:24 -0700
+Message-ID: <CAKwvOdkim2tY3VvR_ejCuzVivEH3iadZYFE_dnMS1shXfJ5eUA@mail.gmail.com>
 To: Tom Rix <trix@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -90,9 +92,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Cluster-devel] [PATCH] fs: dlm: remove unused is_granted
- function
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH] fs: dlm: remove unused count_match
+ variable
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,53 +110,80 @@ Cc: cluster-devel@redhat.com, llvm@lists.linux.dev,
  linux-kernel@vger.kernel.org, nathan@kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: google.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 24, 2023 at 10:59=E2=80=AFAM Tom Rix <trix@redhat.com> wrote:
+On Thu, Mar 30, 2023 at 6:21=E2=80=AFAM Tom Rix <trix@redhat.com> wrote:
 >
 > clang with W=3D1 reports
-> fs/dlm/lock.c:239:19: error: unused function
->   'is_granted' [-Werror,-Wunused-function]
-> static inline int is_granted(struct dlm_lkb *lkb)
->                   ^
-> This function is not used so remove it.
-
-How about instead of remove it, we see if we can reuse it?
-Grep for DLM_LKSTS_GRANTED. The comparisons on:
-
-2668: if (lkb->lkb_status !=3D DLM_LKSTS_GRANTED)
-2787: if (lkb->lkb_status =3D=3D DLM_LKSTS_GRANTED &&
-3749: if (lkb->lkb_status !=3D DLM_LKSTS_GRANTED)
-
-all look like they ought to.
-
-
+> fs/dlm/dir.c:67:26: error: variable
+>   'count_match' set but not used [-Werror,-Wunused-but-set-variable]
+>         unsigned int count =3D 0, count_match =3D 0, count_bad =3D 0, cou=
+nt_add =3D 0;
+>                                 ^
+> This variable is not used so remove it.
 >
 > Signed-off-by: Tom Rix <trix@redhat.com>
+
+Fixes: commit c04fecb4d9f7 ("dlm: use rsbtbl as resource directory")
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+
+I can't help but wonder what this logic originally intended, but this
+was introduced back in 2012, so guessing no one cares/remembers/hits
+related issues.
+
+The condition above is
+149         if (result =3D=3D DLM_LU_MATCH &&
+150             nodeid !=3D memb->nodeid) {
+
+which looks like the condition you removed could have been folded into
+that originally:
+
+if (result =3D=3D DLM_LU_MATCH) {
+  if (nodeid =3D=3D memb->nodeid)
+    ++count_match;
+  else {
+    ...
+
+
 > ---
->  fs/dlm/lock.c | 5 -----
->  1 file changed, 5 deletions(-)
+>  fs/dlm/dir.c | 10 +---------
+>  1 file changed, 1 insertion(+), 9 deletions(-)
 >
-> diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-> index 1582c8b1404c..b9c124b88f15 100644
-> --- a/fs/dlm/lock.c
-> +++ b/fs/dlm/lock.c
-> @@ -236,11 +236,6 @@ static inline int is_altmode(struct dlm_lkb *lkb)
->         return test_bit(DLM_SBF_ALTMODE_BIT, &lkb->lkb_sbflags);
->  }
+> diff --git a/fs/dlm/dir.c b/fs/dlm/dir.c
+> index fb1981654bb2..982f7a5570fe 100644
+> --- a/fs/dlm/dir.c
+> +++ b/fs/dlm/dir.c
+> @@ -64,7 +64,7 @@ int dlm_recover_directory(struct dlm_ls *ls)
+>         char *b, *last_name =3D NULL;
+>         int error =3D -ENOMEM, last_len, nodeid, result;
+>         uint16_t namelen;
+> -       unsigned int count =3D 0, count_match =3D 0, count_bad =3D 0, cou=
+nt_add =3D 0;
+> +       unsigned int count =3D 0, count_bad =3D 0, count_add =3D 0;
 >
-> -static inline int is_granted(struct dlm_lkb *lkb)
-> -{
-> -       return (lkb->lkb_status =3D=3D DLM_LKSTS_GRANTED);
-> -}
+>         log_rinfo(ls, "dlm_recover_directory");
+>
+> @@ -158,14 +158,6 @@ int dlm_recover_directory(struct dlm_ls *ls)
+>                                                              b, namelen);
+>                                 }
+>
+> -                               /* The name was found in rsbtbl, and the
+> -                                * master nodeid matches memb->nodeid. */
 > -
->  static inline int is_remote(struct dlm_rsb *r)
->  {
->         DLM_ASSERT(r->res_nodeid >=3D 0, dlm_print_rsb(r););
+> -                               if (result =3D=3D DLM_LU_MATCH &&
+> -                                   nodeid =3D=3D memb->nodeid) {
+> -                                       count_match++;
+> -                               }
+> -
+>                                 /* The name was not found in rsbtbl and w=
+as
+>                                  * added with memb->nodeid as the master.=
+ */
+>
 > --
 > 2.27.0
 >
