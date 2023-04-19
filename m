@@ -1,80 +1,97 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC7036E7C41
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Apr 2023 16:22:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CE376E7E14
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Apr 2023 17:20:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681914119;
+	s=mimecast20190719; t=1681917601;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=+pd4oKFh0oFb9+Iu8ItMUHH7+UjLES4jQSrWjxoNntk=;
-	b=dmbcf2KKVE8H6uHSzl3mlh0gXnSLXzSshugV/H66NIgMD0w5UHxgOvjizVEXnIoPxDMfuo
-	5G9kLi4eM1hHqKPSF5iAscq/wJ94l6yWkxIHqGgfDf0GMM0e6sxuAq/lEmHHOO8VEPboRJ
-	0hqJYiTyGExmrdGJAnjsYuEaT57Dzn0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Tk4ILYUitykXDNv2nAhy0f5ydU+4a31pQqGhvmwhdPk=;
+	b=D39NyNHwG246/7vsIQAoPLes72V1ummbFJrZR9ho7a3nHU4DvjUCebnDOUcc1QL8iO9oxc
+	e3xJPHFmX9bgxfrxTSLocCkewfReBE1L6Pm91eKBoLM5lblabqldkU7hj63VNk16p7lbTW
+	FS3DvO00x3bret3Ho3stbxG7PKOlYF8=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-464-ApjRGJc-OuitCGl2x1BCXg-1; Wed, 19 Apr 2023 10:21:56 -0400
-X-MC-Unique: ApjRGJc-OuitCGl2x1BCXg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-617-1G3H3zE7MRuZNMXbbAjNKg-1; Wed, 19 Apr 2023 11:19:57 -0400
+X-MC-Unique: 1G3H3zE7MRuZNMXbbAjNKg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AEA2A3C106A1;
-	Wed, 19 Apr 2023 14:21:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B0EC88B7A6;
+	Wed, 19 Apr 2023 15:19:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 698474020BF2;
-	Wed, 19 Apr 2023 14:21:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id ABD081121314;
+	Wed, 19 Apr 2023 15:19:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3E21E19465B3;
-	Wed, 19 Apr 2023 14:21:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 671E319465B3;
+	Wed, 19 Apr 2023 15:19:52 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 965F019465A0 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 19 Apr 2023 14:19:39 +0000 (UTC)
+ ESMTP id DEC8519465A0 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 19 Apr 2023 15:19:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3EADD40C201F; Wed, 19 Apr 2023 14:19:39 +0000 (UTC)
+ id BCD77637A2; Wed, 19 Apr 2023 15:19:47 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 37A3440C2064
- for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 14:19:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B55DF2958
+ for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 15:19:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 214868996F3
- for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 14:19:39 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-266-OrBiTgUQM8qjLZjX0b2EWA-1; Wed,
- 19 Apr 2023 10:19:37 -0400
-X-MC-Unique: OrBiTgUQM8qjLZjX0b2EWA-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pp8ed-00DJck-8U; Wed, 19 Apr 2023 14:19:27 +0000
-Date: Wed, 19 Apr 2023 15:19:27 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Johannes Thumshirn <jth@kernel.org>
-Message-ID: <ZD/4b9ZQ1YZRTgHL@casper.infradead.org>
-References: <20230419140929.5924-1-jth@kernel.org>
- <20230419140929.5924-20-jth@kernel.org>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96CCA1C189A8
+ for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 15:19:47 +0000 (UTC)
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-662-uahI8ew-PKuTKwwzohWwAw-1; Wed, 19 Apr 2023 11:19:46 -0400
+X-MC-Unique: uahI8ew-PKuTKwwzohWwAw-1
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-24732cc0c8fso2439292a91.3
+ for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 08:19:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681917584; x=1684509584;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Tk4ILYUitykXDNv2nAhy0f5ydU+4a31pQqGhvmwhdPk=;
+ b=ZEleHIc02mShHWSmCw4+1molivDEMBA9dkfBsPsCB2TuC8QGcGi8/0vceR4j3VtK0c
+ 7lCXvd4xpxjvP34QSFS3pWxJg4QypknN6y4JF2VxpaloG7i/fvYHpC52a8rufNqUdvOx
+ YJwPxxudjIK8Uur1utJYb0jUjcddx+IEb7kw6RZ4fL8x55uB9KQqimGL32nm1BAmOkrY
+ Fo6pO4NGcvvjkeyUSgaxWaxPxijmlYjgRuDt7oQ+I/sL4b2egQeh+ukIJdOOHn59P70Z
+ oJI0QZCt9wr8UeWARChPy/wKm1D30ZZwaBP/QOczvW12nmKw/Q223GZKK37avjS6JQGP
+ JmPQ==
+X-Gm-Message-State: AAQBX9fxX7QtaLr0AYkOteQ6FmvP3G7viE8f+gG1h18VUEEZZRMh7bFJ
+ sU01bYV6rdt2Os+5qD1l2rs7e3DAhUNcxxY1WQmfnXQStGJR5r5behO6eXJs6faVtZJZ0UE5sBI
+ ZR9wPQ6pThhyCK7eKEQ63tzuqhy2Gl54HPuMYH00UY+KWP8iC
+X-Received: by 2002:a17:90a:2ca4:b0:247:fec:3cf with SMTP id
+ n33-20020a17090a2ca400b002470fec03cfmr1032466pjd.9.1681917584664; 
+ Wed, 19 Apr 2023 08:19:44 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ZilzTP35l+fCVfSRmyAr7TA2z2HByJ2c77EoLXxjUVlBIE5WaJ/vbFqG27YJf1gGuB7p5La9B7yskBhiQ6yjg=
+X-Received: by 2002:a17:90a:2ca4:b0:247:fec:3cf with SMTP id
+ n33-20020a17090a2ca400b002470fec03cfmr1032449pjd.9.1681917584368; Wed, 19 Apr
+ 2023 08:19:44 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20230419140929.5924-20-jth@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH v3 19/19] block: mark bio_add_page as
- __must_check
+References: <20230419140929.5924-1-jth@kernel.org>
+ <20230419140929.5924-12-jth@kernel.org>
+In-Reply-To: <20230419140929.5924-12-jth@kernel.org>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 19 Apr 2023 17:19:31 +0200
+Message-ID: <CAHc6FU6U1yZguZGeCc7BUqd1Qm4+SSRK8xbNZWBUSXTk_jjvVQ@mail.gmail.com>
+To: Johannes Thumshirn <jth@kernel.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [Cluster-devel] [PATCH v3 11/19] gfs: use __bio_add_page for
+ adding single page to bio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,25 +105,61 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net, linux-mm@kvack.org,
  dm-devel@redhat.com, hch@lst.de,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>, cluster-devel@redhat.com,
- kch@nvidia.com, snitzer@kernel.org, ming.lei@redhat.com,
- linux-block@vger.kernel.org, hare@suse.de, dsterba@suse.com, axboe@kernel.dk,
- linux-raid@vger.kernel.org, damien.lemoal@wdc.com, song@kernel.org,
- johannes.thumshirn@wdc.com, linux-fsdevel@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>, willy@infradead.org,
+ cluster-devel@redhat.com, kch@nvidia.com, snitzer@kernel.org,
+ ming.lei@redhat.com, linux-block@vger.kernel.org, hare@suse.de,
+ dsterba@suse.com, axboe@kernel.dk, linux-raid@vger.kernel.org,
+ damien.lemoal@wdc.com, song@kernel.org, johannes.thumshirn@wdc.com,
+ linux-fsdevel@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: infradead.org
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 19, 2023 at 04:09:29PM +0200, Johannes Thumshirn wrote:
-> Now that all users of bio_add_page check for the return value, mark
-> bio_add_page as __must_check.
+On Wed, Apr 19, 2023 at 4:10=E2=80=AFPM Johannes Thumshirn <jth@kernel.org>=
+ wrote:
+>
+> From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+>
+> The GFS superblock reading code uses bio_add_page() to add a page to a
+> newly created bio. bio_add_page() can fail, but the return value is never
+> checked.
 
-Should probably add __must_check to bio_add_folio too?  If this is
-really the way you want to go ... means we also need a
-__bio_add_folio().
+It's GFS2, not GFS, but otherwise this is obviously fine, thanks.
+
+> Use __bio_add_page() as adding a single page to a newly created bio is
+> guaranteed to succeed.
+>
+> This brings us a step closer to marking bio_add_page() as __must_check.
+>
+> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+> Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+
+Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
+
+> ---
+>  fs/gfs2/ops_fstype.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+> index 6de901c3b89b..e0cd0d43b12f 100644
+> --- a/fs/gfs2/ops_fstype.c
+> +++ b/fs/gfs2/ops_fstype.c
+> @@ -254,7 +254,7 @@ static int gfs2_read_super(struct gfs2_sbd *sdp, sect=
+or_t sector, int silent)
+>
+>         bio =3D bio_alloc(sb->s_bdev, 1, REQ_OP_READ | REQ_META, GFP_NOFS=
+);
+>         bio->bi_iter.bi_sector =3D sector * (sb->s_blocksize >> 9);
+> -       bio_add_page(bio, page, PAGE_SIZE, 0);
+> +       __bio_add_page(bio, page, PAGE_SIZE, 0);
+>
+>         bio->bi_end_io =3D end_bio_io_page;
+>         bio->bi_private =3D page;
+> --
+> 2.39.2
+>
 
