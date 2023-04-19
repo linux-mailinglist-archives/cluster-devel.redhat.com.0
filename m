@@ -2,91 +2,91 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 725D66E7C07
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Apr 2023 16:14:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 306786E7C17
+	for <lists+cluster-devel@lfdr.de>; Wed, 19 Apr 2023 16:15:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681913655;
+	s=mimecast20190719; t=1681913757;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=C0hLQVWAy93GtM7oc6TpMOtkbIMql7YOXfxv+ovXyBI=;
-	b=cFdgJNRKdpJpQpz8vqLO6BzwMTnXgWbqn3xFMy+j4BmaLWBuqTmEovaxt5STJ2x4aypkMl
-	BweTz4Pmbeq4ibKbifhBJj01tqGf6fiabYS+mxvR4r84MQECu1rft23ADfYgMomUZnQTK9
-	hxyfVoIzr+vt7q+MxvAF/olPagRk2TA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=/zlw+dyGlfnLYWyTWZyG7072cksvgegzTzOhlPnlIpY=;
+	b=MEDWKJ43sBqHRWh6FmsiSco01WI7nA2E09VpMVi2Kwb0u1XsUJDuJuTsdZUajYQl4sDYWd
+	kCO/rXAYgpaMGQJkr/yMqzfEKIntRga+d5TR+PR/cNYcpG9XZ9IScAv19bUJHuLbw3HBZi
+	tcHko1PgeZEsqQZjfqeGHFH52IdSqgU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-94-w90f0y4INtWIV4BMKx54bw-1; Wed, 19 Apr 2023 10:14:10 -0400
-X-MC-Unique: w90f0y4INtWIV4BMKx54bw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-330-gVFW7swjPWqIgQ3QQY58Lw-1; Wed, 19 Apr 2023 10:15:55 -0400
+X-MC-Unique: gVFW7swjPWqIgQ3QQY58Lw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58AD5101A552;
-	Wed, 19 Apr 2023 14:14:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B340A38173E4;
+	Wed, 19 Apr 2023 14:15:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4B36C2026D16;
-	Wed, 19 Apr 2023 14:14:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A78E5492B04;
+	Wed, 19 Apr 2023 14:15:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 30C6819465B3;
-	Wed, 19 Apr 2023 14:14:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8B83D19465B3;
+	Wed, 19 Apr 2023 14:15:52 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3A8B819465A0 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 19 Apr 2023 14:11:11 +0000 (UTC)
+ ESMTP id C1A2419465A0 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 19 Apr 2023 14:11:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1F1291121318; Wed, 19 Apr 2023 14:11:11 +0000 (UTC)
+ id B69D91410F1C; Wed, 19 Apr 2023 14:11:03 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1813A1121315
- for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 14:11:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AEDB51410DD7
+ for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 14:11:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EDCDD2999B37
- for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 14:11:10 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93861802C1A
+ for <cluster-devel@redhat.com>; Wed, 19 Apr 2023 14:11:03 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-26-yLjuzLuqMoayzNoyfAdMoQ-1; Wed, 19 Apr 2023 10:10:58 -0400
-X-MC-Unique: yLjuzLuqMoayzNoyfAdMoQ-1
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-2f3fe12de15so2106023f8f.3; 
- Wed, 19 Apr 2023 07:10:57 -0700 (PDT)
+ us-mta-112-3R1vxZwgPEqVBfBQsvMcUQ-1; Wed, 19 Apr 2023 10:11:00 -0400
+X-MC-Unique: 3R1vxZwgPEqVBfBQsvMcUQ-1
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-2f9b9aa9d75so1759559f8f.0; 
+ Wed, 19 Apr 2023 07:10:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681913457; x=1684505457;
+ d=1e100.net; s=20221208; t=1681913458; x=1684505458;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=C0hLQVWAy93GtM7oc6TpMOtkbIMql7YOXfxv+ovXyBI=;
- b=dNiJitEPV2TMTVnClIXLs/waFpdIHc8yA8o8RTJMNFp6KGhHg/s0TVfeiiBzT7IszV
- q5EXumJqH9wJ4G/3bJDXFMFkYpe8Myhc9JsiwUNwJacCzyY/ulhkb7y01huDjkH7BsdN
- KW+FuPp+RrdnGnjgZ98jEvRgk/kWL8CVPhu/PMJFeGPaN6NXnF1QtMc4gjDQy2347/E3
- GdISwF7zIQ05bfzD0b/k+sxAU0FLkqO4Quzz1dLc1S2uYhfxjdtMhFJpFR8g5s5aSjhF
- dEZka9qJy0aZ5lH3XnJ01+a6u0p45G/5bacNLVtx84idbY90o5V7BFTpCYv7Ff0pH7sd
- BMkg==
-X-Gm-Message-State: AAQBX9dcXFQCjRaSNZG/j4m55Z0VDCw7E3qv6yfU8bp+vY3BOPV/wGNf
- TNZM/OUAhQiNjxvYr731DGU=
-X-Google-Smtp-Source: AKy350aVLE+txxcZm9LeX2yItutcTFI6YYsrFgCoIWHLD8EDS9H+yj3niCnWRjhD3VeCviDrTQZ6vw==
-X-Received: by 2002:a05:6000:1a47:b0:2ce:d84d:388f with SMTP id
- t7-20020a0560001a4700b002ced84d388fmr5447194wry.40.1681913456733; 
- Wed, 19 Apr 2023 07:10:56 -0700 (PDT)
+ bh=/zlw+dyGlfnLYWyTWZyG7072cksvgegzTzOhlPnlIpY=;
+ b=LuOCYPkOh3dAAqPPZYP23sLGpaAkRPLiBpwovL56Y2SeQkbWx0YmLCFsaHi1sf7Euq
+ ExuIXXGrmpIO8obZ0zTEePmwVHsRKQKXLMtp/8VTGfkpbj8bWnzUi9F0oxMVh2pBHOLa
+ W+sDXnEWBKCPif3S+AsQiJk5S0u9XgBssdjhAeksqE8moG8ou4ozhGHUZiVd8JNhQKl1
+ CE6aCDWqiV6ftjdqbmRHNaZF22VZv3Ecd3ANsGixB8utW86A8Ms+6bGNmuFz+5370XkD
+ dMRVWgNQzDEzNpG6sXhkUH8M4IqdMkYjCOwn57N0aozNwjo26N8XsHLF4aet9Rqg0wNe
+ 7wbg==
+X-Gm-Message-State: AAQBX9enucChNc4OhcB6Y+8BUsqCtg7kq758Sv1iy2kj5a7N58j0ABWD
+ rszYcURdgC5kr17s80hybwQ=
+X-Google-Smtp-Source: AKy350ZBtxc/TGFor4lepp28gxjzMLtfR2kXHzHsofIAAqDJVDxt5jCQYZANHY4xZIooK/Ogo3z5tA==
+X-Received: by 2002:adf:f84c:0:b0:2f5:d0f:744a with SMTP id
+ d12-20020adff84c000000b002f50d0f744amr4499259wrq.12.1681913458339; 
+ Wed, 19 Apr 2023 07:10:58 -0700 (PDT)
 Received: from localhost.localdomain
  (aftr-62-216-205-204.dynamic.mnet-online.de. [62.216.205.204])
  by smtp.googlemail.com with ESMTPSA id
- q17-20020a5d61d1000000b002faaa9a1721sm7612089wrv.58.2023.04.19.07.10.55
+ q17-20020a5d61d1000000b002faaa9a1721sm7612089wrv.58.2023.04.19.07.10.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Apr 2023 07:10:56 -0700 (PDT)
+ Wed, 19 Apr 2023 07:10:57 -0700 (PDT)
 From: Johannes Thumshirn <jth@kernel.org>
 To: axboe@kernel.dk
-Date: Wed, 19 Apr 2023 16:09:27 +0200
-Message-Id: <20230419140929.5924-18-jth@kernel.org>
+Date: Wed, 19 Apr 2023 16:09:28 +0200
+Message-Id: <20230419140929.5924-19-jth@kernel.org>
 In-Reply-To: <20230419140929.5924-1-jth@kernel.org>
 References: <20230419140929.5924-1-jth@kernel.org>
 MIME-Version: 1.0
@@ -97,9 +97,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH v3 17/19] md: raid1: check if adding pages
- to resync bio fails
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [Cluster-devel] [PATCH v3 18/19] dm-crypt: check if adding pages to
+ clone bio fails
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,7 +121,7 @@ Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net, linux-mm@kvack.org,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Transfer-Encoding: 8bit
@@ -129,80 +129,38 @@ Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
 From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 
-Check if adding pages to resync bio fails and if bail out.
-
-As the comment above suggests this cannot happen, WARN if it actually
-happens.
+Check if adding pages to clone bio fails and if it does retry with
+reclaim. This mirrors the behaviour of page allocation in
+crypt_alloc_buffer().
 
 This way we can mark bio_add_pages as __must_check.
 
 Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 ---
- drivers/md/raid1-10.c | 11 ++++++-----
- drivers/md/raid10.c   | 20 ++++++++++----------
- 2 files changed, 16 insertions(+), 15 deletions(-)
+ drivers/md/dm-crypt.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/raid1-10.c b/drivers/md/raid1-10.c
-index e61f6cad4e08..cd349e69ed77 100644
---- a/drivers/md/raid1-10.c
-+++ b/drivers/md/raid1-10.c
-@@ -101,11 +101,12 @@ static void md_bio_reset_resync_pages(struct bio *bio, struct resync_pages *rp,
- 		struct page *page = resync_fetch_page(rp, idx);
- 		int len = min_t(int, size, PAGE_SIZE);
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 3ba53dc3cc3f..19f7e087c6df 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -1693,7 +1693,14 @@ static struct bio *crypt_alloc_buffer(struct dm_crypt_io *io, unsigned int size)
  
--		/*
--		 * won't fail because the vec table is big
--		 * enough to hold all these pages
--		 */
--		bio_add_page(bio, page, len, 0);
-+		if (WARN_ON(!bio_add_page(bio, page, len, 0))) {
-+			bio->bi_status = BLK_STS_RESOURCE;
-+			bio_endio(bio);
-+			return;
-+		}
+ 		len = (remaining_size > PAGE_SIZE) ? PAGE_SIZE : remaining_size;
+ 
+-		bio_add_page(clone, page, len, 0);
++		if (!bio_add_page(clone, page, len, 0)) {
++			mempool_free(page, &cc->page_pool);
++			crypt_free_buffer_pages(cc, clone);
++			bio_put(clone);
++			gfp_mask |= __GFP_DIRECT_RECLAIM;
++			goto retry;
 +
- 		size -= len;
- 	} while (idx++ < RESYNC_PAGES && size > 0);
- }
-diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
-index 6c66357f92f5..59e52cf01569 100644
---- a/drivers/md/raid10.c
-+++ b/drivers/md/raid10.c
-@@ -3804,11 +3804,11 @@ static sector_t raid10_sync_request(struct mddev *mddev, sector_t sector_nr,
- 		for (bio= biolist ; bio ; bio=bio->bi_next) {
- 			struct resync_pages *rp = get_resync_pages(bio);
- 			page = resync_fetch_page(rp, page_idx);
--			/*
--			 * won't fail because the vec table is big enough
--			 * to hold all these pages
--			 */
--			bio_add_page(bio, page, len, 0);
-+			if (WARN_ON(!bio_add_page(bio, page, len, 0))) {
-+				bio->bi_status = BLK_STS_RESOURCE;
-+				bio_endio(bio);
-+				goto giveup;
-+			}
- 		}
- 		nr_sectors += len>>9;
- 		sector_nr += len>>9;
-@@ -4985,11 +4985,11 @@ static sector_t reshape_request(struct mddev *mddev, sector_t sector_nr,
- 		if (len > PAGE_SIZE)
- 			len = PAGE_SIZE;
- 		for (bio = blist; bio ; bio = bio->bi_next) {
--			/*
--			 * won't fail because the vec table is big enough
--			 * to hold all these pages
--			 */
--			bio_add_page(bio, page, len, 0);
-+			if (WARN_ON(!bio_add_page(bio, page, len, 0))) {
-+				bio->bi_status = BLK_STS_RESOURCE;
-+				bio_endio(bio);
-+				return sectors_done;
-+			}
- 		}
- 		sector_nr += len >> 9;
- 		nr_sectors += len >> 9;
++		}
+ 
+ 		remaining_size -= len;
+ 	}
 -- 
 2.39.2
 
