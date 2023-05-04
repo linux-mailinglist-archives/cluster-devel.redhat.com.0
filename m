@@ -1,57 +1,89 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD6006F7157
-	for <lists+cluster-devel@lfdr.de>; Thu,  4 May 2023 19:43:32 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FF696F7431
+	for <lists+cluster-devel@lfdr.de>; Thu,  4 May 2023 21:49:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683222211;
+	s=mimecast20190719; t=1683229758;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cmH/Kt1CfHEQ380HskmGnC0Y0N2wj08VMYHCg3fodw8=;
-	b=Dj92sTjU8PCYIF7wHbSCzCoFVOwzu8Llfm/IlPVArAETx97WSWMolTXMIiJ5GXE/oI4yyf
-	FAKivyXZyZqv/TanwbWcNfGDorZRwLCKmrGJ89c5bAHLpBeksnM02fqS56Q99MfD0vsVyA
-	kBFDdXIrpyLEfcg1UXUrwLGAIMHFedM=
+	bh=OFsClThcTwv7kJPKtu5TW+IHHQRGpxOpyvSPW0n+fF8=;
+	b=D0UK3x9l5PQlkqbmvyGF7U9A2wu9psrJ0lxaH/pn9cAB88u1JJeDB90x31/OR8xrtIXpEd
+	7D8qfpzXeQNwf1deWVS+Ad+OgWWao3nFeGyEPFQrL28Xu0odG7mXYBpHyJRKJGAZ/WLV4T
+	YHLEH5RIDstvXRevwHWXINKoX3R0g30=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-441-Kj5ZxLjfPXeY2fLHa8u5Ng-1; Thu, 04 May 2023 13:43:28 -0400
-X-MC-Unique: Kj5ZxLjfPXeY2fLHa8u5Ng-1
+ us-mta-464-G1XlPs7RNdG3shc6oo7Zzg-1; Thu, 04 May 2023 15:49:14 -0400
+X-MC-Unique: G1XlPs7RNdG3shc6oo7Zzg-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE94C811E7B;
-	Thu,  4 May 2023 17:43:26 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6599E492C3E;
-	Thu,  4 May 2023 17:43:25 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F39B6800B35;
+	Thu,  4 May 2023 19:49:12 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E5A40492C3E;
+	Thu,  4 May 2023 19:48:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1ECE71946A47;
-	Thu,  4 May 2023 17:43:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 31E481946A47;
+	Thu,  4 May 2023 19:48:00 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C73CA19465BB for <cluster-devel@listman.corp.redhat.com>;
- Thu,  4 May 2023 17:43:23 +0000 (UTC)
+ ESMTP id 7945519465BB for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  4 May 2023 19:47:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 948224020963; Thu,  4 May 2023 17:43:23 +0000 (UTC)
+ id 6DC6140C2009; Thu,  4 May 2023 19:47:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.users.ipa.redhat.com (unknown [10.22.34.129])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6DB7A4020960
- for <cluster-devel@redhat.com>; Thu,  4 May 2023 17:43:23 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Thu,  4 May 2023 13:43:22 -0400
-Message-Id: <20230504174322.384715-1-rpeterso@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 65FF340C2064
+ for <cluster-devel@redhat.com>; Thu,  4 May 2023 19:47:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49C3A858F0E
+ for <cluster-devel@redhat.com>; Thu,  4 May 2023 19:47:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-39-ZMcf-7N3P5GWKy0mqRMINQ-1; Thu, 04 May 2023 15:47:56 -0400
+X-MC-Unique: ZMcf-7N3P5GWKy0mqRMINQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 739A263705;
+ Thu,  4 May 2023 19:42:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28427C4339B;
+ Thu,  4 May 2023 19:42:46 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Thu,  4 May 2023 15:41:05 -0400
+Message-Id: <20230504194142.3805425-22-sashal@kernel.org>
+In-Reply-To: <20230504194142.3805425-1-sashal@kernel.org>
+References: <20230504194142.3805425-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [Cluster-devel] [PATCH] gfs2: ignore rindex_update failure in
- dinode_dealloc
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Cluster-devel] [PATCH AUTOSEL 6.3 22/59] gfs2: Fix inode height
+ consistency check
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,49 +95,59 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
+ syzbot+45d4691b1ed3c48eba05@syzkaller.appspotmail.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Originator: kernel.org
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Before this patch function gfs2_dinode_dealloc would abort if it got a
-bad return code from gfs2_rindex_update. The problem is that it left the
-dinode in the unlinked (not free) state, which meant subsequent fsck
-would clean it up and flag an error. That meant some of our QE tests
-would fail.
+From: Andreas Gruenbacher <agruenba@redhat.com>
 
-The sole purpose of gfs2_rindex_update, in this code path, is to read in
-any newer rgrps added by gfs2_grow. But since this is a delete operation
-it won't actually use any of those new rgrps. It can really only twiddle
-the bits from "Unlinked" to "Free" in an existing rgrp. Therefore the
-error should not prevent the transition from unlinked to free.
+[ Upstream commit cfcdb5bad34f600aed7613c3c1a5e618111f77b7 ]
 
-This patch makes gfs2_dinode_dealloc ignore the bad return code and
-proceed with freeing the dinode so the QE tests will not be tripped up.
+The maximum allowed height of an inode's metadata tree depends on the
+filesystem block size; it is lower for bigger-block filesystems.  When
+reading in an inode, make sure that the height doesn't exceed the
+maximum allowed height.
 
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Arrays like sd_heightsize are sized to be big enough for any filesystem
+block size; they will often be slightly bigger than what's needed for a
+specific filesystem.
+
+Reported-by: syzbot+45d4691b1ed3c48eba05@syzkaller.appspotmail.com
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/super.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/gfs2/glops.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index d3b5c6278be0..1f23d7845123 100644
---- a/fs/gfs2/super.c
-+++ b/fs/gfs2/super.c
-@@ -1131,9 +1131,7 @@ static int gfs2_dinode_dealloc(struct gfs2_inode *ip)
- 		return -EIO;
- 	}
- 
--	error = gfs2_rindex_update(sdp);
--	if (error)
--		return error;
-+	gfs2_rindex_update(sdp);
- 
- 	error = gfs2_quota_hold(ip, NO_UID_QUOTA_CHANGE, NO_GID_QUOTA_CHANGE);
- 	if (error)
--- 
-2.40.0
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 4d99cc77a29b7..b65950e76be5a 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -396,6 +396,7 @@ static int inode_go_demote_ok(const struct gfs2_glock *=
+gl)
+=20
+ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ {
++=09struct gfs2_sbd *sdp =3D GFS2_SB(&ip->i_inode);
+ =09const struct gfs2_dinode *str =3D buf;
+ =09struct timespec64 atime;
+ =09u16 height, depth;
+@@ -442,7 +443,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const =
+void *buf)
+ =09/* i_diskflags and i_eattr must be set before gfs2_set_inode_flags() */
+ =09gfs2_set_inode_flags(inode);
+ =09height =3D be16_to_cpu(str->di_height);
+-=09if (unlikely(height > GFS2_MAX_META_HEIGHT))
++=09if (unlikely(height > sdp->sd_max_height))
+ =09=09goto corrupt;
+ =09ip->i_height =3D (u8)height;
+=20
+--=20
+2.39.2
 
