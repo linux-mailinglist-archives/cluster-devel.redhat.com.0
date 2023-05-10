@@ -2,56 +2,93 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEDFC6FE463
-	for <lists+cluster-devel@lfdr.de>; Wed, 10 May 2023 21:08:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF6886FE710
+	for <lists+cluster-devel@lfdr.de>; Thu, 11 May 2023 00:13:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683745706;
+	s=mimecast20190719; t=1683756780;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 message-id:message-id:to:to:cc:cc:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=n2CKUP+g/F/aYCwMJgS7G5sNnZD5cInGZYroLgPJzj0=;
-	b=Yle5W6dW1TOPJXI8nnW3LBS6igGBEgCgk3uSNLmDMzUEWmGzukkNJTWrcJymn3GwQoOSoT
-	77l2L3pSVY4nK61RY+zg7W38NtiFuFqgz0EXgOIN8S4VYfAIcRJ4jvBwiCG/TYH+WzHVf9
-	dLZZ95QxLbG2qinLDQWw66Lu2nP/dNY=
+	bh=9XOTkBUNABC06s1XApB6geuUb/RlrM9hQDna5ybczEk=;
+	b=UYkehJOOhjihRLRUSZoqjHP6wq4DxlFeEAykkKZB9TySR/BKHdTq7Kzq1d4guxQQbVsHAu
+	T6n4bHuZB6IEg1PeSCyJLEPB78CRlmThRRaAffhO7cRXa3GdzUu5pTElYWpfBgWBEgbXEy
+	0F0u+Ty5c/RTtavDvxOzRONWEqwvffk=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-501-OIPEDN-RNiy3vDeE347DKw-1; Wed, 10 May 2023 15:08:23 -0400
-X-MC-Unique: OIPEDN-RNiy3vDeE347DKw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-321-SWIED3L0PrCXV1sQ8gjUGQ-1; Wed, 10 May 2023 18:12:57 -0400
+X-MC-Unique: SWIED3L0PrCXV1sQ8gjUGQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63BBC88D023;
-	Wed, 10 May 2023 19:08:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78BCD185A78B;
+	Wed, 10 May 2023 22:12:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4F0D11410DD5;
-	Wed, 10 May 2023 19:08:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2D25B492C13;
+	Wed, 10 May 2023 22:12:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 10ABC19451C0;
-	Wed, 10 May 2023 19:08:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DB0D319451C0;
+	Wed, 10 May 2023 22:12:53 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5B0041946A45 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 10 May 2023 19:08:19 +0000 (UTC)
+ ESMTP id A44BC1946A45 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 10 May 2023 22:12:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 10DC940C2077; Wed, 10 May 2023 19:08:19 +0000 (UTC)
+ id 94F3BC16024; Wed, 10 May 2023 22:12:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from vishnu.users.ipa.redhat.com (unknown [10.22.32.55])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DB34240C2076
- for <cluster-devel@redhat.com>; Wed, 10 May 2023 19:08:18 +0000 (UTC)
-From: Bob Peterson <rpeterso@redhat.com>
-To: cluster-devel <cluster-devel@redhat.com>
-Date: Wed, 10 May 2023 15:08:18 -0400
-Message-Id: <20230510190818.125286-1-rpeterso@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [Cluster-devel] [PATCH] gfs2: Don't free rgrp clone bitmaps until
- go_inval
+Received: from mimecast-mx02.redhat.com
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CE36C15BA0
+ for <cluster-devel@redhat.com>; Wed, 10 May 2023 22:12:52 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5875029AA2CB
+ for <cluster-devel@redhat.com>; Wed, 10 May 2023 22:12:52 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-201-RVR4wlPpPOCfoeGGXjjr2w-1; Wed, 10 May 2023 18:12:48 -0400
+X-MC-Unique: RVR4wlPpPOCfoeGGXjjr2w-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 05B98636BC;
+ Wed, 10 May 2023 22:12:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6DAF7C433EF;
+ Wed, 10 May 2023 22:12:47 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 5BA75E26D2A; Wed, 10 May 2023 22:12:47 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20230510151918.280115-1-agruenba@redhat.com>
+References: <20230510151918.280115-1-agruenba@redhat.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20230510151918.280115-1-agruenba@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+ tags/gfs2-v6.3-fix
+X-PR-Tracked-Commit-Id: 504a10d9e46bc37b23d0a1ae2f28973c8516e636
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 2a78769da34b792cc4c4f7157cda6b622fab0872
+Message-Id: <168375676736.24436.5887636492162638288.pr-tracker-bot@kernel.org>
+Date: Wed, 10 May 2023 22:12:47 +0000
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [GIT PULL] gfs2: Don't deref jdesc in evict
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,123 +100,25 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Mimecast-Spam-Score: 2
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Before this patch, every time an rgrp was synced (go_sync) the
-clone bitmaps were freed. We do not need to free the bitmaps in many
-common cases. For example when demoting the glock from EXCLUSIVE to
-SHARED. This is especially wasteful in cases where we unlink lots of
-files: the rgrps are transitioned to EX, then back to SH multiple
-times as it looks at the dinode allocation states, then frees them,
-but the clones prevent allocations until the files are evicted.
-Subsequent uses often cause the rgrp glock to be transitioned from
-SH to EX and back again in rapid succession.
+The pull request you sent on Wed, 10 May 2023 17:19:18 +0200:
 
-In these cases it's proper to sync the rgrp bitmaps to the storage media
-but wasteful to free the clones, because the very next unlink needs to
-reallocate the clone bitmaps again. So in short, today we have:
+> git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git tags/gfs2-v6.3-fix
 
-1. SH->EX (for unlink or other)
-2. Allocate (kmalloc) a clone bitmap.
-3. Clear the bits in original bitmap.
-4. Keep original state in the clone bitmap to prevent re-allocation
-   until the last user closes the file.
-5. EX->SH
-6. Sync bitmap to storage media.
-7. Free the clone bitmaps.
-8. Go to 1.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/2a78769da34b792cc4c4f7157cda6b622fab0872
 
-This repeated kmalloc -> kfree -> kmalloc -> kfree is a waste of time:
-We only need to free the clone bitmaps when the glock is invalidated
-(i.e. when transitioning the glock to UN or DF so another node's view
-is consistent.) However, we still need to re-sync the clones with the
-real bitmap. This patch allows rgrp bitmaps to stick around until we
-have an invalidate of the glock. So in short:
+Thank you!
 
-1. SH->EX (for unlink or other)
-2. Only the first time, allocate (kmalloc) a clone bitmap.
-3. Free the bits in original bitmap.
-4. Keep original state in the clone bitmap to prevent re-allocation
-   until the last user closes the file.
-5. EX->SH
-6. Sync bitmap to storage media.
-7. Go to 1.
-
-Other transitions, like EX->UN still sync and free the clone bitmaps.
-And, of course, transition from SH->EX cannot have dirty buffers, so
-will not have clone bitmaps.
-
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
----
- fs/gfs2/glops.c |  4 +++-
- fs/gfs2/rgrp.c  | 13 +++++++++++++
- fs/gfs2/rgrp.h  |  1 +
- 3 files changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 01d433ed6ce7..58cf2004548e 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -205,7 +205,8 @@ static int rgrp_go_sync(struct gfs2_glock *gl)
- 	error = gfs2_rgrp_metasync(gl);
- 	if (!error)
- 		error = gfs2_ail_empty_gl(gl);
--	gfs2_free_clones(rgd);
-+	if (!test_bit(GLF_INVALIDATE_IN_PROGRESS, &gl->gl_flags))
-+		gfs2_sync_clones(rgd);
- 	return error;
- }
- 
-@@ -229,6 +230,7 @@ static void rgrp_go_inval(struct gfs2_glock *gl, int flags)
- 
- 	if (!rgd)
- 		return;
-+	gfs2_free_clones(rgd);
- 	start = (rgd->rd_addr * bsize) & PAGE_MASK;
- 	end = PAGE_ALIGN((rgd->rd_addr + rgd->rd_length) * bsize) - 1;
- 	gfs2_rgrp_brelse(rgd);
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 3b9b76e980ad..6e212e0eb74e 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -616,6 +616,19 @@ void gfs2_free_clones(struct gfs2_rgrpd *rgd)
- 	}
- }
- 
-+void gfs2_sync_clones(struct gfs2_rgrpd *rgd)
-+{
-+	int x;
-+
-+	for (x = 0; x < rgd->rd_length; x++) {
-+		struct gfs2_bitmap *bi = rgd->rd_bits + x;
-+		if (bi->bi_clone)
-+			memcpy(bi->bi_clone + bi->bi_offset,
-+			       bi->bi_bh->b_data + bi->bi_offset,
-+			       bi->bi_bytes);
-+	}
-+}
-+
- static void dump_rs(struct seq_file *seq, const struct gfs2_blkreserv *rs,
- 		    const char *fs_id_buf)
- {
-diff --git a/fs/gfs2/rgrp.h b/fs/gfs2/rgrp.h
-index 00b30cf893af..254188cf2d7b 100644
---- a/fs/gfs2/rgrp.h
-+++ b/fs/gfs2/rgrp.h
-@@ -32,6 +32,7 @@ extern void gfs2_clear_rgrpd(struct gfs2_sbd *sdp);
- extern int gfs2_rindex_update(struct gfs2_sbd *sdp);
- extern void gfs2_free_clones(struct gfs2_rgrpd *rgd);
- extern int gfs2_rgrp_go_instantiate(struct gfs2_glock *gl);
-+extern void gfs2_sync_clones(struct gfs2_rgrpd *rgd);
- extern void gfs2_rgrp_brelse(struct gfs2_rgrpd *rgd);
- 
- extern struct gfs2_alloc *gfs2_alloc_get(struct gfs2_inode *ip);
 -- 
-2.40.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
