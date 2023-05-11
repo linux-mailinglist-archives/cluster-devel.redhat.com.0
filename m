@@ -1,107 +1,103 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B2D6FF3DF
-	for <lists+cluster-devel@lfdr.de>; Thu, 11 May 2023 16:19:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 587D66FF725
+	for <lists+cluster-devel@lfdr.de>; Thu, 11 May 2023 18:26:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683814758;
+	s=mimecast20190719; t=1683822396;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=TiVITEKWavoHQgypF8pQku8juEEqjvvowDHxJw6B5t0=;
-	b=hqXjmvot38E64bGphJB4yNYsP5gygN2CisaYBPf4OcsnAfScxsWAbdfzphj05dm5N5pdI6
-	8fPlLEXC2cCGQlwfK8j3A/JuWuHPjbF43fjOKcKZ/YhnPrOohqeOrVKJVZpDy4nYQiDhsD
-	MK10iSnKTIcubtvSQRnfedbR2n4/15U=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=ndBrQ3w0AHpWG5hJlqPBYuez6El2zpi53yJoXY7Mu50=;
+	b=jF4I7bWF1DxTDqpL+PpUzAWYsCqt9c/XccN8LG1GJYgCNYStoDuiaguZjUV6t2qYgiz/Xw
+	WmTRQtLKTHqurm2XU/HooLY5K9vAbLvQRMfaBgPeM/UX0WLuy/3orCOYmY86ii+KjIUUE6
+	rBMi87f6AXUq67kj/pg10QsHcczoHQM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-203-bPKNxMV7M-6Apir17uu_BA-1; Thu, 11 May 2023 10:19:15 -0400
-X-MC-Unique: bPKNxMV7M-6Apir17uu_BA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-190-GIwhUemLOIK_efC4MA3DDw-1; Thu, 11 May 2023 12:26:35 -0400
+X-MC-Unique: GIwhUemLOIK_efC4MA3DDw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7CA1F857DE7;
-	Thu, 11 May 2023 14:19:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3465789B868;
+	Thu, 11 May 2023 16:26:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8C3F02026D25;
-	Thu, 11 May 2023 14:19:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0BFC3492C13;
+	Thu, 11 May 2023 16:26:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3C3A719451D3;
-	Thu, 11 May 2023 14:18:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5452819451D3;
+	Thu, 11 May 2023 16:26:32 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2445219451C7 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 11 May 2023 14:18:50 +0000 (UTC)
+ ESMTP id 412FC19451D1 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 11 May 2023 16:26:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E98512166B29; Thu, 11 May 2023 14:18:49 +0000 (UTC)
+ id 20458C16024; Thu, 11 May 2023 16:26:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E01A12166B26
- for <cluster-devel@redhat.com>; Thu, 11 May 2023 14:18:49 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 18F5BC15BA0
+ for <cluster-devel@redhat.com>; Thu, 11 May 2023 16:26:31 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9E793C10244
- for <cluster-devel@redhat.com>; Thu, 11 May 2023 14:18:49 +0000 (UTC)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EDF9A1C0898E
+ for <cluster-devel@redhat.com>; Thu, 11 May 2023 16:26:30 +0000 (UTC)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-617-R-zjyi-FOt-oZtLGPzMmmQ-1; Thu, 11 May 2023 10:18:48 -0400
-X-MC-Unique: R-zjyi-FOt-oZtLGPzMmmQ-1
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-61a6bb9f808so44627076d6.3
- for <cluster-devel@redhat.com>; Thu, 11 May 2023 07:18:48 -0700 (PDT)
+ us-mta-130-xgGuRrAmNdeqQpnw8SJnKA-1; Thu, 11 May 2023 12:26:28 -0400
+X-MC-Unique: xgGuRrAmNdeqQpnw8SJnKA-1
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-51b33c72686so5911046a12.1
+ for <cluster-devel@redhat.com>; Thu, 11 May 2023 09:26:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683814727; x=1686406727;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TiVITEKWavoHQgypF8pQku8juEEqjvvowDHxJw6B5t0=;
- b=Y5e/Zd0A2To0sxEEcb+gSENJhjKIG4l6qTyQzGYZn1kHNHxq73yGiBAgkAgjsph5zZ
- 3RZbOSMOPo/3EHJQZq691vfuKBUYiPB5sHwHvmHN/LUbkzo4WWbKQwekfUtKCzXl1oQs
- Szzqigv+u5xOOqD5G/377QtCtjMMrYpRPJ7Z8y/52FeU+eeaBw8CiRyWlnilYdO0yqRG
- vvAjPriICxHgf3Wx13sf0UVG89vyOy+/dSZ+VwoHRGHLvBZiRLbvY6j+ElbVjwKLd198
- B6Zh2AdwA2EKRbeOHUHXVuvjJxtTIR00fg81sV0srG8pj6ug1y0SeKY7WoUxTCKJxtTP
- M6Vg==
-X-Gm-Message-State: AC+VfDzIeOAVVa+O4jiPbbVGp9k4++e+yXqo7LD2WUJ8AUJt+4mL4/bF
- W42wEDqG+9ptWlNKxZGw8Pb48aBLAqI8icQth5yir1hCosJrtNmsaE3KOsiaKIV1PDAgqNxUWYC
- +L0H/Sb3cy1r4yMJU1V1BxIN2MjS6Yg==
-X-Received: by 2002:a05:6214:20a5:b0:620:a1be:c74d with SMTP id
- 5-20020a05621420a500b00620a1bec74dmr28799510qvd.37.1683814727299; 
- Thu, 11 May 2023 07:18:47 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7kKhPUER9WlV6FxRTRY5kG2bve7dq7jZb9RCaxuBPtTMHsv5LQxJyaEf52/qZ9fyyVUCSGGA==
-X-Received: by 2002:a05:6214:20a5:b0:620:a1be:c74d with SMTP id
- 5-20020a05621420a500b00620a1bec74dmr28799480qvd.37.1683814727011; 
- Thu, 11 May 2023 07:18:47 -0700 (PDT)
-Received: from ?IPV6:2601:883:c200:210:6ae9:ce2:24c9:b87b?
- ([2601:883:c200:210:6ae9:ce2:24c9:b87b])
- by smtp.gmail.com with ESMTPSA id
- b8-20020ac812c8000000b003f17f39af49sm2252004qtj.18.2023.05.11.07.18.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 May 2023 07:18:46 -0700 (PDT)
-Message-ID: <bc766d93-8000-5736-64e5-16df4a4a8136@redhat.com>
-Date: Thu, 11 May 2023 10:18:45 -0400
+ d=1e100.net; s=20221208; t=1683822387; x=1686414387;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ndBrQ3w0AHpWG5hJlqPBYuez6El2zpi53yJoXY7Mu50=;
+ b=IyzIwbMWvbf4AZkHWgUeWiCa0KtnYZqnUoZ+G1SZKnoCPCGvBvsGUZGqHXdWJ1u03e
+ +2IFnG455qNVOlS1lkkSAMEYGTnEoxP6COVzH0KNn+pOB7zCDFr19Q7/o4G4Qz4Am9Bh
+ a7I2h6DZ39uIsrqjGSeTY+euDpHnnmoxPyslJc1yr/r/2FMIq5X9iY7cmrmRs6k7Dsoo
+ kakNQBZh4NHhdntqmCuu0L12qTUfA0dYDclIZQrwzgZXYURwgx1Hrf9apWtCnxA/TD+x
+ UFR2X+JYMSjtj0SOq5DgstYuNJWEZs0pz+ChFEIfD2PoL7vpQfqWpwnRW2DznzKsjw8W
+ +aGA==
+X-Gm-Message-State: AC+VfDxPTdmUrUU0Dybl9inHoHVkf7SANfkSN0lTnX1Q0co1I6aRg36A
+ gccQOn3xLraXC0zEhJC6q8PGUQ==
+X-Google-Smtp-Source: ACHHUZ5y1saTqsWRD5lKY3DfBma0oCNPx8Yo7rLHR+umtawiVR8DGcUWb5J5pFrfL6M10DRtlR2reQ==
+X-Received: by 2002:a17:902:d491:b0:1ab:26a8:5401 with SMTP id
+ c17-20020a170902d49100b001ab26a85401mr31973723plg.31.1683822386770; 
+ Thu, 11 May 2023 09:26:26 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ m17-20020a170902bb9100b001aaef9d0102sm6120820pls.197.2023.05.11.09.26.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 May 2023 09:26:26 -0700 (PDT)
+Date: Thu, 11 May 2023 09:26:25 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Azeem Shaikh <azeemshaikh38@gmail.com>
+Message-ID: <202305110926.4A833D9@keescook>
+References: <20230510221237.3509484-1-azeemshaikh38@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: Steven Whitehouse <swhiteho@redhat.com>,
- cluster-devel <cluster-devel@redhat.com>
-References: <20230510190818.125286-1-rpeterso@redhat.com>
- <d718cce68afe7db827103dbc4886f4982b1ad83a.camel@redhat.com>
-From: Bob Peterson <rpeterso@redhat.com>
-In-Reply-To: <d718cce68afe7db827103dbc4886f4982b1ad83a.camel@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Cluster-devel] [PATCH] gfs2: Don't free rgrp clone bitmaps
- until go_inval
+In-Reply-To: <20230510221237.3509484-1-azeemshaikh38@gmail.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH] dlm: Replace all non-returning strlcpy
+ with strscpy
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,52 +109,32 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel@redhat.com, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: chromium.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi,
-
-On 5/11/23 4:47 AM, Steven Whitehouse wrote:
-> Hi,
+On Wed, May 10, 2023 at 10:12:37PM +0000, Azeem Shaikh wrote:
+> strlcpy() reads the entire source buffer first.
+> This read may exceed the destination size limit.
+> This is both inefficient and can lead to linear read
+> overflows if a source string is not NUL-terminated [1].
+> In an effort to remove strlcpy() completely [2], replace
+> strlcpy() here with strscpy().
+> No return values were used, so direct replacement is safe.
 > 
->> This repeated kmalloc -> kfree -> kmalloc -> kfree is a waste of
->> time:
+> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html#strlcpy
+> [2] https://github.com/KSPP/linux/issues/89
 > 
-> It is a waste of time. However, if the clones are kept around for lots
-> of rgrps, then that is a waste of space. The question is really what
-> the correct balance is.
-> 
-> Can we not solve the problem at source and prevent the large number of
-> lock transitions referred to above? If not then it might be a good plan
-> to document why that is the case,
-> 
-> Steve.
+> Signed-off-by: Azeem Shaikh <azeemshaikh38@gmail.com>
 
-I do believe from a performance perspective, we might benefit just as 
-much (if not more) by, for example, using the LM_FLAG_ANY flag when 
-acquiring rgrp glocks in SH mode such as gfs2_check_blk_type.
-That way if the lock is already in EX, we can just use it rather than 
-demote and promote it. There may be other places in the code where we 
-can do the same.
+Reviewed-by: Kees Cook <keescook@chromium.org>
 
- From a correctness perspective, one of my concerns is:
-The go_inval() code is only run when transitioning to UN or DF, so 
-transitions from EX to SH and back won't call go_inval. They always call 
-go_sync, but rgrp_go_sync code exits (and avoids the whole bitmap issue) 
-unless the glock is GLF_DIRTY. It just seems fraught with pitfalls. But 
-still, it seems to work properly.
-
-I had a meeting with Andreas this morning and we decided that since it 
-seems to work, "if it's not broken, don't fix it." So for now, I retract 
-the patch and we can readdress the issue if we find problems related to it.
-
-Regards,
-
-Bob Peterson
+-- 
+Kees Cook
 
