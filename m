@@ -1,69 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46FC6709444
-	for <lists+cluster-devel@lfdr.de>; Fri, 19 May 2023 11:57:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 933BC70944A
+	for <lists+cluster-devel@lfdr.de>; Fri, 19 May 2023 11:58:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684490245;
+	s=mimecast20190719; t=1684490289;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2vGhRrsGDQG1XODk9UotEfGLA1kaizvBUpauFyMQx+4=;
-	b=XbZYFusHVmLVGqizuCdH7IrQA200o7+QfR5CiySCkhjHHX0PYAiravH1i5bbsvjwyBvrpS
-	gRRtPv8puMor++TdQy2/6cOLYwh1bI7DbTmO5jGfiJFB7kKFBWHBfeXqcfv0y3Rr93PHS+
-	DSIKJFoEQIer2CukQdbOuqtjpTJJqVA=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=GbtEVhZzh4P+WH4HZJFPMpvqDDxXPgcuIWhhv+qk6PM=;
+	b=SA8XA94xzK2friMkuKZQb9qGH75UReTqikgr8okyc7PuzKMPA7QJ3pjxQZToWMxNyuIjLL
+	KRj811+fq3WO3y6ktbmxJY2AmjZ09tDuPxkzDEWz/478CKuVB/4wWPqAuSiAczoSl43h2k
+	m3XHuwfpvVC0sy0y6hRsa+OL/XdmjXg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-647-zvOkLxYmMYKbxbcFNDX4CQ-1; Fri, 19 May 2023 05:57:21 -0400
-X-MC-Unique: zvOkLxYmMYKbxbcFNDX4CQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-218-6Akz8Xy0MZ6sFFLgDVc-jw-1; Fri, 19 May 2023 05:58:03 -0400
+X-MC-Unique: 6Akz8Xy0MZ6sFFLgDVc-jw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1F89A3847091;
-	Fri, 19 May 2023 09:57:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1DD5A185A78E;
+	Fri, 19 May 2023 09:58:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 12887C0004B;
-	Fri, 19 May 2023 09:57:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 128BA40CFD45;
+	Fri, 19 May 2023 09:58:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ED94019465B7;
-	Fri, 19 May 2023 09:57:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8F6C519465B7;
+	Fri, 19 May 2023 09:58:01 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3D3B619465A4 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 19 May 2023 09:57:19 +0000 (UTC)
+ ESMTP id 0E75D19465A4 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 19 May 2023 09:58:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 146AE1121318; Fri, 19 May 2023 09:57:19 +0000 (UTC)
+ id 01C70492B0B; Fri, 19 May 2023 09:58:00 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D90C1121314
- for <cluster-devel@redhat.com>; Fri, 19 May 2023 09:57:19 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EEF18492B0A
+ for <cluster-devel@redhat.com>; Fri, 19 May 2023 09:57:59 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E4BE285A5A8
- for <cluster-devel@redhat.com>; Fri, 19 May 2023 09:57:18 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D24391C0512C
+ for <cluster-devel@redhat.com>; Fri, 19 May 2023 09:57:59 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-277-Y1NAXOAgNySB_k2FqyIdhg-1; Fri, 19 May 2023 05:57:17 -0400
-X-MC-Unique: Y1NAXOAgNySB_k2FqyIdhg-1
+ us-mta-205-Lv4OjiyuPtO5Gy1AVh58xQ-1; Fri, 19 May 2023 05:57:58 -0400
+X-MC-Unique: Lv4OjiyuPtO5Gy1AVh58xQ-1
 Received: from [2001:4bb8:188:3dd5:e8d0:68bb:e5be:210a] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1pzwWR-00Fjew-1b; Fri, 19 May 2023 09:35:39 +0000
+ id 1pzwWU-00FjfV-06; Fri, 19 May 2023 09:35:42 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Matthew Wilcox <willy@infradead.org>
-Date: Fri, 19 May 2023 11:35:13 +0200
-Message-Id: <20230519093521.133226-6-hch@lst.de>
+Date: Fri, 19 May 2023 11:35:14 +0200
+Message-Id: <20230519093521.133226-7-hch@lst.de>
 In-Reply-To: <20230519093521.133226-1-hch@lst.de>
 References: <20230519093521.133226-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH 05/13] filemap: add a kiocb_invalidate_pages
- helper
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [Cluster-devel] [PATCH 06/13] filemap: add a
+ kiocb_invalidate_post_write helper
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,105 +105,182 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-mm@kvack.org,
  linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Factor out a helper that calls filemap_write_and_wait_range and
-invalidate_inode_pages2_rangefor a the range covered by a write kiocb or
-returns -EAGAIN if the kiocb is marked as nowait and there would be pages
-to write or invalidate.
+Add a helper to invalidate page cache after a dio write.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
+ fs/direct-io.c          | 10 ++--------
+ fs/iomap/direct-io.c    | 12 ++----------
+ include/linux/fs.h      |  5 -----
  include/linux/pagemap.h |  1 +
- mm/filemap.c            | 48 ++++++++++++++++++++++++-----------------
- 2 files changed, 29 insertions(+), 20 deletions(-)
+ mm/filemap.c            | 37 ++++++++++++++++++++-----------------
+ 5 files changed, 25 insertions(+), 40 deletions(-)
 
+diff --git a/fs/direct-io.c b/fs/direct-io.c
+index 0b380bb8a81e11..c25d68eabf4281 100644
+--- a/fs/direct-io.c
++++ b/fs/direct-io.c
+@@ -285,14 +285,8 @@ static ssize_t dio_complete(struct dio *dio, ssize_t ret, unsigned int flags)
+ 	 * zeros from unwritten extents.
+ 	 */
+ 	if (flags & DIO_COMPLETE_INVALIDATE &&
+-	    ret > 0 && dio_op == REQ_OP_WRITE &&
+-	    dio->inode->i_mapping->nrpages) {
+-		err = invalidate_inode_pages2_range(dio->inode->i_mapping,
+-					offset >> PAGE_SHIFT,
+-					(offset + ret - 1) >> PAGE_SHIFT);
+-		if (err)
+-			dio_warn_stale_pagecache(dio->iocb->ki_filp);
+-	}
++	    ret > 0 && dio_op == REQ_OP_WRITE)
++		kiocb_invalidate_post_write(dio->iocb, ret);
+ 
+ 	inode_dio_end(dio->inode);
+ 
+diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
+index 6207a59d2162e1..45accd98344e79 100644
+--- a/fs/iomap/direct-io.c
++++ b/fs/iomap/direct-io.c
+@@ -81,7 +81,6 @@ ssize_t iomap_dio_complete(struct iomap_dio *dio)
+ {
+ 	const struct iomap_dio_ops *dops = dio->dops;
+ 	struct kiocb *iocb = dio->iocb;
+-	struct inode *inode = file_inode(iocb->ki_filp);
+ 	loff_t offset = iocb->ki_pos;
+ 	ssize_t ret = dio->error;
+ 
+@@ -108,15 +107,8 @@ ssize_t iomap_dio_complete(struct iomap_dio *dio)
+ 	 * ->end_io() when necessary, otherwise a racing buffer read would cache
+ 	 * zeros from unwritten extents.
+ 	 */
+-	if (!dio->error && dio->size &&
+-	    (dio->flags & IOMAP_DIO_WRITE) && inode->i_mapping->nrpages) {
+-		int err;
+-		err = invalidate_inode_pages2_range(inode->i_mapping,
+-				offset >> PAGE_SHIFT,
+-				(offset + dio->size - 1) >> PAGE_SHIFT);
+-		if (err)
+-			dio_warn_stale_pagecache(iocb->ki_filp);
+-	}
++	if (!dio->error && dio->size && (dio->flags & IOMAP_DIO_WRITE))
++		kiocb_invalidate_post_write(iocb, dio->size);
+ 
+ 	inode_dio_end(file_inode(iocb->ki_filp));
+ 
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 21a98168085641..e4efc1792a877a 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2837,11 +2837,6 @@ static inline void inode_dio_end(struct inode *inode)
+ 		wake_up_bit(&inode->i_state, __I_DIO_WAKEUP);
+ }
+ 
+-/*
+- * Warn about a page cache invalidation failure diring a direct I/O write.
+- */
+-void dio_warn_stale_pagecache(struct file *filp);
+-
+ extern void inode_set_flags(struct inode *inode, unsigned int flags,
+ 			    unsigned int mask);
+ 
 diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 36fc2cea13ce20..6e4c9ee40baa99 100644
+index 6e4c9ee40baa99..9695730ea86a98 100644
 --- a/include/linux/pagemap.h
 +++ b/include/linux/pagemap.h
-@@ -30,6 +30,7 @@ static inline void invalidate_remote_inode(struct inode *inode)
- int invalidate_inode_pages2(struct address_space *mapping);
+@@ -31,6 +31,7 @@ int invalidate_inode_pages2(struct address_space *mapping);
  int invalidate_inode_pages2_range(struct address_space *mapping,
  		pgoff_t start, pgoff_t end);
-+int kiocb_invalidate_pages(struct kiocb *iocb, size_t count);
+ int kiocb_invalidate_pages(struct kiocb *iocb, size_t count);
++void kiocb_invalidate_post_write(struct kiocb *iocb, size_t count);
  
  int write_inode_now(struct inode *, int sync);
  int filemap_fdatawrite(struct address_space *);
 diff --git a/mm/filemap.c b/mm/filemap.c
-index 2d7712b13b95c9..8607220e20eae3 100644
+index 8607220e20eae3..c1b988199aece5 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -2777,6 +2777,33 @@ int kiocb_write_and_wait(struct kiocb *iocb, size_t count)
- 	return filemap_write_and_wait_range(mapping, pos, end);
+@@ -3816,7 +3816,7 @@ EXPORT_SYMBOL(read_cache_page_gfp);
+ /*
+  * Warn about a page cache invalidation failure during a direct I/O write.
+  */
+-void dio_warn_stale_pagecache(struct file *filp)
++static void dio_warn_stale_pagecache(struct file *filp)
+ {
+ 	static DEFINE_RATELIMIT_STATE(_rs, 86400 * HZ, DEFAULT_RATELIMIT_BURST);
+ 	char pathname[128];
+@@ -3833,19 +3833,23 @@ void dio_warn_stale_pagecache(struct file *filp)
+ 	}
  }
  
-+int kiocb_invalidate_pages(struct kiocb *iocb, size_t count)
++void kiocb_invalidate_post_write(struct kiocb *iocb, size_t count)
 +{
 +	struct address_space *mapping = iocb->ki_filp->f_mapping;
-+	loff_t pos = iocb->ki_pos;
-+	loff_t end = pos + count - 1;
-+	int ret;
 +
-+	if (iocb->ki_flags & IOCB_NOWAIT) {
-+		/* we could block if there are any pages in the range */
-+		if (filemap_range_has_page(mapping, pos, end))
-+			return -EAGAIN;
-+	} else {
-+		ret = filemap_write_and_wait_range(mapping, pos, end);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/*
-+	 * After a write we want buffered reads to be sure to go to disk to get
-+	 * the new data.  We invalidate clean cached page from the region we're
-+	 * about to write.  We do this *before* the write so that we can return
-+	 * without clobbering -EIOCBQUEUED from ->direct_IO().
-+	 */
-+	return invalidate_inode_pages2_range(mapping, pos >> PAGE_SHIFT,
-+					     end >> PAGE_SHIFT);
++	if (mapping->nrpages &&
++	    invalidate_inode_pages2_range(mapping,
++			iocb->ki_pos >> PAGE_SHIFT,
++			(iocb->ki_pos + count - 1) >> PAGE_SHIFT))
++		dio_warn_stale_pagecache(iocb->ki_filp);
 +}
 +
- /**
-  * generic_file_read_iter - generic filesystem read routine
-  * @iocb:	kernel I/O control block
-@@ -3820,30 +3847,11 @@ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
- 	write_len = iov_iter_count(from);
- 	end = (pos + write_len - 1) >> PAGE_SHIFT;
- 
--	if (iocb->ki_flags & IOCB_NOWAIT) {
--		/* If there are pages to writeback, return */
--		if (filemap_range_has_page(file->f_mapping, pos,
--					   pos + write_len - 1))
--			return -EAGAIN;
--	} else {
--		written = filemap_write_and_wait_range(mapping, pos,
--							pos + write_len - 1);
--		if (written)
--			goto out;
--	}
+ ssize_t
+ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
+ {
+-	struct file	*file = iocb->ki_filp;
+-	struct address_space *mapping = file->f_mapping;
+-	struct inode	*inode = mapping->host;
+-	loff_t		pos = iocb->ki_pos;
+-	ssize_t		written;
+-	size_t		write_len;
+-	pgoff_t		end;
 -
--	/*
--	 * After a write we want buffered reads to be sure to go to disk to get
--	 * the new data.  We invalidate clean cached page from the region we're
--	 * about to write.  We do this *before* the write so that we can return
--	 * without clobbering -EIOCBQUEUED from ->direct_IO().
--	 */
--	written = invalidate_inode_pages2_range(mapping,
--					pos >> PAGE_SHIFT, end);
+-	write_len = iov_iter_count(from);
+-	end = (pos + write_len - 1) >> PAGE_SHIFT;
++	struct address_space *mapping = iocb->ki_filp->f_mapping;
++	size_t write_len = iov_iter_count(from);
++	ssize_t written;
+ 
  	/*
  	 * If a page can not be invalidated, return 0 to fall back
- 	 * to buffered write.
- 	 */
-+	written = kiocb_invalidate_pages(iocb, write_len);
+@@ -3855,7 +3859,7 @@ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
  	if (written) {
  		if (written == -EBUSY)
  			return 0;
+-		goto out;
++		return written;
+ 	}
+ 
+ 	written = mapping->a_ops->direct_IO(iocb, from);
+@@ -3877,11 +3881,11 @@ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
+ 	 *
+ 	 * Skip invalidation for async writes or if mapping has no pages.
+ 	 */
+-	if (written > 0 && mapping->nrpages &&
+-	    invalidate_inode_pages2_range(mapping, pos >> PAGE_SHIFT, end))
+-		dio_warn_stale_pagecache(file);
+-
+ 	if (written > 0) {
++		struct inode *inode = mapping->host;
++		loff_t pos = iocb->ki_pos;
++
++		kiocb_invalidate_post_write(iocb, written);
+ 		pos += written;
+ 		write_len -= written;
+ 		if (pos > i_size_read(inode) && !S_ISBLK(inode->i_mode)) {
+@@ -3892,7 +3896,6 @@ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
+ 	}
+ 	if (written != -EIOCBQUEUED)
+ 		iov_iter_revert(from, write_len - iov_iter_count(from));
+-out:
+ 	return written;
+ }
+ EXPORT_SYMBOL(generic_file_direct_write);
 -- 
 2.39.2
 
