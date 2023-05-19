@@ -1,103 +1,80 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BF5E707069
-	for <lists+cluster-devel@lfdr.de>; Wed, 17 May 2023 20:06:52 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F05709449
+	for <lists+cluster-devel@lfdr.de>; Fri, 19 May 2023 11:57:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684346811;
+	s=mimecast20190719; t=1684490262;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=JPAKEMmoW/hN8niZpR0qHJlcpgA9MC/akmM/6a2jgQg=;
-	b=MfQaVQon7Usr5QbvYPVfHPibLw8b/5q1B6VK1dpEcGFOfeY38fDrenXyE4X1qX4q+WxId3
-	h77mS+ZxB0q3DvlyfWfVKnxkDqPHmpVhBDhmcBTWWjKd9zJywsjwpRhlo3WqC4xDxgxftc
-	rDmJwChBsAAT52bf1TTbWWElwW0/MKQ=
+	bh=b3wyyoN4jHO/Zsak1kxh+5wE+B9r8QbYeNrqiPeGC/c=;
+	b=B96esPy4ytCt4ZXHxdKnZTLp7mYSwKvgNdsTtEICVOYzw1jB9tyfJImUxs5EM9Jw3kAsxK
+	EN5BwfXs0k+NWNe77oPQGSu0nkpCHZlwhbC7lnWT8yuRmbi+eDTyDt597g1G1sJNDBcLIb
+	j3FVy3jxHtocg5NNvyZMDaepxmRswbg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-664-d0l4WYOzO26IIOl7yDe9vQ-1; Wed, 17 May 2023 14:06:46 -0400
-X-MC-Unique: d0l4WYOzO26IIOl7yDe9vQ-1
+ us-mta-19-Uj_2yaF1PEeDbzhYu6oCAA-1; Fri, 19 May 2023 05:57:39 -0400
+X-MC-Unique: Uj_2yaF1PEeDbzhYu6oCAA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 900D881DB6C;
-	Wed, 17 May 2023 18:06:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B52CB800C81;
+	Fri, 19 May 2023 09:57:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 966EB2026D25;
-	Wed, 17 May 2023 18:06:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A80F12026D6A;
+	Fri, 19 May 2023 09:57:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C809219465B2;
-	Wed, 17 May 2023 18:06:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7E77D19465B7;
+	Fri, 19 May 2023 09:57:38 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 327EF19465A4 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 17 May 2023 18:06:43 +0000 (UTC)
+ ESMTP id 44F8519465A4 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 19 May 2023 09:57:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 23264C16024; Wed, 17 May 2023 18:06:43 +0000 (UTC)
+ id 25AEC1121318; Fri, 19 May 2023 09:57:37 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B213C15BA0
- for <cluster-devel@redhat.com>; Wed, 17 May 2023 18:06:43 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E81F1121315
+ for <cluster-devel@redhat.com>; Fri, 19 May 2023 09:57:37 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F03282A59565
- for <cluster-devel@redhat.com>; Wed, 17 May 2023 18:06:42 +0000 (UTC)
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 040593847081
+ for <cluster-devel@redhat.com>; Fri, 19 May 2023 09:57:37 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-434-v3RUj6chM2mEJLGCFRVxPw-1; Wed, 17 May 2023 14:06:41 -0400
-X-MC-Unique: v3RUj6chM2mEJLGCFRVxPw-1
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7576f01e6e1so80693785a.1
- for <cluster-devel@redhat.com>; Wed, 17 May 2023 11:06:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684346801; x=1686938801;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JPAKEMmoW/hN8niZpR0qHJlcpgA9MC/akmM/6a2jgQg=;
- b=FgmqGpYWutGY0MAlo1SK8tMKDe2Rrh321oVJfQM54xFk1kMYE+i1+J4t0H0afUpM0f
- FLoGJpT2KSc51GkYxoVC35MJtFtldsSXyn4RCL5LhSquGp0zyDQNFG5y0ldIhCxi7YkW
- JBItBs3PehxRMihZvzZSajrGTpXkIXaIRUUwR54OApnsR29hcB57Eb8Os4oANZ1BXLWa
- nht3C4k7vGzLzMJxHPOrubq9WpSSAiVJdV+wt/9Y7I6xLaQLwhgmTzqWgKWB0NfjQyBe
- fZFvmyy19hjNdRhH86dnDfyBxGo7FLFQ4kfVM8YfARhr7n/rWTvqgTx9bE9hGdNptlsT
- TdNw==
-X-Gm-Message-State: AC+VfDysAQLNzPMp75FitC2Bpho1hLFdCFwzy3Fd8rG2v+tWuWLRPt1E
- bzgGNknBnnGllG9VjqBvP+Gs3CfewvEQTRy/1bgbVBfNqroEMh5Mma509v2uwyjrLZ2M0y18lOt
- /+PrJQysNCWrWBhRKJgMcfA==
-X-Received: by 2002:ac8:7f88:0:b0:3f5:1bf2:8b90 with SMTP id
- z8-20020ac87f88000000b003f51bf28b90mr823703qtj.13.1684346801030; 
- Wed, 17 May 2023 11:06:41 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7bKUBNvkUgo07NzXqdvUsP1kW6RU9BYMt7BII3OsWP+fRx8VumCBPBNl0Tjnzu4rkCFMPrTw==
-X-Received: by 2002:ac8:7f88:0:b0:3f5:1bf2:8b90 with SMTP id
- z8-20020ac87f88000000b003f51bf28b90mr823675qtj.13.1684346800793; 
- Wed, 17 May 2023 11:06:40 -0700 (PDT)
-Received: from [172.16.0.7] ([209.73.90.46]) by smtp.gmail.com with ESMTPSA id
- v11-20020ae9e30b000000b0074636e35405sm790856qkf.65.2023.05.17.11.06.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 May 2023 11:06:40 -0700 (PDT)
-Message-ID: <4b01c34d-5bdc-e72a-33f1-956864236ed4@redhat.com>
-Date: Wed, 17 May 2023 13:06:38 -0500
+ us-mta-280-9ElwNRhuOZ-AqBBhF7tCNQ-1; Fri, 19 May 2023 05:57:33 -0400
+X-MC-Unique: 9ElwNRhuOZ-AqBBhF7tCNQ-1
+Received: from [2001:4bb8:188:3dd5:e8d0:68bb:e5be:210a] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1pzwWC-00FjZy-2X; Fri, 19 May 2023 09:35:25 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Matthew Wilcox <willy@infradead.org>
+Date: Fri, 19 May 2023 11:35:08 +0200
+Message-Id: <20230519093521.133226-1-hch@lst.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-References: <20230517032442.1135379-1-willy@infradead.org>
-From: Bob Peterson <rpeterso@redhat.com>
-In-Reply-To: <20230517032442.1135379-1-willy@infradead.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [Cluster-devel] [PATCH 0/6] gfs2/buffer folio changes
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [Cluster-devel] cleanup the filemap / direct I/O interaction
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,52 +86,51 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, Hannes Reinecke <hare@suse.com>,
- Luis Chamberlain <mcgrof@kernel.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-mm@kvack.org,
+ Miklos Szeredi <miklos@szeredi.hu>, cluster-devel@redhat.com,
+ Ilya Dryomov <idryomov@gmail.com>, linux-ext4@vger.kernel.org,
+ Chao Yu <chao@kernel.org>, linux-nfs@vger.kernel.org,
+ linux-block@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ ceph-devel@vger.kernel.org, Xiubo Li <xiubli@redhat.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ Theodore Ts'o <tytso@mit.edu>,
+ "open list:F2FS FILE SYSTEM" <linux-f2fs-devel@lists.sourceforge.net>,
+ linux-xfs@vger.kernel.org, Anna Schumaker <anna@kernel.org>,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: lst.de
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On 5/16/23 10:24 PM, Matthew Wilcox (Oracle) wrote:
-> This kind of started off as a gfs2 patch series, then became entwined
-> with buffer heads once I realised that gfs2 was the only remaining
-> caller of __block_write_full_page().  For those not in the gfs2 world,
-> the big point of this series is that block_write_full_page() should now
-> handle large folios correctly.
-> 
-> It probably makes most sense to take this through Andrew's tree, once
-> enough people have signed off on it?
-> 
-> Matthew Wilcox (Oracle) (6):
->    gfs2: Use a folio inside gfs2_jdata_writepage()
->    gfs2: Pass a folio to __gfs2_jdata_write_folio()
->    gfs2: Convert gfs2_write_jdata_page() to gfs2_write_jdata_folio()
->    buffer: Convert __block_write_full_page() to
->      __block_write_full_folio()
->    gfs2: Support ludicrously large folios in gfs2_trans_add_databufs()
->    buffer: Make block_write_full_page() handle large folios correctly
-> 
->   fs/buffer.c                 | 75 ++++++++++++++++++-------------------
->   fs/gfs2/aops.c              | 66 ++++++++++++++++----------------
->   fs/gfs2/aops.h              |  2 +-
->   fs/ntfs/aops.c              |  2 +-
->   fs/reiserfs/inode.c         |  2 +-
->   include/linux/buffer_head.h |  2 +-
->   6 files changed, 75 insertions(+), 74 deletions(-)
-> 
-Hi Matthew,
+Hi all,
 
-I recently started looking into doing this, too, so this is apropos.
-I'll give it a careful review and some testing. The jdata stuff in gfs2 
-is very touchy, but this looks like a step in the right direction.
-I'll let you know how it fares.
+this series cleans up some of the generic write helper calling
+conventions and the page cache writeback / invalidation for
+direct I/O.  This is a spinoff from the no-bufferhead kernel
+project, for while we'll want to an use iomap based buffered
+write path in the block layer.
 
-Regards,
-
-Bob Peterson
+diffstat:
+ block/fops.c            |   18 ----
+ fs/ceph/file.c          |    6 -
+ fs/direct-io.c          |   10 --
+ fs/ext4/file.c          |   12 ---
+ fs/f2fs/file.c          |    3 
+ fs/fuse/file.c          |   47 ++----------
+ fs/gfs2/file.c          |    7 -
+ fs/iomap/buffered-io.c  |   12 ++-
+ fs/iomap/direct-io.c    |   88 ++++++++--------------
+ fs/libfs.c              |   36 +++++++++
+ fs/nfs/file.c           |    6 -
+ fs/xfs/xfs_file.c       |    7 -
+ fs/zonefs/file.c        |    4 -
+ include/linux/fs.h      |    7 -
+ include/linux/pagemap.h |    4 +
+ mm/filemap.c            |  184 +++++++++++++++++++++---------------------------
+ 16 files changed, 190 insertions(+), 261 deletions(-)
 
