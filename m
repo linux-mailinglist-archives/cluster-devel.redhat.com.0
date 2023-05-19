@@ -2,57 +2,60 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D985709B3D
-	for <lists+cluster-devel@lfdr.de>; Fri, 19 May 2023 17:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0679709B3C
+	for <lists+cluster-devel@lfdr.de>; Fri, 19 May 2023 17:23:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684509829;
+	s=mimecast20190719; t=1684509827;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=B+grTg9Ig3K1B5UkI7aBRh3QR75Jgj1SQIxF23torAA=;
-	b=UCT4wZXa5KoaIYyf05BfNeYuvXGaQzh/XVjC79xnJLPsGFBm4FpZgGqq3Cf1Gw+B3bx9Nr
-	XNZydBTl0kfXqDVZUDVumlu1Os7TznMur+Z899QYL41wxNe0qpFdsIW6Q2wgAy814ZqEGp
-	hBmTAsb1ivrxofWWjxUOYIO/5XdoqYk=
+	bh=BRkDhHR9sOkSQoEYrVEYavIaDc4VsgCYNMUF/FKFGdk=;
+	b=KifYbLRXVQd+etPPThLoKChNQR9yfSsnjnGEmHpW7XcamlxivW0xbECKRPp4G+S+JUgdSD
+	a9vLQwO3dP24BiWt2iUkSuunLHAkIN7+iO49zgUiBx2SWAU8MimlcdJWl2Wu6noqUjGhUw
+	rAdZy+PLOqunI8/KSKrM7jRiiBcslxU=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-533-Qcl05HzJMEaAiJsD5bI2MA-1; Fri, 19 May 2023 11:23:43 -0400
-X-MC-Unique: Qcl05HzJMEaAiJsD5bI2MA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-539-jx9G-_auOL-XtNfsHDW4eg-1; Fri, 19 May 2023 11:23:44 -0400
+X-MC-Unique: jx9G-_auOL-XtNfsHDW4eg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C1673806703;
-	Fri, 19 May 2023 15:23:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 052C63C025CB;
+	Fri, 19 May 2023 15:23:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8122A40C6CCD;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EE45E1121314;
 	Fri, 19 May 2023 15:23:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5946219465B7;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B27A119465B9;
 	Fri, 19 May 2023 15:23:42 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7123B19466DF for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 718BC1946A41 for <cluster-devel@listman.corp.redhat.com>;
  Fri, 19 May 2023 15:23:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6AC04C5418A; Fri, 19 May 2023 15:23:39 +0000 (UTC)
+ id 98631C54187; Fri, 19 May 2023 15:23:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 3B402C0004B;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6F132C0004B;
  Fri, 19 May 2023 15:23:39 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Fri, 19 May 2023 11:23:35 -0400
-Message-Id: <20230519152336.65815-1-aahringo@redhat.com>
+Date: Fri, 19 May 2023 11:23:36 -0400
+Message-Id: <20230519152336.65815-2-aahringo@redhat.com>
+In-Reply-To: <20230519152336.65815-1-aahringo@redhat.com>
+References: <20230519152336.65815-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [Cluster-devel] [PATCH dlm/next 1/2] fs: dlm: plock debugfs to
- check for pending operations
+Subject: [Cluster-devel] [PATCH dlm/next 2/2] fs: dlm: cleanup plock op
+ lookup functionality
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,146 +70,155 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-In the past issues were found that there were still ongoing plock
-operations in the kernel but it should cleanup routines should clear
-them up because there were no plock activity by the user anymore. To
-check that "dlm_tool plocks $LS" can be used, but this only shows
-pending operations in dlm_controld daemon. To check the kernel part, if
-the kernel waits for an answer of the user space, this patch introduces
-a debugfs entry which reports if there are ongoing plock operations or
-not.
+This patch will introduce plock_op_lookup() to lookup a plock op when a
+result needs to lookup the plock op to find the original request.
+Besides that we add additional sanity check to confirm the lookup is
+still working in case of non F_SETLKW request as it requires a specific
+order in recv_list.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/debug_fs.c     | 26 ++++++++++++++++++++++++++
- fs/dlm/dlm_internal.h |  5 +++++
- fs/dlm/plock.c        | 16 ++++++++++++++++
- 3 files changed, 47 insertions(+)
+ fs/dlm/plock.c | 107 +++++++++++++++++++++++++++++++------------------
+ 1 file changed, 68 insertions(+), 39 deletions(-)
 
-diff --git a/fs/dlm/debug_fs.c b/fs/dlm/debug_fs.c
-index a1aca41c49d0..494a6e73f8e8 100644
---- a/fs/dlm/debug_fs.c
-+++ b/fs/dlm/debug_fs.c
-@@ -25,6 +25,7 @@ static struct mutex debug_buf_lock;
- 
- static struct dentry *dlm_root;
- static struct dentry *dlm_comms;
-+static struct dentry *dlm_plock;
- 
- static char *print_lockmode(int mode)
- {
-@@ -883,6 +884,30 @@ void dlm_delete_debug_comms_file(void *ctx)
- 	debugfs_remove(ctx);
- }
- 
-+static int dlm_plock_ops_pending_show(struct seq_file *file, void *offset)
-+{
-+	seq_printf(file, "%d\n", dlm_plock_ops_pending());
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(dlm_plock_ops_pending);
-+
-+void dlm_create_debug_plock_file(void)
-+{
-+	/* TODO currently use case if only to look if everything got cleaned
-+	 * up probably if user space dlm_tool plocks $LS shows no activity
-+	 * anymore on all lockspaces.
-+	 *
-+	 * However in future a dump could be useful as well.
-+	 */
-+	debugfs_create_file("plock_ops_pending", 0444, dlm_plock, NULL,
-+			    &dlm_plock_ops_pending_fops);
-+}
-+
-+void dlm_remove_debug_plock_file(void)
-+{
-+	debugfs_remove(dlm_plock);
-+}
-+
- void dlm_create_debug_file(struct dlm_ls *ls)
- {
- 	char name[DLM_LOCKSPACE_LEN + 8];
-@@ -943,6 +968,7 @@ void __init dlm_register_debugfs(void)
- 	mutex_init(&debug_buf_lock);
- 	dlm_root = debugfs_create_dir("dlm", NULL);
- 	dlm_comms = debugfs_create_dir("comms", dlm_root);
-+	dlm_plock = debugfs_create_dir("plock", dlm_root);
- }
- 
- void dlm_unregister_debugfs(void)
-diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index 986a9d7b1f33..f5f741ee527b 100644
---- a/fs/dlm/dlm_internal.h
-+++ b/fs/dlm/dlm_internal.h
-@@ -805,6 +805,7 @@ static inline void dlm_set_sbflags_val(struct dlm_lkb *lkb, uint32_t val)
- 			  __DLM_SBF_MAX_BIT);
- }
- 
-+int dlm_plock_ops_pending(void);
- int dlm_plock_init(void);
- void dlm_plock_exit(void);
- 
-@@ -815,6 +816,8 @@ void dlm_create_debug_file(struct dlm_ls *ls);
- void dlm_delete_debug_file(struct dlm_ls *ls);
- void *dlm_create_debug_comms_file(int nodeid, void *data);
- void dlm_delete_debug_comms_file(void *ctx);
-+void dlm_create_debug_plock_file(void);
-+void dlm_remove_debug_plock_file(void);
- #else
- static inline void dlm_register_debugfs(void) { }
- static inline void dlm_unregister_debugfs(void) { }
-@@ -822,6 +825,8 @@ static inline void dlm_create_debug_file(struct dlm_ls *ls) { }
- static inline void dlm_delete_debug_file(struct dlm_ls *ls) { }
- static inline void *dlm_create_debug_comms_file(int nodeid, void *data) { return NULL; }
- static inline void dlm_delete_debug_comms_file(void *ctx) { }
-+static inline void dlm_create_debug_plock_file(void) { };
-+static inline void dlm_remove_debug_plock_file(void) { };
- #endif
- 
- #endif				/* __DLM_INTERNAL_DOT_H__ */
 diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
-index 540a30a342f0..578bf8a1325f 100644
+index 578bf8a1325f..933fb575e83a 100644
 --- a/fs/dlm/plock.c
 +++ b/fs/dlm/plock.c
-@@ -36,6 +36,19 @@ struct plock_op {
- 	struct plock_async_data *data;
- };
- 
-+int dlm_plock_ops_pending(void)
-+{
-+	int rv;
-+
-+	spin_lock(&ops_lock);
-+	rv = !list_empty(&send_list);
-+	rv |= !list_empty(&recv_list);
-+	rv |= !list_empty(&recv_setlkw_list);
-+	spin_unlock(&ops_lock);
-+
-+	return rv;
-+}
-+
- static inline void set_version(struct dlm_plock_info *info)
- {
- 	info->version[0] = DLM_PLOCK_VERSION_MAJOR;
-@@ -517,11 +530,14 @@ int dlm_plock_init(void)
- 	rv = misc_register(&plock_dev_misc);
- 	if (rv)
- 		log_print("dlm_plock_init: misc_register failed %d", rv);
-+
-+	dlm_create_debug_plock_file();
- 	return rv;
+@@ -433,14 +433,58 @@ static ssize_t dev_read(struct file *file, char __user *u, size_t count,
+ 	return sizeof(info);
  }
  
- void dlm_plock_exit(void)
++static struct plock_op *plock_op_lookup(const struct dlm_plock_info *info)
++{
++	struct plock_op *op = NULL, *iter;
++
++	if (info->wait) {
++		list_for_each_entry(iter, &recv_setlkw_list, list) {
++			if (iter->info.fsid == info->fsid &&
++			    iter->info.number == info->number &&
++			    iter->info.owner == info->owner &&
++			    iter->info.pid == info->pid &&
++			    iter->info.start == info->start &&
++			    iter->info.end == info->end) {
++				op = iter;
++				break;
++			}
++		}
++	} else {
++		op = list_first_entry_or_null(&recv_list, struct plock_op,
++					      list);
++		if (op) {
++			/* sanity check to check we got the right one */
++			switch (op->info.optype) {
++			case DLM_PLOCK_OP_GET:
++				/* we can't check on some fields on get */
++				WARN_ON(op->info.fsid != info->fsid ||
++					op->info.number != info->number ||
++					op->info.owner != info->owner ||
++					op->info.optype != info->optype);
++				break;
++			default:
++				WARN_ON(op->info.fsid != info->fsid ||
++					op->info.number != info->number ||
++					op->info.owner != info->owner ||
++					op->info.pid != info->pid ||
++					op->info.start != info->start ||
++					op->info.end != info->end ||
++					op->info.optype != info->optype);
++				break;
++			}
++		}
++	}
++
++	return op;
++}
++
+ /* a write copies in one plock result that should match a plock_op
+    on the recv list */
+ static ssize_t dev_write(struct file *file, const char __user *u, size_t count,
+ 			 loff_t *ppos)
  {
-+	dlm_remove_debug_plock_file();
- 	misc_deregister(&plock_dev_misc);
+-	struct plock_op *op = NULL, *iter;
+ 	struct dlm_plock_info info;
+-	int do_callback = 0;
++	struct plock_op *op;
+ 
+ 	if (count != sizeof(info))
+ 		return -EINVAL;
+@@ -452,46 +496,31 @@ static ssize_t dev_write(struct file *file, const char __user *u, size_t count,
+ 		return -EINVAL;
+ 
+ 	spin_lock(&ops_lock);
+-	if (info.wait) {
+-		list_for_each_entry(iter, &recv_setlkw_list, list) {
+-			if (iter->info.fsid == info.fsid &&
+-			    iter->info.number == info.number &&
+-			    iter->info.owner == info.owner &&
+-			    iter->info.pid == info.pid &&
+-			    iter->info.start == info.start &&
+-			    iter->info.end == info.end) {
+-				list_del_init(&iter->list);
+-				memcpy(&iter->info, &info, sizeof(info));
+-				if (iter->data)
+-					do_callback = 1;
+-				else
+-					iter->done = 1;
+-				op = iter;
+-				break;
+-			}
+-		}
++	op = plock_op_lookup(&info);
++	if (!op) {
++		spin_unlock(&ops_lock);
++		pr_debug("%s: no op %x %llx", __func__,
++			 info.fsid, (unsigned long long)info.number);
++		return count;
++	}
++
++	list_del_init(&op->list);
++	/* update set new fields by user space e.g. F_GETLK */
++	memcpy(&op->info, &info, sizeof(info));
++
++	/* check for async handling */
++	if (op->data) {
++		spin_unlock(&ops_lock);
++		dlm_plock_callback(op);
+ 	} else {
+-		op = list_first_entry_or_null(&recv_list, struct plock_op,
+-					      list);
+-		if (op) {
+-			list_del_init(&op->list);
+-			memcpy(&op->info, &info, sizeof(info));
+-			if (op->data)
+-				do_callback = 1;
+-			else
+-				op->done = 1;
+-		}
++		/* must be set under ops_lock, because retry in setlkw_wait()
++		 * if -ERESTARTSYS.
++		 */
++		op->done = 1;
++		spin_unlock(&ops_lock);
++		wake_up(&recv_wq);
+ 	}
+-	spin_unlock(&ops_lock);
+ 
+-	if (op) {
+-		if (do_callback)
+-			dlm_plock_callback(op);
+-		else
+-			wake_up(&recv_wq);
+-	} else
+-		pr_debug("%s: no op %x %llx", __func__,
+-			 info.fsid, (unsigned long long)info.number);
+ 	return count;
  }
  
 -- 
