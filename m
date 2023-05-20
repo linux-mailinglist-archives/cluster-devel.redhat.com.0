@@ -1,76 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936E770A9D2
-	for <lists+cluster-devel@lfdr.de>; Sat, 20 May 2023 20:21:34 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD43770A9FA
+	for <lists+cluster-devel@lfdr.de>; Sat, 20 May 2023 20:22:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684606893;
+	s=mimecast20190719; t=1684606973;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Lfah/IhLCcr/HuP3dObDk5VASsqEo5f3tfQl/70nrqU=;
-	b=cnwd+q+c8pHUSRnPjThaje8PZDSuxe/MoN5DVxNa4a3vPhX84kp0W7e6fJD6u+bukcIeQ4
-	nHolTcQQ2Imz9zESicXTqMJFKrODX1tJe5pUXv5OX6Iwhik6nhO8mSivJ9uf+56N31t4Rc
-	2NjlaRO9En2M1gZDo6h7z8onq6QQbdA=
+	bh=4A745gZy9gKbbP2ePfcwpGXMXu3cavYbt3Hg83KSro4=;
+	b=a0wHGmFS0oQIfvncGk5EWdNA7VLYYhcBhUXt+WHMFQL5XvHcYBRq/hCFNk7wHqPajpdFki
+	2BPPy49QQRS5Bv8rGQLk33qREgEzxpV7Bj5M2FL6i96F6CzyEt0Jt2yj0rmgqLXuRX9wiM
+	thl6xLsptKszG8PIPQfNUgwH85+2DOs=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-3-dSZPnsihMvGOK1R4lmn7dg-1; Sat, 20 May 2023 14:21:27 -0400
-X-MC-Unique: dSZPnsihMvGOK1R4lmn7dg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-652-ktFRpxL2PqWct4k2CDZiwQ-1; Sat, 20 May 2023 14:22:50 -0400
+X-MC-Unique: ktFRpxL2PqWct4k2CDZiwQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3BB2380027F;
-	Sat, 20 May 2023 18:21:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39950185A78E;
+	Sat, 20 May 2023 18:22:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2E5152026D49;
-	Sat, 20 May 2023 18:21:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2EAA9492B0C;
+	Sat, 20 May 2023 18:22:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E8E9519465B9;
-	Sat, 20 May 2023 18:21:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 124A919465B9;
+	Sat, 20 May 2023 18:22:49 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 006CE19465A0 for <cluster-devel@listman.corp.redhat.com>;
- Sat, 20 May 2023 18:21:24 +0000 (UTC)
+ ESMTP id E9C6719465A0 for <cluster-devel@listman.corp.redhat.com>;
+ Sat, 20 May 2023 18:22:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9DFD3C51470; Sat, 20 May 2023 18:21:24 +0000 (UTC)
+ id 964404F2DE4; Sat, 20 May 2023 18:22:47 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 96041C5146F
- for <cluster-devel@redhat.com>; Sat, 20 May 2023 18:21:24 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8DAAE4F2DE2
+ for <cluster-devel@redhat.com>; Sat, 20 May 2023 18:22:47 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
  [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 715F4185A78B
- for <cluster-devel@redhat.com>; Sat, 20 May 2023 18:21:24 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6DB3F3C01C2D
+ for <cluster-devel@redhat.com>; Sat, 20 May 2023 18:22:47 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-7-CiAvO71EMUKtwWB0CfTazw-1; Sat, 20 May 2023 14:21:22 -0400
-X-MC-Unique: CiAvO71EMUKtwWB0CfTazw-1
+ us-mta-593-13ANWfTaNLahdaT_wGDc8Q-1; Sat, 20 May 2023 14:22:45 -0400
+X-MC-Unique: 13ANWfTaNLahdaT_wGDc8Q-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 97D2060F13;
- Sat, 20 May 2023 18:21:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4107AC4339B;
- Sat, 20 May 2023 18:21:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9C7D160F1A;
+ Sat, 20 May 2023 18:22:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E811C433D2;
+ Sat, 20 May 2023 18:22:43 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 20 May 2023 14:20:36 -0400
-Message-Id: <20230520182044.836702-8-sashal@kernel.org>
-In-Reply-To: <20230520182044.836702-1-sashal@kernel.org>
-References: <20230520182044.836702-1-sashal@kernel.org>
+Date: Sat, 20 May 2023 14:22:09 -0400
+Message-Id: <20230520182215.845131-6-sashal@kernel.org>
+In-Reply-To: <20230520182215.845131-1-sashal@kernel.org>
+References: <20230520182215.845131-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -81,8 +81,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [Cluster-devel] [PATCH AUTOSEL 6.1 08/14] gfs2: Don't deref jdesc
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.15 06/11] gfs2: Don't deref jdesc
  in evict
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -99,7 +99,7 @@ Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
  Yang Lan <lanyang0908@gmail.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Transfer-Encoding: quoted-printable
@@ -145,10 +145,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 2015bd05cba10..9d27aa8bd2bc6 100644
+index 775ac3fb10c67..ca6ee1cbccd50 100644
 --- a/fs/gfs2/super.c
 +++ b/fs/gfs2/super.c
-@@ -1380,6 +1380,14 @@ static void gfs2_evict_inode(struct inode *inode)
+@@ -1381,6 +1381,14 @@ static void gfs2_evict_inode(struct inode *inode)
  =09if (inode->i_nlink || sb_rdonly(sb))
  =09=09goto out;
 =20
