@@ -2,97 +2,88 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 255DF70A19C
-	for <lists+cluster-devel@lfdr.de>; Fri, 19 May 2023 23:20:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A36670A9A4
+	for <lists+cluster-devel@lfdr.de>; Sat, 20 May 2023 20:18:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684531239;
+	s=mimecast20190719; t=1684606720;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QDW6L5XcQGm718KjhEwJ0qelmoF6zHK3o1HR0XotUW4=;
-	b=KwyuAPlWSxmqAdoElvI6bUCwaipWh3930qM2sJNGWWLujuzDbrvVVybGvt8CYIdADmRjBM
-	It0VCeXPi8xOoyQP3XmQJPZHgtuTBD6L9pZM6IeC08I8JSPLmZdN1ZGNsNk7+pzmhzYUqQ
-	ajrM5x1soZqFMuiyU8jR5Zokep/7rJw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=42P7aXPPik1imi4yYDmwx3h58RvhB7Oh/rMiepaklKc=;
+	b=XBXBARuNquu7RQiWTzsuZTnnTctyDut22mZ4ZFeK0lulA6eI/5FxFkdwuvna5moF3AoDpV
+	zleLCve/HvFRv0xvpr5ZXa3OcVFvFBEmfm2fQzHfe4Dw1Qom75QXvn17MfLMRpYcMBq/ae
+	p2oCgrDeQlhZBQgUa+tcCKkl+9n140o=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-481-OnzrD3fqPXeMVQUvIsalNA-1; Fri, 19 May 2023 17:20:35 -0400
-X-MC-Unique: OnzrD3fqPXeMVQUvIsalNA-1
+ us-mta-659-waFqPisDN_GQovBl0phnvg-1; Sat, 20 May 2023 14:18:37 -0400
+X-MC-Unique: waFqPisDN_GQovBl0phnvg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EDBE629DD99E;
-	Fri, 19 May 2023 21:20:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 606B780027F;
+	Sat, 20 May 2023 18:18:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3CF2C140E954;
-	Fri, 19 May 2023 21:20:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A400140E954;
+	Sat, 20 May 2023 18:18:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D800A19465B7;
-	Fri, 19 May 2023 21:20:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D684A19465B9;
+	Sat, 20 May 2023 18:18:30 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E350B19465A4 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 19 May 2023 21:20:25 +0000 (UTC)
+ ESMTP id 493B519465A0 for <cluster-devel@listman.corp.redhat.com>;
+ Sat, 20 May 2023 18:18:29 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5CEAD140E955; Fri, 19 May 2023 21:20:25 +0000 (UTC)
+ id 292FB40CFD01; Sat, 20 May 2023 18:18:29 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 55CAD140E954
- for <cluster-devel@redhat.com>; Fri, 19 May 2023 21:20:25 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 221F840CFD00
+ for <cluster-devel@redhat.com>; Sat, 20 May 2023 18:18:29 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3910A101A531
- for <cluster-devel@redhat.com>; Fri, 19 May 2023 21:20:25 +0000 (UTC)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-422-gO_wlodAMjmMi1Q7RNXrBw-1; Fri, 19 May 2023 17:20:23 -0400
-X-MC-Unique: gO_wlodAMjmMi1Q7RNXrBw-1
-Received: by mail-ed1-f69.google.com with SMTP id
- 4fb4d7f45d1cf-506a7b4f141so4512523a12.2
- for <cluster-devel@redhat.com>; Fri, 19 May 2023 14:20:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684531222; x=1687123222;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QDW6L5XcQGm718KjhEwJ0qelmoF6zHK3o1HR0XotUW4=;
- b=jTy9Buq07ZlgO7hwWVP+FqF8H2riYCNB02rYLOmsY2pJvoUVMSQkQkgZs8KEF+YY0C
- o2UKz40khgAiOuY3+mEDPfXt15JlMBLvMfXps2b2MbfI0v49vHCqEJPoOHf/PUdn2po+
- 9uob2YLJnm1nsGI+/s+IOq21jTFI+wcDRmsmUie3e9se62ylqBxN3LomYzS1fPgSu5lS
- RIJcXbt7w9d0QBUoaELaq3c4yQZYSUbcE24wivAIddY1RvZiBHBEEuXjERq3PdCHaXBH
- scz6PGzW9rD8vwuRzdLpi7hdf7zJmFSJ22Dck67E2EXZ7/becZgucUnHOqbV86muQq0l
- Kiug==
-X-Gm-Message-State: AC+VfDwXsnnMuX//x8HE2FwQRm/KyvmI+FMO6m+yuMxVeL2mWU5CXpBx
- QWgPDcpbCxDLstlZBp1vtxt2OlBGsxkphnFmZCDI1wqDLryCfHYDwvg+utYGegpyh4+okSmkJee
- zIUIajLWCpT4+XBKxV9LKbcaI7gLNtKHv4aW6Dw==
-X-Received: by 2002:aa7:ccc6:0:b0:510:6ccf:84aa with SMTP id
- y6-20020aa7ccc6000000b005106ccf84aamr3521173edt.32.1684531222576; 
- Fri, 19 May 2023 14:20:22 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5wIzt5Cy1icVhOGc2ztAmVv/6PXSB4C74oLH1vbhp7Obnssq3hv+O6tIkFXSXaPO8wqHUtoEcGIzr+wdv+pX0=
-X-Received: by 2002:aa7:ccc6:0:b0:510:6ccf:84aa with SMTP id
- y6-20020aa7ccc6000000b005106ccf84aamr3521162edt.32.1684531222310; Fri, 19 May
- 2023 14:20:22 -0700 (PDT)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 052868032E4
+ for <cluster-devel@redhat.com>; Sat, 20 May 2023 18:18:29 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-308-VGOe0WA-P72-valAyoO3oQ-1; Sat, 20 May 2023 14:18:25 -0400
+X-MC-Unique: VGOe0WA-P72-valAyoO3oQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5939060909;
+ Sat, 20 May 2023 18:18:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11AE9C433EF;
+ Sat, 20 May 2023 18:18:22 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sat, 20 May 2023 14:17:43 -0400
+Message-Id: <20230520181750.823365-11-sashal@kernel.org>
+In-Reply-To: <20230520181750.823365-1-sashal@kernel.org>
+References: <20230520181750.823365-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20230519152128.65272-1-aahringo@redhat.com>
- <20230519152128.65272-5-aahringo@redhat.com>
-In-Reply-To: <20230519152128.65272-5-aahringo@redhat.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Fri, 19 May 2023 17:20:11 -0400
-Message-ID: <CAK-6q+gmmKqZgsvL_jGVzfd+kQhEvtX=w034j2ORkjQ-Vx7bRA@mail.gmail.com>
-To: teigland@redhat.com
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [Cluster-devel] [PATCH v6.4-rc2 5/5] fs: dlm: avoid F_SETLKW
- plock op lookup collisions
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Cluster-devel] [PATCH AUTOSEL 6.3 11/18] gfs2: Don't deref jdesc
+ in evict
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,120 +95,74 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, cluster-devel@redhat.com,
+ Yang Lan <lanyang0908@gmail.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+X-Mimecast-Originator: kernel.org
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Hi,
+From: Bob Peterson <rpeterso@redhat.com>
 
-On Fri, May 19, 2023 at 11:21=E2=80=AFAM Alexander Aring <aahringo@redhat.c=
-om> wrote:
->
-> This patch fixes a possible plock op collisions when using F_SETLKW lock
-> requests and fsid, number and owner are not enough to identify a result
-> for a pending request. The ltp testcases [0] and [1] are examples when
-> this is not enough in case of using classic posix locks with threads and
-> open filedescriptor posix locks.
->
-> The idea to fix the issue here is to split recv_list, which contains
-> plock ops expecting a result from user space, into a F_SETLKW op
-> recv_setlkw_list and for all other commands recv_list. Due DLM user
-> space behavior e.g. dlm_controld a request and writing a result back can
-> only happen in an ordered way. That means a lookup and iterating over
-> the recv_list is not required. To place the right plock op as the first
-> entry of recv_list a change to list_move_tail() was made.
->
-> This behaviour is for F_SETLKW not possible as multiple waiters can be
-> get a result back in an random order. To avoid a collisions in cases
-> like [0] or [1] this patch adds more fields to compare the plock
-> operations as the lock request is the same. This is also being made in
-> NFS to find an result for an asynchronous F_SETLKW lock request [2][3]. W=
-e
-> still can't find the exact lock request for a specific result if the
-> lock request is the same, but if this is the case we don't care the
-> order how the identical lock requests get their result back to grant the
-> lock.
->
-> [0] https://gitlab.com/netcoder/ltp/-/blob/dlm_fcntl_owner_testcase/testc=
-ases/kernel/syscalls/fcntl/fcntl40.c
-> [1] https://gitlab.com/netcoder/ltp/-/blob/dlm_fcntl_owner_testcase/testc=
-ases/kernel/syscalls/fcntl/fcntl41.c
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tr=
-ee/include/linux/lockd/lockd.h?h=3Dv6.4-rc1#n373
-> [3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tr=
-ee/fs/lockd/svclock.c?h=3Dv6.4-rc1#n731
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> ---
->  fs/dlm/plock.c | 47 ++++++++++++++++++++++++++++++++++-------------
->  1 file changed, 34 insertions(+), 13 deletions(-)
->
-> diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
-> index c9e1d5f54194..540a30a342f0 100644
-> --- a/fs/dlm/plock.c
-> +++ b/fs/dlm/plock.c
-> @@ -17,6 +17,7 @@
->  static DEFINE_SPINLOCK(ops_lock);
->  static LIST_HEAD(send_list);
->  static LIST_HEAD(recv_list);
-> +static LIST_HEAD(recv_setlkw_list);
->  static DECLARE_WAIT_QUEUE_HEAD(send_wq);
->  static DECLARE_WAIT_QUEUE_HEAD(recv_wq);
->
-> @@ -392,10 +393,14 @@ static ssize_t dev_read(struct file *file, char __u=
-ser *u, size_t count,
->         spin_lock(&ops_lock);
->         if (!list_empty(&send_list)) {
->                 op =3D list_first_entry(&send_list, struct plock_op, list=
-);
-> -               if (op->info.flags & DLM_PLOCK_FL_CLOSE)
-> +               if (op->info.flags & DLM_PLOCK_FL_CLOSE) {
->                         list_del(&op->list);
-> -               else
-> -                       list_move(&op->list, &recv_list);
-> +               } else {
-> +                       if (op->info.wait)
-> +                               list_move(&op->list, &recv_setlkw_list);
-> +                       else
-> +                               list_move_tail(&op->list, &recv_list);
-> +               }
->                 memcpy(&info, &op->info, sizeof(info));
->         }
->         spin_unlock(&ops_lock);
-> @@ -434,18 +439,34 @@ static ssize_t dev_write(struct file *file, const c=
-har __user *u, size_t count,
->                 return -EINVAL;
->
->         spin_lock(&ops_lock);
-> -       list_for_each_entry(iter, &recv_list, list) {
-> -               if (iter->info.fsid =3D=3D info.fsid &&
-> -                   iter->info.number =3D=3D info.number &&
-> -                   iter->info.owner =3D=3D info.owner) {
-> -                       list_del_init(&iter->list);
-> -                       memcpy(&iter->info, &info, sizeof(info));
-> -                       if (iter->data)
-> +       if (info.wait) {
-> +               list_for_each_entry(iter, &recv_setlkw_list, list) {
-> +                       if (iter->info.fsid =3D=3D info.fsid &&
-> +                           iter->info.number =3D=3D info.number &&
-> +                           iter->info.owner =3D=3D info.owner &&
-> +                           iter->info.pid =3D=3D info.pid &&
-> +                           iter->info.start =3D=3D info.start &&
-> +                           iter->info.end =3D=3D info.end) {
+[ Upstream commit 504a10d9e46bc37b23d0a1ae2f28973c8516e636 ]
 
-There is a missing condition for info.ex, otherwise a lock request for
-F_WRLCK and F_RDLCK could be evaluated as the same request. NFS is
-doing this check as well by checking on fl1->fl_type  =3D=3D fl2->fl_type,
-we don't have fl_type but info.ex which is the only difference in
-F_SETLKW to distinguish F_WRLCK and F_RDLCK.
+On corrupt gfs2 file systems the evict code can try to reference the
+journal descriptor structure, jdesc, after it has been freed and set to
+NULL. The sequence of events is:
 
-I will send a v2.
+init_journal()
+...
+fail_jindex:
+   gfs2_jindex_free(sdp); <------frees journals, sets jdesc =3D NULL
+      if (gfs2_holder_initialized(&ji_gh))
+         gfs2_glock_dq_uninit(&ji_gh);
+fail:
+   iput(sdp->sd_jindex); <--references jdesc in evict_linked_inode
+      evict()
+         gfs2_evict_inode()
+            evict_linked_inode()
+               ret =3D gfs2_trans_begin(sdp, 0, sdp->sd_jdesc->jd_blocks);
+<------references the now freed/zeroed sd_jdesc pointer.
 
-- Alex
+The call to gfs2_trans_begin is done because the truncate_inode_pages
+call can cause gfs2 events that require a transaction, such as removing
+journaled data (jdata) blocks from the journal.
+
+This patch fixes the problem by adding a check for sdp->sd_jdesc to
+function gfs2_evict_inode. In theory, this should only happen to corrupt
+gfs2 file systems, when gfs2 detects the problem, reports it, then tries
+to evict all the system inodes it has read in up to that point.
+
+Reported-by: Yang Lan <lanyang0908@gmail.com>
+Signed-off-by: Bob Peterson <rpeterso@redhat.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/gfs2/super.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index a83fa62106f0e..7891f331082aa 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -1410,6 +1410,14 @@ static void gfs2_evict_inode(struct inode *inode)
+ =09if (inode->i_nlink || sb_rdonly(sb) || !ip->i_no_addr)
+ =09=09goto out;
+=20
++=09/*
++=09 * In case of an incomplete mount, gfs2_evict_inode() may be called for
++=09 * system files without having an active journal to write to.  In that
++=09 * case, skip the filesystem evict.
++=09 */
++=09if (!sdp->sd_jdesc)
++=09=09goto out;
++
+ =09gfs2_holder_mark_uninitialized(&gh);
+ =09ret =3D evict_should_delete(inode, &gh);
+ =09if (ret =3D=3D SHOULD_DEFER_EVICTION)
+--=20
+2.39.2
 
