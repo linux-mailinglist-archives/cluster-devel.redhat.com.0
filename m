@@ -1,96 +1,72 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4CD470C88A
-	for <lists+cluster-devel@lfdr.de>; Mon, 22 May 2023 21:40:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A16970CFE6
+	for <lists+cluster-devel@lfdr.de>; Tue, 23 May 2023 02:59:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684784399;
+	s=mimecast20190719; t=1684803587;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=15lSZRZhXLomY0U2NRYU9uW0smeWq7pcEslVONXUi3w=;
-	b=JTO5GO8IL5DbWL5UCHxNOll3MXQ46RVfXx39MwTbq4px5Rg7fjnmaPtG08UnazOQt6n5Fm
-	UfwH2ZAO0o/kPJRVeNBoS4CK9HoruVErnRD5O8fXRi16pj0XlWoEBduYbMNUf7urtOF29i
-	eSY5zduuBrZ60YbC+MtEdt/beumrmyY=
+	bh=Ic45Y4Un1vMP1Sj8gF7sn253tNuyyIeglhrEmJARDjI=;
+	b=XaipYV5yEPh6sMV7HYjQNEIn++DOYmm/k9C3TviUsXwFEEphn5IKxvlcfMcqGGej5rENNw
+	SA844AeEFfCDPvNsOIMAFrKwc7O0leRyac3JePTmP8Xr6aZANIIklnDXrSWox2DpmVA2Z1
+	yAqRqGjKIphdDDy32Y4oNLCwjgKgyDo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-68-DA-HNHnaPDe_qhlfmLamDQ-1; Mon, 22 May 2023 15:39:56 -0400
-X-MC-Unique: DA-HNHnaPDe_qhlfmLamDQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-307-FsmeNmhdMlCJulWkTEGWkw-1; Mon, 22 May 2023 20:59:43 -0400
+X-MC-Unique: FsmeNmhdMlCJulWkTEGWkw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 152E8811E78;
-	Mon, 22 May 2023 19:39:55 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 41CE41121314;
-	Mon, 22 May 2023 19:39:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 88D35101AA42;
+	Tue, 23 May 2023 00:59:42 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7288D40CFD45;
+	Tue, 23 May 2023 00:59:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D607F19465B1;
-	Mon, 22 May 2023 19:39:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1F11E19465B1;
+	Tue, 23 May 2023 00:59:41 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9C94F1946595 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 22 May 2023 19:39:51 +0000 (UTC)
+ ESMTP id EEC3F1946595 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 23 May 2023 00:59:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 67FCAC1ED9A; Mon, 22 May 2023 19:39:51 +0000 (UTC)
+ id B947140CFD48; Tue, 23 May 2023 00:59:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D429C1ED99
- for <cluster-devel@redhat.com>; Mon, 22 May 2023 19:39:51 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B26D640CFD46
+ for <cluster-devel@redhat.com>; Tue, 23 May 2023 00:59:39 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 363E1800BFF
- for <cluster-devel@redhat.com>; Mon, 22 May 2023 19:39:51 +0000 (UTC)
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9BDA9101A531
+ for <cluster-devel@redhat.com>; Tue, 23 May 2023 00:59:39 +0000 (UTC)
+Received: from out28-41.mail.aliyun.com (out28-41.mail.aliyun.com
+ [115.124.28.41]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-167-3H7HEocaPxmbHr60i4wl0g-1; Mon, 22 May 2023 15:39:49 -0400
-X-MC-Unique: 3H7HEocaPxmbHr60i4wl0g-1
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-64d3578c25bso4176983b3a.3
- for <cluster-devel@redhat.com>; Mon, 22 May 2023 12:39:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684784388; x=1687376388;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=15lSZRZhXLomY0U2NRYU9uW0smeWq7pcEslVONXUi3w=;
- b=YRXg3no9V+HSQ4i45SfU7Z4r2AmkYJln/LTI1dRqpQMhYat92/3cw/KOlwYAT4gdpf
- ofx6/xpK8rLKYw0H+r9Jo8n6hRNrKsYQBelfJKf/Z4lbP75Q5Qx1/vOQcmM4WcJQbppU
- 7nbMATl4/Nfs/m+2N2WFgEmgfXZNIO2DLnq8EMuOuhJrZgf5T4ZY0VBgvI6YhhQBWO3/
- +K4eOLxYRgXHFlWQO6SYbTNVa4o80ln9EV5Yo+nawXknA+5xTpskgL1wahoolvQtDBsB
- a6pxyhQE0l3yaOmULSsa7BFJ3T0ep+EH61zFZ2Cxmy7oO8rbBjltcrFQLwI9vLhelR2T
- 4Ezw==
-X-Gm-Message-State: AC+VfDyfI7ldTotbygmB5PQOrOAb9vCi9j387qEAHJvuAdXQr0oOfACm
- 6dc+kF1WaKdfPT5RZ7CLFrrzjQ==
-X-Google-Smtp-Source: ACHHUZ4kzfOePZUuovzfabT8AgRib6y/nHwVGmMvBg8fdTKcPNszB02HKZi7Ot66DeoLW/DPcx7wKw==
-X-Received: by 2002:a05:6a20:549d:b0:10b:bf0e:3bda with SMTP id
- i29-20020a056a20549d00b0010bbf0e3bdamr3899463pzk.2.1684784387947; 
- Mon, 22 May 2023 12:39:47 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- i24-20020aa787d8000000b0064d3e4c7658sm4602374pfo.96.2023.05.22.12.39.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 May 2023 12:39:47 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: azeemshaikh38@gmail.com,
-	teigland@redhat.com,
-	ccaulfie@redhat.com
-Date: Mon, 22 May 2023 12:39:34 -0700
-Message-Id: <168478437619.244538.1491421946258356417.b4-ty@chromium.org>
-In-Reply-To: <20230510221237.3509484-1-azeemshaikh38@gmail.com>
-References: <20230510221237.3509484-1-azeemshaikh38@gmail.com>
+ us-mta-56-Pg7Ka6B4PuqjAHBZTA9W9w-1; Mon, 22 May 2023 20:59:36 -0400
+X-MC-Unique: Pg7Ka6B4PuqjAHBZTA9W9w-1
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1252176|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_enroll_verification|0.0240655-4.02396e-05-0.975894;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047187; MF=wangyugui@e16-tech.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.T9RQ-uT_1684803569
+Received: from 192.168.2.112(mailfrom:wangyugui@e16-tech.com
+ fp:SMTPD_---.T9RQ-uT_1684803569) by smtp.aliyun-inc.com;
+ Tue, 23 May 2023 08:59:30 +0800
+Date: Tue, 23 May 2023 08:59:30 +0800
+From: Wang Yugui <wangyugui@e16-tech.com>
+To: cluster-devel@redhat.com
+Message-Id: <20230523085929.614A.409509F4@e16-tech.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -99,9 +75,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [Cluster-devel] [PATCH] dlm: Replace all non-returning strlcpy
- with strscpy
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Cluster-devel] gfs2 write bandwidth regression on 6.4-rc3
+ compareto 5.15.y
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,32 +89,53 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, linux-hardening@vger.kernel.org,
- Kees Cook <keescook@chromium.org>, linux-kernel@vger.kernel.org
+Cc: "Darrick J . Wong" <djwong@kernel.org>, Dave Chinner <david@fromorbit.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: chromium.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Originator: e16-tech.com
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
 
-On Wed, 10 May 2023 22:12:37 +0000, Azeem Shaikh wrote:
-> strlcpy() reads the entire source buffer first.
-> This read may exceed the destination size limit.
-> This is both inefficient and can lead to linear read
-> overflows if a source string is not NUL-terminated [1].
-> In an effort to remove strlcpy() completely [2], replace
-> strlcpy() here with strscpy().
-> No return values were used, so direct replacement is safe.
-> 
-> [...]
+Hi,
 
-Applied to for-next/hardening, thanks!
+gfs2 write bandwidth regression on 6.4-rc3 compare to 5.15.y.
 
-[1/1] dlm: Replace all non-returning strlcpy with strscpy
-      https://git.kernel.org/kees/c/30ad0627f169
+we added  linux-xfs@ and linux-fsdevel@ because some related problem[1]
+and related patches[2].
 
--- 
-Kees Cook
+we compared 6.4-rc3(rather than 6.1.y) to 5.15.y becasue some related patches[2]
+work only for 6.4 now.
+
+[1] https://lore.kernel.org/linux-xfs/20230508172406.1CF3.409509F4@e16-tech.com/
+[2] https://lore.kernel.org/linux-xfs/20230520163603.1794256-1-willy@infradead.org/
+
+
+test case:
+1) PCIe3 SSD *4 with LVM
+2) gfs2 lock_nolock
+    gfs2 attr(T) GFS2_AF_ORLOV
+   # chattr +T /mnt/test
+3) fio
+fio --name=global --rw=write -bs=1024Ki -size=32Gi -runtime=30 -iodepth 1
+-ioengine sync -zero_buffers=1 -direct=0 -end_fsync=1 -numjobs=1 \
+	-name write-bandwidth-1 -filename=/mnt/test/sub1/1.txt \
+	-name write-bandwidth-2 -filename=/mnt/test/sub2/1.txt \
+	-name write-bandwidth-3 -filename=/mnt/test/sub3/1.txt \
+	-name write-bandwidth-4 -filename=/mnt/test/sub4/1.txt
+4) patches[2] are applied to 6.4-rc3.
+
+
+5.15.y result
+	fio WRITE: bw=5139MiB/s (5389MB/s),
+6.4-rc3 result
+	fio  WRITE: bw=2599MiB/s (2725MB/s)
+
+Best Regards
+Wang Yugui (wangyugui@e16-tech.com)
+2023/05/23
+
 
