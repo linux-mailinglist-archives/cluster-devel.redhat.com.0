@@ -1,72 +1,75 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A50170E169
-	for <lists+cluster-devel@lfdr.de>; Tue, 23 May 2023 18:03:33 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C11AB70E281
+	for <lists+cluster-devel@lfdr.de>; Tue, 23 May 2023 18:57:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684857812;
+	s=mimecast20190719; t=1684861053;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=kv7Tagaecnp/1Em/b5N4c64AlXSthZhnvtN576YCdi4=;
-	b=E/ckpbBZE2vTLUpFDUEtN7F5nlnjdkqQ+FTbz2TvBFPxv7bav8hUiROAER4t60Wh3HCT46
-	O4BhVc3jUiwRCDzkkyx6+1c1y8yfo+oEnPQaMaTP3Lkt+5jNOyAXAAgF8mQFI9iYqmjFtq
-	Ap1oTxUQjhiFMbCkav7dOticwRqnJyM=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=d661uJD3QZyNSbDvh1yODoH87KCKXO6AdQINLMKGe10=;
+	b=iC+HONEY1LX/lewPed3xZy9AatMHE0lIDyy94YSEDORzYAITU6s4C1SmCQUhsQnevwSGAB
+	z+QOSTfOUobn7jhxVsvXpGLXxEggoNjvuDsQThV1/0I4fEW2ccqYxrvgWtpHXlaaV2XZfy
+	1aU26CJanJo1Zt26Cw9F008fxLpj63o=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-169-Szk0WMwUMuWwB0BK28RwDg-1; Tue, 23 May 2023 12:03:28 -0400
-X-MC-Unique: Szk0WMwUMuWwB0BK28RwDg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-194-XpxUa12lM0WXzLmj7r0M-g-1; Tue, 23 May 2023 12:57:30 -0400
+X-MC-Unique: XpxUa12lM0WXzLmj7r0M-g-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 708FF8002BF;
-	Tue, 23 May 2023 16:03:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0B441C068C0;
+	Tue, 23 May 2023 16:57:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 65513140E95D;
-	Tue, 23 May 2023 16:03:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 983C6C1ED99;
+	Tue, 23 May 2023 16:57:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 25F1319465B3;
-	Tue, 23 May 2023 16:03:16 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5FD1519465B6;
+	Tue, 23 May 2023 16:57:19 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6A86019465A0 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 23 May 2023 16:03:15 +0000 (UTC)
+ ESMTP id 2CC7F19465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 23 May 2023 16:57:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5DEE1492B0D; Tue, 23 May 2023 16:03:15 +0000 (UTC)
+ id 1824B40D1B62; Tue, 23 May 2023 16:57:08 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 574BD492B0B
- for <cluster-devel@redhat.com>; Tue, 23 May 2023 16:03:15 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FCDF40D1B60
+ for <cluster-devel@redhat.com>; Tue, 23 May 2023 16:57:08 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4038C1C08784
- for <cluster-devel@redhat.com>; Tue, 23 May 2023 16:03:15 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-438-oAG9G7POObOyWKfKEYpjCA-1; Tue, 23 May 2023 12:03:12 -0400
-X-MC-Unique: oAG9G7POObOyWKfKEYpjCA-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id D315C6732D; Tue, 23 May 2023 18:03:07 +0200 (CEST)
-Date: Tue, 23 May 2023 18:03:07 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Message-ID: <20230523160307.GD15391@lst.de>
-References: <20230519093521.133226-1-hch@lst.de>
- <20230519093521.133226-11-hch@lst.de>
- <CAJfpegtHb4pA=1NBRzQJSub7B0HZqnvqsMNQmYYM-8L7PTQfvw@mail.gmail.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E3D892A5955D
+ for <cluster-devel@redhat.com>; Tue, 23 May 2023 16:57:07 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-645-gqEX1_gROHC_VgF-oD8aJQ-1; Tue, 23 May 2023 12:57:06 -0400
+X-MC-Unique: gqEX1_gROHC_VgF-oD8aJQ-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1q1Ulo-00Amb7-2r; Tue, 23 May 2023 16:21:56 +0000
+Date: Tue, 23 May 2023 09:21:56 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Jan Kara <jack@suse.cz>
+Message-ID: <ZGzoJLCRLk+pCKAk@infradead.org>
+References: <20230509165657.1735798-1-kent.overstreet@linux.dev>
+ <20230509165657.1735798-7-kent.overstreet@linux.dev>
+ <20230510010737.heniyuxazlprrbd6@quack3>
+ <ZFs3RYgdCeKjxYCw@moria.home.lan>
+ <20230523133431.wwrkjtptu6vqqh5e@quack3>
 MIME-Version: 1.0
-In-Reply-To: <CAJfpegtHb4pA=1NBRzQJSub7B0HZqnvqsMNQmYYM-8L7PTQfvw@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20230523133431.wwrkjtptu6vqqh5e@quack3>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -74,9 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Cluster-devel] [PATCH 10/13] fs: factor out a
- direct_write_fallback helper
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [Cluster-devel] [PATCH 06/32] sched: Add
+ task_struct->faults_disabled_mapping
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,36 +91,43 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-mm@kvack.org,
- Christoph Hellwig <hch@lst.de>, Matthew Wilcox <willy@infradead.org>,
- cluster-devel@redhat.com, Ilya Dryomov <idryomov@gmail.com>,
- linux-ext4@vger.kernel.org, Chao Yu <chao@kernel.org>,
- linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
- Damien Le Moal <dlemoal@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
- Xiubo Li <xiubli@redhat.com>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- Theodore Ts'o <tytso@mit.edu>,
- "open list:F2FS FILE SYSTEM" <linux-f2fs-devel@lists.sourceforge.net>,
- linux-xfs@vger.kernel.org, Anna Schumaker <anna@kernel.org>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
+Cc: dhowells@redhat.com, "Darrick J . Wong" <djwong@kernel.org>,
+ Kent Overstreet <kent.overstreet@linux.dev>, linux-kernel@vger.kernel.org,
+ cluster-devel@redhat.com, linux-bcachefs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Kent Overstreet <kent.overstreet@gmail.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: lst.de
+X-Mimecast-Originator: infradead.org
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, May 22, 2023 at 04:19:38PM +0200, Miklos Szeredi wrote:
-> > +               ssize_t direct_written, ssize_t buffered_written)
-> > +{
-> > +       struct address_space *mapping = iocb->ki_filp->f_mapping;
-> > +       loff_t pos = iocb->ki_pos, end;
+On Tue, May 23, 2023 at 03:34:31PM +0200, Jan Kara wrote:
+> I've checked the code and AFAICT it is all indeed handled. BTW, I've now
+> remembered that GFS2 has dealt with the same deadlocks - b01b2d72da25
+> ("gfs2: Fix mmap + page fault deadlocks for direct I/O") - in a different
+> way (by prefaulting pages from the iter before grabbing the problematic
+> lock and then disabling page faults for the iomap_dio_rw() call). I guess
+> we should somehow unify these schemes so that we don't have two mechanisms
+> for avoiding exactly the same deadlock. Adding GFS2 guys to CC.
 > 
-> At this point pos will point after the end of the buffered write (as
-> per earlier patches), yes?
+> Also good that you've written a fstest for this, that is definitely a useful
+> addition, although I suspect GFS2 guys added a test for this not so long
+> ago when testing their stuff. Maybe they have a pointer handy?
 
-Yes.  I'll fix the pos and end calculation.
+generic/708 is the btrfs version of this.
+
+But I think all of the file systems that have this deadlock are actually
+fundamentally broken because they have a mess up locking hierarchy
+where page faults take the same lock that is held over the the direct I/
+operation.  And the right thing is to fix this.  I have work in progress
+for btrfs, and something similar should apply to gfs2, with the added
+complication that it probably means a revision to their network
+protocol.
+
+I'm absolutely not in favour to add workarounds for thes kind of locking
+problems to the core kernel.  I already feel bad for allowing the
+small workaround in iomap for btrfs, as just fixing the locking back
+then would have avoid massive ratholing.
 
