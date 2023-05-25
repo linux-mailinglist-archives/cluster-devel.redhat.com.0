@@ -1,98 +1,87 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79FE7711058
-	for <lists+cluster-devel@lfdr.de>; Thu, 25 May 2023 18:04:13 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EEB6711874
+	for <lists+cluster-devel@lfdr.de>; Thu, 25 May 2023 22:51:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685030652;
+	s=mimecast20190719; t=1685047859;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=WiRt50oXKhasmrzR2kh6FHaULiNwoG0spSQORGoTHTA=;
-	b=LeKitGgH0ui9I59p3JN8+3l7Zgt3Km82MYuZj3CKTQawvD8UWj7+Vw/K2hu8a8sVW2rEBR
-	e1Nm+5xvylpGnzWfP0m7YeTDZ4ycn7gSTYVGbNFfDhjQb17RY91Qpr3DhPdRLs1NoKZjt9
-	YZXctST4z7Gbc6tqwHBQVsVLSkKs0XY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=WmfPfoS4jj9y7WKgyiPfXOC2ErdWT8XZ/X5AqeuiIvY=;
+	b=U+zmN4J6kFxIRDMkafGNNcUpUBiihjIF/51OqZloSug2lUuWiFBVDYmzQVOqT3EJGiQmHc
+	SxF6Nq9pb4EGnQfEq4wtXLyY73yMqm/doYd7pfjUpytiF96S14l8xe7OMqxlLhCo1E5drr
+	Iy4baY4pgkXH42OlqKAr7q6rfTHELHI=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-197-d-6Wh71_MiSK53ciG4y6jQ-1; Thu, 25 May 2023 12:04:08 -0400
-X-MC-Unique: d-6Wh71_MiSK53ciG4y6jQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-164--yXPeXM9MTieaORRLViPWg-1; Thu, 25 May 2023 16:50:52 -0400
+X-MC-Unique: -yXPeXM9MTieaORRLViPWg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98B7C2A59541;
-	Thu, 25 May 2023 16:04:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC7B7185A78E;
+	Thu, 25 May 2023 20:50:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 437AB200AD47;
-	Thu, 25 May 2023 16:04:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 35A0D140E95D;
+	Thu, 25 May 2023 20:50:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E512319465B1;
-	Thu, 25 May 2023 16:04:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E1D7419465B1;
+	Thu, 25 May 2023 20:50:50 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7441D19465A0 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 25 May 2023 16:03:01 +0000 (UTC)
+ ESMTP id 1565319465A0 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 25 May 2023 20:50:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 54C90492B0A; Thu, 25 May 2023 16:03:01 +0000 (UTC)
+ id ECC4CC154D2; Thu, 25 May 2023 20:50:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DD25492B0B
- for <cluster-devel@redhat.com>; Thu, 25 May 2023 16:03:01 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E54C8C154D1
+ for <cluster-devel@redhat.com>; Thu, 25 May 2023 20:50:49 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27D133C0ED65
- for <cluster-devel@redhat.com>; Thu, 25 May 2023 16:03:01 +0000 (UTC)
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7303800141
+ for <cluster-devel@redhat.com>; Thu, 25 May 2023 20:50:49 +0000 (UTC)
+Received: from out-37.mta0.migadu.com (out-37.mta0.migadu.com
+ [91.218.175.37]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-241-ifLThkXrMWKMaMBEqiwHRQ-1; Thu, 25 May 2023 12:02:51 -0400
-X-MC-Unique: ifLThkXrMWKMaMBEqiwHRQ-1
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-1ae6b280bacso9998945ad.0
- for <cluster-devel@redhat.com>; Thu, 25 May 2023 09:02:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685030570; x=1687622570;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WiRt50oXKhasmrzR2kh6FHaULiNwoG0spSQORGoTHTA=;
- b=Ei5X7NklQZCk0sc+c2UfPFl1gLNGtegblyesIlb/ZuiVwtGatbsZlyx1PfNW+wwnX0
- 4RHo9zrZgKeHkc8t+91OqOU7ouPVrWatK+8PCijJMk2piepccaLfjYWwNd+3P48zwkc3
- JD3p6klnRkmu6e0I1XVzBw2hieTPkEwZxeKH6pjmA0H1OR2YVjirWQhqIF2lor7+QU7j
- 0+dEISp3XtGhcFRoWCfkpsj02o5F81cwFWoYPeJmtziPfeL78NpYzgmp6BKPiF0hVT1K
- twmfDhM1jbd82lbJrgJG157a11uI7VdghTXVAu/95DBMiQDX2QhXl6/oN0/TgMu8mqVf
- 6O4Q==
-X-Gm-Message-State: AC+VfDy3vZEjadSv4SwnyRisrVSfKcBLW16OqbE8ae7IHxv1Aa176hvl
- 13qSwvoDHJsoWPW8W5xksVjzdYO88TE9lgrzACNxxWVpZgH31TFe6E5RDZR5vQTlmmbGKCdG+bj
- mz9ei6jzvcSH0GbKsEHsMoblQu+3+kSBVRlu3Tw==
-X-Received: by 2002:a17:902:f54c:b0:1af:f64c:f363 with SMTP id
- h12-20020a170902f54c00b001aff64cf363mr3052070plf.15.1685030569934; 
- Thu, 25 May 2023 09:02:49 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ6IxaSUVZPKltFK7HOITIsIRGnmd5NzIdTwh6dJNU2vgkdbKhe1zl+1aodXLLyyl7kcWSFpgVAL2XCU4JAoynY=
-X-Received: by 2002:a17:902:f54c:b0:1af:f64c:f363 with SMTP id
- h12-20020a170902f54c00b001aff64cf363mr3052030plf.15.1685030569588; Thu, 25
- May 2023 09:02:49 -0700 (PDT)
+ us-mta-620-fPd6iK8rMymfyfUVqsZ3RA-1; Thu, 25 May 2023 16:50:47 -0400
+X-MC-Unique: fPd6iK8rMymfyfUVqsZ3RA-1
+Date: Thu, 25 May 2023 16:50:39 -0400
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Kent Overstreet <kent.overstreet@linux.dev>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <ZG/KH9cQluA5e30N@moria.home.lan>
+References: <20230509165657.1735798-1-kent.overstreet@linux.dev>
+ <20230509165657.1735798-7-kent.overstreet@linux.dev>
+ <20230510010737.heniyuxazlprrbd6@quack3>
+ <ZFs3RYgdCeKjxYCw@moria.home.lan>
+ <20230523133431.wwrkjtptu6vqqh5e@quack3>
+ <ZGzoJLCRLk+pCKAk@infradead.org> <ZGzrV5j7OUU6rYij@moria.home.lan>
+ <ZG2yFFcpE7w/Glge@infradead.org> <ZG3GHoNnJJW4xX2H@moria.home.lan>
+ <ZG8jJRcwtx3JQf6Q@infradead.org>
 MIME-Version: 1.0
-References: <20230524063810.1595778-1-hch@lst.de>
- <20230524063810.1595778-8-hch@lst.de>
-In-Reply-To: <20230524063810.1595778-8-hch@lst.de>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Thu, 25 May 2023 18:02:37 +0200
-Message-ID: <CAHc6FU6akk6yg1YGpgq-XqMv7soOLA4_Jg17T1M+NKn1PRmJkg@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Cluster-devel] [PATCH 07/11] iomap: update ki_pos in
- iomap_file_buffered_write
+In-Reply-To: <ZG8jJRcwtx3JQf6Q@infradead.org>
+X-Migadu-Flow: FLOW_OUT
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH 06/32] sched: Add
+ task_struct->faults_disabled_mapping
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,124 +93,47 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-mm@kvack.org,
- Miklos Szeredi <miklos@szeredi.hu>, Matthew Wilcox <willy@infradead.org>,
- cluster-devel@redhat.com, Ilya Dryomov <idryomov@gmail.com>,
- linux-ext4@vger.kernel.org, Chao Yu <chao@kernel.org>,
- linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
- Damien Le Moal <dlemoal@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
- Xiubo Li <xiubli@redhat.com>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- Theodore Ts'o <tytso@mit.edu>, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, Anna Schumaker <anna@kernel.org>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
+Cc: dhowells@redhat.com, Jan Kara <jack@suse.cz>,
+ "Darrick J . Wong" <djwong@kernel.org>, linux-kernel@vger.kernel.org,
+ cluster-devel@redhat.com, linux-bcachefs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Kent Overstreet <kent.overstreet@gmail.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: linux.dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, May 24, 2023 at 8:54=E2=80=AFAM Christoph Hellwig <hch@lst.de> wrot=
-e:
-> All callers of iomap_file_buffered_write need to updated ki_pos, move it
-> into common code.
+On Thu, May 25, 2023 at 01:58:13AM -0700, Christoph Hellwig wrote:
+> On Wed, May 24, 2023 at 04:09:02AM -0400, Kent Overstreet wrote:
+> > > Well, it seems like you are talking about something else than the
+> > > existing cases in gfs2 and btrfs, that is you want full consistency
+> > > between direct I/O and buffered I/O.  That's something nothing in the
+> > > kernel has ever provided, so I'd be curious why you think you need it
+> > > and want different semantics from everyone else?
+> > 
+> > Because I like code that is correct.
+> 
+> Well, start with explaining your definition of correctness, why everyone
+> else is "not correct", an how you can help fixing this correctness
+> problem in the existing kernel.  Thanks for your cooperation!
 
-Thanks for this set of cleanups, especially for the patch killing
-current->backing_dev_info.
+A cache that isn't actually consistent is a _bug_. You're being
+Obsequious. And any time this has come up in previous discussions
+(including at LSF), that was never up for debate, the only question has
+been whether it was even possible to practically fix it.
 
-Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
+The DIO code recognizes cache incoherency as something to be avoided by
+shooting down the page cache both at the beginning of the IO _and again
+at the end_.  That's the kind of obvious hackery for a race condition
+that we would like to avoid.
 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Acked-by: Damien Le Moal <dlemoal@kernel.org>
-> Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-> ---
->  fs/gfs2/file.c         | 4 +---
->  fs/iomap/buffered-io.c | 9 ++++++---
->  fs/xfs/xfs_file.c      | 2 --
->  fs/zonefs/file.c       | 4 +---
->  4 files changed, 8 insertions(+), 11 deletions(-)
->
-> diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-> index 904a0d6ac1a1a9..c6a7555d5ad8bb 100644
-> --- a/fs/gfs2/file.c
-> +++ b/fs/gfs2/file.c
-> @@ -1044,10 +1044,8 @@ static ssize_t gfs2_file_buffered_write(struct kio=
-cb *iocb,
->         pagefault_disable();
->         ret =3D iomap_file_buffered_write(iocb, from, &gfs2_iomap_ops);
->         pagefault_enable();
-> -       if (ret > 0) {
-> -               iocb->ki_pos +=3D ret;
-> +       if (ret > 0)
->                 written +=3D ret;
-> -       }
->
->         if (inode =3D=3D sdp->sd_rindex)
->                 gfs2_glock_dq_uninit(statfs_gh);
-> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-> index 063133ec77f49e..550525a525c45c 100644
-> --- a/fs/iomap/buffered-io.c
-> +++ b/fs/iomap/buffered-io.c
-> @@ -864,16 +864,19 @@ iomap_file_buffered_write(struct kiocb *iocb, struc=
-t iov_iter *i,
->                 .len            =3D iov_iter_count(i),
->                 .flags          =3D IOMAP_WRITE,
->         };
-> -       int ret;
-> +       ssize_t ret;
->
->         if (iocb->ki_flags & IOCB_NOWAIT)
->                 iter.flags |=3D IOMAP_NOWAIT;
->
->         while ((ret =3D iomap_iter(&iter, ops)) > 0)
->                 iter.processed =3D iomap_write_iter(&iter, i);
-> -       if (iter.pos =3D=3D iocb->ki_pos)
-> +
-> +       if (unlikely(ret < 0))
->                 return ret;
-> -       return iter.pos - iocb->ki_pos;
-> +       ret =3D iter.pos - iocb->ki_pos;
-> +       iocb->ki_pos +=3D ret;
-> +       return ret;
->  }
->  EXPORT_SYMBOL_GPL(iomap_file_buffered_write);
->
-> diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-> index 431c3fd0e2b598..d57443db633637 100644
-> --- a/fs/xfs/xfs_file.c
-> +++ b/fs/xfs/xfs_file.c
-> @@ -720,8 +720,6 @@ xfs_file_buffered_write(
->         trace_xfs_file_buffered_write(iocb, from);
->         ret =3D iomap_file_buffered_write(iocb, from,
->                         &xfs_buffered_write_iomap_ops);
-> -       if (likely(ret >=3D 0))
-> -               iocb->ki_pos +=3D ret;
->
->         /*
->          * If we hit a space limit, try to free up some lingering preallo=
-cated
-> diff --git a/fs/zonefs/file.c b/fs/zonefs/file.c
-> index 132f01d3461f14..e212d0636f848e 100644
-> --- a/fs/zonefs/file.c
-> +++ b/fs/zonefs/file.c
-> @@ -643,9 +643,7 @@ static ssize_t zonefs_file_buffered_write(struct kioc=
-b *iocb,
->                 goto inode_unlock;
->
->         ret =3D iomap_file_buffered_write(iocb, from, &zonefs_write_iomap=
-_ops);
-> -       if (ret > 0)
-> -               iocb->ki_pos +=3D ret;
-> -       else if (ret =3D=3D -EIO)
-> +       if (ret =3D=3D -EIO)
->                 zonefs_io_error(inode, true);
->
->  inode_unlock:
-> --
-> 2.39.2
->
+Regarding the consequences of this kind of bug - stale data exposed to
+userspace, possibly stale data overwriting a write we acked, and worse
+any filesystem state that hangs off the page cache being inconsistent
+with the data on disk.
+
+And look, we've been over all this before, so I don't see what this adds
+to the discussion.
 
