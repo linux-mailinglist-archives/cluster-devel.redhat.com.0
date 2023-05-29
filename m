@@ -1,61 +1,61 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D056E715103
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1589E715104
 	for <lists+cluster-devel@lfdr.de>; Mon, 29 May 2023 23:44:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685396690;
+	s=mimecast20190719; t=1685396691;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+VQtIeu65FchuGii9JZmgEqHm8MLSV5vAeqJUyRJJ1g=;
-	b=I0gwkymt49w7EvlPRqMNbpS8Yz3eTml1j1duhV15Onm6lZyrIr4nbT43f0wJOMci9cS4+0
-	U7UD2dz2H/lujV/vtXha24NDkL4ZEti9jfZ5vDxXgTeLN1bhX197pMZ2/dWGKIypyqRr90
-	aMx68VLQloYhSQVJJ/Om3WHsb3e7lV8=
+	bh=8RQeuQkxI5R0AMNkY/+q+IFSl/ylLlW7h2ErXHX50iw=;
+	b=hsj3N8FcKh5ueZR21uQLe2SYc8eqV50cUR5cVcyMobpMfchCrKogXqfBw4EF2rgl8du5k3
+	BxPR7IMn0vzioYb9bWkQr0Va/zmnlgi37VVL6+cDysLJD76dDpY50Ww4h5iRxk9Qu1KsQM
+	vIo7Q6r/aNJD26kYSu3F8haakSFaBsM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-609-7dqafsGsMgOvRBRZ8yHw5Q-1; Mon, 29 May 2023 17:44:46 -0400
-X-MC-Unique: 7dqafsGsMgOvRBRZ8yHw5Q-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-166-zpcEfSOLPOuq-9GGZF0Bog-1; Mon, 29 May 2023 17:44:46 -0400
+X-MC-Unique: zpcEfSOLPOuq-9GGZF0Bog-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A78C085A5BB;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3175101AA6F;
 	Mon, 29 May 2023 21:44:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0F97C2166B2B;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A2CCD40D1B6B;
 	Mon, 29 May 2023 21:44:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 665461946A42;
-	Mon, 29 May 2023 21:44:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D8441946A41;
+	Mon, 29 May 2023 21:44:45 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8723A194658C for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id C5B351946595 for <cluster-devel@listman.corp.redhat.com>;
  Mon, 29 May 2023 21:44:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7C17D2166B2E; Mon, 29 May 2023 21:44:43 +0000 (UTC)
+ id AB1B02166B2E; Mon, 29 May 2023 21:44:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 521302166B2B;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 81A282166B2B;
  Mon, 29 May 2023 21:44:43 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Mon, 29 May 2023 17:44:37 -0400
-Message-Id: <20230529214440.2542721-9-aahringo@redhat.com>
+Date: Mon, 29 May 2023 17:44:38 -0400
+Message-Id: <20230529214440.2542721-10-aahringo@redhat.com>
 In-Reply-To: <20230529214440.2542721-1-aahringo@redhat.com>
 References: <20230529214440.2542721-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH dlm/next 09/12] fs: dlm: filter ourself
- midcomms calls
+Subject: [Cluster-devel] [PATCH dlm/next 10/12] fs: dlm: handle lkb wait
+ count as atomic_t
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,166 +70,134 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com, stable@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-It makes no sense to call midcomms/lowcomms functionality for the local
-node as socket functionality is only required for remote nodes. This
-patch filters those calls in the upper layer of lockspace membership
-handling instead of doing it in midcomms/lowcomms layer as they should
-never be aware of local nodeid.
+Currently the lkb_wait_count is locked by the rsb lock and it should be
+fine to handle lkb_wait_count as non atomic_t value. However for the
+overall process of reducing locking this patch converts it to an
+atomic_t value.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/config.c   |  3 ++-
- fs/dlm/lowcomms.c |  3 ---
- fs/dlm/member.c   | 37 ++++++++++++++++++++++++++++++-------
- fs/dlm/midcomms.c |  9 ---------
- 4 files changed, 32 insertions(+), 20 deletions(-)
+ fs/dlm/dlm_internal.h |  2 +-
+ fs/dlm/lock.c         | 32 ++++++++++++++------------------
+ 2 files changed, 15 insertions(+), 19 deletions(-)
 
-diff --git a/fs/dlm/config.c b/fs/dlm/config.c
-index 2beceff024e3..4246cd425671 100644
---- a/fs/dlm/config.c
-+++ b/fs/dlm/config.c
-@@ -532,7 +532,8 @@ static void drop_comm(struct config_group *g, struct config_item *i)
- 	struct dlm_comm *cm = config_item_to_comm(i);
- 	if (local_comm == cm)
- 		local_comm = NULL;
--	dlm_midcomms_close(cm->nodeid);
-+	if (!cm->local)
-+		dlm_midcomms_close(cm->nodeid);
- 	while (cm->addr_count--)
- 		kfree(cm->addr[cm->addr_count]);
- 	config_item_put(i);
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 5a7586633cbe..345a316ae54c 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -546,9 +546,6 @@ int dlm_lowcomms_connect_node(int nodeid)
- 	struct connection *con;
- 	int idx;
+diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+index 986a9d7b1f33..c8156770205e 100644
+--- a/fs/dlm/dlm_internal.h
++++ b/fs/dlm/dlm_internal.h
+@@ -246,7 +246,7 @@ struct dlm_lkb {
+ 	int8_t			lkb_highbast;	/* highest mode bast sent for */
  
--	if (nodeid == dlm_our_nodeid())
--		return 0;
--
- 	idx = srcu_read_lock(&connections_srcu);
- 	con = nodeid2con(nodeid, 0);
- 	if (WARN_ON_ONCE(!con)) {
-diff --git a/fs/dlm/member.c b/fs/dlm/member.c
-index 923c01a8a0aa..77d202e4a02a 100644
---- a/fs/dlm/member.c
-+++ b/fs/dlm/member.c
-@@ -307,6 +307,21 @@ static void add_ordered_member(struct dlm_ls *ls, struct dlm_member *new)
- 	}
- }
+ 	int8_t			lkb_wait_type;	/* type of reply waiting for */
+-	int8_t			lkb_wait_count;
++	atomic_t		lkb_wait_count;
+ 	int			lkb_wait_nodeid; /* for debugging */
  
-+static int add_remote_member(int nodeid)
-+{
-+	int error;
-+
-+	if (nodeid == dlm_our_nodeid())
-+		return 0;
-+
-+	error = dlm_lowcomms_connect_node(nodeid);
-+	if (error < 0)
-+		return error;
-+
-+	dlm_midcomms_add_member(nodeid);
-+	return 0;
-+}
-+
- static int dlm_add_member(struct dlm_ls *ls, struct dlm_config_node *node)
+ 	struct list_head	lkb_statequeue;	/* rsb g/c/w list */
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index ede903246fa4..f511a9d7d416 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -1407,6 +1407,7 @@ static int add_to_waiters(struct dlm_lkb *lkb, int mstype, int to_nodeid)
  {
- 	struct dlm_member *memb;
-@@ -316,16 +331,16 @@ static int dlm_add_member(struct dlm_ls *ls, struct dlm_config_node *node)
- 	if (!memb)
- 		return -ENOMEM;
+ 	struct dlm_ls *ls = lkb->lkb_resource->res_ls;
+ 	int error = 0;
++	int wc;
  
--	error = dlm_lowcomms_connect_node(node->nodeid);
-+	memb->nodeid = node->nodeid;
-+	memb->weight = node->weight;
-+	memb->comm_seq = node->comm_seq;
-+
-+	error = add_remote_member(node->nodeid);
- 	if (error < 0) {
- 		kfree(memb);
- 		return error;
+ 	mutex_lock(&ls->ls_waiters_mutex);
+ 
+@@ -1428,20 +1429,17 @@ static int add_to_waiters(struct dlm_lkb *lkb, int mstype, int to_nodeid)
+ 			error = -EBUSY;
+ 			goto out;
+ 		}
+-		lkb->lkb_wait_count++;
++		wc = atomic_inc_return(&lkb->lkb_wait_count);
+ 		hold_lkb(lkb);
+ 
+ 		log_debug(ls, "addwait %x cur %d overlap %d count %d f %x",
+-			  lkb->lkb_id, lkb->lkb_wait_type, mstype,
+-			  lkb->lkb_wait_count, dlm_iflags_val(lkb));
++			  lkb->lkb_id, lkb->lkb_wait_type, mstype, wc,
++			  dlm_iflags_val(lkb));
+ 		goto out;
  	}
  
--	memb->nodeid = node->nodeid;
--	memb->weight = node->weight;
--	memb->comm_seq = node->comm_seq;
--	dlm_midcomms_add_member(node->nodeid);
- 	add_ordered_member(ls, memb);
- 	ls->ls_num_nodes++;
+-	DLM_ASSERT(!lkb->lkb_wait_count,
+-		   dlm_print_lkb(lkb);
+-		   printk("wait_count %d\n", lkb->lkb_wait_count););
+-
+-	lkb->lkb_wait_count++;
++	wc = atomic_fetch_inc(&lkb->lkb_wait_count);
++	DLM_ASSERT(!wc, dlm_print_lkb(lkb); printk("wait_count %d\n", wc););
+ 	lkb->lkb_wait_type = mstype;
+ 	lkb->lkb_wait_nodeid = to_nodeid; /* for debugging */
+ 	hold_lkb(lkb);
+@@ -1504,7 +1502,7 @@ static int _remove_from_waiters(struct dlm_lkb *lkb, int mstype,
+ 		log_debug(ls, "remwait %x convert_reply zap overlap_cancel",
+ 			  lkb->lkb_id);
+ 		lkb->lkb_wait_type = 0;
+-		lkb->lkb_wait_count--;
++		atomic_dec(&lkb->lkb_wait_count);
+ 		unhold_lkb(lkb);
+ 		goto out_del;
+ 	}
+@@ -1531,16 +1529,15 @@ static int _remove_from_waiters(struct dlm_lkb *lkb, int mstype,
+ 	if (overlap_done && lkb->lkb_wait_type) {
+ 		log_error(ls, "remwait error %x reply %d wait_type %d overlap",
+ 			  lkb->lkb_id, mstype, lkb->lkb_wait_type);
+-		lkb->lkb_wait_count--;
++		atomic_dec(&lkb->lkb_wait_count);
+ 		unhold_lkb(lkb);
+ 		lkb->lkb_wait_type = 0;
+ 	}
+ 
+-	DLM_ASSERT(lkb->lkb_wait_count, dlm_print_lkb(lkb););
++	DLM_ASSERT(atomic_read(&lkb->lkb_wait_count), dlm_print_lkb(lkb););
+ 
+ 	clear_bit(DLM_IFL_RESEND_BIT, &lkb->lkb_iflags);
+-	lkb->lkb_wait_count--;
+-	if (!lkb->lkb_wait_count)
++	if (atomic_dec_and_test(&lkb->lkb_wait_count))
+ 		list_del_init(&lkb->lkb_wait_reply);
+ 	unhold_lkb(lkb);
  	return 0;
-@@ -370,11 +385,19 @@ static void clear_memb_list(struct list_head *head,
- 	}
- }
+@@ -2669,7 +2666,7 @@ static int validate_lock_args(struct dlm_ls *ls, struct dlm_lkb *lkb,
+ 			goto out;
  
--static void clear_members_cb(int nodeid)
-+static void remove_remote_member(int nodeid)
- {
-+	if (nodeid == dlm_our_nodeid())
-+		return;
+ 		/* lock not allowed if there's any op in progress */
+-		if (lkb->lkb_wait_type || lkb->lkb_wait_count)
++		if (lkb->lkb_wait_type || atomic_read(&lkb->lkb_wait_count))
+ 			goto out;
+ 
+ 		if (is_overlap(lkb))
+@@ -2731,7 +2728,7 @@ static int validate_unlock_args(struct dlm_lkb *lkb, struct dlm_args *args)
+ 
+ 	/* normal unlock not allowed if there's any op in progress */
+ 	if (!(args->flags & (DLM_LKF_CANCEL | DLM_LKF_FORCEUNLOCK)) &&
+-	    (lkb->lkb_wait_type || lkb->lkb_wait_count))
++	    (lkb->lkb_wait_type || atomic_read(&lkb->lkb_wait_count)))
+ 		goto out;
+ 
+ 	/* an lkb may be waiting for an rsb lookup to complete where the
+@@ -5066,10 +5063,9 @@ int dlm_recover_waiters_post(struct dlm_ls *ls)
+ 		/* drop all wait_count references we still
+ 		 * hold a reference for this iteration.
+ 		 */
+-		while (lkb->lkb_wait_count) {
+-			lkb->lkb_wait_count--;
++		while (!atomic_dec_and_test(&lkb->lkb_wait_count))
+ 			unhold_lkb(lkb);
+-		}
 +
- 	dlm_midcomms_remove_member(nodeid);
- }
- 
-+static void clear_members_cb(int nodeid)
-+{
-+	remove_remote_member(nodeid);
-+}
-+
- void dlm_clear_members(struct dlm_ls *ls)
- {
- 	clear_memb_list(&ls->ls_nodes, clear_members_cb);
-@@ -562,7 +585,7 @@ int dlm_recover_members(struct dlm_ls *ls, struct dlm_recover *rv, int *neg_out)
- 
- 		neg++;
- 		list_move(&memb->list, &ls->ls_nodes_gone);
--		dlm_midcomms_remove_member(memb->nodeid);
-+		remove_remote_member(memb->nodeid);
- 		ls->ls_num_nodes--;
- 		dlm_lsop_recover_slot(ls, memb);
- 	}
-diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
-index 3df916a568ba..9c66cb853d17 100644
---- a/fs/dlm/midcomms.c
-+++ b/fs/dlm/midcomms.c
-@@ -1280,9 +1280,6 @@ void dlm_midcomms_add_member(int nodeid)
- 	struct midcomms_node *node;
- 	int idx;
- 
--	if (nodeid == dlm_our_nodeid())
--		return;
--
- 	idx = srcu_read_lock(&nodes_srcu);
- 	node = nodeid2node(nodeid, GFP_NOFS);
- 	if (!node) {
-@@ -1328,9 +1325,6 @@ void dlm_midcomms_remove_member(int nodeid)
- 	struct midcomms_node *node;
- 	int idx;
- 
--	if (nodeid == dlm_our_nodeid())
--		return;
--
- 	idx = srcu_read_lock(&nodes_srcu);
- 	node = nodeid2node(nodeid, 0);
- 	if (!node) {
-@@ -1487,9 +1481,6 @@ int dlm_midcomms_close(int nodeid)
- 	struct midcomms_node *node;
- 	int idx, ret;
- 
--	if (nodeid == dlm_our_nodeid())
--		return 0;
--
- 	idx = srcu_read_lock(&nodes_srcu);
- 	/* Abort pending close/remove operation */
- 	node = nodeid2node(nodeid, 0);
+ 		mutex_lock(&ls->ls_waiters_mutex);
+ 		list_del_init(&lkb->lkb_wait_reply);
+ 		mutex_unlock(&ls->ls_waiters_mutex);
 -- 
 2.31.1
 
