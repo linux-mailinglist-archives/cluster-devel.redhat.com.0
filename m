@@ -1,69 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D0A717982
-	for <lists+cluster-devel@lfdr.de>; Wed, 31 May 2023 10:04:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CA007178F7
+	for <lists+cluster-devel@lfdr.de>; Wed, 31 May 2023 09:52:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685520299;
+	s=mimecast20190719; t=1685519532;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=11fdSgTG4jIa+lyPH9HFZjOssjJQOFkzGuhPffE88Ak=;
-	b=A9GSNLHr4IyOBzAFhgYKXBFZYQBqeggrjENVdIbO8lWh9nIiJkS8jFo5fcSwZ8kQZiz20J
-	pXLeGJQHEPaIi5JmojF9zN5bk1lGdqgbB5XrjK7OFvKpxKtPwlx/7wsPQVsQQI0VQX0fca
-	gQZoclDYvSeBz9anRcMS7dBhvwvRNOY=
+	bh=2D8XoARsLusIaNOTQgxJjzpyZIj7rnVFP+jfuTSd/MY=;
+	b=howiBEPspa5vLsSh4OuIhFXKyOfuVoGPsJ/qFifU2+wutyLIcCnKDuuBvIddd/AE2bKhmi
+	rjqHZKUdnwKjlFvwMyThpn5D5xxlwe/tcPBnMYq3vWFnBlnmjh/FnR15lHYx854X8xmenp
+	xWvXdZo/pxuJxKF7KpuFL6EbDXkaYoE=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-324-HOagZZFSNvmgB9MORqS9wA-1; Wed, 31 May 2023 04:04:54 -0400
-X-MC-Unique: HOagZZFSNvmgB9MORqS9wA-1
+ us-mta-675-MkSalqv9PqK67bBhERR8rw-1; Wed, 31 May 2023 03:52:09 -0400
+X-MC-Unique: MkSalqv9PqK67bBhERR8rw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C7923C13506;
-	Wed, 31 May 2023 08:04:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 521A71C05153;
+	Wed, 31 May 2023 07:52:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4EAF62166B25;
-	Wed, 31 May 2023 08:04:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4430B2166B25;
+	Wed, 31 May 2023 07:52:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 163D419465B6;
-	Wed, 31 May 2023 08:04:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0F53619465A8;
+	Wed, 31 May 2023 07:52:03 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A63F21946595 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 31 May 2023 07:50:59 +0000 (UTC)
+ ESMTP id 0C5791946595 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 31 May 2023 07:51:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7E84D140E963; Wed, 31 May 2023 07:50:59 +0000 (UTC)
+ id F1737492B0B; Wed, 31 May 2023 07:51:10 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7592A140E962
- for <cluster-devel@redhat.com>; Wed, 31 May 2023 07:50:59 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E9AD0492B0A
+ for <cluster-devel@redhat.com>; Wed, 31 May 2023 07:51:10 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A960800888
- for <cluster-devel@redhat.com>; Wed, 31 May 2023 07:50:59 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC578800888
+ for <cluster-devel@redhat.com>; Wed, 31 May 2023 07:51:10 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-348-DX8jSC8cMRmfk_sBLUB0Ig-1; Wed, 31 May 2023 03:50:55 -0400
-X-MC-Unique: DX8jSC8cMRmfk_sBLUB0Ig-1
+ us-mta-81-iPqhFWaZP9qEwPdCS83xDA-1; Wed, 31 May 2023 03:51:09 -0400
+X-MC-Unique: iPqhFWaZP9qEwPdCS83xDA-1
 Received: from [2001:4bb8:182:6d06:f5c3:53d7:b5aa:b6a7] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q4Gbc-00GVv5-2z; Wed, 31 May 2023 07:50:53 +0000
+ id 1q4Gbf-00GVxd-1r; Wed, 31 May 2023 07:50:55 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Matthew Wilcox <willy@infradead.org>
-Date: Wed, 31 May 2023 09:50:23 +0200
-Message-Id: <20230531075026.480237-10-hch@lst.de>
+Date: Wed, 31 May 2023 09:50:24 +0200
+Message-Id: <20230531075026.480237-11-hch@lst.de>
 In-Reply-To: <20230531075026.480237-1-hch@lst.de>
 References: <20230531075026.480237-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [Cluster-devel] [PATCH 09/12] fs: factor out a
- direct_write_fallback helper
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [Cluster-devel] [PATCH 10/12] fuse: update ki_pos in
+ fuse_perform_write
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,166 +110,82 @@ X-Mimecast-Originator: lst.de
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Add a helper dealing with handling the syncing of a buffered write fallback
-for direct I/O.
+Both callers of fuse_perform_write need to updated ki_pos, move it into
+common code.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 ---
- fs/libfs.c         | 41 ++++++++++++++++++++++++++++
- include/linux/fs.h |  2 ++
- mm/filemap.c       | 66 +++++++++++-----------------------------------
- 3 files changed, 58 insertions(+), 51 deletions(-)
+ fs/fuse/file.c | 23 ++++++++++-------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 89cf614a327158..5b851315eeed03 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -1613,3 +1613,44 @@ u64 inode_query_iversion(struct inode *inode)
- 	return cur >> I_VERSION_QUERIED_SHIFT;
- }
- EXPORT_SYMBOL(inode_query_iversion);
-+
-+ssize_t direct_write_fallback(struct kiocb *iocb, struct iov_iter *iter,
-+		ssize_t direct_written, ssize_t buffered_written)
-+{
-+	struct address_space *mapping = iocb->ki_filp->f_mapping;
-+	loff_t pos = iocb->ki_pos - buffered_written;
-+	loff_t end = iocb->ki_pos - 1;
-+	int err;
-+
-+	/*
-+	 * If the buffered write fallback returned an error, we want to return
-+	 * the number of bytes which were written by direct I/O, or the error
-+	 * code if that was zero.
-+	 *
-+	 * Note that this differs from normal direct-io semantics, which will
-+	 * return -EFOO even if some bytes were written.
-+	 */
-+	if (unlikely(buffered_written < 0)) {
-+		if (direct_written)
-+			return direct_written;
-+		return buffered_written;
-+	}
-+
-+	/*
-+	 * We need to ensure that the page cache pages are written to disk and
-+	 * invalidated to preserve the expected O_DIRECT semantics.
-+	 */
-+	err = filemap_write_and_wait_range(mapping, pos, end);
-+	if (err < 0) {
-+		/*
-+		 * We don't know how much we wrote, so just return the number of
-+		 * bytes which were direct-written
-+		 */
-+		if (direct_written)
-+			return direct_written;
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 97d435874b14aa..e60e48bf392d49 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -1329,7 +1329,10 @@ static ssize_t fuse_perform_write(struct kiocb *iocb,
+ 	fuse_write_update_attr(inode, pos, res);
+ 	clear_bit(FUSE_I_SIZE_UNSTABLE, &fi->state);
+ 
+-	return res > 0 ? res : err;
++	if (!res)
 +		return err;
-+	}
-+	invalidate_mapping_pages(mapping, pos >> PAGE_SHIFT, end >> PAGE_SHIFT);
-+	return direct_written + buffered_written;
-+}
-+EXPORT_SYMBOL_GPL(direct_write_fallback);
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 91021b4e1f6f48..6af25137543824 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2738,6 +2738,8 @@ extern ssize_t __generic_file_write_iter(struct kiocb *, struct iov_iter *);
- extern ssize_t generic_file_write_iter(struct kiocb *, struct iov_iter *);
- extern ssize_t generic_file_direct_write(struct kiocb *, struct iov_iter *);
- ssize_t generic_perform_write(struct kiocb *, struct iov_iter *);
-+ssize_t direct_write_fallback(struct kiocb *iocb, struct iov_iter *iter,
-+		ssize_t direct_written, ssize_t buffered_written);
++	iocb->ki_pos += res;
++	return res;
+ }
  
- ssize_t vfs_iter_read(struct file *file, struct iov_iter *iter, loff_t *ppos,
- 		rwf_t flags);
-diff --git a/mm/filemap.c b/mm/filemap.c
-index ddb6f8aa86d6ca..137508da5525b6 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -4006,23 +4006,19 @@ ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- {
- 	struct file *file = iocb->ki_filp;
- 	struct address_space *mapping = file->f_mapping;
--	struct inode 	*inode = mapping->host;
--	ssize_t		written = 0;
--	ssize_t		err;
--	ssize_t		status;
-+	struct inode *inode = mapping->host;
-+	ssize_t ret;
+ static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
+@@ -1341,7 +1344,6 @@ static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 	struct inode *inode = mapping->host;
+ 	ssize_t err;
+ 	struct fuse_conn *fc = get_fuse_conn(inode);
+-	loff_t endbyte = 0;
  
--	err = file_remove_privs(file);
--	if (err)
--		goto out;
-+	ret = file_remove_privs(file);
-+	if (ret)
-+		return ret;
- 
--	err = file_update_time(file);
--	if (err)
--		goto out;
-+	ret = file_update_time(file);
-+	if (ret)
-+		return ret;
+ 	if (fc->writeback_cache) {
+ 		/* Update size (EOF optimization) and mode (SUID clearing) */
+@@ -1375,19 +1377,20 @@ static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		goto out;
  
  	if (iocb->ki_flags & IOCB_DIRECT) {
--		loff_t pos, endbyte;
--
--		written = generic_file_direct_write(iocb, from);
-+		ret = generic_file_direct_write(iocb, from);
- 		/*
- 		 * If the write stopped short of completing, fall back to
- 		 * buffered writes.  Some filesystems do this for writes to
-@@ -4030,45 +4026,13 @@ ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 * not succeed (even if it did, DAX does not handle dirty
- 		 * page-cache pages correctly).
- 		 */
--		if (written < 0 || !iov_iter_count(from) || IS_DAX(inode))
--			goto out;
--
--		pos = iocb->ki_pos;
--		status = generic_perform_write(iocb, from);
--		/*
--		 * If generic_perform_write() returned a synchronous error
--		 * then we want to return the number of bytes which were
--		 * direct-written, or the error code if that was zero.  Note
--		 * that this differs from normal direct-io semantics, which
--		 * will return -EFOO even if some bytes were written.
--		 */
--		if (unlikely(status < 0)) {
--			err = status;
--			goto out;
--		}
--		/*
--		 * We need to ensure that the page cache pages are written to
--		 * disk and invalidated to preserve the expected O_DIRECT
--		 * semantics.
--		 */
--		endbyte = pos + status - 1;
--		err = filemap_write_and_wait_range(mapping, pos, endbyte);
--		if (err == 0) {
--			written += status;
--			invalidate_mapping_pages(mapping,
--						 pos >> PAGE_SHIFT,
--						 endbyte >> PAGE_SHIFT);
--		} else {
--			/*
--			 * We don't know how much we wrote, so just return
--			 * the number of bytes which were direct-written
--			 */
--		}
--	} else {
--		written = generic_perform_write(iocb, from);
-+		if (ret < 0 || !iov_iter_count(from) || IS_DAX(inode))
-+			return ret;
-+		return direct_write_fallback(iocb, from, ret,
-+				generic_perform_write(iocb, from));
- 	}
--out:
--	return written ? written : err;
+-		loff_t pos = iocb->ki_pos;
++		loff_t pos, endbyte;
 +
-+	return generic_perform_write(iocb, from);
+ 		written = generic_file_direct_write(iocb, from);
+ 		if (written < 0 || !iov_iter_count(from))
+ 			goto out;
+ 
+-		pos += written;
+-
+-		written_buffered = fuse_perform_write(iocb, mapping, from, pos);
++		written_buffered = fuse_perform_write(iocb, mapping, from,
++						      iocb->ki_pos);
+ 		if (written_buffered < 0) {
+ 			err = written_buffered;
+ 			goto out;
+ 		}
+-		endbyte = pos + written_buffered - 1;
++		pos = iocb->ki_pos - written_buffered;
++		endbyte = iocb->ki_pos - 1;
+ 
+ 		err = filemap_write_and_wait_range(file->f_mapping, pos,
+ 						   endbyte);
+@@ -1399,17 +1402,11 @@ static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 					 endbyte >> PAGE_SHIFT);
+ 
+ 		written += written_buffered;
+-		iocb->ki_pos = pos + written_buffered;
+ 	} else {
+ 		written = fuse_perform_write(iocb, mapping, from, iocb->ki_pos);
+-		if (written >= 0)
+-			iocb->ki_pos += written;
+ 	}
+ out:
+ 	inode_unlock(inode);
+-	if (written > 0)
+-		written = generic_write_sync(iocb, written);
+-
+ 	return written ? written : err;
  }
- EXPORT_SYMBOL(__generic_file_write_iter);
  
 -- 
 2.39.2
