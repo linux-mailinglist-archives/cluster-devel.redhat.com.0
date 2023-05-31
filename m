@@ -2,87 +2,87 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21040717BD4
-	for <lists+cluster-devel@lfdr.de>; Wed, 31 May 2023 11:25:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A9C3717BC6
+	for <lists+cluster-devel@lfdr.de>; Wed, 31 May 2023 11:23:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685525131;
+	s=mimecast20190719; t=1685525029;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=ISkp7pEP+0sRQxyl+Kb79Eh0f1S6sp18TmXfWBaAyu4=;
-	b=UvpF3mR0ZkDnqKKPST4YWZlSQV2F4//OxwrN9N7HGMdHV5Dh4mhIzpXMpMfChg6TZjtXPy
-	xaqSx34sgTTYjgEwqEgQdVIRZcr8bcUwWH+LvR1zUANzJhAP7qURmugYbRyPzoucBK6zx+
-	/ArcV2uq3PLtyCwMrVEha5oPKFJhlro=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=T/bYqGFJ4VOGoB5+32Mcq8JR70Vd1T1ITCSeV7/3ifk=;
+	b=WVnMMuRGKH6MH+fUhxnRxd6ECVWdoHvJkl61DPoe6voIMYLwfEalk2kQDM3nrr+eim22Yx
+	LYKKpSnAfS8CobjD5dmZpioJ0f+PS/2HdveD8GdvxqQ1wI61+d4+rAJKe+T+b1fWXiey9A
+	zTs4UAdzkidGGVYj1P/+XZWRYbu7Xsc=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-13-MTiln_saNEmk_TZZ0PB1ag-1; Wed, 31 May 2023 05:25:28 -0400
-X-MC-Unique: MTiln_saNEmk_TZZ0PB1ag-1
+ us-mta-389-P_FUeJqOPn23-Mev6L7z2w-1; Wed, 31 May 2023 05:23:45 -0400
+X-MC-Unique: P_FUeJqOPn23-Mev6L7z2w-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33A032800C5D;
-	Wed, 31 May 2023 09:25:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B041D800B35;
+	Wed, 31 May 2023 09:23:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 270BF492B00;
-	Wed, 31 May 2023 09:25:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 95AB2492B00;
+	Wed, 31 May 2023 09:23:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7C4D919451C0;
-	Wed, 31 May 2023 09:25:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E7D819465A8;
+	Wed, 31 May 2023 09:23:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EE7FD1946595 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 31 May 2023 09:11:28 +0000 (UTC)
+ ESMTP id C94351946595 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 31 May 2023 09:15:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CFED1420AA; Wed, 31 May 2023 09:11:28 +0000 (UTC)
+ id B5546492B0E; Wed, 31 May 2023 09:15:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C8993420A8
- for <cluster-devel@redhat.com>; Wed, 31 May 2023 09:11:28 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id ADEBB492B0C
+ for <cluster-devel@redhat.com>; Wed, 31 May 2023 09:15:43 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8E45380350A
- for <cluster-devel@redhat.com>; Wed, 31 May 2023 09:11:28 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8FD54101A531
+ for <cluster-devel@redhat.com>; Wed, 31 May 2023 09:15:43 +0000 (UTC)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-313-_TL2M6E4Pb2-7HU5ujp7Ig-1; Wed, 31 May 2023 05:11:26 -0400
-X-MC-Unique: _TL2M6E4Pb2-7HU5ujp7Ig-1
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-5149e65c244so4582626a12.3
- for <cluster-devel@redhat.com>; Wed, 31 May 2023 02:11:26 -0700 (PDT)
+ us-mta-604-OZG2Q34zNVu84RsTvW0pFQ-1; Wed, 31 May 2023 05:15:39 -0400
+X-MC-Unique: OZG2Q34zNVu84RsTvW0pFQ-1
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-96fd3a658eeso789512266b.1
+ for <cluster-devel@redhat.com>; Wed, 31 May 2023 02:15:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685524285; x=1688116285;
+ d=1e100.net; s=20221208; t=1685524538; x=1688116538;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ISkp7pEP+0sRQxyl+Kb79Eh0f1S6sp18TmXfWBaAyu4=;
- b=M02QtZzUdRNIgpZpy0+89bwNJiA+UtS++WqIbJK40dAQe6bIua8OoW+HHul90OSnKK
- Qt35oHKVtPzYzKtirPSinmitXn1xBt0bDsAcuPsfSKdN2bE91CIp+AJQuRiBwLfNr1yy
- YKbQXEBXGzf7vKkf3QesYY3oniEYpDpJz0LQ8teBWC+5c1h/ts0ZYHc/EE5jzECAMFpr
- B7hCFnZAHqTOkxMRclw4mAS50mlepKDdl+9LIjBRRJY30AgiLKfhMoqxAYDd3ybYoa5l
- NC9MjbWxPuKW41CJ9sDyURNnijGN/++pyVNAFQO8N21P6A/Gf+yNqR2OHg0/AwCoXk/T
- f1Yw==
-X-Gm-Message-State: AC+VfDzjnKBhji8XqIyNFJE7SmZhAteTbruLmNkJVPUjmdO+RfUJqvlF
- Syhl/uJCdACpbe1FzCEu2VETFmZpCKHfg/0a3kn3cA==
-X-Google-Smtp-Source: ACHHUZ7qS7TmWM4+gPdkrDhL0bqZjnQfi2Xy2fkSny6o4W3m4Wn8XiF4R2Jdbdnsml8nAyt9sFK0bEVdcGYNFEZCdMs=
-X-Received: by 2002:a17:907:7f23:b0:969:9fd0:7ce7 with SMTP id
- qf35-20020a1709077f2300b009699fd07ce7mr5700403ejc.11.1685524285339; Wed, 31
- May 2023 02:11:25 -0700 (PDT)
+ bh=T/bYqGFJ4VOGoB5+32Mcq8JR70Vd1T1ITCSeV7/3ifk=;
+ b=LMstGNGVf5//a+d152UHgd+twG9PumlXCS3aSHKyIJTLdcEX1oi2v3nuf+ERKSfGXp
+ BUfYYh68xde+AZWLCIaE6NUkDsrLF2/yKNbpKGtRjb8DGP+K6H8Gcz8wrld+oAbDjts/
+ fuVV2vvixnweVLb4meDVITYWqXA215agYawAcs/x+sbzDUBoF6c6LFf3AXFMmJgS82Yl
+ tDzR6LF7RH0jAm5Oc/E1rjOFA6mXeiNMf8e8HaUntdQ6ioiNBfpA8n/mLJ6LOw8sq7Gh
+ CkyTZMzsNKPW3JmTdg8NEjAf9t7RzGYXWiq1dA8nmlBvBq4y5mvZKo/8V84ruh24/zX5
+ AXug==
+X-Gm-Message-State: AC+VfDxe71V9c52lAB76hI+6J5sXtri2Q2L/mNyf6Kb5m61osZTkehVl
+ hx7EJ74qzohY9u9Y3t/1rWcjLJGZsvtKiLl4dwsWcA==
+X-Google-Smtp-Source: ACHHUZ4+FWciM8qyJY0wuGopESAGDBSeuypok3sj/I3YbiV8yhFjyVDeVyjcnaAR9QRVCUk4jCbe3rFAcVDPPt68Cvo=
+X-Received: by 2002:a17:906:9756:b0:967:21:5887 with SMTP id
+ o22-20020a170906975600b0096700215887mr4163471ejy.40.1685524538465; Wed, 31
+ May 2023 02:15:38 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230531075026.480237-1-hch@lst.de>
- <20230531075026.480237-11-hch@lst.de>
-In-Reply-To: <20230531075026.480237-11-hch@lst.de>
+ <20230531075026.480237-10-hch@lst.de>
+In-Reply-To: <20230531075026.480237-10-hch@lst.de>
 From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Wed, 31 May 2023 11:11:13 +0200
-Message-ID: <CAJfpegth2z06pAH5K5vxRsy1PqygBD=ShiQxoYGqjmJPvk1-aQ@mail.gmail.com>
+Date: Wed, 31 May 2023 11:15:27 +0200
+Message-ID: <CAJfpegtPM_=3uGdxxkb9xP8LVg5P0Lm-w4TNLYhw+MqcNi8c1g@mail.gmail.com>
 To: Christoph Hellwig <hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -91,9 +91,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [Cluster-devel] [PATCH 10/12] fuse: update ki_pos in
- fuse_perform_write
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [Cluster-devel] [PATCH 09/12] fs: factor out a
+ direct_write_fallback helper
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,87 +124,12 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: szeredi.hu
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 31 May 2023 at 09:51, Christoph Hellwig <hch@lst.de> wrote:
+On Wed, 31 May 2023 at 09:50, Christoph Hellwig <hch@lst.de> wrote:
 >
-> Both callers of fuse_perform_write need to updated ki_pos, move it into
-> common code.
+> Add a helper dealing with handling the syncing of a buffered write fallback
+> for direct I/O.
 >
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-> ---
->  fs/fuse/file.c | 23 ++++++++++-------------
->  1 file changed, 10 insertions(+), 13 deletions(-)
->
-> diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-> index 97d435874b14aa..e60e48bf392d49 100644
-> --- a/fs/fuse/file.c
-> +++ b/fs/fuse/file.c
-> @@ -1329,7 +1329,10 @@ static ssize_t fuse_perform_write(struct kiocb *iocb,
->         fuse_write_update_attr(inode, pos, res);
->         clear_bit(FUSE_I_SIZE_UNSTABLE, &fi->state);
->
-> -       return res > 0 ? res : err;
-> +       if (!res)
-> +               return err;
-> +       iocb->ki_pos += res;
-> +       return res;
->  }
->
->  static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
-> @@ -1341,7 +1344,6 @@ static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
->         struct inode *inode = mapping->host;
->         ssize_t err;
->         struct fuse_conn *fc = get_fuse_conn(inode);
-> -       loff_t endbyte = 0;
->
->         if (fc->writeback_cache) {
->                 /* Update size (EOF optimization) and mode (SUID clearing) */
-> @@ -1375,19 +1377,20 @@ static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
->                 goto out;
->
->         if (iocb->ki_flags & IOCB_DIRECT) {
-> -               loff_t pos = iocb->ki_pos;
-> +               loff_t pos, endbyte;
-> +
->                 written = generic_file_direct_write(iocb, from);
->                 if (written < 0 || !iov_iter_count(from))
->                         goto out;
->
-> -               pos += written;
-> -
-> -               written_buffered = fuse_perform_write(iocb, mapping, from, pos);
-> +               written_buffered = fuse_perform_write(iocb, mapping, from,
-> +                                                     iocb->ki_pos);
->                 if (written_buffered < 0) {
->                         err = written_buffered;
->                         goto out;
->                 }
-> -               endbyte = pos + written_buffered - 1;
-> +               pos = iocb->ki_pos - written_buffered;
-> +               endbyte = iocb->ki_pos - 1;
->
->                 err = filemap_write_and_wait_range(file->f_mapping, pos,
->                                                    endbyte);
-> @@ -1399,17 +1402,11 @@ static ssize_t fuse_cache_write_iter(struct kiocb *iocb, struct iov_iter *from)
->                                          endbyte >> PAGE_SHIFT);
->
->                 written += written_buffered;
-> -               iocb->ki_pos = pos + written_buffered;
->         } else {
->                 written = fuse_perform_write(iocb, mapping, from, iocb->ki_pos);
-> -               if (written >= 0)
-> -                       iocb->ki_pos += written;
->         }
->  out:
->         inode_unlock(inode);
-> -       if (written > 0)
-> -               written = generic_write_sync(iocb, written);
 
-Why remove generic_write_sync()?  Definitely doesn't belong in this
-patch even if there's a good reason.
-
-Sorry, didn't notice this in the last round.
-
-Thanks,
-Miklos
+Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
 
