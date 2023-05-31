@@ -2,86 +2,87 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05E2D716F0A
-	for <lists+cluster-devel@lfdr.de>; Tue, 30 May 2023 22:47:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C00717311
+	for <lists+cluster-devel@lfdr.de>; Wed, 31 May 2023 03:20:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685479628;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1685496051;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=f0FfbwKrs0SBrp2l9jpO6xZkWlpiXTIvCrrrNrQOtjU=;
-	b=GfhOwDZLxlJmyE7Mr3iD365o7pXTQ1/QyqwEkbW8dpV0e0lm1iE0nrIf2YXUR7ImD6Go90
-	hfET+PdS5mFoUk5owKtOtm5qFEcyMm4OjUbSWUVMlE6idpPtjjou6uIGV1WUjqgZi42vN8
-	BFSrVHMRg49ZntWJZM0eMmBNaW5BKHM=
+	bh=A01mJZWigLgezUnV+6dXqqpEC4ipjaiko+YjTTqLPGc=;
+	b=RQVKrwB72vwiX6TdxQqfgL0wIaoEzmRNnDW6F2xVmjegCcBu8nbWeWOXbBfW3k9tdI+1fb
+	T7wHGAnzWD9n4vhFUxGVk71OwPB4uN/zdba/5vG3M/FWRQ1rocraKwzpI9oV8QJ0Zt6Dw8
+	7pVb2v7k3wg7GeSoMo43OsXmm/MU+ic=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-48-TMGXxbwIO4SNLK4rb3h1NQ-1; Tue, 30 May 2023 16:47:05 -0400
-X-MC-Unique: TMGXxbwIO4SNLK4rb3h1NQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-156-XJNsu6dZPcesp1H_ASETwg-1; Tue, 30 May 2023 21:20:48 -0400
+X-MC-Unique: XJNsu6dZPcesp1H_ASETwg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE3C0811E7C;
-	Tue, 30 May 2023 20:47:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 213868032FA;
+	Wed, 31 May 2023 01:20:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 823F0492B00;
-	Tue, 30 May 2023 20:47:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A9DEB140EBD7;
+	Wed, 31 May 2023 01:20:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2536F19465A8;
-	Tue, 30 May 2023 20:47:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 33EC719465B2;
+	Wed, 31 May 2023 01:20:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 58A8E19465A0 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 30 May 2023 20:47:01 +0000 (UTC)
+ ESMTP id AB0641946595 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 31 May 2023 01:20:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 43FAF112132D; Tue, 30 May 2023 20:47:01 +0000 (UTC)
+ id 8825A40C2007; Wed, 31 May 2023 01:20:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CB01112132C
- for <cluster-devel@redhat.com>; Tue, 30 May 2023 20:47:01 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 801D840C2006
+ for <cluster-devel@redhat.com>; Wed, 31 May 2023 01:20:43 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
  [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1656980120A
- for <cluster-devel@redhat.com>; Tue, 30 May 2023 20:47:01 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-328-jmc7WPD0NRKYMjZAse595g-1; Tue, 30 May 2023 16:46:57 -0400
-X-MC-Unique: jmc7WPD0NRKYMjZAse595g-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 248DF62F78;
- Tue, 30 May 2023 20:41:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EDBC4339C;
- Tue, 30 May 2023 20:41:09 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2af189d323fso2841901fa.1; 
- Tue, 30 May 2023 13:41:09 -0700 (PDT)
-X-Gm-Message-State: AC+VfDx3a7J3jJqB/NPRTwWcePPW4DY0HrB3Vk8Fz4oZjg1rXppIt/h4
- SinK+Ft3pL506Fg/h10/3Tlrwe8SN0SIfx+Kqls=
-X-Google-Smtp-Source: ACHHUZ7vuf2vQNikh852gIOeYbs1mAspWrnHLpuRQ0WVk/9d/YVdWPAiSzLnXbcDRj80He113UbugMRuu4yM7AjsQxc=
-X-Received: by 2002:a2e:a222:0:b0:2af:18a9:782f with SMTP id
- i2-20020a2ea222000000b002af18a9782fmr4570675ljm.0.1685479267531; Tue, 30 May
- 2023 13:41:07 -0700 (PDT)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60A613C02194
+ for <cluster-devel@redhat.com>; Wed, 31 May 2023 01:20:43 +0000 (UTC)
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-486-Rg_WBqyLNIam6w8QB-N24A-1; Tue, 30 May 2023 21:20:34 -0400
+X-MC-Unique: Rg_WBqyLNIam6w8QB-N24A-1
+X-QQ-mid: bizesmtp81t1685496025tw3oxnvp
+Received: from [10.7.13.54] ( [113.200.76.118])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 31 May 2023 09:20:22 +0800 (CST)
+X-QQ-SSF: 01400000000000C0G000000A0000000
+X-QQ-FEAT: W+onFc5Tw4MXg9NmrArDYuEAjJHK4eL16p2bcGANAmu997qLZ+ujaV0s8Z1f/
+ Nzmi8pNaWsKZP3Jmi5RKnu6nb+dCbNyrwOCVF3RhlVA1YBbFzgt8Coml9Vf2MloZUnDRpkl
+ ADpUgJE8XNtjVow/bv7ZzhCNWk6I9WYmKFl0SSM5YLTrc8oT51rizMWMAPqdm1XDAhtCWWX
+ DTqIUQa3efIfkNOAZX6/Yw4UnTUT6YoTYppGEuFOveHR6P5KZuNwCsuXN+Ey1bBhqyCVvPN
+ eC3evk9wk+U3FfRn1CeZLX4tO4xCLND+a2cq7UCdAoJE6IMuJmrs5xNI56H1bmPeS+O61qR
+ RBvgLchUjYteu3Ao0qfjQZGWJn29WS3hcVcO44C5o7MX+jf/j0=
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 16526261309428552688
+Message-ID: <594B3D441ED28D0D+301afc15-d56d-4b9b-dc94-c97c658df05c@uniontech.com>
+Date: Wed, 31 May 2023 09:20:22 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+To: Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Jens Axboe <axboe@kernel.dk>
 References: <cover.1685461490.git.johannes.thumshirn@wdc.com>
- <d7cfd04d410accee4148d8c0e51230bcb8b4bb8f.1685461490.git.johannes.thumshirn@wdc.com>
-In-Reply-To: <d7cfd04d410accee4148d8c0e51230bcb8b4bb8f.1685461490.git.johannes.thumshirn@wdc.com>
-From: Song Liu <song@kernel.org>
-Date: Tue, 30 May 2023 13:40:55 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW6hZWx3Jx0UOc20mf06c5QS5vfDKF_nauzm0mLkr3Xhsw@mail.gmail.com>
-Message-ID: <CAPhsuW6hZWx3Jx0UOc20mf06c5QS5vfDKF_nauzm0mLkr3Xhsw@mail.gmail.com>
-To: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+ <f67cc9c310bed1e3c3302ea1c206da7d5ebc14cb.1685461490.git.johannes.thumshirn@wdc.com>
+From: Gou Hao <gouhao@uniontech.com>
+In-Reply-To: <f67cc9c310bed1e3c3302ea1c206da7d5ebc14cb.1685461490.git.johannes.thumshirn@wdc.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz7a-0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,9 +90,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Cluster-devel] [PATCH v6 13/20] md: check for failure when
- adding pages in alloc_behind_master_bio
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [Cluster-devel] [PATCH v6 04/20] fs: buffer: use __bio_add_page
+ to add single page to bio
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,10 +104,11 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
- Damien Le Moal <damien.lemoal@wdc.com>, cluster-devel@redhat.com,
- Chaitanya Kulkarni <kch@nvidia.com>, Dave Kleikamp <shaggy@kernel.org>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>, gouhao@uniontech.com,
+Reply-To: f67cc9c310bed1e3c3302ea1c206da7d5ebc14cb.1685461490.git.johannes.thumshirn@wdc.com
+Cc: linux-raid@vger.kernel.org, Damien Le Moal <damien.lemoal@wdc.com>,
+ cluster-devel@redhat.com, Chaitanya Kulkarni <kch@nvidia.com>,
+ Song Liu <song@kernel.org>, Dave Kleikamp <shaggy@kernel.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
  Mike Snitzer <snitzer@kernel.org>, jfs-discussion@lists.sourceforge.net,
  Matthew Wilcox <willy@infradead.org>, Ming Lei <ming.lei@redhat.com>,
  linux-block@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
@@ -114,49 +116,46 @@ Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: uniontech.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 30, 2023 at 8:50=E2=80=AFAM Johannes Thumshirn
-<johannes.thumshirn@wdc.com> wrote:
+On 5/30/23 23:49, Johannes Thumshirn wrote:
+
+> The buffer_head submission code uses bio_add_page() to add a page to a
+> newly created bio. bio_add_page() can fail, but the return value is never
+> checked.
 >
-> alloc_behind_master_bio() can possibly add multiple pages to a bio, but i=
-t
-> is not checking for the return value of bio_add_page() if adding really
-> succeeded.
+> Use __bio_add_page() as adding a single page to a newly created bio is
+> guaranteed to succeed.
 >
-> Check if the page adding succeeded and if not bail out.
+> This brings us a step closer to marking bio_add_page() as __must_check.
 >
 > Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 > Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 
-Acked-by: Song Liu <song@kernel.org>
+
+Reviewed-by: Gou Hao <gouhao@uniontech.com>
 
 > ---
->  drivers/md/raid1.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>   fs/buffer.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
 >
-> diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
-> index 68a9e2d9985b..8283ef177f6c 100644
-> --- a/drivers/md/raid1.c
-> +++ b/drivers/md/raid1.c
-> @@ -1147,7 +1147,10 @@ static void alloc_behind_master_bio(struct r1bio *=
-r1_bio,
->                 if (unlikely(!page))
->                         goto free_pages;
->
-> -               bio_add_page(behind_bio, page, len, 0);
-> +               if (!bio_add_page(behind_bio, page, len, 0)) {
-> +                       free_page(page);
-> +                       goto free_pages;
-> +               }
->
->                 size -=3D len;
->                 i++;
-> --
-> 2.40.1
->
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index a7fc561758b1..63da30ce946a 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -2760,8 +2760,7 @@ static void submit_bh_wbc(blk_opf_t opf, struct buffer_head *bh,
+>   
+>   	bio->bi_iter.bi_sector = bh->b_blocknr * (bh->b_size >> 9);
+>   
+> -	bio_add_page(bio, bh->b_page, bh->b_size, bh_offset(bh));
+> -	BUG_ON(bio->bi_iter.bi_size != bh->b_size);
+> +	__bio_add_page(bio, bh->b_page, bh->b_size, bh_offset(bh));
+>   
+>   	bio->bi_end_io = end_bio_bh_io_sync;
+>   	bio->bi_private = bh;
 
