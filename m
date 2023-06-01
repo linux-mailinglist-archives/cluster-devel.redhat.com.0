@@ -1,100 +1,104 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63A8971F243
-	for <lists+cluster-devel@lfdr.de>; Thu,  1 Jun 2023 20:46:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A9C771F2A8
+	for <lists+cluster-devel@lfdr.de>; Thu,  1 Jun 2023 21:10:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685645175;
+	s=mimecast20190719; t=1685646609;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=OhyufVORgAPdxy2e2nylP7DQVEhvcm7KBzR049ls10E=;
-	b=bizUSwEOitJLBb45uH+hTSgN+bGskhtMpNawfR8SfDO9wRwgifiZmbfthPCjzS1G/l177M
-	tK5Y6is/KelQfi1D89FVltkB2ikBzYf5TwgVfkYmIzrto0MTcXVFywPWioh2dEumgFXlpi
-	xx8LUCQsfl8Jmnm6+Xn7l3s2KnK2QE0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Vjd8ioINDjA1EPGsXxWeolFWL3diqjoeuqE82zMbAoo=;
+	b=SIdct01VAnjbXDaHBuuvTa6DlifqX2xoahnRbieU4in9WjZVG3Vew8kmlWLu/Ok9vvs2d0
+	zI9oL9HnffDW5aHxxtDVgy3tga/QYUjRCDN6dqTCAqGa/r5cb864Ya0M5Cpr0tF0H7UWow
+	w2V672bBBDOY5YKEj5WJL/Toys7GM3s=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-261-vGWvw17tOCmR6u-6hGKa7g-1; Thu, 01 Jun 2023 14:46:14 -0400
-X-MC-Unique: vGWvw17tOCmR6u-6hGKa7g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-558-4IJ49-NuPli41MNOgsapuA-1; Thu, 01 Jun 2023 15:10:08 -0400
+X-MC-Unique: 4IJ49-NuPli41MNOgsapuA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37E2E80331C;
-	Thu,  1 Jun 2023 18:46:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D15B380673A;
+	Thu,  1 Jun 2023 19:10:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4CFB740C6EC4;
-	Thu,  1 Jun 2023 18:46:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2BAB3112132C;
+	Thu,  1 Jun 2023 19:10:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 64A2219465B9;
-	Thu,  1 Jun 2023 18:46:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0A90A19465A2;
+	Thu,  1 Jun 2023 19:10:07 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 007AA194658C for <cluster-devel@listman.corp.redhat.com>;
- Thu,  1 Jun 2023 18:46:09 +0000 (UTC)
+ ESMTP id 162581946595 for <cluster-devel@listman.corp.redhat.com>;
+ Thu,  1 Jun 2023 19:10:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D679A112132E; Thu,  1 Jun 2023 18:46:09 +0000 (UTC)
+ id EE1C3C154DB; Thu,  1 Jun 2023 19:10:04 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CF28F112132C
- for <cluster-devel@redhat.com>; Thu,  1 Jun 2023 18:46:09 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E554CC154D7
+ for <cluster-devel@redhat.com>; Thu,  1 Jun 2023 19:10:04 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B35B1185A78E
- for <cluster-devel@redhat.com>; Thu,  1 Jun 2023 18:46:09 +0000 (UTC)
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com
- [209.85.219.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A427980231B
+ for <cluster-devel@redhat.com>; Thu,  1 Jun 2023 19:10:04 +0000 (UTC)
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-599-BF_DXO60OKmgAriKSlWKVw-1; Thu, 01 Jun 2023 14:46:08 -0400
-X-MC-Unique: BF_DXO60OKmgAriKSlWKVw-1
-Received: by mail-qv1-f51.google.com with SMTP id
- 6a1803df08f44-6261a25e9b6so10748606d6.0
- for <cluster-devel@redhat.com>; Thu, 01 Jun 2023 11:46:08 -0700 (PDT)
+ us-mta-466-L9XydRg8PKO_hHW6gWZCIA-1; Thu, 01 Jun 2023 15:10:03 -0400
+X-MC-Unique: L9XydRg8PKO_hHW6gWZCIA-1
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-96f83b44939so84710166b.1
+ for <cluster-devel@redhat.com>; Thu, 01 Jun 2023 12:10:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685645167; x=1688237167;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OhyufVORgAPdxy2e2nylP7DQVEhvcm7KBzR049ls10E=;
- b=NS/qcM2Ng297xldwFNNP+jiZdi810H4jNoOofeCwYAoWaDOC/oFL5F/PYZ42Nd+JDW
- Sbi+YqMrlPMx1RIKQCJ9ZzNMpBZdJfZumAP40NN1viu4+BooHA+7250inJXMQfzqBPY6
- k9z5fLge/GfW5+eZZCIPqQqJmbvbAj/r781qv2Cv0wDOh5WjvApPkUoktqvu4YXP1ANt
- xvXEc/DXzVEQokvYlqoCZJJofVBGpXDK98+6altDJC1/cQwLFdBdFqFV88UTVBPMAVhl
- hPOvSWQ1aZdc/Yo3XhP0ykxcbELpSL8LJTNSb1lXKCQ89b4EM2eMiV8bSftk85KH/cSs
- QVgA==
-X-Gm-Message-State: AC+VfDxwO08oZQAAaRmpDgzoXUKRT1Kc/NE9TLZzVlJ5MkYBfw4z9n7D
- OOfwLrutSvzS7yEdB5n9pvCqOxw=
-X-Google-Smtp-Source: ACHHUZ6u3xR1YiMGmuLlFSVcpQijECu4NK+3gxplM1YXFxd6uPbdqueU4kLpHglpcsupIu+Tz62ckA==
-X-Received: by 2002:a05:6214:aca:b0:625:b849:fa3 with SMTP id
- g10-20020a0562140aca00b00625b8490fa3mr11540334qvi.30.1685645167691; 
- Thu, 01 Jun 2023 11:46:07 -0700 (PDT)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- y3-20020ac87c83000000b003e89e2b3c23sm7940746qtv.58.2023.06.01.11.46.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 11:46:07 -0700 (PDT)
-Date: Thu, 1 Jun 2023 14:46:06 -0400
-From: Mike Snitzer <snitzer@kernel.org>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <ZHjnbkcpZ/yZWRsE@redhat.com>
-References: <20230502101934.24901-1-johannes.thumshirn@wdc.com>
- <20230502101934.24901-17-johannes.thumshirn@wdc.com>
- <alpine.LRH.2.21.2305301045220.3943@file01.intranet.prod.int.rdu2.redhat.com>
- <ZHYbIYxGbcXbpvIK@redhat.com>
- <alpine.LRH.2.21.2305301527410.18906@file01.intranet.prod.int.rdu2.redhat.com>
+ d=1e100.net; s=20221208; t=1685646602; x=1688238602;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Vjd8ioINDjA1EPGsXxWeolFWL3diqjoeuqE82zMbAoo=;
+ b=NuUX0w57PwucIq5ilpi5VPX1xRS5zmNPRfJu81g5LAK7DeDhIQQdbsqUCoPmxwAltz
+ LR8DanwDDHUMrtw0FPuuwZ43mIht124HtCuxrlBqJleuM3VXq32bjTrgCRYHJ+f2iVu/
+ yZ56tGfhLjTdFVA4DIUjKDApzDQ2eH8I434gMELG+g6eQiv/GsBy8IdsRtMW49LJJnBh
+ KOzklvW31dLOma8ko5zabnY2gtHNyoOagLIRmRDbm5Z/o7fL/0HFiELZLmEKHvDkjmn2
+ HP52q43uBYSlqdHfoZ1D4sRZdOSkzDLNJ0LSu8z8xF4KRFS+vL971PWvrLF+G0GTCng8
+ YS3A==
+X-Gm-Message-State: AC+VfDxafF5yI6YkvdlzEmPKpqs3p3AcZvZ6fVpM+gl0BCORx4LoRpH8
+ xBZDgAjuh+877sWCz34u0Y6sHbcSecnAdZ013uk42CwwXqQybEUPj5dHF3y6FokpLeuZAnznvr3
+ S37st/OBD3XBkrTU02DAJBTx7fiKNInvx5BNoCA==
+X-Received: by 2002:aa7:c249:0:b0:510:f44c:4b71 with SMTP id
+ y9-20020aa7c249000000b00510f44c4b71mr513437edo.27.1685646602060; 
+ Thu, 01 Jun 2023 12:10:02 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4Ul6p2kjTn2x0gO589Mzspbt+ulNNkhzz1vv3b3xQ74tnvOMZVih4b+zCloCS6Nx7lAVad0CD+MG1AsrF8Kjw=
+X-Received: by 2002:aa7:c249:0:b0:510:f44c:4b71 with SMTP id
+ y9-20020aa7c249000000b00510f44c4b71mr513429edo.27.1685646601753; Thu, 01 Jun
+ 2023 12:10:01 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.21.2305301527410.18906@file01.intranet.prod.int.rdu2.redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Cluster-devel] [PATCH v5 16/20] dm-crypt: check if adding
- pages to clone bio fails
+References: <20230524160204.1042858-1-aahringo@redhat.com>
+ <CAHc6FU7vaQmbwzL7Memu9YpsqXM9Ay4Mj52pDpkG6UdXw6hKVg@mail.gmail.com>
+ <CAK-6q+gvSO-MRMUPrGVzkO+ki48itzTjnaUC6t_4a+jUs2xV7w@mail.gmail.com>
+ <CAHc6FU4BCSFk+St-cndUr24Gb1g1K1DEAiKkMy-Z-SxLjhPM=w@mail.gmail.com>
+ <CAK-6q+i8z6WEf5fEGgbcbMi6ffB12UnegPXxjAVJ7-Gxe4S=Bw@mail.gmail.com>
+ <CAHc6FU4Y18NUL_D0mtLpY41pNXqdqK6ykPJSTGhg5ou=wQij2w@mail.gmail.com>
+ <CAK-6q+i5-fUX=fYASjn4BbFKWYgTQ9DFP3cCYeQxJDuZ4pkCxw@mail.gmail.com>
+ <CAHc6FU5S-BO+8dJEcrzu8pQnHucC9kM7=ns6ThSze8zxqSXjpw@mail.gmail.com>
+In-Reply-To: <CAHc6FU5S-BO+8dJEcrzu8pQnHucC9kM7=ns6ThSze8zxqSXjpw@mail.gmail.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Thu, 1 Jun 2023 15:09:50 -0400
+Message-ID: <CAK-6q+ibn8MGgmTYHQz8pXtw2sbwaQ=fK-fGG0aYAbY36UPFuA@mail.gmail.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCHv2 dlm/next] fs: dlm: avoid F_SETLKW
+ plock op lookup collisions
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,71 +110,219 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: "axboe @ kernel . dk" <axboe@kernel.dk>, shaggy@kernel.org,
- damien.lemoal@wdc.com, cluster-devel@redhat.com, kch@nvidia.com,
- linux-mm@kvack.org, Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- jfs-discussion@lists.sourceforge.net, willy@infradead.org, ming.lei@redhat.com,
- linux-raid@vger.kernel.org, song@kernel.org, dm-devel@redhat.com,
- linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, hch@lst.de
+Cc: cluster-devel@redhat.com, stable@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 30 2023 at  3:43P -0400,
-Mikulas Patocka <mpatocka@redhat.com> wrote:
+Hi,
 
-> 
-> 
-> On Tue, 30 May 2023, Mike Snitzer wrote:
-> 
-> > On Tue, May 30 2023 at 11:13P -0400,
-> > Mikulas Patocka <mpatocka@redhat.com> wrote:
-> > 
-> > > Hi
-> > > 
-> > > I nack this. This just adds code that can't ever be executed.
-> > > 
-> > > dm-crypt already allocates enough entries in the vector (see "unsigned int 
-> > > nr_iovecs = (size + PAGE_SIZE - 1) >> PAGE_SHIFT;"), so bio_add_page can't 
-> > > fail.
-> > > 
-> > > If you want to add __must_check to bio_add_page, you should change the 
-> > > dm-crypt code to:
-> > > if (!bio_add_page(clone, page, len, 0)) {
-> > > 	WARN(1, "this can't happen");
-> > > 	return NULL;
-> > > }
-> > > and not write recovery code for a can't-happen case.
-> > 
-> > Thanks for the review Mikulas. But the proper way forward, in the
-> > context of this patchset, is to simply change bio_add_page() to
-> > __bio_add_page()
-> > 
-> > Subject becomes: "dm crypt: use __bio_add_page to add single page to clone bio"
-> > 
-> > And header can explain that "crypt_alloc_buffer() already allocates
-> > enough entries in the clone bio's vector, so bio_add_page can't fail".
-> > 
-> > Mike
-> 
-> Yes, __bio_add_page would look nicer. But bio_add_page can merge adjacent 
-> pages into a single bvec entry and __bio_add_page can't (I don't know how 
-> often the merging happens or what is the performance implication of 
-> non-merging).
-> 
-> I think that for the next merge window, we can apply this patch: 
-> https://listman.redhat.com/archives/dm-devel/2023-May/054046.html
-> which makes this discussion irrelevant. (you can change bio_add_page to 
-> __bio_add_page in it)
+On Thu, Jun 1, 2023 at 1:11=E2=80=AFPM Andreas Gruenbacher <agruenba@redhat=
+.com> wrote:
+>
+> On Thu, Jun 1, 2023 at 6:28=E2=80=AFPM Alexander Aring <aahringo@redhat.c=
+om> wrote:
+> > Hi,
+> >
+> > On Tue, May 30, 2023 at 1:40=E2=80=AFPM Andreas Gruenbacher <agruenba@r=
+edhat.com> wrote:
+> > >
+> > > On Tue, May 30, 2023 at 4:08=E2=80=AFPM Alexander Aring <aahringo@red=
+hat.com> wrote:
+> > > > Hi,
+> > > >
+> > > > On Tue, May 30, 2023 at 7:01=E2=80=AFAM Andreas Gruenbacher <agruen=
+ba@redhat.com> wrote:
+> > > > >
+> > > > > On Tue, May 30, 2023 at 12:19=E2=80=AFAM Alexander Aring <aahring=
+o@redhat.com> wrote:
+> > > > > > Hi,
+> > > > > >
+> > > > > > On Thu, May 25, 2023 at 11:02=E2=80=AFAM Andreas Gruenbacher
+> > > > > > <agruenba@redhat.com> wrote:
+> > > > > > >
+> > > > > > > On Wed, May 24, 2023 at 6:02=E2=80=AFPM Alexander Aring <aahr=
+ingo@redhat.com> wrote:
+> > > > > > > > This patch fixes a possible plock op collisions when using =
+F_SETLKW lock
+> > > > > > > > requests and fsid, number and owner are not enough to ident=
+ify a result
+> > > > > > > > for a pending request. The ltp testcases [0] and [1] are ex=
+amples when
+> > > > > > > > this is not enough in case of using classic posix locks wit=
+h threads and
+> > > > > > > > open filedescriptor posix locks.
+> > > > > > > >
+> > > > > > > > The idea to fix the issue here is to place all lock request=
+ in order. In
+> > > > > > > > case of non F_SETLKW lock request (indicated if wait is set=
+ or not) the
+> > > > > > > > lock requests are ordered inside the recv_list. If a result=
+ comes back
+> > > > > > > > the right plock op can be found by the first plock_op in re=
+cv_list which
+> > > > > > > > has not info.wait set. This can be done only by non F_SETLK=
+W plock ops as
+> > > > > > > > dlm_controld always reads a specific plock op (list_move_ta=
+il() from
+> > > > > > > > send_list to recv_mlist) and write the result immediately b=
+ack.
+> > > > > > > >
+> > > > > > > > This behaviour is for F_SETLKW not possible as multiple wai=
+ters can be
+> > > > > > > > get a result back in an random order. To avoid a collisions=
+ in cases
+> > > > > > > > like [0] or [1] this patch adds more fields to compare the =
+plock
+> > > > > > > > operations as the lock request is the same. This is also be=
+ing made in
+> > > > > > > > NFS to find an result for an asynchronous F_SETLKW lock req=
+uest [2][3]. We
+> > > > > > > > still can't find the exact lock request for a specific resu=
+lt if the
+> > > > > > > > lock request is the same, but if this is the case we don't =
+care the
+> > > > > > > > order how the identical lock requests get their result back=
+ to grant the
+> > > > > > > > lock.
+> > > > > > >
+> > > > > > > When the recv_list contains multiple indistinguishable reques=
+ts, this
+> > > > > > > can only be because they originated from multiple threads of =
+the same
+> > > > > > > process. In that case, I agree that it doesn't matter which o=
+f those
+> > > > > > > requests we "complete" in dev_write() as long as we only comp=
+lete one
+> > > > > > > request. We do need to compare the additional request fields =
+in
+> > > > > > > dev_write() to find a suitable request, so that makes sense a=
+s well.
+> > > > > > > We need to compare all of the fields that identify a request =
+(optype,
+> > > > > > > ex, wait, pid, nodeid, fsid, number, start, end, owner) to fi=
+nd the
+> > > > > > > "right" request (or in case there is more than one identical =
+request,
+> > > > > > > a "suitable" request).
+> > > > > > >
+> > > > > >
+> > > > > > In my "definition" why this works is as you said the "identical
+> > > > > > request". There is a more deeper definition of "when is a reque=
+st
+> > > > > > identical" and in my opinion it is here as: "A request A is ide=
+ntical
+> > > > > > to request B when they get granted under the same 'time'" which=
+ is all
+> > > > > > the fields you mentioned.
+> > > > > >
+> > > > > > Even with cancellation (F_SETLKW only) it does not matter which
+> > > > > > "identical request" you cancel because the kernel and user
+> > > > > > (dlm_controld) makes no relation between a lock request instanc=
+e. You
+> > > > > > need to have at least the same amount of "results" coming back =
+from
+> > > > > > user space as the amount you are waiting for a result for the s=
+ame
+> > > > > > "identical request".
+> > > > >
+> > > > > That's not incorrect per se, but cancellations create an addition=
+al
+> > > > > difficulty: they can either succeed or fail. To indicate that a
+> > > > > cancellation has succeeded, a new type of message can be introduc=
+ed
+> > > > > (say, "CANCELLED"), and it's obvious that a CANCELLED message can=
+ only
+> > > > > belong to a locking request that is being cancelled. When cancell=
+ing a
+> > > > > locking request fails, the kernel will see a "locking request gra=
+nted"
+> > > > > message though, and when multiple identical locking requests are
+> > > > > queued and only some of them have been cancelled, it won't be obv=
+ious
+> > > > > which locking request a "locking request granted" message should =
+be
+> > > > > assigned to anymore. You really don't want to mix things up in th=
+at
+> > > > > case.
+> > > > >
+> > > > > This complication makes it a whole lot more difficult to reason a=
+bout
+> > > > > the correctness of the code. All that complexity is avoidable by
+> > > > > sticking with a fixed mapping of requests and replies (i.e., a un=
+ique
+> > > > > request identifier).
+> > > > >
+> > > > > To put it differently, you can shoot yourself in the foot and sti=
+ll
+> > > > > hop along on the other leg, but it may not be the best of all pos=
+sible
+> > > > > ideas.
+> > > > >
+> > > >
+> > > > It makes things more complicated, I agree and the reason why this
+> > > > works now is because there are a lot of "dependencies". I would lov=
+e
+> > > > to have an unique identifier to make it possible that we can follow=
+ an
+> > > > instance handle of the original lock request.
+> > > >
+> > > > * an unique identifier which also works with the async lock request=
+ of
+> > > > lockd case.
+> > >
+> > > What's the lockd case you're referring to here, and why is it relevan=
+t
+> > > for the problem at hand?
+> >
+> > just mentioned that we need a solution which also works for the
+> > asynchronous lock request (F_SETLK, F_SETLKW) case, there is only one
+> > user lockd. [0] DLM plock handling implements the behaviour mentioned
+> > at [0] but lm_grant() callback can also return negative values and
+> > signals that the lock request was cancelled (on nfs layer) and then
+> > need to tell it DLM. This however is not supported as we have a lack
+> > of cancellation.
+>
+> Ouch, that's a bit messy. But if the vfs_lock_file() description is
+> accurate, then only F_SETLK requests arriving via lockd can be
+> asynchronous, and F_SETLKW requests never are asynchronous. And we
+> only need to cancel F_SETLKW requests. It follows that we only ever
+> need to cancel synchronous requests.
+>
 
-Yes, your patch is on my TODO list.  I've rebased my dm-6.5 branch on
-the latest block 6.5 branch.  I'll be reviewing/rebasing/applying your
-patch soon.
+I looked into the code and I think the second sentence of [0] is
+important regarding to F_SLEEP "Callers expecting ->lock() to return
+asynchronously will only use F_SETLK, not F_SETLKW; they will set
+FL_SLEEP if (and only if) the request is for a blocking lock.".
+If lockd does a lock request, it will then set args.wait to 1 if it
+was F_SETLKW [1]. The receiver will then create a blocking request [2]
+and set FL_SLEEP [3]; it does unset FL_SLEEP when args.wait (now as
+wait parameter) wasn't set. There is a case of [5] which unset wait
+again, but it seems we can end with FL_SLEEP there anyway.
 
-Mike
+I think we have currently an issue here that we handle F_SETLK when
+F_SLEEP (in case of async lockd request) is handled as trylock which
+isn't right. Don't ask me why they are going over F_SLEEP and F_SETLK
+and not just using F_SETLKW to signal that it is a blocking request.
+So we actually have the F_SETLKW case but it's just signaled with
+F_SETLK + FL_SLEEP?
+
+- Alex
+
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/fs/locks.c?h=3Dv6.4-rc4#n2255
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/fs/lockd/clntproc.c?h=3Dv6.4-rc4#n186
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/fs/lockd/svclock.c?h=3Dv6.4-rc4#n501
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/fs/lockd/svclock.c?h=3Dv6.4-rc4#n240
+[4] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/fs/lockd/svclock.c?h=3Dv6.4-rc4#n535
+[5] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/fs/lockd/svclock.c?h=3Dv6.4-rc4#n489
 
