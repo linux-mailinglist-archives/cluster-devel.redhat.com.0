@@ -2,99 +2,84 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EA6F721554
-	for <lists+cluster-devel@lfdr.de>; Sun,  4 Jun 2023 09:28:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3CEB7233ED
+	for <lists+cluster-devel@lfdr.de>; Tue,  6 Jun 2023 02:04:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685863693;
+	s=mimecast20190719; t=1686009869;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=iVM5jYUzZ2n66xWhGOhqwBQIXf/tDJSlaltfL9geA/4=;
-	b=CTFAClZjT/xLsWfEu9ILZHPOI+HwWfxvKZhHKg77IHd0l9rfvmQg6jc2NqZ5eL9cfFgigB
-	iB3m/Um4W21+0+vzpiQ2xiYQXgQ8licirHxhHgD/HFo/Ni3MHheJyTefwRckHHvS16OALI
-	P2n2ONZSx2vvGjLmIB395K9JI341G5I=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=f1c/PGvnM2AArs48812YAruot+zBOAvMou0BFxMQK/0=;
+	b=OTgHvmTa+Un81jY3YG8An3rCpU/RtOI1gcrHW545FavKydW4VRBtGKTzcSf4w9bhfuJjOk
+	Z/XFh6YLcCmymqd3hxWyF6E3nCEgSEjy03O3Zw0gV4bR9p2vN8+U89DnXfZCs1x/D4cCzg
+	e32Q447wiv5zUYTikie3gdh4kjiXa0w=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-207-uDSYjjFeMZuBWxSwx8YRJQ-1; Sun, 04 Jun 2023 03:28:10 -0400
-X-MC-Unique: uDSYjjFeMZuBWxSwx8YRJQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-601-r1-EF5liN7GEVs3Ad7mShA-1; Mon, 05 Jun 2023 20:04:24 -0400
+X-MC-Unique: r1-EF5liN7GEVs3Ad7mShA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6C96185A78F;
-	Sun,  4 Jun 2023 07:28:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 858092A2AD4A;
+	Tue,  6 Jun 2023 00:04:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 483712166B25;
-	Sun,  4 Jun 2023 07:28:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DBF392026D49;
+	Tue,  6 Jun 2023 00:04:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F3E8419465A3;
-	Sun,  4 Jun 2023 07:28:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 74B2F19465BA;
+	Tue,  6 Jun 2023 00:04:21 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3664D1946595 for <cluster-devel@listman.corp.redhat.com>;
- Sun,  4 Jun 2023 07:28:06 +0000 (UTC)
+ ESMTP id A06F81946595 for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  6 Jun 2023 00:04:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0489640C6CD7; Sun,  4 Jun 2023 07:28:06 +0000 (UTC)
+ id 8273D1121315; Tue,  6 Jun 2023 00:04:20 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F1B6E40C6EC4
- for <cluster-devel@redhat.com>; Sun,  4 Jun 2023 07:28:05 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B6D91121314
+ for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 00:04:20 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D634A3C025BC
- for <cluster-devel@redhat.com>; Sun,  4 Jun 2023 07:28:05 +0000 (UTC)
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-660-zWwarukGMaehgGluiNGSHg-1; Sun, 04 Jun 2023 03:28:02 -0400
-X-MC-Unique: zWwarukGMaehgGluiNGSHg-1
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-65320a6e904so848067b3a.0
- for <cluster-devel@redhat.com>; Sun, 04 Jun 2023 00:28:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685863681; x=1688455681;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iVM5jYUzZ2n66xWhGOhqwBQIXf/tDJSlaltfL9geA/4=;
- b=BJrE88Xp5vpGz/TJMCql4JavLPArfkjLz5cHZ6TLRaoURicKqKP6OD+c72RbUJqDMj
- yV83k2HIwkWp5uvyJ5PUp7P1pi2oKSF49YCY+OrTTpxTJJdPMgRAXP6ZGXmwN6ilCz7s
- AZDMhPh+bwuCaYQKYm/F1GTqfDzZQAD+1LrC3L9LTZe3nMEHqebEfEUCpQgxTYfPAc+6
- t8RY2HA0AWJV5O6wk3EXVy7T29QZSwwQQMYSMD5PynVb2B+WY67kyr8o1BEWMzi5ME0n
- qWskcosTnmPeUrSR2DMsaZ7XcqiscqTW7JuBWtVpN+ktWXO4zk9VkjknIEaZoNnVWtRA
- uxvQ==
-X-Gm-Message-State: AC+VfDw3V3xx5DOn93Olm5j8Ylycwk4dfGNQEdS5ftd6svwowGoLypJX
- o3jgkwpMy0HhR+IgJdl18iiYIB0PXn3ASip/smGVzsRrTtsa9F7KTOb8I5j6SbF4wgRiA6bMvvP
- auE87kgiIg6GLOV+m4HEGrUAaC7mtB3GsWivhrw==
-X-Received: by 2002:a05:6a20:918b:b0:114:9bbc:c32a with SMTP id
- v11-20020a056a20918b00b001149bbcc32amr1748400pzd.9.1685863681658; 
- Sun, 04 Jun 2023 00:28:01 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ69zmeOtpAI+1Goa2YbFwjYqdyUHtfJLDYR4bsav+OGtu2I8GoA18rJmxHu3V64/eooDGcRkZidtiojaLhnAgc=
-X-Received: by 2002:a05:6a20:918b:b0:114:9bbc:c32a with SMTP id
- v11-20020a056a20918b00b001149bbcc32amr1748392pzd.9.1685863681303; Sun, 04 Jun
- 2023 00:28:01 -0700 (PDT)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 603A6101A531
+ for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 00:04:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-466-qIfPsAzOPNyCJbfJzCa_cA-1; Mon, 05 Jun 2023 20:04:16 -0400
+X-MC-Unique: qIfPsAzOPNyCJbfJzCa_cA-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B14F762B4F;
+ Tue,  6 Jun 2023 00:04:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1C3C433D2;
+ Tue,  6 Jun 2023 00:04:15 +0000 (UTC)
+Date: Mon, 5 Jun 2023 17:04:14 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20230606000414.GJ1325469@frogsfrogsfrogs>
+References: <20230601145904.1385409-1-hch@lst.de>
+ <20230601145904.1385409-10-hch@lst.de>
 MIME-Version: 1.0
-References: <20230517032442.1135379-1-willy@infradead.org>
- <20230517032442.1135379-4-willy@infradead.org>
- <CAHc6FU4G1F1OXC233hT7_Vog9F8GNZyeLwsi+01USSXhFBNc_A@mail.gmail.com>
- <ZHwGhsDPYZQlYksK@casper.infradead.org>
-In-Reply-To: <ZHwGhsDPYZQlYksK@casper.infradead.org>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Sun, 4 Jun 2023 09:27:48 +0200
-Message-ID: <CAHc6FU470Aip5fTsg-8nWjK=p9ND=JCOMSTgxskQ=cwdxk7RtQ@mail.gmail.com>
-To: Matthew Wilcox <willy@infradead.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Cluster-devel] [PATCH 3/6] gfs2: Convert
- gfs2_write_jdata_page() to gfs2_write_jdata_folio()
+In-Reply-To: <20230601145904.1385409-10-hch@lst.de>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [Cluster-devel] [PATCH 09/12] fs: factor out a
+ direct_write_fallback helper
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,74 +91,199 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Hannes Reinecke <hare@suse.com>, cluster-devel <cluster-devel@redhat.com>,
- Luis Chamberlain <mcgrof@kernel.org>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, Miklos Szeredi <miklos@szeredi.hu>,
+ Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
+ Ilya Dryomov <idryomov@gmail.com>, linux-ext4@vger.kernel.org,
+ Miklos Szeredi <mszeredi@redhat.com>, Chao Yu <chao@kernel.org>,
+ linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
+ Damien Le Moal <dlemoal@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
+ Xiubo Li <xiubli@redhat.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ Theodore Ts'o <tytso@mit.edu>, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org, Anna Schumaker <anna@kernel.org>,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sun, Jun 4, 2023 at 5:38=E2=80=AFAM Matthew Wilcox <willy@infradead.org>=
- wrote:
->
-> On Sat, Jun 03, 2023 at 11:34:14AM +0200, Andreas Gruenbacher wrote:
-> > >   * This is the same as calling block_write_full_page, but it also
-> > >   * writes pages outside of i_size
-> > >   */
-> > > -static int gfs2_write_jdata_page(struct page *page,
-> > > +static int gfs2_write_jdata_folio(struct folio *folio,
-> > >                                  struct writeback_control *wbc)
-> > >  {
-> > > -       struct inode * const inode =3D page->mapping->host;
-> > > +       struct inode * const inode =3D folio->mapping->host;
-> > >         loff_t i_size =3D i_size_read(inode);
-> > > -       const pgoff_t end_index =3D i_size >> PAGE_SHIFT;
-> > > -       unsigned offset;
-> > >
-> > > +       if (folio_pos(folio) >=3D i_size)
-> > > +               return 0;
-> >
-> > Function gfs2_write_jdata_page was originally introduced as
-> > gfs2_write_full_page in commit fd4c5748b8d3 ("gfs2: writeout truncated
-> > pages") to allow writing pages even when they are beyond EOF, as the
-> > function description documents.
->
-> Well, that was stupid of me.
->
-> > This hack was added because simply skipping journaled pages isn't
-> > enough on gfs2; before a journaled page can be freed, it needs to be
-> > marked as "revoked" in the journal. Journal recovery will then skip
-> > the revoked blocks, which allows them to be reused for regular,
-> > non-journaled data. We can end up here in contexts in which we cannot
-> > "revoke" pages, so instead, we write the original pages even when they
-> > are beyond EOF. This hack could be revisited, but it's pretty nasty
-> > code to pick apart.
-> >
-> > So at least the above if needs to go for now.
->
-> Understood.  So we probably don't want to waste time zeroing the folio
-> if it is entirely beyond i_size, right?  Because at the moment we'd
-> zero some essentially random part of the folio if I just take out the
-> check.  Should it look like this?
->
->         if (folio_pos(folio) < i_size &&
->             i_size < folio_pos(folio) + folio_size(folio))
->                folio_zero_segment(folio, offset_in_folio(folio, i_size),
->                                 folio_size(folio));
+On Thu, Jun 01, 2023 at 04:59:01PM +0200, Christoph Hellwig wrote:
+> Add a helper dealing with handling the syncing of a buffered write fallback
+> for direct I/O.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+> Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
 
-Yes, looking good, thanks.
+Looks good to me; whose tree do you want this to go through?
 
-If you haven't already, could you please consider my other comment as
-well before you repost?
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 
-https://lore.kernel.org/linux-fsdevel/CAHc6FU6GowpTfX-MgRiqqwZZJ0r-85C9exc2=
-pNkBkySCGUT0FA@mail.gmail.com/
+--D
 
-Thanks,
-Andreas
+> ---
+>  fs/libfs.c         | 41 ++++++++++++++++++++++++++++
+>  include/linux/fs.h |  2 ++
+>  mm/filemap.c       | 66 +++++++++++-----------------------------------
+>  3 files changed, 58 insertions(+), 51 deletions(-)
+> 
+> diff --git a/fs/libfs.c b/fs/libfs.c
+> index 89cf614a327158..5b851315eeed03 100644
+> --- a/fs/libfs.c
+> +++ b/fs/libfs.c
+> @@ -1613,3 +1613,44 @@ u64 inode_query_iversion(struct inode *inode)
+>  	return cur >> I_VERSION_QUERIED_SHIFT;
+>  }
+>  EXPORT_SYMBOL(inode_query_iversion);
+> +
+> +ssize_t direct_write_fallback(struct kiocb *iocb, struct iov_iter *iter,
+> +		ssize_t direct_written, ssize_t buffered_written)
+> +{
+> +	struct address_space *mapping = iocb->ki_filp->f_mapping;
+> +	loff_t pos = iocb->ki_pos - buffered_written;
+> +	loff_t end = iocb->ki_pos - 1;
+> +	int err;
+> +
+> +	/*
+> +	 * If the buffered write fallback returned an error, we want to return
+> +	 * the number of bytes which were written by direct I/O, or the error
+> +	 * code if that was zero.
+> +	 *
+> +	 * Note that this differs from normal direct-io semantics, which will
+> +	 * return -EFOO even if some bytes were written.
+> +	 */
+> +	if (unlikely(buffered_written < 0)) {
+> +		if (direct_written)
+> +			return direct_written;
+> +		return buffered_written;
+> +	}
+> +
+> +	/*
+> +	 * We need to ensure that the page cache pages are written to disk and
+> +	 * invalidated to preserve the expected O_DIRECT semantics.
+> +	 */
+> +	err = filemap_write_and_wait_range(mapping, pos, end);
+> +	if (err < 0) {
+> +		/*
+> +		 * We don't know how much we wrote, so just return the number of
+> +		 * bytes which were direct-written
+> +		 */
+> +		if (direct_written)
+> +			return direct_written;
+> +		return err;
+> +	}
+> +	invalidate_mapping_pages(mapping, pos >> PAGE_SHIFT, end >> PAGE_SHIFT);
+> +	return direct_written + buffered_written;
+> +}
+> +EXPORT_SYMBOL_GPL(direct_write_fallback);
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 91021b4e1f6f48..6af25137543824 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2738,6 +2738,8 @@ extern ssize_t __generic_file_write_iter(struct kiocb *, struct iov_iter *);
+>  extern ssize_t generic_file_write_iter(struct kiocb *, struct iov_iter *);
+>  extern ssize_t generic_file_direct_write(struct kiocb *, struct iov_iter *);
+>  ssize_t generic_perform_write(struct kiocb *, struct iov_iter *);
+> +ssize_t direct_write_fallback(struct kiocb *iocb, struct iov_iter *iter,
+> +		ssize_t direct_written, ssize_t buffered_written);
+>  
+>  ssize_t vfs_iter_read(struct file *file, struct iov_iter *iter, loff_t *ppos,
+>  		rwf_t flags);
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index ddb6f8aa86d6ca..137508da5525b6 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4006,23 +4006,19 @@ ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>  {
+>  	struct file *file = iocb->ki_filp;
+>  	struct address_space *mapping = file->f_mapping;
+> -	struct inode 	*inode = mapping->host;
+> -	ssize_t		written = 0;
+> -	ssize_t		err;
+> -	ssize_t		status;
+> +	struct inode *inode = mapping->host;
+> +	ssize_t ret;
+>  
+> -	err = file_remove_privs(file);
+> -	if (err)
+> -		goto out;
+> +	ret = file_remove_privs(file);
+> +	if (ret)
+> +		return ret;
+>  
+> -	err = file_update_time(file);
+> -	if (err)
+> -		goto out;
+> +	ret = file_update_time(file);
+> +	if (ret)
+> +		return ret;
+>  
+>  	if (iocb->ki_flags & IOCB_DIRECT) {
+> -		loff_t pos, endbyte;
+> -
+> -		written = generic_file_direct_write(iocb, from);
+> +		ret = generic_file_direct_write(iocb, from);
+>  		/*
+>  		 * If the write stopped short of completing, fall back to
+>  		 * buffered writes.  Some filesystems do this for writes to
+> @@ -4030,45 +4026,13 @@ ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>  		 * not succeed (even if it did, DAX does not handle dirty
+>  		 * page-cache pages correctly).
+>  		 */
+> -		if (written < 0 || !iov_iter_count(from) || IS_DAX(inode))
+> -			goto out;
+> -
+> -		pos = iocb->ki_pos;
+> -		status = generic_perform_write(iocb, from);
+> -		/*
+> -		 * If generic_perform_write() returned a synchronous error
+> -		 * then we want to return the number of bytes which were
+> -		 * direct-written, or the error code if that was zero.  Note
+> -		 * that this differs from normal direct-io semantics, which
+> -		 * will return -EFOO even if some bytes were written.
+> -		 */
+> -		if (unlikely(status < 0)) {
+> -			err = status;
+> -			goto out;
+> -		}
+> -		/*
+> -		 * We need to ensure that the page cache pages are written to
+> -		 * disk and invalidated to preserve the expected O_DIRECT
+> -		 * semantics.
+> -		 */
+> -		endbyte = pos + status - 1;
+> -		err = filemap_write_and_wait_range(mapping, pos, endbyte);
+> -		if (err == 0) {
+> -			written += status;
+> -			invalidate_mapping_pages(mapping,
+> -						 pos >> PAGE_SHIFT,
+> -						 endbyte >> PAGE_SHIFT);
+> -		} else {
+> -			/*
+> -			 * We don't know how much we wrote, so just return
+> -			 * the number of bytes which were direct-written
+> -			 */
+> -		}
+> -	} else {
+> -		written = generic_perform_write(iocb, from);
+> +		if (ret < 0 || !iov_iter_count(from) || IS_DAX(inode))
+> +			return ret;
+> +		return direct_write_fallback(iocb, from, ret,
+> +				generic_perform_write(iocb, from));
+>  	}
+> -out:
+> -	return written ? written : err;
+> +
+> +	return generic_perform_write(iocb, from);
+>  }
+>  EXPORT_SYMBOL(__generic_file_write_iter);
+>  
+> -- 
+> 2.39.2
+> 
 
