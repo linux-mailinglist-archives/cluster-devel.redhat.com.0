@@ -2,67 +2,67 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CD54724FEB
-	for <lists+cluster-devel@lfdr.de>; Wed,  7 Jun 2023 00:34:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE3CF724FEE
+	for <lists+cluster-devel@lfdr.de>; Wed,  7 Jun 2023 00:34:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686090868;
+	s=mimecast20190719; t=1686090884;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vAFZSL3nTXFwL8IPdl3K3J/1oPVBjzs/oCIJOb/JvBA=;
-	b=b6iQuOfM+mUuvkd9aGoAshqgT6lfJAJMytLMDOly27q8CLhsUJ1GTKqFE6Nf1y6FvNI/42
-	xRDPLCnShlRLFGkwQzlskLXzswOPfqPyzlNAFVX2TWdcQjL9JUWNX/0tCDlEttezhyIunw
-	ZUtTqlRzeQJWEncFw3XFO+VWBgXYQFs=
+	bh=pg+rhpkHNgoijTQD2IVKfY4395e4SgDddWk+y+YVsIM=;
+	b=Nr4eewVRGzFVqXhIDbI5Pkeuibjfz3Fhnn6nektTrbl22hUfZGovJTJSrotGCBMqIcxLM3
+	6euocawHgS3F5a6WHScQdKa9mi8GXb/712G0S1S9Im73Cz1Y2+YxsPRwaMV2lXwg7uI/2l
+	1my9NC4E99zRP33LHFoWhc3vOmvgagk=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-206-pm3MgmqGNvOtpeA-YUjhuw-1; Tue, 06 Jun 2023 18:34:23 -0400
-X-MC-Unique: pm3MgmqGNvOtpeA-YUjhuw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-590-e9jI-LFnPi6p_7sP4JVqDg-1; Tue, 06 Jun 2023 18:34:39 -0400
+X-MC-Unique: e9jI-LFnPi6p_7sP4JVqDg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7A587185A78F;
-	Tue,  6 Jun 2023 22:34:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8012685A5BF;
+	Tue,  6 Jun 2023 22:34:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6F3344B3FEB;
-	Tue,  6 Jun 2023 22:34:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 726AF2166B26;
+	Tue,  6 Jun 2023 22:34:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 501221946A45;
-	Tue,  6 Jun 2023 22:34:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 554FD1946A45;
+	Tue,  6 Jun 2023 22:34:38 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D05D019465BA for <cluster-devel@listman.corp.redhat.com>;
- Tue,  6 Jun 2023 22:34:21 +0000 (UTC)
+ ESMTP id DFAF819465BA for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  6 Jun 2023 22:34:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C34C61121315; Tue,  6 Jun 2023 22:34:21 +0000 (UTC)
+ id BFBFB40D1B68; Tue,  6 Jun 2023 22:34:37 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BC66D1121314
- for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 22:34:21 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B833D40D1B66
+ for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 22:34:37 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2D931C0512D
- for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 22:34:21 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A0B21C0512D
+ for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 22:34:37 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-91-fCasdxO-OGuVn1pTp5ZwSQ-1; Tue,
- 06 Jun 2023 18:34:19 -0400
-X-MC-Unique: fCasdxO-OGuVn1pTp5ZwSQ-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-646-ranbGWFOMiWc5G3tI-lswA-1; Tue,
+ 06 Jun 2023 18:34:26 -0400
+X-MC-Unique: ranbGWFOMiWc5G3tI-lswA-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1q6fFU-00DbEm-Vv; Tue, 06 Jun 2023 22:33:57 +0000
+ Hat Linux)) id 1q6fFV-00DbEp-3S; Tue, 06 Jun 2023 22:33:57 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Tue,  6 Jun 2023 23:33:37 +0100
-Message-Id: <20230606223346.3241328-6-willy@infradead.org>
+Date: Tue,  6 Jun 2023 23:33:38 +0100
+Message-Id: <20230606223346.3241328-7-willy@infradead.org>
 In-Reply-To: <20230606223346.3241328-1-willy@infradead.org>
 References: <20230606223346.3241328-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -73,9 +73,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH v2 05/14] gfs2: Support ludicrously large
- folios in gfs2_trans_add_databufs()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH v2 06/14] buffer: Make
+ block_write_full_page() handle large folios correctly
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,56 +93,71 @@ Cc: Hannes Reinecke <hare@suse.com>,
  Andrew Morton <akpm@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: infradead.org
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-We may someday support folios larger than 4GB, so use a size_t for
-the byte count within a folio to prevent unpleasant truncations.
+Keep the interface as struct page, but work entirely on the folio
+internally.  Removes several PAGE_SIZE assumptions and removes
+some references to page->index and page->mapping.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 Tested-by: Bob Peterson <rpeterso@redhat.com>
 Reviewed-by: Bob Peterson <rpeterso@redhat.com>
 ---
- fs/gfs2/aops.c | 6 +++---
- fs/gfs2/aops.h | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/buffer.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
-diff --git a/fs/gfs2/aops.c b/fs/gfs2/aops.c
-index 3a2be1901e1e..1c407eba1e30 100644
---- a/fs/gfs2/aops.c
-+++ b/fs/gfs2/aops.c
-@@ -38,13 +38,13 @@
- 
- 
- void gfs2_trans_add_databufs(struct gfs2_inode *ip, struct folio *folio,
--			     unsigned int from, unsigned int len)
-+			     size_t from, size_t len)
+diff --git a/fs/buffer.c b/fs/buffer.c
+index 4d518df50fab..d8c2c000676b 100644
+--- a/fs/buffer.c
++++ b/fs/buffer.c
+@@ -2678,33 +2678,31 @@ int block_write_full_page(struct page *page, get_block_t *get_block,
+ 			struct writeback_control *wbc)
  {
- 	struct buffer_head *head = folio_buffers(folio);
- 	unsigned int bsize = head->b_size;
- 	struct buffer_head *bh;
--	unsigned int to = from + len;
--	unsigned int start, end;
-+	size_t to = from + len;
-+	size_t start, end;
+ 	struct folio *folio = page_folio(page);
+-	struct inode * const inode = page->mapping->host;
++	struct inode * const inode = folio->mapping->host;
+ 	loff_t i_size = i_size_read(inode);
+-	const pgoff_t end_index = i_size >> PAGE_SHIFT;
+-	unsigned offset;
  
- 	for (bh = head, start = 0; bh != head || !start;
- 	     bh = bh->b_this_page, start = end) {
-diff --git a/fs/gfs2/aops.h b/fs/gfs2/aops.h
-index 09db1914425e..f08322ef41cf 100644
---- a/fs/gfs2/aops.h
-+++ b/fs/gfs2/aops.h
-@@ -10,6 +10,6 @@
+-	/* Is the page fully inside i_size? */
+-	if (page->index < end_index)
++	/* Is the folio fully inside i_size? */
++	if (folio_pos(folio) + folio_size(folio) <= i_size)
+ 		return __block_write_full_folio(inode, folio, get_block, wbc,
+ 					       end_buffer_async_write);
  
- extern void adjust_fs_space(struct inode *inode);
- extern void gfs2_trans_add_databufs(struct gfs2_inode *ip, struct folio *folio,
--				    unsigned int from, unsigned int len);
-+				    size_t from, size_t len);
+-	/* Is the page fully outside i_size? (truncate in progress) */
+-	offset = i_size & (PAGE_SIZE-1);
+-	if (page->index >= end_index+1 || !offset) {
++	/* Is the folio fully outside i_size? (truncate in progress) */
++	if (folio_pos(folio) > i_size) {
+ 		folio_unlock(folio);
+ 		return 0; /* don't care */
+ 	}
  
- #endif /* __AOPS_DOT_H__ */
+ 	/*
+-	 * The page straddles i_size.  It must be zeroed out on each and every
++	 * The folio straddles i_size.  It must be zeroed out on each and every
+ 	 * writepage invocation because it may be mmapped.  "A file is mapped
+ 	 * in multiples of the page size.  For a file that is not a multiple of
+-	 * the  page size, the remaining memory is zeroed when mapped, and
++	 * the page size, the remaining memory is zeroed when mapped, and
+ 	 * writes to that region are not written out to the file."
+ 	 */
+-	zero_user_segment(page, offset, PAGE_SIZE);
++	folio_zero_segment(folio, offset_in_folio(folio, i_size),
++			folio_size(folio));
+ 	return __block_write_full_folio(inode, folio, get_block, wbc,
+-							end_buffer_async_write);
++			end_buffer_async_write);
+ }
+ EXPORT_SYMBOL(block_write_full_page);
+ 
 -- 
 2.39.2
 
