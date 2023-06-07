@@ -2,88 +2,73 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CC137250C8
-	for <lists+cluster-devel@lfdr.de>; Wed,  7 Jun 2023 01:26:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32DE5725616
+	for <lists+cluster-devel@lfdr.de>; Wed,  7 Jun 2023 09:42:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686093988;
+	s=mimecast20190719; t=1686123743;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=D2FxAGdDZl5bgEmc1sdGZWqw52ArESB47KTKiPcLPLY=;
-	b=AjmUPksUU5QdBf0ubdU4rB/c9K+nOd4upcjvAZAAtVsgcPRuQ3KgyNeB8Ep7uvNfcAHoEx
-	16llKFRrXX35lwkl6BSBSyp1wSzJngW40HY+MsmA+pOmLI6TGM0mHRAOze+8AjjoIGVKoR
-	YsKqL5JrOBtZKvdcXvs0eCDie9vEl9Y=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=WS54fpJe8yryLR4gvNe7ucyDiUogTeWQhxlab81BILA=;
+	b=fFj2JhGCjIboH2oPpITJOWmLjBGyNftYl8gVb6jS1435FN++fbVJj5F31bG59ZORm6c8MX
+	tc7fgaW0IJqOYz7bGBu8NJF8A5QI5NM8azuWRxI255XGwcCFBnYXBlqRbF6F3kb5NikgsH
+	FNmyh+l1OazgDgCvfkTP/0hpSy9vKnI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-644-OHQwZf6JOe2kRuCBzeO17A-1; Tue, 06 Jun 2023 19:26:23 -0400
-X-MC-Unique: OHQwZf6JOe2kRuCBzeO17A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-550-NOgzU7tqPUGBEFeIZUtZeg-1; Wed, 07 Jun 2023 03:42:19 -0400
+X-MC-Unique: NOgzU7tqPUGBEFeIZUtZeg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 792D2801224;
-	Tue,  6 Jun 2023 23:26:22 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 263D52166B25;
-	Tue,  6 Jun 2023 23:26:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A32411C06923;
+	Wed,  7 Jun 2023 07:42:18 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3C579492B00;
+	Wed,  7 Jun 2023 07:42:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E97381946A45;
-	Tue,  6 Jun 2023 23:26:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C33C419452C6;
+	Wed,  7 Jun 2023 07:42:15 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4358119465BA for <cluster-devel@listman.corp.redhat.com>;
- Tue,  6 Jun 2023 23:26:20 +0000 (UTC)
+ ESMTP id 35F5419465BA for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  7 Jun 2023 07:42:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EDA6F40D1B68; Tue,  6 Jun 2023 23:26:19 +0000 (UTC)
+ id 7F24C40218C; Wed,  7 Jun 2023 07:42:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E662740D1B66
- for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 23:26:19 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 76B0148205E
+ for <cluster-devel@redhat.com>; Wed,  7 Jun 2023 07:42:02 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB9053802132
- for <cluster-devel@redhat.com>; Tue,  6 Jun 2023 23:26:19 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-417-2x0cK_r6PvK0hMDPpOZPkg-1; Tue, 06 Jun 2023 19:26:16 -0400
-X-MC-Unique: 2x0cK_r6PvK0hMDPpOZPkg-1
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-4f004cc54f4so8401856e87.3; 
- Tue, 06 Jun 2023 16:26:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686093974; x=1688685974;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=D2FxAGdDZl5bgEmc1sdGZWqw52ArESB47KTKiPcLPLY=;
- b=I1PncVpxG/3gqTGxU0qnGd6pwrIVKXxygm5WM+M9oJ1c+eOzp9B3mPGU63D2na7Zmk
- 6LkPYouO84a46tUMMwiYAgMS/FOJQfmeSICVMvBs5tUAvpl0yA9BofoQ4hP6+pqCx6jc
- Cpv+HClozaA2HzNrafBtOTagPk4kre3L+ptsNTJdD9AcUlUnjw/NKt8ivkidpIwVhXe+
- 6gY8bapSeN/BOCef0M6DULtOH9ix3pHKR1VXKpWPb0ln+/dsol7NwKeGsNCbYusxoLMh
- cQPiBSyJ2TXdsnDAZfzUiRRE2YPb0RStkafQMcKlmnAx9DuS2S/UO7DFpENeh5eeACUj
- qp4A==
-X-Gm-Message-State: AC+VfDy16WIIjzWZTLLP54SWIlNGkSnvty+xrHjabLi6tUWWd+DSEO30
- 1niwd3XxKNlkxg7bJcVHnZ15TaSwufZr24DJS4TKIakCoreuEQ+B
-X-Google-Smtp-Source: ACHHUZ6SfjaRP3YtOFCNS4yCdkaqCJ8teFuVo8Ikffok1F9vmEH88dw9R12b5x5lWvL8FyzMuYNeHdepsTrMY/MYU40=
-X-Received: by 2002:a2e:7e03:0:b0:2af:1622:a69 with SMTP id
- z3-20020a2e7e03000000b002af16220a69mr1857907ljc.48.1686093974222; Tue, 06 Jun
- 2023 16:26:14 -0700 (PDT)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C09E811E7F
+ for <cluster-devel@redhat.com>; Wed,  7 Jun 2023 07:42:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-570-7c6R2HfkPaCLNRw_Eyf8qQ-1; Wed, 07 Jun 2023 03:42:00 -0400
+X-MC-Unique: 7c6R2HfkPaCLNRw_Eyf8qQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BAE9763BA2;
+ Wed,  7 Jun 2023 07:35:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9182C43445;
+ Wed,  7 Jun 2023 07:35:54 +0000 (UTC)
+Date: Wed, 7 Jun 2023 09:35:52 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alexander Aring <aahringo@redhat.com>
+Message-ID: <2023060744-raft-gizzard-ad1d@gregkh>
+References: <20230606215626.327239-1-aahringo@redhat.com>
 MIME-Version: 1.0
-References: <20230606223346.3241328-1-willy@infradead.org>
- <20230606223346.3241328-8-willy@infradead.org>
-In-Reply-To: <20230606223346.3241328-8-willy@infradead.org>
-From: =?UTF-8?Q?Andreas_Gr=C3=BCnbacher?= <andreas.gruenbacher@gmail.com>
-Date: Wed, 7 Jun 2023 01:26:03 +0200
-Message-ID: <CAHpGcMJgZ3ik4NBW5fY-3nZcQRF+GCfJ=S9+mtndokOi8Lc1fA@mail.gmail.com>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+In-Reply-To: <20230606215626.327239-1-aahringo@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -91,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Cluster-devel] [PATCH v2 07/14] buffer: Convert
- block_page_mkwrite() to use a folio
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [Cluster-devel] [PATCH dlm/next] fs: dlm: fix nfs async lock
+ callback handling
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,91 +90,51 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Hannes Reinecke <hare@suse.com>, cluster-devel@redhat.com,
- Luis Chamberlain <mcgrof@kernel.org>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>
+Cc: cluster-devel@redhat.com, stable@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Type: text/plain; charset="UTF-8"
+X-Mimecast-Originator: linuxfoundation.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Am Mi., 7. Juni 2023 um 00:48 Uhr schrieb Matthew Wilcox (Oracle)
-<willy@infradead.org>:
-> If any page in a folio is dirtied, dirty the entire folio.  Removes a
-> number of hidden calls to compound_head() and references to page->mapping
-> and page->index.
->
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+On Tue, Jun 06, 2023 at 05:56:26PM -0400, Alexander Aring wrote:
+> This patch is fixing the current the callback handling if it's a nfs
+> async lock request signaled if fl_lmops is set.
+> 
+> When using `stress-ng --fcntl 32` on the kernel log there are several
+> messages like:
+> 
+> [11185.123533] dlm: dlm_plock_callback: vfs lock error 5d5127 file 000000002dd10f4d fl 000000007d13afae
+> [11185.127135] dlm: dlm_plock_callback: vfs lock error 5d5127 file 000000002dd10f4d fl 00000000a6046fa0
+> [11185.142668] dlm: dlm_plock_callback: vfs lock error 5d5127 file 000000002dd10f4d fl 000000001d13dfa5
+> 
+> The commit 40595cdc93ed ("nfs: block notification on fs with its
+> own ->lock") using only trylocks in an asynchronous polling behaviour. The
+> behaviour before was however differently by evaluating F_SETLKW or F_SETLK
+> and evaluating FL_SLEEP which was the case before commit 40595cdc93ed
+> ("nfs: block notification on fs with its own ->lock"). This behaviour
+> seems to be broken before. This patch will fix the behaviour for the
+> special nfs case before commit 40595cdc93ed ("nfs: block notification on
+> fs with its own ->lock").
+> 
+> There is still a TODO of solving the case when an nfs locking request
+> got interrupted.
+> 
+> Fixes: 40595cdc93ed ("nfs: block notification on fs with its own ->lock")
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
 > ---
->  fs/buffer.c | 27 +++++++++++++--------------
->  1 file changed, 13 insertions(+), 14 deletions(-)
->
-> diff --git a/fs/buffer.c b/fs/buffer.c
-> index d8c2c000676b..f34ed29b1085 100644
-> --- a/fs/buffer.c
-> +++ b/fs/buffer.c
-> @@ -2564,38 +2564,37 @@ EXPORT_SYMBOL(block_commit_write);
->  int block_page_mkwrite(struct vm_area_struct *vma, struct vm_fault *vmf,
->                          get_block_t get_block)
->  {
-> -       struct page *page = vmf->page;
-> +       struct folio *folio = page_folio(vmf->page);
->         struct inode *inode = file_inode(vma->vm_file);
->         unsigned long end;
->         loff_t size;
->         int ret;
->
-> -       lock_page(page);
-> +       folio_lock(folio);
->         size = i_size_read(inode);
-> -       if ((page->mapping != inode->i_mapping) ||
-> -           (page_offset(page) > size)) {
-> +       if ((folio->mapping != inode->i_mapping) ||
-> +           (folio_pos(folio) > size)) {
+>  fs/dlm/plock.c | 22 +---------------------
+>  1 file changed, 1 insertion(+), 21 deletions(-)
+> 
 
-This should probably also be 'folio_pos(folio) >= size', but this was
-wrong before this patch already.
+<formletter>
 
->                 /* We overload EFAULT to mean page got truncated */
->                 ret = -EFAULT;
->                 goto out_unlock;
->         }
->
-> -       /* page is wholly or partially inside EOF */
-> -       if (((page->index + 1) << PAGE_SHIFT) > size)
-> -               end = size & ~PAGE_MASK;
-> -       else
-> -               end = PAGE_SIZE;
-> +       end = folio_size(folio);
-> +       /* folio is wholly or partially inside EOF */
-> +       if (folio_pos(folio) + end > size)
-> +               end = size - folio_pos(folio);
->
-> -       ret = __block_write_begin(page, 0, end, get_block);
-> +       ret = __block_write_begin_int(folio, 0, end, get_block, NULL);
->         if (!ret)
-> -               ret = block_commit_write(page, 0, end);
-> +               ret = block_commit_write(&folio->page, 0, end);
->
->         if (unlikely(ret < 0))
->                 goto out_unlock;
-> -       set_page_dirty(page);
-> -       wait_for_stable_page(page);
-> +       folio_set_dirty(folio);
-> +       folio_wait_stable(folio);
->         return 0;
->  out_unlock:
-> -       unlock_page(page);
-> +       folio_unlock(folio);
->         return ret;
->  }
->  EXPORT_SYMBOL(block_page_mkwrite);
-> --
-> 2.39.2
->
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
 
-Thanks,
-Andreas
+</formletter>
 
