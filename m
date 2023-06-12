@@ -2,69 +2,88 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D77672D142
-	for <lists+cluster-devel@lfdr.de>; Mon, 12 Jun 2023 23:01:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A440272DF78
+	for <lists+cluster-devel@lfdr.de>; Tue, 13 Jun 2023 12:30:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686603715;
+	s=mimecast20190719; t=1686652216;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2Apa5O6YVLHPRKl9QPRk82tyPcbf0XN1bONDIYMH1qM=;
-	b=RLYuRsNj/OjRZYBtWiMunfTaCWHvObUvRPiYNUARF9adYoix1ZJ3mn6+F4LBCuoEZQYfYq
-	nL6PiNVT+bz9wl6OoHEgRz4HWY52AIjtR590M6w4+S2kIO1t4wBEWHgULdWWTR+ExmvB9X
-	AAvfag38+Wgfj3y0AIwnBG/57Q5skg4=
+	bh=7bYNPnFfqHjdFQJOUIEUQGIwD79+AH+aRTvoVJort04=;
+	b=KUjwTWM8pzw+5jDG+nhUTjq7vZJIlDNboTUaB27Toc8YSO1KWvzhY0zhg29eO4Y1u1QmxR
+	GnehT04L+7gnwj2xx+N/b5vueP2HWrwP6+cEW1+VrDdRgPuIrSImhpjrH+ZAlQJ56uWuSf
+	2mAGxeTm7DiLxOvfwmvKh2roWlyEqXI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-412-PV5IV8qBPemhwgNt7Ds8gQ-1; Mon, 12 Jun 2023 17:01:53 -0400
-X-MC-Unique: PV5IV8qBPemhwgNt7Ds8gQ-1
+ us-mta-74-IG37cizeOMuGkOKxD_o0sw-1; Tue, 13 Jun 2023 06:30:13 -0400
+X-MC-Unique: IG37cizeOMuGkOKxD_o0sw-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8ACA6858F18;
-	Mon, 12 Jun 2023 21:01:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F7EC80120A;
+	Tue, 13 Jun 2023 10:30:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 45156C1604D;
-	Mon, 12 Jun 2023 21:01:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 42DAAC1604C;
+	Tue, 13 Jun 2023 10:30:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 07CEF19466DF;
-	Mon, 12 Jun 2023 21:01:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7EA1C1946A45;
+	Tue, 13 Jun 2023 10:30:05 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 44E96194658C for <cluster-devel@listman.corp.redhat.com>;
- Mon, 12 Jun 2023 21:01:49 +0000 (UTC)
+ ESMTP id 7330C194658C for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 12 Jun 2023 21:05:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 24DAD141510A; Mon, 12 Jun 2023 21:01:49 +0000 (UTC)
+ id 2122C2026834; Mon, 12 Jun 2023 21:05:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CF7D1415102
- for <cluster-devel@redhat.com>; Mon, 12 Jun 2023 21:01:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0194F803DBE
- for <cluster-devel@redhat.com>; Mon, 12 Jun 2023 21:01:49 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-147-pd1GY3HvOPiVn4AhEjhgjQ-1; Mon,
- 12 Jun 2023 17:01:46 -0400
-X-MC-Unique: pd1GY3HvOPiVn4AhEjhgjQ-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1q8ofY-0033xW-AV; Mon, 12 Jun 2023 21:01:44 +0000
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: linux-fsdevel@vger.kernel.org
-Date: Mon, 12 Jun 2023 22:01:41 +0100
-Message-Id: <20230612210141.730128-15-willy@infradead.org>
-In-Reply-To: <20230612210141.730128-1-willy@infradead.org>
-References: <20230612210141.730128-1-willy@infradead.org>
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 19F5B2026833
+ for <cluster-devel@redhat.com>; Mon, 12 Jun 2023 21:05:28 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFF0285A5BA
+ for <cluster-devel@redhat.com>; Mon, 12 Jun 2023 21:05:27 +0000 (UTC)
+Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
+ [209.85.166.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-490-7vI6deEnM2-fYpoeC2ku1g-1; Mon, 12 Jun 2023 17:05:26 -0400
+X-MC-Unique: 7vI6deEnM2-fYpoeC2ku1g-1
+Received: by mail-il1-f198.google.com with SMTP id
+ e9e14a558f8ab-33db528e4faso42808415ab.0
+ for <cluster-devel@redhat.com>; Mon, 12 Jun 2023 14:05:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686603925; x=1689195925;
+ h=to:from:subject:message-id:in-reply-to:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7bYNPnFfqHjdFQJOUIEUQGIwD79+AH+aRTvoVJort04=;
+ b=dOOxce58pQLIMXb61i4j+OcaLqM637ctwmzHExLOCv2KblPibNe2yHrWjiadTigkvn
+ z4DCRDAPElUPRXKYJkEr50kTsqnWspwE2sKWR5PFdsMdEhN+mQyWHXOGIX6zAJ1pgMvw
+ Tyc1u8X3CMv22u6IY981uncvCjyN9WZh9OZDddwXlW0QyezAGxLtnYo9krHs8yqkJ2yP
+ VxA2aB54sG5eAlOaD7nwrftzt9SqA3kgprouaXnMSV9/DYmYks1FvfU71r6V4oK3mKjH
+ 6IgYRZg0bU+h1HqFbcGDIj35uKJia1I+ORwq0S6UFfTM7U940vOgQQMObUVwNdS4Tv95
+ 37OQ==
+X-Gm-Message-State: AC+VfDxTlFVZgeANSXEsE3e4OaZp9TaB0f+PpMr+lMhONVgY3TbSeyG1
+ ke/mNjqJOiJN0fWYagiyaTjFfj+ABK7QZpEAYp5K5XBRyaZV
+X-Google-Smtp-Source: ACHHUZ6MBYUIqF7fHIrkzltsCk1fBPFfysvSY+EZ6WoKhDfGBvSePU/5G9r6nMuObBwYTmZVj6rUoHbL7LuSmWSfcynNp0gI/nhU
 MIME-Version: 1.0
+X-Received: by 2002:a92:dc09:0:b0:33e:6230:aa65 with SMTP id
+ t9-20020a92dc09000000b0033e6230aa65mr5023912iln.0.1686603925323; Mon, 12 Jun
+ 2023 14:05:25 -0700 (PDT)
+Date: Mon, 12 Jun 2023 14:05:25 -0700
+In-Reply-To: <000000000000ab092305e268a016@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000d88b1e05fdf513c3@google.com>
+From: syzbot <syzbot+8a5fc6416c175cecea34@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, cluster-devel@redhat.com, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rpeterso@redhat.com, syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -72,9 +91,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [Cluster-devel] [PATCH v3 14/14] buffer: Convert
- block_truncate_page() to use a folio
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Mailman-Approved-At: Tue, 13 Jun 2023 10:30:04 +0000
+Subject: Re: [Cluster-devel] [syzbot] [gfs2?] general protection fault in
+ gfs2_evict_inode (2)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,100 +106,32 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Hannes Reinecke <hare@suse.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>, cluster-devel@redhat.com,
- Luis Chamberlain <mcgrof@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: infradead.org
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mimecast-Spam-Score: 1
+X-Mimecast-Originator: syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Support large folios in block_truncate_page() and avoid three hidden
-calls to compound_head().
+syzbot suspects this issue was fixed by commit:
 
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
----
- fs/buffer.c | 28 +++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+commit 504a10d9e46bc37b23d0a1ae2f28973c8516e636
+Author: Bob Peterson <rpeterso@redhat.com>
+Date:   Fri Apr 28 16:07:46 2023 +0000
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index c38fdcaa32ff..5a5b0c9d9769 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -2598,17 +2598,16 @@ int block_truncate_page(struct address_space *mapping,
- 			loff_t from, get_block_t *get_block)
- {
- 	pgoff_t index = from >> PAGE_SHIFT;
--	unsigned offset = from & (PAGE_SIZE-1);
- 	unsigned blocksize;
- 	sector_t iblock;
--	unsigned length, pos;
-+	size_t offset, length, pos;
- 	struct inode *inode = mapping->host;
--	struct page *page;
-+	struct folio *folio;
- 	struct buffer_head *bh;
- 	int err = 0;
- 
- 	blocksize = i_blocksize(inode);
--	length = offset & (blocksize - 1);
-+	length = from & (blocksize - 1);
- 
- 	/* Block boundary? Nothing to do */
- 	if (!length)
-@@ -2617,15 +2616,18 @@ int block_truncate_page(struct address_space *mapping,
- 	length = blocksize - length;
- 	iblock = (sector_t)index << (PAGE_SHIFT - inode->i_blkbits);
- 	
--	page = grab_cache_page(mapping, index);
--	if (!page)
-+	folio = filemap_grab_folio(mapping, index);
-+	if (!folio)
- 		return -ENOMEM;
- 
--	if (!page_has_buffers(page))
--		create_empty_buffers(page, blocksize, 0);
-+	bh = folio_buffers(folio);
-+	if (!bh) {
-+		folio_create_empty_buffers(folio, blocksize, 0);
-+		bh = folio_buffers(folio);
-+	}
- 
- 	/* Find the buffer that contains "offset" */
--	bh = page_buffers(page);
-+	offset = offset_in_folio(folio, from);
- 	pos = blocksize;
- 	while (offset >= pos) {
- 		bh = bh->b_this_page;
-@@ -2644,7 +2646,7 @@ int block_truncate_page(struct address_space *mapping,
- 	}
- 
- 	/* Ok, it's mapped. Make sure it's up-to-date */
--	if (PageUptodate(page))
-+	if (folio_test_uptodate(folio))
- 		set_buffer_uptodate(bh);
- 
- 	if (!buffer_uptodate(bh) && !buffer_delay(bh) && !buffer_unwritten(bh)) {
-@@ -2654,12 +2656,12 @@ int block_truncate_page(struct address_space *mapping,
- 			goto unlock;
- 	}
- 
--	zero_user(page, offset, length);
-+	folio_zero_range(folio, offset, length);
- 	mark_buffer_dirty(bh);
- 
- unlock:
--	unlock_page(page);
--	put_page(page);
-+	folio_unlock(folio);
-+	folio_put(folio);
- 
- 	return err;
- }
--- 
-2.39.2
+    gfs2: Don't deref jdesc in evict
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1544372d280000
+start commit:   7df047b3f0aa Merge tag 'vfio-v6.4-rc1' of https://github.c..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=474780ac1e194316
+dashboard link: https://syzkaller.appspot.com/bug?extid=8a5fc6416c175cecea34
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1294d2d2280000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=104a7508280000
+
+If the result looks correct, please mark the issue as fixed by replying with:
+
+#syz fix: gfs2: Don't deref jdesc in evict
+
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
 
