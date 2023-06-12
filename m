@@ -1,57 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC00072CD76
-	for <lists+cluster-devel@lfdr.de>; Mon, 12 Jun 2023 20:05:24 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A09372D15D
+	for <lists+cluster-devel@lfdr.de>; Mon, 12 Jun 2023 23:04:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686593123;
+	s=mimecast20190719; t=1686603845;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jbupAnnyUDmnf2w6b7JxNIp8Hh8Rr+IkMtk7bSpx78w=;
-	b=BtRzdQBrdMyfuColjBSCN7ZF7QTmB97AFDdni+japKkC4dJsEWm1Z9e3BnAGeN05lcJzIw
-	F2V+bhuwrLPQqY55SHggheXsG5kEqx39jv4OZLCNu+haZxFdzhAW22wl+pAMPge1ZQziKu
-	qzfUsr/0uMHFL2C80BJ8H3M6Y3kgkVc=
+	bh=txt62ANlIkQygLpGavEyhBItsoRiI+JGiyGc+VsF2/I=;
+	b=jOKWRHGiCv28P0T1qHlma8Hd2+jOqYkJFWKZcYxeloubuLLRub2L3u6ZWkiCPWNsddn+30
+	RvGfcf/R51t1S4qWGiXsajCxKmAnxjaY0refYuEzcYkhOd3nQIK+1i+IfL9uOHn/OVPNRm
+	iWM9pCiiVQem980FUSoAFD3uRITHBxM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-288-KrnGMiUlMGyVnnVeYfRYyg-1; Mon, 12 Jun 2023 14:05:11 -0400
-X-MC-Unique: KrnGMiUlMGyVnnVeYfRYyg-1
+ us-mta-635-8jcZzQ6HNri43F_gsaQ-pA-1; Mon, 12 Jun 2023 17:03:45 -0400
+X-MC-Unique: 8jcZzQ6HNri43F_gsaQ-pA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB43F8027F5;
-	Mon, 12 Jun 2023 18:05:02 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 98B9FC1604C;
-	Mon, 12 Jun 2023 18:05:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8022B85A5BD;
+	Mon, 12 Jun 2023 21:02:07 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 735DBC1604E;
+	Mon, 12 Jun 2023 21:02:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3D7CF19465B9;
-	Mon, 12 Jun 2023 18:05:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3C2FF19465BB;
+	Mon, 12 Jun 2023 21:02:07 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4922A194658C for <cluster-devel@listman.corp.redhat.com>;
- Mon, 12 Jun 2023 18:05:00 +0000 (UTC)
+ ESMTP id CA789194658C for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 12 Jun 2023 21:02:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 242DB2166B27; Mon, 12 Jun 2023 18:05:00 +0000 (UTC)
+ id 9D531C1604E; Mon, 12 Jun 2023 21:02:05 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from pasta.redhat.com (unknown [10.45.224.80])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 767A32166B25;
- Mon, 12 Jun 2023 18:04:59 +0000 (UTC)
-From: Andreas Gruenbacher <agruenba@redhat.com>
-To: cluster-devel@redhat.com
-Date: Mon, 12 Jun 2023 20:04:58 +0200
-Message-Id: <20230612180458.1294523-1-agruenba@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 95966C1604D
+ for <cluster-devel@redhat.com>; Mon, 12 Jun 2023 21:02:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6DF48801224
+ for <cluster-devel@redhat.com>; Mon, 12 Jun 2023 21:02:05 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-626-H0jJH5aZMPewETGXdgSofw-1; Mon,
+ 12 Jun 2023 17:02:03 -0400
+X-MC-Unique: H0jJH5aZMPewETGXdgSofw-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1q8ofW-0033wc-R9; Mon, 12 Jun 2023 21:01:42 +0000
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+To: linux-fsdevel@vger.kernel.org
+Date: Mon, 12 Jun 2023 22:01:27 +0100
+Message-Id: <20230612210141.730128-1-willy@infradead.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH] gfs2: Fix duplicate should_fault_in_pages()
- call
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [Cluster-devel] [PATCH v3 00/14] gfs2/buffer folio changes for 6.5
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,46 +82,58 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: Hannes Reinecke <hare@suse.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>, cluster-devel@redhat.com,
+ Luis Chamberlain <mcgrof@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Mimecast-Originator: infradead.org
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-From: Bob Peterson <rpeterso@redhat.com>
+This kind of started off as a gfs2 patch series, then became entwined
+with buffer heads once I realised that gfs2 was the only remaining
+caller of __block_write_full_page().  For those not in the gfs2 world,
+the big point of this series is that block_write_full_page() should now
+handle large folios correctly.
 
-In gfs2_file_buffered_write(), we currently jump from the second call of
-function should_fault_in_pages() to above the first call, so
-should_fault_in_pages() is getting called twice in a row, causing it to
-accidentally fall back to single-page writes rather than trying the more
-efficient multi-page writes first.
+Andrew, if you want, I'll drop it into the pagecache tree, or you
+can just take it.
 
-Fix that by moving the retry label to the correct place, behind the
-first call to should_fault_in_pages().
+v3:
+ - Fix a patch title
+ - Fix some checks against i_size to be >= instead of >
+ - Call folio_mark_dirty() instead of folio_set_dirty()
 
-Fixes: e1fa9ea85ce8 ("gfs2: Stop using glock holder auto-demotion for now")
-Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
----
- fs/gfs2/file.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Matthew Wilcox (Oracle) (14):
+  gfs2: Use a folio inside gfs2_jdata_writepage()
+  gfs2: Pass a folio to __gfs2_jdata_write_folio()
+  gfs2: Convert gfs2_write_jdata_page() to gfs2_write_jdata_folio()
+  buffer: Convert __block_write_full_page() to
+    __block_write_full_folio()
+  gfs2: Support ludicrously large folios in gfs2_trans_add_databufs()
+  buffer: Make block_write_full_page() handle large folios correctly
+  buffer: Convert block_page_mkwrite() to use a folio
+  buffer: Convert __block_commit_write() to take a folio
+  buffer: Convert page_zero_new_buffers() to folio_zero_new_buffers()
+  buffer: Convert grow_dev_page() to use a folio
+  buffer: Convert init_page_buffers() to folio_init_buffers()
+  buffer: Convert link_dev_buffers to take a folio
+  buffer: Use a folio in __find_get_block_slow()
+  buffer: Convert block_truncate_page() to use a folio
 
-diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-index a6ad64cee885..464ae4bf209e 100644
---- a/fs/gfs2/file.c
-+++ b/fs/gfs2/file.c
-@@ -1033,8 +1033,8 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
- 	}
- 
- 	gfs2_holder_init(ip->i_gl, LM_ST_EXCLUSIVE, 0, gh);
--retry:
- 	if (should_fault_in_pages(from, iocb, &prev_count, &window_size)) {
-+retry:
- 		window_size -= fault_in_iov_iter_readable(from, window_size);
- 		if (!window_size) {
- 			ret = -EFAULT;
+ fs/buffer.c                 | 257 ++++++++++++++++++------------------
+ fs/ext4/inode.c             |   4 +-
+ fs/gfs2/aops.c              |  69 +++++-----
+ fs/gfs2/aops.h              |   2 +-
+ fs/ntfs/aops.c              |   2 +-
+ fs/reiserfs/inode.c         |   9 +-
+ include/linux/buffer_head.h |   4 +-
+ 7 files changed, 172 insertions(+), 175 deletions(-)
+
 -- 
-2.40.0
+2.39.2
 
