@@ -2,10 +2,10 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16EBE733584
-	for <lists+cluster-devel@lfdr.de>; Fri, 16 Jun 2023 18:13:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B30617340A5
+	for <lists+cluster-devel@lfdr.de>; Sat, 17 Jun 2023 14:13:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686932027;
+	s=mimecast20190719; t=1687003989;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
@@ -13,47 +13,47 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
 	bh=CX0szcw738ZS8htZ0RxEmjBFgUMhbKSUPMuc1XxmplE=;
-	b=IT1u0fThaKyKijHN79hLssARpQMIBzHjGm12XMxiurKjhYHA5FXllVHm+XnfoAyuoQbxiC
-	izrD/l4hROweLAFWo/6VVTFIbhqh3u/4Dxfxfd2kZ/+m/o81KwY3gTKmn016e5eiYZ+0w0
-	SwKPYKdJeKuFp4qIPqAoNnZXbHsIhEo=
+	b=MwhXb5nW5+N+ukc83Uk6O1zeXJ72bRJZj60E2jMVZkmXQwbYNj9xoIa97hcOgvgjoegEHj
+	oksMKMSoZlpBI1xMkA85wDOYFs9zN8vPJiSVtk7TRfEwpNRShv+77895/qTNwoKd/QVNJ5
+	84GEbGiOqg7axS7OfNbCKPB8NTSxtxo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-338-3uA8_ckoPzy3d9mq8j_KvA-1; Fri, 16 Jun 2023 12:13:41 -0400
-X-MC-Unique: 3uA8_ckoPzy3d9mq8j_KvA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-360-rm4iFVJAMWGr5Hp3huHCUQ-1; Sat, 17 Jun 2023 08:13:06 -0400
+X-MC-Unique: rm4iFVJAMWGr5Hp3huHCUQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0333681DA54;
-	Fri, 16 Jun 2023 16:13:40 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF4C1858EEC;
+	Sat, 17 Jun 2023 12:13:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2FE522026D49;
-	Fri, 16 Jun 2023 16:13:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 411B9492C1B;
+	Sat, 17 Jun 2023 12:13:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE7DD19465B8;
-	Fri, 16 Jun 2023 16:13:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A2A111946597;
+	Sat, 17 Jun 2023 12:13:01 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9FB2B1946589 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 16 Jun 2023 16:13:36 +0000 (UTC)
+ ESMTP id 69C091946589 for <cluster-devel@listman.corp.redhat.com>;
+ Sat, 17 Jun 2023 12:12:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8A7A2422DE; Fri, 16 Jun 2023 16:13:36 +0000 (UTC)
+ id 4331540C2007; Sat, 17 Jun 2023 12:12:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.51])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 76298422B0;
- Fri, 16 Jun 2023 16:13:33 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6A69640C2077;
+ Sat, 17 Jun 2023 12:12:32 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: netdev@vger.kernel.org
-Date: Fri, 16 Jun 2023 17:12:52 +0100
-Message-ID: <20230616161301.622169-10-dhowells@redhat.com>
-In-Reply-To: <20230616161301.622169-1-dhowells@redhat.com>
-References: <20230616161301.622169-1-dhowells@redhat.com>
+Date: Sat, 17 Jun 2023 13:11:38 +0100
+Message-ID: <20230617121146.716077-10-dhowells@redhat.com>
+In-Reply-To: <20230617121146.716077-1-dhowells@redhat.com>
+References: <20230617121146.716077-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Cluster-devel] [PATCH net-next 09/17] dlm: Use
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Cluster-devel] [PATCH net-next v2 09/17] dlm: Use
  sendmsg(MSG_SPLICE_PAGES) rather than sendpage
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -76,7 +76,7 @@ Cc: Jens Axboe <axboe@kernel.dk>, cluster-devel@redhat.com,
  "David S. Miller" <davem@davemloft.net>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
