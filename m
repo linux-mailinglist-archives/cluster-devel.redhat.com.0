@@ -2,213 +2,76 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AFB7738780
-	for <lists+cluster-devel@lfdr.de>; Wed, 21 Jun 2023 16:47:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 993B37387AB
+	for <lists+cluster-devel@lfdr.de>; Wed, 21 Jun 2023 16:48:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687358821;
+	s=mimecast20190719; t=1687358928;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=K8g92cF5C7MqOn6jV758mhcdqvE1IDuzFhpPvl+Xh9Y=;
-	b=dw1Y78zpxPHNIqhg0uKz8NSVgvCsmX+HqG+LSKjdcDRIjHJj401B4RKW6IXhP32TVyMOz/
-	LuxENTuMUx8WcApr9RaNxAepOcBjTkoJM3TN/pLkusXkfzPLjfIOYY3VSzS/YEZdSfdEAD
-	354NPvE6UI+5g5aqqnwxF43Qi7+VzGw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=5j0zVB8DLVLoVkgJqUF+ds8igXaCOuAY39un9+ip86U=;
+	b=OZqE3YALM7Dt6EBr7YTnmtNjhtkD730GLGUhAR8SxG+5aD2WyQzEq/SWORYmFRaqGngaS9
+	NLCIFx+cT5DORBml2kX9XCIYJnox90caKYUzlZnBymyN/kLkZjY3XQbqVfi1Kz4Uf9X1Uv
+	bMYrO9/FRhwvXqDblXt57LuF6+4gITQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-441-9rcvWk6ROGGY5Sy6mXuGIw-1; Wed, 21 Jun 2023 10:46:56 -0400
-X-MC-Unique: 9rcvWk6ROGGY5Sy6mXuGIw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-329-5RyB0Jj3O6Wsw72XwSlzJA-1; Wed, 21 Jun 2023 10:48:42 -0400
+X-MC-Unique: 5RyB0Jj3O6Wsw72XwSlzJA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6BCB23C1C4D3;
-	Wed, 21 Jun 2023 14:46:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01D6C9FC4A7;
+	Wed, 21 Jun 2023 14:48:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5DF90C1ED96;
-	Wed, 21 Jun 2023 14:46:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E9351112132E;
+	Wed, 21 Jun 2023 14:48:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 36C13194658C;
-	Wed, 21 Jun 2023 14:46:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A41B4194658C;
+	Wed, 21 Jun 2023 14:48:40 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 60FD01946586 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 21 Jun 2023 14:46:34 +0000 (UTC)
+ ESMTP id A2CC11946586 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 21 Jun 2023 14:48:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 43E172166B33; Wed, 21 Jun 2023 14:46:34 +0000 (UTC)
+ id 588A5140EBB8; Wed, 21 Jun 2023 14:48:38 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B6182166B34
- for <cluster-devel@redhat.com>; Wed, 21 Jun 2023 14:46:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 504E214682FA
+ for <cluster-devel@redhat.com>; Wed, 21 Jun 2023 14:48:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 170899311B2
- for <cluster-devel@redhat.com>; Wed, 21 Jun 2023 14:46:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 31FB210311EC
+ for <cluster-devel@redhat.com>; Wed, 21 Jun 2023 14:48:38 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-128-4RXzgQttO-q1ic_KwVYerA-1; Wed, 21 Jun 2023 10:46:29 -0400
-X-MC-Unique: 4RXzgQttO-q1ic_KwVYerA-1
+ us-mta-318-TLLfPeb3O6G331vj2BZG9Q-1; Wed, 21 Jun 2023 10:48:36 -0400
+X-MC-Unique: TLLfPeb3O6G331vj2BZG9Q-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 85AC961587;
- Wed, 21 Jun 2023 14:45:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89BA8C43140;
- Wed, 21 Jun 2023 14:45:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1D24D6159B;
+ Wed, 21 Jun 2023 14:48:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA21C433C8;
+ Wed, 21 Jun 2023 14:48:33 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
-To: Jeremy Kerr <jk@ozlabs.org>, Arnd Bergmann <arnd@arndb.de>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Martijn Coenen <maco@android.com>,
- Joel Fernandes <joel@joelfernandes.org>,
- Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>,
- Suren Baghdasaryan <surenb@google.com>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Brad Warrum <bwarrum@linux.ibm.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
- Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>, David Howells <dhowells@redhat.com>,
- Marc Dionne <marc.dionne@auristor.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Ian Kent <raven@themaw.net>,
- Luis de Bethencourt <luisbg@kernel.org>,
- Salah Triki <salah.triki@gmail.com>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Eric Biederman <ebiederm@xmission.com>, Kees Cook <keescook@chromium.org>,
- Chris Mason <clm@fb.com>, Josef Bacik <josef@toxicpanda.com>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
- Joel Becker <jlbec@evilplan.org>, Christoph Hellwig <hch@lst.de>,
- Nicolas Pitre <nico@fluxnic.net>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Tyler Hicks <code@tyhicks.com>, Ard Biesheuvel <ardb@kernel.org>,
- Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
- Yue Hu <huyue2@coolpad.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
- Namjae Jeon <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>,
- Jan Kara <jack@suse.com>, "Theodore Ts'o" <tytso@mit.edu>,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Jaegeuk Kim <jaegeuk@kernel.org>,
- OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
- Miklos Szeredi <miklos@szeredi.hu>, Bob Peterson <rpeterso@redhat.com>,
- Andreas Gruenbacher <agruenba@redhat.com>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- Mike Kravetz <mike.kravetz@oracle.com>,
- Muchun Song <muchun.song@linux.dev>, David Woodhouse <dwmw2@infradead.org>,
- Dave Kleikamp <shaggy@kernel.org>, Tejun Heo <tj@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Anna Schumaker <anna@kernel.org>, Chuck Lever <chuck.lever@oracle.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Anton Altaparmakov <anton@tuxera.com>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Bob Copeland <me@bobcopeland.com>, Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Iurii Zaikin <yzaikin@google.com>,
- Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Anders Larsen <al@alarsen.net>, Steve French <sfrench@samba.org>,
- Paulo Alcantara <pc@manguebit.com>, Ronnie Sahlberg <lsahlber@redhat.com>,
- Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Phillip Lougher <phillip@squashfs.org.uk>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Evgeniy Dushistov <dushistov@mail.ru>, Hans de Goede <hdegoede@redhat.com>,
- "Darrick J. Wong" <djwong@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
- Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>,
- KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>,
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Eric Paris <eparis@parisplace.org>, Juergen Gross <jgross@suse.com>,
- Ruihan Li <lrh2000@pku.edu.cn>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Udipto Goswami <quic_ugoswami@quicinc.com>,
- Linyu Yuan <quic_linyyuan@quicinc.com>, John Keeping <john@keeping.me.uk>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Dan Carpenter <error27@gmail.com>, Yuta Hayama <hayama@lineo.co.jp>,
- Jozef Martiniak <jomajm@gmail.com>, Jens Axboe <axboe@kernel.dk>,
- Alan Stern <stern@rowland.harvard.edu>,
- Sandeep Dhavale <dhavale@google.com>, Dave Chinner <dchinner@redhat.com>,
- Johannes Weiner <hannes@cmpxchg.org>, ZhangPeng <zhangpeng362@huawei.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
- Aditya Garg <gargaditya08@live.com>, Erez Zadok <ezk@cs.stonybrook.edu>,
- Yifei Liu <yifeliu@cs.stonybrook.edu>, Yu Zhe <yuzhe@nfschina.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Oleg Kanatov <okanatov@gmail.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Jiangshan Yi <yijiangshan@kylinos.cn>, xu xin <cgel.zte@gmail.com>,
- Stefan Roesch <shr@devkernel.io>, Zhihao Cheng <chengzhihao1@huawei.com>,
- "Liam R. Howlett" <Liam.Howlett@Oracle.com>,
- Alexey Dobriyan <adobriyan@gmail.com>,
- Minghao Chi <chi.minghao@zte.com.cn>,
- Seth Forshee <sforshee@digitalocean.com>,
- Zeng Jingxiang <linuszeng@tencent.com>,
- Bart Van Assche <bvanassche@acm.org>, Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>, Zhang Yi <yi.zhang@huawei.com>,
- Tom Rix <trix@redhat.com>,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
- Chen Zhongjin <chenzhongjin@huawei.com>,
- Zhengchao Shao <shaozhengchao@huawei.com>, Rik van Riel <riel@surriel.com>,
- Jingyu Wang <jingyuwang_vip@163.com>, Hangyu Hua <hbh25y@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, v9fs@lists.linux.dev,
- linux-fsdevel@vger.kernel.org, linux-afs@lists.infradead.org,
- autofs@vger.kernel.org, linux-mm@kvack.org, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu,
- ecryptfs@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
- linux-um@lists.infradead.org, linux-mtd@lists.infradead.org,
- jfs-discussion@lists.sourceforge.net, linux-nfs@vger.kernel.org,
- linux-nilfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
- ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com,
- linux-karma-devel@lists.sourceforge.net, devel@lists.orangefs.org,
- linux-unionfs@vger.kernel.org, linux-hardening@vger.kernel.org,
- reiserfs-devel@vger.kernel.org, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-trace-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, bpf@vger.kernel.org, netdev@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- selinux@vger.kernel.org
-Date: Wed, 21 Jun 2023 10:45:06 -0400
-Message-ID: <20230621144507.55591-2-jlayton@kernel.org>
-In-Reply-To: <20230621144507.55591-1-jlayton@kernel.org>
+To: Christian Brauner <brauner@kernel.org>, Bob Peterson <rpeterso@redhat.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 21 Jun 2023 10:45:47 -0400
+Message-ID: <20230621144735.55953-33-jlayton@kernel.org>
+In-Reply-To: <20230621144735.55953-1-jlayton@kernel.org>
 References: <20230621144507.55591-1-jlayton@kernel.org>
+ <20230621144735.55953-1-jlayton@kernel.org>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -217,8 +80,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH 01/79] fs: add ctime accessors infrastructure
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [Cluster-devel] [PATCH 34/79] gfs2: switch to new ctime accessors
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -230,123 +93,332 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: cluster-devel@redhat.com, Jan Kara <jack@suse.cz>,
+ Al Viro <viro@zeniv.linux.org.uk>, linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-struct timespec64 has unused bits in the tv_nsec field that can be used
-for other purposes. In future patches, we're going to change how the
-inode->i_ctime is accessed in certain inodes in order to make use of
-them. In order to do that safely though, we'll need to eradicate raw
-accesses of the inode->i_ctime field from the kernel.
-
-Add new accessor functions for the ctime that we can use to replace them.
+In later patches, we're going to change how the ctime.tv_nsec field is
+utilized. Switch to using accessor functions instead of raw accesses of
+inode->i_ctime.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/inode.c         | 16 ++++++++++++++
- include/linux/fs.h | 53 +++++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 68 insertions(+), 1 deletion(-)
+ fs/gfs2/acl.c   |  2 +-
+ fs/gfs2/bmap.c  | 11 +++++------
+ fs/gfs2/dir.c   | 15 ++++++++-------
+ fs/gfs2/file.c  |  2 +-
+ fs/gfs2/glops.c |  4 ++--
+ fs/gfs2/inode.c |  8 ++++----
+ fs/gfs2/super.c |  4 ++--
+ fs/gfs2/xattr.c |  8 ++++----
+ 8 files changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index d37fad91c8da..c005e7328fbb 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -2499,6 +2499,22 @@ struct timespec64 current_time(struct inode *inode)
- }
- EXPORT_SYMBOL(current_time);
+diff --git a/fs/gfs2/acl.c b/fs/gfs2/acl.c
+index a392aa0f041d..b267dae0dc63 100644
+--- a/fs/gfs2/acl.c
++++ b/fs/gfs2/acl.c
+@@ -142,7 +142,7 @@ int gfs2_set_acl(struct mnt_idmap *idmap, struct dentry=
+ *dentry,
 =20
-+/**
-+ * inode_ctime_set_current - set the ctime to current_time
-+ * @inode: inode
-+ *
-+ * Set the inode->i_ctime to the current value for the inode. Returns
-+ * the current value that was assigned to i_ctime.
-+ */
-+struct timespec64 inode_ctime_set_current(struct inode *inode)
-+{
-+=09struct timespec64 now =3D current_time(inode);
-+
-+=09inode_set_ctime(inode, now);
-+=09return now;
-+}
-+EXPORT_SYMBOL(inode_ctime_set_current);
-+
+ =09ret =3D __gfs2_set_acl(inode, acl, type);
+ =09if (!ret && mode !=3D inode->i_mode) {
+-=09=09inode->i_ctime =3D current_time(inode);
++=09=09inode_ctime_set_current(inode);
+ =09=09inode->i_mode =3D mode;
+ =09=09mark_inode_dirty(inode);
+ =09}
+diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
+index 8d611fbcf0bd..743b09a0b196 100644
+--- a/fs/gfs2/bmap.c
++++ b/fs/gfs2/bmap.c
+@@ -1386,7 +1386,7 @@ static int trunc_start(struct inode *inode, u64 newsi=
+ze)
+ =09=09ip->i_diskflags |=3D GFS2_DIF_TRUNC_IN_PROG;
+=20
+ =09i_size_write(inode, newsize);
+-=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D current_time(&ip->i_ino=
+de);
++=09inode->i_mtime =3D inode_ctime_set_current(inode);
+ =09gfs2_dinode_out(ip, dibh->b_data);
+=20
+ =09if (journaled)
+@@ -1583,8 +1583,7 @@ static int sweep_bh_for_rgrps(struct gfs2_inode *ip, =
+struct gfs2_holder *rd_gh,
+=20
+ =09=09=09/* Every transaction boundary, we rewrite the dinode
+ =09=09=09   to keep its di_blocks current in case of failure. */
+-=09=09=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D
+-=09=09=09=09current_time(&ip->i_inode);
++=09=09=09ip->i_inode.i_mtime =3D inode_ctime_set_current(&ip->i_inode);
+ =09=09=09gfs2_trans_add_meta(ip->i_gl, dibh);
+ =09=09=09gfs2_dinode_out(ip, dibh->b_data);
+ =09=09=09brelse(dibh);
+@@ -1950,7 +1949,7 @@ static int punch_hole(struct gfs2_inode *ip, u64 offs=
+et, u64 length)
+ =09=09gfs2_statfs_change(sdp, 0, +btotal, 0);
+ =09=09gfs2_quota_change(ip, -(s64)btotal, ip->i_inode.i_uid,
+ =09=09=09=09  ip->i_inode.i_gid);
+-=09=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D current_time(&ip->i_=
+inode);
++=09=09ip->i_inode.i_mtime =3D inode_ctime_set_current(&ip->i_inode);
+ =09=09gfs2_trans_add_meta(ip->i_gl, dibh);
+ =09=09gfs2_dinode_out(ip, dibh->b_data);
+ =09=09up_write(&ip->i_rw_mutex);
+@@ -1993,7 +1992,7 @@ static int trunc_end(struct gfs2_inode *ip)
+ =09=09gfs2_buffer_clear_tail(dibh, sizeof(struct gfs2_dinode));
+ =09=09gfs2_ordered_del_inode(ip);
+ =09}
+-=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D current_time(&ip->i_ino=
+de);
++=09ip->i_inode.i_mtime =3D inode_ctime_set_current(&ip->i_inode);
+ =09ip->i_diskflags &=3D ~GFS2_DIF_TRUNC_IN_PROG;
+=20
+ =09gfs2_trans_add_meta(ip->i_gl, dibh);
+@@ -2094,7 +2093,7 @@ static int do_grow(struct inode *inode, u64 size)
+ =09=09goto do_end_trans;
+=20
+ =09truncate_setsize(inode, size);
+-=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D current_time(&ip->i_ino=
+de);
++=09ip->i_inode.i_mtime =3D inode_ctime_set_current(&ip->i_inode);
+ =09gfs2_trans_add_meta(ip->i_gl, dibh);
+ =09gfs2_dinode_out(ip, dibh->b_data);
+ =09brelse(dibh);
+diff --git a/fs/gfs2/dir.c b/fs/gfs2/dir.c
+index 54a6d17b8c25..c07cb9883ea1 100644
+--- a/fs/gfs2/dir.c
++++ b/fs/gfs2/dir.c
+@@ -130,7 +130,7 @@ static int gfs2_dir_write_stuffed(struct gfs2_inode *ip=
+, const char *buf,
+ =09memcpy(dibh->b_data + offset + sizeof(struct gfs2_dinode), buf, size);
+ =09if (ip->i_inode.i_size < offset + size)
+ =09=09i_size_write(&ip->i_inode, offset + size);
+-=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D current_time(&ip->i_ino=
+de);
++=09ip->i_inode.i_mtime =3D inode_ctime_set_current(&ip->i_inode);
+ =09gfs2_dinode_out(ip, dibh->b_data);
+=20
+ =09brelse(dibh);
+@@ -227,7 +227,7 @@ static int gfs2_dir_write_data(struct gfs2_inode *ip, c=
+onst char *buf,
+=20
+ =09if (ip->i_inode.i_size < offset + copied)
+ =09=09i_size_write(&ip->i_inode, offset + copied);
+-=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D current_time(&ip->i_ino=
+de);
++=09ip->i_inode.i_mtime =3D inode_ctime_set_current(&ip->i_inode);
+=20
+ =09gfs2_trans_add_meta(ip->i_gl, dibh);
+ =09gfs2_dinode_out(ip, dibh->b_data);
+@@ -1814,7 +1814,7 @@ int gfs2_dir_add(struct inode *inode, const struct qs=
+tr *name,
+ =09=09=09gfs2_inum_out(nip, dent);
+ =09=09=09dent->de_type =3D cpu_to_be16(IF2DT(nip->i_inode.i_mode));
+ =09=09=09dent->de_rahead =3D cpu_to_be16(gfs2_inode_ra_len(nip));
+-=09=09=09tv =3D current_time(&ip->i_inode);
++=09=09=09tv =3D inode_ctime_set_current(&ip->i_inode);
+ =09=09=09if (ip->i_diskflags & GFS2_DIF_EXHASH) {
+ =09=09=09=09leaf =3D (struct gfs2_leaf *)bh->b_data;
+ =09=09=09=09be16_add_cpu(&leaf->lf_entries, 1);
+@@ -1825,7 +1825,7 @@ int gfs2_dir_add(struct inode *inode, const struct qs=
+tr *name,
+ =09=09=09da->bh =3D NULL;
+ =09=09=09brelse(bh);
+ =09=09=09ip->i_entries++;
+-=09=09=09ip->i_inode.i_mtime =3D ip->i_inode.i_ctime =3D tv;
++=09=09=09ip->i_inode.i_mtime =3D tv;
+ =09=09=09if (S_ISDIR(nip->i_inode.i_mode))
+ =09=09=09=09inc_nlink(&ip->i_inode);
+ =09=09=09mark_inode_dirty(inode);
+@@ -1876,7 +1876,7 @@ int gfs2_dir_del(struct gfs2_inode *dip, const struct=
+ dentry *dentry)
+ =09const struct qstr *name =3D &dentry->d_name;
+ =09struct gfs2_dirent *dent, *prev =3D NULL;
+ =09struct buffer_head *bh;
+-=09struct timespec64 tv =3D current_time(&dip->i_inode);
++=09struct timespec64 tv;
+=20
+ =09/* Returns _either_ the entry (if its first in block) or the
+ =09   previous entry otherwise */
+@@ -1895,6 +1895,7 @@ int gfs2_dir_del(struct gfs2_inode *dip, const struct=
+ dentry *dentry)
+ =09=09dent =3D (struct gfs2_dirent *)((char *)dent + be16_to_cpu(prev->de_=
+rec_len));
+ =09}
+=20
++=09tv =3D inode_ctime_set_current(&dip->i_inode);
+ =09dirent_del(dip, bh, prev, dent);
+ =09if (dip->i_diskflags & GFS2_DIF_EXHASH) {
+ =09=09struct gfs2_leaf *leaf =3D (struct gfs2_leaf *)bh->b_data;
+@@ -1910,7 +1911,7 @@ int gfs2_dir_del(struct gfs2_inode *dip, const struct=
+ dentry *dentry)
+ =09if (!dip->i_entries)
+ =09=09gfs2_consist_inode(dip);
+ =09dip->i_entries--;
+-=09dip->i_inode.i_mtime =3D dip->i_inode.i_ctime =3D tv;
++=09dip->i_inode.i_mtime =3D tv;
+ =09if (d_is_dir(dentry))
+ =09=09drop_nlink(&dip->i_inode);
+ =09mark_inode_dirty(&dip->i_inode);
+@@ -1951,7 +1952,7 @@ int gfs2_dir_mvino(struct gfs2_inode *dip, const stru=
+ct qstr *filename,
+ =09dent->de_type =3D cpu_to_be16(new_type);
+ =09brelse(bh);
+=20
+-=09dip->i_inode.i_mtime =3D dip->i_inode.i_ctime =3D current_time(&dip->i_=
+inode);
++=09dip->i_inode.i_mtime =3D inode_ctime_set_current(&dip->i_inode);
+ =09mark_inode_dirty_sync(&dip->i_inode);
+ =09return 0;
+ }
+diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+index 1bf3c4453516..cb754c5f1d2d 100644
+--- a/fs/gfs2/file.c
++++ b/fs/gfs2/file.c
+@@ -260,7 +260,7 @@ static int do_gfs2_set_flags(struct inode *inode, u32 r=
+eqflags, u32 mask)
+ =09error =3D gfs2_meta_inode_buffer(ip, &bh);
+ =09if (error)
+ =09=09goto out_trans_end;
+-=09inode->i_ctime =3D current_time(inode);
++=09inode_ctime_set_current(inode);
+ =09gfs2_trans_add_meta(ip->i_gl, bh);
+ =09ip->i_diskflags =3D new_flags;
+ =09gfs2_dinode_out(ip, bh->b_data);
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 7c48c7afd6a4..2aba6f82194f 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -437,8 +437,8 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const =
+void *buf)
+ =09=09inode->i_atime =3D atime;
+ =09inode->i_mtime.tv_sec =3D be64_to_cpu(str->di_mtime);
+ =09inode->i_mtime.tv_nsec =3D be32_to_cpu(str->di_mtime_nsec);
+-=09inode->i_ctime.tv_sec =3D be64_to_cpu(str->di_ctime);
+-=09inode->i_ctime.tv_nsec =3D be32_to_cpu(str->di_ctime_nsec);
++=09inode_ctime_set_sec(inode, be64_to_cpu(str->di_ctime));
++=09inode_ctime_set_nsec(inode, be32_to_cpu(str->di_ctime_nsec));
+=20
+ =09ip->i_goal =3D be64_to_cpu(str->di_goal_meta);
+ =09ip->i_generation =3D be64_to_cpu(str->di_generation);
+diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+index 17c994a0c0d0..3a9c9b6ea456 100644
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@ -690,7 +690,7 @@ static int gfs2_create_inode(struct inode *dir, struct =
+dentry *dentry,
+ =09set_nlink(inode, S_ISDIR(mode) ? 2 : 1);
+ =09inode->i_rdev =3D dev;
+ =09inode->i_size =3D size;
+-=09inode->i_atime =3D inode->i_mtime =3D inode->i_ctime =3D current_time(i=
+node);
++=09inode->i_atime =3D inode->i_mtime =3D inode_ctime_set_current(inode);
+ =09munge_mode_uid_gid(dip, inode);
+ =09check_and_update_goal(dip);
+ =09ip->i_goal =3D dip->i_goal;
+@@ -1029,7 +1029,7 @@ static int gfs2_link(struct dentry *old_dentry, struc=
+t inode *dir,
+=20
+ =09gfs2_trans_add_meta(ip->i_gl, dibh);
+ =09inc_nlink(&ip->i_inode);
+-=09ip->i_inode.i_ctime =3D current_time(&ip->i_inode);
++=09inode_ctime_set_current(&ip->i_inode);
+ =09ihold(inode);
+ =09d_instantiate(dentry, inode);
+ =09mark_inode_dirty(inode);
+@@ -1114,7 +1114,7 @@ static int gfs2_unlink_inode(struct gfs2_inode *dip,
+ =09=09return error;
+=20
+ =09ip->i_entries =3D 0;
+-=09inode->i_ctime =3D current_time(inode);
++=09inode_ctime_set_current(inode);
+ =09if (S_ISDIR(inode->i_mode))
+ =09=09clear_nlink(inode);
+ =09else
+@@ -1371,7 +1371,7 @@ static int update_moved_ino(struct gfs2_inode *ip, st=
+ruct gfs2_inode *ndip,
+ =09if (dir_rename)
+ =09=09return gfs2_dir_mvino(ip, &gfs2_qdotdot, ndip, DT_DIR);
+=20
+-=09ip->i_inode.i_ctime =3D current_time(&ip->i_inode);
++=09inode_ctime_set_current(&ip->i_inode);
+ =09mark_inode_dirty_sync(&ip->i_inode);
+ =09return 0;
+ }
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index 9be72d5aafea..fc495df15e71 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -412,7 +412,7 @@ void gfs2_dinode_out(const struct gfs2_inode *ip, void =
+*buf)
+ =09str->di_blocks =3D cpu_to_be64(gfs2_get_inode_blocks(inode));
+ =09str->di_atime =3D cpu_to_be64(inode->i_atime.tv_sec);
+ =09str->di_mtime =3D cpu_to_be64(inode->i_mtime.tv_sec);
+-=09str->di_ctime =3D cpu_to_be64(inode->i_ctime.tv_sec);
++=09str->di_ctime =3D cpu_to_be64(inode_ctime_peek(inode).tv_sec);
+=20
+ =09str->di_goal_meta =3D cpu_to_be64(ip->i_goal);
+ =09str->di_goal_data =3D cpu_to_be64(ip->i_goal);
+@@ -429,7 +429,7 @@ void gfs2_dinode_out(const struct gfs2_inode *ip, void =
+*buf)
+ =09str->di_eattr =3D cpu_to_be64(ip->i_eattr);
+ =09str->di_atime_nsec =3D cpu_to_be32(inode->i_atime.tv_nsec);
+ =09str->di_mtime_nsec =3D cpu_to_be32(inode->i_mtime.tv_nsec);
+-=09str->di_ctime_nsec =3D cpu_to_be32(inode->i_ctime.tv_nsec);
++=09str->di_ctime_nsec =3D cpu_to_be32(inode_ctime_peek(inode).tv_nsec);
+ }
+=20
  /**
-  * in_group_or_capable - check whether caller is CAP_FSETID privileged
-  * @idmap:=09idmap of the mount @inode was found from
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 6867512907d6..9afb30606373 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1474,7 +1474,58 @@ static inline bool fsuidgid_has_mapping(struct super=
-_block *sb,
- =09       kgid_has_mapping(fs_userns, kgid);
- }
+diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
+index 93b36d026bb4..8f807d18ec52 100644
+--- a/fs/gfs2/xattr.c
++++ b/fs/gfs2/xattr.c
+@@ -311,7 +311,7 @@ static int ea_dealloc_unstuffed(struct gfs2_inode *ip, =
+struct buffer_head *bh,
+ =09=09ea->ea_num_ptrs =3D 0;
+ =09}
 =20
--extern struct timespec64 current_time(struct inode *inode);
-+struct timespec64 current_time(struct inode *inode);
-+struct timespec64 inode_ctime_set_current(struct inode *inode);
-+
-+/**
-+ * inode_ctime_peek - fetch the current ctime from the inode
-+ * @inode: inode from which to fetch ctime
-+ *
-+ * Grab the current ctime from the inode and return it.
-+ */
-+static inline struct timespec64 inode_ctime_peek(const struct inode *inode=
-)
-+{
-+=09return inode->i_ctime;
-+}
-+
-+/**
-+ * inode_ctime_set - set the ctime in the inode to the given value
-+ * @inode: inode in which to set the ctime
-+ * @ts: timespec value to set the ctime
-+ *
-+ * Set the ctime in @inode to @ts.
-+ */
-+static inline struct timespec64 inode_ctime_set(struct inode *inode, struc=
-t timespec64 ts)
-+{
-+=09inode->i_ctime =3D ts;
-+=09return ts;
-+}
-+
-+/**
-+ * inode_ctime_set_sec - set only the tv_sec field in the inode ctime
-+ * @inode: inode in which to set the ctime
-+ * @sec:  value to set the tv_sec field
-+ *
-+ * Set the sec field in the ctime. Returns @sec.
-+ */
-+static inline time64_t inode_ctime_set_sec(struct inode *inode, time64_t s=
-ec)
-+{
-+=09inode->i_ctime.tv_sec =3D sec;
-+=09return sec;
-+}
-+
-+/**
-+ * inode_ctime_set_nsec - set only the tv_nsec field in the inode ctime
-+ * @inode: inode in which to set the ctime
-+ * @nsec:  value to set the tv_nsec field
-+ *
-+ * Set the nsec field in the ctime. Returns @nsec.
-+ */
-+static inline long inode_ctime_set_nsec(struct inode *inode, long nsec)
-+{
-+=09inode->i_ctime.tv_nsec =3D nsec;
-+=09return nsec;
-+}
+-=09ip->i_inode.i_ctime =3D current_time(&ip->i_inode);
++=09inode_ctime_set_current(&ip->i_inode);
+ =09__mark_inode_dirty(&ip->i_inode, I_DIRTY_DATASYNC);
 =20
- /*
-  * Snapshotting support.
+ =09gfs2_trans_end(sdp);
+@@ -763,7 +763,7 @@ static int ea_alloc_skeleton(struct gfs2_inode *ip, str=
+uct gfs2_ea_request *er,
+ =09if (error)
+ =09=09goto out_end_trans;
+=20
+-=09ip->i_inode.i_ctime =3D current_time(&ip->i_inode);
++=09inode_ctime_set_current(&ip->i_inode);
+ =09__mark_inode_dirty(&ip->i_inode, I_DIRTY_DATASYNC);
+=20
+ out_end_trans:
+@@ -888,7 +888,7 @@ static int ea_set_simple_noalloc(struct gfs2_inode *ip,=
+ struct buffer_head *bh,
+ =09if (es->es_el)
+ =09=09ea_set_remove_stuffed(ip, es->es_el);
+=20
+-=09ip->i_inode.i_ctime =3D current_time(&ip->i_inode);
++=09inode_ctime_set_current(&ip->i_inode);
+ =09__mark_inode_dirty(&ip->i_inode, I_DIRTY_DATASYNC);
+=20
+ =09gfs2_trans_end(GFS2_SB(&ip->i_inode));
+@@ -1106,7 +1106,7 @@ static int ea_remove_stuffed(struct gfs2_inode *ip, s=
+truct gfs2_ea_location *el)
+ =09=09ea->ea_type =3D GFS2_EATYPE_UNUSED;
+ =09}
+=20
+-=09ip->i_inode.i_ctime =3D current_time(&ip->i_inode);
++=09inode_ctime_set_current(&ip->i_inode);
+ =09__mark_inode_dirty(&ip->i_inode, I_DIRTY_DATASYNC);
+=20
+ =09gfs2_trans_end(GFS2_SB(&ip->i_inode));
 --=20
 2.41.0
 
