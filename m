@@ -2,59 +2,80 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF1E73C44A
-	for <lists+cluster-devel@lfdr.de>; Sat, 24 Jun 2023 00:55:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E13473DAC4
+	for <lists+cluster-devel@lfdr.de>; Mon, 26 Jun 2023 11:04:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687560945;
+	s=mimecast20190719; t=1687770277;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=CX0szcw738ZS8htZ0RxEmjBFgUMhbKSUPMuc1XxmplE=;
-	b=F5d+SDfnVUrAuyk3eTk1XJcQd9YwlvHbb9pB4NkC99nnGapFLqpn4bGWuGBPyrx1eDjzm2
-	GKuX0APfR3omx9m1Q+bwxpXf0avS7xZOMtLM1HQfNKpCewfCZCwQ//B/mtL7wJBtbpjcFO
-	Vkv8vZb04p33jIWcVJvZOOxJP/dLTPM=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=RVEVx49mxNIII67NO2PpPsiMVgXqHBi6kJxlBTilANo=;
+	b=D8xPnMCSMZXMFqJERCK8bIz2AmAArZ6cz1iT4g34x7s0RQ++m2p573wqsADdnQR0F1zC+w
+	nS0a3xhAMBjF5PMcNtE8cCRw+tBs6KLX9dp+KTMLG4Y4l3PJx1UVdUOdMDQ+23jy3fKEox
+	bM81TUT3NwCGkLDUhEcwnmkvjINdH/I=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-375-2fG-0UjCN3us4dKYMzk0bA-1; Fri, 23 Jun 2023 18:55:38 -0400
-X-MC-Unique: 2fG-0UjCN3us4dKYMzk0bA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-499-TtZnFyU6NIOesX0GNd2-Ng-1; Mon, 26 Jun 2023 05:04:32 -0400
+X-MC-Unique: TtZnFyU6NIOesX0GNd2-Ng-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B1A33C025CB;
-	Fri, 23 Jun 2023 22:55:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E177288CC49;
+	Mon, 26 Jun 2023 09:04:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5C7744087C6F;
-	Fri, 23 Jun 2023 22:55:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7CD87112132D;
+	Mon, 26 Jun 2023 09:04:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CC26F194658D;
-	Fri, 23 Jun 2023 22:55:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 22833194658C;
+	Mon, 26 Jun 2023 09:04:30 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 76D1E1946587 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 23 Jun 2023 22:55:34 +0000 (UTC)
+ ESMTP id 5A5961946587 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 26 Jun 2023 06:51:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 44E6040C2072; Fri, 23 Jun 2023 22:55:34 +0000 (UTC)
+ id 8D27A492B03; Mon, 26 Jun 2023 06:51:27 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from warthog.procyon.org.com (unknown [10.42.28.4])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 7C49B40C2063;
- Fri, 23 Jun 2023 22:55:32 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Date: Fri, 23 Jun 2023 23:55:03 +0100
-Message-ID: <20230623225513.2732256-7-dhowells@redhat.com>
-In-Reply-To: <20230623225513.2732256-1-dhowells@redhat.com>
-References: <20230623225513.2732256-1-dhowells@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 85A0F492B01
+ for <cluster-devel@redhat.com>; Mon, 26 Jun 2023 06:51:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67C4E185A78F
+ for <cluster-devel@redhat.com>; Mon, 26 Jun 2023 06:51:27 +0000 (UTC)
+Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-98-uFLIXDNyOBeV4eATaelp6w-1; Mon,
+ 26 Jun 2023 02:51:18 -0400
+X-MC-Unique: uFLIXDNyOBeV4eATaelp6w-1
+Received: by b221-6.in.mailobj.net [192.168.90.26] with ESMTP
+ via ip-20.mailobj.net [213.182.54.20]
+ Mon, 26 Jun 2023 08:51:16 +0200 (CEST)
+X-EA-Auth: Eu/Q3BBGOZASBNR3dpmx6ET/wlVioDsvV4FoUhX+WcVKwrfl6adetu3e6VtSUbBvxZC7qTm86HVr6Td9HE/uWXqx2GV65Gol
+Date: Mon, 26 Jun 2023 12:21:09 +0530
+From: Deepak R Varma <drv@mailo.com>
+To: Bob Peterson <rpeterso@redhat.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>, cluster-devel@redhat.com,
+ linux-kernel@vger.kernel.org
+Message-ID: <ZJk1XTtgLFxIcxzp@bu2204.myguest.virtualbox.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [Cluster-devel] [PATCH net-next v5 06/16] dlm: Use
- sendmsg(MSG_SPLICE_PAGES) rather than sendpage
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mailman-Approved-At: Mon, 26 Jun 2023 09:04:29 +0000
+Subject: [Cluster-devel] [PATCH v2] gfs2: Replace deprecated kmap_atomic()
+ by kmap_local_page()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,69 +87,78 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, cluster-devel@redhat.com,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- David Ahern <dsahern@kernel.org>, linux-kernel@vger.kernel.org,
- Alexander Duyck <alexander.duyck@gmail.com>,
- David Howells <dhowells@redhat.com>, linux-mm@kvack.org,
- Eric Dumazet <edumazet@google.com>, Matthew Wilcox <willy@infradead.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
+Cc: Deepak R Varma <drv@mailo.com>,
+ "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
+ Ira Weiny <ira.weiny@intel.com>, Sumitra Sharma <sumitraartsy@gmail.com>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mimecast-Originator: mailo.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-When transmitting data, call down a layer using a single sendmsg with
-MSG_SPLICE_PAGES to indicate that content should be spliced rather using
-sendpage.  This allows ->sendpage() to be replaced by something that can
-handle multiple multipage folios in a single transaction.
+kmap_atomic() is deprecated in favor of kmap_local_{folio,page}().
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Christine Caulfield <ccaulfie@redhat.com>
-cc: David Teigland <teigland@redhat.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Eric Dumazet <edumazet@google.com>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Jens Axboe <axboe@kernel.dk>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: cluster-devel@redhat.com
-cc: netdev@vger.kernel.org
+Therefore, replace kmap_atomic() with kmap_local_page() in
+gfs2_internal_read() and stuffed_readpage().
+
+kmap_atomic() disables page-faults and preemption (the latter only for
+!PREEMPT_RT kernels), However, the code within the mapping/un-mapping in
+gfs2_internal_read() and stuffed_readpage() does not depend on the
+above-mentioned side effects.
+
+Therefore, a mere replacement of the old API with the new one is all that
+is required (i.e., there is no need to explicitly add any calls to
+pagefault_disable() and/or preempt_disable()).
+
+Signed-off-by: Deepak R Varma <drv@mailo.com>
 ---
- fs/dlm/lowcomms.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Note: The Patch is build tested only. I will be happy to run recommended testing
+with some guidance if required.
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index 3d3802c47b8b..5c12d8cdfc16 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -1395,8 +1395,11 @@ int dlm_lowcomms_resend_msg(struct dlm_msg *msg)
- /* Send a message */
- static int send_to_sock(struct connection *con)
- {
--	const int msg_flags = MSG_DONTWAIT | MSG_NOSIGNAL;
- 	struct writequeue_entry *e;
-+	struct bio_vec bvec;
-+	struct msghdr msg = {
-+		.msg_flags = MSG_SPLICE_PAGES | MSG_DONTWAIT | MSG_NOSIGNAL,
-+	};
- 	int len, offset, ret;
+Changes in v2:
+   - Update patch description to correct the replacement function name from
+     kmap_local_folio to kmap_local _page 
+
+
+ fs/gfs2/aops.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/fs/gfs2/aops.c b/fs/gfs2/aops.c
+index 3b41542d6697..7bd92054d353 100644
+--- a/fs/gfs2/aops.c
++++ b/fs/gfs2/aops.c
+@@ -432,10 +432,10 @@ static int stuffed_readpage(struct gfs2_inode *ip, struct page *page)
+ 	if (error)
+ 		return error;
  
- 	spin_lock_bh(&con->writequeue_lock);
-@@ -1412,8 +1415,9 @@ static int send_to_sock(struct connection *con)
- 	WARN_ON_ONCE(len == 0 && e->users == 0);
- 	spin_unlock_bh(&con->writequeue_lock);
- 
--	ret = kernel_sendpage(con->sock, e->page, offset, len,
--			      msg_flags);
-+	bvec_set_page(&bvec, e->page, len, offset);
-+	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, len);
-+	ret = sock_sendmsg(con->sock, &msg);
- 	trace_dlm_send(con->nodeid, ret);
- 	if (ret == -EAGAIN || ret == 0) {
- 		lock_sock(con->sock->sk);
+-	kaddr = kmap_atomic(page);
++	kaddr = kmap_local_page(page);
+ 	memcpy(kaddr, dibh->b_data + sizeof(struct gfs2_dinode), dsize);
+ 	memset(kaddr + dsize, 0, PAGE_SIZE - dsize);
+-	kunmap_atomic(kaddr);
++	kunmap_local(kaddr);
+ 	flush_dcache_page(page);
+ 	brelse(dibh);
+ 	SetPageUptodate(page);
+@@ -498,12 +498,12 @@ int gfs2_internal_read(struct gfs2_inode *ip, char *buf, loff_t *pos,
+ 				continue;
+ 			return PTR_ERR(page);
+ 		}
+-		p = kmap_atomic(page);
++		p = kmap_local_page(page);
+ 		amt = size - copied;
+ 		if (offset + size > PAGE_SIZE)
+ 			amt = PAGE_SIZE - offset;
+ 		memcpy(buf + copied, p + offset, amt);
+-		kunmap_atomic(p);
++		kunmap_local(p);
+ 		put_page(page);
+ 		copied += amt;
+ 		index++;
+-- 
+2.34.1
+
+
 
