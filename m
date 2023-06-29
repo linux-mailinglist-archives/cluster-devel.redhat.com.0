@@ -2,75 +2,75 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CDD4742E4C
-	for <lists+cluster-devel@lfdr.de>; Thu, 29 Jun 2023 22:29:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0014742E6E
+	for <lists+cluster-devel@lfdr.de>; Thu, 29 Jun 2023 22:34:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688070566;
+	s=mimecast20190719; t=1688070844;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=LlAaoCPSL2iuf+lUEYoBP3IJFu7bBYD3CMRmcDp1KO4=;
-	b=WlIlBx7wIahAYFEOKd0IS3vPtYsX0zx4GfzBWylqPH9e25z7G0COKQ7BpTqkfTj3ga6R9A
-	Yl8gifJADecGS7+xj+qKMFJcockL3S0bXaiBVjhFhwynz1Pbov1Cc+KdQbRDVz7yrMYRNi
-	dMzP2iQtECD56EfRX18qw1hhRzPAoic=
+	 list-subscribe:list-post; bh=n6Vzl0+ofxA7OZMGsqGnq2zIwff909WHdCu0Syp3WU4=;
+	b=Rug3GMsJDnXXdwjwnH2rj+YjVsxibYMoHzezVv9wPOm4vsQe/ClGhlTlVLr0xSMLnQVr44
+	PAF8epVL2SnhCMgfcS+KvvhGwXuBoyWKmUGKaPCzvUZGeNvIA3tk+zHFZy24RZb79BBcGB
+	xKpkdMQrpZj5BnzJ7hs/AqaVNEL+ZWw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-118-XhNMS5wDN5e5QffMaU70lA-1; Thu, 29 Jun 2023 16:29:25 -0400
-X-MC-Unique: XhNMS5wDN5e5QffMaU70lA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-168-1L1zpH_lOhKkXypXpuJi5A-1; Thu, 29 Jun 2023 16:34:01 -0400
+X-MC-Unique: 1L1zpH_lOhKkXypXpuJi5A-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A9F61869F19;
-	Thu, 29 Jun 2023 20:29:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE4691064BF8;
+	Thu, 29 Jun 2023 20:33:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AE917446243;
-	Thu, 29 Jun 2023 20:29:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D1DCC14682F7;
+	Thu, 29 Jun 2023 20:33:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 79FEE1946A47;
-	Thu, 29 Jun 2023 20:29:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 79D0E1946A47;
+	Thu, 29 Jun 2023 20:33:59 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1A1E819465B6 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 29 Jun 2023 20:29:08 +0000 (UTC)
+ ESMTP id 0031219465B6 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 29 Jun 2023 20:33:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CE25A40C6CCD; Thu, 29 Jun 2023 20:29:08 +0000 (UTC)
+ id 96D26F5CD9; Thu, 29 Jun 2023 20:33:57 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C708D40C6F5A
- for <cluster-devel@redhat.com>; Thu, 29 Jun 2023 20:29:08 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F4C3F5CF0
+ for <cluster-devel@redhat.com>; Thu, 29 Jun 2023 20:33:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A3EB4185A795
- for <cluster-devel@redhat.com>; Thu, 29 Jun 2023 20:29:08 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C46D1064BF3
+ for <cluster-devel@redhat.com>; Thu, 29 Jun 2023 20:33:57 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-421-e_KNiFg_MDGtHNkyLRDd3Q-1; Thu, 29 Jun 2023 16:29:06 -0400
-X-MC-Unique: e_KNiFg_MDGtHNkyLRDd3Q-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="425907937"
-X-IronPort-AV: E=Sophos;i="6.01,169,1684825200"; d="scan'208";a="425907937"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2023 13:22:49 -0700
+ us-mta-638-_1U_wAPqOdOkgmQ-FEMggw-1; Thu, 29 Jun 2023 16:33:53 -0400
+X-MC-Unique: _1U_wAPqOdOkgmQ-FEMggw-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="364800458"
+X-IronPort-AV: E=Sophos;i="6.01,169,1684825200"; d="scan'208";a="364800458"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2023 13:33:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="964120015"
-X-IronPort-AV: E=Sophos;i="6.01,169,1684825200"; d="scan'208";a="964120015"
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="667692847"
+X-IronPort-AV: E=Sophos;i="6.01,169,1684825200"; d="scan'208";a="667692847"
 Received: from lkp-server01.sh.intel.com (HELO 783282924a45) ([10.239.97.150])
- by fmsmga006.fm.intel.com with ESMTP; 29 Jun 2023 13:22:46 -0700
+ by orsmga003.jf.intel.com with ESMTP; 29 Jun 2023 13:33:48 -0700
 Received: from kbuild by 783282924a45 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qEyAA-000ENQ-12;
- Thu, 29 Jun 2023 20:22:46 +0000
-Date: Fri, 30 Jun 2023 04:22:26 +0800
+ (envelope-from <lkp@intel.com>) id 1qEyKp-000ENn-0J;
+ Thu, 29 Jun 2023 20:33:47 +0000
+Date: Fri, 30 Jun 2023 04:32:58 +0800
 From: kernel test robot <lkp@intel.com>
 To: Bob Peterson <rpeterso@redhat.com>
-Message-ID: <202306300453.38BmME05-lkp@intel.com>
+Message-ID: <202306300443.bEw9eSQ3-lkp@intel.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -79,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [Cluster-devel] [gfs2:bobquota 24/29] fs/gfs2/quota.c:879:12:
- warning: stack frame size (2264) exceeds limit (1024) in 'do_sync'
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [Cluster-devel] [gfs2:bobquota 24/29] fs/gfs2/quota.c:1013:1:
+ warning: the frame size of 18880 bytes is larger than 2048 bytes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,11 +93,10 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, llvm@lists.linux.dev,
- oe-kbuild-all@lists.linux.dev
+Cc: cluster-devel@redhat.com, oe-kbuild-all@lists.linux.dev
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset=us-ascii
@@ -106,27 +105,27 @@ Content-Disposition: inline
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git bobquota
 head:   670b010e49bb40adcf05c9158f0268f36cd03a97
 commit: 47c1e6b4deaebd090dd8143710d159e948b52122 [24/29] gfs2: Only allocate blocks necessary in do_sync
-config: arm-randconfig-r004-20230629 (https://download.01.org/0day-ci/archive/20230630/202306300453.38BmME05-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
-reproduce: (https://download.01.org/0day-ci/archive/20230630/202306300453.38BmME05-lkp@intel.com/reproduce)
+config: arm64-randconfig-r003-20230629 (https://download.01.org/0day-ci/archive/20230630/202306300443.bEw9eSQ3-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 12.3.0
+reproduce: (https://download.01.org/0day-ci/archive/20230630/202306300443.bEw9eSQ3-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202306300453.38BmME05-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202306300443.bEw9eSQ3-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
->> fs/gfs2/quota.c:879:12: warning: stack frame size (2264) exceeds limit (1024) in 'do_sync' [-Wframe-larger-than]
-     879 | static int do_sync(unsigned int num_qd, struct gfs2_quota_data **qda)
-         |            ^
-   1 warning generated.
+   fs/gfs2/quota.c: In function 'do_sync':
+>> fs/gfs2/quota.c:1013:1: warning: the frame size of 18880 bytes is larger than 2048 bytes [-Wframe-larger-than=]
+    1013 | }
+         | ^
 
 
-vim +/do_sync +879 fs/gfs2/quota.c
+vim +1013 fs/gfs2/quota.c
 
 18ec7d5c3f434a Steven Whitehouse 2006-02-08   878  
-b3b94faa5fe596 David Teigland    2006-01-16  @879  static int do_sync(unsigned int num_qd, struct gfs2_quota_data **qda)
+b3b94faa5fe596 David Teigland    2006-01-16   879  static int do_sync(unsigned int num_qd, struct gfs2_quota_data **qda)
 b3b94faa5fe596 David Teigland    2006-01-16   880  {
 22e0429e4d1715 Bob Peterson      2023-06-16   881  	struct gfs2_sbd *sdp = (*qda)->qd_sbd;
 feaa7bba026c18 Steven Whitehouse 2006-06-14   882  	struct gfs2_inode *ip = GFS2_I(sdp->sd_quota_inode);
@@ -260,10 +259,10 @@ c972972e772a77 Bob Peterson      2023-06-22  1005  		if (!error)
 6fd568bc1f3432 Bob Peterson      2023-06-23  1010  		qdsb_put(qd);
 c972972e772a77 Bob Peterson      2023-06-22  1011  	}
 b3b94faa5fe596 David Teigland    2006-01-16  1012  	return error;
-b3b94faa5fe596 David Teigland    2006-01-16  1013  }
+b3b94faa5fe596 David Teigland    2006-01-16 @1013  }
 b3b94faa5fe596 David Teigland    2006-01-16  1014  
 
-:::::: The code at line 879 was first introduced by commit
+:::::: The code at line 1013 was first introduced by commit
 :::::: b3b94faa5fe5968827ba0640ee9fba4b3e7f736e [GFS2] The core of GFS2
 
 :::::: TO: David Teigland <teigland@redhat.com>
