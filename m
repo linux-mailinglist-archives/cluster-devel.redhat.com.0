@@ -2,99 +2,54 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C4B74236A
-	for <lists+cluster-devel@lfdr.de>; Thu, 29 Jun 2023 11:46:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD482742E13
+	for <lists+cluster-devel@lfdr.de>; Thu, 29 Jun 2023 22:02:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688031974;
+	s=mimecast20190719; t=1688068952;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=JJ8A5RWcyl1scz/K2Ger4aToKVFg8VkiR1tPU5FsSag=;
-	b=MR520Em4k3lvyHEXB2idoDlYxTTzPRi8VwSaKllk4tUoKESsyEeormYJcraIX5rDrGkdDI
-	ykgSXk2bkqXItpS2WYQNe1dxrtBkyMaBLNxCxhdNYNSXrze9I3yQd8Okw2L+kz3G7TqClI
-	bxC/nNQnAROyzkekXaIw41YBhgjcrmo=
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=4dDgyzZLkY2/8iXhAmRttHNZmuwZzxKf8DyRqRDsvIs=;
+	b=XyU7JCTcUX3W2d1Udha5/ybsWuGYTBSbpfts2YtQyqYc68KbC683AnlXyXRYqosWrs0oiB
+	A7/FtcDksAayzYgDMiFThjIXjjn13Fr/aLCvYk5Mfif/gZ4XH2Lmw9a3ZK8wzPriDdJbyZ
+	SL/UJMQHVrW+dERmsikhevM8ADfW1uE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-441-XS5u_1NXMGmNdflkXaF-2w-1; Thu, 29 Jun 2023 05:46:12 -0400
-X-MC-Unique: XS5u_1NXMGmNdflkXaF-2w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-625-CZinEKtDP6yHbZ0_Hqi-iw-1; Thu, 29 Jun 2023 16:02:29 -0400
+X-MC-Unique: CZinEKtDP6yHbZ0_Hqi-iw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7905E805C3F;
-	Thu, 29 Jun 2023 09:46:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 074C48EA662;
+	Thu, 29 Jun 2023 20:02:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D462440C6CCD;
-	Thu, 29 Jun 2023 09:46:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F38CC400E88;
+	Thu, 29 Jun 2023 20:02:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 680EE1946A47;
-	Thu, 29 Jun 2023 09:46:08 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9E2CA1946A47;
+	Thu, 29 Jun 2023 20:02:25 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E5E461946587 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 28 Jun 2023 18:40:51 +0000 (UTC)
+ ESMTP id E948719465B6 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 29 Jun 2023 20:02:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 92D3F40C2070; Wed, 28 Jun 2023 18:40:51 +0000 (UTC)
+ id 96513F5CD2; Thu, 29 Jun 2023 20:02:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8AA4440C206F
- for <cluster-devel@redhat.com>; Wed, 28 Jun 2023 18:40:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B5B32A59563
- for <cluster-devel@redhat.com>; Wed, 28 Jun 2023 18:40:51 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-160-x-ZjGyUvN0KmEzJQzDN8CA-1; Wed, 28 Jun 2023 14:40:49 -0400
-X-MC-Unique: x-ZjGyUvN0KmEzJQzDN8CA-1
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 2B1F95C01EB;
- Wed, 28 Jun 2023 14:31:43 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 28 Jun 2023 14:31:43 -0400
-X-ME-Sender: <xms:jnycZOn5OybT29WMh_8Nu9ecDEPN1h7jNycf-vrSJG1NrF7f_a7E3Q>
- <xme:jnycZF3a0uLL9Nn_QdK_G-Uu5Z_1ct7-X9r269tzvWdFuUQs4JBewHMnfnbcu7V29
- BeTMaKB3lVRrg>
-X-ME-Received: <xmr:jnycZMrfEu_0c_E_bxkzG2rMKs3tlpQc2ebIIHujErcgxcu3QCmHQ6ELmPzEvdaQoAxiUPWgi4RCcwSBhLLztzFEhbqJknId78jnwg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrtddvgdduvdehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
- ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepheegvd
- evvdeljeeugfdtudduhfekledtiefhveejkeejuefhtdeufefhgfehkeetnecuvehluhhs
- thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
- hhrdgtohhm
-X-ME-Proxy: <xmx:jnycZCkxNH-wDF4S8GsuoRaLIYpAdoLGMLcYcPdFm3RarK-buhbVdQ>
- <xmx:jnycZM2IcylwcT4JF01eg8J8ecSxO7Gev50i_0oOKHKwiA9GiPOvFg>
- <xmx:jnycZJsJ_NbAtXRxlp-4xnUw1BxFtfXL4gnSXUU8OLmBRpPW-BDNHw>
- <xmx:j3ycZCOW8r5Z8JC0TFCXrA5nn1fZS9VMXGJ5p4mKrPoCjy6Zjirlqw>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 28 Jun 2023 14:31:42 -0400 (EDT)
-Date: Wed, 28 Jun 2023 20:31:40 +0200
-From: Greg KH <greg@kroah.com>
-To: Dragos-Marian Panait <dragos.panait@windriver.com>
-Message-ID: <2023062832-snuggle-casino-7f9e@gregkh>
-References: <20230628133052.1796173-1-dragos.panait@windriver.com>
+Received: from redhat.com (null.msp.redhat.com [10.15.80.136])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 590D7F5CE5;
+ Thu, 29 Jun 2023 20:02:24 +0000 (UTC)
+Date: Thu, 29 Jun 2023 15:02:23 -0500
+From: David Teigland <teigland@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20230629200223.GC14388@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20230628133052.1796173-1-dragos.panait@windriver.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mailman-Approved-At: Thu, 29 Jun 2023 09:46:07 +0000
-Subject: Re: [Cluster-devel] [PATCH 5.4] gfs2: Don't deref jdesc in evict
+User-Agent: Mutt/1.8.3 (2017-05-23)
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [Cluster-devel] [GIT PULL] dlm updates for 6.5
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,58 +61,84 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- cluster-devel@redhat.com, Yang Lan <lanyang0908@gmail.com>
+Cc: cluster-devel@redhat.com, linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kroah.com
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Jun 28, 2023 at 04:30:52PM +0300, Dragos-Marian Panait wrote:
-> From: Bob Peterson <rpeterso@redhat.com>
-> 
-> [ Upstream commit 504a10d9e46bc37b23d0a1ae2f28973c8516e636 ]
-> 
-> On corrupt gfs2 file systems the evict code can try to reference the
-> journal descriptor structure, jdesc, after it has been freed and set to
-> NULL. The sequence of events is:
-> 
-> init_journal()
-> ...
-> fail_jindex:
->    gfs2_jindex_free(sdp); <------frees journals, sets jdesc = NULL
->       if (gfs2_holder_initialized(&ji_gh))
->          gfs2_glock_dq_uninit(&ji_gh);
-> fail:
->    iput(sdp->sd_jindex); <--references jdesc in evict_linked_inode
->       evict()
->          gfs2_evict_inode()
->             evict_linked_inode()
->                ret = gfs2_trans_begin(sdp, 0, sdp->sd_jdesc->jd_blocks);
-> <------references the now freed/zeroed sd_jdesc pointer.
-> 
-> The call to gfs2_trans_begin is done because the truncate_inode_pages
-> call can cause gfs2 events that require a transaction, such as removing
-> journaled data (jdata) blocks from the journal.
-> 
-> This patch fixes the problem by adding a check for sdp->sd_jdesc to
-> function gfs2_evict_inode. In theory, this should only happen to corrupt
-> gfs2 file systems, when gfs2 detects the problem, reports it, then tries
-> to evict all the system inodes it has read in up to that point.
-> 
-> Reported-by: Yang Lan <lanyang0908@gmail.com>
-> Signed-off-by: Bob Peterson <rpeterso@redhat.com>
-> Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-> [DP: adjusted context]
-> Signed-off-by: Dragos-Marian Panait <dragos.panait@windriver.com>
-> ---
->  fs/gfs2/super.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+Hi Linus,
 
-All now queued up, thanks.
+Please pull dlm updates from tag:
 
-greg k-h
+git://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm.git dlm-6.5
+
+The dlm posix lock handling (for gfs2) has three notable changes:
+
+- Local pids returned from GETLK are no longer negated.  A previous
+  patch negating remote pids mistakenly changed local pids also.
+
+- SETLKW operations can now be interrupted only when the process is
+  killed, and not from other signals.  General interruption was
+  resulting in previously acquired locks being cleared, not just
+  the in-progress lock.  Handling this correctly will require
+  extending a cancel capability to user space (a future feature.)
+
+- If multiple threads are requesting posix locks (with SETLKW),
+  fix incorrect matching of results to the requests.
+
+The dlm networking has several minor cleanups, and one notable change:
+
+- Avoid delaying ack messages for too long (used for message reliability),
+  resulting in a backlog of un-acked messages.  These could previously
+  be delayed as a result of either too many or too few other messages
+  being sent.  Now an upper and lower threshold is used to determine
+  when an ack should be sent.
+
+Thanks,
+Dave
+
+
+Alexander Aring (18):
+      fs: dlm: return positive pid value for F_GETLK
+      fs: dlm: fix cleanup pending ops when interrupted
+      fs: dlm: interrupt posix locks only when process is killed
+      fs: dlm: make F_SETLK use unkillable wait_event
+      fs: dlm: fix mismatch of plock results from userspace
+      fs: dlm: revert check required context while close
+      fs: dlm: clear pending bit when queue was empty
+      fs: dlm: fix missing pending to false
+      fs: dlm: unregister memory at the very last
+      fs: dlm: don't check othercon twice
+      fs: dlm: cleanup STOP_IO bitflag set when stop io
+      fs: dlm: move dlm_purge_lkb_callbacks to user module
+      fs: dlm: warn about messages from left nodes
+      fs: dlm: filter ourself midcomms calls
+      fs: dlm: handle lkb wait count as atomic_t
+      fs: dlm: handle sequence numbers as atomic
+      fs: dlm: add send ack threshold and append acks to msgs
+      fs: dlm: remove filter local comms on close
+
+Azeem Shaikh (1):
+      dlm: Replace all non-returning strlcpy with strscpy
+
+
+ fs/dlm/ast.c          |  25 ++--------
+ fs/dlm/ast.h          |   1 -
+ fs/dlm/config.c       |   4 +-
+ fs/dlm/dlm_internal.h |   2 +-
+ fs/dlm/lock.c         |  36 +++++++--------
+ fs/dlm/lockspace.c    |  12 -----
+ fs/dlm/lockspace.h    |   1 -
+ fs/dlm/lowcomms.c     |  49 +++-----------------
+ fs/dlm/main.c         |   2 +-
+ fs/dlm/member.c       |  37 ++++++++++++---
+ fs/dlm/midcomms.c     | 126 ++++++++++++++++++++++----------------------------
+ fs/dlm/plock.c        | 115 +++++++++++++++++++++++++++------------------
+ fs/dlm/user.c         |  18 ++++++++
+ fs/dlm/user.h         |   1 +
+ 14 files changed, 205 insertions(+), 224 deletions(-)
 
