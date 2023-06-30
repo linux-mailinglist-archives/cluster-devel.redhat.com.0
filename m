@@ -1,71 +1,70 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA1307444FE
-	for <lists+cluster-devel@lfdr.de>; Sat,  1 Jul 2023 01:01:36 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17AD47444F9
+	for <lists+cluster-devel@lfdr.de>; Sat,  1 Jul 2023 00:53:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688166095;
+	s=mimecast20190719; t=1688165620;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=mmrCw93FsSgGVqkQGx3tY+c3DxJ3ErMGqt6cuZmQDk4=;
-	b=RCMOv/k3ZmdQNDRUHOj0XXJrIbqD6T7H2gcMNRlwxI5r80x2uNWbD3xYkM8CsJjHzw82Ym
-	3hFH8X5JrwTaqXcyqyS5kZx2PcTI94xxtsTRSLmj2W9mDxBdwx1kY5eu6ioP5myzgdcaZ3
-	z6me5ieaHXfyzOhK/PNy9gYK5uZvJAk=
+	 list-subscribe:list-post; bh=lAGAJ28n1AlcMoZYeCm9uRz7rvcCocSlQtZJp9kS4hM=;
+	b=PqU7B/w7gnQGuPd0XU8ZMilCyqVdOqscFKyq/EeOtIZQT1vgJDGmtmGPYLYKWsek6TxIIE
+	NDK59phis268MMc2/SyiseobtkLf0PSTVHU/cexvbx93FwEozi4dD50Z5MDrdly78phpby
+	ti9Dp0y8j7vCDy1PfPl/d/9KjLUypcY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-235-b-jx3kR1OXevA8tvhj0Vvg-1; Fri, 30 Jun 2023 19:01:32 -0400
-X-MC-Unique: b-jx3kR1OXevA8tvhj0Vvg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-544-3QnLb7CANYunuh5dSh7PAg-1; Fri, 30 Jun 2023 18:53:36 -0400
+X-MC-Unique: 3QnLb7CANYunuh5dSh7PAg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C964E858F1E;
-	Fri, 30 Jun 2023 23:01:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6BA9385A58A;
+	Fri, 30 Jun 2023 22:53:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B6D09F5CF4;
-	Fri, 30 Jun 2023 23:01:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 65D7614682FA;
+	Fri, 30 Jun 2023 22:53:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2150A1946A46;
-	Fri, 30 Jun 2023 23:01:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 012A71946A46;
+	Fri, 30 Jun 2023 22:53:32 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A8CF519465B3 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 30 Jun 2023 22:51:54 +0000 (UTC)
+ ESMTP id 0322019465B3 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 30 Jun 2023 22:52:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 426BC40C206F; Fri, 30 Jun 2023 22:51:54 +0000 (UTC)
+ id E2873C1ED98; Fri, 30 Jun 2023 22:52:49 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A9D340C2063
- for <cluster-devel@redhat.com>; Fri, 30 Jun 2023 22:51:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DAFC6C00049
+ for <cluster-devel@redhat.com>; Fri, 30 Jun 2023 22:52:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16740101A54E
- for <cluster-devel@redhat.com>; Fri, 30 Jun 2023 22:51:54 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF8DA1011630
+ for <cluster-devel@redhat.com>; Fri, 30 Jun 2023 22:52:49 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-116-Wm9Iel4SN4uImXOlYCE0bQ-1; Fri, 30 Jun 2023 18:51:50 -0400
-X-MC-Unique: Wm9Iel4SN4uImXOlYCE0bQ-1
+ us-mta-591-U74pjJN9OgOkWDGiEZIZBQ-1; Fri, 30 Jun 2023 18:52:48 -0400
+X-MC-Unique: U74pjJN9OgOkWDGiEZIZBQ-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
- Hat Linux)) id 1qFML8-004eW8-2f; Fri, 30 Jun 2023 22:11:42 +0000
-Date: Fri, 30 Jun 2023 15:11:42 -0700
+ Hat Linux)) id 1qFMM7-004egi-0d; Fri, 30 Jun 2023 22:12:43 +0000
+Date: Fri, 30 Jun 2023 15:12:43 -0700
 From: Luis Chamberlain <mcgrof@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Julia Lawall <julia.lawall@inria.fr>, Takashi Iwai <tiwai@suse.de>
-Message-ID: <ZJ9THiUlOUmm0xpD@bombadil.infradead.org>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <ZJ9TW9MQmlqmbRU/@bombadil.infradead.org>
 References: <20230621144507.55591-1-jlayton@kernel.org>
- <20230621152141.5961cf5f@gandalf.local.home>
+ <20230621144507.55591-2-jlayton@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20230621152141.5961cf5f@gandalf.local.home>
+In-Reply-To: <20230621144507.55591-2-jlayton@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -73,9 +72,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH 00/79] fs: new accessors for
- inode->i_ctime
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH 01/79] fs: add ctime accessors
+ infrastructure
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,9 +118,9 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  linux-trace-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
  Dave Kleikamp <shaggy@kernel.org>, Sandeep Dhavale <dhavale@google.com>,
  Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
- samba-technical@lists.samba.org, Mimi Zohar <zohar@linux.ibm.com>,
- linux-mm@kvack.org, Joel Fernandes <joel@joelfernandes.org>,
- Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@google.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, linux-mm@kvack.org,
+ Joel Fernandes <joel@joelfernandes.org>, Eric Dumazet <edumazet@google.com>,
+ Stanislav Fomichev <sdf@google.com>,
  Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Hangyu Hua <hbh25y@gmail.com>,
  linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
  Paul Moore <paul@paul-moore.com>, Leon Romanovsky <leon@kernel.org>,
@@ -161,16 +160,17 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Zhihao Cheng <chengzhihao1@huawei.com>, Jens Axboe <axboe@kernel.dk>,
  Zeng Jingxiang <linuszeng@tencent.com>, Kees Cook <keescook@chromium.org>,
  Arnd Bergmann <arnd@arndb.de>, autofs@vger.kernel.org,
- Yifei Liu <yifeliu@cs.stonybrook.edu>, Damien Le Moal <dlemoal@kernel.org>,
- Eric Paris <eparis@parisplace.org>, ceph-devel@vger.kernel.org,
- Gao Xiang <xiang@kernel.org>, Jiangshan Yi <yijiangshan@kylinos.cn>,
- David Howells <dhowells@redhat.com>, linux-nfs@vger.kernel.org,
- linux-ext4@vger.kernel.org, Song Liu <song@kernel.org>,
- Jeff Layton <jlayton@kernel.org>, Steve French <sfrench@samba.org>,
- Jeremy Kerr <jk@ozlabs.org>, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-erofs@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>,
- ocfs2-devel@oss.oracle.com, jfs-discussion@lists.sourceforge.net,
+ Steven Rostedt <rostedt@goodmis.org>, Yifei Liu <yifeliu@cs.stonybrook.edu>,
+ Damien Le Moal <dlemoal@kernel.org>, Eric Paris <eparis@parisplace.org>,
+ ceph-devel@vger.kernel.org, Gao Xiang <xiang@kernel.org>,
+ Jiangshan Yi <yijiangshan@kylinos.cn>, David Howells <dhowells@redhat.com>,
+ linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org,
+ Song Liu <song@kernel.org>, samba-technical@lists.samba.org,
+ Steve French <sfrench@samba.org>, Jeremy Kerr <jk@ozlabs.org>,
+ netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, ocfs2-devel@oss.oracle.com,
+ jfs-discussion@lists.sourceforge.net,
  Dominique Martinet <asmadeus@codewreck.org>,
  Christian Schoenebeck <linux_oss@crudebyte.com>,
  Bob Copeland <me@bobcopeland.com>, KP Singh <kpsingh@kernel.org>,
@@ -211,31 +211,24 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Joel Becker <jlbec@evilplan.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Jun 21, 2023 at 03:21:41PM -0400, Steven Rostedt wrote:
-> On Wed, 21 Jun 2023 10:45:05 -0400
-> Jeff Layton <jlayton@kernel.org> wrote:
+On Wed, Jun 21, 2023 at 10:45:06AM -0400, Jeff Layton wrote:
+> struct timespec64 has unused bits in the tv_nsec field that can be used
+> for other purposes. In future patches, we're going to change how the
+> inode->i_ctime is accessed in certain inodes in order to make use of
+> them. In order to do that safely though, we'll need to eradicate raw
+> accesses of the inode->i_ctime field from the kernel.
 > 
-> > Most of this conversion was done via coccinelle, with a few of the more
-> > non-standard accesses done by hand. There should be no behavioral
-> > changes with this set. That will come later, as we convert individual
-> > filesystems to use multigrain timestamps.
+> Add new accessor functions for the ctime that we can use to replace them.
 > 
-> BTW, Linus has suggested to me that whenever a conccinelle script is used,
-> it should be included in the change log.
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-Sometimes people like the coccinelle included in the commit, sometimes
-people don't [0], it really ends up being up to a subjective maintainer
-preference. A compromise could be to use git notes as these are
-optional, however if we want to go down that path we should try to make
-a general consensus on it so we can send a consistent message.
-
-[0] https://lore.kernel.org/all/20230512073100.GC32559@twin.jikos.cz/
+Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
 
   Luis
 
