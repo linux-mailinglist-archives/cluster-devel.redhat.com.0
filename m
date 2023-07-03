@@ -1,97 +1,97 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66BA5745833
-	for <lists+cluster-devel@lfdr.de>; Mon,  3 Jul 2023 11:17:38 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 983D5746422
+	for <lists+cluster-devel@lfdr.de>; Mon,  3 Jul 2023 22:32:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688375857;
+	s=mimecast20190719; t=1688416376;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8HHzoJ5KB9PwbED6aCUVdjiUMf88jiN+uGVsp2SPg0Q=;
-	b=A6vh3CJfWNtsAFmfEXGyksoI6h+lANYQZIFw8iR3o0eq2xxM6iShFgi+NUHpq605rxu58Q
-	Klq2vsK5TPp9SG71TiYaCQGrA3VyG29ezXRbfQghcSa+yF/C5W+81QnE4BKM6L7hoCA0Oh
-	o7p611IZY5XaRrbfgPJiazNqIrHRm+M=
+	bh=1fKWi0rYo77j8u4gN98bhniw2sqFFBsM4GubtoeVvlU=;
+	b=F1BLipYDZrU/mzyq0Qt2whuqBbHQbNrnpMnA4lqUUna0eawsxxrCSWyP0wbiKTZxqlUzPx
+	85DugchQxVmHyD8TNmggaElmANtkrrOHr/9m6Go0jFVg/ig+3Q1PSgswT8MUHrj/DbO22S
+	JyabGQyob70um5FiSCqprgRMiRuNA+A=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-635-8DleSxoYMBmwW9y90RqXZA-1; Mon, 03 Jul 2023 05:17:33 -0400
-X-MC-Unique: 8DleSxoYMBmwW9y90RqXZA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-650-NkSpe9zxNAWmgPLbhn5QfA-1; Mon, 03 Jul 2023 16:32:50 -0400
+X-MC-Unique: NkSpe9zxNAWmgPLbhn5QfA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EEC163C1350E;
-	Mon,  3 Jul 2023 09:17:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FB991C07246;
+	Mon,  3 Jul 2023 20:32:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 65AFA4087C6A;
-	Mon,  3 Jul 2023 09:17:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F1C2D492C13;
+	Mon,  3 Jul 2023 20:32:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0B4751946597;
-	Mon,  3 Jul 2023 09:17:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 50928194658C;
+	Mon,  3 Jul 2023 20:32:46 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8EF9A1946586 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  3 Jul 2023 09:17:28 +0000 (UTC)
+ ESMTP id ABA481946586 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  3 Jul 2023 20:32:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4CB144087C6D; Mon,  3 Jul 2023 09:17:28 +0000 (UTC)
+ id 5B87A2166B34; Mon,  3 Jul 2023 20:32:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 453AD4087C6A
- for <cluster-devel@redhat.com>; Mon,  3 Jul 2023 09:17:28 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 538ED2166B31
+ for <cluster-devel@redhat.com>; Mon,  3 Jul 2023 20:32:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 297483C1350B
- for <cluster-devel@redhat.com>; Mon,  3 Jul 2023 09:17:28 +0000 (UTC)
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 367D429AB442
+ for <cluster-devel@redhat.com>; Mon,  3 Jul 2023 20:32:44 +0000 (UTC)
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-413-qJAdub3TNNGBkq8HT6zdKw-1; Mon, 03 Jul 2023 05:17:26 -0400
-X-MC-Unique: qJAdub3TNNGBkq8HT6zdKw-1
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-1b895fa8929so8315295ad.0
- for <cluster-devel@redhat.com>; Mon, 03 Jul 2023 02:17:26 -0700 (PDT)
+ us-mta-325-VAsrSgorMQy1t44cfFGDIA-1; Mon, 03 Jul 2023 16:31:47 -0400
+X-MC-Unique: VAsrSgorMQy1t44cfFGDIA-1
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-1b806d07935so49864905ad.0
+ for <cluster-devel@redhat.com>; Mon, 03 Jul 2023 13:31:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688375845; x=1690967845;
+ d=1e100.net; s=20221208; t=1688416306; x=1691008306;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8HHzoJ5KB9PwbED6aCUVdjiUMf88jiN+uGVsp2SPg0Q=;
- b=Ru9qF12Cq6gvtmdTAqMEGzmgeuDoaHL29LTnMUtRKdnB0OXNjvC3h186aw+ca815Mx
- 30TXTFp3DVbcTxcQLB50bpjvcBQfHLV7bTrzVT5gSGy92DxX227vp/92vhbLz+cwRCd9
- lY4SzzlpbfvA8H/2Cw8OyUP8zvlsBmV4oZABZRRln1eGJ0MtJJY2+6zymwuZ9h9lRIIy
- eecfl80LaBlMGpsM+axsQYuQBlSuGutCV4HMwcwf5x0wpaFDBmauGS4dVjq4ygVoU5oD
- z3z4pF6aX8pchXQ/oRJFChZeGfmOSmjRPcCHiFwzw4T8urF+FL/xn/M8SxCSO+yMkXSO
- rxJg==
-X-Gm-Message-State: ABy/qLazNyP0qUY4K+gPAiUFvAYJjLUxE8nyVz258KdHkxmBCcbYqgRo
- tGuk0p/+kbUwCOqtyMCvJW1Z1D1s0BIUkEQBC/Ozio/OXQ7OA3lX9NkkKgaRYgi0a9nqAQfPRaW
- uQFYwOz02Cak1sw3m2fyB0B8wKSJjIgP6ApTSRA==
-X-Received: by 2002:a17:903:22ce:b0:1b8:9b90:e2bc with SMTP id
- y14-20020a17090322ce00b001b89b90e2bcmr914062plg.52.1688375845571; 
- Mon, 03 Jul 2023 02:17:25 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlFvcAIY9KsHTFSp2HQjjW2SLm2ABVtM2SXsV/67vEEWu50uv1ZaslAjF6b7RfDyYT6a4Pk8632wNdrsXX5WZ/w=
-X-Received: by 2002:a17:903:22ce:b0:1b8:9b90:e2bc with SMTP id
- y14-20020a17090322ce00b001b89b90e2bcmr914045plg.52.1688375845264; Mon, 03 Jul
- 2023 02:17:25 -0700 (PDT)
+ bh=1fKWi0rYo77j8u4gN98bhniw2sqFFBsM4GubtoeVvlU=;
+ b=I2a56q7y7j5co/Df9UmjOsSrDhvcUJEIDvW/gvPuSdA8KhiIkcs1GZccouANV2iTN4
+ AtbOJy+xzziMID8x+hd4BrLWWfJ+y6TrOfIRFCH1pxlY7QveL5+qovXtWw2O+nQNNNqV
+ yHLFZC7vZiUJP+GAOyzkQkABg3XJ235y8Cx/LDBMhIpJytkyu0/N/Nxx/KCI0K62j+Nu
+ s7LaCD/n7tt4ZrdRgtFJYf3jkxuDro02G2J7zTFajgDf9tmaxa5khpKwDGZhxLa/9hCx
+ hIBvIiwe46Gxbeu++DSmuYXTHIdfVNuAmP44ou/2srMEPUU2DHfUKraaeobypFKG+xQk
+ 8Q7w==
+X-Gm-Message-State: ABy/qLaGc9SzcbthT6YZpLW83doWhSsBl9nrfflSVCpT+OjHOSEuDWiH
+ MLUwGr0+E+XRafwaQW7aRCvM5CaHRltyx9CxEItPup24gLYzxXD9b4WjQGEp9Sb8mfo08VdM2YR
+ XSOlvdsUR/ZSD+xfGQ6oFpVs73q4TGqscstrUPQ==
+X-Received: by 2002:a17:902:d702:b0:1b8:901d:cfa8 with SMTP id
+ w2-20020a170902d70200b001b8901dcfa8mr4873913ply.18.1688416306275; 
+ Mon, 03 Jul 2023 13:31:46 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlF+x8Z808wiN59SjHWxqDqEaiR/a3Y6nlWknym38PVY3j6FGLfLmxVbustdLNJmZyEo8OAMYcVEK8zNWcuYTP8=
+X-Received: by 2002:a17:902:d702:b0:1b8:901d:cfa8 with SMTP id
+ w2-20020a170902d70200b001b8901dcfa8mr4873897ply.18.1688416306008; Mon, 03 Jul
+ 2023 13:31:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1688073459.git.drv@mailo.com>
-In-Reply-To: <cover.1688073459.git.drv@mailo.com>
+References: <20230620033859.997-1-lidong@vivo.com>
+In-Reply-To: <20230620033859.997-1-lidong@vivo.com>
 From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 3 Jul 2023 11:17:13 +0200
-Message-ID: <CAHc6FU5WZafgAutKpVRC1jPMNpGCh+M_i+tmCZw0dGCBUXe1ug@mail.gmail.com>
-To: Deepak R Varma <drv@mailo.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Cluster-devel] [PATCH v3 0/6] gfs2: kmap{_atomic} conversion
- to kmap_local_{page/folio}
+Date: Mon, 3 Jul 2023 22:31:34 +0200
+Message-ID: <CAHc6FU71+Y2CT=04cbgtxp5p8jPYU5RK0tcz8wR4jyLdQw6h4A@mail.gmail.com>
+To: Li Dong <lidong@vivo.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [Cluster-devel] [PATCH] fs: Fix bug in gfs2_freeze_func that
+ can cause deadlock
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,91 +103,51 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Sumitra Sharma <sumitraartsy@gmail.com>, Ira Weiny <ira.weiny@intel.com>,
- linux-kernel@vger.kernel.org, cluster-devel@redhat.com,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+Cc: "open list:GFS2 FILE SYSTEM" <cluster-devel@redhat.com>,
+ open list <linux-kernel@vger.kernel.org>, opensource.kernel@vivo.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Deepak,
+Li Dong,
 
-On Thu, Jun 29, 2023 at 11:48=E2=80=AFPM Deepak R Varma <drv@mailo.com> wro=
-te:
-> This patch series proposes to replace the kmap/kmap_atomic implementation=
- to the
-> preferred kmap_local_* APIs.
+On Tue, Jun 20, 2023 at 5:47=E2=80=AFAM Li Dong <lidong@vivo.com> wrote:
+> Function gfs2_freeze_func causes a deadlock=EF=BC=8Cbecause sd_freeze_mut=
+ex was
+> not released when return
 >
-> The code blocks for this module where kmap/kmap_atomic calls are implemen=
-ted do
-> not appear to depend on disabling page-faults or preemption. Hence such c=
-ode
-> blocks are safe for converting to improved kmap_local_{page,folio} APIs.
+> Signed-off-by: Li Dong <lidong@vivo.com>
+> ---
+>  fs/gfs2/super.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> Note: The proposed patches are build tested only.
+> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+> --- a/fs/gfs2/super.c
+> +++ b/fs/gfs2/super.c
+> @@ -741,8 +741,10 @@ void gfs2_freeze_func(struct work_struct *work)
+>         set_bit(SDF_FROZEN, &sdp->sd_flags);
 >
-> Initially, only a single patch was sent and now being converted into a pa=
-tch
-> series including the other files/functions of this module. Hence all patc=
-hes,
-> that are included for the first time in this series are also marked as v3=
-.
->
-> Changes in v3:
->    - Patch set introduced to include all gfs2 kmap conversions
->    - Patches 3/6 through 6/6 are included to build the series
->    - Initial stand-alone patch split into 2 patches [1/6 and 2/6]
+>         error =3D gfs2_do_thaw(sdp);
+> -       if (error)
+> +       if (error) {
+> +               mutex_unlock(&sdp->sd_freeze_mutex);
+>                 goto out;
+> +       }
 
-I have already merged version 2 of this patch series and I've fixed up
-the remaining issues in follow-up patches; see the cluster-devel
-mailing list:
-
-https://listman.redhat.com/archives/cluster-devel/2023-June/024391.html
-https://listman.redhat.com/archives/cluster-devel/2023-June/024392.html
-https://listman.redhat.com/archives/cluster-devel/2023-June/024393.html
-
-As well as our for-next branch:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git/log/?h=
-=3Dfor-next
-
-As far as I can see, there is nothing in v3 of your patches that I
-haven't addressed already. Please speak out if I've missed anything.
+thank you for this bug report. I have chosen to fold this fix into
+commit "gfs2: Rework freeze / thaw logic" and clean up
+gfs2_freeze_func() a little along the way; see the current for-next
+branch.
 
 Thanks,
 Andreas
 
-
->
-> Changes in v2:
->    - 3/6 to 6/6: None.
->    - 1/6 + 2/6: Correct patch description for the replacement function na=
-me from
->      kmap_local_folio to kmap_local_page
->
-> Deepak R Varma (6):
->   gfs2: Replace kmap_atomic() by kmap_local_page() in stuffed_readpage
->   gfs2: Replace kmap_atomic()+memcpy by memcpy_from_page()
->   gfs2: Replace kmap() by kmap_local_page() in gfs2_unstuffer_page
->   gfs2: Replace kmap_atomic() by kmap_local_page() in lops.c
->   gfs2: Replace kmap() by kmap_local_page() in gfs2_read_super
->   gfs2: Replace kmap_atomic() by kmap_local_page() in
->     gfs2_write_buf_to_page
->
->  fs/gfs2/aops.c       | 13 ++++++-------
->  fs/gfs2/bmap.c       |  4 ++--
->  fs/gfs2/lops.c       | 12 ++++++------
->  fs/gfs2/ops_fstype.c |  4 ++--
->  fs/gfs2/quota.c      |  4 ++--
->  5 files changed, 18 insertions(+), 19 deletions(-)
+>         clear_bit(SDF_FROZEN, &sdp->sd_flags);
 >
 > --
-> 2.34.1
->
->
->
+> 2.31.1.windows.1
 
