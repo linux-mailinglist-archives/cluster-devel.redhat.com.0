@@ -2,143 +2,151 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09681747AE2
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 Jul 2023 03:17:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E7C4748C53
+	for <lists+cluster-devel@lfdr.de>; Wed,  5 Jul 2023 20:58:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688519833;
+	s=mimecast20190719; t=1688583531;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aNayui0waL47/KRgPmEBAKPKOn8Lj1objKGVkPmotaA=;
-	b=Dx2aNS4HWFW9MxXenHkKBD80YyFBsLAikN1WnYC7nzBZFQhqyFb+5vPeHfr5K9SR7SQ+64
-	gNasZzRbMT7knsOoZMCmNF/ng71YGM2a1S9XYVKu3IoTXxPTlaFSdW0u4Wj7HmhopmOhdQ
-	PgYnn2dP3zR2y/5oAzWi965xQD4KvEw=
+	bh=sr8dHZIeitup9AXYi1bqBOXzFAdEmwdcm4WWVg1CJdE=;
+	b=EZGEF6meSE7N4jqM70Yei8L3Ct6co4BAcZFZzXIzwZ9FizXzYs+zUbUDiQ6c2zDzRrqKG9
+	9lhx+nlALAXuAGoJS5KaD6sc2gwCYuJQuaJgkNkihRJVMTZoMbPvLlV8e7mwkKKFQ/Nlph
+	F0tzt/V3DYruRzLyOu8pv8g26EZgIt0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-94-opYDVO-7Mvu57gNqpJhYIg-1; Tue, 04 Jul 2023 21:17:06 -0400
-X-MC-Unique: opYDVO-7Mvu57gNqpJhYIg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-48-gaERVraHNjioU7PFVADWfA-1; Wed, 05 Jul 2023 14:58:44 -0400
+X-MC-Unique: gaERVraHNjioU7PFVADWfA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE3FA101A528;
-	Wed,  5 Jul 2023 01:17:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1156D800B35;
+	Wed,  5 Jul 2023 18:58:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6DC9D40C206F;
-	Wed,  5 Jul 2023 01:17:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 42D80140E952;
+	Wed,  5 Jul 2023 18:58:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2ACAB194658D;
-	Wed,  5 Jul 2023 01:17:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E35A2194658F;
+	Wed,  5 Jul 2023 18:58:40 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B5F401946588 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  5 Jul 2023 01:17:00 +0000 (UTC)
+ ESMTP id 6939A1946588 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  5 Jul 2023 18:58:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6EE324067A01; Wed,  5 Jul 2023 01:17:00 +0000 (UTC)
+ id 039AAF5CFA; Wed,  5 Jul 2023 18:58:39 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6607B4067A00
- for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 01:17:00 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F04F318EB4
+ for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 18:58:38 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A21B104458F
- for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 01:17:00 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2114.outbound.protection.outlook.com [40.107.255.114]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-112-LnNy6ujVMte_cySapt4tIg-1; Tue, 04 Jul 2023 21:16:57 -0400
-X-MC-Unique: LnNy6ujVMte_cySapt4tIg-1
-Received: from SG2PR06MB3743.apcprd06.prod.outlook.com (2603:1096:4:d0::18) by
- SEYPR06MB6132.apcprd06.prod.outlook.com (2603:1096:101:dd::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6544.24; Wed, 5 Jul 2023 01:16:50 +0000
-Received: from SG2PR06MB3743.apcprd06.prod.outlook.com
- ([fe80::7dfd:a3ed:33ca:9cc8]) by SG2PR06MB3743.apcprd06.prod.outlook.com
- ([fe80::7dfd:a3ed:33ca:9cc8%6]) with mapi id 15.20.6544.024; Wed, 5 Jul 2023
- 01:16:49 +0000
-From: =?utf-8?B?546L5piOLei9r+S7tuW6leWxguaKgOacr+mDqA==?= <machel@vivo.com>
-To: Alexander Aring <aahringo@redhat.com>
-Thread-Topic: [Cluster-devel] [PATCH v1] fs:dlm:Fix NULL pointer dereference
- bug in accept_from_sock()
-Thread-Index: AQHZrmYhf1bvhzMKB0iFqDDwDtQQC6+pyp6AgACU9KA=
-Date: Wed, 5 Jul 2023 01:16:49 +0000
-Message-ID: <SG2PR06MB37431CA356AFA63FDF67EFAABD2FA@SG2PR06MB3743.apcprd06.prod.outlook.com>
-References: <20230704104725.2510-1-machel@vivo.com>
- <CAK-6q+jQcyyAtMD5tjzjrJg8Auy6HuugJomiSokwRhqRifVpCA@mail.gmail.com>
-In-Reply-To: <CAK-6q+jQcyyAtMD5tjzjrJg8Auy6HuugJomiSokwRhqRifVpCA@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SG2PR06MB3743:EE_|SEYPR06MB6132:EE_
-x-ms-office365-filtering-correlation-id: 4817cc8b-1cc5-4bf9-d679-08db7cf5820c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: nTvhBM/kcrQ0wpzXW3V2h8Jtk0MUS2Xp973Dk7kQJVQLgWrLB5wzIUVS66T6HpM7S6+AvkXu9wIza1DL8qs2xU8S9apELy04GjbXSqylZG3OlhEWGMGKOyHwxzbpoIM9YSz0h54quTM+zfg/HHxZeM5pog2pa1BlMXEmW5LXLCfPI+bb1QhLkp0llroBRYpyrNGaVibwsANUgX7U6sHsHA2d98Xpq9PozjRA+bKY0T9ND58ksBq0EeKjR0L2JWYdRGrxKNvxgq1MSpKAWvHaJoydDVjF6ykc67IJuv5pjFvlQUkksgZU2r2ADsJNxKHnp99ZGIslKoheJuUVe8VtwOgReeo6+taEWD+yR09r5I5dbSBhP0bTTijv6Lx9dyqZijNET8EhPLJkiIJtQPFJWZj+7e9CfOn92JyhsIaLMoS+U1ybQFlWwLFAofnGmEh1kScBQ+D8jAm9uqQL10yDIaqyHVdFb/tMYhtkcdB+yNmiprBCfU38g9fXhlcwRxIN8aDfGyYh+Ahr0Fi38+0fz4tJ6Pk1JBjRLNnJOy+RktoGcMu+V9YjFUElXssHuVoQpgLKKlu9gkLO0MmDewwqsIYwK5rzLwLCtKvN7ZXiPl4V/7Yn2pULmZCeRtMHSM+l
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SG2PR06MB3743.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(136003)(39860400002)(396003)(376002)(346002)(451199021)(66556008)(64756008)(6506007)(76116006)(6916009)(66476007)(55016003)(4326008)(66946007)(66446008)(478600001)(41300700001)(107886003)(38100700002)(38070700005)(316002)(83380400001)(122000001)(52536014)(53546011)(186003)(26005)(9686003)(54906003)(966005)(8936002)(224303003)(85182001)(2906002)(5660300002)(7696005)(86362001)(71200400001)(33656002);
- DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QW0zRzJuSEJkeDl5TVdBemkwMG5UcXdyaHNOVVFQcHV1UzRBMGc1VXB6UFdp?=
- =?utf-8?B?aG13Rit1c3d4aXh0dG5MT0RCT3pqakFiU1NTQlJybTkyZXdMN0JZbW9KdHVQ?=
- =?utf-8?B?Y0xmZWNGSW9LUlEvbzJURFI1OFBySFRiUGN6WlJlUThMdTJZN3dRUEJOaUZ5?=
- =?utf-8?B?QnFENXJYd2FBd1lGU3QvZTkwTUc5dFhiQk5YaCt2UmpMQUFZS1Y4NjYwQ0RE?=
- =?utf-8?B?V3dNb3Rvc21kbXlSaENpakJBdDBJK290LzlOMEdQU2lqdDdQT2tMQ3FYSGpO?=
- =?utf-8?B?czRCR3F3OGpVM3h5MUxtcUlVN0lkcTgvQUgyK3E4ZVluSWZOVXJYbzRnTWk0?=
- =?utf-8?B?d3RNMit2d0p5Nk5OL1p2WTB5WFJPTllMVlZMSjIwbCtUYlhRNzNaeWlsTDNN?=
- =?utf-8?B?THRiVGFVaFdhR0NJNTkvTW1LakNlS3hWbWZQUXRxKytnckxWUGhLalRENzVi?=
- =?utf-8?B?M21UUVg4SHpxNENsQ3FEdkJmSU02aHhjTlZwR21ieUhmZExJc3ZuclpZbUVS?=
- =?utf-8?B?cXdzRGl6NSt0WXpkV3AwWnFrS0hzMEpWMEtrc2dySnd6aUlRUjZnRkVyY2pY?=
- =?utf-8?B?TWFUSmhhYlY3anlvWVI5U3ZvQW0zaGgvNlRtNlpURHhyM2dJUjZqR1p1aU9m?=
- =?utf-8?B?RFlSWnZEMmZCTXFYMWl5UEFDZFVQT2p2ajRlaStwa0huMHJtRVJRSmFBaVQw?=
- =?utf-8?B?M3c3b3JhYTZ1MUlDejUrWnUxRzE3NFJFais1cHJyVHpXRjFCT3hTRG5OOUkr?=
- =?utf-8?B?NDg3T3J3OU5hcmdzTkZrWGZ0dGRZSk4zMEVkTDVrNkpGc0kzUEwxTUlhUktu?=
- =?utf-8?B?VFFMeDdlbzJ3MjdrcUNWaXBON3YyR1RFdnBGbjFEUmRJa2lDSzdEL0dpSzRv?=
- =?utf-8?B?YzBNQU1xcXFKWnViT2l4TGhYbjZmeVloYWJ3UGFRSHU0Z1NLQUcwVGJTdExN?=
- =?utf-8?B?MUZ2K2JFcnZqQWNaNWdvLzFYMUt2WlV2SHFQb1k1N2JHT09mNzZYV1ArTE1D?=
- =?utf-8?B?Y3k3L1lQSGtOQ2M3anU4VDhSSWF0ZlZCYjA1dEFFK256eGhmSFBVRXJtTkNJ?=
- =?utf-8?B?akhBelVEdlB4R1FtTEpQSCtPNy96S2hLTmJuWmNWcU5HNTVxQUxBYnl2eWsv?=
- =?utf-8?B?UmxEUTFWNzNxOVlwdkR6eVpveFFsTXVnbzFpL3NhWTVWK2NpSnhHTDVFVldX?=
- =?utf-8?B?YW1neFlWWVoxQnpQNVV2RTdjUDV0RjZpbFoybE5aVUxFZHR2L1JZY0NXdy9q?=
- =?utf-8?B?SU9uNWxueTdlcmY4UzJBZGZpM1Q4WFFCQzFPZUxXdFdpeHltMU1nMzN6Ujhk?=
- =?utf-8?B?djR2SXZ2OVFYOTlrYVhhYkxRKzAzN0VOQ2NISEplcGxDcHI0Nmlrb2s1alZn?=
- =?utf-8?B?Y3RaUjN0UDJZT2RxUG1GYzhid09Hd09GL2pscExNV28xUHJzTmUvNWpBM29y?=
- =?utf-8?B?dnkybVhrWk5Xa1FxZmlpc2tYMUNlaytWTXF6RlhNY0pYS0o5M09ETVE3bzl6?=
- =?utf-8?B?SFhiZnBLcjZ6VzFlMlkzSUJMU1ZCUXplU0E4RFYwdTU0YjhBMEd6cWcvNE1J?=
- =?utf-8?B?N3pXanJTU2x3WU9RNnhXcWhvSXZnTytQS3d6YTVncE01K1krdkpicDdUNXFI?=
- =?utf-8?B?clptY2dBUktwRG5iN25uNGNkRWZ5dmN5L25nYXpZUnUvSHJhb3MrbEJFcWFC?=
- =?utf-8?B?TXhMQzlLZ0k1YzhWYUpXUVpnTEJmQmNZTEM4S0wxWS9xUE1hdEJWRVhHZ2lK?=
- =?utf-8?B?ZEk3TXlwd1hKWGtaNmZvWkRHVk1qa0x1bnNVN2JLYVdubnNZU25KWXhxOTUr?=
- =?utf-8?B?Yk82NjYwVmcrV1BKQXhwSnpVU0hyc1FFNG1vaEFDQmtUd2RRczk5UzIxaFhj?=
- =?utf-8?B?eWs1QjBYTWVyZGxoUmhhN0c2MjRSV25PdEJLYXB4QUJCWDRFczdZNTJxa2U5?=
- =?utf-8?B?MVNabWowcXVKc042Wm5tQ29CSHd2bUJZWWFUd2RLUDRjWnpKTTlKWkJRd0hV?=
- =?utf-8?B?MVdxSXBXTkJ2RjRQd1lreUpDa3M0UVRCRkpKbmc3a3ZWYzFIR0ZsdEx5SDdm?=
- =?utf-8?B?MnRpZ083WlFGN2xqV1RlSnJmbUJqaWhESzBJbjdMSmNJRWMxd01GaGpHRGZE?=
- =?utf-8?Q?qlds=3D?=
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA7E6101A529
+ for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 18:58:38 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-450-hVfq5Tm6NQmTFZ6ZQa-Wsw-1; Wed, 05 Jul 2023 14:58:35 -0400
+X-MC-Unique: hVfq5Tm6NQmTFZ6ZQa-Wsw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 55B76616D5;
+ Wed,  5 Jul 2023 18:58:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6490C433C8;
+ Wed,  5 Jul 2023 18:58:13 +0000 (UTC)
+From: Jeff Layton <jlayton@kernel.org>
+To: jk@ozlabs.org, arnd@arndb.de, mpe@ellerman.id.au, npiggin@gmail.com,
+ christophe.leroy@csgroup.eu, hca@linux.ibm.com, gor@linux.ibm.com,
+ agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
+ gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
+ maco@android.com, joel@joelfernandes.org, brauner@kernel.org,
+ cmllamas@google.com, surenb@google.com,
+ dennis.dalessandro@cornelisnetworks.com, jgg@ziepe.ca, leon@kernel.org,
+ bwarrum@linux.ibm.com, rituagar@linux.ibm.com, ericvh@kernel.org,
+ lucho@ionkov.net, asmadeus@codewreck.org, linux_oss@crudebyte.com,
+ dsterba@suse.com, dhowells@redhat.com, marc.dionne@auristor.com,
+ viro@zeniv.linux.org.uk, raven@themaw.net, luisbg@kernel.org,
+ salah.triki@gmail.com, aivazian.tigran@gmail.com, ebiederm@xmission.com,
+ keescook@chromium.org, clm@fb.com, josef@toxicpanda.com, xiubli@redhat.com,
+ idryomov@gmail.com, jlayton@kernel.org, jaharkes@cs.cmu.edu,
+ coda@cs.cmu.edu, jlbec@evilplan.org, hch@lst.de, nico@fluxnic.net,
+ rafael@kernel.org, code@tyhicks.com, ardb@kernel.org, xiang@kernel.org,
+ chao@kernel.org, huyue2@coolpad.com, jefflexu@linux.alibaba.com,
+ linkinjeon@kernel.org, sj1557.seo@samsung.com, jack@suse.com,
+ tytso@mit.edu, adilger.kernel@dilger.ca, jaegeuk@kernel.org,
+ hirofumi@mail.parknet.co.jp, miklos@szeredi.hu, rpeterso@redhat.com,
+ agruenba@redhat.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
+ johannes@sipsolutions.net, mikulas@artax.karlin.mff.cuni.cz,
+ mike.kravetz@oracle.com, muchun.song@linux.dev, dwmw2@infradead.org,
+ shaggy@kernel.org, tj@kernel.org, trond.myklebust@hammerspace.com,
+ anna@kernel.org, chuck.lever@oracle.com, neilb@suse.de, kolga@netapp.com,
+ Dai.Ngo@oracle.com, tom@talpey.com, konishi.ryusuke@gmail.com,
+ anton@tuxera.com, almaz.alexandrovich@paragon-software.com,
+ mark@fasheh.com, joseph.qi@linux.alibaba.com, me@bobcopeland.com,
+ hubcap@omnibond.com, martin@omnibond.com, amir73il@gmail.com,
+ mcgrof@kernel.org, yzaikin@google.com, tony.luck@intel.com,
+ gpiccoli@igalia.com, al@alarsen.net, sfrench@samba.org, pc@manguebit.com,
+ lsahlber@redhat.com, sprasad@microsoft.com, senozhatsky@chromium.org,
+ phillip@squashfs.org.uk, rostedt@goodmis.org, mhiramat@kernel.org,
+ dushistov@mail.ru, hdegoede@redhat.com, djwong@kernel.org,
+ dlemoal@kernel.org, naohiro.aota@wdc.com, jth@kernel.org, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, martin.lau@linux.dev,
+ song@kernel.org, yhs@fb.com, john.fastabend@gmail.com, kpsingh@kernel.org,
+ sdf@google.com, haoluo@google.com, jolsa@kernel.org, hughd@google.com,
+ akpm@linux-foundation.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, john.johansen@canonical.com,
+ paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
+ stephen.smalley.work@gmail.com, eparis@parisplace.org, jgross@suse.com,
+ stern@rowland.harvard.edu, lrh2000@pku.edu.cn,
+ sebastian.reichel@collabora.com, wsa+renesas@sang-engineering.com,
+ quic_ugoswami@quicinc.com, quic_linyyuan@quicinc.com, john@keeping.me.uk,
+ error27@gmail.com, quic_uaggarwa@quicinc.com, hayama@lineo.co.jp,
+ jomajm@gmail.com, axboe@kernel.dk, dhavale@google.com, dchinner@redhat.com,
+ hannes@cmpxchg.org, zhangpeng362@huawei.com, slava@dubeyko.com,
+ gargaditya08@live.com, penguin-kernel@I-love.SAKURA.ne.jp,
+ yifeliu@cs.stonybrook.edu, madkar@cs.stonybrook.edu, ezk@cs.stonybrook.edu,
+ yuzhe@nfschina.com, willy@infradead.org, okanatov@gmail.com,
+ jeffxu@chromium.org, linux@treblig.org, mirimmad17@gmail.com,
+ yijiangshan@kylinos.cn, yang.yang29@zte.com.cn, xu.xin16@zte.com.cn,
+ chengzhihao1@huawei.com, shr@devkernel.io, Liam.Howlett@Oracle.com,
+ adobriyan@gmail.com, chi.minghao@zte.com.cn, roberto.sassu@huawei.com,
+ linuszeng@tencent.com, bvanassche@acm.org, zohar@linux.ibm.com,
+ yi.zhang@huawei.com, trix@redhat.com, fmdefrancesco@gmail.com,
+ ebiggers@google.com, princekumarmaurya06@gmail.com,
+ chenzhongjin@huawei.com, riel@surriel.com, shaozhengchao@huawei.com,
+ jingyuwang_vip@163.com, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-usb@vger.kernel.org,
+ v9fs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+ linux-afs@lists.infradead.org, autofs@vger.kernel.org, linux-mm@kvack.org,
+ linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org,
+ linux-efi@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-um@lists.infradead.org,
+ linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net,
+ linux-nfs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-ntfs-dev@lists.sourceforge.net, ntfs3@lists.linux.dev,
+ ocfs2-devel@lists.linux.dev, linux-karma-devel@lists.sourceforge.net,
+ devel@lists.orangefs.org, linux-unionfs@vger.kernel.org,
+ linux-hardening@vger.kernel.org, reiserfs-devel@vger.kernel.org,
+ linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-trace-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ bpf@vger.kernel.org, netdev@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org
+Date: Wed,  5 Jul 2023 14:58:09 -0400
+Message-ID: <20230705185812.579118-1-jlayton@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SG2PR06MB3743.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4817cc8b-1cc5-4bf9-d679-08db7cf5820c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jul 2023 01:16:49.3228 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: a+59BE93pZPYl/wAFoAnG4YNsF9AG8QqRBQ44/9JqUta3x15jPcDgZ2FnUmlyPU0xSsjC7E0uqkgo2FRVfaj6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB6132
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -146,9 +154,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [Cluster-devel] =?utf-8?b?5Zue5aSNOiAgW1BBVENIIHYxXSBmczpkbG06?=
- =?utf-8?q?Fix_NULL_pointer_dereference_bug_in_accept=5Ffrom=5Fsock=28=29?=
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [Cluster-devel] [PATCH v2 00/89] fs: new accessors for
+ inode->i_ctime
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,60 +168,505 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: "cluster-devel@redhat.com" <cluster-devel@redhat.com>,
- "opensource.kernel" <opensource.kernel@vivo.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: vivo.com
-Content-Language: zh-CN
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Mimecast-Originator: kernel.org
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-VGhhbmsgeW91LiBJIHNlZS4gSSBoYWRuJ3Qgbm90aWNlZCB3aGF0IHRoZSBhZGRfc29jaygpIGZ1
-bmN0aW9uIGRpZCBiZWZvcmUsIGJ1dCBub3cgSSB1bmRlcnN0YW5kIHRoYXQgbmV3Y29uLT5zb2Nr
-IHdpbGwgbm90IGJlIGEgbnVsbCBwb2ludGVyLg0KDQotLS0tLemCruS7tuWOn+S7ti0tLS0tDQrl
-j5Hku7bkuro6IEFsZXhhbmRlciBBcmluZyA8YWFocmluZ29AcmVkaGF0LmNvbT4gDQrlj5HpgIHm
-l7bpl7Q6IDIwMjPlubQ35pyINeaXpSAwOjIyDQrmlLbku7bkuro6IOeOi+aYji3ova/ku7blupXl
-sYLmioDmnK/pg6ggPG1hY2hlbEB2aXZvLmNvbT4NCuaKhOmAgTogQ2hyaXN0aW5lIENhdWxmaWVs
-ZCA8Y2NhdWxmaWVAcmVkaGF0LmNvbT47IERhdmlkIFRlaWdsYW5kIDx0ZWlnbGFuZEByZWRoYXQu
-Y29tPjsgY2x1c3Rlci1kZXZlbEByZWRoYXQuY29tOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwu
-b3JnOyBvcGVuc291cmNlLmtlcm5lbCA8b3BlbnNvdXJjZS5rZXJuZWxAdml2by5jb20+DQrkuLvp
-opg6IFJlOiBbQ2x1c3Rlci1kZXZlbF0gW1BBVENIIHYxXSBmczpkbG06Rml4IE5VTEwgcG9pbnRl
-ciBkZXJlZmVyZW5jZSBidWcgaW4gYWNjZXB0X2Zyb21fc29jaygpDQoNClvkvaDpgJrluLjkuI3k
-vJrmlLbliLDmnaXoh6ogYWFocmluZ29AcmVkaGF0LmNvbSDnmoTnlLXlrZDpgq7ku7bjgILor7fo
-rr/pl64gaHR0cHM6Ly9ha2EubXMvTGVhcm5BYm91dFNlbmRlcklkZW50aWZpY2F0aW9u77yM5Lul
-5LqG6Kej6L+Z5LiA54K55Li65LuA5LmI5b6I6YeN6KaBXQ0KDQpIaSwNCg0KT24gVHVlLCBKdWwg
-NCwgMjAyMyBhdCA2OjU24oCvQU0gV2FuZyBNaW5nIDxtYWNoZWxAdml2by5jb20+IHdyb3RlOg0K
-Pg0KPiBuZXdjb24gLT4gc29jayBpcyBOVUxMIGJ1dCBkZXJlZmVyZW5jZWQuDQo+IEZpcnN0IGNo
-ZWNrIG5ld2Nvbi4gV2hldGhlciBzb2NrIGlzIGEgbnVsbCBwb2ludGVyLg0KPiBJZiBzbywgdGhl
-IHN1YnNlcXVlbnQgb3BlcmF0aW9ucyBhcmUgc2tpcHBlZC4NCj4gSWYgaXQgaXMgbm90IGVtcHR5
-LCBwZXJmb3JtIHN1YnNlcXVlbnQgb3BlcmF0aW9ucy4NCj4NCg0KZGlkIHlvdSBleHBlcmllbmNl
-IHNvbWUgbnVsbCBwb2ludGVyIGRlcmVmZXJlbmNlPyBJZiBzbywgb24gd2hpY2gga2VybmVsIHdh
-cyBpdD8NCg0KPiBTaWduZWQtb2ZmLWJ5OiBXYW5nIE1pbmcgPG1hY2hlbEB2aXZvLmNvbT4NCj4g
-LS0tDQo+ICBmcy9kbG0vbG93Y29tbXMuYyB8IDkgKysrKysrLS0tDQo+ICAxIGZpbGUgY2hhbmdl
-ZCwgNiBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZnMv
-ZGxtL2xvd2NvbW1zLmMgYi9mcy9kbG0vbG93Y29tbXMuYyBpbmRleCANCj4gOWYxNGVhOWY2Li5l
-YTE4Yjk0NzggMTAwNjQ0DQo+IC0tLSBhL2ZzL2RsbS9sb3djb21tcy5jDQo+ICsrKyBiL2ZzL2Rs
-bS9sb3djb21tcy5jDQo+IEBAIC0xMDgxLDkgKzEwODEsMTIgQEAgc3RhdGljIGludCBhY2NlcHRf
-ZnJvbV9zb2NrKHZvaWQpDQo+ICAgICAgICAgICAgICAgICBhZGRfc29jayhuZXdzb2NrLCBuZXdj
-b24pOw0KPg0KDQpIZXJlIGluIGFkZF9zb2NrKCkgd2UgYXNzaWduIG5ld2Nvbi0+c29jayA9IG5l
-d3NvY2suIEl0IGNhbm5vdCBmYWlsIGFuZCBuZXdzb2NrIGNhbm5vdCBiZSBudWxsLCBzbyBob2xk
-aW5nIHRoZSBuZXdjb24tPnNvY2tfbG9jayB3cml0ZSBwcm90ZWN0ZWQgX3Nob3VsZF8gYmUgc2Fm
-ZSB0aGF0IG90aGVycyBkb24ndCBtYW5pcHVsYXRlIG5ld2Nvbi0+c29jay4NCkl0IHNob3VsZCwg
-dGhhdCdzIHdoeSBJIGFtIGFza2luZyBpZiB5b3UgZXhwZXJpZW5jZWQgc29tZSBpc3N1ZSBoZXJl
-Pw0KDQo+ICAgICAgICAgICAgICAgICAvKiBjaGVjayBpZiB3ZSByZWNldmVkIHNvbWV0aGluZyB3
-aGlsZSBhZGRpbmcgKi8NCj4gLSAgICAgICAgICAgICAgIGxvY2tfc29jayhuZXdjb24tPnNvY2st
-PnNrKTsNCj4gLSAgICAgICAgICAgICAgIGxvd2NvbW1zX3F1ZXVlX3J3b3JrKG5ld2Nvbik7DQo+
-IC0gICAgICAgICAgICAgICByZWxlYXNlX3NvY2sobmV3Y29uLT5zb2NrLT5zayk7DQoNCnNlZSBh
-Ym92ZSwgbmV3Y29uLT5zb2NrIHNob3VsZCBhbHdheXMgYmUgc2V0IGF0IHRoaXMgcG9pbnQuDQoN
-Cj4gKyAgICAgICAgICAgICAgIGlmIChuZXdjb24tPnNvY2spIHsNCj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgbG9ja19zb2NrKG5ld2Nvbi0+c29jay0+c2spOw0KPiArICAgICAgICAgICAgICAg
-ICAgICAgICBsb3djb21tc19xdWV1ZV9yd29yayhuZXdjb24pOw0KPiArICAgICAgICAgICAgICAg
-ICAgICAgICByZWxlYXNlX3NvY2sobmV3Y29uLT5zb2NrLT5zayk7DQo+ICsgICAgICAgICAgICAg
-ICB9DQo+ICsNCj4gICAgICAgICB9DQo+ICAgICAgICAgdXBfd3JpdGUoJm5ld2Nvbi0+c29ja19s
-b2NrKTsNCj4gICAgICAgICBzcmN1X3JlYWRfdW5sb2NrKCZjb25uZWN0aW9uc19zcmN1LCBpZHgp
-Ow0KDQotIEFsZXgNCg0K
+v2:
+- prepend patches to add missing ctime updates
+- add simple_rename_timestamp helper function
+- rename ctime accessor functions as inode_get_ctime/inode_set_ctime_*
+- drop individual inode_ctime_set_{sec,nsec} helpers
+
+I've been working on a patchset to change how the inode->i_ctime is
+accessed in order to give us conditional, high-res timestamps for the
+ctime and mtime. struct timespec64 has unused bits in it that we can use
+to implement this. In order to do that however, we need to wrap all
+accesses of inode->i_ctime to ensure that bits used as flags are
+appropriately handled.
+
+The patchset starts with reposts of some missing ctime updates that I
+spotted in the tree. It then adds a new helper function for updating the
+timestamp after a successful rename, and new ctime accessor
+infrastructure.
+
+The bulk of the patchset is individual conversions of different
+subsysteme to use the new infrastructure. Finally, the patchset renames
+the i_ctime field to __i_ctime to help ensure that I didn't miss
+anything.
+
+This should apply cleanly to linux-next as of this morning.
+
+Most of this conversion was done via 5 different coccinelle scripts, run
+in succession, with a large swath of by-hand conversions to clean up the
+remainder.
+
+The coccinelle scripts that were used are below:
+
+::::::::::::::
+cocci/ctime1.cocci
+::::::::::::::
+// convert as much to use inode_set_ctime_current as possible
+@@
+identifier timei;
+struct inode *inode;
+expression E1, E2;
+@@
+(
+- inode->i_ctime =3D E1 =3D E2 =3D current_time(timei)
++ E1 =3D E2 =3D inode_set_ctime_current(inode)
+|
+- inode->i_ctime =3D E1 =3D current_time(timei)
++ E1 =3D inode_set_ctime_current(inode)
+|
+- E1 =3D inode->i_ctime =3D current_time(timei)
++ E1 =3D inode_set_ctime_current(inode)
+|
+- inode->i_ctime =3D current_time(timei)
++ inode_set_ctime_current(inode)
+)
+
+@@
+struct inode *inode;
+expression E1, E2, E3;
+@@
+(
+- E1 =3D current_time(inode)
++ E1 =3D inode_set_ctime_current(inode)
+|
+- E1 =3D current_time(E3)
++ E1 =3D inode_set_ctime_current(inode)
+)
+...
+(
+- inode->i_ctime =3D E1;
+|
+- E2 =3D inode->i_ctime =3D E1;
++ E2 =3D E1;
+)
+::::::::::::::
+cocci/ctime2.cocci
+::::::::::::::
+// get the places that set individual timespec64 fields
+@@
+struct inode *inode;
+expression val, val2;
+@@
+- inode->i_ctime.tv_sec =3D val
++ inode_set_ctime(inode, val, val2)
+...
+- inode->i_ctime.tv_nsec =3D val2;
+
+// get places that just set the tv_sec
+@@
+struct inode *inode;
+expression sec, E1, E2, E3;
+@@
+(
+- E3 =3D inode->i_ctime.tv_sec =3D sec
++ E3 =3D inode_set_ctime(inode, sec, 0).tv_sec
+|
+- inode->i_ctime.tv_sec =3D sec
++ inode_set_ctime(inode, sec, 0)
+)
+<...
+(
+- inode->i_ctime.tv_nsec =3D 0;
+|
+- E1 =3D inode->i_ctime.tv_nsec =3D 0
++ E1 =3D 0
+|
+- inode->i_ctime.tv_nsec =3D E1 =3D 0
++ E1 =3D 0
+|
+- inode->i_ctime.tv_nsec =3D E1 =3D E2 =3D 0
++ E1 =3D E2 =3D 0
+)
+...>
+
+::::::::::::::
+cocci/ctime3.cocci
+::::::::::::::
+// convert places that set i_ctime to a timespec64 directly
+@@
+struct inode *inode;
+expression ts, E1, E2;
+@@
+(
+- inode->i_ctime =3D E1 =3D E2 =3D ts
++ E1 =3D E2 =3D inode_set_ctime_to_ts(inode, ts)
+|
+- inode->i_ctime =3D E1 =3D ts
++ E1 =3D inode_set_ctime_to_ts(inode, ts)
+|
+- inode->i_ctime =3D ts
++ inode_set_ctime_to_ts(inode, ts)
+)
+::::::::::::::
+cocci/ctime4.cocci
+::::::::::::::
+// catch places that set the i_ctime in an inode embedded in another struct=
+ure
+@@
+expression E1, E2, E3;
+@@
+(
+- E3.i_ctime =3D E1 =3D E2 =3D current_time(&E3)
++ E1 =3D E2 =3D inode_set_ctime_current(&E3)
+|
+- E3.i_ctime =3D E1 =3D current_time(&E3)
++ E1 =3D inode_set_ctime_current(&E3)
+|
+- E1 =3D E3.i_ctime =3D current_time(&E3)
++ E1 =3D inode_set_ctime_current(&E3)
+|
+- E3.i_ctime =3D current_time(&E3)
++ inode_set_ctime_current(&E3)
+)
+::::::::::::::
+cocci/ctime5.cocci
+::::::::::::::
+// convert the remaining i_ctime accesses
+@@
+struct inode *inode;
+@@
+- inode->i_ctime
++ inode_get_ctime(inode)
+
+
+Jeff Layton (92):
+  ibmvmc: update ctime in conjunction with mtime on write
+  bfs: update ctime in addition to mtime when adding entries
+  efivarfs: update ctime when mtime changes on a write
+  exfat: ensure that ctime is updated whenever the mtime is
+  apparmor: update ctime whenever the mtime changes on an inode
+  cifs: update the ctime on a partial page write
+  fs: add ctime accessors infrastructure
+  fs: new helper: simple_rename_timestamp
+  btrfs: convert to simple_rename_timestamp
+  ubifs: convert to simple_rename_timestamp
+  shmem: convert to simple_rename_timestamp
+  exfat: convert to simple_rename_timestamp
+  ntfs3: convert to simple_rename_timestamp
+  reiserfs: convert to simple_rename_timestamp
+  spufs: convert to ctime accessor functions
+  s390: convert to ctime accessor functions
+  binderfs: convert to ctime accessor functions
+  infiniband: convert to ctime accessor functions
+  ibm: convert to ctime accessor functions
+  usb: convert to ctime accessor functions
+  9p: convert to ctime accessor functions
+  adfs: convert to ctime accessor functions
+  affs: convert to ctime accessor functions
+  afs: convert to ctime accessor functions
+  fs: convert to ctime accessor functions
+  autofs: convert to ctime accessor functions
+  befs: convert to ctime accessor functions
+  bfs: convert to ctime accessor functions
+  btrfs: convert to ctime accessor functions
+  ceph: convert to ctime accessor functions
+  coda: convert to ctime accessor functions
+  configfs: convert to ctime accessor functions
+  cramfs: convert to ctime accessor functions
+  debugfs: convert to ctime accessor functions
+  devpts: convert to ctime accessor functions
+  ecryptfs: convert to ctime accessor functions
+  efivarfs: convert to ctime accessor functions
+  efs: convert to ctime accessor functions
+  erofs: convert to ctime accessor functions
+  exfat: convert to ctime accessor functions
+  ext2: convert to ctime accessor functions
+  ext4: convert to ctime accessor functions
+  f2fs: convert to ctime accessor functions
+  fat: convert to ctime accessor functions
+  freevxfs: convert to ctime accessor functions
+  fuse: convert to ctime accessor functions
+  gfs2: convert to ctime accessor functions
+  hfs: convert to ctime accessor functions
+  hfsplus: convert to ctime accessor functions
+  hostfs: convert to ctime accessor functions
+  hpfs: convert to ctime accessor functions
+  hugetlbfs: convert to ctime accessor functions
+  isofs: convert to ctime accessor functions
+  jffs2: convert to ctime accessor functions
+  jfs: convert to ctime accessor functions
+  kernfs: convert to ctime accessor functions
+  nfs: convert to ctime accessor functions
+  nfsd: convert to ctime accessor functions
+  nilfs2: convert to ctime accessor functions
+  ntfs: convert to ctime accessor functions
+  ntfs3: convert to ctime accessor functions
+  ocfs2: convert to ctime accessor functions
+  omfs: convert to ctime accessor functions
+  openpromfs: convert to ctime accessor functions
+  orangefs: convert to ctime accessor functions
+  overlayfs: convert to ctime accessor functions
+  procfs: convert to ctime accessor functions
+  pstore: convert to ctime accessor functions
+  qnx4: convert to ctime accessor functions
+  qnx6: convert to ctime accessor functions
+  ramfs: convert to ctime accessor functions
+  reiserfs: convert to ctime accessor functions
+  romfs: convert to ctime accessor functions
+  smb: convert to ctime accessor functions
+  squashfs: convert to ctime accessor functions
+  sysv: convert to ctime accessor functions
+  tracefs: convert to ctime accessor functions
+  ubifs: convert to ctime accessor functions
+  udf: convert to ctime accessor functions
+  ufs: convert to ctime accessor functions
+  vboxsf: convert to ctime accessor functions
+  xfs: convert to ctime accessor functions
+  zonefs: convert to ctime accessor functions
+  linux: convert to ctime accessor functions
+  mqueue: convert to ctime accessor functions
+  bpf: convert to ctime accessor functions
+  shmem: convert to ctime accessor functions
+  sunrpc: convert to ctime accessor functions
+  apparmor: convert to ctime accessor functions
+  security: convert to ctime accessor functions
+  selinux: convert to ctime accessor functions
+  fs: rename i_ctime field to __i_ctime
+
+ arch/powerpc/platforms/cell/spufs/inode.c |  2 +-
+ arch/s390/hypfs/inode.c                   |  4 +-
+ drivers/android/binderfs.c                |  8 ++--
+ drivers/infiniband/hw/qib/qib_fs.c        |  3 +-
+ drivers/misc/ibmasm/ibmasmfs.c            |  2 +-
+ drivers/misc/ibmvmc.c                     |  2 +-
+ drivers/usb/core/devio.c                  | 16 +++----
+ drivers/usb/gadget/function/f_fs.c        |  3 +-
+ drivers/usb/gadget/legacy/inode.c         |  3 +-
+ fs/9p/vfs_inode.c                         |  4 +-
+ fs/9p/vfs_inode_dotl.c                    |  8 ++--
+ fs/adfs/inode.c                           |  4 +-
+ fs/affs/amigaffs.c                        |  6 +--
+ fs/affs/inode.c                           | 16 +++----
+ fs/afs/dynroot.c                          |  2 +-
+ fs/afs/inode.c                            |  6 +--
+ fs/attr.c                                 |  2 +-
+ fs/autofs/inode.c                         |  2 +-
+ fs/autofs/root.c                          |  6 +--
+ fs/bad_inode.c                            |  3 +-
+ fs/befs/linuxvfs.c                        |  2 +-
+ fs/bfs/dir.c                              | 16 +++----
+ fs/bfs/inode.c                            |  5 +--
+ fs/binfmt_misc.c                          |  3 +-
+ fs/btrfs/delayed-inode.c                  |  8 ++--
+ fs/btrfs/file.c                           | 21 ++++-----
+ fs/btrfs/inode.c                          | 54 ++++++++--------------
+ fs/btrfs/ioctl.c                          |  2 +-
+ fs/btrfs/reflink.c                        |  3 +-
+ fs/btrfs/transaction.c                    |  3 +-
+ fs/btrfs/tree-log.c                       |  4 +-
+ fs/btrfs/xattr.c                          |  4 +-
+ fs/ceph/acl.c                             |  2 +-
+ fs/ceph/caps.c                            |  2 +-
+ fs/ceph/inode.c                           | 17 ++++---
+ fs/ceph/snap.c                            |  2 +-
+ fs/ceph/xattr.c                           |  2 +-
+ fs/coda/coda_linux.c                      |  3 +-
+ fs/coda/dir.c                             |  2 +-
+ fs/coda/file.c                            |  2 +-
+ fs/coda/inode.c                           |  2 +-
+ fs/configfs/inode.c                       |  7 ++-
+ fs/cramfs/inode.c                         |  3 +-
+ fs/debugfs/inode.c                        |  3 +-
+ fs/devpts/inode.c                         |  6 +--
+ fs/ecryptfs/inode.c                       |  2 +-
+ fs/efivarfs/file.c                        |  2 +-
+ fs/efivarfs/inode.c                       |  2 +-
+ fs/efs/inode.c                            |  4 +-
+ fs/erofs/inode.c                          | 15 +++----
+ fs/exfat/file.c                           |  4 +-
+ fs/exfat/inode.c                          |  6 +--
+ fs/exfat/namei.c                          | 26 +++++------
+ fs/exfat/super.c                          |  3 +-
+ fs/ext2/acl.c                             |  2 +-
+ fs/ext2/dir.c                             |  6 +--
+ fs/ext2/ialloc.c                          |  2 +-
+ fs/ext2/inode.c                           | 10 ++---
+ fs/ext2/ioctl.c                           |  4 +-
+ fs/ext2/namei.c                           |  8 ++--
+ fs/ext2/super.c                           |  2 +-
+ fs/ext2/xattr.c                           |  2 +-
+ fs/ext4/acl.c                             |  2 +-
+ fs/ext4/ext4.h                            | 21 +++++++++
+ fs/ext4/extents.c                         | 12 ++---
+ fs/ext4/ialloc.c                          |  2 +-
+ fs/ext4/inline.c                          |  4 +-
+ fs/ext4/inode.c                           | 16 +++----
+ fs/ext4/ioctl.c                           |  9 ++--
+ fs/ext4/namei.c                           | 26 +++++------
+ fs/ext4/super.c                           |  2 +-
+ fs/ext4/xattr.c                           |  6 +--
+ fs/f2fs/dir.c                             |  8 ++--
+ fs/f2fs/f2fs.h                            |  4 +-
+ fs/f2fs/file.c                            | 20 ++++-----
+ fs/f2fs/inline.c                          |  2 +-
+ fs/f2fs/inode.c                           | 10 ++---
+ fs/f2fs/namei.c                           | 12 ++---
+ fs/f2fs/recovery.c                        |  4 +-
+ fs/f2fs/super.c                           |  2 +-
+ fs/f2fs/xattr.c                           |  2 +-
+ fs/fat/inode.c                            |  7 +--
+ fs/fat/misc.c                             |  3 +-
+ fs/freevxfs/vxfs_inode.c                  |  3 +-
+ fs/fuse/control.c                         |  2 +-
+ fs/fuse/dir.c                             |  8 ++--
+ fs/fuse/inode.c                           | 16 +++----
+ fs/gfs2/acl.c                             |  2 +-
+ fs/gfs2/bmap.c                            | 11 +++--
+ fs/gfs2/dir.c                             | 15 ++++---
+ fs/gfs2/file.c                            |  2 +-
+ fs/gfs2/glops.c                           |  4 +-
+ fs/gfs2/inode.c                           |  8 ++--
+ fs/gfs2/super.c                           |  4 +-
+ fs/gfs2/xattr.c                           |  8 ++--
+ fs/hfs/catalog.c                          |  8 ++--
+ fs/hfs/dir.c                              |  2 +-
+ fs/hfs/inode.c                            | 13 +++---
+ fs/hfs/sysdep.c                           |  4 +-
+ fs/hfsplus/catalog.c                      |  8 ++--
+ fs/hfsplus/dir.c                          |  6 +--
+ fs/hfsplus/inode.c                        | 16 ++++---
+ fs/hostfs/hostfs_kern.c                   |  3 +-
+ fs/hpfs/dir.c                             |  8 ++--
+ fs/hpfs/inode.c                           |  6 +--
+ fs/hpfs/namei.c                           | 26 ++++++-----
+ fs/hpfs/super.c                           |  5 ++-
+ fs/hugetlbfs/inode.c                      | 12 ++---
+ fs/inode.c                                | 26 +++++++++--
+ fs/isofs/inode.c                          |  8 ++--
+ fs/isofs/rock.c                           | 16 +++----
+ fs/jffs2/dir.c                            | 24 ++++++----
+ fs/jffs2/file.c                           |  3 +-
+ fs/jffs2/fs.c                             | 10 ++---
+ fs/jffs2/os-linux.h                       |  2 +-
+ fs/jfs/acl.c                              |  2 +-
+ fs/jfs/inode.c                            |  2 +-
+ fs/jfs/ioctl.c                            |  2 +-
+ fs/jfs/jfs_imap.c                         |  8 ++--
+ fs/jfs/jfs_inode.c                        |  4 +-
+ fs/jfs/namei.c                            | 24 +++++-----
+ fs/jfs/super.c                            |  2 +-
+ fs/jfs/xattr.c                            |  2 +-
+ fs/kernfs/inode.c                         |  5 +--
+ fs/libfs.c                                | 55 +++++++++++++++--------
+ fs/minix/bitmap.c                         |  2 +-
+ fs/minix/dir.c                            |  6 +--
+ fs/minix/inode.c                          | 10 ++---
+ fs/minix/itree_common.c                   |  4 +-
+ fs/minix/namei.c                          |  6 +--
+ fs/nfs/callback_proc.c                    |  2 +-
+ fs/nfs/fscache.h                          |  4 +-
+ fs/nfs/inode.c                            | 20 ++++-----
+ fs/nfsd/nfsctl.c                          |  2 +-
+ fs/nfsd/vfs.c                             |  2 +-
+ fs/nilfs2/dir.c                           |  6 +--
+ fs/nilfs2/inode.c                         | 12 ++---
+ fs/nilfs2/ioctl.c                         |  2 +-
+ fs/nilfs2/namei.c                         |  8 ++--
+ fs/nsfs.c                                 |  2 +-
+ fs/ntfs/inode.c                           | 15 ++++---
+ fs/ntfs/mft.c                             |  3 +-
+ fs/ntfs3/file.c                           |  6 +--
+ fs/ntfs3/frecord.c                        |  3 +-
+ fs/ntfs3/inode.c                          | 14 +++---
+ fs/ntfs3/namei.c                          | 11 ++---
+ fs/ntfs3/xattr.c                          |  4 +-
+ fs/ocfs2/acl.c                            |  6 +--
+ fs/ocfs2/alloc.c                          |  6 +--
+ fs/ocfs2/aops.c                           |  2 +-
+ fs/ocfs2/dir.c                            |  8 ++--
+ fs/ocfs2/dlmfs/dlmfs.c                    |  4 +-
+ fs/ocfs2/dlmglue.c                        |  7 ++-
+ fs/ocfs2/file.c                           | 16 ++++---
+ fs/ocfs2/inode.c                          | 12 ++---
+ fs/ocfs2/move_extents.c                   |  6 +--
+ fs/ocfs2/namei.c                          | 21 ++++-----
+ fs/ocfs2/refcounttree.c                   | 14 +++---
+ fs/ocfs2/xattr.c                          |  6 +--
+ fs/omfs/dir.c                             |  4 +-
+ fs/omfs/inode.c                           |  9 ++--
+ fs/openpromfs/inode.c                     |  5 +--
+ fs/orangefs/namei.c                       |  2 +-
+ fs/orangefs/orangefs-utils.c              |  6 +--
+ fs/overlayfs/file.c                       |  7 ++-
+ fs/overlayfs/util.c                       |  2 +-
+ fs/pipe.c                                 |  2 +-
+ fs/posix_acl.c                            |  2 +-
+ fs/proc/base.c                            |  2 +-
+ fs/proc/inode.c                           |  2 +-
+ fs/proc/proc_sysctl.c                     |  2 +-
+ fs/proc/self.c                            |  2 +-
+ fs/proc/thread_self.c                     |  2 +-
+ fs/pstore/inode.c                         |  4 +-
+ fs/qnx4/inode.c                           |  3 +-
+ fs/qnx6/inode.c                           |  3 +-
+ fs/ramfs/inode.c                          |  6 +--
+ fs/reiserfs/inode.c                       | 12 +++--
+ fs/reiserfs/ioctl.c                       |  4 +-
+ fs/reiserfs/namei.c                       | 18 +++-----
+ fs/reiserfs/stree.c                       |  4 +-
+ fs/reiserfs/super.c                       |  2 +-
+ fs/reiserfs/xattr.c                       |  5 ++-
+ fs/reiserfs/xattr_acl.c                   |  2 +-
+ fs/romfs/super.c                          |  4 +-
+ fs/smb/client/file.c                      |  4 +-
+ fs/smb/client/fscache.h                   |  5 ++-
+ fs/smb/client/inode.c                     | 14 +++---
+ fs/smb/client/smb2ops.c                   |  3 +-
+ fs/smb/server/smb2pdu.c                   |  8 ++--
+ fs/squashfs/inode.c                       |  2 +-
+ fs/stack.c                                |  2 +-
+ fs/stat.c                                 |  2 +-
+ fs/sysv/dir.c                             |  6 +--
+ fs/sysv/ialloc.c                          |  2 +-
+ fs/sysv/inode.c                           |  5 +--
+ fs/sysv/itree.c                           |  4 +-
+ fs/sysv/namei.c                           |  6 +--
+ fs/tracefs/inode.c                        |  2 +-
+ fs/ubifs/debug.c                          |  4 +-
+ fs/ubifs/dir.c                            | 39 ++++++----------
+ fs/ubifs/file.c                           | 16 ++++---
+ fs/ubifs/ioctl.c                          |  2 +-
+ fs/ubifs/journal.c                        |  4 +-
+ fs/ubifs/super.c                          |  4 +-
+ fs/ubifs/xattr.c                          |  6 +--
+ fs/udf/ialloc.c                           |  2 +-
+ fs/udf/inode.c                            | 17 ++++---
+ fs/udf/namei.c                            | 24 +++++-----
+ fs/ufs/dir.c                              |  6 +--
+ fs/ufs/ialloc.c                           |  2 +-
+ fs/ufs/inode.c                            | 23 +++++-----
+ fs/ufs/namei.c                            |  8 ++--
+ fs/vboxsf/utils.c                         |  4 +-
+ fs/xfs/libxfs/xfs_inode_buf.c             |  5 ++-
+ fs/xfs/libxfs/xfs_trans_inode.c           |  2 +-
+ fs/xfs/xfs_acl.c                          |  2 +-
+ fs/xfs/xfs_bmap_util.c                    |  6 ++-
+ fs/xfs/xfs_inode.c                        |  3 +-
+ fs/xfs/xfs_inode_item.c                   |  2 +-
+ fs/xfs/xfs_iops.c                         |  4 +-
+ fs/xfs/xfs_itable.c                       |  4 +-
+ fs/zonefs/super.c                         |  8 ++--
+ include/linux/fs.h                        | 49 +++++++++++++++++++-
+ include/linux/fs_stack.h                  |  2 +-
+ ipc/mqueue.c                              | 23 +++++-----
+ kernel/bpf/inode.c                        |  6 +--
+ mm/shmem.c                                | 26 +++++------
+ net/sunrpc/rpc_pipe.c                     |  2 +-
+ security/apparmor/apparmorfs.c            | 11 +++--
+ security/apparmor/policy_unpack.c         | 11 +++--
+ security/inode.c                          |  2 +-
+ security/selinux/selinuxfs.c              |  2 +-
+ 233 files changed, 901 insertions(+), 812 deletions(-)
+
+--=20
+2.41.0
 
