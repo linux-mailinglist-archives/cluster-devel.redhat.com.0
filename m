@@ -2,69 +2,69 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0717748C6D
-	for <lists+cluster-devel@lfdr.de>; Wed,  5 Jul 2023 20:59:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06723748C84
+	for <lists+cluster-devel@lfdr.de>; Wed,  5 Jul 2023 20:59:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688583561;
+	s=mimecast20190719; t=1688583581;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=XY9TOVde9lJeweB/za56HJgugFukzj6ytIwXyTG5i8A=;
-	b=D81q7EiC55g5/QPgG/Mg58mKM25M/lZvwUKuM45iB9Xh20HzLttQ9bZacVKFgPPuP0iyg5
-	kq2RoSkkqZ2SxdgLeBhYb930cITsAvUVp+2Sxx1JnGHBmP3saACPc8DvH4+1lZmjJzY3de
-	WOVU1DDrvuaRjMu1INAk+Rlrysxq1aI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=bHDnDSnnQluzefmCc7q+inZHrGixFuvW0fm0grgoBDk=;
+	b=XF9owsrXksDtilzT6FxuGy7L2cc0N9LjdVawrEtfIvsop38UHgHQalBVyp23nulL0TMIc0
+	ju2RAnTu456aUv53LP+XGbbDzEEkozVD3JXMDe9snFT91u4srGKB5eNQF8CrjpdS24vyk8
+	ZxAALcSXkiTbZXudjSsNa6UifQHv86w=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-152-OsTEVUVcNbS56bJ6zS9djw-1; Wed, 05 Jul 2023 14:59:17 -0400
-X-MC-Unique: OsTEVUVcNbS56bJ6zS9djw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-622-or3oWXF7PYySdRTGgl9RFQ-1; Wed, 05 Jul 2023 14:59:36 -0400
+X-MC-Unique: or3oWXF7PYySdRTGgl9RFQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67A3C10504B6;
-	Wed,  5 Jul 2023 18:59:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CB8838117ED;
+	Wed,  5 Jul 2023 18:59:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 58AE8140E952;
-	Wed,  5 Jul 2023 18:59:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8095F207B2DB;
+	Wed,  5 Jul 2023 18:59:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0CC06194658F;
-	Wed,  5 Jul 2023 18:59:16 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 46BE5194658F;
+	Wed,  5 Jul 2023 18:59:35 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E6CC31946588 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  5 Jul 2023 18:59:14 +0000 (UTC)
+ ESMTP id CF7A01946588 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  5 Jul 2023 18:59:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CFB5B1121315; Wed,  5 Jul 2023 18:59:14 +0000 (UTC)
+ id AB5754087C6B; Wed,  5 Jul 2023 18:59:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C8B8C1121314
- for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 18:59:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A41834087C6A
+ for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 18:59:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A92CE3C1CCCA
- for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 18:59:14 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8970B894EDD
+ for <cluster-devel@redhat.com>; Wed,  5 Jul 2023 18:59:33 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-636-DlN4NkubM5e9Btd8s-wIsw-1; Wed, 05 Jul 2023 14:59:11 -0400
-X-MC-Unique: DlN4NkubM5e9Btd8s-wIsw-1
+ us-mta-478-VqnLHIAYOFWKeJ9VwLxb0w-1; Wed, 05 Jul 2023 14:59:29 -0400
+X-MC-Unique: VqnLHIAYOFWKeJ9VwLxb0w-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8AB0D616CE;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EF11C616D8;
+ Wed,  5 Jul 2023 18:59:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54945C433BC;
  Wed,  5 Jul 2023 18:59:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEEF1C4167D;
- Wed,  5 Jul 2023 18:58:50 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
 To: jk@ozlabs.org, arnd@arndb.de, mpe@ellerman.id.au, npiggin@gmail.com,
  christophe.leroy@csgroup.eu, hca@linux.ibm.com, gor@linux.ibm.com,
@@ -145,8 +145,8 @@ To: jk@ozlabs.org, arnd@arndb.de, mpe@ellerman.id.au, npiggin@gmail.com,
  linux-trace-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
  bpf@vger.kernel.org, netdev@vger.kernel.org, apparmor@lists.ubuntu.com,
  linux-security-module@vger.kernel.org, selinux@vger.kernel.org
-Date: Wed,  5 Jul 2023 14:58:11 -0400
-Message-ID: <20230705185812.579118-3-jlayton@kernel.org>
+Date: Wed,  5 Jul 2023 14:58:12 -0400
+Message-ID: <20230705185812.579118-4-jlayton@kernel.org>
 In-Reply-To: <20230705185812.579118-1-jlayton@kernel.org>
 References: <20230705185812.579118-1-jlayton@kernel.org>
 MIME-Version: 1.0
@@ -157,9 +157,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [Cluster-devel] [PATCH v2 08/92] fs: new helper:
- simple_rename_timestamp
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH v2 92/92] fs: rename i_ctime field to
+ __i_ctime
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,115 +173,53 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-A rename potentially involves updating 4 different inode timestamps. Add
-a function that handles the details sanely, and convert the libfs.c
-callers to use it.
+Now that everything in-tree is converted to use the accessor functions,
+rename the i_ctime field in the inode to discourage direct access.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/libfs.c         | 36 +++++++++++++++++++++++++++---------
- include/linux/fs.h |  2 ++
- 2 files changed, 29 insertions(+), 9 deletions(-)
+ include/linux/fs.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index a7e56baf8bbd..9ee79668c909 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -692,6 +692,31 @@ int simple_rmdir(struct inode *dir, struct dentry *den=
-try)
- }
- EXPORT_SYMBOL(simple_rmdir);
-=20
-+/**
-+ * simple_rename_timestamp - update the various inode timestamps for renam=
-e
-+ * @old_dir: old parent directory
-+ * @old_dentry: dentry that is being renamed
-+ * @new_dir: new parent directory
-+ * @new_dentry: target for rename
-+ *
-+ * POSIX mandates that the old and new parent directories have their ctime=
- and
-+ * mtime updated, and that inodes of @old_dentry and @new_dentry (if any),=
- have
-+ * their ctime updated.
-+ */
-+void simple_rename_timestamp(struct inode *old_dir, struct dentry *old_den=
-try,
-+=09=09=09     struct inode *new_dir, struct dentry *new_dentry)
-+{
-+=09struct inode *newino =3D d_inode(new_dentry);
-+
-+=09old_dir->i_mtime =3D inode_set_ctime_current(old_dir);
-+=09if (new_dir !=3D old_dir)
-+=09=09new_dir->i_mtime =3D inode_set_ctime_current(new_dir);
-+=09inode_set_ctime_current(d_inode(old_dentry));
-+=09if (newino)
-+=09=09inode_set_ctime_current(newino);
-+}
-+EXPORT_SYMBOL_GPL(simple_rename_timestamp);
-+
- int simple_rename_exchange(struct inode *old_dir, struct dentry *old_dentr=
-y,
- =09=09=09   struct inode *new_dir, struct dentry *new_dentry)
- {
-@@ -707,11 +732,7 @@ int simple_rename_exchange(struct inode *old_dir, stru=
-ct dentry *old_dentry,
- =09=09=09inc_nlink(old_dir);
- =09=09}
- =09}
--=09old_dir->i_ctime =3D old_dir->i_mtime =3D
--=09new_dir->i_ctime =3D new_dir->i_mtime =3D
--=09d_inode(old_dentry)->i_ctime =3D
--=09d_inode(new_dentry)->i_ctime =3D current_time(old_dir);
--
-+=09simple_rename_timestamp(old_dir, old_dentry, new_dir, new_dentry);
- =09return 0;
- }
- EXPORT_SYMBOL_GPL(simple_rename_exchange);
-@@ -720,7 +741,6 @@ int simple_rename(struct mnt_idmap *idmap, struct inode=
- *old_dir,
- =09=09  struct dentry *old_dentry, struct inode *new_dir,
- =09=09  struct dentry *new_dentry, unsigned int flags)
- {
--=09struct inode *inode =3D d_inode(old_dentry);
- =09int they_are_dirs =3D d_is_dir(old_dentry);
-=20
- =09if (flags & ~(RENAME_NOREPLACE | RENAME_EXCHANGE))
-@@ -743,9 +763,7 @@ int simple_rename(struct mnt_idmap *idmap, struct inode=
- *old_dir,
- =09=09inc_nlink(new_dir);
- =09}
-=20
--=09old_dir->i_ctime =3D old_dir->i_mtime =3D new_dir->i_ctime =3D
--=09=09new_dir->i_mtime =3D inode->i_ctime =3D current_time(old_dir);
--
-+=09simple_rename_timestamp(old_dir, old_dentry, new_dir, new_dentry);
- =09return 0;
- }
- EXPORT_SYMBOL(simple_rename);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index bdfbd11a5811..14e38bd900f1 100644
+index 14e38bd900f1..b66442f91835 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -2979,6 +2979,8 @@ extern int simple_open(struct inode *inode, struct fi=
-le *file);
- extern int simple_link(struct dentry *, struct inode *, struct dentry *);
- extern int simple_unlink(struct inode *, struct dentry *);
- extern int simple_rmdir(struct inode *, struct dentry *);
-+void simple_rename_timestamp(struct inode *old_dir, struct dentry *old_den=
-try,
-+=09=09=09     struct inode *new_dir, struct dentry *new_dentry);
- extern int simple_rename_exchange(struct inode *old_dir, struct dentry *ol=
-d_dentry,
- =09=09=09=09  struct inode *new_dir, struct dentry *new_dentry);
- extern int simple_rename(struct mnt_idmap *, struct inode *,
+@@ -642,7 +642,7 @@ struct inode {
+ =09loff_t=09=09=09i_size;
+ =09struct timespec64=09i_atime;
+ =09struct timespec64=09i_mtime;
+-=09struct timespec64=09i_ctime;
++=09struct timespec64=09__i_ctime; /* use inode_*_ctime accessors! */
+ =09spinlock_t=09=09i_lock;=09/* i_blocks, i_bytes, maybe i_size */
+ =09unsigned short          i_bytes;
+ =09u8=09=09=09i_blkbits;
+@@ -1485,7 +1485,7 @@ struct timespec64 inode_set_ctime_current(struct inod=
+e *inode);
+  */
+ static inline struct timespec64 inode_get_ctime(const struct inode *inode)
+ {
+-=09return inode->i_ctime;
++=09return inode->__i_ctime;
+ }
+=20
+ /**
+@@ -1498,7 +1498,7 @@ static inline struct timespec64 inode_get_ctime(const=
+ struct inode *inode)
+ static inline struct timespec64 inode_set_ctime_to_ts(struct inode *inode,
+ =09=09=09=09=09=09      struct timespec64 ts)
+ {
+-=09inode->i_ctime =3D ts;
++=09inode->__i_ctime =3D ts;
+ =09return ts;
+ }
+=20
 --=20
 2.41.0
 
