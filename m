@@ -1,80 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CDD74AF07
-	for <lists+cluster-devel@lfdr.de>; Fri,  7 Jul 2023 12:51:14 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B3C474B114
+	for <lists+cluster-devel@lfdr.de>; Fri,  7 Jul 2023 14:43:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688727073;
+	s=mimecast20190719; t=1688733790;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=5Qr+sQfRwS0Of/hvWhKymlJ3VWVDnj9MH6OH3syZ+Jw=;
-	b=aoOn3bnIbbpPPTNxwafpsKLwBm9SQOHqBGu5tz2kAUzUUOYyVKcoI7TCqG2leEYB5sxxt4
-	gdB/DWUwbNFq0T9sIoXKirwqvpVd1ukXqVmlqGYjg/MsdsNUYI/K/HSYM0Wvy9xFofoRVo
-	oVRvB9mkhH+w56sS9fSnUc2ZCioVnIU=
+	bh=jIcF0sYBsCqRvOsPEg18fPKUz2MIpTNkgvsx3zNjXCE=;
+	b=N54F9Vs0iW6CpCufa2SZoWSZ8gK7X7FIFj/pIA7Ro3pLlT14v1g5PwTK4tGlYxhKvjuEqc
+	8qtbDtYh/ob0mMN8ZJavkKCnnFab4wm56MKhXhym4wnzcaQxr1Resen9qGzjgSR/2a5Vgg
+	CLvQy2aLQt4f0JmWccloC5IAlNDXNu4=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-393-XAYIglIeOa-DGLkiWfTIKA-1; Fri, 07 Jul 2023 06:51:10 -0400
-X-MC-Unique: XAYIglIeOa-DGLkiWfTIKA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-166-c7uqhDGYOTWIEG7yP_JVEA-1; Fri, 07 Jul 2023 08:43:05 -0400
+X-MC-Unique: c7uqhDGYOTWIEG7yP_JVEA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B79B382C96A;
-	Fri,  7 Jul 2023 10:51:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 565CE3849529;
+	Fri,  7 Jul 2023 12:43:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 839124CD0C7;
-	Fri,  7 Jul 2023 10:51:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BEBB6200B402;
+	Fri,  7 Jul 2023 12:43:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0A87819465A0;
-	Fri,  7 Jul 2023 10:51:07 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3AE5D19465A0;
+	Fri,  7 Jul 2023 12:43:02 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BEA421946589 for <cluster-devel@listman.corp.redhat.com>;
- Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
+ ESMTP id 09BDE1946589 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  7 Jul 2023 12:43:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 41CF140C2070; Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
+ id EE23440C2070; Fri,  7 Jul 2023 12:43:00 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A35140C206F
- for <cluster-devel@redhat.com>; Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E657540C206F
+ for <cluster-devel@redhat.com>; Fri,  7 Jul 2023 12:43:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17CD2382C974
- for <cluster-devel@redhat.com>; Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C19CC85CEE6
+ for <cluster-devel@redhat.com>; Fri,  7 Jul 2023 12:43:00 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-403-w5pXNVPGPFGUWsFfoGf-Kg-1; Fri, 07 Jul 2023 06:51:03 -0400
-X-MC-Unique: w5pXNVPGPFGUWsFfoGf-Kg-1
+ us-mta-214-PfyrUKMANL2gwUR7p6BWnA-1; Fri, 07 Jul 2023 08:42:54 -0400
+X-MC-Unique: PfyrUKMANL2gwUR7p6BWnA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9C4C3618BB;
- Fri,  7 Jul 2023 10:51:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1904CC433C7;
- Fri,  7 Jul 2023 10:50:42 +0000 (UTC)
-Message-ID: <ff1f471a9d33ae01ad570644273e4e579204a3b6.camel@kernel.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 46E6860DC0;
+ Fri,  7 Jul 2023 12:42:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96F41C433C7;
+ Fri,  7 Jul 2023 12:42:32 +0000 (UTC)
+Message-ID: <5e40891f6423feb5b68f025e31f26e9a50ae9390.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
-To: Seth Arnold <seth.arnold@canonical.com>
-Date: Fri, 07 Jul 2023 06:50:40 -0400
-In-Reply-To: <20230706210236.GB3244704@millbarge>
+To: Christian Brauner <brauner@kernel.org>
+Date: Fri, 07 Jul 2023 08:42:31 -0400
+In-Reply-To: <20230705185812.579118-1-jlayton@kernel.org>
 References: <20230705185812.579118-1-jlayton@kernel.org>
- <20230705185812.579118-3-jlayton@kernel.org>
- <3b403ef1-22e6-0220-6c9c-435e3444b4d3@kernel.org>
- <7c783969641b67d6ffdfb10e509f382d083c5291.camel@kernel.org>
- <20230706210236.GB3244704@millbarge>
 User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -85,8 +81,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [apparmor] [PATCH v2 08/92] fs: new helper:
- simple_rename_timestamp
+Subject: Re: [Cluster-devel] [PATCH v2 00/89] fs: new accessors for
+ inode->i_ctime
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,26 +140,25 @@ Cc: lucho@ionkov.net, rafael@kernel.org, djwong@kernel.org, al@alarsen.net,
  serge@hallyn.com, chengzhihao1@huawei.com, axboe@kernel.dk, amir73il@gmail.com,
  linuszeng@tencent.com, keescook@chromium.org, arnd@arndb.de,
  autofs@vger.kernel.org, rostedt@goodmis.org, yifeliu@cs.stonybrook.edu,
- Damien Le Moal <dlemoal@kernel.org>, eparis@parisplace.org,
- ceph-devel@vger.kernel.org, xiang@kernel.org, yijiangshan@kylinos.cn,
- dhowells@redhat.com, linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org,
- kolga@netapp.com, song@kernel.org, samba-technical@lists.samba.org,
- sfrench@samba.org, jk@ozlabs.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- jfs-discussion@lists.sourceforge.net, princekumarmaurya06@gmail.com,
- ebiggers@google.com, neilb@suse.de, asmadeus@codewreck.org,
- linux_oss@crudebyte.com, me@bobcopeland.com, kpsingh@kernel.org,
- okanatov@gmail.com, almaz.alexandrovich@paragon-software.com,
- joseph.qi@linux.alibaba.com, hayama@lineo.co.jp, adilger.kernel@dilger.ca,
- mikulas@artax.karlin.mff.cuni.cz, shaozhengchao@huawei.com,
- chenzhongjin@huawei.com, ardb@kernel.org, anton.ivanov@cambridgegreys.com,
- richard@nod.at, mark@fasheh.com, shr@devkernel.io, Dai.Ngo@oracle.com,
- cluster-devel@redhat.com, jgg@ziepe.ca, kuba@kernel.org, riel@surriel.com,
- salah.triki@gmail.com, dushistov@mail.ru, linux-cifs@vger.kernel.org,
- hca@linux.ibm.com, chao@kernel.org, apparmor@lists.ubuntu.com,
- josef@toxicpanda.com, Liam.Howlett@Oracle.com, tom@talpey.com,
- hdegoede@redhat.com, linux-hardening@vger.kernel.org,
+ dlemoal@kernel.org, eparis@parisplace.org, ceph-devel@vger.kernel.org,
+ xiang@kernel.org, yijiangshan@kylinos.cn, dhowells@redhat.com,
+ linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org, kolga@netapp.com,
+ song@kernel.org, samba-technical@lists.samba.org, sfrench@samba.org,
+ jk@ozlabs.org, netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ bpf@vger.kernel.org, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
+ davem@davemloft.net, jfs-discussion@lists.sourceforge.net,
+ princekumarmaurya06@gmail.com, ebiggers@google.com, neilb@suse.de,
+ asmadeus@codewreck.org, linux_oss@crudebyte.com, me@bobcopeland.com,
+ kpsingh@kernel.org, okanatov@gmail.com,
+ almaz.alexandrovich@paragon-software.com, joseph.qi@linux.alibaba.com,
+ hayama@lineo.co.jp, adilger.kernel@dilger.ca, mikulas@artax.karlin.mff.cuni.cz,
+ shaozhengchao@huawei.com, chenzhongjin@huawei.com, ardb@kernel.org,
+ anton.ivanov@cambridgegreys.com, richard@nod.at, mark@fasheh.com,
+ shr@devkernel.io, Dai.Ngo@oracle.com, cluster-devel@redhat.com, jgg@ziepe.ca,
+ kuba@kernel.org, riel@surriel.com, salah.triki@gmail.com, dushistov@mail.ru,
+ linux-cifs@vger.kernel.org, hca@linux.ibm.com, chao@kernel.org,
+ apparmor@lists.ubuntu.com, josef@toxicpanda.com, Liam.Howlett@Oracle.com,
+ tom@talpey.com, hdegoede@redhat.com, linux-hardening@vger.kernel.org,
  aivazian.tigran@gmail.com, dsterba@suse.com, xiubli@redhat.com,
  konishi.ryusuke@gmail.com, jgross@suse.com, jth@kernel.org,
  rituagar@linux.ibm.com, luisbg@kernel.org, martin.lau@linux.dev,
@@ -176,151 +171,460 @@ Cc: lucho@ionkov.net, rafael@kernel.org, djwong@kernel.org, al@alarsen.net,
  jlbec@evilplan.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="ISO-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2023-07-06 at 21:02 +0000, Seth Arnold wrote:
-> On Wed, Jul 05, 2023 at 08:04:41PM -0400, Jeff Layton wrote:
-> >=20
-> > I don't believe it's an issue. I've seen nothing in the POSIX spec that
-> > mandates that timestamp updates to different inodes involved in an
-> > operation be set to the _same_ value. It just says they must be updated=
-.
-> >=20
-> > It's also hard to believe that any software would depend on this either=
-,
-> > given that it's very inconsistent across filesystems today. AFAICT, thi=
-s
-> > was mostly done in the past just as a matter of convenience.
->=20
-> I've seen this assumption in several programs:
+On Wed, 2023-07-05 at 14:58 -0400, Jeff Layton wrote:
+> v2:
+> - prepend patches to add missing ctime updates
+> - add simple_rename_timestamp helper function
+> - rename ctime accessor functions as inode_get_ctime/inode_set_ctime_*
+> - drop individual inode_ctime_set_{sec,nsec} helpers
 >=20
 
-Thanks for looking into this!
+After review by Jan and others, and Jan's ext4 rework, the diff on top
+of the series I posted a couple of days ago is below. I don't really
+want to spam everyone with another ~100 patch v3 series, but I can if
+you think that's best.
 
-To be clear, POSIX doesn't require that _different_ inodes ever be set
-to the same timestamp value. IOW, it certainly doesn't require that the
-source and target directories on a rename() end up with the exact same
-timestamp value.
+Christian, what would you like me to do here?
 
-Granted, POSIX is rather vague on timestamps in general, but most of the
-examples below involve comparing different timestamps on the _same_
-inode.
-
-
-> mutt buffy.c
-> https://sources.debian.org/src/mutt/2.2.9-1/buffy.c/?hl=3D625#L625
->=20
->   if (mailbox->newly_created &&
->       (sb->st_ctime !=3D sb->st_mtime || sb->st_ctime !=3D sb->st_atime))
->     mailbox->newly_created =3D 0;
->=20
-
-This should be fine with this patchset. Note that this is comparing
-a/c/mtime on the same inode, and our usual pattern on inode
-instantiation is:
-
-    inode->i_atime =3D inode->i_mtime =3D inode_set_ctime_current(inode);
-
-...which should result in all of inode's timestamps being synchronized.
-
->=20
-> neomutt mbox/mbox.c
-> https://sources.debian.org/src/neomutt/20220429+dfsg1-4.1/mbox/mbox.c/?hl=
-=3D1820#L1820
->=20
->   if (m->newly_created && ((st.st_ctime !=3D st.st_mtime) || (st.st_ctime=
- !=3D st.st_atime)))
->     m->newly_created =3D false;
->=20
-
-Ditto here.
-
->=20
-> screen logfile.c
-> https://sources.debian.org/src/screen/4.9.0-4/logfile.c/?hl=3D130#L130
->=20
->   if ((!s->st_dev && !s->st_ino) ||             /* stat failed, that's ne=
-w! */
->       !s->st_nlink ||                           /* red alert: file unlink=
-ed */
->       (s->st_size < o.st_size) ||               /*           file truncat=
-ed */
->       (s->st_mtime !=3D o.st_mtime) ||            /*            file modi=
-fied */
->       ((s->st_ctime !=3D o.st_ctime) &&           /*     file changed (mo=
-ved) */
->        !(s->st_mtime =3D=3D s->st_ctime &&          /*  and it was not a =
-change */
->          o.st_ctime < s->st_ctime)))            /* due to delayed nfs wri=
-te */
->   {
->=20
-
-This one is really weird. You have two different struct stat's, "o" and
-"s". I assume though that these should be stat values from the same
-inode, because otherwise this comparison would make no sense:
-
-      ((s->st_ctime !=3D o.st_ctime) &&           /*     file changed (move=
-d) */
-
-In general, we can never contrive to ensure that the ctime of two
-different inodes are the same, since that is always set by the kernel to
-the current time, and you'd have to ensure that they were created within
-the same jiffy (at least with today's code).
-
-> nemo libnemo-private/nemo-vfs-file.c
-> https://sources.debian.org/src/nemo/5.6.5-1/libnemo-private/nemo-vfs-file=
-.c/?hl=3D344#L344
->=20
-> =09=09/* mtime is when the contents changed; ctime is when the
-> =09=09 * contents or the permissions (inc. owner/group) changed.
-> =09=09 * So we can only know when the permissions changed if mtime
-> =09=09 * and ctime are different.
-> =09=09 */
-> =09=09if (file->details->mtime =3D=3D file->details->ctime) {
-> =09=09=09return FALSE;
-> =09=09}
->=20
-
-Ditto here with the first examples. This involves comparing timestamps
-on the same inode, which should be fine.
-
->=20
-> While looking for more examples, I found a perl test that seems to sugges=
-t
-> that at least Solaris, AFS, AmigaOS, DragonFly BSD do as you suggest:
-> https://sources.debian.org/src/perl/5.36.0-7/t/op/stat.t/?hl=3D158#L140
->=20
-
-(I kinda miss Perl. I wrote a bunch of stuff in it in the 90's and early
-naughties)
-
-I think this test is supposed to be testing whether the mtime changes on
-link() ?
-
------------------8<----------------
-    my($nlink, $mtime, $ctime) =3D (stat($tmpfile))[$NLINK, $MTIME, $CTIME]=
+diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
+index bcdb1a0beccf..5f6e93714f5a 100644
+--- a/fs/ceph/inode.c
++++ b/fs/ceph/inode.c
+@@ -699,8 +699,7 @@ void ceph_fill_file_time(struct inode *inode, int issue=
+d,
+ =09=09if (ci->i_version =3D=3D 0 ||
+ =09=09    timespec64_compare(ctime, &ictime) > 0) {
+ =09=09=09dout("ctime %lld.%09ld -> %lld.%09ld inc w/ cap\n",
+-=09=09=09     inode_get_ctime(inode).tv_sec,
+-=09=09=09     inode_get_ctime(inode).tv_nsec,
++=09=09=09     ictime.tv_sec, ictime.tv_nsec,
+ =09=09=09     ctime->tv_sec, ctime->tv_nsec);
+ =09=09=09inode_set_ctime_to_ts(inode, *ctime);
+ =09=09}
+diff --git a/fs/erofs/inode.c b/fs/erofs/inode.c
+index 806374d866d1..567c0d305ea4 100644
+--- a/fs/erofs/inode.c
++++ b/fs/erofs/inode.c
+@@ -175,10 +175,7 @@ static void *erofs_read_inode(struct erofs_buf *buf,
+ =09=09vi->chunkbits =3D sb->s_blocksize_bits +
+ =09=09=09(vi->chunkformat & EROFS_CHUNK_FORMAT_BLKBITS_MASK);
+ =09}
+-=09inode->i_mtime.tv_sec =3D inode_get_ctime(inode).tv_sec;
+-=09inode->i_atime.tv_sec =3D inode_get_ctime(inode).tv_sec;
+-=09inode->i_mtime.tv_nsec =3D inode_get_ctime(inode).tv_nsec;
+-=09inode->i_atime.tv_nsec =3D inode_get_ctime(inode).tv_nsec;
++=09inode->i_mtime =3D inode->i_atime =3D inode_get_ctime(inode);
+=20
+ =09inode->i_flags &=3D ~S_DAX;
+ =09if (test_opt(&sbi->opt, DAX_ALWAYS) && S_ISREG(inode->i_mode) &&
+diff --git a/fs/exfat/namei.c b/fs/exfat/namei.c
+index c007de6ac1c7..1b9f587f6cca 100644
+--- a/fs/exfat/namei.c
++++ b/fs/exfat/namei.c
+@@ -1351,7 +1351,7 @@ static int exfat_rename(struct mnt_idmap *idmap,
+ =09=09=09exfat_warn(sb, "abnormal access to an inode dropped");
+ =09=09=09WARN_ON(new_inode->i_nlink =3D=3D 0);
+ =09=09}
+-=09=09EXFAT_I(new_inode)->i_crtime =3D inode_set_ctime_current(new_inode);
++=09=09EXFAT_I(new_inode)->i_crtime =3D current_time(new_inode);
+ =09}
+=20
+ unlock:
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index d502b930431b..d63543187359 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -868,64 +868,63 @@ struct ext4_inode {
+  * affected filesystem before 2242.
+  */
+=20
+-static inline __le32 ext4_encode_extra_time(struct timespec64 *time)
++static inline __le32 ext4_encode_extra_time(struct timespec64 ts)
+ {
+-=09u32 extra =3D((time->tv_sec - (s32)time->tv_sec) >> 32) & EXT4_EPOCH_MA=
+SK;
+-=09return cpu_to_le32(extra | (time->tv_nsec << EXT4_EPOCH_BITS));
++=09u32 extra =3D ((ts.tv_sec - (s32)ts.tv_sec) >> 32) & EXT4_EPOCH_MASK;
++=09return cpu_to_le32(extra | (ts.tv_nsec << EXT4_EPOCH_BITS));
+ }
+=20
+-static inline void ext4_decode_extra_time(struct timespec64 *time,
+-=09=09=09=09=09  __le32 extra)
++static inline struct timespec64 ext4_decode_extra_time(__le32 base,
++=09=09=09=09=09=09       __le32 extra)
+ {
++=09struct timespec64 ts =3D { .tv_sec =3D le32_to_cpu(base) };
++
+ =09if (unlikely(extra & cpu_to_le32(EXT4_EPOCH_MASK)))
+-=09=09time->tv_sec +=3D (u64)(le32_to_cpu(extra) & EXT4_EPOCH_MASK) << 32;
+-=09time->tv_nsec =3D (le32_to_cpu(extra) & EXT4_NSEC_MASK) >> EXT4_EPOCH_B=
+ITS;
++=09=09ts.tv_sec +=3D (u64)(le32_to_cpu(extra) & EXT4_EPOCH_MASK) << 32;
++=09ts.tv_nsec =3D (le32_to_cpu(extra) & EXT4_NSEC_MASK) >> EXT4_EPOCH_BITS=
 ;
++=09return ts;
+ }
+=20
+-#define EXT4_INODE_SET_XTIME(xtime, inode, raw_inode)=09=09=09=09\
++#define EXT4_INODE_SET_XTIME_VAL(xtime, inode, raw_inode, ts)=09=09=09\
+ do {=09=09=09=09=09=09=09=09=09=09\
+-=09if (EXT4_FITS_IN_INODE(raw_inode, EXT4_I(inode), xtime ## _extra))     =
+{\
+-=09=09(raw_inode)->xtime =3D cpu_to_le32((inode)->xtime.tv_sec);=09\
+-=09=09(raw_inode)->xtime ## _extra =3D=09=09=09=09=09\
+-=09=09=09=09ext4_encode_extra_time(&(inode)->xtime);=09\
+-=09=09}=09=09=09=09=09=09=09=09\
+-=09else=09\
+-=09=09(raw_inode)->xtime =3D cpu_to_le32(clamp_t(int32_t, (inode)->xtime.t=
+v_sec, S32_MIN, S32_MAX));=09\
++=09if (EXT4_FITS_IN_INODE(raw_inode, EXT4_I(inode), xtime ## _extra)) {=09=
+\
++=09=09(raw_inode)->xtime =3D cpu_to_le32((ts).tv_sec);=09=09=09\
++=09=09(raw_inode)->xtime ## _extra =3D ext4_encode_extra_time(ts);=09\
++=09} else=09=09=09=09=09=09=09=09=09\
++=09=09(raw_inode)->xtime =3D cpu_to_le32(clamp_t(int32_t, (ts).tv_sec, S32=
+_MIN, S32_MAX));=09\
+ } while (0)
+=20
++#define EXT4_INODE_SET_XTIME(xtime, inode, raw_inode)=09=09=09=09\
++=09EXT4_INODE_SET_XTIME_VAL(xtime, inode, raw_inode, (inode)->xtime)
++
++#define EXT4_INODE_SET_CTIME(inode, raw_inode)=09=09=09=09=09\
++=09EXT4_INODE_SET_XTIME_VAL(i_ctime, inode, raw_inode, inode_get_ctime(ino=
+de))
++
+ #define EXT4_EINODE_SET_XTIME(xtime, einode, raw_inode)=09=09=09       \
+-do {=09=09=09=09=09=09=09=09=09       \
+-=09if (EXT4_FITS_IN_INODE(raw_inode, einode, xtime))=09=09       \
+-=09=09(raw_inode)->xtime =3D cpu_to_le32((einode)->xtime.tv_sec);      \
+-=09if (EXT4_FITS_IN_INODE(raw_inode, einode, xtime ## _extra))=09       \
+-=09=09(raw_inode)->xtime ## _extra =3D=09=09=09=09       \
+-=09=09=09=09ext4_encode_extra_time(&(einode)->xtime);      \
+-} while (0)
++=09EXT4_INODE_SET_XTIME_VAL(xtime, &((einode)->vfs_inode), raw_inode, (ein=
+ode)->xtime)
++
++#define EXT4_INODE_GET_XTIME_VAL(xtime, inode, raw_inode)=09=09=09\
++=09(EXT4_FITS_IN_INODE(raw_inode, EXT4_I(inode), xtime ## _extra) ?=09\
++=09=09ext4_decode_extra_time((raw_inode)->xtime,=09=09=09=09\
++=09=09=09=09       (raw_inode)->xtime ## _extra) :=09=09\
++=09=09(struct timespec64) {=09=09=09=09=09=09\
++=09=09=09.tv_sec =3D (signed)le32_to_cpu((raw_inode)->xtime)=09\
++=09=09})
+=20
+ #define EXT4_INODE_GET_XTIME(xtime, inode, raw_inode)=09=09=09=09\
+ do {=09=09=09=09=09=09=09=09=09=09\
+-=09(inode)->xtime.tv_sec =3D (signed)le32_to_cpu((raw_inode)->xtime);=09\
+-=09if (EXT4_FITS_IN_INODE(raw_inode, EXT4_I(inode), xtime ## _extra)) {=09=
+\
+-=09=09ext4_decode_extra_time(&(inode)->xtime,=09=09=09=09\
+-=09=09=09=09       raw_inode->xtime ## _extra);=09=09\
+-=09=09}=09=09=09=09=09=09=09=09\
+-=09else=09=09=09=09=09=09=09=09=09\
+-=09=09(inode)->xtime.tv_nsec =3D 0;=09=09=09=09=09\
++=09(inode)->xtime =3D EXT4_INODE_GET_XTIME_VAL(xtime, inode, raw_inode);=
+=09\
+ } while (0)
+=20
++#define EXT4_INODE_GET_CTIME(inode, raw_inode)=09=09=09=09=09\
++do {=09=09=09=09=09=09=09=09=09=09\
++=09inode_set_ctime_to_ts(inode,=09=09=09=09=09=09\
++=09=09EXT4_INODE_GET_XTIME_VAL(i_ctime, inode, raw_inode));=09=09\
++} while (0)
+=20
+ #define EXT4_EINODE_GET_XTIME(xtime, einode, raw_inode)=09=09=09       \
+ do {=09=09=09=09=09=09=09=09=09       \
+-=09if (EXT4_FITS_IN_INODE(raw_inode, einode, xtime))=09=09       \
+-=09=09(einode)->xtime.tv_sec =3D =09=09=09=09       \
+-=09=09=09(signed)le32_to_cpu((raw_inode)->xtime);=09       \
+-=09else=09=09=09=09=09=09=09=09       \
+-=09=09(einode)->xtime.tv_sec =3D 0;=09=09=09=09       \
+-=09if (EXT4_FITS_IN_INODE(raw_inode, einode, xtime ## _extra))=09       \
+-=09=09ext4_decode_extra_time(&(einode)->xtime,=09=09       \
+-=09=09=09=09       raw_inode->xtime ## _extra);=09       \
+-=09else=09=09=09=09=09=09=09=09       \
+-=09=09(einode)->xtime.tv_nsec =3D 0;=09=09=09=09       \
++=09(einode)->xtime =3D EXT4_INODE_GET_XTIME_VAL(xtime, &(einode->vfs_inode=
+), raw_inode);=09\
+ } while (0)
+=20
+ #define i_disk_version osd1.linux1.l_i_version
+@@ -3823,27 +3822,6 @@ static inline int ext4_buffer_uptodate(struct buffer=
+_head *bh)
+ =09return buffer_uptodate(bh);
+ }
+=20
+-static inline void ext4_inode_set_ctime(struct inode *inode, struct ext4_i=
+node *raw_inode)
+-{
+-=09struct timespec64 ctime =3D inode_get_ctime(inode);
+-
+-=09if (EXT4_FITS_IN_INODE(raw_inode, EXT4_I(inode), i_ctime_extra)) {
+-=09=09raw_inode->i_ctime =3D cpu_to_le32(ctime.tv_sec);
+-=09=09raw_inode->i_ctime_extra =3D ext4_encode_extra_time(&ctime);
+-=09} else {
+-=09=09raw_inode->i_ctime =3D cpu_to_le32(clamp_t(int32_t, ctime.tv_sec, S3=
+2_MIN, S32_MAX));
+-=09}
+-}
+-
+-static inline void ext4_inode_get_ctime(struct inode *inode, const struct =
+ext4_inode *raw_inode)
+-{
+-=09struct timespec64 ctime =3D { .tv_sec =3D (signed)le32_to_cpu(raw_inode=
+->i_ctime) };
+-
+-=09if (EXT4_FITS_IN_INODE(raw_inode, EXT4_I(inode), i_ctime_extra))
+-=09=09ext4_decode_extra_time(&ctime, raw_inode->i_ctime_extra);
+-=09inode_set_ctime(inode, ctime.tv_sec, ctime.tv_nsec);
+-}
+-
+ #endif=09/* __KERNEL__ */
+=20
+ #define EFSBADCRC=09EBADMSG=09=09/* Bad CRC detected */
+diff --git a/fs/ext4/inode-test.c b/fs/ext4/inode-test.c
+index 7935ea6cf92c..f0c0fd507fbc 100644
+--- a/fs/ext4/inode-test.c
++++ b/fs/ext4/inode-test.c
+@@ -245,9 +245,9 @@ static void inode_test_xtimestamp_decoding(struct kunit=
+ *test)
+ =09struct timestamp_expectation *test_param =3D
+ =09=09=09(struct timestamp_expectation *)(test->param_value);
+=20
+-=09timestamp.tv_sec =3D get_32bit_time(test_param);
+-=09ext4_decode_extra_time(&timestamp,
+-=09=09=09       cpu_to_le32(test_param->extra_bits));
++=09timestamp =3D ext4_decode_extra_time(
++=09=09=09=09cpu_to_le32(get_32bit_time(test_param)),
++=09=09=09=09cpu_to_le32(test_param->extra_bits));
+=20
+ =09KUNIT_EXPECT_EQ_MSG(test,
+ =09=09=09    test_param->expected.tv_sec,
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index bbc57954dfd3..c6a837b90af4 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -4249,7 +4249,7 @@ static int ext4_fill_raw_inode(struct inode *inode, s=
+truct ext4_inode *raw_inode
+ =09}
+ =09raw_inode->i_links_count =3D cpu_to_le16(inode->i_nlink);
+=20
+-=09ext4_inode_set_ctime(inode, raw_inode);
++=09EXT4_INODE_SET_CTIME(inode, raw_inode);
+ =09EXT4_INODE_SET_XTIME(i_mtime, inode, raw_inode);
+ =09EXT4_INODE_SET_XTIME(i_atime, inode, raw_inode);
+ =09EXT4_EINODE_SET_XTIME(i_crtime, ei, raw_inode);
+@@ -4858,7 +4858,7 @@ struct inode *__ext4_iget(struct super_block *sb, uns=
+igned long ino,
+ =09=09}
+ =09}
+=20
+-=09ext4_inode_get_ctime(inode, raw_inode);
++=09EXT4_INODE_GET_CTIME(inode, raw_inode);
+ =09EXT4_INODE_GET_XTIME(i_mtime, inode, raw_inode);
+ =09EXT4_INODE_GET_XTIME(i_atime, inode, raw_inode);
+ =09EXT4_EINODE_GET_XTIME(i_crtime, ei, raw_inode);
+@@ -4981,7 +4981,7 @@ static void __ext4_update_other_inode_time(struct sup=
+er_block *sb,
+ =09=09spin_unlock(&inode->i_lock);
+=20
+ =09=09spin_lock(&ei->i_raw_lock);
+-=09=09ext4_inode_get_ctime(inode, raw_inode);
++=09=09EXT4_INODE_SET_CTIME(inode, raw_inode);
+ =09=09EXT4_INODE_SET_XTIME(i_mtime, inode, raw_inode);
+ =09=09EXT4_INODE_SET_XTIME(i_atime, inode, raw_inode);
+ =09=09ext4_inode_csum_set(inode, raw_inode, ei);
+diff --git a/fs/fat/inode.c b/fs/fat/inode.c
+index 2be40ff8a74f..cdd39b6020f3 100644
+--- a/fs/fat/inode.c
++++ b/fs/fat/inode.c
+@@ -1407,9 +1407,7 @@ static int fat_read_root(struct inode *inode)
+ =09MSDOS_I(inode)->mmu_private =3D inode->i_size;
+=20
+ =09fat_save_attrs(inode, ATTR_DIR);
+-=09inode->i_mtime.tv_sec =3D inode->i_atime.tv_sec =3D inode_set_ctime(ino=
+de,
+-=09=09=09=09=09=09=09=09=090, 0).tv_sec;
+-=09inode->i_mtime.tv_nsec =3D inode->i_atime.tv_nsec =3D 0;
++=09inode->i_mtime =3D inode->i_atime =3D inode_set_ctime(inode, 0, 0);
+ =09set_nlink(inode, fat_subdirs(inode)+2);
+=20
+ =09return 0;
+diff --git a/fs/hpfs/namei.c b/fs/hpfs/namei.c
+index 36babb78b510..f4eb8d6f5989 100644
+--- a/fs/hpfs/namei.c
++++ b/fs/hpfs/namei.c
+@@ -15,8 +15,7 @@ static void hpfs_update_directory_times(struct inode *dir=
+)
+ =09if (t =3D=3D dir->i_mtime.tv_sec &&
+ =09    t =3D=3D inode_get_ctime(dir).tv_sec)
+ =09=09return;
+-=09dir->i_mtime.tv_sec =3D inode_set_ctime(dir, t, 0).tv_sec;
+-=09dir->i_mtime.tv_nsec =3D 0;
++=09dir->i_mtime =3D inode_set_ctime(dir, t, 0);
+ =09hpfs_write_inode_nolock(dir);
+ }
+=20
+@@ -59,11 +58,8 @@ static int hpfs_mkdir(struct mnt_idmap *idmap, struct in=
+ode *dir,
+ =09result->i_ino =3D fno;
+ =09hpfs_i(result)->i_parent_dir =3D dir->i_ino;
+ =09hpfs_i(result)->i_dno =3D dno;
+-=09inode_set_ctime(result,
+-=09=09=09result->i_mtime.tv_sec =3D result->i_atime.tv_sec =3D local_to_gm=
+t(dir->i_sb, le32_to_cpu(dee.creation_date)),
+-=09=09=090);
+-=09result->i_mtime.tv_nsec =3D 0;=20
+-=09result->i_atime.tv_nsec =3D 0;=20
++=09result->i_mtime =3D result->i_atime =3D
++=09=09inode_set_ctime(result, local_to_gmt(dir->i_sb, le32_to_cpu(dee.crea=
+tion_date)), 0);
+ =09hpfs_i(result)->i_ea_size =3D 0;
+ =09result->i_mode |=3D S_IFDIR;
+ =09result->i_op =3D &hpfs_dir_iops;
+@@ -168,11 +164,8 @@ static int hpfs_create(struct mnt_idmap *idmap, struct=
+ inode *dir,
+ =09result->i_fop =3D &hpfs_file_ops;
+ =09set_nlink(result, 1);
+ =09hpfs_i(result)->i_parent_dir =3D dir->i_ino;
+-=09inode_set_ctime(result,
+-=09=09=09result->i_mtime.tv_sec =3D result->i_atime.tv_sec =3D local_to_gm=
+t(dir->i_sb, le32_to_cpu(dee.creation_date)),
+-=09=09=090);
+-=09result->i_mtime.tv_nsec =3D 0;
+-=09result->i_atime.tv_nsec =3D 0;
++=09result->i_mtime =3D result->i_atime =3D
++=09=09inode_set_ctime(result, local_to_gmt(dir->i_sb, le32_to_cpu(dee.crea=
+tion_date)), 0);
+ =09hpfs_i(result)->i_ea_size =3D 0;
+ =09if (dee.read_only)
+ =09=09result->i_mode &=3D ~0222;
+@@ -252,11 +245,8 @@ static int hpfs_mknod(struct mnt_idmap *idmap, struct =
+inode *dir,
+ =09hpfs_init_inode(result);
+ =09result->i_ino =3D fno;
+ =09hpfs_i(result)->i_parent_dir =3D dir->i_ino;
+-=09inode_set_ctime(result,
+-=09=09=09result->i_mtime.tv_sec =3D result->i_atime.tv_sec =3D local_to_gm=
+t(dir->i_sb, le32_to_cpu(dee.creation_date)),
+-=09=09=090);
+-=09result->i_mtime.tv_nsec =3D 0;
+-=09result->i_atime.tv_nsec =3D 0;
++=09result->i_mtime =3D result->i_atime =3D
++=09=09inode_set_ctime(result, local_to_gmt(dir->i_sb, le32_to_cpu(dee.crea=
+tion_date)), 0);
+ =09hpfs_i(result)->i_ea_size =3D 0;
+ =09result->i_uid =3D current_fsuid();
+ =09result->i_gid =3D current_fsgid();
+@@ -329,11 +319,8 @@ static int hpfs_symlink(struct mnt_idmap *idmap, struc=
+t inode *dir,
+ =09result->i_ino =3D fno;
+ =09hpfs_init_inode(result);
+ =09hpfs_i(result)->i_parent_dir =3D dir->i_ino;
+-=09inode_set_ctime(result,
+-=09=09=09result->i_mtime.tv_sec =3D result->i_atime.tv_sec =3D local_to_gm=
+t(dir->i_sb, le32_to_cpu(dee.creation_date)),
+-=09=09=090);
+-=09result->i_mtime.tv_nsec =3D 0;
+-=09result->i_atime.tv_nsec =3D 0;
++=09result->i_mtime =3D result->i_atime =3D
++=09=09inode_set_ctime(result, local_to_gmt(dir->i_sb, le32_to_cpu(dee.crea=
+tion_date)), 0);
+ =09hpfs_i(result)->i_ea_size =3D 0;
+ =09result->i_mode =3D S_IFLNK | 0777;
+ =09result->i_uid =3D current_fsuid();
+diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
+index 98a78200cff1..2ee21286ac8f 100644
+--- a/fs/isofs/inode.c
++++ b/fs/isofs/inode.c
+@@ -1422,13 +1422,8 @@ static int isofs_read_inode(struct inode *inode, int=
+ relocated)
+ =09=09=09inode->i_ino, de->flags[-high_sierra]);
+ =09}
+ #endif
+-
+-=09inode->i_mtime.tv_sec =3D
+-=09inode->i_atime.tv_sec =3D inode_set_ctime(inode,
+-=09=09=09=09=09=09iso_date(de->date, high_sierra),
+-=09=09=09=09=09=090).tv_sec;
+-=09inode->i_mtime.tv_nsec =3D
+-=09inode->i_atime.tv_nsec =3D 0;
++=09inode->i_mtime =3D inode->i_atime =3D
++=09=09inode_set_ctime(inode, iso_date(de->date, high_sierra), 0);
+=20
+ =09ei->i_first_extent =3D (isonum_733(de->extent) +
+ =09=09=09isonum_711(de->ext_attr_length));
+diff --git a/fs/minix/inode.c b/fs/minix/inode.c
+index 3715a3940bd4..8a4fc9420b36 100644
+--- a/fs/minix/inode.c
++++ b/fs/minix/inode.c
+@@ -501,11 +501,7 @@ static struct inode *V1_minix_iget(struct inode *inode=
+)
+ =09i_gid_write(inode, raw_inode->i_gid);
+ =09set_nlink(inode, raw_inode->i_nlinks);
+ =09inode->i_size =3D raw_inode->i_size;
+-=09inode->i_mtime.tv_sec =3D inode->i_atime.tv_sec =3D inode_set_ctime(ino=
+de,
+-=09=09=09=09=09=09=09=09=09raw_inode->i_time,
+-=09=09=09=09=09=09=09=09=090).tv_sec;
+-=09inode->i_mtime.tv_nsec =3D 0;
+-=09inode->i_atime.tv_nsec =3D 0;
++=09inode->i_mtime =3D inode->i_atime =3D inode_set_ctime(inode, raw_inode-=
+>i_time, 0);
+ =09inode->i_blocks =3D 0;
+ =09for (i =3D 0; i < 9; i++)
+ =09=09minix_inode->u.i1_data[i] =3D raw_inode->i_zone[i];
+diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
+index 7acd3e3fe790..7e7876aae01c 100644
+--- a/fs/overlayfs/file.c
++++ b/fs/overlayfs/file.c
+@@ -255,7 +255,7 @@ static void ovl_file_accessed(struct file *file)
+ =09if ((!timespec64_equal(&inode->i_mtime, &upperinode->i_mtime) ||
+ =09     !timespec64_equal(&ctime, &uctime))) {
+ =09=09inode->i_mtime =3D upperinode->i_mtime;
+-=09=09inode_set_ctime_to_ts(inode, inode_get_ctime(upperinode));
++=09=09inode_set_ctime_to_ts(inode, uctime);
+ =09}
+=20
+ =09touch_atime(&file->f_path);
+diff --git a/fs/romfs/super.c b/fs/romfs/super.c
+index 961b9d342e0e..d89739655f9e 100644
+--- a/fs/romfs/super.c
++++ b/fs/romfs/super.c
+@@ -322,8 +322,7 @@ static struct inode *romfs_iget(struct super_block *sb,=
+ unsigned long pos)
+=20
+ =09set_nlink(i, 1);=09=09/* Hard to decide.. */
+ =09i->i_size =3D be32_to_cpu(ri.size);
+-=09i->i_mtime.tv_sec =3D i->i_atime.tv_sec =3D inode_set_ctime(i, 0, 0).tv=
+_sec;
+-=09i->i_mtime.tv_nsec =3D i->i_atime.tv_nsec =3D 0;
++=09i->i_mtime =3D i->i_atime =3D inode_set_ctime(i, 0, 0);
+=20
+ =09/* set up mode and ops */
+ =09mode =3D romfs_modemap[nextfh & ROMFH_TYPE];
+diff --git a/fs/smb/client/fscache.h b/fs/smb/client/fscache.h
+index a228964bc2ce..84f3b09367d2 100644
+--- a/fs/smb/client/fscache.h
++++ b/fs/smb/client/fscache.h
+@@ -56,7 +56,7 @@ void cifs_fscache_fill_coherency(struct inode *inode,
+ =09cd->last_write_time_sec   =3D cpu_to_le64(cifsi->netfs.inode.i_mtime.tv=
+_sec);
+ =09cd->last_write_time_nsec  =3D cpu_to_le32(cifsi->netfs.inode.i_mtime.tv=
+_nsec);
+ =09cd->last_change_time_sec  =3D cpu_to_le64(ctime.tv_sec);
+-=09cd->last_change_time_nsec  =3D cpu_to_le64(ctime.tv_nsec);
++=09cd->last_change_time_nsec =3D cpu_to_le32(ctime.tv_nsec);
+ }
+=20
+=20
 
-[...]
-
-
-        skip "Solaris tmpfs has different mtime/ctime link semantics", 2
-                                     if $Is_Solaris and $cwd =3D~ m#^/tmp# =
-and
-                                        $mtime && $mtime =3D=3D $ctime;
------------------8<----------------
-
-...again, I think this would be ok too since it's just comparing the
-mtime and ctime of the same inode. Granted this is a Solaris-specific
-test, but Linux would be fine here too.
-
-So in conclusion, I don't think this patchset will cause problems with
-any of the above code.
 --=20
 Jeff Layton <jlayton@kernel.org>
 
