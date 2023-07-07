@@ -2,76 +2,79 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5554874A210
-	for <lists+cluster-devel@lfdr.de>; Thu,  6 Jul 2023 18:15:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69CDD74AF07
+	for <lists+cluster-devel@lfdr.de>; Fri,  7 Jul 2023 12:51:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688660134;
+	s=mimecast20190719; t=1688727073;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=TxLDV50UNGuwfdwrUq1A15tGUegvUIwgImLkAQWsDq8=;
-	b=ebKDRtICVkDW3t6lWGe+4HoLELUrhHbZ9SFAmceAVrNYpAKhkeaEPCKK1U+su+pDYCPHM/
-	MvWbrpi3FIHjZkHIhDJd5rBtoWGpAbXP+oph9fXFo9ZiQpmuO7prDJw2yrPSAzk0ZUPSho
-	uihFnMnEfZdDci6BinWRT4l6IrIH2lo=
+	bh=5Qr+sQfRwS0Of/hvWhKymlJ3VWVDnj9MH6OH3syZ+Jw=;
+	b=aoOn3bnIbbpPPTNxwafpsKLwBm9SQOHqBGu5tz2kAUzUUOYyVKcoI7TCqG2leEYB5sxxt4
+	gdB/DWUwbNFq0T9sIoXKirwqvpVd1ukXqVmlqGYjg/MsdsNUYI/K/HSYM0Wvy9xFofoRVo
+	oVRvB9mkhH+w56sS9fSnUc2ZCioVnIU=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-611-anGAPDrDN9Wy1RVHXmvyKw-1; Thu, 06 Jul 2023 12:15:31 -0400
-X-MC-Unique: anGAPDrDN9Wy1RVHXmvyKw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-393-XAYIglIeOa-DGLkiWfTIKA-1; Fri, 07 Jul 2023 06:51:10 -0400
+X-MC-Unique: XAYIglIeOa-DGLkiWfTIKA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 467B11C08975;
-	Thu,  6 Jul 2023 16:15:27 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BBF0A492B02;
-	Thu,  6 Jul 2023 16:15:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B79B382C96A;
+	Fri,  7 Jul 2023 10:51:09 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 839124CD0C7;
+	Fri,  7 Jul 2023 10:51:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 86BF519465A0;
-	Thu,  6 Jul 2023 16:15:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0A87819465A0;
+	Fri,  7 Jul 2023 10:51:07 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 234D61946589 for <cluster-devel@listman.corp.redhat.com>;
- Thu,  6 Jul 2023 16:15:25 +0000 (UTC)
+ ESMTP id BEA421946589 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 10301C09A09; Thu,  6 Jul 2023 16:15:25 +0000 (UTC)
+ id 41CF140C2070; Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 07B51C478DE
- for <cluster-devel@redhat.com>; Thu,  6 Jul 2023 16:15:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DEDD3805951
- for <cluster-devel@redhat.com>; Thu,  6 Jul 2023 16:15:24 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A35140C206F
+ for <cluster-devel@redhat.com>; Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17CD2382C974
+ for <cluster-devel@redhat.com>; Fri,  7 Jul 2023 10:51:05 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-85-0z6kh2M9OuSvKUJ5dLEdeQ-1; Thu, 06 Jul 2023 12:15:21 -0400
-X-MC-Unique: 0z6kh2M9OuSvKUJ5dLEdeQ-1
+ us-mta-403-w5pXNVPGPFGUWsFfoGf-Kg-1; Fri, 07 Jul 2023 06:51:03 -0400
+X-MC-Unique: w5pXNVPGPFGUWsFfoGf-Kg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F322860EEE;
- Thu,  6 Jul 2023 16:15:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD63C433C7;
- Thu,  6 Jul 2023 16:15:00 +0000 (UTC)
-Message-ID: <3948ae7653d1cb7c51febcca26a35775e71a53b4.camel@kernel.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9C4C3618BB;
+ Fri,  7 Jul 2023 10:51:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1904CC433C7;
+ Fri,  7 Jul 2023 10:50:42 +0000 (UTC)
+Message-ID: <ff1f471a9d33ae01ad570644273e4e579204a3b6.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Date: Thu, 06 Jul 2023 12:14:58 -0400
-In-Reply-To: <87ilaxgjek.fsf@email.froward.int.ebiederm.org>
+To: Seth Arnold <seth.arnold@canonical.com>
+Date: Fri, 07 Jul 2023 06:50:40 -0400
+In-Reply-To: <20230706210236.GB3244704@millbarge>
 References: <20230705185812.579118-1-jlayton@kernel.org>
- <a4e6cfec345487fc9ac8ab814a817c79a61b123a.camel@kernel.org>
- <87ilaxgjek.fsf@email.froward.int.ebiederm.org>
+ <20230705185812.579118-3-jlayton@kernel.org>
+ <3b403ef1-22e6-0220-6c9c-435e3444b4d3@kernel.org>
+ <7c783969641b67d6ffdfb10e509f382d083c5291.camel@kernel.org>
+ <20230706210236.GB3244704@millbarge>
 User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -81,9 +84,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [Cluster-devel] [PATCH v2 00/89] fs: new accessors for
- inode->i_ctime
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [Cluster-devel] [apparmor] [PATCH v2 08/92] fs: new helper:
+ simple_rename_timestamp
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,38 +131,39 @@ Cc: lucho@ionkov.net, rafael@kernel.org, djwong@kernel.org, al@alarsen.net,
  tytso@mit.edu, nico@fluxnic.net, linux-ntfs-dev@lists.sourceforge.net,
  muchun.song@linux.dev, roberto.sassu@huawei.com,
  linux-f2fs-devel@lists.sourceforge.net, yang.yang29@zte.com.cn,
- gpiccoli@igalia.com, anna@kernel.org, quic_uaggarwa@quicinc.com,
- bwarrum@linux.ibm.com, mike.kravetz@oracle.com, jingyuwang_vip@163.com,
- linux-efi@vger.kernel.org, error27@gmail.com, martin@omnibond.com,
- trix@redhat.com, ocfs2-devel@lists.linux.dev, ast@kernel.org,
- sebastian.reichel@collabora.com, clm@fb.com, linux-mtd@lists.infradead.org,
- willy@infradead.org, marc.dionne@auristor.com, linux-afs@lists.infradead.org,
- raven@themaw.net, naohiro.aota@wdc.com, daniel@iogearbox.net,
- dennis.dalessandro@cornelisnetworks.com, linux-rdma@vger.kernel.org,
- quic_linyyuan@quicinc.com, coda@cs.cmu.edu, slava@dubeyko.com,
- idryomov@gmail.com, pabeni@redhat.com, adobriyan@gmail.com, serge@hallyn.com,
- chengzhihao1@huawei.com, axboe@kernel.dk, amir73il@gmail.com,
+ gpiccoli@igalia.com, ebiederm@xmission.com, anna@kernel.org,
+ quic_uaggarwa@quicinc.com, bwarrum@linux.ibm.com, mike.kravetz@oracle.com,
+ jingyuwang_vip@163.com, linux-efi@vger.kernel.org, error27@gmail.com,
+ martin@omnibond.com, trix@redhat.com, ocfs2-devel@lists.linux.dev,
+ ast@kernel.org, sebastian.reichel@collabora.com, clm@fb.com,
+ linux-mtd@lists.infradead.org, willy@infradead.org, marc.dionne@auristor.com,
+ linux-afs@lists.infradead.org, raven@themaw.net, naohiro.aota@wdc.com,
+ daniel@iogearbox.net, dennis.dalessandro@cornelisnetworks.com,
+ linux-rdma@vger.kernel.org, quic_linyyuan@quicinc.com, coda@cs.cmu.edu,
+ slava@dubeyko.com, idryomov@gmail.com, pabeni@redhat.com, adobriyan@gmail.com,
+ serge@hallyn.com, chengzhihao1@huawei.com, axboe@kernel.dk, amir73il@gmail.com,
  linuszeng@tencent.com, keescook@chromium.org, arnd@arndb.de,
  autofs@vger.kernel.org, rostedt@goodmis.org, yifeliu@cs.stonybrook.edu,
- dlemoal@kernel.org, eparis@parisplace.org, ceph-devel@vger.kernel.org,
- xiang@kernel.org, yijiangshan@kylinos.cn, dhowells@redhat.com,
- linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org, kolga@netapp.com,
- song@kernel.org, samba-technical@lists.samba.org, sfrench@samba.org,
- jk@ozlabs.org, netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- bpf@vger.kernel.org, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, jfs-discussion@lists.sourceforge.net,
- princekumarmaurya06@gmail.com, ebiggers@google.com, neilb@suse.de,
- asmadeus@codewreck.org, linux_oss@crudebyte.com, me@bobcopeland.com,
- kpsingh@kernel.org, okanatov@gmail.com,
- almaz.alexandrovich@paragon-software.com, joseph.qi@linux.alibaba.com,
- hayama@lineo.co.jp, adilger.kernel@dilger.ca, mikulas@artax.karlin.mff.cuni.cz,
- shaozhengchao@huawei.com, chenzhongjin@huawei.com, ardb@kernel.org,
- anton.ivanov@cambridgegreys.com, richard@nod.at, mark@fasheh.com,
- shr@devkernel.io, Dai.Ngo@oracle.com, cluster-devel@redhat.com, jgg@ziepe.ca,
- kuba@kernel.org, riel@surriel.com, salah.triki@gmail.com, dushistov@mail.ru,
- linux-cifs@vger.kernel.org, hca@linux.ibm.com, chao@kernel.org,
- apparmor@lists.ubuntu.com, josef@toxicpanda.com, Liam.Howlett@Oracle.com,
- tom@talpey.com, hdegoede@redhat.com, linux-hardening@vger.kernel.org,
+ Damien Le Moal <dlemoal@kernel.org>, eparis@parisplace.org,
+ ceph-devel@vger.kernel.org, xiang@kernel.org, yijiangshan@kylinos.cn,
+ dhowells@redhat.com, linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org,
+ kolga@netapp.com, song@kernel.org, samba-technical@lists.samba.org,
+ sfrench@samba.org, jk@ozlabs.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
+ linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ jfs-discussion@lists.sourceforge.net, princekumarmaurya06@gmail.com,
+ ebiggers@google.com, neilb@suse.de, asmadeus@codewreck.org,
+ linux_oss@crudebyte.com, me@bobcopeland.com, kpsingh@kernel.org,
+ okanatov@gmail.com, almaz.alexandrovich@paragon-software.com,
+ joseph.qi@linux.alibaba.com, hayama@lineo.co.jp, adilger.kernel@dilger.ca,
+ mikulas@artax.karlin.mff.cuni.cz, shaozhengchao@huawei.com,
+ chenzhongjin@huawei.com, ardb@kernel.org, anton.ivanov@cambridgegreys.com,
+ richard@nod.at, mark@fasheh.com, shr@devkernel.io, Dai.Ngo@oracle.com,
+ cluster-devel@redhat.com, jgg@ziepe.ca, kuba@kernel.org, riel@surriel.com,
+ salah.triki@gmail.com, dushistov@mail.ru, linux-cifs@vger.kernel.org,
+ hca@linux.ibm.com, chao@kernel.org, apparmor@lists.ubuntu.com,
+ josef@toxicpanda.com, Liam.Howlett@Oracle.com, tom@talpey.com,
+ hdegoede@redhat.com, linux-hardening@vger.kernel.org,
  aivazian.tigran@gmail.com, dsterba@suse.com, xiubli@redhat.com,
  konishi.ryusuke@gmail.com, jgross@suse.com, jth@kernel.org,
  rituagar@linux.ibm.com, luisbg@kernel.org, martin.lau@linux.dev,
@@ -172,84 +176,151 @@ Cc: lucho@ionkov.net, rafael@kernel.org, djwong@kernel.org, al@alarsen.net,
  jlbec@evilplan.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="ISO-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2023-07-06 at 10:16 -0500, Eric W. Biederman wrote:
-> Jeff Layton <jlayton@kernel.org> writes:
+On Thu, 2023-07-06 at 21:02 +0000, Seth Arnold wrote:
+> On Wed, Jul 05, 2023 at 08:04:41PM -0400, Jeff Layton wrote:
+> >=20
+> > I don't believe it's an issue. I've seen nothing in the POSIX spec that
+> > mandates that timestamp updates to different inodes involved in an
+> > operation be set to the _same_ value. It just says they must be updated=
+.
+> >=20
+> > It's also hard to believe that any software would depend on this either=
+,
+> > given that it's very inconsistent across filesystems today. AFAICT, thi=
+s
+> > was mostly done in the past just as a matter of convenience.
 >=20
-> > On Wed, 2023-07-05 at 14:58 -0400, Jeff Layton wrote:
-> > > v2:
-> > > - prepend patches to add missing ctime updates
-> > > - add simple_rename_timestamp helper function
-> > > - rename ctime accessor functions as inode_get_ctime/inode_set_ctime_=
-*
-> > > - drop individual inode_ctime_set_{sec,nsec} helpers
-> > >=20
-> > > I've been working on a patchset to change how the inode->i_ctime is
-> > > accessed in order to give us conditional, high-res timestamps for the
-> > > ctime and mtime. struct timespec64 has unused bits in it that we can =
-use
-> > > to implement this. In order to do that however, we need to wrap all
-> > > accesses of inode->i_ctime to ensure that bits used as flags are
-> > > appropriately handled.
-> > >=20
-> > > The patchset starts with reposts of some missing ctime updates that I
-> > > spotted in the tree. It then adds a new helper function for updating =
-the
-> > > timestamp after a successful rename, and new ctime accessor
-> > > infrastructure.
-> > >=20
-> > > The bulk of the patchset is individual conversions of different
-> > > subsysteme to use the new infrastructure. Finally, the patchset renam=
-es
-> > > the i_ctime field to __i_ctime to help ensure that I didn't miss
-> > > anything.
-> > >=20
-> > > This should apply cleanly to linux-next as of this morning.
-> > >=20
-> > > Most of this conversion was done via 5 different coccinelle scripts, =
-run
-> > > in succession, with a large swath of by-hand conversions to clean up =
-the
-> > > remainder.
-> > >=20
-> >=20
-> > A couple of other things I should note:
-> >=20
-> > If you sent me an Acked-by or Reviewed-by in the previous set, then I
-> > tried to keep it on the patch here, since the respun patches are mostly
-> > just renaming stuff from v1. Let me know if I've missed any.
-> >=20
-> > I've also pushed the pile to my tree as this tag:
-> >=20
-> >     https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/t=
-ag/?h=3Dctime.20230705
-> >=20
-> > In case that's easier to work with.
+> I've seen this assumption in several programs:
 >=20
-> Are there any preliminary patches showing what you want your introduced
-> accessors to turn into?  It is hard to judge the sanity of the
-> introduction of wrappers without seeing what the wrappers are ultimately
-> going to do.
+
+Thanks for looking into this!
+
+To be clear, POSIX doesn't require that _different_ inodes ever be set
+to the same timestamp value. IOW, it certainly doesn't require that the
+source and target directories on a rename() end up with the exact same
+timestamp value.
+
+Granted, POSIX is rather vague on timestamps in general, but most of the
+examples below involve comparing different timestamps on the _same_
+inode.
+
+
+> mutt buffy.c
+> https://sources.debian.org/src/mutt/2.2.9-1/buffy.c/?hl=3D625#L625
 >=20
-> Eric
+>   if (mailbox->newly_created &&
+>       (sb->st_ctime !=3D sb->st_mtime || sb->st_ctime !=3D sb->st_atime))
+>     mailbox->newly_created =3D 0;
+>=20
 
-I have a draft version of the multigrain patches on top of the wrapper
-conversion I've already posted in my "mgctime-experimental" branch:
+This should be fine with this patchset. Note that this is comparing
+a/c/mtime on the same inode, and our usual pattern on inode
+instantiation is:
 
-    https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/log/?=
-h=3Dmgctime-experimental
+    inode->i_atime =3D inode->i_mtime =3D inode_set_ctime_current(inode);
 
-The rationale is best explained in this changelog:
+...which should result in all of inode's timestamps being synchronized.
 
-    https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/commi=
-t/?h=3Dmgctime-experimental&id=3Dface437a144d3375afb7f70c233b0644b4edccba
+>=20
+> neomutt mbox/mbox.c
+> https://sources.debian.org/src/neomutt/20220429+dfsg1-4.1/mbox/mbox.c/?hl=
+=3D1820#L1820
+>=20
+>   if (m->newly_created && ((st.st_ctime !=3D st.st_mtime) || (st.st_ctime=
+ !=3D st.st_atime)))
+>     m->newly_created =3D false;
+>=20
 
-The idea will be to enable this on a per-fs basis.
+Ditto here.
+
+>=20
+> screen logfile.c
+> https://sources.debian.org/src/screen/4.9.0-4/logfile.c/?hl=3D130#L130
+>=20
+>   if ((!s->st_dev && !s->st_ino) ||             /* stat failed, that's ne=
+w! */
+>       !s->st_nlink ||                           /* red alert: file unlink=
+ed */
+>       (s->st_size < o.st_size) ||               /*           file truncat=
+ed */
+>       (s->st_mtime !=3D o.st_mtime) ||            /*            file modi=
+fied */
+>       ((s->st_ctime !=3D o.st_ctime) &&           /*     file changed (mo=
+ved) */
+>        !(s->st_mtime =3D=3D s->st_ctime &&          /*  and it was not a =
+change */
+>          o.st_ctime < s->st_ctime)))            /* due to delayed nfs wri=
+te */
+>   {
+>=20
+
+This one is really weird. You have two different struct stat's, "o" and
+"s". I assume though that these should be stat values from the same
+inode, because otherwise this comparison would make no sense:
+
+      ((s->st_ctime !=3D o.st_ctime) &&           /*     file changed (move=
+d) */
+
+In general, we can never contrive to ensure that the ctime of two
+different inodes are the same, since that is always set by the kernel to
+the current time, and you'd have to ensure that they were created within
+the same jiffy (at least with today's code).
+
+> nemo libnemo-private/nemo-vfs-file.c
+> https://sources.debian.org/src/nemo/5.6.5-1/libnemo-private/nemo-vfs-file=
+.c/?hl=3D344#L344
+>=20
+> =09=09/* mtime is when the contents changed; ctime is when the
+> =09=09 * contents or the permissions (inc. owner/group) changed.
+> =09=09 * So we can only know when the permissions changed if mtime
+> =09=09 * and ctime are different.
+> =09=09 */
+> =09=09if (file->details->mtime =3D=3D file->details->ctime) {
+> =09=09=09return FALSE;
+> =09=09}
+>=20
+
+Ditto here with the first examples. This involves comparing timestamps
+on the same inode, which should be fine.
+
+>=20
+> While looking for more examples, I found a perl test that seems to sugges=
+t
+> that at least Solaris, AFS, AmigaOS, DragonFly BSD do as you suggest:
+> https://sources.debian.org/src/perl/5.36.0-7/t/op/stat.t/?hl=3D158#L140
+>=20
+
+(I kinda miss Perl. I wrote a bunch of stuff in it in the 90's and early
+naughties)
+
+I think this test is supposed to be testing whether the mtime changes on
+link() ?
+
+-----------------8<----------------
+    my($nlink, $mtime, $ctime) =3D (stat($tmpfile))[$NLINK, $MTIME, $CTIME]=
+;
+
+[...]
+
+
+        skip "Solaris tmpfs has different mtime/ctime link semantics", 2
+                                     if $Is_Solaris and $cwd =3D~ m#^/tmp# =
+and
+                                        $mtime && $mtime =3D=3D $ctime;
+-----------------8<----------------
+
+...again, I think this would be ok too since it's just comparing the
+mtime and ctime of the same inode. Granted this is a Solaris-specific
+test, but Linux would be fine here too.
+
+So in conclusion, I don't think this patchset will cause problems with
+any of the above code.
 --=20
 Jeff Layton <jlayton@kernel.org>
 
