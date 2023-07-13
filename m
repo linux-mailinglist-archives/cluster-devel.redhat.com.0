@@ -2,57 +2,60 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E502075298C
-	for <lists+cluster-devel@lfdr.de>; Thu, 13 Jul 2023 19:08:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4D2975298B
+	for <lists+cluster-devel@lfdr.de>; Thu, 13 Jul 2023 19:08:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689268126;
+	s=mimecast20190719; t=1689268122;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/ThPCYxaupQn2Wd/RvKdzEqnCNCCaKH43Rb/NnjncRI=;
-	b=LEmtlXXkKDxcKfCTc8VXq1zrXA91pRbVrheB6WhaxRBfZGrcVmLgYbWW6f/OLR089EVCSy
-	fWFMnvEU9Ld2XslH3a+WA8BYd0NWNsWLn7StZlNM8S6gYARBTFC9xDGXXsVyFqGo38BJTW
-	yj1hBa5AAKnIhol3jYj69wWlOdvv+k8=
+	bh=Rzl0RhqBeVc4NEN7nT74sHSWsRmo3VdpwL2p0IGlie0=;
+	b=FH+w6gqNF785Uf+k8uT0t3m4+eHf7kdkqq5+Qmsf9V/cPO5hK9m/CXxsWGUvAlwd3LN1NG
+	s1x437bWQ+mTA/Yg8R2QboK5Hyzo0pc9GZN5mJzH6OKiTJ/685qeGF/SOj47YKzAHYBVBj
+	VHuwoXjCt0rd3+yolH8XHiSUCYZQuP4=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-573-rOOo4uoHMOOJ2Cnv-077Qg-1; Thu, 13 Jul 2023 13:08:41 -0400
-X-MC-Unique: rOOo4uoHMOOJ2Cnv-077Qg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-595-a1McMrnmNh2h7-nVWXacnQ-1; Thu, 13 Jul 2023 13:08:41 -0400
+X-MC-Unique: a1McMrnmNh2h7-nVWXacnQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD2213C0C498;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BCE1C3C0C495;
 	Thu, 13 Jul 2023 17:08:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0DAED492C13;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 55A0E40C206F;
 	Thu, 13 Jul 2023 17:08:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D81E919465A0;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E425F19465B6;
 	Thu, 13 Jul 2023 17:08:39 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5709D1946589 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id 792CF1946589 for <cluster-devel@listman.corp.redhat.com>;
  Thu, 13 Jul 2023 17:08:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 38BA92166B27; Thu, 13 Jul 2023 17:08:38 +0000 (UTC)
+ id 68E982166B28; Thu, 13 Jul 2023 17:08:38 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0D9222166B26;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 3EB562166B26;
  Thu, 13 Jul 2023 17:08:38 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: teigland@redhat.com
-Date: Thu, 13 Jul 2023 13:08:35 -0400
-Message-Id: <20230713170836.3583715-1-aahringo@redhat.com>
+Date: Thu, 13 Jul 2023 13:08:36 -0400
+Message-Id: <20230713170836.3583715-2-aahringo@redhat.com>
+In-Reply-To: <20230713170836.3583715-1-aahringo@redhat.com>
+References: <20230713170836.3583715-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH dlm-tool 1/2] fs: dlm: handle
- DLM_PLOCK_FL_NO_REPLY
+Subject: [Cluster-devel] [PATCH dlm-tool 2/2] fs: dlm: implement
+ DLM_PLOCK_OP_CANCEL
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +70,100 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch will handle a newly introduced op flag DLM_PLOCK_FL_NO_REPLY
-to be sure we never send a result back in case of the kernel doesn't
-expect never a result back.
+This patch implements DLM_PLOCK_OP_CANCEL to try to delete waiters for a
+lock request which are waiting to being granted. If the waiter can be
+deleted the reply to the kernel will be replaced from
+DLM_PLOCK_OP_LOCK to the sent DLM_PLOCK_OP_CANCEL and clearing the
+DLM_PLOCK_FL_NO_REPLY flag.
 ---
- dlm_controld/plock.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ dlm_controld/plock.c | 47 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
 diff --git a/dlm_controld/plock.c b/dlm_controld/plock.c
-index a91aecb0..ab19e8d7 100644
+index ab19e8d7..fd2bd2cf 100644
 --- a/dlm_controld/plock.c
 +++ b/dlm_controld/plock.c
 @@ -9,6 +9,10 @@
  #include "dlm_daemon.h"
  #include <linux/dlm_plock.h>
  
-+#ifndef DLM_PLOCK_FL_NO_REPLY
-+#define DLM_PLOCK_FL_NO_REPLY 2
++#ifndef DLM_PLOCK_OP_CANCEL
++#define DLM_PLOCK_OP_CANCEL 4
 +#endif
 +
- static uint32_t plock_read_count;
- static uint32_t plock_recv_count;
- static uint32_t plock_rate_delays;
-@@ -680,6 +684,12 @@ static void write_result(struct dlm_plock_info *in, int rv)
- {
- 	int write_rv;
+ #ifndef DLM_PLOCK_FL_NO_REPLY
+ #define DLM_PLOCK_FL_NO_REPLY 2
+ #endif
+@@ -136,6 +140,8 @@ static const char *op_str(int optype)
+ 	switch (optype) {
+ 	case DLM_PLOCK_OP_LOCK:
+ 		return "LK";
++	case DLM_PLOCK_OP_CANCEL:
++		return "CL";
+ 	case DLM_PLOCK_OP_UNLOCK:
+ 		return "UN";
+ 	case DLM_PLOCK_OP_GET:
+@@ -751,6 +757,43 @@ static void do_lock(struct lockspace *ls, struct dlm_plock_info *in,
+ 	put_resource(ls, r);
+ }
  
-+	if (in->flags & DLM_PLOCK_FL_NO_REPLY) {
-+		log_debug("write_result: ignored rv %d fd %d\n",
-+			  rv, plock_device_fd);
-+		return;
++static int remove_waiter(const struct resource *r, struct dlm_plock_info *in)
++{
++	struct lock_waiter *w;
++
++	list_for_each_entry(w, &r->waiters, list) {
++		if (w->info.nodeid == in->nodeid &&
++		    w->info.fsid == in->fsid &&
++		    w->info.number == in->number &&
++		    w->info.owner == in->owner &&
++		    w->info.pid == in->pid &&
++		    w->info.start == in->start &&
++		    w->info.end == in->end &&
++		    w->info.ex == in->ex) {
++			list_del(&w->list);
++			free(w);
++			return 0;
++		}
 +	}
 +
- 	in->rv = rv;
- 	write_rv = write(plock_device_fd, in, sizeof(struct dlm_plock_info));
- 	if (write_rv < 0)
++	return -ENOENT;
++}
++
++static void do_cancel(struct lockspace *ls, struct dlm_plock_info *in,
++		      struct resource *r)
++{
++	int rv;
++
++	rv = remove_waiter(r, in);
++	if (in->nodeid == our_nodeid && rv == 0) {
++		/* we replacing a reply because we canceled waiter */
++		in->flags &= ~DLM_PLOCK_FL_NO_REPLY;
++		write_result(in, rv);
++	}
++
++	put_resource(ls, r);
++}
++
+ static void do_unlock(struct lockspace *ls, struct dlm_plock_info *in,
+ 		      struct resource *r)
+ {
+@@ -816,6 +859,10 @@ static void __receive_plock(struct lockspace *ls, struct dlm_plock_info *in,
+ 		ls->last_plock_time = monotime();
+ 		do_lock(ls, in, r);
+ 		break;
++	case DLM_PLOCK_OP_CANCEL:
++		ls->last_plock_time = monotime();
++		do_cancel(ls, in, r);
++		break;
+ 	case DLM_PLOCK_OP_UNLOCK:
+ 		ls->last_plock_time = monotime();
+ 		do_unlock(ls, in, r);
 -- 
 2.31.1
 
