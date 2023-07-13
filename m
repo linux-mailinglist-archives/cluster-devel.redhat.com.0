@@ -1,94 +1,91 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 594C2752528
-	for <lists+cluster-devel@lfdr.de>; Thu, 13 Jul 2023 16:33:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D261375251D
+	for <lists+cluster-devel@lfdr.de>; Thu, 13 Jul 2023 16:29:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689258786;
+	s=mimecast20190719; t=1689258592;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=EAEgJXo3oFHhbOe/67unGD8n1ytw1uGix+FjoJLnjGY=;
-	b=A6vM/+cDem0epomCnQQmaFQkz4D4//7qYMkLh00wevsX45nuA8k64yy98gtaSIiqhldDCM
-	5AeyFpQH8vyPJnpmZ9BE7Y15RwmTBvSv7o00qj+IwnzH0pr95cK/cZD7bTDOEiJH5tD284
-	oVgreDXNtIAei7THb6aharV1RNPoFQI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-167-8FCD2yVbMuGEF2DhohnwPA-1; Thu, 13 Jul 2023 10:32:57 -0400
-X-MC-Unique: 8FCD2yVbMuGEF2DhohnwPA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+	bh=hdjh3A+jQxi6jRfACa7G/pNetKuqFLq+oKHocbsTnQ8=;
+	b=SM2P/BNOAGO0plVywXYbov6wHjdFCZ/+nXKF5nc1BjJZR6HK8dW+6p5SR0EwdRU7Kb6oQS
+	pO1Hx6n1ksEI+/XAKs1UlFps6nVpzOUIyL7v1NGAjBDrp/+sZ6jCkn3jnIomf7m+DfplfO
+	ZcSNTDX6WdyIODqhZOR+FlhJOmrLJrg=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-640-nnwZgz8BPnWp_GCetdUtQw-1; Thu, 13 Jul 2023 10:29:51 -0400
+X-MC-Unique: nnwZgz8BPnWp_GCetdUtQw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 656621064C11;
-	Thu, 13 Jul 2023 14:32:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E37A22803CA6;
+	Thu, 13 Jul 2023 14:28:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 551D6F66DB;
-	Thu, 13 Jul 2023 14:32:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D4CCD4CD0D8;
+	Thu, 13 Jul 2023 14:28:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0D5F219465A2;
-	Thu, 13 Jul 2023 14:32:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 991DA19465B3;
+	Thu, 13 Jul 2023 14:27:59 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DDC5B1946589 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 13 Jul 2023 14:32:03 +0000 (UTC)
+ ESMTP id EEA571946589 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 13 Jul 2023 14:27:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AF7F540C206F; Thu, 13 Jul 2023 14:32:03 +0000 (UTC)
+ id CB70AC54FBA; Thu, 13 Jul 2023 14:27:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A7B0340C2063
- for <cluster-devel@redhat.com>; Thu, 13 Jul 2023 14:32:03 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C4883C52D9C
+ for <cluster-devel@redhat.com>; Thu, 13 Jul 2023 14:27:52 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFCF72807D9D
- for <cluster-devel@redhat.com>; Thu, 13 Jul 2023 14:31:15 +0000 (UTC)
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CDA1538157AA
+ for <cluster-devel@redhat.com>; Thu, 13 Jul 2023 14:26:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-324-uRaJZiaDNDOKCCgQQ-39gw-1; Thu, 13 Jul 2023 10:30:02 -0400
-X-MC-Unique: uRaJZiaDNDOKCCgQQ-39gw-1
-Received: by mail-yb1-f197.google.com with SMTP id
- 3f1490d57ef6-c5fc972760eso667528276.1
- for <cluster-devel@redhat.com>; Thu, 13 Jul 2023 07:29:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689258557; x=1691850557;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EAEgJXo3oFHhbOe/67unGD8n1ytw1uGix+FjoJLnjGY=;
- b=bs6+1mBkSXP3L8MAQdyTFeKyDSXZ8tm87/Y61LDHqfVeABUf/x9PLqsSb0Q+yKRFC+
- 2OwogSf1TGV7FT8pggVw0h9KFxHRlYJ0AH+ocr31yQXmGM6PBXivo/T6vgqtzMGgoWWK
- Y8yKL1o67XgXjtA7/cwSzYvCYS90osbXkz2ZMs425Gd/cbQOZ3Ys59cfACSQIGJNS3KW
- 3WTMxsYLTvIvTkFInj0iR1VTGtpYCeiKs6YCshP678sPUknqFwWqu/f1H5BqLfVkGH47
- xqCsSSltsa+fHmdDNezfceGJ+EqmlaDY6mTIT2unDADXh9l1yahttKKhttUS1rs/xay6
- Uu8g==
-X-Gm-Message-State: ABy/qLY8B80rNvGKv2Rwpc+wr+4PMVPQlVj3Ck7HD+ltxNVK/mWU/nTj
- +DwDFlcTAMTAUSS7RvkA/7V4VK3c26ncG6VG0u8KE1ZFU2sxtIWQR4KTzcdvBQWP/KoMVob+ZbY
- yln+FcaGUMcLVyaYpD2UVepH2oQXcVN0PxEivGg==
-X-Received: by 2002:a17:902:aa05:b0:1b6:93e8:3ddb with SMTP id
- be5-20020a170902aa0500b001b693e83ddbmr1092168plb.6.1689257762252; 
- Thu, 13 Jul 2023 07:16:02 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlFBoaT6AgcpqEK/+OjOPi7omBjJbJZjmH2NbMZ6kEeX+GmTB19WcUDmjBsTSqAYSC3VtjzZfK2p0sFXLNEHGc0=
-X-Received: by 2002:a17:902:aa05:b0:1b6:93e8:3ddb with SMTP id
- be5-20020a170902aa0500b001b693e83ddbmr1092153plb.6.1689257761981; Thu, 13 Jul
- 2023 07:16:01 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230713135249.153796-1-jlayton@kernel.org>
+ us-mta-216-8mEA2mLANxC6bijbYEcVKw-1; Thu, 13 Jul 2023 10:26:08 -0400
+X-MC-Unique: 8mEA2mLANxC6bijbYEcVKw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3578B61276;
+ Thu, 13 Jul 2023 14:25:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B6E6C433C7;
+ Thu, 13 Jul 2023 14:25:54 +0000 (UTC)
+From: Christian Brauner <brauner@kernel.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>, Jeff Layton <jlayton@kernel.org>
+Date: Thu, 13 Jul 2023 16:25:50 +0200
+Message-Id: <20230713-beispiel-bezeichnen-cf537927cefd@brauner>
 In-Reply-To: <20230713135249.153796-1-jlayton@kernel.org>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Thu, 13 Jul 2023 16:15:50 +0200
-Message-ID: <CAHc6FU6QQicrNDKWMQknP9YqKtEhhL0KbDCLACQ=v8P+tPQ5WQ@mail.gmail.com>
-To: Jeff Layton <jlayton@kernel.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+References: <20230713135249.153796-1-jlayton@kernel.org>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1115; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=ceLGsUdUEdvARZ34SamfY0iHE6Sz+y/w35l/b94Ztx8=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMaRs4Mw+Ei5erdYSLhCbuvKoiYZWkESapb7alPumIS/0KzT1
+ pzztKGVhEONikBVTZHFoNwmXW85TsdkoUwNmDisTyBAGLk4BmEjMN0aGu7Oe+r6/avoobZ9m47WcLU
+ V7ws/NSDoYIPf3e925aSd1/Bn+2SbPk/3VXFGX3PD8q+URbfGKRWdCNj1eer197vyfZwQmsAMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 Subject: Re: [Cluster-devel] [PATCH] gfs2: fix timestamp handling on quota
  inodes
 X-BeenThere: cluster-devel@redhat.com
@@ -102,62 +99,39 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, brauner@kernel.org, cluster-devel@redhat.com,
- linux-kernel@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org, cluster-devel@redhat.com,
+ Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Jeff and Christian,
-
-On Thu, Jul 13, 2023 at 3:52=E2=80=AFPM Jeff Layton <jlayton@kernel.org> wr=
-ote:
+On Thu, 13 Jul 2023 09:52:48 -0400, Jeff Layton wrote:
 > While these aren't generally visible from userland, it's best to be
 > consistent with timestamp handling. When adjusting the quota, update the
 > mtime and ctime like we would with a write operation on any other inode,
 > and avoid updating the atime which should only be done for reads.
->
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  fs/gfs2/quota.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> Christian,
->
-> Would you mind picking this into the vfs.ctime branch, assuming the GFS2
-> maintainers ack it? Andreas and I had discussed this privately, and I
-> think it makes sense as part of that series.
+>=20
+>=20
 
-Yes, please.
+Applied to the vfs.ctime branch of the vfs/vfs.git tree.
+Patches in the vfs.ctime branch should appear in linux-next soon.
 
-> Thanks,
-> Jeff
->
-> diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
-> index 704192b73605..aa5fd06d47bc 100644
-> --- a/fs/gfs2/quota.c
-> +++ b/fs/gfs2/quota.c
-> @@ -871,7 +871,7 @@ static int gfs2_adjust_quota(struct gfs2_inode *ip, l=
-off_t loc,
->                 size =3D loc + sizeof(struct gfs2_quota);
->                 if (size > inode->i_size)
->                         i_size_write(inode, size);
-> -               inode->i_mtime =3D inode->i_atime =3D current_time(inode)=
-;
-> +               inode->i_mtime =3D inode_set_ctime_current(inode);
->                 mark_inode_dirty(inode);
->                 set_bit(QDF_REFRESH, &qd->qd_flags);
->         }
-> --
-> 2.41.0
->
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Reviewed-by: Andreas Gruenbacher <agruenba@redhat.com>
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Thanks,
-Andreas
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.ctime
+
+[1/1] gfs2: fix timestamp handling on quota inodes
+      https://git.kernel.org/vfs/vfs/c/ea462c3f7f48
 
