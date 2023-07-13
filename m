@@ -2,60 +2,84 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF95F75255A
-	for <lists+cluster-devel@lfdr.de>; Thu, 13 Jul 2023 16:41:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4249875257F
+	for <lists+cluster-devel@lfdr.de>; Thu, 13 Jul 2023 16:49:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689259276;
+	s=mimecast20190719; t=1689259794;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=hQx1HCdN3vWpRnuecu66mt4M6OauanxpE7AnobbO0Fw=;
-	b=Z2ZHaj2uu8GF+Es5koi6O17GkMUL7h0OS0N6DtAm5Jyu3HxqWUXt1sPUYHmV09RnXf4rXq
-	QMiDRBAfdiNU1u4bOLSuBbQpSgc4kIdksg9l/pB8SPMv54qclIS0NqZ/nfifTN7Jwimuwj
-	+w4TfSd9ocvdOnE4esxvfzTm/KLBtM8=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-178-z3I-wDE0P263pA9ZPMbwFw-1; Thu, 13 Jul 2023 10:41:12 -0400
-X-MC-Unique: z3I-wDE0P263pA9ZPMbwFw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=UZ5RNgYPZYN9vDQ4roRPvHQiLk60kFCqxs8e/jvXzi4=;
+	b=RlKhxZrmUDHA7sm7xoCGNv68dMAWC//mFM3BVPQsGs41nGJeqBrjqcdDlLnXRVHpEe8mCl
+	gzEOrm0dJGqNspvx6YfPyBYG3wZDpCa1sV6HSP/pgRRE92fidxH9HVPTNnXG3YBPmdxQzg
+	d9a31SaiXykANcQecVQckWeupWg++yI=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-394-EM8at7AmPlCLaHs1hzJIKw-1; Thu, 13 Jul 2023 10:49:49 -0400
+X-MC-Unique: EM8at7AmPlCLaHs1hzJIKw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 765923844FDC;
-	Thu, 13 Jul 2023 14:40:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3565E101CAA4;
+	Thu, 13 Jul 2023 14:49:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2209A111E3EA;
-	Thu, 13 Jul 2023 14:40:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 187B8C1ED96;
+	Thu, 13 Jul 2023 14:49:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D212B19465A0;
-	Thu, 13 Jul 2023 14:40:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BC2F019465A0;
+	Thu, 13 Jul 2023 14:49:37 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3242F1946589 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 13 Jul 2023 14:40:53 +0000 (UTC)
+ ESMTP id E84DF1946589 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 13 Jul 2023 14:49:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 152F44CD0C6; Thu, 13 Jul 2023 14:40:48 +0000 (UTC)
+ id 908C6C1ED97; Thu, 13 Jul 2023 14:49:35 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D96374CD0CD;
- Thu, 13 Jul 2023 14:40:47 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Thu, 13 Jul 2023 10:40:29 -0400
-Message-Id: <20230713144029.3342637-2-aahringo@redhat.com>
-In-Reply-To: <20230713144029.3342637-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 89278C1ED96
+ for <cluster-devel@redhat.com>; Thu, 13 Jul 2023 14:49:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6933E280016C
+ for <cluster-devel@redhat.com>; Thu, 13 Jul 2023 14:49:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-319-SfkPJcZuMAKGE_LoAelmcA-1; Thu, 13 Jul 2023 10:49:31 -0400
+X-MC-Unique: SfkPJcZuMAKGE_LoAelmcA-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 218EF612FC;
+ Thu, 13 Jul 2023 14:49:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF51C433C7;
+ Thu, 13 Jul 2023 14:49:28 +0000 (UTC)
+Date: Thu, 13 Jul 2023 16:49:26 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alexander Aring <aahringo@redhat.com>
+Message-ID: <2023071318-traffic-impeding-dc64@gregkh>
 References: <20230713144029.3342637-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH v6.5-rc1 2/2] fs: dlm: allow to F_SETLKW
- getting interrupted
+In-Reply-To: <20230713144029.3342637-1-aahringo@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH v6.5-rc1 1/2] fs: dlm: introduce
+ DLM_PLOCK_FL_NO_REPLY flag
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,200 +94,100 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com, stable@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mimecast-Originator: linuxfoundation.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch implements dlm plock F_SETLKW interruption feature. If the
-pending plock operation is not sent to user space yet it can simple be
-dropped out of the send_list. In case it's already being sent we need to
-try to remove the waiters in dlm user space tool. If it was successful a
-reply with DLM_PLOCK_OP_CANCEL optype instead of DLM_PLOCK_OP_LOCK comes
-back (flag DLM_PLOCK_FL_NO_REPLY was then being cleared in user space)
-to signal the cancellation was successful. If a result with optype
-DLM_PLOCK_OP_LOCK came back then the cancellation was not successful.
+On Thu, Jul 13, 2023 at 10:40:28AM -0400, Alexander Aring wrote:
+> This patch introduces a new flag DLM_PLOCK_FL_NO_REPLY in case an dlm
+> plock operation should not send a reply back. Currently this is kind of
+> being handled in DLM_PLOCK_FL_CLOSE, but DLM_PLOCK_FL_CLOSE has more
+> meanings that it will remove all waiters for a specific nodeid/owner
+> values in by doing a unlock operation. In case of an error in dlm user
+> space software e.g. dlm_controld we get an reply with an error back.
+> This cannot be matched because there is no op to match in recv_list. We
+> filter now on DLM_PLOCK_FL_NO_REPLY in case we had an error back as
+> reply. In newer dlm_controld version it will never send a result back
+> when DLM_PLOCK_FL_NO_REPLY is set. This filter is a workaround to handle
+> older dlm_controld versions.
+> 
+> Fixes: 901025d2f319 ("dlm: make plock operation killable")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/plock.c                 | 91 ++++++++++++++++++++++++----------
- include/uapi/linux/dlm_plock.h |  1 +
- 2 files changed, 66 insertions(+), 26 deletions(-)
+Why is adding a new uapi a stable patch?
 
-diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
-index 7fe9f4b922d3..5faa428fff1a 100644
---- a/fs/dlm/plock.c
-+++ b/fs/dlm/plock.c
-@@ -29,6 +29,9 @@ struct plock_async_data {
- 
- struct plock_op {
- 	struct list_head list;
-+#define DLM_PLOCK_OP_FLAG_SENT		0
-+#define DLM_PLOCK_OP_FLAG_INTERRUPTED	1
-+	unsigned long flags;
- 	int done;
- 	struct dlm_plock_info info;
- 	/* if set indicates async handling */
-@@ -74,30 +77,25 @@ static void send_op(struct plock_op *op)
- 	wake_up(&send_wq);
- }
- 
--/* If a process was killed while waiting for the only plock on a file,
--   locks_remove_posix will not see any lock on the file so it won't
--   send an unlock-close to us to pass on to userspace to clean up the
--   abandoned waiter.  So, we have to insert the unlock-close when the
--   lock call is interrupted. */
--
--static void do_unlock_close(const struct dlm_plock_info *info)
-+static int do_lock_cancel(const struct plock_op *orig_op)
- {
- 	struct plock_op *op;
- 
- 	op = kzalloc(sizeof(*op), GFP_NOFS);
- 	if (!op)
--		return;
-+		return -ENOMEM;
-+
-+	op->info = orig_op->info;
-+	op->info.optype = DLM_PLOCK_OP_CANCEL;
-+	op->info.flags = DLM_PLOCK_FL_NO_REPLY;
- 
--	op->info.optype		= DLM_PLOCK_OP_UNLOCK;
--	op->info.pid		= info->pid;
--	op->info.fsid		= info->fsid;
--	op->info.number		= info->number;
--	op->info.start		= 0;
--	op->info.end		= OFFSET_MAX;
--	op->info.owner		= info->owner;
--
--	op->info.flags |= (DLM_PLOCK_FL_CLOSE | DLM_PLOCK_FL_NO_REPLY);
- 	send_op(op);
-+	wait_event(recv_wq, (orig_op->done != 0));
-+
-+	if (orig_op->info.optype == DLM_PLOCK_OP_CANCEL)
-+		return 0;
-+
-+	return 1;
- }
- 
- int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
-@@ -156,7 +154,7 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
- 	send_op(op);
- 
- 	if (op->info.wait) {
--		rv = wait_event_killable(recv_wq, (op->done != 0));
-+		rv = wait_event_interruptible(recv_wq, (op->done != 0));
- 		if (rv == -ERESTARTSYS) {
- 			spin_lock(&ops_lock);
- 			/* recheck under ops_lock if we got a done != 0,
-@@ -166,17 +164,37 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
- 				spin_unlock(&ops_lock);
- 				goto do_lock_wait;
- 			}
--			list_del(&op->list);
--			spin_unlock(&ops_lock);
-+
-+			if (!test_bit(DLM_PLOCK_OP_FLAG_SENT, &op->flags)) {
-+				/* part of send_list, user never saw the op */
-+				list_del(&op->list);
-+				spin_unlock(&ops_lock);
-+				rv = -EINTR;
-+			} else {
-+				set_bit(DLM_PLOCK_OP_FLAG_INTERRUPTED, &op->flags);
-+				spin_unlock(&ops_lock);
-+				rv = do_lock_cancel(op);
-+				switch (rv) {
-+				case 0:
-+					rv = -EINTR;
-+					break;
-+				case 1:
-+					/* cancellation wasn't successful but op is done */
-+					goto do_lock_wait;
-+				default:
-+					/* internal error doing cancel we need to wait */
-+					goto wait;
-+				}
-+			}
- 
- 			log_debug(ls, "%s: wait interrupted %x %llx pid %d",
- 				  __func__, ls->ls_global_id,
- 				  (unsigned long long)number, op->info.pid);
--			do_unlock_close(&op->info);
- 			dlm_release_plock_op(op);
- 			goto out;
- 		}
- 	} else {
-+wait:
- 		wait_event(recv_wq, (op->done != 0));
- 	}
- 
-@@ -392,10 +410,12 @@ static ssize_t dev_read(struct file *file, char __user *u, size_t count,
- 	spin_lock(&ops_lock);
- 	if (!list_empty(&send_list)) {
- 		op = list_first_entry(&send_list, struct plock_op, list);
--		if (op->info.flags & DLM_PLOCK_FL_NO_REPLY)
-+		if (op->info.flags & DLM_PLOCK_FL_NO_REPLY) {
- 			list_del(&op->list);
--		else
-+		} else {
- 			list_move_tail(&op->list, &recv_list);
-+			set_bit(DLM_PLOCK_OP_FLAG_SENT, &op->flags);
-+		}
- 		memcpy(&info, &op->info, sizeof(info));
- 	}
- 	spin_unlock(&ops_lock);
-@@ -457,6 +477,27 @@ static ssize_t dev_write(struct file *file, const char __user *u, size_t count,
- 	spin_lock(&ops_lock);
- 	if (info.wait) {
- 		list_for_each_entry(iter, &recv_list, list) {
-+			/* A very specific posix lock case allows two
-+			 * lock request with the same meaning by using
-+			 * threads. It makes no sense from the application
-+			 * to do such request, however it is possible.
-+			 * We need to check the state for cancellation because
-+			 * we need to know the instance which is interrupted
-+			 * if two or more of the "same" lock requests are
-+			 * in waiting state and got interrupted.
-+			 *
-+			 * TODO we should move to a instance reference from
-+			 * request and reply and not go over lock states, but
-+			 * it seems going over lock states and get the instance
-+			 * does not make any problems (at least there were no
-+			 * issues found yet) but it's much cleaner to not think
-+			 * about all possible special cases and states to instance
-+			 * has no 1:1 mapping anymore.
-+			 */
-+			if (info.optype == DLM_PLOCK_OP_CANCEL &&
-+			    !test_bit(DLM_PLOCK_OP_FLAG_INTERRUPTED, &iter->flags))
-+				continue;
-+
- 			if (iter->info.fsid == info.fsid &&
- 			    iter->info.number == info.number &&
- 			    iter->info.owner == info.owner &&
-@@ -480,9 +521,7 @@ static ssize_t dev_write(struct file *file, const char __user *u, size_t count,
- 
- 	if (op) {
- 		/* Sanity check that op and info match. */
--		if (info.wait)
--			WARN_ON(op->info.optype != DLM_PLOCK_OP_LOCK);
--		else
-+		if (!info.wait)
- 			WARN_ON(op->info.fsid != info.fsid ||
- 				op->info.number != info.number ||
- 				op->info.owner != info.owner ||
-diff --git a/include/uapi/linux/dlm_plock.h b/include/uapi/linux/dlm_plock.h
-index 8dfa272c929a..9c4c083c824a 100644
---- a/include/uapi/linux/dlm_plock.h
-+++ b/include/uapi/linux/dlm_plock.h
-@@ -22,6 +22,7 @@ enum {
- 	DLM_PLOCK_OP_LOCK = 1,
- 	DLM_PLOCK_OP_UNLOCK,
- 	DLM_PLOCK_OP_GET,
-+	DLM_PLOCK_OP_CANCEL,
- };
- 
- #define DLM_PLOCK_FL_CLOSE 1
--- 
-2.31.1
+> ---
+>  fs/dlm/plock.c                 | 23 +++++++++++++++++++----
+>  include/uapi/linux/dlm_plock.h |  1 +
+>  2 files changed, 20 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
+> index 70a4752ed913..7fe9f4b922d3 100644
+> --- a/fs/dlm/plock.c
+> +++ b/fs/dlm/plock.c
+> @@ -96,7 +96,7 @@ static void do_unlock_close(const struct dlm_plock_info *info)
+>  	op->info.end		= OFFSET_MAX;
+>  	op->info.owner		= info->owner;
+>  
+> -	op->info.flags |= DLM_PLOCK_FL_CLOSE;
+> +	op->info.flags |= (DLM_PLOCK_FL_CLOSE | DLM_PLOCK_FL_NO_REPLY);
+>  	send_op(op);
+>  }
+>  
+> @@ -293,7 +293,7 @@ int dlm_posix_unlock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
+>  		op->info.owner	= (__u64)(long) fl->fl_owner;
+>  
+>  	if (fl->fl_flags & FL_CLOSE) {
+> -		op->info.flags |= DLM_PLOCK_FL_CLOSE;
+> +		op->info.flags |= (DLM_PLOCK_FL_CLOSE | DLM_PLOCK_FL_NO_REPLY);
+>  		send_op(op);
+>  		rv = 0;
+>  		goto out;
+> @@ -392,7 +392,7 @@ static ssize_t dev_read(struct file *file, char __user *u, size_t count,
+>  	spin_lock(&ops_lock);
+>  	if (!list_empty(&send_list)) {
+>  		op = list_first_entry(&send_list, struct plock_op, list);
+> -		if (op->info.flags & DLM_PLOCK_FL_CLOSE)
+> +		if (op->info.flags & DLM_PLOCK_FL_NO_REPLY)
+>  			list_del(&op->list);
+>  		else
+>  			list_move_tail(&op->list, &recv_list);
+> @@ -407,7 +407,7 @@ static ssize_t dev_read(struct file *file, char __user *u, size_t count,
+>  	   that were generated by the vfs cleaning up for a close
+>  	   (the process did not make an unlock call). */
+>  
+> -	if (op->info.flags & DLM_PLOCK_FL_CLOSE)
+> +	if (op->info.flags & DLM_PLOCK_FL_NO_REPLY)
+>  		dlm_release_plock_op(op);
+>  
+>  	if (copy_to_user(u, &info, sizeof(info)))
+> @@ -433,6 +433,21 @@ static ssize_t dev_write(struct file *file, const char __user *u, size_t count,
+>  	if (check_version(&info))
+>  		return -EINVAL;
+>  
+> +	/* Some old dlm user space software will send replies back,
+> +	 * even if DLM_PLOCK_FL_NO_REPLY is set (because the flag is
+> +	 * new) e.g. if a error occur. We can't match them in recv_list
+> +	 * because they were never be part of it. We filter it here,
+> +	 * new dlm user space software will filter it in user space.
+> +	 *
+> +	 * In future this handling can be removed.
+> +	 */
+> +	if (info.flags & DLM_PLOCK_FL_NO_REPLY) {
+> +		pr_info("Received unexpected reply from op %d, "
+> +			"please update DLM user space software!\n",
+> +			info.optype);
+
+Never allow userspace to spam the kernel log.  And this is not going to
+work, you need to handle the error and at most, report this to userspace
+once.
+
+Also, don't wrap your strings, checkpatch should have told you this.
+
+thanks,
+
+greg k-h
 
