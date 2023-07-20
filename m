@@ -2,96 +2,81 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB18A759D78
-	for <lists+cluster-devel@lfdr.de>; Wed, 19 Jul 2023 20:36:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59B1C75ADD1
+	for <lists+cluster-devel@lfdr.de>; Thu, 20 Jul 2023 14:07:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689791776;
+	s=mimecast20190719; t=1689854842;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=ur/7tY9x/tRgeuGcTOKDecGX+pLOZx869sm+6cI/oO4=;
-	b=R0As3FABY/mgzNQPiWfp8aB+Vqe2kAcnVRJgEu76V4L7hKfKqYG+BvURTnM1Aq/vEKU0k9
-	xoSGNTdp2SUcQCyTjn/PZyrv+Al25DgsJFU9caVlQpzf403U03nTstnhW7zP3TINnWzgM6
-	XBX3HaM+RjW3bCq6YT+SmFTSqbhJXPY=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=CXi0GZjcxztTbJDhGZsDqauMI815aXijIaLoDNyKEI8=;
+	b=IxF+ZXFeX8y707c4gU3Ll6n4Z+/8DIAY7SAGBGlaPC/tG0428lWzBWVX0idZrEMXpwMI8r
+	5TOTMrmdXDtL3kPNNZFUqHu2rVu4ypSacPpQzxBYZaKyICWvV2RSKajfLHq01DhRPJO5gO
+	WPuhtdBDWlITFn6Ge3II7o+WezCG2w8=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-568-qexWVZ5lM_622-ywozJW9g-1; Wed, 19 Jul 2023 14:36:13 -0400
-X-MC-Unique: qexWVZ5lM_622-ywozJW9g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-206-GcS3rx_ZMqK5c3VSKxfkHw-1; Thu, 20 Jul 2023 08:07:18 -0400
+X-MC-Unique: GcS3rx_ZMqK5c3VSKxfkHw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED8C33849533;
-	Wed, 19 Jul 2023 18:36:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 061832815E33;
+	Thu, 20 Jul 2023 12:07:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id ED40B40D2839;
-	Wed, 19 Jul 2023 18:36:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FB95F77B9;
+	Thu, 20 Jul 2023 12:07:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 953DE19465BD;
-	Wed, 19 Jul 2023 18:35:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ABE391946A6A;
+	Thu, 20 Jul 2023 12:07:14 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 265E919465A4 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 19 Jul 2023 18:33:35 +0000 (UTC)
+ ESMTP id 7B28319465BA for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 20 Jul 2023 12:06:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CC4AE40C2070; Wed, 19 Jul 2023 18:33:34 +0000 (UTC)
+ id 72E40200B41D; Thu, 20 Jul 2023 12:06:57 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C53B140C206F
- for <cluster-devel@redhat.com>; Wed, 19 Jul 2023 18:33:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A444A858F1E
- for <cluster-devel@redhat.com>; Wed, 19 Jul 2023 18:33:34 +0000 (UTC)
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-197-AIeBH34gMOqI9D8OWGPyEw-1; Wed, 19 Jul 2023 14:33:33 -0400
-X-MC-Unique: AIeBH34gMOqI9D8OWGPyEw-1
-Received: by mail-yw1-f200.google.com with SMTP id
- 00721157ae682-57325434999so248697b3.1
- for <cluster-devel@redhat.com>; Wed, 19 Jul 2023 11:33:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689791613; x=1692383613;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ur/7tY9x/tRgeuGcTOKDecGX+pLOZx869sm+6cI/oO4=;
- b=AMMn+Z9XsyJp3OSvu89c59EjezvMoaH6U2VB6cQ2XxzcG6vW3wzGHebkNY15TYcVAJ
- mIw2m8dkUriwc5IzhFPtvyU4blVy7elAqsO7fP7hWa3rJgpXZlLr/EyYGtJOWX16sd5Z
- 6qaNR5/z8xbiOzvBBSVF8lNAvjeDgEU1ltnXP5Z1cQv8uLZ5NhJWOoXxmQmKsCKrebP5
- eGx0dD3Hnaksva7PEEAc1nUg1i/uyB+tOc4cbYtqQyx5wuNgTjQM9NbZiufXHHmDzqNe
- co1V4yjllcI9iGBQ05Ujjj02ZZeGA3+b932M5J7B2s8KkoudOoY7Q3RPA/xI06KV3z54
- YviA==
-X-Gm-Message-State: ABy/qLYwxX2ptv5SuQWaQn6sSy30aMyCHerHqRDgzp6+VwH8SCFbESru
- Bv4FpzL4F+MSnK6ENO5ex5m0JOACJxaet1y1zhOr9R8Zm081qLZHk3tQKGcWgLfrsUUfAgerxIH
- KmcLDBDkD1c58r9mnbfUr1c+alh28d6O5BZFp4w==
-X-Received: by 2002:a81:92d3:0:b0:581:2887:22be with SMTP id
- j202-20020a8192d3000000b00581288722bemr21774103ywg.37.1689791612868; 
- Wed, 19 Jul 2023 11:33:32 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlGBzan3MF717TbeJevLQRirLTiedRen/Yjq7rPm4PF2/R07POBpIIAQkupe9F5A+x6nP2ha/T8mDGhgyrdBxNM=
-X-Received: by 2002:a81:92d3:0:b0:581:2887:22be with SMTP id
- j202-20020a8192d3000000b00581288722bemr21774082ywg.37.1689791612580; Wed, 19
- Jul 2023 11:33:32 -0700 (PDT)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B238207B314
+ for <cluster-devel@redhat.com>; Thu, 20 Jul 2023 12:06:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 516062815E2E
+ for <cluster-devel@redhat.com>; Thu, 20 Jul 2023 12:06:57 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-495-pyksBi1zPD-d0VFPkwZLZg-1; Thu, 20 Jul 2023 08:06:55 -0400
+X-MC-Unique: pyksBi1zPD-d0VFPkwZLZg-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id DDB576732D; Thu, 20 Jul 2023 14:06:50 +0200 (CEST)
+Date: Thu, 20 Jul 2023 14:06:50 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Hannes Reinecke <hare@suse.de>
+Message-ID: <20230720120650.GA13266@lst.de>
+References: <20230424054926.26927-1-hch@lst.de>
+ <20230424054926.26927-17-hch@lst.de>
+ <b96b397e-2f5e-7910-3bb3-7405d0e293a7@suse.de>
 MIME-Version: 1.0
-References: <20230718180721.745569-1-aahringo@redhat.com>
- <20230718180721.745569-4-aahringo@redhat.com>
-In-Reply-To: <20230718180721.745569-4-aahringo@redhat.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Wed, 19 Jul 2023 14:33:21 -0400
-Message-ID: <CAK-6q+j10uosheJ=jeU9R7p2kV1niAoMhPOkc7HMtNgkp2e2XQ@mail.gmail.com>
-To: teigland@redhat.com
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCHv3 v6.5-rc2 3/3] fs: dlm: fix F_CANCELLK
- to cancel pending request
+In-Reply-To: <b96b397e-2f5e-7910-3bb3-7405d0e293a7@suse.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH 16/17] block: use iomap for writes to
+ block devices
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,114 +88,46 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: ocfs2-devel@lists.linux.dev, mark@fasheh.com, cluster-devel@redhat.com,
- joseph.qi@linux.alibaba.com, jlbec@evilplan.org
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ linux-nfs@vger.kernel.org, cluster-devel@redhat.com, linux-xfs@vger.kernel.org,
+ Miklos Szeredi <miklos@szeredi.hu>, "Darrick J. Wong" <djwong@kernel.org>,
+ ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, linux-f2fs-devel@lists.sourceforge.net,
+ David Howells <dhowells@redhat.com>, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-ext4@vger.kernel.org, Christoph Hellwig <hch@lst.de>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: lst.de
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi,
+On Fri, May 19, 2023 at 04:22:01PM +0200, Hannes Reinecke wrote:
+> I'm hitting this during booting:
+> [    5.016324]  <TASK>
+> [    5.030256]  iomap_iter+0x11a/0x350
+> [    5.030264]  iomap_readahead+0x1eb/0x2c0
+> [    5.030272]  read_pages+0x5d/0x220
+> [    5.030279]  page_cache_ra_unbounded+0x131/0x180
+> [    5.030284]  filemap_get_pages+0xff/0x5a0
+> [    5.030292]  filemap_read+0xca/0x320
+> [    5.030296]  ? aa_file_perm+0x126/0x500
+> [    5.040216]  ? touch_atime+0xc8/0x150
+> [    5.040224]  blkdev_read_iter+0xb0/0x150
+> [    5.040228]  vfs_read+0x226/0x2d0
+> [    5.040234]  ksys_read+0xa5/0xe0
+> [    5.040238]  do_syscall_64+0x5b/0x80
+>
+> Maybe we should consider this patch:
 
-On Tue, Jul 18, 2023 at 2:07=E2=80=AFPM Alexander Aring <aahringo@redhat.co=
-m> wrote:
->
-> This patch fixes the current handling of F_CANCELLK by not just doing a
-> unlock as we need to try to cancel a lock at first. A unlock makes sense
-> on a non-blocking lock request but if it's a blocking lock request we
-> need to cancel the request until it's not granted yet. This patch is fixi=
-ng
-> this behaviour by first try to cancel a lock request and if it's failed
-> it's unlocking the lock which seems to be granted.
->
-> Note: currently the nfs locking handling was disabled by commit
-> 40595cdc93ed ("nfs: block notification on fs with its own ->lock").
-> However DLM was never being updated regarding to this change. Future
-> patches will try to fix lockd lock requests for DLM. This patch is
-> currently assuming the upstream DLM lockd handling is correct.
->
-> Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> ---
->  fs/dlm/plock.c            | 102 +++++++++++++++++++++++++++++++++-----
->  fs/gfs2/file.c            |   9 ++--
->  fs/ocfs2/stack_user.c     |  13 ++---
->  include/linux/dlm_plock.h |   2 +
->  4 files changed, 97 insertions(+), 29 deletions(-)
->
-> diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
-> index a8ffa0760913..84510994b177 100644
-> --- a/fs/dlm/plock.c
-> +++ b/fs/dlm/plock.c
-> @@ -42,6 +42,27 @@ static inline void set_version(struct dlm_plock_info *=
-info)
->         info->version[2] =3D DLM_PLOCK_VERSION_PATCH;
->  }
->
-> +static struct plock_op *plock_lookup_waiter(const struct dlm_plock_info =
-*info)
-> +{
-> +       struct plock_op *op =3D NULL, *iter;
-> +
-> +       list_for_each_entry(iter, &recv_list, list) {
-> +               if (iter->info.fsid =3D=3D info->fsid &&
-> +                   iter->info.number =3D=3D info->number &&
-> +                   iter->info.owner =3D=3D info->owner &&
-> +                   iter->info.pid =3D=3D info->pid &&
-> +                   iter->info.start =3D=3D info->start &&
-> +                   iter->info.end =3D=3D info->end &&
-> +                   iter->info.ex =3D=3D info->ex &&
-> +                   iter->info.wait) {
-> +                       op =3D iter;
-> +                       break;
-> +               }
-> +       }
-> +
-> +       return op;
-> +}
-> +
->  static int check_version(struct dlm_plock_info *info)
->  {
->         if ((DLM_PLOCK_VERSION_MAJOR !=3D info->version[0]) ||
-> @@ -334,6 +355,73 @@ int dlm_posix_unlock(dlm_lockspace_t *lockspace, u64=
- number, struct file *file,
->  }
->  EXPORT_SYMBOL_GPL(dlm_posix_unlock);
->
-> +/*
-> + * NOTE: This implementation can only handle async lock requests as nfs
-> + * do it. It cannot handle cancellation of a pending lock request sittin=
-g
-> + * in wait_event(), but for now only nfs is the only user local kernel
-> + * user.
-> + */
-> +int dlm_posix_cancel(dlm_lockspace_t *lockspace, u64 number, struct file=
- *file,
-> +                    struct file_lock *fl)
-> +{
-> +       struct dlm_plock_info info;
-> +       struct plock_op *op;
-> +       struct dlm_ls *ls;
-> +       int rv;
-> +
-> +       /* this only works for async request for now and nfs is the only
-> +        * kernel user right now.
-> +        */
-> +       if (WARN_ON_ONCE(!fl->fl_lmops || !fl->fl_lmops->lm_grant))
-> +               return -EOPNOTSUPP;
-> +
-> +       ls =3D dlm_find_lockspace_local(lockspace);
-> +       if (!ls)
-> +               return -EINVAL;
-> +
+As willy said this should be taken care of by the i_size check.
+Did you run with just this patch set or some of the large block
+size experiments on top which might change the variables?
 
-here is a:
-
-memset(&info, 0, sizeof(info));
-
-missing.
-
-- Alex
+I'll repost the series today without any chances in the area, and
+if you can reproduce it with just that series we need to root
+cause it, so please send your kernel and VM config along for the
+next report.
 
