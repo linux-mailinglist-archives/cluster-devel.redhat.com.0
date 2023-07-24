@@ -1,96 +1,95 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CB6B75F332
-	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jul 2023 12:28:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 120DD75F31C
+	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jul 2023 12:28:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690194535;
+	s=mimecast20190719; t=1690194533;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DaxJS65ntPERL7le+nmtmDDoPHIKL7Svp/IgETL6ZeE=;
-	b=fbN36QlZCoOH+EtIFt6hVMZkv4Nc9fvwPffQwLW/B61unfVhtAkA+oJ14WL84aknCxOg12
-	TiRHpvucgsVw6+TcHO2TUY0Vn9Ks3m6HPKcrDvwkqO0DUUflG5gZMgAsHpSAMLsTnIk33v
-	xmcNRwgdxdSib7hnz/0hXzVjOeJmkjQ=
+	bh=jmPwAlPL0TnDBmalzCzATtOPmfxfqu3Q+7XaFZclAtg=;
+	b=KqZsYoQtPUtOnetFKezZetcFBr5hFG+J0xGGDdblsDM6tpZRQZUcAQEX+fKjfdxTEHfIlp
+	YwD0fhuW6HAQ8BxzJKRPQT9db+OR6D6P1C/vWAC2sHL6dN9Unsk+ub/E0+naWNGv1YuSBF
+	f/9FRtMElbN2COwVSoTwiGwSscJomww=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-7-RMOLx1GSOzWM-_EfWdnJvQ-1; Mon, 24 Jul 2023 06:28:49 -0400
-X-MC-Unique: RMOLx1GSOzWM-_EfWdnJvQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-116-5Jt-Km4KPBCH-pEN-VhmEQ-1; Mon, 24 Jul 2023 06:28:49 -0400
+X-MC-Unique: 5Jt-Km4KPBCH-pEN-VhmEQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07D22185A7BC;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35705104D984;
 	Mon, 24 Jul 2023 10:28:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 08777C2C856;
-	Mon, 24 Jul 2023 10:28:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7FA6740C2071;
+	Mon, 24 Jul 2023 10:28:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F062D1946594;
-	Mon, 24 Jul 2023 10:28:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0BF4919451D5;
+	Mon, 24 Jul 2023 10:28:28 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 046431946588 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 24 Jul 2023 09:45:48 +0000 (UTC)
+ ESMTP id EE60D1946588 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 24 Jul 2023 09:46:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E4E2040C206F; Mon, 24 Jul 2023 09:45:47 +0000 (UTC)
+ id DE20F1121315; Mon, 24 Jul 2023 09:46:00 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DCE2E40C2063
- for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 09:45:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7A26809F8F
- for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 09:45:47 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D4A401121318
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 09:46:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7F3D185A792
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 09:46:00 +0000 (UTC)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-99-_QvKjeaGOqSYhpRboWediA-1; Mon, 24 Jul 2023 05:45:43 -0400
-X-MC-Unique: _QvKjeaGOqSYhpRboWediA-1
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-1bb91c20602so2225675ad.0
- for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 02:45:43 -0700 (PDT)
+ us-mta-695-TzkUShBINu-JEfhCcYXTCA-1; Mon, 24 Jul 2023 05:45:55 -0400
+X-MC-Unique: TzkUShBINu-JEfhCcYXTCA-1
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-1b867f9198dso8893365ad.0
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 02:45:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690191943; x=1690796743;
+ d=1e100.net; s=20221208; t=1690191955; x=1690796755;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DaxJS65ntPERL7le+nmtmDDoPHIKL7Svp/IgETL6ZeE=;
- b=W2LbFdoCkMz4c7nGsQV1eKf8yK87snZN5nWACQJChnxjUg4PGmAYKBkOk4tlEU9mKK
- djxbyF0Lh8uc8EsN60ZyVyvDy63TckfRnOrrSlVtQu+whlrW5/3OTrAe0Rr4DLuuiaqQ
- BO6sc8GKdfTpGdFc6+KGs+L/NrBYSndgAeQSqqjXSJLGsgZcZtg3DRVgvfhvbysNzTGi
- gWWmHLu+A1EQsjGsneD5PBUi/sQtiNhi5ExKV04NCkdxQzQ8QfhxPR+jg5N5jeluqKEw
- ilZVYCmaX+AuwRp2TWzXB5xgLMwUSLZsceIz7+4gdRANa9pz0PzlosTkToeF8WPVDUKq
- k/bg==
-X-Gm-Message-State: ABy/qLbD2fJtBsvYtMf17KAMTevXH9MbMp7iox499jQbvN32c6fLFoB8
- q0Sdj4/8PJ9J1lBnIuBSFXviVA==
-X-Google-Smtp-Source: APBJJlGWwe+Wn5SAE9CC225imGBvK3oJNP2MQHqUiC6fnoUxBGqj3ofPftHC2Yw9p8SUIC56L+2IOQ==
-X-Received: by 2002:a17:903:2305:b0:1b8:b0c4:2e3d with SMTP id
- d5-20020a170903230500b001b8b0c42e3dmr12236473plh.4.1690191942806; 
- Mon, 24 Jul 2023 02:45:42 -0700 (PDT)
+ bh=jmPwAlPL0TnDBmalzCzATtOPmfxfqu3Q+7XaFZclAtg=;
+ b=XeIkifDw/93st0+uR4BttssWzxyW/Teig/l818REH37bK1rh2FiFwZ46mBCvqc9NQa
+ SPzXGiq6eASLkO+R2Xg9UuVqFh48HCzh/gwOPNmx8kUSoL6r8dReyNKj2r7QooJ4DL1m
+ TlWFjViEHVtNdpbBCj8qCQkqdnPuoQx14wdAQshr7Bdf6z3kB1MYM2iKpT3Uy62fX+HU
+ 2djJ6HG3dZ4LMaZ7PbIDUam+IFNTkmVsfHRsfaEyFL2c1+UROnNPvwCPu0IdQ0Rhas/Q
+ xiCQBrJmSMxVcBCOiV2VmZBU3aVABxAUarEek2y9vNhh8N3RG1ysVMkmJg4rY5pPDU08
+ Z8AA==
+X-Gm-Message-State: ABy/qLZR7dwByRl5DABlvJ1cTDFR0rz6ysw9PVjEXMR1JO0j+HhUxOFF
+ C78VpBC8InMoAkdDCRmhdVnKTA==
+X-Google-Smtp-Source: APBJJlHDY1qhgSa+H4mr70oj6h44PLP3QUTUzXb3MsGg4I77oDNLLFWrtOaIhBAmIAnOXFQDdEVBFw==
+X-Received: by 2002:a17:902:d4cb:b0:1b1:9272:55e2 with SMTP id
+ o11-20020a170902d4cb00b001b1927255e2mr12365119plg.3.1690191954835; 
+ Mon, 24 Jul 2023 02:45:54 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.45.31
+ d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.45.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:45:42 -0700 (PDT)
+ Mon, 24 Jul 2023 02:45:54 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Mon, 24 Jul 2023 17:43:10 +0800
-Message-Id: <20230724094354.90817-4-zhengqi.arch@bytedance.com>
+Date: Mon, 24 Jul 2023 17:43:11 +0800
+Message-Id: <20230724094354.90817-5-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -103,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Mon, 24 Jul 2023 10:28:27 +0000
-Subject: [Cluster-devel] [PATCH v2 03/47] mm: shrinker: add infrastructure
- for dynamically allocating shrinker
+Subject: [Cluster-devel] [PATCH v2 04/47] kvm: mmu: dynamically allocate the
+ x86-mmu shrinker
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,224 +129,64 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Currently, the shrinker instances can be divided into the following three
-types:
-
-a) global shrinker instance statically defined in the kernel, such as
-   workingset_shadow_shrinker.
-
-b) global shrinker instance statically defined in the kernel modules, such
-   as mmu_shrinker in x86.
-
-c) shrinker instance embedded in other structures.
-
-For case a, the memory of shrinker instance is never freed. For case b,
-the memory of shrinker instance will be freed after synchronize_rcu() when
-the module is unloaded. For case c, the memory of shrinker instance will
-be freed along with the structure it is embedded in.
-
-In preparation for implementing lockless slab shrink, we need to
-dynamically allocate those shrinker instances in case c, then the memory
-can be dynamically freed alone by calling kfree_rcu().
-
-So this commit adds the following new APIs for dynamically allocating
-shrinker, and add a private_data field to struct shrinker to record and
-get the original embedded structure.
-
-1. shrinker_alloc()
-
-Used to allocate shrinker instance itself and related memory, it will
-return a pointer to the shrinker instance on success and NULL on failure.
-
-2. shrinker_free_non_registered()
-
-Used to destroy the non-registered shrinker instance.
-
-3. shrinker_register()
-
-Used to register the shrinker instance, which is same as the current
-register_shrinker_prepared().
-
-4. shrinker_unregister()
-
-Used to unregister and free the shrinker instance.
-
-In order to simplify shrinker-related APIs and make shrinker more
-independent of other kernel mechanisms, subsequent submissions will use
-the above API to convert all shrinkers (including case a and b) to
-dynamically allocated, and then remove all existing APIs.
-
-This will also have another advantage mentioned by Dave Chinner:
-
-```
-The other advantage of this is that it will break all the existing
-out of tree code and third party modules using the old API and will
-no longer work with a kernel using lockless slab shrinkers. They
-need to break (both at the source and binary levels) to stop bad
-things from happening due to using uncoverted shrinkers in the new
-setup.
-```
+Use new APIs to dynamically allocate the x86-mmu shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- include/linux/shrinker.h |   6 +++
- mm/shrinker.c            | 113 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 119 insertions(+)
+ arch/x86/kvm/mmu/mmu.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-index 961cb84e51f5..296f5e163861 100644
---- a/include/linux/shrinker.h
-+++ b/include/linux/shrinker.h
-@@ -70,6 +70,8 @@ struct shrinker {
- 	int seeks;	/* seeks to recreate an obj */
- 	unsigned flags;
- 
-+	void *private_data;
-+
- 	/* These are for internal use */
- 	struct list_head list;
- #ifdef CONFIG_MEMCG
-@@ -98,6 +100,10 @@ struct shrinker {
- 
- unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
- 			  int priority);
-+struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...);
-+void shrinker_free_non_registered(struct shrinker *shrinker);
-+void shrinker_register(struct shrinker *shrinker);
-+void shrinker_unregister(struct shrinker *shrinker);
- 
- extern int __printf(2, 3) prealloc_shrinker(struct shrinker *shrinker,
- 					    const char *fmt, ...);
-diff --git a/mm/shrinker.c b/mm/shrinker.c
-index 0a32ef42f2a7..d820e4cc5806 100644
---- a/mm/shrinker.c
-+++ b/mm/shrinker.c
-@@ -548,6 +548,119 @@ unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
- 	return freed;
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index ec169f5c7dce..ab405e0a8954 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -6847,11 +6847,7 @@ static unsigned long mmu_shrink_count(struct shrinker *shrink,
+ 	return percpu_counter_read_positive(&kvm_total_used_mmu_pages);
  }
  
-+struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...)
-+{
-+	struct shrinker *shrinker;
-+	unsigned int size;
-+	va_list __maybe_unused ap;
-+	int err;
+-static struct shrinker mmu_shrinker = {
+-	.count_objects = mmu_shrink_count,
+-	.scan_objects = mmu_shrink_scan,
+-	.seeks = DEFAULT_SEEKS * 10,
+-};
++static struct shrinker *mmu_shrinker;
+ 
+ static void mmu_destroy_caches(void)
+ {
+@@ -6984,10 +6980,16 @@ int kvm_mmu_vendor_module_init(void)
+ 	if (percpu_counter_init(&kvm_total_used_mmu_pages, 0, GFP_KERNEL))
+ 		goto out;
+ 
+-	ret = register_shrinker(&mmu_shrinker, "x86-mmu");
+-	if (ret)
++	mmu_shrinker = shrinker_alloc(0, "x86-mmu");
++	if (!mmu_shrinker)
+ 		goto out_shrinker;
+ 
++	mmu_shrinker->count_objects = mmu_shrink_count;
++	mmu_shrinker->scan_objects = mmu_shrink_scan;
++	mmu_shrinker->seeks = DEFAULT_SEEKS * 10;
 +
-+	shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
-+	if (!shrinker)
-+		return NULL;
++	shrinker_register(mmu_shrinker);
 +
-+#ifdef CONFIG_SHRINKER_DEBUG
-+	va_start(ap, fmt);
-+	shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, ap);
-+	va_end(ap);
-+	if (!shrinker->name)
-+		goto err_name;
-+#endif
-+	shrinker->flags = flags;
-+
-+	if (flags & SHRINKER_MEMCG_AWARE) {
-+		err = prealloc_memcg_shrinker(shrinker);
-+		if (err == -ENOSYS)
-+			shrinker->flags &= ~SHRINKER_MEMCG_AWARE;
-+		else if (err == 0)
-+			goto done;
-+		else
-+			goto err_flags;
-+	}
-+
-+	/*
-+	 * The nr_deferred is available on per memcg level for memcg aware
-+	 * shrinkers, so only allocate nr_deferred in the following cases:
-+	 *  - non memcg aware shrinkers
-+	 *  - !CONFIG_MEMCG
-+	 *  - memcg is disabled by kernel command line
-+	 */
-+	size = sizeof(*shrinker->nr_deferred);
-+	if (flags & SHRINKER_NUMA_AWARE)
-+		size *= nr_node_ids;
-+
-+	shrinker->nr_deferred = kzalloc(size, GFP_KERNEL);
-+	if (!shrinker->nr_deferred)
-+		goto err_flags;
-+
-+done:
-+	return shrinker;
-+
-+err_flags:
-+#ifdef CONFIG_SHRINKER_DEBUG
-+	kfree_const(shrinker->name);
-+	shrinker->name = NULL;
-+err_name:
-+#endif
-+	kfree(shrinker);
-+	return NULL;
-+}
-+EXPORT_SYMBOL(shrinker_alloc);
-+
-+void shrinker_free_non_registered(struct shrinker *shrinker)
-+{
-+#ifdef CONFIG_SHRINKER_DEBUG
-+	kfree_const(shrinker->name);
-+	shrinker->name = NULL;
-+#endif
-+	if (shrinker->flags & SHRINKER_MEMCG_AWARE) {
-+		down_write(&shrinker_rwsem);
-+		unregister_memcg_shrinker(shrinker);
-+		up_write(&shrinker_rwsem);
-+	}
-+
-+	kfree(shrinker->nr_deferred);
-+	shrinker->nr_deferred = NULL;
-+
-+	kfree(shrinker);
-+}
-+EXPORT_SYMBOL(shrinker_free_non_registered);
-+
-+void shrinker_register(struct shrinker *shrinker)
-+{
-+	down_write(&shrinker_rwsem);
-+	list_add_tail(&shrinker->list, &shrinker_list);
-+	shrinker->flags |= SHRINKER_REGISTERED;
-+	shrinker_debugfs_add(shrinker);
-+	up_write(&shrinker_rwsem);
-+}
-+EXPORT_SYMBOL(shrinker_register);
-+
-+void shrinker_unregister(struct shrinker *shrinker)
-+{
-+	struct dentry *debugfs_entry;
-+	int debugfs_id;
-+
-+	if (!shrinker || !(shrinker->flags & SHRINKER_REGISTERED))
-+		return;
-+
-+	down_write(&shrinker_rwsem);
-+	list_del(&shrinker->list);
-+	shrinker->flags &= ~SHRINKER_REGISTERED;
-+	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
-+		unregister_memcg_shrinker(shrinker);
-+	debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
-+	up_write(&shrinker_rwsem);
-+
-+	shrinker_debugfs_remove(debugfs_entry, debugfs_id);
-+
-+	kfree(shrinker->nr_deferred);
-+	shrinker->nr_deferred = NULL;
-+
-+	kfree(shrinker);
-+}
-+EXPORT_SYMBOL(shrinker_unregister);
-+
+ 	return 0;
+ 
+ out_shrinker:
+@@ -7009,7 +7011,7 @@ void kvm_mmu_vendor_module_exit(void)
+ {
+ 	mmu_destroy_caches();
+ 	percpu_counter_destroy(&kvm_total_used_mmu_pages);
+-	unregister_shrinker(&mmu_shrinker);
++	shrinker_unregister(mmu_shrinker);
+ }
+ 
  /*
-  * Add a shrinker callback to be called from the vm.
-  */
 -- 
 2.30.2
 
