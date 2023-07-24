@@ -1,81 +1,80 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CABD875E85F
-	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jul 2023 03:40:42 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8191C75E7BB
+	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jul 2023 03:33:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690162841;
+	s=mimecast20190719; t=1690162437;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=LwkH6HIG/7Fp2v0OUIAsO321LU5Jtx+EMDbGufv/inw=;
-	b=IHzL6FEHqA1TxeTnptLEQDsU8nyKyAQMSsM+rYy6al4gs5HiK0JSMCGMsJ+2HEoeWt7YXq
-	isIPKulp1UnBTUsG7c6ny9jUQ752HtVU2AkhokzFypZWlDpaDemH/4ynCelLA+/KP8IBeB
-	Y0ga8OjuZ0FtHfQ6qLmNlZYLckPR0EI=
+	bh=9GSyGkaNkORI0czhHhugx9Lteq1joonaV8lBF2V/Soo=;
+	b=Yz7kgB5wZth7INEdZ5qLsBkYbOZBShmGgFmPE/89E9+vnGt0HNr1z3s839c0i7en2mbQ8Q
+	+MWlSmhm0ysle+FRiT/+kBe5CE30GV+c08QksGy5eIHSzaGHWyQF4rbll/gwAvUxsWDquY
+	tLwpxsrMBbxfLojWqA636AxK7gEphgM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-638-KBEZl9GYOS653MefanOmRA-1; Sun, 23 Jul 2023 21:40:34 -0400
-X-MC-Unique: KBEZl9GYOS653MefanOmRA-1
+ us-mta-503-TyuInvVLOBarxZwdtX5Dpw-1; Sun, 23 Jul 2023 21:33:52 -0400
+X-MC-Unique: TyuInvVLOBarxZwdtX5Dpw-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C878802A7D;
-	Mon, 24 Jul 2023 01:40:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E68CB810BB2;
+	Mon, 24 Jul 2023 01:33:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5B092492CAC;
-	Mon, 24 Jul 2023 01:40:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 12B8E492CAC;
+	Mon, 24 Jul 2023 01:33:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 149BB1946594;
-	Mon, 24 Jul 2023 01:40:33 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 80D801946594;
+	Mon, 24 Jul 2023 01:33:49 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0E54A1946588 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 24 Jul 2023 01:40:00 +0000 (UTC)
+ ESMTP id 02ED31946588 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 24 Jul 2023 01:33:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DE94840C206F; Mon, 24 Jul 2023 01:39:59 +0000 (UTC)
+ id 9FA68F77B9; Mon, 24 Jul 2023 01:33:47 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D640740C2063
- for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 01:39:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2DAA3C025C2
- for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 01:39:59 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 98320F782D
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 01:33:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73E0D80269A
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 01:33:47 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-678-bAn_5aQCOSuslUKlTi0iWg-1; Sun, 23 Jul 2023 21:39:58 -0400
-X-MC-Unique: bAn_5aQCOSuslUKlTi0iWg-1
+ us-mta-79-TDpKNntjPT6tBu6-FpIWfA-1; Sun, 23 Jul 2023 21:33:42 -0400
+X-MC-Unique: TDpKNntjPT6tBu6-FpIWfA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AE9AA60FDD;
- Mon, 24 Jul 2023 01:32:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44974C433C9;
- Mon, 24 Jul 2023 01:32:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AD44B60EEE;
+ Mon, 24 Jul 2023 01:33:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3810DC433CD;
+ Mon, 24 Jul 2023 01:33:40 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 23 Jul 2023 21:32:16 -0400
-Message-Id: <20230724013238.2329166-13-sashal@kernel.org>
-In-Reply-To: <20230724013238.2329166-1-sashal@kernel.org>
-References: <20230724013238.2329166-1-sashal@kernel.org>
+Date: Sun, 23 Jul 2023 21:33:11 -0400
+Message-Id: <20230724013325.2332084-10-sashal@kernel.org>
+In-Reply-To: <20230724013325.2332084-1-sashal@kernel.org>
+References: <20230724013325.2332084-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.40
+X-stable-base: Linux 5.15.121
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,8 +82,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [Cluster-devel] [PATCH AUTOSEL 6.1 13/34] gfs2: Fix possible data
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [Cluster-devel] [PATCH AUTOSEL 5.15 10/24] gfs2: Fix possible data
  races in gfs2_show_options()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -141,10 +140,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
-index 9d27aa8bd2bc6..44c564f0bc622 100644
+index ca6ee1cbccd50..51b44da4a0d64 100644
 --- a/fs/gfs2/super.c
 +++ b/fs/gfs2/super.c
-@@ -981,7 +981,14 @@ static int gfs2_show_options(struct seq_file *s, struc=
+@@ -980,7 +980,14 @@ static int gfs2_show_options(struct seq_file *s, struc=
 t dentry *root)
  {
  =09struct gfs2_sbd *sdp =3D root->d_sb->s_fs_info;
@@ -161,7 +160,7 @@ t dentry *root)
 =20
  =09if (is_ancestor(root, sdp->sd_master_dir))
  =09=09seq_puts(s, ",meta");
-@@ -1036,17 +1043,14 @@ static int gfs2_show_options(struct seq_file *s, st=
+@@ -1035,17 +1042,14 @@ static int gfs2_show_options(struct seq_file *s, st=
 ruct dentry *root)
  =09}
  =09if (args->ar_discard)
