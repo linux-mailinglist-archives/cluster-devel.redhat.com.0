@@ -1,99 +1,90 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EDCB75D216
-	for <lists+cluster-devel@lfdr.de>; Fri, 21 Jul 2023 20:55:58 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 477DC75E85C
+	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jul 2023 03:40:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689965757;
+	s=mimecast20190719; t=1690162840;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=WmfrP9wFQnzZhw2fgBYIX25txWh2pY7hccaj8FMORPE=;
-	b=NRS+JpcKln94A++QxcWmgr33NOYqRLQGV6OkzDD8+8aUEWMUbAZap/bRbBPJ4Uy3Wm+mSN
-	OX6D86z0suoTSLpQUq4UCjtDga+P2sj7wCC1SN17kV2u10jSsNP6yT2s39U0NTV8BNw5pD
-	+asah+URovESmX+iy7Adv73Lzrc2H58=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-586-rtH4uzjLMTmf1sVLOAkwsw-1; Fri, 21 Jul 2023 14:55:54 -0400
-X-MC-Unique: rtH4uzjLMTmf1sVLOAkwsw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=JimJewgqE0aaPUcBwd4gmvkneccYic8SMLU1sDkrfiU=;
+	b=JGa/x6hGVUkkZIU21opHmoWxBcy3utWVdAFzIjui8FRN4pclz7mgx6ESFMjhxGxS8KcWf/
+	19N4BNXgzkyvpFLwxuAqoTl1m83I2rnDnZY2ZAvQgQlWCM4o5GTyKC9Uh2gyL/876jbdpx
+	ckQo77XAcZ0GEoikDTIgLFg9nmmX7TA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-241-yxHySQ6ROt2p45bqENWc3Q-1; Sun, 23 Jul 2023 21:40:35 -0400
+X-MC-Unique: yxHySQ6ROt2p45bqENWc3Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7DB671C05154;
-	Fri, 21 Jul 2023 18:55:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7ECD08008A4;
+	Mon, 24 Jul 2023 01:40:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 42B6740C6F4F;
-	Fri, 21 Jul 2023 18:55:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 72588200BA73;
+	Mon, 24 Jul 2023 01:40:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE9661946A49;
-	Fri, 21 Jul 2023 18:55:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 26F4019465A8;
+	Mon, 24 Jul 2023 01:40:34 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 60DF41946586 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 21 Jul 2023 18:55:50 +0000 (UTC)
+ ESMTP id 10B9C194658D for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 24 Jul 2023 01:40:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4E771C5796A; Fri, 21 Jul 2023 18:55:50 +0000 (UTC)
+ id ED7E3400F1F; Mon, 24 Jul 2023 01:39:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 46B37C57969
- for <cluster-devel@redhat.com>; Fri, 21 Jul 2023 18:55:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E507C492CAC
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 01:39:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26E3D281BDD2
- for <cluster-devel@redhat.com>; Fri, 21 Jul 2023 18:55:50 +0000 (UTC)
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5481800B35
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 01:39:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-318-yQ_jeZ3eNMOEQquMUqb24g-1; Fri, 21 Jul 2023 14:55:49 -0400
-X-MC-Unique: yQ_jeZ3eNMOEQquMUqb24g-1
-Received: by mail-yw1-f197.google.com with SMTP id
- 00721157ae682-57704aace46so23293207b3.2
- for <cluster-devel@redhat.com>; Fri, 21 Jul 2023 11:55:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689965733; x=1690570533;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WmfrP9wFQnzZhw2fgBYIX25txWh2pY7hccaj8FMORPE=;
- b=X0B1nPbIsFd1N7fLCit5c1/mLTCd94cRpvm+/tlNrphqIhNIdbuJmwwb32190FQMh9
- fAhlms3B3KwijP8NO9HwjSvUYdLYxhh22MGfP8Vd8LWLpkt5n+/9+vaKzRMBetU4665N
- VspTqgwjOjwnOgZ134gY3PohKQOiWtfZZ/rxplXUVTkmGvN4rBrgH+uPkih4m5+Cnv+v
- 6isG2xlmgGyeFJywUnkbwayJNn+g7lB9q3pjdqBUOeSdYTHHWiuseVhQ1ODyolqqT6Yl
- riW2IbnI608kl3ni5tcLmoaClbg4kV8IosfuRbb0hWaBgKcJJVIiqw5pNDVgTaTqF+PK
- BZlw==
-X-Gm-Message-State: ABy/qLb9KncY+4N/tfpTdFga9+vUgpLPQjPrSXop+h7XnoNImkw6X2mm
- IVe8Pi8KgGrE05brJrHSxJG8cLcNOm8XMtxtJDZ42G1XsUwcLEv4q8ISOdwxiSf0Tfgh4Dj3Xit
- YQwenTtG3fOk2dCLK1HXAA2ppWvIUjroW4OER/w==
-X-Received: by 2002:a0d:fd07:0:b0:576:82d7:7a with SMTP id
- n7-20020a0dfd07000000b0057682d7007amr910757ywf.43.1689965733107; 
- Fri, 21 Jul 2023 11:55:33 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlGevb5kv0fBPECk7NzSGvdtLJpMPwyJt3JcupTlSWAnsiNjsQGICzI6cCohgZb5URbW/YliXZ6JX7KxpPyOwjw=
-X-Received: by 2002:a0d:fd07:0:b0:576:82d7:7a with SMTP id
- n7-20020a0dfd07000000b0057682d7007amr910744ywf.43.1689965732703; 
- Fri, 21 Jul 2023 11:55:32 -0700 (PDT)
+ us-mta-192-tkKEDyjhMnCEhDOgz7nDsQ-1; Sun, 23 Jul 2023 21:39:58 -0400
+X-MC-Unique: tkKEDyjhMnCEhDOgz7nDsQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3748260FA0;
+ Mon, 24 Jul 2023 01:32:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA450C433C9;
+ Mon, 24 Jul 2023 01:32:01 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sun, 23 Jul 2023 21:31:15 -0400
+Message-Id: <20230724013140.2327815-15-sashal@kernel.org>
+In-Reply-To: <20230724013140.2327815-1-sashal@kernel.org>
+References: <20230724013140.2327815-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20230720122241.1381845-1-aahringo@redhat.com>
- <20230720122241.1381845-4-aahringo@redhat.com>
- <CAHc6FU6nHjx2JQn=1_zif-gLFZQHZfwb5E8HHXHcYn67_VV0SQ@mail.gmail.com>
-In-Reply-To: <CAHc6FU6nHjx2JQn=1_zif-gLFZQHZfwb5E8HHXHcYn67_VV0SQ@mail.gmail.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Fri, 21 Jul 2023 14:55:21 -0400
-Message-ID: <CAK-6q+g01Xu+DZN3asom9VHAbBfwvEAO2_Eu8kXHJiuCyhtvEQ@mail.gmail.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [Cluster-devel] [PATCHv4 v6.5-rc2 3/3] fs: dlm: fix F_CANCELLK
- to cancel pending request
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.4.5
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [Cluster-devel] [PATCH AUTOSEL 6.4 15/40] gfs2: Fix possible data
+ races in gfs2_show_options()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,79 +96,96 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com
+Cc: Sasha Levin <sashal@kernel.org>, Tuo Li <islituo@gmail.com>,
+ cluster-devel@redhat.com, BassCheck <bass@buaa.edu.cn>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+X-Mimecast-Originator: kernel.org
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Hi,
+From: Tuo Li <islituo@gmail.com>
 
-On Fri, Jul 21, 2023 at 12:25=E2=80=AFPM Andreas Gruenbacher
-<agruenba@redhat.com> wrote:
->
-> On Thu, Jul 20, 2023 at 2:22=E2=80=AFPM Alexander Aring <aahringo@redhat.=
-com> wrote:
-> > This patch fixes the current handling of F_CANCELLK by not just doing a
-> > unlock as we need to try to cancel a lock at first. A unlock makes sens=
-e
-> > on a non-blocking lock request but if it's a blocking lock request we
-> > need to cancel the request until it's not granted yet. This patch is fi=
-xing
-> > this behaviour by first try to cancel a lock request and if it's failed
-> > it's unlocking the lock which seems to be granted.
->
-> I don't like how this is implemented, but the problem already starts
-> in commit 57e2c2f2d94c ("fs: dlm: fix mismatch of plock results from
-> userspace"). That commit relies on how dlm_controld is implemented
-> internally; it requires dlm_controld to keep all replies to
-> non-blocking requests in perfect order. The correctness of that
-> approach is more difficult to argue for than it should be, the code
-> might break in non-obvious ways, and it limits the kinds of things
-> dlm_controld will be able to do in the future. And this change relies
-> on the same flawed design.
->
+[ Upstream commit 6fa0a72cbbe45db4ed967a51f9e6f4e3afe61d20 ]
 
-I agree it is not the best design and I mentioned it in my previous
-patch series versions [0]:
+Some fields such as gt_logd_secs of the struct gfs2_tune are accessed
+without holding the lock gt_spin in gfs2_show_options():
 
-TODO we should move to a instance reference from request and reply and
-not go over lock states, but it seems going over lock states and get
-the instance does not make any problems (at least there were no issues
-found yet) but it's much cleaner to not think about all possible
-special cases and states to instance has no 1:1 mapping anymore.
+  val =3D sdp->sd_tune.gt_logd_secs;
+  if (val !=3D 30)
+    seq_printf(s, ",commit=3D%d", val);
 
-> Instead, when noticing that we don't have a way to uniquely identify
-> requests, such a way should just have been introduced. The CANCEL
-> request would then carry the same unique identifier as the original
-> locking request, dlm_controld would reply either to the original
-> locking request or to the cancel request, and the kernel would have no
-> problem matching the reply to the request.
->
-> But without unique request identifiers, we now end up with those
-> redundant -ENOENT replies to CANCEL requests and with those
-> essentially duplicate entries for the same request on recv_list. Not
-> great.
->
+And thus can cause data races when gfs2_show_options() and other functions
+such as gfs2_reconfigure() are concurrently executed:
 
-There is no reference of lock request instances between kernel and
-user yet. It does it by having a match if it's the same lock request.
-The whole mechanism works like this, but one reason why we recently
-had problems with it. A lock request is the same in the sense that
-they are being granted at the same time. So far we did not experience
-any problems with that... but as mentioned in [0] you need to think
-about all potential cases.
+  spin_lock(&gt->gt_spin);
+  gt->gt_logd_secs =3D newargs->ar_commit;
 
-NOTE: that even F_CANCELLK does not give you a unique reference of the
-original locking request, it works over matching the field of struct
-file_lock... There is already the same problem. The struct file_lock
-pointer could be used, but struct file_lock does not represent a lock
-request, this does not exist in VFS posix lock API.
+To fix these possible data races, the lock sdp->sd_tune.gt_spin is
+acquired before accessing the fields of gfs2_tune and released after these
+accesses.
 
-- Alex
+Further changes by Andreas:
 
-[0] https://listman.redhat.com/archives/cluster-devel/2023-July/024477.html
+- Don't hold the spin lock over the seq_printf operations.
+
+Reported-by: BassCheck <bass@buaa.edu.cn>
+Signed-off-by: Tuo Li <islituo@gmail.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/gfs2/super.c | 26 +++++++++++++++-----------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
+
+diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+index a84bf6444bba9..204ba7f8417e6 100644
+--- a/fs/gfs2/super.c
++++ b/fs/gfs2/super.c
+@@ -1004,7 +1004,14 @@ static int gfs2_show_options(struct seq_file *s, str=
+uct dentry *root)
+ {
+ =09struct gfs2_sbd *sdp =3D root->d_sb->s_fs_info;
+ =09struct gfs2_args *args =3D &sdp->sd_args;
+-=09int val;
++=09unsigned int logd_secs, statfs_slow, statfs_quantum, quota_quantum;
++
++=09spin_lock(&sdp->sd_tune.gt_spin);
++=09logd_secs =3D sdp->sd_tune.gt_logd_secs;
++=09quota_quantum =3D sdp->sd_tune.gt_quota_quantum;
++=09statfs_quantum =3D sdp->sd_tune.gt_statfs_quantum;
++=09statfs_slow =3D sdp->sd_tune.gt_statfs_slow;
++=09spin_unlock(&sdp->sd_tune.gt_spin);
+=20
+ =09if (is_ancestor(root, sdp->sd_master_dir))
+ =09=09seq_puts(s, ",meta");
+@@ -1059,17 +1066,14 @@ static int gfs2_show_options(struct seq_file *s, st=
+ruct dentry *root)
+ =09}
+ =09if (args->ar_discard)
+ =09=09seq_puts(s, ",discard");
+-=09val =3D sdp->sd_tune.gt_logd_secs;
+-=09if (val !=3D 30)
+-=09=09seq_printf(s, ",commit=3D%d", val);
+-=09val =3D sdp->sd_tune.gt_statfs_quantum;
+-=09if (val !=3D 30)
+-=09=09seq_printf(s, ",statfs_quantum=3D%d", val);
+-=09else if (sdp->sd_tune.gt_statfs_slow)
++=09if (logd_secs !=3D 30)
++=09=09seq_printf(s, ",commit=3D%d", logd_secs);
++=09if (statfs_quantum !=3D 30)
++=09=09seq_printf(s, ",statfs_quantum=3D%d", statfs_quantum);
++=09else if (statfs_slow)
+ =09=09seq_puts(s, ",statfs_quantum=3D0");
+-=09val =3D sdp->sd_tune.gt_quota_quantum;
+-=09if (val !=3D 60)
+-=09=09seq_printf(s, ",quota_quantum=3D%d", val);
++=09if (quota_quantum !=3D 60)
++=09=09seq_printf(s, ",quota_quantum=3D%d", quota_quantum);
+ =09if (args->ar_statfs_percent)
+ =09=09seq_printf(s, ",statfs_percent=3D%d", args->ar_statfs_percent);
+ =09if (args->ar_errors !=3D GFS2_ERRORS_DEFAULT) {
+--=20
+2.39.2
 
