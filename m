@@ -2,80 +2,82 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97AD075F4E2
-	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jul 2023 13:25:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3799475F5F5
+	for <lists+cluster-devel@lfdr.de>; Mon, 24 Jul 2023 14:17:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690197957;
+	s=mimecast20190719; t=1690201074;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fRq9dwwGFiUYnhelgiMFCqaFSvyn1Iy7L8f3oV4pu3I=;
-	b=Ao6E2IHkv5KY9alBjXfBn5X1Mk4Q070+4AwUfUhnqfN6g10cyILgAYzmXxxtX0AlTqxVJI
-	5QQzyqTAh8BacMRny0e8lGcbXiWo+SABbUZdxoYmIIyFxLBSu/4o+gLr/DEWW1wsyd8M7N
-	qFsGFj8ohmT5VmuYJUALspd+3R1tMe4=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-561-uaD41J3hMlChBMZ8mxBrHg-1; Mon, 24 Jul 2023 07:25:54 -0400
-X-MC-Unique: uaD41J3hMlChBMZ8mxBrHg-1
+	bh=5ClYoPM2+R1LU+xY2vWgNYeU0LZkz+tiOGJi1rHUYlk=;
+	b=DT+OtYZSP/FN27ysDUJcl/W0ViaF3k5s8OYsZTw6TiCNpRoVzpKeS1Zps3cEriTVuo228A
+	Q6e9mgBB1bsbifJ2mt6iTon7dlSj2fYjpic6iQEAvRSJsCuKdxLFcTnPCpJf9TWFe0V4TN
+	OsHlsy5N2ZpARjExaHfzymuH/lFiriQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-671-omEEm87WNdKKPHjPDZQ32w-1; Mon, 24 Jul 2023 08:17:52 -0400
+X-MC-Unique: omEEm87WNdKKPHjPDZQ32w-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFA3D3801BF1;
-	Mon, 24 Jul 2023 11:25:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE26C809F8F;
+	Mon, 24 Jul 2023 12:17:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E829492CAC;
-	Mon, 24 Jul 2023 11:25:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 764EB400F1F;
+	Mon, 24 Jul 2023 12:17:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 302791946594;
-	Mon, 24 Jul 2023 11:25:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3143B1946594;
+	Mon, 24 Jul 2023 12:17:48 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B6B021946588 for <cluster-devel@listman.corp.redhat.com>;
- Mon, 24 Jul 2023 11:25:16 +0000 (UTC)
+ ESMTP id C9AC71946588 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 24 Jul 2023 12:17:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9149B1121318; Mon, 24 Jul 2023 11:25:16 +0000 (UTC)
+ id 993394A9005; Mon, 24 Jul 2023 12:17:47 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 894801121315
- for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 11:25:16 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 91C5C46A3A7
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 12:17:47 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AB028631E7
- for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 11:25:16 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172]) by
- relay.mimecast.com with ESMTP id us-mta-498-D2sthRDrNNu6d3Zgk0gUWw-1; Mon,
- 24 Jul 2023 07:25:14 -0400
-X-MC-Unique: D2sthRDrNNu6d3Zgk0gUWw-1
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B206CDE0;
- Mon, 24 Jul 2023 04:18:29 -0700 (PDT)
-Received: from [10.57.34.62] (unknown [10.57.34.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C518B3F5A1;
- Mon, 24 Jul 2023 04:17:39 -0700 (PDT)
-Message-ID: <cdd08c9e-81d3-a85f-5426-5db738aa73ec@arm.com>
-Date: Mon, 24 Jul 2023 12:17:40 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: Qi Zheng <zhengqi.arch@bytedance.com>, akpm@linux-foundation.org,
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 753C13815EE7
+ for <cluster-devel@redhat.com>; Mon, 24 Jul 2023 12:17:47 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-694-F5IfvOW_MPq9vZkN90M1bQ-1; Mon, 24 Jul 2023 08:17:45 -0400
+X-MC-Unique: F5IfvOW_MPq9vZkN90M1bQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 21BA160F6A;
+ Mon, 24 Jul 2023 12:17:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE84DC433C7;
+ Mon, 24 Jul 2023 12:17:40 +0000 (UTC)
+Message-ID: <01e8445d033314b6d9cd67bece74ca1c3ce89945.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: Qi Zheng <zhengqi.arch@bytedance.com>, akpm@linux-foundation.org, 
  david@fromorbit.com, tkhai@ya.ru, vbabka@suse.cz, roman.gushchin@linux.dev,
- djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
- cel@kernel.org, senozhatsky@chromium.org, yujie.liu@intel.com,
- gregkh@linuxfoundation.org, muchun.song@linux.dev
+ djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu, 
+ steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org, 
+ yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
+Date: Mon, 24 Jul 2023 08:17:39 -0400
+In-Reply-To: <20230724094354.90817-35-zhengqi.arch@bytedance.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-25-zhengqi.arch@bytedance.com>
-From: Steven Price <steven.price@arm.com>
-In-Reply-To: <20230724094354.90817-25-zhengqi.arch@bytedance.com>
+ <20230724094354.90817-35-zhengqi.arch@bytedance.com>
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,10 +85,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-X-Mailman-Approved-At: Mon, 24 Jul 2023 11:25:51 +0000
-Subject: Re: [Cluster-devel] [PATCH v2 24/47] drm/panfrost: dynamically
- allocate the drm-panfrost shrinker
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [Cluster-devel] [PATCH v2 34/47] nfsd: dynamically allocate the
+ nfsd-client shrinker
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,152 +107,92 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
  linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+ linux-xfs@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>,
+ linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: arm.com
-Content-Language: en-GB
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset="ISO-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-On 24/07/2023 10:43, Qi Zheng wrote:
+On Mon, 2023-07-24 at 17:43 +0800, Qi Zheng wrote:
 > In preparation for implementing lockless slab shrink, use new APIs to
-> dynamically allocate the drm-panfrost shrinker, so that it can be freed
+> dynamically allocate the nfsd-client shrinker, so that it can be freed
 > asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-> read-side critical section when releasing the struct panfrost_device.
-> 
+> read-side critical section when releasing the struct nfsd_net.
+>=20
+> Acked-by: Chuck Lever <chuck.lever@oracle.com>
 > Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-
-One nit below, but otherwise:
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-
 > ---
->  drivers/gpu/drm/panfrost/panfrost_device.h    |  2 +-
->  drivers/gpu/drm/panfrost/panfrost_drv.c       |  6 +++-
->  drivers/gpu/drm/panfrost/panfrost_gem.h       |  2 +-
->  .../gpu/drm/panfrost/panfrost_gem_shrinker.c  | 32 ++++++++++++-------
->  4 files changed, 27 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
-> index b0126b9fbadc..e667e5689353 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-> @@ -118,7 +118,7 @@ struct panfrost_device {
->  
->  	struct mutex shrinker_lock;
->  	struct list_head shrinker_list;
-> -	struct shrinker shrinker;
-> +	struct shrinker *shrinker;
->  
->  	struct panfrost_devfreq pfdevfreq;
+>  fs/nfsd/netns.h     |  2 +-
+>  fs/nfsd/nfs4state.c | 20 ++++++++++++--------
+>  2 files changed, 13 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+> index ec49b200b797..f669444d5336 100644
+> --- a/fs/nfsd/netns.h
+> +++ b/fs/nfsd/netns.h
+> @@ -195,7 +195,7 @@ struct nfsd_net {
+>  =09int=09=09=09nfs4_max_clients;
+> =20
+>  =09atomic_t=09=09nfsd_courtesy_clients;
+> -=09struct shrinker=09=09nfsd_client_shrinker;
+> +=09struct shrinker=09=09*nfsd_client_shrinker;
+>  =09struct work_struct=09nfsd_shrinker_work;
 >  };
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index bbada731bbbd..f705bbdea360 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -598,10 +598,14 @@ static int panfrost_probe(struct platform_device *pdev)
->  	if (err < 0)
->  		goto err_out1;
->  
-> -	panfrost_gem_shrinker_init(ddev);
-> +	err = panfrost_gem_shrinker_init(ddev);
-> +	if (err)
-> +		goto err_out2;
->  
->  	return 0;
->  
-> +err_out2:
-> +	drm_dev_unregister(ddev);
->  err_out1:
->  	pm_runtime_disable(pfdev->dev);
->  	panfrost_device_fini(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> index ad2877eeeccd..863d2ec8d4f0 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> @@ -81,7 +81,7 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
->  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
->  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
->  
-> -void panfrost_gem_shrinker_init(struct drm_device *dev);
-> +int panfrost_gem_shrinker_init(struct drm_device *dev);
->  void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
->  
->  #endif /* __PANFROST_GEM_H__ */
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> index bf0170782f25..9a90dfb5301f 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> @@ -18,8 +18,7 @@
->  static unsigned long
->  panfrost_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+> =20
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index 3339177f8e2f..c7a4616cd866 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -4388,8 +4388,7 @@ static unsigned long
+>  nfsd4_state_shrinker_count(struct shrinker *shrink, struct shrink_contro=
+l *sc)
 >  {
-> -	struct panfrost_device *pfdev =
-> -		container_of(shrinker, struct panfrost_device, shrinker);
-> +	struct panfrost_device *pfdev = shrinker->private_data;
->  	struct drm_gem_shmem_object *shmem;
->  	unsigned long count = 0;
->  
-> @@ -65,8 +64,7 @@ static bool panfrost_gem_purge(struct drm_gem_object *obj)
->  static unsigned long
->  panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  {
-> -	struct panfrost_device *pfdev =
-> -		container_of(shrinker, struct panfrost_device, shrinker);
-> +	struct panfrost_device *pfdev = shrinker->private_data;
->  	struct drm_gem_shmem_object *shmem, *tmp;
->  	unsigned long freed = 0;
->  
-> @@ -97,13 +95,24 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->   *
->   * This function registers and sets up the panfrost shrinker.
->   */
-> -void panfrost_gem_shrinker_init(struct drm_device *dev)
-> +int panfrost_gem_shrinker_init(struct drm_device *dev)
->  {
->  	struct panfrost_device *pfdev = dev->dev_private;
-> -	pfdev->shrinker.count_objects = panfrost_gem_shrinker_count;
-> -	pfdev->shrinker.scan_objects = panfrost_gem_shrinker_scan;
-> -	pfdev->shrinker.seeks = DEFAULT_SEEKS;
-> -	WARN_ON(register_shrinker(&pfdev->shrinker, "drm-panfrost"));
+>  =09int count;
+> -=09struct nfsd_net *nn =3D container_of(shrink,
+> -=09=09=09struct nfsd_net, nfsd_client_shrinker);
+> +=09struct nfsd_net *nn =3D shrink->private_data;
+> =20
+>  =09count =3D atomic_read(&nn->nfsd_courtesy_clients);
+>  =09if (!count)
+> @@ -8125,12 +8124,17 @@ static int nfs4_state_create_net(struct net *net)
+>  =09INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
+>  =09get_net(net);
+> =20
+> -=09nn->nfsd_client_shrinker.scan_objects =3D nfsd4_state_shrinker_scan;
+> -=09nn->nfsd_client_shrinker.count_objects =3D nfsd4_state_shrinker_count=
+;
+> -=09nn->nfsd_client_shrinker.seeks =3D DEFAULT_SEEKS;
+> -
+> -=09if (register_shrinker(&nn->nfsd_client_shrinker, "nfsd-client"))
+> +=09nn->nfsd_client_shrinker =3D shrinker_alloc(0, "nfsd-client");
+> +=09if (!nn->nfsd_client_shrinker)
+>  =09=09goto err_shrinker;
 > +
-> +	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
-> +	if (!pfdev->shrinker) {
-> +		WARN_ON(1);
+> +=09nn->nfsd_client_shrinker->scan_objects =3D nfsd4_state_shrinker_scan;
+> +=09nn->nfsd_client_shrinker->count_objects =3D nfsd4_state_shrinker_coun=
+t;
+> +=09nn->nfsd_client_shrinker->seeks =3D DEFAULT_SEEKS;
+> +=09nn->nfsd_client_shrinker->private_data =3D nn;
+> +
+> +=09shrinker_register(nn->nfsd_client_shrinker);
+> +
+>  =09return 0;
+> =20
+>  err_shrinker:
+> @@ -8228,7 +8232,7 @@ nfs4_state_shutdown_net(struct net *net)
+>  =09struct list_head *pos, *next, reaplist;
+>  =09struct nfsd_net *nn =3D net_generic(net, nfsd_net_id);
+> =20
+> -=09unregister_shrinker(&nn->nfsd_client_shrinker);
+> +=09shrinker_unregister(nn->nfsd_client_shrinker);
+>  =09cancel_work(&nn->nfsd_shrinker_work);
+>  =09cancel_delayed_work_sync(&nn->laundromat_work);
+>  =09locks_end_grace(&nn->nfsd4_manager);
 
-I don't think this WARN_ON is particularly useful - if there's a failed
-memory allocation we should see output from the kernel anyway. And we're
-changing the semantics from "continue just without a shrinker" (which
-argueably justifies the warning) to "probe fails, device doesn't work"
-which will be obvious to the user so I don't feel we need the additional
-warn.
-
-> +		return -ENOMEM;
-> +	}
-> +
-> +	pfdev->shrinker->count_objects = panfrost_gem_shrinker_count;
-> +	pfdev->shrinker->scan_objects = panfrost_gem_shrinker_scan;
-> +	pfdev->shrinker->seeks = DEFAULT_SEEKS;
-> +	pfdev->shrinker->private_data = pfdev;
-> +
-> +	shrinker_register(pfdev->shrinker);
-> +
-> +	return 0;
->  }
->  
->  /**
-> @@ -116,7 +125,6 @@ void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
->  {
->  	struct panfrost_device *pfdev = dev->dev_private;
->  
-> -	if (pfdev->shrinker.nr_deferred) {
-> -		unregister_shrinker(&pfdev->shrinker);
-> -	}
-> +	if (pfdev->shrinker)
-> +		shrinker_unregister(pfdev->shrinker);
->  }
+Acked-by: Jeff Layton <jlayton@kernel.org>
 
