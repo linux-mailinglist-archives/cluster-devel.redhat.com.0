@@ -2,73 +2,73 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30B51761C9D
-	for <lists+cluster-devel@lfdr.de>; Tue, 25 Jul 2023 16:59:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 909A0761C9E
+	for <lists+cluster-devel@lfdr.de>; Tue, 25 Jul 2023 16:59:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690297186;
+	s=mimecast20190719; t=1690297190;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=X0oljiepnSz5gM+zvheytrmp9iA1L6amij6hJTcG588=;
-	b=GNG/3MNziYqiHvrNcAf3g48kBxonwicDzNj3AchiT4hV441j3cqL5TRz2KGL9dmY0EL0/o
-	Mk+3VpheioqausaC7oFzEY8/6nA9kk+KMjDvemdybixBNaXbaDZxVmHY0uvvZ/pfxPl/IP
-	Dl1Q02Hp9R0dvqs3tazArOBZMvrCPkI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-303-UyFWL_QQP_2uX_vKfPFKOw-1; Tue, 25 Jul 2023 10:59:43 -0400
-X-MC-Unique: UyFWL_QQP_2uX_vKfPFKOw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+	bh=Uf8fzofxnNcmoauKYc81EqlxvQyndJgVuHBZzE2ZMg0=;
+	b=TKU8Rzn3fRbx+RehKpj3qWEn/5EelBLmAEi4Vf9BoP68pBcFy90NQR9gS5KrH1gDyVVQfe
+	5KzadqGiOw7OFWNozTuprw8Q+hgDbLJrX/s+FYc54eYplKLx9jWeWvuHdtcGju1/q32sJW
+	zW4yaK2ugrovL9mudzVhf7BLWcflw1Q=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-443-YU2n-j9nOtSJcYftquqvVQ-1; Tue, 25 Jul 2023 10:59:45 -0400
+X-MC-Unique: YU2n-j9nOtSJcYftquqvVQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91676185A795;
-	Tue, 25 Jul 2023 14:59:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AC3E381AE46;
+	Tue, 25 Jul 2023 14:59:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 83B611121330;
-	Tue, 25 Jul 2023 14:59:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3DED71454145;
+	Tue, 25 Jul 2023 14:59:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F1D5C1946A6F;
-	Tue, 25 Jul 2023 14:59:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0F3191946A41;
+	Tue, 25 Jul 2023 14:59:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9210D1946589 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 25 Jul 2023 14:59:36 +0000 (UTC)
+ ESMTP id 71D9F1946589 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 25 Jul 2023 14:59:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7DB8C46A3A7; Tue, 25 Jul 2023 14:59:36 +0000 (UTC)
+ id 53864492CAC; Tue, 25 Jul 2023 14:59:42 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 757E0492C13
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 14:59:36 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4BC67492B01
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 14:59:42 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.81])
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 533C58037BA
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 14:59:36 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08A7F81DA5D
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 14:59:42 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-307-v6fuT8vGOvKAX6sgTYaD3g-1; Tue, 25 Jul 2023 10:59:32 -0400
-X-MC-Unique: v6fuT8vGOvKAX6sgTYaD3g-1
+ us-mta-66-7ZaOvHQYNx2RGfyVV_uHiw-1; Tue, 25 Jul 2023 10:59:39 -0400
+X-MC-Unique: 7ZaOvHQYNx2RGfyVV_uHiw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0026561789;
- Tue, 25 Jul 2023 14:59:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24A85C433C8;
- Tue, 25 Jul 2023 14:59:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 73CC761793;
+ Tue, 25 Jul 2023 14:59:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2936C433AD;
+ Tue, 25 Jul 2023 14:59:30 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 25 Jul 2023 10:58:19 -0400
+Date: Tue, 25 Jul 2023 10:58:20 -0400
 MIME-Version: 1.0
-Message-Id: <20230725-mgctime-v6-6-a794c2b7abca@kernel.org>
+Message-Id: <20230725-mgctime-v6-7-a794c2b7abca@kernel.org>
 References: <20230725-mgctime-v6-0-a794c2b7abca@kernel.org>
 In-Reply-To: <20230725-mgctime-v6-0-a794c2b7abca@kernel.org>
 To: Eric Van Hensbergen <ericvh@kernel.org>, 
@@ -106,20 +106,20 @@ To: Eric Van Hensbergen <ericvh@kernel.org>,
  Richard Weinberger <richard@nod.at>, Hans de Goede <hdegoede@redhat.com>, 
  Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
  "Darrick J. Wong" <djwong@kernel.org>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=843; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=kIvw1OVi/OYz+atwIBCynX0q88XJ1zU1WapHn2pYQP4=;
- b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBkv+MkANALyeokJ5uPYYXrLhMbqAMD2+dQLEEeI
- 3QOMYBSSseJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCZL/jJAAKCRAADmhBGVaC
- FecsEADEGQ4YyezueKIIr3iE+LoOFLQ0lVcEMPslgKBrcsoHAYDw4xIHTfiRLmJTS/QKl6qdQ/d
- FSIkPrBSo4busWekGlohEMVxhED8IPediFhHYC1BJu3i2vSmxv2wo9z3DGJxddYsn1yasB7Jh8X
- V82bCE/S8+YwWBe/sU9UHYXIA/E18x/9Ut0FSPmZUwXbasPrZoaYGahxEDFFvONFPxKYVH6MIwn
- K4eVmycva/cc9eg3aJ9IoKpjm2lHJ6SlHwQREAxcyQZ+Tz4LAI9NG4I0N4mft7VwVj05wY4iuMV
- lkaoxH/4D3tYZmIldIJ9HahAnA+IlU9dZ/4YPR7iaTlZNdGssfn5cvsTHNjvp00H6KNNnr3nKEg
- JOy94wl7Ir1GrUPEDT1u+XQipTMQxiFjTQLc+igYmNNY+nLJu1edF6ewi3eMTP81b6gmzOHenud
- CQ3qmNNoiiQu5pItfIvt0j+K74oTiUZzOqrMqtEgUQ3flSJL2acI1UnY4m1h0JIEygBAMmXN/Ga
- 6TPHXNSLdiIKa44+muGKEdIXTv22lvk6eI3L4mwE12/sKh5INo3rOJmQKNhtubYrUtLDSvrLCQa
- a/tcAz4eG/zd6PdcWTx1yg8GKnXbxqwHniAFlSBVM+ziSpqGTe2fxM3iHanHqv1hysy6sBXln6X
- HdxNyY7YiReYS0Q==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2706; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=t187d4hlj7Hd2B853hoiIPlXJE4vBx7O1lkOZGTYDW8=;
+ b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBkv+MkzroP27sCWuNSIgl+Cd1orLkVgLYnAGcGo
+ qEGnD3ITTiJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCZL/jJAAKCRAADmhBGVaC
+ FezWEACH2UPwfc8Rd5LxW2eGVPkB5meVxJPlOLQBj6pWDkW95diD7uXPQto9lmLQF4qdUED+5gy
+ WLeo0BKULpIsDQGcmeJ0JkL/JiN2PbntEUg4RArSmU+rbZrR++dnF7ONr6ND9nWmLJNpuajyStV
+ pcZilQXeumx55tirF1mt2vbGkXsKu/qHNXXLZ4CnD9fI2bIWLHaqsutS3k6iENOAKoEtdCWwoM9
+ FVpdj3qFKKuML2HPLPiNiqSR4PQMpFrJZuJtwugTZ4dV2zGIpz2l4Fo+eJzLD8g3FKg1A3Mk34F
+ Uziz080sql3EtQDp+oM7E0vxs8NLvt2bJsGtEl+GEq10Z1KQiGEE118baYC/FF3Y1JhZ8N3o/6n
+ NTmLgKCSGgEaX90TUrhvCtvVULKCcbHbm/RkOiIu7CC5iVHPV6RW/oHBDJVwKYW+2MlAb+VY5re
+ f+nknpCe54xwkAkjA93/0IhnnhD1PqlAiOzimKBVA2WsnYyUS0Q10BesJm3HaFKmBvca1rkAIvY
+ 5RVnuhgAlq6eH4QItdabELeq+RMtIFijqWrAAvDc0GPhlIwBn3i4uHiLu5D086UgM+5Nt7DjCZf
+ 3QmNVnOo1Lw9zpdhHxNYnhUO9mT6oJzmtiR5/Z3Ca5TZ+LV2ivQE3dGm4TXhbyY0GAZ/FvepgyX
+ df3wfm4D0Ck2M5Q==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -129,8 +129,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH v6 6/7] ext4: switch to multigrain timestamps
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [Cluster-devel] [PATCH v6 7/7] btrfs: convert to multigrain
+ timestamps
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,7 +156,7 @@ Cc: Jeff Layton <jlayton@kernel.org>, Dave Chinner <david@fromorbit.com>,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="utf-8"
@@ -165,26 +166,81 @@ Enable multigrain timestamps, which should ensure that there is an
 apparent change to the timestamp whenever it has been written after
 being actively observed via getattr.
 
-For ext4, we only need to enable the FS_MGTIME flag.
+Beyond enabling the FS_MGTIME flag, this patch eliminates
+update_time_for_write, which goes to great pains to avoid in-memory
+stores. Just have it overwrite the timestamps unconditionally.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ext4/super.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/btrfs/file.c  | 24 ++++--------------------
+ fs/btrfs/super.c |  5 +++--
+ 2 files changed, 7 insertions(+), 22 deletions(-)
 
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index b54c70e1a74e..cb1ff47af156 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -7279,7 +7279,7 @@ static struct file_system_type ext4_fs_type = {
- 	.init_fs_context	= ext4_init_fs_context,
- 	.parameters		= ext4_param_specs,
- 	.kill_sb		= kill_block_super,
--	.fs_flags		= FS_REQUIRES_DEV | FS_ALLOW_IDMAP,
-+	.fs_flags		= FS_REQUIRES_DEV | FS_ALLOW_IDMAP | FS_MGTIME,
- };
- MODULE_ALIAS_FS("ext4");
+diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+index d7a9ece7a40b..b9e75c9f95ac 100644
+--- a/fs/btrfs/file.c
++++ b/fs/btrfs/file.c
+@@ -1106,25 +1106,6 @@ void btrfs_check_nocow_unlock(struct btrfs_inode *inode)
+ 	btrfs_drew_write_unlock(&inode->root->snapshot_lock);
+ }
  
+-static void update_time_for_write(struct inode *inode)
+-{
+-	struct timespec64 now, ctime;
+-
+-	if (IS_NOCMTIME(inode))
+-		return;
+-
+-	now = current_time(inode);
+-	if (!timespec64_equal(&inode->i_mtime, &now))
+-		inode->i_mtime = now;
+-
+-	ctime = inode_get_ctime(inode);
+-	if (!timespec64_equal(&ctime, &now))
+-		inode_set_ctime_to_ts(inode, now);
+-
+-	if (IS_I_VERSION(inode))
+-		inode_inc_iversion(inode);
+-}
+-
+ static int btrfs_write_check(struct kiocb *iocb, struct iov_iter *from,
+ 			     size_t count)
+ {
+@@ -1156,7 +1137,10 @@ static int btrfs_write_check(struct kiocb *iocb, struct iov_iter *from,
+ 	 * need to start yet another transaction to update the inode as we will
+ 	 * update the inode when we finish writing whatever data we write.
+ 	 */
+-	update_time_for_write(inode);
++	if (!IS_NOCMTIME(inode)) {
++		inode->i_mtime = inode_set_ctime_current(inode);
++		inode_inc_iversion(inode);
++	}
+ 
+ 	start_pos = round_down(pos, fs_info->sectorsize);
+ 	oldsize = i_size_read(inode);
+diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
+index f1dd172d8d5b..8eda51b095c9 100644
+--- a/fs/btrfs/super.c
++++ b/fs/btrfs/super.c
+@@ -2144,7 +2144,7 @@ static struct file_system_type btrfs_fs_type = {
+ 	.name		= "btrfs",
+ 	.mount		= btrfs_mount,
+ 	.kill_sb	= btrfs_kill_super,
+-	.fs_flags	= FS_REQUIRES_DEV | FS_BINARY_MOUNTDATA,
++	.fs_flags	= FS_REQUIRES_DEV | FS_BINARY_MOUNTDATA | FS_MGTIME,
+ };
+ 
+ static struct file_system_type btrfs_root_fs_type = {
+@@ -2152,7 +2152,8 @@ static struct file_system_type btrfs_root_fs_type = {
+ 	.name		= "btrfs",
+ 	.mount		= btrfs_mount_root,
+ 	.kill_sb	= btrfs_kill_super,
+-	.fs_flags	= FS_REQUIRES_DEV | FS_BINARY_MOUNTDATA | FS_ALLOW_IDMAP,
++	.fs_flags	= FS_REQUIRES_DEV | FS_BINARY_MOUNTDATA |
++			  FS_ALLOW_IDMAP | FS_MGTIME,
+ };
+ 
+ MODULE_ALIAS_FS("btrfs");
 
 -- 
 2.41.0
