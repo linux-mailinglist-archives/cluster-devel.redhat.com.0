@@ -1,108 +1,98 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B2C760FDB
-	for <lists+cluster-devel@lfdr.de>; Tue, 25 Jul 2023 11:56:57 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C963761B95
+	for <lists+cluster-devel@lfdr.de>; Tue, 25 Jul 2023 16:26:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690279017;
+	s=mimecast20190719; t=1690295213;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/casiWQBa8FLPDyI/Gjog1Q/iFy65e/7JWaM5Gwrppw=;
-	b=bytvghpkHO8dbha4T/GFeOlq2QBttCeJ2QK1eNqxD3TteZ1GosLNphqOVpW25dlO/zYwKQ
-	QdNWOs9EPXQ34zsU8b8lMzJoL8hQZaA6k1BFq3SSGdYo2l7sWzDg6VaX95hx9o/okteauw
-	vaDjGoZHU/2fsDqqAOkOcdfPTQlOKJM=
+	bh=ZUJ4r2aY+x3CleDJbX/AV/N0fMSOwi5/571RR8N6LrY=;
+	b=HhtpL6M9jG9aCZAFcvQW1j/j9bcqOyh5erhsVELDwPnpcLd/rfdo9b+N4IEY1zl+Th2WF/
+	doz0QgX6pSGKW/uF8sEwdUCW1q8AuIHEVbiDo7i7Y1ZYget7Wql+UeH/KEGhAA2gvSFps/
+	mzXfApcjo30hUSg8RMUauhGK2Wg3q/I=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-472-3JNMJH3zOcepjxK9u0Mcyw-1; Tue, 25 Jul 2023 05:56:49 -0400
-X-MC-Unique: 3JNMJH3zOcepjxK9u0Mcyw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-641-h-flx6ppOQ6jnupxGxLx2A-1; Tue, 25 Jul 2023 10:26:49 -0400
+X-MC-Unique: h-flx6ppOQ6jnupxGxLx2A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2B7C900821;
-	Tue, 25 Jul 2023 09:56:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C3B9805AF6;
+	Tue, 25 Jul 2023 14:26:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 93339145414F;
-	Tue, 25 Jul 2023 09:56:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 069BA40C2063;
+	Tue, 25 Jul 2023 14:26:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4C5021946A70;
-	Tue, 25 Jul 2023 09:56:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5C14C1946A41;
+	Tue, 25 Jul 2023 14:26:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E1B051946589 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
+ ESMTP id C03261946589 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 25 Jul 2023 14:26:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B444D2166B27; Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
+ id 5965FC2C7D3; Tue, 25 Jul 2023 14:26:37 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AB1AB2166B25
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 51BDBC2C856
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 14:26:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 484E138117E8
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3353C380051E
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 14:26:37 +0000 (UTC)
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-398-82JFhoYhOlWaeTFzTdz-vA-1; Tue, 25 Jul 2023 05:56:44 -0400
-X-MC-Unique: 82JFhoYhOlWaeTFzTdz-vA-1
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2659b1113c2so706743a91.1
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 02:56:44 -0700 (PDT)
+ us-mta-163-IdlRH5PTOVCmGHwhukhxFg-1; Tue, 25 Jul 2023 10:26:35 -0400
+X-MC-Unique: IdlRH5PTOVCmGHwhukhxFg-1
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-583fe0f84a5so22843037b3.3
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 07:26:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690279003; x=1690883803;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/casiWQBa8FLPDyI/Gjog1Q/iFy65e/7JWaM5Gwrppw=;
- b=MRjLLEG72VkDBLAgH/6iWpTtKr9JSX8rjdluxAnTMMzf0jjnKzwFnbB7CTjttjW8/+
- bWP3l946c9lqdGvpXy7Bu+V5/O7JXYPvfdjH5co3pUl+76RBTcdgCHal2BNcTOgOBUAE
- VIACmZwM6P+JaXeebGn1Z7KCXhBOq5b5Bz0OTneACyz4mwkh5znRD40IvEBxZPnNOVmr
- pwhZgyC5ok2Et5XQXNQZ8vnOdTkjCKoZq5pgdM3By5fqO7Gm70yvP7iNInyQl5n26/Pa
- B94IOexQEMjPCcvl5C0JC3w8GVDjTF9SOvsDRqrOu/eC5e7F+VoH2CA4m0s5WmwiwrMt
- cMXw==
-X-Gm-Message-State: ABy/qLZkfm48ICXRy3PU3+ycFMrQzzyIhMTfnl3mYa4QrwVGCSLkS4OP
- NNsTQyu6EKe3/SxhUrjoNy/tFA==
-X-Google-Smtp-Source: APBJJlE4g3zxacKAsn4H4YysRKAp71VN9gqUpsqodFXfAXxBRsoAel6FjePiWo+WkUy1agkNvA6LJQ==
-X-Received: by 2002:a17:90a:74cf:b0:268:196f:9656 with SMTP id
- p15-20020a17090a74cf00b00268196f9656mr4627258pjl.1.1690279003192; 
- Tue, 25 Jul 2023 02:56:43 -0700 (PDT)
-Received: from [10.70.252.135] ([203.208.167.147])
- by smtp.gmail.com with ESMTPSA id
- j8-20020a170902da8800b001b39ffff838sm10605398plx.25.2023.07.25.02.56.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jul 2023 02:56:42 -0700 (PDT)
-Message-ID: <c1a1952f-0c3e-2fa1-fdf9-8b3b8a592b23@bytedance.com>
-Date: Tue, 25 Jul 2023 17:56:29 +0800
+ d=1e100.net; s=20221208; t=1690295195; x=1690899995;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZUJ4r2aY+x3CleDJbX/AV/N0fMSOwi5/571RR8N6LrY=;
+ b=NbQXd9ogWdsBdHafblf8JDEWpxlyQK+8M9ZCTQPTkTRSbPbhlzQLnPMrUlGA5sIU2e
+ 4uMEqjJI/IUBnOa9ogC6BYUe4NMZv2g+3LjhWMsreEah8Ec8VXKyLfxG/BbgWR9rnzzS
+ crSw123ejFrm/Sj7GIo16EZALpooYL5mBzje+jaMTr3AS28OBRkRfcCqbQuAYIH4vmDb
+ WGrzd5xvSrXhrb7/mItFGe29pOJmpJzzurQWZyTKBGlwMTVNYzltcJ2DSqDPVGnzo3uh
+ 3J8GZpW+7laR3MDsmUEcB0AcM+sAtdBMlHqxLbxGOWDyy2+1lsycL9mwJC4LcNZjip8k
+ J4Ew==
+X-Gm-Message-State: ABy/qLbZE35rujRjw2wg4JPHRrtSH1jWwqcCiNuVr7YlyjUONsDg8xRq
+ VM5uOeBEWMHVXh5Qzc9APvMBZSBVwHrCwVMTOToPinSg80g0TmG2I5XMrEYNBIfBL0jHkEordCd
+ Dh1lEHcevrOII3jYXCEwv8Gp07FHmZcb5bDJ0KQ==
+X-Received: by 2002:a0d:ca0e:0:b0:577:4975:c114 with SMTP id
+ m14-20020a0dca0e000000b005774975c114mr9669222ywd.0.1690295195304; 
+ Tue, 25 Jul 2023 07:26:35 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlE9UQpxq1fveOaxD31SoTyFiUUMp4sUQ52JsLcD5Jz+oFaONTwQ/ahNSrQ+l7hC+lie+j/6Tk+Nu2tfxvLqH8g=
+X-Received: by 2002:a0d:ca0e:0:b0:577:4975:c114 with SMTP id
+ m14-20020a0dca0e000000b005774975c114mr9669202ywd.0.1690295195091; Tue, 25 Jul
+ 2023 07:26:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-To: Muchun Song <muchun.song@linux.dev>
-References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-4-zhengqi.arch@bytedance.com>
- <3648ca69-d65e-8431-135a-a5738586bc25@linux.dev>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <3648ca69-d65e-8431-135a-a5738586bc25@linux.dev>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Cluster-devel] [PATCH v2 03/47] mm: shrinker: add
- infrastructure for dynamically allocating shrinker
+References: <20230718180721.745569-1-aahringo@redhat.com>
+ <20230718180721.745569-4-aahringo@redhat.com>
+In-Reply-To: <20230718180721.745569-4-aahringo@redhat.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Tue, 25 Jul 2023 10:26:23 -0400
+Message-ID: <CAK-6q+hOv6qEnStcWD6_OCZH9XO_m+Dh-2KX5rYaXbuNOgp6gw@mail.gmail.com>
+To: teigland@redhat.com
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCHv3 v6.5-rc2 3/3] fs: dlm: fix F_CANCELLK
+ to cancel pending request
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,316 +104,130 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
- david@fromorbit.com, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- dm-devel@redhat.com, linux-mtd@lists.infradead.org, cel@kernel.org,
- x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org, paulmck@kernel.org,
- linux-arm-msm@vger.kernel.org, brauner@kernel.org, rcu@vger.kernel.org,
- linux-bcache@vger.kernel.org, yujie.liu@intel.com, vbabka@suse.cz,
- linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, tytso@mit.edu,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- senozhatsky@chromium.org, gregkh@linuxfoundation.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+Cc: ocfs2-devel@lists.linux.dev, mark@fasheh.com, cluster-devel@redhat.com,
+ joseph.qi@linux.alibaba.com, jlbec@evilplan.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: bytedance.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Muchun,
+Hi,
 
-On 2023/7/25 17:02, Muchun Song wrote:
-> 
-> 
-> On 2023/7/24 17:43, Qi Zheng wrote:
->> Currently, the shrinker instances can be divided into the following three
->> types:
->>
->> a) global shrinker instance statically defined in the kernel, such as
->>     workingset_shadow_shrinker.
->>
->> b) global shrinker instance statically defined in the kernel modules, 
->> such
->>     as mmu_shrinker in x86.
->>
->> c) shrinker instance embedded in other structures.
->>
->> For case a, the memory of shrinker instance is never freed. For case b,
->> the memory of shrinker instance will be freed after synchronize_rcu() 
->> when
->> the module is unloaded. For case c, the memory of shrinker instance will
->> be freed along with the structure it is embedded in.
->>
->> In preparation for implementing lockless slab shrink, we need to
->> dynamically allocate those shrinker instances in case c, then the memory
->> can be dynamically freed alone by calling kfree_rcu().
->>
->> So this commit adds the following new APIs for dynamically allocating
->> shrinker, and add a private_data field to struct shrinker to record and
->> get the original embedded structure.
->>
->> 1. shrinker_alloc()
->>
->> Used to allocate shrinker instance itself and related memory, it will
->> return a pointer to the shrinker instance on success and NULL on failure.
->>
->> 2. shrinker_free_non_registered()
->>
->> Used to destroy the non-registered shrinker instance.
-> 
-> At least I don't like this name. I know you want to tell others
-> this function only should be called when shrinker has not been
-> registed but allocated. Maybe shrinker_free() is more simple.
-> And and a comment to tell the users when to use it.
+On Tue, Jul 18, 2023 at 2:07=E2=80=AFPM Alexander Aring <aahringo@redhat.co=
+m> wrote:
+>
+> This patch fixes the current handling of F_CANCELLK by not just doing a
+> unlock as we need to try to cancel a lock at first. A unlock makes sense
+> on a non-blocking lock request but if it's a blocking lock request we
+> need to cancel the request until it's not granted yet. This patch is fixi=
+ng
+> this behaviour by first try to cancel a lock request and if it's failed
+> it's unlocking the lock which seems to be granted.
+>
+> Note: currently the nfs locking handling was disabled by commit
+> 40595cdc93ed ("nfs: block notification on fs with its own ->lock").
+> However DLM was never being updated regarding to this change. Future
+> patches will try to fix lockd lock requests for DLM. This patch is
+> currently assuming the upstream DLM lockd handling is correct.
+>
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> ---
+>  fs/dlm/plock.c            | 102 +++++++++++++++++++++++++++++++++-----
+>  fs/gfs2/file.c            |   9 ++--
+>  fs/ocfs2/stack_user.c     |  13 ++---
+>  include/linux/dlm_plock.h |   2 +
+>  4 files changed, 97 insertions(+), 29 deletions(-)
+>
+> diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
+> index a8ffa0760913..84510994b177 100644
+> --- a/fs/dlm/plock.c
+> +++ b/fs/dlm/plock.c
+> @@ -42,6 +42,27 @@ static inline void set_version(struct dlm_plock_info *=
+info)
+>         info->version[2] =3D DLM_PLOCK_VERSION_PATCH;
+>  }
+>
+> +static struct plock_op *plock_lookup_waiter(const struct dlm_plock_info =
+*info)
+> +{
+> +       struct plock_op *op =3D NULL, *iter;
+> +
+> +       list_for_each_entry(iter, &recv_list, list) {
+> +               if (iter->info.fsid =3D=3D info->fsid &&
+> +                   iter->info.number =3D=3D info->number &&
+> +                   iter->info.owner =3D=3D info->owner &&
+> +                   iter->info.pid =3D=3D info->pid &&
+> +                   iter->info.start =3D=3D info->start &&
+> +                   iter->info.end =3D=3D info->end &&
+> +                   iter->info.ex =3D=3D info->ex &&
+> +                   iter->info.wait) {
+> +                       op =3D iter;
+> +                       break;
+> +               }
+> +       }
+> +
+> +       return op;
+> +}
+> +
+>  static int check_version(struct dlm_plock_info *info)
+>  {
+>         if ((DLM_PLOCK_VERSION_MAJOR !=3D info->version[0]) ||
+> @@ -334,6 +355,73 @@ int dlm_posix_unlock(dlm_lockspace_t *lockspace, u64=
+ number, struct file *file,
+>  }
+>  EXPORT_SYMBOL_GPL(dlm_posix_unlock);
+>
+> +/*
+> + * NOTE: This implementation can only handle async lock requests as nfs
+> + * do it. It cannot handle cancellation of a pending lock request sittin=
+g
+> + * in wait_event(), but for now only nfs is the only user local kernel
+> + * user.
+> + */
+> +int dlm_posix_cancel(dlm_lockspace_t *lockspace, u64 number, struct file=
+ *file,
+> +                    struct file_lock *fl)
+> +{
+> +       struct dlm_plock_info info;
+> +       struct plock_op *op;
+> +       struct dlm_ls *ls;
+> +       int rv;
+> +
+> +       /* this only works for async request for now and nfs is the only
+> +        * kernel user right now.
+> +        */
+> +       if (WARN_ON_ONCE(!fl->fl_lmops || !fl->fl_lmops->lm_grant))
+> +               return -EOPNOTSUPP;
+> +
+> +       ls =3D dlm_find_lockspace_local(lockspace);
+> +       if (!ls)
+> +               return -EINVAL;
+> +
+> +       info.pid =3D fl->fl_pid;
+> +       info.ex =3D (fl->fl_type =3D=3D F_WRLCK);
+> +       info.fsid =3D ls->ls_global_id;
+> +       dlm_put_lockspace(ls);
+> +       info.number =3D number;
+> +       info.start =3D fl->fl_start;
+> +       info.end =3D fl->fl_end;
+> +       info.owner =3D (__u64)fl->fl_pid;
+> +
+> +       rv =3D do_lock_cancel(&info);
+> +       switch (rv) {
+> +       case 0:
+> +               spin_lock(&ops_lock);
+> +               /* lock request to cancel must be on recv_list because
+> +                * do_lock_cancel() synchronizes it.
+> +                */
+> +               op =3D plock_lookup_waiter(&info);
+> +               if (WARN_ON_ONCE(!op)) {
+> +                       rv =3D -ENOLCK;
+> +                       break;
 
-OK, if no one else objects, I will change it to shrinker_free() in
-the next version.
+missing spin_unlock() here. I will add it to my upcoming patch series.
 
-> 
->>
->> 3. shrinker_register()
->>
->> Used to register the shrinker instance, which is same as the current
->> register_shrinker_prepared().
->>
->> 4. shrinker_unregister()
->>
->> Used to unregister and free the shrinker instance.
->>
->> In order to simplify shrinker-related APIs and make shrinker more
->> independent of other kernel mechanisms, subsequent submissions will use
->> the above API to convert all shrinkers (including case a and b) to
->> dynamically allocated, and then remove all existing APIs.
->>
->> This will also have another advantage mentioned by Dave Chinner:
->>
->> ```
->> The other advantage of this is that it will break all the existing
->> out of tree code and third party modules using the old API and will
->> no longer work with a kernel using lockless slab shrinkers. They
->> need to break (both at the source and binary levels) to stop bad
->> things from happening due to using uncoverted shrinkers in the new
->> setup.
->> ```
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> ---
->>   include/linux/shrinker.h |   6 +++
->>   mm/shrinker.c            | 113 +++++++++++++++++++++++++++++++++++++++
->>   2 files changed, 119 insertions(+)
->>
->> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
->> index 961cb84e51f5..296f5e163861 100644
->> --- a/include/linux/shrinker.h
->> +++ b/include/linux/shrinker.h
->> @@ -70,6 +70,8 @@ struct shrinker {
->>       int seeks;    /* seeks to recreate an obj */
->>       unsigned flags;
->> +    void *private_data;
->> +
->>       /* These are for internal use */
->>       struct list_head list;
->>   #ifdef CONFIG_MEMCG
->> @@ -98,6 +100,10 @@ struct shrinker {
->>   unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup 
->> *memcg,
->>                 int priority);
->> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, 
->> ...);
->> +void shrinker_free_non_registered(struct shrinker *shrinker);
->> +void shrinker_register(struct shrinker *shrinker);
->> +void shrinker_unregister(struct shrinker *shrinker);
->>   extern int __printf(2, 3) prealloc_shrinker(struct shrinker *shrinker,
->>                           const char *fmt, ...);
->> diff --git a/mm/shrinker.c b/mm/shrinker.c
->> index 0a32ef42f2a7..d820e4cc5806 100644
->> --- a/mm/shrinker.c
->> +++ b/mm/shrinker.c
->> @@ -548,6 +548,119 @@ unsigned long shrink_slab(gfp_t gfp_mask, int 
->> nid, struct mem_cgroup *memcg,
->>       return freed;
->>   }
->> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, 
->> ...)
->> +{
->> +    struct shrinker *shrinker;
->> +    unsigned int size;
->> +    va_list __maybe_unused ap;
->> +    int err;
->> +
->> +    shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
->> +    if (!shrinker)
->> +        return NULL;
->> +
->> +#ifdef CONFIG_SHRINKER_DEBUG
->> +    va_start(ap, fmt);
->> +    shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, ap);
->> +    va_end(ap);
->> +    if (!shrinker->name)
->> +        goto err_name;
->> +#endif
-> 
-> So why not introduce another helper to handle this and declare it
-> as a void function when !CONFIG_SHRINKER_DEBUG? Something like the
-> following:
-> 
-> #ifdef CONFIG_SHRINKER_DEBUG
-> static int shrinker_debugfs_name_alloc(struct shrinker *shrinker, const 
-> char *fmt,
->                                         va_list vargs)
-> 
-> {
->      shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, vargs);
->      return shrinker->name ? 0 : -ENOMEM;
-> }
-> #else
-> static int shrinker_debugfs_name_alloc(struct shrinker *shrinker, const 
-> char *fmt,
->                                         va_list vargs)
-> {
->      return 0;
-> }
-> #endif
-
-Will do in the next version.
-
-> 
->> +    shrinker->flags = flags;
->> +
->> +    if (flags & SHRINKER_MEMCG_AWARE) {
->> +        err = prealloc_memcg_shrinker(shrinker);
->> +        if (err == -ENOSYS)
->> +            shrinker->flags &= ~SHRINKER_MEMCG_AWARE;
->> +        else if (err == 0)
->> +            goto done;
->> +        else
->> +            goto err_flags;
->> +    }
->> +
->> +    /*
->> +     * The nr_deferred is available on per memcg level for memcg aware
->> +     * shrinkers, so only allocate nr_deferred in the following cases:
->> +     *  - non memcg aware shrinkers
->> +     *  - !CONFIG_MEMCG
->> +     *  - memcg is disabled by kernel command line
->> +     */
->> +    size = sizeof(*shrinker->nr_deferred);
->> +    if (flags & SHRINKER_NUMA_AWARE)
->> +        size *= nr_node_ids;
->> +
->> +    shrinker->nr_deferred = kzalloc(size, GFP_KERNEL);
->> +    if (!shrinker->nr_deferred)
->> +        goto err_flags;
->> +
->> +done:
->> +    return shrinker;
->> +
->> +err_flags:
->> +#ifdef CONFIG_SHRINKER_DEBUG
->> +    kfree_const(shrinker->name);
->> +    shrinker->name = NULL;
-> 
-> This could be shrinker_debugfs_name_free()
-
-Will do.
-
-> 
->> +err_name:
->> +#endif
->> +    kfree(shrinker);
->> +    return NULL;
->> +}
->> +EXPORT_SYMBOL(shrinker_alloc);
->> +
->> +void shrinker_free_non_registered(struct shrinker *shrinker)
->> +{
->> +#ifdef CONFIG_SHRINKER_DEBUG
->> +    kfree_const(shrinker->name);
->> +    shrinker->name = NULL;
-> 
-> This could be shrinker_debugfs_name_free()
-> 
->> +#endif
->> +    if (shrinker->flags & SHRINKER_MEMCG_AWARE) {
->> +        down_write(&shrinker_rwsem);
->> +        unregister_memcg_shrinker(shrinker);
->> +        up_write(&shrinker_rwsem);
->> +    }
->> +
->> +    kfree(shrinker->nr_deferred);
->> +    shrinker->nr_deferred = NULL;
->> +
->> +    kfree(shrinker);
->> +}
->> +EXPORT_SYMBOL(shrinker_free_non_registered);
->> +
->> +void shrinker_register(struct shrinker *shrinker)
->> +{
->> +    down_write(&shrinker_rwsem);
->> +    list_add_tail(&shrinker->list, &shrinker_list);
->> +    shrinker->flags |= SHRINKER_REGISTERED;
->> +    shrinker_debugfs_add(shrinker);
->> +    up_write(&shrinker_rwsem);
->> +}
->> +EXPORT_SYMBOL(shrinker_register);
->> +
->> +void shrinker_unregister(struct shrinker *shrinker)
-> 
-> You have made all shrinkers to be dynamically allocated, so
-> we should prevent users from allocating shrinkers statically and
-> use this function to unregister it. It is better to add a
-> flag like SHRINKER_ALLOCATED which is set in shrinker_alloc(),
-> and check whether it is set in shrinker_unregister(), if not
-> maybe a warning should be added to tell the users what happened.
-
-Make sense, will do.
-
-> 
->> +{
->> +    struct dentry *debugfs_entry;
->> +    int debugfs_id;
->> +
->> +    if (!shrinker || !(shrinker->flags & SHRINKER_REGISTERED))
->> +        return;
->> +
->> +    down_write(&shrinker_rwsem);
->> +    list_del(&shrinker->list);
->> +    shrinker->flags &= ~SHRINKER_REGISTERED;
->> +    if (shrinker->flags & SHRINKER_MEMCG_AWARE)
->> +        unregister_memcg_shrinker(shrinker);
->> +    debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
-> 
-> In the internal of this function, you also could use
-> shrinker_debugfs_name_free().
-
-Yeah, will do.
-
-Thanks,
-Qi
-
-> 
-> Thanks.
-> 
->> +    up_write(&shrinker_rwsem);
->> +
->> +    shrinker_debugfs_remove(debugfs_entry, debugfs_id);
->> +
->> +    kfree(shrinker->nr_deferred);
->> +    shrinker->nr_deferred = NULL;
->> +
->> +    kfree(shrinker);
->> +}
->> +EXPORT_SYMBOL(shrinker_unregister);
->> +
->>   /*
->>    * Add a shrinker callback to be called from the vm.
->>    */
-> 
+- Alex
 
