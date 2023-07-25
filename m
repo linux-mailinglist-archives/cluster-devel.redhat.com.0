@@ -1,87 +1,98 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03028760FC1
-	for <lists+cluster-devel@lfdr.de>; Tue, 25 Jul 2023 11:52:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4B2C760FDB
+	for <lists+cluster-devel@lfdr.de>; Tue, 25 Jul 2023 11:56:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690278756;
+	s=mimecast20190719; t=1690279017;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=qYKzWqzorSSaPoBJlxjvP7Imx/rNYqorp2HY+cczmnc=;
-	b=DoMoLjGh0KOFc/18WQZQusO6D0FVwR5Xpv1Ubf0mwEGa6W0GAfY46R6oEXm+G/Hhib6Hht
-	fb2lqFHupMQDgzJJ/JRFx1RYDVz965oMa26C7RHanyisjVCFId07Zvn3OaCGwwbNLSf9dC
-	lY9iJynUnTioNuAm4T45/+3+oynQbys=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=/casiWQBa8FLPDyI/Gjog1Q/iFy65e/7JWaM5Gwrppw=;
+	b=bytvghpkHO8dbha4T/GFeOlq2QBttCeJ2QK1eNqxD3TteZ1GosLNphqOVpW25dlO/zYwKQ
+	QdNWOs9EPXQ34zsU8b8lMzJoL8hQZaA6k1BFq3SSGdYo2l7sWzDg6VaX95hx9o/okteauw
+	vaDjGoZHU/2fsDqqAOkOcdfPTQlOKJM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-459-Bw0TrDOUOsu-6eskMqIAXQ-1; Tue, 25 Jul 2023 05:52:35 -0400
-X-MC-Unique: Bw0TrDOUOsu-6eskMqIAXQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-472-3JNMJH3zOcepjxK9u0Mcyw-1; Tue, 25 Jul 2023 05:56:49 -0400
+X-MC-Unique: 3JNMJH3zOcepjxK9u0Mcyw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6F64830DB3;
-	Tue, 25 Jul 2023 09:52:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2B7C900821;
+	Tue, 25 Jul 2023 09:56:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4013F2166B29;
-	Tue, 25 Jul 2023 09:52:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 93339145414F;
+	Tue, 25 Jul 2023 09:56:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 067BC194E009;
-	Tue, 25 Jul 2023 09:52:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4C5021946A70;
+	Tue, 25 Jul 2023 09:56:48 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4C0471946587 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 25 Jul 2023 09:51:43 +0000 (UTC)
+ ESMTP id E1B051946589 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 07FE3145414B; Tue, 25 Jul 2023 09:51:43 +0000 (UTC)
+ id B444D2166B27; Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F3BC9145414A
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 09:51:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AB1AB2166B25
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D3A738030AC
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 09:51:42 +0000 (UTC)
-Received: from mail-oi1-f206.google.com (mail-oi1-f206.google.com
- [209.85.167.206]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 484E138117E8
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 09:56:46 +0000 (UTC)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-138-iMdtpldGN_y-kaIvPJiRvQ-1; Tue, 25 Jul 2023 05:51:40 -0400
-X-MC-Unique: iMdtpldGN_y-kaIvPJiRvQ-1
-Received: by mail-oi1-f206.google.com with SMTP id
- 5614622812f47-3a337ddff03so10173178b6e.0
- for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 02:51:40 -0700 (PDT)
+ us-mta-398-82JFhoYhOlWaeTFzTdz-vA-1; Tue, 25 Jul 2023 05:56:44 -0400
+X-MC-Unique: 82JFhoYhOlWaeTFzTdz-vA-1
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-2659b1113c2so706743a91.1
+ for <cluster-devel@redhat.com>; Tue, 25 Jul 2023 02:56:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690278700; x=1690883500;
- h=to:from:subject:message-id:date:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qYKzWqzorSSaPoBJlxjvP7Imx/rNYqorp2HY+cczmnc=;
- b=DcS76kjqkYgqoxSQZBtnWqQYxwS4ZnmFHIQLvTY1BNFHuN0LfHv7KaoYhF32J5uq6F
- HjYMP8B9vjBHEMZZ62MK/5LlkzbsDpW4Z8zKtqfGClodDgOkxIur78xIvXW1fyOycMHR
- WjqEEKHOXcwWYyaGIkYKHaamJ5Z6+ATuUA4XhmdWxvv7XD778QY8bFUlrkdBRMu//xM+
- GpcOHW99h743wrBpshEArqPWvlP3nRRKOM6aKkwCKumo/D7sUG3Su/HZJcpuC1IX0eRi
- K3gS0i1ic1P2pOXLWDQfiRBXuytCgUBWTWGlBpFtMm0bDEcGvJPshEPvPxpoBb34kOgj
- SWlA==
-X-Gm-Message-State: ABy/qLY63MxwDklDot1gLzrw5ossyEXoyBBD/Ke1/z2eiS+/MfvW7BeT
- RqhS21ndyubrnrIIMO+3xEnqCdfgCasq+ZLUDNWMMkurinzL
-X-Google-Smtp-Source: APBJJlExa2Ycnre8KmItjVu7UpOhXEGFa6QQ+5HnOjex5KdS7VFHmdcjZoGkTVKKRv/8cxQxvrVT8A6sgIFzL/RE7mBZJzbeibIg
+ d=1e100.net; s=20221208; t=1690279003; x=1690883803;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/casiWQBa8FLPDyI/Gjog1Q/iFy65e/7JWaM5Gwrppw=;
+ b=MRjLLEG72VkDBLAgH/6iWpTtKr9JSX8rjdluxAnTMMzf0jjnKzwFnbB7CTjttjW8/+
+ bWP3l946c9lqdGvpXy7Bu+V5/O7JXYPvfdjH5co3pUl+76RBTcdgCHal2BNcTOgOBUAE
+ VIACmZwM6P+JaXeebGn1Z7KCXhBOq5b5Bz0OTneACyz4mwkh5znRD40IvEBxZPnNOVmr
+ pwhZgyC5ok2Et5XQXNQZ8vnOdTkjCKoZq5pgdM3By5fqO7Gm70yvP7iNInyQl5n26/Pa
+ B94IOexQEMjPCcvl5C0JC3w8GVDjTF9SOvsDRqrOu/eC5e7F+VoH2CA4m0s5WmwiwrMt
+ cMXw==
+X-Gm-Message-State: ABy/qLZkfm48ICXRy3PU3+ycFMrQzzyIhMTfnl3mYa4QrwVGCSLkS4OP
+ NNsTQyu6EKe3/SxhUrjoNy/tFA==
+X-Google-Smtp-Source: APBJJlE4g3zxacKAsn4H4YysRKAp71VN9gqUpsqodFXfAXxBRsoAel6FjePiWo+WkUy1agkNvA6LJQ==
+X-Received: by 2002:a17:90a:74cf:b0:268:196f:9656 with SMTP id
+ p15-20020a17090a74cf00b00268196f9656mr4627258pjl.1.1690279003192; 
+ Tue, 25 Jul 2023 02:56:43 -0700 (PDT)
+Received: from [10.70.252.135] ([203.208.167.147])
+ by smtp.gmail.com with ESMTPSA id
+ j8-20020a170902da8800b001b39ffff838sm10605398plx.25.2023.07.25.02.56.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Jul 2023 02:56:42 -0700 (PDT)
+Message-ID: <c1a1952f-0c3e-2fa1-fdf9-8b3b8a592b23@bytedance.com>
+Date: Tue, 25 Jul 2023 17:56:29 +0800
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:10c3:b0:3a4:14c1:20f5 with SMTP id
- s3-20020a05680810c300b003a414c120f5mr24234779ois.6.1690278700033; Tue, 25 Jul
- 2023 02:51:40 -0700 (PDT)
-Date: Tue, 25 Jul 2023 02:51:39 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000007caa3f06014cad2e@google.com>
-From: syzbot <syzbot+60369f4775c014dd1804@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, cluster-devel@redhat.com, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rpeterso@redhat.com, syzkaller-bugs@googlegroups.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+To: Muchun Song <muchun.song@linux.dev>
+References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
+ <20230724094354.90817-4-zhengqi.arch@bytedance.com>
+ <3648ca69-d65e-8431-135a-a5738586bc25@linux.dev>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <3648ca69-d65e-8431-135a-a5738586bc25@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,10 +100,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Mailman-Approved-At: Tue, 25 Jul 2023 09:52:30 +0000
-Subject: [Cluster-devel] [syzbot] [gfs2?] BUG: sleeping function called from
- invalid context in gfs2_make_fs_ro
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [Cluster-devel] [PATCH v2 03/47] mm: shrinker: add
+ infrastructure for dynamically allocating shrinker
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,139 +114,316 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
+ david@fromorbit.com, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+ dm-devel@redhat.com, linux-mtd@lists.infradead.org, cel@kernel.org,
+ x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
+ xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org, paulmck@kernel.org,
+ linux-arm-msm@vger.kernel.org, brauner@kernel.org, rcu@vger.kernel.org,
+ linux-bcache@vger.kernel.org, yujie.liu@intel.com, vbabka@suse.cz,
+ linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, tytso@mit.edu,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ senozhatsky@chromium.org, gregkh@linuxfoundation.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-X-Mimecast-Spam-Score: 1
-X-Mimecast-Originator: syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: bytedance.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Hi Muchun,
 
-syzbot found the following issue on:
+On 2023/7/25 17:02, Muchun Song wrote:
+> 
+> 
+> On 2023/7/24 17:43, Qi Zheng wrote:
+>> Currently, the shrinker instances can be divided into the following three
+>> types:
+>>
+>> a) global shrinker instance statically defined in the kernel, such as
+>>     workingset_shadow_shrinker.
+>>
+>> b) global shrinker instance statically defined in the kernel modules, 
+>> such
+>>     as mmu_shrinker in x86.
+>>
+>> c) shrinker instance embedded in other structures.
+>>
+>> For case a, the memory of shrinker instance is never freed. For case b,
+>> the memory of shrinker instance will be freed after synchronize_rcu() 
+>> when
+>> the module is unloaded. For case c, the memory of shrinker instance will
+>> be freed along with the structure it is embedded in.
+>>
+>> In preparation for implementing lockless slab shrink, we need to
+>> dynamically allocate those shrinker instances in case c, then the memory
+>> can be dynamically freed alone by calling kfree_rcu().
+>>
+>> So this commit adds the following new APIs for dynamically allocating
+>> shrinker, and add a private_data field to struct shrinker to record and
+>> get the original embedded structure.
+>>
+>> 1. shrinker_alloc()
+>>
+>> Used to allocate shrinker instance itself and related memory, it will
+>> return a pointer to the shrinker instance on success and NULL on failure.
+>>
+>> 2. shrinker_free_non_registered()
+>>
+>> Used to destroy the non-registered shrinker instance.
+> 
+> At least I don't like this name. I know you want to tell others
+> this function only should be called when shrinker has not been
+> registed but allocated. Maybe shrinker_free() is more simple.
+> And and a comment to tell the users when to use it.
 
-HEAD commit:    46670259519f Merge tag 'for-6.5-rc2-tag' of git://git.kern..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=16bf15aea80000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a4507c291b5ab5d4
-dashboard link: https://syzkaller.appspot.com/bug?extid=60369f4775c014dd1804
-compiler:       Debian clang version 15.0.6, GNU ld (GNU Binutils for Debian) 2.40
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1602904ea80000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12d67e9ea80000
+OK, if no one else objects, I will change it to shrinker_free() in
+the next version.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/f3b4b06a5f02/disk-46670259.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/4db334f36495/vmlinux-46670259.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5977e704aeb2/bzImage-46670259.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/053f03da9748/mount_0.gz
+> 
+>>
+>> 3. shrinker_register()
+>>
+>> Used to register the shrinker instance, which is same as the current
+>> register_shrinker_prepared().
+>>
+>> 4. shrinker_unregister()
+>>
+>> Used to unregister and free the shrinker instance.
+>>
+>> In order to simplify shrinker-related APIs and make shrinker more
+>> independent of other kernel mechanisms, subsequent submissions will use
+>> the above API to convert all shrinkers (including case a and b) to
+>> dynamically allocated, and then remove all existing APIs.
+>>
+>> This will also have another advantage mentioned by Dave Chinner:
+>>
+>> ```
+>> The other advantage of this is that it will break all the existing
+>> out of tree code and third party modules using the old API and will
+>> no longer work with a kernel using lockless slab shrinkers. They
+>> need to break (both at the source and binary levels) to stop bad
+>> things from happening due to using uncoverted shrinkers in the new
+>> setup.
+>> ```
+>>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> ---
+>>   include/linux/shrinker.h |   6 +++
+>>   mm/shrinker.c            | 113 +++++++++++++++++++++++++++++++++++++++
+>>   2 files changed, 119 insertions(+)
+>>
+>> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+>> index 961cb84e51f5..296f5e163861 100644
+>> --- a/include/linux/shrinker.h
+>> +++ b/include/linux/shrinker.h
+>> @@ -70,6 +70,8 @@ struct shrinker {
+>>       int seeks;    /* seeks to recreate an obj */
+>>       unsigned flags;
+>> +    void *private_data;
+>> +
+>>       /* These are for internal use */
+>>       struct list_head list;
+>>   #ifdef CONFIG_MEMCG
+>> @@ -98,6 +100,10 @@ struct shrinker {
+>>   unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup 
+>> *memcg,
+>>                 int priority);
+>> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, 
+>> ...);
+>> +void shrinker_free_non_registered(struct shrinker *shrinker);
+>> +void shrinker_register(struct shrinker *shrinker);
+>> +void shrinker_unregister(struct shrinker *shrinker);
+>>   extern int __printf(2, 3) prealloc_shrinker(struct shrinker *shrinker,
+>>                           const char *fmt, ...);
+>> diff --git a/mm/shrinker.c b/mm/shrinker.c
+>> index 0a32ef42f2a7..d820e4cc5806 100644
+>> --- a/mm/shrinker.c
+>> +++ b/mm/shrinker.c
+>> @@ -548,6 +548,119 @@ unsigned long shrink_slab(gfp_t gfp_mask, int 
+>> nid, struct mem_cgroup *memcg,
+>>       return freed;
+>>   }
+>> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, 
+>> ...)
+>> +{
+>> +    struct shrinker *shrinker;
+>> +    unsigned int size;
+>> +    va_list __maybe_unused ap;
+>> +    int err;
+>> +
+>> +    shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
+>> +    if (!shrinker)
+>> +        return NULL;
+>> +
+>> +#ifdef CONFIG_SHRINKER_DEBUG
+>> +    va_start(ap, fmt);
+>> +    shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, ap);
+>> +    va_end(ap);
+>> +    if (!shrinker->name)
+>> +        goto err_name;
+>> +#endif
+> 
+> So why not introduce another helper to handle this and declare it
+> as a void function when !CONFIG_SHRINKER_DEBUG? Something like the
+> following:
+> 
+> #ifdef CONFIG_SHRINKER_DEBUG
+> static int shrinker_debugfs_name_alloc(struct shrinker *shrinker, const 
+> char *fmt,
+>                                         va_list vargs)
+> 
+> {
+>      shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, vargs);
+>      return shrinker->name ? 0 : -ENOMEM;
+> }
+> #else
+> static int shrinker_debugfs_name_alloc(struct shrinker *shrinker, const 
+> char *fmt,
+>                                         va_list vargs)
+> {
+>      return 0;
+> }
+> #endif
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+60369f4775c014dd1804@syzkaller.appspotmail.com
+Will do in the next version.
 
-gfs2: fsid=syz:syz.0: found 1 quota changes
-syz-executor154: attempt to access beyond end of device
-loop0: rw=1, sector=131324, nr_sectors = 4 limit=32768
-gfs2: fsid=syz:syz.0: Error 10 writing to journal, jid=0
-gfs2: fsid=syz:syz.0: fatal: I/O error(s)
-gfs2: fsid=syz:syz.0: about to withdraw this file system
-BUG: sleeping function called from invalid context at kernel/sched/completion.c:101
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 5019, name: syz-executor154
-preempt_count: 1, expected: 0
-RCU nest depth: 0, expected: 0
-5 locks held by syz-executor154/5019:
- #0: ffff8880297960e0 (&type->s_umount_key#47){+.+.}-{3:3}, at: deactivate_super+0xad/0xf0 fs/super.c:360
- #1: ffff88802854cb78 (&sdp->sd_quota_sync_mutex){+.+.}-{3:3}, at: gfs2_quota_sync+0xa1/0x700 fs/gfs2/quota.c:1304
- #2: ffff88802854d060 (&sdp->sd_log_flush_lock){++++}-{3:3}, at: gfs2_log_flush+0x105/0x25f0 fs/gfs2/log.c:1042
- #3: ffff88802854ce88 (&sdp->sd_log_lock){+.+.}-{2:2}, at: spin_lock include/linux/spinlock.h:351 [inline]
- #3: ffff88802854ce88 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_log_lock fs/gfs2/log.h:32 [inline]
- #3: ffff88802854ce88 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_flush_revokes+0x53/0x90 fs/gfs2/log.c:814
- #4: ffff88802854d248 (&sdp->sd_freeze_mutex){+.+.}-{3:3}, at: signal_our_withdraw fs/gfs2/util.c:151 [inline]
- #4: ffff88802854d248 (&sdp->sd_freeze_mutex){+.+.}-{3:3}, at: gfs2_withdraw+0x477/0x11e0 fs/gfs2/util.c:334
-Preemption disabled at:
-[<0000000000000000>] 0x0
-CPU: 1 PID: 5019 Comm: syz-executor154 Not tainted 6.5.0-rc2-syzkaller-00066-g46670259519f #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/12/2023
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0x1e7/0x2d0 lib/dump_stack.c:106
- __might_resched+0x5cf/0x780 kernel/sched/core.c:10189
- __wait_for_common kernel/sched/completion.c:101 [inline]
- wait_for_common kernel/sched/completion.c:117 [inline]
- wait_for_completion+0x1b/0x60 kernel/sched/completion.c:138
- kthread_stop+0x18e/0x5a0 kernel/kthread.c:710
- gfs2_make_fs_ro+0x183/0x680 fs/gfs2/super.c:555
- signal_our_withdraw fs/gfs2/util.c:153 [inline]
- gfs2_withdraw+0x48a/0x11e0 fs/gfs2/util.c:334
- gfs2_ail1_empty+0x7d0/0x860 fs/gfs2/log.c:377
- gfs2_flush_revokes+0x5e/0x90 fs/gfs2/log.c:815
- revoke_lo_before_commit+0x2c/0x5f0 fs/gfs2/lops.c:868
- lops_before_commit fs/gfs2/lops.h:40 [inline]
- gfs2_log_flush+0xc93/0x25f0 fs/gfs2/log.c:1101
- do_sync+0xa35/0xc80 fs/gfs2/quota.c:977
- gfs2_quota_sync+0x30e/0x700 fs/gfs2/quota.c:1320
- gfs2_sync_fs+0x4d/0xb0 fs/gfs2/super.c:680
- sync_filesystem+0xec/0x220 fs/sync.c:56
- generic_shutdown_super+0x6f/0x340 fs/super.c:472
- kill_block_super+0x68/0xa0 fs/super.c:1417
- deactivate_locked_super+0xa4/0x110 fs/super.c:330
- cleanup_mnt+0x426/0x4c0 fs/namespace.c:1254
- task_work_run+0x24a/0x300 kernel/task_work.c:179
- exit_task_work include/linux/task_work.h:38 [inline]
- do_exit+0x68f/0x2290 kernel/exit.c:874
- do_group_exit+0x206/0x2c0 kernel/exit.c:1024
- __do_sys_exit_group kernel/exit.c:1035 [inline]
- __se_sys_exit_group kernel/exit.c:1033 [inline]
- __x64_sys_exit_group+0x3f/0x40 kernel/exit.c:1033
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x41/0xc0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7fca0c3e4749
-Code: Unable to access opcode bytes at 0x7fca0c3e471f.
-RSP: 002b:00007ffdd6ff7a08 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007fca0c3e4749
-RDX: 000000000000003c RSI: 00000000000000e7 RDI: 0000000000000001
-RBP: 00007fca0c47f2b0 R08: ffffffffffffffb8 R09: 000000000001f6db
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007fca0c47f2b0
-R13: 0000000000000000 R14: 00007fca0c480020 R15: 00007fca0c3b2c90
- </TASK>
-BUG: scheduling while atomic: syz-executor154/5019/0x00000002
-5 locks held by syz-executor154/5019:
- #0: ffff8880297960e0 (&type->s_umount_key#47){+.+.}-{3:3}, at: deactivate_super+0xad/0xf0 fs/super.c:360
- #1: ffff88802854cb78 (&sdp->sd_quota_sync_mutex){+.+.}-{3:3}, at: gfs2_quota_sync+0xa1/0x700 fs/gfs2/quota.c:1304
- #2: ffff88802854d060 (&sdp->sd_log_flush_lock){++++}-{3:3}, at: gfs2_log_flush+0x105/0x25f0 fs/gfs2/log.c:1042
- #3: ffff88802854ce88 (&sdp->sd_log_lock){+.+.}-{2:2}, at: spin_lock include/linux/spinlock.h:351 [inline]
- #3: ffff88802854ce88 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_log_lock fs/gfs2/log.h:32 [inline]
- #3: ffff88802854ce88 (&sdp->sd_log_lock){+.+.}-{2:2}, at: gfs2_flush_revokes+0x53/0x90 fs/gfs2/log.c:814
- #4: ffff88802854d248 (&sdp->sd_freeze_mutex){+.+.}-{3:3}, at: signal_our_withdraw fs/gfs2/util.c:151 [inline]
- #4: ffff88802854d248 (&sdp->sd_freeze_mutex){+.+.}-{3:3}, at: gfs2_withdraw+0x477/0x11e0 fs/gfs2/util.c:334
-Modules linked in:
-Preemption disabled at:
-[<0000000000000000>] 0x0
+> 
+>> +    shrinker->flags = flags;
+>> +
+>> +    if (flags & SHRINKER_MEMCG_AWARE) {
+>> +        err = prealloc_memcg_shrinker(shrinker);
+>> +        if (err == -ENOSYS)
+>> +            shrinker->flags &= ~SHRINKER_MEMCG_AWARE;
+>> +        else if (err == 0)
+>> +            goto done;
+>> +        else
+>> +            goto err_flags;
+>> +    }
+>> +
+>> +    /*
+>> +     * The nr_deferred is available on per memcg level for memcg aware
+>> +     * shrinkers, so only allocate nr_deferred in the following cases:
+>> +     *  - non memcg aware shrinkers
+>> +     *  - !CONFIG_MEMCG
+>> +     *  - memcg is disabled by kernel command line
+>> +     */
+>> +    size = sizeof(*shrinker->nr_deferred);
+>> +    if (flags & SHRINKER_NUMA_AWARE)
+>> +        size *= nr_node_ids;
+>> +
+>> +    shrinker->nr_deferred = kzalloc(size, GFP_KERNEL);
+>> +    if (!shrinker->nr_deferred)
+>> +        goto err_flags;
+>> +
+>> +done:
+>> +    return shrinker;
+>> +
+>> +err_flags:
+>> +#ifdef CONFIG_SHRINKER_DEBUG
+>> +    kfree_const(shrinker->name);
+>> +    shrinker->name = NULL;
+> 
+> This could be shrinker_debugfs_name_free()
 
+Will do.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+>> +err_name:
+>> +#endif
+>> +    kfree(shrinker);
+>> +    return NULL;
+>> +}
+>> +EXPORT_SYMBOL(shrinker_alloc);
+>> +
+>> +void shrinker_free_non_registered(struct shrinker *shrinker)
+>> +{
+>> +#ifdef CONFIG_SHRINKER_DEBUG
+>> +    kfree_const(shrinker->name);
+>> +    shrinker->name = NULL;
+> 
+> This could be shrinker_debugfs_name_free()
+> 
+>> +#endif
+>> +    if (shrinker->flags & SHRINKER_MEMCG_AWARE) {
+>> +        down_write(&shrinker_rwsem);
+>> +        unregister_memcg_shrinker(shrinker);
+>> +        up_write(&shrinker_rwsem);
+>> +    }
+>> +
+>> +    kfree(shrinker->nr_deferred);
+>> +    shrinker->nr_deferred = NULL;
+>> +
+>> +    kfree(shrinker);
+>> +}
+>> +EXPORT_SYMBOL(shrinker_free_non_registered);
+>> +
+>> +void shrinker_register(struct shrinker *shrinker)
+>> +{
+>> +    down_write(&shrinker_rwsem);
+>> +    list_add_tail(&shrinker->list, &shrinker_list);
+>> +    shrinker->flags |= SHRINKER_REGISTERED;
+>> +    shrinker_debugfs_add(shrinker);
+>> +    up_write(&shrinker_rwsem);
+>> +}
+>> +EXPORT_SYMBOL(shrinker_register);
+>> +
+>> +void shrinker_unregister(struct shrinker *shrinker)
+> 
+> You have made all shrinkers to be dynamically allocated, so
+> we should prevent users from allocating shrinkers statically and
+> use this function to unregister it. It is better to add a
+> flag like SHRINKER_ALLOCATED which is set in shrinker_alloc(),
+> and check whether it is set in shrinker_unregister(), if not
+> maybe a warning should be added to tell the users what happened.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Make sense, will do.
 
-If the bug is already fixed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+> 
+>> +{
+>> +    struct dentry *debugfs_entry;
+>> +    int debugfs_id;
+>> +
+>> +    if (!shrinker || !(shrinker->flags & SHRINKER_REGISTERED))
+>> +        return;
+>> +
+>> +    down_write(&shrinker_rwsem);
+>> +    list_del(&shrinker->list);
+>> +    shrinker->flags &= ~SHRINKER_REGISTERED;
+>> +    if (shrinker->flags & SHRINKER_MEMCG_AWARE)
+>> +        unregister_memcg_shrinker(shrinker);
+>> +    debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
+> 
+> In the internal of this function, you also could use
+> shrinker_debugfs_name_free().
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Yeah, will do.
 
-If you want to change bug's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Thanks,
+Qi
 
-If the bug is a duplicate of another bug, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> 
+> Thanks.
+> 
+>> +    up_write(&shrinker_rwsem);
+>> +
+>> +    shrinker_debugfs_remove(debugfs_entry, debugfs_id);
+>> +
+>> +    kfree(shrinker->nr_deferred);
+>> +    shrinker->nr_deferred = NULL;
+>> +
+>> +    kfree(shrinker);
+>> +}
+>> +EXPORT_SYMBOL(shrinker_unregister);
+>> +
+>>   /*
+>>    * Add a shrinker callback to be called from the vm.
+>>    */
+> 
 
