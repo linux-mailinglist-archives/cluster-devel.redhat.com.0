@@ -1,102 +1,85 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81920766016
-	for <lists+cluster-devel@lfdr.de>; Fri, 28 Jul 2023 00:59:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4522E766056
+	for <lists+cluster-devel@lfdr.de>; Fri, 28 Jul 2023 01:48:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690498795;
+	s=mimecast20190719; t=1690501738;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8CTrna5t3S7P99W+zrM1I2ApZYIkXTVQedDFVAI6oIw=;
-	b=f+KaNqHZPKMlY4E6t/fZAuBeGErcPXk5DB2QmGmh9P0QWXBm7RxyzqfcsHJWqYjSUsXEKg
-	I5/FxfXZ8Dl9qWnLXJ0AH7A6TRri147cdDQ4p1Cahf8sfZhTMUJ7vapxdZrIe65VJzj5VH
-	/khOkr0PgsAHagipjs/zdUPN+/Aln0k=
+	bh=UUZwd9FWje3LDYrkbylKOQ09XR3jrOmpTlI+8YbT+nI=;
+	b=MZDADcOnu3C46SSOvF5K4LRVZkFWZGAnV/UlLdwVBOT5XgWqjGzCM6G3jQg5FSHMSvOkqp
+	sPQYYDeD3WZgjKXKykdSBeJauAvSAGU3ablrcwkoGouSSDKLXmfAX00j4uT7v1/aSWSEsf
+	9pvPD+A+TBnPGoh6MhU0VCts1558P1g=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-637-hONCF2JWOc6fRgX8fZrH2A-1; Thu, 27 Jul 2023 18:59:52 -0400
-X-MC-Unique: hONCF2JWOc6fRgX8fZrH2A-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-510-DNIlJ7AeMam_-3jKX38jnA-1; Thu, 27 Jul 2023 19:48:54 -0400
+X-MC-Unique: DNIlJ7AeMam_-3jKX38jnA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 92601283476D;
-	Thu, 27 Jul 2023 22:59:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE064380051E;
+	Thu, 27 Jul 2023 23:48:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8B454492B02;
-	Thu, 27 Jul 2023 22:59:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5B85FF7825;
+	Thu, 27 Jul 2023 23:48:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5650919452C8;
-	Thu, 27 Jul 2023 22:59:46 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A94FF1946A7C;
+	Thu, 27 Jul 2023 23:48:52 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A46C61946586 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 27 Jul 2023 22:59:44 +0000 (UTC)
+ ESMTP id 734711946586 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 27 Jul 2023 23:48:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4042846A3A9; Thu, 27 Jul 2023 22:59:44 +0000 (UTC)
+ id 4E4CEF7832; Thu, 27 Jul 2023 23:48:51 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 37F52492C13
- for <cluster-devel@redhat.com>; Thu, 27 Jul 2023 22:59:44 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 46529F7825
+ for <cluster-devel@redhat.com>; Thu, 27 Jul 2023 23:48:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 168523810785
- for <cluster-devel@redhat.com>; Thu, 27 Jul 2023 22:59:44 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29408101A54E
+ for <cluster-devel@redhat.com>; Thu, 27 Jul 2023 23:48:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-99-SfBDpX7KOh6WXL3qLTfOgg-1; Thu, 27 Jul 2023 18:59:42 -0400
-X-MC-Unique: SfBDpX7KOh6WXL3qLTfOgg-1
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-686ba29ccb1so940086b3a.1
- for <cluster-devel@redhat.com>; Thu, 27 Jul 2023 15:59:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690498781; x=1691103581;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8CTrna5t3S7P99W+zrM1I2ApZYIkXTVQedDFVAI6oIw=;
- b=TsAAFdeIO8Ci+Fi8ivqygpPHCXbXJZF7iI0eZBT1zNJuIs6uf+xmYe7/4QX3WUezwd
- eWb0zTI+V+Ui2Ou5fFSOb85mfHm5yU6uF7OdyZbkdX8eRZ4vIcJtwEmUcJtw0xIoT0CG
- mZ8OYGVeif+zeQCF0OsRqg8LvNeaWfkaaMcslpwKJemztm5SGR4sku5vDuM4v+y+eaiO
- ecLTunhYeEgMSmI9DdK/KUely+3r0+71ReyFKM7bskhJ0MuDQaTijt5V9SWz8BUowK18
- Kcnrng2JOhA0JUSxI/pEQUvJhwIO4h/ZUDbmB3pdUH8nRjmImupEuxrBWlQuN11tWbiq
- ykQw==
-X-Gm-Message-State: ABy/qLbs/GWDPk61kO5epK572Yy/YT7bi/xvZShl/8XeSQskIMkxaYwy
- UXxb34aCh9HTDj/ZGytT2je4zA==
-X-Google-Smtp-Source: APBJJlGFE8oAcAZu2XvzWjC5bjR81v7OIjjTfZ8m+EaEe6Rjpq3cuwvHN3I08mErFwOZJpneP9Ly1g==
-X-Received: by 2002:a05:6a00:17a8:b0:64d:42b9:6895 with SMTP id
- s40-20020a056a0017a800b0064d42b96895mr61072pfg.5.1690498780930; 
- Thu, 27 Jul 2023 15:59:40 -0700 (PDT)
-Received: from dread.disaster.area (pa49-186-119-116.pa.vic.optusnet.com.au.
- [49.186.119.116]) by smtp.gmail.com with ESMTPSA id
- p24-20020aa78618000000b0068702b66ab1sm1115813pfn.174.2023.07.27.15.59.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 15:59:40 -0700 (PDT)
-Received: from dave by dread.disaster.area with local (Exim 4.96)
- (envelope-from <david@fromorbit.com>) id 1qP9xJ-00BKKZ-1O;
- Fri, 28 Jul 2023 08:59:37 +1000
-Date: Fri, 28 Jul 2023 08:59:37 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Damien Le Moal <dlemoal@kernel.org>
-Message-ID: <ZML22YJi5vPBDEDj@dread.disaster.area>
+ us-mta-177-30PFEky1NSSRBWXQy0mdzg-1; Thu, 27 Jul 2023 19:48:46 -0400
+X-MC-Unique: 30PFEky1NSSRBWXQy0mdzg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CA7BB61F8A;
+ Thu, 27 Jul 2023 23:48:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5FDC433C7;
+ Thu, 27 Jul 2023 23:48:39 +0000 (UTC)
+Message-ID: <217f3a7e-7681-0da6-aaa7-252a1451f7ba@kernel.org>
+Date: Fri, 28 Jul 2023 08:48:37 +0900
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+To: Dave Chinner <david@fromorbit.com>
 References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
  <20230727080502.77895-29-zhengqi.arch@bytedance.com>
  <baaf7de4-9a0e-b953-2b6a-46e60c415614@kernel.org>
  <56ee1d92-28ee-81cb-9c41-6ca7ea6556b0@bytedance.com>
  <ba0868b2-9f90-3d81-1c91-8810057fb3ce@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <ba0868b2-9f90-3d81-1c91-8810057fb3ce@kernel.org>
+ <ZML22YJi5vPBDEDj@dread.disaster.area>
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <ZML22YJi5vPBDEDj@dread.disaster.area>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -104,7 +87,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 Subject: Re: [Cluster-devel] [PATCH v3 28/49] dm zoned: dynamically allocate
  the dm-zoned-meta shrinker
 X-BeenThere: cluster-devel@redhat.com
@@ -135,56 +118,65 @@ Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: fromorbit.com
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Originator: kernel.org
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 27, 2023 at 07:20:46PM +0900, Damien Le Moal wrote:
-> On 7/27/23 17:55, Qi Zheng wrote:
-> >>>           goto err;
-> >>>       }
-> >>>   +    zmd->mblk_shrinker->count_objects = dmz_mblock_shrinker_count;
-> >>> +    zmd->mblk_shrinker->scan_objects = dmz_mblock_shrinker_scan;
-> >>> +    zmd->mblk_shrinker->seeks = DEFAULT_SEEKS;
-> >>> +    zmd->mblk_shrinker->private_data = zmd;
-> >>> +
-> >>> +    shrinker_register(zmd->mblk_shrinker);
-> >>
-> >> I fail to see how this new shrinker API is better... Why isn't there a
-> >> shrinker_alloc_and_register() function ? That would avoid adding all this code
-> >> all over the place as the new API call would be very similar to the current
-> >> shrinker_register() call with static allocation.
-> > 
-> > In some registration scenarios, memory needs to be allocated in advance.
-> > So we continue to use the previous prealloc/register_prepared()
-> > algorithm. The shrinker_alloc_and_register() is just a helper function
-> > that combines the two, and this increases the number of APIs that
-> > shrinker exposes to the outside, so I choose not to add this helper.
-> 
-> And that results in more code in many places instead of less code + a simple
-> inline helper in the shrinker header file...
+On 7/28/23 07:59, Dave Chinner wrote:
+> On Thu, Jul 27, 2023 at 07:20:46PM +0900, Damien Le Moal wrote:
+>> On 7/27/23 17:55, Qi Zheng wrote:
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto err;
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>>>> =C2=A0 +=C2=A0=C2=A0=C2=A0 zmd->mblk_shrinker->count_objects =3D dmz_=
+mblock_shrinker_count;
+>>>>> +=C2=A0=C2=A0=C2=A0 zmd->mblk_shrinker->scan_objects =3D dmz_mblock_s=
+hrinker_scan;
+>>>>> +=C2=A0=C2=A0=C2=A0 zmd->mblk_shrinker->seeks =3D DEFAULT_SEEKS;
+>>>>> +=C2=A0=C2=A0=C2=A0 zmd->mblk_shrinker->private_data =3D zmd;
+>>>>> +
+>>>>> +=C2=A0=C2=A0=C2=A0 shrinker_register(zmd->mblk_shrinker);
+>>>>
+>>>> I fail to see how this new shrinker API is better... Why isn't there a
+>>>> shrinker_alloc_and_register() function ? That would avoid adding all t=
+his code
+>>>> all over the place as the new API call would be very similar to the cu=
+rrent
+>>>> shrinker_register() call with static allocation.
+>>>
+>>> In some registration scenarios, memory needs to be allocated in advance=
+.
+>>> So we continue to use the previous prealloc/register_prepared()
+>>> algorithm. The shrinker_alloc_and_register() is just a helper function
+>>> that combines the two, and this increases the number of APIs that
+>>> shrinker exposes to the outside, so I choose not to add this helper.
+>>
+>> And that results in more code in many places instead of less code + a si=
+mple
+>> inline helper in the shrinker header file...
+>=20
+> It's not just a "simple helper" - it's a function that has to take 6
+> or 7 parameters with a return value that must be checked and
+> handled.
+>=20
+> This was done in the first versions of the patch set - the amount of
+> code in each caller does not go down and, IMO, was much harder to
+> read and determine "this is obviously correct" that what we have
+> now.
+>=20
+>> So not adding that super simple
+>> helper is not exactly the best choice in my opinion.
+>=20
+> Each to their own - I much prefer the existing style/API over having
+> to go look up a helper function every time I want to check some
+> random shrinker has been set up correctly....
 
-It's not just a "simple helper" - it's a function that has to take 6
-or 7 parameters with a return value that must be checked and
-handled.
+OK. All fair points.
 
-This was done in the first versions of the patch set - the amount of
-code in each caller does not go down and, IMO, was much harder to
-read and determine "this is obviously correct" that what we have
-now.
 
-> So not adding that super simple
-> helper is not exactly the best choice in my opinion.
-
-Each to their own - I much prefer the existing style/API over having
-to go look up a helper function every time I want to check some
-random shrinker has been set up correctly....
-
--Dave.
--- 
-Dave Chinner
-david@fromorbit.com
+--=20
+Damien Le Moal
+Western Digital Research
 
