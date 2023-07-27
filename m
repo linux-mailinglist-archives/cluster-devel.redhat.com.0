@@ -2,97 +2,77 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC7B776426D
-	for <lists+cluster-devel@lfdr.de>; Thu, 27 Jul 2023 01:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE30B76434D
+	for <lists+cluster-devel@lfdr.de>; Thu, 27 Jul 2023 03:16:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690413032;
+	s=mimecast20190719; t=1690420610;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=bNBWi9BFA7oJZNyI/XnA5H8tHZCJl01gNE0DBxlvZ40=;
-	b=SjkP6L0a3ARyYJcUCBIWH/u0qRHxuWFBGTsZLmEeOoCdJ+wJWjuirDu1HIjvaFJ5tY8vCz
-	rNfXP9x8XvivG7eyeunfugeK2bbUynENz4bsBnT4TdanrY8nlqPghgR0bE0QE8LVvoi+BE
-	+VTDWnvbh86JdhoEaWBN8jvkloLaYu4=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-156--pS9rwPDNhyiQEVqfOCHVA-1; Wed, 26 Jul 2023 19:10:29 -0400
-X-MC-Unique: -pS9rwPDNhyiQEVqfOCHVA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+	 list-subscribe:list-post; bh=L/bR0Z4HEoIH+TzQDYVYGBt7h8oQojsp2gmutOuIbRc=;
+	b=Jl6Z1RYquVuYYMrXBT958A3GFTQS3WysRoMo0tdw0hF6LkZ9qH2AhhgC+IeqU8oXEhMlB8
+	9ZGcwWuUie/TOPVzCzioH0bok679Sr65JCCgSAKXDv5KiRlEv3oUc4nSqkn8BzZSp0RfUT
+	1FQ8WyuOt4+4u39TYhfb+ItpFERTmsg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-588-mtt6waRKPSekaJBOHJsjug-1; Wed, 26 Jul 2023 21:16:47 -0400
+X-MC-Unique: mtt6waRKPSekaJBOHJsjug-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D39532999B27;
-	Wed, 26 Jul 2023 23:10:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFA95104D520;
+	Thu, 27 Jul 2023 01:16:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DE6B02166B25;
-	Wed, 26 Jul 2023 23:10:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5C7CE200B41D;
+	Thu, 27 Jul 2023 01:16:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7BC2E1946A72;
-	Wed, 26 Jul 2023 23:10:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 13B641946A72;
+	Thu, 27 Jul 2023 01:16:43 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A36131946A6E for <cluster-devel@listman.corp.redhat.com>;
- Wed, 26 Jul 2023 23:09:49 +0000 (UTC)
+ ESMTP id E0E3D1946A6C for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 27 Jul 2023 01:13:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5A0491121339; Wed, 26 Jul 2023 23:09:49 +0000 (UTC)
+ id AF93140C206F; Thu, 27 Jul 2023 01:13:13 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 528131121330
- for <cluster-devel@redhat.com>; Wed, 26 Jul 2023 23:09:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2EDB62999B21
- for <cluster-devel@redhat.com>; Wed, 26 Jul 2023 23:09:49 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-tHZVyiQLP_WMhqRXvbDsnA-1; Wed, 26 Jul 2023 19:09:47 -0400
-X-MC-Unique: tHZVyiQLP_WMhqRXvbDsnA-1
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-1bbdc05a93bso831255ad.0
- for <cluster-devel@redhat.com>; Wed, 26 Jul 2023 16:09:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690412986; x=1691017786;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bNBWi9BFA7oJZNyI/XnA5H8tHZCJl01gNE0DBxlvZ40=;
- b=ZJld9BHCHVJved+8Hf55QPcuK2VE+DRWilob1cU9/Ge96RiGuqyWRgSKZP8giuvGkO
- R1LdbhZBzFh10WoBOMOT7B6AqBDpSrTF4j2vvi5Xsw7WFTWpMrav8fhtf6ZqDH7m6FuN
- 8YwsF6AeDsEL9szJOb5U1TlHUCZyB1k5AcjiiLoIDuEGn4iYcDcRkYr+q/eFGx6+0uA4
- aHVpgUfayEI4EhO0MN8EMlX847qlqHgrF8mHoFxJHP+P6MDbnYMvkL6NsAY9PqCSQRwi
- QYSGyTmG6icx9eP1Fm7kwzJjsQ6xCp4Hhk+QmfW81+71y2J+2lWsJhM+g4E1R3nsJINk
- l+pA==
-X-Gm-Message-State: ABy/qLbYpO18mUJDbStP8GtNuiE7GIyObKw4Upn2Vs6H0+Y4ewq6Psmw
- QYdJqjtFM4DSewox3ogkAN8etw==
-X-Google-Smtp-Source: APBJJlHUt9d2hTqe2ud94c6lNUCrPn/cPviOHGLjkBp5h1xJnkt7lTpPKllT1sxo0CM9mi2vK7HwDA==
-X-Received: by 2002:a17:902:c10c:b0:1b8:b382:f6c3 with SMTP id
- 12-20020a170902c10c00b001b8b382f6c3mr2914213pli.13.1690412986476; 
- Wed, 26 Jul 2023 16:09:46 -0700 (PDT)
-Received: from dread.disaster.area (pa49-186-119-116.pa.vic.optusnet.com.au.
- [49.186.119.116]) by smtp.gmail.com with ESMTPSA id
- u9-20020a17090341c900b001ac95be5081sm58846ple.307.2023.07.26.16.09.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jul 2023 16:09:45 -0700 (PDT)
-Received: from dave by dread.disaster.area with local (Exim 4.96)
- (envelope-from <david@fromorbit.com>) id 1qOndW-00AvaD-0j;
- Thu, 27 Jul 2023 09:09:42 +1000
-Date: Thu, 27 Jul 2023 09:09:42 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Qi Zheng <zhengqi.arch@bytedance.com>
-Message-ID: <ZMGnthZAh48JF+eV@dread.disaster.area>
-References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-45-zhengqi.arch@bytedance.com>
- <ZMDUkoIXUlTkCSYL@dread.disaster.area>
- <19ad6d06-8a14-6102-5eae-2134dc2c5061@bytedance.com>
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A85C840C2063
+ for <cluster-devel@redhat.com>; Thu, 27 Jul 2023 01:13:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E17D101A54E
+ for <cluster-devel@redhat.com>; Thu, 27 Jul 2023 01:13:13 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-564-9kcZmQa5PdyMIyl9VrYcgQ-3; Wed, 26 Jul 2023 21:13:12 -0400
+X-MC-Unique: 9kcZmQa5PdyMIyl9VrYcgQ-3
+Received: from cwcc.thunk.org (pool-173-48-115-64.bstnma.fios.verizon.net
+ [173.48.115.64]) (authenticated bits=0)
+ (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 36R19kRN030218
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Jul 2023 21:09:47 -0400
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+ id 92CFF15C04DF; Wed, 26 Jul 2023 21:09:46 -0400 (EDT)
+Date: Wed, 26 Jul 2023 21:09:46 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230727010946.GD30264@mit.edu>
+References: <0000000000002b5e2405f14e860f@google.com>
+ <0000000000009655cc060165265f@google.com>
+ <CANp29Y7UVO8QGJUC-WB=CT_MKJVUzpJ2pH+e6WAcwqX_4FPgpA@mail.gmail.com>
+ <CAA8EJpq2Az=8gLyFY7j3D8-P=PUAo6ydmzvvpkcfNQnA0OCEoA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <19ad6d06-8a14-6102-5eae-2134dc2c5061@bytedance.com>
+In-Reply-To: <CAA8EJpq2Az=8gLyFY7j3D8-P=PUAo6ydmzvvpkcfNQnA0OCEoA@mail.gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -100,9 +80,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Cluster-devel] [PATCH v2 44/47] mm: shrinker: make global slab
- shrink lockless
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [Cluster-devel] [syzbot] [gfs2?] KASAN: use-after-free Read in
+ qd_unlock (2)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,279 +94,86 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
- cel@kernel.org, x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org, paulmck@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-nfs@vger.kernel.org, rcu@vger.kernel.org,
- linux-bcache@vger.kernel.org, yujie.liu@intel.com, vbabka@suse.cz,
- linux-raid@vger.kernel.org, brauner@kernel.org, tytso@mit.edu,
- gregkh@linuxfoundation.org, muchun.song@linux.dev,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, senozhatsky@chromium.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+Cc: syzbot <syzbot+3f6a670108ce43356017@syzkaller.appspotmail.com>,
+ konrad.dybcio@linaro.org, andersson@kernel.org,
+ syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
+ cluster-devel@redhat.com, Aleksandr Nogikh <nogikh@google.com>,
+ linux-fsdevel@vger.kernel.org, eadavis@sina.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: fromorbit.com
+X-Mimecast-Originator: mit.edu
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Jul 26, 2023 at 05:14:09PM +0800, Qi Zheng wrote:
-> On 2023/7/26 16:08, Dave Chinner wrote:
-> > On Mon, Jul 24, 2023 at 05:43:51PM +0800, Qi Zheng wrote:
-> > > @@ -122,6 +126,13 @@ void shrinker_free_non_registered(struct shrinker *shrinker);
-> > >   void shrinker_register(struct shrinker *shrinker);
-> > >   void shrinker_unregister(struct shrinker *shrinker);
-> > > +static inline bool shrinker_try_get(struct shrinker *shrinker)
-> > > +{
-> > > +	return READ_ONCE(shrinker->registered) &&
-> > > +	       refcount_inc_not_zero(&shrinker->refcount);
-> > > +}
-> > 
-> > Why do we care about shrinker->registered here? If we don't set
-> > the refcount to 1 until we have fully initialised everything, then
-> > the shrinker code can key entirely off the reference count and
-> > none of the lookup code needs to care about whether the shrinker is
-> > registered or not.
-> 
-> The purpose of checking shrinker->registered here is to stop running
-> shrinker after calling shrinker_free(), which can prevent the following
-> situations from happening:
-> 
-> CPU 0                 CPU 1
-> 
-> shrinker_try_get()
-> 
->                        shrinker_try_get()
-> 
-> shrinker_put()
-> shrinker_try_get()
->                        shrinker_put()
+On Wed, Jul 26, 2023 at 06:45:55PM +0300, Dmitry Baryshkov wrote:
+> > > bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=17b48111a80000
+  ...
+> > > dashboard link: https://syzkaller.appspot.com/bug?extid=3f6a670108ce43356017
 
-I don't see any race here? What is wrong with having multiple active
-users at once?
+> I highly suspect that the bisect was wrong here. The only thing that
+> was changed by the mentioned commit is the device tree for the pretty
+> obscure platform, which is not 'Google Compute Engine'.
 
-> > 
-> > This should use a completion, then it is always safe under
-> > rcu_read_lock().  This also gets rid of the shrinker_lock spin lock,
-> > which only exists because we can't take a blocking lock under
-> > rcu_read_lock(). i.e:
-> > 
-> > 
-> > void shrinker_put(struct shrinker *shrinker)
-> > {
-> > 	if (refcount_dec_and_test(&shrinker->refcount))
-> > 		complete(&shrinker->done);
-> > }
-> > 
-> > void shrinker_free()
-> > {
-> > 	.....
-> > 	refcount_dec(&shrinker->refcount);
-> 
-> I guess what you mean is shrinker_put(), because here may be the last
-> refcount.
+Yeah, it's not even close.  If you take a look at the bisection log
+(which is *always* a good idea before you put any faith in the syzbot
+bisection), you'd see the following:
 
-Yes, I did.
+testing commit e1c04510f521e853019afeca2a5991a5ef8d6a5b gcc
+compiler: gcc (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40
+kernel signature: f262f513a4ba5708b69a5fdd8c218746223996a8b2134a22f2916d16f23d01e8
+run #0: crashed: unregister_netdevice: waiting for DEV to become free
+run #1: crashed: unregister_netdevice: waiting for DEV to become free
+run #2: crashed: unregister_netdevice: waiting for DEV to become free
+run #3: crashed: unregister_netdevice: waiting for DEV to become free
+run #4: crashed: unregister_netdevice: waiting for DEV to become free
+run #5: crashed: unregister_netdevice: waiting for DEV to become free
+run #6: crashed: unregister_netdevice: waiting for DEV to become free
+run #7: crashed: unregister_netdevice: waiting for DEV to become free
+run #8: crashed: unregister_netdevice: waiting for DEV to become free
 
-> > 	wait_for_completion(&shrinker->done);
-> > 	/*
-> > 	 * lookups on the shrinker will now all fail as refcount has
-> > 	 * fallen to zero. We can now remove it from the lists and
-> > 	 * free it.
-> > 	 */
-> > 	down_write(shrinker_rwsem);
-> > 	list_del_rcu(&shrinker->list);
-> > 	up_write(&shrinker_rwsem);
-> > 	call_rcu(shrinker->rcu_head, shrinker_free_rcu_cb);
-> > }
-> > 
-> > ....
-> > 
-> > > @@ -686,11 +711,14 @@ EXPORT_SYMBOL(shrinker_free_non_registered);
-> > >   void shrinker_register(struct shrinker *shrinker)
-> > >   {
-> > > -	down_write(&shrinker_rwsem);
-> > > -	list_add_tail(&shrinker->list, &shrinker_list);
-> > > -	shrinker->flags |= SHRINKER_REGISTERED;
-> > > +	refcount_set(&shrinker->refcount, 1);
-> > > +
-> > > +	spin_lock(&shrinker_lock);
-> > > +	list_add_tail_rcu(&shrinker->list, &shrinker_list);
-> > > +	spin_unlock(&shrinker_lock);
-> > > +
-> > >   	shrinker_debugfs_add(shrinker);
-> > > -	up_write(&shrinker_rwsem);
-> > > +	WRITE_ONCE(shrinker->registered, true);
-> > >   }
-> > >   EXPORT_SYMBOL(shrinker_register);
-> > 
-> > This just looks wrong - you are trying to use WRITE_ONCE() as a
-> > release barrier to indicate that the shrinker is now set up fully.
-> > That's not necessary - the refcount is an atomic and along with the
-> > rcu locks they should provides all the barriers we need. i.e.
-> 
-> The reason I used WRITE_ONCE() here is because the shrinker->registered
-> will be read and written concurrently (read in shrinker_try_get() and
-> written in shrinker_free()), which is why I added shrinker::registered
-> field instead of using SHRINKER_REGISTERED flag (this can reduce the
-> addition of WRITE_ONCE()/READ_ONCE()).
+This is *nothing* like the problem reported on the dashboard, which is:
 
-Using WRITE_ONCE/READ_ONCE doesn't provide memory barriers needed to
-use the field like this. You need release/acquire memory ordering
-here. i.e. smp_store_release()/smp_load_acquire().
+BUG: KASAN: use-after-free in instrument_atomic_read include/linux/instrumented.h:72 [inline]
+BUG: KASAN: use-after-free in _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
+BUG: KASAN: use-after-free in qd_unlock+0x30/0x2d0 fs/gfs2/quota.c:490
+Read of size 8 at addr ffff888073997090 by task syz-executor221/5069
 
-As it is, the refcount_inc_not_zero() provides a control dependency,
-as documented in include/linux/refcount.h, refcount_dec_and_test()
-provides release memory ordering. The only thing I think we may need
-is a write barrier before refcount_set(), such that if
-refcount_inc_not_zero() sees a non-zero value, it is guaranteed to
-see an initialised structure...
+where the dereference had a stack trace which looked like this:
 
-i.e. refcounts provide all the existence and initialisation
-guarantees. Hence I don't see the need to use shrinker->registered
-like this and it can remain a bit flag protected by the
-shrinker_rwsem().
+ _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
+ qd_unlock+0x30/0x2d0 fs/gfs2/quota.c:490
+ gfs2_quota_sync+0x768/0x8b0 fs/gfs2/quota.c:1325
+ gfs2_sync_fs+0x49/0xb0 fs/gfs2/super.c:650
+ sync_filesystem+0xe8/0x220 fs/sync.c:56
+ generic_shutdown_super+0x6b/0x310 fs/super.c:474
+ kill_block_super+0x79/0xd0 fs/super.c:1386
+ deactivate_locked_super+0xa7/0xf0 fs/super.c:332
+ cleanup_mnt+0x494/0x520 fs/namespace.c:1291
+ task_work_run+0x243/0x300 kernel/task_work.c:179
+ exit_task_work include/linux/task_work.h:38 [inline]
+ do_exit+0x644/0x2150 kernel/exit.c:867
 
+and the memory was allocated via this stack trace:
 
-> > void shrinker_register(struct shrinker *shrinker)
-> > {
-> > 	down_write(&shrinker_rwsem);
-> > 	list_add_tail_rcu(&shrinker->list, &shrinker_list);
-> > 	shrinker->flags |= SHRINKER_REGISTERED;
-> > 	shrinker_debugfs_add(shrinker);
-> > 	up_write(&shrinker_rwsem);
-> > 
-> > 	/*
-> > 	 * now the shrinker is fully set up, take the first
-> > 	 * reference to it to indicate that lookup operations are
-> > 	 * now allowed to use it via shrinker_try_get().
-> > 	 */
-> > 	refcount_set(&shrinker->refcount, 1);
-> > }
-> > 
-> > > diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
-> > > index f1becfd45853..c5573066adbf 100644
-> > > --- a/mm/shrinker_debug.c
-> > > +++ b/mm/shrinker_debug.c
-> > > @@ -5,6 +5,7 @@
-> > >   #include <linux/seq_file.h>
-> > >   #include <linux/shrinker.h>
-> > >   #include <linux/memcontrol.h>
-> > > +#include <linux/rculist.h>
-> > >   /* defined in vmscan.c */
-> > >   extern struct rw_semaphore shrinker_rwsem;
-> > > @@ -161,17 +162,21 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
-> > >   {
-> > >   	struct dentry *entry;
-> > >   	char buf[128];
-> > > -	int id;
-> > > -
-> > > -	lockdep_assert_held(&shrinker_rwsem);
-> > > +	int id, ret = 0;
-> > >   	/* debugfs isn't initialized yet, add debugfs entries later. */
-> > >   	if (!shrinker_debugfs_root)
-> > >   		return 0;
-> > > +	down_write(&shrinker_rwsem);
-> > > +	if (shrinker->debugfs_entry)
-> > > +		goto fail;
-> > > +
-> > >   	id = ida_alloc(&shrinker_debugfs_ida, GFP_KERNEL);
-> > > -	if (id < 0)
-> > > -		return id;
-> > > +	if (id < 0) {
-> > > +		ret = id;
-> > > +		goto fail;
-> > > +	}
-> > >   	shrinker->debugfs_id = id;
-> > >   	snprintf(buf, sizeof(buf), "%s-%d", shrinker->name, id);
-> > > @@ -180,7 +185,8 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
-> > >   	entry = debugfs_create_dir(buf, shrinker_debugfs_root);
-> > >   	if (IS_ERR(entry)) {
-> > >   		ida_free(&shrinker_debugfs_ida, id);
-> > > -		return PTR_ERR(entry);
-> > > +		ret = PTR_ERR(entry);
-> > > +		goto fail;
-> > >   	}
-> > >   	shrinker->debugfs_entry = entry;
-> > > @@ -188,7 +194,10 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
-> > >   			    &shrinker_debugfs_count_fops);
-> > >   	debugfs_create_file("scan", 0220, entry, shrinker,
-> > >   			    &shrinker_debugfs_scan_fops);
-> > > -	return 0;
-> > > +
-> > > +fail:
-> > > +	up_write(&shrinker_rwsem);
-> > > +	return ret;
-> > >   }
-> > >   int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
-> > > @@ -243,6 +252,11 @@ struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
-> > >   	shrinker->name = NULL;
-> > >   	*debugfs_id = entry ? shrinker->debugfs_id : -1;
-> > > +	/*
-> > > +	 * Ensure that shrinker->registered has been set to false before
-> > > +	 * shrinker->debugfs_entry is set to NULL.
-> > > +	 */
-> > > +	smp_wmb();
-> > >   	shrinker->debugfs_entry = NULL;
-> > >   	return entry;
-> > > @@ -266,14 +280,26 @@ static int __init shrinker_debugfs_init(void)
-> > >   	shrinker_debugfs_root = dentry;
-> > >   	/* Create debugfs entries for shrinkers registered at boot */
-> > > -	down_write(&shrinker_rwsem);
-> > > -	list_for_each_entry(shrinker, &shrinker_list, list)
-> > > +	rcu_read_lock();
-> > > +	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
-> > > +		if (!shrinker_try_get(shrinker))
-> > > +			continue;
-> > > +		rcu_read_unlock();
-> > > +
-> > >   		if (!shrinker->debugfs_entry) {
-> > > -			ret = shrinker_debugfs_add(shrinker);
-> > > -			if (ret)
-> > > -				break;
-> > > +			/* Paired with smp_wmb() in shrinker_debugfs_detach() */
-> > > +			smp_rmb();
-> > > +			if (READ_ONCE(shrinker->registered))
-> > > +				ret = shrinker_debugfs_add(shrinker);
-> > >   		}
-> > > -	up_write(&shrinker_rwsem);
-> > > +
-> > > +		rcu_read_lock();
-> > > +		shrinker_put(shrinker);
-> > > +
-> > > +		if (ret)
-> > > +			break;
-> > > +	}
-> > > +	rcu_read_unlock();
-> > >   	return ret;
-> > >   }
-> > 
-> > And all this churn and complexity can go away because the
-> > shrinker_rwsem is still used to protect shrinker_register()
-> > entirely....
-> 
-> My consideration is that during this process, there may be a
-> driver probe failure and then shrinker_free() is called (the
-> shrinker_debugfs_init() is called in late_initcall stage). In
-> this case, we need to use RCU+refcount to ensure that the shrinker
-> is not freed.
+ kmem_cache_alloc+0x1b3/0x350 mm/slub.c:3476
+ kmem_cache_zalloc include/linux/slab.h:710 [inline]
+ qd_alloc+0x51/0x250 fs/gfs2/quota.c:216
+ gfs2_quota_init+0x7c4/0x10e0 fs/gfs2/quota.c:1415
+ gfs2_make_fs_rw+0x48e/0x590 fs/gfs2/super.c:153
+ gfs2_fill_super+0x2357/0x2700 fs/gfs2/ops_fstype.c:1274
+ get_tree_bdev+0x400/0x620 fs/super.c:1282
+ gfs2_get_tree+0x50/0x210 fs/gfs2/ops_fstype.c:1330
+ vfs_get_tree+0x88/0x270 fs/super.c:1489
+ do_new_mount+0x289/0xad0 fs/namespace.c:3145
+ do_mount fs/namespace.c:3488 [inline]
+ __do_sys_mount fs/namespace.c:3697 [inline]
+ __se_sys_mount+0x2d3/0x3c0 fs/namespace.c:3674
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x3d/0xb0 arch/x86/entry/common.c:80
 
-Yeah, you're trying to work around the lack of a
-wait_for_completion() call in shrinker_free().
+(And the memory was freed from an RCU path)
 
-With that, this doesn't need RCU at all, and the iteration can be
-done fully under the shrinker_rwsem() safely and so none of this
-code needs to change.
-
-Cheers,
-
-Dave.
--- 
-Dave Chinner
-david@fromorbit.com
+					- Ted
 
