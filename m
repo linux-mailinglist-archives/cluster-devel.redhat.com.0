@@ -2,75 +2,80 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6102A76D62F
-	for <lists+cluster-devel@lfdr.de>; Wed,  2 Aug 2023 19:57:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D62DF76D6C3
+	for <lists+cluster-devel@lfdr.de>; Wed,  2 Aug 2023 20:22:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690999031;
+	s=mimecast20190719; t=1691000529;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=2TZMOtf0ZCs/XvWGISZdpna3qFprKEVbglDpReQgO5E=;
-	b=gnIvdBU8Ed+QTVoYdRySMrdRARVt7jRUiihToewUw1zkbeuql/sHIY4pKOIKrfRNsEZERI
-	FkOV9VmZKyHnbLi4s9OzFgJqdzCEnQrUTWQnAYi2bhl0LrMwLDYGgDuualJV6tZr9sUmwq
-	nMW4Vpu8MWLRUnen6/i3nrQrHkQVJA4=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=JwYvvMAg+vbyHHP1Pvcn562D0ia8VGuWeIV/iQkP9oE=;
+	b=UCZYywEBE4g28ScAMXQB+4vEBHimaqMokb0SahnQg7nj4loq23oQ/8FdIrHnPosG1PEl1X
+	sYgzFocqgDx+b8FkCCzOIef4dItn3n7UhMB5BLuvcUUty+VqGK5rFFD+0IrlS27x9eURPB
+	88FLLSAutruCndPKA+AQsezoMl26M5g=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-569-jitVzoVfMlK_ZMFah2bJ9Q-1; Wed, 02 Aug 2023 13:56:43 -0400
-X-MC-Unique: jitVzoVfMlK_ZMFah2bJ9Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-681-qNmqpQuWNSGDzBy3mtu7WQ-1; Wed, 02 Aug 2023 14:22:05 -0400
+X-MC-Unique: qNmqpQuWNSGDzBy3mtu7WQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BA1C88D0F3;
-	Wed,  2 Aug 2023 17:55:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB014104458E;
+	Wed,  2 Aug 2023 18:22:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 41D43207B34D;
-	Wed,  2 Aug 2023 17:55:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 77E86492C13;
+	Wed,  2 Aug 2023 18:22:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC73F1946A79;
-	Wed,  2 Aug 2023 17:55:34 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 584191946A79;
+	Wed,  2 Aug 2023 18:22:04 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ECDF91946A45 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  2 Aug 2023 17:55:06 +0000 (UTC)
+ ESMTP id EEF331946A45 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  2 Aug 2023 18:22:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D2272C57964; Wed,  2 Aug 2023 17:55:06 +0000 (UTC)
+ id D21D1112132E; Wed,  2 Aug 2023 18:22:02 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CA8E9C57963
- for <cluster-devel@redhat.com>; Wed,  2 Aug 2023 17:55:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.81])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C9FB91121325
+ for <cluster-devel@redhat.com>; Wed,  2 Aug 2023 18:22:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFB8F104458A
- for <cluster-devel@redhat.com>; Wed,  2 Aug 2023 17:55:06 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6B6A100813A
+ for <cluster-devel@redhat.com>; Wed,  2 Aug 2023 18:22:02 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-689-dXgVk1g-NnmNgeQiJjJDlQ-1; Wed, 02 Aug 2023 13:55:05 -0400
-X-MC-Unique: dXgVk1g-NnmNgeQiJjJDlQ-1
+ us-mta-319-yVgcqUIOOqWN9dxxwryclA-1; Wed, 02 Aug 2023 14:21:59 -0400
+X-MC-Unique: yVgcqUIOOqWN9dxxwryclA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D2B11615A2;
- Wed,  2 Aug 2023 17:48:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB32C433C7;
- Wed,  2 Aug 2023 17:48:54 +0000 (UTC)
-Date: Wed, 2 Aug 2023 10:48:53 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20230802174853.GC11352@frogsfrogsfrogs>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1C9E261A88;
+ Wed,  2 Aug 2023 18:21:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51C95C433C8;
+ Wed,  2 Aug 2023 18:21:50 +0000 (UTC)
+Message-ID: <16f46a9e6d88582d53d31a320589a7ba9d232e0c.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>, Christian Brauner
+ <brauner@kernel.org>
+Date: Wed, 02 Aug 2023 14:21:49 -0400
+In-Reply-To: <20230802174853.GC11352@frogsfrogsfrogs>
 References: <20230725-mgctime-v6-0-a794c2b7abca@kernel.org>
  <20230725-mgctime-v6-5-a794c2b7abca@kernel.org>
+ <20230802174853.GC11352@frogsfrogsfrogs>
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
 MIME-Version: 1.0
-In-Reply-To: <20230725-mgctime-v6-5-a794c2b7abca@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -78,7 +83,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 Subject: Re: [Cluster-devel] [PATCH v6 5/7] xfs: switch to multigrain
  timestamps
 X-BeenThere: cluster-devel@redhat.com
@@ -136,90 +141,80 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Joel Becker <jlbec@evilplan.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="ISO-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 25, 2023 at 10:58:18AM -0400, Jeff Layton wrote:
-> Enable multigrain timestamps, which should ensure that there is an
-> apparent change to the timestamp whenever it has been written after
-> being actively observed via getattr.
-> 
-> Also, anytime the mtime changes, the ctime must also change, and those
-> are now the only two options for xfs_trans_ichgtime. Have that function
-> unconditionally bump the ctime, and ASSERT that XFS_ICHGTIME_CHG is
-> always set.
-> 
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  fs/xfs/libxfs/xfs_trans_inode.c | 6 +++---
->  fs/xfs/xfs_iops.c               | 4 ++--
->  fs/xfs/xfs_super.c              | 2 +-
->  3 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/xfs/libxfs/xfs_trans_inode.c b/fs/xfs/libxfs/xfs_trans_inode.c
-> index 6b2296ff248a..ad22656376d3 100644
-> --- a/fs/xfs/libxfs/xfs_trans_inode.c
-> +++ b/fs/xfs/libxfs/xfs_trans_inode.c
-> @@ -62,12 +62,12 @@ xfs_trans_ichgtime(
->  	ASSERT(tp);
->  	ASSERT(xfs_isilocked(ip, XFS_ILOCK_EXCL));
->  
-> -	tv = current_time(inode);
-> +	/* If the mtime changes, then ctime must also change */
-> +	ASSERT(flags & XFS_ICHGTIME_CHG);
->  
-> +	tv = inode_set_ctime_current(inode);
->  	if (flags & XFS_ICHGTIME_MOD)
->  		inode->i_mtime = tv;
-> -	if (flags & XFS_ICHGTIME_CHG)
-> -		inode_set_ctime_to_ts(inode, tv);
->  	if (flags & XFS_ICHGTIME_CREATE)
->  		ip->i_crtime = tv;
->  }
-> diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
-> index 3a9363953ef2..3f89ef5a2820 100644
-> --- a/fs/xfs/xfs_iops.c
-> +++ b/fs/xfs/xfs_iops.c
-> @@ -573,10 +573,10 @@ xfs_vn_getattr(
->  	stat->gid = vfsgid_into_kgid(vfsgid);
->  	stat->ino = ip->i_ino;
->  	stat->atime = inode->i_atime;
-> -	stat->mtime = inode->i_mtime;
-> -	stat->ctime = inode_get_ctime(inode);
->  	stat->blocks = XFS_FSB_TO_BB(mp, ip->i_nblocks + ip->i_delayed_blks);
->  
-> +	fill_mg_cmtime(request_mask, inode, stat);
+On Wed, 2023-08-02 at 10:48 -0700, Darrick J. Wong wrote:
+> On Tue, Jul 25, 2023 at 10:58:18AM -0400, Jeff Layton wrote:
+> > Enable multigrain timestamps, which should ensure that there is an
+> > apparent change to the timestamp whenever it has been written after
+> > being actively observed via getattr.
+> >=20
+> > Also, anytime the mtime changes, the ctime must also change, and those
+> > are now the only two options for xfs_trans_ichgtime. Have that function
+> > unconditionally bump the ctime, and ASSERT that XFS_ICHGTIME_CHG is
+> > always set.
+> >=20
+> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > ---
+> >  fs/xfs/libxfs/xfs_trans_inode.c | 6 +++---
+> >  fs/xfs/xfs_iops.c               | 4 ++--
+> >  fs/xfs/xfs_super.c              | 2 +-
+> >  3 files changed, 6 insertions(+), 6 deletions(-)
+> >=20
+> > diff --git a/fs/xfs/libxfs/xfs_trans_inode.c b/fs/xfs/libxfs/xfs_trans_=
+inode.c
+> > index 6b2296ff248a..ad22656376d3 100644
+> > --- a/fs/xfs/libxfs/xfs_trans_inode.c
+> > +++ b/fs/xfs/libxfs/xfs_trans_inode.c
+> > @@ -62,12 +62,12 @@ xfs_trans_ichgtime(
+> >  =09ASSERT(tp);
+> >  =09ASSERT(xfs_isilocked(ip, XFS_ILOCK_EXCL));
+> > =20
+> > -=09tv =3D current_time(inode);
+> > +=09/* If the mtime changes, then ctime must also change */
+> > +=09ASSERT(flags & XFS_ICHGTIME_CHG);
+> > =20
+> > +=09tv =3D inode_set_ctime_current(inode);
+> >  =09if (flags & XFS_ICHGTIME_MOD)
+> >  =09=09inode->i_mtime =3D tv;
+> > -=09if (flags & XFS_ICHGTIME_CHG)
+> > -=09=09inode_set_ctime_to_ts(inode, tv);
+> >  =09if (flags & XFS_ICHGTIME_CREATE)
+> >  =09=09ip->i_crtime =3D tv;
+> >  }
+> > diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
+> > index 3a9363953ef2..3f89ef5a2820 100644
+> > --- a/fs/xfs/xfs_iops.c
+> > +++ b/fs/xfs/xfs_iops.c
+> > @@ -573,10 +573,10 @@ xfs_vn_getattr(
+> >  =09stat->gid =3D vfsgid_into_kgid(vfsgid);
+> >  =09stat->ino =3D ip->i_ino;
+> >  =09stat->atime =3D inode->i_atime;
+> > -=09stat->mtime =3D inode->i_mtime;
+> > -=09stat->ctime =3D inode_get_ctime(inode);
+> >  =09stat->blocks =3D XFS_FSB_TO_BB(mp, ip->i_nblocks + ip->i_delayed_bl=
+ks);
+> > =20
+> > +=09fill_mg_cmtime(request_mask, inode, stat);
+>=20
+> Huh.  I would've thought @stat would come first since that's what we're
+> acting upon, but ... eh. :)
+>=20
+> If everyone else is ok with the fill_mg_cmtime signature,
+> Acked-by: Darrick J. Wong <djwong@kernel.org>
+>=20
+>=20
 
-Huh.  I would've thought @stat would come first since that's what we're
-acting upon, but ... eh. :)
+Good point. We can change the signature. I think xfs is the only caller
+outside of the generic vfs right now, and it'd be best to do it now.
 
-If everyone else is ok with the fill_mg_cmtime signature,
-Acked-by: Darrick J. Wong <djwong@kernel.org>
-
---D
-
-> +
->  	if (xfs_has_v3inodes(mp)) {
->  		if (request_mask & STATX_BTIME) {
->  			stat->result_mask |= STATX_BTIME;
-> diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
-> index 818510243130..4b10edb2c972 100644
-> --- a/fs/xfs/xfs_super.c
-> +++ b/fs/xfs/xfs_super.c
-> @@ -2009,7 +2009,7 @@ static struct file_system_type xfs_fs_type = {
->  	.init_fs_context	= xfs_init_fs_context,
->  	.parameters		= xfs_fs_parameters,
->  	.kill_sb		= kill_block_super,
-> -	.fs_flags		= FS_REQUIRES_DEV | FS_ALLOW_IDMAP,
-> +	.fs_flags		= FS_REQUIRES_DEV | FS_ALLOW_IDMAP | FS_MGTIME,
->  };
->  MODULE_ALIAS_FS("xfs");
->  
-> 
-> -- 
-> 2.41.0
-> 
+Christian, would you prefer that I send an updated series, or patches on
+top of vfs.ctime that can be folded in?
+=20
+--=20
+Jeff Layton <jlayton@kernel.org>
 
