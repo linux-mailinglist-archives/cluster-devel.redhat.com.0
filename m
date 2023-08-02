@@ -1,61 +1,100 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C79376BBF8
-	for <lists+cluster-devel@lfdr.de>; Tue,  1 Aug 2023 20:10:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1006A76CA9A
+	for <lists+cluster-devel@lfdr.de>; Wed,  2 Aug 2023 12:17:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690913420;
+	s=mimecast20190719; t=1690971425;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Z4hRuZbnOZFG2ly69qwfNyw8BUk0pspssgojLuWZHY0=;
-	b=Hpp7LKTWYhEIdNkURaYcWMBJTXhziv9iW0eCUyvLnjVSyl6Q5KiOblGP+IvCGUYdIPxq3a
-	3S6OqMI/vcY1qxh29mZvUEyViUylBRiBfIe71l6eVvhhRrsHS2bNu3YwSRf5aV0ODpaRLs
-	fnhlpQFbjfIRDIWyPhfKMfdtP8nqGB4=
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=26w/YHJJAOuu8BibBnZpcCYYnfCRwjlC//rYUoKOWro=;
+	b=NmleZw2ql1yidpKZ73f+3GFVolNpAVKo1brh3j6eWfJAODU7y80LJCL9JQOOUyrz6ym2O2
+	lh2HyqSD9RRXib2rNybMqcg2IwR50TWnqBz1gHsZ4DtALKy4YBk1oucG+V9ldtXOSXPYJz
+	obL8EsN3ThISPOu/gUDHEtEGzGtUMiA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-635-YogQ0cVWNBaKiTJAj48YLw-1; Tue, 01 Aug 2023 14:10:18 -0400
-X-MC-Unique: YogQ0cVWNBaKiTJAj48YLw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-196-HnLvaVkWOWupEr3iZ200TQ-1; Wed, 02 Aug 2023 06:17:00 -0400
+X-MC-Unique: HnLvaVkWOWupEr3iZ200TQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E6EA887103;
-	Tue,  1 Aug 2023 18:10:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0209B856F67;
+	Wed,  2 Aug 2023 10:17:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EEB214A9004;
-	Tue,  1 Aug 2023 18:10:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9AD60C57963;
+	Wed,  2 Aug 2023 10:16:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 07A891947210;
-	Tue,  1 Aug 2023 18:10:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6A8A01946A72;
+	Wed,  2 Aug 2023 10:16:48 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8DAC91947209 for <cluster-devel@listman.corp.redhat.com>;
- Tue,  1 Aug 2023 18:10:09 +0000 (UTC)
+ ESMTP id D06321946A43 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  2 Aug 2023 07:35:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 88961111F3DB; Tue,  1 Aug 2023 18:09:56 +0000 (UTC)
+ id AF68E2166B26; Wed,  2 Aug 2023 07:35:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 62A431121325;
- Tue,  1 Aug 2023 18:09:56 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Tue,  1 Aug 2023 14:09:50 -0400
-Message-Id: <20230801180950.3693180-14-aahringo@redhat.com>
-In-Reply-To: <20230801180950.3693180-1-aahringo@redhat.com>
-References: <20230801180950.3693180-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A68612166B25
+ for <cluster-devel@redhat.com>; Wed,  2 Aug 2023 07:35:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A44C830DB1
+ for <cluster-devel@redhat.com>; Wed,  2 Aug 2023 07:35:32 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-423-9tYgiR6UPwmsYGGWvOljBw-1; Wed, 02 Aug 2023 03:35:30 -0400
+X-MC-Unique: 9tYgiR6UPwmsYGGWvOljBw-1
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-5221f3affe4so8768951a12.0
+ for <cluster-devel@redhat.com>; Wed, 02 Aug 2023 00:35:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690961729; x=1691566529;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=26w/YHJJAOuu8BibBnZpcCYYnfCRwjlC//rYUoKOWro=;
+ b=MHLD2LyDhFlehFiYHxzxAhAuvjVnK4m+3h2K+K/PjVUjcVLx/vuUnwV8BC/Iv5A7N5
+ p94KcPsPL08f4ISlkfT9t5PZJ+0qwqSl9DvssRiNTuu2pPpQ1mqrWgAlIaV7YFhc7PAL
+ 4OoiVFxPqVe84fzKOkKxexZFa3vytOlR8M4Orl82ofOJqS/SPK+geFJ5T8W75eGzoDGK
+ 2wVY3pvfJ565zIrQIeKBqGpM1dtB8iTu+RrVzOq5pASbZEMQQoolk7vipOC9UTrJf+cF
+ TrBXzdvF3rGoY1H0VmgSxltKrpLaCXtDLaxZGEq94CtDhva6mfygtSy1ZzBnipBu41+X
+ FBcA==
+X-Gm-Message-State: ABy/qLav02huHeiWJp7NH5i05T3SYAvp2thUKExTkev8PQEncZ5VpsW2
+ 8W5Keb+9aT8pm3xkDxa3HaKCA81LLA22tZlFukY=
+X-Google-Smtp-Source: APBJJlH7M+QryG4QBt4yvLGV8pi3n/i3QMvtm06GCWxAO5fS4Alz5XOTAh6Gg/IBFa8QtVoCns52sA==
+X-Received: by 2002:a05:6402:324:b0:522:595f:5a29 with SMTP id
+ q4-20020a056402032400b00522595f5a29mr4472424edw.29.1690961729606; 
+ Wed, 02 Aug 2023 00:35:29 -0700 (PDT)
+Received: from localhost (h3221.n1.ips.mtn.co.ug. [41.210.178.33])
+ by smtp.gmail.com with ESMTPSA id
+ c7-20020aa7c747000000b0052237839229sm8053817eds.21.2023.08.02.00.35.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Aug 2023 00:35:29 -0700 (PDT)
+Date: Wed, 2 Aug 2023 09:42:42 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: agruenba@redhat.com
+Message-ID: <2e4e8d5b-f653-4900-ac68-34018c9f7145@moroto.mountain>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [Cluster-devel] [PATCHv2 dlm-next 13/13] fs: dlm: don't use
- RCOM_NAMES for version detection
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Mailman-Approved-At: Wed, 02 Aug 2023 10:16:47 +0000
+Subject: [Cluster-devel] [bug report] gfs2: Use mapping->gfp_mask for
+ metadata inodes
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,92 +109,54 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mimecast-Originator: linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Currently RCOM_STATUS and RCOM_NAMES inclusive their replies are being
-used to determine the DLM version. The RCOM_NAMES messages are triggered
-in DLM recovery when calling dlm_recover_directory() only. At this time
-the DLM version need to be determined. I ran some tests and did not
-expirenced some issues. When the DLM version detection was developed
-probably I run once in a case of RCOM_NAMES and the version was not
-detected yet. However it seems to be not necessary.
+Hello Andreas Gruenbacher,
 
-For backwards compatibility we still need to accept RCOM_NAMES messages
-which are not protected regarding the DLM message reliability layer aka
-stateless message. This patch changes that RCOM_NAMES we are sending out
-after this patch are not stateless anymore.
+The patch 8f18190e3173: "gfs2: Use mapping->gfp_mask for metadata
+inodes" from Jul 26, 2023 (linux-next), leads to the following Smatch
+static checker warning:
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/rcom.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+	fs/gfs2/inode.c:286 gfs2_lookup_simple()
+	error: 'inode' dereferencing possible ERR_PTR()
 
-diff --git a/fs/dlm/rcom.c b/fs/dlm/rcom.c
-index 6ab029149a1d..3b734aed26b5 100644
---- a/fs/dlm/rcom.c
-+++ b/fs/dlm/rcom.c
-@@ -308,15 +308,15 @@ static void receive_sync_reply(struct dlm_ls *ls, const struct dlm_rcom *rc_in)
- int dlm_rcom_names(struct dlm_ls *ls, int nodeid, char *last_name,
- 		   int last_len, uint64_t seq)
- {
-+	struct dlm_mhandle *mh;
- 	struct dlm_rcom *rc;
--	struct dlm_msg *msg;
- 	int error = 0;
- 
- 	ls->ls_recover_nodeid = nodeid;
- 
- retry:
--	error = create_rcom_stateless(ls, nodeid, DLM_RCOM_NAMES, last_len,
--				      &rc, &msg, seq);
-+	error = create_rcom(ls, nodeid, DLM_RCOM_NAMES, last_len,
-+			    &rc, &mh, seq);
- 	if (error)
- 		goto out;
- 	memcpy(rc->rc_buf, last_name, last_len);
-@@ -324,7 +324,7 @@ int dlm_rcom_names(struct dlm_ls *ls, int nodeid, char *last_name,
- 	allow_sync_reply(ls, &rc->rc_id);
- 	memset(ls->ls_recover_buf, 0, DLM_MAX_SOCKET_BUFSIZE);
- 
--	send_rcom_stateless(msg, rc);
-+	send_rcom(mh, rc);
- 
- 	error = dlm_wait_function(ls, &rcom_response);
- 	disallow_sync_reply(ls);
-@@ -337,17 +337,17 @@ int dlm_rcom_names(struct dlm_ls *ls, int nodeid, char *last_name,
- static void receive_rcom_names(struct dlm_ls *ls, const struct dlm_rcom *rc_in,
- 			       uint64_t seq)
- {
-+	struct dlm_mhandle *mh;
- 	struct dlm_rcom *rc;
- 	int error, inlen, outlen, nodeid;
--	struct dlm_msg *msg;
- 
- 	nodeid = le32_to_cpu(rc_in->rc_header.h_nodeid);
- 	inlen = le16_to_cpu(rc_in->rc_header.h_length) -
- 		sizeof(struct dlm_rcom);
- 	outlen = DLM_MAX_APP_BUFSIZE - sizeof(struct dlm_rcom);
- 
--	error = create_rcom_stateless(ls, nodeid, DLM_RCOM_NAMES_REPLY, outlen,
--				      &rc, &msg, seq);
-+	error = create_rcom(ls, nodeid, DLM_RCOM_NAMES_REPLY, outlen,
-+			    &rc, &mh, seq);
- 	if (error)
- 		return;
- 	rc->rc_id = rc_in->rc_id;
-@@ -355,7 +355,7 @@ static void receive_rcom_names(struct dlm_ls *ls, const struct dlm_rcom *rc_in,
- 
- 	dlm_copy_master_names(ls, rc_in->rc_buf, inlen, rc->rc_buf, outlen,
- 			      nodeid);
--	send_rcom_stateless(msg, rc);
-+	send_rcom(mh, rc);
- }
- 
- int dlm_send_rcom_lookup(struct dlm_rsb *r, int dir_nodeid, uint64_t seq)
--- 
-2.31.1
+fs/gfs2/inode.c
+    268 struct inode *gfs2_lookup_simple(struct inode *dip, const char *name)
+    269 {
+    270         struct qstr qstr;
+    271         struct inode *inode;
+    272         gfs2_str2qstr(&qstr, name);
+    273         inode = gfs2_lookupi(dip, &qstr, 1);
+    274         /* gfs2_lookupi has inconsistent callers: vfs
+    275          * related routines expect NULL for no entry found,
+    276          * gfs2_lookup_simple callers expect ENOENT
+    277          * and do not check for NULL.
+
+This comment is ancient.  I think how gfs2_lookupi() works is that if
+there is an error it returns an error code, but if the file does not
+exist it returns NULL.  (This is just based on vague assumptions about
+how mixed error pointer/NULL functions work).
+
+    278          */
+    279         if (inode == NULL)
+    280                 return ERR_PTR(-ENOENT);
+    281 
+    282         /*
+    283          * Must not call back into the filesystem when allocating
+    284          * pages in the metadata inode's address space.
+    285          */
+--> 286         mapping_set_gfp_mask(inode->i_mapping, GFP_NOFS);
+                                     ^^^^^^^^^^^^^^^^
+error pointer dereference
+
+    287 
+    288         return inode;
+    289 }
+
+regards,
+dan carpenter
 
