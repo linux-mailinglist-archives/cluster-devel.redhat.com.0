@@ -1,91 +1,96 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BB45771C0B
-	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 10:10:57 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB723771F5E
+	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 13:10:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691395856;
+	s=mimecast20190719; t=1691406619;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rzcx8osA0e3YiROtielZVHWeVQ/ebLv8kPXonOSmF+M=;
-	b=RbOeogUGtLVMnNLnRI/6h6TKgbo9rjxdrkpG9rcan2JP0BT9ROwv6iYMS6fFMxLWp8fl0Z
-	GCztRYvltjHZUjmBxMQvazmT6EXULoTyWiQPXsyTz3VQdTnFcyFjyiZOt1nfLrQaIarWep
-	ZvVgZ+lv87YzBhTXFPOh5fgBOz3/GAU=
+	bh=IUFroX+K29vocKlwNJzs/neGWgohuFaGhfTkMV8vShc=;
+	b=g79x4NRBIiNt0FhQfOiugADh5BDGmvcfbUHTuBgc4nO5hYLFc1M4bq/BpiOtx0cM1i+dfw
+	j2VirCNSYMJw0l+8nWwKoSi09Mm0G/SoNuIbp2zWRu6dD1IV2KwckN+5MpjEbUF/lKG6TJ
+	n9VXx450fy8LNIdOfkMGrN8Q2FcPek4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-128-9A0dlyRTPs6OT0KekwWo3w-1; Mon, 07 Aug 2023 04:10:52 -0400
-X-MC-Unique: 9A0dlyRTPs6OT0KekwWo3w-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-325-_nk4kh09PYKUjA6Kuop8ag-1; Mon, 07 Aug 2023 07:10:16 -0400
+X-MC-Unique: _nk4kh09PYKUjA6Kuop8ag-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC97C800B35;
-	Mon,  7 Aug 2023 08:10:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 64C8D8007A4;
+	Mon,  7 Aug 2023 11:10:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 65F6D492C13;
-	Mon,  7 Aug 2023 08:10:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 05E05140E950;
+	Mon,  7 Aug 2023 11:10:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1DC8E1946589;
-	Mon,  7 Aug 2023 08:10:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 66C26194658D;
+	Mon,  7 Aug 2023 11:10:12 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 507F71946586 for <cluster-devel@listman.corp.redhat.com>;
- Sun,  6 Aug 2023 00:38:57 +0000 (UTC)
+ ESMTP id 5878E1946588 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  7 Aug 2023 11:10:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 48D53477F63; Sun,  6 Aug 2023 00:38:57 +0000 (UTC)
+ id F0325440C7; Mon,  7 Aug 2023 11:09:59 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 40A064021C9
- for <cluster-devel@redhat.com>; Sun,  6 Aug 2023 00:38:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.81])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E82A11759C
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:09:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 034351C03D8E
- for <cluster-devel@redhat.com>; Sun,  6 Aug 2023 00:38:57 +0000 (UTC)
-Received: from mail-oa1-f79.google.com (mail-oa1-f79.google.com
- [209.85.160.79]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BCD38101A52E
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:09:59 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-573-aubV31w2NLWxB90S4iMDxw-1; Sat, 05 Aug 2023 20:38:54 -0400
-X-MC-Unique: aubV31w2NLWxB90S4iMDxw-1
-Received: by mail-oa1-f79.google.com with SMTP id
- 586e51a60fabf-1bb6df4eba1so4766117fac.1
- for <cluster-devel@redhat.com>; Sat, 05 Aug 2023 17:38:54 -0700 (PDT)
+ us-mta-136-rptkNGYPP8KGe8HXUoHYYw-1; Mon, 07 Aug 2023 07:09:58 -0400
+X-MC-Unique: rptkNGYPP8KGe8HXUoHYYw-1
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-268f6ba57b5so623649a91.1
+ for <cluster-devel@redhat.com>; Mon, 07 Aug 2023 04:09:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691282334; x=1691887134;
- h=content-transfer-encoding:to:from:subject:message-id:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1691406597; x=1692011397;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ENFXuACmZMZpQtX2wkxXaz6xdMvAYlZ0UmbIse7Psl4=;
- b=JvHC1FAX5gkHeBUmBBg+3ow2uA9D4LPZY/1bHkLa5mB6Ri6d5CzYXuXokv0IgcFV3h
- P+7JVngrP7UhXrgc1J/Pmq19F9iQqcVQG5Lu35/jHWMIrpddalgiJcx4MtE+cfYGnY9k
- 078LG8t+wu50DFDHG32JS8RnMhdUgYnQOls9Z3wKxERTA2y/L/GEiYdiH+d0xks1TTaf
- Zj5nCqH1VlfBkUzu802zaPD/Cct45ADousSzLa7e80T9w9x0DHH+YJPn/a5bE/VQVsOW
- rIshFei5Z/x7SrXJvEZWsiM3n8PN8oz1q0v3L9bnViICwbxMcMYv1qCo0MfuCweKRhpj
- P1TA==
-X-Gm-Message-State: AOJu0Yxcw0FWsmZsMSKLGCCGnSKTFs1mz29yd2Njjg3zWy7pMWAbgmMn
- fa1wrJkAxPaqoYLYRYU6JeelGS+h1JlIoJl2P56NUCEFiOey
-X-Google-Smtp-Source: AGHT+IGDxYfmsuzOmH678RsV5gUzhAXsWSkYtbkKlAqQ+CAbddXmv8whikeg8KuRG1l3o/oMXFEENzkt9aNsinJhdRydBdnS/N6+
+ bh=IUFroX+K29vocKlwNJzs/neGWgohuFaGhfTkMV8vShc=;
+ b=bMVl3vEhYIgT5Walgt1kU1Ps5M8BjNGlX0ytlED19lnKzhUakrXTwNffaUNqM1yPxE
+ F06/hhvn200P2tiWtkTJdEMPcJQOhoiORuxv/kxpdKfXDAZuHqdKM3MbmicKnpzug40X
+ O+IlmEMrGuKweq5phHb4IF1nA/meJMmEPsiQ1Ie8RFcGlrK7knmhObqGmpv9fwhzPfA+
+ JcqQ4OvBSxqfSdomIkRGptEErc1F3CiKyva1lVhyi9ytd0HXB3cI2msE0ld9/pX/eE6W
+ MAYRs+dkh9Fi61OgnY7WLkpa+TCA1O+gSDaW5pHNFOj1p/lHXWVZlS7AliyN1hfT/pXG
+ b9lQ==
+X-Gm-Message-State: AOJu0YyopS60Mtj36HWI5+p1KcJEgmPx+zJAExyGdgnvZwUoKukwqy22
+ xLtH7GidKUkV9ut1QGjJPLmJ4A==
+X-Google-Smtp-Source: AGHT+IE6Hkf3zCZO4yTHBCI4U2PxahDBEY93d/z4hx9RjtxF2e4b3lAVTQiaQWVBs1sivCsjN/GRXg==
+X-Received: by 2002:a17:90a:6701:b0:269:32c7:24dc with SMTP id
+ n1-20020a17090a670100b0026932c724dcmr6023585pjj.0.1691406596583; 
+ Mon, 07 Aug 2023 04:09:56 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
+ by smtp.gmail.com with ESMTPSA id
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.09.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Aug 2023 04:09:56 -0700 (PDT)
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
+ steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
+ yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
+ simon.horman@corigine.com, dlemoal@kernel.org
+Date: Mon,  7 Aug 2023 19:08:48 +0800
+Message-Id: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6870:5aaf:b0:1bf:52d2:aea2 with SMTP id
- dt47-20020a0568705aaf00b001bf52d2aea2mr6246214oab.0.1691282334029; Sat, 05
- Aug 2023 17:38:54 -0700 (PDT)
-Date: Sat, 05 Aug 2023 17:38:53 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000bc20180602365ab0@google.com>
-From: syzbot <syzbot+57e590d90f42e6e925df@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, cluster-devel@redhat.com, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rpeterso@redhat.com, syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -93,10 +98,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-X-Mailman-Approved-At: Mon, 07 Aug 2023 08:10:41 +0000
-Subject: [Cluster-devel] [syzbot] [gfs2?] general protection fault in
- gfs2_lookup_simple
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [Cluster-devel] [PATCH v4 00/48] use refcount+RCU method to
+ implement lockless slab shrink
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,182 +114,407 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+ dm-devel@redhat.com, linux-mtd@lists.infradead.org, x86@kernel.org,
+ cluster-devel@redhat.com, xen-devel@lists.xenproject.org,
+ linux-ext4@vger.kernel.org, linux-arm-msm@vger.kernel.org, rcu@vger.kernel.org,
+ linux-bcache@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
+ linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mimecast-Spam-Score: 1
-X-Mimecast-Originator: syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: bytedance.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Hello,
+Hi all,
 
-syzbot found the following issue on:
+1. Background
+=============
 
-HEAD commit:    a73466257270 Add linux-next specific files for 20230801
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=3D17a48e75a80000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3D8b55cb25bac8948=
-c
-dashboard link: https://syzkaller.appspot.com/bug?extid=3D57e590d90f42e6e92=
-5df
-compiler:       gcc (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Deb=
-ian) 2.40
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D1263b929a8000=
-0
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D160bbe31a80000
+We used to implement the lockless slab shrink with SRCU [1], but then kernel
+test robot reported -88.8% regression in stress-ng.ramfs.ops_per_sec test
+case [2], so we reverted it [3].
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/d893efe5006c/disk-=
-a7346625.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5a2ea2e3ba30/vmlinux-=
-a7346625.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/66f8ff91348f/bzI=
-mage-a7346625.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/e94e695a9f21=
-/mount_0.gz
+This patch series aims to re-implement the lockless slab shrink using the
+refcount+RCU method proposed by Dave Chinner [4].
 
-The issue was bisected to:
+[1]. https://lore.kernel.org/lkml/20230313112819.38938-1-zhengqi.arch@bytedance.com/
+[2]. https://lore.kernel.org/lkml/202305230837.db2c233f-yujie.liu@intel.com/
+[3]. https://lore.kernel.org/all/20230609081518.3039120-1-qi.zheng@linux.dev/
+[4]. https://lore.kernel.org/lkml/ZIJhou1d55d4H1s0@dread.disaster.area/
 
-commit 8f18190e31734e434a650d3435da072f03fe485f
-Author: Andreas Gruenbacher <agruenba@redhat.com>
-Date:   Wed Jul 26 21:17:53 2023 +0000
+2. Implementation
+=================
 
-    gfs2: Use mapping->gfp_mask for metadata inodes
+Currently, the shrinker instances can be divided into the following three types:
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=3D1338d136a800=
-00
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=3D10b8d136a800=
-00
-console output: https://syzkaller.appspot.com/x/log.txt?x=3D1738d136a80000
+a) global shrinker instance statically defined in the kernel, such as
+   workingset_shadow_shrinker.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit=
-:
-Reported-by: syzbot+57e590d90f42e6e925df@syzkaller.appspotmail.com
-Fixes: 8f18190e3173 ("gfs2: Use mapping->gfp_mask for metadata inodes")
+b) global shrinker instance statically defined in the kernel modules, such as
+   mmu_shrinker in x86.
 
-gfs2: fsid=3Dno=08=EF=BF=BD=C5=A0ar?d: Trying to join cluster "lock_nolock"=
-, "no=08=EF=BF=BD=C5=A0ar?d"
-gfs2: fsid=3Dno=08=EF=BF=BD=C5=A0ar?d: Now mounting FS (format 1801)...
-syz-executor418: attempt to access beyond end of device
-loop0: rw=3D12288, sector=3D131072, nr_sectors =3D 8 limit=3D32768
-general protection fault, probably for non-canonical address 0xdffffc000000=
-0005: 0000 [#1] PREEMPT SMP KASAN
-KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
-CPU: 1 PID: 5032 Comm: syz-executor418 Not tainted 6.5.0-rc4-next-20230801-=
-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Goo=
-gle 07/12/2023
-RIP: 0010:gfs2_lookup_simple+0xc6/0x160 fs/gfs2/inode.c:286
-Code: 74 24 20 f7 d0 89 44 24 20 e8 66 d3 ff ff 48 85 c0 0f 84 85 00 00 00 =
-48 89 c3 e8 e5 01 e3 fd 48 8d 7b 30 48 89 f8 48 c1 e8 03 <42> 80 3c 20 00 7=
-5 7b 48 b8 00 00 00 00 00 fc ff df 4c 8b 63 30 49
-RSP: 0018:ffffc900039ef848 EFLAGS: 00010206
-RAX: 0000000000000005 RBX: fffffffffffffffb RCX: 0000000000000000
-RDX: ffff888015bf8000 RSI: ffffffff83a38d4b RDI: 000000000000002b
-RBP: 1ffff9200073df09 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000001 R12: dffffc0000000000
-R13: ffffffff8ab99700 R14: ffff888019f94000 R15: ffff8880783f06b8
-FS:  00005555558fa380(0000) GS:ffff8880b9900000(0000) knlGS:000000000000000=
-0
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000557976244798 CR3: 0000000074978000 CR4: 00000000003506e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- init_journal fs/gfs2/ops_fstype.c:742 [inline]
- init_inodes+0x495/0x2e30 fs/gfs2/ops_fstype.c:885
- gfs2_fill_super+0x1a9e/0x2b10 fs/gfs2/ops_fstype.c:1248
- get_tree_bdev+0x390/0x6a0 fs/super.c:1345
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x88/0x350 fs/super.c:1521
- do_new_mount fs/namespace.c:3335 [inline]
- path_mount+0x1492/0x1ed0 fs/namespace.c:3662
- do_mount fs/namespace.c:3675 [inline]
- __do_sys_mount fs/namespace.c:3884 [inline]
- __se_sys_mount fs/namespace.c:3861 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:3861
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x38/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f6d772a2c3a
-Code: d8 64 89 02 48 c7 c0 ff ff ff ff eb a6 e8 5e 04 00 00 66 2e 0f 1f 84 =
-00 00 00 00 00 0f 1f 40 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff f=
-f 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff3af18918 EFLAGS: 00000282 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007fff3af18920 RCX: 00007f6d772a2c3a
-RDX: 0000000020000000 RSI: 0000000020000040 RDI: 00007fff3af18920
-RBP: 0000000000000004 R08: 00007fff3af18960 R09: 00000000000125fe
-R10: 0000000000000819 R11: 0000000000000282 R12: 00007fff3af18960
-R13: 0000000000000003 R14: 0000000001000000 R15: 0000000000000001
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:gfs2_lookup_simple+0xc6/0x160 fs/gfs2/inode.c:286
-Code: 74 24 20 f7 d0 89 44 24 20 e8 66 d3 ff ff 48 85 c0 0f 84 85 00 00 00 =
-48 89 c3 e8 e5 01 e3 fd 48 8d 7b 30 48 89 f8 48 c1 e8 03 <42> 80 3c 20 00 7=
-5 7b 48 b8 00 00 00 00 00 fc ff df 4c 8b 63 30 49
-RSP: 0018:ffffc900039ef848 EFLAGS: 00010206
-RAX: 0000000000000005 RBX: fffffffffffffffb RCX: 0000000000000000
-RDX: ffff888015bf8000 RSI: ffffffff83a38d4b RDI: 000000000000002b
-RBP: 1ffff9200073df09 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000001 R12: dffffc0000000000
-R13: ffffffff8ab99700 R14: ffff888019f94000 R15: ffff8880783f06b8
-FS:  00005555558fa380(0000) GS:ffff8880b9800000(0000) knlGS:000000000000000=
-0
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000564e741eb538 CR3: 0000000074978000 CR4: 00000000003506f0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-----------------
-Code disassembly (best guess):
-   0:=0974 24                =09je     0x26
-   2:=0920 f7                =09and    %dh,%bh
-   4:=09d0 89 44 24 20 e8    =09rorb   -0x17dfdbbc(%rcx)
-   a:=0966 d3 ff             =09sar    %cl,%di
-   d:=09ff 48 85             =09decl   -0x7b(%rax)
-  10:=09c0 0f 84             =09rorb   $0x84,(%rdi)
-  13:=0985 00                =09test   %eax,(%rax)
-  15:=0900 00                =09add    %al,(%rax)
-  17:=0948 89 c3             =09mov    %rax,%rbx
-  1a:=09e8 e5 01 e3 fd       =09call   0xfde30204
-  1f:=0948 8d 7b 30          =09lea    0x30(%rbx),%rdi
-  23:=0948 89 f8             =09mov    %rdi,%rax
-  26:=0948 c1 e8 03          =09shr    $0x3,%rax
-* 2a:=0942 80 3c 20 00       =09cmpb   $0x0,(%rax,%r12,1) <-- trapping inst=
-ruction
-  2f:=0975 7b                =09jne    0xac
-  31:=0948 b8 00 00 00 00 00 =09movabs $0xdffffc0000000000,%rax
-  38:=09fc ff df
-  3b:=094c 8b 63 30          =09mov    0x30(%rbx),%r12
-  3f:=0949                   =09rex.WB
+c) shrinker instance embedded in other structures.
 
+For case a, the memory of shrinker instance is never freed. For case b, the
+memory of shrinker instance will be freed after synchronize_rcu() when the
+module is unloaded. For case c, the memory of shrinker instance will be freed
+along with the structure it is embedded in.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+In preparation for implementing lockless slab shrink, we need to dynamically
+allocate those shrinker instances in case c, then the memory can be dynamically
+freed alone by calling kfree_rcu().
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about bisection process see: https://goo.gl/tpsmEJ#bisectio=
-n
+This patchset adds the following new APIs for dynamically allocating shrinker,
+and add a private_data field to struct shrinker to record and get the original
+embedded structure.
 
-If the bug is already fixed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+1. shrinker_alloc()
+2. shrinker_register()
+3. shrinker_free()
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+In order to simplify shrinker-related APIs and make shrinker more independent of
+other kernel mechanisms, this patchset uses the above APIs to convert all
+shrinkers (including case a and b) to dynamically allocated, and then remove all
+existing APIs. This will also have another advantage mentioned by Dave Chinner:
 
-If you want to change bug's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+```
+The other advantage of this is that it will break all the existing out of tree
+code and third party modules using the old API and will no longer work with a
+kernel using lockless slab shrinkers. They need to break (both at the source and
+binary levels) to stop bad things from happening due to using uncoverted
+shrinkers in the new setup.
+```
 
-If the bug is a duplicate of another bug, reply with:
-#syz dup: exact-subject-of-another-report
+Then we free the shrinker by calling call_rcu(), and use rcu_read_{lock,unlock}()
+to ensure that the shrinker instance is valid. And the shrinker::refcount
+mechanism ensures that the shrinker instance will not be run again after
+unregistration. So the structure that records the pointer of shrinker instance
+can be safely freed without waiting for the RCU read-side critical section.
 
-If you want to undo deduplication, reply with:
-#syz undup
+In this way, while we implement the lockless slab shrink, we don't need to be
+blocked in unregister_shrinker() to wait RCU read-side critical section.
+
+PATCH 1: fix memory leak in binder_init()
+PATCH 2: move some shrinker-related function declarations to mm/internal.h
+PATCH 3: move shrinker-related code into a separate file
+PATCH 4: remove redundant shrinker_rwsem in debugfs operations
+PATCH 5: add infrastructure for dynamically allocating shrinker
+PATCH 6 ~ 23: dynamically allocate the shrinker instances in case a and b
+PATCH 24 ~ 42: dynamically allocate the shrinker instances in case c
+PATCH 43: remove old APIs
+PATCH 44: introduce pool_shrink_rwsem to implement private synchronize_shrinkers()
+PATCH 45: add a secondary array for shrinker_info::{map, nr_deferred}
+PATCH 46 ~ 47: implement the lockless slab shrink
+PATCH 48 ~ 49: convert shrinker_rwsem to mutex
+
+3. Testing
+==========
+
+3.1 slab shrink stress test
+---------------------------
+
+We can reproduce the down_read_trylock() hotspot through the following script:
+
+```
+
+DIR="/root/shrinker/memcg/mnt"
+
+do_create()
+{
+    mkdir -p /sys/fs/cgroup/memory/test
+    echo 4G > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
+    for i in `seq 0 $1`;
+    do
+        mkdir -p /sys/fs/cgroup/memory/test/$i;
+        echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
+        mkdir -p $DIR/$i;
+    done
+}
+
+do_mount()
+{
+    for i in `seq $1 $2`;
+    do
+        mount -t tmpfs $i $DIR/$i;
+    done
+}
+
+do_touch()
+{
+    for i in `seq $1 $2`;
+    do
+        echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
+        dd if=/dev/zero of=$DIR/$i/file$i bs=1M count=1 &
+    done
+}
+
+case "$1" in
+  touch)
+    do_touch $2 $3
+    ;;
+  test)
+    do_create 4000
+    do_mount 0 4000
+    do_touch 0 3000
+    ;;
+  *)
+    exit 1
+    ;;
+esac
+```
+
+Save the above script, then run test and touch commands. Then we can use the
+following perf command to view hotspots:
+
+perf top -U -F 999
+
+1) Before applying this patchset:
+
+  40.44%  [kernel]            [k] down_read_trylock
+  17.59%  [kernel]            [k] up_read
+  13.64%  [kernel]            [k] pv_native_safe_halt
+  11.90%  [kernel]            [k] shrink_slab
+   8.21%  [kernel]            [k] idr_find
+   2.71%  [kernel]            [k] _find_next_bit
+   1.36%  [kernel]            [k] shrink_node
+   0.81%  [kernel]            [k] shrink_lruvec
+   0.80%  [kernel]            [k] __radix_tree_lookup
+   0.50%  [kernel]            [k] do_shrink_slab
+   0.21%  [kernel]            [k] list_lru_count_one
+   0.16%  [kernel]            [k] mem_cgroup_iter
+
+2) After applying this patchset:
+
+  60.17%  [kernel]           [k] shrink_slab
+  20.42%  [kernel]           [k] pv_native_safe_halt
+   3.03%  [kernel]           [k] do_shrink_slab
+   2.73%  [kernel]           [k] shrink_node
+   2.27%  [kernel]           [k] shrink_lruvec
+   2.00%  [kernel]           [k] __rcu_read_unlock
+   1.92%  [kernel]           [k] mem_cgroup_iter
+   0.98%  [kernel]           [k] __rcu_read_lock
+   0.91%  [kernel]           [k] osq_lock
+   0.63%  [kernel]           [k] mem_cgroup_calculate_protection
+   0.55%  [kernel]           [k] shrinker_put
+   0.46%  [kernel]           [k] list_lru_count_one
+
+We can see that the first perf hotspot becomes shrink_slab, which is what we
+expect.
+
+3.2 registeration and unregisteration stress test
+-------------------------------------------------
+
+Run the command below to test:
+
+stress-ng --timeout 60 --times --verify --metrics-brief --ramfs 9 &
+
+1) Before applying this patchset:
+
+setting to a 60 second run per stressor
+dispatching hogs: 9 ramfs
+stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+                          (secs)    (secs)    (secs)   (real time) (usr+sys time)
+ramfs            735238     60.00     12.37    363.70     12253.05        1955.08
+for a 60.01s run time:
+   1440.27s available CPU time
+     12.36s user time   (  0.86%)
+    363.70s system time ( 25.25%)
+    376.06s total time  ( 26.11%)
+load average: 10.79 4.47 1.69
+passed: 9: ramfs (9)
+failed: 0
+skipped: 0
+successful run completed in 60.01s (1 min, 0.01 secs)
+
+2) After applying this patchset:
+
+setting to a 60 second run per stressor
+dispatching hogs: 9 ramfs
+stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+                          (secs)    (secs)    (secs)   (real time) (usr+sys time)
+ramfs            746698     60.00     12.45    376.16     12444.02        1921.47
+for a 60.01s run time:
+   1440.28s available CPU time
+     12.44s user time   (  0.86%)
+    376.16s system time ( 26.12%)
+    388.60s total time  ( 26.98%)
+load average: 9.01 3.85 1.49
+passed: 9: ramfs (9)
+failed: 0
+skipped: 0
+successful run completed in 60.01s (1 min, 0.01 secs)
+
+We can see that the ops/s has hardly changed.
+
+This series is based on next-20230807.
+
+Comments and suggestions are welcome.
+
+Thanks,
+Qi
+
+Changelog in v3 -> v4:
+ - [PATCH v3 01/49] has been merged, so discard it.
+ - fix wrong return value in patch v3 15\16\22\27\28\29\34\40.
+   (pointed by Damien Le Moal)
+ - fix uninitialized variable in [PATCH v3 04/49]
+   (pointed by Simon Horman)
+ - fix typo in [PATCH v3 05/49] (pointed by Simon Horman)
+ - rebase onto the next-20230807.
+
+Changelog in v2 -> v3:
+ - add the patch that [PATCH v3 07/49] depends on
+ - move some shrinker-related function declarations to mm/internal.h
+   (suggested by Muchun Song)
+ - combine shrinker_free_non_registered() and shrinker_unregister() into
+   shrinker_free() (suggested by Dave Chinner)
+ - add missing __init and fix return value in bch_btree_cache_alloc()
+   (pointed by Muchun Song)
+ - remove unnecessary WARN_ON() (pointed by Steven Price)
+ - go back to use completion to implement lockless slab shrink
+   (pointed by Dave Chinner)
+ - collect Acked-bys and Reviewed-bys
+ - rebase onto the next-20230726.
+
+Changelog in v1 -> v2:
+ - implement the new APIs and convert all shrinkers to use it.
+   (suggested by Dave Chinner)
+ - fix UAF in PATCH [05/29] (pointed by Steven Price)
+ - add a secondary array for shrinker_info::{map, nr_deferred}
+ - re-implement the lockless slab shrink
+   (Since unifying the processing of global and memcg slab shrink needs to
+    modify the startup sequence (As I mentioned in https://lore.kernel.org/lkml/38b14080-4ce5-d300-8a0a-c630bca6806b@bytedance.com/),
+    I finally choose to process them separately.)
+ - collect Acked-bys
+
+Qi Zheng (48):
+  mm: move some shrinker-related function declarations to mm/internal.h
+  mm: vmscan: move shrinker-related code into a separate file
+  mm: shrinker: remove redundant shrinker_rwsem in debugfs operations
+  mm: shrinker: add infrastructure for dynamically allocating shrinker
+  kvm: mmu: dynamically allocate the x86-mmu shrinker
+  binder: dynamically allocate the android-binder shrinker
+  drm/ttm: dynamically allocate the drm-ttm_pool shrinker
+  xenbus/backend: dynamically allocate the xen-backend shrinker
+  erofs: dynamically allocate the erofs-shrinker
+  f2fs: dynamically allocate the f2fs-shrinker
+  gfs2: dynamically allocate the gfs2-glock shrinker
+  gfs2: dynamically allocate the gfs2-qd shrinker
+  NFSv4.2: dynamically allocate the nfs-xattr shrinkers
+  nfs: dynamically allocate the nfs-acl shrinker
+  nfsd: dynamically allocate the nfsd-filecache shrinker
+  quota: dynamically allocate the dquota-cache shrinker
+  ubifs: dynamically allocate the ubifs-slab shrinker
+  rcu: dynamically allocate the rcu-lazy shrinker
+  rcu: dynamically allocate the rcu-kfree shrinker
+  mm: thp: dynamically allocate the thp-related shrinkers
+  sunrpc: dynamically allocate the sunrpc_cred shrinker
+  mm: workingset: dynamically allocate the mm-shadow shrinker
+  drm/i915: dynamically allocate the i915_gem_mm shrinker
+  drm/msm: dynamically allocate the drm-msm_gem shrinker
+  drm/panfrost: dynamically allocate the drm-panfrost shrinker
+  dm: dynamically allocate the dm-bufio shrinker
+  dm zoned: dynamically allocate the dm-zoned-meta shrinker
+  md/raid5: dynamically allocate the md-raid5 shrinker
+  bcache: dynamically allocate the md-bcache shrinker
+  vmw_balloon: dynamically allocate the vmw-balloon shrinker
+  virtio_balloon: dynamically allocate the virtio-balloon shrinker
+  mbcache: dynamically allocate the mbcache shrinker
+  ext4: dynamically allocate the ext4-es shrinker
+  jbd2,ext4: dynamically allocate the jbd2-journal shrinker
+  nfsd: dynamically allocate the nfsd-client shrinker
+  nfsd: dynamically allocate the nfsd-reply shrinker
+  xfs: dynamically allocate the xfs-buf shrinker
+  xfs: dynamically allocate the xfs-inodegc shrinker
+  xfs: dynamically allocate the xfs-qm shrinker
+  zsmalloc: dynamically allocate the mm-zspool shrinker
+  fs: super: dynamically allocate the s_shrink
+  mm: shrinker: remove old APIs
+  drm/ttm: introduce pool_shrink_rwsem
+  mm: shrinker: add a secondary array for shrinker_info::{map,
+    nr_deferred}
+  mm: shrinker: make global slab shrink lockless
+  mm: shrinker: make memcg slab shrink lockless
+  mm: shrinker: hold write lock to reparent shrinker nr_deferred
+  mm: shrinker: convert shrinker_rwsem to mutex
+
+ arch/x86/kvm/mmu/mmu.c                        |  18 +-
+ drivers/android/binder_alloc.c                |  31 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  30 +-
+ drivers/gpu/drm/i915/i915_drv.h               |   2 +-
+ drivers/gpu/drm/msm/msm_drv.c                 |   4 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   4 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c        |  34 +-
+ drivers/gpu/drm/panfrost/panfrost_device.h    |   2 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c       |   6 +-
+ drivers/gpu/drm/panfrost/panfrost_gem.h       |   2 +-
+ .../gpu/drm/panfrost/panfrost_gem_shrinker.c  |  30 +-
+ drivers/gpu/drm/ttm/ttm_pool.c                |  38 +-
+ drivers/md/bcache/bcache.h                    |   2 +-
+ drivers/md/bcache/btree.c                     |  27 +-
+ drivers/md/bcache/sysfs.c                     |   3 +-
+ drivers/md/dm-bufio.c                         |  28 +-
+ drivers/md/dm-cache-metadata.c                |   2 +-
+ drivers/md/dm-zoned-metadata.c                |  29 +-
+ drivers/md/raid5.c                            |  26 +-
+ drivers/md/raid5.h                            |   2 +-
+ drivers/misc/vmw_balloon.c                    |  38 +-
+ drivers/virtio/virtio_balloon.c               |  25 +-
+ drivers/xen/xenbus/xenbus_probe_backend.c     |  18 +-
+ fs/btrfs/super.c                              |   2 +-
+ fs/erofs/utils.c                              |  20 +-
+ fs/ext4/ext4.h                                |   2 +-
+ fs/ext4/extents_status.c                      |  24 +-
+ fs/f2fs/super.c                               |  32 +-
+ fs/gfs2/glock.c                               |  20 +-
+ fs/gfs2/main.c                                |   6 +-
+ fs/gfs2/quota.c                               |  26 +-
+ fs/gfs2/quota.h                               |   3 +-
+ fs/jbd2/journal.c                             |  27 +-
+ fs/kernfs/mount.c                             |   2 +-
+ fs/mbcache.c                                  |  23 +-
+ fs/nfs/nfs42xattr.c                           |  87 +-
+ fs/nfs/super.c                                |  22 +-
+ fs/nfsd/filecache.c                           |  23 +-
+ fs/nfsd/netns.h                               |   4 +-
+ fs/nfsd/nfs4state.c                           |  20 +-
+ fs/nfsd/nfscache.c                            |  31 +-
+ fs/proc/root.c                                |   2 +-
+ fs/quota/dquot.c                              |  18 +-
+ fs/super.c                                    |  36 +-
+ fs/ubifs/super.c                              |  22 +-
+ fs/xfs/xfs_buf.c                              |  25 +-
+ fs/xfs/xfs_buf.h                              |   2 +-
+ fs/xfs/xfs_icache.c                           |  26 +-
+ fs/xfs/xfs_mount.c                            |   4 +-
+ fs/xfs/xfs_mount.h                            |   2 +-
+ fs/xfs/xfs_qm.c                               |  28 +-
+ fs/xfs/xfs_qm.h                               |   2 +-
+ include/linux/fs.h                            |   2 +-
+ include/linux/jbd2.h                          |   2 +-
+ include/linux/memcontrol.h                    |  12 +-
+ include/linux/shrinker.h                      |  67 +-
+ kernel/rcu/tree.c                             |  22 +-
+ kernel/rcu/tree_nocb.h                        |  20 +-
+ mm/Makefile                                   |   4 +-
+ mm/huge_memory.c                              |  69 +-
+ mm/internal.h                                 |  41 +
+ mm/shrinker.c                                 | 770 ++++++++++++++++++
+ mm/shrinker_debug.c                           |  47 +-
+ mm/vmscan.c                                   | 701 ----------------
+ mm/workingset.c                               |  27 +-
+ mm/zsmalloc.c                                 |  28 +-
+ net/sunrpc/auth.c                             |  21 +-
+ 67 files changed, 1540 insertions(+), 1235 deletions(-)
+ create mode 100644 mm/shrinker.c
+
+-- 
+2.30.2
 
