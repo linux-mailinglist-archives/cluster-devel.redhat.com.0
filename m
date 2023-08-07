@@ -1,73 +1,73 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1A90772F44
-	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 21:40:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7FD772F3E
+	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 21:40:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691437238;
+	s=mimecast20190719; t=1691437223;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DUlXR9dWQDH3T2ku60GUgPm3Z8tUKiS4ne1Zxz+2SYQ=;
-	b=NiTovbUplXMnOiCZGygfY8hWZZwr/KFPmvr9mnV9383qs0XAcmRJqVQ59Rp8JTmDBQBUxs
-	2kC38U0o0j1qZIgMeI9IZyqx887Oig1FXccXV7qzKSmCApaGPJ6tZDSJQyWyFjFBsoTK6R
-	UfO0VdzHX6BhbZcxPbzDunzwHPZV1Tc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-491-35_lf2WpPi2H40S5_R9T7w-1; Mon, 07 Aug 2023 15:40:37 -0400
-X-MC-Unique: 35_lf2WpPi2H40S5_R9T7w-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	bh=R6vlvmLUvKOZulfJ+YX7AeQubON0sqkk/2/xliZw3ps=;
+	b=hLTd5Gu1mQf25yzGsaRm9FejzEwt8S2ni2K7HgagYnEkffnNYUABDuoIWZ4xZ6bdpfCjqZ
+	4rEW26nqHZ4ICgfXEvhedVWvFwgmpDuMU34IJCzSp6RTwO4kk6jjG+SbrCmOrnPmVb58ON
+	PMKdGvwrE8RyTl+kM3aFzpv2litkH3g=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-546-M2K7ihmhPSep27DFEjhcow-1; Mon, 07 Aug 2023 15:40:16 -0400
+X-MC-Unique: M2K7ihmhPSep27DFEjhcow-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 196988087B9;
-	Mon,  7 Aug 2023 19:40:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17B041C05157;
+	Mon,  7 Aug 2023 19:40:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A4E8492C14;
-	Mon,  7 Aug 2023 19:40:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0C9B52026D4B;
+	Mon,  7 Aug 2023 19:40:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4C8AB19465B1;
-	Mon,  7 Aug 2023 19:40:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D86291946589;
+	Mon,  7 Aug 2023 19:40:14 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3D0401946587 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  7 Aug 2023 19:39:19 +0000 (UTC)
+ ESMTP id 15B501946586 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  7 Aug 2023 19:39:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4F700140E963; Mon,  7 Aug 2023 19:39:14 +0000 (UTC)
+ id 91D8CC15BB8; Mon,  7 Aug 2023 19:39:20 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 46FAB140E950
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 19:39:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27742185A78F
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 19:39:14 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A4B8C15BAD
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 19:39:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6EAFA1C05158
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 19:39:20 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-96-BEChWvaJNoGmXpvNt5TIpQ-1; Mon, 07 Aug 2023 15:39:08 -0400
-X-MC-Unique: BEChWvaJNoGmXpvNt5TIpQ-1
+ us-mta-381-rkXLWnSfMheZXWA3eVa6Lg-1; Mon, 07 Aug 2023 15:39:14 -0400
+X-MC-Unique: rkXLWnSfMheZXWA3eVa6Lg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2896E621E1;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5E171621CB;
+ Mon,  7 Aug 2023 19:39:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190D6C433CB;
  Mon,  7 Aug 2023 19:39:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53CBAC433C8;
- Mon,  7 Aug 2023 19:38:59 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 07 Aug 2023 15:38:34 -0400
+Date: Mon, 07 Aug 2023 15:38:35 -0400
 MIME-Version: 1.0
-Message-Id: <20230807-mgctime-v7-3-d1dec143a704@kernel.org>
+Message-Id: <20230807-mgctime-v7-4-d1dec143a704@kernel.org>
 References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
 In-Reply-To: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -107,20 +107,20 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
  Amir Goldstein <amir73il@gmail.com>, "Darrick J. Wong" <djwong@kernel.org>, 
  Benjamin Coddington <bcodding@redhat.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8078; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=c6Pn7MHvNlpH2XYBl6Q+eSLWZltLuR1g5CejPMxJHLg=;
- b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBk0Ug9xhyiOiJxxIfKX2c3tg98g8sSp5LQ21GSY
- mzWI+/GCS2JAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCZNFIPQAKCRAADmhBGVaC
- FSzyD/9trWoynNfuWyY2cs6DBpaQQUV1pUEIFhN3cQn4D1Dj4pn7ZlrYbtaZoLZ00j/ocCZY8Cm
- OST1VE54JDQXwO32hBnXeM7G96Xn7zoRH+pqQYZPbR9kUjpu+aNn6ffZxRbMP9NIzQQ+N8ghne5
- Z7jufKj2R2Uw0drlgyYUcxJ65kEGr9rFzCJE/YalbmpYvHTz/ytdS17m/ehiKt8YSSFHSlH8dw2
- IMnxIjc1hTHm6Zzohb1yvcmnWCVoz+P2c4sKhLQjHhWslSapU8kYqN8GxTMaHZTfNu5fSFodfmw
- gDKWuekjA31txotjHOPG3MMTnGLmTF08E4pH6Rm05pHpkh4nB+tcB3+Un+AXQlgt32/AEWkPc77
- emLQ4B011pQb97XrODSs8U/viLyMEDTJaeml4+OXdMN/LbxDEw5SqZwVC/mRotC12Oyhq9FMvOd
- GzGdKdwcV/yxvGo+lWThX8az+eUTbFXUeUFSFAY1ba7HcCPCDTrmLAn8gSwHMDOhyn69WQnLXrg
- TiFxvFC2v9g1ufJHiN702KiosiBViIYVdYHCdtiwFjToHpTj8jbrgCWnPX6D8gnebZyjPZrsHyl
- 1e14BtVt8dQL92uLDufxrU+HAvzADZHUAHd3M7wIPV+ITM0tH7b1GTiFD6Evho+3GsGmFY2iQNR
- iA6s6+xRq9xJUrg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1015; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=FjK4CXRYiETGn7OzM9We0k7POLcZSDg/Zv0Z2hVxi0I=;
+ b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBk0Ug9ionAyEQ00FE2RysKd05kyYmr3Uo7M3P+S
+ fZsake1O9WJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCZNFIPQAKCRAADmhBGVaC
+ FSb/D/46K68INm7LKy6yCb3jkxB2bvd3492M0QuN7zYTdZH4x4RyMrHVer1FcL+lgqeruzzWSEv
+ f1jPsb2uT+va62GuDI/zejA857D6P77Pxxt62BL6PnF8w9wZfjNo2RBhUJFbcYvEl7WV0QxsBOz
+ eVhLOFWlIfBl7qnRoQcQ1EXt/gqm3vncmzxpOhadSWSyAjf3Uyf3ySH1I8zBuzQ6i19jmqQ0RvT
+ bb3mEN/W/iBYc3G76Eud3bo16w9EvoB9nxjRlcTuuZvFPC7ModhHKFVftanzKrqnN++LssBxJTt
+ qCOGvNDD4XQsoYkNqWK/GeE2dbwuRgBPiPB4T/mRNQGXzoSkgEejZgIlG9UhkKivUvI8mAD1Fvf
+ EsZs1aXtF60wPVfCdR9EzkWR98DlT7wHqFko2/J5x3ayqhk5/Hd7Dxd9+3KOUjobqgsNV6z/0hu
+ iEa0QiZI9t2vkWtpHGQNGJWoW5i6lWMNl2ugTM4Ph4rAECf19PhJ6QMCL6sLB1t/Yg+5Y9QCkZa
+ u6JThQBEJCg3b3v0vqUh9tAePT84Au/SSSO41CUtR4p6gYotqAK/13vCIRlgBGFlSFirEva3rSu
+ O4r5y/T/dIV3T3tPLC2QfaJLzkymk/JC3a+VkmmiF/LAO2Y1vQ5KE1bfV2hX76K1OaxCpRxc3+Z
+ GjdlHLhrXMsZpbw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -130,9 +130,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [Cluster-devel] [PATCH v7 03/13] fs: drop the timespec64 arg from
- generic_update_time
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [Cluster-devel] [PATCH v7 04/13] btrfs: have it use
+ inode_update_timestamps
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,236 +157,42 @@ Cc: Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
-In future patches we're going to change how the ctime is updated
-to keep track of when it has been queried. The way that the update_time
-operation works (and a lot of its callers) make this difficult, since
-they grab a timestamp early and then pass it down to eventually be
-copied into the inode.
-
-All of the existing update_time callers pass in the result of
-current_time() in some fashion. Drop the "time" parameter from
-generic_update_time, and rework it to fetch its own timestamp.
-
-This change means that an update_time could fetch a different timestamp
-than was seen in inode_needs_update_time. update_time is only ever
-called with one of two flag combinations: Either S_ATIME is set, or
-S_MTIME|S_CTIME|S_VERSION are set.
-
-With this change we now treat the flags argument as an indicator that
-some value needed to be updated when last checked, rather than an
-indication to update specific timestamps.
-
-Rework the logic for updating the timestamps and put it in a new
-inode_update_timestamps helper that other update_time routines can use.
-S_ATIME is as treated as we always have, but if any of the other three
-are set, then we attempt to update all three.
-
-Also, some callers of generic_update_time need to know what timestamps
-were actually updated. Change it to return an S_* flag mask to indicate
-that and rework the callers to expect it.
+In later patches, we're going to drop the "now" argument from the
+update_time operation. Have btrfs_update_time use the new
+inode_update_timestamps helper to fetch a new timestamp and update it
+properly.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/gfs2/inode.c     |  3 +-
- fs/inode.c          | 84 +++++++++++++++++++++++++++++++++++++++++------------
- fs/orangefs/inode.c |  3 +-
- fs/ubifs/file.c     |  6 ++--
- fs/xfs/xfs_iops.c   |  6 ++--
- include/linux/fs.h  |  3 +-
- 6 files changed, 80 insertions(+), 25 deletions(-)
+ fs/btrfs/inode.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index 200cabf3b393..f1f04557aa21 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -2155,7 +2155,8 @@ static int gfs2_update_time(struct inode *inode, struct timespec64 *time,
- 		if (error)
- 			return error;
- 	}
--	return generic_update_time(inode, time, flags);
-+	generic_update_time(inode, flags);
-+	return 0;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 29a20f828dda..d52e7d64570a 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -6068,14 +6068,7 @@ static int btrfs_update_time(struct inode *inode, struct timespec64 *now,
+ 	if (btrfs_root_readonly(root))
+ 		return -EROFS;
+ 
+-	if (flags & S_VERSION)
+-		dirty |= inode_maybe_inc_iversion(inode, dirty);
+-	if (flags & S_CTIME)
+-		inode_set_ctime_to_ts(inode, *now);
+-	if (flags & S_MTIME)
+-		inode->i_mtime = *now;
+-	if (flags & S_ATIME)
+-		inode->i_atime = *now;
++	dirty = inode_update_timestamps(inode, flags);
+ 	return dirty ? btrfs_dirty_inode(BTRFS_I(inode)) : 0;
  }
  
- static const struct inode_operations gfs2_file_iops = {
-diff --git a/fs/inode.c b/fs/inode.c
-index 3fc251bfaf73..e07e45f6cd01 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -1881,29 +1881,76 @@ static int relatime_need_update(struct vfsmount *mnt, struct inode *inode,
- 	return 0;
- }
- 
--int generic_update_time(struct inode *inode, struct timespec64 *time, int flags)
-+/**
-+ * inode_update_timestamps - update the timestamps on the inode
-+ * @inode: inode to be updated
-+ * @flags: S_* flags that needed to be updated
-+ *
-+ * The update_time function is called when an inode's timestamps need to be
-+ * updated for a read or write operation. This function handles updating the
-+ * actual timestamps. It's up to the caller to ensure that the inode is marked
-+ * dirty appropriately.
-+ *
-+ * In the case where any of S_MTIME, S_CTIME, or S_VERSION need to be updated,
-+ * attempt to update all three of them. S_ATIME updates can be handled
-+ * independently of the rest.
-+ *
-+ * Returns a set of S_* flags indicating which values changed.
-+ */
-+int inode_update_timestamps(struct inode *inode, int flags)
- {
--	int dirty_flags = 0;
-+	int updated = 0;
-+	struct timespec64 now;
-+
-+	if (flags & (S_MTIME|S_CTIME|S_VERSION)) {
-+		struct timespec64 ctime = inode_get_ctime(inode);
- 
--	if (flags & (S_ATIME | S_CTIME | S_MTIME)) {
--		if (flags & S_ATIME)
--			inode->i_atime = *time;
--		if (flags & S_CTIME)
--			inode_set_ctime_to_ts(inode, *time);
--		if (flags & S_MTIME)
--			inode->i_mtime = *time;
--
--		if (inode->i_sb->s_flags & SB_LAZYTIME)
--			dirty_flags |= I_DIRTY_TIME;
--		else
--			dirty_flags |= I_DIRTY_SYNC;
-+		now = inode_set_ctime_current(inode);
-+		if (!timespec64_equal(&now, &ctime))
-+			updated |= S_CTIME;
-+		if (!timespec64_equal(&now, &inode->i_mtime)) {
-+			inode->i_mtime = now;
-+			updated |= S_MTIME;
-+		}
-+		if (IS_I_VERSION(inode) && inode_maybe_inc_iversion(inode, updated))
-+			updated |= S_VERSION;
-+	} else {
-+		now = current_time(inode);
- 	}
- 
--	if ((flags & S_VERSION) && inode_maybe_inc_iversion(inode, false))
--		dirty_flags |= I_DIRTY_SYNC;
-+	if (flags & S_ATIME) {
-+		if (!timespec64_equal(&now, &inode->i_atime)) {
-+			inode->i_atime = now;
-+			updated |= S_ATIME;
-+		}
-+	}
-+	return updated;
-+}
-+EXPORT_SYMBOL(inode_update_timestamps);
-+
-+/**
-+ * generic_update_time - update the timestamps on the inode
-+ * @inode: inode to be updated
-+ * @flags: S_* flags that needed to be updated
-+ *
-+ * The update_time function is called when an inode's timestamps need to be
-+ * updated for a read or write operation. In the case where any of S_MTIME, S_CTIME,
-+ * or S_VERSION need to be updated we attempt to update all three of them. S_ATIME
-+ * updates can be handled done independently of the rest.
-+ *
-+ * Returns a S_* mask indicating which fields were updated.
-+ */
-+int generic_update_time(struct inode *inode, int flags)
-+{
-+	int updated = inode_update_timestamps(inode, flags);
-+	int dirty_flags = 0;
- 
-+	if (updated & (S_ATIME|S_MTIME|S_CTIME))
-+		dirty_flags = inode->i_sb->s_flags & SB_LAZYTIME ? I_DIRTY_TIME : I_DIRTY_SYNC;
-+	if (updated & S_VERSION)
-+		dirty_flags |= I_DIRTY_SYNC;
- 	__mark_inode_dirty(inode, dirty_flags);
--	return 0;
-+	return updated;
- }
- EXPORT_SYMBOL(generic_update_time);
- 
-@@ -1915,7 +1962,8 @@ int inode_update_time(struct inode *inode, struct timespec64 *time, int flags)
- {
- 	if (inode->i_op->update_time)
- 		return inode->i_op->update_time(inode, time, flags);
--	return generic_update_time(inode, time, flags);
-+	generic_update_time(inode, flags);
-+	return 0;
- }
- EXPORT_SYMBOL(inode_update_time);
- 
-diff --git a/fs/orangefs/inode.c b/fs/orangefs/inode.c
-index a52c30e80f45..3afa2a69bc63 100644
---- a/fs/orangefs/inode.c
-+++ b/fs/orangefs/inode.c
-@@ -903,9 +903,10 @@ int orangefs_permission(struct mnt_idmap *idmap,
- int orangefs_update_time(struct inode *inode, struct timespec64 *time, int flags)
- {
- 	struct iattr iattr;
-+
- 	gossip_debug(GOSSIP_INODE_DEBUG, "orangefs_update_time: %pU\n",
- 	    get_khandle_from_ino(inode));
--	generic_update_time(inode, time, flags);
-+	flags = generic_update_time(inode, flags);
- 	memset(&iattr, 0, sizeof iattr);
-         if (flags & S_ATIME)
- 		iattr.ia_valid |= ATTR_ATIME;
-diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-index 436b27d7c58f..df9086b19cd0 100644
---- a/fs/ubifs/file.c
-+++ b/fs/ubifs/file.c
-@@ -1387,8 +1387,10 @@ int ubifs_update_time(struct inode *inode, struct timespec64 *time,
- 			.dirtied_ino_d = ALIGN(ui->data_len, 8) };
- 	int err, release;
- 
--	if (!IS_ENABLED(CONFIG_UBIFS_ATIME_SUPPORT))
--		return generic_update_time(inode, time, flags);
-+	if (!IS_ENABLED(CONFIG_UBIFS_ATIME_SUPPORT)) {
-+		generic_update_time(inode, flags);
-+		return 0;
-+	}
- 
- 	err = ubifs_budget_space(c, &req);
- 	if (err)
-diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
-index 3a9363953ef2..731f45391baa 100644
---- a/fs/xfs/xfs_iops.c
-+++ b/fs/xfs/xfs_iops.c
-@@ -1042,8 +1042,10 @@ xfs_vn_update_time(
- 
- 	if (inode->i_sb->s_flags & SB_LAZYTIME) {
- 		if (!((flags & S_VERSION) &&
--		      inode_maybe_inc_iversion(inode, false)))
--			return generic_update_time(inode, now, flags);
-+		      inode_maybe_inc_iversion(inode, false))) {
-+			generic_update_time(inode, flags);
-+			return 0;
-+		}
- 
- 		/* Capture the iversion update that just occurred */
- 		log_flags |= XFS_ILOG_CORE;
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 85977cdeda94..bb3c2c4f871f 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2343,7 +2343,8 @@ extern int current_umask(void);
- 
- extern void ihold(struct inode * inode);
- extern void iput(struct inode *);
--extern int generic_update_time(struct inode *, struct timespec64 *, int);
-+int inode_update_timestamps(struct inode *inode, int flags);
-+int generic_update_time(struct inode *, int);
- 
- /* /sys/fs */
- extern struct kobject *fs_kobj;
 
 -- 
 2.41.0
