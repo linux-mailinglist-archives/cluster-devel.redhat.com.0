@@ -1,100 +1,91 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7528E772143
-	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 13:20:22 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F544772797
+	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 16:23:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691407221;
+	s=mimecast20190719; t=1691418236;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+T9zoPssix7N9qfaGNa68znQHEAFyeYciCKXdVaHQFo=;
-	b=Bck6R/TfLhW+tpHQ5ZxSShRBSHpnumScg9Ua2vVJGckirgTZ9mYn6Ien9gkMhEZFtjFyL3
-	D1iEnR6qjxlRi3pnGfZxrJwSHvHHAB1W1jD6TJkxezXNxsf8qNFN7fN/eykRJZdd3KooBL
-	KOqiXzhGhy9hRRqZUJG1hzeeR4mQhSo=
+	bh=miXhKIkPE3lmozcU/B+jO2gbohIQfxtvXQrL6JQrLaA=;
+	b=NaeKIxSK0MXFLDBtVQfsMprDvFX16yvbUsv3slpDrDwXMJJiieIHBikEc3Yl3NzOuONJAM
+	P6wXlA+Vtgix3fJvubNOlgi3V5GogoQfNqNnrJxCeY6z40bfpbqJmqUqkx0QPEa7gp1V00
+	br7CBxfrjPfGsHdw4uPZQmbXlTHUup4=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-695-8a_jWyyaMPiv2nw9lzJt9A-1; Mon, 07 Aug 2023 07:20:18 -0400
-X-MC-Unique: 8a_jWyyaMPiv2nw9lzJt9A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-228-lRm4Xfj2OG29qQquUjoE1w-1; Mon, 07 Aug 2023 10:23:52 -0400
+X-MC-Unique: lRm4Xfj2OG29qQquUjoE1w-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1DDB29AB3E7;
-	Mon,  7 Aug 2023 11:20:17 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A26753C1350B;
+	Mon,  7 Aug 2023 14:23:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6DA211759C;
-	Mon,  7 Aug 2023 11:20:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 96F8140C2077;
+	Mon,  7 Aug 2023 14:23:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2FC4B1946589;
-	Mon,  7 Aug 2023 11:20:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 465421946589;
+	Mon,  7 Aug 2023 14:23:45 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A4C031946586 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  7 Aug 2023 11:20:15 +0000 (UTC)
+ ESMTP id 642C11946588 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  7 Aug 2023 14:14:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8769A2166B26; Mon,  7 Aug 2023 11:20:15 +0000 (UTC)
+ id C82061121315; Mon,  7 Aug 2023 14:14:57 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7FA822166B25
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:20:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BF7DA1121314
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 14:14:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D23D800C7A
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:20:15 +0000 (UTC)
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9672C29AA3A5
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 14:14:57 +0000 (UTC)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-3Jwnomm9OWmP0cVS-je-Qg-2; Mon, 07 Aug 2023 07:20:13 -0400
-X-MC-Unique: 3Jwnomm9OWmP0cVS-je-Qg-2
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-2690803a368so591679a91.1
- for <cluster-devel@redhat.com>; Mon, 07 Aug 2023 04:20:13 -0700 (PDT)
+ us-mta-605-2FhlCo4IN76vWtoy3JGRrQ-1; Mon, 07 Aug 2023 10:14:55 -0400
+X-MC-Unique: 2FhlCo4IN76vWtoy3JGRrQ-1
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2b9f0b7af65so70124641fa.1
+ for <cluster-devel@redhat.com>; Mon, 07 Aug 2023 07:14:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691407213; x=1692012013;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1691417694; x=1692022494;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+T9zoPssix7N9qfaGNa68znQHEAFyeYciCKXdVaHQFo=;
- b=O1eK3JEeNO6jJXv2VosGhUn6seNJYPItULU1GesyJEx+DsE+wiik8jlf0dvEHO2o02
- 0D9g2y1nDwTI/B6n1RP9W9WtIa3awOHe7pEiwI4Q6aoBgvjoOCfhQleitjL6h4/VeTR3
- HQ4KN+ayR5+UBJjGlAc9hqBNHFPjCwVxk4YQlinTGbW4BLR4D5scE5dsiN2uSgqDCqZw
- dMwwgbxkLmRzm4JONjSSd7CrR8nI6rFps3Pi/25xcNUJw3+wFtAlfsPUz8bdentMUAOi
- FtOckV2P3EFC42QvkR1xM/LNYjWw9MT+Mm3eXK/l/lll2Nq36Dv28PyugmsD7y7865nh
- o0gw==
-X-Gm-Message-State: AOJu0YyFt0nJk9BrwVtcGtMJbrhkrD7NhAY3/TLDnicpAmoOf3xAef1G
- AkJTQRovj7dx96VjhgjLKvs2Mw==
-X-Google-Smtp-Source: AGHT+IF0evmdLrDlsDTr5Y4TU4NmdZynXgLSKug5uHjkOo8cedCVYEqxJp+s7Xi+ZKGxMcrB3jNS6g==
-X-Received: by 2002:a17:90a:648:b0:269:60ed:d493 with SMTP id
- q8-20020a17090a064800b0026960edd493mr1830877pje.4.1691407213020; 
- Mon, 07 Aug 2023 04:20:13 -0700 (PDT)
-Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
- by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.20.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:20:12 -0700 (PDT)
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
- steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
- yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
- simon.horman@corigine.com, dlemoal@kernel.org
-Date: Mon,  7 Aug 2023 19:09:36 +0800
-Message-Id: <20230807110936.21819-49-zhengqi.arch@bytedance.com>
-In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
-References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
+ bh=miXhKIkPE3lmozcU/B+jO2gbohIQfxtvXQrL6JQrLaA=;
+ b=eBzHYoc25ynAl3HGgYrfD6NGzkkZrFeuwINwGvT+2ex/dNRwcnEogR1g3489yM5dwF
+ IMvNgVwRIXgZTOUD07X/qaEITyxkXOijRYPJNekZHtOAGAgduHrtvm1015zUR+gVylME
+ RLJbVHFLRc3+NcD7ZVx8s6n7J8rM5Ze3XLff464fMthAvrd6BYoJzpLpe8kAlOsv47hL
+ URSFyofg5kQ70MXg5nzMZ8I7XcYVkv+APFCFnG1ySpPshwTzlRbwRPLuaV1QrfGiZCPR
+ bAZjUrie/2h9sH+hdcxBOdt6z+lXgqZ1EcUDLk21Mrs4ano7k5bMvZQaUfQG4DLJWsvQ
+ 6ycQ==
+X-Gm-Message-State: AOJu0Yy3+6gR4hPMoyvMcI3vH8ieTkaVF//UHoMfZLapMCFC0MChPy2X
+ QfCDgWPpXZeWpaO9tchwsQs5Dv7crbmm+sR234ducQ==
+X-Google-Smtp-Source: AGHT+IEUzxQ8uhfef4Gwj5w4R2S1a/fG2YmFdaAnrERcAODuTjnUg5MW8ffcyCI3WwFTK01hsv/WyE2OTkrmMwFZBOU=
+X-Received: by 2002:a2e:9254:0:b0:2b6:dfef:d526 with SMTP id
+ v20-20020a2e9254000000b002b6dfefd526mr6547671ljg.11.1691417693488; Mon, 07
+ Aug 2023 07:14:53 -0700 (PDT)
 MIME-Version: 1.0
+References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
+ <20230807110936.21819-20-zhengqi.arch@bytedance.com>
+In-Reply-To: <20230807110936.21819-20-zhengqi.arch@bytedance.com>
+From: Joel Fernandes <joel@joelfernandes.org>
+Date: Mon, 7 Aug 2023 10:14:48 -0400
+Message-ID: <CAEXW_YQHGBE2kKupLf12BGOEU5GnQsBUtVQcyMnzxUZ4y48QFA@mail.gmail.com>
+To: Qi Zheng <zhengqi.arch@bytedance.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -102,9 +93,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Cluster-devel] [PATCH v4 48/48] mm: shrinker: convert
- shrinker_rwsem to mutex
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mailman-Approved-At: Mon, 07 Aug 2023 14:23:44 +0000
+Subject: Re: [Cluster-devel] [PATCH v4 19/48] rcu: dynamically allocate the
+ rcu-kfree shrinker
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,253 +108,98 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
+ david@fromorbit.com, dri-devel@lists.freedesktop.org,
  virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- dm-devel@redhat.com, linux-mtd@lists.infradead.org, x86@kernel.org,
- cluster-devel@redhat.com, xen-devel@lists.xenproject.org,
- linux-ext4@vger.kernel.org, linux-arm-msm@vger.kernel.org, rcu@vger.kernel.org,
- linux-bcache@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
- linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ dm-devel@redhat.com, linux-mtd@lists.infradead.org, cel@kernel.org,
+ x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
+ simon.horman@corigine.com, xen-devel@lists.xenproject.org,
+ linux-ext4@vger.kernel.org, paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-nfs@vger.kernel.org, rcu@vger.kernel.org, linux-bcache@vger.kernel.org,
+ dlemoal@kernel.org, yujie.liu@intel.com, vbabka@suse.cz,
+ linux-raid@vger.kernel.org, brauner@kernel.org, tytso@mit.edu,
+ gregkh@linuxfoundation.org, muchun.song@linux.dev,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+ linux-xfs@vger.kernel.org, senozhatsky@chromium.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: bytedance.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mimecast-Originator: joelfernandes.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Now there are no readers of shrinker_rwsem, so we can simply replace it
-with mutex lock.
+On Mon, Aug 7, 2023 at 7:17=E2=80=AFAM Qi Zheng <zhengqi.arch@bytedance.com=
+> wrote:
+>
+> Use new APIs to dynamically allocate the rcu-kfree shrinker.
+>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- drivers/md/dm-cache-metadata.c |  2 +-
- fs/super.c                     |  2 +-
- mm/shrinker.c                  | 28 ++++++++++++++--------------
- mm/shrinker_debug.c            | 14 +++++++-------
- 4 files changed, 23 insertions(+), 23 deletions(-)
+For RCU:
+Reviewed-by: Joel Fernandes (Google) <joel@joelfernandes.org>
 
-diff --git a/drivers/md/dm-cache-metadata.c b/drivers/md/dm-cache-metadata.c
-index acffed750e3e..9e0c69958587 100644
---- a/drivers/md/dm-cache-metadata.c
-+++ b/drivers/md/dm-cache-metadata.c
-@@ -1828,7 +1828,7 @@ int dm_cache_metadata_abort(struct dm_cache_metadata *cmd)
- 	 * Replacement block manager (new_bm) is created and old_bm destroyed outside of
- 	 * cmd root_lock to avoid ABBA deadlock that would result (due to life-cycle of
- 	 * shrinker associated with the block manager's bufio client vs cmd root_lock).
--	 * - must take shrinker_rwsem without holding cmd->root_lock
-+	 * - must take shrinker_mutex without holding cmd->root_lock
- 	 */
- 	new_bm = dm_block_manager_create(cmd->bdev, DM_CACHE_METADATA_BLOCK_SIZE << SECTOR_SHIFT,
- 					 CACHE_MAX_CONCURRENT_LOCKS);
-diff --git a/fs/super.c b/fs/super.c
-index a28193045345..60c2d290c754 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -54,7 +54,7 @@ static char *sb_writers_name[SB_FREEZE_LEVELS] = {
-  * One thing we have to be careful of with a per-sb shrinker is that we don't
-  * drop the last active reference to the superblock from within the shrinker.
-  * If that happens we could trigger unregistering the shrinker from within the
-- * shrinker path and that leads to deadlock on the shrinker_rwsem. Hence we
-+ * shrinker path and that leads to deadlock on the shrinker_mutex. Hence we
-  * take a passive reference to the superblock to avoid this from occurring.
-  */
- static unsigned long super_cache_scan(struct shrinker *shrink,
-diff --git a/mm/shrinker.c b/mm/shrinker.c
-index a12dede5d21f..3d44a335ef3c 100644
---- a/mm/shrinker.c
-+++ b/mm/shrinker.c
-@@ -8,7 +8,7 @@
- #include "internal.h"
- 
- LIST_HEAD(shrinker_list);
--DECLARE_RWSEM(shrinker_rwsem);
-+DEFINE_MUTEX(shrinker_mutex);
- 
- #ifdef CONFIG_MEMCG
- static int shrinker_nr_max;
-@@ -80,7 +80,7 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- 	int nid, ret = 0;
- 	int array_size = 0;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	array_size = shrinker_unit_size(shrinker_nr_max);
- 	for_each_node(nid) {
- 		info = kvzalloc_node(sizeof(*info) + array_size, GFP_KERNEL, nid);
-@@ -91,7 +91,7 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- 			goto err;
- 		rcu_assign_pointer(memcg->nodeinfo[nid]->shrinker_info, info);
- 	}
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	return ret;
- 
-@@ -104,7 +104,7 @@ static struct shrinker_info *shrinker_info_protected(struct mem_cgroup *memcg,
- 						     int nid)
- {
- 	return rcu_dereference_protected(memcg->nodeinfo[nid]->shrinker_info,
--					 lockdep_is_held(&shrinker_rwsem));
-+					 lockdep_is_held(&shrinker_mutex));
- }
- 
- static struct shrinker_info *shrinker_info_rcu(struct mem_cgroup *memcg,
-@@ -161,7 +161,7 @@ static int expand_shrinker_info(int new_id)
- 	if (!root_mem_cgroup)
- 		goto out;
- 
--	lockdep_assert_held(&shrinker_rwsem);
-+	lockdep_assert_held(&shrinker_mutex);
- 
- 	new_size = shrinker_unit_size(new_nr_max);
- 	old_size = shrinker_unit_size(shrinker_nr_max);
-@@ -224,7 +224,7 @@ static int shrinker_memcg_alloc(struct shrinker *shrinker)
- 	if (mem_cgroup_disabled())
- 		return -ENOSYS;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	id = idr_alloc(&shrinker_idr, shrinker, 0, 0, GFP_KERNEL);
- 	if (id < 0)
- 		goto unlock;
-@@ -238,7 +238,7 @@ static int shrinker_memcg_alloc(struct shrinker *shrinker)
- 	shrinker->id = id;
- 	ret = 0;
- unlock:
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 	return ret;
- }
- 
-@@ -248,7 +248,7 @@ static void shrinker_memcg_remove(struct shrinker *shrinker)
- 
- 	BUG_ON(id < 0);
- 
--	lockdep_assert_held(&shrinker_rwsem);
-+	lockdep_assert_held(&shrinker_mutex);
- 
- 	idr_remove(&shrinker_idr, id);
- }
-@@ -299,7 +299,7 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
- 		parent = root_mem_cgroup;
- 
- 	/* Prevent from concurrent shrinker_info expand */
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	for_each_node(nid) {
- 		child_info = shrinker_info_protected(memcg, nid);
- 		parent_info = shrinker_info_protected(parent, nid);
-@@ -312,7 +312,7 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
- 			}
- 		}
- 	}
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- }
- #else
- static int shrinker_memcg_alloc(struct shrinker *shrinker)
-@@ -708,11 +708,11 @@ void shrinker_register(struct shrinker *shrinker)
- 		return;
- 	}
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	list_add_tail_rcu(&shrinker->list, &shrinker_list);
- 	shrinker->flags |= SHRINKER_REGISTERED;
- 	shrinker_debugfs_add(shrinker);
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	init_completion(&shrinker->done);
- 	/*
-@@ -745,7 +745,7 @@ void shrinker_free(struct shrinker *shrinker)
- 		wait_for_completion(&shrinker->done);
- 	}
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	if (shrinker->flags & SHRINKER_REGISTERED) {
- 		/*
- 		 * Lookups on the shrinker are over and will fail in the future,
-@@ -760,7 +760,7 @@ void shrinker_free(struct shrinker *shrinker)
- 
- 	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
- 		shrinker_memcg_remove(shrinker);
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	if (debugfs_entry)
- 		shrinker_debugfs_remove(debugfs_entry, debugfs_id);
-diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
-index aa2027075ed9..b698ca9e309e 100644
---- a/mm/shrinker_debug.c
-+++ b/mm/shrinker_debug.c
-@@ -7,7 +7,7 @@
- #include <linux/memcontrol.h>
- 
- /* defined in vmscan.c */
--extern struct rw_semaphore shrinker_rwsem;
-+extern struct mutex shrinker_mutex;
- extern struct list_head shrinker_list;
- 
- static DEFINE_IDA(shrinker_debugfs_ida);
-@@ -163,7 +163,7 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
- 	char buf[128];
- 	int id;
- 
--	lockdep_assert_held(&shrinker_rwsem);
-+	lockdep_assert_held(&shrinker_mutex);
- 
- 	/* debugfs isn't initialized yet, add debugfs entries later. */
- 	if (!shrinker_debugfs_root)
-@@ -220,7 +220,7 @@ int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
- 	if (!new)
- 		return -ENOMEM;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 
- 	old = shrinker->name;
- 	shrinker->name = new;
-@@ -238,7 +238,7 @@ int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
- 			shrinker->debugfs_entry = entry;
- 	}
- 
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	kfree_const(old);
- 
-@@ -251,7 +251,7 @@ struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
- {
- 	struct dentry *entry = shrinker->debugfs_entry;
- 
--	lockdep_assert_held(&shrinker_rwsem);
-+	lockdep_assert_held(&shrinker_mutex);
- 
- 	shrinker_debugfs_name_free(shrinker);
- 
-@@ -279,14 +279,14 @@ static int __init shrinker_debugfs_init(void)
- 	shrinker_debugfs_root = dentry;
- 
- 	/* Create debugfs entries for shrinkers registered at boot */
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	list_for_each_entry(shrinker, &shrinker_list, list)
- 		if (!shrinker->debugfs_entry) {
- 			ret = shrinker_debugfs_add(shrinker);
- 			if (ret)
- 				break;
- 		}
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	return ret;
- }
--- 
-2.30.2
+thanks,
+
+- Joel
+
+
+> ---
+>  kernel/rcu/tree.c | 22 +++++++++++++---------
+>  1 file changed, 13 insertions(+), 9 deletions(-)
+>
+> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+> index 7c79480bfaa0..3b20fc46c514 100644
+> --- a/kernel/rcu/tree.c
+> +++ b/kernel/rcu/tree.c
+> @@ -3449,13 +3449,6 @@ kfree_rcu_shrink_scan(struct shrinker *shrink, str=
+uct shrink_control *sc)
+>         return freed =3D=3D 0 ? SHRINK_STOP : freed;
+>  }
+>
+> -static struct shrinker kfree_rcu_shrinker =3D {
+> -       .count_objects =3D kfree_rcu_shrink_count,
+> -       .scan_objects =3D kfree_rcu_shrink_scan,
+> -       .batch =3D 0,
+> -       .seeks =3D DEFAULT_SEEKS,
+> -};
+> -
+>  void __init kfree_rcu_scheduler_running(void)
+>  {
+>         int cpu;
+> @@ -4931,6 +4924,7 @@ static void __init kfree_rcu_batch_init(void)
+>  {
+>         int cpu;
+>         int i, j;
+> +       struct shrinker *kfree_rcu_shrinker;
+>
+>         /* Clamp it to [0:100] seconds interval. */
+>         if (rcu_delay_page_cache_fill_msec < 0 ||
+> @@ -4962,8 +4956,18 @@ static void __init kfree_rcu_batch_init(void)
+>                 INIT_DELAYED_WORK(&krcp->page_cache_work, fill_page_cache=
+_func);
+>                 krcp->initialized =3D true;
+>         }
+> -       if (register_shrinker(&kfree_rcu_shrinker, "rcu-kfree"))
+> -               pr_err("Failed to register kfree_rcu() shrinker!\n");
+> +
+> +       kfree_rcu_shrinker =3D shrinker_alloc(0, "rcu-kfree");
+> +       if (!kfree_rcu_shrinker) {
+> +               pr_err("Failed to allocate kfree_rcu() shrinker!\n");
+> +               return;
+> +       }
+> +
+> +       kfree_rcu_shrinker->count_objects =3D kfree_rcu_shrink_count;
+> +       kfree_rcu_shrinker->scan_objects =3D kfree_rcu_shrink_scan;
+> +       kfree_rcu_shrinker->seeks =3D DEFAULT_SEEKS;
+> +
+> +       shrinker_register(kfree_rcu_shrinker);
+>  }
+>
+>  void __init rcu_init(void)
+> --
+> 2.30.2
+>
 
