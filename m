@@ -2,87 +2,86 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5985772041
-	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 13:14:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AE1877204D
+	for <lists+cluster-devel@lfdr.de>; Mon,  7 Aug 2023 13:14:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691406876;
+	s=mimecast20190719; t=1691406888;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=igblsYgdIrcTAL0swCZj529c9jjsKo5CwfFS1Qcng2s=;
-	b=DAjkJnDgrPGpcM5V9Uc/j/IAjUTecIkwTbzqwnIm7pVSwpVSTYOT2If1pHIiy64k/DupAD
-	GUsVxkDvlxZ46u1frpBOpuenK1RJtgJQYgFUZkpNyxI+kNw2h6cA+qiHDl0x2O1q9WunQj
-	LYpAUc1ePC+CDNf/g88/S/8in5B50Pc=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-IGG0ms_GME2e9ln0i0Nm9Q-1; Mon, 07 Aug 2023 07:14:33 -0400
-X-MC-Unique: IGG0ms_GME2e9ln0i0Nm9Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=uDu/4z0sff3MNLq2Hem41DvJLtW9HR7Ht2OY0+o3IBw=;
+	b=BcODt1w7A5CWZ4lIMqrde/+/FmwVEozWihNVOJf8QTK745P71DzsuAABhvNKeEhAXBBp0o
+	7TyVhSIveZsUqeCEezGBoxzrs3kq5Hkm1RzOCSUNClk1poAVLBDjYkVz+Gwv1jTvyA0B+h
+	Zy9yWmkDGY19qJgAnhxHll257Y3DeQo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-73-5G7niDIuNz6MknNbB0aFlQ-1; Mon, 07 Aug 2023 07:14:45 -0400
+X-MC-Unique: 5G7niDIuNz6MknNbB0aFlQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F31829AB3FB;
-	Mon,  7 Aug 2023 11:14:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D8A885CCE1;
+	Mon,  7 Aug 2023 11:14:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 02A094050068;
-	Mon,  7 Aug 2023 11:14:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1A1FE1759C;
+	Mon,  7 Aug 2023 11:14:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C52991946589;
-	Mon,  7 Aug 2023 11:14:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D61A41946589;
+	Mon,  7 Aug 2023 11:14:43 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7E1621946586 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  7 Aug 2023 11:14:30 +0000 (UTC)
+ ESMTP id 5A1551946588 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  7 Aug 2023 11:14:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 674F4403168; Mon,  7 Aug 2023 11:14:30 +0000 (UTC)
+ id 215104050067; Mon,  7 Aug 2023 11:14:43 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F3594021C9
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:14:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C36A8DC666
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:14:30 +0000 (UTC)
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 197534050068
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:14:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA3403C0E456
+ for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 11:14:42 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-561-PoEbGeu1OFKWTyTLDUqgDg-1; Mon, 07 Aug 2023 07:14:28 -0400
-X-MC-Unique: PoEbGeu1OFKWTyTLDUqgDg-1
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-55badd6d6feso571794a12.1
- for <cluster-devel@redhat.com>; Mon, 07 Aug 2023 04:14:27 -0700 (PDT)
+ us-mta-499-HmK2H7rIN5OpiL-4vgFU4Q-1; Mon, 07 Aug 2023 07:14:40 -0400
+X-MC-Unique: HmK2H7rIN5OpiL-4vgFU4Q-1
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-26890669c8eso931993a91.1
+ for <cluster-devel@redhat.com>; Mon, 07 Aug 2023 04:14:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691406867; x=1692011667;
+ d=1e100.net; s=20221208; t=1691406880; x=1692011680;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=igblsYgdIrcTAL0swCZj529c9jjsKo5CwfFS1Qcng2s=;
- b=HrvW+Wr5xyeosYYZnVWZbQKVeFNjfsciQ+Aimmp27OtQMRiopkMKYKAcDt+3QS8odD
- XT1/91na8noz3H2F/ZhBfU8InUdmAP/qYIYI0RSouBw361p/mBCpKNzA9fsC89t2rBzx
- 4XQ3ux2nrgdFGnT9U2PutEWJ6iQRBvvzEsPnS9qEvyiDMe/X+HpJ8td9F7eENTmcJsQb
- 2uognAX+4txFFa5oxg9hUtrQggk8Sq0YHgDeACHwP4ZlGmBFadrAJf2/EOjt6E3Uo+/g
- SGC+siSjJN5fVhGwfVOaul2gAj4ZLGOt2N13gm2QQFczJ0TuhsbYwjkTNfBOZzwB3L4t
- jMaw==
-X-Gm-Message-State: ABy/qLaFgoRrcOyr/bjgW6n9dD3++/PpNCg2Nlr8ZevQ+tuQcPeM+b6r
- vwRhDhbNBkwDj0Farwth2T262A==
-X-Google-Smtp-Source: APBJJlGEDKqK4nyUWs8xE2EOJL+ODt25deDnA1/u8sHRAURqC7uD6bjxMDwwed+SXn6y84Un7sE7wA==
-X-Received: by 2002:a17:90a:1090:b0:268:126c:8a8b with SMTP id
- c16-20020a17090a109000b00268126c8a8bmr24570134pja.3.1691406867003; 
- Mon, 07 Aug 2023 04:14:27 -0700 (PDT)
+ bh=uDu/4z0sff3MNLq2Hem41DvJLtW9HR7Ht2OY0+o3IBw=;
+ b=OxNXBb2tn6H6Gsw87EMouLO8SRV49kif8u2R7rZK0oJ3Cs3R7Y0oo6Dh1h6Poix/Ez
+ 4j+kzR9SdFrMgIUoPfgtKxhjPQMwqqHiWndnPPIGzVzBYvKJkwi2R3mqusO3HUWy7SlB
+ 7gidL3v1k15YOjwJxkRp/5dQEPH55ebas2BX7HugQe5+hUfEJfCw/nTuZpSOEJaAW7XK
+ bhIfNcYj7/xHO6RUhzFopM2WF+FU4q8++rpXquddKuPxwK6WS/t81gvKN/6UdtxAauGo
+ 6gUTO9xos+6tENk0z2oqKi8ElGFsDaUCRziCJ+jdN/jPKmrNbeGefMcwD6DgG0N2Sk/v
+ svwA==
+X-Gm-Message-State: ABy/qLaZViUHb/N+wJ2avSibyjKPBPV5RYWcrV3pD3h/55vk9ilHzw7w
+ VnAZnNffx+gKvs2vvn5YbE8yUA==
+X-Google-Smtp-Source: APBJJlE+JUQU2KnCMqxKRhVbnyE7g/MjXwiwJL23ihCwbN9GtK/yS0Snkx/m2fq2fyEzRCC+VQ52VA==
+X-Received: by 2002:a17:90a:1f83:b0:268:3dc6:f0c5 with SMTP id
+ x3-20020a17090a1f8300b002683dc6f0c5mr25034377pja.0.1691406879873; 
+ Mon, 07 Aug 2023 04:14:39 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.14.14
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.14.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:14:26 -0700 (PDT)
+ Mon, 07 Aug 2023 04:14:39 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
@@ -90,8 +89,8 @@ To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
  simon.horman@corigine.com, dlemoal@kernel.org
-Date: Mon,  7 Aug 2023 19:09:09 +0800
-Message-Id: <20230807110936.21819-22-zhengqi.arch@bytedance.com>
+Date: Mon,  7 Aug 2023 19:09:10 +0800
+Message-Id: <20230807110936.21819-23-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -102,9 +101,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Cluster-devel] [PATCH v4 21/48] sunrpc: dynamically allocate the
- sunrpc_cred shrinker
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [Cluster-devel] [PATCH v4 22/48] mm: workingset: dynamically
+ allocate the mm-shadow shrinker
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,71 +121,84 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  cluster-devel@redhat.com, xen-devel@lists.xenproject.org,
  linux-ext4@vger.kernel.org, linux-arm-msm@vger.kernel.org, rcu@vger.kernel.org,
  linux-bcache@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
- Muchun Song <songmuchun@bytedance.com>, linux-raid@vger.kernel.org,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
  linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Use new APIs to dynamically allocate the sunrpc_cred shrinker.
+Use new APIs to dynamically allocate the mm-shadow shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- net/sunrpc/auth.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ mm/workingset.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/net/sunrpc/auth.c b/net/sunrpc/auth.c
-index 2f16f9d17966..0cc52e39f859 100644
---- a/net/sunrpc/auth.c
-+++ b/net/sunrpc/auth.c
-@@ -861,11 +861,7 @@ rpcauth_uptodatecred(struct rpc_task *task)
- 		test_bit(RPCAUTH_CRED_UPTODATE, &cred->cr_flags) != 0;
+diff --git a/mm/workingset.c b/mm/workingset.c
+index da58a26d0d4d..3c53138903a7 100644
+--- a/mm/workingset.c
++++ b/mm/workingset.c
+@@ -763,13 +763,6 @@ static unsigned long scan_shadow_nodes(struct shrinker *shrinker,
+ 					NULL);
  }
  
--static struct shrinker rpc_cred_shrinker = {
--	.count_objects = rpcauth_cache_shrink_count,
--	.scan_objects = rpcauth_cache_shrink_scan,
--	.seeks = DEFAULT_SEEKS,
+-static struct shrinker workingset_shadow_shrinker = {
+-	.count_objects = count_shadow_nodes,
+-	.scan_objects = scan_shadow_nodes,
+-	.seeks = 0, /* ->count reports only fully expendable nodes */
+-	.flags = SHRINKER_NUMA_AWARE | SHRINKER_MEMCG_AWARE,
 -};
-+static struct shrinker *rpc_cred_shrinker;
+-
+ /*
+  * Our list_lru->lock is IRQ-safe as it nests inside the IRQ-safe
+  * i_pages lock.
+@@ -778,9 +771,10 @@ static struct lock_class_key shadow_nodes_key;
  
- int __init rpcauth_init_module(void)
+ static int __init workingset_init(void)
  {
-@@ -874,9 +870,18 @@ int __init rpcauth_init_module(void)
- 	err = rpc_init_authunix();
- 	if (err < 0)
- 		goto out1;
--	err = register_shrinker(&rpc_cred_shrinker, "sunrpc_cred");
--	if (err < 0)
-+	rpc_cred_shrinker = shrinker_alloc(0, "sunrpc_cred");
-+	if (!rpc_cred_shrinker) {
-+		err = -ENOMEM;
- 		goto out2;
-+	}
++	struct shrinker *workingset_shadow_shrinker;
+ 	unsigned int timestamp_bits;
+ 	unsigned int max_order;
+-	int ret;
++	int ret = -ENOMEM;
+ 
+ 	BUILD_BUG_ON(BITS_PER_LONG < EVICTION_SHIFT);
+ 	/*
+@@ -797,17 +791,24 @@ static int __init workingset_init(void)
+ 	pr_info("workingset: timestamp_bits=%d max_order=%d bucket_order=%u\n",
+ 	       timestamp_bits, max_order, bucket_order);
+ 
+-	ret = prealloc_shrinker(&workingset_shadow_shrinker, "mm-shadow");
+-	if (ret)
++	workingset_shadow_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE |
++						    SHRINKER_MEMCG_AWARE,
++						    "mm-shadow");
++	if (!workingset_shadow_shrinker)
+ 		goto err;
 +
-+	rpc_cred_shrinker->count_objects = rpcauth_cache_shrink_count;
-+	rpc_cred_shrinker->scan_objects = rpcauth_cache_shrink_scan;
-+	rpc_cred_shrinker->seeks = DEFAULT_SEEKS;
+ 	ret = __list_lru_init(&shadow_nodes, true, &shadow_nodes_key,
+-			      &workingset_shadow_shrinker);
++			      workingset_shadow_shrinker);
+ 	if (ret)
+ 		goto err_list_lru;
+-	register_shrinker_prepared(&workingset_shadow_shrinker);
 +
-+	shrinker_register(rpc_cred_shrinker);
++	workingset_shadow_shrinker->count_objects = count_shadow_nodes;
++	workingset_shadow_shrinker->scan_objects = scan_shadow_nodes;
 +
++	shrinker_register(workingset_shadow_shrinker);
  	return 0;
- out2:
- 	rpc_destroy_authunix();
-@@ -887,5 +892,5 @@ int __init rpcauth_init_module(void)
- void rpcauth_remove_module(void)
- {
- 	rpc_destroy_authunix();
--	unregister_shrinker(&rpc_cred_shrinker);
-+	shrinker_free(rpc_cred_shrinker);
+ err_list_lru:
+-	free_prealloced_shrinker(&workingset_shadow_shrinker);
++	shrinker_free(workingset_shadow_shrinker);
+ err:
+ 	return ret;
  }
 -- 
 2.30.2
