@@ -1,97 +1,97 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC21E773500
-	for <lists+cluster-devel@lfdr.de>; Tue,  8 Aug 2023 01:29:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50596773656
+	for <lists+cluster-devel@lfdr.de>; Tue,  8 Aug 2023 04:12:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691450940;
+	s=mimecast20190719; t=1691460740;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=0xqamAux0UTVG6klbJHwJNM84FqVsjBhqmY+h06Y7S4=;
-	b=P59RI3961a79uDJ71A9OumuMETcHt7ZhjMGTDrH8cfccSH2DW4hScJAg4oyraMbTKcnrmn
-	kxF//+Y2C2ajxyvS9+uk3VsOn7tOgmr9qn7MRYfwk+JXYOaRxpT35vXgJYO/lL8u75PMEV
-	fE2hJ+A0tVFYoEp79zKbl/RA8+p/imQ=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-663-Ib0dnLw5N0yg8EEUGlcyPg-1; Mon, 07 Aug 2023 19:28:57 -0400
-X-MC-Unique: Ib0dnLw5N0yg8EEUGlcyPg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+	 list-subscribe:list-post; bh=S5nJ90Y7HkcDKRE+pcPu5keZJ+24iVkBC6PdC2b5uJ0=;
+	b=BpIiY3z+2lUZcnPJLPGWZLkHgHZlSIXGS2KHI6eJR+bcCatUvVVZ07h8gf10/baS0gYUQq
+	G9tLWA7HAH1G6jpt85tL+g8+KaClMEsqPpjWVfS2/Fx7vRbmFIN2rFKUHO4gC5jj1J+oQh
+	bLVgcC63PgqhCUDGrVt/Sn+i9FJrQJc=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-652-_SibwRmfMMebINEHUqPBCA-1; Mon, 07 Aug 2023 22:12:17 -0400
+X-MC-Unique: _SibwRmfMMebINEHUqPBCA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E0015800270;
-	Mon,  7 Aug 2023 23:28:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D7E729DD981;
+	Tue,  8 Aug 2023 02:12:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8A92344101;
-	Mon,  7 Aug 2023 23:28:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B9334C15BAD;
+	Tue,  8 Aug 2023 02:12:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4193B19465A3;
-	Mon,  7 Aug 2023 23:28:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6123F194658C;
+	Tue,  8 Aug 2023 02:12:13 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6AE771946587 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  7 Aug 2023 23:28:52 +0000 (UTC)
+ ESMTP id A72AD194658F for <cluster-devel@listman.corp.redhat.com>;
+ Tue,  8 Aug 2023 02:12:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DFD9740C6E8A; Mon,  7 Aug 2023 23:28:51 +0000 (UTC)
+ id 827C5C15BAE; Tue,  8 Aug 2023 02:12:11 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D842240C6F4E
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 23:28:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.81])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7AB35C15BAD
+ for <cluster-devel@redhat.com>; Tue,  8 Aug 2023 02:12:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B91BB8DC668
- for <cluster-devel@redhat.com>; Mon,  7 Aug 2023 23:28:51 +0000 (UTC)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41D0D856DED
+ for <cluster-devel@redhat.com>; Tue,  8 Aug 2023 02:12:11 +0000 (UTC)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-201-sDLSC18QNBq1F5CHF1jKmA-1; Mon, 07 Aug 2023 19:28:49 -0400
-X-MC-Unique: sDLSC18QNBq1F5CHF1jKmA-1
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-686b9964ae2so3587545b3a.3
- for <cluster-devel@redhat.com>; Mon, 07 Aug 2023 16:28:49 -0700 (PDT)
+ us-mta-524-sjt8ab4NNJqSyhwjryQsFw-1; Mon, 07 Aug 2023 22:12:07 -0400
+X-MC-Unique: sjt8ab4NNJqSyhwjryQsFw-1
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-5650ef42f6dso452627a12.0
+ for <cluster-devel@redhat.com>; Mon, 07 Aug 2023 19:12:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691450928; x=1692055728;
+ d=1e100.net; s=20221208; t=1691460726; x=1692065526;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0xqamAux0UTVG6klbJHwJNM84FqVsjBhqmY+h06Y7S4=;
- b=NuVOANgFpzUa8ucVLYJhveVr8H6PnoK7RcgCjEUckMR9LxETzePI6uYAHmlhrq4hYA
- U1znRoMQKzkCTg/W65J2V2f7q2vRCOh4dGio3JtrE/WXGOuGXjyWPlhNcsu2bdjRJCOu
- Tt9AlQLzxFFrvmPahv1/710S/qT1qP/yPeL+oYPswF+v2oHEmjK+ojba2wfta2QvHGgq
- RjgYpXVNWWKBO1/hTuLfbsbWbo8kUIrSimLgtgYkXDoncFVMgBM/Mv0PMG+F5+3kNRYc
- H0K6/6y3O+QYcha+i1Eza4iD5c0Khf7+VA7GzFHOC8uBH8fpJR6vUVk5DvMciAxKopnQ
- 2RqA==
-X-Gm-Message-State: AOJu0YznAbMmJb/KN32aiDEQlQ+RaVWigfqoZM9yNxI4TWG4RqLlDKvH
- yDaFKxKLp0OS/CR0q0/NUbrSIg==
-X-Google-Smtp-Source: AGHT+IHWcHOenJQfOaWa9c7YDyMdy3l3j1H0rEzsEcwqog5HJ9HhPve3KCBNDXb4QQT+YEAg/cljWw==
-X-Received: by 2002:a05:6a20:8e04:b0:13c:8e50:34b8 with SMTP id
- y4-20020a056a208e0400b0013c8e5034b8mr12892217pzj.35.1691450928413; 
- Mon, 07 Aug 2023 16:28:48 -0700 (PDT)
+ bh=S5nJ90Y7HkcDKRE+pcPu5keZJ+24iVkBC6PdC2b5uJ0=;
+ b=IUKDrfIcWu66/9Uc1tHfVa2HH22iKy2y+xe9CbLDo7f7eOPhhS4eBnVHuW5BO0hDTs
+ hEvjZOS/L7bwPHsYRt7nghGPnKaxhFekKEGrr1rE2NnfxReo8BTU8mOIsjTUEj3qpPal
+ KMv0iu6fqXy3W2fvXnNsCFfjFdgUGw351RIOOzg/x6nPqm64PkCXO1NTG6HvbVWF57pC
+ HILoNeaqJYMqb0BMFjpZ8Sf5Onza3KLrAXYiVRGwleQJ0v9mCzipK6Ogt0qPFsj38RkJ
+ gsIwRdaKkLO8p5RRp91PiZmEludqborph52AJNsIhw3GmL9fJk3RoxBx7drlhQC7Nuq+
+ AaWg==
+X-Gm-Message-State: AOJu0Yxjxu0fSwYUwKTV5PKauqC/Lj535MHqFpUjCpXLSzITZzimsi0T
+ VChkAYbTA2WYqF6F28vo4/iJWA==
+X-Google-Smtp-Source: AGHT+IHE8FO8RAjHks3Izbxy+yXIAOFeIsxej7SyncoSZwq8TiDh2J09MxtXtA2ffdHhYGJ2WNjVaA==
+X-Received: by 2002:a17:90a:ad90:b0:25e:d013:c22c with SMTP id
+ s16-20020a17090aad9000b0025ed013c22cmr8256877pjq.47.1691460726140; 
+ Mon, 07 Aug 2023 19:12:06 -0700 (PDT)
 Received: from dread.disaster.area (pa49-180-166-213.pa.nsw.optusnet.com.au.
  [49.180.166.213]) by smtp.gmail.com with ESMTPSA id
- e18-20020aa78c52000000b0068620bee456sm6663729pfd.209.2023.08.07.16.28.47
+ jv14-20020a17090b31ce00b00263e4dc33aasm9313956pjb.11.2023.08.07.19.12.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 16:28:47 -0700 (PDT)
+ Mon, 07 Aug 2023 19:12:05 -0700 (PDT)
 Received: from dave by dread.disaster.area with local (Exim 4.96)
- (envelope-from <david@fromorbit.com>) id 1qT9eW-002TeM-1d;
- Tue, 08 Aug 2023 09:28:44 +1000
-Date: Tue, 8 Aug 2023 09:28:44 +1000
+ (envelope-from <david@fromorbit.com>) id 1qTCCY-002WbH-25;
+ Tue, 08 Aug 2023 12:12:02 +1000
+Date: Tue, 8 Aug 2023 12:12:02 +1000
 From: Dave Chinner <david@fromorbit.com>
 To: Qi Zheng <zhengqi.arch@bytedance.com>
-Message-ID: <ZNF+LLUpKWHDEG1u@dread.disaster.area>
+Message-ID: <ZNGkcp3Dh8hOiFpk@dread.disaster.area>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
- <20230807110936.21819-46-zhengqi.arch@bytedance.com>
+ <20230807110936.21819-45-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
-In-Reply-To: <20230807110936.21819-46-zhengqi.arch@bytedance.com>
+In-Reply-To: <20230807110936.21819-45-zhengqi.arch@bytedance.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -99,9 +99,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Cluster-devel] [PATCH v4 45/48] mm: shrinker: make global slab
- shrink lockless
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Cluster-devel] [PATCH v4 44/48] mm: shrinker: add a secondary
+ array for shrinker_info::{map, nr_deferred}
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,150 +120,286 @@ Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
  simon.horman@corigine.com, xen-devel@lists.xenproject.org,
  linux-ext4@vger.kernel.org, paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
  linux-nfs@vger.kernel.org, rcu@vger.kernel.org, linux-bcache@vger.kernel.org,
- dlemoal@kernel.org, yujie.liu@intel.com, vbabka@suse.cz,
- linux-raid@vger.kernel.org, brauner@kernel.org, tytso@mit.edu,
- gregkh@linuxfoundation.org, muchun.song@linux.dev,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, senozhatsky@chromium.org, netdev@vger.kernel.org,
+ dlemoal@kernel.org, Muchun Song <songmuchun@bytedance.com>,
+ yujie.liu@intel.com, vbabka@suse.cz, linux-raid@vger.kernel.org,
+ brauner@kernel.org, tytso@mit.edu, gregkh@linuxfoundation.org,
+ muchun.song@linux.dev, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ senozhatsky@chromium.org, netdev@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: fromorbit.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Aug 07, 2023 at 07:09:33PM +0800, Qi Zheng wrote:
-> The shrinker_rwsem is a global read-write lock in shrinkers subsystem,
-> which protects most operations such as slab shrink, registration and
-> unregistration of shrinkers, etc. This can easily cause problems in the
-> following cases.
-....
-> This commit uses the refcount+RCU method [5] proposed by Dave Chinner
-> to re-implement the lockless global slab shrink. The memcg slab shrink is
-> handled in the subsequent patch.
-....
+On Mon, Aug 07, 2023 at 07:09:32PM +0800, Qi Zheng wrote:
+> Currently, we maintain two linear arrays per node per memcg, which are
+> shrinker_info::map and shrinker_info::nr_deferred. And we need to resize
+> them when the shrinker_nr_max is exceeded, that is, allocate a new array,
+> and then copy the old array to the new array, and finally free the old
+> array by RCU.
+> 
+> For shrinker_info::map, we do set_bit() under the RCU lock, so we may set
+> the value into the old map which is about to be freed. This may cause the
+> value set to be lost. The current solution is not to copy the old map when
+> resizing, but to set all the corresponding bits in the new map to 1. This
+> solves the data loss problem, but bring the overhead of more pointless
+> loops while doing memcg slab shrink.
+> 
+> For shrinker_info::nr_deferred, we will only modify it under the read lock
+> of shrinker_rwsem, so it will not run concurrently with the resizing. But
+> after we make memcg slab shrink lockless, there will be the same data loss
+> problem as shrinker_info::map, and we can't work around it like the map.
+> 
+> For such resizable arrays, the most straightforward idea is to change it
+> to xarray, like we did for list_lru [1]. We need to do xa_store() in the
+> list_lru_add()-->set_shrinker_bit(), but this will cause memory
+> allocation, and the list_lru_add() doesn't accept failure. A possible
+> solution is to pre-allocate, but the location of pre-allocation is not
+> well determined.
+
+So you implemented a two level array that preallocates leaf
+nodes to work around it? It's remarkable complex for what it does,
+I can't help but think a radix tree using a special holder for
+nr_deferred values of zero would end up being simpler...
+
+> Therefore, this commit chooses to introduce a secondary array for
+> shrinker_info::{map, nr_deferred}, so that we only need to copy this
+> secondary array every time the size is resized. Then even if we get the
+> old secondary array under the RCU lock, the found map and nr_deferred are
+> also true, so no data is lost.
+
+I don't understand what you are trying to describe here. If we get
+the old array, then don't we get either a stale nr_deferred value,
+or the update we do gets lost because the next shrinker lookup will
+find the new array and os the deferred value stored to the old one
+is never seen again?
+
+> 
+> [1]. https://lore.kernel.org/all/20220228122126.37293-13-songmuchun@bytedance.com/
+> 
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 > ---
->  include/linux/shrinker.h | 17 ++++++++++
->  mm/shrinker.c            | 70 +++++++++++++++++++++++++++++-----------
->  2 files changed, 68 insertions(+), 19 deletions(-)
-
-There's no documentation in the code explaining how the lockless
-shrinker algorithm works. It's left to the reader to work out how
-this all goes together....
-
-> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-> index eb342994675a..f06225f18531 100644
-> --- a/include/linux/shrinker.h
-> +++ b/include/linux/shrinker.h
-> @@ -4,6 +4,8 @@
->  
->  #include <linux/atomic.h>
->  #include <linux/types.h>
-> +#include <linux/refcount.h>
-> +#include <linux/completion.h>
->  
->  #define SHRINKER_UNIT_BITS	BITS_PER_LONG
->  
-> @@ -87,6 +89,10 @@ struct shrinker {
->  	int seeks;	/* seeks to recreate an obj */
->  	unsigned flags;
->  
-> +	refcount_t refcount;
-> +	struct completion done;
-> +	struct rcu_head rcu;
-
-What does the refcount protect, why do we need the completion, etc?
-
-> +
->  	void *private_data;
->  
->  	/* These are for internal use */
-> @@ -120,6 +126,17 @@ struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...);
->  void shrinker_register(struct shrinker *shrinker);
->  void shrinker_free(struct shrinker *shrinker);
->  
-> +static inline bool shrinker_try_get(struct shrinker *shrinker)
-> +{
-> +	return refcount_inc_not_zero(&shrinker->refcount);
-> +}
-> +
-> +static inline void shrinker_put(struct shrinker *shrinker)
-> +{
-> +	if (refcount_dec_and_test(&shrinker->refcount))
-> +		complete(&shrinker->done);
-> +}
-> +
->  #ifdef CONFIG_SHRINKER_DEBUG
->  extern int __printf(2, 3) shrinker_debugfs_rename(struct shrinker *shrinker,
->  						  const char *fmt, ...);
+.....
 > diff --git a/mm/shrinker.c b/mm/shrinker.c
-> index 1911c06b8af5..d318f5621862 100644
+> index a27779ed3798..1911c06b8af5 100644
 > --- a/mm/shrinker.c
 > +++ b/mm/shrinker.c
-> @@ -2,6 +2,7 @@
->  #include <linux/memcontrol.h>
->  #include <linux/rwsem.h>
->  #include <linux/shrinker.h>
-> +#include <linux/rculist.h>
->  #include <trace/events/vmscan.h>
+> @@ -12,15 +12,50 @@ DECLARE_RWSEM(shrinker_rwsem);
+>  #ifdef CONFIG_MEMCG
+>  static int shrinker_nr_max;
 >  
->  #include "internal.h"
-> @@ -577,33 +578,42 @@ unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
->  	if (!mem_cgroup_disabled() && !mem_cgroup_is_root(memcg))
->  		return shrink_slab_memcg(gfp_mask, nid, memcg, priority);
+> -/* The shrinker_info is expanded in a batch of BITS_PER_LONG */
+> -static inline int shrinker_map_size(int nr_items)
+> +static inline int shrinker_unit_size(int nr_items)
+>  {
+> -	return (DIV_ROUND_UP(nr_items, BITS_PER_LONG) * sizeof(unsigned long));
+> +	return (DIV_ROUND_UP(nr_items, SHRINKER_UNIT_BITS) * sizeof(struct shrinker_info_unit *));
+>  }
 >  
-> -	if (!down_read_trylock(&shrinker_rwsem))
-> -		goto out;
-> -
-> -	list_for_each_entry(shrinker, &shrinker_list, list) {
-> +	rcu_read_lock();
-> +	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
->  		struct shrink_control sc = {
->  			.gfp_mask = gfp_mask,
->  			.nid = nid,
->  			.memcg = memcg,
->  		};
->  
-> +		if (!shrinker_try_get(shrinker))
-> +			continue;
+> -static inline int shrinker_defer_size(int nr_items)
+> +static inline void shrinker_unit_free(struct shrinker_info *info, int start)
+>  {
+> -	return (round_up(nr_items, BITS_PER_LONG) * sizeof(atomic_long_t));
+> +	struct shrinker_info_unit **unit;
+> +	int nr, i;
 > +
-> +		/*
-> +		 * We can safely unlock the RCU lock here since we already
-> +		 * hold the refcount of the shrinker.
-> +		 */
-> +		rcu_read_unlock();
+> +	if (!info)
+> +		return;
 > +
->  		ret = do_shrink_slab(&sc, shrinker, priority);
->  		if (ret == SHRINK_EMPTY)
->  			ret = 0;
->  		freed += ret;
+> +	unit = info->unit;
+> +	nr = DIV_ROUND_UP(info->map_nr_max, SHRINKER_UNIT_BITS);
 > +
->  		/*
-> -		 * Bail out if someone want to register a new shrinker to
-> -		 * prevent the registration from being stalled for long periods
-> -		 * by parallel ongoing shrinking.
-> +		 * This shrinker may be deleted from shrinker_list and freed
-> +		 * after the shrinker_put() below, but this shrinker is still
-> +		 * used for the next traversal. So it is necessary to hold the
-> +		 * RCU lock first to prevent this shrinker from being freed,
-> +		 * which also ensures that the next shrinker that is traversed
-> +		 * will not be freed (even if it is deleted from shrinker_list
-> +		 * at the same time).
->  		 */
+> +	for (i = start; i < nr; i++) {
+> +		if (!unit[i])
+> +			break;
+> +
+> +		kvfree(unit[i]);
+> +		unit[i] = NULL;
+> +	}
+> +}
+> +
+> +static inline int shrinker_unit_alloc(struct shrinker_info *new,
+> +				       struct shrinker_info *old, int nid)
+> +{
+> +	struct shrinker_info_unit *unit;
+> +	int nr = DIV_ROUND_UP(new->map_nr_max, SHRINKER_UNIT_BITS);
+> +	int start = old ? DIV_ROUND_UP(old->map_nr_max, SHRINKER_UNIT_BITS) : 0;
+> +	int i;
+> +
+> +	for (i = start; i < nr; i++) {
+> +		unit = kvzalloc_node(sizeof(*unit), GFP_KERNEL, nid);
 
-This comment really should be at the head of the function,
-describing the algorithm used within the function itself. i.e. how
-reference counts are used w.r.t. the rcu_read_lock() usage to
-guarantee existence of the shrinker and the validity of the list
-walk.
+A unit is 576 bytes. Why is this using kvzalloc_node()?
 
-I'm not going to remember all these little details when I look at
-this code in another 6 months time, and having to work it out from
-first principles every time I look at the code will waste of a lot
-of time...
+> +		if (!unit) {
+> +			shrinker_unit_free(new, start);
+> +			return -ENOMEM;
+> +		}
+> +
+> +		new->unit[i] = unit;
+> +	}
+> +
+> +	return 0;
+>  }
+>  
+>  void free_shrinker_info(struct mem_cgroup *memcg)
+> @@ -32,6 +67,7 @@ void free_shrinker_info(struct mem_cgroup *memcg)
+>  	for_each_node(nid) {
+>  		pn = memcg->nodeinfo[nid];
+>  		info = rcu_dereference_protected(pn->shrinker_info, true);
+> +		shrinker_unit_free(info, 0);
+>  		kvfree(info);
+>  		rcu_assign_pointer(pn->shrinker_info, NULL);
+>  	}
+
+Why is this safe? The info and maps are looked up by RCU, so why is
+freeing them without a RCU grace period expiring safe?
+
+Yes, it was safe to do this when it was all under a semaphore, but
+now the lookup and use is under RCU, so this freeing isn't
+serialised against lookups anymore...
+
+
+> @@ -40,28 +76,27 @@ void free_shrinker_info(struct mem_cgroup *memcg)
+>  int alloc_shrinker_info(struct mem_cgroup *memcg)
+>  {
+>  	struct shrinker_info *info;
+> -	int nid, size, ret = 0;
+> -	int map_size, defer_size = 0;
+> +	int nid, ret = 0;
+> +	int array_size = 0;
+>  
+>  	down_write(&shrinker_rwsem);
+> -	map_size = shrinker_map_size(shrinker_nr_max);
+> -	defer_size = shrinker_defer_size(shrinker_nr_max);
+> -	size = map_size + defer_size;
+> +	array_size = shrinker_unit_size(shrinker_nr_max);
+>  	for_each_node(nid) {
+> -		info = kvzalloc_node(sizeof(*info) + size, GFP_KERNEL, nid);
+> -		if (!info) {
+> -			free_shrinker_info(memcg);
+> -			ret = -ENOMEM;
+> -			break;
+> -		}
+> -		info->nr_deferred = (atomic_long_t *)(info + 1);
+> -		info->map = (void *)info->nr_deferred + defer_size;
+> +		info = kvzalloc_node(sizeof(*info) + array_size, GFP_KERNEL, nid);
+> +		if (!info)
+> +			goto err;
+>  		info->map_nr_max = shrinker_nr_max;
+> +		if (shrinker_unit_alloc(info, NULL, nid))
+> +			goto err;
+
+That's going to now do a lot of small memory allocation when we have
+lots of shrinkers active....
+
+> @@ -150,17 +175,34 @@ static int expand_shrinker_info(int new_id)
+>  	return ret;
+>  }
+>  
+> +static inline int shriner_id_to_index(int shrinker_id)
+
+shrinker_id_to_index
+
+> +{
+> +	return shrinker_id / SHRINKER_UNIT_BITS;
+> +}
+> +
+> +static inline int shriner_id_to_offset(int shrinker_id)
+
+shrinker_id_to_offset
+
+> +{
+> +	return shrinker_id % SHRINKER_UNIT_BITS;
+> +}
+
+....
+> @@ -209,26 +251,31 @@ static long xchg_nr_deferred_memcg(int nid, struct shrinker *shrinker,
+>  				   struct mem_cgroup *memcg)
+>  {
+>  	struct shrinker_info *info;
+> +	struct shrinker_info_unit *unit;
+>  
+>  	info = shrinker_info_protected(memcg, nid);
+> -	return atomic_long_xchg(&info->nr_deferred[shrinker->id], 0);
+> +	unit = info->unit[shriner_id_to_index(shrinker->id)];
+> +	return atomic_long_xchg(&unit->nr_deferred[shriner_id_to_offset(shrinker->id)], 0);
+>  }
+>  
+>  static long add_nr_deferred_memcg(long nr, int nid, struct shrinker *shrinker,
+>  				  struct mem_cgroup *memcg)
+>  {
+>  	struct shrinker_info *info;
+> +	struct shrinker_info_unit *unit;
+>  
+>  	info = shrinker_info_protected(memcg, nid);
+> -	return atomic_long_add_return(nr, &info->nr_deferred[shrinker->id]);
+> +	unit = info->unit[shriner_id_to_index(shrinker->id)];
+> +	return atomic_long_add_return(nr, &unit->nr_deferred[shriner_id_to_offset(shrinker->id)]);
+>  }
+>  
+>  void reparent_shrinker_deferred(struct mem_cgroup *memcg)
+>  {
+> -	int i, nid;
+> +	int nid, index, offset;
+>  	long nr;
+>  	struct mem_cgroup *parent;
+>  	struct shrinker_info *child_info, *parent_info;
+> +	struct shrinker_info_unit *child_unit, *parent_unit;
+>  
+>  	parent = parent_mem_cgroup(memcg);
+>  	if (!parent)
+> @@ -239,9 +286,13 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
+>  	for_each_node(nid) {
+>  		child_info = shrinker_info_protected(memcg, nid);
+>  		parent_info = shrinker_info_protected(parent, nid);
+> -		for (i = 0; i < child_info->map_nr_max; i++) {
+> -			nr = atomic_long_read(&child_info->nr_deferred[i]);
+> -			atomic_long_add(nr, &parent_info->nr_deferred[i]);
+> +		for (index = 0; index < shriner_id_to_index(child_info->map_nr_max); index++) {
+> +			child_unit = child_info->unit[index];
+> +			parent_unit = parent_info->unit[index];
+> +			for (offset = 0; offset < SHRINKER_UNIT_BITS; offset++) {
+> +				nr = atomic_long_read(&child_unit->nr_deferred[offset]);
+> +				atomic_long_add(nr, &parent_unit->nr_deferred[offset]);
+> +			}
+>  		}
+>  	}
+>  	up_read(&shrinker_rwsem);
+> @@ -407,7 +458,7 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
+>  {
+>  	struct shrinker_info *info;
+>  	unsigned long ret, freed = 0;
+> -	int i;
+> +	int offset, index = 0;
+>  
+>  	if (!mem_cgroup_online(memcg))
+>  		return 0;
+> @@ -419,56 +470,63 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
+>  	if (unlikely(!info))
+>  		goto unlock;
+>  
+> -	for_each_set_bit(i, info->map, info->map_nr_max) {
+> -		struct shrink_control sc = {
+> -			.gfp_mask = gfp_mask,
+> -			.nid = nid,
+> -			.memcg = memcg,
+> -		};
+> -		struct shrinker *shrinker;
+> +	for (; index < shriner_id_to_index(info->map_nr_max); index++) {
+> +		struct shrinker_info_unit *unit;
+
+This adds another layer of indent to shrink_slab_memcg(). Please
+factor it first so that the code ends up being readable. Doing that
+first as a separate patch will also make the actual algorithm
+changes in this patch be much more obvious - this huge hunk of
+diff is pretty much impossible to review...
 
 -Dave.
 -- 
