@@ -2,103 +2,56 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B761A7769A7
-	for <lists+cluster-devel@lfdr.de>; Wed,  9 Aug 2023 22:15:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFBC2776AA4
+	for <lists+cluster-devel@lfdr.de>; Wed,  9 Aug 2023 23:02:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691612106;
+	s=mimecast20190719; t=1691614961;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=coZ6ulv7PeTT3ENpAYsqPZL/64NrN1NUvf045vqCEaE=;
-	b=TCvv5FQ+7mEQw9Ff/V/h7hD/A4Dwb7thChdyu5TYo6qHTPBzA2BBavzLYhDJ88d874yKUv
-	T7zz4c75Pdvdr9I5tra+3NPBMNY69e6XynZ29UrOydNGXlm3phTY4SRocqJA/T2fyZfhap
-	AGAxD9FEsVGTqyUTGy7wG86aTotkJ0I=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=2DlF26TGGikWAJjzVdPWWtLvI1HE6xOKhSiw8HRoLVc=;
+	b=Fm12qBut6NoTkbClUBjSGPqLPxde5m0fkYCheof3VkAM9CkFiKLLPLg0hiZIeC24Mou+fC
+	LGFBcbkA7tW8ClNP2RQxHkMsf8c41bOCX1y2zSv45jtsOySP9GClS294UiE74xvn/WRiaJ
+	bdvajEFXts/d0W99hlnjnvdWE9Htasg=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-654-lzfokzaKM7i7W3gLkphj8A-1; Wed, 09 Aug 2023 16:15:04 -0400
-X-MC-Unique: lzfokzaKM7i7W3gLkphj8A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-564-wE_S04AROEGAPg4yQNr6_g-1; Wed, 09 Aug 2023 17:02:39 -0400
+X-MC-Unique: wE_S04AROEGAPg4yQNr6_g-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 762CA3C0FCA9;
-	Wed,  9 Aug 2023 20:15:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F6653C0E449;
+	Wed,  9 Aug 2023 21:02:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E3DA440C2077;
-	Wed,  9 Aug 2023 20:15:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 82C892026D4B;
+	Wed,  9 Aug 2023 21:02:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75AE81946594;
-	Wed,  9 Aug 2023 20:15:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 58F75194658F;
+	Wed,  9 Aug 2023 21:02:35 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 798C81946588 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  9 Aug 2023 20:14:46 +0000 (UTC)
+ ESMTP id C26A8194658F for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  9 Aug 2023 21:02:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 633B81121314; Wed,  9 Aug 2023 20:14:46 +0000 (UTC)
+ id A2D0F40C2079; Wed,  9 Aug 2023 21:02:33 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B5AF1121315
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 20:14:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 06DC53C0F677
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 20:14:46 +0000 (UTC)
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6]) by
- relay.mimecast.com with ESMTP id us-mta-231--J65q9e5Pb-RKV4IIUy5xA-1; Wed,
- 09 Aug 2023 16:14:41 -0400
-X-MC-Unique: -J65q9e5Pb-RKV4IIUy5xA-1
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
- by mail.parknet.co.jp (Postfix) with ESMTPSA id 0B7972055FA7;
- Thu, 10 Aug 2023 05:14:36 +0900 (JST)
-Received: from devron.myhome.or.jp (foobar@devron.myhome.or.jp [192.168.0.3])
- by ibmpc.myhome.or.jp (8.17.2/8.17.2/Debian-1) with ESMTPS id
- 379KEYfO226784
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Thu, 10 Aug 2023 05:14:35 +0900
-Received: from devron.myhome.or.jp (foobar@localhost [127.0.0.1])
- by devron.myhome.or.jp (8.17.2/8.17.2/Debian-1) with ESMTPS id 379KEYHK237230
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Thu, 10 Aug 2023 05:14:34 +0900
-Received: (from hirofumi@localhost)
- by devron.myhome.or.jp (8.17.2/8.17.2/Submit) id 379KESDU237221;
- Thu, 10 Aug 2023 05:14:28 +0900
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Jeff Layton <jlayton@kernel.org>
-In-Reply-To: <edf8e8ca3b38e56f30e0d24ac7293f848ffee371.camel@kernel.org> (Jeff
- Layton's message of "Wed, 09 Aug 2023 15:04:42 -0400")
-References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
- <20230807-mgctime-v7-5-d1dec143a704@kernel.org>
- <87msz08vc7.fsf@mail.parknet.co.jp>
- <52bead1d6a33fec89944b96e2ec20d1ea8747a9a.camel@kernel.org>
- <878rak8hia.fsf@mail.parknet.co.jp>
- <20230809150041.452w7gucjmvjnvbg@quack3>
- <87v8do6y8q.fsf@mail.parknet.co.jp>
- <2cb998ff14ace352a9dd553e82cfa0aa92ec09ce.camel@kernel.org>
- <87leek6rh1.fsf@mail.parknet.co.jp>
- <ccffe6ca3397c8374352b002fe01d55b09d84ef4.camel@kernel.org>
- <87h6p86p9z.fsf@mail.parknet.co.jp>
- <edf8e8ca3b38e56f30e0d24ac7293f848ffee371.camel@kernel.org>
-Date: Thu, 10 Aug 2023 05:14:28 +0900
-Message-ID: <87a5v06kij.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+ (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6CE0140C2077;
+ Wed,  9 Aug 2023 21:02:33 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: fstests@vger.kernel.org
+Date: Wed,  9 Aug 2023 17:02:28 -0400
+Message-Id: <20230809210228.2068122-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Cluster-devel] [PATCH v7 05/13] fat: make fat_update_time get
- its own timestamp
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Cluster-devel] [RFC xfstests] generic: add fcntl corner cases tests
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,78 +63,1074 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Latchesar Ionkov <lucho@ionkov.net>,
- Martin Brandenburg <martin@omnibond.com>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>, ecryptfs@vger.kernel.org,
- Yue Hu <huyue2@gl0jj8bn.sched.sma.tdnsstic1.cn>,
- David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Hans de Goede <hdegoede@redhat.com>,
- Marc Dionne <marc.dionne@auristor.com>, linux-xfs@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-mtd@lists.infradead.org,
- Mike Marshall <hubcap@omnibond.com>, Paulo Alcantara <pc@manguebit.com>,
- linux-cifs@vger.kernel.org, Eric Van Hensbergen <ericvh@kernel.org>,
- Miklos Szeredi <miklos@szeredi.hu>, Richard Weinberger <richard@nod.at>,
- Mark Fasheh <mark@fasheh.com>, linux-unionfs@vger.kernel.org,
- Hugh Dickins <hughd@google.com>, Tyler Hicks <code@tyhicks.com>,
- cluster-devel@redhat.com, coda@cs.cmu.edu, linux-mm@kvack.org,
- Ilya Dryomov <idryomov@gmail.com>, Iurii Zaikin <yzaikin@google.com>,
- Namjae Jeon <linkinjeon@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- codalist@telemann.coda.cs.cmu.edu, Shyam Prasad N <sprasad@microsoft.com>,
- Amir Goldstein <amir73il@gmail.com>, Kees Cook <keescook@chromium.org>,
- ocfs2-devel@lists.linux.dev, Chao Yu <chao@kernel.org>,
- Josef Bacik <josef@toxicpanda.com>, Tom Talpey <tom@talpey.com>,
- Tejun Heo <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, David Sterba <dsterba@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
- Xiubo Li <xiubli@redhat.com>, Gao Xiang <xiang@kernel.org>,
- Jan Harkes <jaharkes@cs.cmu.edu>, Christian Brauner <brauner@kernel.org>,
- linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, v9fs@lists.linux.dev,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- Steve French <sfrench@samba.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Jeffle Xu <jefflexu@linux.alibaba.com>,
- devel@lists.orangefs.org, Anna Schumaker <anna@kernel.org>,
- Jan Kara <jack@suse.com>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Sungjong Seo <sj1557.seo@samsung.com>, linux-erofs@lists.ozlabs.org,
- linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
- Joel Becker <jlbec@evilplan.org>
+Cc: cluster-devel@redhat.com, jlayton@kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: mail.parknet.co.jp
-Content-Type: text/plain
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Jeff Layton <jlayton@kernel.org> writes:
+This patch adds generic 730 testcase. It will test on various fcntl()
+corner cases that was making problems on a GFS2 filesystem. GFS2 has
+it's own lock() implementation that has it's own posix lock
+implementation behind it. There are testcases to find issues with struct
+file_lock matches. Currently the Linux kernel does not have a unique
+identifier per lock request to e.g. find the original lock request when
+a complete handler of an async lock request comes back. The current way
+is to use struct file_lock fields to fine the original lock request.
+However there was issues being found that in some cases it wasn't an
+unique match because multiple pending struct file_lock could have the
+same state. To find issues the testcases fcntl_lock_equal_file_lock and
+fcntl_lock_same_owner are introduced and their OFD variants.
 
-> When you say it "doesn't work the same", what do you mean, specifically?
-> I had to make some allowances for the fact that FAT is substantially
-> different in its timestamp handling, and I tried to preserve existing
-> behavior as best I could.
+Other test like fcntl_lock_kill_child tests cleanup routines when a
+process blocking in F_SETLKW to wait the lock request getting granted
+and the process gets killed.
 
-Ah, ok. I was misreading some.
+A similar test is fcntl_lock_signal_interrupt which checks for
+side-effects e.g. unlock all previous acquired locks when a blocking
+F_SETLKW gets interrupted by a signal.
 
-inode_update_timestamps() checks IS_I_VERSION() now, not S_VERSION.  So,
-if adding the check of IS_I_VERSION() and (S_MTIME|S_CTIME|S_VERSION) to
-FAT?
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+---
+ src/Makefile                         |   5 +-
+ src/fcntl_lock_equal_file_lock.c     | 140 +++++++++++++++++++++++
+ src/fcntl_lock_equal_file_lock_ofd.c | 144 ++++++++++++++++++++++++
+ src/fcntl_lock_kill_child.c          | 148 +++++++++++++++++++++++++
+ src/fcntl_lock_same_owner.c          | 146 ++++++++++++++++++++++++
+ src/fcntl_lock_same_owner_ofd.c      | 144 ++++++++++++++++++++++++
+ src/fcntl_lock_signal_interrupt.c    | 159 +++++++++++++++++++++++++++
+ tests/generic/730                    |  70 ++++++++++++
+ tests/generic/730.out                |   2 +
+ 9 files changed, 957 insertions(+), 1 deletion(-)
+ create mode 100644 src/fcntl_lock_equal_file_lock.c
+ create mode 100644 src/fcntl_lock_equal_file_lock_ofd.c
+ create mode 100644 src/fcntl_lock_kill_child.c
+ create mode 100644 src/fcntl_lock_same_owner.c
+ create mode 100644 src/fcntl_lock_same_owner_ofd.c
+ create mode 100644 src/fcntl_lock_signal_interrupt.c
+ create mode 100755 tests/generic/730
+ create mode 100644 tests/generic/730.out
 
-With it, IS_I_VERSION() would be false on FAT, and I'm fine.
-
-I.e. something like
-
-	if ((flags & (S_VERSION|S_CTIME|S_MTIME)) && IS_I_VERSION(inode)
-	    && inode_maybe_inc_iversion(inode, false))
-  		dirty_flags |= I_DIRTY_SYNC;
-
-Thanks.
+diff --git a/src/Makefile b/src/Makefile
+index 24cd4747..e633f748 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -19,7 +19,10 @@ TARGETS = dirstress fill fill2 getpagesize holes lstat64 \
+ 	t_ofd_locks t_mmap_collision mmap-write-concurrent \
+ 	t_get_file_time t_create_short_dirs t_create_long_dirs t_enospc \
+ 	t_mmap_writev_overlap checkpoint_journal mmap-rw-fault allocstale \
+-	t_mmap_cow_memory_failure fake-dump-rootino dio-buf-fault
++	t_mmap_cow_memory_failure fake-dump-rootino dio-buf-fault \
++	fcntl_lock_equal_file_lock fcntl_lock_equal_file_lock_ofd \
++	fcntl_lock_kill_child fcntl_lock_same_owner fcntl_lock_same_owner_ofd \
++	fcntl_lock_signal_interrupt
+ 
+ LINUX_TARGETS = xfsctl bstat t_mtab getdevicesize preallo_rw_pattern_reader \
+ 	preallo_rw_pattern_writer ftrunc trunc fs_perms testx looptest \
+diff --git a/src/fcntl_lock_equal_file_lock.c b/src/fcntl_lock_equal_file_lock.c
+new file mode 100644
+index 00000000..38b111c5
+--- /dev/null
++++ b/src/fcntl_lock_equal_file_lock.c
+@@ -0,0 +1,140 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * This program tests fcntl() operations that have two
++ * of struct file_lock in the kernel in waiting state. Those
++ * two struct file_lock have exact the identitcal fields. Currently
++ * the Linux kernel matches lock requests by file_lock fields and not
++ * by an unique identifiers. There is a verifier to check if the
++ * posix locks got unlocked.
++ */
++
++#include <sys/wait.h>
++#include <pthread.h>
++#include <unistd.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <stdio.h>
++
++static const char *filename;
++static int fd;
++
++static void *do_equal_file_lock_thread0(void *arg)
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd, F_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	return NULL;
++}
++
++static void *do_equal_file_lock_thread1(void *arg)
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd, F_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	return NULL;
++}
++
++static void do_setup()
++{
++	fd = open(filename, O_RDWR | O_CREAT, 0700);
++	if (fd == -1)
++		_exit(1);
++}
++
++static void do_teardown()
++{
++	close(fd);
++}
++
++static void do_equal_file_lock()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	pthread_t t[2];
++	int pid, rv;
++
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	pid = fork();
++	if (pid == 0) {
++		rv = pthread_create(&t[0], NULL, do_equal_file_lock_thread0, NULL);
++		if (rv != 0)
++			_exit(1);
++
++		rv = pthread_create(&t[1], NULL, do_equal_file_lock_thread1, NULL);
++		if (rv != 0)
++			_exit(1);
++
++		pthread_join(t[0], NULL);
++		pthread_join(t[1], NULL);
++
++		_exit(0);
++	}
++
++	/* wait threads should block */
++	sleep(3);
++
++	fl.l_type = F_UNLCK;
++	fl.l_start = 0;
++	fl.l_len = 1;
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	sleep(3);
++
++	/* check if the lock() implementation got the
++	 * right locks because two waiter with the
++	 * same file_lock fields are waiting.
++	 */
++	fl.l_type = F_WRLCK;
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1 && errno == EAGAIN)
++		_exit(1);
++
++	wait(NULL);
++}
++
++static void usage(const char *argv0)
++{
++	fprintf(stderr, "Usage: %s {filename}\n", argv0);
++	_exit(1);
++}
++
++int main(int argc, const char *argv[])
++{
++	if (argc != 2)
++		usage(argv[0]);
++
++	filename = argv[1];
++
++	do_setup();
++	do_equal_file_lock();
++	do_teardown();
++
++	return 0;
++}
+diff --git a/src/fcntl_lock_equal_file_lock_ofd.c b/src/fcntl_lock_equal_file_lock_ofd.c
+new file mode 100644
+index 00000000..a9f6b06b
+--- /dev/null
++++ b/src/fcntl_lock_equal_file_lock_ofd.c
+@@ -0,0 +1,144 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * This program tests fcntl() operations that have two
++ * of struct file_lock in the kernel in waiting state. Those
++ * two struct file_lock have exact the identitcal fields. Currently
++ * the Linux kernel matches lock requests by file_lock fields and not
++ * by an unique identifiers. This does the same test as
++ * fcntl_lock_equal_file_lock does just with OFD posix locks.
++ * There is a verifier to check if the right posix locks got unlocked.
++ */
++
++#include <sys/wait.h>
++#include <unistd.h>
++#include <string.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <stdio.h>
++
++static const char *filename;
++static int fd[2];
++
++static void do_setup()
++{
++	fd[0] = open(filename, O_RDWR | O_CREAT, 0700);
++	if (fd[0] == -1)
++		goto error;
++
++	fd[1] = open(filename, O_RDWR, 0700);
++	if (fd[1] == -1)
++		goto fd0;
++
++	return;
++
++fd0:
++	close(fd[0]);
++error:
++	_exit(1);
++}
++
++static void do_teardown()
++{
++	close(fd[0]);
++	close(fd[1]);
++}
++
++static void do_equal_file_lock_ofd_child0()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd[1], F_OFD_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++}
++
++static void do_equal_file_lock_ofd_child1()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd[1], F_OFD_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++}
++
++static void do_equal_file_lock_ofd()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int pid, rv;
++
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	pid = fork();
++	if (pid == 0) {
++		do_equal_file_lock_ofd_child0();
++		_exit(0);
++	}
++
++	pid = fork();
++	if (pid == 0) {
++		do_equal_file_lock_ofd_child1();
++		_exit(0);
++	}
++
++	/* wait childs should block */
++	sleep(3);
++
++	fl.l_type = F_UNLCK;
++	fl.l_start = 0;
++	fl.l_len = 1;
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	sleep(3);
++
++	/* check if the lock() implementation got the
++	 * right locks because two waiter with the
++	 * same file_lock fields were waiting.
++	 */
++	fl.l_type = F_WRLCK;
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (!(rv == -1 && errno == EAGAIN))
++		_exit(1);
++
++	wait(NULL);
++}
++
++static void usage(const char *argv0)
++{
++	fprintf(stderr, "Usage: %s {filename}\n", argv0);
++	_exit(1);
++}
++
++int main(int argc, const char *argv[])
++{
++	if (argc != 2)
++		usage(argv[0]);
++
++	filename = argv[1];
++
++	do_setup();
++	do_equal_file_lock_ofd();
++	do_teardown();
++
++	return 0;
++}
+diff --git a/src/fcntl_lock_kill_child.c b/src/fcntl_lock_kill_child.c
+new file mode 100644
+index 00000000..60a992bb
+--- /dev/null
++++ b/src/fcntl_lock_kill_child.c
+@@ -0,0 +1,148 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * This program tests fcntl() operations that have two
++ * fcntl() calls in waiting state in two different childs but the
++ * fl_owner value is the same because using OFD locks. One of the
++ * blocked childs get killed. There is a verifier at the end if
++ * the right posix lock got unlocked when killing the child.
++ *
++ */
++
++#include <sys/wait.h>
++#include <stdbool.h>
++#include <unistd.h>
++#include <string.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <stdio.h>
++
++static const char *filename;
++static int fd[2];
++
++static void do_setup()
++{
++	fd[0] = open(filename, O_RDWR | O_CREAT, 0700);
++	if (fd[0] == -1)
++		goto error;
++
++	fd[1] = open(filename, O_RDWR, 0700);
++	if (fd[1] == -1)
++		goto fd0;
++
++	return;
++
++fd0:
++	close(fd[0]);
++error:
++	_exit(1);
++}
++
++static void do_teardown()
++{
++	close(fd[0]);
++	close(fd[1]);
++}
++
++static void do_to_be_killed_child()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd[1], F_OFD_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++}
++
++static void do_blocking_child()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 1L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd[1], F_OFD_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++}
++
++static void do_kill_child_setlkw()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 2L,
++	};
++	int pid_to_kill, pid, rv;
++
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	pid_to_kill = fork();
++	if (pid_to_kill == 0) {
++		do_to_be_killed_child();
++		_exit(0);
++	}
++
++	pid = fork();
++	if (pid == 0) {
++		do_blocking_child();
++		_exit(0);
++	}
++
++	/* wait childs should block */
++	sleep(3);
++
++	kill(pid_to_kill, SIGKILL);
++
++	/* wait until Linux did plock cleanup */
++
++	sleep(3);
++
++	/* check if the lock() implementation got the
++	 * right lock because two waiter with the
++	 * same fl_owner were waiting.
++	 */
++	fl.l_type = F_WRLCK;
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if ((rv == -1 && errno == EAGAIN))
++		_exit(1);
++
++	fl.l_type = F_UNLCK;
++	fl.l_start = 1;
++	fl.l_len = 1;
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	wait(NULL);
++}
++
++static void usage(const char *argv0)
++{
++	fprintf(stderr, "Usage: %s {filename}\n", argv0);
++	_exit(1);
++}
++
++int main(int argc, const char *argv[])
++{
++	if (argc != 2)
++		usage(argv[0]);
++
++	filename = argv[1];
++
++	do_setup();
++	do_kill_child_setlkw();
++	do_teardown();
++
++	return 0;
++}
+diff --git a/src/fcntl_lock_same_owner.c b/src/fcntl_lock_same_owner.c
+new file mode 100644
+index 00000000..071a3b49
+--- /dev/null
++++ b/src/fcntl_lock_same_owner.c
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * This program tests fcntl() operations that have two
++ * fcntl() calls in waiting state in two different threads.
++ * Those fcntl() ends in a struct file_lock have the same fl_owner
++ * field. One fcntl() call gets granted, there will be a verifier
++ * going on if the right lock was granted.
++ */
++
++#include <sys/wait.h>
++#include <pthread.h>
++#include <unistd.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <stdio.h>
++
++static const char *filename;
++static int fd;
++
++static void *do_same_owner_thread0(void *arg)
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd, F_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	return NULL;
++}
++
++static void *do_same_owner_thread1(void *arg)
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 1L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd, F_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	return NULL;
++}
++
++static void do_setup()
++{
++	fd = open(filename, O_RDWR | O_CREAT, 0700);
++	if (fd == -1)
++		_exit(1);
++}
++
++static void do_teardown()
++{
++	close(fd);
++}
++
++static void do_same_owner()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 2L,
++	};
++	pthread_t t[2];
++	int pid, rv;
++
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	pid = fork();
++	if (pid == 0) {
++		rv = pthread_create(&t[0], NULL, do_same_owner_thread0, NULL);
++		if (rv != 0)
++			_exit(1);
++
++		rv = pthread_create(&t[1], NULL, do_same_owner_thread1, NULL);
++		if (rv != 0)
++			_exit(1);
++
++		pthread_join(t[0], NULL);
++		pthread_join(t[1], NULL);
++
++		_exit(0);
++	}
++
++	/* wait threads should block */
++	sleep(3);
++
++	fl.l_type = F_UNLCK;
++	fl.l_start = 1;
++	fl.l_len = 1;
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	sleep(3);
++
++	/* check if the lock() implementation got the
++	 * right lock because two waiter with the
++	 * same fl_owner were waiting.
++	 */
++	fl.l_type = F_WRLCK;
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (!(rv == -1 && errno == EAGAIN))
++		_exit(1);
++
++	fl.l_type = F_UNLCK;
++	fl.l_start = 1;
++	fl.l_len = 1;
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	wait(NULL);
++}
++
++static void usage(const char *argv0)
++{
++	fprintf(stderr, "Usage: %s {filename}\n", argv0);
++	_exit(1);
++}
++
++int main(int argc, const char *argv[])
++{
++	if (argc != 2)
++		usage(argv[0]);
++
++	filename = argv[1];
++
++	do_setup();
++	do_same_owner();
++	do_teardown();
++
++	return 0;
++}
+diff --git a/src/fcntl_lock_same_owner_ofd.c b/src/fcntl_lock_same_owner_ofd.c
+new file mode 100644
+index 00000000..d5addfb5
+--- /dev/null
++++ b/src/fcntl_lock_same_owner_ofd.c
+@@ -0,0 +1,144 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * This program tests fcntl() operations that have two
++ * fcntl() calls in waiting state in two different threads.
++ * Those fcntl() ends in a struct file_lock have the same fl_owner
++ * field. One fcntl() call gets granted, there will be a verifier
++ * going on if the right lock was granted.
++ *
++ * This test is the same like fcntl_lock_same_owner but using OFD
++ * locks.
++ */
++
++#include <sys/wait.h>
++#include <unistd.h>
++#include <string.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <stdio.h>
++
++static const char *filename;
++static int fd[2];
++
++static void do_setup()
++{
++	fd[0] = open(filename, O_RDWR | O_CREAT, 0700);
++	if (fd[0] == -1)
++		goto error;
++
++	fd[1] = open(filename, O_RDWR, 0700);
++	if (fd[1] == -1)
++		goto fd0;
++
++	return;
++
++fd0:
++	close(fd[0]);
++error:
++	_exit(1);
++}
++
++static void do_teardown()
++{
++	close(fd[0]);
++	close(fd[1]);
++}
++
++static void do_same_owner_ofd_child0()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd[1], F_OFD_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++}
++
++static void do_same_owner_ofd_child1()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 1L,
++		.l_len = 1L,
++	};
++	int rv;
++
++	rv = fcntl(fd[1], F_OFD_SETLKW, &fl);
++	if (rv == -1)
++		_exit(1);
++}
++
++static void do_same_owner_ofd()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 2L,
++	};
++	int pid, rv;
++
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	pid = fork();
++	if (pid == 0) {
++		do_same_owner_ofd_child0();
++		_exit(0);
++	}
++
++	pid = fork();
++	if (pid == 0) {
++		do_same_owner_ofd_child1();
++		_exit(0);
++	}
++
++	/* wait childs should block */
++	sleep(3);
++
++	fl.l_type = F_UNLCK;
++	fl.l_start = 1;
++	fl.l_len = 1;
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	sleep(3);
++
++	/* check if the lock() implementation granted
++	 * the locks.
++	 */
++	fl.l_type = F_WRLCK;
++	rv = fcntl(fd[0], F_OFD_SETLK, &fl);
++	if (rv == -1 && errno == EAGAIN)
++		_exit(1);
++
++	wait(NULL);
++}
++
++static void usage(const char *argv0)
++{
++	fprintf(stderr, "Usage: %s {filename}\n", argv0);
++	_exit(1);
++}
++
++int main(int argc, const char *argv[])
++{
++	if (argc != 2)
++		usage(argv[0]);
++
++	filename = argv[1];
++
++	do_setup();
++	do_same_owner_ofd();
++	do_teardown();
++
++	return 0;
++}
+diff --git a/src/fcntl_lock_signal_interrupt.c b/src/fcntl_lock_signal_interrupt.c
+new file mode 100644
+index 00000000..af3008f1
+--- /dev/null
++++ b/src/fcntl_lock_signal_interrupt.c
+@@ -0,0 +1,159 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * This program tests fcntl() operations in the child process
++ * that have one lock acquired and sitting in a blocked fcntl()
++ * F_SETLKW call to get granted. The blocked fcntl() call will be
++ * interrupted by a signal that will cancel the blocked fcntl() call.
++ * Afterwards there is a verifier that the previous lock which wasn't
++ * cancelled is still acquired by the child.
++ */
++
++#include <sys/wait.h>
++#include <stdbool.h>
++#include <unistd.h>
++#include <string.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <stdio.h>
++
++struct pipe_msg {
++	int rv;
++};
++
++static const char *filename;
++static int pfd[2];
++static int fd;
++
++static void do_setup()
++{
++	int rv;
++
++	rv = pipe(pfd);
++	if (rv == -1)
++		goto error;
++
++	fd = open(filename, O_RDWR | O_CREAT, 0700);
++	if (fd == -1)
++		goto pipe;
++
++	return;
++
++pipe:
++	close(pfd[0]);
++	close(pfd[1]);
++
++error:
++	_exit(1);
++}
++
++static void do_teardown()
++{
++	close(fd);
++
++	close(pfd[0]);
++	close(pfd[1]);
++}
++
++static void catch_alarm(int num) { }
++
++static void do_signal_interrupt_setlkw_child(void)
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 1L,
++		.l_len = 1L,
++	};
++	struct sigaction act;
++	struct pipe_msg msg;
++	int rv;
++
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	memset(&act, 0, sizeof(act));
++	act.sa_handler = catch_alarm;
++	sigemptyset(&act.sa_mask);
++	sigaddset(&act.sa_mask, SIGALRM);
++	sigaction(SIGALRM, &act, NULL);
++
++	fl.l_start = 0;
++
++	/* interrupt SETLKW by signal in 3 secs */
++	alarm(3);
++	rv = fcntl(fd, F_SETLKW, &fl);
++	if (rv == -1 && errno == EINTR)
++		msg.rv = 0;
++	else
++		msg.rv = 1;
++
++	write(pfd[1], &msg, sizeof(msg));
++
++	/* keep child alive */
++	read(pfd[1], &msg, sizeof(msg));
++}
++
++static void do_signal_interrupt_setlkw()
++{
++	struct flock fl = {
++		.l_type = F_WRLCK,
++		.l_whence = SEEK_SET,
++		.l_start = 0L,
++		.l_len = 1L,
++	};
++	struct pipe_msg msg;
++	int pid, rv;
++
++	rv = fcntl(fd, F_SETLK, &fl);
++	if (rv == -1)
++		_exit(1);
++
++	pid = fork();
++	if (pid == 0) {
++		do_signal_interrupt_setlkw_child();
++		_exit(0);
++	}
++
++	/* wait until child writes */
++	read(pfd[0], &msg, sizeof(msg));
++
++	fl.l_type = F_WRLCK;
++	fl.l_start = 1;
++	fl.l_len = 1;
++	rv = fcntl(fd, F_SETLK, &fl);
++	/* parent testing childs region, the child will think
++	 * it has region 1-1 locked because it was interrupted
++	 * by region 0-0. Due bugs the interruption also unlocked
++	 * region 1-1.
++	 */
++	if (rv == -1 && errno == EAGAIN)
++		rv = 0;
++	else
++		rv = 1;
++
++	write(pfd[0], &msg, sizeof(msg));
++
++	wait(NULL);
++	_exit(rv);
++}
++
++static void usage(const char *argv0)
++{
++	fprintf(stderr, "Usage: %s {filename}\n", argv0);
++	_exit(1);
++}
++
++int main(int argc, const char *argv[])
++{
++	if (argc != 2)
++		usage(argv[0]);
++
++	filename = argv[1];
++
++	do_setup();
++	do_signal_interrupt_setlkw();
++	do_teardown();
++
++	return 0;
++}
+diff --git a/tests/generic/730 b/tests/generic/730
+new file mode 100755
+index 00000000..4a1e7f20
+--- /dev/null
++++ b/tests/generic/730
+@@ -0,0 +1,70 @@
++#! /bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (c) 2023 Alexander Aring.  All Rights Reserved.
++#
++# FS QA Test 730
++#
++# This tests performs some fcntl() corner cases when
++# two waiter have the same or some (fl_owner) fields. In Linux
++# there exists no unique lock request identifier, some lock()
++# filesystem implementation does that over struct file_lock fields.
++# Other tests check for bad side-effects if a blocking F_SETLKW lock
++# request got interrupted or the process got killed.
++#
++. ./common/preamble
++_begin_fstest auto quick
++
++# Import common functions.
++. ./common/filter
++
++# real QA test starts here
++
++_supported_fs generic
++_require_test
++_require_test_program fcntl_lock_equal_file_lock
++_require_test_program fcntl_lock_equal_file_lock_ofd
++_require_test_program fcntl_lock_kill_child
++_require_test_program fcntl_lock_same_owner
++_require_test_program fcntl_lock_same_owner_ofd
++_require_test_program fcntl_lock_signal_interrupt
++
++echo "Silence is golden"
++
++$here/src/fcntl_lock_equal_file_lock $TEST_DIR/testfile
++if [ $? -ne 0 ]
++then
++	exit
++fi
++
++$here/src/fcntl_lock_equal_file_lock_ofd $TEST_DIR/testfile
++if [ $? -ne 0 ]
++then
++	exit
++fi
++
++$here/src/fcntl_lock_kill_child $TEST_DIR/testfile
++if [ $? -ne 0 ]
++then
++	exit
++fi
++
++$here/src/fcntl_lock_same_owner $TEST_DIR/testfile
++if [ $? -ne 0 ]
++then
++	exit
++fi
++
++$here/src/fcntl_lock_same_owner_ofd $TEST_DIR/testfile
++if [ $? -ne 0 ]
++then
++	exit
++fi
++
++$here/src/fcntl_lock_signal_interrupt $TEST_DIR/testfile
++if [ $? -ne 0 ]
++then
++	exit
++fi
++
++status=0
++exit
+diff --git a/tests/generic/730.out b/tests/generic/730.out
+new file mode 100644
+index 00000000..50c3c832
+--- /dev/null
++++ b/tests/generic/730.out
+@@ -0,0 +1,2 @@
++QA output created by 730
++Silence is golden
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+2.31.1
 
