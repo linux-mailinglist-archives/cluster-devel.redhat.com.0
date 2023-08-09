@@ -1,77 +1,77 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1229B775388
-	for <lists+cluster-devel@lfdr.de>; Wed,  9 Aug 2023 09:07:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4A47753A4
+	for <lists+cluster-devel@lfdr.de>; Wed,  9 Aug 2023 09:08:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691564824;
+	s=mimecast20190719; t=1691564930;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=bpR6NrRrv+px6P4RAp9BUFvi3teg78SPomSPPQq/HRw=;
-	b=AWx25nIBAmHSI5kxEVwxj56/c08qDJq9regYRkpNFz0q34kbqGC/hUydtLZDuEO3Pc2lBa
-	adnXEXkutmpfbR5m+MoadXCwiC9S+f5yDR23X4v3kRdV76JWUmgsYHC0TaaYJhoMKs7Q2W
-	wTv5x6lDLkOUT82HG/O/AQ0Z7+t/ZQU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-627-5nv-ptIePHSZ4UoFM4Sr0A-1; Wed, 09 Aug 2023 03:07:01 -0400
-X-MC-Unique: 5nv-ptIePHSZ4UoFM4Sr0A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+	 list-subscribe:list-post; bh=i+7wEGPUEg3oQuiP6TNwIsty90dhxYzZkWHZUkS3yMs=;
+	b=Cq5K7nWkaI0CcqGUT3kxYDgXpqIa2i2xkGPDhN/hr6DBwglHQdZ1g1jZTMHau+gwcihzb+
+	oEYlJDzP1TjEijzPgc70oaN1fPbb5Ewa+AtjA+SWWCikYaBs5RVE5n3Nb2h1EgRcksmxHN
+	qKVMV/dG19kHtPRNxJ/lR++vIWROOBE=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-454-o0a5JME1NOuIBMSk-e_luw-1; Wed, 09 Aug 2023 03:08:44 -0400
+X-MC-Unique: o0a5JME1NOuIBMSk-e_luw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB8E6805AF6;
-	Wed,  9 Aug 2023 07:06:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09AFC29AA2F3;
+	Wed,  9 Aug 2023 07:08:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A4758C15BAE;
-	Wed,  9 Aug 2023 07:06:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F26994EA4E;
+	Wed,  9 Aug 2023 07:08:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 66254194658F;
-	Wed,  9 Aug 2023 07:06:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A69AC194658F;
+	Wed,  9 Aug 2023 07:08:42 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3A5751946586 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  9 Aug 2023 07:06:58 +0000 (UTC)
+ ESMTP id 72F191946586 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  9 Aug 2023 07:08:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1898B2026D68; Wed,  9 Aug 2023 07:06:58 +0000 (UTC)
+ id 87FA540C2076; Wed,  9 Aug 2023 07:08:34 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 10E3F2026D4B
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 07:06:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.81])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 809DD40C2077
+ for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 07:08:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E4F713C0BE39
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 07:06:57 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59A6429AA2CF
+ for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 07:08:34 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-295-FSm6-BYQM6O_L_-Oo8abQw-1; Wed, 09 Aug 2023 03:06:54 -0400
-X-MC-Unique: FSm6-BYQM6O_L_-Oo8abQw-1
+ us-mta-562-XNJ3vo_HPmiZhnjWoibLHw-1; Wed, 09 Aug 2023 03:08:32 -0400
+X-MC-Unique: XNJ3vo_HPmiZhnjWoibLHw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9B61A62FBF;
- Wed,  9 Aug 2023 07:06:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46BD8C433C7;
- Wed,  9 Aug 2023 07:06:37 +0000 (UTC)
-Date: Wed, 9 Aug 2023 09:06:34 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4397D60AD5;
+ Wed,  9 Aug 2023 07:08:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB972C433C8;
+ Wed,  9 Aug 2023 07:08:15 +0000 (UTC)
+Date: Wed, 9 Aug 2023 09:08:13 +0200
 From: Christian Brauner <brauner@kernel.org>
 To: Jan Kara <jack@suse.cz>
-Message-ID: <20230809-handreichung-umgearbeitet-951eebed4d61@brauner>
+Message-ID: <20230809-goldpreis-nennen-798a895973be@brauner>
 References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
- <20230807-mgctime-v7-6-d1dec143a704@kernel.org>
- <20230808093701.ggyj7tyqonivl7tb@quack3>
+ <20230807-mgctime-v7-5-d1dec143a704@kernel.org>
+ <20230808093226.bq2qfxv5npckk643@quack3>
 MIME-Version: 1.0
-In-Reply-To: <20230808093701.ggyj7tyqonivl7tb@quack3>
+In-Reply-To: <20230808093226.bq2qfxv5npckk643@quack3>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [Cluster-devel] [PATCH v7 06/13] ubifs: have ubifs_update_time
- use inode_update_timestamps
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [Cluster-devel] [PATCH v7 05/13] fat: make fat_update_time get
+ its own timestamp
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,46 +136,19 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  linux-btrfs@vger.kernel.org, Joel Becker <jlbec@evilplan.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 
-On Tue, Aug 08, 2023 at 11:37:01AM +0200, Jan Kara wrote:
-> On Mon 07-08-23 15:38:37, Jeff Layton wrote:
+On Tue, Aug 08, 2023 at 11:32:26AM +0200, Jan Kara wrote:
+> On Mon 07-08-23 15:38:36, Jeff Layton wrote:
 > > In later patches, we're going to drop the "now" parameter from the
-> > update_time operation. Prepare ubifs for this, by having it use the new
-> > inode_update_timestamps helper.
-> > 
-> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> 
-> One comment below:
-> 
-> > diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-> > index df9086b19cd0..2d0178922e19 100644
-> > --- a/fs/ubifs/file.c
-> > +++ b/fs/ubifs/file.c
-> > @@ -1397,15 +1397,9 @@ int ubifs_update_time(struct inode *inode, struct timespec64 *time,
-> >  		return err;
-> >  
-> >  	mutex_lock(&ui->ui_mutex);
-> > -	if (flags & S_ATIME)
-> > -		inode->i_atime = *time;
-> > -	if (flags & S_CTIME)
-> > -		inode_set_ctime_to_ts(inode, *time);
-> > -	if (flags & S_MTIME)
-> > -		inode->i_mtime = *time;
-> > -
-> > -	release = ui->dirty;
-> > +	inode_update_timestamps(inode, flags);
-> >  	__mark_inode_dirty(inode, I_DIRTY_SYNC);
-> > +	release = ui->dirty;
-> >  	mutex_unlock(&ui->ui_mutex);
-> 
-> I think this is wrong. You need to keep sampling ui->dirty before calling
-> __mark_inode_dirty(). Otherwise you could release budget for inode update
-> you really need...
+> > update_time operation. Fix fat_update_time to fetch its own timestamp.
+> > It turns out that this is easily done by just passing a NULL timestamp
+> > pointer to fat_update_time.
+>              ^^^ fat_truncate_time()
 
-Fixed in-tree.
+Fixed in-tree, thanks!
 
