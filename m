@@ -2,74 +2,77 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F42C77651A
-	for <lists+cluster-devel@lfdr.de>; Wed,  9 Aug 2023 18:31:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E49F7766AA
+	for <lists+cluster-devel@lfdr.de>; Wed,  9 Aug 2023 19:44:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691598675;
+	s=mimecast20190719; t=1691603074;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=evh/QnTRbtms70P8fyMuk+3Fiu52AhvsRjN/d0cOnmg=;
-	b=XeIl+IDK2IS0Ej5FoKTelTyiLamQ5n0mL627r78mguOP2GiZ9xBLiNWq7EyiizvIFVtZBq
-	nvVFHWtZzcgXbPYDgwj273O/20pv3mw6siLefoSFPV3czJ4CnL9/Xb4/GoqfFOULFIfAsl
-	8pVv9MIbauK1reFWE6suUwXCRDctrd4=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=9jkYqqrSdW2TNClBkYoVNPjtQleOVpeTi7MhHUhEFB4=;
+	b=IJbDWAiBMoyfe+/GrKORwbgjwJADpSIbvAHYufy7jTOnwETFZWovr6u2oWAw50aVATDYK9
+	/nfcnxxxlJE8Z5+3benw8kxeeKi9Ls3Y3qqDAI/lylPLDhEU+EVxk5dcKuK/Sq8cgtcn6z
+	GnCsvZITPhoW6gughIVqZY3LJ2A9Nak=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-17-LkEc4E53MbqqYJRERDfP7g-1; Wed, 09 Aug 2023 12:31:10 -0400
-X-MC-Unique: LkEc4E53MbqqYJRERDfP7g-1
+ us-mta-665-0O38i3DiNh6AznU6X17FaQ-1; Wed, 09 Aug 2023 13:44:33 -0400
+X-MC-Unique: 0O38i3DiNh6AznU6X17FaQ-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADD1D85CBE8;
-	Wed,  9 Aug 2023 16:31:09 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 442A6492B0F;
-	Wed,  9 Aug 2023 16:31:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AC038DC671;
+	Wed,  9 Aug 2023 17:44:32 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DBB7D492B10;
+	Wed,  9 Aug 2023 17:44:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 00A741946594;
-	Wed,  9 Aug 2023 16:31:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7442F1946594;
+	Wed,  9 Aug 2023 17:44:30 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5EED31946588 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  9 Aug 2023 16:31:07 +0000 (UTC)
+ ESMTP id D6F751946588 for <cluster-devel@listman.corp.redhat.com>;
+ Wed,  9 Aug 2023 17:44:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EA18840C6E8A; Wed,  9 Aug 2023 16:31:06 +0000 (UTC)
+ id B51471121315; Wed,  9 Aug 2023 17:44:28 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E2B1240C6F4E
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 16:31:06 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AD2E51121314
+ for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 17:44:28 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C40A6185A7A3
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 16:31:06 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-138-f6Glo3weNT2sSo_XnBIjlg-1; Wed, 09 Aug 2023 12:31:03 -0400
-X-MC-Unique: f6Glo3weNT2sSo_XnBIjlg-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2611963262;
- Wed,  9 Aug 2023 16:31:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00FEDC433C8;
- Wed,  9 Aug 2023 16:30:53 +0000 (UTC)
-Message-ID: <2cb998ff14ace352a9dd553e82cfa0aa92ec09ce.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Jan Kara <jack@suse.cz>
-Date: Wed, 09 Aug 2023 12:30:52 -0400
-In-Reply-To: <87v8do6y8q.fsf@mail.parknet.co.jp>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 908613C0DDB9
+ for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 17:44:28 +0000 (UTC)
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6]) by
+ relay.mimecast.com with ESMTP id us-mta-396-KWBXwrtmMfuw85dvmaAltg-1; Wed,
+ 09 Aug 2023 13:44:23 -0400
+X-MC-Unique: KWBXwrtmMfuw85dvmaAltg-1
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+ by mail.parknet.co.jp (Postfix) with ESMTPSA id B41832055FA5;
+ Thu, 10 Aug 2023 02:44:18 +0900 (JST)
+Received: from devron.myhome.or.jp (foobar@devron.myhome.or.jp [192.168.0.3])
+ by ibmpc.myhome.or.jp (8.17.2/8.17.2/Debian-1) with ESMTPS id
+ 379HiHKW223321
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Thu, 10 Aug 2023 02:44:18 +0900
+Received: from devron.myhome.or.jp (foobar@localhost [127.0.0.1])
+ by devron.myhome.or.jp (8.17.2/8.17.2/Debian-1) with ESMTPS id 379HiHXo222009
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Thu, 10 Aug 2023 02:44:17 +0900
+Received: (from hirofumi@localhost)
+ by devron.myhome.or.jp (8.17.2/8.17.2/Submit) id 379HiApg221995;
+ Thu, 10 Aug 2023 02:44:10 +0900
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Jeff Layton <jlayton@kernel.org>
+In-Reply-To: <2cb998ff14ace352a9dd553e82cfa0aa92ec09ce.camel@kernel.org> (Jeff
+ Layton's message of "Wed, 09 Aug 2023 12:30:52 -0400")
 References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
  <20230807-mgctime-v7-5-d1dec143a704@kernel.org>
  <87msz08vc7.fsf@mail.parknet.co.jp>
@@ -77,7 +80,10 @@ References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
  <878rak8hia.fsf@mail.parknet.co.jp>
  <20230809150041.452w7gucjmvjnvbg@quack3>
  <87v8do6y8q.fsf@mail.parknet.co.jp>
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
+ <2cb998ff14ace352a9dd553e82cfa0aa92ec09ce.camel@kernel.org>
+Date: Thu, 10 Aug 2023 02:44:10 +0900
+Message-ID: <87leek6rh1.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -86,7 +92,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 Subject: Re: [Cluster-devel] [PATCH v7 05/13] fat: make fat_update_time get
  its own timestamp
 X-BeenThere: cluster-devel@redhat.com
@@ -102,8 +108,9 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Martin Brandenburg <martin@omnibond.com>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, "Darrick
- J. Wong" <djwong@kernel.org>, Dominique Martinet <asmadeus@codewreck.org>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
  Christian Schoenebeck <linux_oss@crudebyte.com>, ecryptfs@vger.kernel.org,
  Yue Hu <huyue2@gl0jj8bn.sched.sma.tdnsstic1.cn>,
  David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
@@ -146,69 +153,57 @@ Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: mail.parknet.co.jp
+Content-Type: text/plain
 
-On Thu, 2023-08-10 at 00:17 +0900, OGAWA Hirofumi wrote:
-> Jan Kara <jack@suse.cz> writes:
->=20
-> > Since you are talking past one another with Jeff let me chime in here :=
-). I
-> > think you are worried about this hunk:
->=20
-> Right.
+Jeff Layton <jlayton@kernel.org> writes:
+
+> On Thu, 2023-08-10 at 00:17 +0900, OGAWA Hirofumi wrote:
+>> Jan Kara <jack@suse.cz> writes:
+
+[...]
+
+> My mistake re: lazytime vs. relatime, but Jan is correct that this
+> shouldn't break anything there.
+
+Actually breaks ("break" means not corrupt fs, means it breaks lazytime
+optimization). It is just not always, but it should be always for some
+userspaces.
+
+> The logic in the revised generic_update_time is different because FAT is
+> is a bit strange. fat_update_time does extra truncation on the timestamp
+> that it is handed beyond what timestamp_truncate() does.
+> fat_truncate_time is called in many different places too, so I don't
+> feel comfortable making big changes to how that works.
 >
-> > -=09if ((flags & S_VERSION) && inode_maybe_inc_iversion(inode, false))
-> > +=09if ((flags & (S_VERSION|S_CTIME|S_MTIME)) && inode_maybe_inc_iversi=
-on(inode, false))
-> >  =09=09dirty_flags |=3D I_DIRTY_SYNC;
-> >=20
-> > which makes the 'flags' test pass even if we just modified ctime or mti=
-me.
-> > But do note the second part of the if - inode_maybe_inc_iversion() - so=
- we
-> > are going to mark the inode dirty with I_DIRTY_SYNC only if someone que=
-ried
-> > iversion since the last time we have incremented it.
-> >=20
-> > So this hunk is not really changing how inode is marked dirty, it only
-> > changes how often we check whether iversion needs increment and that sh=
-ould
-> > be fine (and desirable). Hence lazytime isn't really broken by this in =
-any
-> > way.
->=20
-> OK. However, then it doesn't explain what I asked. This is not same with
-> generic_update_time(), only FAT does.
+> In the case of generic_update_time, it calls inode_update_timestamps
+> which returns a mask that shows which timestamps got updated. It then
+> marks the dirty_flags appropriately for what was actually changed.
 >
-> If thinks it is right thing, why generic_update_time() doesn't? I said
-> first reply, this was from generic_update_time(). (Or I'm misreading
-> updated generic_update_time()?)
->=20
+> generic_update_time is used across many filesystems so we need to ensure
+> that it's OK to use even when multigrain timestamps are enabled. Those
+> haven't been enabled in FAT though, so I didn't bother, and left it to
+> dirtying the inode in the same way it was before, even though it now
+> fetches its own timestamps from the clock. Given the way that the mtime
+> and ctime are smooshed together in FAT, that seemed reasonable.
+>
+> Is there a particular case or flag combination you're concerned about
+> here?
 
-My mistake re: lazytime vs. relatime, but Jan is correct that this
-shouldn't break anything there.
+Yes. Because FAT has strange timestamps that different granularity on
+disk . This is why generic time truncation doesn't work for FAT.
 
-The logic in the revised generic_update_time is different because FAT is
-is a bit strange. fat_update_time does extra truncation on the timestamp
-that it is handed beyond what timestamp_truncate() does.
-fat_truncate_time is called in many different places too, so I don't
-feel comfortable making big changes to how that works.
+Well anyway, my concern is the only following part. In
+generic_update_time(), S_[CM]TIME are not the cause of I_DIRTY_SYNC if
+lazytime mode.
 
-In the case of generic_update_time, it calls inode_update_timestamps
-which returns a mask that shows which timestamps got updated. It then
-marks the dirty_flags appropriately for what was actually changed.
+-	if ((flags & S_VERSION) && inode_maybe_inc_iversion(inode, false))
++	if ((flags & (S_VERSION|S_CTIME|S_MTIME)) && inode_maybe_inc_iversion(inode, false))
+		dirty_flags |= I_DIRTY_SYNC;
 
-generic_update_time is used across many filesystems so we need to ensure
-that it's OK to use even when multigrain timestamps are enabled. Those
-haven't been enabled in FAT though, so I didn't bother, and left it to
-dirtying the inode in the same way it was before, even though it now
-fetches its own timestamps from the clock. Given the way that the mtime
-and ctime are smooshed together in FAT, that seemed reasonable.
+If reverted this part to check only S_VERSION, I'm fine.
 
-Is there a particular case or flag combination you're concerned about
-here?
---=20
-Jeff Layton <jlayton@kernel.org>
+Thanks.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
 
