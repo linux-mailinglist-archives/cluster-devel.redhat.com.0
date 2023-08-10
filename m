@@ -2,94 +2,75 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC7F7776C52
-	for <lists+cluster-devel@lfdr.de>; Thu, 10 Aug 2023 00:38:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B67776D63
+	for <lists+cluster-devel@lfdr.de>; Thu, 10 Aug 2023 03:12:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691620697;
+	s=mimecast20190719; t=1691629937;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=ovuvpedYs8CKe3qhKMxCTCGimclCaGee+vWi+r458UE=;
-	b=BrJ8nBaHHwu/CLlEHZ6UyNxNDW7YDp7Wu9/YxJO6Hat2skFprzk2JKoMuhcHZ8HRkMenKy
-	nYMPIqdfJpnSY7T6oPWgyZ9lz1rnNeDospsGRLVzmY7IRKpLkXYwOh0kqPc4mzWUo9uzxP
-	gXRfV3ZUR0PJPF6eZUd0xp03A8RtogE=
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=R4AVdgW+vpLGvSDglGS8RXThyHftWhRixu5MXZ9M3rw=;
+	b=RpiwkTpvJAHpcoXWfo1/HcwsZuFhmN6NUxuGYaLpI3nrGgyioqpzhS+X+2VMFP2sZwLYda
+	Hx7XUypLGABRaBy+R/9/+Q3wMFU8pyFdAfRgty/ln2ome3E35PPoupNwnq6FLVxvfIBrLV
+	3XK9pLhiqSo1PJiCSIUmKsIRMoNF4Hw=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-475-vjpZLhXfPWKuw_tMx7llhA-1; Wed, 09 Aug 2023 18:38:13 -0400
-X-MC-Unique: vjpZLhXfPWKuw_tMx7llhA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-627-aeHiwAHXMdybTf30qSfhmA-1; Wed, 09 Aug 2023 21:12:14 -0400
+X-MC-Unique: aeHiwAHXMdybTf30qSfhmA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7F281C068E1;
-	Wed,  9 Aug 2023 22:38:11 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F388E40C2076;
-	Wed,  9 Aug 2023 22:38:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CC7D380407E;
+	Thu, 10 Aug 2023 01:12:13 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 46ABE492C13;
+	Thu, 10 Aug 2023 01:12:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ADEF71946594;
-	Wed,  9 Aug 2023 22:38:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9BE621946594;
+	Thu, 10 Aug 2023 01:12:09 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 58C481946588 for <cluster-devel@listman.corp.redhat.com>;
- Wed,  9 Aug 2023 22:38:09 +0000 (UTC)
+ ESMTP id 614BC1946588 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 10 Aug 2023 01:12:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4998A40C6F4E; Wed,  9 Aug 2023 22:38:09 +0000 (UTC)
+ id 36AD02166B27; Thu, 10 Aug 2023 01:12:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 424A740C6E8A
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 22:38:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B81C2166B25
+ for <cluster-devel@redhat.com>; Thu, 10 Aug 2023 01:12:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EC44823D62
- for <cluster-devel@redhat.com>; Wed,  9 Aug 2023 22:38:09 +0000 (UTC)
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6]) by
- relay.mimecast.com with ESMTP id us-mta-218-htRk1g7OMfO0yr8BdWRVrg-1; Wed,
- 09 Aug 2023 18:38:05 -0400
-X-MC-Unique: htRk1g7OMfO0yr8BdWRVrg-1
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
- by mail.parknet.co.jp (Postfix) with ESMTPSA id 3CD87205DB98;
- Thu, 10 Aug 2023 07:38:00 +0900 (JST)
-Received: from devron.myhome.or.jp (foobar@devron.myhome.or.jp [192.168.0.3])
- by ibmpc.myhome.or.jp (8.17.2/8.17.2/Debian-1) with ESMTPS id
- 379Mbwf6230731
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Thu, 10 Aug 2023 07:38:00 +0900
-Received: from devron.myhome.or.jp (foobar@localhost [127.0.0.1])
- by devron.myhome.or.jp (8.17.2/8.17.2/Debian-1) with ESMTPS id 379MbwGI248785
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Thu, 10 Aug 2023 07:37:58 +0900
-Received: (from hirofumi@localhost)
- by devron.myhome.or.jp (8.17.2/8.17.2/Submit) id 379MbqTh248778;
- Thu, 10 Aug 2023 07:37:52 +0900
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Jeff Layton <jlayton@kernel.org>
-In-Reply-To: <e4cee2590f5cb9a13a8d4445e550e155d551670d.camel@kernel.org> (Jeff
- Layton's message of "Wed, 09 Aug 2023 18:07:29 -0400")
-References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
- <20230807-mgctime-v7-5-d1dec143a704@kernel.org>
- <87msz08vc7.fsf@mail.parknet.co.jp>
- <52bead1d6a33fec89944b96e2ec20d1ea8747a9a.camel@kernel.org>
- <878rak8hia.fsf@mail.parknet.co.jp>
- <20230809150041.452w7gucjmvjnvbg@quack3>
- <87v8do6y8q.fsf@mail.parknet.co.jp>
- <2cb998ff14ace352a9dd553e82cfa0aa92ec09ce.camel@kernel.org>
- <87leek6rh1.fsf@mail.parknet.co.jp>
- <ccffe6ca3397c8374352b002fe01d55b09d84ef4.camel@kernel.org>
- <87h6p86p9z.fsf@mail.parknet.co.jp>
- <edf8e8ca3b38e56f30e0d24ac7293f848ffee371.camel@kernel.org>
- <87a5v06kij.fsf@mail.parknet.co.jp>
- <e4cee2590f5cb9a13a8d4445e550e155d551670d.camel@kernel.org>
-Date: Thu, 10 Aug 2023 07:37:52 +0900
-Message-ID: <87zg2z3kqn.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B848185A791
+ for <cluster-devel@redhat.com>; Thu, 10 Aug 2023 01:12:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-527-Yla3auDrNe-D00Dkb6T_yg-1; Wed, 09 Aug 2023 21:11:58 -0400
+X-MC-Unique: Yla3auDrNe-D00Dkb6T_yg-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="361401550"
+X-IronPort-AV: E=Sophos;i="6.01,160,1684825200"; d="scan'208";a="361401550"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2023 18:10:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="797414540"
+X-IronPort-AV: E=Sophos;i="6.01,160,1684825200"; d="scan'208";a="797414540"
+Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 09 Aug 2023 18:10:51 -0700
+Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qTuCQ-0006Yi-2f;
+ Thu, 10 Aug 2023 01:10:50 +0000
+Date: Thu, 10 Aug 2023 09:09:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <202308100902.W9OB1FfN-lkp@intel.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -98,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Cluster-devel] [PATCH v7 05/13] fat: make fat_update_time get
- its own timestamp
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [Cluster-devel] [gfs2:for-next 7/8] fs/gfs2/glock.c:1525:1:
+ warning: unused label 'do_cancel'
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,110 +93,189 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Latchesar Ionkov <lucho@ionkov.net>,
- Martin Brandenburg <martin@omnibond.com>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>, ecryptfs@vger.kernel.org,
- Yue Hu <huyue2@gl0jj8bn.sched.sma.tdnsstic1.cn>,
- David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Hans de Goede <hdegoede@redhat.com>,
- Marc Dionne <marc.dionne@auristor.com>, linux-xfs@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-mtd@lists.infradead.org,
- Mike Marshall <hubcap@omnibond.com>, Paulo Alcantara <pc@manguebit.com>,
- linux-cifs@vger.kernel.org, Eric Van Hensbergen <ericvh@kernel.org>,
- Miklos Szeredi <miklos@szeredi.hu>, Richard Weinberger <richard@nod.at>,
- Mark Fasheh <mark@fasheh.com>, linux-unionfs@vger.kernel.org,
- Hugh Dickins <hughd@google.com>, Tyler Hicks <code@tyhicks.com>,
- cluster-devel@redhat.com, coda@cs.cmu.edu, linux-mm@kvack.org,
- Gao Xiang <xiang@kernel.org>, Iurii Zaikin <yzaikin@google.com>,
- Namjae Jeon <linkinjeon@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- codalist@telemann.coda.cs.cmu.edu, Shyam Prasad N <sprasad@microsoft.com>,
- Amir Goldstein <amir73il@gmail.com>, Kees Cook <keescook@chromium.org>,
- ocfs2-devel@lists.linux.dev, Chao Yu <chao@kernel.org>,
- linux-erofs@lists.ozlabs.org, Josef Bacik <josef@toxicpanda.com>,
- Tom Talpey <tom@talpey.com>, Tejun Heo <tj@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, David Sterba <dsterba@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Jan Harkes <jaharkes@cs.cmu.edu>, Christian Brauner <brauner@kernel.org>,
- linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- Frank Sorenson <sorenson@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, v9fs@lists.linux.dev,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- Steve French <sfrench@samba.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Jeffle Xu <jefflexu@linux.alibaba.com>,
- devel@lists.orangefs.org, Anna Schumaker <anna@kernel.org>,
- Jan Kara <jack@suse.com>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Sungjong Seo <sj1557.seo@samsung.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
- Joel Becker <jlbec@evilplan.org>
+Cc: cluster-devel@redhat.com, llvm@lists.linux.dev,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: mail.parknet.co.jp
-Content-Type: text/plain
+X-Mimecast-Originator: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Jeff Layton <jlayton@kernel.org> writes:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next
+head:   2a3fda9c1ecf6acd1dbe4bec7b66b4a0503f1586
+commit: 226c6235cc2a4ea43e6a73cd8154dc88a3674a84 [7/8] gfs2: Remove LM_FLAG_PRIORITY flag
+config: hexagon-randconfig-r041-20230809 (https://download.01.org/0day-ci/archive/20230810/202308100902.W9OB1FfN-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
+reproduce: (https://download.01.org/0day-ci/archive/20230810/202308100902.W9OB1FfN-lkp@intel.com/reproduce)
 
-> If you do that then the i_version counter would never be incremented.
-> But...I think I see what you're getting at.
->
-> Most filesystems that support the i_version counter have an on-disk
-> field for it. FAT obviously has no such thing. I suspect the i_version
-> bits in fat_update_time were added by mistake. FAT doesn't set
-> SB_I_VERSION so there's no need to do anything to the i_version field at
-> all.
->
-> Also, given that the mtime and ctime are always kept in sync on FAT,
-> we're probably fine to have it look something like this:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308100902.W9OB1FfN-lkp@intel.com/
 
-Yes.
+All warnings (new ones prefixed by >>):
 
-IIRC, when I wrote, I decided to make it keep similar with generic
-function, instead of heavily customize for FAT (for maintenance
-reason). It is why. There would be other places with same reason.
+   In file included from fs/gfs2/glock.c:12:
+   In file included from include/linux/buffer_head.h:12:
+   In file included from include/linux/blk_types.h:10:
+   In file included from include/linux/bvec.h:10:
+   In file included from include/linux/highmem.h:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/hexagon/include/asm/io.h:334:
+   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     547 |         val = __raw_readb(PCI_IOBASE + addr);
+         |                           ~~~~~~~~~~ ^
+   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     560 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+         |                                                   ^
+   In file included from fs/gfs2/glock.c:12:
+   In file included from include/linux/buffer_head.h:12:
+   In file included from include/linux/blk_types.h:10:
+   In file included from include/linux/bvec.h:10:
+   In file included from include/linux/highmem.h:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/hexagon/include/asm/io.h:334:
+   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     573 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
+      35 | #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
+         |                                                   ^
+   In file included from fs/gfs2/glock.c:12:
+   In file included from include/linux/buffer_head.h:12:
+   In file included from include/linux/blk_types.h:10:
+   In file included from include/linux/bvec.h:10:
+   In file included from include/linux/highmem.h:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/hexagon/include/asm/io.h:334:
+   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     584 |         __raw_writeb(value, PCI_IOBASE + addr);
+         |                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     594 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     604 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+>> fs/gfs2/glock.c:1525:1: warning: unused label 'do_cancel' [-Wunused-label]
+    1525 | do_cancel:
+         | ^~~~~~~~~~
+    1526 |         gh = list_first_entry(&gl->gl_holders, struct gfs2_holder, gh_list);
+   7 warnings generated.
 
-E.g. LAZYTIME check is same reason too. (current FAT doesn't support it)
 
-So I personally I would prefer to leave it. But if you want to remove
-it, it would be ok too.
+vim +/do_cancel +1525 fs/gfs2/glock.c
 
-Thanks.
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1461  
+b3b94faa5fe596 David Teigland      2006-01-16  1462  /**
+b3b94faa5fe596 David Teigland      2006-01-16  1463   * add_to_queue - Add a holder to the wait queue (but look for recursion)
+b3b94faa5fe596 David Teigland      2006-01-16  1464   * @gh: the holder structure to add
+b3b94faa5fe596 David Teigland      2006-01-16  1465   *
+6802e3400ff454 Steven Whitehouse   2008-05-21  1466   * Eventually we should move the recursive locking trap to a
+6802e3400ff454 Steven Whitehouse   2008-05-21  1467   * debugging option or something like that. This is the fast
+6802e3400ff454 Steven Whitehouse   2008-05-21  1468   * path and needs to have the minimum number of distractions.
+6802e3400ff454 Steven Whitehouse   2008-05-21  1469   * 
+b3b94faa5fe596 David Teigland      2006-01-16  1470   */
+b3b94faa5fe596 David Teigland      2006-01-16  1471  
+6802e3400ff454 Steven Whitehouse   2008-05-21  1472  static inline void add_to_queue(struct gfs2_holder *gh)
+f3dd1649122b9e Andreas Gruenbacher 2015-10-29  1473  __releases(&gl->gl_lockref.lock)
+f3dd1649122b9e Andreas Gruenbacher 2015-10-29  1474  __acquires(&gl->gl_lockref.lock)
+b3b94faa5fe596 David Teigland      2006-01-16  1475  {
+b3b94faa5fe596 David Teigland      2006-01-16  1476  	struct gfs2_glock *gl = gh->gh_gl;
+15562c439d0a18 Bob Peterson        2015-03-16  1477  	struct gfs2_sbd *sdp = gl->gl_name.ln_sbd;
+6802e3400ff454 Steven Whitehouse   2008-05-21  1478  	struct list_head *insert_pt = NULL;
+6802e3400ff454 Steven Whitehouse   2008-05-21  1479  	struct gfs2_holder *gh2;
+e5dc76b9afcfb9 Bob Peterson        2012-08-09  1480  	int try_futile = 0;
+b3b94faa5fe596 David Teigland      2006-01-16  1481  
+ad26967b9afa7f Bob Peterson        2019-08-30  1482  	GLOCK_BUG_ON(gl, gh->gh_owner_pid == NULL);
+fee852e374fb36 Steven Whitehouse   2007-01-17  1483  	if (test_and_set_bit(HIF_WAIT, &gh->gh_iflags))
+ad26967b9afa7f Bob Peterson        2019-08-30  1484  		GLOCK_BUG_ON(gl, true);
+190562bd84a484 Steven Whitehouse   2006-04-20  1485  
+6802e3400ff454 Steven Whitehouse   2008-05-21  1486  	if (gh->gh_flags & (LM_FLAG_TRY | LM_FLAG_TRY_1CB)) {
+6144464937fe1e Andreas Gruenbacher 2021-08-10  1487  		if (test_bit(GLF_LOCK, &gl->gl_flags)) {
+8f0028fc60a42a Andreas Gruenbacher 2022-06-11  1488  			struct gfs2_holder *current_gh;
+6144464937fe1e Andreas Gruenbacher 2021-08-10  1489  
+ba3e77a4a22af0 Andreas Gruenbacher 2022-12-09  1490  			current_gh = find_first_holder(gl);
+8f0028fc60a42a Andreas Gruenbacher 2022-06-11  1491  			try_futile = !may_grant(gl, current_gh, gh);
+6144464937fe1e Andreas Gruenbacher 2021-08-10  1492  		}
+6802e3400ff454 Steven Whitehouse   2008-05-21  1493  		if (test_bit(GLF_INVALIDATE_IN_PROGRESS, &gl->gl_flags))
+6802e3400ff454 Steven Whitehouse   2008-05-21  1494  			goto fail;
+b3b94faa5fe596 David Teigland      2006-01-16  1495  	}
+b3b94faa5fe596 David Teigland      2006-01-16  1496  
+6802e3400ff454 Steven Whitehouse   2008-05-21  1497  	list_for_each_entry(gh2, &gl->gl_holders, gh_list) {
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1498  		if (likely(gh2->gh_owner_pid != gh->gh_owner_pid))
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1499  			continue;
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1500  		if (gh->gh_gl->gl_ops->go_type == LM_TYPE_FLOCK)
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1501  			continue;
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1502  		if (!pid_is_meaningful(gh2))
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1503  			continue;
+6802e3400ff454 Steven Whitehouse   2008-05-21  1504  		goto trap_recursive;
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1505  	}
+cbe6d2576e2cf7 Andreas Gruenbacher 2022-04-05  1506  	list_for_each_entry(gh2, &gl->gl_holders, gh_list) {
+e5dc76b9afcfb9 Bob Peterson        2012-08-09  1507  		if (try_futile &&
+e5dc76b9afcfb9 Bob Peterson        2012-08-09  1508  		    !(gh2->gh_flags & (LM_FLAG_TRY | LM_FLAG_TRY_1CB))) {
+6802e3400ff454 Steven Whitehouse   2008-05-21  1509  fail:
+6802e3400ff454 Steven Whitehouse   2008-05-21  1510  			gh->gh_error = GLR_TRYFAILED;
+6802e3400ff454 Steven Whitehouse   2008-05-21  1511  			gfs2_holder_wake(gh);
+6802e3400ff454 Steven Whitehouse   2008-05-21  1512  			return;
+6802e3400ff454 Steven Whitehouse   2008-05-21  1513  		}
+6802e3400ff454 Steven Whitehouse   2008-05-21  1514  		if (test_bit(HIF_HOLDER, &gh2->gh_iflags))
+6802e3400ff454 Steven Whitehouse   2008-05-21  1515  			continue;
+6802e3400ff454 Steven Whitehouse   2008-05-21  1516  	}
+edae38a6431276 Steven Whitehouse   2011-01-31  1517  	trace_gfs2_glock_queue(gh, 1);
+a245769f254bbb Steven Whitehouse   2012-01-20  1518  	gfs2_glstats_inc(gl, GFS2_LKS_QCOUNT);
+a245769f254bbb Steven Whitehouse   2012-01-20  1519  	gfs2_sbstats_inc(gl, GFS2_LKS_QCOUNT);
+6802e3400ff454 Steven Whitehouse   2008-05-21  1520  	if (likely(insert_pt == NULL)) {
+6802e3400ff454 Steven Whitehouse   2008-05-21  1521  		list_add_tail(&gh->gh_list, &gl->gl_holders);
+6802e3400ff454 Steven Whitehouse   2008-05-21  1522  		return;
+b3b94faa5fe596 David Teigland      2006-01-16  1523  	}
+6802e3400ff454 Steven Whitehouse   2008-05-21  1524  	list_add_tail(&gh->gh_list, insert_pt);
+6802e3400ff454 Steven Whitehouse   2008-05-21 @1525  do_cancel:
+969183bc68bc27 Andreas Gruenbacher 2020-02-03  1526  	gh = list_first_entry(&gl->gl_holders, struct gfs2_holder, gh_list);
+f3dd1649122b9e Andreas Gruenbacher 2015-10-29  1527  	spin_unlock(&gl->gl_lockref.lock);
+048bca22373936 Steven Whitehouse   2008-05-23  1528  	if (sdp->sd_lockstruct.ls_ops->lm_cancel)
+f057f6cdf64175 Steven Whitehouse   2009-01-12  1529  		sdp->sd_lockstruct.ls_ops->lm_cancel(gl);
+f3dd1649122b9e Andreas Gruenbacher 2015-10-29  1530  	spin_lock(&gl->gl_lockref.lock);
+6802e3400ff454 Steven Whitehouse   2008-05-21  1531  	return;
+b3b94faa5fe596 David Teigland      2006-01-16  1532  
+6802e3400ff454 Steven Whitehouse   2008-05-21  1533  trap_recursive:
+e54c78a27fcdef Bob Peterson        2018-10-03  1534  	fs_err(sdp, "original: %pSR\n", (void *)gh2->gh_ip);
+e54c78a27fcdef Bob Peterson        2018-10-03  1535  	fs_err(sdp, "pid: %d\n", pid_nr(gh2->gh_owner_pid));
+e54c78a27fcdef Bob Peterson        2018-10-03  1536  	fs_err(sdp, "lock type: %d req lock state : %d\n",
+6802e3400ff454 Steven Whitehouse   2008-05-21  1537  	       gh2->gh_gl->gl_name.ln_type, gh2->gh_state);
+e54c78a27fcdef Bob Peterson        2018-10-03  1538  	fs_err(sdp, "new: %pSR\n", (void *)gh->gh_ip);
+e54c78a27fcdef Bob Peterson        2018-10-03  1539  	fs_err(sdp, "pid: %d\n", pid_nr(gh->gh_owner_pid));
+e54c78a27fcdef Bob Peterson        2018-10-03  1540  	fs_err(sdp, "lock type: %d req lock state : %d\n",
+6802e3400ff454 Steven Whitehouse   2008-05-21  1541  	       gh->gh_gl->gl_name.ln_type, gh->gh_state);
+3792ce973f07a2 Bob Peterson        2019-05-09  1542  	gfs2_dump_glock(NULL, gl, true);
+6802e3400ff454 Steven Whitehouse   2008-05-21  1543  	BUG();
+b3b94faa5fe596 David Teigland      2006-01-16  1544  }
+b3b94faa5fe596 David Teigland      2006-01-16  1545  
 
-> --------------------8<------------------
-> int fat_update_time(struct inode *inode, int flags) 
-> { 
->         int dirty_flags = 0;
->
->         if (inode->i_ino == MSDOS_ROOT_INO) 
->                 return 0;
->
->         fat_truncate_time(inode, NULL, flags);
->         if (inode->i_sb->s_flags & SB_LAZYTIME)
->                 dirty_flags |= I_DIRTY_TIME;
->         else
->                 dirty_flags |= I_DIRTY_SYNC;
->
->         __mark_inode_dirty(inode, dirty_flags);
->         return 0;
-> } 
-> --------------------8<------------------
->
-> ...and we should probably do that in a separate patch in advance of the
-> update_time rework, since it's really a different change.
->
-> If you're in agreement, then I'll plan to respin the series with this
-> fixed and resend.
->
-> Thanks for being patient!
+:::::: The code at line 1525 was first introduced by commit
+:::::: 6802e3400ff4549525930ee744030c36fce9cc73 [GFS2] Clean up the glock core
+
+:::::: TO: Steven Whitehouse <swhiteho@redhat.com>
+:::::: CC: Steven Whitehouse <swhiteho@redhat.com>
+
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
