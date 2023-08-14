@@ -1,61 +1,60 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4456C77C225
-	for <lists+cluster-devel@lfdr.de>; Mon, 14 Aug 2023 23:11:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4AF77C224
+	for <lists+cluster-devel@lfdr.de>; Mon, 14 Aug 2023 23:11:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692047494;
+	s=mimecast20190719; t=1692047492;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tZEXFed81ekvMweSZpvZmhvnw/W3DW6CK17WR1HloMI=;
-	b=FIQG0ulfH33BNDU5wEtKNpFqdNhckTijdyvYJ8cigFJ+++Pzedbl+Y82GzyhO0E7lmK8Vl
-	7SK2rqizxiU9PSz0/+5Qli/mxH0jsLTqsUQEP9V8ho8yN/lEsWisdnLYdKk4Ecf60WICt6
-	nJRQWVQDksY/tPXjB2zMsDml1WOBSPo=
+	bh=pArjaDFSJm/PaSO+le75amYj6A0iIy9B3F5/c/CEF10=;
+	b=QXWtt6yR60slIKzAZSoNeG8qjGkumuwCi8PNIX3nKv+5x9SmQ5lu4ESS7ZAjm461oMbvyM
+	KBBVJPCjax7mzPYq1ziJRlVXvVbh5GEfd7IQykdXgM6A22prqdLPv091maOx58LcmaqU/B
+	1yvfeI3VMSo2ruzJzryBWqDF05BjNAw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-118-YM5tSNpdOJGDS2Ujg0b6aw-1; Mon, 14 Aug 2023 17:11:30 -0400
-X-MC-Unique: YM5tSNpdOJGDS2Ujg0b6aw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-295-8TDjYQeVNkab2_Kp2eJldg-1; Mon, 14 Aug 2023 17:11:27 -0400
+X-MC-Unique: 8TDjYQeVNkab2_Kp2eJldg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9DB3B8DC66D;
-	Mon, 14 Aug 2023 21:11:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCD4185C70F;
+	Mon, 14 Aug 2023 21:11:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8FB2C140E950;
-	Mon, 14 Aug 2023 21:11:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 41452492C13;
+	Mon, 14 Aug 2023 21:11:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 42D0B194658D;
-	Mon, 14 Aug 2023 21:11:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0B6BE19465B2;
+	Mon, 14 Aug 2023 21:11:26 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 76357194658F for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id C2D181946586 for <cluster-devel@listman.corp.redhat.com>;
  Mon, 14 Aug 2023 21:11:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 66F64C15BB8; Mon, 14 Aug 2023 21:11:24 +0000 (UTC)
+ id A3EB5C159F2; Mon, 14 Aug 2023 21:11:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0000CC15BAD;
- Mon, 14 Aug 2023 21:11:23 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 54666C15BAE;
+ Mon, 14 Aug 2023 21:11:24 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: linux-nfs@vger.kernel.org
-Date: Mon, 14 Aug 2023 17:11:15 -0400
-Message-Id: <20230814211116.3224759-7-aahringo@redhat.com>
+Date: Mon, 14 Aug 2023 17:11:16 -0400
+Message-Id: <20230814211116.3224759-8-aahringo@redhat.com>
 In-Reply-To: <20230814211116.3224759-1-aahringo@redhat.com>
 References: <20230814211116.3224759-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [Cluster-devel] [RFCv2 6/7] dlm: use FL_SLEEP to check if blocking
- request
+Subject: [Cluster-devel] [RFCv2 7/7] dlm: implement EXPORT_OP_SAFE_ASYNC_LOCK
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,84 +71,45 @@ Cc: jlayton@kernel.org, cluster-devel@redhat.com, ocfs2-devel@lists.linux.dev,
  trond.myklebust@hammerspace.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch uses the FL_SLEEP flag in struct file_lock to check if it's a
-blocking request in case if the request coming from nfs lockd process
-indicated by lm_grant() is set.
-
-IF FL_SLEEP is set a asynchronous blocking request is being made and
-it's waiting for lm_grant() callback being called to signal the lock was
-granted. If it's not set a synchronous non-blocking request is being made.
+This patch is activating the EXPORT_OP_SAFE_ASYNC_LOCK export flag to
+signal lockd that both filesystems are able to handle async lock
+requests. The cluster filesystems gfs2 and ocfs2 will redirect their
+lock requests to DLMs plock implementation that can handle async lock
+requests.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/dlm/plock.c | 38 ++++++++++++++++++++++----------------
- 1 file changed, 22 insertions(+), 16 deletions(-)
+ fs/gfs2/export.c  | 1 +
+ fs/ocfs2/export.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
-index 0094fa4004cc..524771002a2f 100644
---- a/fs/dlm/plock.c
-+++ b/fs/dlm/plock.c
-@@ -140,7 +140,6 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
- 	op->info.optype		= DLM_PLOCK_OP_LOCK;
- 	op->info.pid		= fl->fl_pid;
- 	op->info.ex		= (fl->fl_type == F_WRLCK);
--	op->info.wait		= IS_SETLKW(cmd);
- 	op->info.fsid		= ls->ls_global_id;
- 	op->info.number		= number;
- 	op->info.start		= fl->fl_start;
-@@ -148,24 +147,31 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
- 	op->info.owner = (__u64)(long)fl->fl_owner;
- 	/* async handling */
- 	if (fl->fl_lmops && fl->fl_lmops->lm_grant) {
--		op_data = kzalloc(sizeof(*op_data), GFP_NOFS);
--		if (!op_data) {
--			dlm_release_plock_op(op);
--			rv = -ENOMEM;
--			goto out;
--		}
-+		if (fl->fl_flags & FL_SLEEP) {
-+			op_data = kzalloc(sizeof(*op_data), GFP_NOFS);
-+			if (!op_data) {
-+				dlm_release_plock_op(op);
-+				rv = -ENOMEM;
-+				goto out;
-+			}
+diff --git a/fs/gfs2/export.c b/fs/gfs2/export.c
+index cf40895233f5..36bc43b9d141 100644
+--- a/fs/gfs2/export.c
++++ b/fs/gfs2/export.c
+@@ -192,5 +192,6 @@ const struct export_operations gfs2_export_ops = {
+ 	.fh_to_parent = gfs2_fh_to_parent,
+ 	.get_name = gfs2_get_name,
+ 	.get_parent = gfs2_get_parent,
++	.flags = EXPORT_OP_SAFE_ASYNC_LOCK,
+ };
  
--		op_data->callback = fl->fl_lmops->lm_grant;
--		locks_init_lock(&op_data->flc);
--		locks_copy_lock(&op_data->flc, fl);
--		op_data->fl		= fl;
--		op_data->file	= file;
-+			op->info.wait = 1;
-+			op_data->callback = fl->fl_lmops->lm_grant;
-+			locks_init_lock(&op_data->flc);
-+			locks_copy_lock(&op_data->flc, fl);
-+			op_data->fl		= fl;
-+			op_data->file	= file;
- 
--		op->data = op_data;
-+			op->data = op_data;
- 
--		send_op(op);
--		rv = FILE_LOCK_DEFERRED;
--		goto out;
-+			send_op(op);
-+			rv = FILE_LOCK_DEFERRED;
-+			goto out;
-+		} else {
-+			op->info.wait = 0;
-+		}
-+	} else {
-+		op->info.wait = IS_SETLKW(cmd);
- 	}
- 
- 	send_op(op);
+diff --git a/fs/ocfs2/export.c b/fs/ocfs2/export.c
+index eaa8c80ace3c..8a1169e01dd9 100644
+--- a/fs/ocfs2/export.c
++++ b/fs/ocfs2/export.c
+@@ -280,4 +280,5 @@ const struct export_operations ocfs2_export_ops = {
+ 	.fh_to_dentry	= ocfs2_fh_to_dentry,
+ 	.fh_to_parent	= ocfs2_fh_to_parent,
+ 	.get_parent	= ocfs2_get_parent,
++	.flags		= EXPORT_OP_SAFE_ASYNC_LOCK,
+ };
 -- 
 2.31.1
 
