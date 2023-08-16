@@ -1,77 +1,76 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24BB077E08C
-	for <lists+cluster-devel@lfdr.de>; Wed, 16 Aug 2023 13:38:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3986C77E0C0
+	for <lists+cluster-devel@lfdr.de>; Wed, 16 Aug 2023 13:48:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692185881;
+	s=mimecast20190719; t=1692186526;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tVYUCDvgsgPUSU/RN4M4ke8iz/uVyLHA8je3+UJfQMM=;
-	b=HSvu05JTDv0c50kDhOz44u727PccvIY5On8kZi6glvIrHrPMXfncbzQdCTCUy+7QxiZYgi
-	umDcyGTCRXGH2p6Q7z+4D0OpfxiVnvaFh1IsXwzAtcFsCvLIDHa7IozmzgzORbeoWdz6pL
-	I3jzKcpbiWfntcdp4vL5+IjNfgIiaWs=
+	bh=R6t/hgBrqme35nltpOKCwsCuRZtFC/hUO38u8Bhfl4w=;
+	b=CarE3bLZgXqr6pO1Y1Ai2RUsX83FK7DqVz5J4Ay+G1/nkCQl1yfDVVnVpUItPYFwmLz4BP
+	wvl7G0/XvT5qOOyqT9JyJ+i7y8H6tP4qhPc0zMS2vBatpzM31bZ6W2jzsD9EtR7TxqJNuN
+	y71tB0mNezDZFe3BX4TbLxT71Bl7mu0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-92-wE8hHm4_NeuArPLJyhA6uA-1; Wed, 16 Aug 2023 07:37:56 -0400
-X-MC-Unique: wE8hHm4_NeuArPLJyhA6uA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-21-dxRcwFyAPgip-RsIZg-bQg-1; Wed, 16 Aug 2023 07:48:43 -0400
+X-MC-Unique: dxRcwFyAPgip-RsIZg-bQg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D8C17856DED;
-	Wed, 16 Aug 2023 11:37:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D3A3C865823;
+	Wed, 16 Aug 2023 11:48:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7171F2026D4B;
-	Wed, 16 Aug 2023 11:37:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A3D49492C14;
+	Wed, 16 Aug 2023 11:48:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 06167194658D;
-	Wed, 16 Aug 2023 11:37:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 39AA9194658D;
+	Wed, 16 Aug 2023 11:48:39 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CE36C1946587 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 16 Aug 2023 11:37:50 +0000 (UTC)
+ ESMTP id 7FD771946587 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 16 Aug 2023 11:48:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 92CE0C15BAE; Wed, 16 Aug 2023 11:37:50 +0000 (UTC)
+ id 5DB2E2166B2E; Wed, 16 Aug 2023 11:48:32 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B477C15BAD
- for <cluster-devel@redhat.com>; Wed, 16 Aug 2023 11:37:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F63485CBE5
- for <cluster-devel@redhat.com>; Wed, 16 Aug 2023 11:37:50 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 54C642166B2D
+ for <cluster-devel@redhat.com>; Wed, 16 Aug 2023 11:48:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37658857A84
+ for <cluster-devel@redhat.com>; Wed, 16 Aug 2023 11:48:32 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-558-W0tAEJwSMTmgopPNbCPPsw-1; Wed, 16 Aug 2023 07:37:47 -0400
-X-MC-Unique: W0tAEJwSMTmgopPNbCPPsw-1
+ us-mta-549-3Pk46t-2MTWrW9zKwWN0mA-1; Wed, 16 Aug 2023 07:48:30 -0400
+X-MC-Unique: 3Pk46t-2MTWrW9zKwWN0mA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D33CF660EC;
- Wed, 16 Aug 2023 11:37:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C8BC433C7;
- Wed, 16 Aug 2023 11:37:44 +0000 (UTC)
-Message-ID: <88ec807d16a7eb2be252eea0c10e3374c01da1bf.camel@kernel.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2C3A9666AC;
+ Wed, 16 Aug 2023 11:43:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877E0C433C9;
+ Wed, 16 Aug 2023 11:43:12 +0000 (UTC)
+Message-ID: <30aa456827011eabf4b095d66cba2ac23491627a.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: Alexander Aring <aahringo@redhat.com>, linux-nfs@vger.kernel.org
-Date: Wed, 16 Aug 2023 07:37:42 -0400
-In-Reply-To: <20230814211116.3224759-3-aahringo@redhat.com>
+Date: Wed, 16 Aug 2023 07:43:11 -0400
+In-Reply-To: <20230814211116.3224759-4-aahringo@redhat.com>
 References: <20230814211116.3224759-1-aahringo@redhat.com>
- <20230814211116.3224759-3-aahringo@redhat.com>
+ <20230814211116.3224759-4-aahringo@redhat.com>
 User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -81,9 +80,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [Cluster-devel] [RFCv2 2/7] lockd: FILE_LOCK_DEFERRED only on
- FL_SLEEP
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [Cluster-devel] [RFCv2 3/7] lockd: introduce safe async lock op
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,113 +98,150 @@ Cc: cluster-devel@redhat.com, ocfs2-devel@lists.linux.dev,
  trond.myklebust@hammerspace.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="ISO-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
 On Mon, 2023-08-14 at 17:11 -0400, Alexander Aring wrote:
-> This patch removes to handle non-blocking lock requests as asynchronous
-> lock request returning FILE_LOCK_DEFERRED. When fl_lmops and lm_grant()
-> is set and a non-blocking lock request returns FILE_LOCK_DEFERRED will
-> end in an WARNING to signal the user the misusage of the API.
->=20
-
-Probably need to rephrase the word salad in the first sentence of the
-commit log. I had to go over it a few times to understand what was going
-on here.
-
-In any case, I'm guessing that the idea here is that GFS2/DLM shouldn't
-ever return FILE_LOCK_DEFERRED if this is a non-wait request (i.e.
-someone called F_SETLK instead of F_SETLKW)?
-
-That may be ok, but again, lockd goes to great lengths to avoid blocking
-and I think it's generally a good idea. If an upcall to DLM can take a
-long time, it might be a good idea to continue to allow a !wait request
-to return FILE_LOCK_DEFERRED.
-
-I guess this really depends on the current behavior today though. Does
-DLM ever return FILE_LOCK_DEFERRED on a non-blocking lock request?
-
-
-> The reason why we moving to make non-blocking lock request as
-> synchronized call is that we already doing this behaviour for unlock or
-> cancellation as well. Those are POSIX lock operations which are handled
-> in an synchronized way and waiting for an answer. For non-blocking lock
-> requests the answer will probably arrive in the same time as unlock or
-> cancellation operations as those are trylock operations only.
->=20
-> In case of a blocking lock request we need to have it asynchronously
-> because the time when the lock request getting granted is unknown.
+> This patch reverts mostly commit 40595cdc93ed ("nfs: block notification
+> on fs with its own ->lock") and introduces an EXPORT_OP_SAFE_ASYNC_LOCK
+> export flag to signal that the "own ->lock" implementation supports
+> async lock requests. The only main user is DLM that is used by GFS2 and
+> OCFS2 filesystem. Those implement their own lock() implementation and
+> return FILE_LOCK_DEFERRED as return value. Since commit 40595cdc93ed
+> ("nfs: block notification on fs with its own ->lock") the DLM
+> implementation were never updated. This patch should prepare for DLM
+> to set the EXPORT_OP_SAFE_ASYNC_LOCK export flag and update the DLM
+> plock implementation regarding to it.
 >=20
 > Signed-off-by: Alexander Aring <aahringo@redhat.com>
 > ---
->  fs/lockd/svclock.c | 39 +++++++--------------------------------
->  1 file changed, 7 insertions(+), 32 deletions(-)
+>  fs/lockd/svclock.c       |  5 ++---
+>  fs/nfsd/nfs4state.c      | 13 ++++++++++---
+>  include/linux/exportfs.h |  8 ++++++++
+>  3 files changed, 20 insertions(+), 6 deletions(-)
 >=20
 > diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
-> index 7d63524bdb81..1e74a578d7de 100644
+> index 1e74a578d7de..b8bd2b841ee1 100644
 > --- a/fs/lockd/svclock.c
 > +++ b/fs/lockd/svclock.c
-> @@ -440,31 +440,6 @@ static void nlmsvc_freegrantargs(struct nlm_rqst *ca=
-ll)
->  =09locks_release_private(&call->a_args.lock.fl);
->  }
+> @@ -449,9 +449,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *=
+file,
+>  =09    struct nlm_host *host, struct nlm_lock *lock, int wait,
+>  =09    struct nlm_cookie *cookie, int reclaim)
+>  {
+> -#if IS_ENABLED(CONFIG_SUNRPC_DEBUG)
+>  =09struct inode=09=09*inode =3D nlmsvc_file_inode(file);
+> -#endif
+>  =09struct nlm_block=09*block =3D NULL;
+>  =09int=09=09=09error;
+>  =09int=09=09=09mode;
+> @@ -465,7 +463,8 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *=
+file,
+>  =09=09=09=09(long long)lock->fl.fl_end,
+>  =09=09=09=09wait);
 > =20
-> -/*
-> - * Deferred lock request handling for non-blocking lock
-> - */
-> -static __be32
-> -nlmsvc_defer_lock_rqst(struct svc_rqst *rqstp, struct nlm_block *block)
-> -{
-> -=09__be32 status =3D nlm_lck_denied_nolocks;
-> -
-> -=09block->b_flags |=3D B_QUEUED;
-> -
-> -=09nlmsvc_insert_block(block, NLM_TIMEOUT);
-> -
-> -=09block->b_cache_req =3D &rqstp->rq_chandle;
-> -=09if (rqstp->rq_chandle.defer) {
-> -=09=09block->b_deferred_req =3D
-> -=09=09=09rqstp->rq_chandle.defer(block->b_cache_req);
-> -=09=09if (block->b_deferred_req !=3D NULL)
-> -=09=09=09status =3D nlm_drop_reply;
-> -=09}
-> -=09dprintk("lockd: nlmsvc_defer_lock_rqst block %p flags %d status %d\n"=
+> -=09if (nlmsvc_file_file(file)->f_op->lock) {
+> +=09if (!export_op_support_safe_async_lock(inode->i_sb->s_export_op,
+> +=09=09=09=09=09       nlmsvc_file_file(file)->f_op)) {
+>  =09=09async_block =3D wait;
+>  =09=09wait =3D 0;
+>  =09}
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index 3aefbad4cc09..14ca06424ff1 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -7430,6 +7430,7 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_com=
+pound_state *cstate,
+>  =09struct nfsd4_blocked_lock *nbl =3D NULL;
+>  =09struct file_lock *file_lock =3D NULL;
+>  =09struct file_lock *conflock =3D NULL;
+> +=09struct super_block *sb;
+>  =09__be32 status =3D 0;
+>  =09int lkflg;
+>  =09int err;
+> @@ -7451,6 +7452,7 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_com=
+pound_state *cstate,
+>  =09=09dprintk("NFSD: nfsd4_lock: permission denied!\n");
+>  =09=09return status;
+>  =09}
+> +=09sb =3D cstate->current_fh.fh_dentry->d_sb;
+> =20
+>  =09if (lock->lk_is_new) {
+>  =09=09if (nfsd4_has_session(cstate))
+> @@ -7502,7 +7504,9 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_com=
+pound_state *cstate,
+>  =09fp =3D lock_stp->st_stid.sc_file;
+>  =09switch (lock->lk_type) {
+>  =09=09case NFS4_READW_LT:
+> -=09=09=09if (nfsd4_has_session(cstate))
+> +=09=09=09if (nfsd4_has_session(cstate) ||
+> +=09=09=09    export_op_support_safe_async_lock(sb->s_export_op,
+> +=09=09=09=09=09=09=09      nf->nf_file->f_op))
+>  =09=09=09=09fl_flags |=3D FL_SLEEP;
+>  =09=09=09fallthrough;
+>  =09=09case NFS4_READ_LT:
+> @@ -7514,7 +7518,9 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_com=
+pound_state *cstate,
+>  =09=09=09fl_type =3D F_RDLCK;
+>  =09=09=09break;
+>  =09=09case NFS4_WRITEW_LT:
+> -=09=09=09if (nfsd4_has_session(cstate))
+> +=09=09=09if (nfsd4_has_session(cstate) ||
+> +=09=09=09    export_op_support_safe_async_lock(sb->s_export_op,
+> +=09=09=09=09=09=09=09      nf->nf_file->f_op))
+>  =09=09=09=09fl_flags |=3D FL_SLEEP;
+>  =09=09=09fallthrough;
+>  =09=09case NFS4_WRITE_LT:
+> @@ -7542,7 +7548,8 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_com=
+pound_state *cstate,
+>  =09 * for file locks), so don't attempt blocking lock notifications
+>  =09 * on those filesystems:
+>  =09 */
+> -=09if (nf->nf_file->f_op->lock)
+> +=09if (!export_op_support_safe_async_lock(sb->s_export_op,
+> +=09=09=09=09=09       nf->nf_file->f_op))
+>  =09=09fl_flags &=3D ~FL_SLEEP;
+> =20
+>  =09nbl =3D find_or_allocate_block(lock_sop, &fp->fi_fhandle, nn);
+> diff --git a/include/linux/exportfs.h b/include/linux/exportfs.h
+> index 11fbd0ee1370..10358a93cdc1 100644
+> --- a/include/linux/exportfs.h
+> +++ b/include/linux/exportfs.h
+> @@ -3,6 +3,7 @@
+>  #define LINUX_EXPORTFS_H 1
+> =20
+>  #include <linux/types.h>
+> +#include <linux/fs.h>
+> =20
+>  struct dentry;
+>  struct iattr;
+> @@ -224,9 +225,16 @@ struct export_operations {
+>  =09=09=09=09=09=09  atomic attribute updates
+>  =09=09=09=09=09=09*/
+>  #define EXPORT_OP_FLUSH_ON_CLOSE=09(0x20) /* fs flushes file data on clo=
+se */
+> +#define EXPORT_OP_SAFE_ASYNC_LOCK=09(0x40) /* fs can do async lock reque=
+st */
+>  =09unsigned long=09flags;
+>  };
+> =20
+> +static inline bool export_op_support_safe_async_lock(const struct export=
+_operations *export_ops,
+> +=09=09=09=09=09=09     const struct file_operations *f_op)
+> +{
+> +=09return (export_ops->flags & EXPORT_OP_SAFE_ASYNC_LOCK) || !f_op->lock=
+;
+> +}
+> +
+>  extern int exportfs_encode_inode_fh(struct inode *inode, struct fid *fid=
 ,
-> -=09=09block, block->b_flags, ntohl(status));
-> -
-> -=09return status;
-> -}
-> -
->  /*
->   * Attempt to establish a lock, and if it can't be granted, block it
->   * if required.
-> @@ -569,14 +544,14 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file=
- *file,
->  =09=09=09ret =3D async_block ? nlm_lck_blocked : nlm_lck_denied;
->  =09=09=09goto out_cb_mutex;
->  =09=09case FILE_LOCK_DEFERRED:
-> -=09=09=09block->b_flags |=3D B_PENDING_CALLBACK;
-> +=09=09=09/* lock requests without waiters are handled in
-> +=09=09=09 * a non async way. Let assert this to inform
-> +=09=09=09 * the user about a API violation.
-> +=09=09=09 */
-> +=09=09=09WARN_ON_ONCE(!wait);
-> =20
-> -=09=09=09if (wait)
-> -=09=09=09=09break;
-> -=09=09=09/* Filesystem lock operation is in progress
-> -=09=09=09   Add it to the queue waiting for callback */
-> -=09=09=09ret =3D nlmsvc_defer_lock_rqst(rqstp, block);
-> -=09=09=09goto out_cb_mutex;
-> +=09=09=09block->b_flags |=3D B_PENDING_CALLBACK;
-> +=09=09=09break;
->  =09=09case -EDEADLK:
->  =09=09=09nlmsvc_remove_block(block);
->  =09=09=09ret =3D nlm_deadlock;
+>  =09=09=09=09    int *max_len, struct inode *parent,
+>  =09=09=09=09    int flags);
 
---=20
-Jeff Layton <jlayton@kernel.org>
+This seems like a reasonable approach, in principle.
+
+Acked-by: Jeff Layton <jlayton@kernel.org>
 
