@@ -1,98 +1,99 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A00277EE9D
-	for <lists+cluster-devel@lfdr.de>; Thu, 17 Aug 2023 03:19:54 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E7F177EEAC
+	for <lists+cluster-devel@lfdr.de>; Thu, 17 Aug 2023 03:24:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692235193;
+	s=mimecast20190719; t=1692235450;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MdJI8YOWfcspuu/Kis9p/FFOj/Ijn4DHopWgTGqX0p8=;
-	b=RUs7QBigfnPxLqpb04Sf62UoBph9/C+dsg/Dk4QVXY5fI1Q07ToeIwUJqMZAK/tUtELP0i
-	MfKwcgPDbSXu6SKzWZAfldWGNQ7Dk1tLttXrjZu8KH7RuM3uZTllcRNZJ2bm07OMocG/+z
-	L33ozmuFmfxPrykB2Q/qsoOjugTUh4o=
+	bh=XjasKeXZqylsbZptWllQNMerqPBUwmOArgVba6SAq8Q=;
+	b=Nai/0pJdN0V6KfCSXSyLQM9bq6x+P9C9R4zwPLgLqA3wIl8P/4py0+ICpV7PpPzO97J9g6
+	YLfP+6decC4GbKfyvDx/w9h05nshwPD8YeLwt6Q/0DpkNHIQwsw7fezYQnpYkrwgAhGn95
+	WYx3RHWLrGkhUCvT8IgTT1b5fRv/6Tw=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-495-BxbYa3CpNGOv-ClFzj1IYA-1; Wed, 16 Aug 2023 21:19:49 -0400
-X-MC-Unique: BxbYa3CpNGOv-ClFzj1IYA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-584-JePEgREgOqOXux3-Hq68BQ-1; Wed, 16 Aug 2023 21:24:04 -0400
+X-MC-Unique: JePEgREgOqOXux3-Hq68BQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D393029A9CAA;
-	Thu, 17 Aug 2023 01:19:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2610B3C0C4A3;
+	Thu, 17 Aug 2023 01:24:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E23AE492C14;
-	Thu, 17 Aug 2023 01:19:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1ADF140C207A;
+	Thu, 17 Aug 2023 01:24:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 64D8C194658C;
-	Thu, 17 Aug 2023 01:19:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CB3CE194658C;
+	Thu, 17 Aug 2023 01:24:02 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CC1611946587 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 17 Aug 2023 01:19:29 +0000 (UTC)
+ ESMTP id EBC131946587 for <cluster-devel@listman.corp.redhat.com>;
+ Thu, 17 Aug 2023 01:24:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A9A452026D68; Thu, 17 Aug 2023 01:19:24 +0000 (UTC)
+ id D4C0D40D283A; Thu, 17 Aug 2023 01:24:01 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A243D2026D4B
- for <cluster-devel@redhat.com>; Thu, 17 Aug 2023 01:19:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CD61540D2839
+ for <cluster-devel@redhat.com>; Thu, 17 Aug 2023 01:24:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C46D29A9CAB
- for <cluster-devel@redhat.com>; Thu, 17 Aug 2023 01:19:24 +0000 (UTC)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9EEE3185A78B
+ for <cluster-devel@redhat.com>; Thu, 17 Aug 2023 01:24:01 +0000 (UTC)
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-510-AmO6tQ9ENS6fi3Zt0TrnQA-1; Wed, 16 Aug 2023 21:19:21 -0400
-X-MC-Unique: AmO6tQ9ENS6fi3Zt0TrnQA-1
-Received: by mail-ed1-f69.google.com with SMTP id
- 4fb4d7f45d1cf-5234e6cc76fso4380571a12.1
- for <cluster-devel@redhat.com>; Wed, 16 Aug 2023 18:19:20 -0700 (PDT)
+ us-mta-466-NNyamJBeORODK13q5aNQfA-1; Wed, 16 Aug 2023 21:24:00 -0400
+X-MC-Unique: NNyamJBeORODK13q5aNQfA-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ 4fb4d7f45d1cf-5218b9647a8so4328693a12.1
+ for <cluster-devel@redhat.com>; Wed, 16 Aug 2023 18:23:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692235160; x=1692839960;
+ d=1e100.net; s=20221208; t=1692235439; x=1692840239;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MdJI8YOWfcspuu/Kis9p/FFOj/Ijn4DHopWgTGqX0p8=;
- b=bEYf91K4+ICatodH3xXYELPWoBujELJxXEWJPLQ2Kf85vTu8HH4Wq936ceoAIlJL18
- zkMwOoY+PjoP20R4pO9m/+i2Yfdi4rsUQsNvWPjo8kGhUVBQgLP3GLeTz9LVBV0xgOgT
- rCWbmVXfyaT66gcruO91hzweyU9nbZWBblz5U98SC8Lpu++wtcSZxetyHPwYEfMeti+s
- EhaYSUTvqAmM/CD2bIemKnyI1LeKjRAfTfL94+oPQeq42WH817UQpwSYdv91tBFh8hzu
- ZOjkPLoS1Q36ZqiV1Er+R1lZ/igYtYtkPCNydRAx8G04wbW8vvcLQGTtuxEfJhyrehOE
- EsnA==
-X-Gm-Message-State: AOJu0YwVlRhDAGXQAFRef57Qn8wMoVkH9Wj/aQiPMG87gvUIZHbDx4Jr
- sEM5xJ4IEpLpTn7Wk1K11q0hXjMWL0WDC9RU1pr9WPDtBtXfgA3h7bIOO9D/WzL7dhjk8gc5zbW
- +s8uw10bCoFn2yNWInrpv62Rrh5gljM8gVYvQfw==
-X-Received: by 2002:a05:6402:2028:b0:523:b665:e494 with SMTP id
- ay8-20020a056402202800b00523b665e494mr2705182edb.15.1692235159939; 
- Wed, 16 Aug 2023 18:19:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH+3zVWGGEV7pU4ZRS9ZVR7J1WVptyIFU1YawAqPgdGNxY0nrs+srZ1tF1GgXLlWOW6IssVK6QeBhfLu09ErmQ=
-X-Received: by 2002:a05:6402:2028:b0:523:b665:e494 with SMTP id
- ay8-20020a056402202800b00523b665e494mr2705166edb.15.1692235159674; Wed, 16
- Aug 2023 18:19:19 -0700 (PDT)
+ bh=XjasKeXZqylsbZptWllQNMerqPBUwmOArgVba6SAq8Q=;
+ b=hpvcSB0x3UAdIfGJH22sPhhtlzaIYwZkfT1L7S9TurlWrWbQtmxGpmLyQglvi9pB+C
+ q+d4OCuXLFGao+/AGKdWi3oNeHaxA+Lsc4eu8FPq15+R4jq5NFBeRxLQT+XGO4w6mrMH
+ oKOvmtf8dUDkUm4aFxWunpNOxHK2YAgJoPKs2+Gfqp2coB+1aUGotjEpSNEwDDWI2UJI
+ O7EmXeuCm3raP2N240U76qhDCCGmTdsy2PJ+cQXNZJOqoXrE3OClkZ9ZnYX+NfIrY/rB
+ 7eCPzbQkN/lffB2JoddY2zw8VJ6BnVFhWf/6dW/gOcpp3iMFhz5Ru55XJmBtR8nqScBu
+ JK9A==
+X-Gm-Message-State: AOJu0YwuK144tF4lZVR9MLzBZuzxdpNrg24ewJ6hn7I142gEGcpK9jZ1
+ 9rQTOX8g8UMvf3yL1HvwlrVODjJmJ2kVI66RHL1P85JapaxsvQwEl4nsz4amHx2zrHOolHVlIto
+ N6myK0MuwIEE4y3NFdLCQ1ymjbRZbgbD/HbzEZw==
+X-Received: by 2002:aa7:c545:0:b0:524:5e4c:2fa4 with SMTP id
+ s5-20020aa7c545000000b005245e4c2fa4mr2839448edr.14.1692235438943; 
+ Wed, 16 Aug 2023 18:23:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGXDmfKQ7ys1l6lXBj07FDJ7WlcIO7oafTPjac90Yx5immK+W1gBVjH7vhGznIaT59kMvjiA8PZ+Qat0vf3KLE=
+X-Received: by 2002:aa7:c545:0:b0:524:5e4c:2fa4 with SMTP id
+ s5-20020aa7c545000000b005245e4c2fa4mr2839440edr.14.1692235438645; Wed, 16 Aug
+ 2023 18:23:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230814211116.3224759-1-aahringo@redhat.com>
- <20230814211116.3224759-7-aahringo@redhat.com>
- <bd76489a6b0d2f56f4a68d48b3736fcaf5b5119b.camel@kernel.org>
-In-Reply-To: <bd76489a6b0d2f56f4a68d48b3736fcaf5b5119b.camel@kernel.org>
+ <20230814211116.3224759-5-aahringo@redhat.com>
+ <ca18531b54306d27218daf8e90b72ef3a4b8e44f.camel@kernel.org>
+In-Reply-To: <ca18531b54306d27218daf8e90b72ef3a4b8e44f.camel@kernel.org>
 From: Alexander Aring <aahringo@redhat.com>
-Date: Wed, 16 Aug 2023 21:19:08 -0400
-Message-ID: <CAK-6q+i3oKN3M_kdoQ99hMnzSZyRH1sPdxZ0MQMwp+vSixUhwg@mail.gmail.com>
+Date: Wed, 16 Aug 2023 21:23:47 -0400
+Message-ID: <CAK-6q+iTe86JKqeEsfUanwmu6wOxz=CqL_H_NEiq2vZ8PwcWQA@mail.gmail.com>
 To: Jeff Layton <jlayton@kernel.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [Cluster-devel] [RFCv2 6/7] dlm: use FL_SLEEP to check if
- blocking request
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [Cluster-devel] [RFCv2 4/7] locks: update lock callback
+ documentation
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,7 +110,7 @@ Cc: linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
  linux-fsdevel@vger.kernel.org, trond.myklebust@hammerspace.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
@@ -117,108 +118,66 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On Wed, Aug 16, 2023 at 9:07=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wr=
+On Wed, Aug 16, 2023 at 8:01=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wr=
 ote:
 >
 > On Mon, 2023-08-14 at 17:11 -0400, Alexander Aring wrote:
-> > This patch uses the FL_SLEEP flag in struct file_lock to check if it's =
-a
-> > blocking request in case if the request coming from nfs lockd process
-> > indicated by lm_grant() is set.
-> >
-> > IF FL_SLEEP is set a asynchronous blocking request is being made and
-> > it's waiting for lm_grant() callback being called to signal the lock wa=
-s
-> > granted. If it's not set a synchronous non-blocking request is being ma=
-de.
+> > This patch updates the existing documentation regarding recent changes
+> > to vfs_lock_file() and lm_grant() is set. In case of lm_grant() is set
+> > we only handle FILE_LOCK_DEFERRED in case of FL_SLEEP in fl_flags is no=
+t
+> > set. This is the case of an blocking lock request. Non-blocking lock
+> > requests, when FL_SLEEP is not set, are handled in a synchronized way.
 > >
 > > Signed-off-by: Alexander Aring <aahringo@redhat.com>
 > > ---
-> >  fs/dlm/plock.c | 38 ++++++++++++++++++++++----------------
-> >  1 file changed, 22 insertions(+), 16 deletions(-)
+> >  fs/locks.c | 28 ++++++++++++++--------------
+> >  1 file changed, 14 insertions(+), 14 deletions(-)
 > >
-> > diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
-> > index 0094fa4004cc..524771002a2f 100644
-> > --- a/fs/dlm/plock.c
-> > +++ b/fs/dlm/plock.c
-> > @@ -140,7 +140,6 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 =
-number, struct file *file,
-> >       op->info.optype         =3D DLM_PLOCK_OP_LOCK;
-> >       op->info.pid            =3D fl->fl_pid;
-> >       op->info.ex             =3D (fl->fl_type =3D=3D F_WRLCK);
-> > -     op->info.wait           =3D IS_SETLKW(cmd);
-> >       op->info.fsid           =3D ls->ls_global_id;
-> >       op->info.number         =3D number;
-> >       op->info.start          =3D fl->fl_start;
-> > @@ -148,24 +147,31 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u6=
-4 number, struct file *file,
-> >       op->info.owner =3D (__u64)(long)fl->fl_owner;
-> >       /* async handling */
-> >       if (fl->fl_lmops && fl->fl_lmops->lm_grant) {
-> > -             op_data =3D kzalloc(sizeof(*op_data), GFP_NOFS);
-> > -             if (!op_data) {
-> > -                     dlm_release_plock_op(op);
-> > -                     rv =3D -ENOMEM;
-> > -                     goto out;
-> > -             }
-> > +             if (fl->fl_flags & FL_SLEEP) {
-> > +                     op_data =3D kzalloc(sizeof(*op_data), GFP_NOFS);
-> > +                     if (!op_data) {
-> > +                             dlm_release_plock_op(op);
-> > +                             rv =3D -ENOMEM;
-> > +                             goto out;
-> > +                     }
-> >
-> > -             op_data->callback =3D fl->fl_lmops->lm_grant;
-> > -             locks_init_lock(&op_data->flc);
-> > -             locks_copy_lock(&op_data->flc, fl);
-> > -             op_data->fl             =3D fl;
-> > -             op_data->file   =3D file;
-> > +                     op->info.wait =3D 1;
-> > +                     op_data->callback =3D fl->fl_lmops->lm_grant;
-> > +                     locks_init_lock(&op_data->flc);
-> > +                     locks_copy_lock(&op_data->flc, fl);
-> > +                     op_data->fl             =3D fl;
-> > +                     op_data->file   =3D file;
-> >
-> > -             op->data =3D op_data;
-> > +                     op->data =3D op_data;
-> >
-> > -             send_op(op);
-> > -             rv =3D FILE_LOCK_DEFERRED;
-> > -             goto out;
-> > +                     send_op(op);
-> > +                     rv =3D FILE_LOCK_DEFERRED;
-> > +                     goto out;
+> > diff --git a/fs/locks.c b/fs/locks.c
+> > index df8b26a42524..a8e51f462b43 100644
+> > --- a/fs/locks.c
+> > +++ b/fs/locks.c
+> > @@ -2255,21 +2255,21 @@ int fcntl_getlk(struct file *filp, unsigned int=
+ cmd, struct flock *flock)
+> >   * To avoid blocking kernel daemons, such as lockd, that need to acqui=
+re POSIX
+> >   * locks, the ->lock() interface may return asynchronously, before the=
+ lock has
+> >   * been granted or denied by the underlying filesystem, if (and only i=
+f)
+> > - * lm_grant is set. Callers expecting ->lock() to return asynchronousl=
+y
+> > - * will only use F_SETLK, not F_SETLKW; they will set FL_SLEEP if (and=
+ only if)
+> > - * the request is for a blocking lock. When ->lock() does return async=
+hronously,
+> > - * it must return FILE_LOCK_DEFERRED, and call ->lm_grant() when the l=
+ock
+> > - * request completes.
+> > - * If the request is for non-blocking lock the file system should retu=
+rn
+> > - * FILE_LOCK_DEFERRED then try to get the lock and call the callback r=
+outine
+> > - * with the result. If the request timed out the callback routine will=
+ return a
+> > + * lm_grant and FL_SLEEP in fl_flags is set. Callers expecting ->lock(=
+) to return
+> > + * asynchronously will only use F_SETLK, not F_SETLKW; When ->lock() d=
+oes return
 >
-> A question...we're returning FILE_LOCK_DEFERRED after the DLM request is
-> sent. If it ends up being blocked, what happens? Does it do a lm_grant
-> downcall with -EAGAIN or something as the result?
+> Isn't the above backward? Shouldn't it say "Callers expecting ->lock()
+> to return asynchronously will only use F_SETLKW, not F_SETLK" ?
 >
 
-no, when info->wait is set then it is a blocked lock request, which
-means lm_grant() will be called when the lock request is granted.
+So far I know lockd will always use F_SETLK only, if it's a blocking
+or non-blocking request you need to evaluate FL_SLEEP. But if
+lm_grant() is not set we are using a check on cmd if it's F_SETLK or
+F_SETLKW to check if it's non-blocking or blocking.
 
->
-> > +             } else {
-> > +                     op->info.wait =3D 0;
-> > +             }
-> > +     } else {
-> > +             op->info.wait =3D IS_SETLKW(cmd);
-> >       }
-> >
-> >       send_op(op);
->
-> Looks reasonable overall.
->
-> Now that I look, we have quite a number of places in the kernel that
-> seem to check for F_SETLKW, when what they really want is to check
-> FL_SLEEP.
-
-Yes, so far I understand FL_SLEEP is F_SETLKW when you get only
-F_SETLK in case of fl->fl_lmops && fl->fl_lmops->lm_grant is true. It
-is confusing but this is how it works... if it's not set we will get
-F_SETLKW and this should imply FL_SLEEP is set.
+If lm_grant() is set and checking on F_SETLKW should never be the
+case, because it will never be true (speaking from lockd point of
+view).
 
 - Alex
 
