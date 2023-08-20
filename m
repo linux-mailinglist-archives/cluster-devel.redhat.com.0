@@ -2,99 +2,85 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 815B977FDFC
-	for <lists+cluster-devel@lfdr.de>; Thu, 17 Aug 2023 20:39:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B62A6781C7A
+	for <lists+cluster-devel@lfdr.de>; Sun, 20 Aug 2023 07:06:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692297561;
+	s=mimecast20190719; t=1692507965;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Kd4TYVvwU1aUt0kyKry2n2j6BSVfouTESoEkR9Nhxgo=;
-	b=Pzs3+aAm5LnwWnK2Wi4RNmk31DjOu1KF3HSvnHUWXacrcrGMk05376hvZoX646cOnYylxS
-	I/wRSctb44+9Xwszt7wchWAwPqJuWmtjypasnyyX7oBTrZvaWhwihZ233iXJTSHLwB9U/0
-	ywC1upNcC+dlhLe7OCro45Ta0NDBVDI=
+	bh=5i3MeWSPR32t1wIPXkNJpQxP65sGqKoFt0d5k586/Wg=;
+	b=B2ATmEOBXD5KpNxHzwUY0kHjGfael+QuOiUAT887WLrX9aUMimTkvtT1CfatTi+63YP3TL
+	Q8/98F0CZPrOSZ5dWcBAFhbLSF8t7/tGPddAYlhJqoUAOzaE0dubVZKGfbXBiQikvB4jlQ
+	w+AMXTIcIgLOY6Be10KXM+1Yq9/Rn6w=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-lnbcL4bSMqemq39lvlqCrA-1; Thu, 17 Aug 2023 14:39:18 -0400
-X-MC-Unique: lnbcL4bSMqemq39lvlqCrA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-111-hFgSvcyzMWqv5n1AJNdnmA-1; Sun, 20 Aug 2023 01:06:02 -0400
+X-MC-Unique: hFgSvcyzMWqv5n1AJNdnmA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39A848DC660;
-	Thu, 17 Aug 2023 18:39:17 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 498258007A4;
+	Sun, 20 Aug 2023 05:06:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2E3631121314;
-	Thu, 17 Aug 2023 18:39:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3F413140E950;
+	Sun, 20 Aug 2023 05:05:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CB7B9194658C;
-	Thu, 17 Aug 2023 18:39:16 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5D83F194658C;
+	Sun, 20 Aug 2023 05:05:56 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9F1F01946587 for <cluster-devel@listman.corp.redhat.com>;
- Thu, 17 Aug 2023 18:39:15 +0000 (UTC)
+ ESMTP id C60061946587 for <cluster-devel@listman.corp.redhat.com>;
+ Sun, 20 Aug 2023 05:05:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 885B940C6E8A; Thu, 17 Aug 2023 18:39:15 +0000 (UTC)
+ id AFA67C15BAE; Sun, 20 Aug 2023 05:05:54 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 817C440C6F4E
- for <cluster-devel@redhat.com>; Thu, 17 Aug 2023 18:39:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 635343811812
- for <cluster-devel@redhat.com>; Thu, 17 Aug 2023 18:39:15 +0000 (UTC)
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-543-F08PEc5QOAKGxj7wGTR-Aw-1; Thu, 17 Aug 2023 14:39:13 -0400
-X-MC-Unique: F08PEc5QOAKGxj7wGTR-Aw-1
-Received: by mail-lf1-f71.google.com with SMTP id
- 2adb3069b0e04-4fe4a1ce065so12070e87.3
- for <cluster-devel@redhat.com>; Thu, 17 Aug 2023 11:39:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692297552; x=1692902352;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Kd4TYVvwU1aUt0kyKry2n2j6BSVfouTESoEkR9Nhxgo=;
- b=eSC/YetC9bMfR0GwMFvTC4sfR21r33Hq5OwAx9VG6Haf9lUO95feJSjTlv1EaMzLaR
- Fg9ORXDlHvHKbxTOUjyHZZ8s8tvrvNURWugQUMCZKcR7eqSAK0yOzuWpF7XaHEkAUIvj
- Ac8GcvOOIRtNSxvFoqcHzP8kAbnSidICoJq1iLJUCHzPpLBlqY8rm2G9aGNpbskWu1ul
- baLRzAGfhfNxC3KNJK3fUO6+yGMHuX61WqRMbq4vBNOSHwScGbdokVlFJYUlzdrYT86+
- ZDYFU9v5fWxQr0TSbb/NU2TLLzxn2yiYrQhetXXgmTOs+/5Z4X6KcLE+5Yutm1DkFE+L
- qn9Q==
-X-Gm-Message-State: AOJu0YyTBQ53tWyDMnawtZ02aq3ZLxkiTegcAnR6UN/l3yvR/oxd9xIE
- DunIDJOzLeynws9Lf9a4UdxYoMVzLytFP+1Mcqg5lPWJp3FAg7Y7g4RTc4KTfpeHkBoQa4YgXjL
- 2znskQh8rIPWY/FPKglzbDiqIpuA4BKWQWU7nkw==
-X-Received: by 2002:a19:4359:0:b0:4f8:d385:41bd with SMTP id
- m25-20020a194359000000b004f8d38541bdmr110685lfj.8.1692297552325; 
- Thu, 17 Aug 2023 11:39:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGJHRFT1siW8UZCQGrmU6uj/U7AnLGRKgBpAukshZ1dxmC1RXgn+gE5RQG2Zb/ahcVSaEaUTXYhxNQeTDbt5jg=
-X-Received: by 2002:a19:4359:0:b0:4f8:d385:41bd with SMTP id
- m25-20020a194359000000b004f8d38541bdmr110668lfj.8.1692297551910; Thu, 17 Aug
- 2023 11:39:11 -0700 (PDT)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A77E3C15BAD
+ for <cluster-devel@redhat.com>; Sun, 20 Aug 2023 05:05:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 533743C0C487
+ for <cluster-devel@redhat.com>; Sun, 20 Aug 2023 05:05:54 +0000 (UTC)
+Received: from mail3-163.sinamail.sina.com.cn
+ (mail3-163.sinamail.sina.com.cn [202.108.3.163]) by relay.mimecast.com with
+ ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-79-zyrE4XTFMgGYdFVBqD1Q7Q-1; Sun, 20 Aug 2023 01:05:51 -0400
+X-MC-Unique: zyrE4XTFMgGYdFVBqD1Q7Q-1
+X-SMAIL-HELO: pek-lxu-l1.wrs.com
+Received: from unknown (HELO pek-lxu-l1.wrs.com)([111.198.228.11])
+ by sina.com (172.16.97.27) with ESMTP
+ id 64E19EEA0002ED98; Sun, 20 Aug 2023 13:04:44 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+X-SMAIL-MID: 829847786919
+X-SMAIL-UIID: D67557D4E65F45B9BA1BD61341870CD0-20230820-130444
+From: eadavis@sina.com
+To: agruenba@redhat.com
+Date: Sun, 20 Aug 2023 13:04:41 +0800
+Message-ID: <20230820050441.793632-1-eadavis@sina.com>
+In-Reply-To: <CAHc6FU7jmjG7wkBHNiQ8J-=89U6pa6SMvJj60hX-WL-cSq9R-w@mail.gmail.com>
+References: <CAHc6FU7jmjG7wkBHNiQ8J-=89U6pa6SMvJj60hX-WL-cSq9R-w@mail.gmail.com>
 MIME-Version: 1.0
-References: <20230814211116.3224759-1-aahringo@redhat.com>
- <20230814211116.3224759-2-aahringo@redhat.com>
- <c049f33344990f74c2b88cc3279a913f6ff6f498.camel@kernel.org>
- <350395c8906f46ec4634392adb8a9e3927763ef1.camel@kernel.org>
-In-Reply-To: <350395c8906f46ec4634392adb8a9e3927763ef1.camel@kernel.org>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Thu, 17 Aug 2023 14:39:00 -0400
-Message-ID: <CAK-6q+iB9AWqbe-cJfHi=nRAsdxXQ_KjpZLd4Hsj1VEtj8CNHQ@mail.gmail.com>
-To: Jeff Layton <jlayton@kernel.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Cluster-devel] [RFCv2 1/7] lockd: fix race in async lock
- request handling
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [Cluster-devel] [PATCH] gfs2: Fix uaf for qda in gfs2_quota_sync
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,180 +92,111 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, cluster-devel@redhat.com,
- ocfs2-devel@lists.linux.dev, chuck.lever@oracle.com, anna@kernel.org,
- linux-fsdevel@vger.kernel.org, trond.myklebust@hammerspace.com
+Cc: syzbot+3f6a670108ce43356017@syzkaller.appspotmail.com,
+ eadaivs <eadaivs@sina.com>, syzkaller-bugs@googlegroups.com,
+ linux-kernel@vger.kernel.org, cluster-devel@redhat.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: sina.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-Hi,
+From: eadaivs <eadaivs@sina.com>
 
-On Tue, Aug 15, 2023 at 2:21=E2=80=AFPM Jeff Layton <jlayton@kernel.org> wr=
-ote:
->
-> On Tue, 2023-08-15 at 13:49 -0400, Jeff Layton wrote:
-> > On Mon, 2023-08-14 at 17:11 -0400, Alexander Aring wrote:
-> > > This patch fixes a race in async lock request handling between adding
-> > > the relevant struct nlm_block to nlm_blocked list after the request w=
-as
-> > > sent by vfs_lock_file() and nlmsvc_grant_deferred() does a lookup of =
-the
-> > > nlm_block in the nlm_blocked list. It could be that the async request=
- is
-> > > completed before the nlm_block was added to the list. This would end
-> > > in a -ENOENT and a kernel log message of "lockd: grant for unknown
-> > > block".
-> > >
-> > > To solve this issue we add the nlm_block before the vfs_lock_file() c=
-all
-> > > to be sure it has been added when a possible nlmsvc_grant_deferred() =
-is
-> > > called. If the vfs_lock_file() results in an case when it wouldn't be
-> > > added to nlm_blocked list, the nlm_block struct will be removed from
-> > > this list again.
-> > >
-> > > The introducing of the new B_PENDING_CALLBACK nlm_block flag will han=
-dle
-> > > async lock requests on a pending lock requests as a retry on the call=
-er
-> > > level to hit the -EAGAIN case.
-> > >
-> > > Signed-off-by: Alexander Aring <aahringo@redhat.com>
-> > > ---
-> > >  fs/lockd/svclock.c          | 100 ++++++++++++++++++++++++++--------=
---
-> > >  include/linux/lockd/lockd.h |   2 +
-> > >  2 files changed, 74 insertions(+), 28 deletions(-)
-> > >
-> > >
->
-> [...]
->
-> > > diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.=
-h
-> > > index f42594a9efe0..91f55458f5fc 100644
-> > > --- a/include/linux/lockd/lockd.h
-> > > +++ b/include/linux/lockd/lockd.h
-> > > @@ -185,10 +185,12 @@ struct nlm_block {
-> > >     struct nlm_file *       b_file;         /* file in question */
-> > >     struct cache_req *      b_cache_req;    /* deferred request handl=
-ing */
-> > >     struct cache_deferred_req * b_deferred_req
-> > > +   struct mutex            b_cb_mutex;     /* callback mutex */
-> >
-> > There is no mention at all of this new mutex in the changelog or
-> > comments. It's not at all clear to me what this is intended to protect.
-> > In general, with lockd being a single-threaded service, we want to avoi=
-d
-> > sleeping locks. This will need some clear justification.
-> >
-> > At a glance, it looks like you're trying to use this to hold
-> > B_PENDING_CALLBACK steady while a lock request is being handled. That
-> > suggests that you're using this mutex to serialize access to a section
-> > of code and not one or more specific data structures. We usually like t=
-o
-> > avoid that sort of thing, since locks that protect arbitrary sections o=
-f
-> > code become difficult to work with over time.
-> >
-> > I'm going to go out on a limb here though and suggest that there is
-> > probably a way to solve this problem that doesn't involve adding new
-> > locks.
-> >
-> > >     unsigned int            b_flags;        /* block flags */
-> > >  #define B_QUEUED           1       /* lock queued */
-> > >  #define B_GOT_CALLBACK             2       /* got lock or conflictin=
-g lock */
-> > >  #define B_TIMED_OUT                4       /* filesystem too slow to=
- respond */
-> > > +#define B_PENDING_CALLBACK 8       /* pending callback for lock requ=
-est */
-> > >  };
-> > >
-> > >  /*
-> >
-> > Do we need this new flag at all? It seems redundant. If we have a block
-> > on the list, then it is sort of by definition "pending callback". If
-> > it's not on the list anymore, then it's not. No?
-> >
->
-> Do we need anything more than a patch along these lines? Note that this
-> is untested, so RFC:
->
-> ---------------------8<-----------------------
->
-> [RFC PATCH] lockd: alternate fix for race between deferred lock and grant
->
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  fs/lockd/svclock.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
-> index c43ccdf28ed9..e9a84363c26e 100644
-> --- a/fs/lockd/svclock.c
-> +++ b/fs/lockd/svclock.c
-> @@ -446,6 +446,8 @@ nlmsvc_defer_lock_rqst(struct svc_rqst *rqstp, struct=
- nlm_block *block)
->
->         block->b_flags |=3D B_QUEUED;
->
-> +       /* FIXME: remove and reinsert w/o dropping spinlock */
-> +       nlmsvc_remove_block(block);
->         nlmsvc_insert_block(block, NLM_TIMEOUT);
->
+Hello Andreas,
 
-a insert should just be okay, because there is an atomic switch if
-it's already part of nlm_blocked and it will just update the timeout
-of nlm_block in the list and it's order (because nlm_blocked is kind
-of sorted according their timeouts in nlm_blocked).
+On Mon, 30 Jan 2023 15:32:42 +0100  <agruenba@redhat.com> wrote:
+> I can see that there is a problem in the gfs2 quota code, but this
+> unfortunately doesn't look like an acceptable fix. A better approach
+> would be to use proper reference counting for gfs2_quota_data objects.
+> In this case, gfs2_quota_sync() is still holding a reference, so the
+> underlying object shouldn't be freed.
+> 
+> Fixing this properly will require more than a handful of lines.
 
->         block->b_cache_req =3D &rqstp->rq_chandle;
-> @@ -535,6 +537,9 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *=
-file,
->         if (!wait)
->                 lock->fl.fl_flags &=3D ~FL_SLEEP;
->         mode =3D lock_to_openmode(&lock->fl);
-> +
-> +       /* Append to list of blocked */
-> +       nlmsvc_insert_block(block, NLM_NEVER);
->         error =3D vfs_lock_file(file->f_file[mode], F_SETLK, &lock->fl, N=
-ULL);
->         lock->fl.fl_flags &=3D ~FL_SLEEP;
->
-> @@ -542,6 +547,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *=
-file,
->         switch (error) {
->                 case 0:
->                         ret =3D nlm_granted;
-> +                       nlmsvc_remove_block(block);
->                         goto out;
->                 case -EAGAIN:
->                         /*
-> @@ -552,6 +558,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *=
-file,
->                         if (wait)
->                                 break;
->                         ret =3D async_block ? nlm_lck_blocked : nlm_lck_d=
-enied;
-> +                       nlmsvc_remove_block(block);
->                         goto out;
->                 case FILE_LOCK_DEFERRED:
->                         if (wait)
-> @@ -570,8 +577,6 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *=
-file,
->
->         ret =3D nlm_lck_blocked;
->
-> -       /* Append to list of blocked */
-> -       nlmsvc_insert_block(block, NLM_NEVER);
+Before clearing quota, wait for the qd synchronization operation to end.
+Add reference count in gfs2_quota_data and perform qd synchronization 
+to control whether qd is in use. If so, temporarily clear quota.
 
-ok. I will try to start with that.
+Link: https://lore.kernel.org/all/0000000000002b5e2405f14e860f@google.com
+Reported-and-tested-by: syzbot+3f6a670108ce43356017@syzkaller.appspotmail.com
+Signed-off-by: eadaivs <eadaivs@sina.com>
+---
+ fs/gfs2/incore.h |  1 +
+ fs/gfs2/quota.c  | 16 ++++++++++++----
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-- Alex
+diff --git a/fs/gfs2/incore.h b/fs/gfs2/incore.h
+index c26765080f28..61549bd95b32 100644
+--- a/fs/gfs2/incore.h
++++ b/fs/gfs2/incore.h
+@@ -463,6 +463,7 @@ struct gfs2_quota_data {
+ 	u64 qd_sync_gen;
+ 	unsigned long qd_last_warn;
+ 	struct rcu_head qd_rcu;
++	unsigned int ref_cnt;
+ };
+ 
+ enum {
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index 1ed17226d9ed..dca4be078ce8 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -478,6 +478,7 @@ static int qd_fish(struct gfs2_sbd *sdp, struct gfs2_quota_data **qdp)
+ 			qd_put(qd);
+ 			return error;
+ 		}
++		WRITE_ONCE(qd->ref_cnt, READ_ONCE(qd->ref_cnt) + 1);
+ 	}
+ 
+ 	*qdp = qd;
+@@ -493,6 +494,7 @@ static void qd_unlock(struct gfs2_quota_data *qd)
+ 	bh_put(qd);
+ 	slot_put(qd);
+ 	qd_put(qd);
++	WRITE_ONCE(qd->ref_cnt, READ_ONCE(qd->ref_cnt) - 1);
+ }
+ 
+ static int qdsb_get(struct gfs2_sbd *sdp, struct kqid qid,
+@@ -1422,6 +1424,7 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
+ 			qd->qd_change = qc_change;
+ 			qd->qd_slot = slot;
+ 			qd->qd_slot_count = 1;
++			WRITE_ONCE(qd->ref_cnt, 0);
+ 
+ 			spin_lock(&qd_lock);
+ 			BUG_ON(test_and_set_bit(slot, sdp->sd_quota_bitmap));
+@@ -1454,11 +1457,13 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
+ void gfs2_quota_cleanup(struct gfs2_sbd *sdp)
+ {
+ 	struct list_head *head = &sdp->sd_quota_list;
+-	struct gfs2_quota_data *qd;
++	struct gfs2_quota_data *qd, *safe;
+ 
++retry:
+ 	spin_lock(&qd_lock);
+-	while (!list_empty(head)) {
+-		qd = list_last_entry(head, struct gfs2_quota_data, qd_list);
++	list_for_each_entry_safe(qd, safe, head, qd_list) {
++		if (READ_ONCE(qd->ref_cnt))
++			continue;
+ 
+ 		list_del(&qd->qd_list);
+ 
+@@ -1482,7 +1487,10 @@ void gfs2_quota_cleanup(struct gfs2_sbd *sdp)
+ 	}
+ 	spin_unlock(&qd_lock);
+ 
+-	gfs2_assert_warn(sdp, !atomic_read(&sdp->sd_quota_count));
++	if (atomic_read(&sdp->sd_quota_count)) {
++		schedule_timeout_uninterruptible(HZ);
++		goto retry;
++	}
+ 
+ 	kvfree(sdp->sd_quota_bitmap);
+ 	sdp->sd_quota_bitmap = NULL;
+-- 
+2.41.0
 
