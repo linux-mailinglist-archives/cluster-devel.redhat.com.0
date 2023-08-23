@@ -2,60 +2,59 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B68C6786261
-	for <lists+cluster-devel@lfdr.de>; Wed, 23 Aug 2023 23:34:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED65B78625E
+	for <lists+cluster-devel@lfdr.de>; Wed, 23 Aug 2023 23:34:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692826488;
+	s=mimecast20190719; t=1692826450;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=a6joEGKWnnjVY5UbKUjhUBMyK3LpAKMDMx1lRCkXV9w=;
-	b=GbYlLqq4N4dgjCCSpXhLakd4oc+nEd2F49w96zeKKmoPRO8GaU4LBISmoCbREJilBXVm5a
-	iAfg/CH8wujr2VzP4GKWUkm6Od1TKRwBtEGS0fY30DxsYyXP5XprN90F+IE8TqDS+hG9sc
-	ihvJF74ezOicvdOWwhB6FE95qY5OMh8=
+	bh=Fr4SUxX9SlUeT5S24Dcxh6kDffrcH+Vs48c2xCXZptc=;
+	b=bR7aobOxxFW5KE4SUAMe/fnZ5ygujXc2IM51wz+ZZRHJRRY99NtNps1EFQskGB5bVKzbCY
+	3m8LYrqJDgTa7vOXAww4Q0/BFoMJ/Ly5V6c79xfvsaXUa7F7pa7r4JaAZpgPtDdd77Vb4L
+	aUgRJIqObXLp7FORsOqtA3UobKwBVvQ=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-77-EubjAWMOM8-5IfMQMbKXMQ-1; Wed, 23 Aug 2023 17:34:43 -0400
-X-MC-Unique: EubjAWMOM8-5IfMQMbKXMQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-443-sOja_H0YNLOU6KTAbok98A-1; Wed, 23 Aug 2023 17:34:07 -0400
+X-MC-Unique: sOja_H0YNLOU6KTAbok98A-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08ACA1C05122;
-	Wed, 23 Aug 2023 21:34:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B359B1C05EDC;
+	Wed, 23 Aug 2023 21:34:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F062B40C6F4C;
-	Wed, 23 Aug 2023 21:34:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 02D4C492C14;
+	Wed, 23 Aug 2023 21:34:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B89201946594;
-	Wed, 23 Aug 2023 21:34:42 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE21A194658F;
+	Wed, 23 Aug 2023 21:34:04 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 403651946589 for <cluster-devel@listman.corp.redhat.com>;
+ ESMTP id A77331946589 for <cluster-devel@listman.corp.redhat.com>;
  Wed, 23 Aug 2023 21:33:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 10DF240C6F4E; Wed, 23 Aug 2023 21:33:55 +0000 (UTC)
+ id 79AF440C6F4E; Wed, 23 Aug 2023 21:33:55 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id BA62040C6F4C;
- Wed, 23 Aug 2023 21:33:54 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 16360400E02F;
+ Wed, 23 Aug 2023 21:33:55 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: linux-nfs@vger.kernel.org
-Date: Wed, 23 Aug 2023 17:33:49 -0400
-Message-Id: <20230823213352.1971009-5-aahringo@redhat.com>
+Date: Wed, 23 Aug 2023 17:33:50 -0400
+Message-Id: <20230823213352.1971009-6-aahringo@redhat.com>
 In-Reply-To: <20230823213352.1971009-1-aahringo@redhat.com>
 References: <20230823213352.1971009-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [Cluster-devel] [PATCH 4/7] lockd: add doc to enable
- EXPORT_OP_SAFE_ASYNC_LOCK
+Subject: [Cluster-devel] [PATCH 5/7] dlm: use fl_owner from lockd
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,43 +71,122 @@ Cc: jlayton@kernel.org, cluster-devel@redhat.com, ocfs2-devel@lists.linux.dev,
  trond.myklebust@hammerspace.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-This patch adds a note to enable EXPORT_OP_SAFE_ASYNC_LOCK for
-asynchronous lock request handling.
+This patch is changing the fl_owner value in case of an nfs lock request
+to not be the pid of lockd. Instead this patch changes it to be the
+owner value that nfs is giving us.
 
+Currently there exists proved problems with this behaviour. One nfsd
+server was created to export a gfs2 filesystem mount. Two nfs clients
+doing a nfs mount of this export. Those two clients should conflict each
+other operating on the same nfs file.
+
+A small test program was written:
+
+int main(int argc, const char *argv[])
+{
+	struct flock fl = {
+		.l_type = F_WRLCK,
+		.l_whence = SEEK_SET,
+		.l_start = 1L,
+		.l_len = 1L,
+	};
+	int fd;
+
+	fd = open("filename", O_RDWR | O_CREAT, 0700);
+	printf("try to lock...\n");
+	fcntl(fd, F_SETLKW, &fl);
+	printf("locked!\n");
+	getc(stdin);
+
+	return 0;
+}
+
+Running on both clients at the same time and don't interrupting by
+pressing any key. It will show that both clients are able to acquire the
+lock which shouldn't be the case. The issue is here that the fl_owner
+value is the same and the lock context of both clients should be
+separated.
+
+This patch lets lockd define how to deal with lock contexts and chose
+hopefully the right fl_owner value. A test after this patch was made and
+the locks conflicts each other which should be the case.
+
+Acked-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
- fs/locks.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ fs/dlm/plock.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/fs/locks.c b/fs/locks.c
-index df8b26a42524..edee02d1ca93 100644
---- a/fs/locks.c
-+++ b/fs/locks.c
-@@ -2255,11 +2255,13 @@ int fcntl_getlk(struct file *filp, unsigned int cmd, struct flock *flock)
-  * To avoid blocking kernel daemons, such as lockd, that need to acquire POSIX
-  * locks, the ->lock() interface may return asynchronously, before the lock has
-  * been granted or denied by the underlying filesystem, if (and only if)
-- * lm_grant is set. Callers expecting ->lock() to return asynchronously
-- * will only use F_SETLK, not F_SETLKW; they will set FL_SLEEP if (and only if)
-- * the request is for a blocking lock. When ->lock() does return asynchronously,
-- * it must return FILE_LOCK_DEFERRED, and call ->lm_grant() when the lock
-- * request completes.
-+ * lm_grant is set. Additionally EXPORT_OP_SAFE_ASYNC_LOCK in export_operations
-+ * flags need to be set.
-+ *
-+ * Callers expecting ->lock() to return asynchronously will only use F_SETLK,
-+ * not F_SETLKW; they will set FL_SLEEP if (and only if) the request is for a
-+ * blocking lock. When ->lock() does return asynchronously, it must return
-+ * FILE_LOCK_DEFERRED, and call ->lm_grant() when the lock request completes.
-  * If the request is for non-blocking lock the file system should return
-  * FILE_LOCK_DEFERRED then try to get the lock and call the callback routine
-  * with the result. If the request timed out the callback routine will return a
+diff --git a/fs/dlm/plock.c b/fs/dlm/plock.c
+index 00e1d802a81c..0094fa4004cc 100644
+--- a/fs/dlm/plock.c
++++ b/fs/dlm/plock.c
+@@ -145,6 +145,7 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
+ 	op->info.number		= number;
+ 	op->info.start		= fl->fl_start;
+ 	op->info.end		= fl->fl_end;
++	op->info.owner = (__u64)(long)fl->fl_owner;
+ 	/* async handling */
+ 	if (fl->fl_lmops && fl->fl_lmops->lm_grant) {
+ 		op_data = kzalloc(sizeof(*op_data), GFP_NOFS);
+@@ -154,9 +155,6 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
+ 			goto out;
+ 		}
+ 
+-		/* fl_owner is lockd which doesn't distinguish
+-		   processes on the nfs client */
+-		op->info.owner	= (__u64) fl->fl_pid;
+ 		op_data->callback = fl->fl_lmops->lm_grant;
+ 		locks_init_lock(&op_data->flc);
+ 		locks_copy_lock(&op_data->flc, fl);
+@@ -168,8 +166,6 @@ int dlm_posix_lock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
+ 		send_op(op);
+ 		rv = FILE_LOCK_DEFERRED;
+ 		goto out;
+-	} else {
+-		op->info.owner	= (__u64)(long) fl->fl_owner;
+ 	}
+ 
+ 	send_op(op);
+@@ -326,10 +322,7 @@ int dlm_posix_unlock(dlm_lockspace_t *lockspace, u64 number, struct file *file,
+ 	op->info.number		= number;
+ 	op->info.start		= fl->fl_start;
+ 	op->info.end		= fl->fl_end;
+-	if (fl->fl_lmops && fl->fl_lmops->lm_grant)
+-		op->info.owner	= (__u64) fl->fl_pid;
+-	else
+-		op->info.owner	= (__u64)(long) fl->fl_owner;
++	op->info.owner = (__u64)(long)fl->fl_owner;
+ 
+ 	if (fl->fl_flags & FL_CLOSE) {
+ 		op->info.flags |= DLM_PLOCK_FL_CLOSE;
+@@ -389,7 +382,7 @@ int dlm_posix_cancel(dlm_lockspace_t *lockspace, u64 number, struct file *file,
+ 	info.number = number;
+ 	info.start = fl->fl_start;
+ 	info.end = fl->fl_end;
+-	info.owner = (__u64)fl->fl_pid;
++	info.owner = (__u64)(long)fl->fl_owner;
+ 
+ 	rv = do_lock_cancel(&info);
+ 	switch (rv) {
+@@ -450,10 +443,7 @@ int dlm_posix_get(dlm_lockspace_t *lockspace, u64 number, struct file *file,
+ 	op->info.number		= number;
+ 	op->info.start		= fl->fl_start;
+ 	op->info.end		= fl->fl_end;
+-	if (fl->fl_lmops && fl->fl_lmops->lm_grant)
+-		op->info.owner	= (__u64) fl->fl_pid;
+-	else
+-		op->info.owner	= (__u64)(long) fl->fl_owner;
++	op->info.owner = (__u64)(long)fl->fl_owner;
+ 
+ 	send_op(op);
+ 	wait_event(recv_wq, (op->done != 0));
 -- 
 2.31.1
 
