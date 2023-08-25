@@ -2,69 +2,68 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5025C788B9B
-	for <lists+cluster-devel@lfdr.de>; Fri, 25 Aug 2023 16:22:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 646DB788B88
+	for <lists+cluster-devel@lfdr.de>; Fri, 25 Aug 2023 16:21:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692973370;
+	s=mimecast20190719; t=1692973281;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=EU4c+QvmUrzx56YT6HV/cCIR2Pjqx+IXpn7k2GV7Q+c=;
-	b=hquiX1wfS7CEgmkqh/TEA6nnWJ7lzeg3cm+W6mkrCGdX8Mn2UtHPOprTh4X4+7i6W6eLeO
-	0hmnov3nLbEZyXcGSHpmGEqpxBIWLBUBW0GH7mITlCrBRX1591fg4JOHy5qOHDiODbciPM
-	yZpy7Vl3OvjwMlVck6ywcT7+0osA6J0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-632-5fmJnmEwMSWHDFijAuC0HA-1; Fri, 25 Aug 2023 10:22:46 -0400
-X-MC-Unique: 5fmJnmEwMSWHDFijAuC0HA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	 list-subscribe:list-post; bh=rIMc/jDCj9ILMqoJd0dO659w/9cB73A1MIGl7MCNQc0=;
+	b=il2W3Et0Jgux4jzzlbMEH+UXzRMHIky4BYDqMdLLJRfJ7vfyGSQ/WjU/krc0MPmCs2KdkH
+	sr9MZYhO6z+3QatSnSgma8UjPJjNhIFMwPW2hZI9eTsoYt4z8s8ZR9XMJyi7IXPL2uZBk2
+	DIingCbGldYXuY25fOIyHBMH7ijvb5w=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-232-H4AsAR0_Nd2kMINz51NFrg-1; Fri, 25 Aug 2023 10:21:18 -0400
+X-MC-Unique: H4AsAR0_Nd2kMINz51NFrg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFEC0857A84;
-	Fri, 25 Aug 2023 14:22:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D2861C0214A;
+	Fri, 25 Aug 2023 14:21:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E5285492C14;
-	Fri, 25 Aug 2023 14:22:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8CA931121319;
+	Fri, 25 Aug 2023 14:21:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A46A619465B3;
-	Fri, 25 Aug 2023 14:22:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 61DF219465B3;
+	Fri, 25 Aug 2023 14:21:16 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0FE6519465A8 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 14:22:42 +0000 (UTC)
+ ESMTP id 3792019465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 14:21:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E275040C207A; Fri, 25 Aug 2023 14:22:42 +0000 (UTC)
+ id 27A012026D76; Fri, 25 Aug 2023 14:21:15 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BA23740C2073
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:22:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FE152026D68
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:21:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F7A7800C78
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:22:42 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E91421C02143
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:21:14 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-556-J44dYLWzP1CfA9Y3MB_LJw-1; Fri,
- 25 Aug 2023 10:22:40 -0400
-X-MC-Unique: J44dYLWzP1CfA9Y3MB_LJw-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-370-jyHDV-gyPV-5aI4JbZnBvA-1; Fri,
+ 25 Aug 2023 10:21:13 -0400
+X-MC-Unique: jyHDV-gyPV-5aI4JbZnBvA-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qZXUl-00HWBm-5H; Fri, 25 Aug 2023 14:09:03 +0000
-Date: Fri, 25 Aug 2023 15:09:03 +0100
+ Hat Linux)) id 1qZXfd-00HYsg-Qa; Fri, 25 Aug 2023 14:20:17 +0000
+Date: Fri, 25 Aug 2023 15:20:17 +0100
 From: Matthew Wilcox <willy@infradead.org>
 To: Hao Xu <hao.xu@linux.dev>
-Message-ID: <ZOi1/yafn3HQFWnW@casper.infradead.org>
+Message-ID: <ZOi4oV7Ho3y0106O@casper.infradead.org>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
- <20230825135431.1317785-23-hao.xu@linux.dev>
+ <20230825135431.1317785-13-hao.xu@linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20230825135431.1317785-23-hao.xu@linux.dev>
+In-Reply-To: <20230825135431.1317785-13-hao.xu@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -72,9 +71,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH 22/29] xfs: comment page allocation for
- nowait case in xfs_buf_find_insert()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH 12/29] xfs: enforce GFP_NOIO implicitly
+ during nowait time update
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,20 +103,39 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  Pavel Begunkov <asml.silence@gmail.com>, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: infradead.org
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Aug 25, 2023 at 09:54:24PM +0800, Hao Xu wrote:
-> @@ -633,6 +633,8 @@ xfs_buf_find_insert(
->  	 * allocate the memory from the heap to minimise memory usage. If we
->  	 * can't get heap memory for these small buffers, we fall back to using
->  	 * the page allocator.
-> +	 * xfs_buf_alloc_kmem may return -EAGAIN, let's not return it but turn
-> +	 * to page allocator as well.
+On Fri, Aug 25, 2023 at 09:54:14PM +0800, Hao Xu wrote:
+> +++ b/fs/xfs/xfs_iops.c
+> @@ -1037,6 +1037,8 @@ xfs_vn_update_time(
+>  	int			log_flags = XFS_ILOG_TIMESTAMP;
+>  	struct xfs_trans	*tp;
+>  	int			error;
+> +	int			old_pflags;
+> +	bool			nowait = flags & S_NOWAIT;
+>  
+>  	trace_xfs_update_time(ip);
+>  
+> @@ -1049,13 +1051,18 @@ xfs_vn_update_time(
+>  		log_flags |= XFS_ILOG_CORE;
+>  	}
+>  
+> +	if (nowait)
+> +		old_pflags = memalloc_noio_save();
+> +
+>  	error = xfs_trans_alloc(mp, &M_RES(mp)->tr_fsyncts, 0, 0, 0, &tp);
 
-This new sentence seems like it says exactly the same thing as the
-previous sentence.  What am I missing?
+This is an abuse of the memalloc_noio_save() interface.  You shouldn't
+be setting it around individual allocations; it's the part of the kernel
+which decides "I can't afford to do I/O" that should be setting it.
+In this case, it should probably be set by io_uring, way way way up at
+the top.
+
+But Jens didn't actually answer my question about that:
+
+https://lore.kernel.org/all/ZMhZh2EYPMH1wIXX@casper.infradead.org/
 
