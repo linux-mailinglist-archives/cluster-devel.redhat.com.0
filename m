@@ -1,68 +1,68 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BE3E78C09B
-	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:20 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 808D978C090
+	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693298479;
+	s=mimecast20190719; t=1693298477;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+DbnN4IEgt3YbtWVcHM6JHlKoiHsRI6MgIby97kAcrI=;
-	b=dz0iUw2mcKAGjL7qo//I0+PTsBW1vsTRgCgcTBTqG8LBXMsjC8hZzA9R2uo1nXvREWspAw
-	WaGvG90K0TL1k2aAsqdpYhYKgo6SgDVh06h+FnFxYz/nkXDb/OljBIaE0gaiTC1DZYk6HK
-	J+S+FZh4+mYJTFKIIBgT8+T11OEZTa0=
+	bh=oELJXHaipZy7gzfhowD2Yln0XS4GPY5gCClHo/2qDoo=;
+	b=baAynBe8Tr5OoYOio5WQNQ/ff/Ls+Xgd/d6U+Vkt7YZdzYSAPR9NidFCJdNxfyaPVccR2m
+	Jm+Q2q0szPypnAko8qsZBSTa2BOnTX2cC4keRLEvXwCfB8zRUw7e+J9gytpRmyAT18mvcw
+	ON6OPTPUGbNTmque7WaRJw9AU5P2PCM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-412-EAyLEizFOn63Jh01vSbvEQ-1; Tue, 29 Aug 2023 04:41:14 -0400
-X-MC-Unique: EAyLEizFOn63Jh01vSbvEQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-581-VGXgKDuAMjuk9ne-MiTyfw-1; Tue, 29 Aug 2023 04:41:13 -0400
+X-MC-Unique: VGXgKDuAMjuk9ne-MiTyfw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 603BA85CCE5;
-	Tue, 29 Aug 2023 08:41:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82E1B185A7AC;
+	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 549206B2AC;
-	Tue, 29 Aug 2023 08:41:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 764B640C2063;
+	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2CCD11946A42;
-	Tue, 29 Aug 2023 08:41:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2AAC21946A50;
+	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2FBAC19465A8 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 14:06:12 +0000 (UTC)
+ ESMTP id 2D6A919465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 14:07:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 05F09140E962; Fri, 25 Aug 2023 14:06:12 +0000 (UTC)
+ id 190592026D76; Fri, 25 Aug 2023 14:07:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F2D9E140E950
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:06:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7AAF1C0755B
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:06:11 +0000 (UTC)
-Received: from out-245.mta1.migadu.com (out-245.mta1.migadu.com
- [95.215.58.245]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 117682026D68
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:07:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E977F38117E2
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:07:25 +0000 (UTC)
+Received: from out-251.mta1.migadu.com (out-251.mta1.migadu.com
+ [95.215.58.251]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528-rZSWM33sMN2ARXiVRTNXCQ-1; Fri, 25 Aug 2023 10:06:09 -0400
-X-MC-Unique: rZSWM33sMN2ARXiVRTNXCQ-1
+ us-mta-633-uTP1MV_eNw2eX0wmUMdJuQ-1; Fri, 25 Aug 2023 10:07:23 -0400
+X-MC-Unique: uTP1MV_eNw2eX0wmUMdJuQ-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Hao Xu <hao.xu@linux.dev>
 To: io-uring@vger.kernel.org,
 	Jens Axboe <axboe@kernel.dk>
-Date: Fri, 25 Aug 2023 21:54:30 +0800
-Message-Id: <20230825135431.1317785-29-hao.xu@linux.dev>
+Date: Fri, 25 Aug 2023 21:54:31 +0800
+Message-Id: <20230825135431.1317785-30-hao.xu@linux.dev>
 In-Reply-To: <20230825135431.1317785-1-hao.xu@linux.dev>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
 MIME-Version: 1.0
@@ -74,10 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Tue, 29 Aug 2023 08:41:07 +0000
-Subject: [Cluster-devel] [PATCH 28/29] xfs: support nowait semantics for
- xc_ctx_lock in xlog_cil_commit()
+Subject: [Cluster-devel] [PATCH 29/29] io_uring: add support for getdents
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +106,7 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Transfer-Encoding: quoted-printable
@@ -115,88 +114,145 @@ Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
 From: Hao Xu <howeyxu@tencent.com>
 
-Apply trylock logic for xc_ctx_lock in xlog_cil_commit() in nowait
-case and error out -EAGAIN for xlog_cil_commit().
+This add support for getdents64 to io_uring, acting exactly like the
+syscall: the directory is iterated from it's current's position as
+stored in the file struct, and the file's position is updated exactly as
+if getdents64 had been called.
 
+For filesystems that support NOWAIT in iterate_shared(), try to use it
+first; if a user already knows the filesystem they use do not support
+nowait they can force async through IOSQE_ASYNC in the sqe flags,
+avoiding the need to bounce back through a useless EAGAIN return.
+
+Co-developed-by: Dominique Martinet <asmadeus@codewreck.org>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 Signed-off-by: Hao Xu <howeyxu@tencent.com>
 ---
- fs/xfs/xfs_log_cil.c  | 12 ++++++++++--
- fs/xfs/xfs_log_priv.h |  2 +-
- fs/xfs/xfs_trans.c    |  4 +++-
- 3 files changed, 14 insertions(+), 4 deletions(-)
+ include/uapi/linux/io_uring.h |  1 +
+ io_uring/fs.c                 | 53 +++++++++++++++++++++++++++++++++++
+ io_uring/fs.h                 |  3 ++
+ io_uring/opdef.c              |  8 ++++++
+ 4 files changed, 65 insertions(+)
 
-diff --git a/fs/xfs/xfs_log_cil.c b/fs/xfs/xfs_log_cil.c
-index b31830ee36dd..6d054359bbb5 100644
---- a/fs/xfs/xfs_log_cil.c
-+++ b/fs/xfs/xfs_log_cil.c
-@@ -1613,7 +1613,7 @@ xlog_cil_process_intents(
-  * background commit, returns without it held once background commits are
-  * allowed again.
-  */
--void
-+int
- xlog_cil_commit(
- =09struct xlog=09=09*log,
- =09struct xfs_trans=09*tp,
-@@ -1623,6 +1623,7 @@ xlog_cil_commit(
- =09struct xfs_cil=09=09*cil =3D log->l_cilp;
- =09struct xfs_log_item=09*lip, *next;
- =09uint32_t=09=09released_space =3D 0;
-+=09bool=09=09=09nowait =3D tp->t_flags & XFS_TRANS_NOWAIT;
+diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
+index 8e61f8b7c2ce..3896397a1998 100644
+--- a/include/uapi/linux/io_uring.h
++++ b/include/uapi/linux/io_uring.h
+@@ -240,6 +240,7 @@ enum io_uring_op {
+ =09IORING_OP_URING_CMD,
+ =09IORING_OP_SEND_ZC,
+ =09IORING_OP_SENDMSG_ZC,
++=09IORING_OP_GETDENTS,
 =20
- =09/*
- =09 * Do all necessary memory allocation before we lock the CIL.
-@@ -1632,7 +1633,12 @@ xlog_cil_commit(
- =09xlog_cil_alloc_shadow_bufs(log, tp);
+ =09/* this goes last, obviously */
+ =09IORING_OP_LAST,
+diff --git a/io_uring/fs.c b/io_uring/fs.c
+index f6a69a549fd4..04711feac4e6 100644
+--- a/io_uring/fs.c
++++ b/io_uring/fs.c
+@@ -47,6 +47,12 @@ struct io_link {
+ =09int=09=09=09=09flags;
+ };
 =20
- =09/* lock out background commit */
--=09down_read(&cil->xc_ctx_lock);
-+=09if (nowait) {
-+=09=09if (!down_read_trylock(&cil->xc_ctx_lock))
-+=09=09=09return -EAGAIN;
-+=09} else {
-+=09=09down_read(&cil->xc_ctx_lock);
-+=09}
-=20
- =09if (tp->t_flags & XFS_TRANS_HAS_INTENT_DONE)
- =09=09released_space =3D xlog_cil_process_intents(cil, tp);
-@@ -1668,6 +1674,8 @@ xlog_cil_commit(
-=20
- =09/* xlog_cil_push_background() releases cil->xc_ctx_lock */
- =09xlog_cil_push_background(log);
++struct io_getdents {
++=09struct file=09=09=09*file;
++=09struct linux_dirent64 __user=09*dirent;
++=09unsigned int=09=09=09count;
++};
++
+ int io_renameat_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ {
+ =09struct io_rename *ren =3D io_kiocb_to_cmd(req, struct io_rename);
+@@ -291,3 +297,50 @@ void io_link_cleanup(struct io_kiocb *req)
+ =09putname(sl->oldpath);
+ =09putname(sl->newpath);
+ }
++
++int io_getdents_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
++{
++=09struct io_getdents *gd =3D io_kiocb_to_cmd(req, struct io_getdents);
++
++=09if (READ_ONCE(sqe->off))
++=09=09return -EINVAL;
++
++=09gd->dirent =3D u64_to_user_ptr(READ_ONCE(sqe->addr));
++=09gd->count =3D READ_ONCE(sqe->len);
 +
 +=09return 0;
- }
++}
++
++int io_getdents(struct io_kiocb *req, unsigned int issue_flags)
++{
++=09struct io_getdents *gd =3D io_kiocb_to_cmd(req, struct io_getdents);
++=09struct file *file =3D req->file;
++=09unsigned long getdents_flags =3D 0;
++=09bool force_nonblock =3D issue_flags & IO_URING_F_NONBLOCK;
++=09bool locked;
++=09int ret;
++
++=09if (force_nonblock) {
++=09=09if (!(file->f_flags & O_NONBLOCK) &&
++=09=09    !(file->f_mode & FMODE_NOWAIT))
++=09=09=09return -EAGAIN;
++
++=09=09getdents_flags =3D DIR_CONTEXT_F_NOWAIT;
++=09}
++
++=09ret =3D file_pos_lock_nowait(file, force_nonblock);
++=09if (ret =3D=3D -EAGAIN)
++=09=09return ret;
++=09locked =3D ret;
++
++=09ret =3D vfs_getdents(file, gd->dirent, gd->count, getdents_flags);
++=09if (locked)
++=09=09file_pos_unlock(file);
++
++=09if (ret =3D=3D -EAGAIN && force_nonblock)
++=09=09return -EAGAIN;
++
++=09io_req_set_res(req, ret, 0);
++=09return 0;
++}
++
+diff --git a/io_uring/fs.h b/io_uring/fs.h
+index 0bb5efe3d6bb..f83a6f3a678d 100644
+--- a/io_uring/fs.h
++++ b/io_uring/fs.h
+@@ -18,3 +18,6 @@ int io_symlinkat(struct io_kiocb *req, unsigned int issue=
+_flags);
+ int io_linkat_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe);
+ int io_linkat(struct io_kiocb *req, unsigned int issue_flags);
+ void io_link_cleanup(struct io_kiocb *req);
++
++int io_getdents_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)=
+;
++int io_getdents(struct io_kiocb *req, unsigned int issue_flags);
+diff --git a/io_uring/opdef.c b/io_uring/opdef.c
+index 3b9c6489b8b6..1bae6b2a8d0b 100644
+--- a/io_uring/opdef.c
++++ b/io_uring/opdef.c
+@@ -428,6 +428,11 @@ const struct io_issue_def io_issue_defs[] =3D {
+ =09=09.prep=09=09=09=3D io_eopnotsupp_prep,
+ #endif
+ =09},
++=09[IORING_OP_GETDENTS] =3D {
++=09=09.needs_file=09=09=3D 1,
++=09=09.prep=09=09=09=3D io_getdents_prep,
++=09=09.issue=09=09=09=3D io_getdents,
++=09},
+ };
 =20
- /*
-diff --git a/fs/xfs/xfs_log_priv.h b/fs/xfs/xfs_log_priv.h
-index 41edaa0ae869..eb7a1241deab 100644
---- a/fs/xfs/xfs_log_priv.h
-+++ b/fs/xfs/xfs_log_priv.h
-@@ -580,7 +580,7 @@ int=09xlog_cil_init(struct xlog *log);
- void=09xlog_cil_init_post_recovery(struct xlog *log);
- void=09xlog_cil_destroy(struct xlog *log);
- bool=09xlog_cil_empty(struct xlog *log);
--void=09xlog_cil_commit(struct xlog *log, struct xfs_trans *tp,
-+int=09xlog_cil_commit(struct xlog *log, struct xfs_trans *tp,
- =09=09=09xfs_csn_t *commit_seq, bool regrant);
- void=09xlog_cil_set_ctx_write_state(struct xfs_cil_ctx *ctx,
- =09=09=09struct xlog_in_core *iclog);
-diff --git a/fs/xfs/xfs_trans.c b/fs/xfs/xfs_trans.c
-index f1f84a3dd456..e5beda636a37 100644
---- a/fs/xfs/xfs_trans.c
-+++ b/fs/xfs/xfs_trans.c
-@@ -1037,7 +1037,9 @@ __xfs_trans_commit(
- =09=09xfs_trans_apply_sb_deltas(tp);
- =09xfs_trans_apply_dquot_deltas(tp);
 =20
--=09xlog_cil_commit(log, tp, &commit_seq, regrant);
-+=09error =3D xlog_cil_commit(log, tp, &commit_seq, regrant);
-+=09if (error)
-+=09=09goto out_unreserve;
+@@ -648,6 +653,9 @@ const struct io_cold_def io_cold_defs[] =3D {
+ =09=09.fail=09=09=09=3D io_sendrecv_fail,
+ #endif
+ =09},
++=09[IORING_OP_GETDENTS] =3D {
++=09=09.name=09=09=09=3D "GETDENTS",
++=09},
+ };
 =20
- =09xfs_trans_free(tp);
-=20
+ const char *io_uring_get_opcode(u8 opcode)
 --=20
 2.25.1
 
