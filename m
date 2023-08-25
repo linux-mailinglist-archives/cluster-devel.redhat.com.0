@@ -1,8 +1,8 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B946078C088
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8344678C086
 	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1693298476;
@@ -12,58 +12,58 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9J0GWL34GjI+vNwsu7jAswW8CTPpPV6ujvkBDXy54Ek=;
-	b=RZ8qPqVdoL7/QiAQkTe499+zvZRt52IbZJU71pcpuVbi7zha0JRAIeVQaTjOKrmip8MERV
-	5votbnKS8JB4pjFqUlT2l59vLXGV0M248KakLHOrURTCW3pWXW7Vqj7dEaKv/gy3bd46ay
-	pvvz5n1fa/1uBf5XalSOiOkWlIsADlI=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-Vtg_JK1MOcOvFgs_2Z6TNQ-1; Tue, 29 Aug 2023 04:41:13 -0400
-X-MC-Unique: Vtg_JK1MOcOvFgs_2Z6TNQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+	bh=gCfV0fVoW+e4YW0XQ3QMYbYSY2wWMOrk5M9QZ/9mRm8=;
+	b=GWsIEGCprDnRkDJjYjfj4rI3uV0wQDK+fin5ReYOnBDiAPxhowWqz6Pg4XIvPPFKCIfdGo
+	jvimdEsYlkj1Df0M2a49/sVDKveHerG5LUabjhsyoliS3TV4Z6+6VNWsQA6uynN3fgvh9g
+	GcLw/J5EgUQVyLPOB50ZrSMuh1eSD5E=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-691-9-uF4Y6pNKiIP9_ecjNfkw-1; Tue, 29 Aug 2023 04:41:12 -0400
+X-MC-Unique: 9-uF4Y6pNKiIP9_ecjNfkw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF80E3C100BA;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E389E80269A;
 	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D96502166B2C;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D4A7D40C6F4E;
 	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C21E01946A42;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BA54219466DF;
 	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 008F519465B1 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 13:57:20 +0000 (UTC)
+ ESMTP id 1276219465B1 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 13:58:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E0796C1602E; Fri, 25 Aug 2023 13:57:20 +0000 (UTC)
+ id 02B48C1602E; Fri, 25 Aug 2023 13:58:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D8EB0C1602B
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 13:57:20 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EEDBEC1602B
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 13:58:25 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B4B52101A528
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 13:57:20 +0000 (UTC)
-Received: from out-246.mta1.migadu.com (out-246.mta1.migadu.com
- [95.215.58.246]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA92938210AA
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 13:58:25 +0000 (UTC)
+Received: from out-247.mta1.migadu.com (out-247.mta1.migadu.com
+ [95.215.58.247]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-110-S7G91ytyN4ikfIpT099AHA-1; Fri, 25 Aug 2023 09:57:18 -0400
-X-MC-Unique: S7G91ytyN4ikfIpT099AHA-1
+ us-mta-433-gnM1CuXNPqKgfyxigaxOcQ-1; Fri, 25 Aug 2023 09:58:23 -0400
+X-MC-Unique: gnM1CuXNPqKgfyxigaxOcQ-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Hao Xu <hao.xu@linux.dev>
 To: io-uring@vger.kernel.org,
 	Jens Axboe <axboe@kernel.dk>
-Date: Fri, 25 Aug 2023 21:54:08 +0800
-Message-Id: <20230825135431.1317785-7-hao.xu@linux.dev>
+Date: Fri, 25 Aug 2023 21:54:09 +0800
+Message-Id: <20230825135431.1317785-8-hao.xu@linux.dev>
 In-Reply-To: <20230825135431.1317785-1-hao.xu@linux.dev>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
 MIME-Version: 1.0
@@ -77,8 +77,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 29 Aug 2023 08:41:07 +0000
-Subject: [Cluster-devel] [PATCH 06/29] vfs: add file_pos_unlock() for
- io_uring usage
+Subject: [Cluster-devel] [PATCH 07/29] vfs: add a nowait parameter for
+ touch_atime()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,7 +108,7 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Transfer-Encoding: quoted-printable
@@ -116,31 +116,240 @@ Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
 From: Hao Xu <howeyxu@tencent.com>
 
-Add a helper to unlock f_pos_lock without any condition. Introduce this
-since io_uring handles f_pos_lock not with a fd struct, thus
-FDPUT_POS_UNLOCK isn't used.
+Add a nowait boolean parameter for touch_atime() to support nowait
+semantics. It is true only when io_uring is the initial caller.
 
 Signed-off-by: Hao Xu <howeyxu@tencent.com>
 ---
- include/linux/file.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/cachefiles/namei.c | 2 +-
+ fs/ecryptfs/file.c    | 4 ++--
+ fs/inode.c            | 7 ++++---
+ fs/namei.c            | 4 ++--
+ fs/nfsd/vfs.c         | 2 +-
+ fs/overlayfs/file.c   | 2 +-
+ fs/overlayfs/inode.c  | 2 +-
+ fs/stat.c             | 2 +-
+ include/linux/fs.h    | 4 ++--
+ kernel/bpf/inode.c    | 4 ++--
+ net/unix/af_unix.c    | 4 ++--
+ 11 files changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/include/linux/file.h b/include/linux/file.h
-index bcc6ba0aec50..a179f4794341 100644
---- a/include/linux/file.h
-+++ b/include/linux/file.h
-@@ -81,6 +81,11 @@ static inline void fdput_pos(struct fd f)
- =09fdput(f);
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index d9d22d0ec38a..7a21bf0e36b8 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -591,7 +591,7 @@ static bool cachefiles_open_file(struct cachefiles_obje=
+ct *object,
+ =09 * used to keep track of culling, and atimes are only updated by read,
+ =09 * write and readdir but not lookup or open).
+ =09 */
+-=09touch_atime(&file->f_path);
++=09touch_atime(&file->f_path, false);
+ =09dput(dentry);
+ =09return true;
+=20
+diff --git a/fs/ecryptfs/file.c b/fs/ecryptfs/file.c
+index ce0a3c5ed0ca..3db7006cc440 100644
+--- a/fs/ecryptfs/file.c
++++ b/fs/ecryptfs/file.c
+@@ -39,7 +39,7 @@ static ssize_t ecryptfs_read_update_atime(struct kiocb *i=
+ocb,
+ =09rc =3D generic_file_read_iter(iocb, to);
+ =09if (rc >=3D 0) {
+ =09=09path =3D ecryptfs_dentry_to_lower_path(file->f_path.dentry);
+-=09=09touch_atime(path);
++=09=09touch_atime(path, false);
+ =09}
+ =09return rc;
+ }
+@@ -64,7 +64,7 @@ static ssize_t ecryptfs_splice_read_update_atime(struct f=
+ile *in, loff_t *ppos,
+ =09rc =3D filemap_splice_read(in, ppos, pipe, len, flags);
+ =09if (rc >=3D 0) {
+ =09=09path =3D ecryptfs_dentry_to_lower_path(in->f_path.dentry);
+-=09=09touch_atime(path);
++=09=09touch_atime(path, false);
+ =09}
+ =09return rc;
+ }
+diff --git a/fs/inode.c b/fs/inode.c
+index 8fefb69e1f84..e83b836f2d09 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -1961,17 +1961,17 @@ bool atime_needs_update(const struct path *path, st=
+ruct inode *inode)
+ =09return true;
  }
 =20
-+static inline void file_pos_unlock(struct file *file)
-+{
-+=09__f_unlock_pos(file);
-+}
-+
- extern int file_pos_lock_nowait(struct file *file, bool nowait);
+-void touch_atime(const struct path *path)
++int touch_atime(const struct path *path, bool nowait)
+ {
+ =09struct vfsmount *mnt =3D path->mnt;
+ =09struct inode *inode =3D d_inode(path->dentry);
+ =09struct timespec64 now;
 =20
- DEFINE_CLASS(fd, struct fd, fdput(_T), fdget(fd), int fd)
+ =09if (!atime_needs_update(path, inode))
+-=09=09return;
++=09=09return 0;
+=20
+ =09if (!sb_start_write_trylock(inode->i_sb))
+-=09=09return;
++=09=09return 0;
+=20
+ =09if (__mnt_want_write(mnt) !=3D 0)
+ =09=09goto skip_update;
+@@ -1989,6 +1989,7 @@ void touch_atime(const struct path *path)
+ =09__mnt_drop_write(mnt);
+ skip_update:
+ =09sb_end_write(inode->i_sb);
++=09return 0;
+ }
+ EXPORT_SYMBOL(touch_atime);
+=20
+diff --git a/fs/namei.c b/fs/namei.c
+index e56ff39a79bc..35731d405730 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -1776,12 +1776,12 @@ static const char *pick_link(struct nameidata *nd, =
+struct path *link,
+ =09=09return ERR_PTR(-ELOOP);
+=20
+ =09if (!(nd->flags & LOOKUP_RCU)) {
+-=09=09touch_atime(&last->link);
++=09=09touch_atime(&last->link, false);
+ =09=09cond_resched();
+ =09} else if (atime_needs_update(&last->link, inode)) {
+ =09=09if (!try_to_unlazy(nd))
+ =09=09=09return ERR_PTR(-ECHILD);
+-=09=09touch_atime(&last->link);
++=09=09touch_atime(&last->link, false);
+ =09}
+=20
+ =09error =3D security_inode_follow_link(link->dentry, inode,
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index 8a2321d19194..3179e7b5d209 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -1569,7 +1569,7 @@ nfsd_readlink(struct svc_rqst *rqstp, struct svc_fh *=
+fhp, char *buf, int *lenp)
+ =09if (unlikely(!d_is_symlink(path.dentry)))
+ =09=09return nfserr_inval;
+=20
+-=09touch_atime(&path);
++=09touch_atime(&path, false);
+=20
+ =09link =3D vfs_get_link(path.dentry, &done);
+ =09if (IS_ERR(link))
+diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
+index 21245b00722a..6ff466ef98ea 100644
+--- a/fs/overlayfs/file.c
++++ b/fs/overlayfs/file.c
+@@ -255,7 +255,7 @@ static void ovl_file_accessed(struct file *file)
+ =09=09inode->i_ctime =3D upperinode->i_ctime;
+ =09}
+=20
+-=09touch_atime(&file->f_path);
++=09touch_atime(&file->f_path, false);
+ }
+=20
+ static rwf_t ovl_iocb_to_rwf(int ifl)
+diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
+index a63e57447be9..66e03025e748 100644
+--- a/fs/overlayfs/inode.c
++++ b/fs/overlayfs/inode.c
+@@ -703,7 +703,7 @@ int ovl_update_time(struct inode *inode, struct timespe=
+c64 *ts, int flags)
+ =09=09};
+=20
+ =09=09if (upperpath.dentry) {
+-=09=09=09touch_atime(&upperpath);
++=09=09=09touch_atime(&upperpath, false);
+ =09=09=09inode->i_atime =3D d_inode(upperpath.dentry)->i_atime;
+ =09=09}
+ =09}
+diff --git a/fs/stat.c b/fs/stat.c
+index 7c238da22ef0..713773e61110 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -485,7 +485,7 @@ static int do_readlinkat(int dfd, const char __user *pa=
+thname,
+ =09=09if (d_is_symlink(path.dentry) || inode->i_op->readlink) {
+ =09=09=09error =3D security_inode_readlink(path.dentry);
+ =09=09=09if (!error) {
+-=09=09=09=09touch_atime(&path);
++=09=09=09=09touch_atime(&path, false);
+ =09=09=09=09error =3D vfs_readlink(path.dentry, buf, bufsiz);
+ =09=09=09}
+ =09=09}
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index f3e315e8efdd..ba54879089ac 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2201,13 +2201,13 @@ enum file_time_flags {
+ };
+=20
+ extern bool atime_needs_update(const struct path *, struct inode *);
+-extern void touch_atime(const struct path *);
++extern int touch_atime(const struct path *path, bool nowait);
+ int inode_update_time(struct inode *inode, struct timespec64 *time, int fl=
+ags);
+=20
+ static inline void file_accessed(struct file *file)
+ {
+ =09if (!(file->f_flags & O_NOATIME))
+-=09=09touch_atime(&file->f_path);
++=09=09touch_atime(&file->f_path, false);
+ }
+=20
+ extern int file_modified(struct file *file);
+diff --git a/kernel/bpf/inode.c b/kernel/bpf/inode.c
+index 4174f76133df..bc020b45d5c8 100644
+--- a/kernel/bpf/inode.c
++++ b/kernel/bpf/inode.c
+@@ -517,7 +517,7 @@ static void *bpf_obj_do_get(int path_fd, const char __u=
+ser *pathname,
+=20
+ =09raw =3D bpf_any_get(inode->i_private, *type);
+ =09if (!IS_ERR(raw))
+-=09=09touch_atime(&path);
++=09=09touch_atime(&path, false);
+=20
+ =09path_put(&path);
+ =09return raw;
+@@ -591,7 +591,7 @@ struct bpf_prog *bpf_prog_get_type_path(const char *nam=
+e, enum bpf_prog_type typ
+ =09=09return ERR_PTR(ret);
+ =09prog =3D __get_prog_inode(d_backing_inode(path.dentry), type);
+ =09if (!IS_ERR(prog))
+-=09=09touch_atime(&path);
++=09=09touch_atime(&path, false);
+ =09path_put(&path);
+ =09return prog;
+ }
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 123b35ddfd71..5868e4e47320 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -1084,7 +1084,7 @@ static struct sock *unix_find_bsd(struct sockaddr_un =
+*sunaddr, int addr_len,
+=20
+ =09err =3D -EPROTOTYPE;
+ =09if (sk->sk_type =3D=3D type)
+-=09=09touch_atime(&path);
++=09=09touch_atime(&path, false);
+ =09else
+ =09=09goto sock_put;
+=20
+@@ -1114,7 +1114,7 @@ static struct sock *unix_find_abstract(struct net *ne=
+t,
+=20
+ =09dentry =3D unix_sk(sk)->path.dentry;
+ =09if (dentry)
+-=09=09touch_atime(&unix_sk(sk)->path);
++=09=09touch_atime(&unix_sk(sk)->path, false);
+=20
+ =09return sk;
+ }
 --=20
 2.25.1
 
