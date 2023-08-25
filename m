@@ -2,73 +2,159 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB43788C2D
-	for <lists+cluster-devel@lfdr.de>; Fri, 25 Aug 2023 17:11:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A478C788F50
+	for <lists+cluster-devel@lfdr.de>; Fri, 25 Aug 2023 21:46:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692976287;
+	s=mimecast20190719; t=1692992796;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=RZbkUY9e8Wi7Z5FQEWEttp+LseNlXBERK1HYThFqoFg=;
-	b=Li+mYX9oNv0o0QvHabPSuqCH8lclEKTofwRc7vX63AmEMppYYSdPfbs5R9305SfoKTlWoe
-	64R/QBVEUMBaw1di0gZ5undVabFJYaVXXDfaw/R9oFPzwM399lpeX/Pt4mbVgub1T0+hSn
-	6U7mqcc2x1vHhoKKwLYSUApHC75KZyM=
+	 list-subscribe:list-post; bh=jYcCJpzTnNbPAmPTHyUYkEHcpVlJRGE4FKapXMxpyYQ=;
+	b=N0P3r7cGp/DPYMTnStyJSc+68qxF2IdUb3bnQFkDxOQglwNk0lU21o5cvqSwxBZDjHaZSB
+	qP56tSUgkG/N6wBqXLnsHxEYtNxMltwqXFe/INjuAW7LYv/EUjZK/rmWF8jSys9uGxPz9d
+	pRaCQhFT0090GUJcrlGieD80Ao7PrHM=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-561-OIbGL9kMNemp17LyfT0tSg-1; Fri, 25 Aug 2023 11:11:24 -0400
-X-MC-Unique: OIbGL9kMNemp17LyfT0tSg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-655-4I3lwT7kMXy1yWkAwSq4cA-1; Fri, 25 Aug 2023 15:46:29 -0400
+X-MC-Unique: 4I3lwT7kMXy1yWkAwSq4cA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7A141293248C;
-	Fri, 25 Aug 2023 15:11:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4DA929DD99F;
+	Fri, 25 Aug 2023 19:46:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id ED8052026D68;
-	Fri, 25 Aug 2023 15:11:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A650EC1602B;
+	Fri, 25 Aug 2023 19:46:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A612419465B3;
-	Fri, 25 Aug 2023 15:11:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 50CEE19465B3;
+	Fri, 25 Aug 2023 19:46:26 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 704DD19465A8 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 15:11:19 +0000 (UTC)
+ ESMTP id 8A35019465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 19:46:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3F46E40C2079; Fri, 25 Aug 2023 15:11:19 +0000 (UTC)
+ id 783F82026D76; Fri, 25 Aug 2023 19:46:20 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 370EE40C2073
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 15:11:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FB192026D68
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 19:46:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EEC7800CB0
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 15:11:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-332-MfbzPobPOIGxyZzknjwSDQ-1; Fri, 25 Aug 2023 11:11:17 -0400
-X-MC-Unique: MfbzPobPOIGxyZzknjwSDQ-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4DC0561D9A;
- Fri, 25 Aug 2023 15:11:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A51CFC433C7;
- Fri, 25 Aug 2023 15:11:15 +0000 (UTC)
-Date: Fri, 25 Aug 2023 08:11:15 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Hao Xu <hao.xu@linux.dev>
-Message-ID: <20230825151115.GB17891@frogsfrogsfrogs>
-References: <20230825135431.1317785-1-hao.xu@linux.dev>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C0BB38008BA
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 19:46:20 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-587-lD08Qq8KOgOPoMGDiNJBWQ-1; Fri, 25 Aug 2023 15:46:16 -0400
+X-MC-Unique: lD08Qq8KOgOPoMGDiNJBWQ-1
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37PGKOZI021135; Fri, 25 Aug 2023 17:21:20 GMT
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3sn1yvxtd1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 25 Aug 2023 17:21:19 +0000
+Received: from pps.filterd
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 37PGttnX036056; Fri, 25 Aug 2023 17:21:18 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2103.outbound.protection.outlook.com [104.47.55.103])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3sn1yxm4ce-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 25 Aug 2023 17:21:18 +0000
+Received: from BN0PR10MB5128.namprd10.prod.outlook.com (2603:10b6:408:117::24)
+ by PH7PR10MB7054.namprd10.prod.outlook.com (2603:10b6:510:276::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27; Fri, 25 Aug
+ 2023 17:21:15 +0000
+Received: from BN0PR10MB5128.namprd10.prod.outlook.com
+ ([fe80::2990:c166:9436:40e]) by BN0PR10MB5128.namprd10.prod.outlook.com
+ ([fe80::2990:c166:9436:40e%6]) with mapi id 15.20.6699.027; Fri, 25 Aug 2023
+ 17:21:15 +0000
+Date: Fri, 25 Aug 2023 13:21:11 -0400
+From: Chuck Lever <chuck.lever@oracle.com>
+To: Alexander Aring <aahringo@redhat.com>
+Message-ID: <ZOjjB0XeUraoSJru@tissot.1015granger.net>
+References: <20230823213352.1971009-1-aahringo@redhat.com>
+ <20230823213352.1971009-2-aahringo@redhat.com>
+In-Reply-To: <20230823213352.1971009-2-aahringo@redhat.com>
+X-ClientProxiedBy: CH0PR03CA0413.namprd03.prod.outlook.com
+ (2603:10b6:610:11b::11) To BN0PR10MB5128.namprd10.prod.outlook.com
+ (2603:10b6:408:117::24)
 MIME-Version: 1.0
-In-Reply-To: <20230825135431.1317785-1-hao.xu@linux.dev>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN0PR10MB5128:EE_|PH7PR10MB7054:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d56652b-5681-4cfe-479f-08dba58faf9d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: azO/o52Be7H/QFALkF48SaZat3Dp2cc0ryYXSb3CuHozEZAv8VNZzoGwC6ozq4xcOQXyy7F/fMQmX8oZ3QxpB0YAQZ6R3l94PtmG2zAdaKmOeEGMzRwgf/XCukAzL0TQlQ9aES9d7goL9ybVAzNDJyIdzWTSUSUomX69Qfd6Jhs5oWTdex+pstqImXm/wNwcavOb7QY7jguL07KvweGsqTA7WfIS+X9BneVHvLcL0r1JWt3S/f8j6BuZ1gkA6CN+bqgh8oj7vtRrotlVe75MKW9qhdLxl5/GBNZTocXnwVKoO/a1bw6oJoED9sIJx4djJQXbjkZCd+VT1WCtBvTeCdudzW3g17gbgiR7NP6Ry2xTbL9pFnd+TrKVt+O6NYlG5ppA229WOFl5jJOXCCdCkrW7AMqxsJGH+6M4z1naXXBPAX8T8rXvbImRVG7eKKuM3m26pPNU/QH3mrlVXmpYuE351Jt4UDJh2qO+H1WqFkiDq7qyQCFDa6O44OdMweWDgGHZuGZIXvYx5WZlDwYSM0TW6an7QMN4wK79K/Rd3DpTjW3TJKQsbBTY1kLSJVsq
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR10MB5128.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(39860400002)(366004)(346002)(396003)(451199024)(1800799009)(186009)(38100700002)(8676002)(4326008)(8936002)(6506007)(41300700001)(66476007)(6486002)(6666004)(316002)(66946007)(6916009)(86362001)(66556008)(6512007)(9686003)(478600001)(26005)(44832011)(83380400001)(7416002)(2906002)(5660300002);
+ DIR:OUT; SFP:1101
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QX4WyId6B6d9Ft1x8K4BW6UjlD/ZhlQp2GMLi4EV+pyy8HNVSpwjtJpadYpg?=
+ =?us-ascii?Q?9wgswEgXLWbWA7gUV6hhJ6JjjFgdbEELmHJ2xjYPnZ8zAYF+BuO8FpKTWimM?=
+ =?us-ascii?Q?z8350/d8P4VfURcWfNx/CiYin35eeXw86tFHR6wr8IrI+mItiQr8kCRHso4E?=
+ =?us-ascii?Q?CxcXruj4IsCSgprLzQvLxsvq4tNd1PUlzrJdXI6iCCWa8EBhCdnQO0Xwwhfr?=
+ =?us-ascii?Q?t5cI794jz/QBBRH7DdLEkkCKKLtnXNBvP/OBT3mTUvfBUgryEk6NsIbpFT9F?=
+ =?us-ascii?Q?kON1tbJffRONHnYbk0IFWfQeNFfEJGtmT3I4+GNqod0Zm1jbe9iu0M7jzUK8?=
+ =?us-ascii?Q?M2agY3jey0lGV7sznG8j27IY4gVZikRRblvVIZLQulF/dqLpUMxJX6W46iAo?=
+ =?us-ascii?Q?gIba0L5zLijI3P7iMOlFkOwCp2bsgIjBLrfpoojr56moIWRhUuG92oCDBbOg?=
+ =?us-ascii?Q?bymh2wIhOgdsDDryrZApImz8+3iXvPzjpLqdnhtWtydcV43GzG0C6wp7usAw?=
+ =?us-ascii?Q?Uftala/gUc/ud3RaRLfceZ4I/mKPJWVdSvoPycDHhpgmxcfkODd8dievUE+r?=
+ =?us-ascii?Q?QPbaS9oBtbIv+n4S8OBLeikrITkzzg6EGWDW+jOhlHBEzrPV072SeE3MqWG1?=
+ =?us-ascii?Q?SNm4k9UPPbqsBqlpjiN98FETlbKxpt+SS6IgVosYCE58XrNIDDcgda7FFfby?=
+ =?us-ascii?Q?Xe3cfLIbqY2rufGWStbMquxfDV/c3E+wzllbC03MsM1sdZwjKuHGF7hAVTSU?=
+ =?us-ascii?Q?PNWQc1iQUYDxbF2i2VGjL6TfoOhLC+TkUDMr6cx0tIY9XOLIUSwng1ypn+DK?=
+ =?us-ascii?Q?wy2Skosd1iZvf2nt3wZV9Hdq9j8g2OokzcVMEDsCNzZ6HQjiuRJXToAccJmX?=
+ =?us-ascii?Q?tGkR41zRor9cdiPqsDonsxN3jbMCyY0hOfUYSs1G4LqNGdXZEPaNxIEnaK66?=
+ =?us-ascii?Q?3szZgSwDfPvHprStw1FwCnqkqQPimTUWFosReJih9pP9ubkJk2kKaRhcOEiB?=
+ =?us-ascii?Q?w0ujGWQZ9M+D05QeAH4viiFpRAzTwwY6NhhprKfIKJUhEvMxRV6ofSHknOif?=
+ =?us-ascii?Q?Jy4S/OOYUnho0a8waLv7hlQcvOsCce71LtzZ84rsCKRlwRQD6DO+OF4mqJj0?=
+ =?us-ascii?Q?Pcdd7sleL5vORapS6qfO6tpsD7SU5B/S6hkAFDpON7t6Vue/OMQRctAB+C/c?=
+ =?us-ascii?Q?OA+KB+QNp+YLj53PARQUiuwEqr+W5sxeTJOZ4GecLWKHPf+WG8sqRems6VOg?=
+ =?us-ascii?Q?pZkhxl7qL3KV0lNFFOKMTPKFY1bMBY9vo3WIZciOnMNnDWASvD6TLKDHBXn9?=
+ =?us-ascii?Q?+m1D4YaUWXXgdtH1yIM0q0AhRL7+P2ZqG6eyFMxjCmGJclrSQ4UQIkx//xkf?=
+ =?us-ascii?Q?U5wVjGTUeYE+Zqd3ceGgwq1Rz3Ps9f1FW5894w889bj7FjEQhEAOOJkdoymT?=
+ =?us-ascii?Q?1kSohxOB1L4gJ3CB/jeFLO6MWSylUB5xHZrqd4qKXSGU7hukbUoYxS0Nmza4?=
+ =?us-ascii?Q?OhaK64u4Tu+ZQzag7b88FDzy8gKoy05Zll5Xm6oYU2rtJehkh5uvLdJlnpBX?=
+ =?us-ascii?Q?DY6IACEt0xQRCeNK3uu+DVIRvhr/Fc01uvdBkLVEDa4SZ5VedJgmgavc/Qyk?=
+ =?us-ascii?Q?Ug=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 2wsgriSFKz77J4d6xW521Rsb7Wj3GiDoExmAHDe9SHPcm5NPCgh6PR2oE0wRBMbZcC81amXFhjEl8Os8T2T1n2TE4NQB9DRjJ+5yzxnLjOlpbaF4A2izn9vOX8t2W/JucAGBDmjh8RiGrJzAlmIUXsRRDjBmH/DRhEnXU86rOFibmMy40OlGRY2Lk5EUVI101mU79tIZKEGrmEEj/pkxzzbsg4baJ7nAl+pITFRn8BfmF2yIqJlfDNCyp5QL8sG9qlQ8HfDLPAtH0XFu7SA9fx+dV25iOk6f8LG72Mrv7LGJDzbyA2igYOjfRWxMbz4noh447EO4uUEhunFRuORuqUNlPdN4B9DEnWm0gJgq4Q43zgnRKzsdZqmHaVNJrLAYu1fUYNo+ylYy34nRd7KPnFgi5VC6UTU5N2cDGdD2wBfVrmSu32jjehQ2dDsKkKkIQqT/l499yD9CE7hjJw7LBJO4lUMZnBsKvLFjdGSEH7Ba/GiJ2xuKXgRjNi12ouVkRRxmKtdWhAbIaoGyfxNK6VvsbPEMYuQYxMLyPhV+LVzuKQ8WCQssT1r464n3FqH9sebIVuR1ZOXx64X48HpGMaMkinMGOGwxnc8wG4ZcvM+mOGZekw+M9Ef7taVxPDk3vVIGTdQkYS2pLcPaDpi6Fp0gLpdtmaJDSqEh6wCyQv83Mg+hnIKAQY7lYYplqgj5PmfvoLfw4SfoE6AsYL8zVWcEz2FcQaPm84aobqUWIYSuguVb/JoyDoCtCI5Yz6gXCMLx26dO4FRk7XT94Z+c9guAUD3AbWp5FLZnjQawJyNdf3F9lmZCX+cY+IjpjgX2GY/9ltx3YzYFApIAab8jouznUYP+urken3/sIXfvJn52nAuRRxGOnlG+C8WTsCBSFjAgL/TfgS0oSgNwlcP1nA==
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d56652b-5681-4cfe-479f-08dba58faf9d
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR10MB5128.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 17:21:15.0565 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TR918Iap08J0MSbvcSeCsDMOwojJtEFDzWw+lbLwsXAAlSx4rZKm41Tk1V5FFdJEwmBSSJ4/go+6zRJ/t+CKQw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB7054
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-25_15,2023-08-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ suspectscore=0
+ malwarescore=0 spamscore=0 phishscore=0 mlxlogscore=999 adultscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2308250155
+X-Proofpoint-ORIG-GUID: sjxUPjFGcLDwVese7SgWJzO_apJmn4ic
+X-Proofpoint-GUID: sjxUPjFGcLDwVese7SgWJzO_apJmn4ic
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -76,8 +162,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [Cluster-devel] [PATCH RFC v5 00/29] io_uring getdents
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [Cluster-devel] [PATCH 1/7] lockd: introduce safe async lock op
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,241 +175,180 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- codalist@coda.cs.cmu.edu, cluster-devel@redhat.com, linux-cachefs@redhat.com,
- linux-ext4@vger.kernel.org, devel@lists.orangefs.org,
- linux-cifs@vger.kernel.org, ecryptfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- netdev@vger.kernel.org, samba-technical@lists.samba.org,
- linux-unionfs@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
- Pavel Begunkov <asml.silence@gmail.com>, linux-btrfs@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org, jlayton@kernel.org, cluster-devel@redhat.com,
+ ocfs2-devel@lists.linux.dev, anna@kernel.org, linux-fsdevel@vger.kernel.org,
+ trond.myklebust@hammerspace.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: oracle.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Aug 25, 2023 at 09:54:02PM +0800, Hao Xu wrote:
-> From: Hao Xu <howeyxu@tencent.com>
+On Wed, Aug 23, 2023 at 05:33:46PM -0400, Alexander Aring wrote:
+> This patch reverts mostly commit 40595cdc93ed ("nfs: block notification
+> on fs with its own ->lock") and introduces an EXPORT_OP_SAFE_ASYNC_LOCK
+> export flag to signal that the "own ->lock" implementation supports
+> async lock requests. The only main user is DLM that is used by GFS2 and
+> OCFS2 filesystem. Those implement their own lock() implementation and
+> return FILE_LOCK_DEFERRED as return value. Since commit 40595cdc93ed
+> ("nfs: block notification on fs with its own ->lock") the DLM
+> implementation were never updated. This patch should prepare for DLM
+> to set the EXPORT_OP_SAFE_ASYNC_LOCK export flag and update the DLM
+> plock implementation regarding to it.
 > 
-> This series introduce getdents64 to io_uring, the code logic is similar
-> with the snychronized version's. It first try nowait issue, and offload
-> it to io-wq threads if the first try fails.
+> Acked-by: Jeff Layton <jlayton@kernel.org>
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> ---
+>  fs/lockd/svclock.c       |  5 ++---
+>  fs/nfsd/nfs4state.c      | 13 ++++++++++---
+>  include/linux/exportfs.h |  8 ++++++++
+>  3 files changed, 20 insertions(+), 6 deletions(-)
 
-NAK on the entire series until Jens actually writes down what NOWAIT
-does, so that we can check that the *existing* nowait code branches
-actually behave how he says it should.
+I'm starting to look at these. Just so you know, it's too late for
+inclusion in v6.6, but I think we can get these into shape for v6.7.
 
-https://lore.kernel.org/all/e2d8e5f1-f794-38eb-cecf-ed30c571206b@kernel.dk/
+More below.
 
---D
 
-> 
-> Patch1 and Patch2 are some preparation
-> Patch3 supports nowait for xfs getdents code
-> Patch4-11 are vfs change, include adding helpers and trylock for locks
-> Patch12-29 supports nowait for involved xfs journal stuff
-> note, Patch24 and 27 are actually two questions, might be removed later.
-> an xfs test may come later.
-> 
-> Tests I've done:
-> a liburing test case for functional test:
-> https://github.com/HowHsu/liburing/commit/39dc9a8e19c06a8cebf8c2301b85320eb45c061e?diff=unified
-> 
-> xfstests:
->     test/generic: 1 fails and 171 not run
->     test/xfs: 72 fails and 156 not run
-> run the code before without this patchset, same result.
-> I'll try to make the environment more right to run more tests here.
-> 
-> 
-> Tested it with a liburing performance test:
-> https://github.com/HowHsu/liburing/blob/getdents/test/getdents2.c
-> 
-> The test is controlled by the below script[2] which runs getdents2.t 100
-> times and calulate the avg.
-> The result show that io_uring version is about 2.6% faster:
-> 
-> note:
-> [1] the number of getdents call/request in io_uring and normal sync version
-> are made sure to be same beforehand.
-> 
-> [2] run_getdents.py
-> 
-> ```python3
-> 
-> import subprocess
-> 
-> N = 100
-> sum = 0.0
-> args = ["/data/home/howeyxu/tmpdir", "sync"]
-> 
-> for i in range(N):
->     output = subprocess.check_output(["./liburing/test/getdents2.t"] + args)
->     sum += float(output)
-> 
-> average = sum / N
-> print("Average of sync:", average)
-> 
-> sum = 0.0
-> args = ["/data/home/howeyxu/tmpdir", "iouring"]
-> 
-> for i in range(N):
->     output = subprocess.check_output(["./liburing/test/getdents2.t"] + args)
->     sum += float(output)
-> 
-> average = sum / N
-> print("Average of iouring:", average)
-> 
-> ```
-> 
-> v4->v5:
->  - move atime update to the beginning of getdents operation
->  - trylock for i_rwsem
->  - nowait semantics for involved xfs journal stuff
-> 
-> v3->v4:
->  - add Dave's xfs nowait code and fix a deadlock problem, with some code
->    style tweak.
->  - disable fixed file to avoid a race problem for now
->  - add a test program.
-> 
-> v2->v3:
->  - removed the kernfs patches
->  - add f_pos_lock logic
->  - remove the "reduce last EOF getdents try" optimization since
->    Dominique reports that doesn't make difference
->  - remove the rewind logic, I think the right way is to introduce lseek
->    to io_uring not to patch this logic to getdents.
->  - add Singed-off-by of Stefan Roesch for patch 1 since checkpatch
->    complained that Co-developed-by someone should be accompanied with
->    Signed-off-by same person, I can remove them if Stefan thinks that's
->    not proper.
-> 
-> 
-> Dominique Martinet (1):
->   fs: split off vfs_getdents function of getdents64 syscall
-> 
-> Hao Xu (28):
->   xfs: rename XBF_TRYLOCK to XBF_NOWAIT
->   xfs: add NOWAIT semantics for readdir
->   vfs: add nowait flag for struct dir_context
->   vfs: add a vfs helper for io_uring file pos lock
->   vfs: add file_pos_unlock() for io_uring usage
->   vfs: add a nowait parameter for touch_atime()
->   vfs: add nowait parameter for file_accessed()
->   vfs: move file_accessed() to the beginning of iterate_dir()
->   vfs: add S_NOWAIT for nowait time update
->   vfs: trylock inode->i_rwsem in iterate_dir() to support nowait
->   xfs: enforce GFP_NOIO implicitly during nowait time update
->   xfs: make xfs_trans_alloc() support nowait semantics
->   xfs: support nowait for xfs_log_reserve()
->   xfs: don't wait for free space in xlog_grant_head_check() in nowait
->     case
->   xfs: add nowait parameter for xfs_inode_item_init()
->   xfs: make xfs_trans_ijoin() error out -EAGAIN
->   xfs: set XBF_NOWAIT for xfs_buf_read_map if necessary
->   xfs: support nowait memory allocation in _xfs_buf_alloc()
->   xfs: distinguish error type of memory allocation failure for nowait
->     case
->   xfs: return -EAGAIN when bulk memory allocation fails in nowait case
->   xfs: comment page allocation for nowait case in xfs_buf_find_insert()
->   xfs: don't print warn info for -EAGAIN error in  xfs_buf_get_map()
->   xfs: support nowait for xfs_buf_read_map()
->   xfs: support nowait for xfs_buf_item_init()
->   xfs: return -EAGAIN when nowait meets sync in transaction commit
->   xfs: add a comment for xlog_kvmalloc()
->   xfs: support nowait semantics for xc_ctx_lock in xlog_cil_commit()
->   io_uring: add support for getdents
-> 
->  arch/s390/hypfs/inode.c         |  2 +-
->  block/fops.c                    |  2 +-
->  fs/btrfs/file.c                 |  2 +-
->  fs/btrfs/inode.c                |  2 +-
->  fs/cachefiles/namei.c           |  2 +-
->  fs/coda/dir.c                   |  4 +--
->  fs/ecryptfs/file.c              |  4 +--
->  fs/ext2/file.c                  |  4 +--
->  fs/ext4/file.c                  |  6 ++--
->  fs/f2fs/file.c                  |  4 +--
->  fs/file.c                       | 13 +++++++
->  fs/fuse/dax.c                   |  2 +-
->  fs/fuse/file.c                  |  4 +--
->  fs/gfs2/file.c                  |  2 +-
->  fs/hugetlbfs/inode.c            |  2 +-
->  fs/inode.c                      | 10 +++---
->  fs/internal.h                   |  8 +++++
->  fs/namei.c                      |  4 +--
->  fs/nfsd/vfs.c                   |  2 +-
->  fs/nilfs2/file.c                |  2 +-
->  fs/orangefs/file.c              |  2 +-
->  fs/orangefs/inode.c             |  2 +-
->  fs/overlayfs/file.c             |  2 +-
->  fs/overlayfs/inode.c            |  2 +-
->  fs/pipe.c                       |  2 +-
->  fs/ramfs/file-nommu.c           |  2 +-
->  fs/readdir.c                    | 61 +++++++++++++++++++++++++--------
->  fs/smb/client/cifsfs.c          |  2 +-
->  fs/splice.c                     |  2 +-
->  fs/stat.c                       |  2 +-
->  fs/ubifs/file.c                 |  2 +-
->  fs/udf/file.c                   |  2 +-
->  fs/xfs/libxfs/xfs_alloc.c       |  2 +-
->  fs/xfs/libxfs/xfs_attr_remote.c |  2 +-
->  fs/xfs/libxfs/xfs_btree.c       |  2 +-
->  fs/xfs/libxfs/xfs_da_btree.c    | 16 +++++++++
->  fs/xfs/libxfs/xfs_da_btree.h    |  1 +
->  fs/xfs/libxfs/xfs_dir2_block.c  |  7 ++--
->  fs/xfs/libxfs/xfs_dir2_priv.h   |  2 +-
->  fs/xfs/libxfs/xfs_shared.h      |  2 ++
->  fs/xfs/libxfs/xfs_trans_inode.c | 12 +++++--
->  fs/xfs/scrub/dir.c              |  2 +-
->  fs/xfs/scrub/readdir.c          |  2 +-
->  fs/xfs/scrub/repair.c           |  2 +-
->  fs/xfs/xfs_buf.c                | 43 +++++++++++++++++------
->  fs/xfs/xfs_buf.h                |  4 +--
->  fs/xfs/xfs_buf_item.c           |  9 +++--
->  fs/xfs/xfs_buf_item.h           |  2 +-
->  fs/xfs/xfs_buf_item_recover.c   |  2 +-
->  fs/xfs/xfs_dir2_readdir.c       | 49 ++++++++++++++++++++------
->  fs/xfs/xfs_dquot.c              |  2 +-
->  fs/xfs/xfs_file.c               |  6 ++--
->  fs/xfs/xfs_inode.c              | 27 +++++++++++++++
->  fs/xfs/xfs_inode.h              | 17 +++++----
->  fs/xfs/xfs_inode_item.c         | 12 ++++---
->  fs/xfs/xfs_inode_item.h         |  3 +-
->  fs/xfs/xfs_iops.c               | 31 ++++++++++++++---
->  fs/xfs/xfs_log.c                | 33 ++++++++++++------
->  fs/xfs/xfs_log.h                |  5 +--
->  fs/xfs/xfs_log_cil.c            | 17 +++++++--
->  fs/xfs/xfs_log_priv.h           |  4 +--
->  fs/xfs/xfs_trans.c              | 44 ++++++++++++++++++++----
->  fs/xfs/xfs_trans.h              |  2 +-
->  fs/xfs/xfs_trans_buf.c          | 18 ++++++++--
->  fs/zonefs/file.c                |  4 +--
->  include/linux/file.h            |  7 ++++
->  include/linux/fs.h              | 16 +++++++--
->  include/uapi/linux/io_uring.h   |  1 +
->  io_uring/fs.c                   | 53 ++++++++++++++++++++++++++++
->  io_uring/fs.h                   |  3 ++
->  io_uring/opdef.c                |  8 +++++
->  kernel/bpf/inode.c              |  4 +--
->  mm/filemap.c                    |  8 ++---
->  mm/shmem.c                      |  6 ++--
->  net/unix/af_unix.c              |  4 +--
->  75 files changed, 499 insertions(+), 161 deletions(-)
-> 
+> diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
+> index c43ccdf28ed9..6e3b230e8317 100644
+> --- a/fs/lockd/svclock.c
+> +++ b/fs/lockd/svclock.c
+> @@ -470,9 +470,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *file,
+>  	    struct nlm_host *host, struct nlm_lock *lock, int wait,
+>  	    struct nlm_cookie *cookie, int reclaim)
+>  {
+> -#if IS_ENABLED(CONFIG_SUNRPC_DEBUG)
+>  	struct inode		*inode = nlmsvc_file_inode(file);
+> -#endif
+>  	struct nlm_block	*block = NULL;
+>  	int			error;
+>  	int			mode;
+> @@ -486,7 +484,8 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *file,
+>  				(long long)lock->fl.fl_end,
+>  				wait);
+>  
+> -	if (nlmsvc_file_file(file)->f_op->lock) {
+> +	if (!export_op_support_safe_async_lock(inode->i_sb->s_export_op,
+> +					       nlmsvc_file_file(file)->f_op)) {
+>  		async_block = wait;
+>  		wait = 0;
+>  	}
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index 3aefbad4cc09..14ca06424ff1 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -7430,6 +7430,7 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+>  	struct nfsd4_blocked_lock *nbl = NULL;
+>  	struct file_lock *file_lock = NULL;
+>  	struct file_lock *conflock = NULL;
+> +	struct super_block *sb;
+>  	__be32 status = 0;
+>  	int lkflg;
+>  	int err;
+> @@ -7451,6 +7452,7 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+>  		dprintk("NFSD: nfsd4_lock: permission denied!\n");
+>  		return status;
+>  	}
+> +	sb = cstate->current_fh.fh_dentry->d_sb;
+>  
+>  	if (lock->lk_is_new) {
+>  		if (nfsd4_has_session(cstate))
+> @@ -7502,7 +7504,9 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+>  	fp = lock_stp->st_stid.sc_file;
+>  	switch (lock->lk_type) {
+>  		case NFS4_READW_LT:
+> -			if (nfsd4_has_session(cstate))
+> +			if (nfsd4_has_session(cstate) ||
+> +			    export_op_support_safe_async_lock(sb->s_export_op,
+> +							      nf->nf_file->f_op))
+>  				fl_flags |= FL_SLEEP;
+>  			fallthrough;
+>  		case NFS4_READ_LT:
+> @@ -7514,7 +7518,9 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+>  			fl_type = F_RDLCK;
+>  			break;
+>  		case NFS4_WRITEW_LT:
+> -			if (nfsd4_has_session(cstate))
+> +			if (nfsd4_has_session(cstate) ||
+> +			    export_op_support_safe_async_lock(sb->s_export_op,
+> +							      nf->nf_file->f_op))
+>  				fl_flags |= FL_SLEEP;
+>  			fallthrough;
+>  		case NFS4_WRITE_LT:
+> @@ -7542,7 +7548,8 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+>  	 * for file locks), so don't attempt blocking lock notifications
+>  	 * on those filesystems:
+>  	 */
+> -	if (nf->nf_file->f_op->lock)
+> +	if (!export_op_support_safe_async_lock(sb->s_export_op,
+> +					       nf->nf_file->f_op))
+>  		fl_flags &= ~FL_SLEEP;
+>  
+>  	nbl = find_or_allocate_block(lock_sop, &fp->fi_fhandle, nn);
+> diff --git a/include/linux/exportfs.h b/include/linux/exportfs.h
+> index 11fbd0ee1370..10358a93cdc1 100644
+> --- a/include/linux/exportfs.h
+> +++ b/include/linux/exportfs.h
+> @@ -3,6 +3,7 @@
+>  #define LINUX_EXPORTFS_H 1
+>  
+>  #include <linux/types.h>
+> +#include <linux/fs.h>
+>  
+>  struct dentry;
+>  struct iattr;
+> @@ -224,9 +225,16 @@ struct export_operations {
+>  						  atomic attribute updates
+>  						*/
+>  #define EXPORT_OP_FLUSH_ON_CLOSE	(0x20) /* fs flushes file data on close */
+> +#define EXPORT_OP_SAFE_ASYNC_LOCK	(0x40) /* fs can do async lock request */
+
+We haven't been good about this recently, but the addition of new
+EXPORT_OP flags need to be accompanied by updates to
+Documentation/filesystems/nfs/exporting.rst.
+
+I will see about adding documentation for other recent flags, but
+please include an update to exporting.rst with this patch.
+
+I'm not sure we need _SAFE_ in the flag name. Would
+EXPORT_OP_ASYNC_LOCK be OK with you?
+
+
+>  	unsigned long	flags;
+>  };
+>  
+> +static inline bool export_op_support_safe_async_lock(const struct export_operations *export_ops,
+> +						     const struct file_operations *f_op)
+> +{
+> +	return (export_ops->flags & EXPORT_OP_SAFE_ASYNC_LOCK) || !f_op->lock;
+> +}
+> +
+
+I'd like some cosmetic changes to this API, since this seems to be
+the first utility function for checking EXPORT_OP flags.
+
+- The function name is unwieldy. How about exportfs_lock_op_is_async() ?
+
+- Break up the long lines. It's OK with me if the return value type
+  is left on a different line than the function name and parameters.
+
+- This function is globally visible, so a kdoc comment is needed.
+
+- The f_op->lock check is common to all the call sites, but it is
+  not at all related to the export AFAICT. Can it be removed from
+  this inline function?
+
+
+>  extern int exportfs_encode_inode_fh(struct inode *inode, struct fid *fid,
+>  				    int *max_len, struct inode *parent,
+>  				    int flags);
 > -- 
-> 2.25.1
+> 2.31.1
 > 
+
+-- 
+Chuck Lever
 
