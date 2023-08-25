@@ -1,68 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E341278C0A2
-	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 666D378C08D
+	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693298481;
+	s=mimecast20190719; t=1693298477;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Ex7XLonsdjSMKqQtTcZJtBrAcWxu6ezblmhps2tlk4Q=;
-	b=HYvud4qw+mIe35J8jWEspIs6hcSJ7BQg9YKM1oeAVo09uGDY1wesKSOQ7U01juRe9P5ud5
-	7eit0aEmHaX0PNdXfQth6QlM3tEhVj9syILy9q+9DJgVZDUE4+Zx1Zvxp9Q1LVmkI+6jsg
-	J+j71tuAhHFtNDTj6GDPy7RHgxDOk80=
+	bh=SuwxFwaiezuBRSHTJxYRoDnfFAjXOyv9oGVZK6cOgLs=;
+	b=TRNduGRzgdPT4P/uY9kd1iS0/f/7wAAe6GHHFUmiQ9QVd5NeiGoF7UzajAy5oh+dcxwr1i
+	/Yx1Jwbmn+ZG/rFojKFOzHhtweJMU4mkXIx45XUZzFEHL71sRi38H25GbBE4hHMaXGqR09
+	H7WFrHCdliffs2PqrElgo2nRYLAswYA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-43-dHs5WpxZMX6vfgBiucXiYw-1; Tue, 29 Aug 2023 04:41:14 -0400
-X-MC-Unique: dHs5WpxZMX6vfgBiucXiYw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-606-rYy35j6mN6eLi5wVkXL6mg-1; Tue, 29 Aug 2023 04:41:11 -0400
+X-MC-Unique: rYy35j6mN6eLi5wVkXL6mg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0970E823DF5;
-	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27967101AA5F;
+	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F2D57140E950;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1B82140C6F4E;
 	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CF9B21946A4C;
-	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4EAA61946A52;
+	Tue, 29 Aug 2023 08:41:09 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 530C919465B1 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 14:00:19 +0000 (UTC)
+ ESMTP id 0F9AF19465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 14:00:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3EDE34021B9; Fri, 25 Aug 2023 14:00:19 +0000 (UTC)
+ id E0B562166B26; Fri, 25 Aug 2023 14:00:44 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 365D3492C14
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:00:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 15AAE2812949
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:00:19 +0000 (UTC)
-Received: from out-242.mta1.migadu.com (out-242.mta1.migadu.com
- [95.215.58.242]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D92212166B27
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:00:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BCCE7800C7F
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:00:44 +0000 (UTC)
+Received: from out-246.mta1.migadu.com (out-246.mta1.migadu.com
+ [95.215.58.246]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-259-FUocNvIgM9m23oqwHJo3WQ-1; Fri, 25 Aug 2023 10:00:17 -0400
-X-MC-Unique: FUocNvIgM9m23oqwHJo3WQ-1
+ us-mta-553-xl8mK5gxNHqElfCyNbrcFQ-1; Fri, 25 Aug 2023 10:00:40 -0400
+X-MC-Unique: xl8mK5gxNHqElfCyNbrcFQ-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Hao Xu <hao.xu@linux.dev>
 To: io-uring@vger.kernel.org,
 	Jens Axboe <axboe@kernel.dk>
-Date: Fri, 25 Aug 2023 21:54:13 +0800
-Message-Id: <20230825135431.1317785-12-hao.xu@linux.dev>
+Date: Fri, 25 Aug 2023 21:54:14 +0800
+Message-Id: <20230825135431.1317785-13-hao.xu@linux.dev>
 In-Reply-To: <20230825135431.1317785-1-hao.xu@linux.dev>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
 MIME-Version: 1.0
@@ -74,10 +75,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Tue, 29 Aug 2023 08:41:07 +0000
-Subject: [Cluster-devel] [PATCH 11/29] vfs: trylock inode->i_rwsem in
- iterate_dir() to support nowait
+Subject: [Cluster-devel] [PATCH 12/29] xfs: enforce GFP_NOIO implicitly
+ during nowait time update
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +108,7 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Transfer-Encoding: quoted-printable
@@ -115,58 +116,65 @@ Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
 From: Hao Xu <howeyxu@tencent.com>
 
-Trylock inode->i_rwsem in iterate_dir() to support nowait semantics and
-error out -EAGAIN when there is contention.
+Enforce GFP_NOIO logic implicitly by set pflags if we are in nowait
+time update process. Nowait semantics means no waiting for IO,
+therefore GFP_NOIO is needed.
 
 Signed-off-by: Hao Xu <howeyxu@tencent.com>
 ---
- fs/readdir.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ fs/xfs/xfs_iops.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/fs/readdir.c b/fs/readdir.c
-index 6469f076ba6e..664ecd9665a1 100644
---- a/fs/readdir.c
-+++ b/fs/readdir.c
-@@ -43,6 +43,8 @@ int iterate_dir(struct file *file, struct dir_context *ct=
-x)
- =09struct inode *inode =3D file_inode(file);
- =09bool shared =3D false;
- =09int res =3D -ENOTDIR;
-+=09bool nowait;
+diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
+index bf1d4c31f009..5fa391083de9 100644
+--- a/fs/xfs/xfs_iops.c
++++ b/fs/xfs/xfs_iops.c
+@@ -1037,6 +1037,8 @@ xfs_vn_update_time(
+ =09int=09=09=09log_flags =3D XFS_ILOG_TIMESTAMP;
+ =09struct xfs_trans=09*tp;
+ =09int=09=09=09error;
++=09int=09=09=09old_pflags;
++=09bool=09=09=09nowait =3D flags & S_NOWAIT;
+=20
+ =09trace_xfs_update_time(ip);
+=20
+@@ -1049,13 +1051,18 @@ xfs_vn_update_time(
+ =09=09log_flags |=3D XFS_ILOG_CORE;
+ =09}
+=20
++=09if (nowait)
++=09=09old_pflags =3D memalloc_noio_save();
 +
- =09if (file->f_op->iterate_shared)
- =09=09shared =3D true;
- =09else if (!file->f_op->iterate)
-@@ -52,16 +54,22 @@ int iterate_dir(struct file *file, struct dir_context *=
-ctx)
- =09if (res)
- =09=09goto out;
+ =09error =3D xfs_trans_alloc(mp, &M_RES(mp)->tr_fsyncts, 0, 0, 0, &tp);
+ =09if (error)
+-=09=09return error;
++=09=09goto out;
 =20
--=09if (shared)
--=09=09res =3D down_read_killable(&inode->i_rwsem);
--=09else
--=09=09res =3D down_write_killable(&inode->i_rwsem);
--=09if (res)
-+=09nowait =3D ctx->flags & DIR_CONTEXT_F_NOWAIT;
+-=09if (flags & S_NOWAIT) {
+-=09=09if (!xfs_ilock_nowait(ip, XFS_ILOCK_EXCL))
+-=09=09=09return -EAGAIN;
 +=09if (nowait) {
-+=09=09res =3D shared ? down_read_trylock(&inode->i_rwsem) :
-+=09=09=09       down_write_trylock(&inode->i_rwsem);
-+=09=09if (!res)
-+=09=09=09res =3D -EAGAIN;
-+=09} else {
-+=09=09res =3D shared ? down_read_killable(&inode->i_rwsem) :
-+=09=09=09       down_write_killable(&inode->i_rwsem);
-+=09}
-+=09if (res < 0)
- =09=09goto out;
++=09=09if (!xfs_ilock_nowait(ip, XFS_ILOCK_EXCL)) {
++=09=09=09error =3D -EAGAIN;
++=09=09=09goto out;
++=09=09}
+ =09} else {
+ =09=09xfs_ilock(ip, XFS_ILOCK_EXCL);
+ =09}
+@@ -1069,7 +1076,12 @@ xfs_vn_update_time(
 =20
- =09res =3D -ENOENT;
- =09if (!IS_DEADDIR(inode)) {
--=09=09res =3D file_accessed(file, ctx->flags & DIR_CONTEXT_F_NOWAIT);
-+=09=09res =3D file_accessed(file, nowait);
- =09=09if (res =3D=3D -EAGAIN)
- =09=09=09goto out_unlock;
+ =09xfs_trans_ijoin(tp, ip, XFS_ILOCK_EXCL);
+ =09xfs_trans_log_inode(tp, ip, log_flags);
+-=09return xfs_trans_commit(tp);
++=09error =3D xfs_trans_commit(tp);
++
++out:
++=09if (nowait)
++=09=09memalloc_noio_restore(old_pflags);
++=09return error;
+ }
 =20
+ STATIC int
 --=20
 2.25.1
 
