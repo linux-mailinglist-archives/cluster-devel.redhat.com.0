@@ -2,68 +2,68 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 599B178C0A4
-	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 802F278C08F
+	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693298481;
+	s=mimecast20190719; t=1693298477;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UwSjPjmuy1jc27+t764F70lOVxptVjygEg6OOed63p8=;
-	b=W5WfoQp3MHLCK9vdNDqflszx4hD0A4hhkrFHD5rB2LhKIRvDwKxQ8fHRPlUr2arf51VLac
-	rF0wNSdkQNQYWWJ1kdHFRiJku3cZaPyIF/fc9ohhJXYTnssJnXlM6BMP8LCcOCVO1A71ex
-	5H67ToJE0kVK4/NealWXaL/NPE4g69Y=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-43-SOBUGo10OuyGaLYnNDTfGw-1; Tue, 29 Aug 2023 04:41:13 -0400
-X-MC-Unique: SOBUGo10OuyGaLYnNDTfGw-1
+	bh=DNH/wgJKtYs04kPlgY50dxMdkpb1GtxE9F2lqj5Drb4=;
+	b=DHV7G/OBWw5vHIt15SbBIkcjQ+inHVxgmfRT9csCsRIw5jJ6LTS6Jsmyq+ZLsYkDN077dg
+	QnEXgWHcKrHiAKbt1lVod9zBAVERR5TIq8+kpUgAIza2LGixZ5/cJHrP/Zny0UhmwaIX8h
+	0aW//3tHBxDKAEluolbms8IMG8tj5LY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-153-zMZIoB1cMK2h_XQ8Z5R6lA-1; Tue, 29 Aug 2023 04:41:13 -0400
+X-MC-Unique: zMZIoB1cMK2h_XQ8Z5R6lA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5592B3C100BE;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C38FE80CD8D;
 	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 442D8140E962;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 78B61140E91F;
 	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 00A401946A62;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0B9D51946A47;
 	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4867119465A8 for <cluster-devel@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 14:03:53 +0000 (UTC)
+ ESMTP id 918EA19465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 14:04:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 095B32166B27; Fri, 25 Aug 2023 14:03:53 +0000 (UTC)
+ id 7DACD2166B28; Fri, 25 Aug 2023 14:04:14 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 01ABC2166B26
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:03:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 75CEF2166B27
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:04:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D9DCA185A792
- for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:03:52 +0000 (UTC)
-Received: from out-244.mta1.migadu.com (out-244.mta1.migadu.com
- [95.215.58.244]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59DC738008B2
+ for <cluster-devel@redhat.com>; Fri, 25 Aug 2023 14:04:14 +0000 (UTC)
+Received: from out-252.mta1.migadu.com (out-252.mta1.migadu.com
+ [95.215.58.252]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-171-wPzSbEOdMYGXnmGP05W6Hw-1; Fri, 25 Aug 2023 10:03:50 -0400
-X-MC-Unique: wPzSbEOdMYGXnmGP05W6Hw-1
+ us-mta-1-r-gkCubKOn2KCzOiKz51wQ-1; Fri, 25 Aug 2023 10:04:10 -0400
+X-MC-Unique: r-gkCubKOn2KCzOiKz51wQ-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Hao Xu <hao.xu@linux.dev>
 To: io-uring@vger.kernel.org,
 	Jens Axboe <axboe@kernel.dk>
-Date: Fri, 25 Aug 2023 21:54:23 +0800
-Message-Id: <20230825135431.1317785-22-hao.xu@linux.dev>
+Date: Fri, 25 Aug 2023 21:54:24 +0800
+Message-Id: <20230825135431.1317785-23-hao.xu@linux.dev>
 In-Reply-To: <20230825135431.1317785-1-hao.xu@linux.dev>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
 MIME-Version: 1.0
@@ -77,8 +77,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Tue, 29 Aug 2023 08:41:07 +0000
-Subject: [Cluster-devel] [PATCH 21/29] xfs: return -EAGAIN when bulk memory
- allocation fails in nowait case
+Subject: [Cluster-devel] [PATCH 22/29] xfs: comment page allocation for
+ nowait case in xfs_buf_find_insert()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,30 +116,26 @@ Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
 From: Hao Xu <howeyxu@tencent.com>
 
-Rather than wait for a moment and retry, we return -EAGAIN when we fail
-to allocate bulk memory in xfs_buf_alloc_pages() in nowait case.
+Add comments for page allocation in nowait case in xfs_buf_find_insert()
 
 Signed-off-by: Hao Xu <howeyxu@tencent.com>
 ---
- fs/xfs/xfs_buf.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/xfs/xfs_buf.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-index a6e6e64ff940..eb3cd7702545 100644
+index eb3cd7702545..57bdc4c5dde1 100644
 --- a/fs/xfs/xfs_buf.c
 +++ b/fs/xfs/xfs_buf.c
-@@ -404,6 +404,11 @@ xfs_buf_alloc_pages(
- =09=09if (filled !=3D last)
- =09=09=09continue;
-=20
-+=09=09if (nowait) {
-+=09=09=09xfs_buf_free_pages(bp);
-+=09=09=09return -EAGAIN;
-+=09=09}
-+
- =09=09if (flags & XBF_READ_AHEAD) {
- =09=09=09xfs_buf_free_pages(bp);
- =09=09=09return -ENOMEM;
+@@ -633,6 +633,8 @@ xfs_buf_find_insert(
+ =09 * allocate the memory from the heap to minimise memory usage. If we
+ =09 * can't get heap memory for these small buffers, we fall back to using
+ =09 * the page allocator.
++=09 * xfs_buf_alloc_kmem may return -EAGAIN, let's not return it but turn
++=09 * to page allocator as well.
+ =09 */
+ =09if (BBTOB(new_bp->b_length) >=3D PAGE_SIZE ||
+ =09    xfs_buf_alloc_kmem(new_bp, flags) < 0) {
 --=20
 2.25.1
 
