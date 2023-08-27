@@ -1,69 +1,69 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AAFF78C08A
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D957678C095
 	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 10:41:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693298477;
+	s=mimecast20190719; t=1693298476;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=WGhFjefo5S4gPdAevXyUj9vIbbma4UjqQduP82Yuj9A=;
-	b=Isddk+Wk4f8x5wxWEZBgr6Z9o62a3ccKUSu/7dfgJ2wVIfSKeCZTT8NaAUAbM2ae6lyvdn
-	xhQFFzPqeQG4d9SeVM1NqISs1ky/YewX3w9xUIlZWiQMKzp1WDbcZPIMrNr/fUSZ2WPOMY
-	Z9NJqSc91G7RUemql9OtkFp9XcCDZO4=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-606-sPK5NezaMJGeluVGoRG5bw-1; Tue, 29 Aug 2023 04:41:11 -0400
-X-MC-Unique: sPK5NezaMJGeluVGoRG5bw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+	bh=Ex7XLonsdjSMKqQtTcZJtBrAcWxu6ezblmhps2tlk4Q=;
+	b=ZNM+nzaRDvyY93RARtgy8po9q5dwmmLSwxm7fpq+hiO4FMmLS5C3RsRioJsbZzcl8jsTnB
+	MLtEqWHYQ21zos5VuBvbu9HsdwsAbfP784pkWdnlrlu4KYhOG8txQVFrhgGAJn1iqh48qM
+	Hkhgis60GJ4wAzbuLiuE5mHsTGrTVes=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-61-yanZIrcVMDuxxRURYcQEnw-1; Tue, 29 Aug 2023 04:41:14 -0400
+X-MC-Unique: yanZIrcVMDuxxRURYcQEnw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 264B7280D214;
-	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53B441021F8A;
+	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1B2D4140E950;
-	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 447392166B2B;
+	Tue, 29 Aug 2023 08:41:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 77AC11946A6D;
-	Tue, 29 Aug 2023 08:41:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC7651946A41;
+	Tue, 29 Aug 2023 08:41:10 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3F39119465A8 for <cluster-devel@listman.corp.redhat.com>;
- Sun, 27 Aug 2023 13:35:15 +0000 (UTC)
+ ESMTP id BE76919465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Sun, 27 Aug 2023 13:35:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2E84D492C14; Sun, 27 Aug 2023 13:35:15 +0000 (UTC)
+ id A272740C2071; Sun, 27 Aug 2023 13:35:38 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 274B7492C13
- for <cluster-devel@redhat.com>; Sun, 27 Aug 2023 13:35:15 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B00B40C2070
+ for <cluster-devel@redhat.com>; Sun, 27 Aug 2023 13:35:38 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C171101A5B4
- for <cluster-devel@redhat.com>; Sun, 27 Aug 2023 13:35:15 +0000 (UTC)
-Received: from out-246.mta1.migadu.com (out-246.mta1.migadu.com
- [95.215.58.246]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7D882101A52E
+ for <cluster-devel@redhat.com>; Sun, 27 Aug 2023 13:35:38 +0000 (UTC)
+Received: from out-248.mta1.migadu.com (out-248.mta1.migadu.com
+ [95.215.58.248]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-175-hgYHriYoN22SmnEUubDOiQ-1; Sun, 27 Aug 2023 09:35:09 -0400
-X-MC-Unique: hgYHriYoN22SmnEUubDOiQ-1
+ us-mta-569-RrY1vfa6Pii9ShrCJUt05g-1; Sun, 27 Aug 2023 09:35:36 -0400
+X-MC-Unique: RrY1vfa6Pii9ShrCJUt05g-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Hao Xu <hao.xu@linux.dev>
 To: io-uring@vger.kernel.org,
 	Jens Axboe <axboe@kernel.dk>
-Date: Sun, 27 Aug 2023 21:28:33 +0800
-Message-Id: <20230827132835.1373581-10-hao.xu@linux.dev>
+Date: Sun, 27 Aug 2023 21:28:34 +0800
+Message-Id: <20230827132835.1373581-11-hao.xu@linux.dev>
 In-Reply-To: <20230827132835.1373581-1-hao.xu@linux.dev>
 References: <20230827132835.1373581-1-hao.xu@linux.dev>
 MIME-Version: 1.0
@@ -75,10 +75,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Tue, 29 Aug 2023 08:41:07 +0000
-Subject: [Cluster-devel] [PATCH 09/11] vfs: error out -EAGAIN if atime needs
- to be updated
+Subject: [Cluster-devel] [PATCH 10/11] vfs: trylock inode->i_rwsem in
+ iterate_dir() to support nowait
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,7 +108,7 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Transfer-Encoding: quoted-printable
@@ -116,27 +116,57 @@ Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
 From: Hao Xu <howeyxu@tencent.com>
 
-To enforce nowait semantics, error out -EAGAIN if atime needs to be
-updated.
+Trylock inode->i_rwsem in iterate_dir() to support nowait semantics and
+error out -EAGAIN when there is contention.
 
 Signed-off-by: Hao Xu <howeyxu@tencent.com>
 ---
- fs/inode.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/readdir.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index e83b836f2d09..32d81be65cf9 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -1970,6 +1970,9 @@ int touch_atime(const struct path *path, bool nowait)
- =09if (!atime_needs_update(path, inode))
- =09=09return 0;
-=20
-+=09if (nowait)
-+=09=09return -EAGAIN;
+diff --git a/fs/readdir.c b/fs/readdir.c
+index 6469f076ba6e..664ecd9665a1 100644
+--- a/fs/readdir.c
++++ b/fs/readdir.c
+@@ -43,6 +43,8 @@ int iterate_dir(struct file *file, struct dir_context *ct=
+x)
+ =09struct inode *inode =3D file_inode(file);
+ =09bool shared =3D false;
+ =09int res =3D -ENOTDIR;
++=09bool nowait;
 +
- =09if (!sb_start_write_trylock(inode->i_sb))
- =09=09return 0;
+ =09if (file->f_op->iterate_shared)
+ =09=09shared =3D true;
+ =09else if (!file->f_op->iterate)
+@@ -52,16 +54,22 @@ int iterate_dir(struct file *file, struct dir_context *=
+ctx)
+ =09if (res)
+ =09=09goto out;
+=20
+-=09if (shared)
+-=09=09res =3D down_read_killable(&inode->i_rwsem);
+-=09else
+-=09=09res =3D down_write_killable(&inode->i_rwsem);
+-=09if (res)
++=09nowait =3D ctx->flags & DIR_CONTEXT_F_NOWAIT;
++=09if (nowait) {
++=09=09res =3D shared ? down_read_trylock(&inode->i_rwsem) :
++=09=09=09       down_write_trylock(&inode->i_rwsem);
++=09=09if (!res)
++=09=09=09res =3D -EAGAIN;
++=09} else {
++=09=09res =3D shared ? down_read_killable(&inode->i_rwsem) :
++=09=09=09       down_write_killable(&inode->i_rwsem);
++=09}
++=09if (res < 0)
+ =09=09goto out;
+=20
+ =09res =3D -ENOENT;
+ =09if (!IS_DEADDIR(inode)) {
+-=09=09res =3D file_accessed(file, ctx->flags & DIR_CONTEXT_F_NOWAIT);
++=09=09res =3D file_accessed(file, nowait);
+ =09=09if (res =3D=3D -EAGAIN)
+ =09=09=09goto out_unlock;
 =20
 --=20
 2.25.1
