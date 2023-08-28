@@ -2,65 +2,65 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C9878A1FE
-	for <lists+cluster-devel@lfdr.de>; Sun, 27 Aug 2023 23:45:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F223D78A3BF
+	for <lists+cluster-devel@lfdr.de>; Mon, 28 Aug 2023 03:05:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693172745;
+	s=mimecast20190719; t=1693184705;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=kY05MXjwCqUKuXNwucsgt/McL4F7q7Pfbjm7IIALTG0=;
-	b=NmDN5+rlRwJq3qcF4rupdtWEYaIFGAf5ldE+EpzjQSV50kLnpzew0ZAXDb4dapLnAcqBzi
-	dwYfUnACoT/QQBHEeFJJUoUGri8hhWewc/qnoIkPOiC80MOto8WBwBN77PUXWrqN5FvOav
-	qGcsuVrChKclS49uCpfykeMfsc6ea/A=
+	 list-subscribe:list-post; bh=joEHMg4Vnx51INzte3pGka01/tHMgi/viw3PIuubDEg=;
+	b=hSB7vULoRAHqXpGHy8zJ1VBgYvaZCS4A/BRF3GJyPxK2sPAkr2es9ioAmEGx7lXVxEx3/P
+	iDmHwFeNb2+rYSh0Coz+HJw3B20EU2PvGsccSOJYnaZlpDD+U85sxNEDrJp3M5448nA9Gd
+	aXLxXCujwxl72DynbLx4e7Kcb5cPZQ0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-209-l5bxFEjOOh-pTGn0R2jEHQ-1; Sun, 27 Aug 2023 17:45:40 -0400
-X-MC-Unique: l5bxFEjOOh-pTGn0R2jEHQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-589-zFr8OGdGMx6kP9vZ28zhzQ-1; Sun, 27 Aug 2023 21:05:00 -0400
+X-MC-Unique: zFr8OGdGMx6kP9vZ28zhzQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70F1C101A528;
-	Sun, 27 Aug 2023 21:45:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9EF1185CBE6;
+	Mon, 28 Aug 2023 01:04:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2B1C9140E950;
-	Sun, 27 Aug 2023 21:45:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 15DA89A;
+	Mon, 28 Aug 2023 01:04:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D133319465B7;
-	Sun, 27 Aug 2023 21:45:38 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A302219465B7;
+	Mon, 28 Aug 2023 01:04:57 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E666819465A8 for <cluster-devel@listman.corp.redhat.com>;
- Sun, 27 Aug 2023 21:45:37 +0000 (UTC)
+ ESMTP id 934F519465A8 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 28 Aug 2023 01:04:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id ACF271121319; Sun, 27 Aug 2023 21:45:37 +0000 (UTC)
+ id 726A01121319; Mon, 28 Aug 2023 01:04:56 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A53771121318
- for <cluster-devel@redhat.com>; Sun, 27 Aug 2023 21:45:37 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AA6D1121318
+ for <cluster-devel@redhat.com>; Mon, 28 Aug 2023 01:04:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8553F29AA2F1
- for <cluster-devel@redhat.com>; Sun, 27 Aug 2023 21:45:37 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E03729AB3E0
+ for <cluster-devel@redhat.com>; Mon, 28 Aug 2023 01:04:56 +0000 (UTC)
 Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-292-R5uEN37nNCmLZGabDkHKtw-1; Sun,
- 27 Aug 2023 17:45:35 -0400
-X-MC-Unique: R5uEN37nNCmLZGabDkHKtw-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-463-XYU6KTSOONukwlsY-U7oHg-1; Sun,
+ 27 Aug 2023 21:04:53 -0400
+X-MC-Unique: XYU6KTSOONukwlsY-U7oHg-1
 Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qaNZO-001P52-2K; Sun, 27 Aug 2023 21:45:18 +0000
-Date: Sun, 27 Aug 2023 22:45:18 +0100
+ Linux)) id 1qaQgN-001R4E-2B; Mon, 28 Aug 2023 01:04:43 +0000
+Date: Mon, 28 Aug 2023 02:04:43 +0100
 From: Al Viro <viro@zeniv.linux.org.uk>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20230827214518.GU3390869@ZenIV>
+Message-ID: <20230828010443.GV3390869@ZenIV>
 References: <20230601145904.1385409-1-hch@lst.de>
  <20230601145904.1385409-4-hch@lst.de>
  <20230827194122.GA325446@ZenIV>
@@ -102,151 +102,48 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-mm@kvack.org,
  linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: zeniv.linux.org.uk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 On Sun, Aug 27, 2023 at 08:41:22PM +0100, Al Viro wrote:
-> On Thu, Jun 01, 2023 at 04:58:55PM +0200, Christoph Hellwig wrote:
-> > All callers of generic_perform_write need to updated ki_pos, move it into
-> > common code.
-> 
-> > @@ -4034,7 +4037,6 @@ ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
-> >  		endbyte = pos + status - 1;
-> >  		err = filemap_write_and_wait_range(mapping, pos, endbyte);
-> >  		if (err == 0) {
-> > -			iocb->ki_pos = endbyte + 1;
-> >  			written += status;
-> >  			invalidate_mapping_pages(mapping,
-> >  						 pos >> PAGE_SHIFT,
-> > @@ -4047,8 +4049,6 @@ ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
-> >  		}
-> >  	} else {
-> >  		written = generic_perform_write(iocb, from);
-> > -		if (likely(written > 0))
-> > -			iocb->ki_pos += written;
-> >  	}
-> >  out:
-> >  	return written ? written : err;
-> 
-> [another late reply, sorry]
-> 
+
 > That part is somewhat fishy - there's a case where you return a positive value
 > and advance ->ki_pos by more than that amount.  I really wonder if all callers
-> of ->write_iter() are OK with that.  Consider e.g. this:
-> 
-> ssize_t ksys_write(unsigned int fd, const char __user *buf, size_t count)
-> {
->         struct fd f = fdget_pos(fd);
->         ssize_t ret = -EBADF;
-> 
->         if (f.file) {
->                 loff_t pos, *ppos = file_ppos(f.file);
->                 if (ppos) {
->                         pos = *ppos;   
->                         ppos = &pos;
->                 }
->                 ret = vfs_write(f.file, buf, count, ppos);
->                 if (ret >= 0 && ppos)
->                         f.file->f_pos = pos;
->                 fdput_pos(f);
->         }
-> 
->         return ret;
-> }
-> 
-> ssize_t vfs_write(struct file *file, const char __user *buf, size_t count, loff_t *pos)
-> {
->         ssize_t ret;
-> 
->         if (!(file->f_mode & FMODE_WRITE))
->                 return -EBADF;
->         if (!(file->f_mode & FMODE_CAN_WRITE))
->                 return -EINVAL;
->         if (unlikely(!access_ok(buf, count)))
->                 return -EFAULT;
-> 
->         ret = rw_verify_area(WRITE, file, pos, count);
->         if (ret)
->                 return ret;
->         if (count > MAX_RW_COUNT)
->                 count =  MAX_RW_COUNT;
->         file_start_write(file);
->         if (file->f_op->write)
->                 ret = file->f_op->write(file, buf, count, pos);
->         else if (file->f_op->write_iter)
->                 ret = new_sync_write(file, buf, count, pos);
->         else   
->                 ret = -EINVAL;
->         if (ret > 0) {
->                 fsnotify_modify(file);
->                 add_wchar(current, ret);
->         }
->         inc_syscw(current);
->         file_end_write(file);
->         return ret;
-> }
-> 
-> static ssize_t new_sync_write(struct file *filp, const char __user *buf, size_t len, loff_t *ppos)
-> {
->         struct kiocb kiocb;
->         struct iov_iter iter;
->         ssize_t ret; 
-> 
->         init_sync_kiocb(&kiocb, filp);
->         kiocb.ki_pos = (ppos ? *ppos : 0);
->         iov_iter_ubuf(&iter, ITER_SOURCE, (void __user *)buf, len);
-> 
->         ret = call_write_iter(filp, &kiocb, &iter);
->         BUG_ON(ret == -EIOCBQUEUED);
->         if (ret > 0 && ppos)
->                 *ppos = kiocb.ki_pos;
->         return ret;
-> } 
-> 
-> Suppose ->write_iter() ends up doing returning a positive value smaller than
-> the increment of kiocb.ki_pos.  What do we get?  ret is positive, so
-> kiocb.ki_pos gets copied into *ppos, which is ksys_write's pos and there
-> we copy it into file->f_pos.
-> 
-> Is it really OK to have write() return 4096 and advance the file position
-> by 16K?  AFAICS, userland wouldn't get any indication of something
-> odd going on - just a short write to a regular file, with followup write
-> of remaining 12K getting quietly written in the range 16K..28K.
-> 
-> I don't remember what POSIX says about that, but it would qualify as
-> nasty surprise for any userland program - sure, one can check fsync()
-> results before closing the sucker and see if everything looks fine,
-> but the way it's usually discussed could easily lead to assumption that
-> (synchronous) O_DIRECT writes would not be affected by anything of that
-> sort.
+> of ->write_iter() are OK with that.
 
-IOW, I suspect that the right thing to do would be something along the lines
-of
+Speaking of which, in case of negative return value we'd better *not* use
+->ki_pos; consider e.g. generic_file_write_iter() with O_DSYNC and
+vfs_fsync_range() failure.  An error gets returned, but ->ki_pos is left
+advanced.  Normal write(2) is fine - it will only update file->f_pos if
+->write_iter() has returned a non-negative.  However, io_uring
+kiocb_done() starts with
+        if (req->flags & REQ_F_CUR_POS)
+                req->file->f_pos = rw->kiocb.ki_pos;
+        if (ret >= 0 && (rw->kiocb.ki_complete == io_complete_rw)) {
+                if (!__io_complete_rw_common(req, ret)) {
+                        /*
+                         * Safe to call io_end from here as we're inline
+                         * from the submission path.
+                         */
+                        io_req_io_end(req);
+                        io_req_set_res(req, final_ret,
+                                       io_put_kbuf(req, issue_flags));
+                        return IOU_OK;
+                }
+        } else {
+                io_rw_done(&rw->kiocb, ret);
+        }
+Note that ->f_pos update is *NOT* conditional upon ret >= 0 - it happens
+no matter what, provided that original request had ->kiocb.ki_pos equal
+to -1 (on a non-FMODE_STREAM file).
 
-direct_write_fallback(): on error revert the ->ki_pos update from buffered write
-
-If we fail filemap_write_and_wait_range() on the range the buffered write went
-into, we only report the "number of bytes which we direct-written", to quote
-the comment in there.  Which is fine, but buffered write has already advanced
-iocb->ki_pos, so we need to roll that back.  Otherwise we end up with e.g.
-write(2) advancing position by more than the amount it reports having written.
-
-Fixes: 182c25e9c157 "filemap: update ki_pos in generic_perform_write"
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
----
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 5b851315eeed..712c57828c0e 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -1646,6 +1646,7 @@ ssize_t direct_write_fallback(struct kiocb *iocb, struct iov_iter *iter,
- 		 * We don't know how much we wrote, so just return the number of
- 		 * bytes which were direct-written
- 		 */
-+		iocb->ki_pos -= buffered_written;
- 		if (direct_written)
- 			return direct_written;
- 		return err;
+Jens, is there any reason for doing that unconditionally?  IMO it's
+a bad idea - there's a wide scope for fuckups that way, especially
+since write(2) is not sensitive to that and this use of -1 ki_pos
+is not particularly encouraged on io_uring side either, AFAICT.
+Worse, it's handling of failure exits in the first place, which
+already gets little testing...
 
