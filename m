@@ -1,77 +1,71 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E39A78C23A
-	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 12:20:13 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CF0378C3A4
+	for <lists+cluster-devel@lfdr.de>; Tue, 29 Aug 2023 13:53:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693304412;
+	s=mimecast20190719; t=1693310035;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=+Zw4JhiIBbyY7rTQH9j9//Y36dh4vyeXPMmZv+zXUD8=;
-	b=acfuwzAyRVUGiI+nyHD85FD0LCIGWbU8ctDnSf/lZJ+AEB7447mMYXHn+he+EU0wiwoCoL
-	HhRVFlTNTD7ThL08/SMMNOGYc7tTM+WpLR4Re31zMDM4ieywUCD9PsmgbStyiImeRdRu7t
-	w4fjCiVCCSVy8gy+vsELHUgstqvE8iI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-314-yeYF5qChPMWyxmjULjUNyg-1; Tue, 29 Aug 2023 06:20:09 -0400
-X-MC-Unique: yeYF5qChPMWyxmjULjUNyg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04D3F8D40A7;
-	Tue, 29 Aug 2023 10:20:08 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D8C340C2063;
-	Tue, 29 Aug 2023 10:20:06 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 297E519465BA;
-	Tue, 29 Aug 2023 10:20:06 +0000 (UTC)
-X-Original-To: cluster-devel@listman.corp.redhat.com
-Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
- by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E4C5C19465B6 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 29 Aug 2023 10:20:04 +0000 (UTC)
-Received: by smtp.corp.redhat.com (Postfix)
- id AE76A2026D68; Tue, 29 Aug 2023 10:20:04 +0000 (UTC)
-Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A6FD32026D4B
- for <cluster-devel@redhat.com>; Tue, 29 Aug 2023 10:20:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C09785CBE8
- for <cluster-devel@redhat.com>; Tue, 29 Aug 2023 10:20:04 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136]) by
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=YZxpYOTF14BVcouqFhbahruwZXBLTSy2TCKsEoryGgA=;
+	b=QB10NnEpPQm5q29QUkI6vwrUgUM+sboGC1MHQp5dTpjBrceGg1RBIIS5yS0pGkbTdMt7gV
+	NG0lhBWLfoD7TY5hyM9Z6iULysfowS1zkTvhPzyRDGg1NKACsK1fvyqVtG+WWzIeR1BPBE
+	hz+Uz7rADKg54yO4MwL5P03o5S11Yno=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-62-DsLP30GVPGeJG-anm3ZQLg-1; Tue, 29 Aug 2023 06:20:00 -0400
-X-MC-Unique: DsLP30GVPGeJG-anm3ZQLg-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="354846736"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="354846736"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 03:19:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="732157262"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="732157262"
-Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
- by orsmga007.jf.intel.com with ESMTP; 29 Aug 2023 03:19:56 -0700
-Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qavpD-0008e7-1Y;
- Tue, 29 Aug 2023 10:19:55 +0000
-Date: Tue, 29 Aug 2023 18:19:07 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <202308291833.73wBCBdr-lkp@intel.com>
+ us-mta-583-a6nMBCxTM1qacTOCc25hAA-1; Tue, 29 Aug 2023 07:53:47 -0400
+X-MC-Unique: a6nMBCxTM1qacTOCc25hAA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4193D28004E9;
+	Tue, 29 Aug 2023 11:53:46 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BFD1E40C6F4C;
+	Tue, 29 Aug 2023 11:53:44 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 62E5719465BC;
+	Tue, 29 Aug 2023 11:53:44 +0000 (UTC)
+X-Original-To: cluster-devel@listman.corp.redhat.com
+Delivered-To: cluster-devel@listman.corp.redhat.com
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
+ ESMTP id 2539819465B3 for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 29 Aug 2023 11:53:43 +0000 (UTC)
+Received: by smtp.corp.redhat.com (Postfix)
+ id 145DF140E963; Tue, 29 Aug 2023 11:53:43 +0000 (UTC)
+Delivered-To: cluster-devel@redhat.com
+Received: from mimecast-mx02.redhat.com
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D168140E950
+ for <cluster-devel@redhat.com>; Tue, 29 Aug 2023 11:53:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E62C71C07830
+ for <cluster-devel@redhat.com>; Tue, 29 Aug 2023 11:53:42 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-18-rGkQgv1oM4eCbHbdDi7zoA-1; Tue,
+ 29 Aug 2023 07:53:39 -0400
+X-MC-Unique: rGkQgv1oM4eCbHbdDi7zoA-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1qaxHQ-006P4x-1X; Tue, 29 Aug 2023 11:53:08 +0000
+Date: Tue, 29 Aug 2023 12:53:07 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Hao Xu <hao.xu@linux.dev>
+Message-ID: <ZO3cI+DkotHQo3md@casper.infradead.org>
+References: <20230827132835.1373581-1-hao.xu@linux.dev>
+ <20230827132835.1373581-8-hao.xu@linux.dev>
+ <ZOvA5DJDZN0FRymp@casper.infradead.org>
+ <c728bf3f-d9db-4865-8473-058b26c11c06@linux.dev>
 MIME-Version: 1.0
+In-Reply-To: <c728bf3f-d9db-4865-8473-058b26c11c06@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,10 +73,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [Cluster-devel] [gfs2:for-later 27/30] kernel/kthread.c:738:
- warning: Function parameter or member 'k' not described in
- 'kthread_stop_put'
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [Cluster-devel] [PATCH 07/11] vfs: add nowait parameter for
+ file_accessed()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,63 +87,56 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: cluster-devel@redhat.com, llvm@lists.linux.dev,
- oe-kbuild-all@lists.linux.dev
+Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
+ linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, cluster-devel@redhat.com, linux-cachefs@redhat.com,
+ linux-ext4@vger.kernel.org, devel@lists.orangefs.org,
+ linux-cifs@vger.kernel.org, ecryptfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ netdev@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-unionfs@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
+ Pavel Begunkov <asml.silence@gmail.com>, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: intel.com
+X-Mimecast-Originator: infradead.org
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-later
-head:   b10d94a0cbfc4bbfdf6dcdaa966fb4f17eee08f1
-commit: d3a19da72d2ef3e8f1d756b9f859a93ef84c3078 [27/30] kthread: Add kthread_stop_put
-config: i386-buildonly-randconfig-001-20230829 (https://download.01.org/0day-ci/archive/20230829/202308291833.73wBCBdr-lkp@intel.com/config)
-compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230829/202308291833.73wBCBdr-lkp@intel.com/reproduce)
+On Tue, Aug 29, 2023 at 03:46:13PM +0800, Hao Xu wrote:
+> On 8/28/23 05:32, Matthew Wilcox wrote:
+> > On Sun, Aug 27, 2023 at 09:28:31PM +0800, Hao Xu wrote:
+> > > From: Hao Xu <howeyxu@tencent.com>
+> > > 
+> > > Add a boolean parameter for file_accessed() to support nowait semantics.
+> > > Currently it is true only with io_uring as its initial caller.
+> > 
+> > So why do we need to do this as part of this series?  Apparently it
+> > hasn't caused any problems for filemap_read().
+> > 
+> 
+> We need this parameter to indicate if nowait semantics should be enforced in
+> touch_atime(), There are locks and maybe IOs in it.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308291833.73wBCBdr-lkp@intel.com/
+That's not my point.  We currently call file_accessed() and
+touch_atime() for nowait reads and nowait writes.  You haven't done
+anything to fix those.
 
-All warnings (new ones prefixed by >>):
+I suspect you can trim this patchset down significantly by avoiding
+fixing the file_accessed() problem.  And then come back with a later
+patchset that fixes it for all nowait i/o.  Or do a separate prep series
+first that fixes it for the existing nowait users, and then a second
+series to do all the directory stuff.
 
->> kernel/kthread.c:738: warning: Function parameter or member 'k' not described in 'kthread_stop_put'
-
-
-vim +738 kernel/kthread.c
-
-   721	
-   722	/**
-   723	 * kthread_stop_put - stop a thread and put its task struct
-   724	 *
-   725	 * Stops a kthread and put its task_struct.  This is meant for callers
-   726	 * holding an extra reference on the task struct obtained by something
-   727	 * like:
-   728	 *
-   729	 *   t = kthread_create(...);
-   730	 *   if (!IS_ERR(t)) {
-   731	 *     get_task_struct(t);
-   732	 *     wake_up_process(t)
-   733	 *   }
-   734	 *
-   735	 * Returns the result of kthread_stop().
-   736	 */
-   737	int kthread_stop_put(struct task_struct *k)
- > 738	{
-   739		int ret;
-   740	
-   741		ret = kthread_stop(k);
-   742		put_task_struct(k);
-   743		return ret;
-   744	}
-   745	EXPORT_SYMBOL(kthread_stop_put);
-   746	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I'd do the first thing.  Just ignore the problem.  Directory atime
+updates cause I/O so rarely that you can afford to ignore it.  Almost
+everyone uses relatime or nodiratime.
 
