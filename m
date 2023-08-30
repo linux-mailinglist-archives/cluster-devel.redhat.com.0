@@ -1,85 +1,99 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9530B78D33D
-	for <lists+cluster-devel@lfdr.de>; Wed, 30 Aug 2023 08:17:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDE9C78D5EE
+	for <lists+cluster-devel@lfdr.de>; Wed, 30 Aug 2023 14:40:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693376262;
+	s=mimecast20190719; t=1693399221;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=JMzOvVHk770qYz+7D4bRM3eiaC0WBb12Z/fuZleaQ2g=;
-	b=CgT00Kvb3ox39ekWgOHhSSmktbOhAUfkaqUh18wmgEcXXTO7iSoQp89T6TebBxt+0wOGW8
-	EKSbjsI29NZSAqGplB5GDzM3bVJSow/7eMxsJyZs3i5CP3lbMSBAuNs7Xv8OQeQY1AZjHT
-	auzVZLOvBgj2imIW4GpbGLSY8DEVo18=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-252-mBk9u3ZRMpSMpZ_gScBr8g-1; Wed, 30 Aug 2023 02:17:39 -0400
-X-MC-Unique: mBk9u3ZRMpSMpZ_gScBr8g-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+	bh=pXW+YJ7Es1NUxs1wO/8B0lyOdXp6T+rmiitd4bvcpy8=;
+	b=gEkB1J4ECFlaX7VvkKZjH8i1JkD0wQgpUEnWwELQNa4XCIpTnaxfQkzmDoA11IqHGAogYx
+	mo/7QbWP3ea7Leq47ojYfK1WnCouIp9fJJRD/mQcm50qkYh52oo/s+JGQP/21F6wyB0AMA
+	Frh2lInqYXTrlfuIOgO+ZpEBartnQBs=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-61-iINpk1TNPg-DCD8bneqo4g-1; Wed, 30 Aug 2023 08:40:16 -0400
+X-MC-Unique: iINpk1TNPg-DCD8bneqo4g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9425E185A78F;
-	Wed, 30 Aug 2023 06:17:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CCFD280D231;
+	Wed, 30 Aug 2023 12:40:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2CB0D40C2070;
-	Wed, 30 Aug 2023 06:17:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7609B140E96E;
+	Wed, 30 Aug 2023 12:40:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B6B6B19465B3;
-	Wed, 30 Aug 2023 06:17:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 34AC919465A3;
+	Wed, 30 Aug 2023 12:40:07 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2493A1946594 for <cluster-devel@listman.corp.redhat.com>;
- Wed, 30 Aug 2023 06:17:33 +0000 (UTC)
+ ESMTP id 8B1A31946589 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 30 Aug 2023 12:15:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B6A77403168; Wed, 30 Aug 2023 06:17:33 +0000 (UTC)
+ id 76706140E970; Wed, 30 Aug 2023 12:15:24 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AEE5E4021C8
- for <cluster-devel@redhat.com>; Wed, 30 Aug 2023 06:17:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F0B5140E96F
+ for <cluster-devel@redhat.com>; Wed, 30 Aug 2023 12:15:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 936578022E4
- for <cluster-devel@redhat.com>; Wed, 30 Aug 2023 06:17:33 +0000 (UTC)
-Received: from out-252.mta0.migadu.com (out-252.mta0.migadu.com
- [91.218.175.252]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E3C51021E14
+ for <cluster-devel@redhat.com>; Wed, 30 Aug 2023 12:15:24 +0000 (UTC)
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-612-U-RD42xVOXyGUXDP6c7dIQ-1; Wed, 30 Aug 2023 02:17:31 -0400
-X-MC-Unique: U-RD42xVOXyGUXDP6c7dIQ-1
-Message-ID: <642de4e6-801d-fcad-a7ce-bfc6dec3b6e5@linux.dev>
-Date: Wed, 30 Aug 2023 14:11:31 +0800
+ us-mta-196-AvgcWanePBSexFg_4EcnuA-1; Wed, 30 Aug 2023 08:15:22 -0400
+X-MC-Unique: AvgcWanePBSexFg_4EcnuA-1
+Received: by mail-lj1-f200.google.com with SMTP id
+ 38308e7fff4ca-2bcba79cedfso60428331fa.2
+ for <cluster-devel@redhat.com>; Wed, 30 Aug 2023 05:15:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693397721; x=1694002521;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pXW+YJ7Es1NUxs1wO/8B0lyOdXp6T+rmiitd4bvcpy8=;
+ b=C2iIBwJivI48Qnk3JKEFdo6cgZhHgGstCfbqeSes6NQLWkWkOnSQxvPtfHbppNKy4T
+ NFZa3ANtIcdMquci5Xc8YS4FAKlN4zuT1FiRpso33oHIeaOPgxTKQOkSk01g99EFNUBM
+ lF6o2h3+HvVt2hN3tvVUIJZvUPvk3cf1A+gA9r3quqHKPf4v7aJ6u6PedBUmhqYlwkPT
+ xctu40efxsthTVE60GLiIIf017x3vQsdOChlOyG4OSfUNhW3fjVaL8nYLXs5p+GMcIPk
+ oNAxBB1l0/2JBhvrZ47gaFhjT4JEWhquEJ4ypdCuw+WMDer1A8FN50mhBr6XB52p7Nuc
+ g2zg==
+X-Gm-Message-State: AOJu0YzOoS7j27lCZRwKRqXQKv1KlMV9i9n8JJh9pMpKICZM3Mb7TJYI
+ 4o1FmVjvmhxrw6g++dD+0oMDObF+jdwHfq01LxonINIc/ZAYHu4UNCqxHFTkihcZU0FP1OQbfud
+ d06MWBN14Cw9OKAxxpbs8rWgn2jU9frKF8KjbrHLyxLu+tYRc
+X-Received: by 2002:a05:6512:3a8e:b0:500:bc5a:517a with SMTP id
+ q14-20020a0565123a8e00b00500bc5a517amr1599275lfu.56.1693397721191; 
+ Wed, 30 Aug 2023 05:15:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFH4CTWLGIc2/L6PKaTeIATaE0rFTOba0dxmf+/1WydwsNUiyEi5RRMTlB/tcj2GzHwHxxqFM7q4A7ioapsKgE=
+X-Received: by 2002:a05:6512:3a8e:b0:500:bc5a:517a with SMTP id
+ q14-20020a0565123a8e00b00500bc5a517amr1599259lfu.56.1693397720785; Wed, 30
+ Aug 2023 05:15:20 -0700 (PDT)
 MIME-Version: 1.0
-To: Matthew Wilcox <willy@infradead.org>
-References: <20230827132835.1373581-1-hao.xu@linux.dev>
- <20230827132835.1373581-8-hao.xu@linux.dev>
- <ZOvA5DJDZN0FRymp@casper.infradead.org>
- <c728bf3f-d9db-4865-8473-058b26c11c06@linux.dev>
- <ZO3cI+DkotHQo3md@casper.infradead.org>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Hao Xu <hao.xu@linux.dev>
-In-Reply-To: <ZO3cI+DkotHQo3md@casper.infradead.org>
-X-Migadu-Flow: FLOW_OUT
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Cluster-devel] [PATCH 07/11] vfs: add nowait parameter for
- file_accessed()
+References: <20230823213352.1971009-1-aahringo@redhat.com>
+ <20230823213352.1971009-3-aahringo@redhat.com>
+ <ae36349af354dcf40c29ff1c6bf7d930f08e7115.camel@kernel.org>
+In-Reply-To: <ae36349af354dcf40c29ff1c6bf7d930f08e7115.camel@kernel.org>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Wed, 30 Aug 2023 08:15:09 -0400
+Message-ID: <CAK-6q+hZ8T+Ji5kkmrE4xfA0mf+B7k44nySJqDf2zyJEO3n9Ng@mail.gmail.com>
+To: Jeff Layton <jlayton@kernel.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [Cluster-devel] [PATCH 2/7] lockd: don't call vfs_lock_file()
+ for pending requests
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,69 +105,79 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- codalist@coda.cs.cmu.edu, cluster-devel@redhat.com, linux-cachefs@redhat.com,
- linux-ext4@vger.kernel.org, devel@lists.orangefs.org,
- linux-cifs@vger.kernel.org, ecryptfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- netdev@vger.kernel.org, samba-technical@lists.samba.org,
- linux-unionfs@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
- Pavel Begunkov <asml.silence@gmail.com>, linux-btrfs@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org, fstests@vger.kernel.org,
+ cluster-devel@redhat.com, ocfs2-devel@lists.linux.dev, chuck.lever@oracle.com,
+ anna@kernel.org, linux-fsdevel@vger.kernel.org,
+ trond.myklebust@hammerspace.com
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.dev
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/29/23 19:53, Matthew Wilcox wrote:
-> On Tue, Aug 29, 2023 at 03:46:13PM +0800, Hao Xu wrote:
->> On 8/28/23 05:32, Matthew Wilcox wrote:
->>> On Sun, Aug 27, 2023 at 09:28:31PM +0800, Hao Xu wrote:
->>>> From: Hao Xu <howeyxu@tencent.com>
->>>>
->>>> Add a boolean parameter for file_accessed() to support nowait semantics.
->>>> Currently it is true only with io_uring as its initial caller.
->>>
->>> So why do we need to do this as part of this series?  Apparently it
->>> hasn't caused any problems for filemap_read().
->>>
->>
->> We need this parameter to indicate if nowait semantics should be enforced in
->> touch_atime(), There are locks and maybe IOs in it.
-> 
-> That's not my point.  We currently call file_accessed() and
-> touch_atime() for nowait reads and nowait writes.  You haven't done
-> anything to fix those.
-> 
-> I suspect you can trim this patchset down significantly by avoiding
-> fixing the file_accessed() problem.  And then come back with a later
-> patchset that fixes it for all nowait i/o.  Or do a separate prep series
+Hi,
 
-I'm ok to do that.
+On Fri, Aug 25, 2023 at 2:10=E2=80=AFPM Jeff Layton <jlayton@kernel.org> wr=
+ote:
+>
+> On Wed, 2023-08-23 at 17:33 -0400, Alexander Aring wrote:
+> > This patch returns nlm_lck_blocked in nlmsvc_lock() when an asynchronou=
+s
+> > lock request is pending. During testing I ran into the case with the
+> > side-effects that lockd is waiting for only one lm_grant() callback
+> > because it's already part of the nlm_blocked list. If another
+> > asynchronous for the same nlm_block is triggered two lm_grant()
+> > callbacks will occur but lockd was only waiting for one.
+> >
+> > To avoid any change of existing users this handling will only being mad=
+e
+> > when export_op_support_safe_async_lock() returns true.
+> >
+> > Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> > ---
+> >  fs/lockd/svclock.c | 24 +++++++++++++++++-------
+> >  1 file changed, 17 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
+> > index 6e3b230e8317..aa4174fbaf5b 100644
+> > --- a/fs/lockd/svclock.c
+> > +++ b/fs/lockd/svclock.c
+> > @@ -531,6 +531,23 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_fil=
+e *file,
+> >               goto out;
+> >       }
+> >
+> > +     spin_lock(&nlm_blocked_lock);
+> > +     /*
+> > +      * If this is a lock request for an already pending
+> > +      * lock request we return nlm_lck_blocked without calling
+> > +      * vfs_lock_file() again. Otherwise we have two pending
+> > +      * requests on the underlaying ->lock() implementation but
+> > +      * only one nlm_block to being granted by lm_grant().
+> > +      */
+> > +     if (export_op_support_safe_async_lock(inode->i_sb->s_export_op,
+> > +                                           nlmsvc_file_file(file)->f_o=
+p) &&
+> > +         !list_empty(&block->b_list)) {
+> > +             spin_unlock(&nlm_blocked_lock);
+> > +             ret =3D nlm_lck_blocked;
+> > +             goto out;
+> > +     }
+>
+> Looks reasonable. The block->b_list check is subtle, but the comment
+> helps.
 
-> first that fixes it for the existing nowait users, and then a second
-> series to do all the directory stuff.
-> 
-> I'd do the first thing.  Just ignore the problem.  Directory atime
-> updates cause I/O so rarely that you can afford to ignore it.  Almost
-> everyone uses relatime or nodiratime.
+thanks. To be honest, I am "a little bit" worried (I am thinking of
+this scenario) that we might have a problem here with multiple
+identically lock requests being granted at the same time. In such
+cases the most fields of struct file_lock are mostly the same and
+nlm_compare_locks() checks exactly on those fields. I am concerned
+this corner case could cause problems, but it is a very rare case and
+it makes totally no sense that an application is doing such a request.
 
-Hi Matthew,
-The previous discussion shows this does cause issues in real
-producations: 
-https://lore.kernel.org/io-uring/2785f009-2ebb-028d-8250-d5f3a30510f0@gmail.com/#:~:text=fwiw%2C%20we%27ve%20just%20recently%20had%20similar%20problems%20with%20io_uring%20read/write
+I am currently trying to get an xfstest for this upstream.
 
-
-
+- Alex
 
