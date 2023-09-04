@@ -1,81 +1,78 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8401A79156C
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF7179156B
 	for <lists+cluster-devel@lfdr.de>; Mon,  4 Sep 2023 12:00:33 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-648-CbTSWLygPJaVMqntFx3Tnw-1; Mon, 04 Sep 2023 06:00:30 -0400
-X-MC-Unique: CbTSWLygPJaVMqntFx3Tnw-1
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-433--PetXekZNQmHq5KVOYzxqw-1; Mon, 04 Sep 2023 06:00:29 -0400
+X-MC-Unique: -PetXekZNQmHq5KVOYzxqw-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4D6138210A0;
-	Mon,  4 Sep 2023 10:00:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67FC3101A54E;
+	Mon,  4 Sep 2023 10:00:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 95CDE1121314;
-	Mon,  4 Sep 2023 10:00:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5B78A1121314;
+	Mon,  4 Sep 2023 10:00:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4807C19465BC;
-	Mon,  4 Sep 2023 10:00:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 39B2019465BC;
+	Mon,  4 Sep 2023 10:00:28 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A933E1946588 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
+ ESMTP id 358B11946595 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  4 Sep 2023 08:33:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 82194C8E4F1; Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
+ id 21CC8C8E4F1; Mon,  4 Sep 2023 08:33:21 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B08EC02996
- for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A5A1C02996
+ for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 08:33:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D360925FC7
- for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
-Received: from mail-pg1-f207.google.com (mail-pg1-f207.google.com
- [209.85.215.207]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC00A2999B25
+ for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 08:33:20 +0000 (UTC)
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-115-7wWchms0MVSIz1ME6sAAuQ-1; Mon, 04 Sep 2023 03:28:50 -0400
-X-MC-Unique: 7wWchms0MVSIz1ME6sAAuQ-1
-Received: by mail-pg1-f207.google.com with SMTP id
- 41be03b00d2f7-56f924de34fso654947a12.2
- for <cluster-devel@redhat.com>; Mon, 04 Sep 2023 00:28:50 -0700 (PDT)
+ us-mta-230-eCKI5dL8PXKp44daVDda9g-1; Mon, 04 Sep 2023 04:33:19 -0400
+X-MC-Unique: eCKI5dL8PXKp44daVDda9g-1
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-68a3d6ce18cso1464723b3a.0
+ for <cluster-devel@redhat.com>; Mon, 04 Sep 2023 01:33:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693812529; x=1694417329;
+ d=1e100.net; s=20221208; t=1693816398; x=1694421198;
  h=to:from:subject:message-id:date:mime-version:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=RyV0kvyh71m+vpajhSXcdd50x/LNT9I94jfNTNHz0Pk=;
- b=fprYDm+77nAKbMUjCmeLlAOIi9HHdIHM1bh7oUMUcYpSR1LC3QAD7b9XgdIsDXMUlJ
- H3SSgsV6eY3KhbCesklAyt/Ci3YvKnZ8mfYVK93kyFjPEpn5wVHCkE8NQBBKch+kNw6u
- PZy4S99vtCzYb7RiVLKeXCQTnG7WBCGxhhAfNOd6Ks1mZL+fCPAYaRnJ9CcQgOhl7RdR
- ILK3VtMSy1EY2FfuNu52i2ifwdn+Ljeoguish2rSCxZwmWjmVrpRXRyVKAMRMYA2FSiJ
- 1xqv0LQ1oP9QfghjgkNU75sc57FXK7YFd3+HkxvD/ji816Z6zlHlYyHXHC07CBtz6TKQ
- dKdQ==
-X-Gm-Message-State: AOJu0YwIkK+iEVfj/PtYn55Gof4dO5k+57hRoGPKPpnK8OF4V3GjbhiF
- QIU6kUxyn3Ln+81kgv/h92d9llE7skM3ZsO+wll4xHX056Ur
-X-Google-Smtp-Source: AGHT+IH35Jg8iAlH5uvm1QcAa9pVAGe8DU9jmWlA9XDlTHg27qqGmI1uNr5gb7FzUoGmnw7e7GtQJpVZyeWMGHpQ+q217flDR4qi
+ bh=HrGFGOU2JHGHY3uenWpbxy9f+g1nyoQzetE2yd9LSVo=;
+ b=bcWTUqRMB2JnYW/GCfLkDLPP5hvm3f3AjXK1VRtbE4FOdZzUiwmS6I/g49W8ij2ZBZ
+ QZzHoYogNzwJZVEMgiIuACOdrSnv7+J4GEn8GSVxKr8C7QZOagXwA5M6DxPtW4qTy1R3
+ Ejryh3hBO9lQcO04/TFynOtuOsYkj6CnAKih391BMAdsVIpUHYHxGN1Xc787qS0g5vmY
+ St0tkrc8WsppALKB99rXtiXwmQrNQMrMNQ27/HKnLyCN5Jgm2LnZJ/HKF0KZFhxTpxQj
+ 9rebyWWQzK4Q0DPyOVAShFdUZZCDZ0RMhvvueH11ewf6VuUdY3Nz3s1EHnByd7WHvSKX
+ ux9w==
+X-Gm-Message-State: AOJu0YzL4fkzlXQjcD1ys5urszKcC/dVhoPF2rjnMPKayyC1HSysfEx4
+ LHQjH3ZWmbLfKegjwt3J8Aa1WPV15yZdoouf/FSK/qvLprkomJs=
+X-Google-Smtp-Source: AGHT+IHDoUNA6dwekWEKHoI4XenoIYPrSAlWMWZ/w4ctM2R+WneLeJWGFR0m8FcLMu7s0rUFMZGrUymlu0Ny03CDBu0dvLMsUbVG
 MIME-Version: 1.0
-X-Received: by 2002:a63:3eca:0:b0:56f:9c2d:b6b3 with SMTP id
- l193-20020a633eca000000b0056f9c2db6b3mr2148910pga.1.1693812529267; Mon, 04
- Sep 2023 00:28:49 -0700 (PDT)
-Date: Mon, 04 Sep 2023 00:28:49 -0700
+X-Received: by 2002:a05:6a00:98e:b0:68a:5cf8:daf3 with SMTP id
+ u14-20020a056a00098e00b0068a5cf8daf3mr3722004pfg.2.1693816397905; Mon, 04 Sep
+ 2023 01:33:17 -0700 (PDT)
+Date: Mon, 04 Sep 2023 01:33:17 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000001f905c0604837659@google.com>
-From: syzbot <syzbot+4fcffdd85e518af6f129@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, akpm@linux-foundation.org, anprice@redhat.com, 
- cluster-devel@redhat.com, dvyukov@google.com, elver@google.com, 
- glider@google.com, kasan-dev@googlegroups.com, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- syzkaller-bugs@googlegroups.com
+Message-ID: <000000000000b644840604845c46@google.com>
+From: syzbot <syzbot+list4cf369d7337ac966cd70@syzkaller.appspotmail.com>
+To: cluster-devel@redhat.com, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -85,8 +82,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Mon, 04 Sep 2023 10:00:27 +0000
-Subject: [Cluster-devel] [syzbot] [gfs2?] INFO: task hung in
- write_cache_pages (3)
+Subject: [Cluster-devel] [syzbot] Monthly gfs2 report (Sep 2023)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,247 +97,49 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-X-Mimecast-Spam-Score: 1
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hello gfs2 maintainers/developers,
 
-syzbot found the following issue on:
+This is a 31-day syzbot report for the gfs2 subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/gfs2
 
-HEAD commit:    92901222f83d Merge tag 'f2fs-for-6-6-rc1' of git://git.ker..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=16880848680000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3d78b3780d210e21
-dashboard link: https://syzkaller.appspot.com/bug?extid=4fcffdd85e518af6f129
-compiler:       Debian clang version 15.0.6, GNU ld (GNU Binutils for Debian) 2.40
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17933a00680000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12ef7104680000
+During the period, 0 new issues were detected and 0 were fixed.
+In total, 17 issues are still open and 20 have been fixed so far.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/f58f2fdc5a9e/disk-92901222.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/16dba3905664/vmlinux-92901222.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/3a5b1d5efdbd/bzImage-92901222.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/821293a2c99e/mount_0.gz
+Some of the still happening issues:
 
-The issue was bisected to:
-
-commit 47b7ec1daa511cd82cb9c31e88bfdb664b031d2a
-Author: Andrew Price <anprice@redhat.com>
-Date:   Fri Feb 5 17:10:17 2021 +0000
-
-    gfs2: Enable rgrplvb for sb_fs_format 1802
-
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=16c9842ba80000
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=15c9842ba80000
-console output: https://syzkaller.appspot.com/x/log.txt?x=11c9842ba80000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+4fcffdd85e518af6f129@syzkaller.appspotmail.com
-Fixes: 47b7ec1daa51 ("gfs2: Enable rgrplvb for sb_fs_format 1802")
-
-INFO: task kworker/u4:5:138 blocked for more than 143 seconds.
-      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/u4:5    state:D stack:21344 pid:138   ppid:2      flags:0x00004000
-Workqueue: writeback wb_workfn (flush-7:0)
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5382 [inline]
- __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
- schedule+0xc3/0x180 kernel/sched/core.c:6771
- io_schedule+0x8c/0x100 kernel/sched/core.c:9026
- folio_wait_bit_common+0x871/0x12a0 mm/filemap.c:1304
- folio_lock include/linux/pagemap.h:1042 [inline]
- write_cache_pages+0x517/0x13f0 mm/page-writeback.c:2441
- iomap_writepages+0x68/0x240 fs/iomap/buffered-io.c:1979
- gfs2_writepages+0x169/0x1f0 fs/gfs2/aops.c:191
- do_writepages+0x3a6/0x670 mm/page-writeback.c:2553
- __writeback_single_inode+0x155/0xfa0 fs/fs-writeback.c:1603
- writeback_sb_inodes+0x8e3/0x11d0 fs/fs-writeback.c:1894
- __writeback_inodes_wb+0x11b/0x260 fs/fs-writeback.c:1965
- wb_writeback+0x461/0xc60 fs/fs-writeback.c:2072
- wb_check_background_flush fs/fs-writeback.c:2142 [inline]
- wb_do_writeback fs/fs-writeback.c:2230 [inline]
- wb_workfn+0xc6f/0xff0 fs/fs-writeback.c:2257
- process_one_work+0x781/0x1130 kernel/workqueue.c:2630
- process_scheduled_works kernel/workqueue.c:2703 [inline]
- worker_thread+0xabf/0x1060 kernel/workqueue.c:2784
- kthread+0x2b8/0x350 kernel/kthread.c:388
- ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
- ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
- </TASK>
-INFO: task syz-executor336:5029 blocked for more than 143 seconds.
-      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz-executor336 state:D stack:23408 pid:5029  ppid:5028   flags:0x00004006
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5382 [inline]
- __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
- schedule+0xc3/0x180 kernel/sched/core.c:6771
- io_schedule+0x8c/0x100 kernel/sched/core.c:9026
- folio_wait_bit_common+0x871/0x12a0 mm/filemap.c:1304
- folio_lock include/linux/pagemap.h:1042 [inline]
- write_cache_pages+0x517/0x13f0 mm/page-writeback.c:2441
- iomap_writepages+0x68/0x240 fs/iomap/buffered-io.c:1979
- gfs2_writepages+0x169/0x1f0 fs/gfs2/aops.c:191
- do_writepages+0x3a6/0x670 mm/page-writeback.c:2553
- filemap_fdatawrite_wbc+0x125/0x180 mm/filemap.c:393
- __filemap_fdatawrite_range mm/filemap.c:426 [inline]
- __filemap_fdatawrite mm/filemap.c:432 [inline]
- filemap_fdatawrite+0x143/0x1b0 mm/filemap.c:437
- gfs2_ordered_write fs/gfs2/log.c:740 [inline]
- gfs2_log_flush+0xa42/0x25f0 fs/gfs2/log.c:1098
- gfs2_trans_end+0x39f/0x560 fs/gfs2/trans.c:158
- gfs2_page_mkwrite+0x1262/0x14f0 fs/gfs2/file.c:533
- do_page_mkwrite+0x197/0x470 mm/memory.c:2931
- do_shared_fault mm/memory.c:4647 [inline]
- do_fault mm/memory.c:4709 [inline]
- do_pte_missing mm/memory.c:3669 [inline]
- handle_pte_fault mm/memory.c:4978 [inline]
- __handle_mm_fault mm/memory.c:5119 [inline]
- handle_mm_fault+0x22b2/0x6200 mm/memory.c:5284
- do_user_addr_fault arch/x86/mm/fault.c:1413 [inline]
- handle_page_fault arch/x86/mm/fault.c:1505 [inline]
- exc_page_fault+0x2ac/0x860 arch/x86/mm/fault.c:1561
- asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:570
-RIP: 0033:0x7f088fba48e7
-RSP: 002b:00007fff09b9e550 EFLAGS: 00010286
-RAX: 0030656c69662f2e RBX: 0000000000000000 RCX: 0000000020000180
-RDX: 00000000c018937d RSI: 00000000ffffffff RDI: 0000000000000010
-RBP: 00007f088fc5f5f0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000005 R11: 0000000000000246 R12: 00007fff09b9e580
-R13: 00007fff09b9e7a8 R14: 431bde82d7b634db R15: 00007f088fc2203b
- </TASK>
-INFO: task gfs2_logd:5032 blocked for more than 144 seconds.
-      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:gfs2_logd       state:D stack:28672 pid:5032  ppid:2      flags:0x00004000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5382 [inline]
- __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
- schedule+0xc3/0x180 kernel/sched/core.c:6771
- schedule_preempt_disabled+0x13/0x20 kernel/sched/core.c:6830
- rwsem_down_write_slowpath+0xedd/0x13a0 kernel/locking/rwsem.c:1178
- __down_write_common+0x1aa/0x200 kernel/locking/rwsem.c:1306
- gfs2_log_flush+0x105/0x25f0 fs/gfs2/log.c:1042
- gfs2_logd+0x488/0xec0 fs/gfs2/log.c:1325
- kthread+0x2b8/0x350 kernel/kthread.c:388
- ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
- ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
- </TASK>
-INFO: task gfs2_quotad:5033 blocked for more than 144 seconds.
-      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:gfs2_quotad     state:D stack:27216 pid:5033  ppid:2      flags:0x00004000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5382 [inline]
- __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
- schedule+0xc3/0x180 kernel/sched/core.c:6771
- schedule_preempt_disabled+0x13/0x20 kernel/sched/core.c:6830
- rwsem_down_read_slowpath+0x5f4/0x950 kernel/locking/rwsem.c:1086
- __down_read_common kernel/locking/rwsem.c:1250 [inline]
- __down_read kernel/locking/rwsem.c:1263 [inline]
- down_read+0x9c/0x2f0 kernel/locking/rwsem.c:1522
- __gfs2_trans_begin+0x55c/0x940 fs/gfs2/trans.c:87
- gfs2_trans_begin+0x71/0xe0 fs/gfs2/trans.c:118
- gfs2_statfs_sync+0x41e/0x870 fs/gfs2/super.c:298
- quotad_check_timeo fs/gfs2/quota.c:1510 [inline]
- gfs2_quotad+0x37f/0x680 fs/gfs2/quota.c:1552
- kthread+0x2b8/0x350 kernel/kthread.c:388
- ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
- ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
- </TASK>
-INFO: lockdep is turned off.
-NMI backtrace for cpu 0
-CPU: 0 PID: 29 Comm: khungtaskd Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/26/2023
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0x1e7/0x2d0 lib/dump_stack.c:106
- nmi_cpu_backtrace+0x498/0x4d0 lib/nmi_backtrace.c:113
- nmi_trigger_cpumask_backtrace+0x198/0x310 lib/nmi_backtrace.c:62
- trigger_all_cpu_backtrace include/linux/nmi.h:160 [inline]
- check_hung_uninterruptible_tasks kernel/hung_task.c:222 [inline]
- watchdog+0xdf5/0xe40 kernel/hung_task.c:379
- kthread+0x2b8/0x350 kernel/kthread.c:388
- ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
- ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
- </TASK>
-Sending NMI from CPU 0 to CPUs 1:
-NMI backtrace for cpu 1
-CPU: 1 PID: 68 Comm: kworker/u4:4 Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/26/2023
-Workqueue: events_unbound toggle_allocation_gate
-RIP: 0010:__insn_get_emulate_prefix arch/x86/lib/insn.c:91 [inline]
-RIP: 0010:insn_get_emulate_prefix arch/x86/lib/insn.c:106 [inline]
-RIP: 0010:insn_get_prefixes+0x113/0x18a0 arch/x86/lib/insn.c:134
-Code: 0f b6 04 03 84 c0 0f 85 fd 10 00 00 41 0f b6 6d 00 bf 0f 00 00 00 89 ee e8 5a 5e c8 f6 4d 8d 65 02 83 fd 0f 0f 85 15 01 00 00 <4d> 39 f4 0f 87 0c 01 00 00 48 8b 44 24 08 48 c1 e8 03 48 b9 00 00
-RSP: 0018:ffffc90001597660 EFLAGS: 00000246
-RAX: 0000000000000000 RBX: 1ffffffff160ae95 RCX: ffffffff8b0574ab
-RDX: ffff888018ab8000 RSI: 000000000000000f RDI: 000000000000000f
-RBP: 000000000000000f R08: ffffffff8ac531f6 R09: 0000000000000000
-R10: ffffc900015979c0 R11: fffff520002b2f43 R12: ffffffff8b0574ac
-R13: ffffffff8b0574aa R14: ffffffff8b0574b9 R15: ffffc900015979c0
-FS:  0000000000000000(0000) GS:ffff8880b9900000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000555efaf520e8 CR3: 000000000d130000 CR4: 00000000003506e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- <NMI>
- </NMI>
- <TASK>
- insn_get_opcode+0x1b2/0xa50 arch/x86/lib/insn.c:272
- insn_get_modrm+0x22e/0x7a0 arch/x86/lib/insn.c:343
- insn_get_sib arch/x86/lib/insn.c:421 [inline]
- insn_get_displacement+0x13e/0x980 arch/x86/lib/insn.c:464
- insn_get_immediate+0x382/0x13d0 arch/x86/lib/insn.c:632
- insn_get_length arch/x86/lib/insn.c:707 [inline]
- insn_decode+0x370/0x500 arch/x86/lib/insn.c:747
- text_poke_loc_init+0xed/0x860 arch/x86/kernel/alternative.c:2312
- arch_jump_label_transform_queue+0x8b/0xf0 arch/x86/kernel/jump_label.c:138
- __jump_label_update+0x177/0x3a0 kernel/jump_label.c:475
- static_key_disable_cpuslocked+0xce/0x1b0 kernel/jump_label.c:235
- static_key_disable+0x1a/0x20 kernel/jump_label.c:243
- toggle_allocation_gate+0x1b8/0x250 mm/kfence/core.c:834
- process_one_work+0x781/0x1130 kernel/workqueue.c:2630
- process_scheduled_works kernel/workqueue.c:2703 [inline]
- worker_thread+0xabf/0x1060 kernel/workqueue.c:2784
- kthread+0x2b8/0x350 kernel/kthread.c:388
- ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
- ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
- </TASK>
-INFO: NMI handler (nmi_cpu_backtrace_handler) took too long to run: 1.251 msecs
-
+Ref Crashes Repro Title
+<1> 2679    Yes   WARNING in __folio_mark_dirty (2)
+                  https://syzkaller.appspot.com/bug?extid=e14d6cd6ec241f507ba7
+<2> 577     Yes   kernel BUG in gfs2_glock_nq (2)
+                  https://syzkaller.appspot.com/bug?extid=70f4e455dee59ab40c80
+<3> 77      Yes   INFO: task hung in gfs2_gl_hash_clear (3)
+                  https://syzkaller.appspot.com/bug?extid=ed7d0f71a89e28557a77
+<4> 54      Yes   WARNING in gfs2_check_blk_type
+                  https://syzkaller.appspot.com/bug?extid=092b28923eb79e0f3c41
+<5> 35      Yes   general protection fault in gfs2_dump_glock (2)
+                  https://syzkaller.appspot.com/bug?extid=427fed3295e9a7e887f2
+<6> 7       Yes   BUG: unable to handle kernel NULL pointer dereference in gfs2_rgrp_dump
+                  https://syzkaller.appspot.com/bug?extid=da0fc229cc1ff4bb2e6d
+<7> 4       Yes   BUG: unable to handle kernel NULL pointer dereference in gfs2_rindex_update
+                  https://syzkaller.appspot.com/bug?extid=2b32df23ff6b5b307565
+<8> 1       Yes   BUG: sleeping function called from invalid context in gfs2_make_fs_ro
+                  https://syzkaller.appspot.com/bug?extid=60369f4775c014dd1804
 
 ---
 This report is generated by a bot. It may contain errors.
 See https://goo.gl/tpsmEJ for more information about syzbot.
 syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
-If the bug is already fixed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite bug's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the bug is a duplicate of another bug, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+You may send multiple commands in a single email message.
 
