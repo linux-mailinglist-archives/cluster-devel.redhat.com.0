@@ -1,96 +1,81 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC3B3790F78
-	for <lists+cluster-devel@lfdr.de>; Mon,  4 Sep 2023 03:02:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693789366;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=7SkjlWpTOnFF4QpgAAxUR7lqv3IHtXsX9Ov+YWVrmXw=;
-	b=VSsq4Rvu1zg8mrLkTRWPgEeqPhdmm8qpVuswbkLhh0RMKHVdjiyP98I2bvWuTwmFjtN4Sg
-	Ab/s9NqBym+MA2NzBM1iOWeOXKAKQtjP0SvycdViVLj4PlUVJTZGueLAF7bjg1ulWAWWZL
-	GUvcYm1yvjRo4mJERvsP9aSDSBCSuGc=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8401A79156C
+	for <lists+cluster-devel@lfdr.de>; Mon,  4 Sep 2023 12:00:33 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-513-E8xA4lJnP6mz5hxiFq0Xtw-1; Sun, 03 Sep 2023 21:02:43 -0400
-X-MC-Unique: E8xA4lJnP6mz5hxiFq0Xtw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-648-CbTSWLygPJaVMqntFx3Tnw-1; Mon, 04 Sep 2023 06:00:30 -0400
+X-MC-Unique: CbTSWLygPJaVMqntFx3Tnw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1CA093C025C1;
-	Mon,  4 Sep 2023 01:02:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4D6138210A0;
+	Mon,  4 Sep 2023 10:00:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B440E7B62;
-	Mon,  4 Sep 2023 01:02:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 95CDE1121314;
+	Mon,  4 Sep 2023 10:00:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6782419465A0;
-	Mon,  4 Sep 2023 01:02:40 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4807C19465BC;
+	Mon,  4 Sep 2023 10:00:29 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2EBAA1946588 for <cluster-devel@listman.corp.redhat.com>;
- Mon,  4 Sep 2023 01:02:39 +0000 (UTC)
+ ESMTP id A933E1946588 for <cluster-devel@listman.corp.redhat.com>;
+ Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1C883200BABC; Mon,  4 Sep 2023 01:02:39 +0000 (UTC)
+ id 82194C8E4F1; Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 14C07200A86A
- for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 01:02:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B08EC02996
+ for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E999F805BFB
- for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 01:02:38 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D360925FC7
+ for <cluster-devel@redhat.com>; Mon,  4 Sep 2023 07:28:52 +0000 (UTC)
+Received: from mail-pg1-f207.google.com (mail-pg1-f207.google.com
+ [209.85.215.207]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-654-UuwdsSUcNeCjxTcqKq6x1w-1; Sun, 03 Sep 2023 21:02:37 -0400
-X-MC-Unique: UuwdsSUcNeCjxTcqKq6x1w-1
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-1bf48546ccfso1982545ad.2
- for <cluster-devel@redhat.com>; Sun, 03 Sep 2023 18:02:36 -0700 (PDT)
+ us-mta-115-7wWchms0MVSIz1ME6sAAuQ-1; Mon, 04 Sep 2023 03:28:50 -0400
+X-MC-Unique: 7wWchms0MVSIz1ME6sAAuQ-1
+Received: by mail-pg1-f207.google.com with SMTP id
+ 41be03b00d2f7-56f924de34fso654947a12.2
+ for <cluster-devel@redhat.com>; Mon, 04 Sep 2023 00:28:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693789356; x=1694394156;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7SkjlWpTOnFF4QpgAAxUR7lqv3IHtXsX9Ov+YWVrmXw=;
- b=kPcPMWchwOvwc/mQYxTKmyEQZQKMPK3FCJ2A969SSOO4+4FH3FHqDoAy+nkGf9SxHh
- Y7/VvhR/sHmi40BjVQ71iRdObCwxxDJa4ZYF0IhXDMVp9yldeNe+DNFvrn9u/LK4SIwI
- PPpFTx+QHFroqDpsoQiFDWFHJ1Nf4Kb9nO3YBn/j2BJuvn3ix/UPVpeTzNoPkTEty00s
- IRIIMioJs8WwUqobouHaoX04+MQJVXlhBthtbaW+Erg2goUAaJlNzMNsWqOFGXKMjjih
- 1jeAXrbNgmWFQdtO2PEU1p4aV7HdPD4Y7hyA/lxiFy25nSk/D/gEbcInisKAnH1Yc4Eo
- zOUw==
-X-Gm-Message-State: AOJu0YwAmcxDfOEt4KDT0yyk4cdPp1QioQdXLExIxtvrZBLA+nuJKDp3
- glWSX9ZuzatoyIP1ZgP+VMIY7A==
-X-Google-Smtp-Source: AGHT+IGGrky2P+bBuH4AKgWBeYdqXOP6u+qaOJyeKMBTbWb7BRdsdnk0jjxmGVwySX0sZe8eaRNDcw==
-X-Received: by 2002:a17:902:ecc8:b0:1c1:fe97:bf34 with SMTP id
- a8-20020a170902ecc800b001c1fe97bf34mr8040994plh.24.1693789355853; 
- Sun, 03 Sep 2023 18:02:35 -0700 (PDT)
-Received: from dread.disaster.area (pa49-195-66-88.pa.nsw.optusnet.com.au.
- [49.195.66.88]) by smtp.gmail.com with ESMTPSA id
- d4-20020a170902c18400b001bdcafcf8d3sm6351806pld.69.2023.09.03.18.02.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 18:02:35 -0700 (PDT)
-Received: from dave by dread.disaster.area with local (Exim 4.96)
- (envelope-from <david@fromorbit.com>) id 1qcxz6-00AVA9-2L;
- Mon, 04 Sep 2023 11:02:32 +1000
-Date: Mon, 4 Sep 2023 11:02:32 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Hao Xu <hao.xu@linux.dev>
-Message-ID: <ZPUsqGfeUwupdlLE@dread.disaster.area>
-References: <20230827132835.1373581-1-hao.xu@linux.dev>
- <20230827132835.1373581-3-hao.xu@linux.dev>
+ d=1e100.net; s=20221208; t=1693812529; x=1694417329;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RyV0kvyh71m+vpajhSXcdd50x/LNT9I94jfNTNHz0Pk=;
+ b=fprYDm+77nAKbMUjCmeLlAOIi9HHdIHM1bh7oUMUcYpSR1LC3QAD7b9XgdIsDXMUlJ
+ H3SSgsV6eY3KhbCesklAyt/Ci3YvKnZ8mfYVK93kyFjPEpn5wVHCkE8NQBBKch+kNw6u
+ PZy4S99vtCzYb7RiVLKeXCQTnG7WBCGxhhAfNOd6Ks1mZL+fCPAYaRnJ9CcQgOhl7RdR
+ ILK3VtMSy1EY2FfuNu52i2ifwdn+Ljeoguish2rSCxZwmWjmVrpRXRyVKAMRMYA2FSiJ
+ 1xqv0LQ1oP9QfghjgkNU75sc57FXK7YFd3+HkxvD/ji816Z6zlHlYyHXHC07CBtz6TKQ
+ dKdQ==
+X-Gm-Message-State: AOJu0YwIkK+iEVfj/PtYn55Gof4dO5k+57hRoGPKPpnK8OF4V3GjbhiF
+ QIU6kUxyn3Ln+81kgv/h92d9llE7skM3ZsO+wll4xHX056Ur
+X-Google-Smtp-Source: AGHT+IH35Jg8iAlH5uvm1QcAa9pVAGe8DU9jmWlA9XDlTHg27qqGmI1uNr5gb7FzUoGmnw7e7GtQJpVZyeWMGHpQ+q217flDR4qi
 MIME-Version: 1.0
-In-Reply-To: <20230827132835.1373581-3-hao.xu@linux.dev>
+X-Received: by 2002:a63:3eca:0:b0:56f:9c2d:b6b3 with SMTP id
+ l193-20020a633eca000000b0056f9c2db6b3mr2148910pga.1.1693812529267; Mon, 04
+ Sep 2023 00:28:49 -0700 (PDT)
+Date: Mon, 04 Sep 2023 00:28:49 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000001f905c0604837659@google.com>
+From: syzbot <syzbot+4fcffdd85e518af6f129@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, akpm@linux-foundation.org, anprice@redhat.com, 
+ cluster-devel@redhat.com, dvyukov@google.com, elver@google.com, 
+ glider@google.com, kasan-dev@googlegroups.com, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,9 +83,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Cluster-devel] [PATCH 02/11] xfs: add NOWAIT semantics for
- readdir
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Mailman-Approved-At: Mon, 04 Sep 2023 10:00:27 +0000
+Subject: [Cluster-devel] [syzbot] [gfs2?] INFO: task hung in
+ write_cache_pages (3)
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,325 +98,250 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
- Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- codalist@coda.cs.cmu.edu, cluster-devel@redhat.com, linux-cachefs@redhat.com,
- linux-ext4@vger.kernel.org, devel@lists.orangefs.org,
- linux-cifs@vger.kernel.org, ecryptfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- netdev@vger.kernel.org, samba-technical@lists.samba.org,
- linux-unionfs@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
- Pavel Begunkov <asml.silence@gmail.com>, linux-btrfs@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: fromorbit.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 1
+X-Mimecast-Originator: syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Aug 27, 2023 at 09:28:26PM +0800, Hao Xu wrote:
-> From: Hao Xu <howeyxu@tencent.com>
-> 
-> Implement NOWAIT semantics for readdir. Return EAGAIN error to the
-> caller if it would block, like failing to get locks, or going to
-> do IO.
-> 
-> Co-developed-by: Dave Chinner <dchinner@redhat.com>
+Hello,
 
-Not really.
+syzbot found the following issue on:
 
-"Co-developed" implies equal development input between all the
-parties, which is not the case here - this patch is based on
-prototype I wrote, whilst you're doing the refining, testing and
-correctness work.
+HEAD commit:    92901222f83d Merge tag 'f2fs-for-6-6-rc1' of git://git.ker..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=16880848680000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3d78b3780d210e21
+dashboard link: https://syzkaller.appspot.com/bug?extid=4fcffdd85e518af6f129
+compiler:       Debian clang version 15.0.6, GNU ld (GNU Binutils for Debian) 2.40
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17933a00680000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12ef7104680000
 
-In these cases with XFS code, we add a line in the commit message to
-say:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/f58f2fdc5a9e/disk-92901222.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/16dba3905664/vmlinux-92901222.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/3a5b1d5efdbd/bzImage-92901222.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/821293a2c99e/mount_0.gz
 
-"This is based on a patch originally written by Dave Chinner."
+The issue was bisected to:
+
+commit 47b7ec1daa511cd82cb9c31e88bfdb664b031d2a
+Author: Andrew Price <anprice@redhat.com>
+Date:   Fri Feb 5 17:10:17 2021 +0000
+
+    gfs2: Enable rgrplvb for sb_fs_format 1802
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=16c9842ba80000
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=15c9842ba80000
+console output: https://syzkaller.appspot.com/x/log.txt?x=11c9842ba80000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4fcffdd85e518af6f129@syzkaller.appspotmail.com
+Fixes: 47b7ec1daa51 ("gfs2: Enable rgrplvb for sb_fs_format 1802")
+
+INFO: task kworker/u4:5:138 blocked for more than 143 seconds.
+      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/u4:5    state:D stack:21344 pid:138   ppid:2      flags:0x00004000
+Workqueue: writeback wb_workfn (flush-7:0)
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5382 [inline]
+ __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
+ schedule+0xc3/0x180 kernel/sched/core.c:6771
+ io_schedule+0x8c/0x100 kernel/sched/core.c:9026
+ folio_wait_bit_common+0x871/0x12a0 mm/filemap.c:1304
+ folio_lock include/linux/pagemap.h:1042 [inline]
+ write_cache_pages+0x517/0x13f0 mm/page-writeback.c:2441
+ iomap_writepages+0x68/0x240 fs/iomap/buffered-io.c:1979
+ gfs2_writepages+0x169/0x1f0 fs/gfs2/aops.c:191
+ do_writepages+0x3a6/0x670 mm/page-writeback.c:2553
+ __writeback_single_inode+0x155/0xfa0 fs/fs-writeback.c:1603
+ writeback_sb_inodes+0x8e3/0x11d0 fs/fs-writeback.c:1894
+ __writeback_inodes_wb+0x11b/0x260 fs/fs-writeback.c:1965
+ wb_writeback+0x461/0xc60 fs/fs-writeback.c:2072
+ wb_check_background_flush fs/fs-writeback.c:2142 [inline]
+ wb_do_writeback fs/fs-writeback.c:2230 [inline]
+ wb_workfn+0xc6f/0xff0 fs/fs-writeback.c:2257
+ process_one_work+0x781/0x1130 kernel/workqueue.c:2630
+ process_scheduled_works kernel/workqueue.c:2703 [inline]
+ worker_thread+0xabf/0x1060 kernel/workqueue.c:2784
+ kthread+0x2b8/0x350 kernel/kthread.c:388
+ ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
+ </TASK>
+INFO: task syz-executor336:5029 blocked for more than 143 seconds.
+      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz-executor336 state:D stack:23408 pid:5029  ppid:5028   flags:0x00004006
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5382 [inline]
+ __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
+ schedule+0xc3/0x180 kernel/sched/core.c:6771
+ io_schedule+0x8c/0x100 kernel/sched/core.c:9026
+ folio_wait_bit_common+0x871/0x12a0 mm/filemap.c:1304
+ folio_lock include/linux/pagemap.h:1042 [inline]
+ write_cache_pages+0x517/0x13f0 mm/page-writeback.c:2441
+ iomap_writepages+0x68/0x240 fs/iomap/buffered-io.c:1979
+ gfs2_writepages+0x169/0x1f0 fs/gfs2/aops.c:191
+ do_writepages+0x3a6/0x670 mm/page-writeback.c:2553
+ filemap_fdatawrite_wbc+0x125/0x180 mm/filemap.c:393
+ __filemap_fdatawrite_range mm/filemap.c:426 [inline]
+ __filemap_fdatawrite mm/filemap.c:432 [inline]
+ filemap_fdatawrite+0x143/0x1b0 mm/filemap.c:437
+ gfs2_ordered_write fs/gfs2/log.c:740 [inline]
+ gfs2_log_flush+0xa42/0x25f0 fs/gfs2/log.c:1098
+ gfs2_trans_end+0x39f/0x560 fs/gfs2/trans.c:158
+ gfs2_page_mkwrite+0x1262/0x14f0 fs/gfs2/file.c:533
+ do_page_mkwrite+0x197/0x470 mm/memory.c:2931
+ do_shared_fault mm/memory.c:4647 [inline]
+ do_fault mm/memory.c:4709 [inline]
+ do_pte_missing mm/memory.c:3669 [inline]
+ handle_pte_fault mm/memory.c:4978 [inline]
+ __handle_mm_fault mm/memory.c:5119 [inline]
+ handle_mm_fault+0x22b2/0x6200 mm/memory.c:5284
+ do_user_addr_fault arch/x86/mm/fault.c:1413 [inline]
+ handle_page_fault arch/x86/mm/fault.c:1505 [inline]
+ exc_page_fault+0x2ac/0x860 arch/x86/mm/fault.c:1561
+ asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:570
+RIP: 0033:0x7f088fba48e7
+RSP: 002b:00007fff09b9e550 EFLAGS: 00010286
+RAX: 0030656c69662f2e RBX: 0000000000000000 RCX: 0000000020000180
+RDX: 00000000c018937d RSI: 00000000ffffffff RDI: 0000000000000010
+RBP: 00007f088fc5f5f0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000005 R11: 0000000000000246 R12: 00007fff09b9e580
+R13: 00007fff09b9e7a8 R14: 431bde82d7b634db R15: 00007f088fc2203b
+ </TASK>
+INFO: task gfs2_logd:5032 blocked for more than 144 seconds.
+      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:gfs2_logd       state:D stack:28672 pid:5032  ppid:2      flags:0x00004000
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5382 [inline]
+ __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
+ schedule+0xc3/0x180 kernel/sched/core.c:6771
+ schedule_preempt_disabled+0x13/0x20 kernel/sched/core.c:6830
+ rwsem_down_write_slowpath+0xedd/0x13a0 kernel/locking/rwsem.c:1178
+ __down_write_common+0x1aa/0x200 kernel/locking/rwsem.c:1306
+ gfs2_log_flush+0x105/0x25f0 fs/gfs2/log.c:1042
+ gfs2_logd+0x488/0xec0 fs/gfs2/log.c:1325
+ kthread+0x2b8/0x350 kernel/kthread.c:388
+ ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
+ </TASK>
+INFO: task gfs2_quotad:5033 blocked for more than 144 seconds.
+      Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:gfs2_quotad     state:D stack:27216 pid:5033  ppid:2      flags:0x00004000
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5382 [inline]
+ __schedule+0x1873/0x48f0 kernel/sched/core.c:6695
+ schedule+0xc3/0x180 kernel/sched/core.c:6771
+ schedule_preempt_disabled+0x13/0x20 kernel/sched/core.c:6830
+ rwsem_down_read_slowpath+0x5f4/0x950 kernel/locking/rwsem.c:1086
+ __down_read_common kernel/locking/rwsem.c:1250 [inline]
+ __down_read kernel/locking/rwsem.c:1263 [inline]
+ down_read+0x9c/0x2f0 kernel/locking/rwsem.c:1522
+ __gfs2_trans_begin+0x55c/0x940 fs/gfs2/trans.c:87
+ gfs2_trans_begin+0x71/0xe0 fs/gfs2/trans.c:118
+ gfs2_statfs_sync+0x41e/0x870 fs/gfs2/super.c:298
+ quotad_check_timeo fs/gfs2/quota.c:1510 [inline]
+ gfs2_quotad+0x37f/0x680 fs/gfs2/quota.c:1552
+ kthread+0x2b8/0x350 kernel/kthread.c:388
+ ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
+ </TASK>
+INFO: lockdep is turned off.
+NMI backtrace for cpu 0
+CPU: 0 PID: 29 Comm: khungtaskd Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/26/2023
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x1e7/0x2d0 lib/dump_stack.c:106
+ nmi_cpu_backtrace+0x498/0x4d0 lib/nmi_backtrace.c:113
+ nmi_trigger_cpumask_backtrace+0x198/0x310 lib/nmi_backtrace.c:62
+ trigger_all_cpu_backtrace include/linux/nmi.h:160 [inline]
+ check_hung_uninterruptible_tasks kernel/hung_task.c:222 [inline]
+ watchdog+0xdf5/0xe40 kernel/hung_task.c:379
+ kthread+0x2b8/0x350 kernel/kthread.c:388
+ ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
+ </TASK>
+Sending NMI from CPU 0 to CPUs 1:
+NMI backtrace for cpu 1
+CPU: 1 PID: 68 Comm: kworker/u4:4 Not tainted 6.5.0-syzkaller-11075-g92901222f83d #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/26/2023
+Workqueue: events_unbound toggle_allocation_gate
+RIP: 0010:__insn_get_emulate_prefix arch/x86/lib/insn.c:91 [inline]
+RIP: 0010:insn_get_emulate_prefix arch/x86/lib/insn.c:106 [inline]
+RIP: 0010:insn_get_prefixes+0x113/0x18a0 arch/x86/lib/insn.c:134
+Code: 0f b6 04 03 84 c0 0f 85 fd 10 00 00 41 0f b6 6d 00 bf 0f 00 00 00 89 ee e8 5a 5e c8 f6 4d 8d 65 02 83 fd 0f 0f 85 15 01 00 00 <4d> 39 f4 0f 87 0c 01 00 00 48 8b 44 24 08 48 c1 e8 03 48 b9 00 00
+RSP: 0018:ffffc90001597660 EFLAGS: 00000246
+RAX: 0000000000000000 RBX: 1ffffffff160ae95 RCX: ffffffff8b0574ab
+RDX: ffff888018ab8000 RSI: 000000000000000f RDI: 000000000000000f
+RBP: 000000000000000f R08: ffffffff8ac531f6 R09: 0000000000000000
+R10: ffffc900015979c0 R11: fffff520002b2f43 R12: ffffffff8b0574ac
+R13: ffffffff8b0574aa R14: ffffffff8b0574b9 R15: ffffc900015979c0
+FS:  0000000000000000(0000) GS:ffff8880b9900000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000555efaf520e8 CR3: 000000000d130000 CR4: 00000000003506e0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <NMI>
+ </NMI>
+ <TASK>
+ insn_get_opcode+0x1b2/0xa50 arch/x86/lib/insn.c:272
+ insn_get_modrm+0x22e/0x7a0 arch/x86/lib/insn.c:343
+ insn_get_sib arch/x86/lib/insn.c:421 [inline]
+ insn_get_displacement+0x13e/0x980 arch/x86/lib/insn.c:464
+ insn_get_immediate+0x382/0x13d0 arch/x86/lib/insn.c:632
+ insn_get_length arch/x86/lib/insn.c:707 [inline]
+ insn_decode+0x370/0x500 arch/x86/lib/insn.c:747
+ text_poke_loc_init+0xed/0x860 arch/x86/kernel/alternative.c:2312
+ arch_jump_label_transform_queue+0x8b/0xf0 arch/x86/kernel/jump_label.c:138
+ __jump_label_update+0x177/0x3a0 kernel/jump_label.c:475
+ static_key_disable_cpuslocked+0xce/0x1b0 kernel/jump_label.c:235
+ static_key_disable+0x1a/0x20 kernel/jump_label.c:243
+ toggle_allocation_gate+0x1b8/0x250 mm/kfence/core.c:834
+ process_one_work+0x781/0x1130 kernel/workqueue.c:2630
+ process_scheduled_works kernel/workqueue.c:2703 [inline]
+ worker_thread+0xabf/0x1060 kernel/workqueue.c:2784
+ kthread+0x2b8/0x350 kernel/kthread.c:388
+ ret_from_fork+0x48/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
+ </TASK>
+INFO: NMI handler (nmi_cpu_backtrace_handler) took too long to run: 1.251 msecs
 
 
-> Signed-off-by: Dave Chinner <dchinner@redhat.com>
-> Signed-off-by: Hao Xu <howeyxu@tencent.com>
-> [fixes deadlock issue, tweak code style]
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-With a signoff chain like you already have.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
 
-In the end you'll also get a RVB from me, which seems rather wrong
-to me if I've apparently been "co-developing" the code....
+If the bug is already fixed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-....
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-> @@ -156,7 +157,9 @@ xfs_dir2_block_getdents(
->  	if (xfs_dir2_dataptr_to_db(geo, ctx->pos) > geo->datablk)
->  		return 0;
->  
-> -	error = xfs_dir3_block_read(args->trans, dp, &bp);
-> +	if (ctx->flags & DIR_CONTEXT_F_NOWAIT)
-> +		flags |= XFS_DABUF_NOWAIT;
-> +	error = xfs_dir3_block_read(args->trans, dp, flags, &bp);
->  	if (error)
->  		return error;
->  
+If you want to overwrite bug's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-Given we do this same check in both block and leaf formats to set
-XFS_DABUF_NOWAIT, and we do the DIR_CONTEXT_F_NOWAIT check in
-xfs_readdir() as well, we should probably do this check once at the
-higher level and pass flags down from there with XFS_DABUF_NOWAIT
-already set.
+If the bug is a duplicate of another bug, reply with:
+#syz dup: exact-subject-of-another-report
 
-> @@ -240,6 +243,7 @@ xfs_dir2_block_getdents(
->  STATIC int
->  xfs_dir2_leaf_readbuf(
->  	struct xfs_da_args	*args,
-> +	struct dir_context	*ctx,
->  	size_t			bufsize,
->  	xfs_dir2_off_t		*cur_off,
->  	xfs_dablk_t		*ra_blk,
-> @@ -258,10 +262,15 @@ xfs_dir2_leaf_readbuf(
->  	struct xfs_iext_cursor	icur;
->  	int			ra_want;
->  	int			error = 0;
-> -
-> -	error = xfs_iread_extents(args->trans, dp, XFS_DATA_FORK);
-> -	if (error)
-> -		goto out;
-> +	unsigned int		flags = 0;
-> +
-> +	if (ctx->flags & DIR_CONTEXT_F_NOWAIT) {
-> +		flags |= XFS_DABUF_NOWAIT;
-> +	} else {
-> +		error = xfs_iread_extents(args->trans, dp, XFS_DATA_FORK);
-> +		if (error)
-> +			goto out;
-> +	}
-
-Especially as, in hindsight, this doesn't make a whole lot of sense.
-If XFS_DABUF_NOWAIT is set, we keep going until
-xfs_ilock_data_map_shared_nowait() where we call
-xfs_need_iread_extents() to see if we need to read the extents in
-and abort at that point.
-
-So, really, we shouldn't get this far with nowait semantics if
-we haven't read the extents in yet - we're supposed to already have
-the inode locked here and so we should have already checked this
-condition before we bother locking the inode...
-
-i.e. all we should be doing here is this:
-
-	if (!(flags & XFS_DABUF_NOWAIT)) {
-		error = xfs_iread_extents(args->trans, dp, XFS_DATA_FORK);
-		if (error)
-			goto out;
-	}
-
-And then we don't need to pass the VFS dir_context down into low
-level XFS functions unnecessarily.
-
-
->  
->  	/*
->  	 * Look for mapped directory blocks at or above the current offset.
-> @@ -280,7 +289,7 @@ xfs_dir2_leaf_readbuf(
->  	new_off = xfs_dir2_da_to_byte(geo, map.br_startoff);
->  	if (new_off > *cur_off)
->  		*cur_off = new_off;
-> -	error = xfs_dir3_data_read(args->trans, dp, map.br_startoff, 0, &bp);
-> +	error = xfs_dir3_data_read(args->trans, dp, map.br_startoff, flags, &bp);
->  	if (error)
->  		goto out;
->  
-> @@ -360,6 +369,7 @@ xfs_dir2_leaf_getdents(
->  	int			byteoff;	/* offset in current block */
->  	unsigned int		offset = 0;
->  	int			error = 0;	/* error return value */
-> +	int			written = 0;
->  
->  	/*
->  	 * If the offset is at or past the largest allowed value,
-> @@ -391,10 +401,17 @@ xfs_dir2_leaf_getdents(
->  				bp = NULL;
->  			}
->  
-> -			if (*lock_mode == 0)
-> -				*lock_mode = xfs_ilock_data_map_shared(dp);
-> -			error = xfs_dir2_leaf_readbuf(args, bufsize, &curoff,
-> -					&rablk, &bp);
-> +			if (*lock_mode == 0) {
-> +				*lock_mode =
-> +					xfs_ilock_data_map_shared_generic(dp,
-> +					ctx->flags & DIR_CONTEXT_F_NOWAIT);
-> +				if (!*lock_mode) {
-> +					error = -EAGAIN;
-> +					break;
-> +				}
-> +			}
-> +			error = xfs_dir2_leaf_readbuf(args, ctx, bufsize,
-> +					&curoff, &rablk, &bp);
-
-int
-xfs_ilock_readdir(
-	struct xfs_inode	*ip,
-	int			flags)
-{
-	if (flags & XFS_DABUF_NOWAIT) {
-		if (!xfs_ilock_nowait(dp, XFS_ILOCK_SHARED))
-			return -EAGAIN;
-		return XFS_ILOCK_SHARED;
-	}
-	return xfs_ilock_data_map_shared(dp);
-}
-
-And then this code simply becomes:
-
-			if (*lock_mode == 0)
-				*lock_mode = xfs_ilock_readdir(ip, flags);
-
-
->  			if (error || !bp)
->  				break;
->  
-> @@ -479,6 +496,7 @@ xfs_dir2_leaf_getdents(
->  		 */
->  		offset += length;
->  		curoff += length;
-> +		written += length;
->  		/* bufsize may have just been a guess; don't go negative */
->  		bufsize = bufsize > length ? bufsize - length : 0;
->  	}
-> @@ -492,6 +510,8 @@ xfs_dir2_leaf_getdents(
->  		ctx->pos = xfs_dir2_byte_to_dataptr(curoff) & 0x7fffffff;
->  	if (bp)
->  		xfs_trans_brelse(args->trans, bp);
-> +	if (error == -EAGAIN && written > 0)
-> +		error = 0;
->  	return error;
->  }
->  
-> @@ -514,6 +534,7 @@ xfs_readdir(
->  	unsigned int		lock_mode;
->  	bool			isblock;
->  	int			error;
-> +	bool			nowait;
->  
->  	trace_xfs_readdir(dp);
->  
-> @@ -531,7 +552,11 @@ xfs_readdir(
->  	if (dp->i_df.if_format == XFS_DINODE_FMT_LOCAL)
->  		return xfs_dir2_sf_getdents(&args, ctx);
->  
-> -	lock_mode = xfs_ilock_data_map_shared(dp);
-> +	nowait = ctx->flags & DIR_CONTEXT_F_NOWAIT;
-> +	lock_mode = xfs_ilock_data_map_shared_generic(dp, nowait);
-> +	if (!lock_mode)
-> +		return -EAGAIN;
-> +
-
-Given what I said above:
-
-	if (ctx->flags & DIR_CONTEXT_F_NOWAIT) {
-		/*
-		 * If we need to read extents, then we must do IO
-		 * and we must use exclusive locking. We don't want
-		 * to do either of those things, so just bail if we
-		 * have to read extents. Doing this check explicitly
-		 * here means we don't have to do it anywhere else
-		 * in the XFS_DABUF_NOWAIT path.
-		 */
-		if (xfs_need_iread_extents(&ip->i_df))
-			return -EAGAIN;
-		flags |= XFS_DABUF_NOWAIT;
-	}
-	lock_mode = xfs_ilock_readdir(dp, flags);
-
-And with this change, we probably should be marking the entire
-operation as having nowait semantics. i.e. using args->op_flags here
-and only use XFS_DABUF_NOWAIT for the actual IO. ie.
-
-		args->op_flags |= XFS_DA_OP_NOWAIT;
-
-This makes it clear that the entire directory op should run under
-NOWAIT constraints, and it avoids needing to pass an extra flag
-through the stack.  That then makes the readdir locking function
-look like this:
-
-/*
- * When we are locking an inode for readdir, we need to ensure that
- * the extents have been read in first. This requires the inode to
- * be locked exclusively across the extent read, but otherwise we
- * want to use shared locking.
- *
- * For XFS_DA_OP_NOWAIT operations, we do an up-front check to see
- * if the extents have been read in, so all we need to do in this
- * case is a shared try-lock as we never need exclusive locking in
- * this path.
- */
-static int
-xfs_ilock_readdir(
-	struct xfs_da_args	*args)
-{
-	if (args->op_flags & XFS_DA_OP_NOWAIT) {
-		if (!xfs_ilock_nowait(args->dp, XFS_ILOCK_SHARED))
-			return -EAGAIN;
-		return XFS_ILOCK_SHARED;
-	}
-	return xfs_ilock_data_map_shared(args->dp);
-}
-
-> diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
-> index 9e62cc500140..d088f7d0c23a 100644
-> --- a/fs/xfs/xfs_inode.c
-> +++ b/fs/xfs/xfs_inode.c
-> @@ -120,6 +120,33 @@ xfs_ilock_data_map_shared(
->  	return lock_mode;
->  }
->  
-> +/*
-> + * Similar to xfs_ilock_data_map_shared(), except that it will only try to lock
-> + * the inode in shared mode if the extents are already in memory. If it fails to
-> + * get the lock or has to do IO to read the extent list, fail the operation by
-> + * returning 0 as the lock mode.
-> + */
-> +uint
-> +xfs_ilock_data_map_shared_nowait(
-> +	struct xfs_inode	*ip)
-> +{
-> +	if (xfs_need_iread_extents(&ip->i_df))
-> +		return 0;
-> +	if (!xfs_ilock_nowait(ip, XFS_ILOCK_SHARED))
-> +		return 0;
-> +	return XFS_ILOCK_SHARED;
-> +}
-> +
-> +int
-> +xfs_ilock_data_map_shared_generic(
-> +	struct xfs_inode	*dp,
-> +	bool			nowait)
-> +{
-> +	if (nowait)
-> +		return xfs_ilock_data_map_shared_nowait(dp);
-> +	return xfs_ilock_data_map_shared(dp);
-> +}
-
-And all this "generic" locking stuff goes away.
-
-FWIW, IMO, "generic" is a poor name for an XFS function as there's
-nothing "generic" in XFS.  We tend name the functions after what
-they do, not some abstract concept. Leave "generic" as a keyword for
-widely used core infrastructure functions, not niche, one-off use
-cases like this.
-
-Cheers,
-
-Dave.
--- 
-Dave Chinner
-david@fromorbit.com
+If you want to undo deduplication, reply with:
+#syz undup
 
