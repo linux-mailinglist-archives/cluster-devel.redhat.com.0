@@ -1,113 +1,58 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B1267984EF
-	for <lists+cluster-devel@lfdr.de>; Fri,  8 Sep 2023 11:42:08 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC9479912A
+	for <lists+cluster-devel@lfdr.de>; Fri,  8 Sep 2023 22:46:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694166127;
+	s=mimecast20190719; t=1694205987;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rWH+VGW4ynUEnqVgfK8Uo5vbTneevGaezyT5mB/sqg4=;
-	b=SLFM6SsfvXY4dQAMnbKB5NXo2Kh3E8OwtBAL1KobQT1LTsKBA78ZpbEy3Mo9NHSaXZR7r4
-	k+lxr8lr2Un5CWTB1aAFnlvJJ70c/70lfAsdtJfkOQABHbh3hjvUiJdtx4YFtrKtkJOqHS
-	yCLOw8decWMeURNeKeoGRlY6qtiyan8=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-539-g8DkVnEoPJq0xSu6WkZFBA-1; Fri, 08 Sep 2023 05:42:05 -0400
-X-MC-Unique: g8DkVnEoPJq0xSu6WkZFBA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=OUcWIvGO8M5eibkHpfK3PEjE4qVCHNee2aFAV+pGL9E=;
+	b=aTyUMQN4K18u+9vEor5MZ6nAYnOpHlt/ldeP6eDFbqAaSwOfnjum5aRDuUAPSG7gQTdHJo
+	1ipWEIJWgWDqLCNIuG0z7lmaO11We8IzADVW/2/Dap7Q3QxzL6QgEaY7LJwgsDPHzulzrS
+	OFqDSwKcBkwQMpXJJSTKLwMuXZCHmmI=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-258-I2A81nQkPluce3GrU8yuhg-1; Fri, 08 Sep 2023 16:46:26 -0400
+X-MC-Unique: I2A81nQkPluce3GrU8yuhg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 216168279AA;
-	Fri,  8 Sep 2023 09:42:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 544573C14AA5;
+	Fri,  8 Sep 2023 20:46:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D082412F2CE;
-	Fri,  8 Sep 2023 09:42:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E0619C51A01;
+	Fri,  8 Sep 2023 20:46:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 293201946597;
-	Fri,  8 Sep 2023 09:42:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F8471946595;
+	Fri,  8 Sep 2023 20:46:23 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D7714194658C for <cluster-devel@listman.corp.redhat.com>;
- Fri,  8 Sep 2023 00:30:26 +0000 (UTC)
+ ESMTP id BB9931946586 for <cluster-devel@listman.corp.redhat.com>;
+ Fri,  8 Sep 2023 20:46:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BED4D63F6C; Fri,  8 Sep 2023 00:30:26 +0000 (UTC)
+ id 8D4D020BB066; Fri,  8 Sep 2023 20:46:22 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B72AE7B62
- for <cluster-devel@redhat.com>; Fri,  8 Sep 2023 00:30:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95ADD1817929
- for <cluster-devel@redhat.com>; Fri,  8 Sep 2023 00:30:26 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-553-ahrpmCrZOB6aVEDDhVGXTA-1; Thu, 07 Sep 2023 20:30:23 -0400
-X-MC-Unique: ahrpmCrZOB6aVEDDhVGXTA-1
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-9a2a4a5472dso575101066b.1; 
- Thu, 07 Sep 2023 17:30:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694133021; x=1694737821;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rWH+VGW4ynUEnqVgfK8Uo5vbTneevGaezyT5mB/sqg4=;
- b=dnF/uDUfuVbAOiKTbYgUweA0275ue7DyIZnkCHeWJX84KyZBiqR37zy/4WUXjUSqy/
- y38fI+5EK6QIrvTksSu7fMWwZNzbVRyBkmGQHuzZcTBO0ygmod8WBUzLH7Y3QLqB8p11
- xMaYcbi4aqJ/HYRE+MKQ+t9RKX/Dz6/RPTgfMbPwXn64FtFyQb5e+fx7dYBGSWOkA4VP
- Y8ShkSsBdz02nMCg2995hnYtj8Rkpqphg5PdtoOwr/N2ZBkO/WZYBIy+hZ+2gIcgEWhK
- V+NfR5PTeLHmbgjXPf5Dtn3GmjwqN6W7vG9gRvZ92pT32OXcoLdhlONBh1XiA+2nmGRu
- GMyA==
-X-Gm-Message-State: AOJu0YzZZEmYPnwidfpU/BDF6SeoqVLHR9AbQ3+X/zob+Q6XrD5rxXkt
- v6Ew/Rrl2DgeIeSyPaqY+8LdgXKG3nGCxA==
-X-Google-Smtp-Source: AGHT+IHUmcSd3yGn0Yc+fxHKH36GJLlYUzap6qvtcfMqwZgOcAgDOYhbcm3dJF4+eYZ9U6PvPuYQ6g==
-X-Received: by 2002:a17:907:6e87:b0:9a1:c69c:9388 with SMTP id
- sh7-20020a1709076e8700b009a1c69c9388mr4152809ejc.37.1694133021412; 
- Thu, 07 Sep 2023 17:30:21 -0700 (PDT)
-Received: from [192.168.8.100] ([148.252.141.16])
- by smtp.gmail.com with ESMTPSA id
- lz24-20020a170906fb1800b009932337747esm280974ejb.86.2023.09.07.17.30.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Sep 2023 17:30:21 -0700 (PDT)
-Message-ID: <6489b8cb-7d54-1e29-f192-a3449ed87fa1@gmail.com>
-Date: Fri, 8 Sep 2023 01:29:55 +0100
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
+ (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5433C20BAE72;
+ Fri,  8 Sep 2023 20:46:22 +0000 (UTC)
+From: Alexander Aring <aahringo@redhat.com>
+To: teigland@redhat.com
+Date: Fri,  8 Sep 2023 16:46:02 -0400
+Message-Id: <20230908204611.1910601-1-aahringo@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dave Chinner <david@fromorbit.com>, Hao Xu <hao.xu@linux.dev>
-References: <20230827132835.1373581-1-hao.xu@linux.dev>
- <20230827132835.1373581-8-hao.xu@linux.dev>
- <ZOvA5DJDZN0FRymp@casper.infradead.org>
- <c728bf3f-d9db-4865-8473-058b26c11c06@linux.dev>
- <ZO3cI+DkotHQo3md@casper.infradead.org>
- <642de4e6-801d-fcad-a7ce-bfc6dec3b6e5@linux.dev>
- <ZPUJHAKzxvXiEDYA@dread.disaster.area>
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <ZPUJHAKzxvXiEDYA@dread.disaster.area>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-X-Mailman-Approved-At: Fri, 08 Sep 2023 09:42:00 +0000
-Subject: Re: [Cluster-devel] [PATCH 07/11] vfs: add nowait parameter for
- file_accessed()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [Cluster-devel] [RFC dlm/next 01/10] fs: dlm: remove allocation
+ parameter in msg allocation
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,81 +64,403 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
- Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, codalist@coda.cs.cmu.edu,
- cluster-devel@redhat.com, linux-cachefs@redhat.com, linux-ext4@vger.kernel.org,
- devel@lists.orangefs.org, linux-cifs@vger.kernel.org, ecryptfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- netdev@vger.kernel.org, samba-technical@lists.samba.org,
- linux-unionfs@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+Cc: cluster-devel@redhat.com, gfs2@lists.linux.dev
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On 9/3/23 23:30, Dave Chinner wrote:
-> On Wed, Aug 30, 2023 at 02:11:31PM +0800, Hao Xu wrote:
->> On 8/29/23 19:53, Matthew Wilcox wrote:
->>> On Tue, Aug 29, 2023 at 03:46:13PM +0800, Hao Xu wrote:
->>>> On 8/28/23 05:32, Matthew Wilcox wrote:
->>>>> On Sun, Aug 27, 2023 at 09:28:31PM +0800, Hao Xu wrote:
->>>>>> From: Hao Xu <howeyxu@tencent.com>
->>>>>>
->>>>>> Add a boolean parameter for file_accessed() to support nowait semantics.
->>>>>> Currently it is true only with io_uring as its initial caller.
->>>>>
->>>>> So why do we need to do this as part of this series?  Apparently it
->>>>> hasn't caused any problems for filemap_read().
->>>>>
->>>>
->>>> We need this parameter to indicate if nowait semantics should be enforced in
->>>> touch_atime(), There are locks and maybe IOs in it.
->>>
->>> That's not my point.  We currently call file_accessed() and
->>> touch_atime() for nowait reads and nowait writes.  You haven't done
->>> anything to fix those.
->>>
->>> I suspect you can trim this patchset down significantly by avoiding
->>> fixing the file_accessed() problem.  And then come back with a later
->>> patchset that fixes it for all nowait i/o.  Or do a separate prep series
->>
->> I'm ok to do that.
->>
->>> first that fixes it for the existing nowait users, and then a second
->>> series to do all the directory stuff.
->>>
->>> I'd do the first thing.  Just ignore the problem.  Directory atime
->>> updates cause I/O so rarely that you can afford to ignore it.  Almost
->>> everyone uses relatime or nodiratime.
->>
->> Hi Matthew,
->> The previous discussion shows this does cause issues in real
->> producations: https://lore.kernel.org/io-uring/2785f009-2ebb-028d-8250-d5f3a30510f0@gmail.com/#:~:text=fwiw%2C%20we%27ve%20just%20recently%20had%20similar%20problems%20with%20io_uring%20read/write
->>
-> 
-> Then separate it out into it's own patch set so we can have a
-> discussion on the merits of requiring using noatime, relatime or
-> lazytime for really latency sensitive IO applications. Changing code
-> is not always the right solution...
+This patch removes the context parameter for message allocations and
+replace it by always do GFP_ATOMIC. We are preparing to process dlm
+message in softirq context therefore it's necessary to switch to
+GFP_ATOMIC allocation as we cannot sleep in this context. To simplify
+the code overall we just drop the allocation flag and have GFP_ATOMIC
+hardcoded when calling the allocation function.
 
-Separation sounds reasonable, but it can hardly be said that only
-latency sensitive apps would care about >1s nowait/async submission
-delays. Presumably, btrfs can improve on that, but it still looks
-like it's perfectly legit for filesystems do heavy stuff in
-timestamping like waiting for IO. Right?
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+---
+ fs/dlm/lock.c     | 31 ++++++++++++-------------------
+ fs/dlm/lowcomms.c | 16 +++++++---------
+ fs/dlm/lowcomms.h |  5 ++---
+ fs/dlm/memory.c   |  8 ++++----
+ fs/dlm/memory.h   |  4 ++--
+ fs/dlm/midcomms.c | 24 ++++++++++--------------
+ fs/dlm/midcomms.h |  3 +--
+ fs/dlm/rcom.c     |  7 +++----
+ 8 files changed, 41 insertions(+), 57 deletions(-)
 
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index 652c51fbbf76..44ea65a73f3b 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -3329,8 +3329,7 @@ int dlm_unlock(dlm_lockspace_t *lockspace,
+ static int _create_message(struct dlm_ls *ls, int mb_len,
+ 			   int to_nodeid, int mstype,
+ 			   struct dlm_message **ms_ret,
+-			   struct dlm_mhandle **mh_ret,
+-			   gfp_t allocation)
++			   struct dlm_mhandle **mh_ret)
+ {
+ 	struct dlm_message *ms;
+ 	struct dlm_mhandle *mh;
+@@ -3340,7 +3339,7 @@ static int _create_message(struct dlm_ls *ls, int mb_len,
+ 	   pass into midcomms_commit and a message buffer (mb) that we
+ 	   write our data into */
+ 
+-	mh = dlm_midcomms_get_mhandle(to_nodeid, mb_len, allocation, &mb);
++	mh = dlm_midcomms_get_mhandle(to_nodeid, mb_len, &mb);
+ 	if (!mh)
+ 		return -ENOBUFS;
+ 
+@@ -3362,8 +3361,7 @@ static int _create_message(struct dlm_ls *ls, int mb_len,
+ static int create_message(struct dlm_rsb *r, struct dlm_lkb *lkb,
+ 			  int to_nodeid, int mstype,
+ 			  struct dlm_message **ms_ret,
+-			  struct dlm_mhandle **mh_ret,
+-			  gfp_t allocation)
++			  struct dlm_mhandle **mh_ret)
+ {
+ 	int mb_len = sizeof(struct dlm_message);
+ 
+@@ -3384,7 +3382,7 @@ static int create_message(struct dlm_rsb *r, struct dlm_lkb *lkb,
+ 	}
+ 
+ 	return _create_message(r->res_ls, mb_len, to_nodeid, mstype,
+-			       ms_ret, mh_ret, allocation);
++			       ms_ret, mh_ret);
+ }
+ 
+ /* further lowcomms enhancements or alternate implementations may make
+@@ -3453,7 +3451,7 @@ static int send_common(struct dlm_rsb *r, struct dlm_lkb *lkb, int mstype)
+ 	if (error)
+ 		return error;
+ 
+-	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh, GFP_NOFS);
++	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh);
+ 	if (error)
+ 		goto fail;
+ 
+@@ -3513,8 +3511,7 @@ static int send_grant(struct dlm_rsb *r, struct dlm_lkb *lkb)
+ 
+ 	to_nodeid = lkb->lkb_nodeid;
+ 
+-	error = create_message(r, lkb, to_nodeid, DLM_MSG_GRANT, &ms, &mh,
+-			       GFP_NOFS);
++	error = create_message(r, lkb, to_nodeid, DLM_MSG_GRANT, &ms, &mh);
+ 	if (error)
+ 		goto out;
+ 
+@@ -3535,8 +3532,7 @@ static int send_bast(struct dlm_rsb *r, struct dlm_lkb *lkb, int mode)
+ 
+ 	to_nodeid = lkb->lkb_nodeid;
+ 
+-	error = create_message(r, NULL, to_nodeid, DLM_MSG_BAST, &ms, &mh,
+-			       GFP_NOFS);
++	error = create_message(r, NULL, to_nodeid, DLM_MSG_BAST, &ms, &mh);
+ 	if (error)
+ 		goto out;
+ 
+@@ -3561,8 +3557,7 @@ static int send_lookup(struct dlm_rsb *r, struct dlm_lkb *lkb)
+ 	if (error)
+ 		return error;
+ 
+-	error = create_message(r, NULL, to_nodeid, DLM_MSG_LOOKUP, &ms, &mh,
+-			       GFP_NOFS);
++	error = create_message(r, NULL, to_nodeid, DLM_MSG_LOOKUP, &ms, &mh);
+ 	if (error)
+ 		goto fail;
+ 
+@@ -3586,8 +3581,7 @@ static int send_remove(struct dlm_rsb *r)
+ 
+ 	to_nodeid = dlm_dir_nodeid(r);
+ 
+-	error = create_message(r, NULL, to_nodeid, DLM_MSG_REMOVE, &ms, &mh,
+-			       GFP_ATOMIC);
++	error = create_message(r, NULL, to_nodeid, DLM_MSG_REMOVE, &ms, &mh);
+ 	if (error)
+ 		goto out;
+ 
+@@ -3608,7 +3602,7 @@ static int send_common_reply(struct dlm_rsb *r, struct dlm_lkb *lkb,
+ 
+ 	to_nodeid = lkb->lkb_nodeid;
+ 
+-	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh, GFP_NOFS);
++	error = create_message(r, lkb, to_nodeid, mstype, &ms, &mh);
+ 	if (error)
+ 		goto out;
+ 
+@@ -3650,8 +3644,7 @@ static int send_lookup_reply(struct dlm_ls *ls,
+ 	struct dlm_mhandle *mh;
+ 	int error, nodeid = le32_to_cpu(ms_in->m_header.h_nodeid);
+ 
+-	error = create_message(r, NULL, nodeid, DLM_MSG_LOOKUP_REPLY, &ms, &mh,
+-			       GFP_NOFS);
++	error = create_message(r, NULL, nodeid, DLM_MSG_LOOKUP_REPLY, &ms, &mh);
+ 	if (error)
+ 		goto out;
+ 
+@@ -6063,7 +6056,7 @@ static int send_purge(struct dlm_ls *ls, int nodeid, int pid)
+ 	int error;
+ 
+ 	error = _create_message(ls, sizeof(struct dlm_message), nodeid,
+-				DLM_MSG_PURGE, &ms, &mh, GFP_NOFS);
++				DLM_MSG_PURGE, &ms, &mh);
+ 	if (error)
+ 		return error;
+ 	ms->m_nodeid = cpu_to_le32(nodeid);
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 67f8dd8a05ef..db71982d709d 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -1229,14 +1229,13 @@ static struct writequeue_entry *new_wq_entry(struct connection *con, int len,
+ };
+ 
+ static struct dlm_msg *dlm_lowcomms_new_msg_con(struct connection *con, int len,
+-						gfp_t allocation, char **ppc,
+-						void (*cb)(void *data),
++						char **ppc, void (*cb)(void *data),
+ 						void *data)
+ {
+ 	struct writequeue_entry *e;
+ 	struct dlm_msg *msg;
+ 
+-	msg = dlm_allocate_msg(allocation);
++	msg = dlm_allocate_msg();
+ 	if (!msg)
+ 		return NULL;
+ 
+@@ -1261,9 +1260,8 @@ static struct dlm_msg *dlm_lowcomms_new_msg_con(struct connection *con, int len,
+  * dlm_lowcomms_commit_msg which is a must call if success
+  */
+ #ifndef __CHECKER__
+-struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+-				     char **ppc, void (*cb)(void *data),
+-				     void *data)
++struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, char **ppc,
++				     void (*cb)(void *data), void *data)
+ {
+ 	struct connection *con;
+ 	struct dlm_msg *msg;
+@@ -1284,7 +1282,7 @@ struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+ 		return NULL;
+ 	}
+ 
+-	msg = dlm_lowcomms_new_msg_con(con, len, allocation, ppc, cb, data);
++	msg = dlm_lowcomms_new_msg_con(con, len, ppc, cb, data);
+ 	if (!msg) {
+ 		srcu_read_unlock(&connections_srcu, idx);
+ 		return NULL;
+@@ -1348,8 +1346,8 @@ int dlm_lowcomms_resend_msg(struct dlm_msg *msg)
+ 	if (msg->retransmit)
+ 		return 1;
+ 
+-	msg_resend = dlm_lowcomms_new_msg_con(msg->entry->con, msg->len,
+-					      GFP_ATOMIC, &ppc, NULL, NULL);
++	msg_resend = dlm_lowcomms_new_msg_con(msg->entry->con, msg->len, &ppc,
++					      NULL, NULL);
+ 	if (!msg_resend)
+ 		return -ENOMEM;
+ 
+diff --git a/fs/dlm/lowcomms.h b/fs/dlm/lowcomms.h
+index 3e8dca66183b..8deb16f8f620 100644
+--- a/fs/dlm/lowcomms.h
++++ b/fs/dlm/lowcomms.h
+@@ -39,9 +39,8 @@ void dlm_lowcomms_stop(void);
+ void dlm_lowcomms_init(void);
+ void dlm_lowcomms_exit(void);
+ int dlm_lowcomms_close(int nodeid);
+-struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, gfp_t allocation,
+-				     char **ppc, void (*cb)(void *data),
+-				     void *data);
++struct dlm_msg *dlm_lowcomms_new_msg(int nodeid, int len, char **ppc,
++				     void (*cb)(void *data), void *data);
+ void dlm_lowcomms_commit_msg(struct dlm_msg *msg);
+ void dlm_lowcomms_put_msg(struct dlm_msg *msg);
+ int dlm_lowcomms_resend_msg(struct dlm_msg *msg);
+diff --git a/fs/dlm/memory.c b/fs/dlm/memory.c
+index 64f212a066cf..c0c1a83f6381 100644
+--- a/fs/dlm/memory.c
++++ b/fs/dlm/memory.c
+@@ -134,9 +134,9 @@ void dlm_free_lkb(struct dlm_lkb *lkb)
+ 	kmem_cache_free(lkb_cache, lkb);
+ }
+ 
+-struct dlm_mhandle *dlm_allocate_mhandle(gfp_t allocation)
++struct dlm_mhandle *dlm_allocate_mhandle(void)
+ {
+-	return kmem_cache_alloc(mhandle_cache, allocation);
++	return kmem_cache_alloc(mhandle_cache, GFP_ATOMIC);
+ }
+ 
+ void dlm_free_mhandle(struct dlm_mhandle *mhandle)
+@@ -154,9 +154,9 @@ void dlm_free_writequeue(struct writequeue_entry *writequeue)
+ 	kmem_cache_free(writequeue_cache, writequeue);
+ }
+ 
+-struct dlm_msg *dlm_allocate_msg(gfp_t allocation)
++struct dlm_msg *dlm_allocate_msg(void)
+ {
+-	return kmem_cache_alloc(msg_cache, allocation);
++	return kmem_cache_alloc(msg_cache, GFP_ATOMIC);
+ }
+ 
+ void dlm_free_msg(struct dlm_msg *msg)
+diff --git a/fs/dlm/memory.h b/fs/dlm/memory.h
+index 6b29563d24f7..15198d46b42a 100644
+--- a/fs/dlm/memory.h
++++ b/fs/dlm/memory.h
+@@ -20,11 +20,11 @@ struct dlm_lkb *dlm_allocate_lkb(struct dlm_ls *ls);
+ void dlm_free_lkb(struct dlm_lkb *l);
+ char *dlm_allocate_lvb(struct dlm_ls *ls);
+ void dlm_free_lvb(char *l);
+-struct dlm_mhandle *dlm_allocate_mhandle(gfp_t allocation);
++struct dlm_mhandle *dlm_allocate_mhandle(void);
+ void dlm_free_mhandle(struct dlm_mhandle *mhandle);
+ struct writequeue_entry *dlm_allocate_writequeue(void);
+ void dlm_free_writequeue(struct writequeue_entry *writequeue);
+-struct dlm_msg *dlm_allocate_msg(gfp_t allocation);
++struct dlm_msg *dlm_allocate_msg(void);
+ void dlm_free_msg(struct dlm_msg *msg);
+ struct dlm_callback *dlm_allocate_cb(void);
+ void dlm_free_cb(struct dlm_callback *cb);
+diff --git a/fs/dlm/midcomms.c b/fs/dlm/midcomms.c
+index 2247ebb61be1..ea0559e2a44d 100644
+--- a/fs/dlm/midcomms.c
++++ b/fs/dlm/midcomms.c
+@@ -380,8 +380,7 @@ static int dlm_send_ack(int nodeid, uint32_t seq)
+ 	struct dlm_msg *msg;
+ 	char *ppc;
+ 
+-	msg = dlm_lowcomms_new_msg(nodeid, mb_len, GFP_ATOMIC, &ppc,
+-				   NULL, NULL);
++	msg = dlm_lowcomms_new_msg(nodeid, mb_len, &ppc, NULL, NULL);
+ 	if (!msg)
+ 		return -ENOMEM;
+ 
+@@ -429,7 +428,7 @@ static int dlm_send_fin(struct midcomms_node *node,
+ 	struct dlm_mhandle *mh;
+ 	char *ppc;
+ 
+-	mh = dlm_midcomms_get_mhandle(node->nodeid, mb_len, GFP_ATOMIC, &ppc);
++	mh = dlm_midcomms_get_mhandle(node->nodeid, mb_len, &ppc);
+ 	if (!mh)
+ 		return -ENOMEM;
+ 
+@@ -977,13 +976,13 @@ static void midcomms_new_msg_cb(void *data)
+ }
+ 
+ static struct dlm_msg *dlm_midcomms_get_msg_3_2(struct dlm_mhandle *mh, int nodeid,
+-						int len, gfp_t allocation, char **ppc)
++						int len, char **ppc)
+ {
+ 	struct dlm_opts *opts;
+ 	struct dlm_msg *msg;
+ 
+ 	msg = dlm_lowcomms_new_msg(nodeid, len + DLM_MIDCOMMS_OPT_LEN,
+-				   allocation, ppc, midcomms_new_msg_cb, mh);
++				   ppc, midcomms_new_msg_cb, mh);
+ 	if (!msg)
+ 		return NULL;
+ 
+@@ -1002,8 +1001,7 @@ static struct dlm_msg *dlm_midcomms_get_msg_3_2(struct dlm_mhandle *mh, int node
+  * dlm_midcomms_commit_mhandle which is a must call if success
+  */
+ #ifndef __CHECKER__
+-struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
+-					     gfp_t allocation, char **ppc)
++struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len, char **ppc)
+ {
+ 	struct midcomms_node *node;
+ 	struct dlm_mhandle *mh;
+@@ -1018,7 +1016,7 @@ struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
+ 	/* this is a bug, however we going on and hope it will be resolved */
+ 	WARN_ON_ONCE(test_bit(DLM_NODE_FLAG_STOP_TX, &node->flags));
+ 
+-	mh = dlm_allocate_mhandle(allocation);
++	mh = dlm_allocate_mhandle();
+ 	if (!mh)
+ 		goto err;
+ 
+@@ -1029,8 +1027,7 @@ struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
+ 
+ 	switch (node->version) {
+ 	case DLM_VERSION_3_1:
+-		msg = dlm_lowcomms_new_msg(nodeid, len, allocation, ppc,
+-					   NULL, NULL);
++		msg = dlm_lowcomms_new_msg(nodeid, len, ppc, NULL, NULL);
+ 		if (!msg) {
+ 			dlm_free_mhandle(mh);
+ 			goto err;
+@@ -1041,8 +1038,7 @@ struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
+ 		/* send ack back if necessary */
+ 		dlm_send_ack_threshold(node, DLM_SEND_ACK_BACK_MSG_THRESHOLD);
+ 
+-		msg = dlm_midcomms_get_msg_3_2(mh, nodeid, len, allocation,
+-					       ppc);
++		msg = dlm_midcomms_get_msg_3_2(mh, nodeid, len, ppc);
+ 		if (!msg) {
+ 			dlm_free_mhandle(mh);
+ 			goto err;
+@@ -1502,8 +1498,8 @@ int dlm_midcomms_rawmsg_send(struct midcomms_node *node, void *buf,
+ 	rd.node = node;
+ 	rd.buf = buf;
+ 
+-	msg = dlm_lowcomms_new_msg(node->nodeid, buflen, GFP_NOFS,
+-				   &msgbuf, midcomms_new_rawmsg_cb, &rd);
++	msg = dlm_lowcomms_new_msg(node->nodeid, buflen, &msgbuf,
++				   midcomms_new_rawmsg_cb, &rd);
+ 	if (!msg)
+ 		return -ENOMEM;
+ 
+diff --git a/fs/dlm/midcomms.h b/fs/dlm/midcomms.h
+index e7246fb3ef57..278d26fdeb2c 100644
+--- a/fs/dlm/midcomms.h
++++ b/fs/dlm/midcomms.h
+@@ -16,8 +16,7 @@ struct midcomms_node;
+ 
+ int dlm_validate_incoming_buffer(int nodeid, unsigned char *buf, int len);
+ int dlm_process_incoming_buffer(int nodeid, unsigned char *buf, int buflen);
+-struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len,
+-					     gfp_t allocation, char **ppc);
++struct dlm_mhandle *dlm_midcomms_get_mhandle(int nodeid, int len, char **ppc);
+ void dlm_midcomms_commit_mhandle(struct dlm_mhandle *mh, const void *name,
+ 				 int namelen);
+ int dlm_midcomms_addr(int nodeid, struct sockaddr_storage *addr, int len);
+diff --git a/fs/dlm/rcom.c b/fs/dlm/rcom.c
+index 3b734aed26b5..2e3f529f3ff2 100644
+--- a/fs/dlm/rcom.c
++++ b/fs/dlm/rcom.c
+@@ -55,7 +55,7 @@ static int create_rcom(struct dlm_ls *ls, int to_nodeid, int type, int len,
+ 	struct dlm_mhandle *mh;
+ 	char *mb;
+ 
+-	mh = dlm_midcomms_get_mhandle(to_nodeid, mb_len, GFP_NOFS, &mb);
++	mh = dlm_midcomms_get_mhandle(to_nodeid, mb_len, &mb);
+ 	if (!mh) {
+ 		log_print("%s to %d type %d len %d ENOBUFS",
+ 			  __func__, to_nodeid, type, len);
+@@ -75,8 +75,7 @@ static int create_rcom_stateless(struct dlm_ls *ls, int to_nodeid, int type,
+ 	struct dlm_msg *msg;
+ 	char *mb;
+ 
+-	msg = dlm_lowcomms_new_msg(to_nodeid, mb_len, GFP_NOFS, &mb,
+-				   NULL, NULL);
++	msg = dlm_lowcomms_new_msg(to_nodeid, mb_len, &mb, NULL, NULL);
+ 	if (!msg) {
+ 		log_print("create_rcom to %d type %d len %d ENOBUFS",
+ 			  to_nodeid, type, len);
+@@ -510,7 +509,7 @@ int dlm_send_ls_not_ready(int nodeid, const struct dlm_rcom *rc_in)
+ 	char *mb;
+ 	int mb_len = sizeof(struct dlm_rcom) + sizeof(struct rcom_config);
+ 
+-	mh = dlm_midcomms_get_mhandle(nodeid, mb_len, GFP_NOFS, &mb);
++	mh = dlm_midcomms_get_mhandle(nodeid, mb_len, &mb);
+ 	if (!mh)
+ 		return -ENOBUFS;
+ 
 -- 
-Pavel Begunkov
+2.31.1
 
