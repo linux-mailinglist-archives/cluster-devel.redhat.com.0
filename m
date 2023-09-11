@@ -1,102 +1,99 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A783979A080
-	for <lists+cluster-devel@lfdr.de>; Mon, 11 Sep 2023 00:01:40 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A3479A6DA
+	for <lists+cluster-devel@lfdr.de>; Mon, 11 Sep 2023 11:46:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694383299;
+	s=mimecast20190719; t=1694425590;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=EyybjuBSw2AsBAibBPVqGccWs6P0JtTeGBB0Kwx90Dw=;
-	b=XWehYo//LhKT7yubtpcrJhHpcHsJhYU3gfIwEw82H9HtjOnyzZG+0GsXja1OYj1rekHMqK
-	8YQJJRKJViFKP4LwF691lkUlrWkK+3JBvhCHOnxVxEt6zNtdSWk3rASWvamM/9qEOwU66h
-	ilLwykdHs2V3CE8slFqi2S+ZRY50Z1w=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=7LECipjpjMsTeT5UMm7L2TEbO8WqkVi8hOfJfny30YM=;
+	b=HgBD4gSTSp6vHyjJmGzCwMLALT6hOjiWfJeEjE4r9kWgkoHIli/J8iq2rcy65YFuBxAnag
+	MEWBj4NLru0nGCXlLPGaa3aIlTrpNAd6OsxqqT/Tf1hQAAwpkK/EJzqtMB2CF4K0rfrXx/
+	OSDl9N68ocoxykHiKJJV7/WV1CNXkJM=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-694-F_WZgC1FNvehHtyNbudpqQ-1; Sun, 10 Sep 2023 18:01:36 -0400
-X-MC-Unique: F_WZgC1FNvehHtyNbudpqQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-177-7RX037grOeu-wZ3yjOD5Mg-1; Mon, 11 Sep 2023 05:46:28 -0400
+X-MC-Unique: 7RX037grOeu-wZ3yjOD5Mg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 74C633C0C48F;
-	Sun, 10 Sep 2023 22:01:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E3E573C19367;
+	Mon, 11 Sep 2023 09:46:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B914B40F2D28;
-	Sun, 10 Sep 2023 22:01:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DEF1C40C6EA8;
+	Mon, 11 Sep 2023 09:46:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2559D19465A2;
-	Sun, 10 Sep 2023 22:01:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6FEEF19465A2;
+	Mon, 11 Sep 2023 09:46:25 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 149741946595 for <cluster-devel@listman.corp.redhat.com>;
- Sun, 10 Sep 2023 22:01:31 +0000 (UTC)
+ ESMTP id C8DAD1946587 for <cluster-devel@listman.corp.redhat.com>;
+ Mon, 11 Sep 2023 09:46:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E7CD147FC73; Sun, 10 Sep 2023 22:01:30 +0000 (UTC)
+ id 879C42904; Mon, 11 Sep 2023 09:46:23 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DFE98493112
- for <cluster-devel@redhat.com>; Sun, 10 Sep 2023 22:01:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7FBB6422DF
+ for <cluster-devel@redhat.com>; Mon, 11 Sep 2023 09:46:23 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0CB2101FAA0
- for <cluster-devel@redhat.com>; Sun, 10 Sep 2023 22:01:30 +0000 (UTC)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5ED50816522
+ for <cluster-devel@redhat.com>; Mon, 11 Sep 2023 09:46:23 +0000 (UTC)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-460-UZmRh-4DPKafoOZkrsGs-g-1; Sun, 10 Sep 2023 18:01:28 -0400
-X-MC-Unique: UZmRh-4DPKafoOZkrsGs-g-1
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-68fb6fd2836so844472b3a.0
- for <cluster-devel@redhat.com>; Sun, 10 Sep 2023 15:01:28 -0700 (PDT)
+ us-mta-125-yH6sf7G6NUebGPyYUFQ-sg-1; Mon, 11 Sep 2023 05:46:21 -0400
+X-MC-Unique: yH6sf7G6NUebGPyYUFQ-sg-1
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-68cb5278e3fso875197b3a.1
+ for <cluster-devel@redhat.com>; Mon, 11 Sep 2023 02:46:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694383288; x=1694988088;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EyybjuBSw2AsBAibBPVqGccWs6P0JtTeGBB0Kwx90Dw=;
- b=t2PfZeK38wZnf89Fl94QKpSW8WzI11IxSCN9G1/64CzTb6qd029qjGs7hNAJkitbo9
- BbvrFkXeKmGPoAXcmhFf4P1hKQCTerKC8gQAvsug1xdnKPX04WT9wcCzDZx3gBpRZOIV
- frO0D98MFl19GgR6vuguWzFutr09ecxGdt2ritAHD8oFKUSX5D/QtX8yfxfP6YMsg5GA
- 9oMWoeUN9a5DL84cWg+ggTCYf39Q8M/ztO367iS86+9fDwmBZOhvNl4OVkt/WuSQvYW2
- ZuaPNCUpzgWomXV+deWyvJY0nIvP9daIteOxDSgqTaLNqicoPhKWs8kt3RwudfbF9eKd
- NJkg==
-X-Gm-Message-State: AOJu0YzCQi32kkJ56fe6EYY7FygnQjYIC4dhkIEB6o0YjhIYPK7CW7mT
- Xds3C+uzqExxHZeEU33B3vnDHA==
-X-Google-Smtp-Source: AGHT+IHSYFPf3w2qdTZr9bikkzuSsvPYQjYYZyW+Zfc616rQWXs3Eeo2BzwinmhhOfJVOtnHj1lBTA==
-X-Received: by 2002:a05:6a00:1a0c:b0:68c:57c7:1eb0 with SMTP id
- g12-20020a056a001a0c00b0068c57c71eb0mr9371853pfv.11.1694383287795; 
- Sun, 10 Sep 2023 15:01:27 -0700 (PDT)
-Received: from dread.disaster.area (pa49-195-66-88.pa.nsw.optusnet.com.au.
- [49.195.66.88]) by smtp.gmail.com with ESMTPSA id
- u10-20020a62ed0a000000b0068a3dd6c1dasm4403641pfh.142.2023.09.10.15.01.27
+ d=1e100.net; s=20230601; t=1694425580; x=1695030380;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7LECipjpjMsTeT5UMm7L2TEbO8WqkVi8hOfJfny30YM=;
+ b=Iko33iJyOhdu5v/+Lw2v3m6kan6iAmzjafNeAOgekvfQKElmQgV/e0y+3unojHOs6s
+ i9uaCAnkyPRau7kZp/8itmYAWDbSAUNICqM2gGPSWNxYbkiTKJhdNWFZDAp7ye+daG7q
+ HXnwAjpvgCOItkXNFLu+TbykF3FAv4fZjHUmn86z2EsGh0Mgs69FILUNeOoIMWNljcE2
+ /SIaW+4YG3gLt6qQpGXjP9RkjobyJc4x+vmg0kyF0e7dIVsjkbwNnm2YdAOh3aSlk10p
+ UkGaYKdOC9aFdlYl+R8SpehPoUxCul5ZJP1IoFfmJyKCztZJl0USEsJ60HxQFNofvLTd
+ kHnQ==
+X-Gm-Message-State: AOJu0Yyo6thMySUM5BbPSvRQ07NPDvtY716AYTGVnjqg/AwhG1xQUBk3
+ SMxlH1nCJ0wo7lYU1AqpgXY3Vw==
+X-Google-Smtp-Source: AGHT+IEIDNe7dp+17p/1jwosBLUpyZnN7S3R/YUG8mMRO57r91hEdK6UAfUP/CCgqA5OUGqlmZWKGg==
+X-Received: by 2002:a05:6a20:a10c:b0:13f:9233:58d with SMTP id
+ q12-20020a056a20a10c00b0013f9233058dmr11702677pzk.2.1694425580529; 
+ Mon, 11 Sep 2023 02:46:20 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
+ by smtp.gmail.com with ESMTPSA id
+ az7-20020a170902a58700b001bdc2fdcf7esm5988188plb.129.2023.09.11.02.46.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 Sep 2023 15:01:27 -0700 (PDT)
-Received: from dave by dread.disaster.area with local (Exim 4.96)
- (envelope-from <david@fromorbit.com>) id 1qfSUe-00DWBA-0u;
- Mon, 11 Sep 2023 08:01:24 +1000
-Date: Mon, 11 Sep 2023 08:01:24 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Pavel Begunkov <asml.silence@gmail.com>
-Message-ID: <ZP48tAg2iS0UzKQf@dread.disaster.area>
-References: <20230827132835.1373581-1-hao.xu@linux.dev>
- <20230827132835.1373581-8-hao.xu@linux.dev>
- <ZOvA5DJDZN0FRymp@casper.infradead.org>
- <c728bf3f-d9db-4865-8473-058b26c11c06@linux.dev>
- <ZO3cI+DkotHQo3md@casper.infradead.org>
- <642de4e6-801d-fcad-a7ce-bfc6dec3b6e5@linux.dev>
- <ZPUJHAKzxvXiEDYA@dread.disaster.area>
- <6489b8cb-7d54-1e29-f192-a3449ed87fa1@gmail.com>
+ Mon, 11 Sep 2023 02:46:20 -0700 (PDT)
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
+ steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
+ yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
+Date: Mon, 11 Sep 2023 17:44:07 +0800
+Message-Id: <20230911094444.68966-9-zhengqi.arch@bytedance.com>
+In-Reply-To: <20230911094444.68966-1-zhengqi.arch@bytedance.com>
+References: <20230911094444.68966-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
-In-Reply-To: <6489b8cb-7d54-1e29-f192-a3449ed87fa1@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -104,9 +101,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: Re: [Cluster-devel] [PATCH 07/11] vfs: add nowait parameter for
- file_accessed()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [Cluster-devel] [PATCH v6 08/45] gfs2: dynamically allocate the
+ gfs2-glock shrinker
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,94 +115,76 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
- Dominique Martinet <asmadeus@codewreck.org>, linux-unionfs@vger.kernel.org,
- linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, codalist@coda.cs.cmu.edu,
- cluster-devel@redhat.com, linux-cachefs@redhat.com, linux-ext4@vger.kernel.org,
- Hao Xu <hao.xu@linux.dev>, linux-cifs@vger.kernel.org,
- ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-block@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- io-uring@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- Christian Brauner <brauner@kernel.org>, netdev@vger.kernel.org,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- devel@lists.orangefs.org, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
+ cluster-devel@redhat.com, linux-mm@kvack.org,
+ Muchun Song <songmuchun@bytedance.com>, linux-fsdevel@vger.kernel.org
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: fromorbit.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Mimecast-Originator: bytedance.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On Fri, Sep 08, 2023 at 01:29:55AM +0100, Pavel Begunkov wrote:
-> On 9/3/23 23:30, Dave Chinner wrote:
-> > On Wed, Aug 30, 2023 at 02:11:31PM +0800, Hao Xu wrote:
-> > > On 8/29/23 19:53, Matthew Wilcox wrote:
-> > > > On Tue, Aug 29, 2023 at 03:46:13PM +0800, Hao Xu wrote:
-> > > > > On 8/28/23 05:32, Matthew Wilcox wrote:
-> > > > > > On Sun, Aug 27, 2023 at 09:28:31PM +0800, Hao Xu wrote:
-> > > > > > > From: Hao Xu <howeyxu@tencent.com>
-> > > > > > > 
-> > > > > > > Add a boolean parameter for file_accessed() to support nowait semantics.
-> > > > > > > Currently it is true only with io_uring as its initial caller.
-> > > > > > 
-> > > > > > So why do we need to do this as part of this series?  Apparently it
-> > > > > > hasn't caused any problems for filemap_read().
-> > > > > > 
-> > > > > 
-> > > > > We need this parameter to indicate if nowait semantics should be enforced in
-> > > > > touch_atime(), There are locks and maybe IOs in it.
-> > > > 
-> > > > That's not my point.  We currently call file_accessed() and
-> > > > touch_atime() for nowait reads and nowait writes.  You haven't done
-> > > > anything to fix those.
-> > > > 
-> > > > I suspect you can trim this patchset down significantly by avoiding
-> > > > fixing the file_accessed() problem.  And then come back with a later
-> > > > patchset that fixes it for all nowait i/o.  Or do a separate prep series
-> > > 
-> > > I'm ok to do that.
-> > > 
-> > > > first that fixes it for the existing nowait users, and then a second
-> > > > series to do all the directory stuff.
-> > > > 
-> > > > I'd do the first thing.  Just ignore the problem.  Directory atime
-> > > > updates cause I/O so rarely that you can afford to ignore it.  Almost
-> > > > everyone uses relatime or nodiratime.
-> > > 
-> > > Hi Matthew,
-> > > The previous discussion shows this does cause issues in real
-> > > producations: https://lore.kernel.org/io-uring/2785f009-2ebb-028d-8250-d5f3a30510f0@gmail.com/#:~:text=fwiw%2C%20we%27ve%20just%20recently%20had%20similar%20problems%20with%20io_uring%20read/write
-> > > 
-> > 
-> > Then separate it out into it's own patch set so we can have a
-> > discussion on the merits of requiring using noatime, relatime or
-> > lazytime for really latency sensitive IO applications. Changing code
-> > is not always the right solution...
-> 
-> Separation sounds reasonable, but it can hardly be said that only
-> latency sensitive apps would care about >1s nowait/async submission
-> delays. Presumably, btrfs can improve on that, but it still looks
-> like it's perfectly legit for filesystems do heavy stuff in
-> timestamping like waiting for IO. Right?
+Use new APIs to dynamically allocate the gfs2-glock shrinker.
 
-Yes, it is, no-one is denying that. And some filesystems are worse
-than others, but none of that means it has to be fixed so getdents
-can be converted to NOWAIT semantics.
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Reviewed-by: Muchun Song <songmuchun@bytedance.com>
+CC: Bob Peterson <rpeterso@redhat.com>
+CC: Andreas Gruenbacher <agruenba@redhat.com>
+CC: cluster-devel@redhat.com
+---
+ fs/gfs2/glock.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-ie. this patchset is about the getdents NOWAIT machinery, and
-fiddling around with timestamps has much, much wider scope than just
-NOWAIT getdents machinery. We'll have this discussion about NOWAIT
-timestamp updates when a RFC is proposed to address the wider
-problem of how timestamp updates should behave in NOWAIT context.
-
--Dave.
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index 9cbf8d98489a..35967f8e3038 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -2039,11 +2039,7 @@ static unsigned long gfs2_glock_shrink_count(struct shrinker *shrink,
+ 	return vfs_pressure_ratio(atomic_read(&lru_count));
+ }
+ 
+-static struct shrinker glock_shrinker = {
+-	.seeks = DEFAULT_SEEKS,
+-	.count_objects = gfs2_glock_shrink_count,
+-	.scan_objects = gfs2_glock_shrink_scan,
+-};
++static struct shrinker *glock_shrinker;
+ 
+ /**
+  * glock_hash_walk - Call a function for glock in a hash bucket
+@@ -2463,13 +2459,18 @@ int __init gfs2_glock_init(void)
+ 		return -ENOMEM;
+ 	}
+ 
+-	ret = register_shrinker(&glock_shrinker, "gfs2-glock");
+-	if (ret) {
++	glock_shrinker = shrinker_alloc(0, "gfs2-glock");
++	if (!glock_shrinker) {
+ 		destroy_workqueue(glock_workqueue);
+ 		rhashtable_destroy(&gl_hash_table);
+-		return ret;
++		return -ENOMEM;
+ 	}
+ 
++	glock_shrinker->count_objects = gfs2_glock_shrink_count;
++	glock_shrinker->scan_objects = gfs2_glock_shrink_scan;
++
++	shrinker_register(glock_shrinker);
++
+ 	for (i = 0; i < GLOCK_WAIT_TABLE_SIZE; i++)
+ 		init_waitqueue_head(glock_wait_table + i);
+ 
+@@ -2478,7 +2479,7 @@ int __init gfs2_glock_init(void)
+ 
+ void gfs2_glock_exit(void)
+ {
+-	unregister_shrinker(&glock_shrinker);
++	shrinker_free(glock_shrinker);
+ 	rhashtable_destroy(&gl_hash_table);
+ 	destroy_workqueue(glock_workqueue);
+ }
 -- 
-Dave Chinner
-david@fromorbit.com
+2.30.2
 
