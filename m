@@ -1,103 +1,90 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A907A65A5
-	for <lists+cluster-devel@lfdr.de>; Tue, 19 Sep 2023 15:47:32 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 62E357A67E8
+	for <lists+cluster-devel@lfdr.de>; Tue, 19 Sep 2023 17:21:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695131251;
+	s=mimecast20190719; t=1695136882;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/cnQQ+1FpuAyRo1tcmR0zdORz8ekModLomlbAQnH4nY=;
-	b=cb+MezX97Bv/7+1qYg8+9rlnzNcgprccb9YXFeYm+tcNYUrfdgvvI63uagvqg84g5RcD7X
-	gPXP/8RbcO/Eg5vSdwEOihSBPkEMfh9tArtnlVntqHQbCLBrP6zocb+EKzzQeacJ1RAbIE
-	TlQWfEQI6ypPssJ8p0hUwiKwYcT1kKk=
+	bh=Hu6LWTHD7s/0PwwSBsDsZf9tkhzretwdfBCU6cYVdik=;
+	b=HAGnj242NuDMfPqlNSLKESnjQopX1DuJSPBdHIw+J4AVN87YftCTYehlboRpVyKx3xYgbt
+	zoMejDSgGGFTha4vO8+BdiFHyFYfD4vQSp8rkYp3C2yHUdXHM4rYaUhAD4D37UgB+pvmqS
+	c4/IGJ3VCYtePJVr4TbjTtk0wyh4vxg=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-113-PQypDbeXOUi_6GaHpVZI4w-1; Tue, 19 Sep 2023 09:47:24 -0400
-X-MC-Unique: PQypDbeXOUi_6GaHpVZI4w-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-232-_9MomlAqOEOqv0xRHDsdcw-1; Tue, 19 Sep 2023 11:21:18 -0400
+X-MC-Unique: _9MomlAqOEOqv0xRHDsdcw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 470EE29ABA06;
-	Tue, 19 Sep 2023 13:47:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F72F3C0F668;
+	Tue, 19 Sep 2023 15:21:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DEF2C4026F8;
-	Tue, 19 Sep 2023 13:47:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4BCC340C2070;
+	Tue, 19 Sep 2023 15:21:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7104C1946595;
-	Tue, 19 Sep 2023 13:47:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B11211946594;
+	Tue, 19 Sep 2023 15:20:59 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B00A6194658C for <cluster-devel@listman.corp.redhat.com>;
- Tue, 19 Sep 2023 13:47:12 +0000 (UTC)
+ ESMTP id B7F86194658C for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 19 Sep 2023 14:57:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 87C4E20268CC; Tue, 19 Sep 2023 13:47:07 +0000 (UTC)
+ id 97A83140E962; Tue, 19 Sep 2023 14:57:26 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8054F20268CB
- for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 13:47:07 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8FC85140E950
+ for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 14:57:26 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61D58811E88
- for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 13:47:07 +0000 (UTC)
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F94D8039CB
+ for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 14:57:26 +0000 (UTC)
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de
+ [81.169.146.174]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-507-vtXqMF-CNYutKBAwnXMQdw-1; Tue, 19 Sep 2023 09:47:05 -0400
-X-MC-Unique: vtXqMF-CNYutKBAwnXMQdw-1
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-76f2d10edcbso701580285a.1
- for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 06:47:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695131225; x=1695736025;
- h=content-transfer-encoding:subject:from:to:content-language
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=/cnQQ+1FpuAyRo1tcmR0zdORz8ekModLomlbAQnH4nY=;
- b=qU7ENmUxFvEan75LfZjAItvqXeSwMOz1y5cECGrOdS3EHzTM42ntWOLkbdolSMWWFT
- rLC+cvl5xXhvdsvqNjRVnsMALsczZ+D9GgSzUJANNQlSnceSq532ql7exYuZPXfsfoJ8
- yoUMxj8c5Xvc7uL5imJdZmxBtfPQieLhQTZM0R/XjbwY+WD7nFp1czSTAJ4nXwDcoRv4
- g5ZvD5rsGB5Z1fgavyL5pOHL/wG6d+gFNwrDQTjHRsDhTBIYjz11HR/K21Jn/rtU3DUx
- eBLRtNE41lj6EXOV3+VHFTSt17lJzwengqpGXPCfh3cRGDFN1AibjYsfLjGNgZ7kKf1m
- fN2A==
-X-Gm-Message-State: AOJu0YxIwoI8/G73ULcF8ss/P3hruwZmGnuljqtkckePgQTzY85B8lUs
- tgqthK3uhV4CmILKV+g6SmoImWQ+93AzzGMDUv6MEmcrPYYuC6coS3iLIXTQxwCRJjvGd0ltNi5
- w2AHGmj30Lu9ibo9RegAgCuufT1o3X1zuGBysZGilktjUkp5f7LHiW5OIBfOrhA10Rh1XunJDYo
- L7E29Q
-X-Received: by 2002:ad4:4c48:0:b0:651:9fa8:9f62 with SMTP id
- cs8-20020ad44c48000000b006519fa89f62mr12788830qvb.48.1695131225000; 
- Tue, 19 Sep 2023 06:47:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHNF3p3rJ7SWxPtyrIB4ZppFNr0DJAuQ/oP0I8jZ8YTPit6Cm3uwk5EyNFIGHlU6BoMSoGFGg==
-X-Received: by 2002:ad4:4c48:0:b0:651:9fa8:9f62 with SMTP id
- cs8-20020ad44c48000000b006519fa89f62mr12788800qvb.48.1695131224563; 
- Tue, 19 Sep 2023 06:47:04 -0700 (PDT)
-Received: from [192.168.1.165]
- (cpc76484-cwma10-2-0-cust967.7-3.cable.virginm.net. [82.31.203.200])
- by smtp.gmail.com with ESMTPSA id
- o20-20020a0ce414000000b0064f713574dcsm2961651qvl.67.2023.09.19.06.47.03
- for <cluster-devel@redhat.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Sep 2023 06:47:03 -0700 (PDT)
-Message-ID: <f3cd93f8-f688-c218-c426-0b3b4ff6743b@redhat.com>
-Date: Tue, 19 Sep 2023 14:47:01 +0100
+ us-mta-678-5s7H4kJCO2GmCHDZ42atBQ-1; Tue, 19 Sep 2023 10:57:24 -0400
+X-MC-Unique: 5s7H4kJCO2GmCHDZ42atBQ-1
+X-RZG-CLASS-ID: mo03
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH0WWb0LN8XZoH94zq68+3cfpPCifIiwFsCkzyDtyDTaOz6CkM="
+Received: from nimes.localnet by smtp.strato.de (RZmta 49.8.2 AUTH)
+ with ESMTPSA id m03934z8JEqhhDO
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 19 Sep 2023 16:52:43 +0200 (CEST)
+From: Bruno Haible <bruno@clisp.org>
+To: Jan Kara <jack@suse.cz>, Xi Ruoyao <xry111@linuxfromscratch.org>,
+ bug-gnulib@gnu.org
+Date: Tue, 19 Sep 2023 16:52:43 +0200
+Message-ID: <4511209.uG2h0Jr0uP@nimes>
+In-Reply-To: <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
+References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
+ <20230919110457.7fnmzo4nqsi43yqq@quack3>
+ <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: cluster-devel <cluster-devel@redhat.com>
-From: Andrew Price <anprice@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [Cluster-devel] Reminder: New mailing list for gfs2 and dlm
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mailman-Approved-At: Tue, 19 Sep 2023 15:20:58 +0000
+Subject: Re: [Cluster-devel] [PATCH v7 12/13] ext4: switch to multigrain
+ timestamps
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,30 +96,89 @@ List-Post: <mailto:cluster-devel@redhat.com>
 List-Help: <mailto:cluster-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
  <mailto:cluster-devel-request@redhat.com?subject=subscribe>
+Cc: Latchesar Ionkov <lucho@ionkov.net>,
+ Martin Brandenburg <martin@omnibond.com>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ linux-xfs@vger.kernel.org, "Darrick J. Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>, ecryptfs@vger.kernel.org,
+ linux-unionfs@vger.kernel.org, David Howells <dhowells@redhat.com>,
+ Chris Mason <clm@fb.com>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Hans de Goede <hdegoede@redhat.com>, Marc Dionne <marc.dionne@auristor.com>,
+ codalist@coda.cs.cmu.edu, linux-afs@lists.infradead.org,
+ linux-mtd@lists.infradead.org, Mike Marshall <hubcap@omnibond.com>,
+ Paulo Alcantara <pc@manguebit.com>, linux-cifs@vger.kernel.org,
+ Eric Van Hensbergen <ericvh@kernel.org>, bug-gnulib@gnu.org,
+ Miklos Szeredi <miklos@szeredi.hu>, Richard Weinberger <richard@nod.at>,
+ Mark Fasheh <mark@fasheh.com>, Hugh Dickins <hughd@google.com>,
+ Tyler Hicks <code@tyhicks.com>, cluster-devel@redhat.com, coda@cs.cmu.edu,
+ linux-mm@kvack.org, Jeff Layton <jlayton@kernel.org>,
+ Ilya Dryomov <idryomov@gmail.com>, Iurii Zaikin <yzaikin@google.com>,
+ Namjae Jeon <linkinjeon@kernel.org>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Amir Goldstein <amir73il@gmail.com>,
+ Kees Cook <keescook@chromium.org>, ocfs2-devel@lists.linux.dev,
+ Chao Yu <chao@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+ Tom Talpey <tom@talpey.com>, Tejun Heo <tj@kernel.org>,
+ Yue Hu <huyue2@coolpad.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>, David Sterba <dsterba@suse.com>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
+ Xiubo Li <xiubli@redhat.com>, Gao Xiang <xiang@kernel.org>,
+ OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Jan Harkes <jaharkes@cs.cmu.edu>,
+ Christian Brauner <brauner@kernel.org>, linux-ext4@vger.kernel.org,
+ Theodore Ts'o <tytso@mit.edu>, Joseph Qi <joseph.qi@linux.alibaba.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, v9fs@lists.linux.dev,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ Steve French <sfrench@samba.org>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Jeffle Xu <jefflexu@linux.alibaba.com>,
+ devel@lists.orangefs.org, Anna Schumaker <anna@kernel.org>,
+ Jan Kara <jack@suse.com>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sungjong Seo <sj1557.seo@samsung.com>, linux-erofs@lists.ozlabs.org,
+ linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ Joel Becker <jlbec@evilplan.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: clisp.org
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-Hi all,
+Jeff Layton wrote:
+> I'm not sure what we can do for this test. The nap() function is making
+> an assumption that the timestamp granularity will be constant, and that
+> isn't necessarily the case now.
 
-For those of you still reading cluster-devel, please be aware that gfs2 
-and dlm development have now moved to gfs2@lists.linux.dev
+This is only of secondary importance, because the scenario by Jan Kara
+shows a much more fundamental breakage:
 
-Please subscribe to the new list to avoid missing new developments, by 
-sending a message to:
+> > The ultimate problem is that a sequence like:
+> > 
+> > write(f1)
+> > stat(f2)
+> > write(f2)
+> > stat(f2)
+> > write(f1)
+> > stat(f1)
+> >
+> > can result in f1 timestamp to be (slightly) lower than the final f2
+> > timestamp because the second write to f1 didn't bother updating the
+> > timestamp. That can indeed be a bit confusing to programs if they compare
+> > timestamps between two files. Jeff?
+> > 
+> 
+> Basically yes.
 
-   gfs2+subscribe@lists.linux.dev
+f1 was last written to *after* f2 was last written to. If the timestamp of f1
+is then lower than the timestamp of f2, timestamps are fundamentally broken.
 
-The new list is hosted at kernel.org. There is more information about it 
-here:
+Many things in user-space depend on timestamps, such as build system
+centered around 'make', but also 'find ... -newer ...'.
 
-    https://subspace.kernel.org/lists.linux.dev.html
+Bruno
 
-Thanks,
-Andy
+
 
