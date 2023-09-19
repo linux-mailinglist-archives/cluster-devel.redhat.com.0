@@ -2,84 +2,94 @@ Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A399D7A6E0C
-	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 00:06:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD1147A77E9
+	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 11:49:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695161170;
+	s=mimecast20190719; t=1695203374;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zUwXRTycQ5/8w4O2DLNW2tCpGKQP5ZKMm2R2FWkIU1k=;
-	b=EWCUMU9rQ5cLPJXFuJHE0z6o7LTPns33u76AMt4lCIS9JniXQ0zWfDhoy6pynXIpVG8gCC
-	i0LDbHvi0RE2gMMZAP2uBl0NNfQ3l7pORGk4BNHd96dqpuRKpNCpwHdF+CVBO7rdgZvepR
-	5ZqVbdOQskoy5Oop8v+gY+Myo0nZLMY=
+	bh=rkg9tbxTq6pJj5csNug/eDfUxuv8dlZEs8ZxbrqQ+Bs=;
+	b=jNz1DWvLYGCYC0Z7EZxZ/6yTYGMCnQB+3ICx+ffBHUt5zMjkAEf66S5v+h5xp0Y+k3VuRa
+	zwzxZ2H4iVEEE2eY8ryuwAJUe9Dzil1ErvXrVwVI82Eeru/uwhvnM03cWTOIO8adLnZkLQ
+	WpXr/uIcbu6eKdIfuJaweyKHb/QU0zk=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-187-gNM3kxJ1PYODcCeFfaCXTA-1; Tue, 19 Sep 2023 18:06:07 -0400
-X-MC-Unique: gNM3kxJ1PYODcCeFfaCXTA-1
+ us-mta-201-57-7R4_rPQ6G0xEIjqWQ9A-1; Wed, 20 Sep 2023 05:49:31 -0400
+X-MC-Unique: 57-7R4_rPQ6G0xEIjqWQ9A-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 84D6F811E7B;
-	Tue, 19 Sep 2023 22:06:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DA8D8039CF;
+	Wed, 20 Sep 2023 09:49:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5315240C2070;
-	Tue, 19 Sep 2023 22:06:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7AC3440C2064;
+	Wed, 20 Sep 2023 09:49:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 064AC1946595;
-	Tue, 19 Sep 2023 22:06:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D799E1946595;
+	Wed, 20 Sep 2023 09:49:21 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4E38A194658D for <cluster-devel@listman.corp.redhat.com>;
- Tue, 19 Sep 2023 20:46:45 +0000 (UTC)
+ ESMTP id 12575194658D for <cluster-devel@listman.corp.redhat.com>;
+ Tue, 19 Sep 2023 20:18:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2A60BC154CA; Tue, 19 Sep 2023 20:46:40 +0000 (UTC)
+ id E11C62156702; Tue, 19 Sep 2023 20:18:11 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 234D3C15BB8
- for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 20:46:40 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D94622156701
+ for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 20:18:11 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0292E3C0DF70
- for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 20:46:40 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-vs1rwSiwPLKw0nYzL7bF8w-1; Tue, 19 Sep 2023 16:46:36 -0400
-X-MC-Unique: vs1rwSiwPLKw0nYzL7bF8w-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F2E59617B9;
- Tue, 19 Sep 2023 20:46:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A819FC433C9;
- Tue, 19 Sep 2023 20:46:26 +0000 (UTC)
-Message-ID: <6e6da8a875a0defec1a0f58314995a6a12dca74e.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, Jan
- Kara <jack@suse.cz>, Xi Ruoyao <xry111@linuxfromscratch.org>,
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA6703812589
+ for <cluster-devel@redhat.com>; Tue, 19 Sep 2023 20:18:11 +0000 (UTC)
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-262-8boUhfJyPketlTK5smTUnQ-1; Tue,
+ 19 Sep 2023 16:18:07 -0400
+X-MC-Unique: 8boUhfJyPketlTK5smTUnQ-1
+Received: from localhost (localhost [127.0.0.1])
+ by mail.cs.ucla.edu (Postfix) with ESMTP id 750A03C00D18B;
+ Tue, 19 Sep 2023 13:10:50 -0700 (PDT)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id AMNmxh8IWcZs; Tue, 19 Sep 2023 13:10:50 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.cs.ucla.edu (Postfix) with ESMTP id EB6833C00D18D;
+ Tue, 19 Sep 2023 13:10:49 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu EB6833C00D18D
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id G7UgTQUjBKrV; Tue, 19 Sep 2023 13:10:49 -0700 (PDT)
+Received: from [192.168.254.12] (unknown [47.147.225.57])
+ by mail.cs.ucla.edu (Postfix) with ESMTPSA id C37643C00D18B;
+ Tue, 19 Sep 2023 13:10:48 -0700 (PDT)
+Message-ID: <c8315110-4684-9b83-d6c5-751647037623@cs.ucla.edu>
+Date: Tue, 19 Sep 2023 13:10:47 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+To: Jeff Layton <jlayton@kernel.org>, Bruno Haible <bruno@clisp.org>,
+ Jan Kara <jack@suse.cz>, Xi Ruoyao <xry111@linuxfromscratch.org>,
  bug-gnulib@gnu.org
-Date: Tue, 19 Sep 2023 16:46:25 -0400
-In-Reply-To: <c8315110-4684-9b83-d6c5-751647037623@cs.ucla.edu>
 References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
  <20230919110457.7fnmzo4nqsi43yqq@quack3>
  <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
  <4511209.uG2h0Jr0uP@nimes>
  <08b5c6fd3b08b87fa564bb562d89381dd4e05b6a.camel@kernel.org>
- <c8315110-4684-9b83-d6c5-751647037623@cs.ucla.edu>
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
-MIME-Version: 1.0
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <08b5c6fd3b08b87fa564bb562d89381dd4e05b6a.camel@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -87,7 +97,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Mailman-Approved-At: Wed, 20 Sep 2023 09:42:40 +0000
 Subject: Re: [Cluster-devel] [PATCH v7 12/13] ext4: switch to multigrain
  timestamps
 X-BeenThere: cluster-devel@redhat.com
@@ -104,8 +115,8 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Martin Brandenburg <martin@omnibond.com>,
  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- linux-xfs@vger.kernel.org, "Darrick
- J. Wong" <djwong@kernel.org>, Dominique Martinet <asmadeus@codewreck.org>,
+ linux-xfs@vger.kernel.org, "Darrick J. Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
  Christian Schoenebeck <linux_oss@crudebyte.com>, linux-unionfs@vger.kernel.org,
  David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
  Andreas Dilger <adilger.kernel@dilger.ca>, Hans de Goede <hdegoede@redhat.com>,
@@ -147,89 +158,60 @@ Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: cs.ucla.edu
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2023-09-19 at 13:10 -0700, Paul Eggert wrote:
-> On 2023-09-19 09:31, Jeff Layton wrote:
-> > The typical case for make
-> > timestamp comparisons is comparing source files vs. a build target. If
-> > those are being written nearly simultaneously, then that could be an
-> > issue, but is that a typical behavior?
->=20
-> I vaguely remember running into problems with 'make' a while ago=20
-> (perhaps with a BSDish system) when filesystem timestamps were=20
-> arbitrarily truncated in some cases but not others. These files would=20
-> look older than they really were, so 'make' would think they were=20
-> up-to-date when they weren't, and 'make' would omit actions that it=20
-> should have done, thus screwing up the build.
->=20
-> File timestamps can be close together with 'make -j' on fast hosts.=20
-> Sometimes a shell script (or 'make' itself) will run 'make', then modify=
-=20
-> a file F, then immediately run 'make' again; the latter 'make' won't=20
-> work if F's timestamp is mistakenly older than targets that depend on it.
->=20
-> Although 'make'-like apps are the biggest canaries in this coal mine,=20
-> the issue also affects 'find -newer' (as Bruno mentioned), 'rsync -u',=20
-> 'mv -u', 'tar -u', Emacs file-newer-than-file-p, and surely many other=20
-> places. For example, any app that creates a timestamp file, then backs=20
-> up all files newer than that file, would be at risk.
->=20
->=20
-> > I wonder if it would be feasible to just advance the coarse-grained
-> > current_time whenever we end up updating a ctime with a fine-grained
-> > timestamp?
->=20
-> Wouldn't this need to be done globally, that is, not just on a per-file=
-=20
-> or per-filesystem basis? If so, I don't see how we'd avoid locking=20
-> performance issues.
->=20
+On 2023-09-19 09:31, Jeff Layton wrote:
+> The typical case for make
+> timestamp comparisons is comparing source files vs. a build target. If
+> those are being written nearly simultaneously, then that could be an
+> issue, but is that a typical behavior?
 
-Maybe. Another idea might be to introduce a new timekeeper for
-multigrain filesystems, but all of those would likely have to share the
-same coarse-grained clock source.
+I vaguely remember running into problems with 'make' a while ago 
+(perhaps with a BSDish system) when filesystem timestamps were 
+arbitrarily truncated in some cases but not others. These files would 
+look older than they really were, so 'make' would think they were 
+up-to-date when they weren't, and 'make' would omit actions that it 
+should have done, thus screwing up the build.
 
-So yeah, if you stat an inode and then update it, any inode written on a
-multigrain filesystem within the same jiffy-sized window would have to
-log an extra transaction to write out the inode. That's what I meant
-when I was talking about write amplification.
+File timestamps can be close together with 'make -j' on fast hosts. 
+Sometimes a shell script (or 'make' itself) will run 'make', then modify 
+a file F, then immediately run 'make' again; the latter 'make' won't 
+work if F's timestamp is mistakenly older than targets that depend on it.
 
->=20
-> PS. Although I'm no expert in the Linux inode code I hope you don't mind=
-=20
-> my asking a question about this part of inode_set_ctime_current:
->=20
-> =09/*
-> =09 * If we've recently updated with a fine-grained timestamp,
-> =09 * then the coarse-grained one may still be earlier than the
-> =09 * existing ctime. Just keep the existing value if so.
-> =09 */
-> =09ctime.tv_sec =3D inode->__i_ctime.tv_sec;
-> =09if (timespec64_compare(&ctime, &now) > 0)
-> =09=09return ctime;
->=20
-> Suppose root used clock_settime to set the clock backwards. Won't this=20
-> code incorrectly refuse to update the file's timestamp afterwards? That=
-=20
-> is, shouldn't the last line be "goto fine_grained;" rather than "return=
-=20
-> ctime;", with the comment changed from "keep the existing value" to "use=
-=20
-> a fine-grained value"?
+Although 'make'-like apps are the biggest canaries in this coal mine, 
+the issue also affects 'find -newer' (as Bruno mentioned), 'rsync -u', 
+'mv -u', 'tar -u', Emacs file-newer-than-file-p, and surely many other 
+places. For example, any app that creates a timestamp file, then backs 
+up all files newer than that file, would be at risk.
 
-It is a problem, and Linus pointed that out yesterday, which is why I
-sent this earlier today:
 
-https://lore.kernel.org/linux-fsdevel/20230919-ctime-v1-1-97b3da92f504@kern=
-el.org/T/#u
+> I wonder if it would be feasible to just advance the coarse-grained
+> current_time whenever we end up updating a ctime with a fine-grained
+> timestamp?
 
-Bear in mind that we're not dealing with a situation where the value has
-not been queried since its last update, so we don't need to use a fine
-grained timestamp there (and really, it's preferable not to do so). A
-coarse one should be fine in this case.
---=20
-Jeff Layton <jlayton@kernel.org>
+Wouldn't this need to be done globally, that is, not just on a per-file 
+or per-filesystem basis? If so, I don't see how we'd avoid locking 
+performance issues.
+
+
+PS. Although I'm no expert in the Linux inode code I hope you don't mind 
+my asking a question about this part of inode_set_ctime_current:
+
+	/*
+	 * If we've recently updated with a fine-grained timestamp,
+	 * then the coarse-grained one may still be earlier than the
+	 * existing ctime. Just keep the existing value if so.
+	 */
+	ctime.tv_sec = inode->__i_ctime.tv_sec;
+	if (timespec64_compare(&ctime, &now) > 0)
+		return ctime;
+
+Suppose root used clock_settime to set the clock backwards. Won't this 
+code incorrectly refuse to update the file's timestamp afterwards? That 
+is, shouldn't the last line be "goto fine_grained;" rather than "return 
+ctime;", with the comment changed from "keep the existing value" to "use 
+a fine-grained value"?
 
