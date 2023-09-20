@@ -1,78 +1,73 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E7947A80C5
-	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 14:40:29 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B60B17A832E
+	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 15:21:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695213628;
+	s=mimecast20190719; t=1695216092;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=j2Ujv7mECWiiyepGgcf7cYeq2b5uXg4j5WSf8WCGJGw=;
-	b=GvmALu1aSWIelZ8+2eiMADqV6wfvGgNo8L0i4YICO5dKqvdbER5bZH4Qo9TDM2BIvsD30h
-	uMfeKwGtiXILK9HbF4MRZhqIJ/96ONEIsn0k7FjDe+YlJNfk8sj6NDZlxbofjwrBZEM0Ku
-	/YxZ5P7e44VPeKLwHa5k4Q8yFg8Qcc0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-16-jc_x6mqvNkCyrRKk8S2uyg-1; Wed, 20 Sep 2023 08:40:21 -0400
-X-MC-Unique: jc_x6mqvNkCyrRKk8S2uyg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=5iSTEIjazqkFIU0ER/9Qme0p7rffrgasYHVvrA5GZXo=;
+	b=KEJ686ThkPlVlFq7zJqF7cxSxCepiYf2hdq+qcLdKtXHFLO+pxqcINpSFwLIkoThInbjgL
+	wLuEHazba07nw3547JjbSKKubzuGchsP4Nbjuz4E2CCeFsHePvr90ch/8NrwinCMNyVStP
+	+4V7su+NWwe7wijSiy+2R1Ltw0PqKhI=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-657-lojMF7-WPceOtjU_QE98kg-1; Wed, 20 Sep 2023 09:21:29 -0400
+X-MC-Unique: lojMF7-WPceOtjU_QE98kg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C423858F1B;
-	Wed, 20 Sep 2023 12:40:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9776A3C11C6D;
+	Wed, 20 Sep 2023 13:21:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B4723140E950;
-	Wed, 20 Sep 2023 12:40:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FE34C15BB8;
+	Wed, 20 Sep 2023 13:21:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5167D19465B8;
-	Wed, 20 Sep 2023 12:40:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C960F19465B8;
+	Wed, 20 Sep 2023 13:21:12 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1B092194658D for <cluster-devel@listman.corp.redhat.com>;
- Wed, 20 Sep 2023 12:26:37 +0000 (UTC)
+ ESMTP id 41A61194658D for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 20 Sep 2023 12:30:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 099B1C154CA; Wed, 20 Sep 2023 12:26:37 +0000 (UTC)
+ id 19AD02156702; Wed, 20 Sep 2023 12:30:48 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 01DEAC15BB8
- for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:26:36 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 11FCE2156701
+ for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:30:48 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6B001C0DB04
- for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:26:36 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-213-_W5kG_G7M-e2b6kbk0jRYw-1; Wed, 20 Sep 2023 08:26:33 -0400
-X-MC-Unique: _W5kG_G7M-e2b6kbk0jRYw-1
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E82CF1C0782E
+ for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:30:47 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-618-xefq-Y0QNwe7-0T-iKvFXg-1; Wed,
+ 20 Sep 2023 08:30:41 -0400
+X-MC-Unique: xefq-Y0QNwe7-0T-iKvFXg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BF45061BBB;
- Wed, 20 Sep 2023 12:26:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B116FC433C7;
- Wed, 20 Sep 2023 12:26:24 +0000 (UTC)
-Message-ID: <08b4e3275bad93ed99ea2892bd1950ff401ab912.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
-Date: Wed, 20 Sep 2023 08:26:23 -0400
-In-Reply-To: <20230920-kahlkopf-tonlage-ab6ca571465e@brauner>
-References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
- <20230919110457.7fnmzo4nqsi43yqq@quack3>
- <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
+ by sin.source.kernel.org (Postfix) with ESMTPS id BFA40CE1B2A;
+ Wed, 20 Sep 2023 12:30:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78689C433C9;
+ Wed, 20 Sep 2023 12:30:18 +0000 (UTC)
+Date: Wed, 20 Sep 2023 14:30:15 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <20230920-endspiel-grenzenlos-a48ae1ebab74@brauner>
+References: <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
  <4511209.uG2h0Jr0uP@nimes>
  <08b5c6fd3b08b87fa564bb562d89381dd4e05b6a.camel@kernel.org>
  <20230920-leerung-krokodil-52ec6cb44707@brauner>
@@ -81,8 +76,9 @@ References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
  <20230920-raser-teehaus-029cafd5a6e4@brauner>
  <35c28758a9cc28a276a6b4b4ae8a420a1444e711.camel@kernel.org>
  <20230920-kahlkopf-tonlage-ab6ca571465e@brauner>
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
+ <08b4e3275bad93ed99ea2892bd1950ff401ab912.camel@kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <08b4e3275bad93ed99ea2892bd1950ff401ab912.camel@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -90,7 +86,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 Subject: Re: [Cluster-devel] [PATCH v7 12/13] ext4: switch to multigrain
  timestamps
 X-BeenThere: cluster-devel@redhat.com
@@ -107,8 +103,9 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Martin Brandenburg <martin@omnibond.com>,
  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- linux-xfs@vger.kernel.org, "Darrick
- J. Wong" <djwong@kernel.org>, Dominique Martinet <asmadeus@codewreck.org>,
+ Jan Kara <jack@suse.cz>, linux-xfs@vger.kernel.org,
+ "Darrick J. Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
  Christian Schoenebeck <linux_oss@crudebyte.com>, linux-unionfs@vger.kernel.org,
  David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
  Andreas Dilger <adilger.kernel@dilger.ca>, Hans de Goede <hdegoede@redhat.com>,
@@ -149,32 +146,26 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  linux-btrfs@vger.kernel.org, Joel Becker <jlbec@evilplan.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-On Wed, 2023-09-20 at 14:08 +0200, Christian Brauner wrote:
-> > I wasn't proposing to do that work for v6.6. For that, we absolutely
-> > either need the mount option or to just revert the mgtime conversions.
->=20
-> This sounds like you want me to do a full-on revert of your series but
-> why? The conversion and changes support an actual use-case and are fine.
-> It's a matter of whether we unconditionally expose it to users or not.
->=20
+> I don't, actually. I'm just mentioning that it's possible if we find the
+> mount option to be unpalatable.
 
-I don't, actually. I'm just mentioning that it's possible if we find the
-mount option to be unpalatable.
+Ok.
 
-> @Jan, what do you think?
->=20
-> > My plan was to take a stab at doing this for a later kernel release.
->=20
-> Ok.
+> 
+> > @Jan, what do you think?
+> > 
+> > > My plan was to take a stab at doing this for a later kernel release.
+> > 
+> > Ok.
+> 
+> If it works out, then we may be able to eventually remove the mount
+> option, but that is a separate project altogether.
 
-If it works out, then we may be able to eventually remove the mount
-option, but that is a separate project altogether.
---=20
-Jeff Layton <jlayton@kernel.org>
+It would just become a nop for anyone setting it which is fine by me.
 
