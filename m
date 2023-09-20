@@ -1,84 +1,91 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60B17A832E
-	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 15:21:33 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8177A81EE
+	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 14:51:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695216092;
+	s=mimecast20190719; t=1695214278;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=5iSTEIjazqkFIU0ER/9Qme0p7rffrgasYHVvrA5GZXo=;
-	b=KEJ686ThkPlVlFq7zJqF7cxSxCepiYf2hdq+qcLdKtXHFLO+pxqcINpSFwLIkoThInbjgL
-	wLuEHazba07nw3547JjbSKKubzuGchsP4Nbjuz4E2CCeFsHePvr90ch/8NrwinCMNyVStP
-	+4V7su+NWwe7wijSiy+2R1Ltw0PqKhI=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-657-lojMF7-WPceOtjU_QE98kg-1; Wed, 20 Sep 2023 09:21:29 -0400
-X-MC-Unique: lojMF7-WPceOtjU_QE98kg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+	 list-subscribe:list-post; bh=S4Cb2+aB7mfyt7b8CnMGxNhCI32rhMMOyFzUtOYeWkI=;
+	b=gdq+m7XYkP6Odv6CX9+rKTzx74zvN4Uwjj2O1IavjgSBzhzZBu949Sw7Oxuris+sLg7LLk
+	YCJJlYPhacFaXXGJdEhnPIFo95SMOx/mjtZdadi8skqFZwRtErNhbGM6xLxMLZlQJs5Q2R
+	coqZ80p8Rj8+PPQG63PrfT1fb4Bk3mY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-180-MxZpx256Maed2hL0LPRgKw-1; Wed, 20 Sep 2023 08:51:15 -0400
+X-MC-Unique: MxZpx256Maed2hL0LPRgKw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9776A3C11C6D;
-	Wed, 20 Sep 2023 13:21:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 271BD811E8E;
+	Wed, 20 Sep 2023 12:51:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FE34C15BB8;
-	Wed, 20 Sep 2023 13:21:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D31A440C6EC0;
+	Wed, 20 Sep 2023 12:51:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C960F19465B8;
-	Wed, 20 Sep 2023 13:21:12 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A035C19466E6;
+	Wed, 20 Sep 2023 12:51:08 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 41A61194658D for <cluster-devel@listman.corp.redhat.com>;
- Wed, 20 Sep 2023 12:30:48 +0000 (UTC)
+ ESMTP id 4AC40194658D for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 20 Sep 2023 12:48:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 19AD02156702; Wed, 20 Sep 2023 12:30:48 +0000 (UTC)
+ id 216C3C158BA; Wed, 20 Sep 2023 12:48:31 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 11FCE2156701
- for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:30:48 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1AB29C15BB8
+ for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:48:31 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E82CF1C0782E
- for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:30:47 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-618-xefq-Y0QNwe7-0T-iKvFXg-1; Wed,
- 20 Sep 2023 08:30:41 -0400
-X-MC-Unique: xefq-Y0QNwe7-0T-iKvFXg-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECB0D1019C92
+ for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:48:30 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-399-_vz20_ofNJSHS-FXftyG8w-1; Wed,
+ 20 Sep 2023 08:48:26 -0400
+X-MC-Unique: _vz20_ofNJSHS-FXftyG8w-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id BFA40CE1B2A;
- Wed, 20 Sep 2023 12:30:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78689C433C9;
- Wed, 20 Sep 2023 12:30:18 +0000 (UTC)
-Date: Wed, 20 Sep 2023 14:30:15 +0200
-From: Christian Brauner <brauner@kernel.org>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 64A2121875;
+ Wed, 20 Sep 2023 12:48:24 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 49125132C7;
+ Wed, 20 Sep 2023 12:48:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1IvIERjqCmXYZgAAMHmgww
+ (envelope-from <jack@suse.cz>); Wed, 20 Sep 2023 12:48:24 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id CD6D5A077D; Wed, 20 Sep 2023 14:48:23 +0200 (CEST)
+Date: Wed, 20 Sep 2023 14:48:23 +0200
+From: Jan Kara <jack@suse.cz>
 To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20230920-endspiel-grenzenlos-a48ae1ebab74@brauner>
-References: <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
+Message-ID: <20230920124823.ghl6crb5sh4x2pmt@quack3>
+References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
+ <20230919110457.7fnmzo4nqsi43yqq@quack3>
+ <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
  <4511209.uG2h0Jr0uP@nimes>
  <08b5c6fd3b08b87fa564bb562d89381dd4e05b6a.camel@kernel.org>
  <20230920-leerung-krokodil-52ec6cb44707@brauner>
  <20230920101731.ym6pahcvkl57guto@quack3>
  <317d84b1b909b6c6519a2406fcb302ce22dafa41.camel@kernel.org>
- <20230920-raser-teehaus-029cafd5a6e4@brauner>
- <35c28758a9cc28a276a6b4b4ae8a420a1444e711.camel@kernel.org>
- <20230920-kahlkopf-tonlage-ab6ca571465e@brauner>
- <08b4e3275bad93ed99ea2892bd1950ff401ab912.camel@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <08b4e3275bad93ed99ea2892bd1950ff401ab912.camel@kernel.org>
+In-Reply-To: <317d84b1b909b6c6519a2406fcb302ce22dafa41.camel@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -86,7 +93,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 Subject: Re: [Cluster-devel] [PATCH v7 12/13] ext4: switch to multigrain
  timestamps
 X-BeenThere: cluster-devel@redhat.com
@@ -131,7 +138,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Jaegeuk Kim <jaegeuk@kernel.org>, ceph-devel@vger.kernel.org,
  Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
  OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Jan Harkes <jaharkes@cs.cmu.edu>,
- linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org,
+ Christian Brauner <brauner@kernel.org>, linux-ext4@vger.kernel.org,
  Theodore Ts'o <tytso@mit.edu>, Joseph Qi <joseph.qi@linux.alibaba.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, v9fs@lists.linux.dev,
  ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
@@ -143,29 +150,57 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Jan Kara <jack@suse.com>, linux-fsdevel@vger.kernel.org,
  Andrew Morton <akpm@linux-foundation.org>,
  Sungjong Seo <sj1557.seo@samsung.com>, Bruno Haible <bruno@clisp.org>,
- linux-btrfs@vger.kernel.org, Joel Becker <jlbec@evilplan.org>
+ linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ Joel Becker <jlbec@evilplan.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset=utf-8
+X-Mimecast-Originator: suse.cz
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-> I don't, actually. I'm just mentioning that it's possible if we find the
-> mount option to be unpalatable.
-
-Ok.
-
+On Wed 20-09-23 06:35:18, Jeff Layton wrote:
+> On Wed, 2023-09-20 at 12:17 +0200, Jan Kara wrote:
+> > If I were a sysadmin, I'd rather opt for something like
+> > finegrained timestamps + lazytime (if I needed the finegrained timestamps
+> > functionality). That should avoid the IO overhead of finegrained timestamps
+> > as well and I'd know I can have problems with timestamps only after a
+> > system crash.
 > 
-> > @Jan, what do you think?
+> > I've just got another idea how we could solve the problem: Couldn't we
+> > always just report coarsegrained timestamp to userspace and provide access
+> > to finegrained value only to NFS which should know what it's doing?
 > > 
-> > > My plan was to take a stab at doing this for a later kernel release.
-> > 
-> > Ok.
 > 
-> If it works out, then we may be able to eventually remove the mount
-> option, but that is a separate project altogether.
+> I think that'd be hard. First of all, where would we store the second
+> timestamp? We can't just truncate the fine-grained ones to come up with
+> a coarse-grained one. It might also be confusing having nfsd and local
+> filesystems present different attributes.
 
-It would just become a nop for anyone setting it which is fine by me.
+So what I had in mind (and I definitely miss all the NFS intricacies so the
+idea may be bogus) was that inode->i_ctime would be maintained exactly as
+is now. There will be new (kernel internal at least for now) STATX flag
+STATX_MULTIGRAIN_TS. fill_mg_cmtime() will return timestamp truncated to
+sb->s_time_gran unless STATX_MULTIGRAIN_TS is set. Hence unless you set
+STATX_MULTIGRAIN_TS, there is no difference in the returned timestamps
+compared to the state before multigrain timestamps were introduced. With
+STATX_MULTIGRAIN_TS we return full precision timestamp as stored in the
+inode. Then NFS in fh_fill_pre_attrs() and fh_fill_post_attrs() needs to
+make sure STATX_MULTIGRAIN_TS is set when calling vfs_getattr() to get
+multigrain time.
+
+I agree nfsd may now be presenting slightly different timestamps than user
+is able to see with stat(2) directly on the filesystem. But is that a
+problem? Essentially it is a similar solution as the mgtime mount option
+but now sysadmin doesn't have to decide on filesystem mount how to report
+timestamps but the stat caller knowingly opts into possibly inconsistent
+(among files) but high precision timestamps. And in the particular NFS
+usecase where stat is called all the time anyway, timestamps will likely
+even be consistent among files.
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
