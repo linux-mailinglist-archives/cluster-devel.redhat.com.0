@@ -1,75 +1,72 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C437A7C7D
-	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 14:01:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70D437A7E76
+	for <lists+cluster-devel@lfdr.de>; Wed, 20 Sep 2023 14:18:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695211303;
+	s=mimecast20190719; t=1695212281;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=v+kxoG9eOGJ5xusIWXasOkiwnORCBCOMs4NdoCLCV+Y=;
-	b=Qc6Ehti8eemmigrvWmlCqZNrJLN3he23aa4fcdZQtR7YCu5jVVNhfyK8hatduV/6fUGybk
-	+LmJ1MRPqctLLxwglWILn61KuCjstiKr9xzfadCmRjbJbi/3Bv7fLTxnLle+4G62XLTnUv
-	p25WfMB5dhyzaCZpONWIXEJL30uNa0c=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-gh4X8tAdO1S6H6pSHpqGBQ-1; Wed, 20 Sep 2023 08:01:39 -0400
-X-MC-Unique: gh4X8tAdO1S6H6pSHpqGBQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=VLa6cGzAwrw2ADLmfXcasL1cRRxHg8vIS2K/+wtoGVo=;
+	b=DWGdjuGbPn0PLz1WMZNXBx4QNfiKwovAxJ+vNWbNJK7Xl4s54/pf+Y5UVPWdLr2uY50vkz
+	mnDc6YiDnTNQsATc22tvdPFVi63hY5eG4lKllwY0nmsp9XL1+xT47Fe0escBrA9q68V914
+	o6CtxT2JSlwMKkg2pj1tYwI1aGrbZJM=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-694-0RsPU0ENNmmrxA9HnQrDlg-1; Wed, 20 Sep 2023 08:17:56 -0400
+X-MC-Unique: 0RsPU0ENNmmrxA9HnQrDlg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EFD2800883;
-	Wed, 20 Sep 2023 12:01:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 515433C11A09;
+	Wed, 20 Sep 2023 12:17:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2F9B1492B16;
-	Wed, 20 Sep 2023 12:01:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0152C140E950;
+	Wed, 20 Sep 2023 12:17:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E46051946595;
-	Wed, 20 Sep 2023 12:01:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ABE3819466DF;
+	Wed, 20 Sep 2023 12:17:44 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5D616194658D for <cluster-devel@listman.corp.redhat.com>;
- Wed, 20 Sep 2023 11:56:58 +0000 (UTC)
+ ESMTP id 6261A194658D for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 20 Sep 2023 12:09:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4B7B3C154CB; Wed, 20 Sep 2023 11:56:58 +0000 (UTC)
+ id 32E7D140E950; Wed, 20 Sep 2023 12:09:12 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 43D4BC15BB8
- for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 11:56:58 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B165140E953
+ for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:09:12 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.81])
+ (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2568D3C13501
- for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 11:56:58 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CAD4811E7E
+ for <cluster-devel@redhat.com>; Wed, 20 Sep 2023 12:09:12 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-353-jrYk0py3OoipW7RxJHMlZA-1; Wed,
- 20 Sep 2023 07:56:54 -0400
-X-MC-Unique: jrYk0py3OoipW7RxJHMlZA-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-589-c6VBHP4pMP-22tjpoTzS5Q-1; Wed,
+ 20 Sep 2023 08:09:08 -0400
+X-MC-Unique: c6VBHP4pMP-22tjpoTzS5Q-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 877BDB81BEB;
- Wed, 20 Sep 2023 11:56:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677F3C433CD;
- Wed, 20 Sep 2023 11:56:44 +0000 (UTC)
-Message-ID: <35c28758a9cc28a276a6b4b4ae8a420a1444e711.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Christian Brauner <brauner@kernel.org>
-Date: Wed, 20 Sep 2023 07:56:43 -0400
-In-Reply-To: <20230920-raser-teehaus-029cafd5a6e4@brauner>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5BABCB81A97;
+ Wed, 20 Sep 2023 12:09:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC71C433C9;
+ Wed, 20 Sep 2023 12:08:47 +0000 (UTC)
+Date: Wed, 20 Sep 2023 14:08:40 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>
+Message-ID: <20230920-kahlkopf-tonlage-ab6ca571465e@brauner>
 References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
  <20230919110457.7fnmzo4nqsi43yqq@quack3>
  <1f29102c09c60661758c5376018eac43f774c462.camel@kernel.org>
@@ -79,8 +76,9 @@ References: <20230807-mgctime-v7-0-d1dec143a704@kernel.org>
  <20230920101731.ym6pahcvkl57guto@quack3>
  <317d84b1b909b6c6519a2406fcb302ce22dafa41.camel@kernel.org>
  <20230920-raser-teehaus-029cafd5a6e4@brauner>
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
+ <35c28758a9cc28a276a6b4b4ae8a420a1444e711.camel@kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <35c28758a9cc28a276a6b4b4ae8a420a1444e711.camel@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -88,7 +86,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 Subject: Re: [Cluster-devel] [PATCH v7 12/13] ext4: switch to multigrain
  timestamps
 X-BeenThere: cluster-devel@redhat.com
@@ -105,8 +103,8 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/cluster-devel>,
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Martin Brandenburg <martin@omnibond.com>,
  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Jan Kara <jack@suse.cz>, linux-xfs@vger.kernel.org, "Darrick
- J. Wong" <djwong@kernel.org>, Dominique Martinet <asmadeus@codewreck.org>,
+ linux-xfs@vger.kernel.org, "Darrick J. Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
  Christian Schoenebeck <linux_oss@crudebyte.com>, linux-unionfs@vger.kernel.org,
  David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
  Andreas Dilger <adilger.kernel@dilger.ca>, Hans de Goede <hdegoede@redhat.com>,
@@ -147,79 +145,22 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  linux-btrfs@vger.kernel.org, Joel Becker <jlbec@evilplan.org>
 Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-On Wed, 2023-09-20 at 13:48 +0200, Christian Brauner wrote:
-> > > > While we initially thought we can do this unconditionally it turns =
-out
-> > > > that this might break existing workloads that rely on timestamps in=
- very
-> > > > specific ways and we always knew this was a possibility. Move
-> > > > multi-grain timestamps behind a vfs mount option.
-> > >=20
-> > > Surely this is a safe choice as it moves the responsibility to the sy=
-sadmin
-> > > and the cases where finegrained timestamps are required. But I kind o=
-f
-> > > wonder how is the sysadmin going to decide whether mgtime is safe for=
- his
-> > > system or not? Because the possible breakage needn't be obvious at th=
-e
-> > > first sight...
-> > >=20
-> >=20
-> > That's the main reason I really didn't want to go with a mount option.
-> > Documenting that may be difficult. While there is some pessimism around
-> > it, I may still take a stab at just advancing the coarse clock whenever
-> > we fetch a fine-grained timestamp. It'd be nice to remove this option i=
-n
-> > the future if that turns out to be feasible.
-> >=20
-> > > If I were a sysadmin, I'd rather opt for something like
-> > > finegrained timestamps + lazytime (if I needed the finegrained timest=
-amps
-> > > functionality). That should avoid the IO overhead of finegrained time=
-stamps
-> > > as well and I'd know I can have problems with timestamps only after a
-> > > system crash.
-> >=20
-> > > I've just got another idea how we could solve the problem: Couldn't w=
-e
-> > > always just report coarsegrained timestamp to userspace and provide a=
-ccess
-> > > to finegrained value only to NFS which should know what it's doing?
-> > >=20
-> >=20
-> > I think that'd be hard. First of all, where would we store the second
-> > timestamp? We can't just truncate the fine-grained ones to come up with
-> > a coarse-grained one. It might also be confusing having nfsd and local
-> > filesystems present different attributes.
->=20
-> As far as I can tell we have two options. The first one is to make this
-> into a mount option which I really think isn't a big deal and lets us
-> avoid this whole problem while allowing filesytems exposed via NFS to
-> make use of this feature for change tracking.
->=20
-> The second option is that we turn off fine-grained finestamps for v6.6
-> and you get to explore other options.
->=20
-> It isn't a big deal regressions like this were always to be expected but
-> v6.6 needs to stabilize so anything that requires more significant work
-> is not an option.
+> I wasn't proposing to do that work for v6.6. For that, we absolutely
+> either need the mount option or to just revert the mgtime conversions.
 
-Oh, absolutely.
+This sounds like you want me to do a full-on revert of your series but
+why? The conversion and changes support an actual use-case and are fine.
+It's a matter of whether we unconditionally expose it to users or not.
 
-I wasn't proposing to do that work for v6.6. For that, we absolutely
-either need the mount option or to just revert the mgtime conversions.
+@Jan, what do you think?
 
-My plan was to take a stab at doing this for a later kernel release.
-This is very much a "back to the drawing board" idea. It may not pan out
-after all, but if it does then we could consider removing the mount
-option at that point.
---=20
-Jeff Layton <jlayton@kernel.org>
+> My plan was to take a stab at doing this for a later kernel release.
+
+Ok.
 
