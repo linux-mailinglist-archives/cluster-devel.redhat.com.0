@@ -1,61 +1,82 @@
 Return-Path: <cluster-devel-bounces@redhat.com>
 X-Original-To: lists+cluster-devel@lfdr.de
 Delivered-To: lists+cluster-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A84447C4368
-	for <lists+cluster-devel@lfdr.de>; Wed, 11 Oct 2023 00:05:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEBAE7C4AFC
+	for <lists+cluster-devel@lfdr.de>; Wed, 11 Oct 2023 08:51:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696975514;
+	s=mimecast20190719; t=1697007114;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=gyjLW3S2EBOpnkOEcsiDvZUk5PtFmpO8kvxKHqouP28=;
-	b=et3X2tl/iVAGqM7Ovt8WBHQHXnZqyNUqEjv39iS5DwXV+HQ2bOcADH1tTKUtYnWGQFYMv1
-	0KWKTsBuIpCkIOf74eDwPohxNU9QMnspPzD8q1rGwFVnYk22Cl7gafFMAQdBxkuHkXmVLm
-	xtHgDPx6uocp1QxYeqh8gmYN+Z/Xoyc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-685-siZ2R_zmOFGBv2KvwA3kFA-1; Tue, 10 Oct 2023 18:05:01 -0400
-X-MC-Unique: siZ2R_zmOFGBv2KvwA3kFA-1
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=IoLd5o84sDiKldxGig3SEMKpj/bNOnnkY9kBpt2tSj0=;
+	b=Hb2RcNKXNBerbYA/slFeHd2f/n+zfoGmkM8izUumOwGLhzVOUhck8akIwc5JL4Kt14W8oL
+	Q+olPDyUzFRh8+f8rJFxNgw/SfqAUgftSgNeyqLNeHavaJbYCYA8wj+ywSSkxTmmtrOZZ1
+	R8VG598HwZBJCoaqQQxJcyMYHAi/s8s=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-678-BozN1OzENAWqw_iwvZyA7w-1; Wed, 11 Oct 2023 02:51:51 -0400
+X-MC-Unique: BozN1OzENAWqw_iwvZyA7w-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 88083101AA44;
-	Tue, 10 Oct 2023 22:05:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 836413C2864B;
+	Wed, 11 Oct 2023 06:51:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 50D81C0F788;
-	Tue, 10 Oct 2023 22:05:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3CA32C5796D;
+	Wed, 11 Oct 2023 06:51:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 20B4819466ED;
-	Tue, 10 Oct 2023 22:05:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0928319465BD;
+	Wed, 11 Oct 2023 06:51:50 +0000 (UTC)
 X-Original-To: cluster-devel@listman.corp.redhat.com
 Delivered-To: cluster-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EFCEB1946597 for <cluster-devel@listman.corp.redhat.com>;
- Tue, 10 Oct 2023 22:04:58 +0000 (UTC)
+ ESMTP id BD9981946597 for <cluster-devel@listman.corp.redhat.com>;
+ Wed, 11 Oct 2023 06:29:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E041863F50; Tue, 10 Oct 2023 22:04:58 +0000 (UTC)
+ id A7D34111CD24; Wed, 11 Oct 2023 06:29:23 +0000 (UTC)
 Delivered-To: cluster-devel@redhat.com
-Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
- (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id AD30263F45;
- Tue, 10 Oct 2023 22:04:58 +0000 (UTC)
-From: Alexander Aring <aahringo@redhat.com>
-To: teigland@redhat.com
-Date: Tue, 10 Oct 2023 18:04:48 -0400
-Message-Id: <20231010220448.2978176-8-aahringo@redhat.com>
-In-Reply-To: <20231010220448.2978176-1-aahringo@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F7C1111CD23
+ for <cluster-devel@redhat.com>; Wed, 11 Oct 2023 06:29:23 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B3B03C11A04
+ for <cluster-devel@redhat.com>; Wed, 11 Oct 2023 06:29:23 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-647-1bJTtsiaMLq9XCSQ-weziA-1; Wed,
+ 11 Oct 2023 02:29:16 -0400
+X-MC-Unique: 1bJTtsiaMLq9XCSQ-weziA-1
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 4ACDDCE1A8E;
+ Wed, 11 Oct 2023 06:24:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF239C433C8;
+ Wed, 11 Oct 2023 06:24:03 +0000 (UTC)
+Date: Wed, 11 Oct 2023 08:24:00 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alexander Aring <aahringo@redhat.com>
+Message-ID: <2023101151-culminate-guidance-8823@gregkh>
 References: <20231010220448.2978176-1-aahringo@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Cluster-devel] [PATCH RESEND 8/8] dlm: slow down filling up
- processing queue
+In-Reply-To: <20231010220448.2978176-1-aahringo@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [Cluster-devel] [PATCH RESEND 1/8] fs: dlm: Simplify buffer
+ size computation in dlm_create_debug_file()
 X-BeenThere: cluster-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,97 +94,30 @@ Errors-To: cluster-devel-bounces@redhat.com
 Sender: "Cluster-devel" <cluster-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mimecast-Originator: linuxfoundation.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-If there is a burst of message the receive worker will filling up the
-processing queue but where are too slow to process dlm messages. This
-patch will slow down the receiver worker to keep the buffer on the
-socket layer to tell the sender to backoff. This is done by a threshold
-to get the next buffers from the socket after all messages were
-processed done by a flush_workqueue(). This however only occurs when we
-have a message burst when we e.g. create 1 million locks. If we put more
-and more new messages to process in the processqueue we will soon run out
-of memory.
+On Tue, Oct 10, 2023 at 06:04:41PM -0400, Alexander Aring wrote:
+> From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> 
+> Use sizeof(name) instead of the equivalent, but hard coded,
+> DLM_LOCKSPACE_LEN + 8.
+> 
+> This is less verbose and more future proof.
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> Signed-off-by: Alexander Aring <aahringo@redhat.com>
+> ---
+>  fs/dlm/debug_fs.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 
-Signed-off-by: Alexander Aring <aahringo@redhat.com>
----
- fs/dlm/lowcomms.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+<formletter>
 
-diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
-index f7bc22e74db2..67f8dd8a05ef 100644
---- a/fs/dlm/lowcomms.c
-+++ b/fs/dlm/lowcomms.c
-@@ -63,6 +63,7 @@
- #include "config.h"
- 
- #define DLM_SHUTDOWN_WAIT_TIMEOUT msecs_to_jiffies(5000)
-+#define DLM_MAX_PROCESS_BUFFERS 24
- #define NEEDED_RMEM (4*1024*1024)
- 
- struct connection {
-@@ -194,6 +195,7 @@ static const struct dlm_proto_ops *dlm_proto_ops;
- #define DLM_IO_END 1
- #define DLM_IO_EOF 2
- #define DLM_IO_RESCHED 3
-+#define DLM_IO_FLUSH 4
- 
- static void process_recv_sockets(struct work_struct *work);
- static void process_send_sockets(struct work_struct *work);
-@@ -202,6 +204,7 @@ static void process_dlm_messages(struct work_struct *work);
- static DECLARE_WORK(process_work, process_dlm_messages);
- static DEFINE_SPINLOCK(processqueue_lock);
- static bool process_dlm_messages_pending;
-+static atomic_t processqueue_count;
- static LIST_HEAD(processqueue);
- 
- bool dlm_lowcomms_is_running(void)
-@@ -874,6 +877,7 @@ static void process_dlm_messages(struct work_struct *work)
- 	}
- 
- 	list_del(&pentry->list);
-+	atomic_dec(&processqueue_count);
- 	spin_unlock(&processqueue_lock);
- 
- 	for (;;) {
-@@ -891,6 +895,7 @@ static void process_dlm_messages(struct work_struct *work)
- 		}
- 
- 		list_del(&pentry->list);
-+		atomic_dec(&processqueue_count);
- 		spin_unlock(&processqueue_lock);
- 	}
- }
-@@ -962,6 +967,7 @@ static int receive_from_sock(struct connection *con, int buflen)
- 		con->rx_leftover);
- 
- 	spin_lock(&processqueue_lock);
-+	ret = atomic_inc_return(&processqueue_count);
- 	list_add_tail(&pentry->list, &processqueue);
- 	if (!process_dlm_messages_pending) {
- 		process_dlm_messages_pending = true;
-@@ -969,6 +975,9 @@ static int receive_from_sock(struct connection *con, int buflen)
- 	}
- 	spin_unlock(&processqueue_lock);
- 
-+	if (ret > DLM_MAX_PROCESS_BUFFERS)
-+		return DLM_IO_FLUSH;
-+
- 	return DLM_IO_SUCCESS;
- }
- 
-@@ -1503,6 +1512,9 @@ static void process_recv_sockets(struct work_struct *work)
- 		wake_up(&con->shutdown_wait);
- 		/* CF_RECV_PENDING cleared */
- 		break;
-+	case DLM_IO_FLUSH:
-+		flush_workqueue(process_workqueue);
-+		fallthrough;
- 	case DLM_IO_RESCHED:
- 		cond_resched();
- 		queue_work(io_workqueue, &con->rwork);
--- 
-2.39.3
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
+
+</formletter>
 
